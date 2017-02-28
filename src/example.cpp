@@ -21,7 +21,7 @@
 #include "crow/http_server.h"
 #include "crow/app.h"
 
-#include "ColorCoutG3Sink.hpp"
+#include "color_cout_g3_sink.hpp"
 
 #include "ssl_key_handler.hpp"
 #include <iostream>

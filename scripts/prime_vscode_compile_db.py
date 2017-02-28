@@ -1,10 +1,11 @@
+#! /usr/bin/python3
+
 import json
 import shlex
 import os
 import sys
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-
 VS_CODE_FILE = os.path.join(SCRIPT_DIR, "../.vscode/c_cpp_properties.json")
 
 def main():

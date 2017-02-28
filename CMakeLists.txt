@@ -39,7 +39,7 @@ hunter_add_package(Boost COMPONENTS system thread regex)
 find_package(Boost COMPONENTS system thread regex REQUIRED)
 
 #Openssl
-hunter_add_package(OpenSSL)
+#hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 if (NOT OPENSSL_FOUND)
     message(FATAL_ERROR "Could not find OpenSSL")
@@ -50,19 +50,31 @@ include_directories(${OPENSSL_INCLUDE_DIR})
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 #g3 logging
-set(ADD_FATAL_EXAMPLE OFF)
+option(ADD_FATAL_EXAMPLE "Disable g3 examples" OFF)
 add_subdirectory(g3log)
 include_directories(g3log/src)
 
 # Debug sanitizers
 find_package(Sanitizers)
 
+
+set(SRC_FILES
+    src/example.cpp
+    include/crow_g3_logger.hpp
+    include/ssl_key_handler.hpp
+    include/color_cout_g3_sink.hpp
+)
+
 # Executable
-add_executable(example ${CMAKE_CURRENT_SOURCE_DIR}/src/example.cpp)
+
+add_executable(bmcweb ${SRC_FILES})
 #target_link_libraries(example crow)
-target_link_libraries(example Boost::boost Boost::system)
-target_link_libraries(example ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(example OpenSSL::SSL OpenSSL::Crypto)
-target_link_libraries(example g3logger)
+target_link_libraries(bmcweb Boost::boost Boost::system)
+target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(bmcweb g3logger)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-
+# this needs to be at the end to make sure all includes are handled correctly
+get_property(C_INCLUDE_DIRS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS})
