@@ -66,8 +66,7 @@ int main(int argc, char** argv)
    auto handle= worker->addDefaultLogger(argv[0], "/tmp/");
    g3::initializeLogging(worker.get());
    auto log_file_name = handle->call(&g3::FileSink::fileName);
-   auto stdout_handler = std::make_unique<crow::ColorCoutSink>();
-   auto sink_handle = worker->addSink(stdout_handler,
+   auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
                                      &crow::ColorCoutSink::ReceiveLogMessage);
 
    LOG(DEBUG) << "Logging to " << log_file_name.get() << "\n";
