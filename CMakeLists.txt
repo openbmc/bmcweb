@@ -57,22 +57,50 @@ include_directories(g3log/src)
 # Debug sanitizers
 find_package(Sanitizers)
 
+# C++ GSL (Guideline support libraries)
+include_directories(GSL/include)
+
+set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 set(SRC_FILES
-    src/example.cpp
     include/crow_g3_logger.hpp
     include/ssl_key_handler.hpp
     include/color_cout_g3_sink.hpp
+    src/token_authorization_middleware.cpp
+    src/base64.cpp
 )
 
-# Executable
+set(UT_FILES
+    src/gtest_main.cpp
+    src/base64_test.cpp
+    src/token_authorization_middleware_test.cpp
+    ${CMAKE_BINARY_DIR}/generated/blns.hpp
+)
 
-add_executable(bmcweb ${SRC_FILES})
-#target_link_libraries(example crow)
+# big list of naughty strings
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
+    COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
+
+# googletest
+#find_package(GTest REQUIRED)
+enable_testing()
+find_package(GTest REQUIRED)
+
+add_executable(unittest ${SRC_FILES} ${UT_FILES})
+target_link_libraries(unittest GTest::GTest GTest::Main)
+target_link_libraries(unittest Boost::boost Boost::system)
+target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(unittest g3logger)
+
+# bmcweb
+add_executable(bmcweb ${WEBSERVER_MAIN} ${SRC_FILES})
 target_link_libraries(bmcweb Boost::boost Boost::system)
 target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # this needs to be at the end to make sure all includes are handled correctly
