@@ -62,12 +62,23 @@ include_directories(GSL/include)
 
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
-set(SRC_FILES
+set(HDR_FILES
     include/crow_g3_logger.hpp
     include/ssl_key_handler.hpp
     include/color_cout_g3_sink.hpp
+    include/webassets.hpp
+)
+
+set(GENERATED_SRC_FILES 
+    ${CMAKE_BINARY_DIR}/generated/webassets.cpp
+)
+
+set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
+
+set(SRC_FILES
     src/token_authorization_middleware.cpp
     src/base64.cpp
+    ${GENERATED_SRC_FILES}
 )
 
 set(UT_FILES
@@ -76,6 +87,16 @@ set(UT_FILES
     src/token_authorization_middleware_test.cpp
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
+
+# avoid the "narrowing char to X" warning for negative numbers
+# TODO, make the python just do the right thing and turn the number negative
+# Background:  char is faster than unsigned char once compiled, so it is used 
+# extensively in the server for the "byte" type.  Unfortunately, this means that
+# the call std::string s{0xFF} fails, because 0xFF narrows to a negative number
+# this line simply disables the warning, and the compiler does the right thing
+# we selectively only disable this warning on this specific file
+# http://stackoverflow.com/questions/28094263/create-array-of-chars-avoiding-narrowing
+set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-c++11-narrowing)
 
 # big list of naughty strings
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
@@ -87,19 +108,24 @@ add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
 enable_testing()
 find_package(GTest REQUIRED)
 
-add_executable(unittest ${SRC_FILES} ${UT_FILES})
+add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
 target_link_libraries(unittest GTest::GTest GTest::Main)
 target_link_libraries(unittest Boost::boost Boost::system)
 target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(unittest g3logger)
+add_dependencies(unittest packagestaticcpp)
+
+# web static assets
+add_subdirectory(static)
 
 # bmcweb
-add_executable(bmcweb ${WEBSERVER_MAIN} ${SRC_FILES})
+add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb Boost::boost Boost::system)
 target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
+add_dependencies(bmcweb packagestaticcpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

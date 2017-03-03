@@ -1,0 +1,53 @@
+<div class="container" ng-controller="selController">
+    <div class="row">
+
+            <table class="table table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th class="fit">ID</th>
+                        <th class="fit">Timestamp</th>
+                        <th class="fit">Sensor Name</th>
+                        <th class="fit">
+                            <!-- Controller button -->
+                            <div class="btn-group" style="cursor: pointer; cursor: hand;" uib-dropdown is-open="status.isopen" auto-close="outsideClick">
+                            <div id="single-button" type="button" class="" uib-dropdown-toggle>
+                                Controller <span class="caret"></span>
+                            </div>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="dropdownMenu">
+                                    <li role="menuitem"><a data-ng-click="checkAll()"><i class="fa fa-check-circle"></i> Check All</a></li>
+                                    <li role="menuitem"><a data-ng-click="uncheckAll()"><i class="fa fa-times-circle"></i> Uncheck All</a></li>
+                                    <li class="divider"></li>
+                                    <li role="menuitem" data-ng-repeat="company in unique_columns.controller"> <a data-ng-click="setSelectedController()">{{company}}<span data-ng-class="isChecked(company)"></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </th>
+                        <th class="fit">Severity</th>
+                        <th class="fit">Sensor Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="entry in filtered_and_sliced_sel">
+                        <td class="fit">{{ entry.id }}</td>
+                        <td class="fit">{{ entry.timestamp * 1000 | date : 'yyyy-MM-dd HH:mm:ss'}}</td>
+                        <td class="fit">Sensor Name</td>
+                        <td class="fit">{{ entry.generator_name }}</td>
+                        <td class="fit">{{ entry.event_severity }}</td>
+                        <td class="fit">{{ entry.sensor_type_string }}</td>
+                        <td>{{ entry.description_string }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+    </div>
+    <pagination uib-pagination
+    ng-model="current_page"
+    items-per-page="items_per_page"
+    total-items="filtered_sel.length"
+    max-size="max_size"
+    boundary-links="true"
+    boundary-link-numbers="true" rotate="true" force-ellipses="true">
+    </pagination>
+
+</div>

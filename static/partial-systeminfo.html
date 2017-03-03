@@ -1,0 +1,71 @@
+<div class="container" ng-controller="versionController">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="box box-primary">
+                <div class="box-header with-border"> 
+                    <h4>Summary<h4>
+                </div>
+                <div class="box-body">
+                    <table class="table table-striped system-status-table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Host Power Status</b></td>
+                                <td>{{ host_power_on ? "ON" : "OFF" }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Remote Management Module</b></td>
+                                <td>{{ rmm_module_installed ? "Installed" : "Not Installed" }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Device (BMC) Available</b></td>
+                                <td>{{ rmm_module_installed ? "Yes" : "No" }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BMC Firmware Build Time</b></td>
+                                <td>{{ system_status.bmc_active_image_update_timestamp * 1000 | date:'medium' }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BIOS ID</b></td>
+                                <td>{{ bios_build_number }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>BMC FW Rev</b></td>
+                                <td>{{ system_status.bmc_active_image_version }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Backup BMC FW Rev</b></td>
+                                <td>{{ system_status.bmc_backup_image_version }}</td>
+                            </tr>
+                            <tr>
+                                <td><b>SDR Package Version</b></td>
+                                <td>0.36</td>
+                            </tr>
+                            <tr>
+                                <td><b>Mgmt Engine (ME) FW Rev</b></td>
+                                <td>04.00.02.53</td>
+                            </tr>
+                            <tr>
+                                <td><b>Baseboard Serial Number</b></td>
+                                <td>............</td>
+                            </tr>
+                            <tr>
+                                <td><b>Mgmt Engine (ME) FW Rev</b></td>
+                                <td>04.00.02.53</td>
+                            </tr>
+                            <tr>
+                                <td><b>Overall System Health</b></td>
+                                <td>Green</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

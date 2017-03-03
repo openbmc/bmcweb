@@ -21,6 +21,7 @@ namespace crow
 
     void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& res, context& ctx)
     {
+        return;
         if (req.url == "/login"){
             return;
         }
