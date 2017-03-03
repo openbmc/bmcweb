@@ -53,8 +53,13 @@ def main():
 
             pathsplit = full_filepath.split(os.path.sep)
             relative_path = os.path.sep.join(pathsplit[pathsplit.index("static") + 1:])
-            relative_path = "/" + relative_path
             
+            # handle the default routes
+            if relative_path.endswith("index.html"):
+                relative_path = ""
+            
+            relative_path = "/" + relative_path
+
             # make sure none of the files are hidden
             with open(full_filepath, 'rb') as input_file:
                 file_content = input_file.read()

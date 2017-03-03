@@ -21,22 +21,24 @@ namespace crow
 
     void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& res, context& ctx)
     {
-        return;
+        auto return_unauthorized = [&req, &res](){
+            res.code = 401;
+            res.end();
+        };
         if (req.url == "/login"){
+
+        }
+        // Check for an authorization header, reject if not present
+        if (req.headers.count("Authorization") != 1) {
+            return_unauthorized();
             return;
         }
 
-        // Check for an authorization header, reject if not present
-        if (req.headers.count("Authorization") != 1) {
-            res.code = 400;
-            res.end();
-            return;
-        }
         std::string auth_header = req.get_header_value("Authorization");
         // If the user is attempting any kind of auth other than token, reject
         if (!boost::starts_with(auth_header, "Token ")) {
-            res.code = 400;
-            res.end();
+            return_unauthorized();
+            return;
         }
     }
 

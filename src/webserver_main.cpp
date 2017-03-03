@@ -44,14 +44,8 @@ int main(int argc, char** argv)
 
     std::string ssl_pem_file("server.pem");
     ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
-    //auto handler2 = std::make_shared<ExampleLogHandler>();
-    //crow::logger::setHandler(handler2.get());
-    crow::App<crow::TokenAuthorizationMiddleware> app;
 
-    CROW_ROUTE(app, "/")
-        .name("hello")([] {
-            return "Hello World!";
-        });   
+    crow::App<crow::TokenAuthorizationMiddleware> app; 
 
     crow::webassets::request_routes(app);
 
