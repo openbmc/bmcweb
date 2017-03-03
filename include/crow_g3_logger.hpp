@@ -5,88 +5,70 @@
 // but deletes the ILogHandler interface, as usage of that would be counter to the g3
 // handler management, and would cause performance issues.
 
-
-#include <string>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
 #include <iostream>
 #include <sstream>
+#include <string>
 
 #include <g3log/g3log.hpp>
 #include <g3log/logworker.hpp>
 
-namespace crow
-{
-    enum class LogLevel
-    {
+namespace crow {
+enum class LogLevel {
 #ifndef ERROR
-        DEBUG = 0,
-        INFO,
-        WARNING,
-        ERROR,
-        CRITICAL,
+  DEBUG = 0,
+  INFO,
+  WARNING,
+  ERROR,
+  CRITICAL,
 #endif
 
-        Debug = 0,
-        Info,
-        Warning,
-        Error,
-        Critical,
-    };
+  Debug = 0,
+  Info,
+  Warning,
+  Error,
+  Critical,
+};
 
-    class logger {
+class logger {
+ public:
+  logger(std::string prefix, LogLevel level) : level_(level) {
+    // no op, let g3 handle th log levels
+  }
 
-        public:
+  //
+  template <typename T>
+  logger& operator<<(T const& value) {
+#ifdef CROW_ENABLE_LOGGING
+    if (level_ >= get_current_log_level()) {
+      stringstream_ << value;
+    }
+#endif
+    return *this;
+  }
 
+  //
+  static void setLogLevel(LogLevel level) { get_log_level_ref() = level; }
 
-            logger(std::string prefix, LogLevel level) : level_(level) {
-                // no op, let g3 handle th log levels
+  static LogLevel get_current_log_level() { return get_log_level_ref(); }
 
-            }
+ private:
+  //
+  static LogLevel& get_log_level_ref() {
+    static LogLevel current_level = (LogLevel)CROW_LOG_LEVEL;
+    return current_level;
+  }
 
-            //
-            template <typename T>
-            logger& operator<<(T const &value) {
-
-    #ifdef CROW_ENABLE_LOGGING
-                if(level_ >= get_current_log_level()) {
-                    stringstream_ << value;
-                }
-    #endif
-                return *this;
-            }
-
-            //
-            static void setLogLevel(LogLevel level) {
-                get_log_level_ref() = level;
-            }
-
-            static LogLevel get_current_log_level() {
-                return get_log_level_ref();
-            }
-
-        private:
-            //
-            static LogLevel& get_log_level_ref()
-            {
-                static LogLevel current_level = (LogLevel)CROW_LOG_LEVEL;
-                return current_level;
-            }
-
-            //
-            std::ostringstream stringstream_;
-            LogLevel level_;
-    };
+  //
+  std::ostringstream stringstream_;
+  LogLevel level_;
+};
 }
 
-#define CROW_LOG_CRITICAL   \
-        LOG(FATAL)
-#define CROW_LOG_ERROR      \
-        LOG(WARNING)
-#define CROW_LOG_WARNING    \
-        LOG(WARNING)
-#define CROW_LOG_INFO       \
-        LOG(INFO)
-#define CROW_LOG_DEBUG      \
-        LOG(DEBUG)
+#define CROW_LOG_CRITICAL LOG(FATAL)
+#define CROW_LOG_ERROR LOG(WARNING)
+#define CROW_LOG_WARNING LOG(WARNING)
+#define CROW_LOG_INFO LOG(INFO)
+#define CROW_LOG_DEBUG LOG(DEBUG)

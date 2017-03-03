@@ -22,8 +22,8 @@
 #include "crow/websocket.h"
 
 #include "color_cout_g3_sink.hpp"
-#include "webassets.hpp"
 #include "token_authorization_middleware.hpp"
+#include "webassets.hpp"
 
 #include <iostream>
 #include <string>
@@ -31,25 +31,23 @@
 
 #include <webassets.hpp>
 
-int main(int argc, char** argv)
-{
-    auto worker = g3::LogWorker::createLogWorker();
-    auto handle = worker->addDefaultLogger(argv[0], "/tmp/");
-    g3::initializeLogging(worker.get());
-    auto log_file_name = handle->call(&g3::FileSink::fileName);
-    auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
-                                       &crow::ColorCoutSink::ReceiveLogMessage);
+int main(int argc, char** argv) {
+  auto worker = g3::LogWorker::createLogWorker();
+  auto handle = worker->addDefaultLogger(argv[0], "/tmp/");
+  g3::initializeLogging(worker.get());
+  auto log_file_name = handle->call(&g3::FileSink::fileName);
+  auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(), &crow::ColorCoutSink::ReceiveLogMessage);
 
-    LOG(DEBUG) << "Logging to " << log_file_name.get() << "\n";
+  LOG(DEBUG) << "Logging to " << log_file_name.get() << "\n";
 
-    std::string ssl_pem_file("server.pem");
-    ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
+  std::string ssl_pem_file("server.pem");
+  ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
 
-    crow::App<crow::TokenAuthorizationMiddleware> app; 
+  crow::App<crow::TokenAuthorizationMiddleware> app;
 
-    crow::webassets::request_routes(app);
+  crow::webassets::request_routes(app);
 
-    crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+  crow::logger::setLogLevel(crow::LogLevel::DEBUG);
 
-    app.port(18080).run();
+  app.port(18080).run();
 }
