@@ -2,7 +2,7 @@
 #include <cassert>
 
 namespace base64 {
-bool base64_encode(const gsl::cstring_span<> &input, std::string &output) {
+bool base64_encode(const std::string &input, std::string &output) {
   static const char encoding_data[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
   unsigned int input_length = input.size();
@@ -50,7 +50,7 @@ bool base64_encode(const gsl::cstring_span<> &input, std::string &output) {
   return true;
 }
 
-bool base64_decode(const gsl::cstring_span<> &input, std::string &output) {
+bool base64_decode(const std::string &input, std::string &output) {
   static const char nop = -1;
   static const char decoding_data[] = {
       nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,

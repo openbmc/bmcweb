@@ -5,7 +5,6 @@ set(JAVASCRIPT_ASSETS
     js/angular-cookies.js
     js/angular-websocket.js
     js/angular-ui-router.js
-    js/restangular.js
     js/kvm-controller.js
     js/logincontroller.js
     js/angular-resource.js
@@ -100,9 +99,9 @@ foreach(IMG_ASSET ${IMG_ASSETS})
     list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${IMG_ASSET})
 endforeach(IMG_ASSET)
 
-message(STATIC_ASSETS_OUT ${CMAKE_CURRENT_BINARY_DIR}/${STATIC_ASSETS_OUT})
-
 add_custom_target(minifyjs ALL DEPENDS ${STATIC_ASSETS_OUT})
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 
 set(CXX_STATIC_ASSETS_OUTPUT_FILE ${CMAKE_BINARY_DIR}/generated/webassets.cpp)
 set(WEBASSET_SCRIPT "${CMAKE_CURRENT_SOURCE_DIR}/../scripts/build_web_assets.py")

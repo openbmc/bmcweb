@@ -1,17 +1,46 @@
 'use strict';
 angular.module('Authentication', []);
 var app = angular.module('bmcApp', [
-  'Authentication', 'ngCookies', 'ui.bootstrap', 'ui.router', 'restangular',
-  'ngSanitize', 'ngWebSocket'
+  'Authentication', 'ngCookies', 'ui.bootstrap', 'ui.router',
+  'ngSanitize', 'ngWebSocket', 'ngResource'
 ]);
 
 
-app.controller('MainCtrl', function($scope, Restangular) {
+app.controller('MainCtrl', function($scope) {
 
 });
 
-app.run(['$rootScope', '$cookieStore', '$state', 'Restangular', 'AuthenticationService',
-  function($rootScope, $cookieStore, $state, Restangular, AuthenticationService) {
+app.service('loginInterceptor', function($q, $state) {
+    var service = this;
+
+    service.responseError = function(response) {
+        if (response.status == 401){
+          console.log("Login required... ");
+
+          var invalidate_reason = "Your user was logged out.";
+          var continue_promise_chain = false;
+
+          // if we're attempting to log in, we need to
+          // continue the promise chain to make sure the user is informed
+          if ($state.current.name === "login") {
+            invalidate_reason = "Your username and password was incorrect";
+            continue_promise_chain = true
+          } else {
+            $state.after_login_state = $state.current.name;
+            $state.go('login');
+          }
+          AuthenticationService.ClearCredentials(invalidate_reason);
+        }
+        //return $q.reject(response);
+    };
+})
+
+app.config(['$httpProvider', function ($httpProvider) {
+    $httpProvider.interceptors.push('loginInterceptor');
+}]);
+
+app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationService',
+  function($rootScope, $cookieStore, $state, $resource, AuthenticationService) {
     if ($rootScope.globals == undefined){
         $rootScope.globals = {};
     }
@@ -29,48 +58,8 @@ app.run(['$rootScope', '$cookieStore', '$state', 'Restangular', 'AuthenticationS
             $state.go('login');
           }
         });
-
-    // RestangularProvider.setDefaultHttpFields({cache: true});
-    Restangular.setErrorInterceptor(function(response) {
-      if (response.status == 401) {
-        console.log("Login required... ");
-
-        var invalidate_reason = "Your user was logged out.";
-        var continue_promise_chain = false;
-
-        // if we're attempting to log in, we need to
-        // continue the promise chain to make sure the user is informed
-        if ($state.current.name === "login") {
-          invalidate_reason = "Your username and password was incorrect";
-          continue_promise_chain = true
-        } else {
-          $state.after_login_state = $state.current.name;
-          $state.go('login');
-        }
-        AuthenticationService.ClearCredentials(invalidate_reason);
-
-        return continue_promise_chain;  // stop the promise chain
-      } else if (response.status == 404) {
-        console.log("Resource not available...");
-      } else {
-        console.log(
-            "Response received with HTTP error code: " + response.status);
-      }
-
-    });
-
   }
 ]);
-
-app.config(function(RestangularProvider) {
-  // set the base url for api calls on our RESTful services
-  var newBaseUrl = "";
-
-  var deployedAt = window.location.href.substring(0, window.location.href);
-  newBaseUrl = deployedAt + "/restui";
-
-  RestangularProvider.setBaseUrl(newBaseUrl);
-});
 
 app.config(function($stateProvider, $urlRouterProvider) {
 
@@ -80,30 +69,30 @@ app.config(function($stateProvider, $urlRouterProvider) {
       // nested list with just some random string data
       .state('login', {
         url: '/login',
-        templateUrl: 'login.html',
+        templateUrl: 'static/login.html',
         controller: 'LoginController',
       })
       // systeminfo view ========================================
       .state(
           'systeminfo',
-          {url: '/systeminfo', templateUrl: 'partial-systeminfo.html'})
+          {url: '/systeminfo', templateUrl: 'static/partial-systeminfo.html'})
 
 
       // HOME STATES AND NESTED VIEWS ========================================
       .state(
-          'eventlog', {url: '/eventlog', templateUrl: 'partial-eventlog.html'})
+          'eventlog', {url: '/eventlog', templateUrl: 'static/partial-eventlog.html'})
 
 
       .state(
-          'kvm', {url: '/kvm', templateUrl: 'partial-kvm.html'})
+          'kvm', {url: '/kvm', templateUrl: 'static/partial-kvm.html'})
 
       // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
-      .state('about', {url: '/about', templateUrl: 'partial-fruinfo.html'})
+      .state('about', {url: '/about', templateUrl: 'static/partial-fruinfo.html'})
 
       // nested list with custom controller
       .state('about.list', {
         url: '/list',
-        templateUrl: 'partial-home-list.html',
+        templateUrl: 'static/partial-home-list.html',
         controller: function($scope) {
           $scope.dogs = ['Bernese', 'Husky', 'Goldendoodle'];
         }
@@ -127,22 +116,22 @@ app.controller('PaginationDemoCtrl', function($scope, $log) {
   $scope.bigCurrentPage = 1;
 });
 
-angular
-    .module('Authentication')
+angular.module('Authentication')
 
     .factory(
         'AuthenticationService',
-        [
-          'Restangular', '$cookieStore', '$rootScope', '$timeout',
-          function(Restangular, $cookieStore, $rootScope, $timeout) {
+        ['$cookieStore', '$rootScope', '$timeout', '$resource', '$log',
+          function($cookieStore, $rootScope, $timeout, $resource, $log) {
             var service = {};
 
-            service.Login = function(
-                username, password, success_callback, fail_callback) {
+            service.Login = function(username, password, success_callback, fail_callback) {
 
               var user = {"username": username, "password": password};
-              Restangular.all("login").post(user).then(
-                  success_callback, fail_callback);
+              var UserLogin = $resource("/login");
+              var this_login = new UserLogin();
+              this_login.data = {"username": username, "password": password};
+              UserLogin.save(user, success_callback, fail_callback);
+              
             };
 
             service.SetCredentials = function(username, token) {

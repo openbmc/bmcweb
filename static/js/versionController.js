@@ -1,4 +1,4 @@
-angular.module('bmcApp').controller('versionController', function($scope, Restangular) {
+angular.module('bmcApp').controller('versionController', function($scope) {
 
     var system_status = Restangular.one('systeminfo').get().then(function(system_status) {
         $scope.system_status = system_status;

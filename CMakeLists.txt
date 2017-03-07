@@ -7,7 +7,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 message("${CMAKE_MODULE_PATH}")
 
 #set(HUNTER_ROOT /home/ed/hunter)
-SET(HUNTER_STATUS_DEBUG ON)
+#SET(HUNTER_STATUS_DEBUG ON)
 include("cmake/HunterGate.cmake")
 
 HunterGate(
@@ -35,30 +35,32 @@ option(BUILD_UT "Enable Unit test" OFF)
 # Boost
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost COMPONENTS system thread regex)
-find_package(Boost COMPONENTS system thread regex REQUIRED)
+hunter_add_package(Boost COMPONENTS system thread)
+find_package(Boost REQUIRED system thread REQUIRED)
 
 #Openssl
-#hunter_add_package(OpenSSL)
+hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
-if (NOT OPENSSL_FOUND)
-    message(FATAL_ERROR "Could not find OpenSSL")
-endif()
-include_directories(${OPENSSL_INCLUDE_DIR})
 
 # Crow
+add_definitions(-DCROW_ENABLE_SSL)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
+#add_subdirectory(crow)
 
 #g3 logging
 option(ADD_FATAL_EXAMPLE "Disable g3 examples" OFF)
 add_subdirectory(g3log)
 include_directories(g3log/src)
 
+#Zlib
+#hunter_add_package(ZLIB)
+#find_package(ZLIB REQUIRED)
+
 # Debug sanitizers
 find_package(Sanitizers)
 
 # C++ GSL (Guideline support libraries)
-include_directories(GSL/include)
+include_directories(gsl-lite/include)
 
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
@@ -84,10 +86,7 @@ if (CMAKE_COMPILER_IS_GNUCC)
     message(STATUS ${GCC_MINOR})
 endif()
 
-
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang" OR GCC_VERSION VERSION_GREATER 5.0)
-    set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
-endif()
+set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
 set(SRC_FILES
     src/token_authorization_middleware.cpp
@@ -102,12 +101,14 @@ set(UT_FILES
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 
+file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
+
 # avoid the "narrowing char to X" warning for negative numbers
 # TODO, make the python just do the right thing and turn the number negative
 # Background:  char is faster than unsigned char once compiled, so it is used 
 # extensively in the server for the "byte" type.  Unfortunately, this means that
-# the call std::string s{0xFF} fails, because 0xFF narrows to a negative number
-# this line simply disables the warning, and the compiler does the right thing
+# the call std::string s{0xFF} fails, because 0xFF narrows to a negative number.
+# This line simply disables the warning, and the compiler does the right thing
 # we selectively only disable this warning on this specific file
 # http://stackoverflow.com/questions/28094263/create-array-of-chars-avoiding-narrowing
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -118,24 +119,24 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-c++11-narrowing)
 endif()
 
-# big list of naughty strings
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
-add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
-    COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
-
-
 # Unit Tests
 if(${BUILD_UT})
+
+    # big list of naughty strings
+    add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
+        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
+
     # googletest
     enable_testing()
     find_package(GTest REQUIRED)
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(unittest GTest::GTest GTest::Main)
-    target_link_libraries(unittest Boost::boost Boost::system)
+    target_link_libraries(unittest ${Boost_LIBRARIES} Boost::system)
     target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)
+    #target_link_libraries(unittest zlib)
     add_dependencies(unittest packagestaticcpp)
 endif(${BUILD_UT})
 
@@ -144,10 +145,11 @@ add_subdirectory(static)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb Boost::boost Boost::system)
+target_link_libraries(bmcweb ${Boost_LIBRARIES} Boost::system)
 target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
+target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
