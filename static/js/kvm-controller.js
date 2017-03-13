@@ -1,25 +1,44 @@
-angular.module('bmcApp').controller('KvmController', function($scope, $location) {
+angular.module('bmcApp').controller('KvmController', function($scope, $location, $window) {
 
 
     /*jslint white: false */
     /*global window, $, Util, RFB, */
     "use strict";
-    var INCLUDE_URI = "noVNC/"
-    // Load supporting scripts
-    Util.load_scripts(["webutil.js", "base64.js", "websock.js", "des.js",
-                        "keysymdef.js", "xtscancodes.js", "keyboard.js",
-                        "input.js", "display.js", "inflator.js", "rfb.js",
-                        "keysym.js"]);
 
     var rfb;
-    var resizeTimeout;
+    var host = $location.host();
+    var port = $location.port();
+    var encrypt = $location.protocol() === 'https:';
+    var password = "";
+    var token = "1234";
+    var path = "kvmws";
+    var target = angular.element(document.querySelector('#noVNC_canvas'))[0];
+    try {
+        rfb = new RFB({'target':        target,
+                        'encrypt':      encrypt,
+                        'local_cursor': true,
+                        'onUpdateState':  updateState,
+                        //'onXvpInit':    xvpInit,
+                        'onFBUComplete': FBUComplete,
+                        'resize': true});
+        rfb.connect(host, port, password, path);
+    } catch (exc) {
+        updateState(null, 'fatal', null, 'Unable to create RFB client -- ' + exc);
+        return; // don't continue trying to connect
+    }
 
+    
+
+    $scope.$on("$destroy", function() {
+        if (rfb) {
+            rfb.disconnect();
+        }
+    });
 
     function UIresize() {
         if (WebUtil.getConfigVar('resize', false)) {
-            var innerW = window.innerWidth;
-            var innerH = window.innerHeight;
-            var controlbarH = $D('noVNC_status_bar').offsetHeight;
+            var innerW = $window.innerWidth;
+            var innerH = $window.innerHeight;
             var padding = 5;
             if (innerW !== undefined && innerH !== undefined)
                 rfb.requestDesktopSize(innerW, innerH - controlbarH - padding);
@@ -33,23 +52,11 @@ angular.module('bmcApp').controller('KvmController', function($scope, $location)
         rfb.sendCtrlAltDel();
         return false;
     }
-    function xvpShutdown() {
-        rfb.xvpShutdown();
-        return false;
-    }
-    function xvpReboot() {
-        rfb.xvpReboot();
-        return false;
-    }
-    function xvpReset() {
-        rfb.xvpReset();
-        return false;
-    }
+
     function updateState(rfb, state, oldstate, msg) {
         var s, sb, cad, level;
-        s = $D('noVNC_status');
-        sb = $D('noVNC_status_bar');
-        cad = $D('sendCtrlAltDelButton');
+        s = angular.element(document.querySelector('#noVNC_status'))[0];
+        sb = angular.element(document.querySelector('#noVNC_status_bar'))[0];
         switch (state) {
             case 'failed':       level = "error";  break;
             case 'fatal':        level = "error";  break;
@@ -59,20 +66,20 @@ angular.module('bmcApp').controller('KvmController', function($scope, $location)
             default:             level = "warn";   break;
         }
 
-        if (state === "normal") {
-            cad.disabled = false;
-        } else {
-            cad.disabled = true;
-            xvpInit(0);
-        }
-
         if (typeof(msg) !== 'undefined') {
-            sb.setAttribute("class", "noVNC_status_" + level);
-            s.innerHTML = msg;
+            // at this point, it's possible the window has already been destroyed, so make sure
+            // the handles exist before writing.
+            if (typeof(sb) !== 'undefined'){
+                sb.setAttribute("class", "noVNC_status_" + level);
+            }
+            if (typeof(sb) !== 'undefined'){
+                s.innerHTML = msg;
+            }
         }
     }
 
-    window.onresize = function () {
+    var resizeTimeout;
+    $window.onresize = function () {
         // When the window has been resized, wait until the size remains
         // the same for 0.5 seconds before sending the request for changing
         // the resolution of the session
@@ -80,45 +87,5 @@ angular.module('bmcApp').controller('KvmController', function($scope, $location)
         resizeTimeout = setTimeout(function(){
             UIresize();
         }, 500);
-    };
-
-    function xvpInit(ver) {
-        var xvpbuttons;
-        xvpbuttons = $D('noVNC_xvp_buttons');
-        if (ver >= 1) {
-            xvpbuttons.style.display = 'inline';
-        } else {
-            xvpbuttons.style.display = 'none';
-        }
-    }
-
-    window.onscriptsload = function () {
-        var host, port, password, path, token;
-
-        $D('sendCtrlAltDelButton').style.display = "inline";
-        $D('sendCtrlAltDelButton').onclick = sendCtrlAltDel;
-        $D('xvpShutdownButton').onclick = xvpShutdown;
-        $D('xvpRebootButton').onclick = xvpReboot;
-        $D('xvpResetButton').onclick = xvpReset;
-
-        host = $location.host();
-        port = 9000;
-        password = "";
-        token = "1234";
-        path = "/";
-
-        try {
-            rfb = new RFB({'target':       $D('noVNC_canvas'),
-                            'encrypt':      true,
-                            'local_cursor': true,
-                            'onUpdateState':  updateState,
-                            'onXvpInit':    xvpInit,
-                            'onFBUComplete': FBUComplete});
-        } catch (exc) {
-            updateState(null, 'fatal', null, 'Unable to create RFB client -- ' + exc);
-            return; // don't continue trying to connect
-        }
-
-        rfb.connect(host, port, password, path);
-    };
+    }; 
 });

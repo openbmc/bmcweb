@@ -6,13 +6,10 @@
 namespace crow {
 struct TokenAuthorizationMiddleware {
   struct context {
-    std::unordered_map<std::string, std::string> cookie_sessions;
-    std::unordered_map<std::string, std::string> cookies_to_push_to_client;
-
-    std::string get_cookie(const std::string& key);
-
-    void set_cookie(const std::string& key, const std::string& value);
+    std::string auth_token;
   };
+
+  std::string auth_token2;
 
   void before_handle(crow::request& req, response& res, context& ctx);
 

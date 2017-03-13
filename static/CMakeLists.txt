@@ -65,7 +65,7 @@ set(IMG_ASSETS
 set(STATIC_ASSETS_OUT "")
 foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
     # if it's a debug build, don't minify
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET})
     else()
         set(OUTPUT_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET})
@@ -76,17 +76,36 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
             COMMAND closure-compiler --language_in=ECMASCRIPT5
             --js  "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
             --js_output_file "${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET}"
-
+             --compilation_level SIMPLE_OPTIMIZATIONS
+             --angular_pass 
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
             COMMENT "Minifying ${JAVASCRIPT_ASSET}"
         )
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET})
-    endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    endif (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
 endforeach(JAVASCRIPT_ASSET)
 
 # for now CSS is included as is
 foreach(CSS_ASSET ${CSS_ASSETS})
-    list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET})
+    # if it's a debug build, don't minify
+    if (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+        list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET})
+    else()
+        set(OUTPUT_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
+        get_filename_component(FOLDERNAME ${OUTPUT_FILENAME} DIRECTORY)
+        file(MAKE_DIRECTORY "${FOLDERNAME}")
+        # TODO only minify if not a debug build
+        add_custom_command(OUTPUT ${OUTPUT_FILENAME} 
+            COMMAND cssnano 
+            "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+            "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
+
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+            COMMENT "Minifying ${CSS_ASSET}"
+        )
+        list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
+    endif (CMAKE_BUILD_TYPE STREQUAL "DEBUG")
+    
 endforeach(CSS_ASSET)
 
 # for now HTML is included as is

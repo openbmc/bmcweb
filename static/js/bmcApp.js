@@ -1,8 +1,13 @@
 'use strict';
 angular.module('Authentication', []);
 var app = angular.module('bmcApp', [
-  'Authentication', 'ngCookies', 'ui.bootstrap', 'ui.router',
-  'ngSanitize', 'ngWebSocket', 'ngResource'
+  'Authentication', 
+  'ngCookies', 
+  'ui.bootstrap', 
+  'ui.router',
+  'ngSanitize', 
+  'ngWebSocket', 
+  'ngResource'
 ]);
 
 
@@ -10,34 +15,61 @@ app.controller('MainCtrl', function($scope) {
 
 });
 
-app.service('loginInterceptor', function($q, $state) {
+app.service('loginInterceptor', ["$injector",
+  function($injector) {
     var service = this;
 
     service.responseError = function(response) {
+        var $state = $injector.get('$state');
+        var AuthenticationService = $injector.get('AuthenticationService');
         if (response.status == 401){
           console.log("Login required... ");
 
           var invalidate_reason = "Your user was logged out.";
-          var continue_promise_chain = false;
 
           // if we're attempting to log in, we need to
           // continue the promise chain to make sure the user is informed
           if ($state.current.name === "login") {
             invalidate_reason = "Your username and password was incorrect";
-            continue_promise_chain = true
           } else {
             $state.after_login_state = $state.current.name;
             $state.go('login');
           }
           AuthenticationService.ClearCredentials(invalidate_reason);
         }
-        //return $q.reject(response);
+
     };
-})
+}])
 
 app.config(['$httpProvider', function ($httpProvider) {
     $httpProvider.interceptors.push('loginInterceptor');
 }]);
+
+app.directive('windowSize', function ($window) {
+  return function (scope, element) {
+    var w = angular.element($window);
+    scope.getWindowDimensions = function () {
+        return {
+            'h': w.height(),
+            'w': w.width()
+        };
+    };
+    scope.$watch(scope.getWindowDimensions, function (newValue, oldValue) {
+      scope.windowHeight = newValue.h;
+      scope.windowWidth = newValue.w;
+      scope.style = function () {
+          return {
+              'height': (newValue.h - 100) + 'px',
+              'width': (newValue.w - 100) + 'px'
+          };
+      };
+    }, true);
+
+    w.bind('resize', function () {
+        scope.$apply();
+    });
+  }
+});
 
 app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationService',
   function($rootScope, $cookieStore, $state, $resource, AuthenticationService) {
@@ -52,7 +84,8 @@ app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationSer
         '$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams, options) {
           // redirect to login page if not logged in
-          if (toState.name !== 'login' && !$rootScope.globals.currentUser) {
+          // unless we're already trying to go to the login page (prevent a loop)
+          if (!$rootScope.globals.currentUser && toState.name !== 'login') {
             // If logged out and transitioning to a logged in page:
             event.preventDefault();
             $state.go('login');
@@ -61,7 +94,8 @@ app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationSer
   }
 ]);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(['$stateProvider', '$urlRouterProvider', 
+    function($stateProvider, $urlRouterProvider) {
 
   $urlRouterProvider.otherwise('/systeminfo');
 
@@ -99,9 +133,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
       })
 
 
-});
+}]);
 
-app.controller('PaginationDemoCtrl', function($scope, $log) {
+app.controller('PaginationDemoCtrl', ['$scope', '$log', function($scope, $log) {
   $scope.totalItems = 64;
   $scope.currentPage = 4;
 
@@ -114,14 +148,12 @@ app.controller('PaginationDemoCtrl', function($scope, $log) {
   $scope.maxSize = 5;
   $scope.bigTotalItems = 175;
   $scope.bigCurrentPage = 1;
-});
+}]);
 
-angular.module('Authentication')
-
-    .factory(
+angular.module('Authentication').factory(
         'AuthenticationService',
-        ['$cookieStore', '$rootScope', '$timeout', '$resource', '$log',
-          function($cookieStore, $rootScope, $timeout, $resource, $log) {
+        ['$cookieStore', '$rootScope', '$timeout', '$resource', '$log', '$http',
+          function($cookieStore, $rootScope, $timeout, $resource, $log, $http) {
             var service = {};
 
             service.Login = function(username, password, success_callback, fail_callback) {
@@ -136,8 +168,7 @@ angular.module('Authentication')
 
             service.SetCredentials = function(username, token) {
               $rootScope.globals["currentUser"] = {username: username, authdata: token};
-              Restangular.setDefaultHeaders(
-                  {'Authorization': 'Token ' + token});
+              $http.defaults.headers.common['Authorization'] = 'Token ' + token;
               $cookieStore.put('globals', $rootScope.globals);
             };
 
@@ -147,7 +178,7 @@ angular.module('Authentication')
                 service.logoutreason = reason;
               }
               $cookieStore.remove('globals');
-              Restangular.setDefaultHeaders({});
+              $http.defaults.headers.common['Authorization'] = '';
             };
 
             service.RestoreCredientials = function() {
@@ -163,23 +194,6 @@ angular.module('Authentication')
           }
         ])
 
-    .factory('Websocket_URI', 
-        function($rootScope, $http) {
-          var loc = window.location, websocket_uri;
-          if (loc.protocol === "https:") {
-            websocket_uri = "wss:";
-          } else {
-            websocket_uri = "ws:";
-          }
-          websocket_uri += "//" + loc.hostname + ":9000";
-          // Append the authentication token
-          websocket_uri += "?token="
-          websocket_uri += $rootScope.globals["currentUser"]["authdata"]
-          var methods = {
-            uri: websocket_uri
-          }
-          return methods;
-        })
     .factory('Base64', function() {
       /* jshint ignore:start */
 

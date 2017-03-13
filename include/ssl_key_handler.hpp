@@ -11,6 +11,8 @@
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
 
+#include <boost/asio.hpp>
+
 #include <g3log/g3log.hpp>
 
 namespace ensuressl {
@@ -40,7 +42,7 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
           RSA *rsa = EVP_PKEY_get1_RSA(pkey);
           if (rsa){
             if (RSA_check_key(rsa) == 1) {
-              private_key_valid = true;
+              //private_key_valid = true;
             } else {
               LOG(WARNING) << "Key not valid error number " << ERR_get_error();
             }
@@ -53,7 +55,7 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
           EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
           if (ec){
             if (EC_KEY_check_key(ec) == 1) {
-              //private_key_valid = true;
+              private_key_valid = true;
             } else {
               LOG(WARNING) << "Key not valid error number " << ERR_get_error();
             }
@@ -92,11 +94,11 @@ inline void generate_ssl_certificate(const std::string &filepath) {
   LOG(WARNING) << "Generating new keys";
   init_openssl();
 
-  LOG(WARNING) << "Generating RSA key";
-  EVP_PKEY *pRsaPrivKey = create_rsa_key();
+  //LOG(WARNING) << "Generating RSA key";
+  //EVP_PKEY *pRsaPrivKey = create_rsa_key();
 
-  //LOG(WARNING) << "Generating EC key";
-  //EVP_PKEY *pRsaPrivKey = create_ec_key();
+  LOG(WARNING) << "Generating EC key";
+  EVP_PKEY *pRsaPrivKey = create_ec_key();
 
   LOG(WARNING) << "Generating x509 Certificate";
   // Use this code to directly generate a certificate
@@ -149,7 +151,7 @@ inline void generate_ssl_certificate(const std::string &filepath) {
     EVP_PKEY_free(pRsaPrivKey);
     pRsaPrivKey = NULL;
   }
-
+  
   // cleanup_openssl();
 }
 
@@ -240,5 +242,77 @@ inline void ensure_openssl_key_present_and_valid(const std::string &filepath) {
     LOG(WARNING) << "Error in verifying signature, regenerating";
     generate_ssl_certificate(filepath);
   }
+}
+
+
+boost::asio::ssl::context get_ssl_context(std::string ssl_pem_file){
+  boost::asio::ssl::context m_ssl_context{boost::asio::ssl::context::sslv23};
+  m_ssl_context.set_options(boost::asio::ssl::context::default_workarounds | boost::asio::ssl::context::no_sslv2 | boost::asio::ssl::context::no_sslv3 |
+                            boost::asio::ssl::context::single_dh_use | boost::asio::ssl::context::no_tlsv1 | boost::asio::ssl::context::no_tlsv1_1);
+
+  // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
+  m_ssl_context.use_certificate_file(ssl_pem_file, boost::asio::ssl::context::pem);
+  m_ssl_context.use_private_key_file(ssl_pem_file, boost::asio::ssl::context::pem);
+
+  // Set up EC curves to auto (boost asio doesn't have a method for this)
+  // There is a pull request to add this.  Once this is included in an asio drop, use the right way
+  // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
+  if (SSL_CTX_set_ecdh_auto(m_ssl_context.native_handle(), 1) != 1) {
+    CROW_LOG_ERROR << "Error setting tmp ecdh list\n";
+  }
+
+  // From mozilla "compatibility"
+  std::string ciphers =
+      "ECDHE-ECDSA-CHACHA20-POLY1305:"
+      "ECDHE-RSA-CHACHA20-POLY1305:"
+      "ECDHE-ECDSA-AES128-GCM-SHA256:"
+      "ECDHE-RSA-AES128-GCM-SHA256:"
+      "ECDHE-ECDSA-AES256-GCM-SHA384:"
+      "ECDHE-RSA-AES256-GCM-SHA384:"
+      "DHE-RSA-AES128-GCM-SHA256:"
+      "DHE-RSA-AES256-GCM-SHA384:"
+      "ECDHE-ECDSA-AES128-SHA256:"
+      "ECDHE-RSA-AES128-SHA256:"
+      "ECDHE-ECDSA-AES128-SHA:"
+      "ECDHE-RSA-AES256-SHA384:"
+      "ECDHE-RSA-AES128-SHA:"
+      "ECDHE-ECDSA-AES256-SHA384:"
+      "ECDHE-ECDSA-AES256-SHA:"
+      "ECDHE-RSA-AES256-SHA:"
+      "DHE-RSA-AES128-SHA256:"
+      "DHE-RSA-AES128-SHA:"
+      "DHE-RSA-AES256-SHA256:"
+      "DHE-RSA-AES256-SHA:"
+      "ECDHE-ECDSA-DES-CBC3-SHA:"
+      "ECDHE-RSA-DES-CBC3-SHA:"
+      "EDH-RSA-DES-CBC3-SHA:"
+      "AES128-GCM-SHA256:"
+      "AES256-GCM-SHA384:"
+      "AES128-SHA256:"
+      "AES256-SHA256:"
+      "AES128-SHA:"
+      "AES256-SHA:"
+      "DES-CBC3-SHA:"
+      "!DSS";
+
+  // From mozilla "modern"
+  std::string modern_ciphers =
+      "ECDHE-ECDSA-AES256-GCM-SHA384:"
+      "ECDHE-RSA-AES256-GCM-SHA384:"
+      "ECDHE-ECDSA-CHACHA20-POLY1305:"
+      "ECDHE-RSA-CHACHA20-POLY1305:"
+      "ECDHE-ECDSA-AES128-GCM-SHA256:"
+      "ECDHE-RSA-AES128-GCM-SHA256:"
+      "ECDHE-ECDSA-AES256-SHA384:"
+      "ECDHE-RSA-AES256-SHA384:"
+      "ECDHE-ECDSA-AES128-SHA256:"
+      "ECDHE-RSA-AES128-SHA256";
+
+  std::string lighttp_ciphers = "AES128+EECDH:AES128+EDH:!aNULL:!eNULL";
+
+  if (SSL_CTX_set_cipher_list(m_ssl_context.native_handle(), ciphers.c_str()) != 1) {
+    CROW_LOG_ERROR << "Error setting cipher list\n";
+  }
+  return m_ssl_context;
 }
 }

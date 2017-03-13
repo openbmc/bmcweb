@@ -72,3 +72,23 @@ class logger {
 #define CROW_LOG_WARNING LOG(WARNING)
 #define CROW_LOG_INFO LOG(INFO)
 #define CROW_LOG_DEBUG LOG(DEBUG)
+
+
+
+/*
+#define CROW_LOG_CRITICAL   \
+        if (false) \
+            crow::logger("CRITICAL", crow::LogLevel::Critical)
+#define CROW_LOG_ERROR      \
+        if (false) \
+            crow::logger("ERROR   ", crow::LogLevel::Error)
+#define CROW_LOG_WARNING    \
+        if (false) \
+            crow::logger("WARNING ", crow::LogLevel::Warning)
+#define CROW_LOG_INFO       \
+        if (false) \
+            crow::logger("INFO    ", crow::LogLevel::Info)
+#define CROW_LOG_DEBUG      \
+        if (false) \
+            crow::logger("DEBUG   ", crow::LogLevel::Debug)
+*/

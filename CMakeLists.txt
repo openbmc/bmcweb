@@ -33,6 +33,7 @@ option(BUILD_SHARED_LIBS "Build as shared library" OFF)
 option(BUILD_UT "Enable Unit test" OFF)
 
 # Boost
+add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost COMPONENTS system thread)
@@ -111,12 +112,13 @@ file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
 # This line simply disables the warning, and the compiler does the right thing
 # we selectively only disable this warning on this specific file
 # http://stackoverflow.com/questions/28094263/create-array-of-chars-avoiding-narrowing
-if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER "5.0")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-c++11-narrowing)
-  endif()
-elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-c++11-narrowing)
+endif()
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.2)
+        set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
+    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.2)
 endif()
 
 # Unit Tests
