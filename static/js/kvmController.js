@@ -1,12 +1,14 @@
+"use strict";
 angular.module('bmcApp').controller('KvmController', 
 ['$scope', '$location', '$window',
 function($scope, $location, $window) {
 
-
     /*jslint white: false */
     /*global window, $, Util, RFB, */
-    "use strict";
 
+    var desktopName;
+
+    WebUtil.init_logging(WebUtil.getConfigVar('logging', 'debug'));
     var rfb;
     var host = $location.host();
     var port = $location.port();
@@ -22,12 +24,13 @@ function($scope, $location, $window) {
                         'onUpdateState':  updateState,
                         //'onXvpInit':    xvpInit,
                         'onFBUComplete': FBUComplete,
-                        'resize': true});
+                        'onDesktopName': updateDesktopName
+                        });
         rfb.connect(host, port, password, path);
     } catch (exc) {
         updateState(null, 'fatal', null, 'Unable to create RFB client -- ' + exc);
         return; // don't continue trying to connect
-    }
+    };
 
     
 
@@ -45,40 +48,58 @@ function($scope, $location, $window) {
             if (innerW !== undefined && innerH !== undefined)
                 rfb.requestDesktopSize(innerW, innerH - controlbarH - padding);
         }
-    }
+    };
+    function updateDesktopName(rfb, name) {
+        desktopName = name;
+    };
     function FBUComplete(rfb, fbu) {
         UIresize();
         rfb.set_onFBUComplete(function() { });
-    }
+    };
     function sendCtrlAltDel() {
         rfb.sendCtrlAltDel();
         return false;
-    }
+    };
 
-    function updateState(rfb, state, oldstate, msg) {
-        var s, sb, cad, level;
-        s = angular.element(document.querySelector('#noVNC_status'))[0];
-        sb = angular.element(document.querySelector('#noVNC_status_bar'))[0];
+    function status(text, level) {
+        switch (level) {
+            case 'normal':
+            case 'warn':
+            case 'error':
+                break;
+            default:
+                level = "warn";
+        }
+        angular.element(document.querySelector('#noVNC_status'))[0].textContent = text;
+        angular.element(document.querySelector('#noVNC_status_bar'))[0].setAttribute("class", "noVNC_status_" + level);
+    };
+
+    function updateState(rfb, state, oldstate) {
         switch (state) {
-            case 'failed':       level = "error";  break;
-            case 'fatal':        level = "error";  break;
-            case 'normal':       level = "normal"; break;
-            case 'disconnected': level = "normal"; break;
-            case 'loaded':       level = "normal"; break;
-            default:             level = "warn";   break;
+            case 'connecting':
+                status("Connecting", "normal");
+                break;
+            case 'connected':
+                if (rfb && rfb.get_encrypt()) {
+                    status("Connected (encrypted) to " +
+                            desktopName, "normal");
+                } else {
+                    status("Connected (unencrypted) to " +
+                            desktopName, "normal");
+                }
+                break;
+            case 'disconnecting':
+                status("Disconnecting", "normal");
+                break;
+            case 'disconnected':
+                status("Disconnected", "normal");
+                break;
+            default:
+                status(state, "warn");
+                break;
         }
 
-        if (typeof(msg) !== 'undefined') {
-            // at this point, it's possible the window has already been destroyed, so make sure
-            // the handles exist before writing.
-            if (typeof(sb) !== 'undefined'){
-                sb.setAttribute("class", "noVNC_status_" + level);
-            }
-            if (typeof(sb) !== 'undefined'){
-                s.innerHTML = msg;
-            }
-        }
-    }
+    };
 
     var resizeTimeout;
     $window.onresize = function () {

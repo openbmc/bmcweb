@@ -16,26 +16,21 @@ set(JAVASCRIPT_ASSETS
     js/run_prettify.js
     js/angular.js
     js/versionController.js
-    noVNC/utils/parse.js
-    //noVNC/utils/inflator.partial.js
-    //noVNC/karma.conf.js
-    noVNC/include/inflator.js
-    noVNC/include/keysym.js
-    noVNC/include/chrome-app/tcp-client.js
-    noVNC/include/ui.js
-    noVNC/include/keysymdef.js
-    noVNC/include/websock.js
-    noVNC/include/util.js
-    noVNC/include/base64.js
-    noVNC/include/logo.js
-    noVNC/include/input.js
-    noVNC/include/rfb.js
-    noVNC/include/des.js
-    noVNC/include/playback.js
-    noVNC/include/xtscancodes.js
-    noVNC/include/keyboard.js
-    noVNC/include/webutil.js
-    noVNC/include/display.js
+    noVNC/core/inflator.js
+    noVNC/core/input/xtscancodes.js
+    noVNC/core/input/util.js
+    noVNC/core/input/devices.js
+    noVNC/core/input/keysym.js
+    noVNC/core/input/keysymdef.js
+    noVNC/core/websock.js
+    noVNC/core/util.js
+    noVNC/core/base64.js
+    noVNC/core/rfb.js
+    noVNC/core/des.js
+    noVNC/core/display.js
+    noVNC/app/ui.js
+    noVNC/app/webutil.js
+
 )
 
 set(CSS_ASSETS
@@ -44,9 +39,8 @@ set(CSS_ASSETS
     css/font-awesome.css
     css/bootstrap-theme.css
     css/prettify.css
-    //noVNC/include/base.css
-    //noVNC/include/blue.css
-    //noVNC/include/black.css
+    noVNC/app/styles/base.css
+    noVNC/app/styles/auto.css
 )
 
 set(HTML_ASSETS
