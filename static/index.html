@@ -11,7 +11,7 @@
     <link href="static/css/font-awesome.css" rel="stylesheet" >  
     <link href="static/css/intel.css" rel="stylesheet">
 
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="static/favicon.ico" type="image/x-icon" />
 
     <script src="static/js/angular.js"></script>
     <script src="static/js/angular-animate.js"></script>
@@ -19,15 +19,19 @@
     <script src="static/js/angular-cookies.js"></script>
     <script src="static/js/angular-resource.js"></script>
     <script src="static/js/angular-ui-router.js"></script>
+    <script src="static/js/angular-websocket.js"></script>
     <script src="static/js/lodash.core.js"></script>
+
     <script src="static/js/ui-bootstrap-tpls-2.1.3.js"></script>
+
     <script src="static/js/bmcApp.js"></script>
+    <script src="static/js/base64.js"></script>
     <script src="static/js/versionController.js"></script>
     <script src="static/js/selController.js"></script>
-    <script src="static/js/logincontroller.js"></script>
-    <script src="static/js/kvm-controller.js"></script>
-    <script src="static/js/angular-websocket.js"></script>
-    <script src="static/js/kvm-controller.js"></script>
+    <script src="static/js/loginController.js"></script>
+    <script src="static/js/kvmController.js"></script>
+    <script src="static/js/ipmiController.js"></script>
+    
     <script src="static/noVNC/include/util.js"></script>
     <script src="static/noVNC/include/webutil.js"></script>
     <script src="static/noVNC/include/base64.js"></script>
@@ -109,6 +113,7 @@
                                 <li><a href="#">Server Power Control</a></li>
                                 <li><a href="#">Launch SOL</a></li>
                                 <li><a href="#">Virtual Front Panel</a></li>
+                                <li><a ui-sref="ipmi">IPMI</a></li>
                             </ul>
                         </li>
                         <li class="dropdown" uib-dropdown dropdown-append-to-body>

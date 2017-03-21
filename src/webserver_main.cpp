@@ -20,6 +20,8 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
+#include "app_type.hpp"
+
 #include "color_cout_g3_sink.hpp"
 #include "token_authorization_middleware.hpp"
 #include "webassets.hpp"
@@ -40,7 +42,11 @@ static const std::string rfb_3_3_version_string = "RFB 003.003\n";
 static const std::string rfb_3_7_version_string = "RFB 003.007\n";
 static const std::string rfb_3_8_version_string = "RFB 003.008\n";
 
-enum class RfbAuthScheme : uint8_t { connection_failed = 0, no_authentication = 1, vnc_authentication = 2 };
+enum class RfbAuthScheme : uint8_t {
+  connection_failed = 0,
+  no_authentication = 1,
+  vnc_authentication = 2
+};
 
 struct pixel_format_struct {
   boost::endian::big_uint8_t bits_per_pixel;
@@ -163,12 +169,14 @@ std::string serialize(const framebuffer_update_message& msg) {
   serialized[i++] = 0;  // Type
   serialized[i++] = 0;  // Pad byte
   boost::endian::big_uint16_t number_of_rectangles;
-  std::memcpy(&serialized[i], &number_of_rectangles, sizeof(number_of_rectangles));
+  std::memcpy(&serialized[i], &number_of_rectangles,
+              sizeof(number_of_rectangles));
   i += sizeof(number_of_rectangles);
 
   for (const auto& rect : msg.rectangles) {
     // copy the first part of the struct
-    size_t buffer_size = sizeof(framebuffer_rectangle) - sizeof(std::vector<uint8_t>);
+    size_t buffer_size =
+        sizeof(framebuffer_rectangle) - sizeof(std::vector<uint8_t>);
     std::memcpy(&serialized[i], &rect, buffer_size);
     i += buffer_size;
 
@@ -179,7 +187,13 @@ std::string serialize(const framebuffer_update_message& msg) {
   return serialized;
 }
 
-enum class VncState { UNSTARTED, AWAITING_CLIENT_VERSION, AWAITING_CLIENT_AUTH_METHOD, AWAITING_CLIENT_INIT_MESSAGE, MAIN_LOOP };
+enum class VncState {
+  UNSTARTED,
+  AWAITING_CLIENT_VERSION,
+  AWAITING_CLIENT_AUTH_METHOD,
+  AWAITING_CLIENT_INIT_MESSAGE,
+  MAIN_LOOP
+};
 
 class connection_metadata {
  public:
@@ -190,15 +204,17 @@ class connection_metadata {
 
 int main(int argc, char** argv) {
   auto worker(g3::LogWorker::createLogWorker());
-
-  auto handle = worker->addDefaultLogger(argv[0], "/tmp/");
+  std::string logger_name("bmcweb");
+  std::string folder("/tmp/");
+  auto handle = worker->addDefaultLogger(logger_name, folder);
   g3::initializeLogging(worker.get());
-  auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(), &crow::ColorCoutSink::ReceiveLogMessage);
+  auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
+                                     &crow::ColorCoutSink::ReceiveLogMessage);
 
   std::string ssl_pem_file("server.pem");
   ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
 
-  crow::App<crow::TokenAuthorizationMiddleware> app;
+  BmcAppType app;
   crow::webassets::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
@@ -213,7 +229,8 @@ int main(int argc, char** argv) {
 
   CROW_ROUTE(app, "/login")
       .methods("POST"_method)([&](const crow::request& req) {
-        auto auth_token = app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token;
+        auto auth_token =
+            app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token;
         crow::json::wvalue x;
         x["token"] = auth_token;
 
@@ -262,21 +279,29 @@ int main(int argc, char** argv) {
         meta.vnc_state = VncState::AWAITING_CLIENT_VERSION;
         conn.send_binary(rfb_3_8_version_string);
       })
-      .onclose([&](crow::websocket::connection& conn, const std::string& reason) {
-
-      })
-      .onmessage([&](crow::websocket::connection& conn, const std::string& data, bool is_binary) {
+      .onclose(
+          [&](crow::websocket::connection& conn, const std::string& reason) {
+            meta.vnc_state = VncState::UNSTARTED;
+          })
+      .onmessage([&](crow::websocket::connection& conn, const std::string& data,
+                     bool is_binary) {
         switch (meta.vnc_state) {
           case VncState::AWAITING_CLIENT_VERSION: {
-            std::cout << "Client sent: " << data;
-            if (data == rfb_3_8_version_string || data == rfb_3_7_version_string) {
-              std::string auth_types{1, (uint8_t)RfbAuthScheme::no_authentication};
+            LOG(DEBUG) << "Client sent: " << data;
+            if (data == rfb_3_8_version_string ||
+                data == rfb_3_7_version_string) {
+              std::string auth_types{1,
+                                     (uint8_t)RfbAuthScheme::no_authentication};
               conn.send_binary(auth_types);
               meta.vnc_state = VncState::AWAITING_CLIENT_AUTH_METHOD;
             } else if (data == rfb_3_3_version_string) {
-              // TODO(ed)
+              // TODO(ed)  Support older protocols
+              meta.vnc_state = VncState::UNSTARTED;
+              conn.close();
             } else {
-              // TODO(ed)
+              // TODO(ed)  Support older protocols
+              meta.vnc_state = VncState::UNSTARTED;
+              conn.close();
             }
           } break;
           case VncState::AWAITING_CLIENT_AUTH_METHOD: {
@@ -305,10 +330,12 @@ int main(int argc, char** argv) {
             server_init_msg.pixel_format.green_shift = 8;
             server_init_msg.pixel_format.blue_shift = 0;
             server_init_msg.name_length = 0;
-            std::cout << "size: " << sizeof(server_init_msg);
-            // TODO(ed) this is ugly.  Crow should really have a span type interface
+            LOG(DEBUG) << "size: " << sizeof(server_init_msg);
+            // TODO(ed) this is ugly.  Crow should really have a span type
+            // interface
             // to avoid the copy, but alas, today it does not.
-            std::string s(reinterpret_cast<char*>(&server_init_msg), sizeof(server_init_msg));
+            std::string s(reinterpret_cast<char*>(&server_init_msg),
+                          sizeof(server_init_msg));
             LOG(DEBUG) << "s.size() " << s.size();
             conn.send_binary(s);
             meta.vnc_state = VncState::MAIN_LOOP;
@@ -316,7 +343,7 @@ int main(int argc, char** argv) {
           case VncState::MAIN_LOOP: {
             if (data.size() >= sizeof(client_to_server_message_type)) {
               auto type = static_cast<client_to_server_message_type>(data[0]);
-              std::cout << "Got type " << (uint32_t)type << "\n";
+              LOG(DEBUG) << "Got type " << (uint32_t)type << "\n";
               switch (type) {
                 case client_to_server_message_type::set_pixel_format: {
                 } break;
@@ -325,21 +352,29 @@ int main(int argc, char** argv) {
                 } break;
                 case client_to_server_message_type::set_encodings: {
                 } break;
-                case client_to_server_message_type::framebuffer_update_request: {
-                  // Make sure the buffer is long enough to handle what we're about to do
-                  if (data.size() >= sizeof(frame_buffer_update_request_message) + sizeof(client_to_server_message_type)) {
-                    auto msg = reinterpret_cast<const frame_buffer_update_request_message*>(data.data() + sizeof(client_to_server_message_type));
+                case client_to_server_message_type::
+                    framebuffer_update_request: {
+                  // Make sure the buffer is long enough to handle what we're
+                  // about to do
+                  if (data.size() >=
+                      sizeof(frame_buffer_update_request_message) +
+                          sizeof(client_to_server_message_type)) {
+                    auto msg = reinterpret_cast<
+                        const frame_buffer_update_request_message*>(
+                        data.data() + sizeof(client_to_server_message_type));
 
-                    std::cout << "framebuffer_update_request_message\n";
-                    std::cout << "    incremental=" << msg->incremental << "\n";
-                    std::cout << "    x=" << msg->x_position;
-                    std::cout << " y=" << msg->y_position << "\n";
-                    std::cout << "    width=" << msg->width;
-                    std::cout << " height=" << msg->height << "\n";
+                    LOG(DEBUG) << "framebuffer_update_request_message\n";
+                    LOG(DEBUG) << "    incremental=" << msg->incremental
+                               << "\n";
+                    LOG(DEBUG) << "    x=" << msg->x_position;
+                    LOG(DEBUG) << " y=" << msg->y_position << "\n";
+                    LOG(DEBUG) << "    width=" << msg->width;
+                    LOG(DEBUG) << " height=" << msg->height << "\n";
 
                     framebuffer_update_message buffer_update_message;
 
-                    // If the viewer is requesting a full update, force write of all
+                    // If the viewer is requesting a full update, force write of
+                    // all
                     // pixels
 
                     framebuffer_rectangle this_rect;
@@ -347,20 +382,29 @@ int main(int argc, char** argv) {
                     this_rect.y = msg->y_position;
                     this_rect.width = msg->width;
                     this_rect.height = msg->height;
-                    this_rect.encoding = static_cast<uint8_t>(encoding_type::raw);
+                    this_rect.encoding =
+                        static_cast<uint8_t>(encoding_type::raw);
 
-                    this_rect.data.reserve(this_rect.width * this_rect.height * 4);
+                    this_rect.data.reserve(this_rect.width * this_rect.height *
+                                           4);
 
-                    for (unsigned int x_index = 0; x_index < this_rect.width; x_index++) {
-                      for (unsigned int y_index = 0; y_index < this_rect.height; y_index++) {
-                        this_rect.data.push_back(static_cast<uint8_t>(0));                            // Blue
-                        this_rect.data.push_back(static_cast<uint8_t>(0));                            // Green
-                        this_rect.data.push_back(static_cast<uint8_t>(x_index * 0xFF / msg->width));  // RED
-                        this_rect.data.push_back(static_cast<uint8_t>(0));                            // UNUSED
+                    for (unsigned int x_index = 0; x_index < this_rect.width;
+                         x_index++) {
+                      for (unsigned int y_index = 0; y_index < this_rect.height;
+                           y_index++) {
+                        this_rect.data.push_back(
+                            static_cast<uint8_t>(0));  // Blue
+                        this_rect.data.push_back(
+                            static_cast<uint8_t>(0));  // Green
+                        this_rect.data.push_back(static_cast<uint8_t>(
+                            x_index * 0xFF / msg->width));  // RED
+                        this_rect.data.push_back(
+                            static_cast<uint8_t>(0));  // UNUSED
                       }
                     }
 
-                    buffer_update_message.rectangles.push_back(std::move(this_rect));
+                    buffer_update_message.rectangles.push_back(
+                        std::move(this_rect));
                     auto serialized = serialize(buffer_update_message);
 
                     conn.send_binary(serialized);
@@ -397,23 +441,38 @@ int main(int argc, char** argv) {
       .onopen([&](crow::websocket::connection& conn) {
 
       })
-      .onclose([&](crow::websocket::connection& conn, const std::string& reason) {
+      .onclose(
+          [&](crow::websocket::connection& conn, const std::string& reason) {
 
-      })
-      .onmessage([&](crow::websocket::connection& conn, const std::string& data, bool is_binary) {
+          })
+      .onmessage([&](crow::websocket::connection& conn, const std::string& data,
+                     bool is_binary) {
         boost::asio::io_service io_service;
-        boost::asio::ip::udp::udp::socket socket(io_service, boost::asio::ip::udp::endpoint(boost::asio::ip::udp::v4(), 0));
-        boost::asio::ip::udp::resolver resolver(io_service);
-        boost::asio::ip::udp::resolver::query query(boost::asio::ip::udp::v4(), "10.243.48.31", "623");
-        boost::asio::ip::udp::resolver::iterator iter = resolver.resolve(query);
-        socket.send_to(boost::asio::buffer(data), *iter);
+        using boost::asio::ip::udp;
+        udp::resolver resolver(io_service);
+        udp::resolver::query query(udp::v4(), "10.243.48.31", "623");
+        udp::endpoint receiver_endpoint = *resolver.resolve(query);
+
+        udp::socket socket(io_service);
+        socket.open(udp::v4());
+
+        socket.send_to(boost::asio::buffer(data), receiver_endpoint);
+
+        std::array<char, 255> recv_buf;
+
+        udp::endpoint sender_endpoint;
+        size_t len =
+            socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
+        // TODO(ed) THis is ugly.  Find a way to not make a copy (ie, use
+        // std::string::data())
+        std::string str(std::begin(recv_buf), std::end(recv_buf));
+        LOG(DEBUG) << "Got " << str << "back \n";
+        conn.send_binary(str);
+
       });
 
-  auto rules = app.get_rules();
-  for (auto& rule : rules) {
-    LOG(DEBUG) << "Static route: " << rule;
-  }
-
-  // app.port(18080).ssl(std::move(get_ssl_context(ssl_pem_file))).concurrency(4).run();
-  app.port(18080).concurrency(4).run();
+  app.port(18080)
+      //.ssl(std::move(ensuressl::get_ssl_context(ssl_pem_file)))
+      .run();
+  // app.port(18080).run();
 }

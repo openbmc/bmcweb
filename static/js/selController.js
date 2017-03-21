@@ -765,7 +765,7 @@ function get_sensor_names_from_sdr(sdr_list){
 }
 
 
-angular.module('bmcApp').controller('selController', function($scope) {
+angular.module('bmcApp').controller('selController', ['$scope', function($scope) {
 
     var sdr_promise = Restangular.all('sdrentries').getList();
     var sel_promise = Restangular.all('selentries').getList();
@@ -890,4 +890,4 @@ angular.module('bmcApp').controller('selController', function($scope) {
     $scope.uncheckAll = function () {
         $scope.selectedColumns["controller"] = [];
     };
-});
+}]);

@@ -8,16 +8,29 @@ message("${CMAKE_MODULE_PATH}")
 
 #set(HUNTER_ROOT /home/ed/hunter)
 #SET(HUNTER_STATUS_DEBUG ON)
-include("cmake/HunterGate.cmake")
 
+
+#SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+
+#SET(MSAN_CXX_FLAGS "-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
+#SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib")
+include("cmake/HunterGate.cmake")
+#HunterGate(
+#    URL "https://github.com/ruslo/hunter/archive/v0.16.31.tar.gz"
+#    SHA1 "8fcc0a2d6206e1f2c6fc011e3e694e388d030b53"
+#)
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.16.31.tar.gz"
-    SHA1 "8fcc0a2d6206e1f2c6fc011e3e694e388d030b53"
+    URL "https://github.com/ruslo/hunter/archive/v0.18.16.tar.gz"
+    SHA1 "6cbca2b0e7605ad8ea22ee3527850996436f71b8"
 )
+
 
 option(BUILD_FOR_EMBEDDED "Build for device target" ON)
 
 project(bmc-webserver CXX C)
+
+SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${MSAN_CXX_FLAGS}")
+SET(CMAKE_EXE_LINKER_FLAGS "${MSAN_LINKER_EXE_FLAGS}")
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -32,8 +45,12 @@ endif()
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
 option(BUILD_UT "Enable Unit test" OFF)
 
+# security flags
+#SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fstack-protector-strong -fPIE -fPIC -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security" )
+#SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
+
 # Boost
-add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+#add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost COMPONENTS system thread)
@@ -49,16 +66,36 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 #add_subdirectory(crow)
 
 #g3 logging
-option(ADD_FATAL_EXAMPLE "Disable g3 examples" OFF)
-add_subdirectory(g3log)
-include_directories(g3log/src)
+#option(ADD_FATAL_EXAMPLE "Disable g3 examples" OFF)
+#add_subdirectory(g3log)
+#include_directories(g3log/src)
+# G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
+
+set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log/src)
+
+file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
+file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
+
+IF (MSVC OR MINGW)
+        list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
+ELSE()
+        list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
+ENDIF (MSVC OR MINGW)
+
+# Create the g3log library
+include_directories(${LOG_SRC})
+#MESSAGE("  g3logger files: [${SRC_FILES}]")
+add_library(g3logger ${SRC_FILES})
+set_target_properties(g3logger PROPERTIES
+    LINKER_LANGUAGE CXX
+    OUTPUT_NAME g3logger
+    CLEAN_DIRECT_OUTPUT 1)
+target_link_libraries(g3logger ${PLATFORM_LINK_LIBRIES})
+SET(G3LOG_LIBRARY g3logger)
 
 #Zlib
 #hunter_add_package(ZLIB)
 #find_package(ZLIB REQUIRED)
-
-# Debug sanitizers
-find_package(Sanitizers)
 
 # C++ GSL (Guideline support libraries)
 include_directories(gsl-lite/include)
@@ -75,17 +112,6 @@ set(HDR_FILES
 set(GENERATED_SRC_FILES 
     ${CMAKE_BINARY_DIR}/generated/webassets.cpp
 )
-
-if (CMAKE_COMPILER_IS_GNUCC)
-    execute_process(COMMAND ${CMAKE_C_COMPILER} -dumpversion
-                    OUTPUT_VARIABLE GCC_VERSION)
-    string(REGEX MATCHALL "[0-9]+" GCC_VERSION_COMPONENTS ${GCC_VERSION})
-    list(GET GCC_VERSION_COMPONENTS 0 GCC_MAJOR)
-    list(GET GCC_VERSION_COMPONENTS 1 GCC_MINOR)
-
-    message(STATUS ${GCC_MAJOR})
-    message(STATUS ${GCC_MINOR})
-endif()
 
 set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
@@ -104,26 +130,8 @@ set(UT_FILES
 
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
 
-# avoid the "narrowing char to X" warning for negative numbers
-# TODO, make the python just do the right thing and turn the number negative
-# Background:  char is faster than unsigned char once compiled, so it is used 
-# extensively in the server for the "byte" type.  Unfortunately, this means that
-# the call std::string s{0xFF} fails, because 0xFF narrows to a negative number.
-# This line simply disables the warning, and the compiler does the right thing
-# we selectively only disable this warning on this specific file
-# http://stackoverflow.com/questions/28094263/create-array-of-chars-avoiding-narrowing
-if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-c++11-narrowing)
-endif()
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.2)
-        set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
-    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 5.2)
-endif()
-
 # Unit Tests
 if(${BUILD_UT})
-
     # big list of naughty strings
     add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
         COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
@@ -134,7 +142,7 @@ if(${BUILD_UT})
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(unittest GTest::GTest GTest::Main)
-    target_link_libraries(unittest ${Boost_LIBRARIES} Boost::system)
+    target_link_libraries(unittest ${BOOST_LIBRARIES} Boost::system Boost::thread)
     target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)
@@ -147,12 +155,23 @@ add_subdirectory(static)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb ${Boost_LIBRARIES} Boost::system)
+target_link_libraries(bmcweb ${BOOST_LIBRARIES} Boost::system Boost::thread)
 target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
+
+# bmcweb
+#add_definitions(-DBOOST_ALL_NO_LIB)
+add_executable(udpclient src/udpclient.cpp)
+
+target_link_libraries(udpclient Boost::system)
+target_link_libraries(udpclient ${CMAKE_THREAD_LIBS_INIT})
+
+
+add_executable(getvideo src/getvideo_main.cpp)
+
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <random>
+
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -22,7 +24,6 @@ static EVP_PKEY *create_rsa_key(void);
 static EVP_PKEY *create_ec_key(void);
 static void handle_openssl_error(void);
 
-
 inline bool verify_openssl_key_cert(const std::string &filepath) {
   bool private_key_valid = false;
   bool cert_valid = false;
@@ -40,9 +41,9 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
         case EVP_PKEY_RSA2: {
           LOG(DEBUG) << "Found an RSA key";
           RSA *rsa = EVP_PKEY_get1_RSA(pkey);
-          if (rsa){
+          if (rsa) {
             if (RSA_check_key(rsa) == 1) {
-              //private_key_valid = true;
+              // private_key_valid = true;
             } else {
               LOG(WARNING) << "Key not valid error number " << ERR_get_error();
             }
@@ -50,10 +51,10 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
           }
           break;
         }
-        case EVP_PKEY_EC:{
+        case EVP_PKEY_EC: {
           LOG(DEBUG) << "Found an EC key";
-          EC_KEY* ec = EVP_PKEY_get1_EC_KEY(pkey);
-          if (ec){
+          EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pkey);
+          if (ec) {
             if (EC_KEY_check_key(ec) == 1) {
               private_key_valid = true;
             } else {
@@ -70,14 +71,15 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
 
       if (private_key_valid) {
         X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
-        if (!x509){
+        if (!x509) {
           LOG(DEBUG) << "error getting x509 cert " << ERR_get_error();
         } else {
           rc = X509_verify(x509, pkey);
           if (rc == 1) {
             cert_valid = true;
           } else {
-             LOG(WARNING) << "Error in verifying private key signature " << ERR_get_error();
+            LOG(WARNING) << "Error in verifying private key signature "
+                         << ERR_get_error();
           }
         }
       }
@@ -94,64 +96,65 @@ inline void generate_ssl_certificate(const std::string &filepath) {
   LOG(WARNING) << "Generating new keys";
   init_openssl();
 
-  //LOG(WARNING) << "Generating RSA key";
-  //EVP_PKEY *pRsaPrivKey = create_rsa_key();
+  // LOG(WARNING) << "Generating RSA key";
+  // EVP_PKEY *pRsaPrivKey = create_rsa_key();
 
   LOG(WARNING) << "Generating EC key";
   EVP_PKEY *pRsaPrivKey = create_ec_key();
+  if (pRsaPrivKey) {
+    LOG(WARNING) << "Generating x509 Certificate";
+    // Use this code to directly generate a certificate
+    X509 *x509;
+    x509 = X509_new();
+    if (x509) {
+      // Get a random number from the RNG for the certificate serial number
+      // If this is not random, regenerating certs throws broswer errors
+      std::random_device rd;
+      int serial = rd();
 
-  LOG(WARNING) << "Generating x509 Certificate";
-  // Use this code to directly generate a certificate
-  X509 *x509;
-  x509 = X509_new();
-  if (x509) {
+      ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
 
-    // Get a random number from the RNG for the certificate serial number
-    // If this is not random, regenerating certs throws broswer errors
-    std::random_device rd;
-    int serial = rd();
+      // not before this moment
+      X509_gmtime_adj(X509_get_notBefore(x509), 0);
+      // Cert is valid for 10 years
+      X509_gmtime_adj(X509_get_notAfter(x509), 60L * 60L * 24L * 365L * 10L);
 
-    ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
+      // set the public key to the key we just generated
+      X509_set_pubkey(x509, pRsaPrivKey);
 
-    // not before this moment
-    X509_gmtime_adj(X509_get_notBefore(x509), 0);
-    // Cert is valid for 10 years
-    X509_gmtime_adj(X509_get_notAfter(x509), 60L * 60L * 24L * 365L * 10L);
+      // Get the subject name
+      X509_NAME *name;
+      name = X509_get_subject_name(x509);
 
-    // set the public key to the key we just generated
-    X509_set_pubkey(x509, pRsaPrivKey);
+      X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, (unsigned char *)"US",
+                                -1, -1, 0);
+      X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
+                                (unsigned char *)"Intel BMC", -1, -1, 0);
+      X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
+                                (unsigned char *)"testhost", -1, -1, 0);
+      // set the CSR options
+      X509_set_issuer_name(x509, name);
 
-    // Get the subject name
-    X509_NAME *name;
-    name = X509_get_subject_name(x509);
+      // Sign the certificate with our private key
+      X509_sign(x509, pRsaPrivKey, EVP_sha256());
 
-    X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, (unsigned char *)"US", -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC, (unsigned char *)"Intel BMC", -1, -1, 0);
-    X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC, (unsigned char *)"testhost", -1, -1, 0);
-    // set the CSR options
-    X509_set_issuer_name(x509, name);
+      pFile = fopen(filepath.c_str(), "wt");
 
-    // Sign the certificate with our private key
-    X509_sign(x509, pRsaPrivKey, EVP_sha256());
+      if (pFile) {
+        PEM_write_PrivateKey(pFile, pRsaPrivKey, NULL, NULL, 0, 0, NULL);
 
-    pFile = fopen(filepath.c_str(), "wt");
+        PEM_write_X509(pFile, x509);
+        fclose(pFile);
+        pFile = NULL;
+      }
 
-    if (pFile) {
-      PEM_write_PrivateKey(pFile, pRsaPrivKey, NULL, NULL, 0, 0, NULL);
-      
-      PEM_write_X509(pFile, x509);
-      fclose(pFile);
-      pFile = NULL;
+      X509_free(x509);
     }
 
-    X509_free(x509);
-  }
-
-  if (pRsaPrivKey) {
     EVP_PKEY_free(pRsaPrivKey);
     pRsaPrivKey = NULL;
   }
-  
+
   // cleanup_openssl();
 }
 
@@ -183,35 +186,27 @@ EVP_PKEY *create_rsa_key(void) {
 }
 
 EVP_PKEY *create_ec_key(void) {
-  EC_KEY *myecc = NULL;
   EVP_PKEY *pKey = NULL;
   int eccgrp = 0;
   eccgrp = OBJ_txt2nid("prime256v1");
 
-  // TODO handle errors
-  myecc = EC_KEY_new_by_curve_name(eccgrp);
-  EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
-  EC_KEY_generate_key(myecc);
-  pKey = EVP_PKEY_new();
-
-  if (myecc && pKey && EVP_PKEY_assign_EC_KEY(pKey, myecc)) {
-    /* pKey owns pRSA from now */
-    if (EC_KEY_check_key(myecc) <= 0) {
-      fprintf(stderr, "EC_check_key failed.\n");
-      handle_openssl_error();
-      EVP_PKEY_free(pKey);
-      pKey = NULL;
-    }
-  } else {
-    handle_openssl_error();
-    if (myecc) {
-      EC_KEY_free(myecc);
-      myecc = NULL;
-    }
+  EC_KEY *myecc = EC_KEY_new_by_curve_name(eccgrp);
+  if (myecc) {
+    EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
+    EC_KEY_generate_key(myecc);
+    EVP_PKEY *pKey = EVP_PKEY_new();
     if (pKey) {
+      if (EVP_PKEY_assign_EC_KEY(pKey, myecc)) {
+        /* pKey owns pRSA from now */
+        if (EC_KEY_check_key(myecc) <= 0) {
+          fprintf(stderr, "EC_check_key failed.\n");
+        }
+      }
       EVP_PKEY_free(pKey);
       pKey = NULL;
     }
+    EC_KEY_free(myecc);
+    myecc = NULL;
   }
   return pKey;
 }
@@ -237,25 +232,31 @@ inline void ensure_openssl_key_present_and_valid(const std::string &filepath) {
   bool pem_file_valid = false;
 
   pem_file_valid = verify_openssl_key_cert(filepath);
-  
+
   if (!pem_file_valid) {
     LOG(WARNING) << "Error in verifying signature, regenerating";
     generate_ssl_certificate(filepath);
   }
 }
 
-
-boost::asio::ssl::context get_ssl_context(std::string ssl_pem_file){
+boost::asio::ssl::context get_ssl_context(std::string ssl_pem_file) {
   boost::asio::ssl::context m_ssl_context{boost::asio::ssl::context::sslv23};
-  m_ssl_context.set_options(boost::asio::ssl::context::default_workarounds | boost::asio::ssl::context::no_sslv2 | boost::asio::ssl::context::no_sslv3 |
-                            boost::asio::ssl::context::single_dh_use | boost::asio::ssl::context::no_tlsv1 | boost::asio::ssl::context::no_tlsv1_1);
+  m_ssl_context.set_options(boost::asio::ssl::context::default_workarounds |
+                            boost::asio::ssl::context::no_sslv2 |
+                            boost::asio::ssl::context::no_sslv3 |
+                            boost::asio::ssl::context::single_dh_use |
+                            boost::asio::ssl::context::no_tlsv1 |
+                            boost::asio::ssl::context::no_tlsv1_1);
 
   // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
-  m_ssl_context.use_certificate_file(ssl_pem_file, boost::asio::ssl::context::pem);
-  m_ssl_context.use_private_key_file(ssl_pem_file, boost::asio::ssl::context::pem);
+  m_ssl_context.use_certificate_file(ssl_pem_file,
+                                     boost::asio::ssl::context::pem);
+  m_ssl_context.use_private_key_file(ssl_pem_file,
+                                     boost::asio::ssl::context::pem);
 
   // Set up EC curves to auto (boost asio doesn't have a method for this)
-  // There is a pull request to add this.  Once this is included in an asio drop, use the right way
+  // There is a pull request to add this.  Once this is included in an asio
+  // drop, use the right way
   // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
   if (SSL_CTX_set_ecdh_auto(m_ssl_context.native_handle(), 1) != 1) {
     CROW_LOG_ERROR << "Error setting tmp ecdh list\n";
@@ -310,7 +311,8 @@ boost::asio::ssl::context get_ssl_context(std::string ssl_pem_file){
 
   std::string lighttp_ciphers = "AES128+EECDH:AES128+EDH:!aNULL:!eNULL";
 
-  if (SSL_CTX_set_cipher_list(m_ssl_context.native_handle(), ciphers.c_str()) != 1) {
+  if (SSL_CTX_set_cipher_list(m_ssl_context.native_handle(), ciphers.c_str()) !=
+      1) {
     CROW_LOG_ERROR << "Error setting cipher list\n";
   }
   return m_ssl_context;

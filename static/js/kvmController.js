@@ -1,4 +1,6 @@
-angular.module('bmcApp').controller('KvmController', function($scope, $location, $window) {
+angular.module('bmcApp').controller('KvmController', 
+['$scope', '$location', '$window',
+function($scope, $location, $window) {
 
 
     /*jslint white: false */
@@ -8,7 +10,7 @@ angular.module('bmcApp').controller('KvmController', function($scope, $location,
     var rfb;
     var host = $location.host();
     var port = $location.port();
-    var encrypt = $location.protocol() === 'https:';
+    var encrypt = $location.protocol() === 'https';
     var password = "";
     var token = "1234";
     var path = "kvmws";
@@ -88,4 +90,4 @@ angular.module('bmcApp').controller('KvmController', function($scope, $location,
             UIresize();
         }, 500);
     }; 
-});
+}]);

@@ -6,12 +6,11 @@
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 
-// TODO this is wrong.  file handler shouldn't care about middlewares
 #include <crow/routing.h>
-#include "token_authorization_middleware.hpp"
+#include <app_type.hpp>
 
 namespace crow {
 namespace webassets {
-void request_routes(crow::App<crow::TokenAuthorizationMiddleware>& app);
+void request_routes(BmcAppType& app);
 }
 }

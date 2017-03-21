@@ -1,9 +1,9 @@
+#include <random>
 #include <unordered_map>
-
 #include <boost/algorithm/string/predicate.hpp>
 
 #include <token_authorization_middleware.hpp>
-
+#include <crow/logging.h>
 #include <base64.hpp>
 
 namespace crow {
@@ -17,16 +17,19 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& r
     res.code = 401;
     res.end();
   };
+
+  LOG(DEBUG) << "Got route " << req.url;
+
   if (req.url == "/" || boost::starts_with(req.url, "/static/")){
     //TODO this is total hackery to allow the login page to work before the user
     // is authenticated.  Also, it will be quite slow for all pages instead of
     // a one time hit for the whitelist entries.
     // Ideally, this should be done in the url router handler, with tagged routes
     // for the whitelist entries.
+    // Another option would be to whitelist a minimal
     return;
   }
 
-  
   if (req.url == "/login") {
     if (req.method != HTTPMethod::POST){
       return_unauthorized();
@@ -39,8 +42,10 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& r
       }
       auto username = login_credentials["username"].s();
       auto password = login_credentials["password"].s();
-
+      
+      // TODO(ed) pull real passwords from PAM
       if (username == "dude" && password == "dude"){
+        //TODO(ed) the RNG should be initialized at start, not every time we want a token
         std::random_device rand;
         random_bytes_engine rbe;
         std::string token('a', 20);
@@ -49,7 +54,6 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& r
         base64::base64_encode(token, encoded_token);
         ctx.auth_token = encoded_token;
         this->auth_token2 = encoded_token;
-
       } else {
         return_unauthorized();
         return;
@@ -82,6 +86,7 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req, response& r
       return_unauthorized();
       return;
     }
+    // else let the request continue unharmed
   }
 }
 

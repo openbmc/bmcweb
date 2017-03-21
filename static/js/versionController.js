@@ -1,4 +1,6 @@
-angular.module('bmcApp').controller('versionController', function($scope, $resource) {
+angular.module('bmcApp').controller('versionController', [
+    '$scope', '$resource',
+    function($scope, $resource) {
 
 
     var systeminfo = $resource("/systeminfo");
@@ -16,4 +18,4 @@ angular.module('bmcApp').controller('versionController', function($scope, $resou
 
 
 
-});
+}]);

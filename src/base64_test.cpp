@@ -47,12 +47,21 @@ TEST(Base64, DecodeRFC4648) {
 }
 
 // Tests using pathalogical cases for all escapings
-TEST(Base64, NaugtyStrings) {
+TEST(Base64, NaugtyStringsEncodeDecode) {
   std::string base64_string;
   std::string decoded_string;
   for (auto& str : naughty_strings) {
     EXPECT_TRUE(base64::base64_encode(str, base64_string));
     EXPECT_TRUE(base64::base64_decode(base64_string, decoded_string));
     EXPECT_EQ(str, decoded_string);
+  }
+}
+
+// Tests using pathalogical cases for all escapings
+TEST(Base64, NaugtyStringsPathological) {
+  std::string base64_string;
+  std::string decoded_string;
+  for (auto& str : naughty_strings) {
+    base64::base64_decode(str, base64_string);
   }
 }
