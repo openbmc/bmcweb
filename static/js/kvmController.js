@@ -24,7 +24,8 @@ function($scope, $location, $window) {
                         'onUpdateState':  updateState,
                         //'onXvpInit':    xvpInit,
                         'onFBUComplete': FBUComplete,
-                        'onDesktopName': updateDesktopName
+                        'onDesktopName': updateDesktopName,
+                        'foobar': 1
                         });
         rfb.connect(host, port, password, path);
     } catch (exc) {

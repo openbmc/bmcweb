@@ -115,6 +115,13 @@ set(GENERATED_SRC_FILES
 
 set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+        set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
+    endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+endif()
+
+
 set(SRC_FILES
     src/token_authorization_middleware.cpp
     src/base64.cpp

@@ -9,6 +9,7 @@
 #include <crow/routing.h>
 #include <app_type.hpp>
 
+
 namespace crow {
 namespace webassets {
 void request_routes(BmcAppType& app);

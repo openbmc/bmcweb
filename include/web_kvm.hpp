@@ -1,5 +1,13 @@
+#include <boost/endian/arithmetic.hpp>
+#include <string>
+
+#include "app_type.hpp"
+
+#include <video.h>
+
 namespace crow {
 namespace kvm {
+
 static const std::string rfb_3_3_version_string = "RFB 003.003\n";
 static const std::string rfb_3_7_version_string = "RFB 003.007\n";
 static const std::string rfb_3_8_version_string = "RFB 003.008\n";
@@ -26,14 +34,14 @@ struct pixel_format_struct {
   boost::endian::big_uint8_t pad3;
 };
 
-struct server_initialization_message {
+struct server_initialization_msg {
   boost::endian::big_uint16_t framebuffer_width;
   boost::endian::big_uint16_t framebuffer_height;
   pixel_format_struct pixel_format;
   boost::endian::big_uint32_t name_length;
 };
 
-enum class client_to_server_message_type : uint8_t {
+enum class client_to_server_msg_type : uint8_t {
   set_pixel_format = 0,
   fix_color_map_entries = 1,
   set_encodings = 2,
@@ -43,14 +51,14 @@ enum class client_to_server_message_type : uint8_t {
   client_cut_text = 6
 };
 
-struct set_pixel_format_message {
+struct set_pixel_format_msg {
   boost::endian::big_uint8_t pad1;
   boost::endian::big_uint8_t pad2;
   boost::endian::big_uint8_t pad3;
   pixel_format_struct pixel_format;
 };
 
-struct frame_buffer_update_request_message {
+struct frame_buffer_update_req {
   boost::endian::big_uint8_t incremental;
   boost::endian::big_uint16_t x_position;
   boost::endian::big_uint16_t y_position;
@@ -58,20 +66,20 @@ struct frame_buffer_update_request_message {
   boost::endian::big_uint16_t height;
 };
 
-struct key_event_message {
+struct key_event_msg {
   boost::endian::big_uint8_t down_flag;
   boost::endian::big_uint8_t pad1;
   boost::endian::big_uint8_t pad2;
   boost::endian::big_uint32_t key;
 };
 
-struct pointer_event_message {
+struct pointer_event_msg {
   boost::endian::big_uint8_t button_mask;
   boost::endian::big_uint16_t x_position;
   boost::endian::big_uint16_t y_position;
 };
 
-struct client_cut_text_message {
+struct client_cut_text_msg {
   std::vector<uint8_t> data;
 };
 
@@ -112,12 +120,12 @@ struct framebuffer_rectangle {
   std::vector<uint8_t> data;
 };
 
-struct framebuffer_update_message {
+struct framebuffer_update_msg {
   boost::endian::big_uint8_t message_type;
   std::vector<framebuffer_rectangle> rectangles;
 };
 
-std::string serialize(const framebuffer_update_message& msg) {
+std::string serialize(const framebuffer_update_msg& msg) {
   // calculate the size of the needed vector for serialization
   size_t vector_size = 4;
   for (const auto& rect : msg.rectangles) {
@@ -152,13 +160,13 @@ enum class VncState {
   UNSTARTED,
   AWAITING_CLIENT_VERSION,
   AWAITING_CLIENT_AUTH_METHOD,
-  AWAITING_CLIENT_INIT_MESSAGE,
+  AWAITING_CLIENT_INIT_msg,
   MAIN_LOOP
 };
 
 class connection_metadata {
  public:
-  connection_metadata(void) : vnc_state(VncState::AWAITING_CLIENT_VERSION){};
+  connection_metadata(void) : vnc_state(VncState::UNSTARTED){};
 
   VncState vnc_state;
 };
@@ -172,8 +180,13 @@ void request_routes(BmcAppType& app) {
   CROW_ROUTE(app, "/kvmws")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {
-        meta.vnc_state = VncState::AWAITING_CLIENT_VERSION;
-        conn.send_binary(rfb_3_8_version_string);
+        if (meta.vnc_state == VncState::UNSTARTED) {
+          meta.vnc_state = VncState::AWAITING_CLIENT_VERSION;
+          conn.send_binary(rfb_3_8_version_string);
+        } else {
+          conn.close();
+        }
+
       })
       .onclose(
           [&](crow::websocket::connection& conn, const std::string& reason) {
@@ -203,7 +216,7 @@ void request_routes(BmcAppType& app) {
           case VncState::AWAITING_CLIENT_AUTH_METHOD: {
             std::string security_result{{0, 0, 0, 0}};
             if (data[0] == (uint8_t)RfbAuthScheme::no_authentication) {
-              meta.vnc_state = VncState::AWAITING_CLIENT_INIT_MESSAGE;
+              meta.vnc_state = VncState::AWAITING_CLIENT_INIT_msg;
             } else {
               // Mark auth as failed
               security_result[3] = 1;
@@ -211,9 +224,9 @@ void request_routes(BmcAppType& app) {
             }
             conn.send_binary(security_result);
           } break;
-          case VncState::AWAITING_CLIENT_INIT_MESSAGE: {
+          case VncState::AWAITING_CLIENT_INIT_msg: {
             // Now send the server initialization
-            server_initialization_message server_init_msg;
+            server_initialization_msg server_init_msg;
             server_init_msg.framebuffer_width = 640;
             server_init_msg.framebuffer_height = 480;
             server_init_msg.pixel_format.bits_per_pixel = 32;
@@ -237,30 +250,28 @@ void request_routes(BmcAppType& app) {
             meta.vnc_state = VncState::MAIN_LOOP;
           } break;
           case VncState::MAIN_LOOP: {
-            if (data.size() >= sizeof(client_to_server_message_type)) {
-              auto type = static_cast<client_to_server_message_type>(data[0]);
-              LOG(DEBUG) << "Got type " << (uint32_t)type << "\n";
+            if (data.size() >= sizeof(client_to_server_msg_type)) {
+              auto type = static_cast<client_to_server_msg_type>(data[0]);
+              LOG(DEBUG) << "Received client message type " << (uint32_t)type
+                         << "\n";
               switch (type) {
-                case client_to_server_message_type::set_pixel_format: {
+                case client_to_server_msg_type::set_pixel_format: {
                 } break;
 
-                case client_to_server_message_type::fix_color_map_entries: {
+                case client_to_server_msg_type::fix_color_map_entries: {
                 } break;
-                case client_to_server_message_type::set_encodings: {
+                case client_to_server_msg_type::set_encodings: {
                 } break;
-                case client_to_server_message_type::
-                    framebuffer_update_request: {
+                case client_to_server_msg_type::framebuffer_update_request: {
                   // Make sure the buffer is long enough to handle what we're
                   // about to do
-                  if (data.size() >=
-                      sizeof(frame_buffer_update_request_message) +
-                          sizeof(client_to_server_message_type)) {
-                    auto msg = reinterpret_cast<
-                        const frame_buffer_update_request_message*>(
-                        data.data() + sizeof(client_to_server_message_type));
+                  if (data.size() >= sizeof(frame_buffer_update_req) +
+                                         sizeof(client_to_server_msg_type)) {
+                    auto msg = reinterpret_cast<const frame_buffer_update_req*>(
+                        data.data() + sizeof(client_to_server_msg_type));
 
                     if (!msg->incremental) {
-                      framebuffer_update_message buffer_update_message;
+                      framebuffer_update_msg buffer_update_msg;
 
                       // If the viewer is requesting a full update, force write
                       // of all pixels
@@ -291,9 +302,9 @@ void request_routes(BmcAppType& app) {
                         }
                       }
 
-                      buffer_update_message.rectangles.push_back(
+                      buffer_update_msg.rectangles.push_back(
                           std::move(this_rect));
-                      auto serialized = serialize(buffer_update_message);
+                      auto serialized = serialize(buffer_update_msg);
 
                       conn.send_binary(serialized);
                     }
@@ -303,13 +314,13 @@ void request_routes(BmcAppType& app) {
 
                 break;
 
-                case client_to_server_message_type::key_event: {
+                case client_to_server_msg_type::key_event: {
                 } break;
 
-                case client_to_server_message_type::pointer_event: {
+                case client_to_server_msg_type::pointer_event: {
                 } break;
 
-                case client_to_server_message_type::client_cut_text: {
+                case client_to_server_msg_type::client_cut_text: {
                 } break;
 
                 default:

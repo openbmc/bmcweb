@@ -30,8 +30,14 @@ ROUTE_DECLARATION = """
 void crow::webassets::request_routes(BmcAppType& app){
 """
 
-CPP_MIDDLE_CACHING_HANDLER = """
-        res.add_header("Cache-Control", "public, max-age=31556926");
+CACHE_FOREVER_HEADER = """
+    res.add_header("Cache-Control", "public, max-age=31556926");
+"""
+
+CPP_MIDDLE_BUFFER = """
+    CROW_ROUTE(app, "{relative_path_sha1}")([](const crow::request& req, crow::response& res) {{
+        {CACHE_FOREVER_HEADER}
+
         res.add_header("ETag", "{sha1}");
         if (req.headers.count("If-None-Match") == 1) {{
             if (req.get_header_value("If-None-Match") == "{sha1}"){{
@@ -40,12 +46,7 @@ CPP_MIDDLE_CACHING_HANDLER = """
                 return;
             }}
         }}
-"""
 
-
-CPP_MIDDLE_BUFFER = """
-    CROW_ROUTE(app, "{relative_path_sha1}")([](const crow::request& req, crow::response& res) {{
-        {CPP_MIDDLE_CACHING_HANDLER}
         res.code = 200;
         // TODO, if you have a browser from the dark ages that doesn't support gzip,
         // unzip it before sending based on Accept-Encoding header
@@ -75,11 +76,12 @@ CPP_END_BUFFER2 = """const static std::string {relative_path_escaped}{{{file_byt
 def get_relative_path(full_filepath):
     pathsplit = full_filepath.split(os.path.sep)
     relative_path = os.path.sep.join(pathsplit[pathsplit.index("static") + 1:])
+
     relative_path_escaped = relative_path
     for character in ['/', '.', '-']:
         relative_path_escaped = relative_path_escaped.replace(character, "_")
 
-    relative_path = "/static/" + relative_path
+    relative_path = "static/" + relative_path
 
     return relative_path, relative_path_escaped
 
@@ -93,12 +95,60 @@ def get_sha1_path_from_relative(relative_path, sha1):
 def filter_html(sha1_list, file_content):
     string_content = file_content.decode()
     for key, value in sha1_list.items():
-        key = key.lstrip("/")
         replace_name = get_sha1_path_from_relative(key, value)
-        key = re.escape(key)
-        string_content = re.sub("((src|href)=[\"'])(" + key + ")([\"'])", "\\1" + replace_name + "\\4", string_content)
+        string_content_new = re.sub("((src|href)=[\"'])(" + re.escape(key) + ")([\"'])", "\\1" + replace_name + "\\4", string_content)
+        if string_content_new != string_content:
+            print("    Replaced {}".format(key))
+            print("    With {}".format(replace_name))
+            string_content = string_content_new
+
     return string_content.encode()
 
+def filter_js(sha1_list, file_content):
+
+    string_content = file_content.decode()
+    for key, value in sha1_list.items():
+        replace_name = get_sha1_path_from_relative(key, value)
+
+        string_content_new = re.sub(key, replace_name, string_content)
+        if string_content_new != string_content:
+            print("    Replaced {}".format(key))
+            print("    With {}".format(replace_name))
+            string_content = string_content_new
+    return string_content.encode()
+
+def compute_sha1_and_update_dict(sha1_list, file_content, relative_path):
+    sha = hashlib.sha1()
+    sha.update(file_content)
+    sha_bytes = sha.digest()
+
+    sha_text = "".join("{:02x}".format(x) for x in sha_bytes)
+    sha1_list[relative_path] = sha_text
+
+FILE_PRECIDENCE = ['.woff', '.png' ,'.css', '.js', '.html']
+def sort_order(full_filepath):
+    # sort list based on users
+    path, ext = os.path.splitext(full_filepath)
+    if ext in FILE_PRECIDENCE:
+        return FILE_PRECIDENCE.index(ext) + 1
+    else:
+        return 0
+
+
+def get_dependencies(dependency_list, full_filepath):
+    r = []
+    my_dependencies = dependency_list[full_filepath]
+    r.extend(my_dependencies)
+    sub_deps = []
+    for dependency in my_dependencies:
+        sub_deps += get_dependencies(dependency_list, dependency)
+    r.extend(sub_deps)
+    return r
+
+def remove_duplicates_preserve_order(seq):
+    seen = set()
+    seen_add = seen.add
+    return [x for x in seq if not (x in seen or seen_add(x))]
 
 def main():
     """ Main Function """
@@ -114,25 +164,44 @@ def main():
     file_list = [os.path.realpath(f) for f in file_list]
 
     sha1_list = {}
-    if not args.debug:
-        # TODO(ed) most html and woff cacheable
-        excluded_types = [".html", ".woff"]
-        # sha1 hash everthing
-        for full_filepath in file_list:
-            if os.path.splitext(full_filepath)[1] not in excluded_types:
-                with open(full_filepath, 'rb') as input_file:
-                    file_content = input_file.read()
-                sha = hashlib.sha1()
-                sha.update(file_content)
 
-                sha_text = "".join("{:02x}".format(x) for x in sha.digest())
-                relative_path, relative_path_escaped = get_relative_path(full_filepath)
-                sha1_list[relative_path] = sha_text
+    file_list.sort(key=sort_order)
+    from collections import defaultdict
+    depends_on = {}
+
+    for full_filepath in file_list:
+        relative_path, relative_path_escaped = get_relative_path(full_filepath)
+        text_file_types = ['.css', '.js', '.html']
+        ext = os.path.splitext(relative_path)[1]
+        depends_on[full_filepath] = []
+        if ext in text_file_types:
+            with open(full_filepath, 'r') as input_file:
+                file_content = input_file.read()
+            for full_replacename in file_list:
+                relative_replacename, _ = get_relative_path(full_replacename)
+                if ext == ".html":
+                    match = re.search("((src|href)=[\"'])(" + relative_replacename + ")([\"'])", file_content)
+                    if match:
+                        depends_on[full_filepath].append(full_replacename)
+
+                elif ext == ".js":
+                    match = re.search("([\"'])(" + relative_replacename + ")([\"'])", file_content)
+                    if match:
+                        depends_on[full_filepath].append(full_replacename)
+
+    dependency_ordered_file_list = []
+    for full_filepath in file_list:
+        relative_path, relative_path_escaped = get_relative_path(full_filepath)
+        deps = get_dependencies(depends_on, full_filepath)
+        dependency_ordered_file_list.extend(deps)
+        dependency_ordered_file_list.append(full_filepath)
+
+    dependency_ordered_file_list = remove_duplicates_preserve_order(dependency_ordered_file_list)
 
     with open(args.output, 'w') as cpp_output:
         cpp_output.write(CPP_BEGIN_BUFFER)
 
-        for full_filepath in file_list:
+        for full_filepath in dependency_ordered_file_list:
             # make sure none of the files are hidden
             with open(full_filepath, 'rb') as input_file:
                 file_content = input_file.read()
@@ -141,14 +210,20 @@ def main():
             print("Including {:<40} size {:>7}".format(relative_path, len(file_content)))
 
             if relative_path.endswith(".html") or relative_path == "/":
-                print("Fixing {}".format(relative_path))
-                file_content = filter_html(sha1_list, file_content)
+                new_file_content = filter_html(sha1_list, file_content)
+            elif relative_path.endswith(".js"):
+                new_file_content = filter_js(sha1_list, file_content)
+            else:
+                new_file_content = file_content
+
+            file_content = new_file_content
 
             if not args.debug:
                 file_content = gzip.compress(file_content)
                 #file_content = file_content[:10]
                 # compute the 2s complement.  If you don't, you get narrowing warnings from gcc/clang
-            
+
+            compute_sha1_and_update_dict(sha1_list, file_content, relative_path)
             array_binary_text = ', '.join(str(twos_comp(x, 8)) for x in file_content)
 
             cpp_output.write(
@@ -161,8 +236,7 @@ def main():
 
         cpp_output.write(ROUTE_DECLARATION)
 
-
-        for full_filepath in file_list:
+        for full_filepath in dependency_ordered_file_list:
             relative_path, relative_path_escaped = get_relative_path(full_filepath)
             sha1 = sha1_list.get(relative_path, '')
 
@@ -171,10 +245,15 @@ def main():
                 print("unknown content type for {}".format(relative_path))
 
             # handle the default routes
-            if relative_path == "/static/index.html":
+            if relative_path == "static/index.html":
                 relative_path = "/"
-
-            relative_path_sha1 = get_sha1_path_from_relative(relative_path, sha1)
+                relative_path_sha1 = "/"
+            # TODO(ed), handle woff files better.  They are referenced in CSS, which at this
+            # point isn't scrubbed with a find and replace algorithm
+            elif relative_path.endswith(".woff"):
+                relative_path_sha1 = relative_path
+            else:
+                relative_path_sha1 = "/" + get_sha1_path_from_relative(relative_path, sha1)
 
             content_encoding = 'none' if args.debug else 'gzip'
 
@@ -185,15 +264,14 @@ def main():
                 'sha1': sha1,
                 'sha1_short': sha1[:20],
                 'content_type': content_type,
-                'ENABLE_CACHING': str(ENABLE_CACHING).lower(),
-                'content_encoding': ''
+                'content_encoding': content_encoding
             }
-            if ENABLE_CACHING and sha1 != "":
-                environment["CPP_MIDDLE_CACHING_HANDLER"] = CPP_MIDDLE_CACHING_HANDLER.format(
-                    **environment
-                )
-            else:
-                environment["CPP_MIDDLE_CACHING_HANDLER"] = ""
+            environment["CACHE_FOREVER_HEADER"] = ""
+            if ENABLE_CACHING:
+                # if we have a valid sha1, and we have a unique path to the resource
+                # it can be safely cached forever
+                if sha1 != "" and relative_path != relative_path_sha1:
+                    environment["CACHE_FOREVER_HEADER"] = CACHE_FOREVER_HEADER      
 
             content = CPP_MIDDLE_BUFFER.format(
                 **environment

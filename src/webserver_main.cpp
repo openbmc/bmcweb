@@ -1,3 +1,9 @@
+#include <webassets.hpp>
+#include <web_kvm.hpp>
+#include "ssl_key_handler.hpp"
+
+#include "app_type.hpp"
+
 #include "crow/app.h"
 #include "crow/ci_map.h"
 #include "crow/common.h"
@@ -20,25 +26,20 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
-#include "app_type.hpp"
 
 #include "color_cout_g3_sink.hpp"
 #include "token_authorization_middleware.hpp"
 #include "webassets.hpp"
 
+
+#include <boost/asio.hpp>
+#include <boost/endian/arithmetic.hpp>
+
+
 #include <iostream>
 #include <memory>
 #include <string>
-#include "ssl_key_handler.hpp"
-
-#include <boost/endian/arithmetic.hpp>
-
-#include <boost/asio.hpp>
-
 #include <unordered_set>
-#include <webassets.hpp>
-
-#include <web_kvm.hpp>
 
 int main(int argc, char** argv) {
   auto worker(g3::LogWorker::createLogWorker());
@@ -53,6 +54,7 @@ int main(int argc, char** argv) {
   ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
 
   BmcAppType app;
+
   crow::webassets::request_routes(app);
   crow::kvm::request_routes(app);
 
@@ -68,16 +70,19 @@ int main(int argc, char** argv) {
 
   CROW_ROUTE(app, "/login")
       .methods("POST"_method)([&](const crow::request& req) {
+        crow::json::wvalue x;
         auto auth_token =
             app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token;
-        crow::json::wvalue x;
+        
         x["token"] = auth_token;
 
         return x;
       });
 
   CROW_ROUTE(app, "/logout")
-      .methods("GET"_method, "POST"_method)([]() {
+      .methods("GET"_method, "POST"_method)([&](const crow::request& req) {
+
+        app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token = "";
         // Do nothing.  Credentials have already been cleared by middleware.
         return 200;
       });

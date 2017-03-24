@@ -10,7 +10,6 @@ var app = angular.module('bmcApp', [
   'ngResource'
 ]);
 
-
 app.controller('MainCtrl', ['$scope', function($scope) {
 
 }]);
@@ -71,8 +70,8 @@ app.directive('windowSize', ['$window', function ($window) {
   }
 }]);
 
-app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationService',
-  function($rootScope, $cookieStore, $state, $resource, AuthenticationService) {
+app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationService', '$http', '$templateCache',
+  function($rootScope, $cookieStore, $state, $resource, AuthenticationService, $http, $templateCache) {
     if ($rootScope.globals == undefined){
         $rootScope.globals = {};
     }
@@ -91,6 +90,8 @@ app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationSer
             $state.go('login');
           }
         });
+  
+    $http.get('static/partial-kvm.html', { cache: $templateCache });
   }
 ]);
 
