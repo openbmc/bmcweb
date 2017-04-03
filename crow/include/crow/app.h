@@ -37,6 +37,7 @@ class Crow {
   using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
 #endif
   Crow() {}
+  ~Crow() { this->stop(); }
 
   template <typename Adaptor>
   void handle_upgrade(const request& req, response& res, Adaptor&& adaptor) {
@@ -98,11 +99,15 @@ class Crow {
   void stop() {
 #ifdef CROW_ENABLE_SSL
     if (use_ssl_) {
-      ssl_server_->stop();
+      if (ssl_server_ != nullptr) {
+        ssl_server_->stop();
+      }
     } else
 #endif
     {
-      server_->stop();
+      if (server_ != nullptr) {
+        server_->stop();
+      }
     }
   }
 

@@ -24,6 +24,11 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
     res.end();
   };
 
+  auto return_bad_request = [&req, &res]() {
+    res.code = 400;
+    res.end();
+  };
+
   LOG(DEBUG) << "Token Auth Got route " << req.url;
 
   if (req.url == "/" || boost::starts_with(req.url, "/static/")) {
@@ -43,7 +48,11 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
     } else {
       auto login_credentials = crow::json::load(req.body);
       if (!login_credentials) {
-        return_unauthorized();
+        return_bad_request();
+        return;
+      }
+      if (!login_credentials.has("username") || !login_credentials.has("password")){
+        return_bad_request();
         return;
       }
       auto username = login_credentials["username"].s();
