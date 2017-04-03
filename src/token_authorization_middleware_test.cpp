@@ -61,7 +61,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin)
 
     asio::io_service is;
     static char buf[2048];
-    ASSERT_NO_THROW(
+    //ASSERT_NO_THROW(
     // Other resources should not be passed
     std::string sendmsg = "GET /foo\r\n\r\n";
     asio::ip::tcp::socket c(is);
