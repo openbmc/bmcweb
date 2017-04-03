@@ -33,8 +33,6 @@ function($scope, $location, $window) {
         return; // don't continue trying to connect
     };
 
-    
-
     $scope.$on("$destroy", function() {
         if (rfb) {
             rfb.disconnect();
@@ -63,6 +61,14 @@ function($scope, $location, $window) {
     };
 
     function status(text, level) {
+        var status_bar = angular.element(document.querySelector('#noVNC_status_bar'))[0];
+        // Need to check if the status bar still exists.  On page change, it gets destroyed
+        // when we swap to a different view.  The system will disconnect async
+        if (status_bar){
+            status_bar.textContent = text;
+        }
+
+        var status = angular.element(document.querySelector('#noVNC_status'))[0];
         switch (level) {
             case 'normal':
             case 'warn':
@@ -71,8 +77,9 @@ function($scope, $location, $window) {
             default:
                 level = "warn";
         }
-        angular.element(document.querySelector('#noVNC_status'))[0].textContent = text;
-        angular.element(document.querySelector('#noVNC_status_bar'))[0].setAttribute("class", "noVNC_status_" + level);
+        if (status){
+            status.setAttribute("class", "noVNC_status_" + level);
+        }
     };
 
     function updateState(rfb, state, oldstate) {

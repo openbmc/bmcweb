@@ -17,10 +17,13 @@ struct TokenAuthorizationMiddleware {
     std::string auth_token;
   };
 
-  std::string auth_token2;
+  TokenAuthorizationMiddleware();
 
   void before_handle(crow::request& req, response& res, context& ctx);
 
   void after_handle(request& req, response& res, context& ctx);
+
+  private:
+    std::string auth_token2;
 };
 }

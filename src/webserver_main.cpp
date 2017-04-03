@@ -2,7 +2,7 @@
 #include <web_kvm.hpp>
 #include "ssl_key_handler.hpp"
 
-#include "app_type.hpp"
+#include <crow/bmc_app_type.hpp>
 
 #include "crow/app.h"
 #include "crow/ci_map.h"
@@ -28,7 +28,6 @@
 
 
 #include "color_cout_g3_sink.hpp"
-#include "token_authorization_middleware.hpp"
 #include "webassets.hpp"
 
 
@@ -59,33 +58,6 @@ int main(int argc, char** argv) {
   crow::kvm::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
-
-  CROW_ROUTE(app, "/routes")
-  ([&app]() {
-    crow::json::wvalue routes;
-
-    routes["routes"] = app.get_rules();
-    return routes;
-  });
-
-  CROW_ROUTE(app, "/login")
-      .methods("POST"_method)([&](const crow::request& req) {
-        crow::json::wvalue x;
-        auto auth_token =
-            app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token;
-        
-        x["token"] = auth_token;
-
-        return x;
-      });
-
-  CROW_ROUTE(app, "/logout")
-      .methods("GET"_method, "POST"_method)([&](const crow::request& req) {
-
-        app.get_context<crow::TokenAuthorizationMiddleware>(req).auth_token = "";
-        // Do nothing.  Credentials have already been cleared by middleware.
-        return 200;
-      });
 
   CROW_ROUTE(app, "/systeminfo")
   ([]() {
@@ -140,7 +112,7 @@ int main(int argc, char** argv) {
         size_t len =
             socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
         // TODO(ed) THis is ugly.  Find a way to not make a copy (ie, use
-        // std::string::data())
+        // std::string::data() to 
         std::string str(std::begin(recv_buf), std::end(recv_buf));
         LOG(DEBUG) << "Got " << str << "back \n";
         conn.send_binary(str);

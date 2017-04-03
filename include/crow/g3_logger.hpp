@@ -34,30 +34,25 @@ enum class LogLevel {
 
 class logger {
  public:
-  logger(std::string prefix, LogLevel level) : level_(level) {
+  logger(std::string prefix, LogLevel level) {
     // no op, let g3 handle th log levels
   }
 
   //
   template <typename T>
   logger& operator<<(T const& value) {
-#ifdef CROW_ENABLE_LOGGING
-    if (level_ >= get_current_log_level()) {
-      stringstream_ << value;
-    }
-#endif
     return *this;
   }
 
   //
-  static void setLogLevel(LogLevel level) { get_log_level_ref() = level; }
+  static void setLogLevel(LogLevel level) { }
 
   static LogLevel get_current_log_level() { return get_log_level_ref(); }
 
  private:
   //
   static LogLevel& get_log_level_ref() {
-    static LogLevel current_level = (LogLevel)CROW_LOG_LEVEL;
+    static LogLevel current_level = LogLevel::DEBUG;
     return current_level;
   }
 

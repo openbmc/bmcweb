@@ -99,7 +99,7 @@ def filter_html(sha1_list, file_content):
         string_content_new = re.sub("((src|href)=[\"'])(" + re.escape(key) + ")([\"'])", "\\1" + replace_name + "\\4", string_content)
         if string_content_new != string_content:
             print("    Replaced {}".format(key))
-            print("    With {}".format(replace_name))
+            print("        With {}".format(replace_name))
             string_content = string_content_new
 
     return string_content.encode()
@@ -184,8 +184,8 @@ def main():
                     if match:
                         depends_on[full_filepath].append(full_replacename)
 
-                elif ext == ".js":
-                    match = re.search("([\"'])(" + relative_replacename + ")([\"'])", file_content)
+                elif ext == ".js" or ext == ".css":
+                    match = re.search("([\"'](\.\./)*)(" + relative_replacename + ")([\"'\?])", file_content)
                     if match:
                         depends_on[full_filepath].append(full_replacename)
 
@@ -206,12 +206,13 @@ def main():
             with open(full_filepath, 'rb') as input_file:
                 file_content = input_file.read()
             relative_path, relative_path_escaped = get_relative_path(full_filepath)
+            extension = os.path.splitext(relative_path)[1]
 
             print("Including {:<40} size {:>7}".format(relative_path, len(file_content)))
 
-            if relative_path.endswith(".html") or relative_path == "/":
+            if extension == ".html" or relative_path == "/":
                 new_file_content = filter_html(sha1_list, file_content)
-            elif relative_path.endswith(".js"):
+            elif extension == ".js" or extension == ".css":
                 new_file_content = filter_js(sha1_list, file_content)
             else:
                 new_file_content = file_content
@@ -248,10 +249,6 @@ def main():
             if relative_path == "static/index.html":
                 relative_path = "/"
                 relative_path_sha1 = "/"
-            # TODO(ed), handle woff files better.  They are referenced in CSS, which at this
-            # point isn't scrubbed with a find and replace algorithm
-            elif relative_path.endswith(".woff"):
-                relative_path_sha1 = relative_path
             else:
                 relative_path_sha1 = "/" + get_sha1_path_from_relative(relative_path, sha1)
 
@@ -271,7 +268,7 @@ def main():
                 # if we have a valid sha1, and we have a unique path to the resource
                 # it can be safely cached forever
                 if sha1 != "" and relative_path != relative_path_sha1:
-                    environment["CACHE_FOREVER_HEADER"] = CACHE_FOREVER_HEADER      
+                    environment["CACHE_FOREVER_HEADER"] = CACHE_FOREVER_HEADER
 
             content = CPP_MIDDLE_BUFFER.format(
                 **environment

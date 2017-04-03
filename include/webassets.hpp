@@ -7,7 +7,7 @@
 #include <crow/http_response.h>
 
 #include <crow/routing.h>
-#include <app_type.hpp>
+#include <crow/bmc_app_type.hpp>
 
 
 namespace crow {

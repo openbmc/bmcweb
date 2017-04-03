@@ -45,12 +45,16 @@ endif()
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
 option(BUILD_UT "Enable Unit test" OFF)
 
+# This needs to be before the crow and other module includes so headers get overriden correctly
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
 # security flags
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fstack-protector-strong -fPIE -fPIC -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security" )
 #SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
 
 # Boost
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+#add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost COMPONENTS system thread)
@@ -60,15 +64,9 @@ find_package(Boost REQUIRED system thread REQUIRED)
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
-# Crow
-add_definitions(-DCROW_ENABLE_SSL)
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
-#add_subdirectory(crow)
+
 
 #g3 logging
-#option(ADD_FATAL_EXAMPLE "Disable g3 examples" OFF)
-#add_subdirectory(g3log)
-#include_directories(g3log/src)
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
 
 set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log/src)
@@ -84,14 +82,18 @@ ENDIF (MSVC OR MINGW)
 
 # Create the g3log library
 include_directories(${LOG_SRC})
-#MESSAGE("  g3logger files: [${SRC_FILES}]")
+
 add_library(g3logger ${SRC_FILES})
 set_target_properties(g3logger PROPERTIES
     LINKER_LANGUAGE CXX
     OUTPUT_NAME g3logger
     CLEAN_DIRECT_OUTPUT 1)
 target_link_libraries(g3logger ${PLATFORM_LINK_LIBRIES})
-SET(G3LOG_LIBRARY g3logger)
+
+
+# Crow
+add_definitions(-DCROW_ENABLE_SSL)
+include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 #Zlib
 #hunter_add_package(ZLIB)
@@ -103,7 +105,7 @@ include_directories(gsl-lite/include)
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 set(HDR_FILES
-    include/crow_g3_logger.hpp
+    include/crow/g3_logger.hpp
     include/ssl_key_handler.hpp
     include/color_cout_g3_sink.hpp
     include/webassets.hpp
@@ -124,11 +126,13 @@ endif()
 
 set(SRC_FILES
     src/token_authorization_middleware.cpp
+    src/security_headers_middleware.cpp
     src/base64.cpp
     ${GENERATED_SRC_FILES}
 )
 
 set(UT_FILES
+    src/crowtest/crow_unittest.cpp
     src/gtest_main.cpp
     src/base64_test.cpp
     src/token_authorization_middleware_test.cpp
@@ -149,7 +153,7 @@ if(${BUILD_UT})
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(unittest GTest::GTest GTest::Main)
-    target_link_libraries(unittest ${BOOST_LIBRARIES} Boost::system Boost::thread)
+    target_link_libraries(unittest Boost::system Boost::thread)
     target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)
@@ -162,7 +166,7 @@ add_subdirectory(static)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb ${BOOST_LIBRARIES} Boost::system Boost::thread)
+target_link_libraries(bmcweb  Boost::system Boost::thread)
 target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
@@ -170,7 +174,6 @@ target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
 
 # bmcweb
-#add_definitions(-DBOOST_ALL_NO_LIB)
 add_executable(udpclient src/udpclient.cpp)
 
 target_link_libraries(udpclient Boost::system)
@@ -178,9 +181,6 @@ target_link_libraries(udpclient ${CMAKE_THREAD_LIBS_INIT})
 
 
 add_executable(getvideo src/getvideo_main.cpp)
-
-
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly
