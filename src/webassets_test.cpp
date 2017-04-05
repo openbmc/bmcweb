@@ -186,7 +186,6 @@ TEST(Webassets, EtagIsSane) {
   while ((pos = response.find("\r\n", prev)) != std::string::npos) {
     auto this_string = response.substr(prev, pos - prev);
     if (this_string == "") {
-      prev = pos + 2;
       break;
     }
 

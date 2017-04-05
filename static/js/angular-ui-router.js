@@ -1003,7 +1003,7 @@ UrlMatcher.prototype.exec = function (path, searchParams) {
     if (isDefined(paramVal)) paramVal = param.type.decode(paramVal);
     values[paramName] = param.value(paramVal);
   }
-  for (/**/; i < nTotal; i++) {
+  for (; i < nTotal; i++) {
     paramName = paramNames[i];
     values[paramName] = this.params[paramName].value(searchParams[paramName]);
     param = this.params[paramName];

@@ -1,8 +1,6 @@
-#include <webassets.hpp>
 #include <web_kvm.hpp>
+#include <webassets.hpp>
 #include "ssl_key_handler.hpp"
-
-#include <crow/bmc_app_type.hpp>
 
 #include "crow/app.h"
 #include "crow/ci_map.h"
@@ -26,14 +24,14 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
-
 #include "color_cout_g3_sink.hpp"
 #include "webassets.hpp"
 
+#include "security_headers_middleware.hpp"
+#include "token_authorization_middleware.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/endian/arithmetic.hpp>
-
 
 #include <iostream>
 #include <memory>
@@ -52,13 +50,13 @@ int main(int argc, char** argv) {
   std::string ssl_pem_file("server.pem");
   ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
 
-  BmcAppType app;
+  crow::App<crow::TokenAuthorizationMiddleware, crow::SecurityHeadersMiddleware>
+      app;
 
   crow::webassets::request_routes(app);
   crow::kvm::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
-  app.debug_print();
   CROW_ROUTE(app, "/systeminfo")
   ([]() {
 
@@ -112,7 +110,7 @@ int main(int argc, char** argv) {
         size_t len =
             socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
         // TODO(ed) THis is ugly.  Find a way to not make a copy (ie, use
-        // std::string::data() to 
+        // std::string::data() to
         std::string str(std::begin(recv_buf), std::end(recv_buf));
         LOG(DEBUG) << "Got " << str << "back \n";
         conn.send_binary(str);

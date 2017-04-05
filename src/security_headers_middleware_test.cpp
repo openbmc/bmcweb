@@ -40,13 +40,13 @@ TEST(SecurityHeaders, TestHeadersExist) {
   c.connect(asio::ip::tcp::endpoint(asio::ip::address::from_string("127.0.0.1"),
                                     45451));
   c.send(asio::buffer(sendmsg));
-  auto received_count = c.receive(asio::buffer(buf));
+  c.receive(asio::buffer(buf));
   c.close();
   auto return_code = std::string(&buf[9], &buf[12]);
   EXPECT_EQ("200", return_code);
   std::string response(std::begin(buf), std::end(buf));
 
-  // This is a routine to split strings until a newline is hit
+  // This is a routine to split strings until a blank is hit
   // TODO(ed) this should really use the HTTP parser
   std::vector<std::string> headers;
   std::string::size_type pos = 0;

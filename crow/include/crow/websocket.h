@@ -113,7 +113,7 @@ class Connection : public connection {
   }
 
  protected:
-  std::string build_header(int opcode, size_t size) {
+  std::string build_header(int opcode, uint64_t size) {
     char buf[2 + 8] = "\x80\x00";
     buf[0] += opcode;
     if (size < 126) {
@@ -138,7 +138,7 @@ class Connection : public connection {
         "HTTP/1.1 101 Switching Protocols\r\n"
         "Upgrade: websocket\r\n"
         "Connection: Upgrade\r\n"
-        "Sec-WebSocket-Protocol: binary\n"  // TODO(ed): this hardcodes binary.
+        "Sec-WebSocket-Protocol: binary\n"  // TODO(ed): this hardcodes binary mode
                                             // find a better way
         "Sec-WebSocket-Accept: ";
     static std::string crlf = "\r\n";

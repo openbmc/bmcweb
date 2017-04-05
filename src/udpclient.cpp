@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
     udp::endpoint sender_endpoint;
     size_t len =
         socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
-
+    std::cout << len;
     for (auto character : recv_buf) {
       std::cout << std::hex << static_cast<unsigned>(character) << " ";
     }

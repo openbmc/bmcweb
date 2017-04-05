@@ -1,7 +1,6 @@
+#include <crow/app.h>
 #include <boost/endian/arithmetic.hpp>
 #include <string>
-
-#include <crow/bmc_app_type.hpp>
 
 #include <video.h>
 
@@ -176,7 +175,8 @@ meta_list connection_states(10);
 
 connection_metadata meta;
 
-void request_routes(BmcAppType& app) {
+template <typename... Middlewares>
+void request_routes(Crow<Middlewares...>& app) {
   CROW_ROUTE(app, "/kvmws")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {

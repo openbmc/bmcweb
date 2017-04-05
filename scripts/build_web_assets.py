@@ -215,7 +215,6 @@ def main():
                          "#include <crow/http_response.h>\n"
                          "\n"
                          "#include <crow/routing.h>\n"
-                         "#include <crow/bmc_app_type.hpp>\n"
                          "\n"
                          "namespace crow {\n"
                          "namespace webassets {\n"

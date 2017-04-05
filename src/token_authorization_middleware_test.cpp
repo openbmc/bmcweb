@@ -24,7 +24,7 @@ TEST(TokenAuthentication, TestBasicReject) {
     c.connect(asio::ip::tcp::endpoint(
         asio::ip::address::from_string("127.0.0.1"), 45451));
     c.send(asio::buffer(sendmsg));
-    auto received_count = c.receive(asio::buffer(buf, 2048));
+    c.receive(asio::buffer(buf, 2048));
     c.close();
     EXPECT_EQ("200", std::string(buf + 9, buf + 12));
   }
@@ -66,7 +66,7 @@ TEST(TokenAuthentication, TestRejectedResource) {
     }
   }
   c.send(asio::buffer(sendmsg));
-  auto received_count = c.receive(asio::buffer(buf, 2048));
+  c.receive(asio::buffer(buf, 2048));
   c.close();
   EXPECT_EQ("401", std::string(buf + 9, buf + 12));
 
@@ -95,7 +95,7 @@ TEST(TokenAuthentication, TestGetLoginUrl) {
     }
   }
   c.send(asio::buffer(sendmsg));
-  auto received_count = c.receive(asio::buffer(buf, 2048));
+  c.receive(asio::buffer(buf, 2048));
   c.close();
   EXPECT_EQ("401", std::string(buf + 9, buf + 12));
 
@@ -118,7 +118,7 @@ TEST(TokenAuthentication, TestPostBadLoginUrl) {
     c.connect(asio::ip::tcp::endpoint(
         asio::ip::address::from_string("127.0.0.1"), 45451));
     c.send(asio::buffer(sendmsg));
-    auto received_count = c.receive(asio::buffer(buf));
+    c.receive(asio::buffer(buf));
     c.close();
   };
 
@@ -193,7 +193,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin) {
     c.connect(asio::ip::tcp::endpoint(
         asio::ip::address::from_string("127.0.0.1"), 45451));
     c.send(asio::buffer(sendmsg));
-    auto received_count = c.receive(asio::buffer(buf));
+    c.receive(asio::buffer(buf));
     c.close();
   };
 

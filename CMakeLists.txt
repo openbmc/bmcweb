@@ -58,8 +58,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 #add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost COMPONENTS system thread iostreams)
-find_package(Boost REQUIRED system thread iostreams REQUIRED)
+hunter_add_package(Boost COMPONENTS system thread)
+find_package(Boost REQUIRED system thread REQUIRED)
 
 #Openssl
 hunter_add_package(OpenSSL)
@@ -69,7 +69,6 @@ find_package(OpenSSL REQUIRED)
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
-
 set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log/src)
 
 file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
@@ -85,6 +84,12 @@ ENDIF (MSVC OR MINGW)
 include_directories(${LOG_SRC})
 
 add_library(g3logger ${SRC_FILES})
+if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+    set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+    set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+    set_source_files_properties(g3log/src/logworker.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+endif()
+
 set_target_properties(g3logger PROPERTIES
     LINKER_LANGUAGE CXX
     OUTPUT_NAME g3logger
@@ -97,8 +102,8 @@ add_definitions(-DCROW_ENABLE_SSL)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 #Zlib
-#hunter_add_package(ZLIB)
-#find_package(ZLIB REQUIRED)
+hunter_add_package(ZLIB)
+find_package(ZLIB REQUIRED)
 
 # C++ GSL (Guideline support libraries)
 include_directories(gsl-lite/include)
@@ -135,6 +140,20 @@ set(SRC_FILES
 )
 
 set(UT_FILES
+    g3log/test_unit/test_cpp_future_concepts.cpp   
+    g3log/test_unit/tester_sharedlib.cpp  
+    # TODO(ed) figure out why this unit test has a main function in it
+    #g3log/test_unit/test_filechange.cpp  
+    g3log/test_unit/testing_helpers.h  
+    #TODO(ed)
+    #g3log/test_unit/test_linux_dynamic_loaded_sharedlib.cpp  
+    #g3log/test_unit/test_sink.cpp
+    g3log/test_unit/test_concept_sink.cpp  
+    g3log/test_unit/test_crashhandler_windows.cpp  
+    g3log/test_unit/tester_sharedlib.h    
+    g3log/test_unit/testing_helpers.cpp  
+    g3log/test_unit/test_io.cpp        
+    g3log/test_unit/test_message.cpp
     src/crowtest/crow_unittest.cpp
     src/gtest_main.cpp
     src/base64_test.cpp
@@ -142,6 +161,7 @@ set(UT_FILES
     src/security_headers_middleware_test.cpp
     src/webassets_test.cpp
     src/crow_getroutes_test.cpp
+
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 
@@ -160,11 +180,11 @@ if(${BUILD_UT})
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(unittest ${GMOCK_BOTH_LIBRARIES})
-    target_link_libraries(unittest Boost::system Boost::thread Boost::iostreams) 
+    target_link_libraries(unittest Boost::system Boost::thread) 
     target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)
-    #target_link_libraries(unittest zlib)
+    target_link_libraries(unittest ${ZLIB_LIBRARIES})
     add_dependencies(unittest packagestaticcpp)
 endif(${BUILD_UT})
 

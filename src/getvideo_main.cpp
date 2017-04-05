@@ -39,14 +39,14 @@ class VideoPuller {
     std::cout << "Writing\n";
     
     int status;
-    /*
+    
     status = write(video_fd, reinterpret_cast<char*>(&image_info),
                         sizeof(image_info));
     if (status != 0) {
       std::cout << "Write failed.  Return: " << status <<"\n";
       perror("perror output:");
     }
-    */
+    
     std::cout << "Write done\n";
     //std::this_thread::sleep_for(std::chrono::milliseconds(2000));
     
@@ -64,8 +64,9 @@ class VideoPuller {
       std::cout << std::hex << std::setfill('0') << std::setw(2)
                 << int(*(pt + i)) << " ";
     }
-    std::cout << "\n";
-    /*
+    
+    std::cout << "\nprinting buffer\n";
+    
     for(int i = 0; i < 1024; i++){
         if (i % 16 == 0){
           std::cout << "\n";
@@ -73,7 +74,7 @@ class VideoPuller {
         std::cout << std::hex << std::setfill('0') << std::setw(2)
             << int(buffer[i]) << " ";
     }
-    */
+    
     buffer.resize(image_info.len);
     
     std::ofstream f("/tmp/screen.jpg",std::ios::out | std::ios::binary); 
