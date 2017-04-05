@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'FontAwesome';
   /* WARNING: This line is modified from stock FA, to make cachign work*/
-  src: url('../../static/fonts/fontawesome-webfont.woff?v=4.7.0') format('woff');
+  src: url('../../static/fonts/fontawesome-webfont.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }

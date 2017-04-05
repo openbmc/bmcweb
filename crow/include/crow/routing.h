@@ -940,6 +940,16 @@ class Router {
 
   void debug_print() { trie_.debug_print(); }
 
+  std::vector<std::string> get_routes() {
+      std::vector<std::string> ret;
+      for (auto& rule: rules_){
+          if (rule != nullptr){
+            ret.push_back(rule->rule_);
+          }
+      }
+      return ret;
+   }
+
  private:
   std::vector<std::unique_ptr<BaseRule>> rules_;
   Trie trie_;

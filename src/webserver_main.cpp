@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
   crow::kvm::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
-
+  app.debug_print();
   CROW_ROUTE(app, "/systeminfo")
   ([]() {
 

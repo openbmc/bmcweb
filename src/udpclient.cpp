@@ -59,7 +59,7 @@ int main(int argc, char* argv[]) {
     uint8_t session_id = 0;
 
     uint8_t seq_number2 = 0;
-    uint8_t seq_number_lun = seq_number << 2 + lun;
+    uint8_t seq_number_lun = (seq_number << 2) + lun;
 
     uint8_t seq2 = 0xff;  //????
     uint8_t rmcp_class = 0x07;

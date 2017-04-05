@@ -75,6 +75,7 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
         x["token"] = auth_token;
 
         res.write(json::dump(x));
+        res.add_header("Content-Type", "application/json");
         res.end();
       } else {
         return_unauthorized();

@@ -53,12 +53,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 #SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
 
 # Boost
+#add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 #add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost COMPONENTS system thread)
-find_package(Boost REQUIRED system thread REQUIRED)
+hunter_add_package(Boost COMPONENTS system thread iostreams)
+find_package(Boost REQUIRED system thread iostreams REQUIRED)
 
 #Openssl
 hunter_add_package(OpenSSL)
@@ -108,12 +109,14 @@ set(HDR_FILES
     include/crow/g3_logger.hpp
     include/ssl_key_handler.hpp
     include/color_cout_g3_sink.hpp
-    include/webassets.hpp
 )
 
 set(GENERATED_SRC_FILES 
     ${CMAKE_BINARY_DIR}/generated/webassets.cpp
+    ${CMAKE_BINARY_DIR}/generated/webassets.hpp
 )
+
+include_directories(${CMAKE_BINARY_DIR}/generated)
 
 set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
@@ -136,6 +139,9 @@ set(UT_FILES
     src/gtest_main.cpp
     src/base64_test.cpp
     src/token_authorization_middleware_test.cpp
+    src/security_headers_middleware_test.cpp
+    src/webassets_test.cpp
+    src/crow_getroutes_test.cpp
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 
@@ -150,10 +156,11 @@ if(${BUILD_UT})
     # googletest
     enable_testing()
     find_package(GTest REQUIRED)
+    find_package(GMock REQUIRED)
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
-    target_link_libraries(unittest GTest::GTest GTest::Main)
-    target_link_libraries(unittest Boost::system Boost::thread)
+    target_link_libraries(unittest ${GMOCK_BOTH_LIBRARIES})
+    target_link_libraries(unittest Boost::system Boost::thread Boost::iostreams) 
     target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)

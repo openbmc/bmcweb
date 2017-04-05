@@ -33,6 +33,32 @@ struct SocketAdaptor {
   tcp::socket socket_;
 };
 
+
+struct TestSocketAdaptor {
+  using context = void;
+  TestSocketAdaptor(boost::asio::io_service& io_service, context*)
+      : socket_(io_service) {}
+
+  boost::asio::io_service& get_io_service() { return socket_.get_io_service(); }
+
+  tcp::socket& raw_socket() { return socket_; }
+
+  tcp::socket& socket() { return socket_; }
+
+  tcp::endpoint remote_endpoint() { return socket_.remote_endpoint(); }
+
+  bool is_open() { return socket_.is_open(); }
+
+  void close() { socket_.close(); }
+
+  template <typename F>
+  void start(F f) {
+    f(boost::system::error_code());
+  }
+
+  tcp::socket socket_;
+};
+
 #ifdef CROW_ENABLE_SSL
 struct SSLAdaptor {
   using context = boost::asio::ssl::context;

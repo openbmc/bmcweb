@@ -1,6 +1,7 @@
 #include "token_authorization_middleware.hpp"
 #include <crow/app.h>
 #include "gtest/gtest.h"
+#include "gmock/gmock.h"
 
 using namespace crow;
 using namespace std;
@@ -217,9 +218,29 @@ TEST(TokenAuthentication, TestSuccessfulLogin) {
       "\"password\": \"dude\"}\r\n";
   {
     send_to_localhost(sendmsg);
-    auto return_code = std::string(&buf[9], &buf[12]);
-    EXPECT_EQ("200", return_code);
+    std::string response(std::begin(buf), std::end(buf));
+    // This is a routine to split strings until a newline is hit
+    // TODO(ed) this should really use the HTTP parser
+    std::vector<std::string> headers;
+    std::string::size_type pos = 0;
+    std::string::size_type prev = 0;
+    int content_length = 0;
+    std::string content_encoding("");
+    while ((pos = response.find("\r\n", prev)) != std::string::npos) {
+      auto this_string = response.substr(prev, pos - prev);
+      if (this_string == "") {
+        prev = pos + 2;
+        break;
+      }
+
+      headers.push_back(this_string);
+      prev = pos + 2;
+    }
+    EXPECT_EQ(headers[0], "HTTP/1.1 200 OK");
+    EXPECT_THAT(headers, testing::Contains("Content-Type: application/json"));
+    auto http_content = response.substr(prev);
   }
+
 
 
   // Try to use those login credentials to access a resource

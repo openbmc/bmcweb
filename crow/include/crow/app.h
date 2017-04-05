@@ -21,7 +21,7 @@
 #define CROW_ROUTE(app, url) app.route_dynamic(url)
 #else
 #define CROW_ROUTE(app, url) \
-  app.route<crow::black_magic::get_parameter_tag(url)>(url)
+  app.template route<crow::black_magic::get_parameter_tag(url)>(url)
 #endif
 
 namespace crow {
@@ -114,6 +114,10 @@ class Crow {
   void debug_print() {
     CROW_LOG_DEBUG << "Routing:";
     router_.debug_print();
+  }
+
+  std::vector<std::string> get_routes() {
+    return router_.get_routes();
   }
 
 #ifdef CROW_ENABLE_SSL
