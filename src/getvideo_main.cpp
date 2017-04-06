@@ -64,10 +64,10 @@ class VideoPuller {
       std::cout << std::hex << std::setfill('0') << std::setw(2)
                 << int(*(pt + i)) << " ";
     }
-    
+
     std::cout << "\nprinting buffer\n";
     
-    for(int i = 0; i < 1024; i++){
+    for(int i = 0; i < 512; i++){
         if (i % 16 == 0){
           std::cout << "\n";
         }
