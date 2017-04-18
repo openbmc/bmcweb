@@ -1,13 +1,63 @@
 #pragma once
 
 #include <assert.h>
-#include <video.h>
+//#include <video.h>
 #include <ast_video_types.hpp>
 #include <iostream>
 #include <vector>
 
 namespace AstVideo {
 class VideoPuller {
+  //
+  // Cursor struct is used in User Mode
+  //
+  typedef struct _cursor_attribution_tag {
+    unsigned int posX;
+    unsigned int posY;
+    unsigned int cur_width;
+    unsigned int cur_height;
+    unsigned int cur_type;  // 0:mono 1:color 2:disappear cursor
+    unsigned int cur_change_flag;
+  } AST_CUR_ATTRIBUTION_TAG;
+
+  //
+  // For storing Cursor Information
+  //
+  typedef struct _cursor_tag {
+    AST_CUR_ATTRIBUTION_TAG attr;
+    // unsigned char     icon[MAX_CUR_OFFSETX*MAX_CUR_OFFSETY*2];
+    unsigned char *icon;  //[64*64*2];
+  } AST_CURSOR_TAG;
+
+  //
+  // For select image format, i.e. 422 JPG420, 444 JPG444, lumin/chrom table, 0
+  // ~ 11, low to high
+  //
+  typedef struct _video_features {
+    short jpg_fmt;  // 422:JPG420, 444:JPG444
+    short lumin_tbl;
+    short chrom_tbl;
+    short tolerance_noise;
+    int w;
+    int h;
+    unsigned char *buf;
+  } FEATURES_TAG;
+
+  //
+  // For configure video engine control registers
+  //
+  typedef struct _image_info {
+    short do_image_refresh;  // Action 0:motion 1:fullframe 2:quick cursor
+    char qc_valid;           // quick cursor enable/disable
+    unsigned int len;
+    int crypttype;
+    char cryptkey[16];
+    union {
+      FEATURES_TAG features;
+      AST_CURSOR_TAG cursor_info;
+    } parameter;
+  } IMAGE_INFO;
+
  public:
   VideoPuller() : image_info(){};
 
@@ -26,7 +76,6 @@ class VideoPuller {
     assert(video_fd != 0);
     RawVideoBuffer raw;
 
-    IMAGE_INFO image_info{};
     image_info.do_image_refresh = 1;  // full frame refresh
     image_info.qc_valid = 0;          // quick cursor disabled
     image_info.parameter.features.w = 0;

@@ -4,7 +4,6 @@
 
 #include <ast_jpeg_decoder.hpp>
 #include <ast_video_puller.hpp>
-#include <video.h>
 
 namespace crow {
 namespace kvm {

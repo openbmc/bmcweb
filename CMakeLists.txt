@@ -220,6 +220,7 @@ target_link_libraries(udpclient ${CMAKE_THREAD_LIBS_INIT})
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(getvideo g3logger)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly

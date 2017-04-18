@@ -6,8 +6,11 @@
 #include <cassert>
 #include <cstdint>
 #include <iostream>
+#include <string.h>
 #include <vector>
+#include <g3log/g3log.hpp>
 
+/*
 template <class T, class Compare>
 constexpr const T &clamp(const T &v, const T &lo, const T &hi, Compare comp) {
   return assert(!comp(hi, lo)), comp(v, lo) ? lo : comp(hi, v) ? hi : v;
@@ -17,10 +20,20 @@ template <class T>
 constexpr const T &clamp(const T &v, const T &lo, const T &hi) {
   return clamp(v, lo, hi, std::less<>());
 }
-
+*/
 namespace AstVideo {
 
 struct COLOR_CACHE {
+  COLOR_CACHE() {
+    for (int i = 0; i < 4; i++) {
+      Index[i] = i;
+    }
+    Color[0] = 0x008080;
+    Color[1] = 0xFF8080;
+    Color[2] = 0x808080;
+    Color[3] = 0xC08080;
+  }
+
   unsigned long Color[4];
   unsigned char Index[4];
   unsigned char BitMapBits;
@@ -68,6 +81,13 @@ class AstJpegDecoder {
       r.B = 0x00;
       r.Reserved = 0xAA;
     }
+
+    int qfactor = 16;
+
+    SCALEFACTOR = qfactor;
+    SCALEFACTORUV = qfactor;
+    ADVANCESCALEFACTOR = 16;
+    ADVANCESCALEFACTORUV = 16;
     init_jpg_table();
   }
 
@@ -540,9 +560,9 @@ class AstJpegDecoder {
           pYUV[n].B = cb;
           pYUV[n].G = y;
           pYUV[n].R = cr;
-          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
-          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
-          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
+          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
+          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
+          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
         }
         pos += WIDTH;
       }
@@ -563,9 +583,10 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
-          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
-          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
+          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
+          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
+          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+
         }
         pos += WIDTH;
       }
@@ -607,9 +628,10 @@ class AstJpegDecoder {
           pYUV[n].B = cb;
           pYUV[n].G = y;
           pYUV[n].R = cr;
-          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
-          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
-          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
+          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
+          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
+          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+
         }
         pos += WIDTH;
       }
@@ -630,9 +652,10 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
-          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
-          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
+          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
+          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
+          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+
         }
         pos += WIDTH;
       }
@@ -747,18 +770,6 @@ class AstJpegDecoder {
         txb = 0;
       }
     }
-  }
-
-  void VQ_Initialize(struct COLOR_CACHE *VQ) {
-    int i;
-
-    for (i = 0; i < 4; i++) {
-      VQ->Index[i] = i;
-    }
-    VQ->Color[0] = 0x008080;
-    VQ->Color[1] = 0xFF8080;
-    VQ->Color[2] = 0x808080;
-    VQ->Color[3] = 0xC08080;
   }
 
   void Init_Color_Table() {
@@ -1029,57 +1040,46 @@ class AstJpegDecoder {
   uint32_t decode(std::vector<uint32_t> &buffer, unsigned long width,
                   unsigned long height, YuvMode yuvmode_in, int y_selector,
                   int uv_selector) {
-    uint32_t i;
     COLOR_CACHE Decode_Color;
 
-    if (width != WIDTH || height != HEIGHT || yuvmode_in != yuvmode ||
+    // If any of our parameters have changed, we need to reinit the jpeg
+    // Tables
+    if (width != USER_WIDTH || height != USER_HEIGHT || yuvmode_in != yuvmode ||
         y_selector != Y_selector || uv_selector != UV_selector) {
+      LOG(DEBUG) << "Reinitializing\n";
       init_JPG_decoding();
-    }
+      USER_WIDTH = width;
+      USER_HEIGHT = height;
 
-    // TODO(ed) use the enum everywhere, not just externally
-    yuvmode = yuvmode_in;       // 0 = YUV444, 1 = YUV420
-    Y_selector = y_selector;    // 0-7
-    UV_selector = uv_selector;  // 0-7
+      yuvmode = yuvmode_in;  // 0 = YUV444, 1 = YUV420
 
-    // TODO(ed) Magic number section.  Document appropriately
-    advance_selector = 0;  // 0-7
-    Mapping = 0;           // 0 or 1
+      // TODO(ed) Magic number section.  Document appropriately
+      Y_selector = y_selector;    // 0-7
+      UV_selector = uv_selector;  // 0-7
 
-    WIDTH = width;
-    HEIGHT = height;
+      advance_selector = 0;  // 0-7
+      Mapping = 0;           // 0 or 1
 
-    VQ_Initialize(&Decode_Color);
-    // OutputDebugString  ("In decode\n");
-    //            GetINFData (VideoEngineInfo);
-    //  AST2000 JPEG block is 16x16(pixels) base
+      WIDTH = width;
+      HEIGHT = height;
 
-    if (yuvmode == YuvMode::YUV420) {
-      auto remainder = WIDTH % 16;
-      if (WIDTH % 16) {
-        WIDTH = WIDTH + 16 - remainder;
+      int block_size = 8;  /// YUV444 has a block size of 8
+      if (yuvmode == YuvMode::YUV420) {
+        block_size = 16;
       }
-      remainder = HEIGHT % 16;
+
+      auto remainder = WIDTH % block_size;
+      if (WIDTH % block_size) {
+        WIDTH = WIDTH + block_size - remainder;
+      }
+      remainder = HEIGHT % block_size;
       if (remainder) {
-        HEIGHT = HEIGHT + 16 - remainder;
-      }
-    } else {
-      if (WIDTH % 8) {
-        WIDTH = WIDTH + 8 - (WIDTH % 8);
-      }
-      if (HEIGHT % 8) {
-        HEIGHT = HEIGHT + 8 - (HEIGHT % 8);
+        HEIGHT = HEIGHT + block_size - remainder;
       }
     }
 
-    int qfactor = 16;
-
-    SCALEFACTOR = qfactor;
-    SCALEFACTORUV = qfactor;
-    ADVANCESCALEFACTOR = 16;
-    ADVANCESCALEFACTORUV = 16;
-
-    // TODO(ed) cleanup cruft
+    LOG(DEBUG) << "Height" << HEIGHT << " WIDTH " << WIDTH << "\n";
+    // TODO(ed) cleanup cruft.  THis global buffer pointer is ugly and error prone
     Buffer = buffer.data();
 
     codebuf = buffer[0];
@@ -1126,7 +1126,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 0;
 
-          for (i = 0; i < 1; i++) {
+          for (int i = 0; i < 1; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1148,7 +1148,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 0;
 
-          for (i = 0; i < 1; i++) {
+          for (int i = 0; i < 1; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1168,7 +1168,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 1;
 
-          for (i = 0; i < 2; i++) {
+          for (int i = 0; i < 2; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1190,7 +1190,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 1;
 
-          for (i = 0; i < 2; i++) {
+          for (int i = 0; i < 2; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1210,7 +1210,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 2;
 
-          for (i = 0; i < 4; i++) {
+          for (int i = 0; i < 4; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1234,7 +1234,7 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 2;
 
-          for (i = 0; i < 4; i++) {
+          for (int i = 0; i < 4; i++) {
             Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
@@ -1290,6 +1290,8 @@ class AstJpegDecoder {
   // WIDTH and HEIGHT are the modes your display used
   unsigned long WIDTH;
   unsigned long HEIGHT;
+  unsigned long USER_WIDTH;
+  unsigned long USER_HEIGHT;
   unsigned char Y_selector;
   int SCALEFACTOR;
   int SCALEFACTORUV;
@@ -1326,11 +1328,12 @@ class AstJpegDecoder {
   uint8_t YDC_nr = 0, CbDC_nr = 1, CrDC_nr = 1;
   // AC Huffman table number for Y,Cb, Cr
   uint8_t YAC_nr = 0, CbAC_nr = 1, CrAC_nr = 1;
-  int txb, tyb;
+  int txb = 0;
+  int tyb = 0;
   int newbits;
   uint8_t *rlimit_table;
   std::vector<RGB> YUVBuffer;
-  // TODO(ed) this shouldn't exist.  It is cruft that needs cleaning up'
+  // TODO(ed) this shouldn't exist.  It is cruft that needs cleaning up
   uint32_t *Buffer;
 
  public:

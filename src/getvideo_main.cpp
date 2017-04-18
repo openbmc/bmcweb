@@ -1,4 +1,3 @@
-#include <video.h>
 
 #include <fcntl.h>
 #include <unistd.h>
@@ -11,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #define BUILD_CIMG
 #ifdef BUILD_CIMG
 #define cimg_display 0
