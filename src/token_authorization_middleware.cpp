@@ -65,7 +65,9 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
         std::random_device rand;
         random_bytes_engine rbe;
         std::string token('a', 20);
-        std::generate(begin(token), end(token), std::ref(rbe));
+        // TODO(ed) for some reason clang-tidy finds a divide by zero error in cstdlibc here
+        // commented out for now.  Needs investigation
+        std::generate(begin(token), end(token), std::ref(rbe));  // NOLINT
         std::string encoded_token;
         base64::base64_encode(token, encoded_token);
         ctx.auth_token = encoded_token;

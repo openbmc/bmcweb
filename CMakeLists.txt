@@ -6,6 +6,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 message("${CMAKE_MODULE_PATH}")
 
+SET(BUILD_SHARED_LIBRARIES OFF)
+
 #set(HUNTER_ROOT /home/ed/hunter)
 #SET(HUNTER_STATUS_DEBUG ON)
 
@@ -43,7 +45,7 @@ endif()
 
 # general
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
-option(BUILD_UT "Enable Unit test" OFF)
+option(BUILD_UT "Enable Unit test" ON)
 
 # This needs to be before the crow and other module includes so headers get overriden correctly
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -95,6 +97,12 @@ set_target_properties(g3logger PROPERTIES
     OUTPUT_NAME g3logger
     CLEAN_DIRECT_OUTPUT 1)
 target_link_libraries(g3logger ${PLATFORM_LINK_LIBRIES})
+
+#lib jpeg
+set(BUILD_STATIC ON)
+#include_directories(libjpeg)
+#include_directories(${CMAKE_CURRENT_BINARY_DIR}/libjpeg)
+#add_subdirectory(libjpeg)
 
 
 # Crow
@@ -161,11 +169,15 @@ set(UT_FILES
     src/security_headers_middleware_test.cpp
     src/webassets_test.cpp
     src/crow_getroutes_test.cpp
+    src/ast_jpeg_decoder_test.cpp
 
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 
+
 file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
+
+file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Unit Tests
 if(${BUILD_UT})
@@ -200,16 +212,17 @@ target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
 
-# bmcweb
+# udpclient
 add_executable(udpclient src/udpclient.cpp)
 
 target_link_libraries(udpclient Boost::system)
 target_link_libraries(udpclient ${CMAKE_THREAD_LIBS_INIT})
 
-
 add_executable(getvideo src/getvideo_main.cpp)
+target_link_libraries(getvideo ${CMAKE_THREAD_LIBS_INIT})
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly
+
 get_property(C_INCLUDE_DIRS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS})
+execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS} ${C_SYSTEM_INCLUDE_DIRS})

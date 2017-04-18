@@ -10,3 +10,6 @@ echo 8 > /proc/sys/kernel/printk
 export HOME=/nv
 
 scp ed@hades.jf.intel.com:/home/ed/webserver/buildarm/getvideo /tmp -i /nv/.ssh/id_rsa && cd /tmp && ./getvideo && scp screen.jpg ed@hades.jf.intel.com:~/screen.foo -i /nv/.ssh/id_rsa
+
+
+kill -12 1480

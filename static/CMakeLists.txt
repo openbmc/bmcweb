@@ -60,48 +60,52 @@ set(OTHER_ASSETS
 )
 
 set(STATIC_ASSETS_OUT "")
+set(MINIFIED_ASSETS_OUT "")
 foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
-    # if it's a debug build, don't minify
+
+    set(MINIFIED_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET})
+    get_filename_component(FOLDERNAME ${MINIFIED_FILENAME} DIRECTORY)
+    # string(REGEX REPLACE "(\\.[^.]*$)" ".min\\1" OUTPUT_FILENAME ${OUTPUT_FILENAME})
+    file(MAKE_DIRECTORY "${FOLDERNAME}")
+    add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
+        COMMAND closure-compiler --language_in=ECMASCRIPT5
+        --js  "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
+        --js_output_file "${MINIFIED_FILENAME}"
+            --compilation_level SIMPLE_OPTIMIZATIONS
+            --angular_pass 
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
+        COMMENT "Minifying ${JAVASCRIPT_ASSET}"
+    )
+
+    
+    list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+    # if it's a debug build, use the unminified version
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET})
     else()
-        set(OUTPUT_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET})
-        get_filename_component(FOLDERNAME ${OUTPUT_FILENAME} DIRECTORY)
-        # string(REGEX REPLACE "(\\.[^.]*$)" ".min\\1" OUTPUT_FILENAME ${OUTPUT_FILENAME})
-        file(MAKE_DIRECTORY "${FOLDERNAME}")
-        # TODO only minify if not a debug build
-        add_custom_command(OUTPUT ${OUTPUT_FILENAME} 
-            COMMAND closure-compiler --language_in=ECMASCRIPT5
-            --js  "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
-            --js_output_file "${OUTPUT_FILENAME}"
-             --compilation_level SIMPLE_OPTIMIZATIONS
-             --angular_pass 
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
-            COMMENT "Minifying ${JAVASCRIPT_ASSET}"
-        )
-        list(APPEND STATIC_ASSETS_OUT ${OUTPUT_FILENAME})
+        list(APPEND STATIC_ASSETS_OUT ${MINIFIED_FILENAME})
     endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endforeach(JAVASCRIPT_ASSET)
 
 # for now CSS is included as is
 foreach(CSS_ASSET ${CSS_ASSETS})
-    # if it's a debug build, don't minify
+    set(MINIFIED_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
+    get_filename_component(FOLDERNAME ${MINIFIED_FILENAME} DIRECTORY)
+    file(MAKE_DIRECTORY "${FOLDERNAME}")
+    add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
+        COMMAND cssnano 
+        "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+        "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
+
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+        COMMENT "Minifying ${CSS_ASSET}"
+    )
+    list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+    # if it's a debug build, use the unminified version
     if (CMAKE_BUILD_TYPE STREQUAL "Debug")
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET})
     else()
-        set(OUTPUT_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
-        get_filename_component(FOLDERNAME ${OUTPUT_FILENAME} DIRECTORY)
-        file(MAKE_DIRECTORY "${FOLDERNAME}")
-        # TODO only minify if not a debug build
-        add_custom_command(OUTPUT ${OUTPUT_FILENAME} 
-            COMMAND cssnano 
-            "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
-            "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
-
-            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
-            COMMENT "Minifying ${CSS_ASSET}"
-        )
-        list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
+        list(APPEND STATIC_ASSETS_OUT ${MINIFIED_FILENAME})
     endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
     
 endforeach(CSS_ASSET)
@@ -116,7 +120,12 @@ foreach(OTHER_ASSET ${OTHER_ASSETS})
     list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${OTHER_ASSET})
 endforeach(OTHER_ASSET)
 
-add_custom_target(minifyjs ALL DEPENDS ${STATIC_ASSETS_OUT})
+# this taret is the dependency that the build script uses to make sure everything is available
+add_custom_target(buildstatic ALL DEPENDS ${STATIC_ASSETS_OUT})
+
+# this target makes sure that assets are minified in debug builds, even if they aren't used
+add_custom_target(minifyassets ALL DEPENDS ${MINIFIED_ASSETS_OUT})
+
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 

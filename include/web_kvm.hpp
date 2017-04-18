@@ -2,6 +2,8 @@
 #include <boost/endian/arithmetic.hpp>
 #include <string>
 
+#include <ast_jpeg_decoder.hpp>
+#include <ast_video_puller.hpp>
 #include <video.h>
 
 namespace crow {
@@ -227,8 +229,8 @@ void request_routes(Crow<Middlewares...>& app) {
           case VncState::AWAITING_CLIENT_INIT_msg: {
             // Now send the server initialization
             server_initialization_msg server_init_msg;
-            server_init_msg.framebuffer_width = 640;
-            server_init_msg.framebuffer_height = 480;
+            server_init_msg.framebuffer_width = 800;
+            server_init_msg.framebuffer_height = 600;
             server_init_msg.pixel_format.bits_per_pixel = 32;
             server_init_msg.pixel_format.is_big_endian = 0;
             server_init_msg.pixel_format.is_true_color = 1;
@@ -271,6 +273,16 @@ void request_routes(Crow<Middlewares...>& app) {
                         data.data() + sizeof(client_to_server_msg_type));
 
                     if (!msg->incremental) {
+                      // Todo(ed) lifecycle of the video puller and decoder
+                      // should be
+                      // with the websocket, not recreated every time
+                      AstVideo::VideoPuller p;
+                      p.initialize();
+                      auto out = p.read_video();
+                      AstVideo::AstJpegDecoder d;
+                      d.decode(out.buffer, out.width, out.height, out.mode,
+                               out.y_selector, out.uv_selector);
+
                       framebuffer_update_msg buffer_update_msg;
 
                       // If the viewer is requesting a full update, force write
@@ -279,27 +291,29 @@ void request_routes(Crow<Middlewares...>& app) {
                       framebuffer_rectangle this_rect;
                       this_rect.x = msg->x_position;
                       this_rect.y = msg->y_position;
-                      this_rect.width = msg->width;
-                      this_rect.height = msg->height;
+                      this_rect.width = out.width;
+                      this_rect.height = out.height;
                       this_rect.encoding =
                           static_cast<uint8_t>(encoding_type::raw);
-                      LOG(DEBUG) << "Encoding is" << this_rect.encoding;
+                      LOG(DEBUG) << "Encoding is " << this_rect.encoding;
                       this_rect.data.reserve(this_rect.width *
                                              this_rect.height * 4);
+                      LOG(DEBUG) << "Width " << out.width << " Height "
+                                 << out.height;
 
-                      for (unsigned int x_index = 0; x_index < this_rect.width;
-                           x_index++) {
-                        for (unsigned int y_index = 0;
-                             y_index < this_rect.height; y_index++) {
-                          this_rect.data.push_back(
-                              static_cast<uint8_t>(0));  // Blue
-                          this_rect.data.push_back(
-                              static_cast<uint8_t>(0));  // Green
-                          this_rect.data.push_back(static_cast<uint8_t>(
-                              x_index * 0xFF / msg->width));  // RED
-                          this_rect.data.push_back(
-                              static_cast<uint8_t>(0));  // UNUSED
-                        }
+                      for (int i = 0; i < 16; i++) {
+                        auto pixel = d.OutBuffer[i];
+                        LOG(DEBUG) << "R " << static_cast<int>(pixel.R) << " G "
+                                   << static_cast<int>(pixel.R) << " B "
+                                   << static_cast<int>(pixel.B) << " Reserved " << static_cast<int>(pixel.Reserved);
+                      }
+
+                      for (int i = 0; i < out.width * out.height; i++) {
+                        auto& pixel = d.OutBuffer[i];
+                        this_rect.data.push_back(pixel.B);
+                        this_rect.data.push_back(pixel.G);
+                        this_rect.data.push_back(pixel.R);
+                        this_rect.data.push_back(0);
                       }
 
                       buffer_update_msg.rectangles.push_back(
@@ -308,7 +322,7 @@ void request_routes(Crow<Middlewares...>& app) {
 
                       conn.send_binary(serialized);
                     }
-                  }
+                  }  // TODO(Ed) handle error
 
                 }
 
