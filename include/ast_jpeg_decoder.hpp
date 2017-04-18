@@ -1,25 +1,24 @@
 #pragma once
 
-#include <cstdint>
 #include <array>
 #include <aspeed/JTABLES.H>
+#include <ast_video_types.hpp>
+#include <cassert>
+#include <cstdint>
+#include <iostream>
 #include <vector>
 
-#include <ast_video_types.hpp>
-#include <iostream>
+template <class T, class Compare>
+constexpr const T &clamp(const T &v, const T &lo, const T &hi, Compare comp) {
+  return assert(!comp(hi, lo)), comp(v, lo) ? lo : comp(hi, v) ? hi : v;
+}
+
+template <class T>
+constexpr const T &clamp(const T &v, const T &lo, const T &hi) {
+  return clamp(v, lo, hi, std::less<>());
+}
 
 namespace AstVideo {
-
-static const uint32_t VQ_HEADER_MASK = 0x01;
-static const uint32_t VQ_NO_UPDATE_HEADER = 0x00;
-static const uint32_t VQ_UPDATE_HEADER = 0x01;
-static const int VQ_NO_UPDATE_LENGTH = 0x03;
-static const int VQ_UPDATE_LENGTH = 0x1B;
-static const uint32_t VQ_INDEX_MASK = 0x03;
-static const uint32_t VQ_COLOR_MASK = 0xFFFFFF;
-
-static const int BLOCK_AST2100_START_LENGTH = 0x04;
-static const int BLOCK_AST2100_SKIP_LENGTH = 20;  // S:1 H:3 X:8 Y:8
 
 struct COLOR_CACHE {
   unsigned long Color[4];
@@ -541,15 +540,9 @@ class AstJpegDecoder {
           pYUV[n].B = cb;
           pYUV[n].G = y;
           pYUV[n].R = cr;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
-          /*
-          std::cout << "set y:" << n / 800 << " x:" << n % 800 << " to "
-                    << " B:" << static_cast<uint32_t>(pByte[n].B)
-                    << " G:" << static_cast<uint32_t>(pByte[n].G)
-                    << " R:" << static_cast<uint32_t>(pByte[n].R) << "\n";
-                    */
+          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
+          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
+          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
         }
         pos += WIDTH;
       }
@@ -570,9 +563,9 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
+          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
+          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
         }
         pos += WIDTH;
       }
@@ -614,9 +607,9 @@ class AstJpegDecoder {
           pYUV[n].B = cb;
           pYUV[n].G = y;
           pYUV[n].R = cr;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
+          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
+          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
         }
         pos += WIDTH;
       }
@@ -637,15 +630,15 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pByte[n].B = clamp(m_Y[y] + m_CbToB[cb], 0, 0xFF);
+          pByte[n].G = clamp(m_Y[y] + m_CbToG[cb] + m_CrToG[cr], 0, 0xFF);
+          pByte[n].R = clamp(m_Y[y] + m_CrToR[cr], 0, 0xFF);
         }
         pos += WIDTH;
       }
     }
   }
-  int Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection) {
+  void Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection) {
     unsigned char *ptr;
     unsigned char byTileYuv[768] = {};
 
@@ -686,19 +679,10 @@ class AstJpegDecoder {
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
     //  YUVBuffer for YUV record
     YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
-    if (txb == 0 && tyb == 0) {
-      for (int i=0; i < 10; i++) {
-        auto pixel = YUVBuffer[i];
-        std::cout << "YUBuffer " << static_cast<int>(pixel.R) << " "
-                  << static_cast<int>(pixel.G) << static_cast<int>(pixel.B)
-                  << "\n";
-      }
-    }
-    return 1;
   }
 
-  int Decompress_2PASS(int txb, int tyb, char *outBuf,
-                       uint8_t QT_TableSelection) {
+  void Decompress_2PASS(int txb, int tyb, char *outBuf,
+                        uint8_t QT_TableSelection) {
     unsigned char *ptr;
     unsigned char byTileYuv[768];
     memset(DCT_coeff, 0, 384 * 2);
@@ -717,12 +701,10 @@ class AstJpegDecoder {
 
     YUVToBuffer(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
-
-    return 1;
   }
 
-  int VQ_Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection,
-                    struct COLOR_CACHE *VQ) {
+  void VQ_Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection,
+                     struct COLOR_CACHE *VQ) {
     unsigned char *ptr, i;
     unsigned char byTileYuv[192];
     int Data;
@@ -747,23 +729,21 @@ class AstJpegDecoder {
     }
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
     YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
-
-    return 1;
   }
 
   void MoveBlockIndex(void) {
     if (yuvmode == YuvMode::YUV444) {
       txb++;
-      if (txb >= (int)(tmp_WIDTH / 8)) {
+      if (txb >= (int)(WIDTH / 8)) {
         tyb++;
-        if (tyb >= (int)(tmp_HEIGHT / 8)) tyb = 0;
+        if (tyb >= (int)(HEIGHT / 8)) tyb = 0;
         txb = 0;
       }
     } else {
       txb++;
-      if (txb >= (int)(tmp_WIDTH / 16)) {
+      if (txb >= (int)(WIDTH / 16)) {
         tyb++;
-        if (tyb >= (int)(tmp_HEIGHT / 16)) tyb = 0;
+        if (tyb >= (int)(HEIGHT / 16)) tyb = 0;
         txb = 0;
       }
     }
@@ -780,7 +760,6 @@ class AstJpegDecoder {
     VQ->Color[2] = 0x808080;
     VQ->Color[3] = 0xC08080;
   }
-  void init_QT() {}
 
   void Init_Color_Table() {
     int i, x;
@@ -867,7 +846,6 @@ class AstJpegDecoder {
     }
   }
   void init_jpg_table() {
-    init_QT();
     Init_Color_Table();
     prepare_range_limit_table();
     load_Huffman_table(&HTDC[0], std_dc_luminance_nrcodes,
@@ -1054,46 +1032,36 @@ class AstJpegDecoder {
     uint32_t i;
     COLOR_CACHE Decode_Color;
 
+    if (width != WIDTH || height != HEIGHT || yuvmode_in != yuvmode ||
+        y_selector != Y_selector || uv_selector != UV_selector) {
+      init_JPG_decoding();
+    }
+
     // TODO(ed) use the enum everywhere, not just externally
-    yuvmode = yuvmode_in;          // 0 = YUV444, 1 = YUV420
+    yuvmode = yuvmode_in;       // 0 = YUV444, 1 = YUV420
     Y_selector = y_selector;    // 0-7
     UV_selector = uv_selector;  // 0-7
 
     // TODO(ed) Magic number section.  Document appropriately
     advance_selector = 0;  // 0-7
-    First_Frame = 1;       // 0 or 1
     Mapping = 0;           // 0 or 1
-    /*
-    if (yuvmode == YuvMode::YUV420) {
-      Y_selector = 4;
-      UV_selector = 7;
-      Mapping = 0;
-    } else {  // YUV444
-      Y_selector = 7;
-      UV_selector = 7;
-      Mapping = 0;
-    }
-    */
-    auto test = static_cast<int>(yuvmode);
-    std::cout << "YUVmode " << test << " " << static_cast<int>(Y_selector) << static_cast<int>(UV_selector) << "\n";
 
-    tmp_WIDTH = width;
-    tmp_HEIGHT = height;
     WIDTH = width;
     HEIGHT = height;
 
     VQ_Initialize(&Decode_Color);
     // OutputDebugString  ("In decode\n");
     //            GetINFData (VideoEngineInfo);
-    //  WIDTH = VideoEngineInfo->SourceModeInfo.X = 640;
-    //  HEIGHT = VideoEngineInfo->SourceModeInfo.Y = 480;
     //  AST2000 JPEG block is 16x16(pixels) base
+
     if (yuvmode == YuvMode::YUV420) {
+      auto remainder = WIDTH % 16;
       if (WIDTH % 16) {
-        WIDTH = WIDTH + 16 - (WIDTH % 16);
+        WIDTH = WIDTH + 16 - remainder;
       }
-      if (HEIGHT % 16) {
-        HEIGHT = HEIGHT + 16 - (HEIGHT % 16);
+      remainder = HEIGHT % 16;
+      if (remainder) {
+        HEIGHT = HEIGHT + 16 - remainder;
       }
     } else {
       if (WIDTH % 8) {
@@ -1104,25 +1072,6 @@ class AstJpegDecoder {
       }
     }
 
-    //  tmp_WDITH, tmp_HEIGHT are for block position
-    //  tmp_WIDTH = VideoEngineInfo->DestinationModeInfo.X;
-    //  tmp_HEIGHT = VideoEngineInfo->DestinationModeInfo.Y;
-    if (yuvmode == YuvMode::YUV420) {
-      if (tmp_WIDTH % 16) {
-        tmp_WIDTH = tmp_WIDTH + 16 - (tmp_WIDTH % 16);
-      }
-      if (tmp_HEIGHT % 16) {
-        tmp_HEIGHT = tmp_HEIGHT + 16 - (tmp_HEIGHT % 16);
-      }
-    } else {
-      if (tmp_WIDTH % 8) {
-        tmp_WIDTH = tmp_WIDTH + 8 - (tmp_WIDTH % 8);
-      }
-      if (tmp_HEIGHT % 8) {
-        tmp_HEIGHT = tmp_HEIGHT + 8 - (tmp_HEIGHT % 8);
-      }
-    }
-
     int qfactor = 16;
 
     SCALEFACTOR = qfactor;
@@ -1130,10 +1079,6 @@ class AstJpegDecoder {
     ADVANCESCALEFACTOR = 16;
     ADVANCESCALEFACTORUV = 16;
 
-    if (First_Frame == 1) {
-      init_jpg_table();
-      init_JPG_decoding();
-    }
     // TODO(ed) cleanup cruft
     Buffer = buffer.data();
 
@@ -1144,6 +1089,17 @@ class AstJpegDecoder {
     txb = tyb = 0;
     newbits = 32;
     DCY = DCCb = DCCr = 0;
+
+    static const uint32_t VQ_HEADER_MASK = 0x01;
+    static const uint32_t VQ_NO_UPDATE_HEADER = 0x00;
+    static const uint32_t VQ_UPDATE_HEADER = 0x01;
+    static const int VQ_NO_UPDATE_LENGTH = 0x03;
+    static const int VQ_UPDATE_LENGTH = 0x1B;
+    static const uint32_t VQ_INDEX_MASK = 0x03;
+    static const uint32_t VQ_COLOR_MASK = 0xFFFFFF;
+
+    static const int BLOCK_AST2100_START_LENGTH = 0x04;
+    static const int BLOCK_AST2100_SKIP_LENGTH = 20;  // S:1 H:3 X:8 Y:8
 
     do {
       auto block_header = static_cast<JpgBlock>((codebuf >> 28) & 0xFF);
@@ -1334,8 +1290,6 @@ class AstJpegDecoder {
   // WIDTH and HEIGHT are the modes your display used
   unsigned long WIDTH;
   unsigned long HEIGHT;
-  unsigned long tmp_HEIGHT;
-  unsigned long tmp_WIDTH;
   unsigned char Y_selector;
   int SCALEFACTOR;
   int SCALEFACTORUV;
@@ -1344,7 +1298,6 @@ class AstJpegDecoder {
   int Mapping;
   unsigned char UV_selector;
   unsigned char advance_selector;
-  unsigned char First_Frame;
   int byte_pos;  // current byte position
 
   // quantization tables, no more than 4 quantization tables

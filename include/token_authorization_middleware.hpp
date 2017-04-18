@@ -5,9 +5,7 @@
 
 namespace crow {
 
-struct User {
-
-};
+struct User {};
 
 struct TokenAuthorizationMiddleware {
   // TODO(ed) auth_token shouldn't really be passed to the context
@@ -23,7 +21,7 @@ struct TokenAuthorizationMiddleware {
 
   void after_handle(request& req, response& res, context& ctx);
 
-  private:
-    std::string auth_token2;
+ private:
+  std::string auth_token2;
 };
 }

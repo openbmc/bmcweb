@@ -1,7 +1,7 @@
-#include "token_authorization_middleware.hpp"
 #include <crow/app.h>
-#include "gtest/gtest.h"
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
+#include "token_authorization_middleware.hpp"
 
 using namespace crow;
 using namespace std;
@@ -240,8 +240,6 @@ TEST(TokenAuthentication, TestSuccessfulLogin) {
     EXPECT_THAT(headers, testing::Contains("Content-Type: application/json"));
     auto http_content = response.substr(prev);
   }
-
-
 
   // Try to use those login credentials to access a resource
   sendmsg =

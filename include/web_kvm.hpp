@@ -301,13 +301,6 @@ void request_routes(Crow<Middlewares...>& app) {
                       LOG(DEBUG) << "Width " << out.width << " Height "
                                  << out.height;
 
-                      for (int i = 0; i < 16; i++) {
-                        auto pixel = d.OutBuffer[i];
-                        LOG(DEBUG) << "R " << static_cast<int>(pixel.R) << " G "
-                                   << static_cast<int>(pixel.R) << " B "
-                                   << static_cast<int>(pixel.B) << " Reserved " << static_cast<int>(pixel.Reserved);
-                      }
-
                       for (int i = 0; i < out.width * out.height; i++) {
                         auto& pixel = d.OutBuffer[i];
                         this_rect.data.push_back(pixel.B);

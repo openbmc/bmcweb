@@ -1,7 +1,5 @@
 #pragma once
 
-#include <random>
-
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
@@ -12,10 +10,9 @@
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
-
 #include <boost/asio.hpp>
-
 #include <g3log/g3log.hpp>
+#include <random>
 
 namespace ensuressl {
 static void init_openssl(void);
@@ -127,11 +124,11 @@ inline void generate_ssl_certificate(const std::string &filepath) {
       name = X509_get_subject_name(x509);
 
       X509_NAME_add_entry_by_txt(name, "C", MBSTRING_ASC, (unsigned char *)"US",
-                                -1, -1, 0);
+                                 -1, -1, 0);
       X509_NAME_add_entry_by_txt(name, "O", MBSTRING_ASC,
-                                (unsigned char *)"Intel BMC", -1, -1, 0);
+                                 (unsigned char *)"Intel BMC", -1, -1, 0);
       X509_NAME_add_entry_by_txt(name, "CN", MBSTRING_ASC,
-                                (unsigned char *)"testhost", -1, -1, 0);
+                                 (unsigned char *)"testhost", -1, -1, 0);
       // set the CSR options
       X509_set_issuer_name(x509, name);
 

@@ -1,12 +1,10 @@
 #pragma once
 
-#include <vector>
 #include <assert.h>
-
-#include <ast_video_types.hpp>
-
 #include <video.h>
+#include <ast_video_types.hpp>
 #include <iostream>
+#include <vector>
 
 namespace AstVideo {
 class VideoPuller {
@@ -49,7 +47,7 @@ class VideoPuller {
       std::cout << "Write failed.  Return: " << status << "\n";
       perror("perror output:");
     }
-    
+
     std::cout << "Write done\n";
     */
     std::cout << "Reading\n";

@@ -177,7 +177,7 @@ def main():
     dependency_ordered_file_list = remove_duplicates_preserve_order(
         dependency_ordered_file_list)
 
-
+    total_payload_size = 0
     for full_filepath in dependency_ordered_file_list:
         # make sure none of the files are hidden
         with open(full_filepath, 'rb') as input_file:
@@ -204,6 +204,8 @@ def main():
         compute_sha1_and_update_dict(
             sha1_list, file_content, relative_path)
         content_dict[full_filepath] = file_content
+
+        total_payload_size += len(file_content)
 
     with open(args.output.replace("cpp", "hpp"), 'w') as hpp_output:
         hpp_output.write("#pragma once\n"
@@ -295,6 +297,8 @@ def main():
                 )
             )
         cpp_output.write("}\n}\n")
+
+    print("Total static file size: {}KB".format(int(total_payload_size/1024)))
 
 if __name__ == "__main__":
     main()

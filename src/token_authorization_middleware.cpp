@@ -51,7 +51,8 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
         return_bad_request();
         return;
       }
-      if (!login_credentials.has("username") || !login_credentials.has("password")){
+      if (!login_credentials.has("username") ||
+          !login_credentials.has("password")) {
         return_bad_request();
         return;
       }
@@ -65,7 +66,8 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
         std::random_device rand;
         random_bytes_engine rbe;
         std::string token('a', 20);
-        // TODO(ed) for some reason clang-tidy finds a divide by zero error in cstdlibc here
+        // TODO(ed) for some reason clang-tidy finds a divide by zero error in
+        // cstdlibc here
         // commented out for now.  Needs investigation
         std::generate(begin(token), end(token), std::ref(rbe));  // NOLINT
         std::string encoded_token;

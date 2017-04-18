@@ -1,13 +1,13 @@
 #include <video.h>
 
-#include <iomanip>
-#include <iostream>
-#include <chrono>
-#include <thread>
-#include <vector>
-#include <fstream>
 #include <fcntl.h>
 #include <unistd.h>
+#include <chrono>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <thread>
+#include <vector>
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +24,7 @@ int main() {
   std::cout << "Started\n";
   AstVideo::RawVideoBuffer out;
   bool have_hardware = false;
-  if( access( "/dev/video", F_OK ) != -1 ) {
+  if (access("/dev/video", F_OK) != -1) {
     AstVideo::VideoPuller p;
     p.initialize();
     out = p.read_video();
@@ -43,19 +43,17 @@ int main() {
       out.height = 600;
       out.y_selector = 0;
       out.uv_selector = 0;
-
     }
   }
 
   FILE *fp = fopen("/tmp/screendata.bin", "wb");
-  fwrite(out.buffer.data(), sizeof(char),
-                            out.buffer.size(), fp);
+  fwrite(out.buffer.data(), sizeof(char), out.buffer.size(), fp);
 
   AstVideo::AstJpegDecoder d;
   std::cout << "MODE " << static_cast<int>(out.mode);
   d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
            out.uv_selector);
-  #ifdef BUILD_CIMG
+#ifdef BUILD_CIMG
   cimg_library::CImg<unsigned char> image(out.width, out.height, 1,
                                           3 /*numchannels*/);
   for (int y = 0; y < out.height; y++) {
@@ -67,10 +65,9 @@ int main() {
     }
   }
   image.save("/tmp/file2.bmp");
-  #endif
-  
-  std::cout << "Done!\n";
+#endif
 
+  std::cout << "Done!\n";
 
   return 1;
 }
