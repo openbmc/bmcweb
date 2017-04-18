@@ -1,14 +1,14 @@
 #pragma once
 
+#include <string.h>
 #include <array>
 #include <aspeed/JTABLES.H>
 #include <ast_video_types.hpp>
 #include <cassert>
 #include <cstdint>
-#include <iostream>
-#include <string.h>
-#include <vector>
 #include <g3log/g3log.hpp>
+#include <iostream>
+#include <vector>
 
 /*
 template <class T, class Compare>
@@ -586,7 +586,6 @@ class AstJpegDecoder {
           pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
           pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
           pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
-
         }
         pos += WIDTH;
       }
@@ -631,7 +630,6 @@ class AstJpegDecoder {
           pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
           pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
           pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
-
         }
         pos += WIDTH;
       }
@@ -655,7 +653,6 @@ class AstJpegDecoder {
           pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
           pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
           pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
-
         }
         pos += WIDTH;
       }
@@ -757,16 +754,16 @@ class AstJpegDecoder {
   void MoveBlockIndex(void) {
     if (yuvmode == YuvMode::YUV444) {
       txb++;
-      if (txb >= (int)(tmp_WIDTH / 8)) {
+      if (txb >= (int)(WIDTH / 8)) {
         tyb++;
-        if (tyb >= (int)(tmp_HEIGHT / 8)) tyb = 0;
+        if (tyb >= (int)(HEIGHT / 8)) tyb = 0;
         txb = 0;
       }
     } else {
       txb++;
-      if (txb >= (int)(tmp_WIDTH / 16)) {
+      if (txb >= (int)(WIDTH / 16)) {
         tyb++;
-        if (tyb >= (int)(tmp_HEIGHT / 16)) tyb = 0;
+        if (tyb >= (int)(HEIGHT / 16)) tyb = 0;
         txb = 0;
       }
     }
@@ -1041,85 +1038,36 @@ class AstJpegDecoder {
                   unsigned long height, YuvMode yuvmode_in, int y_selector,
                   int uv_selector) {
     COLOR_CACHE Decode_Color;
+    if (width != USER_WIDTH || height != USER_HEIGHT || yuvmode_in != yuvmode ||
+        y_selector != Y_selector || uv_selector != UV_selector) {
+      yuvmode = yuvmode_in;
+      Y_selector = y_selector;    // 0-7
+      UV_selector = uv_selector;  // 0-7
+      USER_HEIGHT = height;
+      USER_WIDTH = width;
+      WIDTH = width;
+      HEIGHT = height;
 
-    // TODO(ed) use the enum everywhere, not just externally
-    yuvmode = yuvmode_in;          // 0 = YUV444, 1 = YUV420
-    Y_selector = y_selector;    // 0-7
-    UV_selector = uv_selector;  // 0-7
+      // TODO(ed) Magic number section.  Document appropriately
+      advance_selector = 0;  // 0-7
+      Mapping = 0;           // 0 or 1
 
-    // TODO(ed) Magic number section.  Document appropriately
-    advance_selector = 0;  // 0-7
-    First_Frame = 1;       // 0 or 1
-    Mapping = 0;           // 0 or 1
-    /*
-    if (yuvmode == YuvMode::YUV420) {
-      Y_selector = 4;
-      UV_selector = 7;
-      Mapping = 0;
-    } else {  // YUV444
-      Y_selector = 7;
-      UV_selector = 7;
-      Mapping = 0;
-    }
-    */
-    auto test = static_cast<int>(yuvmode);
-    std::cout << "YUVmode " << test << " " << static_cast<int>(Y_selector) << static_cast<int>(UV_selector) << "\n";
+      if (yuvmode == YuvMode::YUV420) {
+        if (WIDTH % 16) {
+          WIDTH = WIDTH + 16 - (WIDTH % 16);
+        }
+        if (HEIGHT % 16) {
+          HEIGHT = HEIGHT + 16 - (HEIGHT % 16);
+        }
+      } else {
+        if (WIDTH % 8) {
+          WIDTH = WIDTH + 8 - (WIDTH % 8);
+        }
+        if (HEIGHT % 8) {
+          HEIGHT = HEIGHT + 8 - (HEIGHT % 8);
+        }
+      }
 
-    tmp_WIDTH = width;
-    tmp_HEIGHT = height;
-    WIDTH = width;
-    HEIGHT = height;
-
-    //VQ_Initialize(&Decode_Color);
-    // OutputDebugString  ("In decode\n");
-    //            GetINFData (VideoEngineInfo);
-    //  WIDTH = VideoEngineInfo->SourceModeInfo.X = 640;
-    //  HEIGHT = VideoEngineInfo->SourceModeInfo.Y = 480;
-    //  AST2000 JPEG block is 16x16(pixels) base
-    if (yuvmode == YuvMode::YUV420) {
-      if (WIDTH % 16) {
-        WIDTH = WIDTH + 16 - (WIDTH % 16);
-      }
-      if (HEIGHT % 16) {
-        HEIGHT = HEIGHT + 16 - (HEIGHT % 16);
-      }
-    } else {
-      if (WIDTH % 8) {
-        WIDTH = WIDTH + 8 - (WIDTH % 8);
-      }
-      if (HEIGHT % 8) {
-        HEIGHT = HEIGHT + 8 - (HEIGHT % 8);
-      }
-    }
-
-    //  tmp_WDITH, tmp_HEIGHT are for block position
-    //  tmp_WIDTH = VideoEngineInfo->DestinationModeInfo.X;
-    //  tmp_HEIGHT = VideoEngineInfo->DestinationModeInfo.Y;
-    if (yuvmode == YuvMode::YUV420) {
-      if (tmp_WIDTH % 16) {
-        tmp_WIDTH = tmp_WIDTH + 16 - (tmp_WIDTH % 16);
-      }
-      if (tmp_HEIGHT % 16) {
-        tmp_HEIGHT = tmp_HEIGHT + 16 - (tmp_HEIGHT % 16);
-      }
-    } else {
-      if (tmp_WIDTH % 8) {
-        tmp_WIDTH = tmp_WIDTH + 8 - (tmp_WIDTH % 8);
-      }
-      if (tmp_HEIGHT % 8) {
-        tmp_HEIGHT = tmp_HEIGHT + 8 - (tmp_HEIGHT % 8);
-      }
-    }
-
-    int qfactor = 16;
-
-    SCALEFACTOR = qfactor;
-    SCALEFACTORUV = qfactor;
-    ADVANCESCALEFACTOR = 16;
-    ADVANCESCALEFACTORUV = 16;
-
-    if (First_Frame == 1) {
-      //init_jpg_table();
       init_JPG_decoding();
     }
     // TODO(ed) cleanup cruft
@@ -1333,8 +1281,8 @@ class AstJpegDecoder {
   // WIDTH and HEIGHT are the modes your display used
   unsigned long WIDTH;
   unsigned long HEIGHT;
-  unsigned long tmp_HEIGHT;
-  unsigned long tmp_WIDTH;
+  unsigned long USER_WIDTH;
+  unsigned long USER_HEIGHT;
   unsigned char Y_selector;
   int SCALEFACTOR;
   int SCALEFACTORUV;
@@ -1343,7 +1291,6 @@ class AstJpegDecoder {
   int Mapping;
   unsigned char UV_selector;
   unsigned char advance_selector;
-  unsigned char First_Frame;
   int byte_pos;  // current byte position
 
   // quantization tables, no more than 4 quantization tables
