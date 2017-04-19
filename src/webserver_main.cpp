@@ -1,7 +1,3 @@
-#include <web_kvm.hpp>
-#include <webassets.hpp>
-#include "ssl_key_handler.hpp"
-
 #include "crow/app.h"
 #include "crow/ci_map.h"
 #include "crow/common.h"
@@ -37,6 +33,10 @@
 #include <memory>
 #include <string>
 #include <unordered_set>
+
+#include <web_kvm.hpp>
+#include <webassets.hpp>
+#include "ssl_key_handler.hpp"
 
 int main(int argc, char** argv) {
   auto worker(g3::LogWorker::createLogWorker());
@@ -116,8 +116,7 @@ int main(int argc, char** argv) {
         conn.send_binary(str);
 
       });
-
-  app.port(18080)
-      //.ssl(std::move(ensuressl::get_ssl_context(ssl_pem_file)))
-      .run();
+  auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
+  app.port(18080).ssl(std::move(ssl_context)).run();
 }
+

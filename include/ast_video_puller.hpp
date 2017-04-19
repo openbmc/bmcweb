@@ -1,7 +1,6 @@
 #pragma once
 
 #include <assert.h>
-//#include <video.h>
 #include <ast_video_types.hpp>
 #include <iostream>
 #include <vector>
@@ -78,11 +77,6 @@ class VideoPuller {
 
     image_info.do_image_refresh = 1;  // full frame refresh
     image_info.qc_valid = 0;          // quick cursor disabled
-    image_info.parameter.features.w = 0;
-    image_info.parameter.features.h = 0;
-    image_info.parameter.features.chrom_tbl = 0;  // level
-    image_info.parameter.features.lumin_tbl = 0;
-    image_info.parameter.features.jpg_fmt = 1;
     image_info.parameter.features.buf =
         reinterpret_cast<unsigned char *>(raw.buffer.data());
     image_info.crypttype = -1;

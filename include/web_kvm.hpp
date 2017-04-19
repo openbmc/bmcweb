@@ -184,7 +184,7 @@ void request_routes(Crow<Middlewares...>& app) {
         if (meta.vnc_state == VncState::UNSTARTED) {
           meta.vnc_state = VncState::AWAITING_CLIENT_VERSION;
           conn.send_binary(rfb_3_8_version_string);
-        } else {
+        } else {  // SHould never happen
           conn.close();
         }
 
@@ -271,7 +271,6 @@ void request_routes(Crow<Middlewares...>& app) {
                     auto msg = reinterpret_cast<const frame_buffer_update_req*>(
                         data.data() + sizeof(client_to_server_msg_type));
 
-                    if (!msg->incremental) {
                       // Todo(ed) lifecycle of the video puller and decoder
                       // should be
                       // with the websocket, not recreated every time
@@ -313,7 +312,7 @@ void request_routes(Crow<Middlewares...>& app) {
                       auto serialized = serialize(buffer_update_msg);
 
                       conn.send_binary(serialized);
-                    }
+
                   }  // TODO(Ed) handle error
 
                 }

@@ -1,4 +1,5 @@
 #pragma once
+#ifdef CROW_ENABLE_SSL
 
 #include <openssl/bio.h>
 #include <openssl/dh.h>
@@ -191,7 +192,7 @@ EVP_PKEY *create_ec_key(void) {
   if (myecc) {
     EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
     EC_KEY_generate_key(myecc);
-    EVP_PKEY *pKey = EVP_PKEY_new();
+    pKey = EVP_PKEY_new();
     if (pKey) {
       if (EVP_PKEY_assign_EC_KEY(pKey, myecc)) {
         /* pKey owns pRSA from now */
@@ -199,11 +200,7 @@ EVP_PKEY *create_ec_key(void) {
           fprintf(stderr, "EC_check_key failed.\n");
         }
       }
-      EVP_PKEY_free(pKey);
-      pKey = NULL;
     }
-    EC_KEY_free(myecc);
-    myecc = NULL;
   }
   return pKey;
 }
@@ -315,3 +312,5 @@ boost::asio::ssl::context get_ssl_context(std::string ssl_pem_file) {
   return m_ssl_context;
 }
 }
+
+#endif

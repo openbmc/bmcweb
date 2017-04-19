@@ -13,9 +13,17 @@ SET(BUILD_SHARED_LIBRARIES OFF)
 
 
 #SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+#-fsanitize-memory-track-origins=2 -fno-omit-frame-pointer
+SET(MSAN_CXX_FLAGS "-fsanitize=memory -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
+SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
 
-#SET(MSAN_CXX_FLAGS "-fsanitize=memory -fsanitize-memory-track-origins=2 -fno-omit-frame-pointer -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
-#SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib")
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSAN_CXX_FLAGS}")
+#SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MSAN_LINKER_EXE_FLAGS}")
+
+
+message("CMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}")
+message("MSAN_CXX_FLAGS=${MSAN_CXX_FLAGS}")
+
 include("cmake/HunterGate.cmake")
 #HunterGate(
 #    URL "https://github.com/ruslo/hunter/archive/v0.16.31.tar.gz"
@@ -31,8 +39,7 @@ option(BUILD_FOR_EMBEDDED "Build for device target" ON)
 
 project(bmc-webserver CXX C)
 
-SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${MSAN_CXX_FLAGS}")
-SET(CMAKE_EXE_LINKER_FLAGS "${MSAN_LINKER_EXE_FLAGS}")
+
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -55,13 +62,13 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 #SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
 
 # Boost
-#add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
-#add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
+add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
+add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost COMPONENTS system thread)
-find_package(Boost REQUIRED system thread REQUIRED)
+hunter_add_package(Boost)
+find_package(Boost)
 
 #Openssl
 hunter_add_package(OpenSSL)
@@ -171,6 +178,8 @@ set(UT_FILES
     src/crow_getroutes_test.cpp
     src/ast_jpeg_decoder_test.cpp
 
+    src/msan_test.cpp
+
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 
@@ -187,13 +196,13 @@ if(${BUILD_UT})
 
     # googletest
     enable_testing()
-    find_package(GTest REQUIRED)
-    find_package(GMock REQUIRED)
+    #hunter_add_package(GTest)
+    add_subdirectory(googletest)
+    #find_package(GMock CONFIG REQUIRED)
 
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
-    target_link_libraries(unittest ${GMOCK_BOTH_LIBRARIES})
-    target_link_libraries(unittest Boost::system Boost::thread) 
-    target_link_libraries(unittest ${CMAKE_THREAD_LIBS_INIT})
+    target_link_libraries(unittest gmock gtest)
+    target_link_libraries(unittest pthread)
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
     target_link_libraries(unittest g3logger)
     target_link_libraries(unittest ${ZLIB_LIBRARIES})
@@ -205,8 +214,7 @@ add_subdirectory(static)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb  Boost::system Boost::thread)
-target_link_libraries(bmcweb ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
@@ -214,16 +222,14 @@ add_dependencies(bmcweb packagestaticcpp)
 
 # udpclient
 add_executable(udpclient src/udpclient.cpp)
-
-target_link_libraries(udpclient Boost::system)
-target_link_libraries(udpclient ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(udpclient pthread)
 
 add_executable(getvideo src/getvideo_main.cpp)
-target_link_libraries(getvideo ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(getvideo pthread)
 target_link_libraries(getvideo g3logger)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly
 
 get_property(C_INCLUDE_DIRS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS} ${C_SYSTEM_INCLUDE_DIRS})
+execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS})

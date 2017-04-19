@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUILD_CIMG
+//#define BUILD_CIMG
 #ifdef BUILD_CIMG
 #define cimg_display 0
 #include <CImg.h>
