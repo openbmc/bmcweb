@@ -11,9 +11,9 @@
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
-#include <boost/asio.hpp>
 #include <g3log/g3log.hpp>
 #include <random>
+#include <boost/asio.hpp>
 
 namespace ensuressl {
 static void init_openssl(void);
@@ -33,38 +33,26 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
     EVP_PKEY *pkey = PEM_read_PrivateKey(file, NULL, NULL, NULL);
     int rc;
     if (pkey) {
-      int type = EVP_PKEY_type(pkey->type);
-      switch (type) {
-        case EVP_PKEY_RSA:
-        case EVP_PKEY_RSA2: {
-          LOG(DEBUG) << "Found an RSA key";
-          RSA *rsa = EVP_PKEY_get1_RSA(pkey);
-          if (rsa) {
-            if (RSA_check_key(rsa) == 1) {
-              // private_key_valid = true;
-            } else {
-              LOG(WARNING) << "Key not valid error number " << ERR_get_error();
-            }
-            RSA_free(rsa);
-          }
-          break;
+      RSA *rsa = EVP_PKEY_get1_RSA(pkey);
+      if (rsa) {
+        LOG(DEBUG) << "Found an RSA key";
+        if (RSA_check_key(rsa) == 1) {
+          // private_key_valid = true;
+        } else {
+          LOG(WARNING) << "Key not valid error number " << ERR_get_error();
         }
-        case EVP_PKEY_EC: {
+        RSA_free(rsa);
+      } else {
+        EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pkey);
+        if (ec) {
           LOG(DEBUG) << "Found an EC key";
-          EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pkey);
-          if (ec) {
-            if (EC_KEY_check_key(ec) == 1) {
-              private_key_valid = true;
-            } else {
-              LOG(WARNING) << "Key not valid error number " << ERR_get_error();
-            }
-            EC_KEY_free(ec);
+          if (EC_KEY_check_key(ec) == 1) {
+            private_key_valid = true;
+          } else {
+            LOG(WARNING) << "Key not valid error number " << ERR_get_error();
           }
-          break;
+          EC_KEY_free(ec);
         }
-        default:
-          LOG(WARNING) << "Found an unrecognized key type " << type;
-          break;
       }
 
       if (private_key_valid) {
@@ -158,9 +146,13 @@ inline void generate_ssl_certificate(const std::string &filepath) {
 
 EVP_PKEY *create_rsa_key(void) {
   RSA *pRSA = NULL;
-  EVP_PKEY *pKey = NULL;
+#if OPENSSL_VERSION_NUMBER < 0x00908000L
   pRSA = RSA_generate_key(2048, RSA_3, NULL, NULL);
-  pKey = EVP_PKEY_new();
+#else
+  RSA_generate_key_ex(pRSA, 2048, NULL, NULL);
+#endif
+
+  EVP_PKEY *pKey = EVP_PKEY_new();
   if (pRSA && pKey && EVP_PKEY_assign_RSA(pKey, pRSA)) {
     /* pKey owns pRSA from now */
     if (RSA_check_key(pRSA) <= 0) {
@@ -206,18 +198,19 @@ EVP_PKEY *create_ec_key(void) {
 }
 
 void init_openssl(void) {
-  if (SSL_library_init()) {
+ #if OPENSSL_VERSION_NUMBER < 0x10100000L
     SSL_load_error_strings();
     OpenSSL_add_all_algorithms();
     RAND_load_file("/dev/urandom", 1024);
-  } else
-    exit(EXIT_FAILURE);
+#endif
 }
 
 void cleanup_openssl(void) {
   CRYPTO_cleanup_all_ex_data();
   ERR_free_strings();
+#if OPENSSL_VERSION_NUMBER < 0x10100000L
   ERR_remove_thread_state(0);
+#endif
   EVP_cleanup();
 }
 

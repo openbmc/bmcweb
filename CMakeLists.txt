@@ -19,14 +19,13 @@ SET(BUILD_SHARED_LIBRARIES OFF)
 # Debug information
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fno-omit-frame-pointer")
 
+#SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-rtti")
+#SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
+
 include("cmake/HunterGate.cmake")
-#HunterGate(
-#    URL "https://github.com/ruslo/hunter/archive/v0.16.31.tar.gz"
-#    SHA1 "8fcc0a2d6206e1f2c6fc011e3e694e388d030b53"
-#)
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.18.16.tar.gz"
-    SHA1 "6cbca2b0e7605ad8ea22ee3527850996436f71b8"
+    URL "https://github.com/ruslo/hunter/archive/v0.18.44.tar.gz"
+    SHA1 "a78f0b377b8e53c038f12fc18b0c02564c4534c8"
 )
 
 
@@ -55,6 +54,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 #SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
 
 # Boost
+#add_definitions(-DBOOST_NO_RTTI -DBOOST_NO_TYPEID)
+
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
@@ -75,9 +76,9 @@ file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
 file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
 
 IF (MSVC OR MINGW)
-        list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
+    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
 ELSE()
-        list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
+    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
 ENDIF (MSVC OR MINGW)
 
 # Create the g3log library

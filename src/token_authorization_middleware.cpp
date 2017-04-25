@@ -34,8 +34,6 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
     res.end();
   };
 
-  CROW_LOG_DEBUG << "Token Auth Got route " << req.url;
-
   if (req.url == "/" || boost::starts_with(req.url, "/static/")) {
     // TODO this is total hackery to allow the login page to work before the
     // user is authenticated.  Also, it will be quite slow for all pages instead
