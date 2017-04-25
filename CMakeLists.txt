@@ -187,7 +187,7 @@ file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 if(${BUILD_UT})
     # big list of naughty strings
     add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
-        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
+        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
 
     # googletest
     enable_testing()
