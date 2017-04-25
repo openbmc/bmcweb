@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
 
-cmake_policy(SET CMP0054 OLD)
-
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 message("${CMAKE_MODULE_PATH}")
@@ -10,26 +8,17 @@ SET(BUILD_SHARED_LIBRARIES OFF)
 
 #SET(HUNTER_STATUS_DEBUG ON)
 
-#SET(MSAN_CXX_FLAGS "-fsanitize=memory -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
-#SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
-
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSAN_CXX_FLAGS}")
-#SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MSAN_LINKER_EXE_FLAGS}")
 
 # Debug information
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fno-omit-frame-pointer")
 
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-rtti")
 #SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
-
 include("cmake/HunterGate.cmake")
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.18.44.tar.gz"
     SHA1 "a78f0b377b8e53c038f12fc18b0c02564c4534c8"
 )
-
-
-option(BUILD_FOR_EMBEDDED "Build for device target" ON)
 
 project(bmc-webserver CXX C)
 
@@ -38,9 +27,51 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+if (MSAN)
+  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    message(FATAL_ERROR "Cannot enable MSAN unless using Clang")
+  endif()
+
+  if (ASAN)
+    message(FATAL_ERROR "ASAN and MSAN are mutually exclusive")
+  endif()
+
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSAN_CXX_FLAGS}")
+  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MSAN_LINKER_EXE_FLAGS}")
+
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
+  set(OPENSSL_NO_ASM "1")
+  set(LIBC++ ON)
+endif()
+
+if (ASAN)
+  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    message(FATAL_ERROR "Cannot enable ASAN unless using Clang")
+  endif()
+
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
+  set(OPENSSL_NO_ASM "1")
+endif()
+
+if (GCOV)
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+endif()
+
 if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
     message( FATAL_ERROR "In-source builds not allowed. Please make a new directory (usually called build) and run CMake from there. You may need to remove CMakeCache.txt." )
 endif()
+
+if(LIBC++)
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++abi")
+  if (MSAN)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
+    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
+  endif(MSAN)
+endif(LIBC++)
 
 # general
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
@@ -61,8 +92,8 @@ add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost COMPONENTS system)
-find_package(Boost COMPONENTS system)
+hunter_add_package(Boost)
+find_package(Boost)
 
 #Openssl
 hunter_add_package(OpenSSL)
@@ -91,12 +122,6 @@ if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STR
     set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
     set_source_files_properties(g3log/src/logworker.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
 endif()
-
-set_target_properties(g3logger PROPERTIES
-    LINKER_LANGUAGE CXX
-    OUTPUT_NAME g3logger
-    CLEAN_DIRECT_OUTPUT 1)
-target_link_libraries(g3logger ${PLATFORM_LINK_LIBRIES})
 
 #lib jpeg
 set(BUILD_STATIC ON)
@@ -212,7 +237,6 @@ add_subdirectory(static)
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
-target_link_libraries(bmcweb Boost::system)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)

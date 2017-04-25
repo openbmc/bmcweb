@@ -1,6 +1,6 @@
+#include <string>
 #include <crow/app.h>
 #include <boost/endian/arithmetic.hpp>
-#include <string>
 
 #include <ast_jpeg_decoder.hpp>
 #include <ast_video_puller.hpp>
@@ -51,12 +51,11 @@ enum class client_to_server_msg_type : uint8_t {
   client_cut_text = 6
 };
 
-enum class server_to_client_message_type : uint8_t
-{
-    framebuffer_update = 0,
-    set_color_map_entries = 1,
-    bell_message = 2,
-    server_cut_text = 3
+enum class server_to_client_message_type : uint8_t {
+  framebuffer_update = 0,
+  set_color_map_entries = 1,
+  bell_message = 2,
+  server_cut_text = 3
 };
 
 struct set_pixel_format_msg {
@@ -143,8 +142,9 @@ std::string serialize(const framebuffer_update_msg& msg) {
   std::string serialized(vector_size, 0);
 
   size_t i = 0;
-  serialized[i++] = static_cast<char>(server_to_client_message_type::framebuffer_update);  // Type
-  serialized[i++] = 0;  // Pad byte
+  serialized[i++] = static_cast<char>(
+      server_to_client_message_type::framebuffer_update);  // Type
+  serialized[i++] = 0;                                     // Pad byte
   boost::endian::big_uint16_t number_of_rectangles = msg.rectangles.size();
   std::memcpy(&serialized[i], &number_of_rectangles,
               sizeof(number_of_rectangles));
