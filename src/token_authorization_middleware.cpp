@@ -29,6 +29,11 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
     res.end();
   };
 
+  auto return_internal_error = [&req, &res]() {
+    res.code = 500;
+    res.end();
+  };
+
   CROW_LOG_DEBUG << "Token Auth Got route " << req.url;
 
   if (req.url == "/" || boost::starts_with(req.url, "/static/")) {
@@ -61,6 +66,8 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
 
       // TODO(ed) pull real passwords from PAM
       if (username == "dude" && password == "dude") {
+        crow::json::wvalue x;
+
         // TODO(ed) the RNG should be initialized at start, not every time we
         // want a token
         std::random_device rand;
@@ -74,7 +81,7 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
         base64::base64_encode(token, encoded_token);
         ctx.auth_token = encoded_token;
         this->auth_token2 = encoded_token;
-        crow::json::wvalue x;
+
         auto auth_token = ctx.auth_token;
         x["token"] = auth_token;
 
