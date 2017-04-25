@@ -3,14 +3,14 @@
 //#define CROW_JSON_NO_ERROR_CHECK
 
 #include <algorithm>
-#include <boost/algorithm/string/predicate.hpp>
-#include <boost/lexical_cast.hpp>
-#include <boost/operators.hpp>
 #include <iostream>
 #include <memory>
 #include <string>
-#include <unordered_map>
 #include <vector>
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/container/flat_map.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/operators.hpp>
 
 #include "crow/settings.h"
 
@@ -920,7 +920,7 @@ class wvalue {
   double d{};
   std::string s;
   std::unique_ptr<std::vector<wvalue>> l;
-  std::unique_ptr<std::unordered_map<std::string, wvalue>> o;
+  std::unique_ptr<boost::container::flat_map<std::string, wvalue>> o;
 
  public:
   wvalue() {}
@@ -944,8 +944,8 @@ class wvalue {
         for (auto it = r.begin(); it != r.end(); ++it) l->emplace_back(*it);
         return;
       case type::Object:
-        o = std::unique_ptr<std::unordered_map<std::string, wvalue>>(
-            new std::unordered_map<std::string, wvalue>{});
+        o = std::unique_ptr<boost::container::flat_map<std::string, wvalue>>(
+            new boost::container::flat_map<std::string, wvalue>{});
         for (auto it = r.begin(); it != r.end(); ++it)
           o->emplace(it->key(), *it);
         return;
@@ -1097,8 +1097,8 @@ class wvalue {
     if (t_ != type::Object) reset();
     t_ = type::Object;
     if (!o)
-      o = std::unique_ptr<std::unordered_map<std::string, wvalue>>(
-          new std::unordered_map<std::string, wvalue>{});
+      o = std::unique_ptr<boost::container::flat_map<std::string, wvalue>>(
+          new boost::container::flat_map<std::string, wvalue>{});
     return (*o)[str];
   }
 

@@ -10,6 +10,8 @@ var app = angular.module('bmcApp', [
   'ngResource'
 ]);
 
+
+
 app.controller('MainCtrl', ['$scope', function($scope) {
 
 }]);
@@ -72,9 +74,14 @@ app.directive('windowSize', ['$window', function ($window) {
 
 app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationService', '$http', '$templateCache',
   function($rootScope, $cookieStore, $state, $resource, AuthenticationService, $http, $templateCache) {
+
+    $http.get('static/partial-login.html', {cache:$templateCache});
+    $http.get('static/partial-kvm.html', {cache: $templateCache});
+
     if ($rootScope.globals == undefined){
         $rootScope.globals = {};
     }
+
     
     // keep user logged in after page refresh
     AuthenticationService.RestoreCredientials();
@@ -90,8 +97,7 @@ app.run(['$rootScope', '$cookieStore', '$state', '$resource', 'AuthenticationSer
             $state.go('login');
           }
         });
-  
-    $http.get('static/partial-kvm.html', { cache: $templateCache });
+
   }
 ]);
 

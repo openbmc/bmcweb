@@ -561,3 +561,10 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 .table-striped-invert > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
        background-color: #ffffff;
 }
+
+
+.div-fake-hidden {
+    width:0px;
+    height:0px;
+    overflow:hidden;
+}

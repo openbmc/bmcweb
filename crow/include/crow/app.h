@@ -1,5 +1,12 @@
 #pragma once
 
+#include "crow/http_request.h"
+#include "crow/http_server.h"
+#include "crow/logging.h"
+#include "crow/middleware_context.h"
+#include "crow/routing.h"
+#include "crow/settings.h"
+#include "crow/utility.h"
 #include <chrono>
 #include <cstdint>
 #include <functional>
@@ -8,14 +15,6 @@
 #include <string>
 #include <thread>
 #include <type_traits>
-
-#include "crow/http_request.h"
-#include "crow/http_server.h"
-#include "crow/logging.h"
-#include "crow/middleware_context.h"
-#include "crow/routing.h"
-#include "crow/settings.h"
-#include "crow/utility.h"
 
 #ifdef CROW_MSVC_WORKAROUND
 #define CROW_ROUTE(app, url) app.route_dynamic(url)
@@ -116,9 +115,7 @@ class Crow {
     router_.debug_print();
   }
 
-  std::vector<std::string> get_routes() {
-    return router_.get_routes();
-  }
+  std::vector<std::string> get_routes() { return router_.get_routes(); }
 
 #ifdef CROW_ENABLE_SSL
   self_t& ssl_file(const std::string& crt_filename,

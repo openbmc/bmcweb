@@ -1,7 +1,9 @@
 #pragma once
-#include <boost/algorithm/string/trim.hpp>
+
 #include "crow/http_request.h"
 #include "crow/http_response.h"
+#include <boost/algorithm/string/trim.hpp>
+#include <boost/container/flat_map.hpp>
 
 namespace crow {
 // Any middleware requires following 3 members:
@@ -33,8 +35,8 @@ namespace crow {
 
 struct CookieParser {
   struct context {
-    std::unordered_map<std::string, std::string> jar;
-    std::unordered_map<std::string, std::string> cookies_to_add;
+    boost::container::flat_map<std::string, std::string> jar;
+    boost::container::flat_map<std::string, std::string> cookies_to_add;
 
     std::string get_cookie(const std::string& key) {
       if (jar.count(key)) return jar[key];

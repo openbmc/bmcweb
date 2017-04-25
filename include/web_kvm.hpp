@@ -51,6 +51,14 @@ enum class client_to_server_msg_type : uint8_t {
   client_cut_text = 6
 };
 
+enum class server_to_client_message_type : uint8_t
+{
+    framebuffer_update = 0,
+    set_color_map_entries = 1,
+    bell_message = 2,
+    server_cut_text = 3
+};
+
 struct set_pixel_format_msg {
   boost::endian::big_uint8_t pad1;
   boost::endian::big_uint8_t pad2;
@@ -135,7 +143,7 @@ std::string serialize(const framebuffer_update_msg& msg) {
   std::string serialized(vector_size, 0);
 
   size_t i = 0;
-  serialized[i++] = 0;  // Type
+  serialized[i++] = static_cast<char>(server_to_client_message_type::framebuffer_update);  // Type
   serialized[i++] = 0;  // Pad byte
   boost::endian::big_uint16_t number_of_rectangles = msg.rectangles.size();
   std::memcpy(&serialized[i], &number_of_rectangles,
@@ -271,47 +279,47 @@ void request_routes(Crow<Middlewares...>& app) {
                     auto msg = reinterpret_cast<const frame_buffer_update_req*>(
                         data.data() + sizeof(client_to_server_msg_type));
 
-                      // Todo(ed) lifecycle of the video puller and decoder
-                      // should be
-                      // with the websocket, not recreated every time
-                      AstVideo::VideoPuller p;
-                      p.initialize();
-                      auto out = p.read_video();
-                      AstVideo::AstJpegDecoder d;
-                      d.decode(out.buffer, out.width, out.height, out.mode,
-                               out.y_selector, out.uv_selector);
+                    // Todo(ed) lifecycle of the video puller and decoder
+                    // should be
+                    // with the websocket, not recreated every time
+                    AstVideo::VideoPuller p;
+                    p.initialize();
+                    auto out = p.read_video();
+                    AstVideo::AstJpegDecoder d;
+                    d.decode(out.buffer, out.width, out.height, out.mode,
+                             out.y_selector, out.uv_selector);
 
-                      framebuffer_update_msg buffer_update_msg;
+                    framebuffer_update_msg buffer_update_msg;
 
-                      // If the viewer is requesting a full update, force write
-                      // of all pixels
+                    // If the viewer is requesting a full update, force write
+                    // of all pixels
 
-                      framebuffer_rectangle this_rect;
-                      this_rect.x = msg->x_position;
-                      this_rect.y = msg->y_position;
-                      this_rect.width = out.width;
-                      this_rect.height = out.height;
-                      this_rect.encoding =
-                          static_cast<uint8_t>(encoding_type::raw);
-                      LOG(DEBUG) << "Encoding is " << this_rect.encoding;
-                      this_rect.data.reserve(this_rect.width *
-                                             this_rect.height * 4);
-                      LOG(DEBUG) << "Width " << out.width << " Height "
-                                 << out.height;
+                    framebuffer_rectangle this_rect;
+                    this_rect.x = msg->x_position;
+                    this_rect.y = msg->y_position;
+                    this_rect.width = out.width;
+                    this_rect.height = out.height;
+                    this_rect.encoding =
+                        static_cast<uint8_t>(encoding_type::raw);
+                    LOG(DEBUG) << "Encoding is " << this_rect.encoding;
+                    this_rect.data.reserve(this_rect.width * this_rect.height *
+                                           4);
+                    LOG(DEBUG) << "Width " << out.width << " Height "
+                               << out.height;
 
-                      for (int i = 0; i < out.width * out.height; i++) {
-                        auto& pixel = d.OutBuffer[i];
-                        this_rect.data.push_back(pixel.B);
-                        this_rect.data.push_back(pixel.G);
-                        this_rect.data.push_back(pixel.R);
-                        this_rect.data.push_back(0);
-                      }
+                    for (int i = 0; i < out.width * out.height; i++) {
+                      auto& pixel = d.OutBuffer[i];
+                      this_rect.data.push_back(pixel.B);
+                      this_rect.data.push_back(pixel.G);
+                      this_rect.data.push_back(pixel.R);
+                      this_rect.data.push_back(0);
+                    }
 
-                      buffer_update_msg.rectangles.push_back(
-                          std::move(this_rect));
-                      auto serialized = serialize(buffer_update_msg);
+                    buffer_update_msg.rectangles.push_back(
+                        std::move(this_rect));
+                    auto serialized = serialize(buffer_update_msg);
 
-                      conn.send_binary(serialized);
+                    conn.send_binary(serialized);
 
                   }  // TODO(Ed) handle error
 

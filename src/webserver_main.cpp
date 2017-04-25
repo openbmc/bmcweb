@@ -21,10 +21,12 @@
 #include "crow/websocket.h"
 
 #include "color_cout_g3_sink.hpp"
-#include "webassets.hpp"
-
 #include "security_headers_middleware.hpp"
+#include "ssl_key_handler.hpp"
 #include "token_authorization_middleware.hpp"
+#include "web_kvm.hpp"
+#include "webassets.hpp"
+#include "webassets.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/endian/arithmetic.hpp>
@@ -33,10 +35,6 @@
 #include <memory>
 #include <string>
 #include <unordered_set>
-
-#include <web_kvm.hpp>
-#include <webassets.hpp>
-#include "ssl_key_handler.hpp"
 
 int main(int argc, char** argv) {
   auto worker(g3::LogWorker::createLogWorker());
@@ -117,6 +115,8 @@ int main(int argc, char** argv) {
 
       });
   auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
-  app.port(18080).ssl(std::move(ssl_context)).run();
+  app.port(18080)
+      //.ssl(std::move(ssl_context))
+      //.concurrency(4)
+      .run();
 }
-

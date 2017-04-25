@@ -73,8 +73,8 @@ class AstJpegDecoder {
  public:
   AstJpegDecoder() {
     // TODO(ed) figure out how to init this in the constructor
-    YUVBuffer.resize(800 * 600);
-    OutBuffer.resize(800 * 600);
+    YUVBuffer.resize(1920 * 1200);
+    OutBuffer.resize(1920 * 1200);
     for (auto &r : OutBuffer) {
       r.R = 0x00;
       r.G = 0x00;
@@ -815,8 +815,9 @@ class AstJpegDecoder {
             }
     */
   }
-  void load_Huffman_table(Huffman_table *HT, unsigned char *nrcode,
-                          unsigned char *value, unsigned short int *Huff_code) {
+  void load_Huffman_table(Huffman_table *HT, const unsigned char *nrcode,
+                          const unsigned char *value,
+                          const unsigned short int *Huff_code) {
     unsigned char k, j, i;
     unsigned int code, code_index;
 
@@ -1001,7 +1002,7 @@ class AstJpegDecoder {
     return 1;
   }
 
-  void set_quant_table(uint8_t *basic_table, uint8_t scale_factor,
+  void set_quant_table(const uint8_t *basic_table, uint8_t scale_factor,
                        uint8_t *newtable)
   // Set quantization table and zigzag reorder it
   {
@@ -1307,8 +1308,8 @@ class AstJpegDecoder {
   std::array<int, 256> m_Y;
   unsigned long buffer_index;
   uint32_t codebuf, newbuf, readbuf;
-  uint8_t *std_luminance_qt;
-  uint8_t *std_chrominance_qt;
+  const unsigned char *std_luminance_qt;
+  const uint8_t *std_chrominance_qt;
 
   signed short int DCY, DCCb, DCCr;  // Coeficientii DC pentru Y,Cb,Cr
   signed short int DCT_coeff[384];

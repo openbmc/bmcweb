@@ -1,6 +1,6 @@
 #include "ast_jpeg_decoder.hpp"
-#include "gmock/gmock.h"
-#include "gtest/gtest.h"
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 #ifdef BUILD_CIMG
 #define cimg_display 0
@@ -85,7 +85,7 @@ TEST(AstJpegDecoder, AllBlack) {
     }
   }
 }
-/*
+
 TEST(AstJpegDecoder, TestColors) {
   AstVideo::RawVideoBuffer out;
 
@@ -110,7 +110,7 @@ TEST(AstJpegDecoder, TestColors) {
            out.uv_selector);
 
   int tolerance = 16;
-
+  /*
   for (int i = 0; i < out.width * out.height; i++) {
     AstVideo::RGB &pixel = d.OutBuffer[i];
     EXPECT_GT(pixel.R, 0x8E - tolerance);
@@ -120,8 +120,9 @@ TEST(AstJpegDecoder, TestColors) {
     EXPECT_GT(pixel.B, 0xF1 - tolerance);
     EXPECT_LT(pixel.B, 0xF1 + tolerance);
   }
+  */
 }
-*/
+
 // Tests the buffers around the screen aren't written to
 TEST(AstJpegDecoder, BufferLimits) {
   AstVideo::RawVideoBuffer out;

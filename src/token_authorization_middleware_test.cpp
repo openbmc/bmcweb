@@ -1,7 +1,7 @@
+#include "token_authorization_middleware.hpp"
 #include <crow/app.h>
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include "token_authorization_middleware.hpp"
 
 using namespace crow;
 using namespace std;

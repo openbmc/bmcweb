@@ -1,10 +1,10 @@
-#include <boost/algorithm/string/predicate.hpp>
 #include <random>
 #include <unordered_map>
+#include <boost/algorithm/string/predicate.hpp>
 
-#include <crow/logging.h>
 #include <base64.hpp>
 #include <token_authorization_middleware.hpp>
+#include <crow/logging.h>
 
 namespace crow {
 
@@ -29,7 +29,7 @@ void TokenAuthorizationMiddleware::before_handle(crow::request& req,
     res.end();
   };
 
-  LOG(DEBUG) << "Token Auth Got route " << req.url;
+  CROW_LOG_DEBUG << "Token Auth Got route " << req.url;
 
   if (req.url == "/" || boost::starts_with(req.url, "/static/")) {
     // TODO this is total hackery to allow the login page to work before the

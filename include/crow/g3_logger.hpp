@@ -1,8 +1,10 @@
 #pragma once
 
 // This file overrides the default crow logging framework to use g3 instead.
-// It implements enough of the interfaces of the crow logging framework to work correctly
-// but deletes the ILogHandler interface, as usage of that would be counter to the g3
+// It implements enough of the interfaces of the crow logging framework to work
+// correctly
+// but deletes the ILogHandler interface, as usage of that would be counter to
+// the g3
 // handler management, and would cause performance issues.
 
 #include <cstdio>
@@ -45,7 +47,7 @@ class logger {
   }
 
   //
-  static void setLogLevel(LogLevel level) { }
+  static void setLogLevel(LogLevel level) {}
 
   static LogLevel get_current_log_level() { return get_log_level_ref(); }
 
@@ -61,29 +63,17 @@ class logger {
   LogLevel level_;
 };
 }
+#ifndef CROW_DISABLE_LOGGING
+#define CROW_DISABLE_LOGGING false
+#endif
 
-#define CROW_LOG_CRITICAL LOG(FATAL)
-#define CROW_LOG_ERROR LOG(WARNING)
-#define CROW_LOG_WARNING LOG(WARNING)
-#define CROW_LOG_INFO LOG(INFO)
-#define CROW_LOG_DEBUG LOG(DEBUG)
-
-
-
-/*
-#define CROW_LOG_CRITICAL   \
-        if (false) \
-            crow::logger("CRITICAL", crow::LogLevel::Critical)
-#define CROW_LOG_ERROR      \
-        if (false) \
-            crow::logger("ERROR   ", crow::LogLevel::Error)
-#define CROW_LOG_WARNING    \
-        if (false) \
-            crow::logger("WARNING ", crow::LogLevel::Warning)
-#define CROW_LOG_INFO       \
-        if (false) \
-            crow::logger("INFO    ", crow::LogLevel::Info)
-#define CROW_LOG_DEBUG      \
-        if (false) \
-            crow::logger("DEBUG   ", crow::LogLevel::Debug)
-*/
+#define CROW_LOG_CRITICAL \
+  if (!CROW_DISABLE_LOGGING) LOG(FATAL)
+#define CROW_LOG_ERROR \
+  if (!CROW_DISABLE_LOGGING) LOG(WARNING)
+#define CROW_LOG_WARNING \
+  if (!CROW_DISABLE_LOGGING) LOG(WARNING)
+#define CROW_LOG_INFO \
+  if (!CROW_DISABLE_LOGGING) LOG(INFO)
+#define CROW_LOG_DEBUG \
+  if (!CROW_DISABLE_LOGGING) LOG(DEBUG)

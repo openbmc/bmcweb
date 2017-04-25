@@ -1,5 +1,5 @@
-#include "gtest/gtest.h"
 #include <string>
+#include "gtest/gtest.h"
 
 TEST(MemorySanitizer, TestIsWorking) {
   std::string foo("foo");

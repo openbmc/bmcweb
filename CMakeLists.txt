@@ -8,21 +8,16 @@ message("${CMAKE_MODULE_PATH}")
 
 SET(BUILD_SHARED_LIBRARIES OFF)
 
-#set(HUNTER_ROOT /home/ed/hunter)
 #SET(HUNTER_STATUS_DEBUG ON)
 
-
-#SET(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
-#-fsanitize-memory-track-origins=2 -fno-omit-frame-pointer
-SET(MSAN_CXX_FLAGS "-fsanitize=memory -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
-SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
+#SET(MSAN_CXX_FLAGS "-fsanitize=memory -stdlib=libc++ -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
+#SET(MSAN_LINKER_EXE_FLAGS "${MSAN_CXX_FLAGS} -lc++abi -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSAN_CXX_FLAGS}")
 #SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MSAN_LINKER_EXE_FLAGS}")
 
-
-message("CMAKE_EXE_LINKER_FLAGS=${CMAKE_EXE_LINKER_FLAGS}")
-message("MSAN_CXX_FLAGS=${MSAN_CXX_FLAGS}")
+# Debug information
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fno-omit-frame-pointer")
 
 include("cmake/HunterGate.cmake")
 #HunterGate(
@@ -38,8 +33,6 @@ HunterGate(
 option(BUILD_FOR_EMBEDDED "Build for device target" ON)
 
 project(bmc-webserver CXX C)
-
-
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -67,14 +60,12 @@ add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost)
-find_package(Boost)
+hunter_add_package(Boost COMPONENTS system)
+find_package(Boost COMPONENTS system)
 
 #Openssl
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
-
-
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
@@ -93,6 +84,7 @@ ENDIF (MSVC OR MINGW)
 include_directories(${LOG_SRC})
 
 add_library(g3logger ${SRC_FILES})
+# clean up some warnings in files we don't own
 if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
     set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
     set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
@@ -113,6 +105,7 @@ set(BUILD_STATIC ON)
 
 
 # Crow
+add_definitions(-DCROW_DISABLE_LOGGING)
 add_definitions(-DCROW_ENABLE_SSL)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
@@ -169,7 +162,7 @@ set(UT_FILES
     g3log/test_unit/testing_helpers.cpp  
     g3log/test_unit/test_io.cpp        
     g3log/test_unit/test_message.cpp
-    src/crowtest/crow_unittest.cpp
+    src/crow_test.cpp
     src/gtest_main.cpp
     src/base64_test.cpp
     src/token_authorization_middleware_test.cpp
@@ -177,8 +170,10 @@ set(UT_FILES
     src/webassets_test.cpp
     src/crow_getroutes_test.cpp
     src/ast_jpeg_decoder_test.cpp
-
+    src/kvm_websocket_test.cpp
+    src/test_utils.cpp
     src/msan_test.cpp
+    src/ci_map_tests.cpp
 
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
@@ -216,13 +211,14 @@ add_subdirectory(static)
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(bmcweb Boost::system)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
 
 # udpclient
-add_executable(udpclient src/udpclient.cpp)
-target_link_libraries(udpclient pthread)
+#add_executable(udpclient src/udpclient.cpp)
+#target_link_libraries(udpclient pthread)
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)

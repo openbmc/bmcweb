@@ -4,9 +4,10 @@
 #include <cstdint>
 #include <memory>
 #include <tuple>
-#include <unordered_map>
 #include <utility>
 #include <vector>
+
+#include "boost/container/flat_map.hpp"
 
 #include "crow/common.h"
 #include "crow/http_request.h"
@@ -502,7 +503,7 @@ class Trie {
   struct Node {
     unsigned rule_index{};
     std::array<unsigned, (int)ParamType::MAX> param_childrens{};
-    std::unordered_map<std::string, unsigned> children;
+    boost::container::flat_map<std::string, unsigned> children;
 
     bool IsSimpleNode() const {
       return !rule_index &&

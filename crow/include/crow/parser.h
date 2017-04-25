@@ -4,7 +4,6 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/tokenizer.hpp>
 #include <string>
-#include <unordered_map>
 
 #include "crow/http_parser_merged.h"
 #include "crow/http_request.h"

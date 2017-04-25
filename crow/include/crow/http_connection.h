@@ -7,6 +7,8 @@
 #include <chrono>
 #include <vector>
 
+#include <boost/container/flat_map.hpp>
+
 #include "crow/http_parser_merged.h"
 
 #include "crow/dumb_timer_queue.h"
@@ -263,7 +265,7 @@ class Connection {
                                 "Keep-Alive"))
           add_keep_alive_ = true;
       }
-      if (!req.headers.count("host")) {
+      if (!req.headers.count("Host")) {
         is_invalid_request = true;
         res = response(400);
       }
@@ -334,7 +336,7 @@ class Connection {
       return;
     }
 
-    static std::unordered_map<int, std::string> statusCodes = {
+    static boost::container::flat_map<int, std::string> statusCodes = {
         {200, "HTTP/1.1 200 OK\r\n"},
         {201, "HTTP/1.1 201 Created\r\n"},
         {202, "HTTP/1.1 202 Accepted\r\n"},

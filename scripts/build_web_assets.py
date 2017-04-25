@@ -87,12 +87,33 @@ def filter_html(sha1_list, file_content):
     return string_content.encode()
 
 
-def filter_js(sha1_list, file_content):
+def embed_angular_templates(sha1_list, dependency_ordered_file_list, content_dict, file_content):
+    string_content = file_content.decode()
+    index = string_content.find("<script")
+    if index == -1:
+        raise Exception("Couldn't find first script tag in html?")
+    preload_string = ""
+    for full_filepath in dependency_ordered_file_list:
+        relative_path, _ = get_relative_path(full_filepath)
+        if re.search("partial-.*\\.html", relative_path):
+            sha1_path = get_sha1_path_from_relative(relative_path, sha1_list[relative_path])
 
+            print("full_filepath" + full_filepath)
+            preload_string += (
+                "<script type=\"text/ng-template\" id=\"" + sha1_path + "\">\n" +
+                open(full_filepath, 'r').read() +
+                "</script>\n"
+            )
+
+    for key in content_dict:
+        print(key)
+    string_content = string_content[:index] + preload_string + string_content[index:]
+    return string_content.encode()
+
+def filter_js(sha1_list, file_content):
     string_content = file_content.decode()
     for key, value in sha1_list.items():
         replace_name = get_sha1_path_from_relative(key, value)
-
         string_content_new = re.sub(key, replace_name, string_content)
         if string_content_new != string_content:
             print("    Replaced {}".format(key))
@@ -163,7 +184,7 @@ def main():
 
                 elif ext == ".js" or ext == ".css":
                     match = re.search(
-                        "([\"'](\.\./)*)(" + relative_replacename + ")([\"'\?])", file_content)
+                        "(\.\./)*" + relative_replacename, file_content)
                     if match:
                         depends_on[full_filepath].append(full_replacename)
 
@@ -191,6 +212,8 @@ def main():
 
         if extension == ".html" or relative_path == "/":
             new_file_content = filter_html(sha1_list, file_content)
+            if relative_path.endswith("index.html"):
+                new_file_content = embed_angular_templates(sha1_list, dependency_ordered_file_list, content_dict, new_file_content)
         elif extension == ".js" or extension == ".css":
             new_file_content = filter_js(sha1_list, file_content)
         else:

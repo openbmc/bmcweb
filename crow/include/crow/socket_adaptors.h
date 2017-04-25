@@ -33,7 +33,6 @@ struct SocketAdaptor {
   tcp::socket socket_;
 };
 
-
 struct TestSocketAdaptor {
   using context = void;
   TestSocketAdaptor(boost::asio::io_service& io_service, context*)
@@ -74,9 +73,31 @@ struct SSLAdaptor {
 
   tcp::endpoint remote_endpoint() { return raw_socket().remote_endpoint(); }
 
-  bool is_open() { return raw_socket().is_open(); }
+  bool is_open() {
+    /*TODO(ed) this is a bit of a cheat.
+     There are cases  when running a websocket where ssl_socket_ might have
+    std::move() called on it (to transfer ownership to websocket::Connection)
+    and be empty.  This (and the check on close()) is a cheat to do something
+    sane in this scenario. the correct fix would likely involve changing the
+    http parser to return a specific code meaning "has been upgraded" so that
+    the do_read function knows not to try to close the connection which would
+    fail, because the adapter is gone.  As is, do_read beleives the parse
+    failed, because is_open now returns False (which could also mean the client
+    disconnected during parse)
+    */
+    if (ssl_socket_ != nullptr) {
+      return ssl_socket_->lowest_layer().is_open();
+    } else {
+      return false;
+    }
+  }
 
-  void close() { raw_socket().close(); }
+  void close() {
+    if (ssl_socket_ == nullptr) {
+      return;
+    }
+    ssl_socket_->lowest_layer().close();
+  }
 
   boost::asio::io_service& get_io_service() {
     return raw_socket().get_io_service();

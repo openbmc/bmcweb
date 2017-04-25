@@ -8,9 +8,8 @@
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 //
 #include <array>
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
 #include <iostream>
+#include <boost/asio.hpp>
 
 using boost::asio::ip::udp;
 
@@ -44,7 +43,7 @@ int main(int argc, char* argv[]) {
         0x0E + 0x80;  // E is defined in spec as this channel
                       // 0x80 is requesting IPMI 2.0
     uint8_t byte1 = static_cast<uint8_t>(channel_number | 0x80);
-    boost::array<uint8_t, 2> payload{byte1, privilege_level};
+    std::array<uint8_t, 2> payload{byte1, privilege_level};
 
     int payload_sum = 0;
     for (auto element : payload) {
