@@ -94,9 +94,10 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
 find_package(Boost)
+include_directories(${Boost_INCLUDE_DIRS}) 
 
 #Openssl
-hunter_add_package(OpenSSL)
+#hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
 #g3 logging
@@ -200,7 +201,7 @@ set(UT_FILES
     src/test_utils.cpp
     src/msan_test.cpp
     src/ci_map_tests.cpp
-
+    src/ast_video_puller_test.cpp
     ${CMAKE_BINARY_DIR}/generated/blns.hpp
 )
 

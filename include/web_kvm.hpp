@@ -282,7 +282,7 @@ void request_routes(Crow<Middlewares...>& app) {
                     // Todo(ed) lifecycle of the video puller and decoder
                     // should be
                     // with the websocket, not recreated every time
-                    AstVideo::VideoPuller p;
+                    AstVideo::SimpleVideoPuller p;
                     p.initialize();
                     auto out = p.read_video();
                     AstVideo::AstJpegDecoder d;
