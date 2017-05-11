@@ -8,6 +8,8 @@ set(JAVASCRIPT_ASSETS
     js/kvmController.js
     js/loginController.js
     js/ipmiController.js
+    js/versionController.js
+    js/sensorController.js
     js/angular-resource.js
     js/angular-sanitize.js
     js/bmcApp.js
@@ -15,7 +17,7 @@ set(JAVASCRIPT_ASSETS
     js/angular-animate.js
     js/run_prettify.js
     js/angular.js
-    js/versionController.js
+    
     noVNC/core/inflator.js
     noVNC/core/input/xtscancodes.js
     noVNC/core/input/util.js
@@ -51,6 +53,7 @@ set(HTML_ASSETS
     partial-home-list.html
     partial-ipmi.html
     partial-kvm.html
+    partial-sensor.html
     partial-systeminfo.html
 )
 

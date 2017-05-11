@@ -31,6 +31,7 @@
     <script type="text/javascript" src="static/js/loginController.js" defer></script>
     <script type="text/javascript" src="static/js/kvmController.js" defer></script>
     <script type="text/javascript" src="static/js/ipmiController.js" defer></script>
+    <script type="text/javascript" src="static/js/sensorController.js" defer></script>
 
     <script type="text/javascript" src="static/noVNC/core/util.js" defer></script>
     <script type="text/javascript" src="static/noVNC/app/webutil.js" defer></script>
@@ -85,7 +86,7 @@
                         <li class="dropdown" uib-dropdown dropdown-append-to-body>
                             <a href="#" class="dropdown-toggle" uib-dropdown-toggle role="button" aria-haspopup="true" aria-expanded="false">Server Health <span class="caret"></span></a>
                             <ul class="dropdown-menu" uib-dropdown-menu role="menu">
-                                <li><a href="#">Sensor Information</a></li>
+                                <li><a ui-sref="sensor">Sensor Information</a></li>
                                 <li><a ui-sref="eventlog">Event Log</a></li>
                             </ul>
                         </li>

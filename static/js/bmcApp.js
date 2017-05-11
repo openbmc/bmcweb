@@ -130,6 +130,9 @@ app.config(['$stateProvider', '$urlRouterProvider',
       .state(
           'ipmi', {url: '/ipmi', templateUrl: 'static/partial-ipmi.html'})
 
+      .state(
+          'sensor', {url: '/sensor', templateUrl: 'static/partial-sensor.html'})
+
       // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
       .state('about', {url: '/about', templateUrl: 'static/partial-fruinfo.html'})
 

@@ -98,7 +98,6 @@ def embed_angular_templates(sha1_list, dependency_ordered_file_list, content_dic
         if re.search("partial-.*\\.html", relative_path):
             sha1_path = get_sha1_path_from_relative(relative_path, sha1_list[relative_path])
 
-            print("full_filepath" + full_filepath)
             preload_string += (
                 "<script type=\"text/ng-template\" id=\"" + sha1_path + "\">\n" +
                 open(full_filepath, 'r').read() +
@@ -207,7 +206,7 @@ def main():
             full_filepath)
         extension = os.path.splitext(relative_path)[1]
 
-        print("Including {:<40} size {:>7}".format(
+        print("Including {:<40} raw size {:>7}".format(
             relative_path, len(file_content)))
 
         if extension == ".html" or relative_path == "/":
@@ -319,6 +318,7 @@ def main():
                     relative_path_escaped=relative_path_escaped
                 )
             )
+            print("{:<40} took {:<7} kbytes".format(relative_path_escaped, len(array_binary_text)/1024))
         cpp_output.write("}\n}\n")
 
     print("Total static file size: {}KB".format(int(total_payload_size/1024)))

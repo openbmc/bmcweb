@@ -7,11 +7,6 @@ message("${CMAKE_MODULE_PATH}")
 SET(BUILD_SHARED_LIBRARIES OFF)
 
 #SET(HUNTER_STATUS_DEBUG ON)
-
-
-# Debug information
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -fno-omit-frame-pointer")
-
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-rtti")
 #SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
 include("cmake/HunterGate.cmake")
@@ -131,6 +126,10 @@ set(BUILD_STATIC ON)
 #add_subdirectory(libjpeg)
 
 
+# dbus
+hunter_add_package(dbus)
+find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
+
 # Crow
 add_definitions(-DCROW_DISABLE_LOGGING)
 add_definitions(-DCROW_ENABLE_SSL)
@@ -214,7 +213,7 @@ file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 if(${BUILD_UT})
     # big list of naughty strings
     add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
-        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns.txt ${CMAKE_BINARY_DIR}/generated/blns.hpp)
+        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns ${CMAKE_BINARY_DIR}/generated/blns.hpp)
 
     # googletest
     enable_testing()
@@ -241,6 +240,18 @@ target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
+target_link_libraries(bmcweb  dbus::dbus)
+
+# dbus
+add_executable(dbus_test src/dbus_main.cpp
+boost-dbus/include/dbus/impl/connection.ipp
+boost-dbus/include/dbus/impl/filter.ipp
+boost-dbus/include/dbus/impl/match.ipp
+boost-dbus/include/dbus/impl/message_iterator.ipp
+boost-dbus/include/dbus/impl/message.ipp
+boost-dbus/include/dbus/impl/packer.ipp
+boost-dbus/include/dbus/impl/unpacker.ipp)
+target_link_libraries(dbus_test  dbus::dbus)
 
 # udpclient
 #add_executable(udpclient src/udpclient.cpp)
