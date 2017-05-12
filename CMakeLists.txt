@@ -130,7 +130,7 @@ set(BUILD_STATIC ON)
 # dbus
 #hunter_add_package(dbus)
 find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
-include_directories(${DBUS_INCLUDE_DIR})
+include_directories(${DBUS_INCLUDE_DIRS})
 
 # Crow
 add_definitions(-DCROW_DISABLE_LOGGING)
