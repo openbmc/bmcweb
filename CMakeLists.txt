@@ -112,6 +112,7 @@ ENDIF (MSVC OR MINGW)
 include_directories(${LOG_SRC})
 
 add_library(g3logger ${SRC_FILES})
+set_target_properties(g3logger PROPERTIES LINKER_LANGUAGE CXX)
 # clean up some warnings in files we don't own
 if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
     set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
@@ -127,8 +128,9 @@ set(BUILD_STATIC ON)
 
 
 # dbus
-hunter_add_package(dbus)
+#hunter_add_package(dbus)
 find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
+include_directories(${DBUS_INCLUDE_DIR})
 
 # Crow
 add_definitions(-DCROW_DISABLE_LOGGING)
@@ -240,18 +242,11 @@ target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
-target_link_libraries(bmcweb  dbus::dbus)
+target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
 
 # dbus
-add_executable(dbus_test src/dbus_main.cpp
-boost-dbus/include/dbus/impl/connection.ipp
-boost-dbus/include/dbus/impl/filter.ipp
-boost-dbus/include/dbus/impl/match.ipp
-boost-dbus/include/dbus/impl/message_iterator.ipp
-boost-dbus/include/dbus/impl/message.ipp
-boost-dbus/include/dbus/impl/packer.ipp
-boost-dbus/include/dbus/impl/unpacker.ipp)
-target_link_libraries(dbus_test  dbus::dbus)
+add_executable(dbus_test src/dbus_main.cpp)
+target_link_libraries(dbus_test  ${DBUS_LIBRARIES})
 
 # udpclient
 #add_executable(udpclient src/udpclient.cpp)

@@ -1,12 +1,10 @@
 #pragma once
 
-// This file overrides the default crow logging framework to use g3 instead.
-// It implements enough of the interfaces of the crow logging framework to work
-// correctly
-// but deletes the ILogHandler interface, as usage of that would be counter to
-// the g3
-// handler management, and would cause performance issues.
-
+/*This file overrides the default crow logging framework to use g3 instead.
+ It implements enough of the interfaces of the crow logging framework to work
+ correctly but deletes the ILogHandler interface, as usage of that would be
+ counter to the g3 handler management, and would cause performance issues.
+*/
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>

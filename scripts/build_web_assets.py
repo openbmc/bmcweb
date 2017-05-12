@@ -318,7 +318,7 @@ def main():
                     relative_path_escaped=relative_path_escaped
                 )
             )
-            print("{:<40} took {:<7} kbytes".format(relative_path_escaped, len(array_binary_text)/1024))
+            print("{:<40} took {:>6} KB".format(relative_path_escaped, int(len(array_binary_text)/1024)))
         cpp_output.write("}\n}\n")
 
     print("Total static file size: {}KB".format(int(total_payload_size/1024)))
