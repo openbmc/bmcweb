@@ -97,7 +97,7 @@ find_package(OpenSSL REQUIRED)
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
-set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log/src)
+set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log)
 
 file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
 file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
@@ -176,20 +176,6 @@ set(SRC_FILES
 )
 
 set(UT_FILES
-    g3log/test_unit/test_cpp_future_concepts.cpp   
-    g3log/test_unit/tester_sharedlib.cpp  
-    # TODO(ed) figure out why this unit test has a main function in it
-    #g3log/test_unit/test_filechange.cpp  
-    g3log/test_unit/testing_helpers.h  
-    #TODO(ed)
-    #g3log/test_unit/test_linux_dynamic_loaded_sharedlib.cpp  
-    #g3log/test_unit/test_sink.cpp
-    g3log/test_unit/test_concept_sink.cpp  
-    g3log/test_unit/test_crashhandler_windows.cpp  
-    g3log/test_unit/tester_sharedlib.h    
-    g3log/test_unit/testing_helpers.cpp  
-    g3log/test_unit/test_io.cpp        
-    g3log/test_unit/test_message.cpp
     src/crow_test.cpp
     src/gtest_main.cpp
     src/base64_test.cpp
