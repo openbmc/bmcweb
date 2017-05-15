@@ -7,6 +7,7 @@ message("${CMAKE_MODULE_PATH}")
 SET(BUILD_SHARED_LIBRARIES OFF)
 
 #SET(HUNTER_STATUS_DEBUG ON)
+option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 #SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-rtti")
 #SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
 include("cmake/HunterGate.cmake")
@@ -88,11 +89,11 @@ add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
-find_package(Boost)
+find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS}) 
 
 #Openssl
-#hunter_add_package(OpenSSL)
+hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 
 #g3 logging
@@ -128,7 +129,7 @@ set(BUILD_STATIC ON)
 
 
 # dbus
-#hunter_add_package(dbus)
+hunter_add_package(dbus)
 find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
 include_directories(${DBUS_INCLUDE_DIRS})
 
