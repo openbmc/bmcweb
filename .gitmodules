@@ -1,0 +1,6 @@
+[submodule "googletest"]
+	path = googletest
+	url = https://github.com/google/googletest.git
+[submodule "static/noVNC"]
+	path = static/noVNC
+	url = https://github.com/novnc/noVNC.git
