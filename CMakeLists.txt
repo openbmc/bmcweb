@@ -161,10 +161,12 @@ include_directories(${CMAKE_BINARY_DIR}/generated)
 
 set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
+# the webassets file has a non-ideal beahvior, where it loads binary data into a std::string
+# due to the way crow is constructed.  This causes GCC warnings.  Filter them out.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
         set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
-    endif(CMAKE_CXX_COMPILER_VERSION VERSION_LESS 5.0)
+    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
 endif()
 
 
@@ -229,6 +231,7 @@ target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)
 target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
+install (TARGETS bmcweb DESTINATION bin)
 
 # dbus
 add_executable(dbus_test src/dbus_main.cpp)
