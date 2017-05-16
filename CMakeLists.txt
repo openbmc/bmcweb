@@ -134,7 +134,7 @@ find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
 include_directories(${DBUS_INCLUDE_DIRS})
 
 # Crow
-add_definitions(-DCROW_DISABLE_LOGGING)
+#add_definitions(-DCROW_DISABLE_LOGGING)
 add_definitions(-DCROW_ENABLE_SSL)
 include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
@@ -208,6 +208,7 @@ if(${BUILD_UT})
 
     # googletest
     enable_testing()
+
     #hunter_add_package(GTest)
     add_subdirectory(googletest)
     #find_package(GMock CONFIG REQUIRED)
@@ -216,6 +217,7 @@ if(${BUILD_UT})
     target_link_libraries(unittest gmock gtest)
     target_link_libraries(unittest pthread)
     target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
+    target_link_libraries(unittest ssl crypto)
     target_link_libraries(unittest g3logger)
     target_link_libraries(unittest ${ZLIB_LIBRARIES})
     add_dependencies(unittest packagestaticcpp)
@@ -228,6 +230,7 @@ add_subdirectory(static)
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
+target_link_libraries(unittest ssl crypto)
 target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 add_dependencies(bmcweb packagestaticcpp)

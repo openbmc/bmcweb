@@ -84,6 +84,9 @@ struct SSLAdaptor {
     fail, because the adapter is gone.  As is, do_read beleives the parse
     failed, because is_open now returns False (which could also mean the client
     disconnected during parse)
+    UPdate: The parser does in fact have an "is_upgrade" method that is intended
+    for exactly this purpose.  Todo is now to make do_read obey the flag 
+    appropriately.
     */
     if (ssl_socket_ != nullptr) {
       return ssl_socket_->lowest_layer().is_open();

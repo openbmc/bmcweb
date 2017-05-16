@@ -310,9 +310,12 @@ int main(int argc, char** argv) {
 
     return j;
   });
-
+  LOG(DEBUG) << "Building SSL context";
   auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
-  app.port(18080)
+  int port = 18080;
+  
+  LOG(DEBUG) << "Starting webserver on port " << port;
+  app.port(port)
       //.ssl(std::move(ssl_context))
       //.concurrency(4)
       .run();
