@@ -1,11 +1,11 @@
 #pragma once
 #include <atomic>
+#include <chrono>
+#include <vector>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
-#include <chrono>
-#include <vector>
 
 #include <boost/container/flat_map.hpp>
 
@@ -213,7 +213,7 @@ class Connection {
 #endif
   }
 
-  decltype(std::declval<Adaptor>().raw_socket())& socket() {
+  decltype(std::declval<Adaptor>().raw_socket()) & socket() {
     return adaptor_.raw_socket();
   }
 
@@ -320,7 +320,7 @@ class Connection {
       need_to_call_after_handlers_ = false;
 
       // call all after_handler of middlewares
-      detail::after_handlers_call_helper<((int)sizeof...(Middlewares)-1),
+      detail::after_handlers_call_helper<((int)sizeof...(Middlewares) - 1),
                                          decltype(ctx_),
                                          decltype(*middlewares_)>(
           *middlewares_, ctx_, req_, res);
@@ -426,6 +426,7 @@ class Connection {
 
  private:
   void do_read() {
+    CROW_LOG_DEBUG << "Foo0";
     // auto self = this->shared_from_this();
     is_reading = true;
     adaptor_.socket().async_read_some(
@@ -434,28 +435,40 @@ class Connection {
                std::size_t bytes_transferred) {
           bool error_while_reading = true;
           if (!ec) {
+            CROW_LOG_DEBUG << "Foo1";
             bool ret = parser_.feed(buffer_.data(), bytes_transferred);
             if (ret && adaptor_.is_open()) {
+              CROW_LOG_DEBUG << "Foo1";
               error_while_reading = false;
             }
           }
-
+          CROW_LOG_DEBUG << "Foo3";
           if (error_while_reading) {
+            CROW_LOG_DEBUG << "Foo4";
             cancel_deadline_timer();
+            CROW_LOG_DEBUG << "Foo5";
             parser_.done();
+            CROW_LOG_DEBUG << "Foo6";
             adaptor_.close();
             is_reading = false;
             CROW_LOG_DEBUG << this << " from read(1)";
             check_destroy();
           } else if (close_connection_) {
+            CROW_LOG_DEBUG << "Foo7";
             cancel_deadline_timer();
+            CROW_LOG_DEBUG << "Foo8";
             parser_.done();
+            CROW_LOG_DEBUG << "Foo9";
             is_reading = false;
+            CROW_LOG_DEBUG << "Foo10";
             check_destroy();
             // adaptor will close after write
           } else if (!need_to_call_after_handlers_) {
+            CROW_LOG_DEBUG << "Foo11";
             start_deadline();
+            CROW_LOG_DEBUG << "Foo12";
             do_read();
+            CROW_LOG_DEBUG << "Foo12";
           } else {
             // res will be completed later by user
             need_to_start_read_after_complete_ = true;
