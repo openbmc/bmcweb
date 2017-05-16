@@ -148,7 +148,7 @@ sensor_values read_sensor_values() {
     methods = read_dbus_xml_names(xml_data);
   }
 
-  fprintf(stdout, "Found %ld sensors \n", methods.size());
+  fprintf(stdout, "Found %zd sensors \n", methods.size());
 
   for (auto& method : methods) {
     // TODO(Ed) make sure sensor exposes SensorValue interface
@@ -313,7 +313,7 @@ int main(int argc, char** argv) {
   LOG(DEBUG) << "Building SSL context";
   auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
   int port = 18080;
-  
+
   LOG(DEBUG) << "Starting webserver on port " << port;
   app.port(port)
       //.ssl(std::move(ssl_context))

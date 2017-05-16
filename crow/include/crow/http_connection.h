@@ -441,6 +441,7 @@ class Connection {
               CROW_LOG_DEBUG << "Foo1";
               error_while_reading = false;
             }
+            CROW_LOG_DEBUG << "FooA";
           }
           CROW_LOG_DEBUG << "Foo3";
           if (error_while_reading) {

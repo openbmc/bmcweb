@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
 
+
+string(REPLACE "-O2" "" CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS})
+string(REPLACE "-O2" "" CMAKE_C_FLAGS ${CMAKE_CXX_FLAGS})
+
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 message("${CMAKE_MODULE_PATH}")
@@ -39,7 +43,7 @@ if (MSAN)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
   set(OPENSSL_NO_ASM "1")
   set(LIBC++ ON)
-endif()
+endif(MSAN)
 
 if (ASAN)
   if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -49,12 +53,12 @@ if (ASAN)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
   set(OPENSSL_NO_ASM "1")
-endif()
+endif(ASAN)
 
 if (GCOV)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-endif()
+endif(GCOV)
 
 if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
     message( FATAL_ERROR "In-source builds not allowed. Please make a new directory (usually called build) and run CMake from there. You may need to remove CMakeCache.txt." )
@@ -95,6 +99,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 #Openssl
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
+include_directories(${OPENSSL_INCLUDE_DIR})
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
@@ -141,9 +146,7 @@ include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 #Zlib
 hunter_add_package(ZLIB)
 find_package(ZLIB REQUIRED)
-
-# C++ GSL (Guideline support libraries)
-include_directories(gsl-lite/include)
+include_directories(${ZLIB_INCLUDE_DIRS})
 
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
@@ -216,15 +219,12 @@ if(${BUILD_UT})
     add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(unittest gmock gtest)
     target_link_libraries(unittest pthread)
-    if (${HUNTER_ENABLED})
-        target_link_libraries(unittest OpenSSL::SSL OpenSSL::Crypto)
-    else()
-        target_link_libraries(unittest ssl crypto)
-    endif (${HUNTER_ENABLED})
-    target_link_libraries(unittest ssl crypto)
     target_link_libraries(unittest g3logger)
+    
+    target_link_libraries(unittest ${OPENSSL_LIBRARIES})
     target_link_libraries(unittest ${ZLIB_LIBRARIES})
     add_dependencies(unittest packagestaticcpp)
+    
 endif(${BUILD_UT})
 
 # web static assets
@@ -233,15 +233,11 @@ add_subdirectory(static)
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
-if (${HUNTER_ENABLED})
-    target_link_libraries(bmcweb OpenSSL::SSL OpenSSL::Crypto)
-else()
-    target_link_libraries(bmcweb ssl crypto)
-endif (${HUNTER_ENABLED})
 target_link_libraries(bmcweb g3logger)
+target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
-add_dependencies(bmcweb packagestaticcpp)
 target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
+add_dependencies(bmcweb packagestaticcpp)
 install (TARGETS bmcweb DESTINATION bin)
 
 # dbus
