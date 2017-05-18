@@ -3,7 +3,7 @@ namespace crow {
 struct ColorCoutSink {
   // Linux xterm color
   // http://stackoverflow.com/questions/2616906/how-do-i-output-coloured-text-to-a-linux-terminal
-  enum FG_Color { YELLOW = 33, RED = 31, GREEN = 32, WHITE = 97 };
+  enum FG_Color { YELLOW = 33, RED = 31, GREEN = 32, WHITE = 97, DEFAULT = 39 };
 
   FG_Color GetColor(const LEVELS level) const {
     if (level.value == WARNING.value) {
@@ -24,7 +24,7 @@ struct ColorCoutSink {
     auto color = GetColor(level);
 
     std::cout << "\033[" << color << "m" << logEntry.get().toString()
-              << "\033[m";
+              << "\033[0m";
   }
 };
 }
