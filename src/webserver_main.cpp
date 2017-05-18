@@ -316,7 +316,7 @@ int main(int argc, char** argv) {
 
   LOG(DEBUG) << "Starting webserver on port " << port;
   app.port(port)
-      //.ssl(std::move(ssl_context))
+      .ssl(std::move(ssl_context))
       //.concurrency(4)
       .run();
 }
