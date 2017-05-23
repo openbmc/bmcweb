@@ -482,17 +482,6 @@ buffers_.emplace_back(res.headers.data(), res.headers.size());
         adaptor_.socket(), buffers_, [&](const boost::system::error_code& ec,
                                          std::size_t bytes_transferred) {
           CROW_LOG_DEBUG << "Wrote " << bytes_transferred << "bytes";
-          for (auto& buffer : buffers_) {
-            /*
-            CROW_LOG_DEBUG << "2nd passbuffer is "
-                           << std::string(
-                                  boost::asio::buffer_cast<const char*>(buffer),
-                                  boost::asio::buffer_size(buffer));
-                                  */
-            CROW_LOG_DEBUG << "pointer address "
-                           << (int)boost::asio::buffer_cast<const char*>(
-                                  buffer);
-          }
 
           is_writing = false;
           res.clear();

@@ -26,7 +26,6 @@
 #include "token_authorization_middleware.hpp"
 #include "web_kvm.hpp"
 #include "webassets.hpp"
-#include "webassets.hpp"
 
 #include <boost/asio.hpp>
 #include <boost/endian/arithmetic.hpp>
@@ -223,9 +222,9 @@ sensor_values read_sensor_values() {
 
 int main(int argc, char** argv) {
   auto worker(g3::LogWorker::createLogWorker());
-  std::string logger_name("bmcweb");
-  std::string folder("/tmp/");
-  auto handle = worker->addDefaultLogger(logger_name, folder);
+  if (false) {
+    auto handle = worker->addDefaultLogger("bmcweb", "/tmp/");
+  }
   g3::initializeLogging(worker.get());
   auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
                                      &crow::ColorCoutSink::ReceiveLogMessage);

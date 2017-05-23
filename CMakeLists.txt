@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
 
+cmake_policy(SET CMP0054 NEW)
+
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 message("${CMAKE_MODULE_PATH}")
@@ -12,8 +14,8 @@ option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 #SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
 include("cmake/HunterGate.cmake")
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.18.44.tar.gz"
-    SHA1 "a78f0b377b8e53c038f12fc18b0c02564c4534c8"
+    URL "https://github.com/ruslo/hunter/archive/v0.18.64.tar.gz"
+    SHA1 "baf9c8cc4f65306f0e442b5419967b4c4c04589a"
 )
 
 project(bmc-webserver CXX C)
@@ -22,9 +24,6 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
-
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-delete-null-pointer-checks")
 
 if (MSAN)
   if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")

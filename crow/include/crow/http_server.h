@@ -186,7 +186,7 @@ class Server {
 
   Handler* handler_;
   uint16_t concurrency_{1};
-  std::string server_name_ = "Crow/0.1";
+  std::string server_name_ = "iBMC";
   uint16_t port_;
   std::string bindaddr_;
   unsigned int roundrobin_index_{};
