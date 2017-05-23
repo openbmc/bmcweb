@@ -4,6 +4,7 @@
 #include "crow/ci_map.h"
 #include "crow/http_request.h"
 #include "crow/json.h"
+#include "crow/logging.h"
 
 namespace crow {
 template <typename Adaptor, typename Handler, typename... Middlewares>
@@ -17,18 +18,18 @@ struct response {
   json::wvalue json_value;
 
   // `headers' stores HTTP headers.
-  ci_map headers;
+  //ci_map headers;
 
-  void set_header(std::string key, std::string value) {
-    headers.erase(key);
-    headers.emplace(std::move(key), std::move(value));
-  }
-  void add_header(std::string key, std::string value) {
-    headers.emplace(std::move(key), std::move(value));
-  }
+  std::string headers;
 
-  const std::string& get_header_value(const std::string& key) {
-    return crow::get_header_value(headers, key);
+  void add_header(const std::string& key, const std::string& value) {
+
+    const static std::string seperator = ": ";
+    const static std::string crlf = "\r\n";
+    headers.append(key);
+    headers.append(seperator);
+    headers.append(value);
+    headers.append(crlf);
   }
 
   response() {}
@@ -46,11 +47,19 @@ struct response {
     json_mode();
   }
 
-  response(response&& r) { *this = std::move(r); }
+  response(response&& r) {
+    CROW_LOG_WARNING << "Moving response containers";
+    *this = std::move(r);
+  }
+
+  ~response(){
+    CROW_LOG_WARNING << "Destroying response";
+  }
 
   response& operator=(const response& r) = delete;
 
   response& operator=(response&& r) noexcept {
+    CROW_LOG_WARNING << "Moving response containers";
     body = std::move(r.body);
     json_value = std::move(r.json_value);
     code = r.code;
@@ -62,6 +71,7 @@ struct response {
   bool is_completed() const noexcept { return completed_; }
 
   void clear() {
+    CROW_LOG_WARNING << "Clearing response containers";
     body.clear();
     json_value.clear();
     code = 200;
@@ -94,6 +104,6 @@ struct response {
   std::function<bool()> is_alive_helper_;
 
   // In case of a JSON object, set the Content-Type header
-  void json_mode() { set_header("Content-Type", "application/json"); }
+  void json_mode() { add_header("Content-Type", "application/json"); }
 };
 }

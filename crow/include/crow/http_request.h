@@ -41,7 +41,7 @@ struct request {
         headers(std::move(headers)),
         body(std::move(body)) {}
 
-  void add_header(std::string key, std::string value) {
+  void add_header(const std::string& key, const std::string& value) {
     headers.emplace(std::move(key), std::move(value));
   }
 

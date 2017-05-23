@@ -36,7 +36,7 @@ CPP_MIDDLE_BUFFER = """  CROW_ROUTE(app, "{relative_path_sha1}")
     res.code = 200;
     // TODO, if you have a browser from the dark ages that doesn't support gzip,
     // unzip it before sending based on Accept-Encoding header
-    res.add_header("Content-Encoding", "{content_encoding}");
+    res.add_header("Content-Encoding", {content_encoding});
     res.add_header("Content-Type", "{content_type}");
 
     res.write(staticassets::{relative_path_escaped});
@@ -242,6 +242,8 @@ def main():
                          "\n"
                          "namespace crow {\n"
                          "namespace webassets {\n"
+                         "static const std::string gzip_string = \"gzip\";\n"
+                         "static const std::string none_string = \"none\";\n"
                         )
 
         hpp_output.write("struct staticassets {\n")
@@ -273,7 +275,7 @@ def main():
                     get_sha1_path_from_relative(relative_path, sha1)
             #print("relative_path_sha1: " + relative_path_sha1)
             #print("sha1: " + sha1)
-            content_encoding = 'gzip' if gzip_content else 'none'
+            content_encoding = 'gzip_string' if gzip_content else 'none_string'
 
             environment = {
                 'relative_path': relative_path,

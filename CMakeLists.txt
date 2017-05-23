@@ -72,6 +72,8 @@ if(LIBC++)
   endif(MSAN)
 endif(LIBC++)
 
+#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
+
 # general
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
 option(BUILD_UT "Enable Unit test" ON)
@@ -90,7 +92,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
-set(Boost_USE_STATIC_LIBS ON)
+#set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
 find_package(Boost REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS}) 
@@ -99,6 +101,7 @@ include_directories(${Boost_INCLUDE_DIRS})
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
+message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste

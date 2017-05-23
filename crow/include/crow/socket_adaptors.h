@@ -3,6 +3,7 @@
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
+#include "crow/logging.h"
 #include "crow/settings.h"
 namespace crow {
 using namespace boost;
@@ -85,7 +86,7 @@ struct SSLAdaptor {
     failed, because is_open now returns False (which could also mean the client
     disconnected during parse)
     UPdate: The parser does in fact have an "is_upgrade" method that is intended
-    for exactly this purpose.  Todo is now to make do_read obey the flag 
+    for exactly this purpose.  Todo is now to make do_read obey the flag
     appropriately.
     */
     if (ssl_socket_ != nullptr) {
@@ -99,7 +100,10 @@ struct SSLAdaptor {
     if (ssl_socket_ == nullptr) {
       return;
     }
-    ssl_socket_->lowest_layer().close();
+    boost::system::error_code ec;
+
+    // SHut it down
+    this->ssl_socket_->lowest_layer().close();
   }
 
   boost::asio::io_service& get_io_service() {

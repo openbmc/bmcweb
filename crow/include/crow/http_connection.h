@@ -5,6 +5,7 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
+#include <boost/asio/ssl.hpp>
 #include <boost/lexical_cast.hpp>
 
 #include <boost/container/flat_map.hpp>
@@ -26,29 +27,33 @@ using tcp = asio::ip::tcp;
 namespace detail {
 template <typename MW>
 struct check_before_handle_arity_3_const {
-  template <typename T, void (T::*)(request&, response&, typename MW::context&)
-                            const = &T::before_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) const =
+                &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_before_handle_arity_3 {
-  template <typename T, void (T::*)(request&, response&,
-                                    typename MW::context&) = &T::before_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) =
+                &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3_const {
-  template <typename T, void (T::*)(request&, response&, typename MW::context&)
-                            const = &T::after_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) const =
+                &T::after_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3 {
-  template <typename T, void (T::*)(request&, response&,
-                                    typename MW::context&) = &T::after_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) =
+                &T::after_handle>
   struct get {};
 };
 
@@ -252,8 +257,9 @@ class Connection {
     if (parser_.check_version(1, 0)) {
       // HTTP/1.0
       if (req.headers.count("connection")) {
-        if (boost::iequals(req.get_header_value("connection"), "Keep-Alive"))
+        if (boost::iequals(req.get_header_value("connection"), "Keep-Alive")) {
           add_keep_alive_ = true;
+        }
       } else
         close_connection_ = true;
     } else if (parser_.check_version(1, 1)) {
@@ -262,8 +268,9 @@ class Connection {
         if (req.get_header_value("connection") == "close")
           close_connection_ = true;
         else if (boost::iequals(req.get_header_value("connection"),
-                                "Keep-Alive"))
+                                "Keep-Alive")) {
           add_keep_alive_ = true;
+        }
       }
       if (!req.headers.count("Host")) {
         is_invalid_request = true;
@@ -288,6 +295,7 @@ class Connection {
                   << req.url;
 
     need_to_call_after_handlers_ = false;
+
     if (!is_invalid_request) {
       res.complete_request_handler_ = [] {};
       res.is_alive_helper_ = [this]() -> bool { return adaptor_.is_open(); };
@@ -303,7 +311,7 @@ class Connection {
         res.complete_request_handler_ = [this] { this->complete_request(); };
         need_to_call_after_handlers_ = true;
         handler_->handle(req, res);
-        if (add_keep_alive_) res.set_header("connection", "Keep-Alive");
+        if (add_keep_alive_) res.add_header("connection", "Keep-Alive");
       } else {
         complete_request();
       }
@@ -358,11 +366,9 @@ class Connection {
         {503, "HTTP/1.1 503 Service Unavailable\r\n"},
     };
 
-    static std::string seperator = ": ";
-    static std::string crlf = "\r\n";
 
     buffers_.clear();
-    buffers_.reserve(4 * (res.headers.size() + 5) + 3);
+    buffers_.reserve(20);
 
     if (res.body.empty() && res.json_value.t() == json::type::Object) {
       res.body = json::dump(res.json_value);
@@ -376,40 +382,28 @@ class Connection {
 
     if (res.code >= 400 && res.body.empty())
       res.body = statusCodes[res.code].substr(9);
+    
+    
 
-    for (auto& kv : res.headers) {
-      buffers_.emplace_back(kv.first.data(), kv.first.size());
-      buffers_.emplace_back(seperator.data(), seperator.size());
-      buffers_.emplace_back(kv.second.data(), kv.second.size());
-      buffers_.emplace_back(crlf.data(), crlf.size());
-    }
+    const static std::string crlf = "\r\n";
+    content_length_ = std::to_string(res.body.size());
+    static const std::string content_length_tag = "Content-Length";
+    res.add_header(content_length_tag, content_length_);
 
-    if (!res.headers.count("content-length")) {
-      content_length_ = std::to_string(res.body.size());
-      static std::string content_length_tag = "Content-Length: ";
-      buffers_.emplace_back(content_length_tag.data(),
-                            content_length_tag.size());
-      buffers_.emplace_back(content_length_.data(), content_length_.size());
-      buffers_.emplace_back(crlf.data(), crlf.size());
-    }
-    if (!res.headers.count("server")) {
-      static std::string server_tag = "Server: ";
-      buffers_.emplace_back(server_tag.data(), server_tag.size());
-      buffers_.emplace_back(server_name_.data(), server_name_.size());
-      buffers_.emplace_back(crlf.data(), crlf.size());
-    }
-    if (!res.headers.count("date")) {
-      static std::string date_tag = "Date: ";
-      date_str_ = get_cached_date_str();
-      buffers_.emplace_back(date_tag.data(), date_tag.size());
-      buffers_.emplace_back(date_str_.data(), date_str_.size());
-      buffers_.emplace_back(crlf.data(), crlf.size());
-    }
+    static const std::string server_tag = "Server: ";
+    res.add_header(server_tag, server_name_);
+
+    static const std::string date_tag = "Date: ";
+    date_str_ = get_cached_date_str();
+    res.add_header(date_tag, date_str_);
+
     if (add_keep_alive_) {
-      static std::string keep_alive_tag = "Connection: Keep-Alive";
-      buffers_.emplace_back(keep_alive_tag.data(), keep_alive_tag.size());
-      buffers_.emplace_back(crlf.data(), crlf.size());
+      static const std::string keep_alive_tag = "Connection";
+      static const std::string keep_alive_value = "Keep-Alive";
+      res.add_header(keep_alive_tag, keep_alive_value);
     }
+
+buffers_.emplace_back(res.headers.data(), res.headers.size());
 
     buffers_.emplace_back(crlf.data(), crlf.size());
     res_body_copy_.swap(res.body);
@@ -432,11 +426,29 @@ class Connection {
         boost::asio::buffer(buffer_),
         [this](const boost::system::error_code& ec,
                std::size_t bytes_transferred) {
+          CROW_LOG_ERROR << "Read " << bytes_transferred << " Bytes";
           bool error_while_reading = true;
           if (!ec) {
             bool ret = parser_.feed(buffer_.data(), bytes_transferred);
             if (ret && adaptor_.is_open()) {
               error_while_reading = false;
+            }
+          } else {
+            CROW_LOG_ERROR << "Error while reading: " << ec.message();
+            if (ec.category() == boost::asio::error::get_ssl_category()) {
+              auto err =
+                  std::string(" (") +
+                  boost::lexical_cast<std::string>(ERR_GET_LIB(ec.value())) +
+                  "," +
+                  boost::lexical_cast<std::string>(ERR_GET_FUNC(ec.value())) +
+                  "," +
+                  boost::lexical_cast<std::string>(ERR_GET_REASON(ec.value())) +
+                  ") ";
+              // ERR_PACK /* crypto/err/err.h */
+              char buf[128];
+              ::ERR_error_string_n(ec.value(), buf, sizeof(buf));
+              err += buf;
+              CROW_LOG_ERROR << err;
             }
           }
           if (error_while_reading) {
@@ -465,23 +477,37 @@ class Connection {
   void do_write() {
     // auto self = this->shared_from_this();
     is_writing = true;
-    boost::asio::async_write(adaptor_.socket(), buffers_,
-                             [&](const boost::system::error_code& ec,
-                                 std::size_t /*bytes_transferred*/) {
-                               is_writing = false;
-                               res.clear();
-                               res_body_copy_.clear();
-                               if (!ec) {
-                                 if (close_connection_) {
-                                   adaptor_.close();
-                                   CROW_LOG_DEBUG << this << " from write(1)";
-                                   check_destroy();
-                                 }
-                               } else {
-                                 CROW_LOG_DEBUG << this << " from write(2)";
-                                 check_destroy();
-                               }
-                             });
+    CROW_LOG_DEBUG << "Doing Write";
+    boost::asio::async_write(
+        adaptor_.socket(), buffers_, [&](const boost::system::error_code& ec,
+                                         std::size_t bytes_transferred) {
+          CROW_LOG_DEBUG << "Wrote " << bytes_transferred << "bytes";
+          for (auto& buffer : buffers_) {
+            /*
+            CROW_LOG_DEBUG << "2nd passbuffer is "
+                           << std::string(
+                                  boost::asio::buffer_cast<const char*>(buffer),
+                                  boost::asio::buffer_size(buffer));
+                                  */
+            CROW_LOG_DEBUG << "pointer address "
+                           << (int)boost::asio::buffer_cast<const char*>(
+                                  buffer);
+          }
+
+          is_writing = false;
+          res.clear();
+          res_body_copy_.clear();
+          if (!ec) {
+            if (close_connection_) {
+              adaptor_.close();
+              CROW_LOG_DEBUG << this << " from write(1)";
+              check_destroy();
+            }
+          } else {
+            CROW_LOG_DEBUG << this << " from write(2)";
+            check_destroy();
+          }
+        });
   }
 
   void check_destroy() {

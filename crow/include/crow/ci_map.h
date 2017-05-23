@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/functional/hash.hpp>
@@ -10,9 +11,9 @@ namespace crow {
 
 struct ci_key_eq {
   bool operator()(const std::string& left, const std::string& right) const {
-    unsigned int lsz = left.size();
-    unsigned int rsz = right.size();
-    for (unsigned int i = 0; i < std::min(lsz, rsz); ++i) {
+    size_t lsz = left.size();
+    size_t rsz = right.size();
+    for (size_t i = 0; i < std::min(lsz, rsz); ++i) {
       auto lchar = tolower(left[i]);
       auto rchar = tolower(right[i]);
       if (lchar != rchar) {
