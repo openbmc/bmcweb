@@ -2,6 +2,7 @@
 
 #include <crow/http_request.h>
 #include <crow/http_response.h>
+#include <boost/container/flat_set.hpp>
 
 namespace crow {
 
@@ -12,7 +13,7 @@ struct TokenAuthorizationMiddleware {
   // it opens the possibility of exposure by and endpoint.
   // instead we should only pass some kind of "user" struct
   struct context {
-    std::string auth_token;
+    //std::string auth_token;
   };
 
   TokenAuthorizationMiddleware();
@@ -22,6 +23,6 @@ struct TokenAuthorizationMiddleware {
   void after_handle(request& req, response& res, context& ctx);
 
  private:
-  std::string auth_token2;
+  boost::container::flat_set<std::string> auth_token2;
 };
 }

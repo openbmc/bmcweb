@@ -228,11 +228,15 @@ int main(int argc, char** argv) {
   g3::initializeLogging(worker.get());
   auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
                                      &crow::ColorCoutSink::ReceiveLogMessage);
-
+  bool enable_ssl = true;
   std::string ssl_pem_file("server.pem");
-  ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
 
-  crow::App<crow::TokenAuthorizationMiddleware, crow::SecurityHeadersMiddleware>
+  if (enable_ssl) {
+    ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
+  }
+
+  crow::App<
+      crow::TokenAuthorizationMiddleware,  crow::SecurityHeadersMiddleware>
       app;
 
   crow::webassets::request_routes(app);
@@ -309,13 +313,33 @@ int main(int argc, char** argv) {
 
     return j;
   });
+
+  CROW_ROUTE(app, "/intel/firmwareupload")
+      .methods("POST"_method)([](const crow::request& req) {
+        // TODO(ed) handle errors here (file exists already and is locked, ect)
+        std::ofstream out(
+            "/tmp/fw_update_image",
+            std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+        out << req.body;
+        out.close();
+
+        crow::json::wvalue j;
+        j["status"] = "Upload Successfull";
+
+        return j;
+      });
+
   LOG(DEBUG) << "Building SSL context";
-  auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
+
   int port = 18080;
 
   LOG(DEBUG) << "Starting webserver on port " << port;
-  app.port(port)
-      .ssl(std::move(ssl_context))
-      //.concurrency(4)
-      .run();
+  app.port(port);
+  if (enable_ssl) {
+    LOG(DEBUG) << "SSL Enabled";
+    auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
+    app.ssl(std::move(ssl_context));
+  }
+  app.concurrency(4);
+  app.run();
 }

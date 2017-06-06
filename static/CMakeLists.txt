@@ -1,22 +1,24 @@
 set(JAVASCRIPT_ASSETS
     js/selController.js
     js/lodash.core.js
-    js/ui-bootstrap-tpls-2.1.3.js
+    js/ui-bootstrap-tpls-2.5.0.js
     js/angular-cookies.js
     js/angular-websocket.js
     js/angular-ui-router.js
     js/kvmController.js
     js/loginController.js
     js/ipmiController.js
+    js/fwupdateController.js
+    js/mainController.js
     js/versionController.js
     js/sensorController.js
-    js/angular-resource.js
     js/angular-sanitize.js
     js/bmcApp.js
     js/base64.js
     js/angular-animate.js
     js/run_prettify.js
     js/angular.js
+    js/angular-ui-router-uib-modal.js
     
     noVNC/core/inflator.js
     noVNC/core/input/xtscancodes.js
@@ -55,10 +57,13 @@ set(HTML_ASSETS
     partial-kvm.html
     partial-sensor.html
     partial-systeminfo.html
+    partial-fwupdate.html
+    partial-fwupdateconfirm.html
 )
 
 set(OTHER_ASSETS
     img/logo.png
+    img/blur-bg.jpg
     fonts/fontawesome-webfont.woff
 )
 

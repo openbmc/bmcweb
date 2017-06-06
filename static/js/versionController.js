@@ -1,10 +1,8 @@
 angular.module('bmcApp').controller('versionController', [
-    '$scope', '$resource',
-    function($scope, $resource) {
+    '$scope', '$http',
+    function($scope, $http) {
 
-
-    var systeminfo = $resource("/systeminfo");
-    systeminfo.get(function(systeminfo){
+    var systeminfo = $http.get("/systeminfo").then(function(systeminfo){
         $scope.host_power_on= true;
         $scope.rmm_module_installed= true;
         $scope.bmc_available= true;
@@ -15,7 +13,4 @@ angular.module('bmcApp').controller('versionController', [
         $scope.bmc_backup_build_number = "96.37";
         $scope.bmc_backup_build_extended = "e04989f7";
     });
-
-
-
 }]);

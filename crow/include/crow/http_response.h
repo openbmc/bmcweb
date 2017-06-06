@@ -17,8 +17,7 @@ struct response {
   std::string body;
   json::wvalue json_value;
 
-  // `headers' stores HTTP headers.
-  //ci_map headers;
+  std::shared_ptr<std::string> body_ptr;
 
   std::string headers;
 
@@ -77,6 +76,7 @@ struct response {
     code = 200;
     headers.clear();
     completed_ = false;
+    body_ptr.reset();
   }
 
   void write(const std::string& body_part) { body += body_part; }

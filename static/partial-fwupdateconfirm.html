@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <h2 class="modal-title" id="modal-title">Firmware Update</h2>
+</div>
+<div class="modal-body" id="modal-body">
+    <h3>Loading Version: {{ image_info.major_version }}.{{ image_info.submajor_version }}.{{ image_info.sha1_version }}</h3>
+    <p>Updating your firmware will cause your BMC to become unresponsive while update is processed.
+        <p><b> Selected: </b>{{ file_to_load.name }}
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="okModal()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="dismissModal()">Cancel</button>
+</div>

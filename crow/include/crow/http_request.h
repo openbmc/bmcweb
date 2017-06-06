@@ -48,6 +48,9 @@ struct request {
   const std::string& get_header_value(const std::string& key) const {
     return crow::get_header_value(headers, key);
   }
+  /*
+  // These APIs were here, and it's unclear what their intent was, when 
+  // io_service is a public member.  They are commented out for now
 
   template <typename CompletionHandler>
   void post(CompletionHandler handler) {
@@ -58,5 +61,6 @@ struct request {
   void dispatch(CompletionHandler handler) {
     io_service->dispatch(handler);
   }
+*/
 };
 }

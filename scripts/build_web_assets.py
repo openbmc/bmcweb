@@ -24,26 +24,44 @@ CONTENT_TYPES = {
 CPP_MIDDLE_BUFFER = """  CROW_ROUTE(app, "{relative_path_sha1}")
   ([](const crow::request& req, crow::response& res) {{
     {CACHE_FOREVER_HEADER}
-    res.add_header("ETag", "{sha1}");
-    if (req.headers.count("If-None-Match") == 1) {{
-      if (req.get_header_value("If-None-Match") == "{sha1}") {{
-        res.code = 304;
-        res.end();
-        return;
-      }}
+    std::string sha1("{sha1}");
+    res.add_header(etag_string, sha1);
+
+    if (req.get_header_value(if_none_match_string) == sha1) {{
+      res.code = 304;
+    }} else {{
+        res.code = 200;
+        // TODO, if you have a browser from the dark ages that doesn't support gzip,
+        // unzip it before sending based on Accept-Encoding header
+        res.add_header(content_encoding_string, {content_encoding});
+        res.add_header(content_type_string, "{content_type}");
+
+        res.write(staticassets::{relative_path_escaped});
     }}
-
-    res.code = 200;
-    // TODO, if you have a browser from the dark ages that doesn't support gzip,
-    // unzip it before sending based on Accept-Encoding header
-    res.add_header("Content-Encoding", {content_encoding});
-    res.add_header("Content-Type", "{content_type}");
-
-    res.write(staticassets::{relative_path_escaped});
-
     res.end();
   }});
+
 """
+
+HPP_START_BUFFER = ("#pragma once\n"
+                    "\n"
+                    "#include <string>\n"
+                    "\n"
+                    "#include <crow/app.h>\n"
+                    "#include <crow/http_request.h>\n"
+                    "#include <crow/http_response.h>\n"
+                    "\n"
+                    "#include <crow/routing.h>\n"
+                    "\n"
+                    "namespace crow {\n"
+                    "namespace webassets {\n"
+                    "static const std::string gzip_string = \"gzip\";\n"
+                    "static const std::string none_string = \"none\";\n"
+                    "static const std::string if_none_match_string = \"If-None-Match\";\n"
+                    "static const std::string content_encoding_string = \"Content-Encoding\";\n"
+                    "static const std::string content_type_string = \"Content-Type\";\n"
+                    "static const std::string etag_string = \"ETag\";\n"
+                   )
 
 
 def twos_comp(val, bits):
@@ -230,21 +248,7 @@ def main():
         total_payload_size += len(file_content)
 
     with open(args.output.replace("cpp", "hpp"), 'w') as hpp_output:
-        hpp_output.write("#pragma once\n"
-                         "\n"
-                         "#include <string>\n"
-                         "\n"
-                         "#include <crow/app.h>\n"
-                         "#include <crow/http_request.h>\n"
-                         "#include <crow/http_response.h>\n"
-                         "\n"
-                         "#include <crow/routing.h>\n"
-                         "\n"
-                         "namespace crow {\n"
-                         "namespace webassets {\n"
-                         "static const std::string gzip_string = \"gzip\";\n"
-                         "static const std::string none_string = \"none\";\n"
-                        )
+        hpp_output.write(HPP_START_BUFFER)
 
         hpp_output.write("struct staticassets {\n")
         for full_filepath in dependency_ordered_file_list:

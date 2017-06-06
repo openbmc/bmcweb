@@ -1,11 +1,8 @@
 angular.module('bmcApp').controller('sensorController', [
-  '$scope', '$resource',
-  function($scope, $resource) {
-
-    var systeminfo = $resource("/sensortest");
-    systeminfo.get(function(sensor_values) {
+  '$scope', '$http',
+  function($scope, $http) {
+    $http.get('/sensortest').then(function(sensor_values) {
       $scope.sensor_values = sensor_values;
-    });
-
+    })
   }
 ]);

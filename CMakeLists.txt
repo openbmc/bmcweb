@@ -149,6 +149,10 @@ hunter_add_package(ZLIB)
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
+
+# PAM
+find_package(PAM REQUIRED)
+
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 set(HDR_FILES
@@ -224,6 +228,7 @@ if(${BUILD_UT})
     
     target_link_libraries(unittest ${OPENSSL_LIBRARIES})
     target_link_libraries(unittest ${ZLIB_LIBRARIES})
+    target_link_libraries(unittest pam)
     add_dependencies(unittest packagestaticcpp)
     
 endif(${BUILD_UT})
@@ -238,6 +243,7 @@ target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
+target_link_libraries(bmcweb pam)
 add_dependencies(bmcweb packagestaticcpp)
 install (TARGETS bmcweb DESTINATION bin)
 

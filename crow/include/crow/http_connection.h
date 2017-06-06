@@ -27,33 +27,29 @@ using tcp = asio::ip::tcp;
 namespace detail {
 template <typename MW>
 struct check_before_handle_arity_3_const {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) const =
-                &T::before_handle>
+  template <typename T, void (T::*)(request&, response&, typename MW::context&)
+                            const = &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_before_handle_arity_3 {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) =
-                &T::before_handle>
+  template <typename T, void (T::*)(request&, response&,
+                                    typename MW::context&) = &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3_const {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) const =
-                &T::after_handle>
+  template <typename T, void (T::*)(request&, response&, typename MW::context&)
+                            const = &T::after_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3 {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) =
-                &T::after_handle>
+  template <typename T, void (T::*)(request&, response&,
+                                    typename MW::context&) = &T::after_handle>
   struct get {};
 };
 
@@ -366,7 +362,6 @@ class Connection {
         {503, "HTTP/1.1 503 Service Unavailable\r\n"},
     };
 
-
     buffers_.clear();
     buffers_.reserve(20);
 
@@ -382,8 +377,6 @@ class Connection {
 
     if (res.code >= 400 && res.body.empty())
       res.body = statusCodes[res.code].substr(9);
-    
-    
 
     const static std::string crlf = "\r\n";
     content_length_ = std::to_string(res.body.size());
@@ -403,11 +396,10 @@ class Connection {
       res.add_header(keep_alive_tag, keep_alive_value);
     }
 
-buffers_.emplace_back(res.headers.data(), res.headers.size());
+    buffers_.emplace_back(res.headers.data(), res.headers.size());
 
     buffers_.emplace_back(crlf.data(), crlf.size());
-    res_body_copy_.swap(res.body);
-    buffers_.emplace_back(res_body_copy_.data(), res_body_copy_.size());
+    buffers_.emplace_back(res.body.data(), res.body.size());
 
     do_write();
 
@@ -430,8 +422,12 @@ buffers_.emplace_back(res.headers.data(), res.headers.size());
           bool error_while_reading = true;
           if (!ec) {
             bool ret = parser_.feed(buffer_.data(), bytes_transferred);
-            if (ret && adaptor_.is_open()) {
+            if (parser_.upgrade) {
               error_while_reading = false;
+            } else {
+              if (ret && adaptor_.is_open()) {
+                error_while_reading = false;
+              }
             }
           } else {
             CROW_LOG_ERROR << "Error while reading: " << ec.message();
@@ -485,7 +481,6 @@ buffers_.emplace_back(res.headers.data(), res.headers.size());
 
           is_writing = false;
           res.clear();
-          res_body_copy_.clear();
           if (!ec) {
             if (close_connection_) {
               adaptor_.close();
@@ -544,7 +539,6 @@ buffers_.emplace_back(res.headers.data(), res.headers.size());
 
   std::string content_length_;
   std::string date_str_;
-  std::string res_body_copy_;
 
   // boost::asio::deadline_timer deadline_;
   detail::dumb_timer_queue::key timer_cancel_key_;
