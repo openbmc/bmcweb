@@ -47,18 +47,18 @@ struct response {
   }
 
   response(response&& r) {
-    CROW_LOG_WARNING << "Moving response containers";
+    CROW_LOG_DEBUG << "Moving response containers";
     *this = std::move(r);
   }
 
   ~response(){
-    CROW_LOG_WARNING << "Destroying response";
+    CROW_LOG_DEBUG << "Destroying response";
   }
 
   response& operator=(const response& r) = delete;
 
   response& operator=(response&& r) noexcept {
-    CROW_LOG_WARNING << "Moving response containers";
+    CROW_LOG_DEBUG << "Moving response containers";
     body = std::move(r.body);
     json_value = std::move(r.json_value);
     code = r.code;
@@ -70,7 +70,7 @@ struct response {
   bool is_completed() const noexcept { return completed_; }
 
   void clear() {
-    CROW_LOG_WARNING << "Clearing response containers";
+    CROW_LOG_DEBUG << "Clearing response containers";
     body.clear();
     json_value.clear();
     code = 200;

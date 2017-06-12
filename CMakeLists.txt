@@ -20,6 +20,8 @@ HunterGate(
 
 project(bmc-webserver CXX C)
 
+include( CTest )
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -184,8 +186,6 @@ endif()
 
 
 set(SRC_FILES
-    src/token_authorization_middleware.cpp
-    src/security_headers_middleware.cpp
     src/base64.cpp
     ${GENERATED_SRC_FILES}
 )

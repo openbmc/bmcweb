@@ -246,9 +246,20 @@ int main(int argc, char** argv) {
     return j;
   });
 
-  CROW_ROUTE(app, "/ipmiws")
+  CROW_ROUTE(app, "/sensorws")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {
+        dbus::connection system_bus(conn.get_io_service(), dbus::bus::system);
+        dbus::match ma(system_bus,
+                       "type='signal',sender='org.freedesktop.DBus', "
+                       "interface='org.freedesktop.DBus.Properties',member="
+                       "'PropertiesChanged'");
+        dbus::filter f(system_bus, [](dbus::message& m) { return true; });
+
+        f.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
+          std::cout << "got event\n";
+          //f.async_dispatch(event_handler);
+        });
 
       })
       .onclose(
@@ -257,57 +268,43 @@ int main(int argc, char** argv) {
           })
       .onmessage([&](crow::websocket::connection& conn, const std::string& data,
                      bool is_binary) {
-        boost::asio::io_service io_service;
-        using boost::asio::ip::udp;
-        udp::resolver resolver(io_service);
-        udp::resolver::query query(udp::v4(), "10.243.48.31", "623");
-        udp::endpoint receiver_endpoint = *resolver.resolve(query);
-
-        udp::socket socket(io_service);
-        socket.open(udp::v4());
-
-        socket.send_to(boost::asio::buffer(data), receiver_endpoint);
-
-        std::array<char, 255> recv_buf;
-
-        udp::endpoint sender_endpoint;
-        size_t len =
-            socket.receive_from(boost::asio::buffer(recv_buf), sender_endpoint);
-        // TODO(ed) THis is ugly.  Find a way to not make a copy (ie, use
-        // std::string::data() to
-        std::string str(std::begin(recv_buf), std::end(recv_buf));
-        LOG(DEBUG) << "Got " << str << "back \n";
-        conn.send_binary(str);
 
       });
 
   CROW_ROUTE(app, "/sensortest")
   ([](const crow::request& req, crow::response& res) {
+    crow::json::wvalue j;
+    auto values = read_sensor_values();
+
     dbus::connection system_bus(*req.io_service, dbus::bus::system);
+    dbus::endpoint test_daemon("org.openbmc.Sensors",
+                               "/org/openbmc/sensors/tach",
+                               "org.freedesktop.DBus.Introspectable");
+    dbus::message m = dbus::message::new_call(test_daemon, "Introspect");
+    system_bus.async_send(
+        m,
+        [&j, &system_bus](const boost::system::error_code ec, dbus::message r) {
+          std::string xml;
+          r.unpack(xml);
+          std::vector<std::string> dbus_objects;
+          dbus::read_dbus_xml_names(xml, dbus_objects);
 
-    dbus::endpoint test_daemon("org.freedesktop.DBus", "/",
-                               "org.freedesktop.DBus");
-    dbus::message m = dbus::message::new_call(test_daemon, "ListNames");
-    system_bus.async_send(m, [&](const boost::system::error_code ec,
-                                 dbus::message r) {
-      std::vector<std::string> services;
-      //r.unpack(services);
-      for (auto& service : services) {
-        dbus::endpoint service_daemon(service, "/",
-                                      "org.freedesktop.DBus.Introspectable");
-        dbus::message m = dbus::message::new_call(service_daemon, "Introspect");
-        system_bus.async_send(
-            m, [&](const boost::system::error_code ec, dbus::message r) {
-              std::string xml;
-              r.unpack(xml);
-              std::vector<std::string> dbus_objects;
-              dbus::read_dbus_xml_names(xml, dbus_objects);
+          for (auto& object : dbus_objects) {
+            dbus::endpoint test_daemon("org.openbmc.Sensors",
+                                       "/org/openbmc/sensors/tach/" + object,
+                                       "org.openbmc.SensorValue");
+            dbus::message m2 = dbus::message::new_call(test_daemon, "getValue");
+            
+            system_bus.async_send(
+                m2, [&](const boost::system::error_code ec, dbus::message r) {
+                  int32_t value;
+                  r.unpack(value);
+                  // TODO(ed) if we ever go multithread, j needs a lock
+                  j[object] = value;
+                });
+          }
 
-
-            });
-      }
-
-    });
+        });
 
   });
 
@@ -337,6 +334,6 @@ int main(int argc, char** argv) {
     auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
     app.ssl(std::move(ssl_context));
   }
-  app.concurrency(4);
+  //app.concurrency(4);
   app.run();
 }

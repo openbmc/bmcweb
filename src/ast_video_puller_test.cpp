@@ -14,7 +14,6 @@
 #include <gtest/gtest.h>
 
 TEST(AstvideoPuller, BasicRead) {
-  std::cout << "Started\n";
   AstVideo::RawVideoBuffer out;
   bool have_hardware = false;
   if (access("/dev/video", F_OK) != -1) {
@@ -43,7 +42,6 @@ TEST(AstvideoPuller, BasicRead) {
   fwrite(out.buffer.data(), sizeof(char), out.buffer.size(), fp);
 
   AstVideo::AstJpegDecoder d;
-  std::cout << "MODE " << static_cast<int>(out.mode);
   d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
            out.uv_selector);
 }

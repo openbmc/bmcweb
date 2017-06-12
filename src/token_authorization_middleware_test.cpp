@@ -6,6 +6,14 @@
 using namespace crow;
 using namespace std;
 
+class KnownLoginAuthenticator {
+ public:
+  inline bool authenticate(const std::string& username,
+                           const std::string& password) {
+    return (username == "dude") && (password == "foo");
+  }
+};
+
 // Tests that static urls are correctly passed
 TEST(TokenAuthentication, TestBasicReject) {
   App<crow::TokenAuthorizationMiddleware> app;
@@ -177,9 +185,8 @@ TEST(TokenAuthentication, TestPostBadLoginUrl) {
   app.stop();
 }
 
-// Tests boundary conditions on login
 TEST(TokenAuthentication, TestSuccessfulLogin) {
-  App<crow::TokenAuthorizationMiddleware> app;
+  App<crow::TokenAuthorization<KnownLoginAuthenticator>> app;
   app.bindaddr("127.0.0.1").port(45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { app.run(); });
@@ -215,7 +222,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin) {
   // Test correct login credentials
   sendmsg =
       "POST /login\r\nContent-Length:40\r\n\r\n{\"username\": \"dude\", "
-      "\"password\": \"dude\"}\r\n";
+      "\"password\": \"foo\"}\r\n";
   {
     send_to_localhost(sendmsg);
     std::string response(std::begin(buf), std::end(buf));

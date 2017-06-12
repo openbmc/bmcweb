@@ -18,6 +18,7 @@ struct connection {
   virtual void send_binary(const std::string& msg) = 0;
   virtual void send_text(const std::string& msg) = 0;
   virtual void close(const std::string& msg = "quit") = 0;
+  virtual boost::asio::io_service& get_io_service() = 0;
   virtual ~connection() {}
 
   void userdata(void* u) { userdata_ = u; }
@@ -68,6 +69,10 @@ class Connection : public connection {
   template <typename CompletionHandler>
   void post(CompletionHandler handler) {
     adaptor_.get_io_service().post(handler);
+  }
+
+  boost::asio::io_service& get_io_service(){
+    return adaptor_.get_io_service();
   }
 
   void send_pong(const std::string& msg) {
