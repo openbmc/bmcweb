@@ -95,26 +95,35 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
     endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
 endforeach(JAVASCRIPT_ASSET)
 
+
+find_program(CSS_MINIFIER cssnano)
+if(NOT CSS_MINIFIER)
+    message("cssnano not found")
+endif()
 # for now CSS is included as is
 foreach(CSS_ASSET ${CSS_ASSETS})
     set(MINIFIED_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
     get_filename_component(FOLDERNAME ${MINIFIED_FILENAME} DIRECTORY)
     file(MAKE_DIRECTORY "${FOLDERNAME}")
-    add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
-        COMMAND cssnano 
-        "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
-        "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
+    if(CSS_MINIFIER)
+        message(FATAL_ERROR "cssnano not found!")
+    
+        add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
+            COMMAND cssnano 
+            "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+            "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
 
-        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
-        COMMENT "Minifying ${CSS_ASSET}"
-    )
-    list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
+            COMMENT "Minifying ${CSS_ASSET}"
+        )
+        list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+    endif()
     # if it's a debug build, use the unminified version
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT CSS_MINIFIER)
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET})
     else()
         list(APPEND STATIC_ASSETS_OUT ${MINIFIED_FILENAME})
-    endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    endif (CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT CSS_MINIFIER)
     
 endforeach(CSS_ASSET)
 

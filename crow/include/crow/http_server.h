@@ -113,7 +113,7 @@ class Server {
           timer.async_wait(handler);
         };
         timer.async_wait(handler);
-
+        CROW_LOG_INFO << init_count;
         init_count++;
         try {
           io_service_pool_[i]->run();

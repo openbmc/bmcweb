@@ -153,6 +153,10 @@ include_directories(${ZLIB_INCLUDE_DIRS})
 # PAM
 find_package(PAM REQUIRED)
 
+# Boost-dbus
+add_subdirectory(boost-dbus)
+include_directories(boost-dbus/include)
+
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 set(HDR_FILES
@@ -221,20 +225,22 @@ if(${BUILD_UT})
     add_subdirectory(googletest)
     #find_package(GMock CONFIG REQUIRED)
 
-    add_executable(unittest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
-    target_link_libraries(unittest gmock gtest)
-    target_link_libraries(unittest pthread)
-    target_link_libraries(unittest g3logger)
+    add_executable(webtest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
+    target_link_libraries(webtest gmock gtest)
+    target_link_libraries(webtest pthread)
+    target_link_libraries(webtest g3logger)
     
-    target_link_libraries(unittest ${OPENSSL_LIBRARIES})
-    target_link_libraries(unittest ${ZLIB_LIBRARIES})
-    target_link_libraries(unittest pam)
-    add_dependencies(unittest packagestaticcpp)
-    
+    target_link_libraries(webtest ${OPENSSL_LIBRARIES})
+    target_link_libraries(webtest ${ZLIB_LIBRARIES})
+    target_link_libraries(webtest pam)
+    add_dependencies(webtest packagestaticcpp)
+    add_test(webtest webtest "--gtest_output=xml:webtest.xml")
+
 endif(${BUILD_UT})
 
 # web static assets
 add_subdirectory(static)
+
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
@@ -246,14 +252,6 @@ target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
 target_link_libraries(bmcweb pam)
 add_dependencies(bmcweb packagestaticcpp)
 install (TARGETS bmcweb DESTINATION bin)
-
-# dbus
-add_executable(dbus_test src/dbus_main.cpp)
-target_link_libraries(dbus_test  ${DBUS_LIBRARIES})
-
-# udpclient
-#add_executable(udpclient src/udpclient.cpp)
-#target_link_libraries(udpclient pthread)
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)

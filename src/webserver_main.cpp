@@ -30,10 +30,12 @@
 #include <boost/asio.hpp>
 #include <boost/endian/arithmetic.hpp>
 
-#include <dbus/dbus.h>
-#include <boost/iostreams/stream.hpp>
-#include <boost/property_tree/ptree.hpp>
-#include <boost/property_tree/xml_parser.hpp>
+#include <dbus/connection.hpp>
+#include <dbus/endpoint.hpp>
+#include <dbus/filter.hpp>
+#include <dbus/match.hpp>
+#include <dbus/message.hpp>
+#include <dbus/utility.hpp>
 
 #include <iostream>
 #include <memory>
@@ -41,30 +43,6 @@
 #include <unordered_set>
 
 using sensor_values = std::vector<std::pair<std::string, int32_t>>;
-
-std::vector<std::string> read_dbus_xml_names(std::string& xml_data) {
-  std::vector<std::string> values;
-  // populate tree structure pt
-  using boost::property_tree::ptree;
-  ptree pt;
-  boost::iostreams::stream<boost::iostreams::array_source> stream(
-      xml_data.c_str(), xml_data.size());
-  read_xml(stream, pt);
-
-  // traverse node to find other nodes
-  for (const auto& interface : pt.get_child("node")) {
-    if (interface.first == "node") {
-      auto t = interface.second.get<std::string>("<xmlattr>", "default");
-      for (const auto& subnode : interface.second.get_child("<xmlattr>")) {
-        if (subnode.first == "name") {
-          auto t = subnode.second.get("", "unknown");
-          values.emplace_back(std::move(t));
-        }
-      }
-    }
-  }
-  return values;
-}
 
 sensor_values read_sensor_values() {
   sensor_values values;
@@ -144,7 +122,8 @@ sensor_values read_sensor_values() {
   std::vector<std::string> methods;
   if (xml_struct != NULL) {
     std::string xml_data(xml_struct);
-    methods = read_dbus_xml_names(xml_data);
+    std::vector<std::string> names;
+    dbus::read_dbus_xml_names(xml_data, methods);
   }
 
   fprintf(stdout, "Found %zd sensors \n", methods.size());
@@ -235,8 +214,7 @@ int main(int argc, char** argv) {
     ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
   }
 
-  crow::App<
-      crow::TokenAuthorizationMiddleware,  crow::SecurityHeadersMiddleware>
+  crow::App<crow::TokenAuthorizationMiddleware, crow::SecurityHeadersMiddleware>
       app;
 
   crow::webassets::request_routes(app);
@@ -304,22 +282,41 @@ int main(int argc, char** argv) {
       });
 
   CROW_ROUTE(app, "/sensortest")
-  ([]() {
-    crow::json::wvalue j;
-    auto values = read_sensor_values();
-    for (auto& pair : values) {
-      j[pair.first] = pair.second;
-    }
+  ([](const crow::request& req, crow::response& res) {
+    dbus::connection system_bus(*req.io_service, dbus::bus::system);
 
-    return j;
+    dbus::endpoint test_daemon("org.freedesktop.DBus", "/",
+                               "org.freedesktop.DBus");
+    dbus::message m = dbus::message::new_call(test_daemon, "ListNames");
+    system_bus.async_send(m, [&](const boost::system::error_code ec,
+                                 dbus::message r) {
+      std::vector<std::string> services;
+      //r.unpack(services);
+      for (auto& service : services) {
+        dbus::endpoint service_daemon(service, "/",
+                                      "org.freedesktop.DBus.Introspectable");
+        dbus::message m = dbus::message::new_call(service_daemon, "Introspect");
+        system_bus.async_send(
+            m, [&](const boost::system::error_code ec, dbus::message r) {
+              std::string xml;
+              r.unpack(xml);
+              std::vector<std::string> dbus_objects;
+              dbus::read_dbus_xml_names(xml, dbus_objects);
+
+
+            });
+      }
+
+    });
+
   });
 
   CROW_ROUTE(app, "/intel/firmwareupload")
       .methods("POST"_method)([](const crow::request& req) {
         // TODO(ed) handle errors here (file exists already and is locked, ect)
-        std::ofstream out(
-            "/tmp/fw_update_image",
-            std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+        std::ofstream out("/tmp/fw_update_image", std::ofstream::out |
+                                                      std::ofstream::binary |
+                                                      std::ofstream::trunc);
         out << req.body;
         out.close();
 
