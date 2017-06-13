@@ -156,7 +156,9 @@ include_directories(${ZLIB_INCLUDE_DIRS})
 find_package(PAM REQUIRED)
 
 # Boost-dbus
-add_subdirectory(boost-dbus)
+if(${BUILD_UT})
+    add_subdirectory(boost-dbus)
+endif()
 include_directories(boost-dbus/include)
 
 set(WEBSERVER_MAIN src/webserver_main.cpp)
