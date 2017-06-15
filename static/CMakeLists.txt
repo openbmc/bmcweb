@@ -76,11 +76,9 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
     # string(REGEX REPLACE "(\\.[^.]*$)" ".min\\1" OUTPUT_FILENAME ${OUTPUT_FILENAME})
     file(MAKE_DIRECTORY "${FOLDERNAME}")
     add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
-        COMMAND closure-compiler --language_in=ECMASCRIPT5
-        --js  "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
-        --js_output_file "${MINIFIED_FILENAME}"
-            --compilation_level SIMPLE_OPTIMIZATIONS
-            --angular_pass 
+        COMMAND uglifyjs --compress --mangle  
+        --output "${MINIFIED_FILENAME}"
+        "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
         DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
         COMMENT "Minifying ${JAVASCRIPT_ASSET}"
     )
