@@ -69,6 +69,10 @@ set(OTHER_ASSETS
 
 set(STATIC_ASSETS_OUT "")
 set(MINIFIED_ASSETS_OUT "")
+find_program(CSS_MINIFIER uglifyjs)
+if(NOT UGLIFY_MINIFIER)
+    message("uglifyjs not found")
+endif()
 foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
 
     set(MINIFIED_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${JAVASCRIPT_ASSET})
@@ -83,14 +87,13 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
         COMMENT "Minifying ${JAVASCRIPT_ASSET}"
     )
 
-    
     list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
     # if it's a debug build, use the unminified version
-    if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT UGLIFY_MINIFIER)
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET})
     else()
         list(APPEND STATIC_ASSETS_OUT ${MINIFIED_FILENAME})
-    endif (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    endif (CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT UGLIFY_MINIFIER)
 endforeach(JAVASCRIPT_ASSET)
 
 
@@ -103,9 +106,7 @@ foreach(CSS_ASSET ${CSS_ASSETS})
     set(MINIFIED_FILENAME ${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET})
     get_filename_component(FOLDERNAME ${MINIFIED_FILENAME} DIRECTORY)
     file(MAKE_DIRECTORY "${FOLDERNAME}")
-    if(CSS_MINIFIER)
-        message(FATAL_ERROR "cssnano not found!")
-    
+    if(CSS_MINIFIER)   
         add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
             COMMAND cssnano 
             "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
