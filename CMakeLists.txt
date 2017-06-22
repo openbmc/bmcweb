@@ -106,28 +106,28 @@ message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
 #g3 logging
 # G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
-set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log)
+#set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log)
 
-file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
-file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
+#file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
+#file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
 
-IF (MSVC OR MINGW)
-    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
-ELSE()
-    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
-ENDIF (MSVC OR MINGW)
+#IF (MSVC OR MINGW)
+#    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
+#ELSE()
+#    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
+#ENDIF (MSVC OR MINGW)
 
 # Create the g3log library
-include_directories(${LOG_SRC})
+#include_directories(${LOG_SRC})
 
-add_library(g3logger ${SRC_FILES})
-set_target_properties(g3logger PROPERTIES LINKER_LANGUAGE CXX)
+#add_library(g3logger ${SRC_FILES})
+#set_target_properties(g3logger PROPERTIES LINKER_LANGUAGE CXX)
 # clean up some warnings in files we don't own
-if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
-    set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-    set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-    set_source_files_properties(g3log/src/logworker.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-endif()
+#if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
+#    set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+#    set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+#    set_source_files_properties(g3log/src/logworker.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
+#endif()
 
 #lib jpeg
 set(BUILD_STATIC ON)
@@ -230,7 +230,7 @@ if(${BUILD_UT})
     add_executable(webtest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(webtest gmock gtest)
     target_link_libraries(webtest pthread)
-    target_link_libraries(webtest g3logger)
+    #target_link_libraries(webtest g3logger)
     
     target_link_libraries(webtest ${OPENSSL_LIBRARIES})
     target_link_libraries(webtest ${ZLIB_LIBRARIES})
@@ -247,7 +247,7 @@ add_subdirectory(static)
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
-target_link_libraries(bmcweb g3logger)
+#target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
@@ -257,7 +257,7 @@ install (TARGETS bmcweb DESTINATION bin)
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)
-target_link_libraries(getvideo g3logger)
+#target_link_libraries(getvideo g3logger)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly

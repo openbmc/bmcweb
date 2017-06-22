@@ -104,6 +104,7 @@ class message {
   struct packer {
     impl::message_iterator iter_;
     packer(message& m) { impl::message_iterator::init_append(m, iter_); }
+    packer(){};
     template <typename Element>
     packer& pack(const Element& e) {
       return *this << e;
@@ -112,6 +113,7 @@ class message {
   struct unpacker {
     impl::message_iterator iter_;
     unpacker(message& m) { impl::message_iterator::init(m, iter_); }
+    unpacker() {}
 
     template <typename Element>
     unpacker& unpack(Element& e) {
@@ -147,14 +149,104 @@ operator<<(message::packer& p, const Element& e) {
   return p;
 }
 
+template <typename Key, typename Value>
+message::packer& operator<<(message::packer& p,
+                            const std::vector<std::pair<Key, Value>>& v) {
+  message::packer sub;
+  char signature[] = {'{', element<Key>::code, element<Value>::code, '}', 0};
+
+  p.iter_.open_container(DBUS_TYPE_ARRAY, signature, sub.iter_);
+  for (auto& element : v) {
+    sub << element;
+  }
+
+  p.iter_.close_container(sub.iter_);
+  return p;
+}
+
+template <typename Element>
+message::packer& operator<<(message::packer& p, const std::vector<Element>& v) {
+  message::packer sub;
+  char signature[] = {element<Element>::code, 0};
+  p.iter_.open_container(element<std::vector<Element>>::code, signature,
+                         sub.iter_);
+  for (auto& element : v) {
+    sub << element;
+  }
+
+  p.iter_.close_container(sub.iter_);
+  return p;
+}
+
 inline message::packer& operator<<(message::packer& p, const char* c) {
   p.iter_.append_basic(element<string>::code, &c);
+  return p;
+}
+
+template <typename Key, typename Value>
+inline message::packer& operator<<(message::packer& p,
+                                   const std::pair<Key, Value> element) {
+  message::packer dict_entry;
+  p.iter_.open_container(DBUS_TYPE_DICT_ENTRY, NULL, dict_entry.iter_);
+  dict_entry << element.first;
+  dict_entry << element.second;
+  p.iter_.close_container(dict_entry.iter_);
   return p;
 }
 
 inline message::packer& operator<<(message::packer& p, const string& e) {
   const char* c = e.c_str();
   return p << c;
+}
+
+inline message::packer& operator<<(message::packer& p, const dbus_variant& v) {
+  message::packer sub;
+  char type = 0;
+  // TODO(ed) there must be a better (more typesafe) way to do this
+  switch (v.which()) {
+    case 0:
+      type = element<std::string>::code;
+      break;
+    case 1:
+      type = element<bool>::code;
+      break;
+    case 2:
+      type = element<byte>::code;
+      break;
+    case 3:
+      type = element<int16>::code;
+      break;
+    case 4:
+      type = element<uint16>::code;
+      break;
+    case 5:
+      type = element<int32>::code;
+      break;
+    case 6:
+      type = element<uint32>::code;
+      break;
+    case 7:
+      type = element<int64>::code;
+      break;
+    case 8:
+      type = element<uint64>::code;
+      break;
+    case 9:
+      type = element<double>::code;
+      break;
+
+    default:
+      // TODO(ed) throw exception
+      break;
+  }
+  char signature[] = {type, 0};
+
+  p.iter_.open_container(element<dbus_variant>::code, signature, sub.iter_);
+  boost::apply_visitor([&](auto val) { sub << val; }, v);
+  // sub << element;
+  p.iter_.close_container(sub.iter_);
+
+  return p;
 }
 
 template <typename Element>
@@ -178,32 +270,98 @@ inline message::unpacker& operator>>(message::unpacker& u, string& s) {
   return u;
 }
 
+inline message::unpacker& operator>>(message::unpacker& u, dbus_variant& v) {
+  message::unpacker sub;
+  u.iter_.recurse(sub.iter_);
+
+  auto arg_type = sub.iter_.get_arg_type();
+  // sub.iter_.get_basic(&c);
+  // Todo(ed) find a better way to do this lookup table
+  switch (arg_type) {
+    case element<std::string>::code: {
+      std::string s;
+      sub >> s;
+      v = s;
+    } break;
+    case element<bool>::code: {
+      bool b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<byte>::code: {
+      byte b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<int16>::code: {
+      int16 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<uint16>::code: {
+      uint16 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<int32>::code: {
+      int32 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<uint32>::code: {
+      uint32 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<int64>::code: {
+      int64 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<uint64>::code: {
+      uint64 b;
+      sub >> b;
+      v = b;
+    } break;
+    case element<double>::code: {
+      double b;
+      sub >> b;
+      v = b;
+    } break;
+
+    default:
+      // TODO(ed) throw exception
+      break;
+  }
+  u.iter_.next();
+  return u;
+}
+
+template <typename Key, typename Value>
+inline message::unpacker& operator>>(message::unpacker& u,
+                                     std::pair<Key, Value>& v) {
+  message::unpacker sub;
+  u.iter_.recurse(sub.iter_);
+  sub >> v.first;
+  sub >> v.second;
+
+  u.iter_.next();
+  return u;
+}
+
 template <typename Element>
 inline message::unpacker& operator>>(message::unpacker& u,
                                      std::vector<Element>& s) {
-  static_assert(std::is_same<Element, std::string>::value,
-                "only std::vector<std::string> is implemented for now");
-  impl::message_iterator sub;
-  u.iter_.recurse(sub);
+  message::unpacker sub;
 
-  const char* c;
-  while (sub.has_next()) {
-    sub.get_basic(&c);
-    s.emplace_back(c);
-    sub.next();
-  }
-
-  // TODO(ed)
-  // Make this generic for all types.  The below code is close, but there's
-  // template issues and things I don't understand;
-  /*
-  auto e = message::unpacker(sub);
-  while (sub.has_next()) {
+  u.iter_.recurse(sub.iter_);
+  auto arg_type = sub.iter_.get_arg_type();
+  while (arg_type != DBUS_TYPE_INVALID) {
     s.emplace_back();
-    Element& element = s.back();
-    e.unpack(element);
+    sub >> s.back();
+    arg_type = sub.iter_.get_arg_type();
   }
-*/
+  u.iter_.next();
   return u;
 }
 

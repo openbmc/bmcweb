@@ -58,7 +58,12 @@ inline bool message_iterator::has_next()
   return dbus_message_iter_has_next(&DBusMessageIter_);
 }
 
-inline int message_iterator::get_arg_type()
+inline int message_iterator::get_element_count()
+{
+  return dbus_message_iter_get_element_count(&DBusMessageIter_);
+}
+
+inline char message_iterator::get_arg_type()
 {
   return dbus_message_iter_get_arg_type(&DBusMessageIter_);
 }

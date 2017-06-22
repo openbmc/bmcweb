@@ -71,7 +71,7 @@ class Connection : public connection {
     adaptor_.get_io_service().post(handler);
   }
 
-  boost::asio::io_service& get_io_service(){
+  boost::asio::io_service& get_io_service() override {
     return adaptor_.get_io_service();
   }
 
@@ -143,7 +143,7 @@ class Connection : public connection {
         "HTTP/1.1 101 Switching Protocols\r\n"
         "Upgrade: websocket\r\n"
         "Connection: Upgrade\r\n"
-        "Sec-WebSocket-Protocol: binary\r\n"  // TODO(ed): this hardcodes binary mode
+        //"Sec-WebSocket-Protocol: binary\r\n"  // TODO(ed): this hardcodes binary mode
                                             // find a better way
         "Sec-WebSocket-Accept: ";
     static std::string crlf = "\r\n";

@@ -3,9 +3,9 @@
 // Distributed under the Boost Software License, Version 1.0. (See accompanying
 // file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
 
-#include <dbus/error.hpp>
 #include <dbus/connection.hpp>
 #include <dbus/endpoint.hpp>
+#include <dbus/error.hpp>
 #include <dbus/filter.hpp>
 #include <dbus/match.hpp>
 #include <dbus/message.hpp>
@@ -33,6 +33,21 @@ TEST(MessageTest, CallMessage) {
   ASSERT_EQ(i, 1);
 
   // m.get_sender();
+}
+
+TEST(MessageTest, Misc) {
+    auto signal_name = std::string("PropertiesChanged");
+  dbus::endpoint test_endpoint(
+      "org.freedesktop.Avahi",
+      "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp",
+      "org.freedesktop.DBus.Properties");
+  auto m = dbus::message::new_signal(test_endpoint, signal_name);
+
+  dbus::dbus_variant v(std::string("hello world"));
+  m.pack(v);
+
+  std::vector<dbus::dbus_variant> av{{std::string("hello world"), 1, 42}};
+  m.pack(av);
 }
 
 // I actually don't know what to do with these yet.

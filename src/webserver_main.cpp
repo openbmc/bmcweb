@@ -20,7 +20,6 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
-#include "color_cout_g3_sink.hpp"
 #include "security_headers_middleware.hpp"
 #include "ssl_key_handler.hpp"
 #include "token_authorization_middleware.hpp"
@@ -42,171 +41,30 @@
 #include <string>
 #include <unordered_set>
 
-using sensor_values = std::vector<std::pair<std::string, int32_t>>;
+static std::shared_ptr<dbus::connection> system_bus;
+static std::shared_ptr<dbus::match> sensor_match;
+static std::shared_ptr<dbus::filter> sensor_filter;
+static std::shared_ptr<dbus::filter> sensor_callback;
 
-sensor_values read_sensor_values() {
-  sensor_values values;
-  DBusError err;
+std::unordered_set<crow::websocket::connection*> users;
 
-  int ret;
-  bool stat;
-  dbus_uint32_t level;
-
-  // initialiset the errors
-  dbus_error_init(&err);
-
-  // connect to the system bus and check for errors
-  DBusConnection* conn = dbus_bus_get(DBUS_BUS_SYSTEM, &err);
-  if (dbus_error_is_set(&err)) {
-    fprintf(stderr, "Connection Error (%s)\n", err.message);
-    dbus_error_free(&err);
+void on_sensor_update(boost::system::error_code ec, dbus::message s) {
+  std::string object_name;
+  std::vector<std::pair<std::string, dbus::dbus_variant>> values;
+  s.unpack(object_name).unpack(values);
+  crow::json::wvalue j;
+  for (auto& value : values) {
+    //std::cout << "Got sensor value for " << s.get_path() << "\n";
+    boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
+                         value.second);
   }
-  if (NULL == conn) {
-    exit(1);
+  for (auto conn : users) {
+    conn->send_text(crow::json::dump(j));
   }
-
-  // create a new method call and check for errors
-  DBusMessage* msg = dbus_message_new_method_call(
-      "org.openbmc.Sensors",                  // target for the method call
-      "/org/openbmc/sensors/tach",            // object to call on
-      "org.freedesktop.DBus.Introspectable",  // interface to call on
-      "Introspect");                          // method name
-  if (NULL == msg) {
-    fprintf(stderr, "Message Null\n");
-    exit(1);
-  }
-
-  DBusPendingCall* pending;
-  // send message and get a handle for a reply
-  if (!dbus_connection_send_with_reply(conn, msg, &pending,
-                                       -1)) {  // -1 is default timeout
-    fprintf(stderr, "Out Of Memory!\n");
-    exit(1);
-  }
-  if (NULL == pending) {
-    fprintf(stderr, "Pending Call Null\n");
-    exit(1);
-  }
-  dbus_connection_flush(conn);
-
-  // free message
-  dbus_message_unref(msg);
-
-  // block until we recieve a reply
-  dbus_pending_call_block(pending);
-
-  // get the reply message
-  msg = dbus_pending_call_steal_reply(pending);
-  if (NULL == msg) {
-    fprintf(stderr, "Reply Null\n");
-    exit(1);
-  }
-  // free the pending message handle
-  dbus_pending_call_unref(pending);
-
-  // read the parameters
-  DBusMessageIter args;
-  char* xml_struct = NULL;
-  if (!dbus_message_iter_init(msg, &args)) {
-    fprintf(stderr, "Message has no arguments!\n");
-  }
-
-  // read the arguments
-  if (!dbus_message_iter_init(msg, &args)) {
-    fprintf(stderr, "Message has no arguments!\n");
-  } else if (DBUS_TYPE_STRING != dbus_message_iter_get_arg_type(&args)) {
-    fprintf(stderr, "Argument is not string!\n");
-  } else {
-    dbus_message_iter_get_basic(&args, &xml_struct);
-  }
-  std::vector<std::string> methods;
-  if (xml_struct != NULL) {
-    std::string xml_data(xml_struct);
-    std::vector<std::string> names;
-    dbus::read_dbus_xml_names(xml_data, methods);
-  }
-
-  fprintf(stdout, "Found %zd sensors \n", methods.size());
-
-  for (auto& method : methods) {
-    // TODO(Ed) make sure sensor exposes SensorValue interface
-    // create a new method call and check for errors
-    DBusMessage* msg = dbus_message_new_method_call(
-        "org.openbmc.Sensors",  // target for the method call
-        ("/org/openbmc/sensors/tach/" + method).c_str(),  // object to call on
-        "org.openbmc.SensorValue",  // interface to call on
-        "getValue");                // method name
-    if (NULL == msg) {
-      fprintf(stderr, "Message Null\n");
-      exit(1);
-    }
-
-    DBusPendingCall* pending;
-    // send message and get a handle for a reply
-    if (!dbus_connection_send_with_reply(conn, msg, &pending,
-                                         -1)) {  // -1 is default timeout
-      fprintf(stderr, "Out Of Memory!\n");
-      exit(1);
-    }
-    if (NULL == pending) {
-      fprintf(stderr, "Pending Call Null\n");
-      exit(1);
-    }
-    dbus_connection_flush(conn);
-
-    // free message
-    dbus_message_unref(msg);
-
-    // block until we recieve a reply
-    dbus_pending_call_block(pending);
-
-    // get the reply message
-    msg = dbus_pending_call_steal_reply(pending);
-    if (NULL == msg) {
-      fprintf(stderr, "Reply Null\n");
-      exit(1);
-    }
-    // free the pending message handle
-    dbus_pending_call_unref(pending);
-
-    // read the parameters
-    DBusMessageIter args;
-    int32_t value;
-    if (!dbus_message_iter_init(msg, &args)) {
-      fprintf(stderr, "Message has no arguments!\n");
-    }
-
-    // read the arguments
-    if (!dbus_message_iter_init(msg, &args)) {
-      fprintf(stderr, "Message has no arguments!\n");
-    } else if (DBUS_TYPE_VARIANT != dbus_message_iter_get_arg_type(&args)) {
-      fprintf(stderr, "Argument is not string!\n");
-    } else {
-      DBusMessageIter sub;
-      dbus_message_iter_recurse(&args, &sub);
-      auto type = dbus_message_iter_get_arg_type(&sub);
-      if (DBUS_TYPE_INT32 != type) {
-        fprintf(stderr, "Variant subType is not int32 it is %d\n", type);
-      } else {
-        dbus_message_iter_get_basic(&sub, &value);
-        values.emplace_back(method.c_str(), value);
-      }
-    }
-  }
-
-  // free reply and close connection
-  dbus_message_unref(msg);
-  return values;
-}
+  sensor_filter->async_dispatch(on_sensor_update);
+};
 
 int main(int argc, char** argv) {
-  auto worker(g3::LogWorker::createLogWorker());
-  if (false) {
-    auto handle = worker->addDefaultLogger("bmcweb", "/tmp/");
-  }
-  g3::initializeLogging(worker.get());
-  auto sink_handle = worker->addSink(std::make_unique<crow::ColorCoutSink>(),
-                                     &crow::ColorCoutSink::ReceiveLogMessage);
   bool enable_ssl = true;
   std::string ssl_pem_file("server.pem");
 
@@ -249,32 +107,53 @@ int main(int argc, char** argv) {
   CROW_ROUTE(app, "/sensorws")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {
-        dbus::connection system_bus(conn.get_io_service(), dbus::bus::system);
-        dbus::match ma(system_bus,
-                       "type='signal',sender='org.freedesktop.DBus', "
-                       "interface='org.freedesktop.DBus.Properties',member="
-                       "'PropertiesChanged'");
-        dbus::filter f(system_bus, [](dbus::message& m) { return true; });
+        system_bus = std::make_shared<dbus::connection>(conn.get_io_service(),
+                                                        dbus::bus::system);
+        sensor_match = std::make_shared<dbus::match>(
+            *system_bus,
+            "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
 
-        f.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
-          std::cout << "got event\n";
-          //f.async_dispatch(event_handler);
-        });
-
+        sensor_filter =
+            std::make_shared<dbus::filter>(*system_bus, [](dbus::message& m) {
+              auto member = m.get_member();
+              return member == "PropertiesChanged";
+            });
+        /*
+        std::function<void(boost::system::error_code, dbus::message)>
+            sensor_callback = [&conn, sensor_callback](
+                boost::system::error_code ec, dbus::message s) {
+              std::string object_name;
+              std::vector<std::pair<std::string, dbus::dbus_variant>> values;
+              s.unpack(object_name).unpack(values);
+              crow::json::wvalue j;
+              for (auto& value : values) {
+                std::cout << "Got sensor value for " << s.get_path() << "\n";
+                boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
+                                     value.second);
+              }
+              for (auto conn : users) {
+                conn.send_text(crow::json::dump(j));
+              }
+              sensor_filter->async_dispatch(sensor_callback);
+            };
+            */
+        sensor_filter->async_dispatch(on_sensor_update);
+        users.insert(&conn);
+        ;
       })
       .onclose(
           [&](crow::websocket::connection& conn, const std::string& reason) {
-
+            // TODO(ed) needs lock
+            users.erase(&conn);
           })
       .onmessage([&](crow::websocket::connection& conn, const std::string& data,
                      bool is_binary) {
-
+        CROW_LOG_ERROR << "Got unexpected message from client on sensorws";
       });
 
   CROW_ROUTE(app, "/sensortest")
   ([](const crow::request& req, crow::response& res) {
     crow::json::wvalue j;
-    auto values = read_sensor_values();
 
     dbus::connection system_bus(*req.io_service, dbus::bus::system);
     dbus::endpoint test_daemon("org.openbmc.Sensors",
@@ -294,7 +173,7 @@ int main(int argc, char** argv) {
                                        "/org/openbmc/sensors/tach/" + object,
                                        "org.openbmc.SensorValue");
             dbus::message m2 = dbus::message::new_call(test_daemon, "getValue");
-            
+
             system_bus.async_send(
                 m2, [&](const boost::system::error_code ec, dbus::message r) {
                   int32_t value;
@@ -311,9 +190,9 @@ int main(int argc, char** argv) {
   CROW_ROUTE(app, "/intel/firmwareupload")
       .methods("POST"_method)([](const crow::request& req) {
         // TODO(ed) handle errors here (file exists already and is locked, ect)
-        std::ofstream out("/tmp/fw_update_image", std::ofstream::out |
-                                                      std::ofstream::binary |
-                                                      std::ofstream::trunc);
+        std::ofstream out(
+            "/tmp/fw_update_image",
+            std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
         out << req.body;
         out.close();
 
@@ -323,17 +202,17 @@ int main(int argc, char** argv) {
         return j;
       });
 
-  LOG(DEBUG) << "Building SSL context";
+  std::cout << "Building SSL context\n";
 
   int port = 18080;
 
-  LOG(DEBUG) << "Starting webserver on port " << port;
+  std::cout << "Starting webserver on port " << port << "\n";
   app.port(port);
   if (enable_ssl) {
-    LOG(DEBUG) << "SSL Enabled";
+    std::cout << "SSL Enabled\n";
     auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
     app.ssl(std::move(ssl_context));
   }
-  //app.concurrency(4);
+  // app.concurrency(4);
   app.run();
 }

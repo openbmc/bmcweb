@@ -140,10 +140,9 @@ class Server {
 
     do_accept();
 
-    std::thread([this] {
-      io_service_.run();
-      CROW_LOG_INFO << "Exiting.";
-    }).join();
+    io_service_.run();
+    CROW_LOG_INFO << "Exiting.";
+
   }
 
   void stop() {

@@ -11,7 +11,6 @@
 #include <openssl/rand.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
-#include <g3log/g3log.hpp>
 #include <random>
 #include <boost/asio.hpp>
 
@@ -26,7 +25,7 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
   bool private_key_valid = false;
   bool cert_valid = false;
 
-  LOG(DEBUG) << "Checking certs in file " << filepath;
+  std::cout << "Checking certs in file " << filepath << "\n";
 
   FILE *file = fopen(filepath.c_str(), "r");
   if (file != NULL) {
@@ -35,21 +34,21 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
     if (pkey) {
       RSA *rsa = EVP_PKEY_get1_RSA(pkey);
       if (rsa) {
-        LOG(DEBUG) << "Found an RSA key";
+        std::cout << "Found an RSA key\n";
         if (RSA_check_key(rsa) == 1) {
           // private_key_valid = true;
         } else {
-          LOG(WARNING) << "Key not valid error number " << ERR_get_error();
+          std::cerr << "Key not valid error number " << ERR_get_error() << "\n";
         }
         RSA_free(rsa);
       } else {
         EC_KEY *ec = EVP_PKEY_get1_EC_KEY(pkey);
         if (ec) {
-          LOG(DEBUG) << "Found an EC key";
+          std::cout << "Found an EC key\n";
           if (EC_KEY_check_key(ec) == 1) {
             private_key_valid = true;
           } else {
-            LOG(WARNING) << "Key not valid error number " << ERR_get_error();
+            std::cerr << "Key not valid error number " << ERR_get_error() << "\n";
           }
           EC_KEY_free(ec);
         }
@@ -58,14 +57,14 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
       if (private_key_valid) {
         X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
         if (!x509) {
-          LOG(DEBUG) << "error getting x509 cert " << ERR_get_error();
+          std::cout << "error getting x509 cert " << ERR_get_error() << "\n";
         } else {
           rc = X509_verify(x509, pkey);
           if (rc == 1) {
             cert_valid = true;
           } else {
-            LOG(WARNING) << "Error in verifying private key signature "
-                         << ERR_get_error();
+            std::cerr << "Error in verifying private key signature "
+                         << ERR_get_error() << "\n";
           }
         }
       }
@@ -79,16 +78,16 @@ inline bool verify_openssl_key_cert(const std::string &filepath) {
 
 inline void generate_ssl_certificate(const std::string &filepath) {
   FILE *pFile = NULL;
-  LOG(WARNING) << "Generating new keys";
+  std::cout << "Generating new keys\n";
   init_openssl();
 
-  // LOG(WARNING) << "Generating RSA key";
+  // std::cerr << "Generating RSA key";
   // EVP_PKEY *pRsaPrivKey = create_rsa_key();
 
-  LOG(WARNING) << "Generating EC key";
+  std::cerr << "Generating EC key\n";
   EVP_PKEY *pRsaPrivKey = create_ec_key();
   if (pRsaPrivKey) {
-    LOG(WARNING) << "Generating x509 Certificate";
+    std::cerr << "Generating x509 Certificate\n";
     // Use this code to directly generate a certificate
     X509 *x509;
     x509 = X509_new();
@@ -221,7 +220,7 @@ inline void ensure_openssl_key_present_and_valid(const std::string &filepath) {
   pem_file_valid = verify_openssl_key_cert(filepath);
 
   if (!pem_file_valid) {
-    LOG(WARNING) << "Error in verifying signature, regenerating";
+    std::cerr << "Error in verifying signature, regenerating\n";
     generate_ssl_certificate(filepath);
   }
 }

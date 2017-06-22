@@ -20,7 +20,11 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 ###############
 # import Boost
+add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
+add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
+add_definitions(-DBOOST_ALL_NO_LIB)
 find_package(Boost REQUIRED)
+
 include_directories(${Boost_INCLUDE_DIRS})
 link_directories(${Boost_LIBRARY_DIRS})
 

@@ -34,7 +34,8 @@ class message_iterator {
 
   bool next();
   bool has_next();
-  int get_arg_type();
+  char get_arg_type();
+  int get_element_count();
 
   void get_basic(void *value);
 

@@ -6,7 +6,6 @@
 #include <ast_video_types.hpp>
 #include <cassert>
 #include <cstdint>
-#include <g3log/g3log.hpp>
 #include <iostream>
 #include <vector>
 

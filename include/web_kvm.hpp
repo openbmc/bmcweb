@@ -205,7 +205,7 @@ void request_routes(Crow<Middlewares...>& app) {
                      bool is_binary) {
         switch (meta.vnc_state) {
           case VncState::AWAITING_CLIENT_VERSION: {
-            LOG(DEBUG) << "Client sent: " << data;
+            std::cout << "Client sent: " << data;
             if (data == rfb_3_8_version_string ||
                 data == rfb_3_7_version_string) {
               std::string auth_types{1,
@@ -248,20 +248,20 @@ void request_routes(Crow<Middlewares...>& app) {
             server_init_msg.pixel_format.green_shift = 8;
             server_init_msg.pixel_format.blue_shift = 0;
             server_init_msg.name_length = 0;
-            LOG(DEBUG) << "size: " << sizeof(server_init_msg);
+            std::cout << "size: " << sizeof(server_init_msg);
             // TODO(ed) this is ugly.  Crow should really have a span type
             // interface
             // to avoid the copy, but alas, today it does not.
             std::string s(reinterpret_cast<char*>(&server_init_msg),
                           sizeof(server_init_msg));
-            LOG(DEBUG) << "s.size() " << s.size();
+            std::cout << "s.size() " << s.size();
             conn.send_binary(s);
             meta.vnc_state = VncState::MAIN_LOOP;
           } break;
           case VncState::MAIN_LOOP: {
             if (data.size() >= sizeof(client_to_server_msg_type)) {
               auto type = static_cast<client_to_server_msg_type>(data[0]);
-              LOG(DEBUG) << "Received client message type " << (uint32_t)type
+              std::cout << "Received client message type " << (uint32_t)type
                          << "\n";
               switch (type) {
                 case client_to_server_msg_type::set_pixel_format: {
@@ -301,10 +301,10 @@ void request_routes(Crow<Middlewares...>& app) {
                     this_rect.height = out.height;
                     this_rect.encoding =
                         static_cast<uint8_t>(encoding_type::raw);
-                    LOG(DEBUG) << "Encoding is " << this_rect.encoding;
+                    std::cout << "Encoding is " << this_rect.encoding;
                     this_rect.data.reserve(this_rect.width * this_rect.height *
                                            4);
-                    LOG(DEBUG) << "Width " << out.width << " Height "
+                    std::cout << "Width " << out.width << " Height "
                                << out.height;
 
                     for (int i = 0; i < out.width * out.height; i++) {

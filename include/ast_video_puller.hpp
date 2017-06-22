@@ -2,7 +2,6 @@
 
 #include <assert.h>
 #include <ast_video_types.hpp>
-#include <g3log/g3log.hpp>
 #include <iostream>
 #include <mutex>
 #include <vector>
@@ -96,13 +95,13 @@ class SimpleVideoPuller {
 
     std::cout << "Write done\n";
     */
-    LOG(DEBUG) << "Reading\n";
+    std::cout << "Reading\n";
     status = read(video_fd, reinterpret_cast<char *>(&image_info),
                   sizeof(image_info));
-    LOG(DEBUG) << "Done reading\n";
+    std::cout << "Done reading\n";
 
     if (status != 0) {
-      LOG(WARNING) << "Read failed with status " << status << "\n";
+      std::cerr << "Read failed with status " << status << "\n";
     }
 
     raw.buffer.resize(image_info.len);
@@ -150,7 +149,7 @@ class AsyncVideoPuller {
         dev_video, mutable_buffer, [this](const boost::system::error_code &ec,
                                           std::size_t bytes_transferred) {
           if (ec) {
-            LOG(WARNING) << "Read failed with status " << ec << "\n";
+            std::cerr << "Read failed with status " << ec << "\n";
           } else {
             this->read_done();
           }
@@ -158,7 +157,7 @@ class AsyncVideoPuller {
   }
 
   void read_done() {
-    LOG(DEBUG) << "Done reading\n";
+    std::cout << "Done reading\n";
     videobuf->buffer.resize(image_info.len);
 
     videobuf->height = image_info.parameter.features.h;

@@ -150,27 +150,114 @@ void query_interfaces(dbus::connection& system_bus, std::string& service_name,
   }
 }
 
-TEST(BOOST_DBUS, ListObjects) {
+TEST(BOOST_DBUS, SingleSensorChanged) {
   boost::asio::io_service io;
   dbus::connection system_bus(io, dbus::bus::system);
 
-  dbus::endpoint test_daemon("org.freedesktop.DBus", "/",
-                             "org.freedesktop.DBus");
+  dbus::match ma(system_bus,
+                 "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
+  dbus::filter f(system_bus, [](dbus::message& m) {
+    auto member = m.get_member();
+    return member == "PropertiesChanged";
+  });
 
-  // create new service browser
-  dbus::message m = dbus::message::new_call(test_daemon, "ListNames");
-  auto r = system_bus.send(m);
+  // std::function<void(boost::system::error_code, dbus::message)> event_handler
+  // =
 
-  std::vector<std::string> services;
-  r.unpack(services);
-  // todo(ed) find out why this needs to be static
-  static std::atomic<int> dbus_count(0);
-  std::cout << dbus_count << " Callers\n";
-  auto names = std::make_shared<std::vector<std::string>>();
-  for (auto& service : services) {
-    std::string name = "/";
-    query_interfaces(system_bus, service, name);
-  }
+  f.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
+    std::string object_name;
+    EXPECT_EQ(s.get_path(),
+              "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp");
 
+    std::vector<std::pair<std::string, dbus::dbus_variant>> values;
+    s.unpack(object_name).unpack(values);
+
+    EXPECT_EQ(object_name, "xyz.openbmc_project.Sensor.Value");
+
+    EXPECT_EQ(values.size(), 1);
+    auto expected = std::pair<std::string, dbus::dbus_variant>("Value", 42);
+    EXPECT_EQ(values[0], expected);
+
+    io.stop();
+  });
+
+  dbus::endpoint test_endpoint(
+      "org.freedesktop.Avahi",
+      "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp",
+      "org.freedesktop.DBus.Properties");
+
+  auto signal_name = std::string("PropertiesChanged");
+  auto m = dbus::message::new_signal(test_endpoint, signal_name);
+
+  m.pack("xyz.openbmc_project.Sensor.Value");
+
+  std::vector<std::pair<std::string, dbus::dbus_variant>> map2;
+
+  map2.emplace_back("Value", 42);
+
+  m.pack(map2);
+
+  auto removed = std::vector<uint32_t>();
+  m.pack(removed);
+  system_bus.async_send(m,
+                        [&](boost::system::error_code ec, dbus::message s) {});
+
+  io.run();
+}
+
+TEST(BOOST_DBUS, MultipleSensorChanged) {
+  boost::asio::io_service io;
+  dbus::connection system_bus(io, dbus::bus::system);
+
+  dbus::match ma(system_bus,
+                 "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
+  dbus::filter f(system_bus, [](dbus::message& m) {
+    auto member = m.get_member();
+    return member == "PropertiesChanged";
+  });
+
+  int count = 0;
+  f.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
+    std::string object_name;
+    EXPECT_EQ(s.get_path(),
+              "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp");
+
+    std::vector<std::pair<std::string, dbus::dbus_variant>> values;
+    s.unpack(object_name).unpack(values);
+
+    EXPECT_EQ(object_name, "xyz.openbmc_project.Sensor.Value");
+
+    EXPECT_EQ(values.size(), 1);
+    auto expected = std::pair<std::string, dbus::dbus_variant>("Value", 42);
+    EXPECT_EQ(values[0], expected);
+    count++;
+    if (count == 2) {
+      io.stop();
+    }
+
+  });
+
+  dbus::endpoint test_endpoint(
+      "org.freedesktop.Avahi",
+      "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp",
+      "org.freedesktop.DBus.Properties");
+
+  auto signal_name = std::string("PropertiesChanged");
+  auto m = dbus::message::new_signal(test_endpoint, signal_name);
+
+  m.pack("xyz.openbmc_project.Sensor.Value");
+
+  std::vector<std::pair<std::string, dbus::dbus_variant>> map2;
+
+  map2.emplace_back("Value", 42);
+
+  m.pack(map2);
+
+  auto removed = std::vector<uint32_t>();
+  m.pack(removed);
+  system_bus.async_send(m,
+                        [&](boost::system::error_code ec, dbus::message s) {});
+  system_bus.async_send(m,
+                        [&](boost::system::error_code ec, dbus::message s) {});
   io.run();
 }

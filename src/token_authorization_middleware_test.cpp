@@ -6,13 +6,7 @@
 using namespace crow;
 using namespace std;
 
-class KnownLoginAuthenticator {
- public:
-  inline bool authenticate(const std::string& username,
-                           const std::string& password) {
-    return (username == "dude") && (password == "foo");
-  }
-};
+
 
 // Tests that static urls are correctly passed
 TEST(TokenAuthentication, TestBasicReject) {
@@ -184,6 +178,15 @@ TEST(TokenAuthentication, TestPostBadLoginUrl) {
 
   app.stop();
 }
+
+// Test class that allows login for a fixed password.
+class KnownLoginAuthenticator {
+ public:
+  inline bool authenticate(const std::string& username,
+                           const std::string& password) {
+    return (username == "dude") && (password == "foo");
+  }
+};
 
 TEST(TokenAuthentication, TestSuccessfulLogin) {
   App<crow::TokenAuthorization<KnownLoginAuthenticator>> app;

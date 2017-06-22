@@ -8,7 +8,9 @@
 
 #include <dbus/dbus.h>
 #include <string>
+#include <vector>
 #include <boost/cstdint.hpp>
+#include <boost/variant.hpp>
 
 namespace dbus {
 
@@ -31,6 +33,11 @@ typedef boost::uint64_t uint64;
 // unix_fd
 
 typedef std::string string;
+
+typedef boost::variant<std::string, bool, byte, int16, uint16, int32, uint32, int64,
+                       uint64, double>
+    dbus_variant;
+
 struct object_path {
   string value;
 };
@@ -95,6 +102,16 @@ struct element<double> {
 template <>
 struct element<string> {
   static const int code = DBUS_TYPE_STRING;
+};
+
+template <typename Element>
+struct element<std::vector<Element>> {
+  static const int code = DBUS_TYPE_ARRAY;
+};
+
+template <>
+struct element<dbus_variant> {
+  static const int code = DBUS_TYPE_VARIANT;
 };
 
 template <>
