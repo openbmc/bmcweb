@@ -15,4 +15,4 @@ scp ed@hades.jf.intel.com:/home/ed/webserver/buildarm/getvideo /tmp -i /nv/.ssh/
 kill -12 1480
 
 
-dbus-monitor --system "type='signal',path_namespace='/xyz/openbmc_project/sensors'"
+dbus-monitor --system "type='signal',path_namespace='/xyz/openbmc_project/sensors/tach'"

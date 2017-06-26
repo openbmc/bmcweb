@@ -54,7 +54,7 @@ void on_sensor_update(boost::system::error_code ec, dbus::message s) {
   s.unpack(object_name).unpack(values);
   crow::json::wvalue j;
   for (auto& value : values) {
-    //std::cout << "Got sensor value for " << s.get_path() << "\n";
+    // std::cout << "Got sensor value for " << s.get_path() << "\n";
     boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
                          value.second);
   }
@@ -107,39 +107,25 @@ int main(int argc, char** argv) {
   CROW_ROUTE(app, "/sensorws")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {
-        system_bus = std::make_shared<dbus::connection>(conn.get_io_service(),
-                                                        dbus::bus::system);
-        sensor_match = std::make_shared<dbus::match>(
-            *system_bus,
-            "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
+        if (!system_bus) {
+          system_bus = std::make_shared<dbus::connection>(conn.get_io_service(),
+                                                          dbus::bus::system);
+        }
+        if (!sensor_match) {
+          sensor_match = std::make_shared<dbus::match>(
+              *system_bus,
+              "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
+        }
+        if (!sensor_filter) {
+          sensor_filter =
+              std::make_shared<dbus::filter>(*system_bus, [](dbus::message& m) {
+                auto member = m.get_member();
+                return member == "PropertiesChanged";
+              });
+          sensor_filter->async_dispatch(on_sensor_update);
+        }
 
-        sensor_filter =
-            std::make_shared<dbus::filter>(*system_bus, [](dbus::message& m) {
-              auto member = m.get_member();
-              return member == "PropertiesChanged";
-            });
-        /*
-        std::function<void(boost::system::error_code, dbus::message)>
-            sensor_callback = [&conn, sensor_callback](
-                boost::system::error_code ec, dbus::message s) {
-              std::string object_name;
-              std::vector<std::pair<std::string, dbus::dbus_variant>> values;
-              s.unpack(object_name).unpack(values);
-              crow::json::wvalue j;
-              for (auto& value : values) {
-                std::cout << "Got sensor value for " << s.get_path() << "\n";
-                boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
-                                     value.second);
-              }
-              for (auto conn : users) {
-                conn.send_text(crow::json::dump(j));
-              }
-              sensor_filter->async_dispatch(sensor_callback);
-            };
-            */
-        sensor_filter->async_dispatch(on_sensor_update);
         users.insert(&conn);
-        ;
       })
       .onclose(
           [&](crow::websocket::connection& conn, const std::string& reason) {

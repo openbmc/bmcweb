@@ -15,7 +15,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="(sensor_name, value) in sensor_values">
+                            <tr ng-animate="'animate'" ng-repeat="(sensor_name, value) in sensor_values">
                                 <td class="fit">{{ sensor_name }}</td>
                                 <td class="fit">{{ value }}</td>
                             </tr>

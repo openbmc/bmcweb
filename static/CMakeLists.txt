@@ -79,15 +79,17 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
     get_filename_component(FOLDERNAME ${MINIFIED_FILENAME} DIRECTORY)
     # string(REGEX REPLACE "(\\.[^.]*$)" ".min\\1" OUTPUT_FILENAME ${OUTPUT_FILENAME})
     file(MAKE_DIRECTORY "${FOLDERNAME}")
-    add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
-        COMMAND uglifyjs --compress --mangle  
-        --output "${MINIFIED_FILENAME}"
-        "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
-        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
-        COMMENT "Minifying ${JAVASCRIPT_ASSET}"
-    )
-
-    list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+    if(UGLIFY_MINIFIER)
+        add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
+            COMMAND uglifyjs --compress --mangle  
+            --output "${MINIFIED_FILENAME}"
+            "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
+            COMMENT "Minifying ${JAVASCRIPT_ASSET}"
+        )
+        list(APPEND MINIFIED_ASSETS_OUT ${MINIFIED_FILENAME})
+    endif(UGLIFY_MINIFIER)
+    
     # if it's a debug build, use the unminified version
     if (CMAKE_BUILD_TYPE STREQUAL "Debug" OR NOT UGLIFY_MINIFIER)
         list(APPEND STATIC_ASSETS_OUT ${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET})
