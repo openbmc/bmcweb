@@ -1,8 +1,15 @@
 'use strict';
 angular.module('Authentication', []);
 var app = angular.module('bmcApp', [
-  'ngCookies', 'ngAnimate', 'ngSanitize', 'ui.bootstrap',
-  'ui.router', 'ngWebSocket', 'Authentication', 'ui.router.modal',
+  'ngCookies',
+  'ngAnimate',
+  'ngSanitize',
+  'ui.bootstrap',
+  'ui.router',
+  'ngWebSocket',
+  'Authentication',
+  'ui.router.modal',
+  'smart-table',
 ]);
 
 app.service('loginInterceptor', [
@@ -128,7 +135,7 @@ app.config([
         .state('fwupdate.confirm', {
           url : '/confirm',
           templateUrl : 'static/partial-fwupdateconfirm.html',
-          modal: true
+          modal : true
         })
         // ABOUT PAGE AND MULTIPLE NAMED VIEWS =================================
         .state('about',
@@ -216,7 +223,7 @@ angular.module('Authentication').factory('AuthenticationService', [
     };
 
     service.IsLoggedIn = function() {
-      if ($rootScope.globals['currentUser']){
+      if ($rootScope.globals['currentUser']) {
         return true;
       } else {
         return false;

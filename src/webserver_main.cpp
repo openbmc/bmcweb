@@ -44,7 +44,6 @@
 static std::shared_ptr<dbus::connection> system_bus;
 static std::shared_ptr<dbus::match> sensor_match;
 static std::shared_ptr<dbus::filter> sensor_filter;
-static std::shared_ptr<dbus::filter> sensor_callback;
 
 std::unordered_set<crow::websocket::connection*> users;
 
@@ -58,8 +57,9 @@ void on_sensor_update(boost::system::error_code ec, dbus::message s) {
     boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
                          value.second);
   }
+  auto data_to_send = crow::json::dump(j);
   for (auto conn : users) {
-    conn->send_text(crow::json::dump(j));
+    conn->send_text(data_to_send);
   }
   sensor_filter->async_dispatch(on_sensor_update);
 };
@@ -113,12 +113,12 @@ int main(int argc, char** argv) {
         }
         if (!sensor_match) {
           sensor_match = std::make_shared<dbus::match>(
-              *system_bus,
+              system_bus,
               "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
         }
         if (!sensor_filter) {
           sensor_filter =
-              std::make_shared<dbus::filter>(*system_bus, [](dbus::message& m) {
+              std::make_shared<dbus::filter>(system_bus, [](dbus::message& m) {
                 auto member = m.get_member();
                 return member == "PropertiesChanged";
               });
@@ -149,26 +149,30 @@ int main(int argc, char** argv) {
     system_bus.async_send(
         m,
         [&j, &system_bus](const boost::system::error_code ec, dbus::message r) {
-          std::string xml;
-          r.unpack(xml);
-          std::vector<std::string> dbus_objects;
-          dbus::read_dbus_xml_names(xml, dbus_objects);
+          if (ec) {
+            
+          } else {
+            std::string xml;
+            r.unpack(xml);
+            std::vector<std::string> dbus_objects;
+            dbus::read_dbus_xml_names(xml, dbus_objects);
 
-          for (auto& object : dbus_objects) {
-            dbus::endpoint test_daemon("org.openbmc.Sensors",
-                                       "/org/openbmc/sensors/tach/" + object,
-                                       "org.openbmc.SensorValue");
-            dbus::message m2 = dbus::message::new_call(test_daemon, "getValue");
+            for (auto& object : dbus_objects) {
+              dbus::endpoint test_daemon("org.openbmc.Sensors",
+                                         "/org/openbmc/sensors/tach/" + object,
+                                         "org.openbmc.SensorValue");
+              dbus::message m2 =
+                  dbus::message::new_call(test_daemon, "getValue");
 
-            system_bus.async_send(
-                m2, [&](const boost::system::error_code ec, dbus::message r) {
-                  int32_t value;
-                  r.unpack(value);
-                  // TODO(ed) if we ever go multithread, j needs a lock
-                  j[object] = value;
-                });
+              system_bus.async_send(
+                  m2, [&](const boost::system::error_code ec, dbus::message r) {
+                    int32_t value;
+                    r.unpack(value);
+                    // TODO(ed) if we ever go multithread, j needs a lock
+                    j[object] = value;
+                  });
+            }
           }
-
         });
 
   });

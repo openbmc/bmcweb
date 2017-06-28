@@ -53,6 +53,33 @@ class connection : public boost::asio::basic_io_object<connection_service> {
     this->get_service().open(this->get_implementation(), bus);
   }
 
+
+  /// Request a name on the bus.
+  /**
+ * @param name The name requested on the bus
+ *
+ * @return
+ *
+ * @throws boost::system::system_error When the response timed out or
+ * there was some other error.
+ */
+  void request_name(const string& name) {
+      this->get_implementation().request_name(name);
+  }
+
+  /// Reply to a message.
+  /**
+ * @param m The message from which to create the reply
+ *
+ * @return The new reply message
+ *
+ * @throws boost::system::system_error When the response timed out or
+ * there was some other error.
+ */
+  message reply(message& m) {
+    return this->get_implementation().new_method_return(m);
+  }
+
   /// Send a message.
   /**
  * @param m The message to send.
@@ -124,6 +151,8 @@ class connection : public boost::asio::basic_io_object<connection_service> {
   // ugly
   friend class filter;
 };
+
+typedef std::shared_ptr<connection> connection_ptr;
 
 }  // namespace dbus
 

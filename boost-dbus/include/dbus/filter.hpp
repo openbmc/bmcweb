@@ -19,7 +19,7 @@ namespace dbus {
  * Filters examine incoming messages, demuxing them to multiple queues.
  */
 class filter {
-  connection& connection_;
+  connection_ptr connection_;
   std::function<bool(message&)> predicate_;
   detail::queue<message> queue_;
 
@@ -31,24 +31,25 @@ class filter {
   }
 
   template <typename MessagePredicate>
-  filter(connection& c, BOOST_ASIO_MOVE_ARG(MessagePredicate) p)
+  filter(connection_ptr c, BOOST_ASIO_MOVE_ARG(MessagePredicate) p)
       : connection_(c),
         predicate_(BOOST_ASIO_MOVE_CAST(MessagePredicate)(p)),
-        queue_(connection_.get_io_service()) {
-    connection_.new_filter(*this);
+        queue_(connection_->get_io_service()) {
+    connection_->new_filter(*this);
   }
 
-  ~filter() { connection_.delete_filter(*this); }
+  ~filter() { connection_->delete_filter(*this); }
 
   template <typename MessageHandler>
   inline BOOST_ASIO_INITFN_RESULT_TYPE(MessageHandler,
                                        void(boost::system::error_code, message))
       async_dispatch(BOOST_ASIO_MOVE_ARG(MessageHandler) handler) {
     // begin asynchronous operation
-    connection_.get_implementation().start(connection_.get_io_service());
+    connection_->get_implementation().start(connection_->get_io_service());
 
     return queue_.async_pop(BOOST_ASIO_MOVE_CAST(MessageHandler)(handler));
   }
+
 };
 }  // namespace dbus
 

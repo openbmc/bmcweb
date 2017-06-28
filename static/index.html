@@ -22,6 +22,8 @@
     <script type="text/javascript" src="static/js/angular-ui-router-uib-modal.js" defer></script>
     <script type="text/javascript" src="static/js/lodash.core.js" defer></script>
 
+    <script type="text/javascript" src="static/js/smart-table.js" defer></script>
+
     <script type="text/javascript" src="static/js/ui-bootstrap-tpls-2.5.0.js" defer></script>
 
     <script type="text/javascript" src="static/js/bmcApp.js" defer></script>
@@ -54,6 +56,38 @@
 </head>
 
 <body ng-controller="MainCtrl" ng-class="(is_logged_in()) ? '' : 'auth-main'">
+    <main ng-if="$pageFinishedLoading" ng-class="{ 'menu-collapsed': $baSidebarService.isMenuCollapsed() }">
+
+        <ba-sidebar></ba-sidebar>
+        <page-top></page-top>
+
+        <div class="al-main">
+            <div class="al-content">
+                <content-top></content-top>
+                <div ui-view autoscroll="true" autoscroll-body-top></div>
+            </div>
+        </div>
+
+        <footer class="al-footer clearfix">
+            <div class="al-footer-right">Created with <i class="ion-heart"></i></div>
+            <div class="al-footer-main clearfix">
+                <div class="al-copy">Blur Admin 2016</div>
+                <ul class="al-share clearfix">
+                    <li><i class="socicon socicon-facebook"></i></li>
+                    <li><i class="socicon socicon-twitter"></i></li>
+                    <li><i class="socicon socicon-google"></i></li>
+                    <li><i class="socicon socicon-github"></i></li>
+                </ul>
+            </div>
+        </footer>
+
+        <back-top></back-top>
+    </main>
+
+    <div id="preloader" ng-show="!$pageFinishedLoading">
+        <div></div>
+    </div>
+
     <div>
         <nav class="navbar navbar-inverse" ng-if='is_logged_in()'>
             <div class="container-fluid">

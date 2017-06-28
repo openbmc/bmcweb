@@ -44,11 +44,22 @@ class connection {
     detail::set_watch_timeout_dispatch_functions(conn, io);
   }
 
+  void request_name(const string& name) {
+    error e;
+    dbus_bus_request_name(conn, name.c_str(),
+			 DBUS_NAME_FLAG_DO_NOT_QUEUE | DBUS_NAME_FLAG_REPLACE_EXISTING, e);
+    e.throw_if_set();
+  }
+
   ~connection() {
     if (conn != NULL) {
       dbus_connection_close(conn);
       dbus_connection_unref(conn);
     }
+  }
+
+  message new_method_return(message &m) {
+  	return dbus_message_new_method_return(m);
   }
 
   operator DBusConnection*() { return conn; }

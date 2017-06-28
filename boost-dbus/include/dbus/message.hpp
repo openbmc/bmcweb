@@ -77,6 +77,10 @@ class message {
         dbus_message_type_to_string(dbus_message_get_type(message_.get())));
   }
 
+  string get_signature() const {
+    return sanitize(dbus_message_get_signature(message_.get()));
+  }
+
   string get_sender() const {
     return sanitize(dbus_message_get_sender(message_.get()));
   }

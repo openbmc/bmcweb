@@ -19,6 +19,7 @@ set(JAVASCRIPT_ASSETS
     js/run_prettify.js
     js/angular.js
     js/angular-ui-router-uib-modal.js
+    js/smart-table.js
     
     noVNC/core/inflator.js
     noVNC/core/input/xtscancodes.js
@@ -72,6 +73,8 @@ set(MINIFIED_ASSETS_OUT "")
 find_program(UGLIFY_MINIFIER uglifyjs)
 if(NOT UGLIFY_MINIFIER)
     message("uglifyjs not found")
+else()
+    message("Found ${UGLIFY_MINIFIER}")
 endif()
 foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
 
@@ -81,7 +84,7 @@ foreach(JAVASCRIPT_ASSET ${JAVASCRIPT_ASSETS})
     file(MAKE_DIRECTORY "${FOLDERNAME}")
     if(UGLIFY_MINIFIER)
         add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
-            COMMAND uglifyjs --compress --mangle  
+            COMMAND ${UGLIFY_MINIFIER} --compress --mangle  
             --output "${MINIFIED_FILENAME}"
             "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
             DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/${JAVASCRIPT_ASSET}"
@@ -102,6 +105,8 @@ endforeach(JAVASCRIPT_ASSET)
 find_program(CSS_MINIFIER cssnano)
 if(NOT CSS_MINIFIER)
     message("cssnano not found")
+else()
+    message("Found ${CSS_MINIFIER}")
 endif()
 # for now CSS is included as is
 foreach(CSS_ASSET ${CSS_ASSETS})
@@ -110,7 +115,7 @@ foreach(CSS_ASSET ${CSS_ASSETS})
     file(MAKE_DIRECTORY "${FOLDERNAME}")
     if(CSS_MINIFIER)   
         add_custom_command(OUTPUT ${MINIFIED_FILENAME} 
-            COMMAND cssnano 
+            COMMAND ${CSS_MINIFIER} 
             "${CMAKE_CURRENT_SOURCE_DIR}/${CSS_ASSET}"
             "${CMAKE_CURRENT_BINARY_DIR}/${CSS_ASSET}"
 
