@@ -12,7 +12,6 @@
 
 namespace crow {
 namespace black_magic {
-#ifndef CROW_MSVC_WORKAROUND
 struct OutOfRange {
   OutOfRange(unsigned /*pos*/, unsigned /*length*/) {}
 };
@@ -46,13 +45,13 @@ constexpr unsigned find_closing_tag(const_str s, unsigned p) {
 }
 
 constexpr bool is_valid(const_str s, unsigned i = 0, int f = 0) {
-  return i == s.size() ? f == 0 : f < 0 || f >= 2
-                                      ? false
-                                      : s[i] == '<'
-                                            ? is_valid(s, i + 1, f + 1)
-                                            : s[i] == '>'
-                                                  ? is_valid(s, i + 1, f - 1)
-                                                  : is_valid(s, i + 1, f);
+  return i == s.size()
+             ? f == 0
+             : f < 0 || f >= 2
+                   ? false
+                   : s[i] == '<' ? is_valid(s, i + 1, f + 1)
+                                 : s[i] == '>' ? is_valid(s, i + 1, f - 1)
+                                               : is_valid(s, i + 1, f);
 }
 
 constexpr bool is_equ_p(const char* a, const char* b, unsigned n) {
@@ -60,16 +59,17 @@ constexpr bool is_equ_p(const char* a, const char* b, unsigned n) {
              ? true
              : (*a == 0 || *b == 0)
                    ? false
-                   : n == 0 ? true : *a != *b ? false
-                                              : is_equ_p(a + 1, b + 1, n - 1);
+                   : n == 0 ? true
+                            : *a != *b ? false : is_equ_p(a + 1, b + 1, n - 1);
 }
 
 constexpr bool is_equ_n(const_str a, unsigned ai, const_str b, unsigned bi,
                         unsigned n) {
   return ai + n > a.size() || bi + n > b.size()
              ? false
-             : n == 0 ? true : a[ai] != b[bi] ? false : is_equ_n(a, ai + 1, b,
-                                                                 bi + 1, n - 1);
+             : n == 0 ? true
+                      : a[ai] != b[bi] ? false
+                                       : is_equ_n(a, ai + 1, b, bi + 1, n - 1);
 }
 
 constexpr bool is_int(const_str s, unsigned i) {
@@ -91,7 +91,7 @@ constexpr bool is_str(const_str s, unsigned i) {
 constexpr bool is_path(const_str s, unsigned i) {
   return is_equ_n(s, i, "<path>", 0, 6);
 }
-#endif
+
 template <typename T>
 struct parameter_tag {
   static const int value = 0;
@@ -190,7 +190,7 @@ static inline uint64_t get_parameter_tag_runtime(const char* s,
                                                         "type"))
                    : get_parameter_tag_runtime(s, p + 1);
 }
-#ifndef CROW_MSVC_WORKAROUND
+
 constexpr uint64_t get_parameter_tag(const_str s, unsigned p = 0) {
   return p == s.size()
              ? 0
@@ -222,7 +222,6 @@ constexpr uint64_t get_parameter_tag(const_str s, unsigned p = 0) {
                                                         "type"))
                    : get_parameter_tag(s, p + 1);
 }
-#endif
 
 template <typename... T>
 struct S {
@@ -290,7 +289,7 @@ struct arguments<0> {
 template <typename... T>
 struct last_element_type {
   using type =
-      typename std::tuple_element<sizeof...(T)-1, std::tuple<T...>>::type;
+      typename std::tuple_element<sizeof...(T) - 1, std::tuple<T...>>::type;
 };
 
 template <>
@@ -339,11 +338,11 @@ struct pop_back_helper<seq<N...>, Tuple> {
 
 template <typename... T>
 struct pop_back  //: public pop_back_helper<typename
-                 //gen_seq<sizeof...(T)-1>::type, std::tuple<T...>>
+                 // gen_seq<sizeof...(T)-1>::type, std::tuple<T...>>
 {
   template <template <typename... Args> class U>
   using rebind =
-      typename pop_back_helper<typename gen_seq<sizeof...(T)-1>::type,
+      typename pop_back_helper<typename gen_seq<sizeof...(T) - 1>::type,
                                std::tuple<T...>>::template rebind<U>;
 };
 
@@ -428,7 +427,6 @@ T& get_element_by_type(std::tuple<Args...>& t) {
 template <typename T>
 struct function_traits;
 
-#ifndef CROW_MSVC_WORKAROUND
 template <typename T>
 struct function_traits : public function_traits<decltype(&T::operator())> {
   using parent_t = function_traits<decltype(&T::operator())>;
@@ -437,7 +435,7 @@ struct function_traits : public function_traits<decltype(&T::operator())> {
   template <size_t i>
   using arg = typename parent_t::template arg<i>;
 };
-#endif
+
 
 template <typename ClassType, typename R, typename... Args>
 struct function_traits<R (ClassType::*)(Args...) const> {

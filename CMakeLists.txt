@@ -75,6 +75,9 @@ endif(LIBC++)
 
 #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
+
 # general
 option(BUILD_SHARED_LIBS "Build as shared library" OFF)
 option(BUILD_UT "Enable Unit test" ON)
@@ -89,10 +92,16 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Boost
 #add_definitions(-DBOOST_NO_RTTI -DBOOST_NO_TYPEID)
 
+# TinyXML2
+#add_subdirectory(tinyxml2)
+#include_directories(tinyxml2)
+
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
+add_definitions(-DBOOST_NO_RTTI)
+add_definitions(-DBOOST_NO_TYPEID)
 #set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
 find_package(Boost REQUIRED)
@@ -103,31 +112,6 @@ hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
-
-#g3 logging
-# G3logger does some unfortunate compile options, so cheat a little bit and copy/paste
-#set(LOG_SRC ${CMAKE_CURRENT_SOURCE_DIR}/g3log)
-
-#file(GLOB_RECURSE SRC_FILES ${LOG_SRC}/*.cpp ${LOG_SRC}/*.ipp)
-#file(GLOB_RECURSE HEADER_FILES ${LOG_SRC}/*.hpp)
-
-#IF (MSVC OR MINGW)
-#    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_unix.cpp)
-#ELSE()
-#    list(REMOVE_ITEM SRC_FILES  ${LOG_SRC}/crashhandler_windows.cpp ${LOG_SRC}/g3log/stacktrace_windows.hpp ${LOG_SRC}/stacktrace_windows.cpp)
-#ENDIF (MSVC OR MINGW)
-
-# Create the g3log library
-#include_directories(${LOG_SRC})
-
-#add_library(g3logger ${SRC_FILES})
-#set_target_properties(g3logger PROPERTIES LINKER_LANGUAGE CXX)
-# clean up some warnings in files we don't own
-#if(("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU") OR ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang"))
-#    set_source_files_properties(g3log/src/logcapture.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-#    set_source_files_properties(g3log/src/filesink.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-#    set_source_files_properties(g3log/src/logworker.cpp PROPERTIES COMPILE_FLAGS -Wno-braced-scalar-init)
-#endif()
 
 #lib jpeg
 set(BUILD_STATIC ON)
@@ -164,9 +148,7 @@ include_directories(boost-dbus/include)
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 set(HDR_FILES
-    include/crow/g3_logger.hpp
     include/ssl_key_handler.hpp
-    include/color_cout_g3_sink.hpp
 )
 
 set(GENERATED_SRC_FILES 
@@ -230,7 +212,6 @@ if(${BUILD_UT})
     add_executable(webtest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
     target_link_libraries(webtest gmock gtest)
     target_link_libraries(webtest pthread)
-    #target_link_libraries(webtest g3logger)
     
     target_link_libraries(webtest ${OPENSSL_LIBRARIES})
     target_link_libraries(webtest ${ZLIB_LIBRARIES})
@@ -247,7 +228,6 @@ add_subdirectory(static)
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb pthread)
-#target_link_libraries(bmcweb g3logger)
 target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
@@ -257,7 +237,6 @@ install (TARGETS bmcweb DESTINATION bin)
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)
-#target_link_libraries(getvideo g3logger)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly

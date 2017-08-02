@@ -1,11 +1,12 @@
 #pragma once
 
-#include <boost/lexical_cast.hpp>
 #include <cstdint>
+#include <limits>
 #include <memory>
 #include <tuple>
 #include <utility>
 #include <vector>
+#include <boost/lexical_cast.hpp>
 
 #include "boost/container/flat_map.hpp"
 
@@ -138,11 +139,13 @@ struct call<F, NInt, NUint, NDouble, NString, black_magic::S<>,
 template <typename Func, typename... ArgsWrapped>
 struct Wrapped {
   template <typename... Args>
-  void set(Func f, typename std::enable_if<
-                       !std::is_same<typename std::tuple_element<
-                                         0, std::tuple<Args..., void>>::type,
-                                     const request&>::value,
-                       int>::type = 0) {
+  void set(
+      Func f,
+      typename std::enable_if<
+          !std::is_same<
+              typename std::tuple_element<0, std::tuple<Args..., void>>::type,
+              const request&>::value,
+          int>::type = 0) {
     handler_ = (
 #ifdef CROW_CAN_USE_CPP14
         [f = std::move(f)]
@@ -343,30 +346,22 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule> {
 
   template <typename Func>
   void operator()(Func f) {
-#ifdef CROW_MSVC_WORKAROUND
-    using function_t = utility::function_traits<decltype(&Func::operator())>;
-#else
     using function_t = utility::function_traits<Func>;
-#endif
+
     erased_handler_ =
         wrap(std::move(f), black_magic::gen_seq<function_t::arity>());
   }
 
-// enable_if Arg1 == request && Arg2 == response
-// enable_if Arg1 == request && Arg2 != resposne
-// enable_if Arg1 != request
-#ifdef CROW_MSVC_WORKAROUND
-  template <typename Func, size_t... Indices>
-#else
+  // enable_if Arg1 == request && Arg2 == response
+  // enable_if Arg1 == request && Arg2 != resposne
+  // enable_if Arg1 != request
+
   template <typename Func, unsigned... Indices>
-#endif
+
   std::function<void(const request&, response&, const routing_params&)> wrap(
       Func f, black_magic::seq<Indices...>) {
-#ifdef CROW_MSVC_WORKAROUND
-    using function_t = utility::function_traits<decltype(&Func::operator())>;
-#else
     using function_t = utility::function_traits<Func>;
-#endif
+
     if (!black_magic::is_parameter_tag_compatible(
             black_magic::get_parameter_tag_runtime(rule_.c_str()),
             black_magic::compute_parameter_tag_from_args_list<
@@ -420,7 +415,7 @@ class TaggedRule : public BaseRule,
     static_assert(
         !std::is_same<void, decltype(f(std::declval<Args>()...))>::value,
         "Handler function cannot have void return type; valid return types: "
-        "string, int, crow::resposne, crow::json::wvalue");
+        "string, int, crow::resposne, nlohmann::json");
 
     handler_ = [f = std::move(f)](const request&, response& res, Args... args) {
       res = response(f(args...));
@@ -444,7 +439,7 @@ class TaggedRule : public BaseRule,
         !std::is_same<void, decltype(f(std::declval<crow::request>(),
                                        std::declval<Args>()...))>::value,
         "Handler function cannot have void return type; valid return types: "
-        "string, int, crow::resposne, crow::json::wvalue");
+        "string, int, crow::resposne,nlohmann::json");
 
     handler_ = [f = std::move(f)](const crow::request& req, crow::response& res,
                                   Args... args) {
@@ -838,8 +833,9 @@ class Router {
       if (req.get_header_value("Host").empty()) {
         res.add_header("Location", req.url + "/");
       } else {
-        res.add_header("Location", "http://" + req.get_header_value("Host") +
-                                       req.url + "/");
+        res.add_header(
+            "Location",
+            "http://" + req.get_header_value("Host") + req.url + "/");
       }
       res.end();
       return;
@@ -900,8 +896,9 @@ class Router {
       if (req.get_header_value("Host").empty()) {
         res.add_header("Location", req.url + "/");
       } else {
-        res.add_header("Location", "http://" + req.get_header_value("Host") +
-                                       req.url + "/");
+        res.add_header(
+            "Location",
+            "http://" + req.get_header_value("Host") + req.url + "/");
       }
       res.end();
       return;
@@ -942,14 +939,26 @@ class Router {
   void debug_print() { trie_.debug_print(); }
 
   std::vector<std::string> get_routes() {
-      std::vector<std::string> ret;
-      for (auto& rule: rules_){
-          if (rule != nullptr){
-            ret.push_back(rule->rule_);
-          }
+    // TODO(ed) Shoudl this be /?
+    std::string root("");
+    return get_routes(root);
+  }
+
+  std::vector<std::string> get_routes(std::string& parent) {
+    std::vector<std::string> ret;
+    //TODO(ed) this is so lazy, slow and unconcious of performance, but it works
+    // this should be replaced with something more performant that actually uses the trie
+    // that's available for doing matching.
+    for (auto& rule : rules_) {
+      if (rule != nullptr) {
+        if (rule->rule_.compare(0, parent.size(), parent) == 0){
+          ret.push_back(rule->rule_);
+        }
       }
-      return ret;
-   }
+    }
+    
+    return ret;
+  }
 
  private:
   std::vector<std::unique_ptr<BaseRule>> rules_;

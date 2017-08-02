@@ -1,5 +1,5 @@
 angular.module('bmcApp').controller('fwupdateconfirmController', [
-  '$scope', '$stateParams',{
+  '$scope', '$stateParams',function($scope, $stateParams) {
     $scope.filename = $stateParams.filename;
   }
 ]);

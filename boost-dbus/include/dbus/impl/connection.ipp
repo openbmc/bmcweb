@@ -51,6 +51,13 @@ class connection {
     e.throw_if_set();
   }
 
+  std::string get_unique_name() {
+    error e;
+    auto name = dbus_bus_get_unique_name (conn);
+    e.throw_if_set();
+    return std::string(name);
+  }
+
   ~connection() {
     if (conn != NULL) {
       dbus_connection_close(conn);

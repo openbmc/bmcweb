@@ -47,7 +47,21 @@ TEST(MessageTest, Misc) {
   m.pack(v);
 
   std::vector<dbus::dbus_variant> av{{std::string("hello world"), 1, 42}};
-  m.pack(av);
+  m.pack(v, av);
+}
+
+
+TEST(MessageTest, VariadicCallback) {
+    auto signal_name = std::string("PropertiesChanged");
+  dbus::endpoint test_endpoint(
+      "org.freedesktop.Avahi",
+      "/xyz/openbmc_project/sensors/temperature/LR_Brd_Temp",
+      "org.freedesktop.DBus.Properties");
+  auto m = dbus::message::new_signal(test_endpoint, signal_name);
+
+  dbus::dbus_variant v(std::string("hello world"));
+  std::vector<dbus::dbus_variant> av{{std::string("hello world"), 1, 42}};
+  m.pack(v, av);
 }
 
 // I actually don't know what to do with these yet.

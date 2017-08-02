@@ -365,8 +365,8 @@ class Connection {
     buffers_.clear();
     buffers_.reserve(20);
 
-    if (res.body.empty() && res.json_value.t() == json::type::Object) {
-      res.body = json::dump(res.json_value);
+    if (res.body.empty() && !res.json_value.empty()) {
+      res.body = res.json_value.dump();
     }
 
     if (!statusCodes.count(res.code)) res.code = 500;

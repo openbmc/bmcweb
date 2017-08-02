@@ -14,7 +14,27 @@
 
 namespace dbus {
 
-class error : public boost::system::error_category {
+namespace detail {
+
+class error_category : public boost::system::error_category {
+  const char *name() const BOOST_SYSTEM_NOEXCEPT { return "dbus.error"; }
+
+  string message(int value) const {
+    if (value)
+      return "DBus error";
+    else
+      return "no error";
+  }
+};
+
+}  // namespace detail
+
+inline const boost::system::error_category &get_dbus_category() {
+  static detail::error_category instance;
+  return instance;
+}
+
+class error {
   DBusError error_;
 
  public:
@@ -32,10 +52,6 @@ class error : public boost::system::error_category {
 
   ~error() { dbus_error_free(&error_); }
 
-  const char *name() const BOOST_SYSTEM_NOEXCEPT { return error_.name; }
-
-  string message(int value) const { return error_.message; }
-
   bool is_set() const { return dbus_error_is_set(&error_); }
 
   operator const DBusError *() const { return &error_; }
@@ -48,11 +64,12 @@ class error : public boost::system::error_category {
 };
 
 inline boost::system::error_code error::error_code() const {
-  return boost::system::error_code(is_set(), *this);
+  return boost::system::error_code(is_set(), get_dbus_category());
 }
 
 inline boost::system::system_error error::system_error() const {
-  return boost::system::system_error(error_code());
+  return boost::system::system_error(
+      error_code(), string(error_.name) + ":" + error_.message);
 }
 
 inline void error::throw_if_set() const {

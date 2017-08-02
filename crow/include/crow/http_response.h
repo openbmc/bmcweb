@@ -3,8 +3,8 @@
 
 #include "crow/ci_map.h"
 #include "crow/http_request.h"
-#include "crow/json.h"
 #include "crow/logging.h"
+#include "nlohmann/json.hpp"
 
 namespace crow {
 template <typename Adaptor, typename Handler, typename... Middlewares>
@@ -15,7 +15,7 @@ struct response {
 
   int code{200};
   std::string body;
-  json::wvalue json_value;
+  nlohmann::json json_value;
 
   std::shared_ptr<std::string> body_ptr;
 
@@ -34,15 +34,18 @@ struct response {
   response() {}
   explicit response(int code) : code(code) {}
   response(std::string body) : body(std::move(body)) {}
-  response(json::wvalue&& json_value) : json_value(std::move(json_value)) {
+  response(const char* body) : body(body) {}
+  response(nlohmann::json&& json_value) : json_value(std::move(json_value)) {
     json_mode();
   }
+  response(int code, const char* body) : code(code), body(body) {}
   response(int code, std::string body) : code(code), body(std::move(body)) {}
-  response(const json::wvalue& json_value) : body(json::dump(json_value)) {
+  // TODO(ed) make pretty printing JSON configurable
+  response(const nlohmann::json& json_value) : body(json_value.dump(4)) {
     json_mode();
   }
-  response(int code, const json::wvalue& json_value)
-      : code(code), body(json::dump(json_value)) {
+  response(int code, const nlohmann::json& json_value)
+      : code(code), body(json_value.dump(4)) {
     json_mode();
   }
 

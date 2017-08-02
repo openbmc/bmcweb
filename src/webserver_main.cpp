@@ -1,3 +1,7 @@
+#include <boost/asio.hpp>
+#include <boost/container/flat_map.hpp>
+#include <boost/container/stable_vector.hpp>
+
 #include "crow/app.h"
 #include "crow/ci_map.h"
 #include "crow/common.h"
@@ -7,7 +11,6 @@
 #include "crow/http_request.h"
 #include "crow/http_response.h"
 #include "crow/http_server.h"
-#include "crow/json.h"
 #include "crow/logging.h"
 #include "crow/middleware.h"
 #include "crow/middleware_context.h"
@@ -20,51 +23,64 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
+#include "redfish_v1.hpp"
 #include "security_headers_middleware.hpp"
 #include "ssl_key_handler.hpp"
 #include "token_authorization_middleware.hpp"
 #include "web_kvm.hpp"
 #include "webassets.hpp"
 
-#include <boost/asio.hpp>
-#include <boost/endian/arithmetic.hpp>
+#include "nlohmann/json.hpp"
 
 #include <dbus/connection.hpp>
 #include <dbus/endpoint.hpp>
 #include <dbus/filter.hpp>
 #include <dbus/match.hpp>
 #include <dbus/message.hpp>
-#include <dbus/utility.hpp>
 
+#include <chrono>
 #include <iostream>
 #include <memory>
 #include <string>
 #include <unordered_set>
 
 static std::shared_ptr<dbus::connection> system_bus;
-static std::shared_ptr<dbus::match> sensor_match;
+static std::vector<dbus::match> dbus_matches;
 static std::shared_ptr<dbus::filter> sensor_filter;
 
-std::unordered_set<crow::websocket::connection*> users;
+struct DbusWebsocketSession {
+  std::vector<dbus::match> matches;
+  std::vector<dbus::filter> filters;
+};
 
-void on_sensor_update(boost::system::error_code ec, dbus::message s) {
+static boost::container::flat_map<crow::websocket::connection*,
+                                  DbusWebsocketSession>
+    sessions;
+
+void on_property_update(dbus::filter& filter, boost::system::error_code ec,
+                        dbus::message s) {
   std::string object_name;
   std::vector<std::pair<std::string, dbus::dbus_variant>> values;
   s.unpack(object_name).unpack(values);
-  crow::json::wvalue j;
+  nlohmann::json j;
   for (auto& value : values) {
-    // std::cout << "Got sensor value for " << s.get_path() << "\n";
     boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
                          value.second);
   }
-  auto data_to_send = crow::json::dump(j);
-  for (auto conn : users) {
-    conn->send_text(data_to_send);
+  auto data_to_send = j.dump();
+
+  for (auto& session : sessions) {
+    session.first->send_text(data_to_send);
   }
-  sensor_filter->async_dispatch(on_sensor_update);
+  filter.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
+    on_property_update(filter, ec, s);;
+  });
 };
 
 int main(int argc, char** argv) {
+  // Build an io_service (there should only be 1)
+  auto io = std::make_shared<boost::asio::io_service>();
+
   bool enable_ssl = true;
   std::string ssl_pem_file("server.pem");
 
@@ -72,126 +88,72 @@ int main(int argc, char** argv) {
     ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
   }
 
-  crow::App<crow::TokenAuthorizationMiddleware, crow::SecurityHeadersMiddleware>
-      app;
+  crow::App<
+      /*crow::TokenAuthorizationMiddleware, */ crow::SecurityHeadersMiddleware>
+      app(io);
 
   crow::webassets::request_routes(app);
   crow::kvm::request_routes(app);
+  crow::redfish::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
-  CROW_ROUTE(app, "/systeminfo")
-  ([]() {
 
-    crow::json::wvalue j;
-    j["device_id"] = 0x7B;
-    j["device_provides_sdrs"] = true;
-    j["device_revision"] = true;
-    j["device_available"] = true;
-    j["firmware_revision"] = "0.68";
-
-    j["ipmi_revision"] = "2.0";
-    j["supports_chassis_device"] = true;
-    j["supports_bridge"] = true;
-    j["supports_ipmb_event_generator"] = true;
-    j["supports_ipmb_event_receiver"] = true;
-    j["supports_fru_inventory_device"] = true;
-    j["supports_sel_device"] = true;
-    j["supports_sdr_repository_device"] = true;
-    j["supports_sensor_device"] = true;
-
-    j["firmware_aux_revision"] = "0.60.foobar";
-
-    return j;
-  });
-
-  CROW_ROUTE(app, "/sensorws")
+  CROW_ROUTE(app, "/dbus_monitor")
       .websocket()
       .onopen([&](crow::websocket::connection& conn) {
-        if (!system_bus) {
-          system_bus = std::make_shared<dbus::connection>(conn.get_io_service(),
-                                                          dbus::bus::system);
-        }
-        if (!sensor_match) {
-          sensor_match = std::make_shared<dbus::match>(
-              system_bus,
-              "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
-        }
-        if (!sensor_filter) {
-          sensor_filter =
-              std::make_shared<dbus::filter>(system_bus, [](dbus::message& m) {
-                auto member = m.get_member();
-                return member == "PropertiesChanged";
-              });
-          sensor_filter->async_dispatch(on_sensor_update);
-        }
+        sessions[&conn] = DbusWebsocketSession();
 
-        users.insert(&conn);
+        sessions[&conn].matches.emplace_back(
+            system_bus,
+            "type='signal',path_namespace='/xyz/openbmc_project/sensors'");
+
+        sessions[&conn].filters.emplace_back(system_bus, [](dbus::message m) {
+          auto member = m.get_member();
+          return member == "PropertiesChanged";
+        });
+        auto& this_filter = sessions[&conn].filters.back();
+        this_filter.async_dispatch(
+            [&](boost::system::error_code ec, dbus::message s) {
+              on_property_update(this_filter, ec, s);;
+            });
+
       })
       .onclose(
           [&](crow::websocket::connection& conn, const std::string& reason) {
-            // TODO(ed) needs lock
-            users.erase(&conn);
+            sessions.erase(&conn);
+
           })
       .onmessage([&](crow::websocket::connection& conn, const std::string& data,
                      bool is_binary) {
         CROW_LOG_ERROR << "Got unexpected message from client on sensorws";
       });
 
-  CROW_ROUTE(app, "/sensortest")
-  ([](const crow::request& req, crow::response& res) {
-    crow::json::wvalue j;
-
-    dbus::connection system_bus(*req.io_service, dbus::bus::system);
-    dbus::endpoint test_daemon("org.openbmc.Sensors",
-                               "/org/openbmc/sensors/tach",
-                               "org.freedesktop.DBus.Introspectable");
-    dbus::message m = dbus::message::new_call(test_daemon, "Introspect");
-    system_bus.async_send(
-        m,
-        [&j, &system_bus](const boost::system::error_code ec, dbus::message r) {
-          if (ec) {
-            
-          } else {
-            std::string xml;
-            r.unpack(xml);
-            std::vector<std::string> dbus_objects;
-            dbus::read_dbus_xml_names(xml, dbus_objects);
-
-            for (auto& object : dbus_objects) {
-              dbus::endpoint test_daemon("org.openbmc.Sensors",
-                                         "/org/openbmc/sensors/tach/" + object,
-                                         "org.openbmc.SensorValue");
-              dbus::message m2 =
-                  dbus::message::new_call(test_daemon, "getValue");
-
-              system_bus.async_send(
-                  m2, [&](const boost::system::error_code ec, dbus::message r) {
-                    int32_t value;
-                    r.unpack(value);
-                    // TODO(ed) if we ever go multithread, j needs a lock
-                    j[object] = value;
-                  });
-            }
-          }
-        });
-
-  });
-
   CROW_ROUTE(app, "/intel/firmwareupload")
       .methods("POST"_method)([](const crow::request& req) {
-        // TODO(ed) handle errors here (file exists already and is locked, ect)
-        std::ofstream out(
-            "/tmp/fw_update_image",
-            std::ofstream::out | std::ofstream::binary | std::ofstream::trunc);
+        auto filepath = "/tmp/fw_update_image";
+        std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                        std::ofstream::trunc);
         out << req.body;
         out.close();
 
-        crow::json::wvalue j;
+        nlohmann::json j;
         j["status"] = "Upload Successfull";
+
+        dbus::endpoint fw_update_endpoint(
+            "xyz.openbmc_project.fwupdate1.server",
+            "/xyz/openbmc_project/fwupdate1", "xyz.openbmc_project.fwupdate1");
+
+        auto m = dbus::message::new_call(fw_update_endpoint, "start");
+
+        m.pack(std::string("file://") + filepath);
+        system_bus->send(m);
 
         return j;
       });
 
+  crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+  auto test = app.get_routes();
+  app.debug_print();
   std::cout << "Building SSL context\n";
 
   int port = 18080;
@@ -204,5 +166,9 @@ int main(int argc, char** argv) {
     app.ssl(std::move(ssl_context));
   }
   // app.concurrency(4);
+
+  // Start dbus connection
+  system_bus = std::make_shared<dbus::connection>(*io, dbus::bus::system);
+
   app.run();
 }

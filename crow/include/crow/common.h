@@ -104,7 +104,6 @@ inline std::string routing_params::get<std::string>(unsigned index) const {
 }
 }
 
-#ifndef CROW_MSVC_WORKAROUND
 constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
   return crow::black_magic::is_equ_p(str, "GET", 3)
              ? crow::HTTPMethod::Get
@@ -130,4 +129,4 @@ constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
                                                                  "invalid http "
                                                                  "method");
 }
-#endif
+

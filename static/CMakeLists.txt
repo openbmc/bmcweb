@@ -70,6 +70,7 @@ set(OTHER_ASSETS
 
 set(STATIC_ASSETS_OUT "")
 set(MINIFIED_ASSETS_OUT "")
+
 find_program(UGLIFY_MINIFIER uglifyjs)
 if(NOT UGLIFY_MINIFIER)
     message("uglifyjs not found")

@@ -18,9 +18,10 @@ using random_bytes_engine =
 
 template <class AuthenticationFunction>
 struct TokenAuthorization {
-  // TODO(ed) auth_token shouldn't really be passed to the context
-  // it opens the possibility of exposure by and endpoint.
-  // instead we should only pass some kind of "user" struct
+ private:
+  random_bytes_engine rbe;
+
+ public:
   struct context {
     // std::string auth_token;
   };
@@ -46,12 +47,11 @@ struct TokenAuthorization {
     if (req.url == "/" || boost::starts_with(req.url, "/static/")) {
       // TODO this is total hackery to allow the login page to work before the
       // user is authenticated.  Also, it will be quite slow for all pages
-      // instead
-      // of a one time hit for the whitelist entries.  Ideally, this should be
+      // instead of a one time hit for the whitelist entries.  Ideally, this
+      // should be
       // done in the url router handler, with tagged routes for the whitelist
       // entries. Another option would be to whitelist a minimal for based page
-      // that didn't
-      // load the full angular UI until after login
+      // that didn't load the full angular UI until after login
       return;
     }
 
@@ -60,38 +60,34 @@ struct TokenAuthorization {
         return_unauthorized();
         return;
       } else {
-        auto login_credentials = crow::json::load(req.body);
-        if (!login_credentials) {
+        std::string username;
+        std::string password;
+        try {
+          auto login_credentials = nlohmann::json::parse(req.body);
+          username = login_credentials["username"];
+          password = login_credentials["password"];
+        } catch (...) {
           return_bad_request();
           return;
         }
-        if (!login_credentials.has("username") ||
-            !login_credentials.has("password")) {
-          return_bad_request();
-          return;
-        }
-        auto username = login_credentials["username"].s();
-        auto password = login_credentials["password"].s();
+
         auto p = AuthenticationFunction();
         if (p.authenticate(username, password)) {
-          crow::json::wvalue x;
+          nlohmann::json x;
 
-          // TODO(ed) the RNG should be initialized at start, not every time we
-          // want a token
-          std::random_device rand;
-          random_bytes_engine rbe;
           std::string token('a', 20);
           // TODO(ed) for some reason clang-tidy finds a divide by zero error in
           // cstdlibc here commented out for now.  Needs investigation
-          std::generate(std::begin(token), std::end(token), std::ref(rbe));  // NOLINT
+          std::generate(std::begin(token), std::end(token),
+                        std::ref(rbe));  // NOLINT
           std::string encoded_token;
           base64::base64_encode(token, encoded_token);
           // ctx.auth_token = encoded_token;
           this->auth_token2.insert(encoded_token);
 
-          x["token"] = encoded_token;
+          nlohmann::json ret{{"token", encoded_token}};
 
-          res.write(json::dump(x));
+          res.write(ret.dump());
           res.add_header("Content-Type", "application/json");
           res.end();
         } else {

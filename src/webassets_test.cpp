@@ -5,9 +5,6 @@
 #include <webassets.hpp>
 #include <sstream>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/iostreams/copy.hpp>
-#include <boost/iostreams/filter/gzip.hpp>
-#include <boost/iostreams/filtering_streambuf.hpp>
 #include <boost/lexical_cast.hpp>
 #include "gtest/gtest.h"
 
@@ -70,8 +67,7 @@ TEST(Webassets, StaticFilesFixedRoutes) {
 
   auto http_content = response.substr(prev);
   // TODO(ed) ideally the server should support non-compressed gzip assets.
-  // Once this
-  // occurs, this line will be obsolete
+  // Once this occurs, this line will be obsolete
   std::string ungziped_content = http_content;
   if (content_encoding == "gzip") {
     EXPECT_TRUE(gzipInflate(http_content, ungziped_content));

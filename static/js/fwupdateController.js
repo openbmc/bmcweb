@@ -1,5 +1,5 @@
 angular.module('bmcApp').controller('fwupdateController', [
-  '$scope', '$http', '$uibModal',
+  '$scope', '$http', '$uibModal', '$state',
   function($scope, $http, $uibModal, $state) {
     $scope.upload = function(files) {
       r = new FileReader();
@@ -48,10 +48,13 @@ angular.module('bmcApp').controller('fwupdateController', [
             $scope.okModal = function() {
               // Closing the model with result
               objectSelectionModal.close($scope.selection);
-              $http
-                  .post(
-                      '/intel/firmwareupload', data = e.target.result,
-                      {headers : {'Content-Type' : 'application/octet-stream'}})
+              $http({
+                method : 'POST',
+                url : '/intel/firmwareupload',
+                data : e.target.result,
+                transformRequest : [],
+                headers : {'Content-Type' : 'application/octet-stream'}
+              })
                   .then(
                       function successCallback(response) {
                         console.log('Success uploaded. Response: ' +

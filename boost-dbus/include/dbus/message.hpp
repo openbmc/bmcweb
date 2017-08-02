@@ -14,6 +14,7 @@
 #include <vector>
 #include <boost/intrusive_ptr.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/mpl/for_each.hpp>
 
 inline void intrusive_ptr_add_ref(DBusMessage* m) { dbus_message_ref(m); }
 
@@ -114,6 +115,17 @@ class message {
       return *this << e;
     }
   };
+
+  template <typename Element>
+  packer pack(const Element& e) {
+    return packer(*this).pack(e);
+  }
+
+  template <typename Element, typename... Args>
+  packer pack(const Element& e, Args&... args) {
+    return packer(*this).pack(e).pack(args...);
+  }
+
   struct unpacker {
     impl::message_iterator iter_;
     unpacker(message& m) { impl::message_iterator::init(m, iter_); }
@@ -126,13 +138,13 @@ class message {
   };
 
   template <typename Element>
-  packer pack(const Element& e) {
-    return packer(*this).pack(e);
-  }
-
-  template <typename Element>
   unpacker unpack(Element& e) {
     return unpacker(*this).unpack(e);
+  }
+
+  template <typename Element, typename... Args>
+  unpacker& unpack(Element& e, Args&... args) {
+    return unpack(e).unpack(args...);
   }
 
  private:
@@ -204,50 +216,15 @@ inline message::packer& operator<<(message::packer& p, const string& e) {
 }
 
 inline message::packer& operator<<(message::packer& p, const dbus_variant& v) {
-  message::packer sub;
-  char type = 0;
-  // TODO(ed) there must be a better (more typesafe) way to do this
-  switch (v.which()) {
-    case 0:
-      type = element<std::string>::code;
-      break;
-    case 1:
-      type = element<bool>::code;
-      break;
-    case 2:
-      type = element<byte>::code;
-      break;
-    case 3:
-      type = element<int16>::code;
-      break;
-    case 4:
-      type = element<uint16>::code;
-      break;
-    case 5:
-      type = element<int32>::code;
-      break;
-    case 6:
-      type = element<uint32>::code;
-      break;
-    case 7:
-      type = element<int64>::code;
-      break;
-    case 8:
-      type = element<uint64>::code;
-      break;
-    case 9:
-      type = element<double>::code;
-      break;
-
-    default:
-      // TODO(ed) throw exception
-      break;
-  }
+  // Get the dbus typecode  of the variant being packed
+  char type = boost::apply_visitor([&](auto val) { 
+    return element<decltype(val)>::code;
+  }, v);
   char signature[] = {type, 0};
 
+  message::packer sub;
   p.iter_.open_container(element<dbus_variant>::code, signature, sub.iter_);
   boost::apply_visitor([&](auto val) { sub << val; }, v);
-  // sub << element;
   p.iter_.close_container(sub.iter_);
 
   return p;
@@ -274,69 +251,24 @@ inline message::unpacker& operator>>(message::unpacker& u, string& s) {
   return u;
 }
 
+inline message::unpacker& operator>>(message::unpacker& u, object_path& o) {
+  return u >> o.value;
+}
+
 inline message::unpacker& operator>>(message::unpacker& u, dbus_variant& v) {
   message::unpacker sub;
   u.iter_.recurse(sub.iter_);
 
-  auto arg_type = sub.iter_.get_arg_type();
-  // sub.iter_.get_basic(&c);
-  // Todo(ed) find a better way to do this lookup table
-  switch (arg_type) {
-    case element<std::string>::code: {
-      std::string s;
-      sub >> s;
-      v = s;
-    } break;
-    case element<bool>::code: {
-      bool b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<byte>::code: {
-      byte b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<int16>::code: {
-      int16 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<uint16>::code: {
-      uint16 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<int32>::code: {
-      int32 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<uint32>::code: {
-      uint32 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<int64>::code: {
-      int64 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<uint64>::code: {
-      uint64 b;
-      sub >> b;
-      v = b;
-    } break;
-    case element<double>::code: {
-      double b;
-      sub >> b;
-      v = b;
-    } break;
+  char arg_type = sub.iter_.get_arg_type();
 
-    default:
-      // TODO(ed) throw exception
-      break;
-  }
+  boost::mpl::for_each<dbus_variant::types>([&](auto t) { 
+    if (arg_type == element<decltype(t)>::code){
+      decltype(t) val_to_fill;
+      sub >> val_to_fill;
+      v = val_to_fill;
+    }
+  });
+
   u.iter_.next();
   return u;
 }

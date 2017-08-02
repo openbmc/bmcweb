@@ -1,12 +1,5 @@
 #pragma once
 
-#include "crow/http_request.h"
-#include "crow/http_server.h"
-#include "crow/logging.h"
-#include "crow/middleware_context.h"
-#include "crow/routing.h"
-#include "crow/settings.h"
-#include "crow/utility.h"
 #include <chrono>
 #include <cstdint>
 #include <functional>
@@ -15,13 +8,16 @@
 #include <string>
 #include <thread>
 #include <type_traits>
+#include "crow/http_request.h"
+#include "crow/http_server.h"
+#include "crow/logging.h"
+#include "crow/middleware_context.h"
+#include "crow/routing.h"
+#include "crow/settings.h"
+#include "crow/utility.h"
 
-#ifdef CROW_MSVC_WORKAROUND
-#define CROW_ROUTE(app, url) app.route_dynamic(url)
-#else
 #define CROW_ROUTE(app, url) \
   app.template route<crow::black_magic::get_parameter_tag(url)>(url)
-#endif
 
 namespace crow {
 #ifdef CROW_ENABLE_SSL
@@ -35,7 +31,8 @@ class Crow {
 #ifdef CROW_ENABLE_SSL
   using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
 #endif
-  Crow() {}
+  Crow(std::shared_ptr<boost::asio::io_service> io =
+             std::make_shared<boost::asio::io_service>()): io_(io){}
   ~Crow() { this->stop(); }
 
   template <typename Adaptor>
@@ -82,14 +79,14 @@ class Crow {
 #ifdef CROW_ENABLE_SSL
     if (use_ssl_) {
       ssl_server_ = std::move(std::unique_ptr<ssl_server_t>(new ssl_server_t(
-          this, bindaddr_, port_, &middlewares_, concurrency_, &ssl_context_)));
+          this, bindaddr_, port_, &middlewares_, concurrency_, &ssl_context_, io_)));
       ssl_server_->set_tick_function(tick_interval_, tick_function_);
       ssl_server_->run();
     } else
 #endif
     {
       server_ = std::move(std::unique_ptr<server_t>(new server_t(
-          this, bindaddr_, port_, &middlewares_, concurrency_, nullptr)));
+          this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_)));
       server_->set_tick_function(tick_interval_, tick_function_);
       server_->run();
     }
@@ -116,6 +113,9 @@ class Crow {
   }
 
   std::vector<std::string> get_routes() { return router_.get_routes(); }
+  std::vector<std::string> get_routes(std::string& parent) {
+    return router_.get_routes(parent);
+  }
 
 #ifdef CROW_ENABLE_SSL
   self_t& ssl_file(const std::string& crt_filename,
@@ -194,6 +194,7 @@ class Crow {
   }
 
  private:
+  std::shared_ptr<asio::io_service> io_;
   uint16_t port_ = 80;
   uint16_t concurrency_ = 1;
   std::string bindaddr_ = "0.0.0.0";

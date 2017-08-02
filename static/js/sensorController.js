@@ -6,7 +6,7 @@ angular.module('bmcApp')
           function($scope, $http, $location, websocketService) {
             $scope.smartTablePageSize = 10;
             $scope.next_id = 0;
-            websocketService.start('/sensorws', function(evt) {
+            websocketService.start('/dbus_monitor', function(evt) {
               var obj = JSON.parse(evt.data);
 
               $scope.$apply(function() {

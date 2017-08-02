@@ -67,6 +67,11 @@ class connection : public boost::asio::basic_io_object<connection_service> {
       this->get_implementation().request_name(name);
   }
 
+
+  std::string get_unique_name(){
+      return this->get_implementation().get_unique_name();
+  }
+
   /// Reply to a message.
   /**
  * @param m The message from which to create the reply
@@ -106,7 +111,7 @@ class connection : public boost::asio::basic_io_object<connection_service> {
  * timeout was not 0), or there was some other error.
  */
   template <typename Duration>
-  message send(message& m, const Duration& t) {
+  message send(message& m, const Duration& t = std::chrono::seconds(0)) {
     return this->get_service().send(this->get_implementation(), m, t);
   }
 

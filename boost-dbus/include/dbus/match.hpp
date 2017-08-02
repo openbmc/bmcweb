@@ -35,8 +35,6 @@ class match {
 
   const std::string& get_expression() const { return expression_; }
 
-  match(match&&) = delete;
-  match& operator=(match&&) = delete;
 };
 
 }  // namespace dbus

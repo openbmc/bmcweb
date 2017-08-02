@@ -34,8 +34,8 @@ typedef boost::uint64_t uint64;
 
 typedef std::string string;
 
-typedef boost::variant<std::string, bool, byte, int16, uint16, int32, uint32, int64,
-                       uint64, double>
+typedef boost::variant<std::string, bool, byte, int16, uint16, int32, uint32,
+                       int64, uint64, double>
     dbus_variant;
 
 struct object_path {

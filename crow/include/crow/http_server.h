@@ -1,8 +1,8 @@
 #pragma once
 
+#include <chrono>
 #include <boost/asio.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <chrono>
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
@@ -28,12 +28,15 @@ class Server {
   Server(Handler* handler, std::string bindaddr, uint16_t port,
          std::tuple<Middlewares...>* middlewares = nullptr,
          uint16_t concurrency = 1,
-         typename Adaptor::context* adaptor_ctx = nullptr)
-      : acceptor_(io_service_,
+         typename Adaptor::context* adaptor_ctx = nullptr,
+         std::shared_ptr<boost::asio::io_service> io =
+             std::make_shared<boost::asio::io_service>())
+      : io_service_(io),
+        acceptor_(*io_service_,
                   tcp::endpoint(boost::asio::ip::address::from_string(bindaddr),
                                 port)),
-        signals_(io_service_, SIGINT, SIGTERM),
-        tick_timer_(io_service_),
+        signals_(*io_service_, SIGINT, SIGTERM),
+        tick_timer_(*io_service_),
         handler_(handler),
         concurrency_(concurrency),
         port_(port),
@@ -80,7 +83,7 @@ class Server {
 #ifdef _MSC_VER
           gmtime_s(&my_tm, &last_time_t);
 #else
-                                gmtime_r(&last_time_t, &my_tm);
+          gmtime_r(&last_time_t, &my_tm);
 #endif
           date_str.resize(100);
           size_t date_str_sz =
@@ -140,13 +143,12 @@ class Server {
 
     do_accept();
 
-    io_service_.run();
+    io_service_->run();
     CROW_LOG_INFO << "Exiting.";
-
   }
 
   void stop() {
-    io_service_.stop();
+    io_service_->stop();
     for (auto& io_service : io_service_pool_) io_service->stop();
   }
 
@@ -174,7 +176,7 @@ class Server {
   }
 
  private:
-  asio::io_service io_service_;
+  std::shared_ptr<asio::io_service> io_service_;
   std::vector<std::unique_ptr<asio::io_service>> io_service_pool_;
   std::vector<detail::dumb_timer_queue*> timer_queue_pool_;
   std::vector<std::function<std::string()>> get_cached_date_str_pool_;
