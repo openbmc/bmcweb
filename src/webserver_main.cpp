@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
   }
 
   crow::App<
-      /*crow::TokenAuthorizationMiddleware, */ crow::SecurityHeadersMiddleware>
+      crow::TokenAuthorizationMiddleware, crow::SecurityHeadersMiddleware>
       app(io);
 
   crow::webassets::request_routes(app);
@@ -121,7 +121,6 @@ int main(int argc, char** argv) {
       .onclose(
           [&](crow::websocket::connection& conn, const std::string& reason) {
             sessions.erase(&conn);
-
           })
       .onmessage([&](crow::websocket::connection& conn, const std::string& data,
                      bool is_binary) {
