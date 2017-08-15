@@ -1,7 +1,7 @@
 #include <crow/app.h>
 #include <gmock/gmock.h>
 
-#include <test_utils.hpp>
+#include <gzip_helper.hpp>
 #include <webassets.hpp>
 #include <sstream>
 #include <boost/algorithm/string/predicate.hpp>
@@ -70,7 +70,7 @@ TEST(Webassets, StaticFilesFixedRoutes) {
   // Once this occurs, this line will be obsolete
   std::string ungziped_content = http_content;
   if (content_encoding == "gzip") {
-    EXPECT_TRUE(gzipInflate(http_content, ungziped_content));
+    EXPECT_TRUE(gzip_inflate(http_content, ungziped_content));
   }
 
   EXPECT_EQ(headers[0], "HTTP/1.1 200 OK");

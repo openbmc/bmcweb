@@ -29,4 +29,4 @@ struct ci_key_eq {
 };
 
 using ci_map = boost::container::flat_map<std::string, std::string, ci_key_eq>;
-}
+} // namespace crow

@@ -3,15 +3,12 @@ cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
 cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+message(CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH})
 
-message("${CMAKE_MODULE_PATH}")
+option(BUILD_STATIC_LIBS "Built static libraries" ON)
 
-SET(BUILD_SHARED_LIBRARIES OFF)
-
-#SET(HUNTER_STATUS_DEBUG ON)
 option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
-#SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-rtti")
-#SET(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fno-rtti")
+
 include("cmake/HunterGate.cmake")
 HunterGate(
     URL "https://github.com/ruslo/hunter/archive/v0.18.64.tar.gz"
@@ -27,74 +24,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-if (MSAN)
-  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    message(FATAL_ERROR "Cannot enable MSAN unless using Clang")
-  endif()
-
-  if (ASAN)
-    message(FATAL_ERROR "ASAN and MSAN are mutually exclusive")
-  endif()
-
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MSAN_CXX_FLAGS}")
-  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${MSAN_LINKER_EXE_FLAGS}")
-
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory -fsanitize-memory-track-origins -fno-omit-frame-pointer")
-  set(OPENSSL_NO_ASM "1")
-  set(LIBC++ ON)
-endif(MSAN)
-
-if (ASAN)
-  if(NOT CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    message(FATAL_ERROR "Cannot enable ASAN unless using Clang")
-  endif()
-
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -fsanitize-address-use-after-scope -fno-omit-frame-pointer")
-  set(OPENSSL_NO_ASM "1")
-endif(ASAN)
-
-if (GCOV)
-  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-endif(GCOV)
-
-if ( ${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR} )
-    message( FATAL_ERROR "In-source builds not allowed. Please make a new directory (usually called build) and run CMake from there. You may need to remove CMakeCache.txt." )
-endif()
-
-if(LIBC++)
-  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-  SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++abi")
-  if (MSAN)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/home/ed/libcxx_msan/include -I/home/ed/libcxx_msan/include/c++/v1")
-    SET(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L/home/ed/libcxx_msan/lib -Wl,-rpath,I/home/ed/libcxx_msan/lib")
-  endif(MSAN)
-endif(LIBC++)
-
-#SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror -Wall")
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Werror -Wall")
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
-option(BUILD_SHARED_LIBS "Build as shared library" OFF)
-option(BUILD_UT "Enable Unit test" ON)
-
-# This needs to be before the crow and other module includes so headers get overriden correctly
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+option(BMCWEB_BUILD_UT "Enable Unit test" ON)
 
 # security flags
-#SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fstack-protector-strong -fPIE -fPIC -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security" )
-#SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -z noexecstack -z relro -z now")
-
-# Boost
-#add_definitions(-DBOOST_NO_RTTI -DBOOST_NO_TYPEID)
-
-# TinyXML2
-#add_subdirectory(tinyxml2)
-#include_directories(tinyxml2)
+SET(SECURITY_FLAGS " -fstack-protector-strong -fPIE -fPIC -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security")
+SET(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}" )
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}" )
+SET(CMAKE_C_FLAGS_MINSIZEREL  "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}" )
 
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
@@ -104,7 +46,7 @@ add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
 #set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
-find_package(Boost REQUIRED)
+find_package(Boost)
 include_directories(${Boost_INCLUDE_DIRS}) 
 
 #Openssl
@@ -112,18 +54,6 @@ hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
-
-#lib jpeg
-set(BUILD_STATIC ON)
-#include_directories(libjpeg)
-#include_directories(${CMAKE_CURRENT_BINARY_DIR}/libjpeg)
-#add_subdirectory(libjpeg)
-
-
-# dbus
-hunter_add_package(dbus)
-find_package(dbus REQUIRED) # Include functions provided by PkgConfig module.
-include_directories(${DBUS_INCLUDE_DIRS})
 
 # Crow
 #add_definitions(-DCROW_DISABLE_LOGGING)
@@ -135,30 +65,23 @@ hunter_add_package(ZLIB)
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
+#tinyxml2
+add_subdirectory(tinyxml2)
 
 # PAM
-find_package(PAM REQUIRED)
+option(WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
+if ("${WEBSERVER_ENABLE_PAM}")
+    find_package(PAM REQUIRED)
+else()
+    add_definitions("-DWEBSERVER_DISABLE_PAM")
+endif()
+
 
 # Boost-dbus
-if(${BUILD_UT})
-    add_subdirectory(boost-dbus)
-endif()
-include_directories(boost-dbus/include)
+set(BOOST_DBUS_BUILD_UT ${BMCWEB_BUILD_UT})
+add_subdirectory(boost-dbus)
 
 set(WEBSERVER_MAIN src/webserver_main.cpp)
-
-set(HDR_FILES
-    include/ssl_key_handler.hpp
-)
-
-set(GENERATED_SRC_FILES 
-    ${CMAKE_BINARY_DIR}/generated/webassets.cpp
-    ${CMAKE_BINARY_DIR}/generated/webassets.hpp
-)
-
-include_directories(${CMAKE_BINARY_DIR}/generated)
-
-set_source_files_properties(${GENERATED_SRC_FILES} PROPERTIES GENERATED TRUE)
 
 # the webassets file has a non-ideal beahvior, where it loads binary data into a std::string
 # due to the way crow is constructed.  This causes GCC warnings.  Filter them out.
@@ -168,78 +91,87 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
 endif()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set(SRC_FILES
     src/base64.cpp
     ${GENERATED_SRC_FILES}
 )
 
-set(UT_FILES
-    src/crow_test.cpp
-    src/gtest_main.cpp
-    src/base64_test.cpp
-    src/token_authorization_middleware_test.cpp
-    src/security_headers_middleware_test.cpp
-    src/webassets_test.cpp
-    src/crow_getroutes_test.cpp
-    src/ast_jpeg_decoder_test.cpp
-    src/kvm_websocket_test.cpp
-    src/test_utils.cpp
-    src/msan_test.cpp
-    src/ci_map_tests.cpp
-    src/ast_video_puller_test.cpp
-    ${CMAKE_BINARY_DIR}/generated/blns.hpp
-)
-
-
-file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/generated")
-
 file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
+
 # Unit Tests
-if(${BUILD_UT})
+if(${BMCWEB_BUILD_UT})
+    set(UT_FILES
+        src/crow_test.cpp
+        src/gtest_main.cpp
+        src/base64_test.cpp
+        src/token_authorization_middleware_test.cpp
+        src/security_headers_middleware_test.cpp
+        src/webassets_test.cpp
+        src/crow_getroutes_test.cpp
+        src/ast_jpeg_decoder_test.cpp
+        src/kvm_websocket_test.cpp
+        src/msan_test.cpp
+        src/ci_map_tests.cpp
+        src/ast_video_puller_test.cpp
+        ${CMAKE_BINARY_DIR}/generated/blns.hpp
+    )
     # big list of naughty strings
     add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
         COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns ${CMAKE_BINARY_DIR}/generated/blns.hpp)
-
+    
+    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/blns.hpp
+        PROPERTIES GENERATED TRUE)
     # googletest
     enable_testing()
 
-    #hunter_add_package(GTest)
-    add_subdirectory(googletest)
+    hunter_add_package(GTest)
+    find_package(GTest REQUIRED)
     #find_package(GMock CONFIG REQUIRED)
 
-    add_executable(webtest ${HDR_FILES} ${SRC_FILES} ${UT_FILES})
+    add_executable(webtest ${SRC_FILES} ${UT_FILES})
     target_link_libraries(webtest gmock gtest)
     target_link_libraries(webtest pthread)
-    
+    target_link_libraries(webtest boost-dbus)
     target_link_libraries(webtest ${OPENSSL_LIBRARIES})
     target_link_libraries(webtest ${ZLIB_LIBRARIES})
     target_link_libraries(webtest pam)
-    add_dependencies(webtest packagestaticcpp)
+    add_dependencies(webtest tinyxml2_static)
+    target_link_libraries(webtest tinyxml2_static)
+    target_link_libraries(webtest -lstdc++fs)
     add_test(webtest webtest "--gtest_output=xml:webtest.xml")
 
-endif(${BUILD_UT})
+endif(${BMCWEB_BUILD_UT})
 
 # web static assets
-add_subdirectory(static)
-
+#add_subdirectory(static)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
+target_link_libraries(bmcweb boost-dbus)
 target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
-target_link_libraries(bmcweb  ${DBUS_LIBRARIES})
 target_link_libraries(bmcweb pam)
-add_dependencies(bmcweb packagestaticcpp)
-install (TARGETS bmcweb DESTINATION bin)
+target_link_libraries(bmcweb -lstdc++fs)
+add_dependencies(bmcweb tinyxml2_static)
+target_link_libraries(bmcweb tinyxml2_static)
+install(TARGETS bmcweb DESTINATION bin)
 
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)
 
 # Visual Studio Code helper
 # this needs to be at the end to make sure all includes are handled correctly
-
+include(CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs)
 get_property(C_INCLUDE_DIRS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-execute_process(COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py ${C_INCLUDE_DIRS})
+
+execute_process(
+    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py 
+    ${C_INCLUDE_DIRS} 
+    ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS} 
+    ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS}
+)

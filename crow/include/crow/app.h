@@ -8,6 +8,7 @@
 #include <string>
 #include <thread>
 #include <type_traits>
+#include <utility>
 #include "crow/http_request.h"
 #include "crow/http_server.h"
 #include "crow/logging.h"
@@ -31,8 +32,9 @@ class Crow {
 #ifdef CROW_ENABLE_SSL
   using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
 #endif
-  Crow(std::shared_ptr<boost::asio::io_service> io =
-             std::make_shared<boost::asio::io_service>()): io_(io){}
+  explicit Crow(std::shared_ptr<boost::asio::io_service> io =
+                    std::make_shared<boost::asio::io_service>())
+      : io_(std::move(io)) {}
   ~Crow() { this->stop(); }
 
   template <typename Adaptor>
@@ -43,7 +45,7 @@ class Crow {
   void handle(const request& req, response& res) { router_.handle(req, res); }
 
   DynamicRule& route_dynamic(std::string&& rule) {
-    return router_.new_rule_dynamic(std::move(rule));
+    return router_.new_rule_dynamic(rule);
   }
 
   template <uint64_t Tag>
@@ -67,7 +69,9 @@ class Crow {
   }
 
   self_t& concurrency(std::uint16_t concurrency) {
-    if (concurrency < 1) concurrency = 1;
+    if (concurrency < 1) {
+      concurrency = 1;
+    }
     concurrency_ = concurrency;
     return *this;
   }
@@ -78,15 +82,16 @@ class Crow {
     validate();
 #ifdef CROW_ENABLE_SSL
     if (use_ssl_) {
-      ssl_server_ = std::move(std::unique_ptr<ssl_server_t>(new ssl_server_t(
-          this, bindaddr_, port_, &middlewares_, concurrency_, &ssl_context_, io_)));
+      ssl_server_ = std::move(
+          std::make_unique<ssl_server_t>(this, bindaddr_, port_, &middlewares_,
+                                         concurrency_, &ssl_context_, io_));
       ssl_server_->set_tick_function(tick_interval_, tick_function_);
       ssl_server_->run();
     } else
 #endif
     {
-      server_ = std::move(std::unique_ptr<server_t>(new server_t(
-          this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_)));
+      server_ = std::move(std::make_unique<server_t>(
+          this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_));
       server_->set_tick_function(tick_interval_, tick_function_);
       server_->run();
     }
@@ -200,7 +205,7 @@ class Crow {
   std::string bindaddr_ = "0.0.0.0";
   Router router_;
 
-  std::chrono::milliseconds tick_interval_;
+  std::chrono::milliseconds tick_interval_{};
   std::function<void()> tick_function_;
 
   std::tuple<Middlewares...> middlewares_;
@@ -213,4 +218,4 @@ class Crow {
 template <typename... Middlewares>
 using App = Crow<Middlewares...>;
 using SimpleApp = Crow<>;
-}
+}  // namespace crow

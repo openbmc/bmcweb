@@ -1,41 +1,23 @@
 #pragma once
 
-#include <string.h>
+#include <ast_video_types.hpp>
 #include <array>
 #include <aspeed/JTABLES.H>
-#include <ast_video_types.hpp>
 #include <cassert>
 #include <cstdint>
+#include <cstring>
 #include <iostream>
 #include <vector>
 
-/*
-template <class T, class Compare>
-constexpr const T &clamp(const T &v, const T &lo, const T &hi, Compare comp) {
-  return assert(!comp(hi, lo)), comp(v, lo) ? lo : comp(hi, v) ? hi : v;
-}
-
-template <class T>
-constexpr const T &clamp(const T &v, const T &lo, const T &hi) {
-  return clamp(v, lo, hi, std::less<>());
-}
-*/
 namespace AstVideo {
 
 struct COLOR_CACHE {
-  COLOR_CACHE() {
-    for (int i = 0; i < 4; i++) {
-      Index[i] = i;
-    }
-    Color[0] = 0x008080;
-    Color[1] = 0xFF8080;
-    Color[2] = 0x808080;
-    Color[3] = 0xC08080;
-  }
+  COLOR_CACHE()
+      : Color{0x008080, 0xFF8080, 0x808080, 0xC08080}, Index{0, 1, 2, 3} {}
 
   unsigned long Color[4];
   unsigned char Index[4];
-  unsigned char BitMapBits;
+  unsigned char BitMapBits{};
 };
 
 struct RGB {
@@ -94,7 +76,7 @@ class AstJpegDecoder {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
-    uint8_t tempQT[64];
+    std::array<uint8_t, 64> tempQT{};
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
@@ -125,17 +107,20 @@ class AstJpegDecoder {
         std_luminance_qt = Tbl_100Y;
         break;
     }
-    set_quant_table(std_luminance_qt, (uint8_t)SCALEFACTOR, tempQT);
+    set_quant_table(std_luminance_qt, static_cast<uint8_t>(SCALEFACTOR),
+                    tempQT);
 
-    for (j = 0; j <= 63; j++) quant_table[j] = tempQT[zigzag[j]];
+    for (j = 0; j <= 63; j++) {
+      quant_table[j] = tempQT[zigzag[j]];
+    }
     j = 0;
-    for (row = 0; row <= 7; row++)
+    for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
-        quant_table[j] =
-            (long)((quant_table[j] * scalefactor[row] * scalefactor[col]) *
-                   65536);
+        quant_table[j] = static_cast<long>(
+            (quant_table[j] * scalefactor[row] * scalefactor[col]) * 65536);
         j++;
       }
+    }
     byte_pos += 64;
   }
 
@@ -143,7 +128,7 @@ class AstJpegDecoder {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
-    uint8_t tempQT[64];
+    std::array<uint8_t, 64> tempQT{};
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder from zig-zag order
@@ -202,7 +187,8 @@ class AstJpegDecoder {
           break;
       }
     }
-    set_quant_table(std_chrominance_qt, (uint8_t)SCALEFACTORUV, tempQT);
+    set_quant_table(std_chrominance_qt, static_cast<uint8_t>(SCALEFACTORUV),
+                    tempQT);
 
     for (j = 0; j <= 63; j++) {
       quant_table[j] = tempQT[zigzag[j]];
@@ -210,9 +196,8 @@ class AstJpegDecoder {
     j = 0;
     for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
-        quant_table[j] =
-            (long)((quant_table[j] * scalefactor[row] * scalefactor[col]) *
-                   65536);
+        quant_table[j] = static_cast<long>(
+            (quant_table[j] * scalefactor[row] * scalefactor[col]) * 65536);
         j++;
       }
     }
@@ -223,7 +208,7 @@ class AstJpegDecoder {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
-    uint8_t tempQT[64];
+    std::array<uint8_t, 64> tempQT{};
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
@@ -255,17 +240,20 @@ class AstJpegDecoder {
         break;
     }
     //  Note: pass ADVANCE SCALE FACTOR to sub-function in Dual-JPEG
-    set_quant_table(std_luminance_qt, (uint8_t)ADVANCESCALEFACTOR, tempQT);
+    set_quant_table(std_luminance_qt, static_cast<uint8_t>(ADVANCESCALEFACTOR),
+                    tempQT);
 
-    for (j = 0; j <= 63; j++) quant_table[j] = tempQT[zigzag[j]];
+    for (j = 0; j <= 63; j++) {
+      quant_table[j] = tempQT[zigzag[j]];
+    }
     j = 0;
-    for (row = 0; row <= 7; row++)
+    for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
-        quant_table[j] =
-            (long)((quant_table[j] * scalefactor[row] * scalefactor[col]) *
-                   65536);
+        quant_table[j] = static_cast<long>(
+            (quant_table[j] * scalefactor[row] * scalefactor[col]) * 65536);
         j++;
       }
+    }
     byte_pos += 64;
   }
 
@@ -274,7 +262,7 @@ class AstJpegDecoder {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
-    uint8_t tempQT[64];
+    std::array<uint8_t, 64> tempQT{};
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
@@ -335,17 +323,20 @@ class AstJpegDecoder {
       }
     }
     //  Note: pass ADVANCE SCALE FACTOR to sub-function in Dual-JPEG
-    set_quant_table(std_chrominance_qt, (uint8_t)ADVANCESCALEFACTORUV, tempQT);
+    set_quant_table(std_chrominance_qt,
+                    static_cast<uint8_t>(ADVANCESCALEFACTORUV), tempQT);
 
-    for (j = 0; j <= 63; j++) quant_table[j] = tempQT[zigzag[j]];
+    for (j = 0; j <= 63; j++) {
+      quant_table[j] = tempQT[zigzag[j]];
+    }
     j = 0;
-    for (row = 0; row <= 7; row++)
+    for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
-        quant_table[j] =
-            (long)((quant_table[j] * scalefactor[row] * scalefactor[col]) *
-                   65536);
+        quant_table[j] = static_cast<long>(
+            (quant_table[j] * scalefactor[row] * scalefactor[col]) * 65536);
         j++;
       }
+    }
     byte_pos += 64;
   }
 
@@ -387,7 +378,8 @@ class AstJpegDecoder {
            inptr[DCTSIZE * 4] | inptr[DCTSIZE * 5] | inptr[DCTSIZE * 6] |
            inptr[DCTSIZE * 7]) == 0) {
         /* AC terms all zero */
-        dcval = (int)((inptr[DCTSIZE * 0] * quantptr[DCTSIZE * 0]) >> 16);
+        dcval = static_cast<int>((inptr[DCTSIZE * 0] * quantptr[DCTSIZE * 0]) >>
+                                 16);
 
         wsptr[DCTSIZE * 0] = dcval;
         wsptr[DCTSIZE * 1] = dcval;
@@ -445,14 +437,14 @@ class AstJpegDecoder {
       tmp5 = tmp11 - tmp6;
       tmp4 = tmp10 + tmp5;
 
-      wsptr[DCTSIZE * 0] = (int)(tmp0 + tmp7);
-      wsptr[DCTSIZE * 7] = (int)(tmp0 - tmp7);
-      wsptr[DCTSIZE * 1] = (int)(tmp1 + tmp6);
-      wsptr[DCTSIZE * 6] = (int)(tmp1 - tmp6);
-      wsptr[DCTSIZE * 2] = (int)(tmp2 + tmp5);
-      wsptr[DCTSIZE * 5] = (int)(tmp2 - tmp5);
-      wsptr[DCTSIZE * 4] = (int)(tmp3 + tmp4);
-      wsptr[DCTSIZE * 3] = (int)(tmp3 - tmp4);
+      wsptr[DCTSIZE * 0] = (tmp0 + tmp7);
+      wsptr[DCTSIZE * 7] = (tmp0 - tmp7);
+      wsptr[DCTSIZE * 1] = (tmp1 + tmp6);
+      wsptr[DCTSIZE * 6] = (tmp1 - tmp6);
+      wsptr[DCTSIZE * 2] = (tmp2 + tmp5);
+      wsptr[DCTSIZE * 5] = (tmp2 - tmp5);
+      wsptr[DCTSIZE * 4] = (tmp3 + tmp4);
+      wsptr[DCTSIZE * 3] = (tmp3 - tmp4);
 
       inptr++; /* advance pointers to next column */
       quantptr++;
@@ -465,7 +457,7 @@ class AstJpegDecoder {
 
 //#define RANGE_MASK 1023; //2 bits wider than legal samples
 #define PASS1_BITS 0
-#define IDESCALE(x, n) ((int)((x) >> n))
+#define IDESCALE(x, n) ((int)((x) >> (n)))
 
     wsptr = workspace;
     for (ctr = 0; ctr < DCTSIZE; ctr++) {
@@ -480,10 +472,10 @@ class AstJpegDecoder {
       */
       /* Even part */
 
-      tmp10 = ((int)wsptr[0] + (int)wsptr[4]);
-      tmp11 = ((int)wsptr[0] - (int)wsptr[4]);
+      tmp10 = (wsptr[0] + wsptr[4]);
+      tmp11 = (wsptr[0] - wsptr[4]);
 
-      tmp13 = ((int)wsptr[2] + (int)wsptr[6]);
+      tmp13 = (wsptr[2] + wsptr[6]);
       tmp12 = MULTIPLY((int)wsptr[2] - (int)wsptr[6], FIX_1_414213562) - tmp13;
 
       tmp0 = tmp10 + tmp13;
@@ -493,10 +485,10 @@ class AstJpegDecoder {
 
       /* Odd part */
 
-      z13 = (int)wsptr[5] + (int)wsptr[3];
-      z10 = (int)wsptr[5] - (int)wsptr[3];
-      z11 = (int)wsptr[1] + (int)wsptr[7];
-      z12 = (int)wsptr[1] - (int)wsptr[7];
+      z13 = wsptr[5] + wsptr[3];
+      z10 = wsptr[5] - wsptr[3];
+      z11 = wsptr[1] + wsptr[7];
+      z12 = wsptr[1] - wsptr[7];
 
       tmp7 = z11 + z13;                             /* phase 5 */
       tmp11 = MULTIPLY(z11 - z13, FIX_1_414213562); /* 2*c4 */
@@ -538,7 +530,7 @@ class AstJpegDecoder {
     int nBlocksInMcu = 6;
     unsigned int pixel_x, pixel_y;
 
-    pByte = (struct RGB *)pBgr;
+    pByte = reinterpret_cast<struct RGB *>(pBgr);
     if (yuvmode == YuvMode::YUV444) {
       py = pYCbCr;
       pcb = pYCbCr + 64;
@@ -566,7 +558,9 @@ class AstJpegDecoder {
         pos += WIDTH;
       }
     } else {
-      for (i = 0; i < nBlocksInMcu - 2; i++) py420[i] = pYCbCr + i * 64;
+      for (i = 0; i < nBlocksInMcu - 2; i++) {
+        py420[i] = pYCbCr + i * 64;
+      }
       pcb = pYCbCr + (nBlocksInMcu - 2) * 64;
       pcr = pcb + 64;
 
@@ -606,7 +600,7 @@ class AstJpegDecoder {
     int nBlocksInMcu = 6;
     unsigned int pixel_x, pixel_y;
 
-    pByte = (struct RGB *)pBgr;
+    pByte = reinterpret_cast<struct RGB *>(pBgr);
     if (yuvmode == YuvMode::YUV444) {
       py = pYCbCr;
       pcb = pYCbCr + 64;
@@ -633,7 +627,9 @@ class AstJpegDecoder {
         pos += WIDTH;
       }
     } else {
-      for (i = 0; i < nBlocksInMcu - 2; i++) py420[i] = pYCbCr + i * 64;
+      for (i = 0; i < nBlocksInMcu - 2; i++) {
+        py420[i] = pYCbCr + i * 64;
+      }
       pcb = pYCbCr + (nBlocksInMcu - 2) * 64;
       pcr = pcb + 64;
 
@@ -697,7 +693,8 @@ class AstJpegDecoder {
 
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
     //  YUVBuffer for YUV record
-    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
+    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(),
+             reinterpret_cast<unsigned char *>(outBuf));
   }
 
   void Decompress_2PASS(int txb, int tyb, char *outBuf,
@@ -718,7 +715,8 @@ class AstJpegDecoder {
     process_Huffman_data_unit(CrDC_nr, CrAC_nr, &DCCr, 128);
     IDCT_transform(DCT_coeff + 128, ptr, QT_TableSelection + 1);
 
-    YUVToBuffer(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
+    YUVToBuffer(txb, tyb, byTileYuv, YUVBuffer.data(),
+                reinterpret_cast<unsigned char *>(outBuf));
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
   }
 
@@ -738,7 +736,7 @@ class AstJpegDecoder {
       }
     } else {
       for (i = 0; i < 64; i++) {
-        Data = (int)lookKbits(VQ->BitMapBits);
+        Data = static_cast<int>(lookKbits(VQ->BitMapBits));
         ptr[0] = (VQ->Color[VQ->Index[Data]] & 0xFF0000) >> 16;
         ptr[64] = (VQ->Color[VQ->Index[Data]] & 0x00FF00) >> 8;
         ptr[128] = VQ->Color[VQ->Index[Data]] & 0x0000FF;
@@ -747,22 +745,27 @@ class AstJpegDecoder {
       }
     }
     //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
-    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(), (unsigned char *)outBuf);
+    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(),
+             reinterpret_cast<unsigned char *>(outBuf));
   }
 
-  void MoveBlockIndex(void) {
+  void MoveBlockIndex() {
     if (yuvmode == YuvMode::YUV444) {
       txb++;
-      if (txb >= (int)(WIDTH / 8)) {
+      if (txb >= static_cast<int>(WIDTH / 8)) {
         tyb++;
-        if (tyb >= (int)(HEIGHT / 8)) tyb = 0;
+        if (tyb >= static_cast<int>(HEIGHT / 8)) {
+          tyb = 0;
+        }
         txb = 0;
       }
     } else {
       txb++;
-      if (txb >= (int)(WIDTH / 16)) {
+      if (txb >= static_cast<int>(WIDTH / 16)) {
         tyb++;
-        if (tyb >= (int)(HEIGHT / 16)) tyb = 0;
+        if (tyb >= static_cast<int>(HEIGHT / 16)) {
+          tyb = 0;
+        }
         txb = 0;
       }
     }
@@ -782,13 +785,13 @@ class AstJpegDecoder {
     /* Cr=>G value is scaled-up -0.8125 * x */
     /* Cb=>G value is scaled-up -0.390625 * x */
     for (i = 0, x = -128; i < 256; i++, x++) {
-      m_CrToR[i] = (int)(FIX(1.597656) * x + nHalf) >> 16;
-      m_CbToB[i] = (int)(FIX(2.015625) * x + nHalf) >> 16;
-      m_CrToG[i] = (int)(-FIX(0.8125) * x + nHalf) >> 16;
-      m_CbToG[i] = (int)(-FIX(0.390625) * x + nHalf) >> 16;
+      m_CrToR[i] = (FIX(1.597656) * x + nHalf) >> 16;
+      m_CbToB[i] = (FIX(2.015625) * x + nHalf) >> 16;
+      m_CrToG[i] = (-FIX(0.8125) * x + nHalf) >> 16;
+      m_CbToG[i] = (-FIX(0.390625) * x + nHalf) >> 16;
     }
     for (i = 0, x = -16; i < 256; i++, x++) {
-      m_Y[i] = (int)(FIX(1.164) * x + nHalf) >> 16;
+      m_Y[i] = (FIX(1.164) * x + nHalf) >> 16;
     }
     // For Color Text Enchance Y Re-map. Recommend to disable in default
     /*
@@ -823,17 +826,20 @@ class AstJpegDecoder {
     for (j = 1; j <= 16; j++) {
       HT->Length[j] = nrcode[j];
     }
-    for (i = 0, k = 1; k <= 16; k++)
+    for (i = 0, k = 1; k <= 16; k++) {
       for (j = 0; j < HT->Length[k]; j++) {
         HT->V[WORD_hi_lo(k, j)] = value[i];
         i++;
       }
+    }
 
     code = 0;
     for (k = 1; k <= 16; k++) {
-      HT->minor_code[k] = (unsigned short int)code;
-      for (j = 1; j <= HT->Length[k]; j++) code++;
-      HT->major_code[k] = (unsigned short int)(code - 1);
+      HT->minor_code[k] = static_cast<unsigned short int>(code);
+      for (j = 1; j <= HT->Length[k]; j++) {
+        code++;
+      }
+      HT->major_code[k] = static_cast<unsigned short int>(code - 1);
       code *= 2;
       if (HT->Length[k] == 0) {
         HT->minor_code[k] = 0xFFFF;
@@ -846,10 +852,10 @@ class AstJpegDecoder {
 
     for (code_index = 1; code_index < 65535; code_index++) {
       if (code_index < Huff_code[i]) {
-        HT->Len[code_index] = (unsigned char)Huff_code[i + 1];
+        HT->Len[code_index] = static_cast<unsigned char>(Huff_code[i + 1]);
       } else {
         i = i + 2;
-        HT->Len[code_index] = (unsigned char)Huff_code[i + 1];
+        HT->Len[code_index] = static_cast<unsigned char>(Huff_code[i + 1]);
       }
     }
   }
@@ -870,18 +876,24 @@ class AstJpegDecoder {
   /* Allocate and fill in the sample_range_limit table */
   {
     int j;
-    rlimit_table = (unsigned char *)malloc(5 * 256L + 128);
+    rlimit_table = reinterpret_cast<unsigned char *>(malloc(5 * 256L + 128));
     /* First segment of "simple" table: limit[x] = 0 for x < 0 */
     memset((void *)rlimit_table, 0, 256);
     rlimit_table += 256; /* allow negative subscripts of simple table */
     /* Main part of "simple" table: limit[x] = x */
-    for (j = 0; j < 256; j++) rlimit_table[j] = j;
+    for (j = 0; j < 256; j++) {
+      rlimit_table[j] = j;
+    }
     /* End of simple table, rest of first half of post-IDCT table */
-    for (j = 256; j < 640; j++) rlimit_table[j] = 255;
+    for (j = 256; j < 640; j++) {
+      rlimit_table[j] = 255;
+    }
 
     /* Second half of post-IDCT table */
     memset((void *)(rlimit_table + 640), 0, 384);
-    for (j = 0; j < 128; j++) rlimit_table[j + 1024] = j;
+    for (j = 0; j < 128; j++) {
+      rlimit_table[j + 1024] = j;
+    }
   }
 
   inline unsigned short int WORD_hi_lo(uint8_t byte_high, uint8_t byte_low) {
@@ -905,15 +917,16 @@ class AstJpegDecoder {
     huff_values = HTDC[DC_nr].V;
 
     // DC
-    k = HTDC[DC_nr].Len[(unsigned short int)(codebuf >> 16)];
+    k = HTDC[DC_nr].Len[static_cast<unsigned short int>(codebuf >> 16)];
     // river
     //	 tmp_Hcode=lookKbits(k);
-    tmp_Hcode = (unsigned short int)(codebuf >> (32 - k));
+    tmp_Hcode = static_cast<unsigned short int>(codebuf >> (32 - k));
     skipKbits(k);
-    size_val = huff_values[WORD_hi_lo(k, (uint8_t)(tmp_Hcode - min_code[k]))];
-    if (size_val == 0)
+    size_val = huff_values[WORD_hi_lo(
+        k, static_cast<uint8_t>(tmp_Hcode - min_code[k]))];
+    if (size_val == 0) {
       DCT_coeff[position + 0] = *previous_DC;
-    else {
+    } else {
       DCT_coeff[position + 0] = *previous_DC + getKbits(size_val);
       *previous_DC = DCT_coeff[position + 0];
     }
@@ -925,12 +938,12 @@ class AstJpegDecoder {
 
     nr = 1;  // AC coefficient
     do {
-      k = HTAC[AC_nr].Len[(unsigned short int)(codebuf >> 16)];
-      tmp_Hcode = (unsigned short int)(codebuf >> (32 - k));
+      k = HTAC[AC_nr].Len[static_cast<unsigned short int>(codebuf >> 16)];
+      tmp_Hcode = static_cast<unsigned short int>(codebuf >> (32 - k));
       skipKbits(k);
 
-      byte_temp =
-          huff_values[WORD_hi_lo(k, (uint8_t)(tmp_Hcode - min_code[k]))];
+      byte_temp = huff_values[WORD_hi_lo(
+          k, static_cast<uint8_t>(tmp_Hcode - min_code[k]))];
       size_val = byte_temp & 0xF;
       count_0 = byte_temp >> 4;
       if (size_val == 0) {
@@ -948,7 +961,7 @@ class AstJpegDecoder {
   unsigned short int lookKbits(uint8_t k) {
     unsigned short int revcode;
 
-    revcode = (unsigned short int)(codebuf >> (32 - k));
+    revcode = static_cast<unsigned short int>(codebuf >> (32 - k));
 
     return (revcode);
   }
@@ -975,7 +988,7 @@ class AstJpegDecoder {
 
     // river
     // signed_wordvalue=lookKbits(k);
-    signed_wordvalue = (unsigned short int)(codebuf >> (32 - k));
+    signed_wordvalue = static_cast<unsigned short int>(codebuf >> (32 - k));
     if (((1L << (k - 1)) & signed_wordvalue) == 0) {
       // neg_pow2 was previously defined as the below.  It seemed silly to keep
       // a table of values around for something
@@ -1002,17 +1015,21 @@ class AstJpegDecoder {
   }
 
   void set_quant_table(const uint8_t *basic_table, uint8_t scale_factor,
-                       uint8_t *newtable)
+                       std::array<uint8_t, 64>& newtable)
   // Set quantization table and zigzag reorder it
   {
     uint8_t i;
     long temp;
     for (i = 0; i < 64; i++) {
-      temp = ((long)(basic_table[i] * 16) / scale_factor);
+      temp = (static_cast<long>(basic_table[i] * 16) / scale_factor);
       /* limit the values to the valid range */
-      if (temp <= 0L) temp = 1L;
-      if (temp > 255L) temp = 255L; /* limit to baseline range if requested */
-      newtable[zigzag[i]] = (uint8_t)temp;
+      if (temp <= 0L) {
+        temp = 1L;
+      }
+      if (temp > 255L) {
+        temp = 255L; /* limit to baseline range if requested */
+      }
+      newtable[zigzag[i]] = static_cast<uint8_t>(temp);
     }
   }
 
@@ -1053,17 +1070,17 @@ class AstJpegDecoder {
       Mapping = 0;           // 0 or 1
 
       if (yuvmode == YuvMode::YUV420) {
-        if (WIDTH % 16) {
+        if ((WIDTH % 16) != 0u) {
           WIDTH = WIDTH + 16 - (WIDTH % 16);
         }
-        if (HEIGHT % 16) {
+        if ((HEIGHT % 16) != 0u) {
           HEIGHT = HEIGHT + 16 - (HEIGHT % 16);
         }
       } else {
-        if (WIDTH % 8) {
+        if ((WIDTH % 8) != 0u) {
           WIDTH = WIDTH + 8 - (WIDTH % 8);
         }
-        if (HEIGHT % 8) {
+        if ((HEIGHT % 8) != 0u) {
           HEIGHT = HEIGHT + 8 - (HEIGHT % 8);
         }
       }
@@ -1098,7 +1115,7 @@ class AstJpegDecoder {
         case JpgBlock::JPEG_NO_SKIP_CODE:
           updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
                         buffer);
-          Decompress(txb, tyb, (char *)OutBuffer.data(), 0);
+          Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0);
           break;
         case JpgBlock::FRAME_END_CODE:
           return 0;
@@ -1110,7 +1127,7 @@ class AstJpegDecoder {
 
           updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
                         buffer);
-          Decompress(txb, tyb, (char *)OutBuffer.data(), 0);
+          Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0);
           break;
         case JpgBlock::VQ_NO_SKIP_1_COLOR_CODE:
           updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
@@ -1129,7 +1146,8 @@ class AstJpegDecoder {
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
           break;
         case JpgBlock::VQ_SKIP_1_COLOR_CODE:
           txb = (codebuf & 0x0FF00000) >> 20;
@@ -1151,7 +1169,8 @@ class AstJpegDecoder {
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
           break;
 
         case JpgBlock::VQ_NO_SKIP_2_COLOR_CODE:
@@ -1171,7 +1190,8 @@ class AstJpegDecoder {
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
           break;
         case JpgBlock::VQ_SKIP_2_COLOR_CODE:
           txb = (codebuf & 0x0FF00000) >> 20;
@@ -1193,7 +1213,8 @@ class AstJpegDecoder {
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
 
           break;
         case JpgBlock::VQ_NO_SKIP_4_COLOR_CODE:
@@ -1201,19 +1222,19 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 2;
 
-          for (int i = 0; i < 4; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
+          for (unsigned char &i : Decode_Color.Index) {
+            i = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
                             buffer);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
+              Decode_Color.Color[i] = ((codebuf >> 5) & VQ_COLOR_MASK);
               updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
 
           break;
 
@@ -1225,19 +1246,19 @@ class AstJpegDecoder {
                         buffer);
           Decode_Color.BitMapBits = 2;
 
-          for (int i = 0; i < 4; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
+          for (unsigned char &i : Decode_Color.Index) {
+            i = ((codebuf >> 29) & VQ_INDEX_MASK);
             if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
               updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
                             buffer);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
+              Decode_Color.Color[i] = ((codebuf >> 5) & VQ_COLOR_MASK);
               updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
                             buffer);
             }
           }
-          VQ_Decompress(txb, tyb, (char *)OutBuffer.data(), 0, &Decode_Color);
+          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
+                        &Decode_Color);
 
           break;
         case JpgBlock::JPEG_SKIP_PASS2_CODE:
@@ -1246,7 +1267,8 @@ class AstJpegDecoder {
 
           updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
                         buffer);
-          Decompress_2PASS(txb, tyb, (char *)OutBuffer.data(), 2);
+          Decompress_2PASS(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()),
+                           2);
 
           break;
         default:
@@ -1277,41 +1299,41 @@ class AstJpegDecoder {
 #endif
 
  private:
-  YuvMode yuvmode;
+  YuvMode yuvmode{};
   // WIDTH and HEIGHT are the modes your display used
-  unsigned long WIDTH;
-  unsigned long HEIGHT;
-  unsigned long USER_WIDTH;
-  unsigned long USER_HEIGHT;
-  unsigned char Y_selector;
+  unsigned long WIDTH{};
+  unsigned long HEIGHT{};
+  unsigned long USER_WIDTH{};
+  unsigned long USER_HEIGHT{};
+  unsigned char Y_selector{};
   int SCALEFACTOR;
   int SCALEFACTORUV;
   int ADVANCESCALEFACTOR;
   int ADVANCESCALEFACTORUV;
-  int Mapping;
-  unsigned char UV_selector;
-  unsigned char advance_selector;
-  int byte_pos;  // current byte position
+  int Mapping{};
+  unsigned char UV_selector{};
+  unsigned char advance_selector{};
+  int byte_pos{};  // current byte position
 
   // quantization tables, no more than 4 quantization tables
-  std::array<std::array<long, 64>, 4> QT;
+  std::array<std::array<long, 64>, 4> QT{};
 
   // DC huffman tables , no more than 4 (0..3)
-  std::array<Huffman_table, 4> HTDC;
+  std::array<Huffman_table, 4> HTDC{};
   // AC huffman tables (0..3)
-  std::array<Huffman_table, 4> HTAC;
-  std::array<int, 256> m_CrToR;
-  std::array<int, 256> m_CbToB;
-  std::array<int, 256> m_CrToG;
-  std::array<int, 256> m_CbToG;
-  std::array<int, 256> m_Y;
-  unsigned long buffer_index;
-  uint32_t codebuf, newbuf, readbuf;
-  const unsigned char *std_luminance_qt;
-  const uint8_t *std_chrominance_qt;
+  std::array<Huffman_table, 4> HTAC{};
+  std::array<int, 256> m_CrToR{};
+  std::array<int, 256> m_CbToB{};
+  std::array<int, 256> m_CrToG{};
+  std::array<int, 256> m_CbToG{};
+  std::array<int, 256> m_Y{};
+  unsigned long buffer_index{};
+  uint32_t codebuf{}, newbuf{}, readbuf{};
+  const unsigned char *std_luminance_qt{};
+  const uint8_t *std_chrominance_qt{};
 
-  signed short int DCY, DCCb, DCCr;  // Coeficientii DC pentru Y,Cb,Cr
-  signed short int DCT_coeff[384];
+  signed short int DCY{}, DCCb{}, DCCr{};  // Coeficientii DC pentru Y,Cb,Cr
+  signed short int DCT_coeff[384]{};
   // std::vector<signed short int> DCT_coeff;  // Current DCT_coefficients
   // quantization table number for Y, Cb, Cr
   uint8_t YQ_nr = 0, CbQ_nr = 1, CrQ_nr = 1;
@@ -1321,13 +1343,13 @@ class AstJpegDecoder {
   uint8_t YAC_nr = 0, CbAC_nr = 1, CrAC_nr = 1;
   int txb = 0;
   int tyb = 0;
-  int newbits;
-  uint8_t *rlimit_table;
+  int newbits{};
+  uint8_t *rlimit_table{};
   std::vector<RGB> YUVBuffer;
   // TODO(ed) this shouldn't exist.  It is cruft that needs cleaning up
-  uint32_t *Buffer;
+  uint32_t *Buffer{};
 
  public:
   std::vector<RGB> OutBuffer;
 };
-}
+}  // namespace AstVideo

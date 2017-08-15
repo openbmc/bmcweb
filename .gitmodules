@@ -4,3 +4,9 @@
 [submodule "static/noVNC"]
 	path = static/noVNC
 	url = https://github.com/novnc/noVNC.git
+[submodule "boost-dbus"]
+	path = boost-dbus
+	url = ssh://etanous@git-amr-2.devtools.intel.com:29418/openbmc-boost-dbus
+[submodule "tinyxml2"]
+	path = tinyxml2
+	url = https://github.com/leethomason/tinyxml2.git

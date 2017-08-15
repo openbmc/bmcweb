@@ -21,20 +21,20 @@
  */
 #ifndef _TINY_SHA1_HPP_
 #define _TINY_SHA1_HPP_
-#include <stdint.h>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 namespace sha1 {
 class SHA1 {
  public:
-  typedef uint32_t digest32_t[5];
-  typedef uint8_t digest8_t[20];
+  using digest32_t = uint32_t [5];
+  using digest8_t = uint8_t [20];
   inline static uint32_t LeftRotate(uint32_t value, size_t count) {
     return (value << count) ^ (value >> (32 - count));
   }
   SHA1() { reset(); }
-  virtual ~SHA1() {}
+  virtual ~SHA1() = default;
   SHA1(const SHA1& s) { *this = s; }
   const SHA1& operator=(const SHA1& s) {
     memcpy(m_digest, s.m_digest, 5 * sizeof(uint32_t));
@@ -63,8 +63,8 @@ class SHA1 {
     return *this;
   }
   SHA1& processBlock(const void* const start, const void* const end) {
-    const uint8_t* begin = static_cast<const uint8_t*>(start);
-    const uint8_t* finish = static_cast<const uint8_t*>(end);
+    const auto* begin = static_cast<const uint8_t*>(start);
+    const auto* finish = static_cast<const uint8_t*>(end);
     while (begin != finish) {
       processByte(*begin);
       begin++;
@@ -72,7 +72,7 @@ class SHA1 {
     return *this;
   }
   SHA1& processBytes(const void* const data, size_t len) {
-    const uint8_t* block = static_cast<const uint8_t*>(data);
+    const auto* block = static_cast<const uint8_t*>(data);
     processBlock(block, block + len);
     return *this;
   }
@@ -186,10 +186,10 @@ class SHA1 {
   }
 
  private:
-  digest32_t m_digest;
-  uint8_t m_block[64];
-  size_t m_blockByteIndex;
-  size_t m_byteCount;
+  digest32_t m_digest{};
+  uint8_t m_block[64]{};
+  size_t m_blockByteIndex{};
+  size_t m_byteCount{};
 };
-}
+} // namespace sha1
 #endif

@@ -17,20 +17,19 @@ inline const std::string& get_header_value(const T& headers,
   return empty;
 }
 
-struct DetachHelper;
-
 struct request {
-  HTTPMethod method;
+  HTTPMethod method{HTTPMethod::Get};
   std::string raw_url;
   std::string url;
   query_string url_params;
   ci_map headers;
   std::string body;
+  bool is_secure{false};
 
   void* middleware_context{};
   boost::asio::io_service* io_service{};
 
-  request() : method(HTTPMethod::Get) {}
+  request() {}
 
   request(HTTPMethod method, std::string raw_url, std::string url,
           query_string url_params, ci_map headers, std::string body)
@@ -41,26 +40,12 @@ struct request {
         headers(std::move(headers)),
         body(std::move(body)) {}
 
-  void add_header(const std::string& key, const std::string& value) {
+  void add_header(std::string key, std::string value) {
     headers.emplace(std::move(key), std::move(value));
   }
 
   const std::string& get_header_value(const std::string& key) const {
     return crow::get_header_value(headers, key);
   }
-  /*
-  // These APIs were here, and it's unclear what their intent was, when 
-  // io_service is a public member.  They are commented out for now
-
-  template <typename CompletionHandler>
-  void post(CompletionHandler handler) {
-    io_service->post(handler);
-  }
-
-  template <typename CompletionHandler>
-  void dispatch(CompletionHandler handler) {
-    io_service->dispatch(handler);
-  }
-*/
 };
-}
+}  // namespace crow

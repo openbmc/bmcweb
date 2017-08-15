@@ -1,8 +1,9 @@
 #pragma once
-#include <boost/algorithm/string/predicate.hpp>
+#include <array>
 #include "crow/TinySHA1.hpp"
 #include "crow/http_request.h"
 #include "crow/socket_adaptors.h"
+#include <boost/algorithm/string/predicate.hpp>
 
 namespace crow {
 namespace websocket {
@@ -15,14 +16,20 @@ enum class WebSocketReadState {
 };
 
 struct connection {
+ public:
+  explicit connection(const crow::request& req)
+      : req(req), userdata_(nullptr){};
+
   virtual void send_binary(const std::string& msg) = 0;
   virtual void send_text(const std::string& msg) = 0;
   virtual void close(const std::string& msg = "quit") = 0;
   virtual boost::asio::io_service& get_io_service() = 0;
-  virtual ~connection() {}
+  virtual ~connection() = default;
 
   void userdata(void* u) { userdata_ = u; }
   void* userdata() { return userdata_; }
+
+  crow::request req;
 
  private:
   void* userdata_;
@@ -31,16 +38,14 @@ struct connection {
 template <typename Adaptor>
 class Connection : public connection {
  public:
-  Connection(
-      const crow::request& req, Adaptor&& adaptor,
-      std::function<void(crow::websocket::connection&)> open_handler,
-      std::function<void(crow::websocket::connection&, const std::string&,
-                         bool)>
-          message_handler,
-      std::function<void(crow::websocket::connection&, const std::string&)>
-          close_handler,
-      std::function<void(crow::websocket::connection&)> error_handler)
+  Connection(const crow::request& req, Adaptor&& adaptor,
+             std::function<void(connection&)> open_handler,
+             std::function<void(connection&, const std::string&, bool)>
+                 message_handler,
+             std::function<void(connection&, const std::string&)> close_handler,
+             std::function<void(connection&)> error_handler)
       : adaptor_(std::move(adaptor)),
+        connection(req),
         open_handler_(std::move(open_handler)),
         message_handler_(std::move(message_handler)),
         close_handler_(std::move(close_handler)),
@@ -58,7 +63,7 @@ class Connection : public connection {
     s.processBytes(magic.data(), magic.size());
     uint8_t digest[20];
     s.getDigestBytes(digest);
-    start(crow::utility::base64encode((char*)digest, 20));
+    start(crow::utility::base64encode(reinterpret_cast<char*>(digest), 20));
   }
 
   template <typename CompletionHandler>
@@ -108,7 +113,9 @@ class Connection : public connection {
       has_sent_close_ = true;
       if (has_recv_close_ && !is_close_handler_called_) {
         is_close_handler_called_ = true;
-        if (close_handler_) close_handler_(*this, msg);
+        if (close_handler_) {
+          close_handler_(*this, msg);
+        }
       }
       auto header = build_header(0x8, msg.size());
       write_buffers_.emplace_back(std::move(header));
@@ -126,14 +133,16 @@ class Connection : public connection {
       return {buf, buf + 2};
     } else if (size < 0x10000) {
       buf[1] += 126;
-      *(uint16_t*)(buf + 2) = htons((uint16_t)size);
+      *reinterpret_cast<uint16_t*>(buf + 2) =
+          htons(static_cast<uint16_t>(size));
       return {buf, buf + 4};
     } else {
       buf[1] += 127;
-      *(uint64_t*)(buf + 2) =
-          ((1 == htonl(1)) ? (uint64_t)size
-                           : ((uint64_t)htonl((size)&0xFFFFFFFF) << 32) |
-                                 htonl((size) >> 32));
+      *reinterpret_cast<uint64_t*>(buf + 2) =
+          ((1 == htonl(1))
+               ? size
+               : (static_cast<uint64_t>(htonl((size)&0xFFFFFFFF)) << 32) |
+                     htonl((size) >> 32));
       return {buf, buf + 10};
     }
   }
@@ -143,8 +152,9 @@ class Connection : public connection {
         "HTTP/1.1 101 Switching Protocols\r\n"
         "Upgrade: websocket\r\n"
         "Connection: Upgrade\r\n"
-        //"Sec-WebSocket-Protocol: binary\r\n"  // TODO(ed): this hardcodes binary mode
-                                            // find a better way
+        //"Sec-WebSocket-Protocol: binary\r\n"  // TODO(ed): this hardcodes
+        // binary mode
+        // find a better way
         "Sec-WebSocket-Accept: ";
     static std::string crlf = "\r\n";
     write_buffers_.emplace_back(header);
@@ -152,7 +162,9 @@ class Connection : public connection {
     write_buffers_.emplace_back(crlf);
     write_buffers_.emplace_back(crlf);
     do_write();
-    if (open_handler_) open_handler_(*this);
+    if (open_handler_) {
+      open_handler_(*this);
+    }
     do_read();
   }
 
@@ -189,7 +201,9 @@ class Connection : public connection {
               } else {
                 close_connection_ = true;
                 adaptor_.close();
-                if (error_handler_) error_handler_(*this);
+                if (error_handler_) {
+                  error_handler_(*this);
+                }
                 check_destroy();
               }
             });
@@ -215,7 +229,9 @@ class Connection : public connection {
               } else {
                 close_connection_ = true;
                 adaptor_.close();
-                if (error_handler_) error_handler_(*this);
+                if (error_handler_) {
+                  error_handler_(*this);
+                }
                 check_destroy();
               }
             });
@@ -245,7 +261,9 @@ class Connection : public connection {
               } else {
                 close_connection_ = true;
                 adaptor_.close();
-                if (error_handler_) error_handler_(*this);
+                if (error_handler_) {
+                  error_handler_(*this);
+                }
                 check_destroy();
               }
             });
@@ -268,14 +286,18 @@ class Connection : public connection {
                 do_read();
               } else {
                 close_connection_ = true;
-                if (error_handler_) error_handler_(*this);
+                if (error_handler_) {
+                  error_handler_(*this);
+                }
                 adaptor_.close();
               }
             });
         break;
       case WebSocketReadState::Payload: {
         size_t to_read = buffer_.size();
-        if (remaining_length_ < to_read) to_read = remaining_length_;
+        if (remaining_length_ < to_read) {
+          to_read = remaining_length_;
+        }
         adaptor_.socket().async_read_some(
             boost::asio::buffer(buffer_, to_read),
             [this](const boost::system::error_code& ec,
@@ -293,7 +315,9 @@ class Connection : public connection {
                 }
               } else {
                 close_connection_ = true;
-                if (error_handler_) error_handler_(*this);
+                if (error_handler_) {
+                  error_handler_(*this);
+                }
                 adaptor_.close();
               }
             });
@@ -314,7 +338,9 @@ class Connection : public connection {
       {
         message_ += fragment_;
         if (is_FIN()) {
-          if (message_handler_) message_handler_(*this, message_, is_binary_);
+          if (message_handler_) {
+            message_handler_(*this, message_, is_binary_);
+          }
           message_.clear();
         }
       }
@@ -323,7 +349,9 @@ class Connection : public connection {
         is_binary_ = false;
         message_ += fragment_;
         if (is_FIN()) {
-          if (message_handler_) message_handler_(*this, message_, is_binary_);
+          if (message_handler_) {
+            message_handler_(*this, message_, is_binary_);
+          }
           message_.clear();
         }
       } break;
@@ -332,7 +360,9 @@ class Connection : public connection {
         is_binary_ = true;
         message_ += fragment_;
         if (is_FIN()) {
-          if (message_handler_) message_handler_(*this, message_, is_binary_);
+          if (message_handler_) {
+            message_handler_(*this, message_, is_binary_);
+          }
           message_.clear();
         }
       } break;
@@ -345,7 +375,9 @@ class Connection : public connection {
           adaptor_.close();
           close_connection_ = true;
           if (!is_close_handler_called_) {
-            if (close_handler_) close_handler_(*this, fragment_);
+            if (close_handler_) {
+              close_handler_(*this, fragment_);
+            }
             is_close_handler_called_ = true;
           }
           check_destroy();
@@ -377,9 +409,12 @@ class Connection : public connection {
                                    std::size_t /*bytes_transferred*/) {
                                  sending_buffers_.clear();
                                  if (!ec && !close_connection_) {
-                                   if (!write_buffers_.empty()) do_write();
-                                   if (has_sent_close_)
+                                   if (!write_buffers_.empty()) {
+                                     do_write();
+                                   }
+                                   if (has_sent_close_) {
                                      close_connection_ = true;
+                                   }
                                  } else {
                                    close_connection_ = true;
                                    check_destroy();
@@ -390,9 +425,14 @@ class Connection : public connection {
 
   void check_destroy() {
     // if (has_sent_close_ && has_recv_close_)
-    if (!is_close_handler_called_)
-      if (close_handler_) close_handler_(*this, "uncleanly");
-    if (sending_buffers_.empty() && !is_reading) delete this;
+    if (!is_close_handler_called_) {
+      if (close_handler_) {
+        close_handler_(*this, "uncleanly");
+      }
+    }
+    if (sending_buffers_.empty() && !is_reading) {
+      delete this;
+    }
   }
 
  private:
@@ -401,28 +441,26 @@ class Connection : public connection {
   std::vector<std::string> sending_buffers_;
   std::vector<std::string> write_buffers_;
 
-  boost::array<char, 4096> buffer_;
-  bool is_binary_;
+  std::array<char, 4096> buffer_{};
+  bool is_binary_{};
   std::string message_;
   std::string fragment_;
   WebSocketReadState state_{WebSocketReadState::MiniHeader};
   uint64_t remaining_length_{0};
   bool close_connection_{false};
   bool is_reading{false};
-  uint32_t mask_;
-  uint16_t mini_header_;
+  uint32_t mask_{};
+  uint16_t mini_header_{};
   bool has_sent_close_{false};
   bool has_recv_close_{false};
   bool error_occured_{false};
   bool pong_received_{false};
   bool is_close_handler_called_{false};
 
-  std::function<void(crow::websocket::connection&)> open_handler_;
-  std::function<void(crow::websocket::connection&, const std::string&, bool)>
-      message_handler_;
-  std::function<void(crow::websocket::connection&, const std::string&)>
-      close_handler_;
-  std::function<void(crow::websocket::connection&)> error_handler_;
+  std::function<void(connection&)> open_handler_;
+  std::function<void(connection&, const std::string&, bool)> message_handler_;
+  std::function<void(connection&, const std::string&)> close_handler_;
+  std::function<void(connection&)> error_handler_;
 };
-}
-}
+}  // namespace websocket
+}  // namespace crow

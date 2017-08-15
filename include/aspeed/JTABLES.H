@@ -18,15 +18,15 @@ static const unsigned char *std_chrominance_qt;
 
 // Standard Huffman tables (cf. JPEG standard section K.3) */
 
-static const unsigned char std_dc_luminance_nrcodes[17] = {0, 0, 1, 5, 1, 1, 1, 1, 1,
-                                                     1, 0, 0, 0, 0, 0, 0, 0};
+static const unsigned char std_dc_luminance_nrcodes[17] = {
+    0, 0, 1, 5, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
 static const unsigned char std_dc_luminance_values[12] = {0, 1, 2, 3, 4,  5,
-                                                    6, 7, 8, 9, 10, 11};
+                                                          6, 7, 8, 9, 10, 11};
 
 static const unsigned char std_dc_chrominance_nrcodes[17] = {
     0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
 static const unsigned char std_dc_chrominance_values[12] = {0, 1, 2, 3, 4,  5,
-                                                      6, 7, 8, 9, 10, 11};
+                                                            6, 7, 8, 9, 10, 11};
 
 static const unsigned char std_ac_luminance_nrcodes[17] = {
     0, 0, 2, 1, 3, 3, 2, 4, 3, 5, 5, 4, 4, 0, 0, 1, 0x7d};
@@ -284,7 +284,7 @@ static const unsigned char Tbl_000UV[64] = {
     185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185,
     185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185};
 
-typedef struct {
+struct Huffman_table {
   unsigned char Length[17];  // k =1-16 ; L[k] indicates the number of Huffman
                              // codes of length k
   unsigned short int minor_code[17];  // indicates the value of the smallest
@@ -296,4 +296,4 @@ typedef struct {
   // Low nibble = size (in bits) of the coefficient which will be taken from the
   // data stream
   unsigned char Len[65536];
-} Huffman_table;
+};

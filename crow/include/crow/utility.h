@@ -133,13 +133,23 @@ struct compute_parameter_tag_from_args_list<Arg, Args...> {
 };
 
 static inline bool is_parameter_tag_compatible(uint64_t a, uint64_t b) {
-  if (a == 0) return b == 0;
-  if (b == 0) return a == 0;
+  if (a == 0) {
+    return b == 0;
+  }
+  if (b == 0) {
+    return a == 0;
+  }
   int sa = a % 6;
   int sb = a % 6;
-  if (sa == 5) sa = 4;
-  if (sb == 5) sb = 4;
-  if (sa != sb) return false;
+  if (sa == 5) {
+    sa = 4;
+  }
+  if (sb == 5) {
+    sb = 4;
+  }
+  if (sa != sb) {
+    return false;
+  }
   return is_parameter_tag_compatible(a / 6, b / 6);
 }
 
@@ -436,12 +446,11 @@ struct function_traits : public function_traits<decltype(&T::operator())> {
   using arg = typename parent_t::template arg<i>;
 };
 
-
 template <typename ClassType, typename R, typename... Args>
 struct function_traits<R (ClassType::*)(Args...) const> {
   static const size_t arity = sizeof...(Args);
 
-  typedef R result_type;
+  using result_type = R;
 
   template <size_t i>
   using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
@@ -451,7 +460,7 @@ template <typename ClassType, typename R, typename... Args>
 struct function_traits<R (ClassType::*)(Args...)> {
   static const size_t arity = sizeof...(Args);
 
-  typedef R result_type;
+  using result_type = R;
 
   template <size_t i>
   using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
@@ -461,7 +470,7 @@ template <typename R, typename... Args>
 struct function_traits<std::function<R(Args...)>> {
   static const size_t arity = sizeof...(Args);
 
-  typedef R result_type;
+  using result_type = R;
 
   template <size_t i>
   using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
@@ -508,4 +517,4 @@ inline static std::string base64encode_urlsafe(const char* data, size_t size) {
 }
 
 }  // namespace utility
-}
+}  // namespace crow

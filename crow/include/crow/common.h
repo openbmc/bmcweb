@@ -69,13 +69,17 @@ struct routing_params {
 
   void debug_print() const {
     std::cerr << "routing_params" << std::endl;
-    for (auto i : int_params) std::cerr << i << ", ";
+    for (auto i : int_params) { std::cerr << i << ", ";
+}
     std::cerr << std::endl;
-    for (auto i : uint_params) std::cerr << i << ", ";
+    for (auto i : uint_params) { std::cerr << i << ", ";
+}
     std::cerr << std::endl;
-    for (auto i : double_params) std::cerr << i << ", ";
+    for (auto i : double_params) { std::cerr << i << ", ";
+}
     std::cerr << std::endl;
-    for (auto& i : string_params) std::cerr << i << ", ";
+    for (auto& i : string_params) { std::cerr << i << ", ";
+}
     std::cerr << std::endl;
   }
 
@@ -102,7 +106,7 @@ template <>
 inline std::string routing_params::get<std::string>(unsigned index) const {
   return string_params[index];
 }
-}
+}  // namespace crow
 
 constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
   return crow::black_magic::is_equ_p(str, "GET", 3)

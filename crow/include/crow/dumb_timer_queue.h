@@ -1,10 +1,10 @@
 #pragma once
 
-#include <boost/asio.hpp>
 #include <chrono>
 #include <deque>
 #include <functional>
 #include <thread>
+#include <boost/asio.hpp>
 
 #include "crow/logging.h"
 
@@ -18,10 +18,14 @@ class dumb_timer_queue {
   void cancel(key& k) {
     auto self = k.first;
     k.first = nullptr;
-    if (!self) return;
+    if (self == nullptr) {
+      return;
+    }
 
-    unsigned int index = (unsigned int)(k.second - self->step_);
-    if (index < self->dq_.size()) self->dq_[index].second = nullptr;
+    auto index = static_cast<unsigned int>(k.second - self->step_);
+    if (index < self->dq_.size()) {
+      self->dq_[index].second = nullptr;
+    }
   }
 
   key add(std::function<void()> f) {
@@ -33,12 +37,16 @@ class dumb_timer_queue {
   }
 
   void process() {
-    if (!io_service_) return;
+    if (io_service_ == nullptr) {
+      return;
+    }
 
     auto now = std::chrono::steady_clock::now();
     while (!dq_.empty()) {
       auto& x = dq_.front();
-      if (now - x.first < std::chrono::seconds(tick)) break;
+      if (now - x.first < std::chrono::seconds(tick)) {
+        break;
+      }
       if (x.second) {
         CROW_LOG_DEBUG << "timer call: " << this << ' ' << step_;
         // we know that timer handlers are very simple currenty; call here
@@ -53,8 +61,6 @@ class dumb_timer_queue {
     io_service_ = &io_service;
   }
 
-  dumb_timer_queue() noexcept {}
-
  private:
   int tick{5};
   boost::asio::io_service* io_service_{};
@@ -63,5 +69,5 @@ class dumb_timer_queue {
       dq_;
   int step_{};
 };
-}
-}
+}  // namespace detail
+}  // namespace crow

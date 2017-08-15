@@ -1,6 +1,6 @@
 #pragma once
 
-#include <assert.h>
+#include <cassert>
 #include <ast_video_types.hpp>
 #include <iostream>
 #include <mutex>
@@ -12,29 +12,29 @@ namespace AstVideo {
 //
 // Cursor struct is used in User Mode
 //
-typedef struct _cursor_attribution_tag {
+struct AST_CUR_ATTRIBUTION_TAG {
   unsigned int posX;
   unsigned int posY;
   unsigned int cur_width;
   unsigned int cur_height;
   unsigned int cur_type;  // 0:mono 1:color 2:disappear cursor
   unsigned int cur_change_flag;
-} AST_CUR_ATTRIBUTION_TAG;
+};
 
 //
 // For storing Cursor Information
 //
-typedef struct _cursor_tag {
+struct AST_CURSOR_TAG {
   AST_CUR_ATTRIBUTION_TAG attr;
   // unsigned char     icon[MAX_CUR_OFFSETX*MAX_CUR_OFFSETY*2];
   unsigned char *icon;  //[64*64*2];
-} AST_CURSOR_TAG;
+};
 
 //
 // For select image format, i.e. 422 JPG420, 444 JPG444, lumin/chrom table, 0
 // ~ 11, low to high
 //
-typedef struct _video_features {
+struct FEATURES_TAG {
   short jpg_fmt;  // 422:JPG420, 444:JPG444
   short lumin_tbl;
   short chrom_tbl;
@@ -42,12 +42,12 @@ typedef struct _video_features {
   int w;
   int h;
   unsigned char *buf;
-} FEATURES_TAG;
+};
 
 //
 // For configure video engine control registers
 //
-typedef struct _image_info {
+struct IMAGE_INFO {
   short do_image_refresh;  // Action 0:motion 1:fullframe 2:quick cursor
   char qc_valid;           // quick cursor enable/disable
   unsigned int len;
@@ -57,7 +57,7 @@ typedef struct _image_info {
     FEATURES_TAG features;
     AST_CURSOR_TAG cursor_info;
   } parameter;
-} IMAGE_INFO;
+};
 
 class SimpleVideoPuller {
  public:
@@ -66,7 +66,7 @@ class SimpleVideoPuller {
   void initialize() {
     std::cout << "Opening /dev/video\n";
     video_fd = open("/dev/video", O_RDWR);
-    if (!video_fd) {
+    if (video_fd == 0) {
       std::cout << "Failed to open /dev/video\n";
       throw std::runtime_error("Failed to open /dev/video");
     }
@@ -117,16 +117,16 @@ class SimpleVideoPuller {
   }
 
  private:
-  int video_fd;
+  int video_fd{};
   IMAGE_INFO image_info;
 };
 
 #if defined(BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR)
 class AsyncVideoPuller {
  public:
-  typedef std::function<void(RawVideoBuffer &)> video_callback;
+  using video_callback = std::function<void (RawVideoBuffer &)>;
 
-  AsyncVideoPuller(boost::asio::io_service &io_service)
+  explicit AsyncVideoPuller(boost::asio::io_service &io_service)
       : image_info(), dev_video(io_service, open("/dev/video", O_RDWR)) {
     videobuf = std::make_shared<RawVideoBuffer>();
 
@@ -148,7 +148,7 @@ class AsyncVideoPuller {
     boost::asio::async_read(
         dev_video, mutable_buffer, [this](const boost::system::error_code &ec,
                                           std::size_t bytes_transferred) {
-          if (ec) {
+          if (ec != nullptr) {
             std::cerr << "Read failed with status " << ec << "\n";
           } else {
             this->read_done();
@@ -182,4 +182,4 @@ class AsyncVideoPuller {
   std::vector<video_callback> callbacks;
 };
 #endif  // defined(BOOST_ASIO_HAS_POSIX_STREAM_DESCRIPTOR)
-}
+} // namespace AstVideo

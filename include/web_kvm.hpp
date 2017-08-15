@@ -119,20 +119,20 @@ enum class encoding_type : uint32_t {
 };
 
 struct framebuffer_rectangle {
-  boost::endian::big_uint16_t x;
-  boost::endian::big_uint16_t y;
-  boost::endian::big_uint16_t width;
-  boost::endian::big_uint16_t height;
-  boost::endian::big_uint32_t encoding;
+  boost::endian::big_uint16_t x{};
+  boost::endian::big_uint16_t y{};
+  boost::endian::big_uint16_t width{};
+  boost::endian::big_uint16_t height{};
+  boost::endian::big_uint32_t encoding{};
   std::vector<uint8_t> data;
 };
 
 struct framebuffer_update_msg {
-  boost::endian::big_uint8_t message_type;
+  boost::endian::big_uint8_t message_type{};
   std::vector<framebuffer_rectangle> rectangles;
 };
 
-std::string serialize(const framebuffer_update_msg& msg) {
+inline std::string serialize(const framebuffer_update_msg& msg) {
   // calculate the size of the needed vector for serialization
   size_t vector_size = 4;
   for (const auto& rect : msg.rectangles) {
@@ -174,12 +174,12 @@ enum class VncState {
 
 class connection_metadata {
  public:
-  connection_metadata(void) : vnc_state(VncState::UNSTARTED){};
+  connection_metadata() {};
 
-  VncState vnc_state;
+  VncState vnc_state{VncState::UNSTARTED};
 };
 
-typedef std::vector<connection_metadata> meta_list;
+using meta_list = std::vector<connection_metadata>;
 meta_list connection_states(10);
 
 connection_metadata meta;
@@ -235,7 +235,7 @@ void request_routes(Crow<Middlewares...>& app) {
           } break;
           case VncState::AWAITING_CLIENT_INIT_msg: {
             // Now send the server initialization
-            server_initialization_msg server_init_msg;
+            server_initialization_msg server_init_msg{};
             server_init_msg.framebuffer_width = 800;
             server_init_msg.framebuffer_height = 600;
             server_init_msg.pixel_format.bits_per_pixel = 32;
@@ -261,8 +261,8 @@ void request_routes(Crow<Middlewares...>& app) {
           case VncState::MAIN_LOOP: {
             if (data.size() >= sizeof(client_to_server_msg_type)) {
               auto type = static_cast<client_to_server_msg_type>(data[0]);
-              std::cout << "Received client message type " << (uint32_t)type
-                         << "\n";
+              std::cout << "Received client message type "
+                        << static_cast<std::size_t>(type) << "\n";
               switch (type) {
                 case client_to_server_msg_type::set_pixel_format: {
                 } break;
@@ -277,7 +277,9 @@ void request_routes(Crow<Middlewares...>& app) {
                   if (data.size() >= sizeof(frame_buffer_update_req) +
                                          sizeof(client_to_server_msg_type)) {
                     auto msg = reinterpret_cast<const frame_buffer_update_req*>(
-                        data.data() + sizeof(client_to_server_msg_type));
+                        data.data() +   // NOLINT
+                        sizeof(client_to_server_msg_type));
+                    // TODO(ed) find a better way to do this deserialization
 
                     // Todo(ed) lifecycle of the video puller and decoder
                     // should be
@@ -302,10 +304,11 @@ void request_routes(Crow<Middlewares...>& app) {
                     this_rect.encoding =
                         static_cast<uint8_t>(encoding_type::raw);
                     std::cout << "Encoding is " << this_rect.encoding;
-                    this_rect.data.reserve(this_rect.width * this_rect.height *
-                                           4);
+                    this_rect.data.reserve(
+                        static_cast<std::size_t>(this_rect.width) *
+                        static_cast<std::size_t>(this_rect.height) * 4);
                     std::cout << "Width " << out.width << " Height "
-                               << out.height;
+                              << out.height;
 
                     for (int i = 0; i < out.width * out.height; i++) {
                       auto& pixel = d.OutBuffer[i];
@@ -349,5 +352,5 @@ void request_routes(Crow<Middlewares...>& app) {
 
       });
 }
-}
-}
+}  // namespace kvm
+}  // namespace crow

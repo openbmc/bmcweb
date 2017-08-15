@@ -1,17 +1,18 @@
 #pragma once
+#include "crow/logging.h"
+#include "crow/settings.h"
 #include <boost/asio.hpp>
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
-#include "crow/logging.h"
-#include "crow/settings.h"
 namespace crow {
 using namespace boost;
 using tcp = asio::ip::tcp;
 
 struct SocketAdaptor {
+  using secure = std::false_type;
   using context = void;
-  SocketAdaptor(boost::asio::io_service& io_service, context*)
+  SocketAdaptor(boost::asio::io_service& io_service, context* /*unused*/)
       : socket_(io_service) {}
 
   boost::asio::io_service& get_io_service() { return socket_.get_io_service(); }
@@ -35,8 +36,9 @@ struct SocketAdaptor {
 };
 
 struct TestSocketAdaptor {
+  using secure = std::false_type;
   using context = void;
-  TestSocketAdaptor(boost::asio::io_service& io_service, context*)
+  TestSocketAdaptor(boost::asio::io_service& io_service, context* /*unused*/)
       : socket_(io_service) {}
 
   boost::asio::io_service& get_io_service() { return socket_.get_io_service(); }
@@ -61,6 +63,7 @@ struct TestSocketAdaptor {
 
 #ifdef CROW_ENABLE_SSL
 struct SSLAdaptor {
+  using secure = std::true_type;
   using context = boost::asio::ssl::context;
   using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
   SSLAdaptor(boost::asio::io_service& io_service, context* ctx)
@@ -82,18 +85,17 @@ struct SSLAdaptor {
     sane in this scenario. the correct fix would likely involve changing the
     http parser to return a specific code meaning "has been upgraded" so that
     the do_read function knows not to try to close the connection which would
-    fail, because the adapter is gone.  As is, do_read beleives the parse
+    fail, because the adapter is gone.  As is, do_read believes the parse
     failed, because is_open now returns False (which could also mean the client
     disconnected during parse)
     UPdate: The parser does in fact have an "is_upgrade" method that is intended
     for exactly this purpose.  Todo is now to make do_read obey the flag
-    appropriately.
+    appropriately so this code can be changed back.
     */
     if (ssl_socket_ != nullptr) {
       return ssl_socket_->lowest_layer().is_open();
-    } else {
-      return false;
     }
+    return false;
   }
 
   void close() {
@@ -102,7 +104,7 @@ struct SSLAdaptor {
     }
     boost::system::error_code ec;
 
-    // SHut it down
+    // Shut it down
     this->ssl_socket_->lowest_layer().close();
   }
 
@@ -120,4 +122,4 @@ struct SSLAdaptor {
   std::unique_ptr<boost::asio::ssl::stream<tcp::socket>> ssl_socket_;
 };
 #endif
-}
+}  // namespace crow

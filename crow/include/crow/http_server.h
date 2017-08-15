@@ -1,21 +1,20 @@
 #pragma once
 
+#include <atomic>
 #include <chrono>
+#include <cstdint>
+#include <future>
+#include <memory>
+#include <utility>
+#include <vector>
+#include "crow/dumb_timer_queue.h"
+#include "crow/http_connection.h"
+#include "crow/logging.h"
 #include <boost/asio.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
-#include <atomic>
-#include <cstdint>
-#include <future>
-#include <vector>
-
-#include <memory>
-
-#include "crow/dumb_timer_queue.h"
-#include "crow/http_connection.h"
-#include "crow/logging.h"
 
 namespace crow {
 using namespace boost;
@@ -25,13 +24,13 @@ template <typename Handler, typename Adaptor = SocketAdaptor,
           typename... Middlewares>
 class Server {
  public:
-  Server(Handler* handler, std::string bindaddr, uint16_t port,
+  Server(Handler* handler, const std::string& bindaddr, uint16_t port,
          std::tuple<Middlewares...>* middlewares = nullptr,
          uint16_t concurrency = 1,
          typename Adaptor::context* adaptor_ctx = nullptr,
          std::shared_ptr<boost::asio::io_service> io =
              std::make_shared<boost::asio::io_service>())
-      : io_service_(io),
+      : io_service_(std::move(io)),
         acceptor_(*io_service_,
                   tcp::endpoint(boost::asio::ip::address::from_string(bindaddr),
                                 port)),
@@ -54,22 +53,27 @@ class Server {
     tick_timer_.expires_from_now(
         boost::posix_time::milliseconds(tick_interval_.count()));
     tick_timer_.async_wait([this](const boost::system::error_code& ec) {
-      if (ec) return;
+      if (ec != nullptr) {
+        return;
+      }
       on_tick();
     });
   }
 
   void run() {
-    if (concurrency_ < 0) concurrency_ = 1;
+    if (concurrency_ < 0) {
+      concurrency_ = 1;
+    }
 
-    for (int i = 0; i < concurrency_; i++)
+    for (int i = 0; i < concurrency_; i++) {
       io_service_pool_.emplace_back(new boost::asio::io_service());
+    }
     get_cached_date_str_pool_.resize(concurrency_);
     timer_queue_pool_.resize(concurrency_);
 
     std::vector<std::future<void>> v;
     std::atomic<int> init_count(0);
-    for (uint16_t i = 0; i < concurrency_; i++)
+    for (uint16_t i = 0; i < concurrency_; i++) {
       v.push_back(std::async(std::launch::async, [this, i, &init_count] {
 
         // thread local date string get function
@@ -78,7 +82,7 @@ class Server {
         std::string date_str;
         auto update_date_str = [&] {
           auto last_time_t = time(0);
-          tm my_tm;
+          tm my_tm{};
 
 #ifdef _MSC_VER
           gmtime_s(&my_tm, &last_time_t);
@@ -110,7 +114,9 @@ class Server {
 
         std::function<void(const boost::system::error_code& ec)> handler;
         handler = [&](const boost::system::error_code& ec) {
-          if (ec) return;
+          if (ec != nullptr) {
+            return;
+          }
           timer_queue.process();
           timer.expires_from_now(boost::posix_time::seconds(1));
           timer.async_wait(handler);
@@ -124,12 +130,15 @@ class Server {
                          << e.what();
         }
       }));
+    }
 
     if (tick_function_ && tick_interval_.count() > 0) {
       tick_timer_.expires_from_now(
           boost::posix_time::milliseconds(tick_interval_.count()));
       tick_timer_.async_wait([this](const boost::system::error_code& ec) {
-        if (ec) return;
+        if (ec != nullptr) {
+          return;
+        }
         on_tick();
       });
     }
@@ -139,7 +148,9 @@ class Server {
     signals_.async_wait([&](const boost::system::error_code& /*error*/,
                             int /*signal_number*/) { stop(); });
 
-    while (concurrency_ != init_count) std::this_thread::yield();
+    while (concurrency_ != init_count) {
+      std::this_thread::yield();
+    }
 
     do_accept();
 
@@ -149,14 +160,18 @@ class Server {
 
   void stop() {
     io_service_->stop();
-    for (auto& io_service : io_service_pool_) io_service->stop();
+    for (auto& io_service : io_service_pool_) {
+      io_service->stop();
+    }
   }
 
  private:
   asio::io_service& pick_io_service() {
     // TODO load balancing
     roundrobin_index_++;
-    if (roundrobin_index_ >= io_service_pool_.size()) roundrobin_index_ = 0;
+    if (roundrobin_index_ >= io_service_pool_.size()) {
+      roundrobin_index_ = 0;
+    }
     return *io_service_pool_[roundrobin_index_];
   }
 
@@ -191,7 +206,7 @@ class Server {
   std::string bindaddr_;
   unsigned int roundrobin_index_{};
 
-  std::chrono::milliseconds tick_interval_;
+  std::chrono::milliseconds tick_interval_{};
   std::function<void()> tick_function_;
 
   std::tuple<Middlewares...>* middlewares_;
@@ -202,4 +217,4 @@ class Server {
 #endif
   typename Adaptor::context* adaptor_ctx_;
 };
-}
+}  // namespace crow

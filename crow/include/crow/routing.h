@@ -835,7 +835,9 @@ class Router {
       } else {
         res.add_header(
             "Location",
-            "http://" + req.get_header_value("Host") + req.url + "/");
+            req.is_secure
+                ? "https://"
+                : "http://" + req.get_header_value("Host") + req.url + "/");
       }
       res.end();
       return;
@@ -896,9 +898,9 @@ class Router {
       if (req.get_header_value("Host").empty()) {
         res.add_header("Location", req.url + "/");
       } else {
-        res.add_header(
-            "Location",
-            "http://" + req.get_header_value("Host") + req.url + "/");
+        res.add_header("Location", (req.is_secure ? "https://" : "http://") +
+                                       req.get_header_value("Host") + req.url +
+                                       "/");
       }
       res.end();
       return;
@@ -946,17 +948,19 @@ class Router {
 
   std::vector<std::string> get_routes(std::string& parent) {
     std::vector<std::string> ret;
-    //TODO(ed) this is so lazy, slow and unconcious of performance, but it works
-    // this should be replaced with something more performant that actually uses the trie
+    // TODO(ed) this is so lazy, slow and unconcious of performance, but it
+    // works
+    // this should be replaced with something more performant that actually uses
+    // the trie
     // that's available for doing matching.
     for (auto& rule : rules_) {
       if (rule != nullptr) {
-        if (rule->rule_.compare(0, parent.size(), parent) == 0){
+        if (rule->rule_.compare(0, parent.size(), parent) == 0) {
           ret.push_back(rule->rule_);
         }
       }
     }
-    
+
     return ret;
   }
 

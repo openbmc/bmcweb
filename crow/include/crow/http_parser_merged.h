@@ -44,7 +44,7 @@ typedef unsigned __int32 uint32_t;
 typedef __int64 int64_t;
 typedef unsigned __int64 uint64_t;
 #else
-#include <stdint.h>
+#include <cstdint>
 #endif
 
 /* Compile with -DHTTP_PARSER_STRICT=0 to make less checks, but run
@@ -65,8 +65,8 @@ typedef unsigned __int64 uint64_t;
 #define CROW_HTTP_MAX_HEADER_SIZE (80 * 1024)
 #endif
 
-typedef struct http_parser http_parser;
-typedef struct http_parser_settings http_parser_settings;
+using http_parser = struct http_parser;
+using http_parser_settings = struct http_parser_settings;
 
 /* Callbacks should return non-zero to indicate an error. The parser will
  * then halt execution.
@@ -81,8 +81,8 @@ typedef struct http_parser_settings http_parser_settings;
  * many times for each string. E.G. you might get 10 callbacks for "on_url"
  * each providing just a few characters more data.
  */
-typedef int (*http_data_cb)(http_parser *, const char *at, size_t length);
-typedef int (*http_cb)(http_parser *);
+using http_data_cb = int (*)(http_parser *, const char *, size_t);
+using http_cb = int (*)(http_parser *);
 
 /* Request Methods */
 #define CROW_HTTP_METHOD_MAP(CROW_XX)   \
@@ -326,12 +326,12 @@ int http_body_is_final(const http_parser *parser);
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include <assert.h>
-#include <ctype.h>
-#include <limits.h>
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cassert>
+#include <cctype>
+#include <climits>
+#include <cstddef>
+#include <cstdlib>
+#include <cstring>
 
 #ifndef CROW_ULLONG_MAX
 #define CROW_ULLONG_MAX ((uint64_t)-1) /* 2^64-1 */
@@ -518,7 +518,7 @@ enum state {
   s_message_done
 };
 
-#define CROW_PARSING_HEADER(state) (state <= s_headers_done)
+#define CROW_PARSING_HEADER(state) ((state) <= s_headers_done)
 
 enum header_states {
   h_general = 0,
@@ -566,7 +566,7 @@ enum http_host_state {
 /* Macros for character classes; depends on strict-mode  */
 #define CROW_CR '\r'
 #define CROW_LF '\n'
-#define CROW_LOWER(c) (unsigned char)(c | 0x20)
+#define CROW_LOWER(c) (unsigned char)((c) | 0x20)
 #define CROW_IS_ALPHA(c) (CROW_LOWER(c) >= 'a' && CROW_LOWER(c) <= 'z')
 #define CROW_IS_NUM(c) ((c) >= '0' && (c) <= '9')
 #define CROW_IS_ALPHANUM(c) (CROW_IS_ALPHA(c) || CROW_IS_NUM(c))
@@ -581,8 +581,8 @@ enum http_host_state {
    (c) == ',')
 
 #if CROW_HTTP_PARSER_STRICT
-#define CROW_TOKEN(c) (tokens[(unsigned char)c])
-#define CROW_IS_URL_CHAR(c) (CROW_BIT_AT(normal_url_char, (unsigned char)c))
+#define CROW_TOKEN(c) (tokens[(unsigned char)(c)])
+#define CROW_IS_URL_CHAR(c) (CROW_BIT_AT(normal_url_char, (unsigned char)(c)))
 #define CROW_IS_HOST_CHAR(c) (CROW_IS_ALPHANUM(c) || (c) == '.' || (c) == '-')
 #else
 #define CROW_TOKEN(c) ((c == ' ') ? ' ' : tokens[(unsigned char)c])
@@ -630,59 +630,56 @@ inline enum state parse_url_char(enum state s, const char ch) {
 #define CROW_T(v) v
 #endif
 
-  static const uint8_t
-      normal_url_char
-          [32] =
-              {
-                  /*   0 nul    1 soh    2 stx    3 etx    4 eot    5 enq    6
-                     ack    7 bel  */
-                  0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
-                  /*   8 bs     9 ht    10 nl    11 vt    12 np    13 cr    14
-                     so    15 si   */
-                  0 | CROW_T(2) | 0 | 0 | CROW_T(16) | 0 | 0 | 0,
-                  /*  16 dle   17 dc1   18 dc2   19 dc3   20 dc4   21 nak   22
-                     syn   23 etb */
-                  0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
-                  /*  24 can   25 em    26 sub   27 esc   28 fs    29 gs    30
-                     rs    31 us  */
-                  0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
-                  /*  32 sp    33  !    34  "    35  #    36  $    37  %    38
-                     &    39  '  */
-                  0 | 2 | 4 | 0 | 16 | 32 | 64 | 128,
-                  /*  40  (    41  )    42  *    43  +    44  ,    45  -    46
-                     .    47  /  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  48  0    49  1    50  2    51  3    52  4    53  5    54
-                     6    55  7  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  56  8    57  9    58  :    59  ;    60  <    61  =    62
-                     >    63  ?  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 0,
-                  /*  64  @    65  A    66  B    67  C    68  D    69  E    70
-                     F    71  G  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  72  H    73  I    74  J    75  K    76  L    77  M    78
-                     N    79  O  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  80  P    81  Q    82  R    83  S    84  CROW_T    85  U
-                     86  V    87  W  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  88  X    89  Y    90  Z    91  [    92  \    93  ]    94
-                     ^    95  _  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /*  96  `    97  a    98  b    99  c   100  d   101  e   102
-                     f   103  g  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /* 104  h   105  i   106  j   107  k   108  l   109  m   110
-                     n   111  o  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /* 112  p   113  q   114  r   115  s   116  t   117  u   118
-                     v   119  w  */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
-                  /* 120  x   121  y   122  z   123  {   124  |   125  }   126
-                     ~   127 del */
-                  1 | 2 | 4 | 8 | 16 | 32 | 64 | 0,
-              };
+  static const uint8_t normal_url_char[32] = {
+      /*   0 nul    1 soh    2 stx    3 etx    4 eot    5 enq    6
+         ack    7 bel  */
+      0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
+      /*   8 bs     9 ht    10 nl    11 vt    12 np    13 cr    14
+         so    15 si   */
+      0 | CROW_T(2) | 0 | 0 | CROW_T(16) | 0 | 0 | 0,
+      /*  16 dle   17 dc1   18 dc2   19 dc3   20 dc4   21 nak   22
+         syn   23 etb */
+      0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
+      /*  24 can   25 em    26 sub   27 esc   28 fs    29 gs    30
+         rs    31 us  */
+      0 | 0 | 0 | 0 | 0 | 0 | 0 | 0,
+      /*  32 sp    33  !    34  "    35  #    36  $    37  %    38
+         &    39  '  */
+      0 | 2 | 4 | 0 | 16 | 32 | 64 | 128,
+      /*  40  (    41  )    42  *    43  +    44  ,    45  -    46
+         .    47  /  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  48  0    49  1    50  2    51  3    52  4    53  5    54
+         6    55  7  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  56  8    57  9    58  :    59  ;    60  <    61  =    62
+         >    63  ?  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 0,
+      /*  64  @    65  A    66  B    67  C    68  D    69  E    70
+         F    71  G  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  72  H    73  I    74  J    75  K    76  L    77  M    78
+         N    79  O  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  80  P    81  Q    82  R    83  S    84  CROW_T    85  U
+         86  V    87  W  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  88  X    89  Y    90  Z    91  [    92  \    93  ]    94
+         ^    95  _  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /*  96  `    97  a    98  b    99  c   100  d   101  e   102
+         f   103  g  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /* 104  h   105  i   106  j   107  k   108  l   109  m   110
+         n   111  o  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /* 112  p   113  q   114  r   115  s   116  t   117  u   118
+         v   119  w  */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 128,
+      /* 120  x   121  y   122  z   123  {   124  |   125  }   126
+         ~   127 del */
+      1 | 2 | 4 | 8 | 16 | 32 | 64 | 0,
+  };
 
 #undef CROW_T
 
@@ -847,71 +844,55 @@ inline size_t http_parser_execute(http_parser *parser,
    *                    | "/" | "[" | "]" | "?" | "="
    *                    | "{" | "}" | SP | HT
    */
-  static const char
-      tokens[256] = {/*   0 nul    1 soh    2 stx    3 etx    4 eot    5 enq
-                        6 ack    7 bel  */
-                     0,
-                     0, 0, 0, 0, 0, 0, 0,
-                     /*   8 bs     9 ht    10 nl    11 vt    12 np    13 cr
-                        14 so    15 si   */
-                     0,
-                     0, 0, 0, 0, 0, 0, 0,
-                     /*  16 dle   17 dc1   18 dc2   19 dc3   20 dc4   21 nak
-                        22 syn   23 etb */
-                     0,
-                     0, 0, 0, 0, 0, 0, 0,
-                     /*  24 can   25 em    26 sub   27 esc   28 fs    29 gs
-                        30 rs    31 us  */
-                     0,
-                     0, 0, 0, 0, 0, 0, 0,
-                     /*  32 sp    33  !    34  "    35  #    36  $    37  %
-                        38  &    39  '  */
-                     0,
-                     '!', 0, '#', '$', '%', '&', '\'',
-                     /*  40  (    41  )    42  *    43  +    44  ,    45  -
-                        46  .    47  /  */
-                     0,
-                     0, '*', '+', 0, '-', '.', 0,
-                     /*  48  0    49  1    50  2    51  3    52  4    53  5
-                        54  6    55  7  */
-                     '0',
-                     '1', '2', '3', '4', '5', '6', '7',
-                     /*  56  8    57  9    58  :    59  ;    60  <    61  =
-                        62  >    63  ?  */
-                     '8',
-                     '9', 0, 0, 0, 0, 0, 0,
-                     /*  64  @    65  A    66  B    67  C    68  D    69  E
-                        70  F    71  G  */
-                     0,
-                     'a', 'b', 'c', 'd', 'e', 'f', 'g',
-                     /*  72  H    73  I    74  J    75  K    76  L    77  M
-                        78  N    79  O  */
-                     'h',
-                     'i', 'j', 'k', 'l', 'm', 'n', 'o',
-                     /*  80  P    81  Q    82  R    83  S    84  T    85  U
-                        86  V    87  W  */
-                     'p',
-                     'q', 'r', 's', 't', 'u', 'v', 'w',
-                     /*  88  X    89  Y    90  Z    91  [    92  \    93  ]
-                        94  ^    95  _  */
-                     'x',
-                     'y', 'z', 0, 0, 0, '^', '_',
-                     /*  96  `    97  a    98  b    99  c   100  d   101  e
-                        102  f   103  g  */
-                     '`',
-                     'a', 'b', 'c', 'd', 'e', 'f', 'g',
-                     /* 104  h   105  i   106  j   107  k   108  l   109  m
-                        110  n   111  o  */
-                     'h',
-                     'i', 'j', 'k', 'l', 'm', 'n', 'o',
-                     /* 112  p   113  q   114  r   115  s   116  t   117  u
-                        118  v   119  w  */
-                     'p',
-                     'q', 'r', 's', 't', 'u', 'v', 'w',
-                     /* 120  x   121  y   122  z   123  {   124  |   125  }
-                        126  ~   127 del */
-                     'x',
-                     'y', 'z', 0, '|', 0, '~', 0};
+  static const char tokens[256] = {
+      /*   0 nul    1 soh    2 stx    3 etx    4 eot    5 enq
+         6 ack    7 bel  */
+      0, 0, 0, 0, 0, 0, 0, 0,
+      /*   8 bs     9 ht    10 nl    11 vt    12 np    13 cr
+         14 so    15 si   */
+      0, 0, 0, 0, 0, 0, 0, 0,
+      /*  16 dle   17 dc1   18 dc2   19 dc3   20 dc4   21 nak
+         22 syn   23 etb */
+      0, 0, 0, 0, 0, 0, 0, 0,
+      /*  24 can   25 em    26 sub   27 esc   28 fs    29 gs
+         30 rs    31 us  */
+      0, 0, 0, 0, 0, 0, 0, 0,
+      /*  32 sp    33  !    34  "    35  #    36  $    37  %
+         38  &    39  '  */
+      0, '!', 0, '#', '$', '%', '&', '\'',
+      /*  40  (    41  )    42  *    43  +    44  ,    45  -
+         46  .    47  /  */
+      0, 0, '*', '+', 0, '-', '.', 0,
+      /*  48  0    49  1    50  2    51  3    52  4    53  5
+         54  6    55  7  */
+      '0', '1', '2', '3', '4', '5', '6', '7',
+      /*  56  8    57  9    58  :    59  ;    60  <    61  =
+         62  >    63  ?  */
+      '8', '9', 0, 0, 0, 0, 0, 0,
+      /*  64  @    65  A    66  B    67  C    68  D    69  E
+         70  F    71  G  */
+      0, 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+      /*  72  H    73  I    74  J    75  K    76  L    77  M
+         78  N    79  O  */
+      'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+      /*  80  P    81  Q    82  R    83  S    84  T    85  U
+         86  V    87  W  */
+      'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+      /*  88  X    89  Y    90  Z    91  [    92  \    93  ]
+         94  ^    95  _  */
+      'x', 'y', 'z', 0, 0, 0, '^', '_',
+      /*  96  `    97  a    98  b    99  c   100  d   101  e
+         102  f   103  g  */
+      '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+      /* 104  h   105  i   106  j   107  k   108  l   109  m
+         110  n   111  o  */
+      'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o',
+      /* 112  p   113  q   114  r   115  s   116  t   117  u
+         118  v   119  w  */
+      'p', 'q', 'r', 's', 't', 'u', 'v', 'w',
+      /* 120  x   121  y   122  z   123  {   124  |   125  }
+         126  ~   127 del */
+      'x', 'y', 'z', 0, '|', 0, '~', 0};
 
   static const int8_t unhex[256] = {
       -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -959,8 +940,12 @@ inline size_t http_parser_execute(http_parser *parser,
     }
   }
 
-  if (parser->state == s_header_field) header_field_mark = data;
-  if (parser->state == s_header_value) header_value_mark = data;
+  if (parser->state == s_header_field) {
+    header_field_mark = data;
+  }
+  if (parser->state == s_header_value) {
+    header_value_mark = data;
+  }
   switch (parser->state) {
     case s_req_path:
     case s_req_schema:
@@ -1010,13 +995,17 @@ inline size_t http_parser_execute(http_parser *parser,
         /* this state is used after a 'Connection: close' message
          * the parser will error out if it reads another message
          */
-        if (ch == CROW_CR || ch == CROW_LF) break;
+        if (ch == CROW_CR || ch == CROW_LF) {
+          break;
+        }
 
         CROW_SET_ERRNO(HPE_CLOSED_CONNECTION);
         goto error;
 
       case s_start_req_or_res: {
-        if (ch == CROW_CR || ch == CROW_LF) break;
+        if (ch == CROW_CR || ch == CROW_LF) {
+          break;
+        }
         parser->flags = 0;
         parser->content_length = CROW_ULLONG_MAX;
 
@@ -1241,7 +1230,9 @@ inline size_t http_parser_execute(http_parser *parser,
         break;
 
       case s_start_req: {
-        if (ch == CROW_CR || ch == CROW_LF) break;
+        if (ch == CROW_CR || ch == CROW_LF) {
+          break;
+        }
         parser->flags = 0;
         parser->content_length = CROW_ULLONG_MAX;
 
@@ -1391,7 +1382,9 @@ inline size_t http_parser_execute(http_parser *parser,
       }
 
       case s_req_spaces_before_url: {
-        if (ch == ' ') break;
+        if (ch == ' ') {
+          break;
+        }
 
         CROW_MARK(url);
         if (parser->method == HTTP_CONNECT) {
@@ -1593,7 +1586,7 @@ inline size_t http_parser_execute(http_parser *parser,
 
         c = CROW_TOKEN(ch);
 
-        if (!c) {
+        if (c == 0) {
           CROW_SET_ERRNO(HPE_INVALID_HEADER_TOKEN);
           goto error;
         }
@@ -1630,7 +1623,7 @@ inline size_t http_parser_execute(http_parser *parser,
       case s_header_field: {
         c = CROW_TOKEN(ch);
 
-        if (c) {
+        if (c != 0) {
           switch (parser->header_state) {
             case h_general:
               break;
@@ -1724,7 +1717,9 @@ inline size_t http_parser_execute(http_parser *parser,
             case h_content_length:
             case h_transfer_encoding:
             case h_upgrade:
-              if (ch != ' ') parser->header_state = h_general;
+              if (ch != ' ') {
+                parser->header_state = h_general;
+              }
               break;
 
             default:
@@ -1757,7 +1752,9 @@ inline size_t http_parser_execute(http_parser *parser,
       }
 
       case s_header_value_discard_ws:
-        if (ch == ' ' || ch == '\t') break;
+        if (ch == ' ' || ch == '\t') {
+          break;
+        }
 
         if (ch == CROW_CR) {
           parser->state = s_header_value_discard_ws_almost_done;
@@ -1849,7 +1846,9 @@ inline size_t http_parser_execute(http_parser *parser,
           case h_content_length: {
             uint64_t t;
 
-            if (ch == ' ') break;
+            if (ch == ' ') {
+              break;
+            }
 
             if (!CROW_IS_NUM(ch)) {
               CROW_SET_ERRNO(HPE_INVALID_CONTENT_LENGTH);
@@ -1906,7 +1905,9 @@ inline size_t http_parser_execute(http_parser *parser,
           case h_transfer_encoding_chunked:
           case h_connection_keep_alive:
           case h_connection_close:
-            if (ch != ' ') parser->header_state = h_general;
+            if (ch != ' ') {
+              parser->header_state = h_general;
+            }
             break;
 
           default:
@@ -1959,19 +1960,18 @@ inline size_t http_parser_execute(http_parser *parser,
         if (ch == ' ' || ch == '\t') {
           parser->state = s_header_value_discard_ws;
           break;
-        } else {
-          /* header value was empty */
-          CROW_MARK(header_value);
-          parser->state = s_header_field_start;
-          CROW_CALLBACK_DATA_NOADVANCE(header_value);
-          goto reexecute_byte;
         }
+        /* header value was empty */
+        CROW_MARK(header_value);
+        parser->state = s_header_field_start;
+        CROW_CALLBACK_DATA_NOADVANCE(header_value);
+        goto reexecute_byte;
       }
 
       case s_headers_almost_done: {
         CROW_STRICT_CHECK(ch != CROW_LF);
 
-        if (parser->flags & F_TRAILING) {
+        if ((parser->flags & F_TRAILING) != 0) {
           /* End of a chunked request */
           parser->state = CROW_NEW_MESSAGE();
           CROW_CALLBACK_NOTIFY(message_complete);
@@ -1982,7 +1982,8 @@ inline size_t http_parser_execute(http_parser *parser,
 
         /* Set this here so that on_headers_complete() callbacks can see it */
         parser->upgrade =
-            (parser->flags & F_UPGRADE || parser->method == HTTP_CONNECT);
+            static_cast<unsigned int>(((parser->flags & F_UPGRADE) != 0) ||
+                                      parser->method == HTTP_CONNECT);
 
         /* Here we call the headers_complete callback. This is somewhat
          * different than other callbacks because if the user returns 1, we
@@ -1994,7 +1995,7 @@ inline size_t http_parser_execute(http_parser *parser,
          * so
          * we have to simulate it by handling a change in errno below.
          */
-        if (settings->on_headers_complete) {
+        if (settings->on_headers_complete != nullptr) {
           switch (settings->on_headers_complete(parser)) {
             case 0:
               break;
@@ -2022,16 +2023,16 @@ inline size_t http_parser_execute(http_parser *parser,
         parser->nread = 0;
 
         /* Exit, the rest of the connect is in a different protocol. */
-        if (parser->upgrade) {
+        if (parser->upgrade != 0u) {
           parser->state = CROW_NEW_MESSAGE();
           CROW_CALLBACK_NOTIFY(message_complete);
           return (p - data) + 1;
         }
 
-        if (parser->flags & F_SKIPBODY) {
+        if ((parser->flags & F_SKIPBODY) != 0) {
           parser->state = CROW_NEW_MESSAGE();
           CROW_CALLBACK_NOTIFY(message_complete);
-        } else if (parser->flags & F_CHUNKED) {
+        } else if ((parser->flags & F_CHUNKED) != 0) {
           /* chunked encoding - ignore Content-Length header */
           parser->state = s_chunk_size_start;
         } else {
@@ -2044,7 +2045,7 @@ inline size_t http_parser_execute(http_parser *parser,
             parser->state = s_body_identity;
           } else {
             if (parser->type == HTTP_REQUEST ||
-                !http_message_needs_eof(parser)) {
+                (http_message_needs_eof(parser) == 0)) {
               /* Assume content-length 0 - read the next */
               parser->state = CROW_NEW_MESSAGE();
               CROW_CALLBACK_NOTIFY(message_complete);
@@ -2263,14 +2264,14 @@ inline int http_message_needs_eof(const http_parser *parser) {
   }
 
   /* See RFC 2616 section 4.4 */
-  if (parser->status_code / 100 == 1 || /* 1xx e.g. Continue */
-      parser->status_code == 204 ||     /* No Content */
-      parser->status_code == 304 ||     /* Not Modified */
-      parser->flags & F_SKIPBODY) {     /* response to a HEAD request */
+  if (parser->status_code / 100 == 1 ||      /* 1xx e.g. Continue */
+      parser->status_code == 204 ||          /* No Content */
+      parser->status_code == 304 ||          /* Not Modified */
+      ((parser->flags & F_SKIPBODY) != 0)) { /* response to a HEAD request */
     return 0;
   }
 
-  if ((parser->flags & F_CHUNKED) ||
+  if (((parser->flags & F_CHUNKED) != 0) ||
       parser->content_length != CROW_ULLONG_MAX) {
     return 0;
   }
@@ -2281,17 +2282,17 @@ inline int http_message_needs_eof(const http_parser *parser) {
 inline int http_should_keep_alive(const http_parser *parser) {
   if (parser->http_major > 0 && parser->http_minor > 0) {
     /* HTTP/1.1 */
-    if (parser->flags & F_CONNECTION_CLOSE) {
+    if ((parser->flags & F_CONNECTION_CLOSE) != 0) {
       return 0;
     }
   } else {
     /* HTTP/1.0 or earlier */
-    if (!(parser->flags & F_CONNECTION_KEEP_ALIVE)) {
+    if ((parser->flags & F_CONNECTION_KEEP_ALIVE) == 0) {
       return 0;
     }
   }
 
-  return !http_message_needs_eof(parser);
+  return static_cast<int>(!http_message_needs_eof(parser)) == 0;
 }
 
 inline const char *http_method_str(enum http_method m) {
@@ -2303,15 +2304,15 @@ inline const char *http_method_str(enum http_method m) {
   return CROW_ELEM_AT(method_strings, m, "<unknown>");
 }
 
-inline void http_parser_init(http_parser *parser, enum http_parser_type t) {
+inline void http_parser_init(http_parser *parser, enum http_parser_type type) {
   void *data = parser->data; /* preserve application data */
   memset(parser, 0, sizeof(*parser));
   parser->data = data;
-  parser->type = t;
+  parser->type = type;
   parser->state =
-      (t == HTTP_REQUEST
+      (type == HTTP_REQUEST
            ? s_start_req
-           : (t == HTTP_RESPONSE ? s_start_res : s_start_req_or_res));
+           : (type == HTTP_RESPONSE ? s_start_res : s_start_req_or_res));
   parser->http_errno = HPE_OK;
 }
 
@@ -2413,7 +2414,7 @@ inline int http_parse_host(const char *buf, struct http_parser_url *u,
 
   u->field_data[UF_HOST].len = 0;
 
-  s = found_at ? s_http_userinfo_start : s_http_host_start;
+  s = found_at != 0 ? s_http_userinfo_start : s_http_host_start;
 
   for (p = buf + u->field_data[UF_HOST].off; p < buf + buflen; p++) {
     enum http_host_state new_s = http_parse_host_char(s, *p);
@@ -2485,7 +2486,7 @@ inline int http_parser_parse_url(const char *buf, size_t buflen, int is_connect,
   int found_at = 0;
 
   u->port = u->field_set = 0;
-  s = is_connect ? s_req_server_start : s_req_spaces_before_url;
+  s = is_connect != 0 ? s_req_server_start : s_req_spaces_before_url;
   old_uf = UF_MAX;
 
   for (p = buf; p < buf + buflen; p++) {
@@ -2555,11 +2556,11 @@ inline int http_parser_parse_url(const char *buf, size_t buflen, int is_connect,
   }
 
   /* CONNECT requests can only contain "hostname:port" */
-  if (is_connect && u->field_set != ((1 << UF_HOST) | (1 << UF_PORT))) {
+  if ((is_connect != 0) && u->field_set != ((1 << UF_HOST) | (1 << UF_PORT))) {
     return 1;
   }
 
-  if (u->field_set & (1 << UF_PORT)) {
+  if ((u->field_set & (1 << UF_PORT)) != 0) {
     /* Don't bother with endp; we've already validated the string */
     unsigned long v = strtoul(buf + u->field_data[UF_PORT].off, NULL, 10);
 
@@ -2588,7 +2589,7 @@ inline void http_parser_pause(http_parser *parser, int paused) {
 }
 
 inline int http_body_is_final(const struct http_parser *parser) {
-  return parser->state == s_message_done;
+  return static_cast<int>(parser->state == s_message_done);
 }
 
 inline unsigned long http_parser_version(void) {

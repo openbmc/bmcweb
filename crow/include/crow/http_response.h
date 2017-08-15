@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 
+#include "nlohmann/json.hpp"
 #include "crow/ci_map.h"
 #include "crow/http_request.h"
 #include "crow/logging.h"
-#include "nlohmann/json.hpp"
 
 namespace crow {
 template <typename Adaptor, typename Handler, typename... Middlewares>
@@ -22,7 +22,6 @@ struct response {
   std::string headers;
 
   void add_header(const std::string& key, const std::string& value) {
-
     const static std::string seperator = ": ";
     const static std::string crlf = "\r\n";
     headers.append(key);
@@ -31,17 +30,19 @@ struct response {
     headers.append(crlf);
   }
 
-  response() {}
+  response() = default;
   explicit response(int code) : code(code) {}
-  response(std::string body) : body(std::move(body)) {}
-  response(const char* body) : body(body) {}
-  response(nlohmann::json&& json_value) : json_value(std::move(json_value)) {
+  explicit response(std::string body) : body(std::move(body)) {}
+  explicit response(const char* body) : body(body) {}
+  explicit response(nlohmann::json&& json_value)
+      : json_value(std::move(json_value)) {
     json_mode();
   }
   response(int code, const char* body) : code(code), body(body) {}
   response(int code, std::string body) : code(code), body(std::move(body)) {}
   // TODO(ed) make pretty printing JSON configurable
-  response(const nlohmann::json& json_value) : body(json_value.dump(4)) {
+  explicit response(const nlohmann::json& json_value)
+      : body(json_value.dump(4)) {
     json_mode();
   }
   response(int code, const nlohmann::json& json_value)
@@ -54,9 +55,7 @@ struct response {
     *this = std::move(r);
   }
 
-  ~response(){
-    CROW_LOG_DEBUG << "Destroying response";
-  }
+  ~response() { CROW_LOG_DEBUG << "Destroying response"; }
 
   response& operator=(const response& r) = delete;
 
@@ -84,6 +83,11 @@ struct response {
 
   void write(const std::string& body_part) { body += body_part; }
 
+  template <std::size_t ArraySize>
+  void write(const std::array<char, ArraySize>& body_part) {
+    body.append(body_part.begin(), body_part.end());
+  }
+
   void end() {
     if (!completed_) {
       completed_ = true;
@@ -109,4 +113,4 @@ struct response {
   // In case of a JSON object, set the Content-Type header
   void json_mode() { add_header("Content-Type", "application/json"); }
 };
-}
+}  // namespace crow

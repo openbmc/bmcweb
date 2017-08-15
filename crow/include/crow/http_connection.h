@@ -1,24 +1,26 @@
 #pragma once
+#include <array>
 #include <atomic>
 #include <chrono>
 #include <vector>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
-#include <boost/asio/ssl.hpp>
+#include <boost/container/flat_map.hpp>
 #include <boost/lexical_cast.hpp>
 
-#include <boost/container/flat_map.hpp>
-
-#include "crow/http_parser_merged.h"
-
 #include "crow/dumb_timer_queue.h"
+#include "crow/http_parser_merged.h"
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
 #include "crow/parser.h"
 #include "crow/settings.h"
 #include "crow/socket_adaptors.h"
+
+#ifdef CROW_ENABLE_SSL
+#include <boost/asio/ssl.hpp>
+#endif
 
 namespace crow {
 using namespace boost;
@@ -176,7 +178,7 @@ typename std::enable_if<(N > 0)>::type after_handlers_call_helper(
   after_handlers_call_helper<N - 1, Context, Container>(middlewares, ctx, req,
                                                         res);
 }
-}
+}  // namespace detail
 
 #ifdef CROW_ENABLE_DEBUG
 static int connectionCount;
@@ -249,38 +251,30 @@ class Connection {
 
     req_ = std::move(parser_.to_request());
     request& req = req_;
+    req.is_secure = Adaptor::secure::value;
 
     if (parser_.check_version(1, 0)) {
       // HTTP/1.0
-      if (req.headers.count("connection")) {
+      if (req.headers.count("connection") != 0u) {
         if (boost::iequals(req.get_header_value("connection"), "Keep-Alive")) {
           add_keep_alive_ = true;
         }
-      } else
+      } else {
         close_connection_ = true;
+      }
     } else if (parser_.check_version(1, 1)) {
       // HTTP/1.1
-      if (req.headers.count("connection")) {
-        if (req.get_header_value("connection") == "close")
+      if (req.headers.count("connection") != 0u) {
+        if (req.get_header_value("connection") == "close") {
           close_connection_ = true;
-        else if (boost::iequals(req.get_header_value("connection"),
-                                "Keep-Alive")) {
+        } else if (boost::iequals(req.get_header_value("connection"),
+                                  "Keep-Alive")) {
           add_keep_alive_ = true;
         }
       }
-      if (!req.headers.count("Host")) {
+      if (req.headers.count("Host") == 0u) {
         is_invalid_request = true;
         res = response(400);
-      }
-      if (parser_.is_upgrade()) {
-        if (req.get_header_value("upgrade") == "h2c") {
-          // TODO HTTP/2
-          // currently, ignore upgrade header
-        } else {
-          close_connection_ = true;
-          handler_->handle_upgrade(req, res, std::move(adaptor_));
-          return;
-        }
       }
     }
 
@@ -304,10 +298,18 @@ class Connection {
                                                      ctx_);
 
       if (!res.completed_) {
+        if (parser_.is_upgrade() &&
+            boost::iequals(req.get_header_value("upgrade"), "websocket")) {
+          close_connection_ = true;
+          handler_->handle_upgrade(req, res, std::move(adaptor_));
+          return;
+        }
         res.complete_request_handler_ = [this] { this->complete_request(); };
         need_to_call_after_handlers_ = true;
         handler_->handle(req, res);
-        if (add_keep_alive_) res.add_header("connection", "Keep-Alive");
+        if (add_keep_alive_) {
+          res.add_header("connection", "Keep-Alive");
+        }
       } else {
         complete_request();
       }
@@ -369,14 +371,17 @@ class Connection {
       res.body = res.json_value.dump();
     }
 
-    if (!statusCodes.count(res.code)) res.code = 500;
+    if (!statusCodes.count(res.code)) {
+      res.code = 500;
+    }
     {
       auto& status = statusCodes.find(res.code)->second;
       buffers_.emplace_back(status.data(), status.size());
     }
 
-    if (res.code >= 400 && res.body.empty())
+    if (res.code >= 400 && res.body.empty()) {
       res.body = statusCodes[res.code].substr(9);
+    }
 
     const static std::string crlf = "\r\n";
     content_length_ = std::to_string(res.body.size());
@@ -431,21 +436,19 @@ class Connection {
             }
           } else {
             CROW_LOG_ERROR << "Error while reading: " << ec.message();
+#ifdef CROW_ENABLE_SSL
             if (ec.category() == boost::asio::error::get_ssl_category()) {
-              auto err =
-                  std::string(" (") +
-                  boost::lexical_cast<std::string>(ERR_GET_LIB(ec.value())) +
-                  "," +
-                  boost::lexical_cast<std::string>(ERR_GET_FUNC(ec.value())) +
-                  "," +
-                  boost::lexical_cast<std::string>(ERR_GET_REASON(ec.value())) +
-                  ") ";
+              auto err = std::string(" (") +
+                         std::to_string(ERR_GET_LIB(ec.value())) + "," +
+                         std::to_string(ERR_GET_FUNC(ec.value())) + "," +
+                         std::to_string(ERR_GET_REASON(ec.value())) + ") ";
               // ERR_PACK /* crypto/err/err.h */
               char buf[128];
               ::ERR_error_string_n(ec.value(), buf, sizeof(buf));
               err += buf;
               CROW_LOG_ERROR << err;
             }
+#endif
           }
           if (error_while_reading) {
             cancel_deadline_timer();
@@ -526,7 +529,7 @@ class Connection {
   Adaptor adaptor_;
   Handler* handler_;
 
-  boost::array<char, 4096> buffer_;
+  std::array<char, 4096> buffer_{};
 
   HTTPParser<Connection> parser_;
   request req_;
@@ -555,4 +558,4 @@ class Connection {
   std::function<std::string()>& get_cached_date_str;
   detail::dumb_timer_queue& timer_queue;
 };
-}
+}  // namespace crow

@@ -3,7 +3,7 @@
 *.crt
 *.key
 
-
+**/CMakeFiles/*
 
 
 
@@ -148,7 +148,7 @@ Temporary Items
 # Sonarlint plugin
 
 ### VisualStudioCode ###
-.vscode/*
+**/.vscode/*
 #!.vscode/settings.json
 #!.vscode/tasks.json
 #!.vscode/launch.json

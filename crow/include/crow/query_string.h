@@ -1,7 +1,7 @@
 #pragma once
 
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -55,8 +55,8 @@ inline int qs_strncmp(const char* s, const char* qs, size_t n) {
   unsigned char u1, u2, unyb, lnyb;
 
   while (n-- > 0) {
-    u1 = (unsigned char)*s++;
-    u2 = (unsigned char)*qs++;
+    u1 = static_cast<unsigned char>(*s++);
+    u2 = static_cast<unsigned char>(*qs++);
 
     if (!CROW_QS_ISQSCHR(u1)) {
       u1 = '\0';
@@ -70,12 +70,13 @@ inline int qs_strncmp(const char* s, const char* qs, size_t n) {
     }
     if (u1 == '%')  // easier/safer than scanf
     {
-      unyb = (unsigned char)*s++;
-      lnyb = (unsigned char)*s++;
-      if (CROW_QS_ISHEX(unyb) && CROW_QS_ISHEX(lnyb))
+      unyb = static_cast<unsigned char>(*s++);
+      lnyb = static_cast<unsigned char>(*s++);
+      if (CROW_QS_ISHEX(unyb) && CROW_QS_ISHEX(lnyb)) {
         u1 = (CROW_QS_HEX2DEC(unyb) * 16) + CROW_QS_HEX2DEC(lnyb);
-      else
+      } else {
         u1 = '\0';
+      }
     }
 
     if (u2 == '+') {
@@ -83,36 +84,45 @@ inline int qs_strncmp(const char* s, const char* qs, size_t n) {
     }
     if (u2 == '%')  // easier/safer than scanf
     {
-      unyb = (unsigned char)*qs++;
-      lnyb = (unsigned char)*qs++;
-      if (CROW_QS_ISHEX(unyb) && CROW_QS_ISHEX(lnyb))
+      unyb = static_cast<unsigned char>(*qs++);
+      lnyb = static_cast<unsigned char>(*qs++);
+      if (CROW_QS_ISHEX(unyb) && CROW_QS_ISHEX(lnyb)) {
         u2 = (CROW_QS_HEX2DEC(unyb) * 16) + CROW_QS_HEX2DEC(lnyb);
-      else
+      } else {
         u2 = '\0';
+      }
     }
 
-    if (u1 != u2) return u1 - u2;
-    if (u1 == '\0') return 0;
+    if (u1 != u2) {
+      return u1 - u2;
+    }
+    if (u1 == '\0') {
+      return 0;
+    }
     i++;
   }
-  if (CROW_QS_ISQSCHR(*qs))
+  if (CROW_QS_ISQSCHR(*qs)) {
     return -1;
-  else
+  } else {
     return 0;
+  }
 }
 
 inline int qs_parse(char* qs, char* qs_kv[], int qs_kv_size) {
   int i, j;
   char* substr_ptr;
 
-  for (i = 0; i < qs_kv_size; i++) qs_kv[i] = NULL;
+  for (i = 0; i < qs_kv_size; i++) {
+    qs_kv[i] = NULL;
+  }
 
   // find the beginning of the k/v substrings or the fragment
   substr_ptr = qs + strcspn(qs, "?#");
-  if (substr_ptr[0] != '\0')
+  if (substr_ptr[0] != '\0') {
     substr_ptr++;
-  else
+  } else {
     return 0;  // no query or fragment
+  }
 
   i = 0;
   while (i < qs_kv_size) {
@@ -131,10 +141,11 @@ inline int qs_parse(char* qs, char* qs_kv[], int qs_kv_size) {
   for (j = 0; j < i; j++) {
     substr_ptr = qs_kv[j] + strcspn(qs_kv[j], "=&#");
     if (substr_ptr[0] == '&' ||
-        substr_ptr[0] == '\0')  // blank value: skip decoding
+        substr_ptr[0] == '\0') {  // blank value: skip decoding
       substr_ptr[0] = '\0';
-    else
+    } else {
       qs_decode(++substr_ptr);
+    }
   }
 
 #ifdef _qsSORTING
@@ -183,12 +194,15 @@ inline char* qs_k2v(const char* key, char* const* qs_kv, int qs_kv_size,
     // we rely on the unambiguous '=' to find the value in our k/v pair
     if (qs_strncmp(key, qs_kv[i], key_len) == 0) {
       skip = strcspn(qs_kv[i], "=");
-      if (qs_kv[i][skip] == '=') skip++;
+      if (qs_kv[i][skip] == '=') {
+        skip++;
+      }
       // return (zero-char value) ? ptr to trailing '\0' : ptr to value
-      if (nth == 0)
+      if (nth == 0) {
         return qs_kv[i] + skip;
-      else
+      } else {
         --nth;
+      }
     }
   }
 #endif  // _qsSORTING
@@ -202,15 +216,21 @@ inline char* qs_scanvalue(const char* key, const char* qs, char* val,
   const char* tmp;
 
   // find the beginning of the k/v substrings
-  if ((tmp = strchr(qs, '?')) != NULL) qs = tmp + 1;
+  if ((tmp = strchr(qs, '?')) != NULL) {
+    qs = tmp + 1;
+  }
 
   key_len = strlen(key);
   while (qs[0] != '#' && qs[0] != '\0') {
-    if (qs_strncmp(key, qs, key_len) == 0) break;
+    if (qs_strncmp(key, qs, key_len) == 0) {
+      break;
+    }
     qs += strcspn(qs, "&") + 1;
   }
 
-  if (qs[0] == '\0') return NULL;
+  if (qs[0] == '\0') {
+    return NULL;
+  }
 
   qs += strcspn(qs, "=&#");
   if (qs[0] == '=') {
@@ -219,12 +239,14 @@ inline char* qs_scanvalue(const char* key, const char* qs, char* val,
     strncpy(val, qs, (val_len - 1) < (i + 1) ? (val_len - 1) : (i + 1));
     qs_decode(val);
   } else {
-    if (val_len > 0) val[0] = '\0';
+    if (val_len > 0) {
+      val[0] = '\0';
+    }
   }
 
   return val;
 }
-}
+}  // namespace crow
 // ----------------------------------------------------------------------------
 
 namespace crow {
@@ -232,11 +254,12 @@ class query_string {
  public:
   static const int MAX_KEY_VALUE_PAIRS_COUNT = 256;
 
-  query_string() {}
+  query_string() = default;
 
   query_string(const query_string& qs) : url_(qs.url_) {
     for (auto p : qs.key_value_pairs_) {
-      key_value_pairs_.push_back((char*)(p - qs.url_.c_str() + url_.c_str()));
+      key_value_pairs_.push_back(
+          const_cast<char*>(p - qs.url_.c_str() + url_.c_str()));
     }
   }
 
@@ -244,23 +267,26 @@ class query_string {
     url_ = qs.url_;
     key_value_pairs_.clear();
     for (auto p : qs.key_value_pairs_) {
-      key_value_pairs_.push_back((char*)(p - qs.url_.c_str() + url_.c_str()));
+      key_value_pairs_.push_back(
+          const_cast<char*>(p - qs.url_.c_str() + url_.c_str()));
     }
     return *this;
   }
 
   query_string& operator=(query_string&& qs) {
     key_value_pairs_ = std::move(qs.key_value_pairs_);
-    char* old_data = (char*)qs.url_.c_str();
+    auto* old_data = const_cast<char*>(qs.url_.c_str());
     url_ = std::move(qs.url_);
     for (auto& p : key_value_pairs_) {
-      p += (char*)url_.c_str() - old_data;
+      p += const_cast<char*>(url_.c_str()) - old_data;
     }
     return *this;
   }
 
-  query_string(std::string url) : url_(std::move(url)) {
-    if (url_.empty()) return;
+  explicit query_string(std::string url) : url_(std::move(url)) {
+    if (url_.empty()) {
+      return;
+    }
 
     key_value_pairs_.resize(MAX_KEY_VALUE_PAIRS_COUNT);
 
@@ -277,7 +303,9 @@ class query_string {
   friend std::ostream& operator<<(std::ostream& os, const query_string& qs) {
     os << "[ ";
     for (size_t i = 0; i < qs.key_value_pairs_.size(); ++i) {
-      if (i) os << ", ";
+      if (i != 0u) {
+        os << ", ";
+      }
       os << qs.key_value_pairs_[i];
     }
     os << " ]";
@@ -299,7 +327,9 @@ class query_string {
     while (1) {
       element = qs_k2v(plus.c_str(), key_value_pairs_.data(),
                        key_value_pairs_.size(), count++);
-      if (!element) break;
+      if (element == nullptr) {
+        break;
+      }
       ret.push_back(element);
     }
     return ret;
@@ -310,4 +340,4 @@ class query_string {
   std::vector<char*> key_value_pairs_;
 };
 
-}  // end namespace
+}  // namespace crow

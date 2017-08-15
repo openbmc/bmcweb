@@ -8,9 +8,9 @@
 #endif
 
 using namespace testing;
-MATCHER_P2(IsBetween, a, b, std::string(negation ? "isn't" : "is") +
-                                " between " + PrintToString(a) + " and " +
-                                PrintToString(b)) {
+MATCHER_P2(IsBetween, a, b,
+           std::string(negation ? "isn't" : "is") + " between " +
+               PrintToString(a) + " and " + PrintToString(b)) {
   return a <= arg && arg <= b;
 };
 
@@ -21,8 +21,9 @@ TEST(AstJpegDecoder, AllBlue) {
   // consisting of the color 0x8EFFFA in a web browser window
   FILE *fp = fopen("test_resources/aspeedbluescreen.bin", "rb");
   EXPECT_NE(fp, nullptr);
-  size_t bufferlen = fread(out.buffer.data(), sizeof(char),
-                           out.buffer.size() * sizeof(long), fp);
+  size_t bufferlen =
+      fread(out.buffer.data(), sizeof(decltype(out.buffer)::value_type),
+            out.buffer.size(), fp);
   fclose(fp);
 
   ASSERT_GT(bufferlen, 0);

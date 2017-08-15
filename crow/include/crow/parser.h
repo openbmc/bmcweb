@@ -12,18 +12,18 @@ namespace crow {
 template <typename Handler>
 struct HTTPParser : public http_parser {
   static int on_message_begin(http_parser* self_) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     self->clear();
     return 0;
   }
   static int on_url(http_parser* self_, const char* at, size_t length) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     self->raw_url.insert(self->raw_url.end(), at, at + length);
     return 0;
   }
   static int on_header_field(http_parser* self_, const char* at,
                              size_t length) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     switch (self->header_building_state) {
       case 0:
         if (!self->header_value.empty()) {
@@ -41,7 +41,7 @@ struct HTTPParser : public http_parser {
   }
   static int on_header_value(http_parser* self_, const char* at,
                              size_t length) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     switch (self->header_building_state) {
       case 0:
         self->header_value.insert(self->header_value.end(), at, at + length);
@@ -54,7 +54,7 @@ struct HTTPParser : public http_parser {
     return 0;
   }
   static int on_headers_complete(http_parser* self_) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     if (!self->header_field.empty()) {
       self->headers.emplace(std::move(self->header_field),
                             std::move(self->header_value));
@@ -63,21 +63,21 @@ struct HTTPParser : public http_parser {
     return 0;
   }
   static int on_body(http_parser* self_, const char* at, size_t length) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
     self->body.insert(self->body.end(), at, at + length);
     return 0;
   }
   static int on_message_complete(http_parser* self_) {
-    HTTPParser* self = static_cast<HTTPParser*>(self_);
+    auto* self = static_cast<HTTPParser*>(self_);
 
     // url params
-    self->url = self->raw_url.substr(0, self->raw_url.find("?"));
+    self->url = self->raw_url.substr(0, self->raw_url.find('?'));
     self->url_params = query_string(self->raw_url);
 
     self->process_message();
     return 0;
   }
-  HTTPParser(Handler* handler) : handler_(handler) {
+  explicit HTTPParser(Handler* handler) : http_parser(), handler_(handler) {
     http_parser_init(this, HTTP_REQUEST);
   }
 
@@ -134,4 +134,4 @@ struct HTTPParser : public http_parser {
 
   Handler* handler_;
 };
-}
+} // namespace crow

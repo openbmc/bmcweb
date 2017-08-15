@@ -59,5 +59,5 @@ struct context : private partial_context<Middlewares...>
   template <int N>
   using partial = typename partial_context<Middlewares...>::template partial<N>;
 };
-}
-}
+} // namespace detail
+} // namespace crow

@@ -49,7 +49,7 @@ namespace crow
                 char date[32];
                 time_t t = time(0);
 
-                tm my_tm;
+                tm my_tm{};
 
 #ifdef _MSC_VER
                 gmtime_s(&my_tm, &t);
@@ -64,7 +64,7 @@ namespace crow
         public:
 
 
-            logger(std::string prefix, LogLevel level) : level_(level) {
+            logger(const std::string& prefix, LogLevel level) : level_(level) {
     #ifdef CROW_ENABLE_LOGGING
                     stringstream_ << "(" << timestamp() << ") [" << prefix << "] ";
     #endif
@@ -108,7 +108,7 @@ namespace crow
             //
             static LogLevel& get_log_level_ref()
             {
-                static LogLevel current_level = (LogLevel)CROW_LOG_LEVEL;
+                static auto current_level = static_cast<LogLevel>(CROW_LOG_LEVEL);
                 return current_level;
             }
             static ILogHandler*& get_handler_ref()
@@ -122,7 +122,7 @@ namespace crow
             std::ostringstream stringstream_;
             LogLevel level_;
     };
-}
+}  // namespace crow
 
 #define CROW_LOG_CRITICAL   \
         if (crow::logger::get_current_log_level() <= crow::LogLevel::Critical) \

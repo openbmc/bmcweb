@@ -39,7 +39,9 @@ struct CookieParser {
     boost::container::flat_map<std::string, std::string> cookies_to_add;
 
     std::string get_cookie(const std::string& key) {
-      if (jar.count(key)) return jar[key];
+      if (jar.count(key) != 0u) {
+        return jar[key];
+      }
       return {};
     }
 
@@ -50,7 +52,9 @@ struct CookieParser {
 
   void before_handle(request& req, response& res, context& ctx) {
     int count = req.headers.count("Cookie");
-    if (!count) return;
+    if (count == 0) {
+      return;
+    }
     if (count > 1) {
       res.code = 400;
       res.end();
@@ -60,12 +64,18 @@ struct CookieParser {
     size_t pos = 0;
     while (pos < cookies.size()) {
       size_t pos_equal = cookies.find('=', pos);
-      if (pos_equal == cookies.npos) break;
+      if (pos_equal == cookies.npos) {
+        break;
+      }
       std::string name = cookies.substr(pos, pos_equal - pos);
       boost::trim(name);
       pos = pos_equal + 1;
-      while (pos < cookies.size() && cookies[pos] == ' ') pos++;
-      if (pos == cookies.size()) break;
+      while (pos < cookies.size() && cookies[pos] == ' ') {
+        pos++;
+      }
+      if (pos == cookies.size()) {
+        break;
+      }
 
       std::string value;
 
@@ -78,44 +88,59 @@ struct CookieParser {
           dquote_meet_count++;
         } while (pos_dquote < cookies.size() &&
                  cookies[pos_dquote - 1] == '\\');
-        if (pos_dquote == cookies.npos) break;
+        if (pos_dquote == cookies.npos) {
+          break;
+        }
 
-        if (dquote_meet_count == 1)
+        if (dquote_meet_count == 1) {
           value = cookies.substr(pos, pos_dquote - pos);
-        else {
+        } else {
           value.clear();
           value.reserve(pos_dquote - pos);
           for (size_t p = pos; p < pos_dquote; p++) {
             // FIXME minimal escaping
             if (cookies[p] == '\\' && p + 1 < pos_dquote) {
               p++;
-              if (cookies[p] == '\\' || cookies[p] == '"')
+              if (cookies[p] == '\\' || cookies[p] == '"') {
                 value += cookies[p];
-              else {
+              } else {
                 value += '\\';
                 value += cookies[p];
               }
-            } else
+            } else {
               value += cookies[p];
+            }
           }
         }
 
         ctx.jar.emplace(std::move(name), std::move(value));
-        pos = cookies.find(";", pos_dquote + 1);
-        if (pos == cookies.npos) break;
+        pos = cookies.find(';', pos_dquote + 1);
+        if (pos == cookies.npos) {
+          break;
+        }
         pos++;
-        while (pos < cookies.size() && cookies[pos] == ' ') pos++;
-        if (pos == cookies.size()) break;
+        while (pos < cookies.size() && cookies[pos] == ' ') {
+          pos++;
+        }
+        if (pos == cookies.size()) {
+          break;
+        }
       } else {
         size_t pos_semicolon = cookies.find(';', pos);
         value = cookies.substr(pos, pos_semicolon - pos);
         boost::trim(value);
         ctx.jar.emplace(std::move(name), std::move(value));
         pos = pos_semicolon;
-        if (pos == cookies.npos) break;
+        if (pos == cookies.npos) {
+          break;
+        }
         pos++;
-        while (pos < cookies.size() && cookies[pos] == ' ') pos++;
-        if (pos == cookies.size()) break;
+        while (pos < cookies.size() && cookies[pos] == ' ') {
+          pos++;
+        }
+        if (pos == cookies.size()) {
+          break;
+        }
       }
     }
   }
@@ -150,4 +175,4 @@ App::context : private CookieParser::contetx, ...
 
 SimpleApp
 */
-}
+}  // namespace crow

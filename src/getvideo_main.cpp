@@ -7,8 +7,8 @@
 #include <thread>
 #include <vector>
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
 //#define BUILD_CIMG
 #ifdef BUILD_CIMG
@@ -28,7 +28,7 @@ int main() {
     out = p.read_video();
   } else {
     FILE *fp = fopen("/home/ed/screendata.bin", "rb");
-    if (fp) {
+    if (fp != nullptr) {
       size_t newLen = fread(out.buffer.data(), sizeof(char),
                             out.buffer.size() * sizeof(long), fp);
       if (ferror(fp) != 0) {
