@@ -150,6 +150,21 @@ int main(int argc, char** argv) {
         return j;
       });
 
+  CROW_ROUTE(app, "/intel/system_config").methods("GET"_method)([]() {
+    nlohmann::json j;
+    std::ifstream file("/var/configuration/system.json");
+
+    if(!file.good()){
+      return crow::response(400);
+    }
+    file >> j;
+    file.close();
+
+    auto res = crow::response(200);
+    res.json_value = j;
+    return res;
+  });
+
   crow::logger::setLogLevel(crow::LogLevel::DEBUG);
   auto test = app.get_routes();
   app.debug_print();

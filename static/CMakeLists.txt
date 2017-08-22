@@ -20,6 +20,7 @@ set(JAVASCRIPT_ASSETS
     js/angular.js
     js/angular-ui-router-uib-modal.js
     js/smart-table.js
+    js/systemConfigController.js
     
     noVNC/core/inflator.js
     noVNC/core/input/xtscancodes.js
@@ -60,6 +61,7 @@ set(HTML_ASSETS
     partial-systeminfo.html
     partial-fwupdate.html
     partial-fwupdateconfirm.html
+    partial-systemconfig.html
 )
 
 set(OTHER_ASSETS

@@ -128,6 +128,9 @@ app.config([
         .state('sensor',
                {url : '/sensor', templateUrl : 'static/partial-sensor.html'})
 
+        .state('systemconfig',
+              {url: '/systemconfig', templateUrl : 'static/partial-systemconfig.html'})
+
         .state(
             'fwupdate',
             {url : '/fwupdate', templateUrl : 'static/partial-fwupdate.html'})
