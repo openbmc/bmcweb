@@ -37,7 +37,7 @@ inline bool pam_authenticate_user(const std::string& username,
       pam_function_conversation, const_cast<char*>(password.c_str())};
   pam_handle_t* local_auth_handle = NULL;  // this gets set by pam_start
 
-  if (pam_start("su", username.c_str(), &local_conversation,
+  if (pam_start("dropbear", username.c_str(), &local_conversation,
                 &local_auth_handle) != PAM_SUCCESS) {
     return false;
   }

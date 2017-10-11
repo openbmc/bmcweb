@@ -146,9 +146,6 @@ if(${BMCWEB_BUILD_UT})
 
 endif(${BMCWEB_BUILD_UT})
 
-# web static assets
-#add_subdirectory(static)
-
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb boost-dbus)

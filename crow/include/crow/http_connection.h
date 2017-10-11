@@ -29,29 +29,33 @@ using tcp = asio::ip::tcp;
 namespace detail {
 template <typename MW>
 struct check_before_handle_arity_3_const {
-  template <typename T, void (T::*)(request&, response&, typename MW::context&)
-                            const = &T::before_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) const =
+                &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_before_handle_arity_3 {
-  template <typename T, void (T::*)(request&, response&,
-                                    typename MW::context&) = &T::before_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) =
+                &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3_const {
-  template <typename T, void (T::*)(request&, response&, typename MW::context&)
-                            const = &T::after_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) const =
+                &T::after_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3 {
-  template <typename T, void (T::*)(request&, response&,
-                                    typename MW::context&) = &T::after_handle>
+  template <typename T,
+            void (T::*)(request&, response&, typename MW::context&) =
+                &T::after_handle>
   struct get {};
 };
 
@@ -368,6 +372,7 @@ class Connection {
     buffers_.reserve(20);
 
     if (res.body.empty() && !res.json_value.empty()) {
+      res.json_mode();
       res.body = res.json_value.dump();
     }
 

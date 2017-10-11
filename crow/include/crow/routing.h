@@ -796,7 +796,9 @@ class Router {
     if (rule.size() > 1 && rule.back() == '/') {
       std::string rule_without_trailing_slash = rule;
       rule_without_trailing_slash.pop_back();
-      trie_.add(rule_without_trailing_slash, RULE_SPECIAL_REDIRECT_SLASH);
+      rules_.emplace_back(ruleObject);
+      trie_.add(rule_without_trailing_slash, rules_.size() - 1);
+      //trie_.add(rule_without_trailing_slash, RULE_SPECIAL_REDIRECT_SLASH);
     }
   }
 
@@ -946,7 +948,7 @@ class Router {
     return get_routes(root);
   }
 
-  std::vector<std::string> get_routes(std::string& parent) {
+  std::vector<std::string> get_routes(const std::string& parent) {
     std::vector<std::string> ret;
     // TODO(ed) this is so lazy, slow and unconcious of performance, but it
     // works

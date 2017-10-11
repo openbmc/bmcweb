@@ -123,11 +123,15 @@ class Server {
         };
         timer.async_wait(handler);
         init_count++;
-        try {
-          io_service_pool_[i]->run();
-        } catch (std::exception& e) {
-          CROW_LOG_ERROR << "Worker Crash: An uncaught exception occurred: "
-                         << e.what();
+        for (;;) {
+          try {
+            io_service_pool_[i]->run();
+            break;
+          } catch (std::exception& e) {
+            std::cerr << "Worker Crash: An uncaught exception occurred: "
+                      << e.what();
+          } catch (...) {
+          }
         }
       }));
     }

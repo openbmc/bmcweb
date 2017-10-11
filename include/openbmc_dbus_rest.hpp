@@ -10,6 +10,11 @@
 
 namespace crow {
 namespace openbmc_mapper {
+
+// TODO(ed) having these as scope globals, and as simple as they are limits the
+// ability to queue multiple async operations at once.  Being able to register
+// "done" callbacks to a queue here that also had a count attached would allow
+// multiple requests to be running at once
 std::atomic<std::size_t> outstanding_async_calls(0);
 nlohmann::json object_paths;
 
@@ -101,19 +106,104 @@ void request_routes(Crow<Middlewares...> &app) {
 
       });
 
+  CROW_ROUTE(app, "/list/")
+      .methods("GET"_method)([](const crow::request &req, crow::response &res) {
+        crow::connections::system_bus->async_method_call(
+            [&](const boost::system::error_code ec,
+                const std::vector<std::string> &object_paths) {
+
+              if (ec) {
+                res.code = 500;
+              } else {
+                nlohmann::json j{{"status", "ok"},
+                                 {"message", "200 OK"},
+                                 {"data", object_paths}};
+                res.body = j.dump();
+              }
+              res.end();
+            },
+            {"xyz.openbmc_project.ObjectMapper",
+             "/xyz/openbmc_project/object_mapper",
+             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths"},
+            "", static_cast<int32_t>(99), std::array<std::string, 0>());
+      });
+
+  CROW_ROUTE(app, "/xyz/<path>")
+      .methods("GET"_method)([](const crow::request &req, crow::response &res,
+                                const std::string &path) {
+        if (outstanding_async_calls != 0) {
+          res.code = 500;
+          res.body = "request in progress";
+          res.end();
+          return;
+        }
+        using GetObjectType =
+            std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+        std::string object_path = "/xyz/" + path;
+        crow::connections::system_bus->async_method_call(
+            // object_path intentially captured by value
+            [&, object_path](const boost::system::error_code ec,
+                             const GetObjectType &object_names) {
+
+              if (ec) {
+                res.code = 500;
+                res.end();
+                return;
+              }
+              if (object_names.size() != 1) {
+                res.code = 404;
+                res.end();
+                return;
+              }
+
+              for (auto &interface : object_names[0].second) {
+                outstanding_async_calls++;
+                crow::connections::system_bus->async_method_call(
+                    [&](const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string, dbus::dbus_variant>> &properties) {
+                      outstanding_async_calls--;
+                      if (ec) {
+                        std::cerr << "Bad dbus request error: " << ec;
+                      } else {
+                        for (auto &property : properties) {
+                          boost::apply_visitor(
+                              [&](auto val) {
+                                object_paths[property.first] = val;
+                              },
+                              property.second);
+                        }
+                      }
+                      if (outstanding_async_calls == 0) {
+                        nlohmann::json j{{"status", "ok"},
+                                         {"message", "200 OK"},
+                                         {"data", object_paths}};
+                        res.body = j.dump();
+                        res.end();
+                        object_paths.clear();
+                      }
+                    },
+                    {object_names[0].first, object_path,
+                     "org.freedesktop.DBus.Properties", "GetAll"},
+                    interface);
+              }
+            },
+            {"xyz.openbmc_project.ObjectMapper",
+             "/xyz/openbmc_project/object_mapper",
+             "xyz.openbmc_project.ObjectMapper", "GetObject"},
+            object_path, std::array<std::string, 0>());
+      });
   CROW_ROUTE(app, "/bus/system/<str>/")
       .methods("GET"_method)([](const crow::request &req, crow::response &res,
                                 const std::string &connection) {
-        // Can only do one call at a time (for now)
-        if (outstanding_async_calls == 0) {
-          // TODO(ed) sanitize paths
-          introspect_objects(res, connection, "/");
-        } else {
-          nlohmann::json j{{"status", "failed"}};
+        if (outstanding_async_calls != 0) {
           res.code = 500;
-          res.write(j.dump());
+          res.body = "request in progress";
           res.end();
+          return;
         }
+        introspect_objects(res, connection, "/");
       });
 
   CROW_ROUTE(app, "/bus/system/<str>/<path>")
@@ -135,7 +225,8 @@ void request_routes(Crow<Middlewares...> &app) {
           // interface
           if ((*it).find(".") != std::string::npos) {
             break;
-            // THis check is neccesary as the trailing slash gets parsed as part
+            // THis check is neccesary as the trailing slash gets parsed as
+            // part
             // of our <path> specifier above, which causes the normal trailing
             // backslash redirector to fail.
           } else if (!it->empty()) {
@@ -260,9 +351,10 @@ void request_routes(Crow<Middlewares...> &app) {
                           }
                           methods_array.push_back(
                               {{"name", methods->Attribute("name")},
-                               {"uri", "/bus/system/" + process_name +
-                                           object_path + "/" + interface_name +
-                                           "/" + methods->Attribute("name")},
+                               {"uri",
+                                "/bus/system/" + process_name + object_path +
+                                    "/" + interface_name + "/" +
+                                    methods->Attribute("name")},
                                {"args", args_array}});
                           methods = methods->NextSiblingElement("method");
                         }

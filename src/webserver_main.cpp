@@ -3,6 +3,7 @@
 #include <dbus_singleton.hpp>
 #include <intel_oem.hpp>
 #include <openbmc_dbus_rest.hpp>
+#include <persistent_data_middleware.hpp>
 #include <redfish_v1.hpp>
 #include <security_headers_middleware.hpp>
 #include <ssl_key_handler.hpp>
@@ -16,7 +17,8 @@
 
 int main(int argc, char** argv) {
   auto io = std::make_shared<boost::asio::io_service>();
-  crow::App<crow::TokenAuthorization::Middleware,
+  crow::App<crow::PersistentData::Middleware,
+            crow::TokenAuthorization::Middleware,
             crow::SecurityHeadersMiddleware>
       app(io);
 

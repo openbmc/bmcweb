@@ -118,7 +118,7 @@ class Crow {
   }
 
   std::vector<std::string> get_routes() { return router_.get_routes(); }
-  std::vector<std::string> get_routes(std::string& parent) {
+  std::vector<std::string> get_routes(const std::string& parent) {
     return router_.get_routes(parent);
   }
 

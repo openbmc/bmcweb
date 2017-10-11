@@ -8,7 +8,8 @@ using namespace std;
 
 // Tests that static urls are correctly passed
 TEST(TokenAuthentication, TestBasicReject) {
-  App<crow::TokenAuthorization::Middleware> app;
+  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+      app;
   decltype(app)::server_t server(&app, "127.0.0.1", 45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { server.run(); });
@@ -46,7 +47,8 @@ TEST(TokenAuthentication, TestBasicReject) {
 
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestRejectedResource) {
-  App<crow::TokenAuthorization::Middleware> app;
+  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+      app;
   app.bindaddr("127.0.0.1").port(45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { app.run(); });
@@ -75,7 +77,8 @@ TEST(TokenAuthentication, TestRejectedResource) {
 
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestGetLoginUrl) {
-  App<crow::TokenAuthorization::Middleware> app;
+  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+      app;
   app.bindaddr("127.0.0.1").port(45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { app.run(); });
@@ -104,7 +107,8 @@ TEST(TokenAuthentication, TestGetLoginUrl) {
 
 // Tests boundary conditions on login
 TEST(TokenAuthentication, TestPostBadLoginUrl) {
-  App<crow::TokenAuthorization::Middleware> app;
+  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+      app;
   app.bindaddr("127.0.0.1").port(45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { app.run(); });
@@ -187,7 +191,8 @@ class KnownLoginAuthenticator {
 };
 
 TEST(TokenAuthentication, TestSuccessfulLogin) {
-  App<crow::TokenAuthorization::Middleware> app;
+  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+      app;
   app.bindaddr("127.0.0.1").port(45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
   auto _ = async(launch::async, [&] { app.run(); });

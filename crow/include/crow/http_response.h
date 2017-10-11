@@ -83,11 +83,6 @@ struct response {
 
   void write(const std::string& body_part) { body += body_part; }
 
-  template <std::size_t ArraySize>
-  void write(const std::array<char, ArraySize>& body_part) {
-    body.append(body_part.begin(), body_part.end());
-  }
-
   void end() {
     if (!completed_) {
       completed_ = true;
