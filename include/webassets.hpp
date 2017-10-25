@@ -78,6 +78,14 @@ void request_routes(Crow<Middlewares...>& app) {
       auto content_type_it = content_types.find(webpath.extension().c_str());
       if (content_type_it != content_types.end()) {
         content_type = content_type_it->second;
+      } else {
+        if (webpath.string() == "$metadata"){
+          content_type_it = content_types.find(".xml");
+          // should always be true
+          if (content_type_it != content_types.end()) {
+            content_type = content_type_it->second;
+          }
+        }
       }
       app.route_dynamic(std::string(webpath.string()))(
           [is_gzip, absolute_path_str, content_type](const crow::request& req,

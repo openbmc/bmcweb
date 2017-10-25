@@ -146,6 +146,8 @@ if(${BMCWEB_BUILD_UT})
 
 endif(${BMCWEB_BUILD_UT})
 
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
+
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries(bmcweb boost-dbus)

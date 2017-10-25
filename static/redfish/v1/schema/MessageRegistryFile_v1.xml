@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  MessageRegistryFile  v1.0.3-->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile">
+
+      <EntityType Name="MessageRegistryFile" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This is the schema definition for the Schema File locator resource."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Schema File locator resource for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_0">
+
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.MessageRegistryFile">
+        <Annotation Term="OData.Description" String="This is the schema definition for the Schema File locator resource."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Schema File locator resource for a Redfish implementation."/>
+        <Property Name="Languages" Type="Collection(Edm.String)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Language codes for the schemas available."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string consisting of an RFC 5646 language code."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Registry" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Registry Name, Major and Minor version used in MessageID construction."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the value of the Registry Name, Major and Minor version and shall conform to the syntax specified in the Redfish specification for the MessageId property without the MessageKey."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="Location" Type="Collection(MessageRegistryFile.v1_0_0.Location)" Nullable="false">
+          <Annotation Term="OData.Description" String="Location information for this schema file."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Location">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Property Name="Language" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The language code for the file the schema is in."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string consisting of an RFC5646 language code or the string 'default'."/>
+        </Property>
+        <Property Name="Uri" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link to locally available URI for schema."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the syntax specified in the Redfish specification."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="ArchiveUri" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="If the schema is hosted on the service in an archive file, this is the link to the archive file."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for archive files (zip or other formats).  The value of ArchiveFile shall have the file name of the individual schema file within the archive file."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="PublicationUri" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Link to publicly available (canonical) URI for schema."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI not co-located with the Redfish service that specifies the canonical location of the schema file.  This property shall only be used for individual schema files."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="ArchiveFile" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="If the schema is hosted on the service in an archive file, this is the name of the file within the archive."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property. The file name shall conform to the syntax specified in the Redfish specification."/>
+        </Property>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_2">
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_0.MessageRegistryFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistryFile.v1_0_3">
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="MessageRegistryFile" BaseType="MessageRegistryFile.v1_0_2.MessageRegistryFile"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

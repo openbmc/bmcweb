@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  Processor  v1.0.3-->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor">
+
+      <EntityType Name="Processor" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The Processor resource reports information about a single processor contained within a system.  This includes both performance characteristics (clock speed, architecture, core count, etc.) and compatibility (e.g. CPU ID instruction results)."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_0">
+
+      <EntityType Name="Processor" BaseType="Processor.Processor">
+        <Annotation Term="OData.Description" String="This is the schema definition for the Processor resource.  It represents the properties of a processor attached to a System."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Property Name="Socket" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The socket or location of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string which identifies the physical location or socket of the processor."/>
+        </Property>
+        <Property Name="ProcessorType" Type="Processor.v1_0_0.ProcessorType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The type of processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string which identifies the type of processor contained in this Socket."/>
+        </Property>
+        <Property Name="ProcessorArchitecture" Type="Processor.v1_0_0.ProcessorArchitecture">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The architecture of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string which identifies the architecture of the processor contained in this Socket."/>
+        </Property>
+        <Property Name="InstructionSet" Type="Processor.v1_0_0.InstructionSet">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The instruction set of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string which identifies the instruction set of the processor contained in this socket."/>
+        </Property>
+        <Property Name="ProcessorId" Type="Processor.v1_0_0.ProcessorId"  Nullable="false">
+          <Annotation Term="OData.Description" String="Identification information for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain identification information for this processor."/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The processor manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string which identifies the manufacturer of the processor."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The product model number of this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the model information as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="MaxSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum clock speed of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum rated clock speed of the processor in MHz."/>
+        </Property>
+        <Property Name="TotalCores" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of cores contained in this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent processor cores contained within this processor."/>
+        </Property>
+        <Property Name="TotalThreads" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of execution threads supported by this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of independent execution threads supported by this processor."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="ProcessorId">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Property Name="VendorId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Vendor Identification for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Vendor Identification string information as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="IdentificationRegisters" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The contents of the Identification Registers (CPUID) for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall include the raw CPUID instruction output as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="EffectiveFamily" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The effective Family for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the effective Family information as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="EffectiveModel" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The effective Model for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the effective Model information as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="Step" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Step value for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Step or revision string information as provided by the manufacturer of this processor."/>
+        </Property>
+        <Property Name="MicrocodeInfo" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Microcode Information for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Microcode Information as provided by the manufacturer of this processor."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ProcessorType">
+        <Member Name="CPU">
+          <Annotation Term="OData.Description" String="A Central Processing Unit."/>
+        </Member>
+        <Member Name="GPU">
+          <Annotation Term="OData.Description" String="A Graphics Processing Unit."/>
+        </Member>
+        <Member Name="FPGA">
+          <Annotation Term="OData.Description" String="A Field Programmable Gate Array."/>
+        </Member>
+        <Member Name="DSP">
+          <Annotation Term="OData.Description" String="A Digital Signal Processor."/>
+        </Member>
+        <Member Name="Accelerator">
+          <Annotation Term="OData.Description" String="An Accelerator."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="An OEM-defined Processing Unit."/>
+        </Member>
+      </EnumType>
+
+      <TypeDefinition Name="ProcessorArchitecture" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="x86"/>
+              <Annotation Term="OData.Description" String="x86 or x86-64."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="IA-64"/>
+              <Annotation Term="OData.Description" String="Intel Itanium."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="ARM"/>
+              <Annotation Term="OData.Description" String="ARM."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="MIPS"/>
+              <Annotation Term="OData.Description" String="MIPS."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="OEM"/>
+              <Annotation Term="OData.Description" String="OEM-defined."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+      <TypeDefinition Name="InstructionSet" UnderlyingType="Edm.String">
+        <Annotation Term="Redfish.Enumeration">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Member" String="x86"/>
+              <Annotation Term="OData.Description" String="x86 32-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="x86-64"/>
+              <Annotation Term="OData.Description" String="x86 64-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="IA-64"/>
+              <Annotation Term="OData.Description" String="Intel IA-64."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="ARM-A32"/>
+              <Annotation Term="OData.Description" String="ARM 32-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="ARM-A64"/>
+              <Annotation Term="OData.Description" String="ARM 64-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="MIPS32"/>
+              <Annotation Term="OData.Description" String="MIPS 32-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="MIPS64"/>
+              <Annotation Term="OData.Description" String="MIPS 64-bit."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="OEM"/>
+              <Annotation Term="OData.Description" String="OEM-defined."/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </TypeDefinition>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_2">
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_3">
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_2.Processor"/>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
