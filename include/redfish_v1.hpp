@@ -18,15 +18,15 @@ namespace redfish {
 template <typename... Middlewares>
 void get_redfish_sub_routes(Crow<Middlewares...>& app, const std::string& url,
                             nlohmann::json& j) {
-  auto routes = app.get_routes(url);
-  for (auto& route : routes) {
+  std::vector<const std::string*> routes = app.get_routes(url);
+  for (auto route : routes) {
     auto redfish_sub_route =
-        route.substr(url.size(), route.size() - url.size() - 1);
+        route->substr(url.size(), route->size() - url.size() - 1);
     // check if the route is at this level, and we didn't find and exact match
     // also, filter out resources that start with $ to remove $metadata
     if (!redfish_sub_route.empty() && redfish_sub_route[0] != '$' &&
         redfish_sub_route.find('/') == std::string::npos) {
-      j[redfish_sub_route] = nlohmann::json{{"@odata.id", route}};
+      j[redfish_sub_route] = nlohmann::json{{"@odata.id", *route}};
     }
   }
 }
@@ -87,6 +87,7 @@ void request_routes(Crow<Middlewares...>& app) {
               }
             }
             */
+
             res.json_value = {
                 {"@odata.context",
                  "/redfish/v1/$metadata#ChassisCollection.ChassisCollection"},

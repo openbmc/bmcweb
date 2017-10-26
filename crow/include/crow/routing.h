@@ -552,6 +552,30 @@ class Trie {
     optimize();
   }
 
+  void find_route_indexes(const std::string& req_url,
+                          std::vector<unsigned>& route_indexes,
+                          const Node* node = nullptr, unsigned pos = 0) {
+    if (node == nullptr) {
+      node = head();
+    }
+    for (auto& kv : node->children) {
+      const std::string& fragment = kv.first;
+      const Node* child = &nodes_[kv.second];
+      if (pos >= req_url.size()) {
+        if (child->rule_index != 0 && fragment != "/") {
+          route_indexes.push_back(child->rule_index);
+        }
+        find_route_indexes(req_url, route_indexes, child,
+                           pos + fragment.size());
+      } else {
+        if (req_url.compare(pos, fragment.size(), fragment) == 0) {
+          find_route_indexes(req_url, route_indexes, child,
+                             pos + fragment.size());
+        }
+      }
+    }
+  }
+
   std::pair<unsigned, routing_params> find(
       const std::string& req_url, const Node* node = nullptr, unsigned pos = 0,
       routing_params* params = nullptr) const {
@@ -798,7 +822,7 @@ class Router {
       rule_without_trailing_slash.pop_back();
       rules_.emplace_back(ruleObject);
       trie_.add(rule_without_trailing_slash, rules_.size() - 1);
-      //trie_.add(rule_without_trailing_slash, RULE_SPECIAL_REDIRECT_SLASH);
+      // trie_.add(rule_without_trailing_slash, RULE_SPECIAL_REDIRECT_SLASH);
     }
   }
 
@@ -900,9 +924,9 @@ class Router {
       if (req.get_header_value("Host").empty()) {
         res.add_header("Location", req.url + "/");
       } else {
-        res.add_header("Location", (req.is_secure ? "https://" : "http://") +
-                                       req.get_header_value("Host") + req.url +
-                                       "/");
+        res.add_header("Location",
+                       (req.is_secure ? "https://" : "http://") +
+                           req.get_header_value("Host") + req.url + "/");
       }
       res.end();
       return;
@@ -942,27 +966,13 @@ class Router {
 
   void debug_print() { trie_.debug_print(); }
 
-  std::vector<std::string> get_routes() {
-    // TODO(ed) Shoudl this be /?
-    std::string root("");
-    return get_routes(root);
-  }
-
-  std::vector<std::string> get_routes(const std::string& parent) {
-    std::vector<std::string> ret;
-    // TODO(ed) this is so lazy, slow and unconcious of performance, but it
-    // works
-    // this should be replaced with something more performant that actually uses
-    // the trie
-    // that's available for doing matching.
-    for (auto& rule : rules_) {
-      if (rule != nullptr) {
-        if (rule->rule_.compare(0, parent.size(), parent) == 0) {
-          ret.push_back(rule->rule_);
-        }
-      }
+  std::vector<const std::string*> get_routes(const std::string& parent) {
+    std::vector<unsigned> x;
+    std::vector<const std::string*> ret;
+    trie_.find_route_indexes(parent, x);
+    for (unsigned index : x) {
+      ret.push_back(&rules_[index]->rule_);
     }
-
     return ret;
   }
 

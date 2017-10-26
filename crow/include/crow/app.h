@@ -117,8 +117,12 @@ class Crow {
     router_.debug_print();
   }
 
-  std::vector<std::string> get_routes() { return router_.get_routes(); }
-  std::vector<std::string> get_routes(const std::string& parent) {
+  std::vector<const std::string*> get_routes() {
+    // TODO(ed) Should this be /?
+    const std::string root("");
+    return router_.get_routes(root);
+  }
+  std::vector<const std::string*> get_routes(const std::string& parent) {
     return router_.get_routes(parent);
   }
 

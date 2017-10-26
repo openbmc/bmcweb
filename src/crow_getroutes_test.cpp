@@ -18,7 +18,8 @@ TEST(GetRoutes, TestOneRoute) {
   decltype(app)::server_t server(&app, "127.0.0.1", 45451);
   CROW_ROUTE(app, "/")([]() { return 200; });
 
-  EXPECT_THAT(app.get_routes(), testing::ElementsAre("/"));
+  EXPECT_THAT(app.get_routes(),
+              testing::ElementsAre(testing::Pointee(std::string("/"))));
 }
 
 // Tests that static urls are correctly passed
@@ -32,7 +33,11 @@ TEST(GetRoutes, TestlotsOfRoutes) {
   CROW_ROUTE(app, "/boo")([]() { return 200; });
   CROW_ROUTE(app, "/moo")([]() { return 200; });
 
-  EXPECT_THAT(app.get_routes(),
-              testing::UnorderedElementsAre("/", "/foo", "/bar", "/baz", "/boo",
-                                            "/moo"));
+  EXPECT_THAT(app.get_routes(), testing::UnorderedElementsAre(
+                                    testing::Pointee(std::string("/")),
+                                    testing::Pointee(std::string("/foo")),
+                                    testing::Pointee(std::string("/bar")),
+                                    testing::Pointee(std::string("/baz")),
+                                    testing::Pointee(std::string("/boo")),
+                                    testing::Pointee(std::string("/moo"))));
 }
