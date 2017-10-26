@@ -1,7 +1,5 @@
 #pragma once
 
-#include <crow/app.h>
-
 #include <dbus/connection.hpp>
 #include <dbus/endpoint.hpp>
 #include <dbus/filter.hpp>
@@ -12,7 +10,8 @@
 #include <fstream>
 #include <streambuf>
 #include <string>
-
+#include <crow/app.h>
+#include <boost/algorithm/string.hpp>
 namespace crow {
 namespace redfish {
 
@@ -30,6 +29,18 @@ void get_redfish_sub_routes(Crow<Middlewares...>& app, const std::string& url,
       j[redfish_sub_route] = nlohmann::json{{"@odata.id", route}};
     }
   }
+}
+
+std::string execute_process(const char* cmd) {
+  std::array<char, 128> buffer;
+  std::string result;
+  std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
+  if (!pipe) throw std::runtime_error("popen() failed!");
+  while (!feof(pipe.get())) {
+    if (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
+      result += buffer.data();
+  }
+  return result;
 }
 
 template <typename... Middlewares>
@@ -334,6 +345,118 @@ void request_routes(Crow<Middlewares...>& app) {
               {"Description", "Manager User Session"},
               {"UserName", session_it->second.username}};
         }
+        res.end();
+      });
+
+  CROW_ROUTE(app, "/redfish/v1/Managers/")
+      .methods("GET"_method)(
+          [&](const crow::request& req, crow::response& res) {
+            res.json_value = {
+                {"@odata.context",
+                 "/redfish/v1/$metadata#ManagerCollection.ManagerCollection"},
+                {"@odata.id", "/redfish/v1/Managers"},
+                {"@odata.type", "#ManagerCollection.ManagerCollection"},
+                {"Name", "Manager Collection"},
+                {"Members@odata.count", 1},
+                {"Members", {{{"@odata.id", "/redfish/v1/Managers/openbmc"}}}}};
+            res.end();
+          });
+
+  CROW_ROUTE(app, "/redfish/v1/Managers/openbmc/")
+      .methods(
+          "GET"_method)([&](const crow::request& req, crow::response& res) {
+        time_t t = time(NULL);
+        tm* mytime = std::localtime(&t);
+        if (mytime == nullptr) {
+          res.code = 500;
+          res.end();
+          return;
+        }
+        std::array<char, 100> time_buffer;
+        std::size_t len = std::strftime(time_buffer.data(), time_buffer.size(),
+                                        "%FT%TZ", mytime);
+        if (len == 0) {
+          res.code = 500;
+          res.end();
+          return;
+        }
+        res.json_value = {
+            {"@odata.context", "/redfish/v1/$metadata#Manager.Manager"},
+            {"@odata.id", "/redfish/v1/Managers/openbmc"},
+            {"@odata.type", "#Manager.v1_3_0.Manager"},
+            {"Id", "openbmc"},
+            {"Name", "OpenBmc Manager"},
+            {"Description", "Baseboard Management Controller"},
+            {"UUID",
+             app.template get_middleware<PersistentData::Middleware>()
+                 .system_uuid},
+            {"Model", "OpenBmc"},  // TODO(ed), get model
+            {"DateTime", time_buffer.data()},
+            {"Status",
+             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
+            {"FirmwareVersion", "1234456789"},  // TODO(ed) get fwversion
+            {"PowerState", "On"}};
+        get_redfish_sub_routes(app, "/redfish/v1/Managers/openbmc/",
+                               res.json_value);
+        res.end();
+      });
+
+  CROW_ROUTE(app, "/redfish/v1/Managers/NetworkProtocol/")
+      .methods(
+          "GET"_method)([&](const crow::request& req, crow::response& res) {
+        std::array<char, HOST_NAME_MAX> hostname;
+        if (gethostname(hostname.data(), hostname.size()) != 0) {
+          res.code = 500;
+          res.end();
+          return;
+        }
+        res.json_value = {
+            {"@odata.context",
+             "/redfish/v1/"
+             "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol"},
+            {"@odata.id", "/redfish/v1/Managers/BMC/NetworkProtocol"},
+            {"@odata.type",
+             "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol"},
+            {"Id", "NetworkProtocol"},
+            {"Name", "Manager Network Protocol"},
+            {"Description", "Manager Network Service"},
+            {"Status",
+             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
+            {"HostName", hostname.data()}};  // TODO(ed) get hostname
+        std::string netstat_out = execute_process("netstat -tuln");
+
+        std::map<int, const char*> service_types{{22, "SSH"},
+                                                 {443, "HTTPS"},
+                                                 {1900, "SSDP"},
+                                                 {623, "IPMI"},
+                                                 {427, "SLP"}};
+
+        std::vector<std::string> lines;
+        boost::split(lines, netstat_out, boost::is_any_of("\n"));
+        auto lines_it = lines.begin();
+        lines_it++;  // skip the netstat header
+        lines_it++;
+        while (lines_it != lines.end()) {
+          std::vector<std::string> columns;
+          boost::split(columns, *lines_it, boost::is_any_of("\t "),
+                       boost::token_compress_on);
+          if (columns.size() >= 5) {
+            std::size_t found = columns[3].find_last_of(":");
+            if (found != std::string::npos) {
+              std::string port_str = columns[3].substr(found + 1);
+              int port = std::stoi(port_str.c_str());
+              auto type_it = service_types.find(port);
+              if (type_it != service_types.end()) {
+                type_it->second;
+                res.json_value[type_it->second] = {{"ProtocolEnabled", true},
+                                                   {"Port", port}};
+              }
+            }
+          }
+          lines_it++;
+        }
+
+        get_redfish_sub_routes(app, "/redfish/v1/", res.json_value);
         res.end();
       });
 }
