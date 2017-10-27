@@ -21,6 +21,7 @@ struct UserSession {
   std::string session_token;
   std::string username;
   std::string csrf_token;
+  std::chrono::time_point<std::chrono::steady_clock> last_updated;
 };
 
 void to_json(nlohmann::json& j, const UserSession& p) {
@@ -36,70 +37,22 @@ void from_json(const nlohmann::json& j, UserSession& p) {
     p.session_token = j.at("session_token").get<std::string>();
     p.username = j.at("username").get<std::string>();
     p.csrf_token = j.at("csrf_token").get<std::string>();
+    // For now, sessions that were persisted through a reboot get their timer
+    // reset.  This could probably be overcome with a better understanding of
+    // wall clock time and steady timer time, possibly persisting values with
+    // wall clock time instead of steady timer, but the tradeoffs of all the
+    // corner cases involved are non-trivial, so this is done temporarily
+    p.last_updated = std::chrono::steady_clock::now();
   } catch (std::out_of_range) {
     // do nothing.  Session API incompatibility, leave sessions empty
   }
 }
 
-class Middleware {
-  using SessionStore = boost::container::flat_map<std::string, UserSession>;
-  // todo(ed) should read this from a fixed location somewhere, not CWD
-  static constexpr const char* filename = "bmcweb_persistent_data.json";
-  int json_revision = 1;
+class Middleware;
 
+class SessionStore {
  public:
-  struct context {
-    SessionStore* auth_tokens;
-  };
-
-  Middleware() { read_data(); }
-
-  void before_handle(crow::request& req, response& res, context& ctx) {
-    ctx.auth_tokens = &auth_tokens;
-  }
-
-  void after_handle(request& req, response& res, context& ctx) {}
-
-  // TODO(ed) this should really use protobuf, or some other serialization
-  // library, but adding another dependency is somewhat outside the scope of
-  // this application for the moment
-  void read_data() {
-    std::ifstream persistent_file(filename);
-    int file_revision = 0;
-    if (persistent_file.is_open()) {
-      // call with exceptions disabled
-      auto data = nlohmann::json::parse(persistent_file, nullptr, false);
-      if (!data.is_discarded()) {
-        file_revision = data["revision"].get<int>();
-        auth_tokens = data["sessions"].get<SessionStore>();
-        system_uuid = data["system_uuid"].get<std::string>();
-      }
-    }
-    bool need_write = false;
-
-    if (system_uuid.empty()) {
-      system_uuid = boost::uuids::to_string(boost::uuids::random_generator()());
-      need_write = true;
-    }
-    if (file_revision < json_revision) {
-      need_write = true;
-    }
-
-    if (need_write) {
-      write_data();
-    }
-  }
-
-  void write_data() {
-    std::ofstream persistent_file(filename);
-    nlohmann::json data;
-    data["sessions"] = auth_tokens;
-    data["system_uuid"] = system_uuid;
-    data["revision"] = json_revision;
-    persistent_file << data;
-  }
-
-  UserSession generate_user_session(const std::string& username) {
+  const UserSession& generate_user_session(const std::string& username) {
     static constexpr std::array<char, 62> alphanum = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
         'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -128,15 +81,148 @@ class Middleware {
     for (int i = 0; i < unique_id.size(); ++i) {
       unique_id[i] = alphanum[dist(rd)];
     }
-    UserSession session{unique_id, session_token, username, csrf_token};
-    auth_tokens.emplace(session_token, session);
-    write_data();
-    return session;
+    const auto session_it = auth_tokens.emplace(
+        session_token,
+        std::move(UserSession{unique_id, session_token, username, csrf_token,
+                              std::chrono::steady_clock::now()}));
+    const UserSession& user = (session_it).first->second;
+    need_write_ = true;
+    return user;
   }
 
-  SessionStore auth_tokens;
-  std::string system_uuid;
+  const UserSession* login_session_by_token(const std::string& token) {
+    apply_session_timeouts();
+    auto session_it = auth_tokens.find(token);
+    if (session_it == auth_tokens.end()) {
+      return nullptr;
+    }
+    UserSession& foo = session_it->second;
+    foo.last_updated = std::chrono::steady_clock::now();
+    return &foo;
+  }
+
+  const UserSession* get_session_by_uid(const std::string& uid) {
+    apply_session_timeouts();
+    // TODO(Ed) this is inefficient
+    auto session_it = auth_tokens.begin();
+    while (session_it != auth_tokens.end()) {
+      if (session_it->second.unique_id == uid) {
+        return &session_it->second;
+      }
+      session_it++;
+    }
+    return nullptr;
+  }
+
+  void remove_session(const UserSession* session) {
+    auth_tokens.erase(session->session_token);
+    need_write_ = true;
+  }
+
+  std::vector<const std::string*> get_unique_ids() {
+    std::vector<const std::string*> ret;
+    ret.reserve(auth_tokens.size());
+    for (auto& session : auth_tokens) {
+      ret.push_back(&session.second.unique_id);
+    }
+    return ret;
+  }
+
+  bool needs_write() { return need_write_; }
+
+  // Persistent data middleware needs to be able to serialize our auth_tokens
+  // structure, which is private
+  friend Middleware;
+
+ private:
+  void apply_session_timeouts() {
+    std::chrono::minutes timeout(60);
+    auto time_now = std::chrono::steady_clock::now();
+    if (time_now - last_timeout_update > std::chrono::minutes(1)) {
+      last_timeout_update = time_now;
+      auto auth_tokens_it = auth_tokens.begin();
+      while (auth_tokens_it != auth_tokens.end()) {
+        if (time_now - auth_tokens_it->second.last_updated >= timeout) {
+          auth_tokens_it = auth_tokens.erase(auth_tokens_it);
+          need_write_ = true;
+        } else {
+          auth_tokens_it++;
+        }
+      }
+    }
+  }
+  std::chrono::time_point<std::chrono::steady_clock> last_timeout_update;
+  boost::container::flat_map<std::string, UserSession> auth_tokens;
   std::random_device rd;
+  bool need_write_{false};
+};
+
+class Middleware {
+  // todo(ed) should read this from a fixed location somewhere, not CWD
+  static constexpr const char* filename = "bmcweb_persistent_data.json";
+  int json_revision = 1;
+
+ public:
+  struct context {
+    SessionStore* sessions;
+  };
+
+  Middleware() { read_data(); }
+
+  ~Middleware() {
+    if (sessions.needs_write()) {
+      write_data();
+    }
+  }
+
+  void before_handle(crow::request& req, response& res, context& ctx) {
+    ctx.sessions = &sessions;
+  }
+
+  void after_handle(request& req, response& res, context& ctx) {}
+
+  // TODO(ed) this should really use protobuf, or some other serialization
+  // library, but adding another dependency is somewhat outside the scope of
+  // this application for the moment
+  void read_data() {
+    std::ifstream persistent_file(filename);
+    int file_revision = 0;
+    if (persistent_file.is_open()) {
+      // call with exceptions disabled
+      auto data = nlohmann::json::parse(persistent_file, nullptr, false);
+      if (!data.is_discarded()) {
+        file_revision = data.value("revision", 0);
+        sessions.auth_tokens =
+            data.value("sessions", decltype(sessions.auth_tokens)());
+        system_uuid = data.value("system_uuid", "");
+      }
+    }
+    bool need_write = false;
+
+    if (system_uuid.empty()) {
+      system_uuid = boost::uuids::to_string(boost::uuids::random_generator()());
+      need_write = true;
+    }
+    if (file_revision < json_revision) {
+      need_write = true;
+    }
+    // write revision changes or system uuid changes immediately
+    if (need_write) {
+      write_data();
+    }
+  }
+
+  void write_data() {
+    std::ofstream persistent_file(filename);
+    nlohmann::json data;
+    data["sessions"] = sessions.auth_tokens;
+    data["system_uuid"] = system_uuid;
+    data["revision"] = json_revision;
+    persistent_file << data;
+  }
+
+  SessionStore sessions;
+  std::string system_uuid;
 };
 
 }  // namespaec PersistentData

@@ -185,11 +185,12 @@ void request_routes(Crow<Middlewares...>& app) {
                     {"Members@odata.count", users.size()}};
                 nlohmann::json member_array = nlohmann::json::array();
                 int user_index = 0;
-                for (auto& user : users) {
+                for (int user_index = 0; user_index < users.size();
+                     user_index++) {
                   member_array.push_back(
                       {{"@odata.id",
                         "/redfish/v1/AccountService/Accounts/" +
-                            std::to_string(++user_index)}});
+                            std::to_string(user_index)}});
                 }
                 res.json_value["Members"] = member_array;
               }
@@ -244,8 +245,8 @@ void request_routes(Crow<Middlewares...>& app) {
   CROW_ROUTE(app, "/redfish/v1/SessionService/Sessions/")
       .methods("POST"_method, "GET"_method)([&](const crow::request& req,
                                                 crow::response& res) {
-        auto& data_middleware =
-            app.template get_middleware<PersistentData::Middleware>();
+        auto& session_store =
+            app.template get_middleware<PersistentData::Middleware>().sessions;
         if (req.method == "POST"_method) {
           // call with exceptions disabled
           auto login_credentials =
@@ -278,7 +279,7 @@ void request_routes(Crow<Middlewares...>& app) {
             res.end();
             return;
           }
-          auto session = data_middleware.generate_user_session(username);
+          auto session = session_store.generate_user_session(username);
           res.code = 200;
           res.add_header("X-Auth-Token", session.session_token);
           res.json_value = {
@@ -291,6 +292,8 @@ void request_routes(Crow<Middlewares...>& app) {
               {"Description", "Manager User Session"},
               {"UserName", username}};
         } else {  // assume get
+          std::vector<const std::string*> session_ids =
+              session_store.get_unique_ids();
           res.json_value = {
               {"@odata.context",
                "/redfish/v1/$metadata#SessionCollection.SessionCollection"},
@@ -298,14 +301,14 @@ void request_routes(Crow<Middlewares...>& app) {
               {"@odata.type", "#SessionCollection.SessionCollection"},
               {"Name", "Session Collection"},
               {"Description", "Session Collection"},
-              {"Members@odata.count", data_middleware.auth_tokens.size()}
+              {"Members@odata.count", session_ids.size()}
 
           };
           nlohmann::json member_array = nlohmann::json::array();
-          for (auto& session : data_middleware.auth_tokens) {
-            member_array.push_back({{"@odata.id",
-                                     "/redfish/v1/SessionService/Sessions/" +
-                                         session.second.unique_id}});
+          for (auto session_uid : session_ids) {
+            member_array.push_back(
+                {{"@odata.id",
+                  "/redfish/v1/SessionService/Sessions/" + *session_uid}});
           }
           res.json_value["Members"] = member_array;
         }
@@ -313,37 +316,32 @@ void request_routes(Crow<Middlewares...>& app) {
       });
 
   CROW_ROUTE(app, "/redfish/v1/SessionService/Sessions/<str>/")
-      .methods("GET"_method, "DELETE"_method)([&](const crow::request& req,
-                                                  crow::response& res,
-                                                  const std::string& session) {
-        auto& data_middleware =
-            app.template get_middleware<PersistentData::Middleware>();
+      .methods("GET"_method, "DELETE"_method)([&](
+          const crow::request& req, crow::response& res,
+          const std::string& session_id) {
+        auto& session_store =
+            app.template get_middleware<PersistentData::Middleware>().sessions;
         // TODO(Ed) this is inefficient
-        auto session_it = data_middleware.auth_tokens.begin();
-        while (session_it != data_middleware.auth_tokens.end()) {
-          if (session_it->second.unique_id == session) {
-            break;
-          }
-          session_it++;
-        }
+        auto session = session_store.get_session_by_uid(session_id);
 
-        if (session_it == data_middleware.auth_tokens.end()) {
+        if (session == nullptr) {
           res.code = 404;
           res.end();
           return;
         }
         if (req.method == "DELETE"_method) {
-          data_middleware.auth_tokens.erase(session_it);
+          session_store.remove_session(session);
           res.code = 200;
         } else {  // assume get
           res.json_value = {
               {"@odata.context", "/redfish/v1/$metadata#Session.Session"},
-              {"@odata.id", "/redfish/v1/SessionService/Sessions/" + session},
+              {"@odata.id",
+               "/redfish/v1/SessionService/Sessions/" + session->unique_id},
               {"@odata.type", "#Session.v1_0_3.Session"},
-              {"Id", session_it->second.unique_id},
+              {"Id", session->unique_id},
               {"Name", "User Session"},
               {"Description", "Manager User Session"},
-              {"UserName", session_it->second.username}};
+              {"UserName", session->username}};
         }
         res.end();
       });
@@ -447,7 +445,6 @@ void request_routes(Crow<Middlewares...>& app) {
               int port = std::stoi(port_str.c_str());
               auto type_it = service_types.find(port);
               if (type_it != service_types.end()) {
-                type_it->second;
                 res.json_value[type_it->second] = {{"ProtocolEnabled", true},
                                                    {"Port", port}};
               }

@@ -79,8 +79,9 @@ class Middleware {
         return;
       }
       auto& data_mw = allctx.template get<PersistentData::Middleware>();
-      auto session_it = data_mw.auth_tokens->find(auth_key);
-      if (session_it == data_mw.auth_tokens->end()) {
+      const PersistentData::UserSession* session =
+          data_mw.sessions->login_session_by_token(auth_key);
+      if (session == nullptr) {
         return_unauthorized();
         return;
       }
@@ -90,12 +91,12 @@ class Middleware {
         if (req.method != "GET"_method) {
           const std::string& csrf = req.get_header_value("X-XSRF-TOKEN");
           // Make sure both tokens are filled
-          if (csrf.empty() || session_it->second.csrf_token.empty()) {
+          if (csrf.empty() || session->csrf_token.empty()) {
             return_unauthorized();
             return;
           }
           // Reject if csrf token not available
-          if (csrf != session_it->second.csrf_token) {
+          if (csrf != session->csrf_token) {
             return_unauthorized();
             return;
           }
@@ -103,7 +104,7 @@ class Middleware {
       }
 
       if (req.url == "/logout" && req.method == "POST"_method) {
-        data_mw.auth_tokens->erase(auth_key);
+        data_mw.sessions->remove_session(session);
         res.code = 200;
         res.end();
         return;
@@ -195,9 +196,10 @@ void request_routes(Crow<Middlewares...>& app) {
           if (!pam_authenticate_user(username, password)) {
             res.code = 401;
           } else {
-            auto& auth_middleware =
-                app.template get_middleware<PersistentData::Middleware>();
-            auto session = auth_middleware.generate_user_session(username);
+            auto& context =
+                app.template get_context<PersistentData::Middleware>(req);
+            auto& session_store = context.sessions;
+            auto& session = session_store->generate_user_session(username);
 
             if (looks_like_ibm) {
               // IBM requires a very specific login structure, and doesn't
