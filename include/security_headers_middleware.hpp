@@ -20,6 +20,12 @@ static const char* xss_value = "1; mode=block";
 static const char* content_security_key = "X-Content-Security-Policy";
 static const char* content_security_value = "default-src 'self'";
 
+static const char* pragma_key = "Pragma";
+static const char* pragma_value = "no-cache";
+
+static const char* cache_control_key = "Cache-Control";
+static const char* cache_control_value = "no-Store,no-Cache";
+
 struct SecurityHeadersMiddleware {
   struct context {};
 
@@ -37,8 +43,8 @@ struct SecurityHeadersMiddleware {
     res.add_header(xframe_key, xframe_value);
     res.add_header(xss_key, xss_value);
     res.add_header(content_security_key, content_security_value);
-    res.add_header("Access-Control-Allow-Origin", "http://localhost:8085");
-    res.add_header("Access-Control-Allow-Credentials", "true");
+    res.add_header(pragma_key, pragma_value);
+    res.add_header(cache_control_key, cache_control_value);
   }
 };
 }  // namespace crow

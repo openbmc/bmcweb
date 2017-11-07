@@ -87,7 +87,7 @@ void request_routes(Crow<Middlewares...>& app) {
           }
         }
       }
-      app.route_dynamic(std::string(webpath.string()))(
+      app.route_dynamic(webpath.string())(
           [is_gzip, absolute_path_str, content_type](const crow::request& req,
                                                      crow::response& res) {
             static const char* content_type_string = "Content-Type";

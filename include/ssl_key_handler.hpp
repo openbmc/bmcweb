@@ -4,7 +4,6 @@
 #include <openssl/bio.h>
 #include <openssl/dh.h>
 #include <openssl/dsa.h>
-#include <openssl/dsa.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/pem.h>
@@ -304,7 +303,7 @@ inline boost::asio::ssl::context get_ssl_context(
   std::string aes_only_ciphers = "AES128+EECDH:AES128+EDH:!aNULL:!eNULL";
 
   if (SSL_CTX_set_cipher_list(m_ssl_context.native_handle(),
-                              mozilla_compatibility_ciphers.c_str()) != 1) {
+                              mozilla_modern_ciphers.c_str()) != 1) {
     CROW_LOG_ERROR << "Error setting cipher list\n";
   }
   return m_ssl_context;
