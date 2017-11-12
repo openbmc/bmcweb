@@ -17,7 +17,7 @@ namespace openbmc_mapper {
 // multiple requests to be running at once
 std::atomic<std::size_t> outstanding_async_calls(0);
 nlohmann::json object_paths;
-
+bool property_matched=false;
 void introspect_objects(crow::response &res, std::string process_name,
                         std::string path) {
   dbus::endpoint introspect_endpoint(
@@ -128,8 +128,9 @@ void request_routes(Crow<Middlewares...> &app) {
             "", static_cast<int32_t>(99), std::array<std::string, 0>());
       });
 
-  CROW_ROUTE(app, "/xyz/<path>")
-      .methods("GET"_method)([](const crow::request &req, crow::response &res,
+ CROW_ROUTE(app, "/xyz/<path>")
+      .methods("GET"_method,
+               "PUT"_method)([](const crow::request &req, crow::response &res,
                                 const std::string &path) {
         if (outstanding_async_calls != 0) {
           res.code = 500;
@@ -139,13 +140,46 @@ void request_routes(Crow<Middlewares...> &app) {
         }
         using GetObjectType =
             std::vector<std::pair<std::string, std::vector<std::string>>>;
+        std::string object_path;
+        std::string dest_property;
+        std::string property_set_value;
+        size_t attr_position = path.find("/attr/");
+        if (attr_position == path.npos)
+          object_path = "/xyz/" + path;
+        else {
+          object_path = "/xyz/" + path.substr(0, attr_position);
+          dest_property =
+              path.substr((attr_position + strlen("/attr/")), path.length());
+          auto request_dbus_data =
+              nlohmann::json::parse(req.body, nullptr, false);
+          if (request_dbus_data.is_discarded()) {
+            res.code = 400;
+            res.end();
+            return;
+          }
 
-        std::string object_path = "/xyz/" + path;
+          auto property_value_it = request_dbus_data.find("data");
+          if (property_value_it == request_dbus_data.end()) {
+            res.code = 400;
+            res.end();
+            return;
+          }
+
+          property_set_value = property_value_it->get<const std::string>();
+          if (property_set_value.empty()) {
+            res.code = 400;
+            res.end();
+            return;
+          }
+        }
+
         crow::connections::system_bus->async_method_call(
             // object_path intentially captured by value
-            [&, object_path](const boost::system::error_code ec,
-                             const GetObjectType &object_names) {
-
+            [
+                  &, object_path, dest_property{std::move(dest_property)},
+                  property_set_value{std::move(property_set_value)}
+            ](const boost::system::error_code ec,
+              const GetObjectType &object_names) {
               if (ec) {
                 res.code = 500;
                 res.end();
@@ -156,37 +190,109 @@ void request_routes(Crow<Middlewares...> &app) {
                 res.end();
                 return;
               }
-
-              for (auto &interface : object_names[0].second) {
-                outstanding_async_calls++;
-                crow::connections::system_bus->async_method_call(
-                    [&](const boost::system::error_code ec,
+              if (req.method == "GET"_method) {
+                for (auto &interface : object_names[0].second) {
+                  outstanding_async_calls++;
+                  crow::connections::system_bus->async_method_call(
+                      [&](const boost::system::error_code ec,
+                          const std::vector<std::pair<
+                              std::string, dbus::dbus_variant>> &properties) {
+                        outstanding_async_calls--;
+                        if (ec) {
+                          std::cerr << "Bad dbus request error: " << ec;
+                        } else {
+                          for (auto &property : properties) {
+                            boost::apply_visitor(
+                                [&](auto val) {
+                                  object_paths[property.first] = val;
+                                },
+                                property.second);
+                          }
+                        }
+                        if (outstanding_async_calls == 0) {
+                          nlohmann::json j{{"status", "ok"},
+                                           {"message", "200 OK"},
+                                           {"data", object_paths}};
+                          res.body = j.dump();
+                          res.end();
+                          object_paths.clear();
+                        }
+                      },
+                      {object_names[0].first, object_path,
+                       "org.freedesktop.DBus.Properties", "GetAll"},
+                      interface);
+                }
+              } else if (req.method == "PUT"_method) {
+                for (auto &interface : object_names[0].second) {
+                  outstanding_async_calls++;
+                  crow::connections::system_bus->async_method_call(
+                      [
+                            &, interface{std::move(interface)},
+                            object_names{std::move(object_names)},
+                            object_path{std::move(object_path)},
+                            dest_property{std::move(dest_property)},
+                            property_set_value{std::move(property_set_value)}
+                      ](const boost::system::error_code ec,
                         const std::vector<std::pair<
                             std::string, dbus::dbus_variant>> &properties) {
-                      outstanding_async_calls--;
-                      if (ec) {
-                        std::cerr << "Bad dbus request error: " << ec;
-                      } else {
-                        for (auto &property : properties) {
-                          boost::apply_visitor(
-                              [&](auto val) {
-                                object_paths[property.first] = val;
-                              },
-                              property.second);
+                        outstanding_async_calls--;
+                        if (ec) {
+                          std::cerr << "Bad dbus request error: " << ec;
+                        } else {
+                          for (auto &property : properties) {
+                            // search all the properties in the interfaces
+                            if (dest_property.compare(property.first) == 0) {
+                              // find the matched property in the interface
+                              property_matched = true;
+                              dbus::dbus_variant property_value(
+                                  property_set_value);  // create the dbus
+                                                        // variant for dbus call
+                              crow::connections::system_bus->async_method_call(
+                                  [&](const boost::system::error_code ec) {
+                                    // use the method "Set" to set the property
+                                    // value
+                                    if (ec) {
+                                      std::cerr << "Bad dbus request error: "
+                                                << ec;
+                                      res.code = 500;
+                                      res.end();
+                                    } else {
+                                      // find the matched property and send the
+                                      // response
+                                      res.json_value = {{"status", "ok"},
+                                                        {"message", "200 OK"},
+                                                        {"data", NULL}};
+                                      res.end();
+                                      return;
+                                    }
+                                  },
+                                  {object_names[0].first, object_path,
+                                   "org.freedesktop.DBus.Properties", "Set"},
+                                  interface, dest_property, property_value);
+                            }
+                          }
+                          if (outstanding_async_calls == 0) {
+                            // all search has been finished
+                            if (property_matched == false) {
+                              nlohmann::json j{{"status", "error"},
+                                               {"message", "403 Forbidden"},
+                                               {"data",
+                                                {{"message",
+                                                  "The specified property "
+                                                  "cannot be created: " +
+                                                      dest_property}}}};
+                              res.json_value = j;
+                              res.end();
+                              return;
+                            } else
+                              property_matched = false;
+                          }
                         }
-                      }
-                      if (outstanding_async_calls == 0) {
-                        nlohmann::json j{{"status", "ok"},
-                                         {"message", "200 OK"},
-                                         {"data", object_paths}};
-                        res.body = j.dump();
-                        res.end();
-                        object_paths.clear();
-                      }
-                    },
-                    {object_names[0].first, object_path,
-                     "org.freedesktop.DBus.Properties", "GetAll"},
-                    interface);
+                      },
+                      {object_names[0].first, object_path,
+                       "org.freedesktop.DBus.Properties", "GetAll"},
+                      interface);
+                }
               }
             },
             {"xyz.openbmc_project.ObjectMapper",
@@ -194,6 +300,7 @@ void request_routes(Crow<Middlewares...> &app) {
              "xyz.openbmc_project.ObjectMapper", "GetObject"},
             object_path, std::array<std::string, 0>());
       });
+
   CROW_ROUTE(app, "/bus/system/<str>/")
       .methods("GET"_method)([](const crow::request &req, crow::response &res,
                                 const std::string &connection) {
