@@ -94,7 +94,6 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 set(SRC_FILES
-    src/base64.cpp
     ${GENERATED_SRC_FILES}
 )
 
@@ -107,7 +106,6 @@ if(${BMCWEB_BUILD_UT})
     set(UT_FILES
         src/crow_test.cpp
         src/gtest_main.cpp
-        src/base64_test.cpp
         src/token_authorization_middleware_test.cpp
         src/security_headers_middleware_test.cpp
         src/webassets_test.cpp
