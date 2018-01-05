@@ -9,6 +9,7 @@
 namespace crow {
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection;
+
 struct response {
   template <typename Adaptor, typename Handler, typename... Middlewares>
   friend class crow::Connection;

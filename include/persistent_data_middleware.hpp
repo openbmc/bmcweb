@@ -15,19 +15,28 @@
 namespace crow {
 
 namespace PersistentData {
+
+enum class PersistenceType {
+  TIMEOUT,        // User session times out after a predetermined amount of time
+  SINGLE_REQUEST  // User times out once this request is completed.
+};
+
 struct UserSession {
   std::string unique_id;
   std::string session_token;
   std::string username;
   std::string csrf_token;
   std::chrono::time_point<std::chrono::steady_clock> last_updated;
+  PersistenceType persistence;
 };
 
 void to_json(nlohmann::json& j, const UserSession& p) {
-  j = nlohmann::json{{"unique_id", p.unique_id},
-                     {"session_token", p.session_token},
-                     {"username", p.username},
-                     {"csrf_token", p.csrf_token}};
+  if (p.persistence != PersistenceType::SINGLE_REQUEST) {
+    j = nlohmann::json{{"unique_id", p.unique_id},
+                       {"session_token", p.session_token},
+                       {"username", p.username},
+                       {"csrf_token", p.csrf_token}};
+  }
 }
 
 void from_json(const nlohmann::json& j, UserSession& p) {
@@ -51,7 +60,11 @@ class Middleware;
 
 class SessionStore {
  public:
-  const UserSession& generate_user_session(const std::string& username) {
+  const UserSession& generate_user_session(
+      const std::string& username,
+      PersistenceType persistence = PersistenceType::TIMEOUT) {
+    // TODO(ed) find a secure way to not generate session identifiers if
+    // persistence is set to SINGLE_REQUEST
     static constexpr std::array<char, 62> alphanum = {
         '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C',
         'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -59,7 +72,7 @@ class SessionStore {
         'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
         'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-    // entropy: 30 characters, 62 possibilies.  log2(62^30) = 178 bits of
+    // entropy: 30 characters, 62 possibilities.  log2(62^30) = 178 bits of
     // entropy.  OWASP recommends at least 60
     // https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Entropy
     std::string session_token;
@@ -80,12 +93,14 @@ class SessionStore {
     for (int i = 0; i < unique_id.size(); ++i) {
       unique_id[i] = alphanum[dist(rd)];
     }
+
     const auto session_it = auth_tokens.emplace(
         session_token,
         std::move(UserSession{unique_id, session_token, username, csrf_token,
-                              std::chrono::steady_clock::now()}));
+                              std::chrono::steady_clock::now(), persistence}));
     const UserSession& user = (session_it).first->second;
-    need_write_ = true;
+    // Only need to write to disk if session isn't about to be destroyed.
+    need_write_ = persistence == PersistenceType::TIMEOUT;
     return user;
   }
 

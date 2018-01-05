@@ -5,119 +5,190 @@
 #include <webassets.hpp>
 #include <random>
 #include <crow/app.h>
+#include <crow/http_codes.h>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 #include <boost/bimap.hpp>
 #include <boost/container/flat_set.hpp>
+
 namespace crow {
 
 namespace TokenAuthorization {
-struct User {};
 
 class Middleware {
  public:
-  struct context {};
+  struct context {
+    const crow::PersistentData::UserSession* session;
+  };
   template <typename AllContext>
   void before_handle(crow::request& req, response& res, context& ctx,
                      AllContext& allctx) {
-    auto return_unauthorized = [&req, &res]() {
-      res.code = 401;
+    auto& sessions =
+        allctx.template get<crow::PersistentData::Middleware>().sessions;
+    std::string auth_header = req.get_header_value("Authorization");
+    if (auth_header != "") {
+      // Reject any kind of auth other than basic or token
+      if (boost::starts_with(auth_header, "Basic ")) {
+        ctx.session = perform_basic_auth(auth_header, sessions);
+      } else if (boost::starts_with(auth_header, "Token ")) {
+        ctx.session = perform_token_auth(auth_header, sessions);
+      }
+    } else if (req.headers.count("X-Auth-Token") == 1) {
+      ctx.session = perform_xtoken_auth(req, sessions);
+    } else if (req.headers.count("Cookie") == 1) {
+      ctx.session = perform_cookie_auth(req, sessions);
+    }
+
+    if (ctx.session == nullptr && !is_on_whitelist(req)) {
+      CROW_LOG_WARNING << "[AuthMiddleware] authorization failed";
+      res.code = static_cast<int>(HttpRespCode::UNAUTHORIZED);
+      res.add_header("WWW-Authenticate", "Basic");
       res.end();
-    };
+      return;
+    }
 
-    if (crow::webassets::routes.find(req.url) !=
-        crow::webassets::routes.end()) {
-      // TODO this is total hackery to allow the login page to work before the
-      // user is authenticated.  Also, it will be quite slow for all pages
-      // instead of a one time hit for the whitelist entries.  Ideally, this
-      // should be done in the url router handler, with tagged routes for the
-      // whitelist entries. Another option would be to whitelist a minimal form
-      // based page that didn't load the full angular UI until after login
-    } else if (req.url == "/login" || req.url == "/redfish/v1" ||
-               req.url == "/redfish/v1/" ||
-               req.url == "/redfish/v1/$metadata" ||
-               (req.url == "/redfish/v1/SessionService/Sessions/" &&
-                req.method == "POST"_method)) {
-    } else {
-      // Normal, non login, non static file request
-      // Check for an authorization header, reject if not present
-      std::string auth_key;
-      bool require_csrf = true;
-      if (req.headers.count("Authorization") == 1) {
-        std::string auth_header = req.get_header_value("Authorization");
-        // If the user is attempting any kind of auth other than token, reject
-        if (!boost::starts_with(auth_header, "Token ")) {
-          return_unauthorized();
-          return;
-        }
-        auth_key = auth_header.substr(6);
-        require_csrf = false;
-      } else if (req.headers.count("X-Auth-Token") == 1) {
-        auth_key = req.get_header_value("X-Auth-Token");
-        require_csrf = false;
-      } else {
-        int count = req.headers.count("Cookie");
-        if (count == 1) {
-          auto& cookie_value = req.get_header_value("Cookie");
-          auto start_index = cookie_value.find("SESSION=");
-          if (start_index != std::string::npos) {
-            start_index += 8;
-            auto end_index = cookie_value.find(";", start_index);
-            if (end_index == std::string::npos) {
-              end_index = cookie_value.size();
-            }
-            auth_key =
-                cookie_value.substr(start_index, end_index - start_index);
-          }
-        }
-        require_csrf = true;  // Cookies require CSRF
-      }
-      if (auth_key.empty()) {
-        res.code = 400;
-        res.end();
-        return;
-      }
-      auto& data_mw = allctx.template get<PersistentData::Middleware>();
-      const PersistentData::UserSession* session =
-          data_mw.sessions->login_session_by_token(auth_key);
-      if (session == nullptr) {
-        return_unauthorized();
-        return;
-      }
+    // TODO get user privileges here and propagate it via MW context
+    // else let the request continue unharmed
+  }
 
-      if (require_csrf) {
-        // RFC7231 defines methods that need csrf protection
-        if (req.method != "GET"_method) {
-          const std::string& csrf = req.get_header_value("X-XSRF-TOKEN");
-          // Make sure both tokens are filled
-          if (csrf.empty() || session->csrf_token.empty()) {
-            return_unauthorized();
-            return;
-          }
-          // Reject if csrf token not available
-          if (csrf != session->csrf_token) {
-            return_unauthorized();
-            return;
-          }
-        }
-      }
+  template <typename AllContext>
+  void after_handle(request& req, response& res, context& ctx,
+                    AllContext& allctx) {
+    // TODO(ed) THis should really be handled by the persistent data middleware,
+    // but because it is upstream, it doesn't have access to the session
+    // information.  Should the data middleware persist the current user
+    // session?
+    if (ctx.session != nullptr &&
+        ctx.session->persistence ==
+            crow::PersistentData::PersistenceType::SINGLE_REQUEST) {
+      auto& session_store =
+          allctx.template get<crow::PersistentData::Middleware>().sessions;
 
-      if (req.url == "/logout" && req.method == "POST"_method) {
-        data_mw.sessions->remove_session(session);
-        res.code = 200;
-        res.end();
-        return;
-      }
-
-      // else let the request continue unharmed
+      session_store->remove_session(ctx.session);
     }
   }
 
-  void after_handle(request& req, response& res, context& ctx) {
-    // Do nothing
+ private:
+  const crow::PersistentData::UserSession* perform_basic_auth(
+      const std::string& auth_header,
+      crow::PersistentData::SessionStore* sessions) const {
+    CROW_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
+
+    std::string auth_data;
+    std::string param = auth_header.substr(strlen("Basic "));
+    if (!crow::utility::base64_decode(param, auth_data)) {
+      return nullptr;
+    }
+    std::size_t separator = auth_data.find(':');
+    if (separator == std::string::npos) {
+      return nullptr;
+    }
+
+    std::string user = auth_data.substr(0, separator);
+    separator += 1;
+    if (separator > auth_data.size()) {
+      return nullptr;
+    }
+    std::string pass = auth_data.substr(separator);
+
+    CROW_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
+
+    if (!pam_authenticate_user(user, pass)) {
+      return nullptr;
+    }
+
+    // TODO(ed) generate_user_session is a little expensive for basic
+    // auth, as it generates some random identifiers that will never be
+    // used.  This should have a "fast" path for when user tokens aren't
+    // needed.
+    // This whole flow needs to be revisited anyway, as we can't be
+    // calling directly into pam for every request
+    return &(sessions->generate_user_session(
+        user, crow::PersistentData::PersistenceType::SINGLE_REQUEST));
   }
 
-  boost::container::flat_set<std::string> allowed_routes;
+  const crow::PersistentData::UserSession* perform_token_auth(
+      const std::string& auth_header,
+      crow::PersistentData::SessionStore* sessions) const {
+    CROW_LOG_DEBUG << "[AuthMiddleware] Token authentication";
+
+    std::string token = auth_header.substr(strlen("Token "));
+    auto session = sessions->login_session_by_token(token);
+    return session;
+  }
+
+  const crow::PersistentData::UserSession* perform_xtoken_auth(
+      const crow::request& req,
+      crow::PersistentData::SessionStore* sessions) const {
+    CROW_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
+
+    auto& token = req.get_header_value("X-Auth-Token");
+    auto session = sessions->login_session_by_token(token);
+    return session;
+  }
+
+  const crow::PersistentData::UserSession* perform_cookie_auth(
+      const crow::request& req,
+      crow::PersistentData::SessionStore* sessions) const {
+    CROW_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
+
+    auto& cookie_value = req.get_header_value("Cookie");
+
+    auto start_index = cookie_value.find("SESSION=");
+    if (start_index == std::string::npos) {
+      return nullptr;
+    }
+    start_index += sizeof("SESSION=");
+    auto end_index = cookie_value.find(";", start_index);
+    if (end_index == std::string::npos) {
+      end_index = cookie_value.size();
+    }
+    std::string auth_key =
+        cookie_value.substr(start_index, end_index - start_index);
+
+    const crow::PersistentData::UserSession* session =
+        sessions->login_session_by_token(auth_key);
+    if (session == nullptr) {
+      return nullptr;
+    }
+
+    // RFC7231 defines methods that need csrf protection
+    if (req.method != "GET"_method) {
+      const std::string& csrf = req.get_header_value("X-XSRF-TOKEN");
+      // Make sure both tokens are filled
+      if (csrf.empty() || session->csrf_token.empty()) {
+        return nullptr;
+      }
+      // Reject if csrf token not available
+      if (csrf != session->csrf_token) {
+        return nullptr;
+      }
+    }
+    return session;
+  }
+
+  // checks if request can be forwarded without authentication
+  bool is_on_whitelist(const crow::request& req) const {
+    // it's allowed to GET root node without authentication
+    if ("GET"_method == req.method) {
+      if (req.url == "/redfish/v1") {
+        return true;
+      } else if (crow::webassets::routes.find(req.url) !=
+                 crow::webassets::routes.end()) {
+        return true;
+      }
+    }
+
+    // it's allowed to POST on session collection & login without authentication
+    if ("POST"_method == req.method) {
+      if ((req.url == "/redfish/v1/SessionService/Sessions") ||
+          (req.url == "/login") || (req.url == "/logout")) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 };
 
 // TODO(ed) see if there is a better way to allow middlewares to request
@@ -193,7 +264,7 @@ void request_routes(Crow<Middlewares...>& app) {
 
         if (!username.empty() && !password.empty()) {
           if (!pam_authenticate_user(username, password)) {
-            res.code = 401;
+            res.code = res.code = static_cast<int>(HttpRespCode::UNAUTHORIZED);
           } else {
             auto& context =
                 app.template get_context<PersistentData::Middleware>(req);
@@ -207,10 +278,11 @@ void request_routes(Crow<Middlewares...>& app) {
               nlohmann::json ret{{"data", "User '" + username + "' logged in"},
                                  {"message", "200 OK"},
                                  {"status", "ok"}};
+              res.add_header("Set-Cookie", "XSRF-TOKEN=" + session.csrf_token);
               res.add_header(
                   "Set-Cookie",
                   "SESSION=" + session.session_token + "; Secure; HttpOnly");
-              res.add_header("Set-Cookie", "XSRF-TOKEN=" + session.csrf_token);
+
               res.write(ret.dump());
             } else {
               // if content type is json, assume json token
@@ -222,9 +294,26 @@ void request_routes(Crow<Middlewares...>& app) {
           }
 
         } else {
-          res.code = 400;
+          res.code = static_cast<int>(HttpRespCode::BAD_REQUEST);
         }
         res.end();
+      });
+
+  CROW_ROUTE(app, "/logout")
+      .methods(
+          "POST"_method)([&](const crow::request& req, crow::response& res) {
+        auto& session_store =
+            app.template get_context<PersistentData::Middleware>(req).sessions;
+        auto& session =
+            app.template get_context<TokenAuthorization::Middleware>(req)
+                .session;
+        if (session != nullptr) {
+          session_store->remove_session(session);
+        }
+        res.code = static_cast<int>(HttpRespCode::OK);
+        res.end();
+        return;
+
       });
 }
 }  // namespaec TokenAuthorization
