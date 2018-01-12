@@ -1,6 +1,5 @@
 #pragma once
 
-#include <base64.hpp>
 #include <pam_authenticate.hpp>
 #include <persistent_data_middleware.hpp>
 #include <webassets.hpp>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <security/pam_appl.h>
+#include <memory>
 #include <cstring>
 
 // function used to get user input
