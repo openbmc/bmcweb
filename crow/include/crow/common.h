@@ -17,6 +17,7 @@ enum class HTTPMethod {
   CONNECT,
   OPTIONS,
   TRACE,
+  PATCH = 24, // see http_parser_merged.h line 118 for why it is 24
 #endif
 
   Delete = 0,
@@ -27,6 +28,7 @@ enum class HTTPMethod {
   Connect,
   Options,
   Trace,
+  Patch = 24,
 };
 
 inline std::string method_name(HTTPMethod method) {
@@ -47,6 +49,8 @@ inline std::string method_name(HTTPMethod method) {
       return "OPTIONS";
     case HTTPMethod::Trace:
       return "TRACE";
+    case HTTPMethod::Patch:
+      return "PATCH";
   }
   return "invalid";
 }
@@ -69,17 +73,21 @@ struct routing_params {
 
   void debug_print() const {
     std::cerr << "routing_params" << std::endl;
-    for (auto i : int_params) { std::cerr << i << ", ";
-}
+    for (auto i : int_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto i : uint_params) { std::cerr << i << ", ";
-}
+    for (auto i : uint_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto i : double_params) { std::cerr << i << ", ";
-}
+    for (auto i : double_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto& i : string_params) { std::cerr << i << ", ";
-}
+    for (auto& i : string_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
   }
 
@@ -109,28 +117,25 @@ inline std::string routing_params::get<std::string>(unsigned index) const {
 }  // namespace crow
 
 constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
-  return crow::black_magic::is_equ_p(str, "GET", 3)
-             ? crow::HTTPMethod::Get
-             : crow::black_magic::is_equ_p(str, "DELETE", 6)
-                   ? crow::HTTPMethod::Delete
-                   : crow::black_magic::is_equ_p(str, "HEAD", 4)
-                         ? crow::HTTPMethod::Head
-                         : crow::black_magic::is_equ_p(str, "POST", 4)
-                               ? crow::HTTPMethod::Post
-                               : crow::black_magic::is_equ_p(str, "PUT", 3)
-                                     ? crow::HTTPMethod::Put
-                                     : crow::black_magic::is_equ_p(str,
-                                                                   "OPTIONS", 7)
-                                           ? crow::HTTPMethod::Options
-                                           : crow::black_magic::is_equ_p(
-                                                 str, "CONNECT", 7)
-                                                 ? crow::HTTPMethod::Connect
-                                                 : crow::black_magic::is_equ_p(
-                                                       str, "TRACE", 5)
-                                                       ? crow::HTTPMethod::Trace
-                                                       : throw std::
-                                                             runtime_error(
-                                                                 "invalid http "
-                                                                 "method");
+  if (crow::black_magic::is_equ_p(str, "GET", 3)) {
+    return crow::HTTPMethod::Get;
+  } else if (crow::black_magic::is_equ_p(str, "DELETE", 6)) {
+    return crow::HTTPMethod::Delete;
+  } else if (crow::black_magic::is_equ_p(str, "HEAD", 4)) {
+    return crow::HTTPMethod::Head;
+  } else if (crow::black_magic::is_equ_p(str, "POST", 4)) {
+    return crow::HTTPMethod::Post;
+  } else if (crow::black_magic::is_equ_p(str, "PUT", 3)) {
+    return crow::HTTPMethod::Put;
+  } else if (crow::black_magic::is_equ_p(str, "OPTIONS", 7)) {
+    return crow::HTTPMethod::Options;
+  } else if (crow::black_magic::is_equ_p(str, "CONNECT", 7)) {
+    return crow::HTTPMethod::Connect;
+  } else if (crow::black_magic::is_equ_p(str, "TRACE", 5)) {
+    return crow::HTTPMethod::Trace;
+  } else if (crow::black_magic::is_equ_p(str, "PATCH", 5)) {
+    return crow::HTTPMethod::Patch;
+  } else {
+    throw std:: runtime_error( "invalid http method");
+  }
 }
-
