@@ -17,6 +17,7 @@ enum class HTTPMethod {
   CONNECT,
   OPTIONS,
   TRACE,
+  PATCH = 24,  // see http_parser_merged.h line 118 for why it is 24
 #endif
 
   Delete = 0,
@@ -27,6 +28,7 @@ enum class HTTPMethod {
   Connect,
   Options,
   Trace,
+  Patch = 24,
 };
 
 inline std::string method_name(HTTPMethod method) {
@@ -47,6 +49,8 @@ inline std::string method_name(HTTPMethod method) {
       return "OPTIONS";
     case HTTPMethod::Trace:
       return "TRACE";
+    case HTTPMethod::Patch:
+      return "PATCH";
   }
   return "invalid";
 }
@@ -69,17 +73,21 @@ struct routing_params {
 
   void debug_print() const {
     std::cerr << "routing_params" << std::endl;
-    for (auto i : int_params) { std::cerr << i << ", ";
-}
+    for (auto i : int_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto i : uint_params) { std::cerr << i << ", ";
-}
+    for (auto i : uint_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto i : double_params) { std::cerr << i << ", ";
-}
+    for (auto i : double_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
-    for (auto& i : string_params) { std::cerr << i << ", ";
-}
+    for (auto& i : string_params) {
+      std::cerr << i << ", ";
+    }
     std::cerr << std::endl;
   }
 
@@ -128,9 +136,17 @@ constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
                                                  : crow::black_magic::is_equ_p(
                                                        str, "TRACE", 5)
                                                        ? crow::HTTPMethod::Trace
-                                                       : throw std::
-                                                             runtime_error(
-                                                                 "invalid http "
-                                                                 "method");
+                                                       : crow::black_magic::
+                                                                 is_equ_p(
+                                                                     str,
+                                                                     "PATCH", 5)
+                                                             ? crow::
+                                                                   HTTPMethod::
+                                                                       Patch
+                                                             : throw std::
+                                                                   runtime_error(
+                                                                       "invalid"
+                                                                       " http "
+                                                                       "metho"
+                                                                       "d");
 }
-
