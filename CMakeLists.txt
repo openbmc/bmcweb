@@ -26,20 +26,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
-# enable link time optimization
-# Cmake doesn't currently support it, so do it by hand for now
-# This is officially supported in cmake 3.9 with the INTROPROCEDURAL_OPTIMIZATION flag
-# use that once 3.9 is readily available.
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # the CMAKE_AR version needs to be overridden to avoid a "plugin not found" error
-    SET(CMAKE_AR  "gcc-ar")
-    SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> qcs <TARGET> <LINK_FLAGS> <OBJECTS>")
-    # This turns the ARCHIVE_FINISH command into a no-op, because the archive is already done
-    SET(CMAKE_CXX_ARCHIVE_FINISH   true)
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}-flto -fno-fat-lto-objects")
-    SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -flto -fno-fat-lto-objects")
-endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
