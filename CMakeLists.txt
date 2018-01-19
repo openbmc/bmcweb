@@ -92,6 +92,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
 set(SRC_FILES
     ${GENERATED_SRC_FILES}

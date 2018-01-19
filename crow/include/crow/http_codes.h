@@ -1,6 +1,6 @@
 #pragma once
 
-enum class HttpRespCode{
+enum class HttpRespCode {
   OK = 200,
   CREATED = 201,
   ACCEPTED = 202,
