@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/network_protocol.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
@@ -40,6 +41,7 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<Roles>(app));
     nodes.emplace_back(std::make_unique<RoleCollection>(app));
     nodes.emplace_back(std::make_unique<ServiceRoot>(app));
+    nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
 
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);
