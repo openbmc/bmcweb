@@ -49,7 +49,6 @@ class ServiceRoot : public Node {
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
-    res.add_header("Content-Type", "application/json");
     res.json_value = Node::json;
     res.end();
   }

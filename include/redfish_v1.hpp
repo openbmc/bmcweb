@@ -214,63 +214,6 @@ void request_routes(Crow<Middlewares...>& app) {
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/Managers/NetworkProtocol/")
-      .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        std::array<char, HOST_NAME_MAX> hostname;
-        if (gethostname(hostname.data(), hostname.size()) != 0) {
-          res.code = 500;
-          res.end();
-          return;
-        }
-        res.json_value = {
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol"},
-            {"@odata.id", "/redfish/v1/Managers/BMC/NetworkProtocol"},
-            {"@odata.type",
-             "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol"},
-            {"Id", "NetworkProtocol"},
-            {"Name", "Manager Network Protocol"},
-            {"Description", "Manager Network Service"},
-            {"Status",
-             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
-            {"HostName", hostname.data()}};  // TODO(ed) get hostname
-        std::string netstat_out = execute_process("netstat -tuln");
-
-        std::map<int, const char*> service_types{{22, "SSH"},
-                                                 {443, "HTTPS"},
-                                                 {1900, "SSDP"},
-                                                 {623, "IPMI"},
-                                                 {427, "SLP"}};
-
-        std::vector<std::string> lines;
-        boost::split(lines, netstat_out, boost::is_any_of("\n"));
-        auto lines_it = lines.begin();
-        lines_it++;  // skip the netstat header
-        lines_it++;
-        while (lines_it != lines.end()) {
-          std::vector<std::string> columns;
-          boost::split(columns, *lines_it, boost::is_any_of("\t "),
-                       boost::token_compress_on);
-          if (columns.size() >= 5) {
-            std::size_t found = columns[3].find_last_of(":");
-            if (found != std::string::npos) {
-              std::string port_str = columns[3].substr(found + 1);
-              int port = std::stoi(port_str.c_str());
-              auto type_it = service_types.find(port);
-              if (type_it != service_types.end()) {
-                res.json_value[type_it->second] = {{"ProtocolEnabled", true},
-                                                   {"Port", port}};
-              }
-            }
-          }
-          lines_it++;
-        }
-
-        get_redfish_sub_routes(app, "/redfish/v1/", res.json_value);
-        res.end();
-      });
 }
 }  // namespace redfish
 }  // namespace crow
