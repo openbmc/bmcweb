@@ -54,8 +54,8 @@ class PrivilegeProvider {
     // load privilege_registry.json to memory
   }
 
-  EntityPrivileges getPrivileges(const std::string &entity_url,
-                                 const std::string &entity_type) const {
+  EntityPrivileges getPrivileges(const std::string& entity_url,
+                                 const std::string& entity_type) const {
     // return an entity privilege object based on the privilege_registry.json,
     // currently returning default constructed object
     return EntityPrivileges();

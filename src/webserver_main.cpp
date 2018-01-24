@@ -14,6 +14,7 @@
 #include <string>
 #include <crow/app.h>
 #include <boost/asio.hpp>
+#include "redfish.hpp"
 
 int main(int argc, char** argv) {
   auto io = std::make_shared<boost::asio::io_service>();
@@ -50,6 +51,8 @@ int main(int argc, char** argv) {
   // Start dbus connection
   crow::connections::system_bus =
       std::make_shared<dbus::connection>(*io, dbus::bus::system);
+
+  redfish::RedfishService redfish(app);
 
   app.run();
 }

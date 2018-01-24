@@ -51,27 +51,6 @@ void request_routes(Crow<Middlewares...>& app) {
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/")
-      .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        res.json_value = {
-            {"@odata.context", "/redfish/v1/$metadata#ServiceRoot.ServiceRoot"},
-            {"@odata.id", "/redfish/v1/"},
-            {"@odata.type", "#ServiceRoot.v1_1_1.ServiceRoot"},
-            {"Id", "RootService"},
-            {"Name", "Root Service"},
-            {"RedfishVersion", "1.1.0"},
-            {"Links",
-             {{"Sessions",
-               {{"@odata.id", "/redfish/v1/SessionService/Sessions/"}}}}}};
-
-        res.json_value["UUID"] =
-            app.template get_middleware<PersistentData::Middleware>()
-                .system_uuid;
-        get_redfish_sub_routes(app, "/redfish/v1/", res.json_value);
-        res.end();
-      });
-
   CROW_ROUTE(app, "/redfish/v1/Chassis/")
       .methods("GET"_method)(
           [&](const crow::request& req, crow::response& res) {

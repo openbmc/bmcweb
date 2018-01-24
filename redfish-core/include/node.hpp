@@ -15,9 +15,9 @@
 */
 #pragma once
 
-#include "crow.h"
 #include "privileges.hpp"
 #include "token_authorization_middleware.hpp"
+#include "crow.h"
 
 namespace redfish {
 
@@ -31,7 +31,6 @@ class Node {
   Node(CrowApp& app, PrivilegeProvider& provider, std::string odataType,
        std::string odataId, Params... params)
       : odataType(odataType), odataId(odataId) {
-
     // privileges for the node as defined in the privileges_registry.json
     entityPrivileges = provider.getPrivileges(odataId, odataType);
 
@@ -110,6 +109,25 @@ class Node {
 
   EntityPrivileges entityPrivileges;
 };
+
+template <typename CrowApp>
+void getRedfishSubRoutes(CrowApp& app, const std::string& url,
+                         nlohmann::json& j) {
+  std::vector<const std::string*> routes = app.get_routes(url);
+
+  for (auto route : routes) {
+    auto redfishSubRoute =
+        route->substr(url.size(), route->size() - url.size() - 1);
+
+    // Exclude: - exact matches,
+    //          - metadata urls starting with "$",
+    //          - urls at the same level
+    if (!redfishSubRoute.empty() && redfishSubRoute[0] != '$' &&
+        redfishSubRoute.find('/') == std::string::npos) {
+      j[redfishSubRoute] = nlohmann::json{{"@odata.id", *route}};
+    }
+  }
+}
 
 }  // namespace redfish
 
