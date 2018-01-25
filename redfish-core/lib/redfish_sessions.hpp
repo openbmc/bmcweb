@@ -28,7 +28,7 @@ class Sessions : public Node {
   Sessions(CrowApp& app, PrivilegeProvider& provider)
       : Node(app, provider, "#Session.v1_0_2.Session",
              "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
-    nodeJson["@odata.type"] = Node::odataType;
+    nodeJson["@odata.type"] = "#Session.v1_0_2.Session";
     nodeJson["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
     nodeJson["Name"] = "User Session";
     nodeJson["Description"] = "Manager User Session";
@@ -95,8 +95,8 @@ class SessionCollection : public Node {
       : Node(app, provider, "#SessionCollection.SessionCollection",
              "/redfish/v1/SessionService/Sessions/"),
         memberSession(app, provider) {
-    nodeJson["@odata.type"] = Node::odataType;
-    nodeJson["@odata.id"] = Node::odataId;
+    nodeJson["@odata.type"] = "#SessionCollection.SessionCollection";
+    nodeJson["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
     nodeJson["@odata.context"] =
         "/redfish/v1/$metadata#SessionCollection.SessionCollection";
     nodeJson["Name"] = "Session Collection";
