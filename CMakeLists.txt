@@ -125,6 +125,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
 set(SRC_FILES
+    redfish-core/src/privileges.cpp
     ${GENERATED_SRC_FILES}
 )
 
@@ -135,6 +136,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 # Unit Tests
 if(${BMCWEB_BUILD_UT})
     set(UT_FILES
+        redfish-core/ut/privileges_test.cpp
         src/crow_test.cpp
         src/gtest_main.cpp
         src/token_authorization_middleware_test.cpp
@@ -175,6 +177,8 @@ if(${BMCWEB_BUILD_UT})
 endif(${BMCWEB_BUILD_UT})
 
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/privilege_registry.json
+        DESTINATION /etc/redfish.conf.d/)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
