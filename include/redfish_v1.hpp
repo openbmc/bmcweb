@@ -102,42 +102,6 @@ void request_routes(Crow<Middlewares...>& app) {
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/AccountService/Roles/")
-      .methods("GET"_method)(
-          [&](const crow::request& req, crow::response& res) {
-            res.json_value = {
-                {"@odata.context",
-                 "/redfish/v1/$metadata#RoleCollection.RoleCollection"},
-                {"@odata.id", "/redfish/v1/AccountService/Roles"},
-                {"@odata.type", "#RoleCollection.RoleCollection"},
-                {"Name", "Account Service"},
-                {"Description", "BMC User Roles"},
-                {"Members@odata.count", 1},
-                {"Members",
-                 {{"@odata.id",
-                   "/redfish/v1/AccountService/Roles/Administrator"}}}};
-            get_redfish_sub_routes(app, "/redfish/v1/AccountService",
-                                   res.json_value);
-            res.end();
-          });
-
-  CROW_ROUTE(app, "/redfish/v1/AccountService/Roles/Administrator/")
-      .methods("GET"_method)(
-          [&](const crow::request& req, crow::response& res) {
-            res.json_value = {
-                {"@odata.context", "/redfish/v1/$metadata#Role.Role"},
-                {"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"},
-                {"@odata.type", "#Role.v1_0_2.Role"},
-                {"Id", "Administrator"},
-                {"Name", "User Role"},
-                {"Description", "Administrator User Role"},
-                {"IsPredefined", true},
-                {"AssignedPrivileges",
-                 {"Login", "ConfigureManager", "ConfigureUsers",
-                  "ConfigureSelf", "ConfigureComponents"}}};
-            res.end();
-          });
-
   CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
       .methods(
           "GET"_method)([&](const crow::request& req, crow::response& res) {

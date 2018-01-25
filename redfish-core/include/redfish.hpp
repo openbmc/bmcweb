@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/redfish_sessions.hpp"
+#include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
 
 namespace redfish {
@@ -34,14 +35,17 @@ class RedfishService {
   template <typename CrowApp>
   RedfishService(CrowApp& app) {
     auto privilegeProvider = PrivilegeProvider();
-    serviceRootPtr = std::make_unique<ServiceRoot>(app, privilegeProvider);
-    sessionsCollectionPtr =
-        std::make_unique<SessionCollection>(app, privilegeProvider);
+
+    nodes.emplace_back(
+        std::make_unique<SessionCollection>(app, privilegeProvider));
+    nodes.emplace_back(std::make_unique<Roles>(app, privilegeProvider));
+    nodes.emplace_back(
+        std::make_unique<RoleCollection>(app, privilegeProvider));
+    nodes.emplace_back(std::make_unique<ServiceRoot>(app, privilegeProvider));
   }
 
  private:
-  std::unique_ptr<ServiceRoot> serviceRootPtr;
-  std::unique_ptr<SessionCollection> sessionsCollectionPtr;
+  std::vector<std::unique_ptr<Node>> nodes;
 };
 
 }  // namespace redfish
