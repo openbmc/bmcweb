@@ -24,8 +24,8 @@ class ServiceRoot : public Node {
   template <typename CrowApp, typename PrivilegeProvider>
   ServiceRoot(CrowApp& app, PrivilegeProvider& provider)
       : Node(app, provider, "#ServiceRoot.v1_1_1.ServiceRoot", "/redfish/v1/") {
-    nodeJson["@odata.type"] = Node::odataType;
-    nodeJson["@odata.id"] = Node::odataId;
+    nodeJson["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
+    nodeJson["@odata.id"] = "/redfish/v1";
     nodeJson["@odata.context"] =
         "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
     nodeJson["Id"] = "RootService";

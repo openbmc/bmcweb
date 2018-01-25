@@ -34,7 +34,8 @@ class RedfishService {
    */
   template <typename CrowApp>
   RedfishService(CrowApp& app) {
-    auto privilegeProvider = PrivilegeProvider();
+    auto privilegeProvider =
+        PrivilegeProvider("/etc/redfish.conf.d/privilege_registry.json");
 
     nodes.emplace_back(
         std::make_unique<SessionCollection>(app, privilegeProvider));
