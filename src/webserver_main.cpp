@@ -14,6 +14,7 @@
 #include <string>
 #include <crow/app.h>
 #include <boost/asio.hpp>
+#include <systemd/sd-daemon.h>
 #include "redfish.hpp"
 
 int main(int argc, char** argv) {
@@ -44,9 +45,25 @@ int main(int argc, char** argv) {
   crow::openbmc_mapper::request_routes(app);
 
   crow::logger::setLogLevel(crow::LogLevel::INFO);
-  int port = 18080;
-  std::cout << "Starting webserver on port " << port << "\n";
-  app.port(port);
+
+  std::cout << "bmcweb (" << __DATE__ << ": " << __TIME__ << ")\n";
+
+  int listen_fd = sd_listen_fds(0);
+  if (1 == listen_fd) {
+    std::cout << "attempting systemd socket activation\n";
+    if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1, 0)) {
+      std::cout << "Starting webserver on socket handle " << SD_LISTEN_FDS_START << "\n";
+      app.socket(SD_LISTEN_FDS_START);
+    } else {
+      int port = 18080;
+      std::cout << "bad incoming socket: webserver on port " << port << "\n";
+      app.port(port);
+    }
+  } else {
+    int port = 18080;
+    std::cout << "Starting webserver on port " << port << "\n";
+    app.port(port);
+  }
 
   // Start dbus connection
   crow::connections::system_bus =

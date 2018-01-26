@@ -15,6 +15,7 @@
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
+//#include <arpa/inet.h>
 
 namespace crow {
 using namespace boost;
@@ -42,6 +43,42 @@ class Server {
         bindaddr_(bindaddr),
         middlewares_(middlewares),
         adaptor_ctx_(adaptor_ctx) {}
+
+  Server(Handler* handler, int existing_socket,
+         std::tuple<Middlewares...>* middlewares = nullptr,
+         uint16_t concurrency = 1,
+         typename Adaptor::context* adaptor_ctx = nullptr,
+         std::shared_ptr<boost::asio::io_service> io =
+             std::make_shared<boost::asio::io_service>())
+      : io_service_(std::move(io)),
+        acceptor_(*io_service_, boost::asio::ip::tcp::v6(), existing_socket),
+        signals_(*io_service_, SIGINT, SIGTERM),
+        tick_timer_(*io_service_),
+        handler_(handler),
+        concurrency_(concurrency),
+        middlewares_(middlewares),
+        adaptor_ctx_(adaptor_ctx) {
+          struct sockaddr_storage bound_sa;
+          socklen_t sa_size;
+          bindaddr_ = "unknown_addr";
+          port_ = 0;
+          // look up bindaddr and port from socket
+          if (0 == getsockname(existing_socket,
+                reinterpret_cast<struct sockaddr*>(&bound_sa), &sa_size)) {
+            char addrbuf[INET6_ADDRSTRLEN+1];
+            if (nullptr !=
+                inet_ntop(bound_sa.ss_family, &bound_sa, addrbuf, sa_size)) {
+              bindaddr_ = addrbuf;
+            }
+            if (AF_INET == bound_sa.ss_family) {
+              auto sa4 = reinterpret_cast<struct sockaddr_in*>(&bound_sa);
+              port_ = ntohs(sa4->sin_port);
+            } else if (AF_INET6 == bound_sa.ss_family) {
+              auto sa6 = reinterpret_cast<struct sockaddr_in6*>(&bound_sa);
+              port_ = ntohs(sa6->sin6_port);
+            }
+          }
+        }
 
   void set_tick_function(std::chrono::milliseconds d, std::function<void()> f) {
     tick_interval_ = d;

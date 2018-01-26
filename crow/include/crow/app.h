@@ -54,6 +54,11 @@ class Crow {
     return router_.new_rule_tagged<Tag>(std::move(rule));
   }
 
+  self_t& socket(int existing_socket) {
+    socket_ = existing_socket;
+    return *this;
+  }
+
   self_t& port(std::uint16_t port) {
     port_ = port;
     return *this;
@@ -82,16 +87,27 @@ class Crow {
     validate();
 #ifdef CROW_ENABLE_SSL
     if (use_ssl_) {
-      ssl_server_ = std::move(
+      if (-1 == socket_) {
+        ssl_server_ = std::move(
           std::make_unique<ssl_server_t>(this, bindaddr_, port_, &middlewares_,
                                          concurrency_, &ssl_context_, io_));
+      } else {
+        ssl_server_ = std::move(
+          std::make_unique<ssl_server_t>(this, socket_, &middlewares_,
+                                         concurrency_, &ssl_context_, io_));
+      }
       ssl_server_->set_tick_function(tick_interval_, tick_function_);
       ssl_server_->run();
     } else
 #endif
     {
-      server_ = std::move(std::make_unique<server_t>(
-          this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_));
+      if (-1 == socket_) {
+        server_ = std::move(std::make_unique<server_t>(
+            this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_));
+      } else {
+        server_ = std::move(std::make_unique<server_t>(
+            this, socket_, &middlewares_, concurrency_, nullptr, io_));
+      }
       server_->set_tick_function(tick_interval_, tick_function_);
       server_->run();
     }
@@ -207,6 +223,7 @@ class Crow {
   uint16_t port_ = 80;
   uint16_t concurrency_ = 1;
   std::string bindaddr_ = "0.0.0.0";
+  int socket_ = -1;
   Router router_;
 
   std::chrono::milliseconds tick_interval_{};
