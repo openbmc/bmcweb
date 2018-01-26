@@ -24,24 +24,44 @@ template <typename Handler, typename Adaptor = SocketAdaptor,
           typename... Middlewares>
 class Server {
  public:
-  Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+  Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
          std::tuple<Middlewares...>* middlewares = nullptr,
          uint16_t concurrency = 1,
          typename Adaptor::context* adaptor_ctx = nullptr,
          std::shared_ptr<boost::asio::io_service> io =
              std::make_shared<boost::asio::io_service>())
       : io_service_(std::move(io)),
-        acceptor_(*io_service_,
-                  tcp::endpoint(boost::asio::ip::address::from_string(bindaddr),
-                                port)),
+        acceptor_(std::move(acceptor)),
         signals_(*io_service_, SIGINT, SIGTERM),
         tick_timer_(*io_service_),
         handler_(handler),
         concurrency_(concurrency),
-        port_(port),
-        bindaddr_(bindaddr),
         middlewares_(middlewares),
         adaptor_ctx_(adaptor_ctx) {}
+
+  Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+         std::tuple<Middlewares...>* middlewares = nullptr,
+         uint16_t concurrency = 1,
+         typename Adaptor::context* adaptor_ctx = nullptr,
+         std::shared_ptr<boost::asio::io_service> io =
+             std::make_shared<boost::asio::io_service>())
+      : Server(handler,
+          std::make_unique<tcp::acceptor>(
+            *io, tcp::endpoint(
+              boost::asio::ip::address::from_string(bindaddr), port)),
+          middlewares, concurrency, adaptor_ctx, io) {}
+
+
+  Server(Handler* handler, int existing_socket,
+         std::tuple<Middlewares...>* middlewares = nullptr,
+         uint16_t concurrency = 1,
+         typename Adaptor::context* adaptor_ctx = nullptr,
+         std::shared_ptr<boost::asio::io_service> io =
+             std::make_shared<boost::asio::io_service>())
+      : Server(handler,
+          std::make_unique<tcp::acceptor>(
+            *io, boost::asio::ip::tcp::v6(), existing_socket),
+          middlewares, concurrency, adaptor_ctx, io) {}
 
   void set_tick_function(std::chrono::milliseconds d, std::function<void()> f) {
     tick_interval_ = d;
@@ -147,7 +167,8 @@ class Server {
       });
     }
 
-    CROW_LOG_INFO << server_name_ << " server is running, local port " << port_;
+    CROW_LOG_INFO << server_name_ << " server is running, local endpoint "
+                  << acceptor_->local_endpoint();
 
     signals_.async_wait([&](const boost::system::error_code& /*error*/,
                             int /*signal_number*/) { stop(); });
@@ -185,7 +206,7 @@ class Server {
         is, handler_, server_name_, middlewares_,
         get_cached_date_str_pool_[roundrobin_index_],
         *timer_queue_pool_[roundrobin_index_], adaptor_ctx_);
-    acceptor_.async_accept(p->socket(),
+    acceptor_->async_accept(p->socket(),
                            [this, p, &is](boost::system::error_code ec) {
                              if (!ec) {
                                is.post([p] { p->start(); });
@@ -199,15 +220,13 @@ class Server {
   std::vector<std::unique_ptr<asio::io_service>> io_service_pool_;
   std::vector<detail::dumb_timer_queue*> timer_queue_pool_;
   std::vector<std::function<std::string()>> get_cached_date_str_pool_;
-  tcp::acceptor acceptor_;
+  std::unique_ptr<tcp::acceptor> acceptor_;
   boost::asio::signal_set signals_;
   boost::asio::deadline_timer tick_timer_;
 
   Handler* handler_;
   uint16_t concurrency_{1};
   std::string server_name_ = "iBMC";
-  uint16_t port_;
-  std::string bindaddr_;
   unsigned int roundrobin_index_{};
 
   std::chrono::milliseconds tick_interval_{};
