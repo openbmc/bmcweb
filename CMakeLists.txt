@@ -141,7 +141,10 @@ endif()
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
-set(SRC_FILES ${GENERATED_SRC_FILES})
+set(SRC_FILES
+    redfish-core/src/error_messages.cpp
+    ${GENERATED_SRC_FILES}
+)
 
 file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
