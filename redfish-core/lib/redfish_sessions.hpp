@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "error_messages.hpp"
 #include "node.hpp"
 #include "session_storage_singleton.hpp"
 
@@ -46,6 +47,9 @@ class Sessions : public Node {
         crow::PersistentData::session_store->get_session_by_uid(params[0]);
 
     if (session == nullptr) {
+      messages::addMessageToErrorJson(
+          res.json_value, messages::resourceNotFound("Session", params[0]));
+
       res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
       res.end();
       return;
@@ -64,7 +68,12 @@ class Sessions : public Node {
                 const std::vector<std::string>& params) override {
     // Need only 1 param which should be id of session to be deleted
     if (params.size() != 1) {
+      // This should be handled by crow and never happen
+      CROW_LOG_ERROR
+          << "Session DELETE has been called with invalid number of params";
+
       res.code = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      messages::addMessageToErrorJson(res.json_value, messages::generalError());
       res.end();
       return;
     }
@@ -73,14 +82,18 @@ class Sessions : public Node {
         crow::PersistentData::session_store->get_session_by_uid(params[0]);
 
     if (session == nullptr) {
+      messages::addMessageToErrorJson(
+          res.json_value, messages::resourceNotFound("Session", params[0]));
+
       res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
       res.end();
       return;
     }
 
+    // DELETE should return representation of object that will be removed
+    doGet(res, req, params);
+
     crow::PersistentData::session_store->remove_session(session);
-    res.code = static_cast<int>(HttpRespCode::OK);
-    res.end();
   }
 
   /**
@@ -133,7 +146,8 @@ class SessionCollection : public Node {
   void doPost(crow::response& res, const crow::request& req,
               const std::vector<std::string>& params) override {
     std::string username;
-    bool userAuthSuccessful = authenticateUser(req, &res.code, &username);
+    bool userAuthSuccessful =
+        authenticateUser(req, res.code, username, res.json_value);
     if (!userAuthSuccessful) {
       res.end();
       return;
@@ -156,25 +170,30 @@ class SessionCollection : public Node {
    * @param[in]  req            Crow request containing authentication data
    * @param[out] httpRespCode   HTTP Code that should be returned in response
    * @param[out] user           Retrieved username - not filled on failure
+   * @param[out] errJson        JSON to which error messages will be written
    *
    * @return true if authentication was successful, false otherwise
    */
-  bool authenticateUser(const crow::request& req, int* httpRespCode,
-                        std::string* user) {
+  bool authenticateUser(const crow::request& req, int& httpRespCode,
+                        std::string& user, nlohmann::json& errJson) {
     // We need only UserName and Password - nothing more, nothing less
     static constexpr const unsigned int numberOfRequiredFieldsInReq = 2;
 
     // call with exceptions disabled
     auto login_credentials = nlohmann::json::parse(req.body, nullptr, false);
     if (login_credentials.is_discarded()) {
-      *httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+
+      messages::addMessageToErrorJson(errJson, messages::malformedJSON());
 
       return false;
     }
 
     // Check that there are only as many fields as there should be
     if (login_credentials.size() != numberOfRequiredFieldsInReq) {
-      *httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+
+      messages::addMessageToErrorJson(errJson, messages::malformedJSON());
 
       return false;
     }
@@ -184,14 +203,36 @@ class SessionCollection : public Node {
     auto pass_it = login_credentials.find("Password");
     if (user_it == login_credentials.end() ||
         pass_it == login_credentials.end()) {
-      *httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+
+      if (user_it == login_credentials.end()) {
+        messages::addMessageToErrorJson(errJson,
+                                        messages::propertyMissing("UserName"));
+      }
+
+      if (pass_it == login_credentials.end()) {
+        messages::addMessageToErrorJson(errJson,
+                                        messages::propertyMissing("Password"));
+      }
 
       return false;
     }
 
     // Check that given data is of valid type (string)
     if (!user_it->is_string() || !pass_it->is_string()) {
-      *httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+
+      if (!user_it->is_string()) {
+        messages::addMessageToErrorJson(
+            errJson,
+            messages::propertyValueTypeError(user_it->dump(), "UserName"));
+      }
+
+      if (!pass_it->is_string()) {
+        messages::addMessageToErrorJson(
+            errJson,
+            messages::propertyValueTypeError(user_it->dump(), "Password"));
+      }
 
       return false;
     }
@@ -202,21 +243,35 @@ class SessionCollection : public Node {
 
     // Verify that required fields are not empty
     if (username.empty() || password.empty()) {
-      *httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+
+      if (username.empty()) {
+        messages::addMessageToErrorJson(errJson,
+                                        messages::propertyMissing("UserName"));
+      }
+
+      if (password.empty()) {
+        messages::addMessageToErrorJson(errJson,
+                                        messages::propertyMissing("Password"));
+      }
 
       return false;
     }
 
     // Finally - try to authenticate user
     if (!pam_authenticate_user(username, password)) {
-      *httpRespCode = static_cast<int>(HttpRespCode::UNAUTHORIZED);
+      httpRespCode = static_cast<int>(HttpRespCode::UNAUTHORIZED);
+
+      messages::addMessageToErrorJson(
+          errJson, messages::resourceAtUriUnauthorized(
+                       req.url, "Invalid username or password"));
 
       return false;
     }
 
     // User authenticated successfully
-    *httpRespCode = static_cast<int>(HttpRespCode::OK);
-    *user = username;
+    httpRespCode = static_cast<int>(HttpRespCode::OK);
+    user = username;
 
     return true;
   }
