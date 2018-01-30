@@ -2292,7 +2292,7 @@ inline int http_should_keep_alive(const http_parser *parser) {
     }
   }
 
-  return static_cast<int>(!http_message_needs_eof(parser)) == 0;
+  return !http_message_needs_eof(parser);
 }
 
 inline const char *http_method_str(enum http_method m) {
