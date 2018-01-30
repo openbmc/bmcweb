@@ -50,6 +50,18 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Wl,--exclude-libs,ALL")
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # Enable link time optimization
+    # This is a temporary workaround because INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9.
+    # gcc-ar and gcc-ranlib are wrappers around ar and ranlib which add the lto plugin to the command line.
+    STRING(REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
+    STRING(REGEX REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
+
+    # Reduce the binary size by removing unnecessary dynamic symbol table entries
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Wl,--exclude-libs,ALL")
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
