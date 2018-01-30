@@ -38,6 +38,18 @@ SET(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}" )
 SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}" )
 SET(CMAKE_CXX_FLAGS_MINSIZEREL  "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}" )
 
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # Enable link time optimization
+    # This is a temporary workaround because INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9.
+    # gcc-ar and gcc-ranlib are wrappers around ar and ranlib which add the lto plugin to the command line.
+    STRING(REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
+    STRING(REGEX REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
+
+    # Reduce the binary size by removing unnecessary dynamic symbol table entries
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Wl,--exclude-libs,ALL")
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
 #add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
@@ -138,8 +150,7 @@ if(${BMCWEB_BUILD_UT})
     target_link_libraries(webtest ${OPENSSL_LIBRARIES})
     target_link_libraries(webtest ${ZLIB_LIBRARIES})
     target_link_libraries(webtest pam)
-    add_dependencies(webtest tinyxml2_static)
-    target_link_libraries(webtest tinyxml2_static)
+    target_link_libraries(webtest tinyxml2)
     target_link_libraries(webtest -lstdc++fs)
     add_test(webtest webtest "--gtest_output=xml:webtest.xml")
 
@@ -156,8 +167,7 @@ target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries(bmcweb pam)
 target_link_libraries(bmcweb -lsystemd)
 target_link_libraries(bmcweb -lstdc++fs)
-add_dependencies(bmcweb tinyxml2_static)
-target_link_libraries(bmcweb tinyxml2_static)
+target_link_libraries(bmcweb tinyxml2)
 install(TARGETS bmcweb DESTINATION bin)
 
 add_executable(getvideo src/getvideo_main.cpp)
