@@ -138,7 +138,7 @@ class Middleware {
     if (start_index == std::string::npos) {
       return nullptr;
     }
-    start_index += sizeof("SESSION=");
+    start_index += sizeof("SESSION=") - 1;
     auto end_index = cookie_value.find(";", start_index);
     if (end_index == std::string::npos) {
       end_index = cookie_value.size();
