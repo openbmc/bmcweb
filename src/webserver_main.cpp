@@ -12,10 +12,10 @@
 #include <webassets.hpp>
 #include <memory>
 #include <string>
+#include "redfish.hpp"
 #include <crow/app.h>
 #include <boost/asio.hpp>
 #include <systemd/sd-daemon.h>
-#include "redfish.hpp"
 
 constexpr int defaultPort = 18080;
 
@@ -41,6 +41,8 @@ void setup_socket(crow::Crow<Middlewares...>& app) {
 
 int main(int argc, char** argv) {
   auto io = std::make_shared<boost::asio::io_service>();
+  crow::PersistentData::session_store =
+      std::make_shared<crow::PersistentData::SessionStore>();
   crow::App<crow::PersistentData::Middleware,
             crow::TokenAuthorization::Middleware,
             crow::SecurityHeadersMiddleware>

@@ -20,23 +20,20 @@ class Middleware {
   struct context {
     const crow::PersistentData::UserSession* session;
   };
-  template <typename AllContext>
-  void before_handle(crow::request& req, response& res, context& ctx,
-                     AllContext& allctx) {
-    auto& sessions =
-        allctx.template get<crow::PersistentData::Middleware>().sessions;
+
+  void before_handle(crow::request& req, response& res, context& ctx) {
     std::string auth_header = req.get_header_value("Authorization");
     if (auth_header != "") {
       // Reject any kind of auth other than basic or token
       if (boost::starts_with(auth_header, "Basic ")) {
-        ctx.session = perform_basic_auth(auth_header, sessions);
+        ctx.session = perform_basic_auth(auth_header);
       } else if (boost::starts_with(auth_header, "Token ")) {
-        ctx.session = perform_token_auth(auth_header, sessions);
+        ctx.session = perform_token_auth(auth_header);
       }
     } else if (req.headers.count("X-Auth-Token") == 1) {
-      ctx.session = perform_xtoken_auth(req, sessions);
+      ctx.session = perform_xtoken_auth(req);
     } else if (req.headers.count("Cookie") == 1) {
-      ctx.session = perform_cookie_auth(req, sessions);
+      ctx.session = perform_cookie_auth(req);
     }
 
     if (ctx.session == nullptr && !is_on_whitelist(req)) {
@@ -61,17 +58,13 @@ class Middleware {
     if (ctx.session != nullptr &&
         ctx.session->persistence ==
             crow::PersistentData::PersistenceType::SINGLE_REQUEST) {
-      auto& session_store =
-          allctx.template get<crow::PersistentData::Middleware>().sessions;
-
-      session_store->remove_session(ctx.session);
+      PersistentData::session_store->remove_session(ctx.session);
     }
   }
 
  private:
   const crow::PersistentData::UserSession* perform_basic_auth(
-      const std::string& auth_header,
-      crow::PersistentData::SessionStore* sessions) const {
+      const std::string& auth_header) const {
     CROW_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
     std::string auth_data;
@@ -103,33 +96,30 @@ class Middleware {
     // needed.
     // This whole flow needs to be revisited anyway, as we can't be
     // calling directly into pam for every request
-    return &(sessions->generate_user_session(
+    return &(PersistentData::session_store->generate_user_session(
         user, crow::PersistentData::PersistenceType::SINGLE_REQUEST));
   }
 
   const crow::PersistentData::UserSession* perform_token_auth(
-      const std::string& auth_header,
-      crow::PersistentData::SessionStore* sessions) const {
+      const std::string& auth_header) const {
     CROW_LOG_DEBUG << "[AuthMiddleware] Token authentication";
 
     std::string token = auth_header.substr(strlen("Token "));
-    auto session = sessions->login_session_by_token(token);
+    auto session = PersistentData::session_store->login_session_by_token(token);
     return session;
   }
 
   const crow::PersistentData::UserSession* perform_xtoken_auth(
-      const crow::request& req,
-      crow::PersistentData::SessionStore* sessions) const {
+      const crow::request& req) const {
     CROW_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
 
     auto& token = req.get_header_value("X-Auth-Token");
-    auto session = sessions->login_session_by_token(token);
+    auto session = PersistentData::session_store->login_session_by_token(token);
     return session;
   }
 
   const crow::PersistentData::UserSession* perform_cookie_auth(
-      const crow::request& req,
-      crow::PersistentData::SessionStore* sessions) const {
+      const crow::request& req) const {
     CROW_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
 
     auto& cookie_value = req.get_header_value("Cookie");
@@ -147,7 +137,7 @@ class Middleware {
         cookie_value.substr(start_index, end_index - start_index);
 
     const crow::PersistentData::UserSession* session =
-        sessions->login_session_by_token(auth_key);
+        PersistentData::session_store->login_session_by_token(auth_key);
     if (session == nullptr) {
       return nullptr;
     }
@@ -266,10 +256,8 @@ void request_routes(Crow<Middlewares...>& app) {
           if (!pam_authenticate_user(username, password)) {
             res.code = res.code = static_cast<int>(HttpRespCode::UNAUTHORIZED);
           } else {
-            auto& context =
-                app.template get_context<PersistentData::Middleware>(req);
-            auto& session_store = context.sessions;
-            auto& session = session_store->generate_user_session(username);
+            auto& session =
+                PersistentData::session_store->generate_user_session(username);
 
             if (looks_like_ibm) {
               // IBM requires a very specific login structure, and doesn't
@@ -279,9 +267,8 @@ void request_routes(Crow<Middlewares...>& app) {
                                  {"message", "200 OK"},
                                  {"status", "ok"}};
               res.add_header("Set-Cookie", "XSRF-TOKEN=" + session.csrf_token);
-              res.add_header(
-                  "Set-Cookie",
-                  "SESSION=" + session.session_token + "; Secure; HttpOnly");
+              res.add_header("Set-Cookie", "SESSION=" + session.session_token +
+                                               "; Secure; HttpOnly");
 
               res.write(ret.dump());
             } else {
@@ -300,21 +287,19 @@ void request_routes(Crow<Middlewares...>& app) {
       });
 
   CROW_ROUTE(app, "/logout")
-      .methods(
-          "POST"_method)([&](const crow::request& req, crow::response& res) {
-        auto& session_store =
-            app.template get_context<PersistentData::Middleware>(req).sessions;
-        auto& session =
-            app.template get_context<TokenAuthorization::Middleware>(req)
-                .session;
-        if (session != nullptr) {
-          session_store->remove_session(session);
-        }
-        res.code = static_cast<int>(HttpRespCode::OK);
-        res.end();
-        return;
+      .methods("POST"_method)(
+          [&](const crow::request& req, crow::response& res) {
+            auto& session =
+                app.template get_context<TokenAuthorization::Middleware>(req)
+                    .session;
+            if (session != nullptr) {
+              PersistentData::session_store->remove_session(session);
+            }
+            res.code = static_cast<int>(HttpRespCode::OK);
+            res.end();
+            return;
 
-      });
+          });
 }
 }  // namespaec TokenAuthorization
 }  // namespace crow
