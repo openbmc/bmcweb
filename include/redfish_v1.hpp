@@ -79,29 +79,6 @@ void request_routes(Crow<Middlewares...>& app) {
             res.end();
           });
 
-  CROW_ROUTE(app, "/redfish/v1/AccountService/")
-      .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        res.json_value = {
-            {"@odata.context",
-             "/redfish/v1/$metadata#AccountService.AccountService"},
-            {"@odata.id", "/redfish/v1/AccountService"},
-            {"@odata.type", "#AccountService.v1_1_0.AccountService"},
-            {"Id", "AccountService"},
-            {"Name", "Account Service"},
-            {"Description", "BMC User Accounts"},
-            {"Status",
-             // TODO(ed) health rollup
-             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
-            {"ServiceEnabled", true},
-            {"MinPasswordLength", 1},
-            {"MaxPasswordLength", 20},
-        };
-        get_redfish_sub_routes(app, "/redfish/v1/AccountService",
-                               res.json_value);
-        res.end();
-      });
-
   CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
       .methods(
           "GET"_method)([&](const crow::request& req, crow::response& res) {
