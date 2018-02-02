@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "../lib/account_service.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
@@ -37,6 +38,8 @@ class RedfishService {
     auto privilegeProvider =
         PrivilegeProvider("/etc/redfish.conf.d/privilege_registry.json");
 
+    nodes.emplace_back(
+        std::make_unique<AccountService>(app, privilegeProvider));
     nodes.emplace_back(
         std::make_unique<SessionCollection>(app, privilegeProvider));
     nodes.emplace_back(std::make_unique<Roles>(app, privilegeProvider));

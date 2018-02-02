@@ -63,7 +63,7 @@ class RoleCollection : public Node {
     nodeJson["Description"] = "BMC User Roles";
     nodeJson["Members@odata.count"] = 1;
     nodeJson["Members"] = {
-        {"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}};
+        {{"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}}};
   }
 
  private:
