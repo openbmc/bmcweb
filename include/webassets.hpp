@@ -7,6 +7,7 @@
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 #include <crow/routing.h>
+#include <crow/http_codes.h>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/container/flat_set.hpp>
 
@@ -33,6 +34,8 @@ void request_routes(Crow<Middlewares...>& app) {
            {".png", "image/png;charset=UTF-8"},
            {".woff", "application/x-font-woff"},
            {".woff2", "application/x-font-woff2"},
+           {".gif", "image/gif"},
+           {".ico", "image/x-icon"},
            {".ttf", "application/x-font-ttf"},
            {".svg", "image/svg+xml"},
            {".eot", "application/vnd.ms-fontobject"},
@@ -45,11 +48,11 @@ void request_routes(Crow<Middlewares...>& app) {
   auto dir_iter = filesystem::recursive_directory_iterator(rootpath);
   for (auto& dir : dir_iter) {
     auto absolute_path = dir.path();
-    auto absolute_path_str = dir.path().string();
     auto relative_path = filesystem::path(
         absolute_path.string().substr(rootpath.string().size() - 1));
     // make sure we don't recurse into certain directories
     // note: maybe check for is_directory() here as well...
+
     if (filesystem::is_directory(dir)) {
       // don't recurse into hidden directories or symlinks
       if (boost::starts_with(dir.path().filename().string(), ".") ||
@@ -57,10 +60,22 @@ void request_routes(Crow<Middlewares...>& app) {
         dir_iter.disable_recursion_pending();
       }
     } else if (filesystem::is_regular_file(dir)) {
+      std::string extension = relative_path.extension();
       auto webpath = relative_path;
+      const char* content_encoding = nullptr;
       bool is_gzip = false;
-      if (relative_path.extension() == ".gz") {
+
+      if (webpath.filename() == "$metadata") {
+        // TODO, this endpoint should really be generated based on the redfish
+        // data.  Once that is done, remove the type hardcode.
+        extension = ".xml";
+      }
+
+      if (extension == ".gz") {
         webpath = webpath.replace_extension("");
+        // Use the non-gzip version for determining content type
+        extension = webpath.extension().string();
+        content_encoding = "gzip";
         is_gzip = true;
       }
 
@@ -73,60 +88,46 @@ void request_routes(Crow<Middlewares...>& app) {
 
       routes.insert(webpath.string());
 
-      std::string absolute_path_str = absolute_path.string();
       const char* content_type = nullptr;
-      auto content_type_it = content_types.find(webpath.extension().c_str());
-      if (content_type_it != content_types.end()) {
-        content_type = content_type_it->second;
-      } else {
-        if (webpath.string() == "$metadata"){
-          content_type_it = content_types.find(".xml");
-          // should always be true
-          if (content_type_it != content_types.end()) {
-            content_type = content_type_it->second;
-          }
-        }
-      }
-      app.route_dynamic(webpath.string())(
-          [is_gzip, absolute_path_str, content_type](const crow::request& req,
-                                                     crow::response& res) {
-            static const char* content_type_string = "Content-Type";
-            // std::string sha1("a576dc96a5c605b28afb032f3103630d61ac1068");
-            // res.add_header("ETag", sha1);
 
-            // if (req.get_header_value("If-None-Match") == sha1) {
-            //  res.code = 304;
-            //} else {
-            //  res.code = 200;
-            // TODO, if you have a browser from the dark ages that doesn't
-            // support
-            // gzip, unzip it before sending based on Accept-Encoding header
-            //  res.add_header("Content-Encoding", gzip_string);
+      // if the filename has an extension, look up the type
+      if (extension != "") {
+        auto content_type_it = content_types.find(extension.c_str());
+
+        if (content_type_it == content_types.end()) {
+          CROW_LOG_ERROR << "Cannot determine content-type for " << webpath;
+          continue;
+        }
+        content_type = content_type_it->second;
+      }
+
+      app.route_dynamic(webpath.string())(
+          [absolute_path, content_type, content_encoding](
+              const crow::request& req, crow::response& res) {
             if (content_type != nullptr) {
-              res.add_header(content_type_string, content_type);
+              res.add_header("Content-Type", content_type);
             }
 
-            if (is_gzip) {
-              res.add_header("Content-Encoding", "gzip");
+            if (content_encoding != nullptr) {
+              res.add_header("Content-Encoding", content_encoding);
             }
 
             // res.set_header("Cache-Control", "public, max-age=86400");
-            std::ifstream inf(absolute_path_str);
+            std::ifstream inf(absolute_path);
             if (!inf) {
               CROW_LOG_DEBUG << "failed to read file";
-              res.code = 400;
+	      res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+              res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
               res.end();
               return;
             }
 
-            std::string body{std::istreambuf_iterator<char>(inf),
-                             std::istreambuf_iterator<char>()};
-
-            res.body = body;
+            res.body = {std::istreambuf_iterator<char>(inf),
+                        std::istreambuf_iterator<char>()};
             res.end();
           });
     }
   }
-}
+}  // namespace webassets
 }  // namespace webassets
 }  // namespace crow
