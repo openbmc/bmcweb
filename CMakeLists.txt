@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 message(CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH})
 
 option(BUILD_STATIC_LIBS "Built static libraries" ON)
-
+option(YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 
 include("cmake/HunterGate.cmake")
@@ -78,8 +78,11 @@ find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
 #tinyxml2
-add_subdirectory(tinyxml2)
-
+if(NOT ${YOCTO_DEPENDENCIES})
+    add_subdirectory(tinyxml2)
+else()
+    find_package(tinyxml2 REQUIRED)
+endif()
 # PAM
 option(WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
 if ("${WEBSERVER_ENABLE_PAM}")
@@ -91,8 +94,11 @@ endif()
 
 # Boost-dbus
 set(BOOST_DBUS_BUILD_UT ${BMCWEB_BUILD_UT})
-add_subdirectory(boost-dbus)
-
+if(NOT ${YOCTO_DEPENDENCIES})
+    add_subdirectory(boost-dbus)
+else()
+    find_package(boost-dbus REQUIRED)
+endif()
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 # the webassets file has a non-ideal beahvior, where it loads binary data into a std::string
