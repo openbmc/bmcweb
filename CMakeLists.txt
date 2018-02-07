@@ -6,7 +6,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 message(CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH})
 
 option(BUILD_STATIC_LIBS "Built static libraries" ON)
-
+option(YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 
 include("cmake/HunterGate.cmake")
@@ -66,8 +66,11 @@ find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
 #tinyxml2
-add_subdirectory(tinyxml2)
-
+if(NOT ${YOCTO_DEPENDENCIES})
+    add_subdirectory(tinyxml2)
+else()
+    find_package(tinyxml2 REQUIRED)
+endif()
 # PAM
 option(WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
 if ("${WEBSERVER_ENABLE_PAM}")
@@ -79,8 +82,11 @@ endif()
 
 # Boost-dbus
 set(BOOST_DBUS_BUILD_UT ${BMCWEB_BUILD_UT})
-add_subdirectory(boost-dbus)
-
+if(NOT ${YOCTO_DEPENDENCIES})
+    add_subdirectory(boost-dbus)
+else()
+    find_package(boost-dbus REQUIRED)
+endif()
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 # the webassets file has a non-ideal beahvior, where it loads binary data into a std::string
@@ -138,8 +144,7 @@ if(${BMCWEB_BUILD_UT})
     target_link_libraries(webtest ${OPENSSL_LIBRARIES})
     target_link_libraries(webtest ${ZLIB_LIBRARIES})
     target_link_libraries(webtest pam)
-    add_dependencies(webtest tinyxml2_static)
-    target_link_libraries(webtest tinyxml2_static)
+    add_dependencies(webtest tinyxml2)
     target_link_libraries(webtest -lstdc++fs)
     add_test(webtest webtest "--gtest_output=xml:webtest.xml")
 
@@ -156,8 +161,8 @@ target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries(bmcweb pam)
 target_link_libraries(bmcweb -lsystemd)
 target_link_libraries(bmcweb -lstdc++fs)
-add_dependencies(bmcweb tinyxml2_static)
-target_link_libraries(bmcweb tinyxml2_static)
+add_dependencies(bmcweb tinyxml2)
+target_link_libraries(bmcweb tinyxml2)
 install(TARGETS bmcweb DESTINATION bin)
 
 add_executable(getvideo src/getvideo_main.cpp)
