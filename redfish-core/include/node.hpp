@@ -17,6 +17,7 @@
 
 #include "privileges.hpp"
 #include "token_authorization_middleware.hpp"
+#include "webserver_common.hpp"
 #include "crow.h"
 
 namespace redfish {
@@ -27,7 +28,7 @@ namespace redfish {
  */
 class Node {
  public:
-  template <typename CrowApp, typename... Params>
+  template <typename... Params>
   Node(CrowApp& app, EntityPrivileges&& entityPrivileges,
        std::string&& entityUrl, Params... params)
       : entityPrivileges(std::move(entityPrivileges)) {
@@ -41,6 +42,49 @@ class Node {
   }
 
   virtual ~Node() = default;
+
+  std::string getUrl() const {
+    auto odataId = json.find("@odata.id");
+    if (odataId != json.end() && odataId->is_string()) {
+      return odataId->get<std::string>();
+    }
+    return std::string();
+  }
+
+  /**
+   * @brief Inserts subroute fields into for the node's json in the form:
+   *        "subroute_name" : { "odata.id": "node_url/subroute_name/" }
+   *        Excludes metadata urls starting with "$" and child urls having
+   *        more than one level.
+   *
+   * @return  None
+   */
+  void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes) {
+    std::string url = getUrl();
+
+    for (const auto& node : allNodes) {
+      auto route = node->getUrl();
+
+      if (boost::starts_with(route, url)) {
+        auto subRoute = route.substr(url.size());
+        if (subRoute.empty()) {
+          continue;
+        }
+
+        if (subRoute.at(0) == '/') {
+          subRoute = subRoute.substr(1);
+        }
+
+        if (subRoute.at(subRoute.size() - 1) == '/') {
+          subRoute = subRoute.substr(0, subRoute.size() - 1);
+        }
+
+        if (subRoute[0] != '$' && subRoute.find('/') == std::string::npos) {
+          json[subRoute] = nlohmann::json{{"@odata.id", route}};
+        }
+      }
+    }
+  }
 
  protected:
   // Node is designed to be an abstract class, so doGet is pure virtual
@@ -65,8 +109,9 @@ class Node {
     res.end();
   }
 
+  nlohmann::json json;
+
  private:
-  template <typename CrowApp>
   void dispatchRequest(CrowApp& app, const crow::request& req,
                        crow::response& res,
                        const std::vector<std::string>& params) {
@@ -107,24 +152,4 @@ class Node {
   EntityPrivileges entityPrivileges;
 };
 
-template <typename CrowApp>
-void getRedfishSubRoutes(CrowApp& app, const std::string& url,
-                         nlohmann::json& j) {
-  std::vector<const std::string*> routes = app.get_routes(url);
-
-  for (auto route : routes) {
-    auto redfishSubRoute =
-        route->substr(url.size(), route->size() - url.size() - 1);
-
-    // Exclude: - exact matches,
-    //          - metadata urls starting with "$",
-    //          - urls at the same level
-    if (!redfishSubRoute.empty() && redfishSubRoute[0] != '$' &&
-        redfishSubRoute.find('/') == std::string::npos) {
-      j[redfishSubRoute] = nlohmann::json{{"@odata.id", *route}};
-    }
-  }
-}
-
 }  // namespace redfish
-

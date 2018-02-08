@@ -33,31 +33,29 @@ class AccountService : public Node {
   AccountService(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(accountServiceOpMap)),
              "/redfish/v1/AccountService/") {
-    nodeJson["@odata.id"] = "/redfish/v1/AccountService";
-    nodeJson["@odata.type"] = "#AccountService.v1_1_0.AccountService";
-    nodeJson["@odata.context"] =
+    Node::json["@odata.id"] = "/redfish/v1/AccountService";
+    Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
+    Node::json["@odata.context"] =
         "/redfish/v1/$metadata#AccountService.AccountService";
-    nodeJson["Id"] = "AccountService";
-    nodeJson["Description"] = "BMC User Accounts";
-    nodeJson["Name"] = "Account Service";
-    nodeJson["Status"]["State"] = "Enabled";
-    nodeJson["Status"]["Health"] = "OK";
-    nodeJson["Status"]["HealthRollup"] = "OK";
-    nodeJson["ServiceEnabled"] = true;
-    nodeJson["MinPasswordLength"] = 1;
-    nodeJson["MaxPasswordLength"] = 20;
-    nodeJson["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
-    nodeJson["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
+    Node::json["Id"] = "AccountService";
+    Node::json["Description"] = "BMC User Accounts";
+    Node::json["Name"] = "Account Service";
+    Node::json["Status"]["State"] = "Enabled";
+    Node::json["Status"]["Health"] = "OK";
+    Node::json["Status"]["HealthRollup"] = "OK";
+    Node::json["ServiceEnabled"] = true;
+    Node::json["MinPasswordLength"] = 1;
+    Node::json["MaxPasswordLength"] = 20;
+    Node::json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
+    Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
   }
 
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = nodeJson;
+    res.json_value = Node::json;
     res.end();
   }
-
-  nlohmann::json nodeJson;
 };
 
 }  // namespace redfish

@@ -19,6 +19,7 @@
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
+#include "webserver_common.hpp"
 
 namespace redfish {
 /*
@@ -33,13 +34,16 @@ class RedfishService {
    *
    * @param[in] app   Crow app on which Redfish will initialize
    */
-  template <typename CrowApp>
   RedfishService(CrowApp& app) {
     nodes.emplace_back(std::make_unique<AccountService>(app));
     nodes.emplace_back(std::make_unique<SessionCollection>(app));
     nodes.emplace_back(std::make_unique<Roles>(app));
     nodes.emplace_back(std::make_unique<RoleCollection>(app));
     nodes.emplace_back(std::make_unique<ServiceRoot>(app));
+
+    for (auto& node : nodes) {
+      node->getSubRoutes(nodes);
+    }
   }
 
  private:
