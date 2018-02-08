@@ -36,6 +36,14 @@ static OperationMap sessionCollectionOpMap = {
     {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
     {crow::HTTPMethod::POST, {{}}}};
 
+static OperationMap sessionServiceOpMap = {
+    {crow::HTTPMethod::GET, {{"Login"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+
 class SessionCollection;
 
 class Sessions : public Node {
@@ -231,6 +239,33 @@ class SessionCollection : public Node {
    * member's doGet, as they should return 100% matching data
    */
   Sessions memberSession;
+};
+
+class SessionService : public Node {
+ public:
+  SessionService(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(sessionServiceOpMap)),
+             "/redfish/v1/SessionService/") {
+    Node::json["@odata.type"] = "#SessionService.v1_0_2.SessionService";
+    Node::json["@odata.id"] = "/redfish/v1/SessionService/";
+    Node::json["@odata.context"] =
+        "/redfish/v1/$metadata#SessionService.SessionService";
+    Node::json["Name"] = "Session Service";
+    Node::json["Description"] = "Session Service";
+    Node::json["SessionTimeout"] =
+        crow::PersistentData::session_store->get_timeout_in_seconds();
+    Node::json["Status"]["State"] = "Enabled";
+    Node::json["Status"]["Health"] = "OK";
+    Node::json["Status"]["HealthRollup"] = "OK";
+    Node::json["ServiceEnabled"] = true;
+  }
+
+ private:
+  void doGet(crow::response& res, const crow::request& req,
+             const std::vector<std::string>& params) override {
+    res.json_value = Node::json;
+    res.end();
+  }
 };
 
 }  // namespace redfish
