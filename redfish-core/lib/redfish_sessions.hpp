@@ -40,14 +40,13 @@ class SessionCollection;
 
 class Sessions : public Node {
  public:
-  template <typename CrowApp>
   Sessions(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(sessionOpMap)),
              "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
-    nodeJson["@odata.type"] = "#Session.v1_0_2.Session";
-    nodeJson["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
-    nodeJson["Name"] = "User Session";
-    nodeJson["Description"] = "Manager User Session";
+    Node::json["@odata.type"] = "#Session.v1_0_2.Session";
+    Node::json["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
+    Node::json["Name"] = "User Session";
+    Node::json["Description"] = "Manager User Session";
   }
 
  private:
@@ -62,12 +61,12 @@ class Sessions : public Node {
       return;
     }
 
-    nodeJson["Id"] = session->unique_id;
-    nodeJson["UserName"] = session->username;
-    nodeJson["@odata.id"] =
+    Node::json["Id"] = session->unique_id;
+    Node::json["UserName"] = session->username;
+    Node::json["@odata.id"] =
         "/redfish/v1/SessionService/Sessions/" + session->unique_id;
 
-    res.json_value = nodeJson;
+    res.json_value = Node::json;
     res.end();
   }
 
@@ -100,25 +99,22 @@ class Sessions : public Node {
    * data for created member which should match member's doGet result in 100%
    */
   friend SessionCollection;
-
-  nlohmann::json nodeJson;
 };
 
 class SessionCollection : public Node {
  public:
-  template <typename CrowApp>
   SessionCollection(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(sessionCollectionOpMap)),
              "/redfish/v1/SessionService/Sessions/"),
         memberSession(app) {
-    nodeJson["@odata.type"] = "#SessionCollection.SessionCollection";
-    nodeJson["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
-    nodeJson["@odata.context"] =
+    Node::json["@odata.type"] = "#SessionCollection.SessionCollection";
+    Node::json["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
+    Node::json["@odata.context"] =
         "/redfish/v1/$metadata#SessionCollection.SessionCollection";
-    nodeJson["Name"] = "Session Collection";
-    nodeJson["Description"] = "Session Collection";
-    nodeJson["Members@odata.count"] = 0;
-    nodeJson["Members"] = nlohmann::json::array();
+    Node::json["Name"] = "Session Collection";
+    Node::json["Description"] = "Session Collection";
+    Node::json["Members@odata.count"] = 0;
+    Node::json["Members"] = nlohmann::json::array();
   }
 
  private:
@@ -128,14 +124,14 @@ class SessionCollection : public Node {
         crow::PersistentData::session_store->get_unique_ids(
             false, crow::PersistentData::PersistenceType::TIMEOUT);
 
-    nodeJson["Members@odata.count"] = session_ids.size();
-    nodeJson["Members"] = nlohmann::json::array();
+    Node::json["Members@odata.count"] = session_ids.size();
+    Node::json["Members"] = nlohmann::json::array();
     for (const auto& uid : session_ids) {
-      nodeJson["Members"].push_back(
+      Node::json["Members"].push_back(
           {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
     }
 
-    res.json_value = nodeJson;
+    res.json_value = Node::json;
     res.end();
   }
 
@@ -235,7 +231,6 @@ class SessionCollection : public Node {
    * member's doGet, as they should return 100% matching data
    */
   Sessions memberSession;
-  nlohmann::json nodeJson;
 };
 
 }  // namespace redfish

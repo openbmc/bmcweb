@@ -37,58 +37,52 @@ static OperationMap roleCollectionOpMap = {
 
 class Roles : public Node {
  public:
-  template <typename CrowApp>
   Roles(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(roleOpMap)),
              "/redfish/v1/AccountService/Roles/Administrator/") {
-    nodeJson["@odata.id"] = "/redfish/v1/AccountService/Roles/Administrator";
-    nodeJson["@odata.type"] = "#Role.v1_0_2.Role";
-    nodeJson["@odata.context"] = "/redfish/v1/$metadata#Role.Role";
-    nodeJson["Id"] = "Administrator";
-    nodeJson["Name"] = "User Role";
-    nodeJson["Description"] = "Administrator User Role";
-    nodeJson["IsPredefined"] = true;
-    nodeJson["AssignedPrivileges"] = {"Login", "ConfigureManager",
-                                      "ConfigureUsers", "ConfigureSelf",
-                                      "ConfigureComponents"};
-    nodeJson["OemPrivileges"] = nlohmann::json::array();
+    Node::json["@odata.id"] = "/redfish/v1/AccountService/Roles/Administrator";
+    Node::json["@odata.type"] = "#Role.v1_0_2.Role";
+    Node::json["@odata.context"] = "/redfish/v1/$metadata#Role.Role";
+    Node::json["Id"] = "Administrator";
+    Node::json["Name"] = "User Role";
+    Node::json["Description"] = "Administrator User Role";
+    Node::json["IsPredefined"] = true;
+    Node::json["AssignedPrivileges"] = {"Login", "ConfigureManager",
+                                        "ConfigureUsers", "ConfigureSelf",
+                                        "ConfigureComponents"};
+    Node::json["OemPrivileges"] = nlohmann::json::array();
   }
 
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = nodeJson;
+    res.json_value = Node::json;
     res.end();
   }
-
-  nlohmann::json nodeJson;
 };
 
 class RoleCollection : public Node {
  public:
-  template <typename CrowApp>
   RoleCollection(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(roleCollectionOpMap)),
              "/redfish/v1/AccountService/Roles/") {
-    nodeJson["@odata.id"] = "/redfish/v1/AccountService/Roles";
-    nodeJson["@odata.type"] = "#RoleCollection.RoleCollection";
-    nodeJson["@odata.context"] =
+    Node::json["@odata.id"] = "/redfish/v1/AccountService/Roles";
+    Node::json["@odata.type"] = "#RoleCollection.RoleCollection";
+    Node::json["@odata.context"] =
         "/redfish/v1/$metadata#RoleCollection.RoleCollection";
-    nodeJson["Name"] = "Roles Collection";
-    nodeJson["Description"] = "BMC User Roles";
-    nodeJson["Members@odata.count"] = 1;
-    nodeJson["Members"] = {
-        {{"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}}};
+    Node::json["Name"] = "Roles Collection";
+    Node::json["Description"] = "BMC User Roles";
+    Node::json["Members@odata.count"] = 1;
+    Node::json["Members"] = {
+        {"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}};
   }
 
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = nodeJson;
+    res.json_value = Node::json;
     res.end();
   }
-
-  nlohmann::json nodeJson;
 };
 
 }  // namespace redfish

@@ -13,6 +13,7 @@
 #include <memory>
 #include <string>
 #include "redfish.hpp"
+#include "webserver_common.hpp"
 #include <crow/app.h>
 #include <boost/asio.hpp>
 #include <systemd/sd-daemon.h>
@@ -43,10 +44,7 @@ int main(int argc, char** argv) {
   auto io = std::make_shared<boost::asio::io_service>();
   crow::PersistentData::session_store =
       std::make_shared<crow::PersistentData::SessionStore>();
-  crow::App<crow::PersistentData::Middleware,
-            crow::TokenAuthorization::Middleware,
-            crow::SecurityHeadersMiddleware>
-      app(io);
+  CrowApp app(io);
 
 #ifdef CROW_ENABLE_SSL
   std::string ssl_pem_file("server.pem");

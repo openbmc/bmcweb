@@ -29,34 +29,30 @@ static OperationMap serviceRootOpMap = {
 
 class ServiceRoot : public Node {
  public:
-  template <typename CrowApp>
   ServiceRoot(CrowApp& app)
       : Node(app, EntityPrivileges(std::move(serviceRootOpMap)),
              "/redfish/v1/") {
-    nodeJson["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
-    nodeJson["@odata.id"] = "/redfish/v1";
-    nodeJson["@odata.context"] =
+    Node::json["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
+    Node::json["@odata.id"] = "/redfish/v1/";
+    Node::json["@odata.context"] =
         "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
-    nodeJson["Id"] = "RootService";
-    nodeJson["Name"] = "Root Service";
-    nodeJson["RedfishVersion"] = "1.1.0";
-    nodeJson["Links"]["Sessions"] = {
-        {"@odata.id", "/redfish/v1/SessionService/Sessions/"}};
-    nodeJson["UUID"] =
+    Node::json["Id"] = "RootService";
+    Node::json["Name"] = "Root Service";
+    Node::json["RedfishVersion"] = "1.1.0";
+    Node::json["Links"]["Sessions"] = {
+        {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+    Node::json["UUID"] =
         app.template get_middleware<crow::PersistentData::Middleware>()
             .system_uuid;
-    getRedfishSubRoutes(app, "/redfish/v1/", nodeJson);
   }
 
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
     res.add_header("Content-Type", "application/json");
-    res.body = nodeJson.dump();
+    res.json_value = Node::json;
     res.end();
   }
-
-  nlohmann::json nodeJson;
 };
 
 }  // namespace redfish
