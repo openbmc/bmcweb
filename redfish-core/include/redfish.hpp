@@ -42,6 +42,7 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<RoleCollection>(app));
     nodes.emplace_back(std::make_unique<ServiceRoot>(app));
     nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
+    nodes.emplace_back(std::make_unique<SessionService>(app));
 
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);

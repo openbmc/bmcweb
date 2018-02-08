@@ -140,28 +140,6 @@ void request_routes(Crow<Middlewares...>& app) {
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/SessionService/")
-      .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        res.json_value = {
-            {"@odata.context",
-             "/redfish/v1/$metadata#SessionService.SessionService"},
-            {"@odata.id", "/redfish/v1/SessionService"},
-            {"@odata.type", "#SessionService.v1_1_1.SessionService"},
-            {"Id", "SessionService"},
-            {"Name", "SessionService"},
-            {"Description", "SessionService"},
-            {"Status",
-             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
-            {"ServiceEnabled", true},
-            // TODO(ed) converge with session timeouts once they exist
-            // Bogus number for now
-            {"SessionTimeout", 1800}};
-        get_redfish_sub_routes(app, "/redfish/v1/AccountService",
-                               res.json_value);
-        res.end();
-      });
-
   CROW_ROUTE(app, "/redfish/v1/Managers/")
       .methods("GET"_method)(
           [&](const crow::request& req, crow::response& res) {

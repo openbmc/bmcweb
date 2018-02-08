@@ -86,6 +86,7 @@ class Middleware;
 
 class SessionStore {
  public:
+  SessionStore() : timeout_in_minutes(60) {}
   const UserSession& generate_user_session(
       const std::string& username,
       PersistenceType persistence = PersistenceType::TIMEOUT) {
@@ -175,6 +176,9 @@ class SessionStore {
   }
 
   bool needs_write() { return need_write_; }
+  int get_timeout_in_seconds() const {
+    return std::chrono::seconds(timeout_in_minutes).count();
+  };
 
   // Persistent data middleware needs to be able to serialize our auth_tokens
   // structure, which is private
@@ -182,13 +186,13 @@ class SessionStore {
 
  private:
   void apply_session_timeouts() {
-    std::chrono::minutes timeout(60);
     auto time_now = std::chrono::steady_clock::now();
     if (time_now - last_timeout_update > std::chrono::minutes(1)) {
       last_timeout_update = time_now;
       auto auth_tokens_it = auth_tokens.begin();
       while (auth_tokens_it != auth_tokens.end()) {
-        if (time_now - auth_tokens_it->second.last_updated >= timeout) {
+        if (time_now - auth_tokens_it->second.last_updated >=
+            timeout_in_minutes) {
           auth_tokens_it = auth_tokens.erase(auth_tokens_it);
           need_write_ = true;
         } else {
@@ -201,6 +205,7 @@ class SessionStore {
   boost::container::flat_map<std::string, UserSession> auth_tokens;
   std::random_device rd;
   bool need_write_{false};
+  std::chrono::minutes timeout_in_minutes;
 };
 
 }  // namespaec PersistentData
