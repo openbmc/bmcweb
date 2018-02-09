@@ -139,59 +139,6 @@ void request_routes(Crow<Middlewares...>& app) {
                {{"@odata.id", "/redfish/v1/AccountService/Roles/NoAccess"}}}}}};
         res.end();
       });
-
-  CROW_ROUTE(app, "/redfish/v1/Managers/")
-      .methods("GET"_method)(
-          [&](const crow::request& req, crow::response& res) {
-            res.json_value = {
-                {"@odata.context",
-                 "/redfish/v1/$metadata#ManagerCollection.ManagerCollection"},
-                {"@odata.id", "/redfish/v1/Managers"},
-                {"@odata.type", "#ManagerCollection.ManagerCollection"},
-                {"Name", "Manager Collection"},
-                {"Members@odata.count", 1},
-                {"Members", {{{"@odata.id", "/redfish/v1/Managers/openbmc"}}}}};
-            res.end();
-          });
-
-  CROW_ROUTE(app, "/redfish/v1/Managers/openbmc/")
-      .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        time_t t = time(NULL);
-        tm* mytime = std::localtime(&t);
-        if (mytime == nullptr) {
-          res.code = 500;
-          res.end();
-          return;
-        }
-        std::array<char, 100> time_buffer;
-        std::size_t len = std::strftime(time_buffer.data(), time_buffer.size(),
-                                        "%FT%TZ", mytime);
-        if (len == 0) {
-          res.code = 500;
-          res.end();
-          return;
-        }
-        res.json_value = {
-            {"@odata.context", "/redfish/v1/$metadata#Manager.Manager"},
-            {"@odata.id", "/redfish/v1/Managers/openbmc"},
-            {"@odata.type", "#Manager.v1_3_0.Manager"},
-            {"Id", "openbmc"},
-            {"Name", "OpenBmc Manager"},
-            {"Description", "Baseboard Management Controller"},
-            {"UUID", app.template get_middleware<PersistentData::Middleware>()
-                         .system_uuid},
-            {"Model", "OpenBmc"},  // TODO(ed), get model
-            {"DateTime", time_buffer.data()},
-            {"Status",
-             {{"State", "Enabled"}, {"Health", "OK"}, {"HealthRollup", "OK"}}},
-            {"FirmwareVersion", "1234456789"},  // TODO(ed) get fwversion
-            {"PowerState", "On"}};
-        get_redfish_sub_routes(app, "/redfish/v1/Managers/openbmc/",
-                               res.json_value);
-        res.end();
-      });
-
 }
 }  // namespace redfish
 }  // namespace crow
