@@ -47,10 +47,36 @@ class Middleware {
       // call with exceptions disabled
       auto data = nlohmann::json::parse(persistent_file, nullptr, false);
       if (!data.is_discarded()) {
-        file_revision = data.value("revision", 0);
-        PersistentData::session_store->auth_tokens =
-            data.value("sessions", decltype(session_store->auth_tokens)());
-        system_uuid = data.value("system_uuid", "");
+        auto jRevision = data.find("revision");
+        auto jUuid = data.find("system_uuid");
+        auto jSessions = data.find("sessions");
+
+        file_revision = 0;
+        if (jRevision != data.end()) {
+          if (jRevision->is_number_integer()) {
+            file_revision = jRevision->get<int>();
+          }
+        }
+
+        system_uuid = "";
+        if (jUuid != data.end()) {
+          if (jUuid->is_string()) {
+            system_uuid = jUuid->get<std::string>();
+          }
+        }
+
+        if (jSessions != data.end()) {
+          if (jSessions->is_object()) {
+            for (const auto& elem : *jSessions) {
+              UserSession newSession;
+
+              if (newSession.fromJson(elem)) {
+                session_store->auth_tokens.emplace(newSession.unique_id,
+                                                   std::move(newSession));
+              }
+            }
+          }
+        }
       }
     }
     bool need_write = false;
