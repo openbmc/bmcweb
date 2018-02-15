@@ -28,6 +28,49 @@ struct UserSession {
   std::string csrf_token;
   std::chrono::time_point<std::chrono::steady_clock> last_updated;
   PersistenceType persistence;
+
+  /**
+   * @brief Fills object with data from UserSession's JSON representation
+   *
+   * This replaces nlohmann's from_json to ensure no-throw approach
+   *
+   * @param[in] j   JSON object from which data should be loaded
+   *
+   * @return true if data has been loaded properly, false otherwise
+   */
+  bool fromJson(const nlohmann::json& j) {
+    auto jUid = j.find("unique_id");
+    auto jToken = j.find("session_token");
+    auto jUsername = j.find("username");
+    auto jCsrf = j.find("csrf_token");
+
+    // Verify existence
+    if (jUid == j.end() || jToken == j.end() || jUsername == j.end() ||
+        jCsrf == j.end()) {
+      return false;
+    }
+
+    // Verify types
+    if (!jUid->is_string() || !jToken->is_string() || !jUsername->is_string() ||
+        !jCsrf->is_string()) {
+      return false;
+    }
+
+    unique_id = jUid->get<std::string>();
+    session_token = jToken->get<std::string>();
+    username = jUsername->get<std::string>();
+    csrf_token = jCsrf->get<std::string>();
+
+    // For now, sessions that were persisted through a reboot get their timer
+    // reset.  This could probably be overcome with a better understanding of
+    // wall clock time and steady timer time, possibly persisting values with
+    // wall clock time instead of steady timer, but the tradeoffs of all the
+    // corner cases involved are non-trivial, so this is done temporarily
+    last_updated = std::chrono::steady_clock::now();
+    persistence = PersistenceType::TIMEOUT;
+
+    return true;
+  }
 };
 
 void to_json(nlohmann::json& j, const UserSession& p) {
@@ -36,23 +79,6 @@ void to_json(nlohmann::json& j, const UserSession& p) {
                        {"session_token", p.session_token},
                        {"username", p.username},
                        {"csrf_token", p.csrf_token}};
-  }
-}
-
-void from_json(const nlohmann::json& j, UserSession& p) {
-  try {
-    p.unique_id = j.at("unique_id").get<std::string>();
-    p.session_token = j.at("session_token").get<std::string>();
-    p.username = j.at("username").get<std::string>();
-    p.csrf_token = j.at("csrf_token").get<std::string>();
-    // For now, sessions that were persisted through a reboot get their timer
-    // reset.  This could probably be overcome with a better understanding of
-    // wall clock time and steady timer time, possibly persisting values with
-    // wall clock time instead of steady timer, but the tradeoffs of all the
-    // corner cases involved are non-trivial, so this is done temporarily
-    p.last_updated = std::chrono::steady_clock::now();
-  } catch (std::out_of_range) {
-    // do nothing.  Session API incompatibility, leave sessions empty
   }
 }
 
