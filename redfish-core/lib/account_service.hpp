@@ -19,11 +19,19 @@
 
 namespace redfish {
 
+static OperationMap accountServiceOpMap = {
+    {crow::HTTPMethod::GET, {{"ConfigureUsers"}, {"ConfigureManager"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureUsers"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureUsers"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureUsers"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureUsers"}}}};
+
 class AccountService : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  AccountService(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#AccountService.v1_1_0.AccountService",
+  template <typename CrowApp>
+  AccountService(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(accountServiceOpMap)),
              "/redfish/v1/AccountService/") {
     nodeJson["@odata.id"] = "/redfish/v1/AccountService";
     nodeJson["@odata.type"] = "#AccountService.v1_1_0.AccountService";

@@ -28,11 +28,9 @@ namespace redfish {
 class Node {
  public:
   template <typename CrowApp, typename... Params>
-  Node(CrowApp& app, const PrivilegeProvider& privilegeProvider,
-       const std::string& entityType, const std::string& entityUrl,
-       Params... params)
-      : entityPrivileges(privilegeProvider.getPrivilegesRequiredByEntity(
-            entityUrl, entityType)) {
+  Node(CrowApp& app, EntityPrivileges&& entityPrivileges,
+       std::string&& entityUrl, Params... params)
+      : entityPrivileges(std::move(entityPrivileges)) {
     app.route_dynamic(entityUrl.c_str())
         .methods("GET"_method, "PATCH"_method, "POST"_method,
                  "DELETE"_method)([&](const crow::request& req,
@@ -106,7 +104,7 @@ class Node {
     return;
   }
 
-  const EntityPrivileges entityPrivileges;
+  EntityPrivileges entityPrivileges;
 };
 
 template <typename CrowApp>

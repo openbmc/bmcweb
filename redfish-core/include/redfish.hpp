@@ -35,17 +35,11 @@ class RedfishService {
    */
   template <typename CrowApp>
   RedfishService(CrowApp& app) {
-    auto privilegeProvider =
-        PrivilegeProvider("/etc/redfish.conf.d/privilege_registry.json");
-
-    nodes.emplace_back(
-        std::make_unique<AccountService>(app, privilegeProvider));
-    nodes.emplace_back(
-        std::make_unique<SessionCollection>(app, privilegeProvider));
-    nodes.emplace_back(std::make_unique<Roles>(app, privilegeProvider));
-    nodes.emplace_back(
-        std::make_unique<RoleCollection>(app, privilegeProvider));
-    nodes.emplace_back(std::make_unique<ServiceRoot>(app, privilegeProvider));
+    nodes.emplace_back(std::make_unique<AccountService>(app));
+    nodes.emplace_back(std::make_unique<SessionCollection>(app));
+    nodes.emplace_back(std::make_unique<Roles>(app));
+    nodes.emplace_back(std::make_unique<RoleCollection>(app));
+    nodes.emplace_back(std::make_unique<ServiceRoot>(app));
   }
 
  private:

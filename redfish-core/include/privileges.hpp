@@ -19,6 +19,7 @@
 #include <cstdint>
 #include "crow.h"
 #include <boost/container/flat_map.hpp>
+#include <boost/container/flat_set.hpp>
 #include <boost/optional.hpp>
 
 namespace redfish {
@@ -29,7 +30,20 @@ enum class PrivilegeType { BASE, OEM };
 
 /** @brief Max number of privileges per type  */
 constexpr const size_t MAX_PRIVILEGE_COUNT = 32;
+
 using privilegeBitset = std::bitset<MAX_PRIVILEGE_COUNT>;
+
+/** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
+static const boost::container::flat_map<std::string, size_t>
+    basePrivNameToIndexMap = {{"Login", 0},
+                              {"ConfigureManager", 1},
+                              {"ConfigureComponents", 2},
+                              {"ConfigureSelf", 3},
+                              {"ConfigureUsers", 4}};
+
+/** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
+static const boost::container::flat_map<std::string, size_t>
+    oemPrivNameToIndexMap = {};
 
 /**
  * @brief Redfish privileges
@@ -43,22 +57,35 @@ using privilegeBitset = std::bitset<MAX_PRIVILEGE_COUNT>;
  *        are represented as bitsets. Each bit in the bitset corresponds to a
  *        unique privilege name.
  *
- *        Privilege names are read from the privilege_registry.json file and
- *        stored in flat maps.
- *
  *        A bit is set if the privilege is required (entity domain) or granted
  *        (user domain) and false otherwise.
  *
- *        Bitset index to privilege name mapping depends on the order in which
- *        privileges are defined in PrivilegesUsed and OEMPrivilegesUsed arrays
- *        in the privilege_registry.json.
  */
 class Privileges {
  public:
   /**
+   * @brief Constructs object without any privileges active
+   *
+   */
+  Privileges() = default;
+
+  /**
+   * @brief Constructs object with given privileges active
+   *
+   * @param[in] privilegeList  List of privileges to be activated
+   *
+   */
+  Privileges(std::initializer_list<std::string> privilegeList) {
+    for (const auto& privilege : privilegeList) {
+      setSinglePrivilege(privilege);
+    }
+  }
+
+  /**
    * @brief Retrieves the base privileges bitset
    *
    * @return          Bitset representation of base Redfish privileges
+   *
    */
   privilegeBitset getBasePrivilegeBitset() const { return basePrivilegeBitset; }
 
@@ -66,6 +93,7 @@ class Privileges {
    * @brief Retrieves the OEM privileges bitset
    *
    * @return          Bitset representation of OEM Redfish privileges
+   *
    */
   privilegeBitset getOEMPrivilegeBitset() const { return oemPrivilegeBitset; }
 
@@ -75,6 +103,7 @@ class Privileges {
    * @param[in] privilege  Privilege to be set
    *
    * @return               None
+   *
    */
   void setSinglePrivilege(const std::string& privilege) {
     auto index = getBitsetIndexForPrivilege(privilege, PrivilegeType::BASE);
@@ -95,6 +124,7 @@ class Privileges {
    * @param[in] type    Base or OEM
    *
    * @return            Vector of active privileges
+   *
    */
   std::vector<std::string> getActivePrivilegeNames(
       const PrivilegeType type) const {
@@ -138,17 +168,89 @@ class Privileges {
   privilegeBitset basePrivilegeBitset;
   privilegeBitset oemPrivilegeBitset;
 
-  static boost::container::flat_map<std::string, size_t> basePrivNameToIndexMap;
-  static boost::container::flat_map<std::string, size_t> oemPrivNameToIndexMap;
-
   friend class PrivilegeProvider;
+};
+
+using OperationMap =
+    boost::container::flat_map<crow::HTTPMethod, std::vector<Privileges>>;
+
+/**
+ * @brief  Class used to store overrides privileges for Redfish
+ *         entities
+ *
+ */
+class EntityPrivilegesOverride {
+ protected:
+  /**
+   * @brief Constructs overrides object for given targets
+   *
+   * @param[in] operationMap Operation map to be applied for targets
+   * @param[in] targets      List of targets whOperation map to be applied for
+   * targets
+   *
+   */
+  EntityPrivilegesOverride(OperationMap&& operationMap,
+                           std::initializer_list<std::string>&& targets)
+      : operationMap(std::move(operationMap)), targets(std::move(targets)) {}
+
+  const OperationMap operationMap;
+  const boost::container::flat_set<std::string> targets;
+};
+
+class PropertyOverride : public EntityPrivilegesOverride {
+ public:
+  PropertyOverride(OperationMap&& operationMap,
+                   std::initializer_list<std::string>&& targets)
+      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
+};
+
+class SubordinateOverride : public EntityPrivilegesOverride {
+ public:
+  SubordinateOverride(OperationMap&& operationMap,
+                      std::initializer_list<std::string>&& targets)
+      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
+};
+
+class ResourceURIOverride : public EntityPrivilegesOverride {
+ public:
+  ResourceURIOverride(OperationMap&& operationMap,
+                      std::initializer_list<std::string>&& targets)
+      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
 };
 
 /**
  * @brief  Class used to store privileges for Redfish entities
+ *
  */
 class EntityPrivileges {
  public:
+  /**
+   * @brief Constructor for default case with no overrides
+   *
+   * @param[in] operationMap Operation map for the entity
+   *
+   */
+  EntityPrivileges(OperationMap&& operationMap)
+      : operationMap(std::move(operationMap)) {}
+
+  /**
+   * @brief Constructors for overrides
+   *
+   * @param[in] operationMap         Default operation map for the entity
+   * @param[in] propertyOverrides    Vector of property overrides
+   * @param[in] subordinateOverrides Vector of subordinate overrides
+   * @param[in] resourceURIOverrides Vector of resource URI overrides
+   *
+   */
+  EntityPrivileges(OperationMap&& operationMap,
+                   std::vector<PropertyOverride>&& propertyOverrides,
+                   std::vector<SubordinateOverride>&& subordinateOverrides,
+                   std::vector<ResourceURIOverride>&& resourceURIOverrides)
+      : operationMap(std::move(operationMap)),
+        propertyOverrides(std::move(propertyOverrides)),
+        subordinateOverrides(std::move(subordinateOverrides)),
+        resourceURIOverrides(std::move(resourceURIOverrides)) {}
+
   /**
    * @brief Checks if a user is allowed to call an HTTP method
    *
@@ -156,9 +258,18 @@ class EntityPrivileges {
    * @param[in] user         Username
    *
    * @return                 True if method allowed, false otherwise
+   *
    */
   bool isMethodAllowedForUser(const crow::HTTPMethod method,
-                              const std::string& user) const;
+                              const std::string& user) const {
+    // TODO: load user privileges from configuration as soon as its available
+    // now we are granting all privileges to everyone.
+    auto userPrivileges =
+        Privileges{"Login", "ConfigureManager", "ConfigureSelf",
+                   "ConfigureUsers", "ConfigureComponents"};
+
+    return isMethodAllowedWithPrivileges(method, userPrivileges);
+  }
 
   /**
    * @brief Checks if given privileges allow to call an HTTP method
@@ -167,76 +278,45 @@ class EntityPrivileges {
    * @param[in] user         Privileges
    *
    * @return                 True if method allowed, false otherwise
+   *
    */
   bool isMethodAllowedWithPrivileges(const crow::HTTPMethod method,
-                                     const Privileges& userPrivileges) const;
+                                     const Privileges& userPrivileges) const {
+    if (operationMap.find(method) == operationMap.end()) {
+      return false;
+    }
 
-  /**
-   * @brief Sets required privileges for a method on a given entity
-   *
-   * @param[in] method       HTTP method
-   * @param[in] privileges   Required privileges
-   *
-   * @return                 None
-   */
-  void addPrivilegesRequiredByMethod(const crow::HTTPMethod method,
-                                     const Privileges& privileges) {
-    methodToPrivilegeMap[method].push_back(privileges);
+    for (auto& requiredPrivileges : operationMap.at(method)) {
+      // Check if user has required base privileges
+      if (!verifyPrivileges(userPrivileges.getBasePrivilegeBitset(),
+                            requiredPrivileges.getBasePrivilegeBitset())) {
+        continue;
+      }
+
+      // Check if user has required OEM privileges
+      if (!verifyPrivileges(userPrivileges.getOEMPrivilegeBitset(),
+                            requiredPrivileges.getOEMPrivilegeBitset())) {
+        continue;
+      }
+
+      return true;
+    }
+    return false;
   }
 
  private:
   bool verifyPrivileges(const privilegeBitset userPrivilegeBitset,
-                        const privilegeBitset requiredPrivilegeBitset) const;
-
-  boost::container::flat_map<crow::HTTPMethod, std::vector<Privileges>>
-      methodToPrivilegeMap;
-};
-
-/**
- * @brief  Class used to:
- *         -  read the privilege_registry.json file
- *         -  provide EntityPrivileges objects to callers
- *
- *         To save runtime memory, object of this class should
- *         exist only for the time required to install all Nodes
- */
-class PrivilegeProvider {
- public:
-  PrivilegeProvider(const std::string& privilegeRegistryPath) {
-    // TODO: read this path from the configuration once its available
-    std::ifstream privilegeRegistryFile{privilegeRegistryPath};
-
-    if (privilegeRegistryFile.is_open()) {
-      if (!loadPrivilegesFromFile(privilegeRegistryFile)) {
-        privilegeRegistryJson.clear();
-        CROW_LOG_ERROR << "Couldn't parse privilege_registry.json";
-      }
-    } else {
-      CROW_LOG_ERROR << "Couldn't open privilege_registry.json";
-    }
+                        const privilegeBitset requiredPrivilegeBitset) const {
+    return (userPrivilegeBitset & requiredPrivilegeBitset) ==
+           requiredPrivilegeBitset;
   }
 
-  /**
-   * @brief Gets required privileges for a certain entity type
-   *
-   * @param[in] entityUrl    Entity url
-   * @param[in] entityType   Entity type
-   *
-   * @return                 EntityPrivilege object
-   */
-  EntityPrivileges getPrivilegesRequiredByEntity(
-      const std::string& entityUrl, const std::string& entityType) const;
+  OperationMap operationMap;
 
- private:
-  bool loadPrivilegesFromFile(std::ifstream& privilegeRegistryFile);
-  bool privilegeRegistryHasRequiredFields() const;
-  bool parseOperationMap(const nlohmann::json& operationMap,
-                         EntityPrivileges& entityPrivileges) const;
-  bool fillPrivilegeMap(const nlohmann::json& privilegesUsed,
-                        boost::container::flat_map<std::string, size_t>&
-                            privilegeToIndexMap) const;
-
-  nlohmann::json privilegeRegistryJson;
+  // Overrides are not implemented at the moment.
+  std::vector<PropertyOverride> propertyOverrides;
+  std::vector<SubordinateOverride> subordinateOverrides;
+  std::vector<ResourceURIOverride> resourceURIOverrides;
 };
 
 }  // namespace redfish

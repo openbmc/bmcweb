@@ -15,16 +15,31 @@
 */
 #pragma once
 
-#include <vector>
 #include "node.hpp"
 
 namespace redfish {
 
+static OperationMap roleOpMap = {
+    {crow::HTTPMethod::GET, {{"Login"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+
+static OperationMap roleCollectionOpMap = {
+    {crow::HTTPMethod::GET, {{"Login"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+
 class Roles : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  Roles(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#Role.v1_0_2.Role",
+  template <typename CrowApp>
+  Roles(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(roleOpMap)),
              "/redfish/v1/AccountService/Roles/Administrator/") {
     nodeJson["@odata.id"] = "/redfish/v1/AccountService/Roles/Administrator";
     nodeJson["@odata.type"] = "#Role.v1_0_2.Role";
@@ -51,9 +66,9 @@ class Roles : public Node {
 
 class RoleCollection : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  RoleCollection(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#RoleCollection.RoleCollection",
+  template <typename CrowApp>
+  RoleCollection(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(roleCollectionOpMap)),
              "/redfish/v1/AccountService/Roles/") {
     nodeJson["@odata.id"] = "/redfish/v1/AccountService/Roles";
     nodeJson["@odata.type"] = "#RoleCollection.RoleCollection";
