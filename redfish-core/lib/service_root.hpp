@@ -19,11 +19,20 @@
 
 namespace redfish {
 
+static OperationMap serviceRootOpMap = {
+    {crow::HTTPMethod::GET, {{}}},
+    {crow::HTTPMethod::HEAD, {{}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+
 class ServiceRoot : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  ServiceRoot(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#ServiceRoot.v1_1_1.ServiceRoot", "/redfish/v1/") {
+  template <typename CrowApp>
+  ServiceRoot(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(serviceRootOpMap)),
+             "/redfish/v1/") {
     nodeJson["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
     nodeJson["@odata.id"] = "/redfish/v1";
     nodeJson["@odata.context"] =

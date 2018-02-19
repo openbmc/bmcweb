@@ -14,19 +14,35 @@
 // limitations under the License.
 */
 #pragma once
-#include <tuple>
+
 #include "node.hpp"
 #include "session_storage_singleton.hpp"
 
 namespace redfish {
 
+static OperationMap sessionOpMap = {
+    {crow::HTTPMethod::GET, {{"Login"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+
+static OperationMap sessionCollectionOpMap = {
+    {crow::HTTPMethod::GET, {{"Login"}}},
+    {crow::HTTPMethod::HEAD, {{"Login"}}},
+    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+    {crow::HTTPMethod::POST, {{}}}};
+
 class SessionCollection;
 
 class Sessions : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  Sessions(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#Session.v1_0_2.Session",
+  template <typename CrowApp>
+  Sessions(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(sessionOpMap)),
              "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
     nodeJson["@odata.type"] = "#Session.v1_0_2.Session";
     nodeJson["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
@@ -90,11 +106,11 @@ class Sessions : public Node {
 
 class SessionCollection : public Node {
  public:
-  template <typename CrowApp, typename PrivilegeProvider>
-  SessionCollection(CrowApp& app, PrivilegeProvider& provider)
-      : Node(app, provider, "#SessionCollection.SessionCollection",
+  template <typename CrowApp>
+  SessionCollection(CrowApp& app)
+      : Node(app, EntityPrivileges(std::move(sessionCollectionOpMap)),
              "/redfish/v1/SessionService/Sessions/"),
-        memberSession(app, provider) {
+        memberSession(app) {
     nodeJson["@odata.type"] = "#SessionCollection.SessionCollection";
     nodeJson["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
     nodeJson["@odata.context"] =
@@ -127,7 +143,6 @@ class SessionCollection : public Node {
               const std::vector<std::string>& params) override {
     std::string username;
     bool userAuthSuccessful = authenticateUser(req, &res.code, &username);
-
     if (!userAuthSuccessful) {
       res.end();
       return;
