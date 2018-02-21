@@ -210,6 +210,8 @@ class Server {
                            [this, p, &is](boost::system::error_code ec) {
                              if (!ec) {
                                is.post([p] { p->start(); });
+                             } else {
+                               delete p;
                              }
                              do_accept();
                            });
