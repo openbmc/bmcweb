@@ -374,7 +374,7 @@ class Connection {
 
     if (res.body.empty() && !res.json_value.empty()) {
       res.json_mode();
-      res.body = res.json_value.dump();
+      res.body = res.json_value.dump(4);
     }
 
     if (!statusCodes.count(res.code)) {
