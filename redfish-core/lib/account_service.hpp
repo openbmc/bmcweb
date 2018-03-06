@@ -19,19 +19,11 @@
 
 namespace redfish {
 
-static OperationMap accountServiceOpMap = {
-    {crow::HTTPMethod::GET, {{"ConfigureUsers"}, {"ConfigureManager"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureUsers"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureUsers"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureUsers"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureUsers"}}}};
-
 class AccountService : public Node {
  public:
   template <typename CrowApp>
   AccountService(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(accountServiceOpMap)),
+      : Node(app,
              "/redfish/v1/AccountService/") {
     Node::json["@odata.id"] = "/redfish/v1/AccountService";
     Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
@@ -48,6 +40,14 @@ class AccountService : public Node {
     Node::json["MaxPasswordLength"] = 20;
     Node::json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
     Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
+
+    entityPrivileges = {
+        {crow::HTTPMethod::GET, {{"ConfigureUsers"}, {"ConfigureManager"}}},
+        {crow::HTTPMethod::HEAD, {{"Login"}}},
+        {crow::HTTPMethod::PATCH, {{"ConfigureUsers"}}},
+        {crow::HTTPMethod::PUT, {{"ConfigureUsers"}}},
+        {crow::HTTPMethod::DELETE, {{"ConfigureUsers"}}},
+        {crow::HTTPMethod::POST, {{"ConfigureUsers"}}}};
   }
 
  private:

@@ -19,27 +19,9 @@
 
 namespace redfish {
 
-static OperationMap managerOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
-static OperationMap managerCollectionOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
 class Manager : public Node {
  public:
-  Manager(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(managerOpMap)),
-             "/redfish/v1/Managers/openbmc/") {
+  Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/openbmc/") {
     Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc";
     Node::json["@odata.type"] = "#Manager.v1_3_0.Manager";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Manager.Manager";
@@ -55,6 +37,13 @@ class Manager : public Node {
             .system_uuid;
     Node::json["Model"] = "OpenBmc";               // TODO(ed), get model
     Node::json["FirmwareVersion"] = "1234456789";  // TODO(ed), get fwversion
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -84,9 +73,7 @@ class Manager : public Node {
 class ManagerCollection : public Node {
  public:
   ManagerCollection(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(managerCollectionOpMap)),
-             "/redfish/v1/Managers/"),
-        memberManager(app) {
+      : Node(app, "/redfish/v1/Managers/"), memberManager(app) {
     Node::json["@odata.id"] = "/redfish/v1/Managers";
     Node::json["@odata.type"] = "#ManagerCollection.ManagerCollection";
     Node::json["@odata.context"] =
@@ -94,6 +81,13 @@ class ManagerCollection : public Node {
     Node::json["Name"] = "Manager Collection";
     Node::json["Members@odata.count"] = 1;
     Node::json["Members"] = {{"@odata.id", "/redfish/v1/Managers/openbmc"}};
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:

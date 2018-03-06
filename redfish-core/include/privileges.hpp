@@ -19,12 +19,9 @@
 #include <cstdint>
 #include "crow.h"
 #include <boost/container/flat_map.hpp>
-#include <boost/container/flat_set.hpp>
 #include <boost/optional.hpp>
 
 namespace redfish {
-
-class PrivilegeProvider;
 
 enum class PrivilegeType { BASE, OEM };
 
@@ -34,16 +31,12 @@ constexpr const size_t MAX_PRIVILEGE_COUNT = 32;
 using privilegeBitset = std::bitset<MAX_PRIVILEGE_COUNT>;
 
 /** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
-static const boost::container::flat_map<std::string, size_t>
-    basePrivNameToIndexMap = {{"Login", 0},
-                              {"ConfigureManager", 1},
-                              {"ConfigureComponents", 2},
-                              {"ConfigureSelf", 3},
-                              {"ConfigureUsers", 4}};
+static const std::vector<std::string> privilegeNames{
+    "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
+    "ConfigureUsers"};
 
 /** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
-static const boost::container::flat_map<std::string, size_t>
-    oemPrivNameToIndexMap = {};
+static const std::vector<std::string> oemPrivilegeNames{};
 
 /**
  * @brief Redfish privileges
@@ -75,27 +68,14 @@ class Privileges {
    * @param[in] privilegeList  List of privileges to be activated
    *
    */
-  Privileges(std::initializer_list<std::string> privilegeList) {
-    for (const auto& privilege : privilegeList) {
-      setSinglePrivilege(privilege);
+  Privileges(std::initializer_list<const char*> privilegeList) {
+    for (const char* privilege : privilegeList) {
+      if (!setSinglePrivilege(privilege)) {
+        CROW_LOG_CRITICAL << "Unable to set privilege " << privilege
+                          << "in constructor";
+      }
     }
   }
-
-  /**
-   * @brief Retrieves the base privileges bitset
-   *
-   * @return          Bitset representation of base Redfish privileges
-   *
-   */
-  privilegeBitset getBasePrivilegeBitset() const { return basePrivilegeBitset; }
-
-  /**
-   * @brief Retrieves the OEM privileges bitset
-   *
-   * @return          Bitset representation of OEM Redfish privileges
-   *
-   */
-  privilegeBitset getOEMPrivilegeBitset() const { return oemPrivilegeBitset; }
 
   /**
    * @brief Sets given privilege in the bitset
@@ -105,17 +85,31 @@ class Privileges {
    * @return               None
    *
    */
-  void setSinglePrivilege(const std::string& privilege) {
-    auto index = getBitsetIndexForPrivilege(privilege, PrivilegeType::BASE);
-    if (index) {
-      basePrivilegeBitset.set(*index);
-      return;
+  bool setSinglePrivilege(const char* privilege) {
+    int32_t index = getBitsetIndexForPrivilege(privilege, PrivilegeType::BASE);
+    if (index >= 0) {
+      basePrivilegeBitset.set(index);
+      return true;
     }
 
     index = getBitsetIndexForPrivilege(privilege, PrivilegeType::OEM);
-    if (index) {
-      oemPrivilegeBitset.set(*index);
+    if (index >= 0) {
+      oemPrivilegeBitset.set(index);
+      return true;
     }
+    return false;
+  }
+
+  /**
+   * @brief Sets given privilege in the bitset
+   *
+   * @param[in] privilege  Privilege to be set
+   *
+   * @return               None
+   *
+   */
+  bool setSinglePrivilege(const std::string& privilege) {
+    return setSinglePrivilege(privilege.c_str());
   }
 
   /**
@@ -123,201 +117,125 @@ class Privileges {
    *
    * @param[in] type    Base or OEM
    *
-   * @return            Vector of active privileges
+   * @return            Vector of active privileges.  Pointers are valid until
+   * the privilege structure is modified
    *
    */
-  std::vector<std::string> getActivePrivilegeNames(
+  std::vector<const std::string*> getActivePrivilegeNames(
       const PrivilegeType type) const {
-    std::vector<std::string> activePrivileges;
+    std::vector<const std::string*> activePrivileges;
 
     if (type == PrivilegeType::BASE) {
-      for (const auto& pair : basePrivNameToIndexMap) {
-        if (basePrivilegeBitset.test(pair.second)) {
-          activePrivileges.emplace_back(pair.first);
+      for (std::size_t index = 0; index < privilegeNames.size(); index++) {
+        if (basePrivilegeBitset.test(index)) {
+          activePrivileges.emplace_back(&privilegeNames[index]);
         }
       }
     } else {
-      for (const auto& pair : oemPrivNameToIndexMap) {
-        if (oemPrivilegeBitset.test(pair.second)) {
-          activePrivileges.emplace_back(pair.first);
+      for (std::size_t index = 0; index < oemPrivilegeNames.size(); index++) {
+        {
+          if (oemPrivilegeBitset.test(index)) {
+            activePrivileges.emplace_back(&oemPrivilegeNames[index]);
+          }
         }
       }
     }
-
     return activePrivileges;
   }
 
+  /**
+   * @brief Determines if this Privilege set is a superset of the given
+   * privilege set
+   *
+   * @param[in] privilege  Privilege to be checked
+   *
+   * @return               None
+   *
+   */
+  bool isSupersetOf(const Privileges& p) const {
+    bool has_base =
+        (basePrivilegeBitset & p.basePrivilegeBitset) == p.basePrivilegeBitset;
+
+    bool has_oem =
+        (oemPrivilegeBitset & p.oemPrivilegeBitset) == p.oemPrivilegeBitset;
+    return has_base & has_oem;
+  }
+
  private:
-  boost::optional<size_t> getBitsetIndexForPrivilege(
-      const std::string& privilege, const PrivilegeType type) const {
+  int32_t getBitsetIndexForPrivilege(const char* privilege,
+                                     const PrivilegeType type) const {
     if (type == PrivilegeType::BASE) {
-      const auto pair = basePrivNameToIndexMap.find(privilege);
-      if (pair != basePrivNameToIndexMap.end()) {
-        return pair->second;
+      for (std::size_t index = 0; index < privilegeNames.size(); index++) {
+        if (privilege == privilegeNames[index]) {
+          return index;
+        }
       }
     } else {
-      const auto pair = oemPrivNameToIndexMap.find(privilege);
-      if (pair != oemPrivNameToIndexMap.end()) {
-        return pair->second;
+      for (std::size_t index = 0; index < oemPrivilegeNames.size(); index++) {
+        if (privilege == oemPrivilegeNames[index]) {
+          return index;
+        }
       }
     }
 
-    return boost::none;
+    return -1;
   }
 
-  privilegeBitset basePrivilegeBitset;
-  privilegeBitset oemPrivilegeBitset;
-
-  friend class PrivilegeProvider;
+  privilegeBitset basePrivilegeBitset = 0;
+  privilegeBitset oemPrivilegeBitset = 0;
 };
 
 using OperationMap =
     boost::container::flat_map<crow::HTTPMethod, std::vector<Privileges>>;
 
 /**
- * @brief  Class used to store overrides privileges for Redfish
- *         entities
+ * @brief Checks if given privileges allow to call an HTTP method
+ *
+ * @param[in] method       HTTP method
+ * @param[in] user         Privileges
+ *
+ * @return                 True if method allowed, false otherwise
  *
  */
-class EntityPrivilegesOverride {
- protected:
-  /**
-   * @brief Constructs overrides object for given targets
-   *
-   * @param[in] operationMap Operation map to be applied for targets
-   * @param[in] targets      List of targets whOperation map to be applied for
-   * targets
-   *
-   */
-  EntityPrivilegesOverride(OperationMap&& operationMap,
-                           std::initializer_list<std::string>&& targets)
-      : operationMap(std::move(operationMap)), targets(std::move(targets)) {}
-
-  const OperationMap operationMap;
-  const boost::container::flat_set<std::string> targets;
-};
-
-class PropertyOverride : public EntityPrivilegesOverride {
- public:
-  PropertyOverride(OperationMap&& operationMap,
-                   std::initializer_list<std::string>&& targets)
-      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
-};
-
-class SubordinateOverride : public EntityPrivilegesOverride {
- public:
-  SubordinateOverride(OperationMap&& operationMap,
-                      std::initializer_list<std::string>&& targets)
-      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
-};
-
-class ResourceURIOverride : public EntityPrivilegesOverride {
- public:
-  ResourceURIOverride(OperationMap&& operationMap,
-                      std::initializer_list<std::string>&& targets)
-      : EntityPrivilegesOverride(std::move(operationMap), std::move(targets)) {}
-};
-
-/**
- * @brief  Class used to store privileges for Redfish entities
- *
- */
-class EntityPrivileges {
- public:
-  /**
-   * @brief Constructor for default case with no overrides
-   *
-   * @param[in] operationMap Operation map for the entity
-   *
-   */
-  EntityPrivileges(OperationMap&& operationMap)
-      : operationMap(std::move(operationMap)) {}
-
-  /**
-   * @brief Constructors for overrides
-   *
-   * @param[in] operationMap         Default operation map for the entity
-   * @param[in] propertyOverrides    Vector of property overrides
-   * @param[in] subordinateOverrides Vector of subordinate overrides
-   * @param[in] resourceURIOverrides Vector of resource URI overrides
-   *
-   */
-  EntityPrivileges(OperationMap&& operationMap,
-                   std::vector<PropertyOverride>&& propertyOverrides,
-                   std::vector<SubordinateOverride>&& subordinateOverrides,
-                   std::vector<ResourceURIOverride>&& resourceURIOverrides)
-      : operationMap(std::move(operationMap)),
-        propertyOverrides(std::move(propertyOverrides)),
-        subordinateOverrides(std::move(subordinateOverrides)),
-        resourceURIOverrides(std::move(resourceURIOverrides)) {}
-
-  /**
-   * @brief Checks if a user is allowed to call an HTTP method
-   *
-   * @param[in] method       HTTP method
-   * @param[in] user         Username
-   *
-   * @return                 True if method allowed, false otherwise
-   *
-   */
-  bool isMethodAllowedForUser(const crow::HTTPMethod method,
-                              const std::string& user) const {
-    // TODO: load user privileges from configuration as soon as its available
-    // now we are granting all privileges to everyone.
-    auto userPrivileges =
-        Privileges{"Login", "ConfigureManager", "ConfigureSelf",
-                   "ConfigureUsers", "ConfigureComponents"};
-
-    return isMethodAllowedWithPrivileges(method, userPrivileges);
-  }
-
-  /**
-   * @brief Checks if given privileges allow to call an HTTP method
-   *
-   * @param[in] method       HTTP method
-   * @param[in] user         Privileges
-   *
-   * @return                 True if method allowed, false otherwise
-   *
-   */
-  bool isMethodAllowedWithPrivileges(const crow::HTTPMethod method,
-                                     const Privileges& userPrivileges) const {
-    if (operationMap.find(method) == operationMap.end()) {
-      return false;
-    }
-
-    for (auto& requiredPrivileges : operationMap.at(method)) {
-      // Check if user has required base privileges
-      if (!verifyPrivileges(userPrivileges.getBasePrivilegeBitset(),
-                            requiredPrivileges.getBasePrivilegeBitset())) {
-        continue;
-      }
-
-      // Check if user has required OEM privileges
-      if (!verifyPrivileges(userPrivileges.getOEMPrivilegeBitset(),
-                            requiredPrivileges.getOEMPrivilegeBitset())) {
-        continue;
-      }
-
-      return true;
-    }
+inline bool isMethodAllowedWithPrivileges(const crow::HTTPMethod method,
+                                          const OperationMap& operationMap,
+                                          const Privileges& userPrivileges) {
+  const auto& it = operationMap.find(method);
+  if (it == operationMap.end()) {
     return false;
   }
 
- private:
-  bool verifyPrivileges(const privilegeBitset userPrivilegeBitset,
-                        const privilegeBitset requiredPrivilegeBitset) const {
-    return (userPrivilegeBitset & requiredPrivilegeBitset) ==
-           requiredPrivilegeBitset;
+  // If there are no privileges assigned, assume no privileges required
+  if (it->second.empty()) {
+    return true;
   }
 
-  OperationMap operationMap;
+  for (auto& requiredPrivileges : it->second) {
+    if (userPrivileges.isSupersetOf(requiredPrivileges)) {
+      return true;
+    }
+  }
+  return false;
+}
 
-  // Overrides are not implemented at the moment.
-  std::vector<PropertyOverride> propertyOverrides;
-  std::vector<SubordinateOverride> subordinateOverrides;
-  std::vector<ResourceURIOverride> resourceURIOverrides;
-};
+/**
+ * @brief Checks if a user is allowed to call an HTTP method
+ *
+ * @param[in] method       HTTP method
+ * @param[in] user         Username
+ *
+ * @return                 True if method allowed, false otherwise
+ *
+ */
+inline bool isMethodAllowedForUser(const crow::HTTPMethod method,
+                                   const OperationMap& operationMap,
+                                   const std::string& user) {
+  // TODO: load user privileges from configuration as soon as its available
+  // now we are granting all privileges to everyone.
+  Privileges userPrivileges{"Login", "ConfigureManager", "ConfigureSelf",
+                            "ConfigureUsers", "ConfigureComponents"};
+
+  return isMethodAllowedWithPrivileges(method, operationMap, userPrivileges);
+}
 
 }  // namespace redfish
-

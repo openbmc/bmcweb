@@ -19,27 +19,10 @@
 
 namespace redfish {
 
-static OperationMap roleOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
-static OperationMap roleCollectionOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
 class Roles : public Node {
  public:
   Roles(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(roleOpMap)),
-             "/redfish/v1/AccountService/Roles/Administrator/") {
+      : Node(app, "/redfish/v1/AccountService/Roles/Administrator/") {
     Node::json["@odata.id"] = "/redfish/v1/AccountService/Roles/Administrator";
     Node::json["@odata.type"] = "#Role.v1_0_2.Role";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Role.Role";
@@ -51,6 +34,12 @@ class Roles : public Node {
                                         "ConfigureUsers", "ConfigureSelf",
                                         "ConfigureComponents"};
     Node::json["OemPrivileges"] = nlohmann::json::array();
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -64,8 +53,7 @@ class Roles : public Node {
 class RoleCollection : public Node {
  public:
   RoleCollection(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(roleCollectionOpMap)),
-             "/redfish/v1/AccountService/Roles/") {
+      : Node(app, "/redfish/v1/AccountService/Roles/") {
     Node::json["@odata.id"] = "/redfish/v1/AccountService/Roles";
     Node::json["@odata.type"] = "#RoleCollection.RoleCollection";
     Node::json["@odata.context"] =
@@ -75,6 +63,13 @@ class RoleCollection : public Node {
     Node::json["Members@odata.count"] = 1;
     Node::json["Members"] = {
         {"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}};
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:

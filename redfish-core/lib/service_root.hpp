@@ -19,19 +19,9 @@
 
 namespace redfish {
 
-static OperationMap serviceRootOpMap = {
-    {crow::HTTPMethod::GET, {{}}},
-    {crow::HTTPMethod::HEAD, {{}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
-
 class ServiceRoot : public Node {
  public:
-  ServiceRoot(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(serviceRootOpMap)),
-             "/redfish/v1/") {
+  ServiceRoot(CrowApp& app) : Node(app, "/redfish/v1/") {
     Node::json["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
     Node::json["@odata.id"] = "/redfish/v1/";
     Node::json["@odata.context"] =
@@ -44,6 +34,13 @@ class ServiceRoot : public Node {
     Node::json["UUID"] =
         app.template get_middleware<crow::PersistentData::Middleware>()
             .system_uuid;
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {}},
+                        {crow::HTTPMethod::HEAD, {}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
   }
 
  private:

@@ -19,18 +19,10 @@
 
 namespace redfish {
 
-static OperationMap managerNetworkProtocolOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
 class NetworkProtocol : public Node {
  public:
   NetworkProtocol(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(managerNetworkProtocolOpMap)),
+      : Node(app,
              "/redfish/v1/Managers/openbmc/NetworkProtocol") {
     Node::json["@odata.type"] =
         "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
@@ -43,6 +35,13 @@ class NetworkProtocol : public Node {
     Node::json["Status"]["Health"] = "OK";
     Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["Status"]["State"] = "Enabled";
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:
