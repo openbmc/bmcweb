@@ -17,6 +17,7 @@
 
 #include <bitset>
 #include <cstdint>
+#include <vector>
 #include "crow.h"
 #include <boost/container/flat_map.hpp>
 #include <boost/optional.hpp>
@@ -25,18 +26,19 @@ namespace redfish {
 
 enum class PrivilegeType { BASE, OEM };
 
-/** @brief Max number of privileges per type  */
-constexpr const size_t MAX_PRIVILEGE_COUNT = 32;
-
-using privilegeBitset = std::bitset<MAX_PRIVILEGE_COUNT>;
-
-/** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
-static const std::vector<std::string> privilegeNames{
+/** @brief A fixed array of compile time privileges  */
+constexpr std::array<const char*, 5> basePrivileges{
     "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
     "ConfigureUsers"};
 
-/** @brief Number of mappings must be <= MAX_PRIVILEGE_COUNT */
-static const std::vector<std::string> oemPrivilegeNames{};
+constexpr const int basePrivilegeCount = basePrivileges.size();
+
+/** @brief Max number of privileges per type  */
+constexpr const int MAX_PRIVILEGE_COUNT = 32;
+
+/** @brief A vector of all privilege names and their indexes */
+static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
+                                                     basePrivileges.end()};
 
 /**
  * @brief Redfish privileges
@@ -86,17 +88,14 @@ class Privileges {
    *
    */
   bool setSinglePrivilege(const char* privilege) {
-    int32_t index = getBitsetIndexForPrivilege(privilege, PrivilegeType::BASE);
-    if (index >= 0) {
-      basePrivilegeBitset.set(index);
-      return true;
+    for (int search_index = 0; search_index < privilegeNames.size();
+         search_index++) {
+      if (privilege == privilegeNames[search_index]) {
+        privilegeBitset.set(search_index);
+        return true;
+      }
     }
 
-    index = getBitsetIndexForPrivilege(privilege, PrivilegeType::OEM);
-    if (index >= 0) {
-      oemPrivilegeBitset.set(index);
-      return true;
-    }
     return false;
   }
 
@@ -118,28 +117,26 @@ class Privileges {
    * @param[in] type    Base or OEM
    *
    * @return            Vector of active privileges.  Pointers are valid until
-   * the privilege structure is modified
+   * the setSinglePrivilege is called, or the Privilege structure is destroyed
    *
    */
   std::vector<const std::string*> getActivePrivilegeNames(
       const PrivilegeType type) const {
     std::vector<const std::string*> activePrivileges;
 
-    if (type == PrivilegeType::BASE) {
-      for (std::size_t index = 0; index < privilegeNames.size(); index++) {
-        if (basePrivilegeBitset.test(index)) {
-          activePrivileges.emplace_back(&privilegeNames[index]);
-        }
-      }
-    } else {
-      for (std::size_t index = 0; index < oemPrivilegeNames.size(); index++) {
-        {
-          if (oemPrivilegeBitset.test(index)) {
-            activePrivileges.emplace_back(&oemPrivilegeNames[index]);
-          }
-        }
+    int search_index = 0;
+    int end_index = basePrivilegeCount;
+    if (type == PrivilegeType::OEM) {
+      search_index = basePrivilegeCount - 1;
+      end_index = privilegeNames.size();
+    }
+
+    for (; search_index < end_index; search_index++) {
+      if (privilegeBitset.test(search_index)) {
+        activePrivileges.emplace_back(&privilegeNames[search_index]);
       }
     }
+
     return activePrivileges;
   }
 
@@ -153,36 +150,11 @@ class Privileges {
    *
    */
   bool isSupersetOf(const Privileges& p) const {
-    bool has_base =
-        (basePrivilegeBitset & p.basePrivilegeBitset) == p.basePrivilegeBitset;
-
-    bool has_oem =
-        (oemPrivilegeBitset & p.oemPrivilegeBitset) == p.oemPrivilegeBitset;
-    return has_base & has_oem;
+    return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
   }
 
  private:
-  int32_t getBitsetIndexForPrivilege(const char* privilege,
-                                     const PrivilegeType type) const {
-    if (type == PrivilegeType::BASE) {
-      for (std::size_t index = 0; index < privilegeNames.size(); index++) {
-        if (privilege == privilegeNames[index]) {
-          return index;
-        }
-      }
-    } else {
-      for (std::size_t index = 0; index < oemPrivilegeNames.size(); index++) {
-        if (privilege == oemPrivilegeNames[index]) {
-          return index;
-        }
-      }
-    }
-
-    return -1;
-  }
-
-  privilegeBitset basePrivilegeBitset = 0;
-  privilegeBitset oemPrivilegeBitset = 0;
+  std::bitset<MAX_PRIVILEGE_COUNT> privilegeBitset = 0;
 };
 
 using OperationMap =
