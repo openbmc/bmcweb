@@ -20,41 +20,23 @@
 
 namespace redfish {
 
-static OperationMap sessionOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
-static OperationMap sessionCollectionOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{}}}};
-
-static OperationMap sessionServiceOpMap = {
-    {crow::HTTPMethod::GET, {{"Login"}}},
-    {crow::HTTPMethod::HEAD, {{"Login"}}},
-    {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-    {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
-
 class SessionCollection;
 
 class Sessions : public Node {
  public:
   Sessions(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(sessionOpMap)),
-             "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
+      : Node(app, "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
     Node::json["@odata.type"] = "#Session.v1_0_2.Session";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
     Node::json["Name"] = "User Session";
     Node::json["Description"] = "Manager User Session";
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -112,9 +94,7 @@ class Sessions : public Node {
 class SessionCollection : public Node {
  public:
   SessionCollection(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(sessionCollectionOpMap)),
-             "/redfish/v1/SessionService/Sessions/"),
-        memberSession(app) {
+      : Node(app, "/redfish/v1/SessionService/Sessions/"), memberSession(app) {
     Node::json["@odata.type"] = "#SessionCollection.SessionCollection";
     Node::json["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
     Node::json["@odata.context"] =
@@ -123,6 +103,13 @@ class SessionCollection : public Node {
     Node::json["Description"] = "Session Collection";
     Node::json["Members@odata.count"] = 0;
     Node::json["Members"] = nlohmann::json::array();
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {}}};
   }
 
  private:
@@ -243,9 +230,7 @@ class SessionCollection : public Node {
 
 class SessionService : public Node {
  public:
-  SessionService(CrowApp& app)
-      : Node(app, EntityPrivileges(std::move(sessionServiceOpMap)),
-             "/redfish/v1/SessionService/") {
+  SessionService(CrowApp& app) : Node(app, "/redfish/v1/SessionService/") {
     Node::json["@odata.type"] = "#SessionService.v1_0_2.SessionService";
     Node::json["@odata.id"] = "/redfish/v1/SessionService/";
     Node::json["@odata.context"] =
@@ -258,6 +243,13 @@ class SessionService : public Node {
     Node::json["Status"]["Health"] = "OK";
     Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["ServiceEnabled"] = true;
+
+    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
+                        {crow::HTTPMethod::HEAD, {{"Login"}}},
+                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
+                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
   }
 
  private:

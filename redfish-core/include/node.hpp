@@ -29,9 +29,7 @@ namespace redfish {
 class Node {
  public:
   template <typename... Params>
-  Node(CrowApp& app, EntityPrivileges&& entityPrivileges,
-       std::string&& entityUrl, Params... params)
-      : entityPrivileges(std::move(entityPrivileges)) {
+  Node(CrowApp& app, std::string&& entityUrl, Params... params) {
     app.route_dynamic(entityUrl.c_str())
         .methods("GET"_method, "PATCH"_method, "POST"_method,
                  "DELETE"_method)([&](const crow::request& req,
@@ -86,6 +84,8 @@ class Node {
     }
   }
 
+  OperationMap entityPrivileges;
+
  protected:
   // Node is designed to be an abstract class, so doGet is pure virtual
   virtual void doGet(crow::response& res, const crow::request& req,
@@ -118,8 +118,8 @@ class Node {
     auto ctx =
         app.template get_context<crow::TokenAuthorization::Middleware>(req);
 
-    if (!entityPrivileges.isMethodAllowedForUser(req.method,
-                                                 ctx.session->username)) {
+    if (!isMethodAllowedForUser(req.method, entityPrivileges,
+                                ctx.session->username)) {
       res.code = static_cast<int>(HttpRespCode::METHOD_NOT_ALLOWED);
       res.end();
       return;
@@ -148,8 +148,6 @@ class Node {
     }
     return;
   }
-
-  EntityPrivileges entityPrivileges;
 };
 
 }  // namespace redfish

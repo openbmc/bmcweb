@@ -7,134 +7,108 @@
 using namespace redfish;
 
 TEST(PrivilegeTest, PrivilegeConstructor) {
-  Privileges privileges = {"Login", "ConfigureManager"};
+  Privileges privileges{"Login", "ConfigureManager"};
 
-  auto activePrivileges =
-      privileges.getActivePrivilegeNames(PrivilegeType::BASE);
-  std::vector<std::string> expectedPrivileges{"Login", "ConfigureManager"};
-
-  std::sort(expectedPrivileges.begin(), expectedPrivileges.end());
-  std::sort(activePrivileges.begin(), activePrivileges.end());
-
-  EXPECT_EQ(expectedPrivileges, activePrivileges);
+  EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
+              ::testing::UnorderedElementsAre(
+                  ::testing::Pointee(&"Login"[0]),
+                  ::testing::Pointee(&"ConfigureManager"[0])));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired) {
-  auto userPrivileges = Privileges{"Login"};
-  OperationMap operationMap = {{crow::HTTPMethod::GET, {{}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
+  Privileges userPrivileges{"Login"};
 
-  EXPECT_TRUE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  OperationMap entityPrivileges{{crow::HTTPMethod::GET, {{"Login"}}}};
+
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                            entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess) {
   auto userPrivileges = Privileges{"Login"};
-  OperationMap operationMap = {{crow::HTTPMethod::GET, {{"Login"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
+  OperationMap entityPrivileges{{crow::HTTPMethod::GET, {}}};
 
-  EXPECT_TRUE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                            entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure) {
   auto userPrivileges = Privileges{"Login"};
-  OperationMap operationMap = {{crow::HTTPMethod::GET, {{"ConfigureManager"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
+  OperationMap entityPrivileges{
+      {crow::HTTPMethod::GET, {{"ConfigureManager"}}}};
 
-  EXPECT_FALSE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess) {
   auto userPrivileges =
       Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
-  OperationMap operationMap = {
+  OperationMap entityPrivileges{
       {crow::HTTPMethod::GET,
        {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
 
-  EXPECT_TRUE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                            entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure) {
   auto userPrivileges = Privileges{"Login", "ConfigureManager"};
-  OperationMap operationMap = {
+  OperationMap entityPrivileges{
       {crow::HTTPMethod::GET,
        {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
 
-  EXPECT_FALSE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess) {
   auto userPrivileges = Privileges{"ConfigureManager"};
-  OperationMap operationMap = {
+  OperationMap entityPrivileges{
       {crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
 
-  EXPECT_TRUE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                            entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseFailure) {
   auto userPrivileges = Privileges{"ConfigureComponents"};
-  OperationMap operationMap = {
-      {crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}};
-  auto entityPrivileges = EntityPrivileges(std::move(operationMap));
+  OperationMap entityPrivileges = OperationMap(
+      {{crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}});
 
-  EXPECT_FALSE(entityPrivileges.isMethodAllowedWithPrivileges(
-      crow::HTTPMethod::GET, userPrivileges));
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, DefaultPrivilegeBitsetsAreEmpty) {
   Privileges privileges;
-  EXPECT_TRUE(privileges.getBasePrivilegeBitset() == 0);
-  EXPECT_TRUE(privileges.getOEMPrivilegeBitset() == 0);
-}
 
-TEST(PrivilegeTest, UniqueBitsAssignedForAllPrivilegeNames) {
-  Privileges privileges;
-  std::vector<std::string> expectedPrivileges{
-      "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
-      "ConfigureSelf"};
+  EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
+              ::testing::IsEmpty());
 
-  for (const auto& privilege : expectedPrivileges) {
-    privileges.setSinglePrivilege(privilege);
-  }
-
-  EXPECT_EQ(privileges.getBasePrivilegeBitset().count(),
-            expectedPrivileges.size());
+  EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::OEM),
+              ::testing::IsEmpty());
 }
 
 TEST(PrivilegeTest, GetActivePrivilegeNames) {
   Privileges privileges;
 
-  EXPECT_EQ(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
-            std::vector<std::string>());
+  EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
+              ::testing::IsEmpty());
 
-  std::vector<std::string> expectedPrivileges{
+  std::array<const char*, 5> expectedPrivileges{
       "Login", "ConfigureManager", "ConfigureUsers", "ConfigureComponents",
       "ConfigureSelf"};
 
   for (const auto& privilege : expectedPrivileges) {
-    privileges.setSinglePrivilege(privilege);
+    EXPECT_TRUE(privileges.setSinglePrivilege(privilege));
   }
 
-  std::vector<std::string> activePrivileges =
-      privileges.getActivePrivilegeNames(PrivilegeType::BASE);
-
-  std::sort(expectedPrivileges.begin(), expectedPrivileges.end());
-  std::sort(activePrivileges.begin(), activePrivileges.end());
-
-  EXPECT_EQ(activePrivileges, expectedPrivileges);
-}
-
-TEST(PrivilegeTest, PropertyOverrideConstructor) {
-  OperationMap operationMap = {
-      {crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}};
-  PropertyOverride propertyOverride(std::move(operationMap),
-                                    {"Password", "Id"});
+  EXPECT_THAT(privileges.getActivePrivilegeNames(PrivilegeType::BASE),
+              ::testing::UnorderedElementsAre(
+                  ::testing::Pointee(expectedPrivileges[0]),
+                  ::testing::Pointee(expectedPrivileges[1]),
+                  ::testing::Pointee(expectedPrivileges[2]),
+                  ::testing::Pointee(expectedPrivileges[3]),
+                  ::testing::Pointee(expectedPrivileges[4])));
 }
