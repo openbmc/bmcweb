@@ -199,13 +199,17 @@ void request_routes(Crow<Middlewares...>& app) {
           content_type = content_type_it->second;
           boost::algorithm::to_lower(content_type);
         }
-        std::string username;
-        std::string password;
+        const std::string* username;
+        const std::string* password;
         bool looks_like_ibm = false;
+
+
+        // This object needs to be declared at this scope so the strings within
+        // it are not destroyed before we can use them
+        nlohmann::json login_credentials;
         // Check if auth was provided by a payload
         if (content_type == "application/json") {
-          auto login_credentials =
-              nlohmann::json::parse(req.body, nullptr, false);
+          login_credentials = nlohmann::json::parse(req.body, nullptr, false);
           if (login_credentials.is_discarded()) {
             res.code = 400;
             res.end();
@@ -217,8 +221,8 @@ void request_routes(Crow<Middlewares...>& app) {
           auto pass_it = login_credentials.find("password");
           if (user_it != login_credentials.end() &&
               pass_it != login_credentials.end()) {
-            username = user_it->get<const std::string>();
-            password = pass_it->get<const std::string>();
+            username = user_it->get_ptr<const std::string*>();
+            password = pass_it->get_ptr<const std::string*>();
           } else {
             // Openbmc appears to push a data object that contains the same
             // keys (username and password), attempt to use that
@@ -228,16 +232,16 @@ void request_routes(Crow<Middlewares...>& app) {
               // "password"]
               if (data_it->is_array()) {
                 if (data_it->size() == 2) {
-                  username = (*data_it)[0].get<const std::string>();
-                  password = (*data_it)[1].get<const std::string>();
+                  username = (*data_it)[0].get_ptr<const std::string*>();
+                  password = (*data_it)[1].get_ptr<const std::string*>();
                   looks_like_ibm = true;
                 }
               } else if (data_it->is_object()) {
                 auto user_it = data_it->find("username");
                 auto pass_it = data_it->find("password");
                 if (user_it != data_it->end() && pass_it != data_it->end()) {
-                  username = user_it->get<const std::string>();
-                  password = pass_it->get<const std::string>();
+                  username = user_it->get_ptr<const std::string*>();
+                  password = pass_it->get_ptr<const std::string*>();
                 }
               }
             }
@@ -247,23 +251,24 @@ void request_routes(Crow<Middlewares...>& app) {
           auto user_it = req.headers.find("username");
           auto pass_it = req.headers.find("password");
           if (user_it != req.headers.end() && pass_it != req.headers.end()) {
-            username = user_it->second;
-            password = pass_it->second;
+            username = &user_it->second;
+            password = &pass_it->second;
           }
         }
 
-        if (!username.empty() && !password.empty()) {
-          if (!pam_authenticate_user(username, password)) {
+        if (username != nullptr && !username->empty() && password != nullptr &&
+            !password->empty()) {
+          if (!pam_authenticate_user(*username, *password)) {
             res.code = res.code = static_cast<int>(HttpRespCode::UNAUTHORIZED);
           } else {
             auto& session =
-                PersistentData::session_store->generate_user_session(username);
+                PersistentData::session_store->generate_user_session(*username);
 
             if (looks_like_ibm) {
               // IBM requires a very specific login structure, and doesn't
               // actually look at the status code.  TODO(ed).... Fix that
               // upstream
-              nlohmann::json ret{{"data", "User '" + username + "' logged in"},
+              nlohmann::json ret{{"data", "User '" + *username + "' logged in"},
                                  {"message", "200 OK"},
                                  {"status", "ok"}};
               res.add_header("Set-Cookie", "XSRF-TOKEN=" + session.csrf_token);
@@ -301,5 +306,5 @@ void request_routes(Crow<Middlewares...>& app) {
 
           });
 }
-}  // namespaec TokenAuthorization
+}  // namespace TokenAuthorization
 }  // namespace crow
