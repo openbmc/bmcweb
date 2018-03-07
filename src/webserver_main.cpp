@@ -6,6 +6,7 @@
 #include <persistent_data_middleware.hpp>
 #include <redfish_v1.hpp>
 #include <security_headers_middleware.hpp>
+#include <sensor_monitor.hpp>
 #include <ssl_key_handler.hpp>
 #include <token_authorization_middleware.hpp>
 #include <web_kvm.hpp>
@@ -65,6 +66,7 @@ int main(int argc, char** argv) {
   crow::kvm::request_routes(app);
   crow::redfish::request_routes(app);
   crow::dbus_monitor::request_routes(app);
+  crow::sensor_monitor::request_routes(app);
   crow::intel_oem::request_routes(app);
   crow::openbmc_mapper::request_routes(app);
 
