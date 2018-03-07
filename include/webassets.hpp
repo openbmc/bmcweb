@@ -4,10 +4,10 @@
 #include <fstream>
 #include <string>
 #include <crow/app.h>
+#include <crow/http_codes.h>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 #include <crow/routing.h>
-#include <crow/http_codes.h>
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/container/flat_set.hpp>
 
@@ -44,12 +44,13 @@ void request_routes(Crow<Middlewares...>& app) {
            // browser to show as text
            // https://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-javascript-source-map-files
            {".map", "application/json"}}};
-  auto rootpath = filesystem::path("/usr/share/www/");
-  auto dir_iter = filesystem::recursive_directory_iterator(rootpath);
-  for (auto& dir : dir_iter) {
-    auto absolute_path = dir.path();
-    auto relative_path = filesystem::path(
-        absolute_path.string().substr(rootpath.string().size() - 1));
+  filesystem::path rootpath{"/usr/share/www/"};
+  filesystem::recursive_directory_iterator dir_iter(rootpath);
+
+  for (const filesystem::directory_entry& dir : dir_iter) {
+    filesystem::path absolute_path = dir.path();
+    filesystem::path relative_path{
+        absolute_path.string().substr(rootpath.string().size() - 1)};
     // make sure we don't recurse into certain directories
     // note: maybe check for is_directory() here as well...
 
@@ -61,47 +62,35 @@ void request_routes(Crow<Middlewares...>& app) {
       }
     } else if (filesystem::is_regular_file(dir)) {
       std::string extension = relative_path.extension();
-      auto webpath = relative_path;
+      filesystem::path webpath = relative_path;
       const char* content_encoding = nullptr;
-      bool is_gzip = false;
-
-      if (webpath.filename() == "$metadata") {
-        // TODO, this endpoint should really be generated based on the redfish
-        // data.  Once that is done, remove the type hardcode.
-        extension = ".xml";
-      }
 
       if (extension == ".gz") {
         webpath = webpath.replace_extension("");
         // Use the non-gzip version for determining content type
         extension = webpath.extension().string();
         content_encoding = "gzip";
-        is_gzip = true;
       }
 
-      if (webpath.filename() == "index.html") {
+      if (boost::starts_with(webpath.filename().string(), "index.")) {
         webpath = webpath.parent_path();
-        if (webpath.string() != "/") {
+        if (webpath.string().size() == 0 || webpath.string().back() != '/') {
           webpath += "/";
         }
       }
 
-      routes.insert(webpath.string());
-
+      routes.insert(webpath);
       const char* content_type = nullptr;
 
-      // if the filename has an extension, look up the type
-      if (extension != "") {
-        auto content_type_it = content_types.find(extension.c_str());
-
-        if (content_type_it == content_types.end()) {
-          CROW_LOG_ERROR << "Cannot determine content-type for " << webpath;
-          continue;
-        }
+      auto content_type_it = content_types.find(extension.c_str());
+      if (content_type_it == content_types.end()) {
+        CROW_LOG_ERROR << "Cannot determine content-type for " << webpath
+                       << " with extension " << extension;
+      } else {
         content_type = content_type_it->second;
       }
 
-      app.route_dynamic(webpath.string())(
+      app.route_dynamic(webpath)(
           [absolute_path, content_type, content_encoding](
               const crow::request& req, crow::response& res) {
             if (content_type != nullptr) {
@@ -116,7 +105,7 @@ void request_routes(Crow<Middlewares...>& app) {
             std::ifstream inf(absolute_path);
             if (!inf) {
               CROW_LOG_DEBUG << "failed to read file";
-	      res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+              res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
               res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
               res.end();
               return;

@@ -226,20 +226,20 @@
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EventDestinationCollection_v1.xml">
         <edmx:Include Namespace="EventDestinationCollection"/>
-    </edmx:Reference> 
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/EventDestination_v1.xml">
         <edmx:Include Namespace="EventDestination"/>
         <edmx:Include Namespace="EventDestination.v1_0_3"/>
         <edmx:Include Namespace="EventDestination.v1_1_1"/>
-    </edmx:Reference> 
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Event_v1.xml">
         <edmx:Include Namespace="Event"/>
         <edmx:Include Namespace="Event.v1_0_4"/>
         <edmx:Include Namespace="Event.v1_1_2"/>
-    </edmx:Reference> 
+    </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Service">
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>
         </Schema>
     </edmx:DataServices>
-</edmx:Edmx>)
+</edmx:Edmx>
