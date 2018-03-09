@@ -51,34 +51,6 @@ void request_routes(Crow<Middlewares...>& app) {
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/Chassis/")
-      .methods("GET"_method)(
-          [&](const crow::request& req, crow::response& res) {
-            std::vector<std::string> entities;
-            /*std::ifstream f("~/system.json");
-
-            nlohmann::json input = nlohmann::json::parse(f);
-            for (auto it = input.begin(); it != input.end(); it++) {
-              auto value = it.value();
-              if (value["type"] == "Chassis") {
-                std::string str = value["name"];
-                entities.emplace_back(str);
-              }
-            }
-            */
-
-            res.json_value = {
-                {"@odata.context",
-                 "/redfish/v1/$metadata#ChassisCollection.ChassisCollection"},
-                {"@odata.id", "/redfish/v1/Chassis"},
-                {"@odata.type", "#ChassisCollection.ChassisCollection"},
-                {"Name", "Chassis Collection"},
-                {"Members@odata.count", entities.size()}};
-
-            get_redfish_sub_routes(app, "/redfish/v1/Chassis", res.json_value);
-            res.end();
-          });
-
   CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
       .methods(
           "GET"_method)([&](const crow::request& req, crow::response& res) {
