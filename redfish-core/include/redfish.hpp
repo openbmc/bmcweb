@@ -21,6 +21,7 @@
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
+#include "../lib/chassis.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish {
@@ -45,6 +46,8 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
     nodes.emplace_back(std::make_unique<SessionService>(app));
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
+    nodes.emplace_back(std::make_unique<ChassisCollection>(app));
+    nodes.emplace_back(std::make_unique<Chassis>(app));
 
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);
