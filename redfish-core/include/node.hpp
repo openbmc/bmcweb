@@ -41,12 +41,13 @@ class Node {
 
   virtual ~Node() = default;
 
-  std::string getUrl() const {
+  const std::string* getUrl() const {
     auto odataId = json.find("@odata.id");
-    if (odataId != json.end() && odataId->is_string()) {
-      return odataId->get<std::string>();
+    if (odataId == json.end()) {
+      return nullptr;
     }
-    return std::string();
+
+    return odataId->get_ptr<const std::string*>();
   }
 
   /**
@@ -58,27 +59,35 @@ class Node {
    * @return  None
    */
   void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes) {
-    std::string url = getUrl();
+    const std::string* url = getUrl();
+    if (url == nullptr) {
+      CROW_LOG_CRITICAL << "Unable to get url for route";
+      return;
+    }
 
     for (const auto& node : allNodes) {
-      auto route = node->getUrl();
-
-      if (boost::starts_with(route, url)) {
-        auto subRoute = route.substr(url.size());
+      const std::string* route = node->getUrl();
+      if (route == nullptr) {
+        CROW_LOG_CRITICAL << "Unable to get url for route";
+        return;
+      }
+      if (boost::starts_with(*route, *url)) {
+        std::string subRoute = route->substr(url->size());
         if (subRoute.empty()) {
           continue;
         }
 
-        if (subRoute.at(0) == '/') {
-          subRoute = subRoute.substr(1);
+        if (boost::starts_with(subRoute, "/")) {
+          subRoute.erase(0, 1);
         }
 
-        if (subRoute.at(subRoute.size() - 1) == '/') {
-          subRoute = subRoute.substr(0, subRoute.size() - 1);
+        if (boost::ends_with(subRoute, "/")) {
+          subRoute.pop_back();
         }
 
-        if (subRoute[0] != '$' && subRoute.find('/') == std::string::npos) {
-          json[subRoute] = nlohmann::json{{"@odata.id", route}};
+        if (!boost::starts_with(subRoute, "$") &&
+            subRoute.find('/') == std::string::npos) {
+          json[subRoute] = nlohmann::json{{"@odata.id", *route}};
         }
       }
     }
