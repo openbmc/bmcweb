@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8.10 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
 
 cmake_policy(SET CMP0054 NEW)
 
@@ -10,14 +10,14 @@ option(YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 
 include("cmake/HunterGate.cmake")
-HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.18.64.tar.gz"
-    SHA1 "baf9c8cc4f65306f0e442b5419967b4c4c04589a"
-)
+HunterGate(URL
+           "https://github.com/ruslo/hunter/archive/v0.18.64.tar.gz"
+           SHA1
+           "baf9c8cc4f65306f0e442b5419967b4c4c04589a")
 
 project(bmc-webserver CXX C)
 
-include( CTest )
+include(CTest)
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -33,88 +33,108 @@ SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 option(BMCWEB_BUILD_UT "Enable Unit test" ON)
 
 # security flags
-SET(SECURITY_FLAGS " -fstack-protector-strong -fPIE -fPIC -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security")
-SET(CMAKE_CXX_FLAGS_RELEASE  "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}" )
-SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO  "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}" )
-SET(CMAKE_CXX_FLAGS_MINSIZEREL  "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}" )
+SET(
+  SECURITY_FLAGS
+  "\
+    -fstack-protector-strong \
+    -fPIE \
+    -fPIC \
+    -D_FORTIFY_SOURCE=2 \
+    -Wformat \
+    -Wformat-security"
+  )
+SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}")
+SET(CMAKE_CXX_FLAGS_RELWITHDEBINFO
+    "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}")
+SET(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    # Enable link time optimization
-    # This is a temporary workaround because INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9.
-    # gcc-ar and gcc-ranlib are wrappers around ar and ranlib which add the lto plugin to the command line.
+# Enable link time optimization This is a temporary workaround because
+# INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9. gcc-ar and gcc-
+# ranlib are wrappers around ar and ranlib which add the lto plugin to the
+# command line.
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+  if(NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
     STRING(REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
     STRING(REGEX REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
 
-    # Reduce the binary size by removing unnecessary dynamic symbol table entries
-    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fvisibility=hidden -fvisibility-inlines-hidden -Wl,--exclude-libs,ALL")
-endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    # Reduce the binary size by removing unnecessary dynamic symbol table
+    # entries
+    SET(
+      CMAKE_CXX_FLAGS
+      "${CMAKE_CXX_FLAGS} \
+        -fvisibility=hidden \
+        -fvisibility-inlines-hidden \
+        -Wl,--exclude-libs,ALL"
+      )
+  endif(NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
+endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
-#add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+# add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
-#set(Boost_USE_STATIC_LIBS ON)
+# set(Boost_USE_STATIC_LIBS ON)
 hunter_add_package(Boost)
 find_package(Boost)
-include_directories(${Boost_INCLUDE_DIRS}) 
+include_directories(${Boost_INCLUDE_DIRS})
 
-#Openssl
+# Openssl
 hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
-# Crow
-#add_definitions(-DCROW_DISABLE_LOGGING)
+# Crow add_definitions(-DCROW_DISABLE_LOGGING)
 add_definitions(-DCROW_ENABLE_SSL)
-include_directories( ${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
-#Zlib
+# Zlib
 hunter_add_package(ZLIB)
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
-#tinyxml2
+# tinyxml2
 if(NOT ${YOCTO_DEPENDENCIES})
-    add_subdirectory(tinyxml2)
+  add_subdirectory(tinyxml2)
 else()
-    find_package(tinyxml2 REQUIRED)
+  find_package(tinyxml2 REQUIRED)
 endif()
 # PAM
 option(WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
-if ("${WEBSERVER_ENABLE_PAM}")
-    find_package(PAM REQUIRED)
+if("${WEBSERVER_ENABLE_PAM}")
+  find_package(PAM REQUIRED)
 else()
-    add_definitions("-DWEBSERVER_DISABLE_PAM")
+  add_definitions("-DWEBSERVER_DISABLE_PAM")
 endif()
-
 
 # Boost-dbus
 set(BOOST_DBUS_BUILD_UT ${BMCWEB_BUILD_UT})
 if(NOT ${YOCTO_DEPENDENCIES})
-    add_subdirectory(boost-dbus)
+  add_subdirectory(boost-dbus)
 else()
-    find_package(boost-dbus REQUIRED)
+  find_package(boost-dbus REQUIRED)
 endif()
 set(WEBSERVER_MAIN src/webserver_main.cpp)
 
-# the webassets file has a non-ideal beahvior, where it loads binary data into a std::string
-# due to the way crow is constructed.  This causes GCC warnings.  Filter them out.
+# the webassets file has a non-ideal beahvior, where it loads binary data into a
+# std::string due to the way crow is constructed.  This causes GCC warnings.
+# Filter them out.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
-        set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp PROPERTIES COMPILE_FLAGS -Wno-narrowing)
-    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
+  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
+    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp
+                                PROPERTIES
+                                COMPILE_FLAGS
+                                -Wno-narrowing)
+  endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
-set(SRC_FILES
-    ${GENERATED_SRC_FILES}
-)
+set(SRC_FILES ${GENERATED_SRC_FILES})
 
 file(COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
@@ -122,44 +142,45 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 
 # Unit Tests
 if(${BMCWEB_BUILD_UT})
-    set(UT_FILES
-        redfish-core/ut/privileges_test.cpp
-        src/crow_test.cpp
-        src/gtest_main.cpp
-        src/token_authorization_middleware_test.cpp
-        src/security_headers_middleware_test.cpp
-        src/webassets_test.cpp
-        src/crow_getroutes_test.cpp
-        src/ast_jpeg_decoder_test.cpp
-        src/kvm_websocket_test.cpp
-        src/msan_test.cpp
-        src/ci_map_tests.cpp
-        src/ast_video_puller_test.cpp
-        ${CMAKE_BINARY_DIR}/generated/blns.hpp
-    )
-    # big list of naughty strings
-    add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
-        COMMAND xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns ${CMAKE_BINARY_DIR}/generated/blns.hpp)
-    
-    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/blns.hpp
-        PROPERTIES GENERATED TRUE)
-    # googletest
-    enable_testing()
+  set(UT_FILES
+      redfish-core/ut/privileges_test.cpp
+      src/crow_test.cpp
+      src/gtest_main.cpp
+      src/token_authorization_middleware_test.cpp
+      src/security_headers_middleware_test.cpp
+      src/webassets_test.cpp
+      src/crow_getroutes_test.cpp
+      src/ast_jpeg_decoder_test.cpp
+      src/kvm_websocket_test.cpp
+      src/msan_test.cpp
+      src/ci_map_tests.cpp
+      src/ast_video_puller_test.cpp
+      ${CMAKE_BINARY_DIR}/generated/blns.hpp) # big list of naughty strings
+  add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
+                     COMMAND
+                       xxd -i
+                       ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
+                       ${CMAKE_BINARY_DIR}/generated/blns.hpp)
 
-    hunter_add_package(GTest)
-    find_package(GTest REQUIRED)
-    #find_package(GMock CONFIG REQUIRED)
+  set_source_files_properties(${CMAKE_BINARY_DIR}/generated/blns.hpp
+                              PROPERTIES
+                              GENERATED
+                              TRUE) # googletest
+  enable_testing()
 
-    add_executable(webtest ${SRC_FILES} ${UT_FILES})
-    target_link_libraries(webtest gmock gtest)
-    target_link_libraries(webtest pthread)
-    target_link_libraries(webtest boost-dbus)
-    target_link_libraries(webtest ${OPENSSL_LIBRARIES})
-    target_link_libraries(webtest ${ZLIB_LIBRARIES})
-    target_link_libraries(webtest pam)
-    target_link_libraries(webtest tinyxml2)
-    target_link_libraries(webtest -lstdc++fs)
-    add_test(webtest webtest "--gtest_output=xml:webtest.xml")
+  hunter_add_package(GTest)
+  find_package(GTest REQUIRED) # find_package(GMock CONFIG REQUIRED)
+
+  add_executable(webtest ${SRC_FILES} ${UT_FILES})
+  target_link_libraries(webtest gmock gtest)
+  target_link_libraries(webtest pthread)
+  target_link_libraries(webtest boost-dbus)
+  target_link_libraries(webtest ${OPENSSL_LIBRARIES})
+  target_link_libraries(webtest ${ZLIB_LIBRARIES})
+  target_link_libraries(webtest pam)
+  target_link_libraries(webtest tinyxml2)
+  target_link_libraries(webtest -lstdc++fs)
+  add_test(webtest webtest "--gtest_output=xml:webtest.xml")
 
 endif(${BMCWEB_BUILD_UT})
 
@@ -180,14 +201,16 @@ install(TARGETS bmcweb DESTINATION bin)
 add_executable(getvideo src/getvideo_main.cpp)
 target_link_libraries(getvideo pthread)
 
-# Visual Studio Code helper
-# this needs to be at the end to make sure all includes are handled correctly
+# Visual Studio Code helper this needs to be at the end to make sure all
+# includes are handled correctly
 include(CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs)
-get_property(C_INCLUDE_DIRS DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
+get_property(C_INCLUDE_DIRS
+             DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+             PROPERTY INCLUDE_DIRECTORIES)
 
-execute_process(
-    COMMAND python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py 
-    ${C_INCLUDE_DIRS} 
-    ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS} 
-    ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS}
-)
+execute_process(COMMAND
+                  python3
+                  ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py
+                  ${C_INCLUDE_DIRS}
+                  ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS}
+                  ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS})
