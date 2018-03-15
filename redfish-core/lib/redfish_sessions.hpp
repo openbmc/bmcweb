@@ -25,7 +25,7 @@ class SessionCollection;
 class Sessions : public Node {
  public:
   Sessions(CrowApp& app)
-      : Node(app, "/redfish/v1/SessionService/Sessions/<str>", std::string()) {
+      : Node(app, "/redfish/v1/SessionService/Sessions/<str>/", std::string()) {
     Node::json["@odata.type"] = "#Session.v1_0_2.Session";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
     Node::json["Name"] = "User Session";
@@ -236,12 +236,10 @@ class SessionService : public Node {
     Node::json["@odata.context"] =
         "/redfish/v1/$metadata#SessionService.SessionService";
     Node::json["Name"] = "Session Service";
+    Node::json["Id"] = "SessionService";
     Node::json["Description"] = "Session Service";
     Node::json["SessionTimeout"] =
         crow::PersistentData::session_store->get_timeout_in_seconds();
-    Node::json["Status"]["State"] = "Enabled";
-    Node::json["Status"]["Health"] = "OK";
-    Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["ServiceEnabled"] = true;
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},

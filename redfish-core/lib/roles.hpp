@@ -62,7 +62,7 @@ class RoleCollection : public Node {
     Node::json["Description"] = "BMC User Roles";
     Node::json["Members@odata.count"] = 1;
     Node::json["Members"] = {
-        {"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}};
+        {{"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}}};
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
                         {crow::HTTPMethod::HEAD, {{"Login"}}},
@@ -76,6 +76,11 @@ class RoleCollection : public Node {
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
     res.json_value = Node::json;
+    // This is a short term solution to work around a bug.  GetSubroutes
+    // accidentally recognizes the Roles/Administrator route as a subroute
+    // (because it's hardcoded to a single entity).  Remove this line when that
+    // is resolved
+    res.json_value.erase("Administrator");
     res.end();
   }
 };

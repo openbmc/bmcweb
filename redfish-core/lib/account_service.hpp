@@ -22,9 +22,7 @@ namespace redfish {
 class AccountService : public Node {
  public:
   template <typename CrowApp>
-  AccountService(CrowApp& app)
-      : Node(app,
-             "/redfish/v1/AccountService/") {
+  AccountService(CrowApp& app) : Node(app, "/redfish/v1/AccountService/") {
     Node::json["@odata.id"] = "/redfish/v1/AccountService";
     Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
     Node::json["@odata.context"] =
@@ -32,9 +30,6 @@ class AccountService : public Node {
     Node::json["Id"] = "AccountService";
     Node::json["Description"] = "BMC User Accounts";
     Node::json["Name"] = "Account Service";
-    Node::json["Status"]["State"] = "Enabled";
-    Node::json["Status"]["Health"] = "OK";
-    Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["ServiceEnabled"] = true;
     Node::json["MinPasswordLength"] = 1;
     Node::json["MaxPasswordLength"] = 20;

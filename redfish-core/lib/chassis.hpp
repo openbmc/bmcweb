@@ -213,6 +213,7 @@ class Chassis : public Node {
     Node::json["@odata.id"] = "/redfish/v1/Chassis";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Chassis.Chassis";
     Node::json["Name"] = "Chassis Collection";
+    Node::json["ChassisType"] = "RackMount";
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
                         {crow::HTTPMethod::HEAD, {{"Login"}}},
@@ -256,8 +257,8 @@ class Chassis : public Node {
                  output) {
               json_response[chassis_item.first] = chassis_item.second;
             }
-            json_response["Id"] = chassis_id;
 
+            json_response["Id"] = chassis_id;
             // prepare respond, and send
             res.json_value = json_response;
           } else {

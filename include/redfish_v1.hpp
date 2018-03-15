@@ -43,6 +43,11 @@ std::string execute_process(const char* cmd) {
   return result;
 }
 
+using ManagedObjectType = std::vector<std::pair<
+    dbus::object_path, boost::container::flat_map<
+                           std::string, boost::container::flat_map<
+                                            std::string, dbus::dbus_variant>>>>;
+
 template <typename... Middlewares>
 void request_routes(Crow<Middlewares...>& app) {
   CROW_ROUTE(app, "/redfish/")
@@ -54,14 +59,9 @@ void request_routes(Crow<Middlewares...>& app) {
   CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
       .methods(
           "GET"_method)([&](const crow::request& req, crow::response& res) {
-        boost::asio::io_service io;
-        auto bus = std::make_shared<dbus::connection>(io, dbus::bus::session);
-        dbus::endpoint user_list("org.openbmc.UserManager",
-                                 "/org/openbmc/UserManager/Users",
-                                 "org.openbmc.Enrol", "UserList");
-        bus->async_method_call(
+        crow::connections::system_bus->async_method_call(
             [&](const boost::system::error_code ec,
-                const std::vector<std::string>& users) {
+                const ManagedObjectType& users) {
               if (ec) {
                 res.code = 500;
               } else {
@@ -78,38 +78,75 @@ void request_routes(Crow<Middlewares...>& app) {
                     {"Members@odata.count", users.size()}};
                 nlohmann::json member_array = nlohmann::json::array();
                 int user_index = 0;
-                for (int user_index = 0; user_index < users.size();
-                     user_index++) {
+                for (auto& user : users) {
+                  const std::string& path = user.first.value;
+                  std::size_t last_index = path.rfind("/");
+                  if (last_index == std::string::npos) {
+                    last_index = 0;
+                  } else {
+                    last_index += 1;
+                  }
                   member_array.push_back(
                       {{"@odata.id", "/redfish/v1/AccountService/Accounts/" +
-                                         std::to_string(user_index)}});
+                                         path.substr(last_index)}});
                 }
                 res.json_value["Members"] = member_array;
               }
               res.end();
             },
-            user_list);
+            {"xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
       });
 
-  CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/<int>/")
+  CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
       .methods("GET"_method)([](const crow::request& req, crow::response& res,
-                                int account_index) {
-        res.json_value = {
-            {"@odata.context",
-             "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
-            {"@odata.id", "/redfish/v1/AccountService/Accounts/1"},
-            {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-            {"Id", "1"},
-            {"Name", "User Account"},
-            {"Description", "User Account"},
-            {"Enabled", false},
-            {"Password", nullptr},
-            {"UserName", "anonymous"},
-            {"RoleId", "NoAccess"},
-            {"Links",
-             {{"Role",
-               {{"@odata.id", "/redfish/v1/AccountService/Roles/NoAccess"}}}}}};
-        res.end();
+                                const std::string& account_name) {
+
+        crow::connections::system_bus->async_method_call(
+            [&, account_name{std::move(account_name)} ](
+                const boost::system::error_code ec,
+                const ManagedObjectType& users) {
+              if (ec) {
+                res.code = 500;
+              } else {
+                for (auto& user : users) {
+                  const std::string& path = user.first.value;
+                  std::size_t last_index = path.rfind("/");
+                  if (last_index == std::string::npos) {
+                    last_index = 0;
+                  } else {
+                    last_index += 1;
+                  }
+                  if (path.substr(last_index) == account_name) {
+                    res.json_value = {
+                        {"@odata.context",
+                         "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
+                        {"@odata.id", "/redfish/v1/AccountService/Accounts/1"},
+                        {"@odata.type",
+                         "#ManagerAccount.v1_0_3.ManagerAccount"},
+                        {"Id", "1"},
+                        {"Name", "User Account"},
+                        {"Description", "User Account"},
+                        {"Enabled", false},
+                        {"Password", nullptr},
+                        {"UserName", account_name},
+                        {"RoleId", "Administrator"},
+                        {"Links",
+                         {{"Role",
+                           {{"@odata.id",
+                             "/redfish/v1/AccountService/Roles/"
+                             "Administrator"}}}}}};
+                    break;
+                  }
+                }
+                if (res.json_value.is_null()) {
+                  res.code = 404;
+                }
+              }
+              res.end();
+            },
+            {"xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
       });
 }
 }  // namespace redfish
