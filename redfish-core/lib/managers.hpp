@@ -29,9 +29,6 @@ class Manager : public Node {
     Node::json["Name"] = "OpenBmc Manager";
     Node::json["Description"] = "Baseboard Management Controller";
     Node::json["PowerState"] = "On";
-    Node::json["Status"]["Health"] = "OK";
-    Node::json["Status"]["HealthRollup"] = "OK";
-    Node::json["Status"]["State"] = "Enabled";
     Node::json["UUID"] =
         app.template get_middleware<crow::PersistentData::Middleware>()
             .system_uuid;
@@ -80,7 +77,7 @@ class ManagerCollection : public Node {
         "/redfish/v1/$metadata#ManagerCollection.ManagerCollection";
     Node::json["Name"] = "Manager Collection";
     Node::json["Members@odata.count"] = 1;
-    Node::json["Members"] = {{"@odata.id", "/redfish/v1/Managers/openbmc"}};
+    Node::json["Members"] = {{{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
                         {crow::HTTPMethod::HEAD, {{"Login"}}},
