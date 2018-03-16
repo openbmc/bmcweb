@@ -1,5 +1,3 @@
-//#define CROW_ENABLE_LOGGING
-#define CROW_ENABLE_DEBUG
 #include <iostream>
 #include <sstream>
 #include <vector>

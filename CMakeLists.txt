@@ -53,7 +53,7 @@ SET(CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 # ranlib are wrappers around ar and ranlib which add the lto plugin to the
 # command line.
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  if(NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
+  if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
     STRING(REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
     STRING(REGEX REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
@@ -67,7 +67,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         -fvisibility-inlines-hidden \
         -Wl,--exclude-libs,ALL"
       )
-  endif(NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
+  endif(NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
@@ -87,7 +87,14 @@ find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
-# Crow add_definitions(-DCROW_DISABLE_LOGGING)
+# Crow
+message("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+  message("Logging disabled")
+  add_definitions(-DCROW_ENABLE_LOGGING)
+  add_definitions(-DCROW_ENABLE_DEBUG)
+endif(CMAKE_BUILD_TYPE MATCHES Debug)
+
 add_definitions(-DCROW_ENABLE_SSL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
