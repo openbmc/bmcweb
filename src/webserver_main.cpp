@@ -1,3 +1,4 @@
+#include <systemd/sd-daemon.h>
 #include <dbus/connection.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
@@ -16,7 +17,6 @@
 #include "webserver_common.hpp"
 #include <crow/app.h>
 #include <boost/asio.hpp>
-#include <systemd/sd-daemon.h>
 
 constexpr int defaultPort = 18080;
 
@@ -31,7 +31,7 @@ void setup_socket(crow::Crow<Middlewares...>& app) {
       app.socket(SD_LISTEN_FDS_START);
     } else {
       CROW_LOG_INFO << "bad incoming socket, starting webserver on port "
-                << defaultPort;
+                    << defaultPort;
       app.port(defaultPort);
     }
   } else {
@@ -78,4 +78,5 @@ int main(int argc, char** argv) {
   redfish::RedfishService redfish(app);
 
   app.run();
+  io->run();
 }

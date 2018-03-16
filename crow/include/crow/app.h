@@ -69,18 +69,6 @@ class Crow {
     return *this;
   }
 
-  self_t& multithreaded() {
-    return concurrency(std::thread::hardware_concurrency());
-  }
-
-  self_t& concurrency(std::uint16_t concurrency) {
-    if (concurrency < 1) {
-      concurrency = 1;
-    }
-    concurrency_ = concurrency;
-    return *this;
-  }
-
   void validate() { router_.validate(); }
 
   void run() {
@@ -88,13 +76,11 @@ class Crow {
 #ifdef CROW_ENABLE_SSL
     if (use_ssl_) {
       if (-1 == socket_) {
-        ssl_server_ = std::move(
-          std::make_unique<ssl_server_t>(this, bindaddr_, port_, &middlewares_,
-                                         concurrency_, &ssl_context_, io_));
+        ssl_server_ = std::move(std::make_unique<ssl_server_t>(
+            this, bindaddr_, port_, &middlewares_, &ssl_context_, io_));
       } else {
-        ssl_server_ = std::move(
-          std::make_unique<ssl_server_t>(this, socket_, &middlewares_,
-                                         concurrency_, &ssl_context_, io_));
+        ssl_server_ = std::move(std::make_unique<ssl_server_t>(
+            this, socket_, &middlewares_, &ssl_context_, io_));
       }
       ssl_server_->set_tick_function(tick_interval_, tick_function_);
       ssl_server_->run();
@@ -103,30 +89,17 @@ class Crow {
     {
       if (-1 == socket_) {
         server_ = std::move(std::make_unique<server_t>(
-            this, bindaddr_, port_, &middlewares_, concurrency_, nullptr, io_));
+            this, bindaddr_, port_, &middlewares_, nullptr, io_));
       } else {
         server_ = std::move(std::make_unique<server_t>(
-            this, socket_, &middlewares_, concurrency_, nullptr, io_));
+            this, socket_, &middlewares_, nullptr, io_));
       }
       server_->set_tick_function(tick_interval_, tick_function_);
       server_->run();
     }
   }
 
-  void stop() {
-#ifdef CROW_ENABLE_SSL
-    if (use_ssl_) {
-      if (ssl_server_ != nullptr) {
-        ssl_server_->stop();
-      }
-    } else
-#endif
-    {
-      if (server_ != nullptr) {
-        server_->stop();
-      }
-    }
-  }
+  void stop() { io_->stop(); }
 
   void debug_print() {
     CROW_LOG_DEBUG << "Routing:";
@@ -221,7 +194,6 @@ class Crow {
  private:
   std::shared_ptr<asio::io_service> io_;
   uint16_t port_ = 80;
-  uint16_t concurrency_ = 1;
   std::string bindaddr_ = "::";
   int socket_ = -1;
   Router router_;
