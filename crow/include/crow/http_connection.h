@@ -2,13 +2,8 @@
 #include <array>
 #include <atomic>
 #include <chrono>
+#include <regex>
 #include <vector>
-#include <boost/algorithm/string/predicate.hpp>
-#include <boost/array.hpp>
-#include <boost/asio.hpp>
-#include <boost/container/flat_map.hpp>
-#include <boost/lexical_cast.hpp>
-
 #include "crow/dumb_timer_queue.h"
 #include "crow/http_parser_merged.h"
 #include "crow/http_response.h"
@@ -17,45 +12,115 @@
 #include "crow/parser.h"
 #include "crow/settings.h"
 #include "crow/socket_adaptors.h"
+#include <boost/algorithm/string/predicate.hpp>
+#include <boost/array.hpp>
+#include <boost/asio.hpp>
+#include <boost/container/flat_map.hpp>
+#include <boost/lexical_cast.hpp>
 
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
 
 namespace crow {
+
+inline bool is_browser(const crow::request& req) {
+  const std::string& header = req.get_header_value("accept");
+  std::vector<std::string> encodings;
+  // chrome currently sends 6 accepts headers, firefox sends 4.
+  encodings.reserve(6);
+  boost::split(encodings, header, boost::is_any_of(", "),
+               boost::token_compress_on);
+  for (const std::string& encoding : encodings) {
+    if (encoding == "text/html") {
+      return true;
+    }
+    else if (encoding == "application/json"){
+      return false;
+    }
+  }
+  return false;
+}
+
+inline void escape_html(std::string& data) {
+    std::string buffer;
+    // less than 5% of characters should be larger, so reserve a buffer of the right size
+    buffer.reserve(data.size() * 1.05);
+    for(size_t pos = 0; pos != data.size(); ++pos) {
+        switch(data[pos]) {
+            case '&':  buffer.append("&amp;");       break;
+            case '\"': buffer.append("&quot;");      break;
+            case '\'': buffer.append("&apos;");      break;
+            case '<':  buffer.append("&lt;");        break;
+            case '>':  buffer.append("&gt;");        break;
+            default:   buffer.append(&data[pos], 1); break;
+        }
+    }
+    data.swap(buffer);
+}
+
+inline void convert_to_links(std::string& s) {
+  const static std::regex r{"(&quot;@odata\\.((id)|(context))&quot;[ \\n]*:[ \\n]*)(&quot;((?!&quot;).*)&quot;)"};
+  s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
+}
+
+inline void pretty_print_json(crow::response& res) {
+  std::string value = res.json_value.dump(4);
+  escape_html(value);
+  convert_to_links(value);
+  res.body =
+      "<html>\n"
+      "<head>\n"
+      "<title>Redfish API</title>\n"
+      "<link rel=\"stylesheet\" type=\"text/css\" "
+      "href=\"/styles/default.css\">\n"
+      "<script src=\"/highlight.pack.js\"></script>"
+      "<script>hljs.initHighlightingOnLoad();</script>"
+      "</head>\n"
+      "<body>\n"
+      "<div style=\"max-width: 576px;margin:0 auto;\">\n"
+      "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" height=\"406px\" "
+      "width=\"576px\">\n"
+      "<br>\n"
+      "<pre>\n"
+      "<code class=\"json\">" +
+      value +
+      "</code>\n"
+      "</pre>\n"
+      "</div>\n"
+      "</body>\n"
+      "</html>\n";
+}
+
 using namespace boost;
 using tcp = asio::ip::tcp;
 
 namespace detail {
 template <typename MW>
 struct check_before_handle_arity_3_const {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) const =
-                &T::before_handle>
+  template <typename T, void (T::*)(request&, response&, typename MW::context&)
+                            const = &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_before_handle_arity_3 {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) =
-                &T::before_handle>
+  template <typename T, void (T::*)(request&, response&,
+                                    typename MW::context&) = &T::before_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3_const {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) const =
-                &T::after_handle>
+  template <typename T, void (T::*)(request&, response&, typename MW::context&)
+                            const = &T::after_handle>
   struct get {};
 };
 
 template <typename MW>
 struct check_after_handle_arity_3 {
-  template <typename T,
-            void (T::*)(request&, response&, typename MW::context&) =
-                &T::after_handle>
+  template <typename T, void (T::*)(request&, response&,
+                                    typename MW::context&) = &T::after_handle>
   struct get {};
 };
 
@@ -282,8 +347,9 @@ class Connection {
       }
     }
 
-    CROW_LOG_INFO << "Request: " << boost::lexical_cast<std::string>(
-                                        adaptor_.remote_endpoint())
+    CROW_LOG_INFO << "Request: "
+                  << boost::lexical_cast<std::string>(
+                         adaptor_.remote_endpoint())
                   << " " << this << " HTTP/" << parser_.http_major << "."
                   << parser_.http_minor << ' ' << method_name(req.method) << " "
                   << req.url;
@@ -373,8 +439,12 @@ class Connection {
     buffers_.reserve(20);
 
     if (res.body.empty() && !res.json_value.empty()) {
-      res.json_mode();
-      res.body = res.json_value.dump(4);
+      if (is_browser(req_)) {
+        pretty_print_json(res);
+      } else {
+        res.json_mode();
+        res.body = res.json_value.dump(4);
+      }
     }
 
     if (!statusCodes.count(res.code)) {
@@ -483,24 +553,25 @@ class Connection {
     // auto self = this->shared_from_this();
     is_writing = true;
     CROW_LOG_DEBUG << "Doing Write";
-    boost::asio::async_write(
-        adaptor_.socket(), buffers_, [&](const boost::system::error_code& ec,
-                                         std::size_t bytes_transferred) {
-          CROW_LOG_DEBUG << "Wrote " << bytes_transferred << "bytes";
+    boost::asio::async_write(adaptor_.socket(), buffers_,
+                             [&](const boost::system::error_code& ec,
+                                 std::size_t bytes_transferred) {
+                               CROW_LOG_DEBUG << "Wrote " << bytes_transferred
+                                              << "bytes";
 
-          is_writing = false;
-          res.clear();
-          if (!ec) {
-            if (close_connection_) {
-              adaptor_.close();
-              CROW_LOG_DEBUG << this << " from write(1)";
-              check_destroy();
-            }
-          } else {
-            CROW_LOG_DEBUG << this << " from write(2)";
-            check_destroy();
-          }
-        });
+                               is_writing = false;
+                               res.clear();
+                               if (!ec) {
+                                 if (close_connection_) {
+                                   adaptor_.close();
+                                   CROW_LOG_DEBUG << this << " from write(1)";
+                                   check_destroy();
+                                 }
+                               } else {
+                                 CROW_LOG_DEBUG << this << " from write(2)";
+                                 check_destroy();
+                               }
+                             });
   }
 
   void check_destroy() {
