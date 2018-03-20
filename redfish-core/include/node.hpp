@@ -69,7 +69,7 @@ class Node {
       const std::string* route = node->getUrl();
       if (route == nullptr) {
         CROW_LOG_CRITICAL << "Unable to get url for route";
-        return;
+        continue;
       }
       if (boost::starts_with(*route, *url)) {
         std::string subRoute = route->substr(url->size());

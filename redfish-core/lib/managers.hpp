@@ -37,6 +37,14 @@ class Manager : public Node {
             .system_uuid;
     Node::json["Model"] = "OpenBmc";               // TODO(ed), get model
     Node::json["FirmwareVersion"] = "1234456789";  // TODO(ed), get fwversion
+    Node::json["EthernetInterfaces"] = nlohmann::json(
+        {{"@odata.id",
+          "/redfish/v1/Managers/openbmc/EthernetInterfaces"}});  // TODO(Pawel),
+                                                                 // remove this
+                                                                 // when
+                                                                 // subroutes
+                                                                 // will work
+                                                                 // correctly
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
                         {crow::HTTPMethod::HEAD, {{"Login"}}},
