@@ -21,6 +21,7 @@
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
+#include "../lib/ethernet.hpp"
 #include "../lib/chassis.hpp"
 #include "webserver_common.hpp"
 
@@ -45,6 +46,8 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<ServiceRoot>(app));
     nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
     nodes.emplace_back(std::make_unique<SessionService>(app));
+    nodes.emplace_back(std::make_unique<EthernetCollection>(app));
+    nodes.emplace_back(std::make_unique<EthernetInterface>(app));
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
     nodes.emplace_back(std::make_unique<ChassisCollection>(app));
     nodes.emplace_back(std::make_unique<Chassis>(app));
