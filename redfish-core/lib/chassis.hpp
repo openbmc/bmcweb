@@ -248,6 +248,8 @@ class Chassis : public Node {
           // Create JSON copy based on Node::json, this is to avoid possible
           // race condition
           nlohmann::json json_response(Node::json);
+          json_response["Thermal"] = {
+              {"@odata.id", "/redfish/v1/Chassis/" + chassis_id + "/Thermal"}};
           // If success...
           if (success) {
             // prepare all the schema required fields.
