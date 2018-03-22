@@ -41,6 +41,8 @@ void setup_socket(crow::Crow<Middlewares...>& app) {
 }
 
 int main(int argc, char** argv) {
+    crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+
   auto io = std::make_shared<boost::asio::io_service>();
   crow::PersistentData::session_store =
       std::make_shared<crow::PersistentData::SessionStore>();
@@ -66,7 +68,7 @@ int main(int argc, char** argv) {
   crow::intel_oem::request_routes(app);
   crow::openbmc_mapper::request_routes(app);
 
-  crow::logger::setLogLevel(crow::LogLevel::INFO);
+
 
   CROW_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
   setup_socket(app);
