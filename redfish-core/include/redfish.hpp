@@ -22,6 +22,7 @@
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
 #include "../lib/ethernet.hpp"
+#include "../lib/thermal.hpp"
 #include "../lib/chassis.hpp"
 #include "webserver_common.hpp"
 
@@ -48,6 +49,7 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<SessionService>(app));
     nodes.emplace_back(std::make_unique<EthernetCollection>(app));
     nodes.emplace_back(std::make_unique<EthernetInterface>(app));
+    nodes.emplace_back(std::make_unique<Thermal>(app));
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
     nodes.emplace_back(std::make_unique<ChassisCollection>(app));
     nodes.emplace_back(std::make_unique<Chassis>(app));
