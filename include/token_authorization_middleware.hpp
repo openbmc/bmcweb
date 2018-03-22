@@ -22,21 +22,27 @@ class Middleware {
   };
 
   void before_handle(crow::request& req, response& res, context& ctx) {
-    std::string auth_header = req.get_header_value("Authorization");
-    if (auth_header != "") {
-      // Reject any kind of auth other than basic or token
-      if (boost::starts_with(auth_header, "Basic ")) {
-        ctx.session = perform_basic_auth(auth_header);
-      } else if (boost::starts_with(auth_header, "Token ")) {
-        ctx.session = perform_token_auth(auth_header);
-      }
-    } else if (req.headers.count("X-Auth-Token") == 1) {
+    if (is_on_whitelist(req)) {
+      return;
+    }
+
+    if (req.headers.count("X-Auth-Token") == 1) {
       ctx.session = perform_xtoken_auth(req);
     } else if (req.headers.count("Cookie") == 1) {
       ctx.session = perform_cookie_auth(req);
+    } else {
+      std::string auth_header = req.get_header_value("Authorization");
+      if (auth_header != "") {
+        // Reject any kind of auth other than basic or token
+        if (boost::starts_with(auth_header, "Token ")) {
+          ctx.session = perform_token_auth(auth_header);
+        } else if (boost::starts_with(auth_header, "Basic ")) {
+          ctx.session = perform_basic_auth(auth_header);
+        }
+      }
     }
 
-    if (ctx.session == nullptr && !is_on_whitelist(req)) {
+    if (ctx.session == nullptr) {
       CROW_LOG_WARNING << "[AuthMiddleware] authorization failed";
       res.code = static_cast<int>(HttpRespCode::UNAUTHORIZED);
       res.add_header("WWW-Authenticate", "Basic");
@@ -203,7 +209,6 @@ void request_routes(Crow<Middlewares...>& app) {
         const std::string* password;
         bool looks_like_ibm = false;
 
-
         // This object needs to be declared at this scope so the strings within
         // it are not destroyed before we can use them
         nlohmann::json login_credentials;
@@ -268,20 +273,15 @@ void request_routes(Crow<Middlewares...>& app) {
               // IBM requires a very specific login structure, and doesn't
               // actually look at the status code.  TODO(ed).... Fix that
               // upstream
-              nlohmann::json ret{{"data", "User '" + *username + "' logged in"},
-                                 {"message", "200 OK"},
-                                 {"status", "ok"}};
+              res.json_value = {{"data", "User '" + *username + "' logged in"},
+                                {"message", "200 OK"},
+                                {"status", "ok"}};
               res.add_header("Set-Cookie", "XSRF-TOKEN=" + session.csrf_token);
               res.add_header("Set-Cookie", "SESSION=" + session.session_token +
                                                "; Secure; HttpOnly");
-
-              res.write(ret.dump());
             } else {
               // if content type is json, assume json token
-              nlohmann::json ret{{"token", session.session_token}};
-
-              res.write(ret.dump());
-              res.add_header("Content-Type", "application/json");
+              res.json_value = {{"token", session.session_token}};
             }
           }
 
