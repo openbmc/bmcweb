@@ -1,21 +1,13 @@
-cmake_minimum_required(VERSION 3.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 
 cmake_policy(SET CMP0054 NEW)
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
-message(CMAKE_MODULE_PATH=${CMAKE_MODULE_PATH})
 
 option(BUILD_STATIC_LIBS "Built static libraries" ON)
 option(YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
-option(HUNTER_ENABLED "Enable hunter package pulling" OFF)
 
-include("cmake/HunterGate.cmake")
-HunterGate(URL
-           "https://github.com/ruslo/hunter/archive/v0.18.64.tar.gz"
-           SHA1
-           "baf9c8cc4f65306f0e442b5419967b4c4c04589a")
-
-project(bmc-webserver CXX C)
+project(bmc-webserver CXX)
 
 include(CTest)
 
@@ -70,6 +62,16 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
   endif(NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
+if(NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure time
+  configure_file(CMakeLists.txt.in 3rdparty/CMakeLists.txt)
+  execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+  execute_process(COMMAND ${CMAKE_COMMAND} --build .
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+
+  set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
+endif()
+
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions(-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
@@ -77,12 +79,11 @@ add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
 # set(Boost_USE_STATIC_LIBS ON)
-hunter_add_package(Boost)
-find_package(Boost)
+
+find_package(Boost 1.64 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 
 # Openssl
-hunter_add_package(OpenSSL)
 find_package(OpenSSL REQUIRED)
 include_directories(${OPENSSL_INCLUDE_DIR})
 message("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
@@ -99,16 +100,9 @@ add_definitions(-DCROW_ENABLE_SSL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
-hunter_add_package(ZLIB)
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 
-# tinyxml2
-if(NOT ${YOCTO_DEPENDENCIES})
-  add_subdirectory(tinyxml2)
-else()
-  find_package(tinyxml2 REQUIRED)
-endif()
 # PAM
 option(WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
 if("${WEBSERVER_ENABLE_PAM}")
@@ -117,26 +111,15 @@ else()
   add_definitions("-DWEBSERVER_DISABLE_PAM")
 endif()
 
-# Boost-dbus
-set(BOOST_DBUS_BUILD_UT ${BMCWEB_BUILD_UT})
-if(NOT ${YOCTO_DEPENDENCIES})
-  add_subdirectory(boost-dbus)
-else()
-  find_package(boost-dbus REQUIRED)
-endif()
-set(WEBSERVER_MAIN src/webserver_main.cpp)
+add_definitions("-Wno-attributes")
 
-# the webassets file has a non-ideal beahvior, where it loads binary data into a
-# std::string due to the way crow is constructed.  This causes GCC warnings.
-# Filter them out.
-if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-  if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
-    set_source_files_properties(${CMAKE_BINARY_DIR}/generated/webassets.cpp
-                                PROPERTIES
-                                COMPILE_FLAGS
-                                -Wno-narrowing)
-  endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.9)
-endif()
+# Boost-dbus
+find_package(boost-dbus REQUIRED)
+
+# tinyxml2
+find_package(tinyxml2 REQUIRED)
+
+set(WEBSERVER_MAIN src/webserver_main.cpp)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
@@ -153,7 +136,6 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/generated)
 # Unit Tests
 if(${BMCWEB_BUILD_UT})
   set(UT_FILES
-      redfish-core/ut/privileges_test.cpp
       src/crow_test.cpp
       src/gtest_main.cpp
       src/token_authorization_middleware_test.cpp
@@ -178,11 +160,13 @@ if(${BMCWEB_BUILD_UT})
                               TRUE) # googletest
   enable_testing()
 
-  hunter_add_package(GTest)
-  find_package(GTest REQUIRED) # find_package(GMock CONFIG REQUIRED)
-
   add_executable(webtest ${SRC_FILES} ${UT_FILES})
-  target_link_libraries(webtest gmock gtest)
+
+  find_package(GTest REQUIRED)
+  find_package(GMock REQUIRED)
+  target_link_libraries(webtest ${GTEST_LIBRARIES})
+  target_link_libraries(webtest ${GMOCK_LIBRARIES})
+
   target_link_libraries(webtest pthread)
   target_link_libraries(webtest boost-dbus)
   target_link_libraries(webtest ${OPENSSL_LIBRARIES})

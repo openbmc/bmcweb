@@ -20,3 +20,4 @@
 #include "crow/http_connection.h"
 #include "crow/http_server.h"
 #include "crow/app.h"
+#include "boost/beast/core.hpp"
