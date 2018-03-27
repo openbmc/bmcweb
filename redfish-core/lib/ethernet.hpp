@@ -250,6 +250,8 @@ class OnDemandEthernetProvider {
           std::vector<IPv4AddressData> ipv4_data;
           ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
 
+          memset(&eth_data, 0, sizeof(EthernetInterfaceData));
+
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
