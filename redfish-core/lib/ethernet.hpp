@@ -56,6 +56,7 @@ struct EthernetInterfaceData {
   const std::string *hostname;
   const std::string *default_gateway;
   const std::string *mac_address;
+  const unsigned int *vlan_id;
 };
 
 /**
@@ -123,6 +124,14 @@ class OnDemandEthernetProvider {
     if (mac_properties != nullptr) {
       eth_data.mac_address =
           extractProperty<std::string>(*mac_properties, "MACAddress");
+    }
+
+    const PropertiesMapType *vlan_properties = extractInterfaceProperties(
+        "/xyz/openbmc_project/network/" + ethiface_id,
+        "xyz.openbmc_project.Network.VLAN", dbus_data);
+
+    if (vlan_properties != nullptr) {
+      eth_data.vlan_id = extractProperty<unsigned int>(*vlan_properties, "Id");
     }
 
     // Extract data that contains link information (auto negotiation and speed)
@@ -237,7 +246,7 @@ class OnDemandEthernetProvider {
         ](const boost::system::error_code error_code,
           const GetManagedObjectsType &resp) {
 
-          EthernetInterfaceData eth_data;
+          EthernetInterfaceData eth_data{};
           std::vector<IPv4AddressData> ipv4_data;
           ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
 
@@ -458,6 +467,11 @@ class EthernetInterface : public Node {
 
             if (eth_data.hostname != nullptr)
               json_response["HostName"] = *eth_data.hostname;
+
+            if (eth_data.vlan_id != nullptr) {
+              json_response["VLAN"]["VLANEnable"] = true;
+              json_response["VLAN"]["VLANId"] = *eth_data.vlan_id;
+            }
 
             // ... at last, check if there are IPv4 data and prepare appropriate
             // collection
