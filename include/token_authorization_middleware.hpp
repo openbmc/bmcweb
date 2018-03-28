@@ -26,20 +26,20 @@ class Middleware {
       return;
     }
 
-    if (req.headers.count("X-Auth-Token") == 1) {
-      ctx.session = perform_xtoken_auth(req);
-    } else if (req.headers.count("Cookie") == 1) {
+    ctx.session = perform_xtoken_auth(req);
+
+    if (ctx.session == nullptr) {
       ctx.session = perform_cookie_auth(req);
-    } else {
-      std::string auth_header = req.get_header_value("Authorization");
-      if (auth_header != "") {
-        // Reject any kind of auth other than basic or token
-        if (boost::starts_with(auth_header, "Token ")) {
-          ctx.session = perform_token_auth(auth_header);
-        } else if (boost::starts_with(auth_header, "Basic ")) {
-          ctx.session = perform_basic_auth(auth_header);
-        }
-      }
+    }
+
+    const std::string& auth_header = req.get_header_value("Authorization");
+    // Reject any kind of auth other than basic or token
+    if (ctx.session == nullptr && boost::starts_with(auth_header, "Token ")) {
+      ctx.session = perform_token_auth(auth_header);
+    }
+
+    if (ctx.session == nullptr && boost::starts_with(auth_header, "Basic ")) {
+      ctx.session = perform_basic_auth(auth_header);
     }
 
     if (ctx.session == nullptr) {
@@ -119,7 +119,10 @@ class Middleware {
       const crow::request& req) const {
     CROW_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
 
-    auto& token = req.get_header_value("X-Auth-Token");
+    const std::string& token = req.get_header_value("X-Auth-Token");
+    if (token.empty()) {
+      return nullptr;
+    }
     auto session = PersistentData::session_store->login_session_by_token(token);
     return session;
   }
@@ -129,6 +132,9 @@ class Middleware {
     CROW_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
 
     auto& cookie_value = req.get_header_value("Cookie");
+    if (cookie_value.empty()) {
+      return nullptr;
+    }
 
     auto start_index = cookie_value.find("SESSION=");
     if (start_index == std::string::npos) {
