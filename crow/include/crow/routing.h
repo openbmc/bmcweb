@@ -237,8 +237,8 @@ struct Wrapped {
             handler_, params, req, res});
   }
 };
-}
-}
+}  // namespace routing_handler_call_helper
+}  // namespace detail
 
 class WebSocketRule : public BaseRule {
   using self_t = WebSocketRule;
@@ -792,11 +792,12 @@ class Router {
   Router() : rules_(2) {}
 
   DynamicRule& new_rule_dynamic(const std::string& rule) {
-    auto ruleObject = new DynamicRule(rule);
+    std::unique_ptr<DynamicRule> ruleObject =
+        std::make_unique<DynamicRule>(rule);
+    DynamicRule* ptr = ruleObject.get();
+    internal_add_rule_object(rule, std::move(ruleObject));
 
-    internal_add_rule_object(rule, ruleObject);
-
-    return *ruleObject;
+    return *ptr;
   }
 
   template <uint64_t N>
@@ -804,25 +805,22 @@ class Router {
   new_rule_tagged(const std::string& rule) {
     using RuleT =
         typename black_magic::arguments<N>::type::template rebind<TaggedRule>;
-    auto ruleObject = new RuleT(rule);
+    std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
+    RuleT* ptr = ruleObject.get();
+    internal_add_rule_object(rule, std::move(ruleObject));
 
-    internal_add_rule_object(rule, ruleObject);
-
-    return *ruleObject;
+    return *ptr;
   }
 
-  void internal_add_rule_object(const std::string& rule, BaseRule* ruleObject) {
-    rules_.emplace_back(ruleObject);
+  void internal_add_rule_object(const std::string& rule,
+                                std::unique_ptr<BaseRule> ruleObject) {
+    rules_.emplace_back(std::move(ruleObject));
     trie_.add(rule, rules_.size() - 1);
 
     // directory case:
     //   request to `/about' url matches `/about/' rule
-    if (rule.size() > 1 && rule.back() == '/') {
-      std::string rule_without_trailing_slash = rule;
-      rule_without_trailing_slash.pop_back();
-      rules_.emplace_back(ruleObject);
-      trie_.add(rule_without_trailing_slash, rules_.size() - 1);
-      // trie_.add(rule_without_trailing_slash, RULE_SPECIAL_REDIRECT_SLASH);
+    if (rule.size() > 2 && rule.back() == '/') {
+      trie_.add(rule.substr(0, rule.size() - 1), rules_.size() - 1);
     }
   }
 
@@ -924,9 +922,9 @@ class Router {
       if (req.get_header_value("Host").empty()) {
         res.add_header("Location", req.url + "/");
       } else {
-        res.add_header("Location",
-                       (req.is_secure ? "https://" : "http://") +
-                           req.get_header_value("Host") + req.url + "/");
+        res.add_header("Location", (req.is_secure ? "https://" : "http://") +
+                                       req.get_header_value("Host") + req.url +
+                                       "/");
       }
       res.end();
       return;
@@ -980,4 +978,4 @@ class Router {
   std::vector<std::unique_ptr<BaseRule>> rules_;
   Trie trie_;
 };
-}
+}  // namespace crow
