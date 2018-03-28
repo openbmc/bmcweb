@@ -77,6 +77,8 @@ void request_routes(Crow<Middlewares...>& app) {
       if (boost::starts_with(webpath.filename().string(), "index.")) {
         webpath = webpath.parent_path();
         if (webpath.string().size() == 0 || webpath.string().back() != '/') {
+          // insert the non-directory version of this path
+          routes.insert(webpath);
           webpath += "/";
         }
       }
