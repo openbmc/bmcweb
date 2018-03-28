@@ -32,12 +32,13 @@ class Sessions : public Node {
     Node::json["Name"] = "User Session";
     Node::json["Description"] = "Manager User Session";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -50,7 +51,7 @@ class Sessions : public Node {
       messages::addMessageToErrorJson(
           res.json_value, messages::resourceNotFound("Session", params[0]));
 
-      res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+      res.result(boost::beast::http::status::not_found);
       res.end();
       return;
     }
@@ -72,8 +73,9 @@ class Sessions : public Node {
       CROW_LOG_ERROR
           << "Session DELETE has been called with invalid number of params";
 
-      res.code = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      res.result(boost::beast::http::status::bad_request);
       messages::addMessageToErrorJson(res.json_value, messages::generalError());
+
       res.end();
       return;
     }
@@ -85,7 +87,7 @@ class Sessions : public Node {
       messages::addMessageToErrorJson(
           res.json_value, messages::resourceNotFound("Session", params[0]));
 
-      res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+      res.result(boost::beast::http::status::not_found);
       res.end();
       return;
     }
@@ -117,12 +119,13 @@ class SessionCollection : public Node {
     Node::json["Members@odata.count"] = 0;
     Node::json["Members"] = nlohmann::json::array();
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {}}};
   }
 
  private:
@@ -134,7 +137,7 @@ class SessionCollection : public Node {
 
     Node::json["Members@odata.count"] = session_ids.size();
     Node::json["Members"] = nlohmann::json::array();
-    for (const auto& uid : session_ids) {
+    for (const std::string* uid : session_ids) {
       Node::json["Members"].push_back(
           {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
     }
@@ -145,9 +148,12 @@ class SessionCollection : public Node {
 
   void doPost(crow::response& res, const crow::request& req,
               const std::vector<std::string>& params) override {
+    boost::beast::http::status status;
     std::string username;
     bool userAuthSuccessful =
-        authenticateUser(req, res.code, username, res.json_value);
+        authenticateUser(req, status, username, res.json_value);
+    res.result(status);
+
     if (!userAuthSuccessful) {
       res.end();
       return;
@@ -156,10 +162,10 @@ class SessionCollection : public Node {
     // User is authenticated - create session for him
     auto session =
         crow::PersistentData::session_store->generate_user_session(username);
-    res.add_header("X-Auth-Token", session.session_token);
+    res.add_header("X-Auth-Token", session->session_token);
 
     // Return data for created session
-    memberSession.doGet(res, req, {session.unique_id});
+    memberSession.doGet(res, req, {session->unique_id});
 
     // No need for res.end(), as it is called by doGet()
   }
@@ -174,7 +180,8 @@ class SessionCollection : public Node {
    *
    * @return true if authentication was successful, false otherwise
    */
-  bool authenticateUser(const crow::request& req, int& httpRespCode,
+  bool authenticateUser(const crow::request& req,
+                        boost::beast::http::status& httpRespCode,
                         std::string& user, nlohmann::json& errJson) {
     // We need only UserName and Password - nothing more, nothing less
     static constexpr const unsigned int numberOfRequiredFieldsInReq = 2;
@@ -182,7 +189,7 @@ class SessionCollection : public Node {
     // call with exceptions disabled
     auto login_credentials = nlohmann::json::parse(req.body, nullptr, false);
     if (login_credentials.is_discarded()) {
-      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = boost::beast::http::status::bad_request;
 
       messages::addMessageToErrorJson(errJson, messages::malformedJSON());
 
@@ -191,7 +198,7 @@ class SessionCollection : public Node {
 
     // Check that there are only as many fields as there should be
     if (login_credentials.size() != numberOfRequiredFieldsInReq) {
-      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = boost::beast::http::status::bad_request;
 
       messages::addMessageToErrorJson(errJson, messages::malformedJSON());
 
@@ -203,7 +210,7 @@ class SessionCollection : public Node {
     auto pass_it = login_credentials.find("Password");
     if (user_it == login_credentials.end() ||
         pass_it == login_credentials.end()) {
-      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = boost::beast::http::status::bad_request;
 
       if (user_it == login_credentials.end()) {
         messages::addMessageToErrorJson(errJson,
@@ -220,7 +227,7 @@ class SessionCollection : public Node {
 
     // Check that given data is of valid type (string)
     if (!user_it->is_string() || !pass_it->is_string()) {
-      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = boost::beast::http::status::bad_request;
 
       if (!user_it->is_string()) {
         messages::addMessageToErrorJson(
@@ -243,7 +250,7 @@ class SessionCollection : public Node {
 
     // Verify that required fields are not empty
     if (username.empty() || password.empty()) {
-      httpRespCode = static_cast<int>(HttpRespCode::BAD_REQUEST);
+      httpRespCode = boost::beast::http::status::bad_request;
 
       if (username.empty()) {
         messages::addMessageToErrorJson(errJson,
@@ -260,17 +267,17 @@ class SessionCollection : public Node {
 
     // Finally - try to authenticate user
     if (!pam_authenticate_user(username, password)) {
-      httpRespCode = static_cast<int>(HttpRespCode::UNAUTHORIZED);
+      httpRespCode = boost::beast::http::status::unauthorized;
 
       messages::addMessageToErrorJson(
           errJson, messages::resourceAtUriUnauthorized(
-                       req.url, "Invalid username or password"));
+                       std::string(req.url), "Invalid username or password"));
 
       return false;
     }
 
     // User authenticated successfully
-    httpRespCode = static_cast<int>(HttpRespCode::OK);
+    httpRespCode = boost::beast::http::status::ok;
     user = username;
 
     return true;
@@ -297,12 +304,13 @@ class SessionService : public Node {
         crow::PersistentData::session_store->get_timeout_in_seconds();
     Node::json["ServiceEnabled"] = true;
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:

@@ -15,7 +15,6 @@
 */
 #include "utils/json_utils.hpp"
 #include <error_messages.hpp>
-#include <crow/http_codes.h>
 
 namespace redfish {
 
@@ -440,7 +439,7 @@ bool processJsonFromRequest(crow::response& res, const crow::request& req,
   if (reqJson.is_discarded()) {
     messages::addMessageToErrorJson(res.json_value, messages::malformedJSON());
 
-    res.code = static_cast<int>(HttpRespCode::BAD_REQUEST);
+    res.result(boost::beast::http::status::bad_request);
     res.end();
 
     return false;

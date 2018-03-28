@@ -1,6 +1,8 @@
 #pragma once
 
+#include <cerrno>
 #include <cstdint>
+#include <cstdlib>
 #include <limits>
 #include <memory>
 #include <tuple>
@@ -32,12 +34,12 @@ class BaseRule {
 
   virtual void handle(const request&, response&, const routing_params&) = 0;
   virtual void handle_upgrade(const request&, response& res, SocketAdaptor&&) {
-    res = response(404);
+    res = response(boost::beast::http::status::not_found);
     res.end();
   }
 #ifdef CROW_ENABLE_SSL
   virtual void handle_upgrade(const request&, response& res, SSLAdaptor&&) {
-    res = response(404);
+    res = response(boost::beast::http::status::not_found);
     res.end();
   }
 #endif
@@ -45,7 +47,7 @@ class BaseRule {
   uint32_t get_methods() { return methods_; }
 
  protected:
-  uint32_t methods_{1 << (int)HTTPMethod::Get};
+  uint32_t methods_{1 << (int)boost::beast::http::verb::get};
 
   std::string rule_;
   std::string name_;
@@ -249,7 +251,7 @@ class WebSocketRule : public BaseRule {
   void validate() override {}
 
   void handle(const request&, response& res, const routing_params&) override {
-    res = response(404);
+    res = response(boost::beast::http::status::not_found);
     res.end();
   }
 
@@ -315,13 +317,13 @@ struct RuleParameterTraits {
     return (self_t&)*this;
   }
 
-  self_t& methods(HTTPMethod method) {
+  self_t& methods(boost::beast::http::verb method) {
     ((self_t*)this)->methods_ = 1 << (int)method;
     return (self_t&)*this;
   }
 
   template <typename... MethodArgs>
-  self_t& methods(HTTPMethod method, MethodArgs... args_method) {
+  self_t& methods(boost::beast::http::verb method, MethodArgs... args_method) {
     methods(args_method...);
     ((self_t*)this)->methods_ |= 1 << (int)method;
     return (self_t&)*this;
@@ -577,8 +579,8 @@ class Trie {
   }
 
   std::pair<unsigned, routing_params> find(
-      const std::string& req_url, const Node* node = nullptr, unsigned pos = 0,
-      routing_params* params = nullptr) const {
+      const boost::string_view req_url, const Node* node = nullptr,
+      unsigned pos = 0, routing_params* params = nullptr) const {
     routing_params empty;
     if (params == nullptr) params = &empty;
 
@@ -601,7 +603,7 @@ class Trie {
       if ((c >= '0' && c <= '9') || c == '+' || c == '-') {
         char* eptr;
         errno = 0;
-        long long int value = strtoll(req_url.data() + pos, &eptr, 10);
+        long long int value = std::strtoll(req_url.data() + pos, &eptr, 10);
         if (errno != ERANGE && eptr != req_url.data() + pos) {
           params->int_params.push_back(value);
           auto ret =
@@ -619,7 +621,7 @@ class Trie {
         char* eptr;
         errno = 0;
         unsigned long long int value =
-            strtoull(req_url.data() + pos, &eptr, 10);
+            std::strtoull(req_url.data() + pos, &eptr, 10);
         if (errno != ERANGE && eptr != req_url.data() + pos) {
           params->uint_params.push_back(value);
           auto ret = find(req_url,
@@ -636,7 +638,7 @@ class Trie {
       if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.') {
         char* eptr;
         errno = 0;
-        double value = strtod(req_url.data() + pos, &eptr);
+        double value = std::strtod(req_url.data() + pos, &eptr);
         if (errno != ERANGE && eptr != req_url.data() + pos) {
           params->double_params.push_back(value);
           auto ret = find(
@@ -655,7 +657,7 @@ class Trie {
       }
 
       if (epos != pos) {
-        params->string_params.push_back(req_url.substr(pos, epos - pos));
+        params->string_params.emplace_back(req_url.substr(pos, epos - pos));
         auto ret = find(req_url,
                         &nodes_[node->param_childrens[(int)ParamType::STRING]],
                         epos, params);
@@ -668,7 +670,7 @@ class Trie {
       size_t epos = req_url.size();
 
       if (epos != pos) {
-        params->string_params.push_back(req_url.substr(pos, epos - pos));
+        params->string_params.emplace_back(req_url.substr(pos, epos - pos));
         auto ret =
             find(req_url, &nodes_[node->param_childrens[(int)ParamType::PATH]],
                  epos, params);
@@ -807,6 +809,7 @@ class Router {
         typename black_magic::arguments<N>::type::template rebind<TaggedRule>;
     std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
     RuleT* ptr = ruleObject.get();
+
     internal_add_rule_object(rule, std::move(ruleObject));
 
     return *ptr;
@@ -841,7 +844,7 @@ class Router {
     unsigned rule_index = found.first;
     if (!rule_index) {
       CROW_LOG_DEBUG << "Cannot match rules " << req.url;
-      res = response(404);
+      res = response(boost::beast::http::status::not_found);
       res.end();
       return;
     }
@@ -851,35 +854,36 @@ class Router {
 
     if (rule_index == RULE_SPECIAL_REDIRECT_SLASH) {
       CROW_LOG_INFO << "Redirecting to a url with trailing slash: " << req.url;
-      res = response(301);
+      res = response(boost::beast::http::status::moved_permanently);
 
       // TODO absolute url building
       if (req.get_header_value("Host").empty()) {
-        res.add_header("Location", req.url + "/");
+        res.add_header("Location", std::string(req.url) + "/");
       } else {
-        res.add_header(
-            "Location",
-            req.is_secure
-                ? "https://"
-                : "http://" + req.get_header_value("Host") + req.url + "/");
+        res.add_header("Location",
+                       req.is_secure
+                           ? "https://"
+                           : "http://" +
+                                 std::string(req.get_header_value("Host")) +
+                                 std::string(req.url) + "/");
       }
       res.end();
       return;
     }
 
-    if ((rules_[rule_index]->get_methods() & (1 << (uint32_t)req.method)) ==
+    if ((rules_[rule_index]->get_methods() & (1 << (uint32_t)req.method())) ==
         0) {
       CROW_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                     << " with " << method_name(req.method) << "("
-                     << (uint32_t)req.method << ") / "
+                     << " with " << req.method_string() << "("
+                     << (uint32_t)req.method() << ") / "
                      << rules_[rule_index]->get_methods();
-      res = response(404);
+      res = response(boost::beast::http::status::not_found);
       res.end();
       return;
     }
 
     CROW_LOG_DEBUG << "Matched rule (upgrade) '" << rules_[rule_index]->rule_
-                   << "' " << (uint32_t)req.method << " / "
+                   << "' " << (uint32_t)req.method() << " / "
                    << rules_[rule_index]->get_methods();
 
     // any uncaught exceptions become 500s
@@ -887,13 +891,13 @@ class Router {
       rules_[rule_index]->handle_upgrade(req, res, std::move(adaptor));
     } catch (std::exception& e) {
       CROW_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-      res = response(500);
+      res = response(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     } catch (...) {
       CROW_LOG_ERROR << "An uncaught exception occurred. The type was unknown "
                         "so no information was available.";
-      res = response(500);
+      res = response(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }
@@ -906,7 +910,7 @@ class Router {
 
     if (!rule_index) {
       CROW_LOG_DEBUG << "Cannot match rules " << req.url;
-      res = response(404);
+      res = response(boost::beast::http::status::not_found);
       res.end();
       return;
     }
@@ -916,33 +920,34 @@ class Router {
 
     if (rule_index == RULE_SPECIAL_REDIRECT_SLASH) {
       CROW_LOG_INFO << "Redirecting to a url with trailing slash: " << req.url;
-      res = response(301);
+      res = response(boost::beast::http::status::moved_permanently);
 
       // TODO absolute url building
       if (req.get_header_value("Host").empty()) {
-        res.add_header("Location", req.url + "/");
+        res.add_header("Location", std::string(req.url) + "/");
       } else {
-        res.add_header("Location", (req.is_secure ? "https://" : "http://") +
-                                       req.get_header_value("Host") + req.url +
-                                       "/");
+        res.add_header("Location",
+                       (req.is_secure ? "https://" : "http://") +
+                           std::string(req.get_header_value("Host")) +
+                           std::string(req.url) + "/");
       }
       res.end();
       return;
     }
 
-    if ((rules_[rule_index]->get_methods() & (1 << (uint32_t)req.method)) ==
+    if ((rules_[rule_index]->get_methods() & (1 << (uint32_t)req.method())) ==
         0) {
       CROW_LOG_DEBUG << "Rule found but method mismatch: " << req.url
-                     << " with " << method_name(req.method) << "("
-                     << (uint32_t)req.method << ") / "
+                     << " with " << req.method_string() << "("
+                     << (uint32_t)req.method() << ") / "
                      << rules_[rule_index]->get_methods();
-      res = response(404);
+      res = response(boost::beast::http::status::not_found);
       res.end();
       return;
     }
 
     CROW_LOG_DEBUG << "Matched rule '" << rules_[rule_index]->rule_ << "' "
-                   << (uint32_t)req.method << " / "
+                   << (uint32_t)req.method() << " / "
                    << rules_[rule_index]->get_methods();
 
     // any uncaught exceptions become 500s
@@ -950,13 +955,13 @@ class Router {
       rules_[rule_index]->handle(req, res, found.second);
     } catch (std::exception& e) {
       CROW_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-      res = response(500);
+      res = response(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     } catch (...) {
       CROW_LOG_ERROR << "An uncaught exception occurred. The type was unknown "
                         "so no information was available.";
-      res = response(500);
+      res = response(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }

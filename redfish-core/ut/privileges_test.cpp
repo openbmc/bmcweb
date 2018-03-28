@@ -18,26 +18,26 @@ TEST(PrivilegeTest, PrivilegeConstructor) {
 TEST(PrivilegeTest, PrivilegeCheckForNoPrivilegesRequired) {
   Privileges userPrivileges{"Login"};
 
-  OperationMap entityPrivileges{{crow::HTTPMethod::GET, {{"Login"}}}};
+  OperationMap entityPrivileges{{boost::beast::http::verb::get, {{"Login"}}}};
 
-  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseSuccess) {
   auto userPrivileges = Privileges{"Login"};
-  OperationMap entityPrivileges{{crow::HTTPMethod::GET, {}}};
+  OperationMap entityPrivileges{{boost::beast::http::verb::get, {}}};
 
-  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForSingleCaseFailure) {
   auto userPrivileges = Privileges{"Login"};
   OperationMap entityPrivileges{
-      {crow::HTTPMethod::GET, {{"ConfigureManager"}}}};
+      {boost::beast::http::verb::get, {{"ConfigureManager"}}}};
 
-  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                              entityPrivileges, userPrivileges));
 }
 
@@ -45,38 +45,38 @@ TEST(PrivilegeTest, PrivilegeCheckForANDCaseSuccess) {
   auto userPrivileges =
       Privileges{"Login", "ConfigureManager", "ConfigureSelf"};
   OperationMap entityPrivileges{
-      {crow::HTTPMethod::GET,
+      {boost::beast::http::verb::get,
        {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
 
-  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForANDCaseFailure) {
   auto userPrivileges = Privileges{"Login", "ConfigureManager"};
   OperationMap entityPrivileges{
-      {crow::HTTPMethod::GET,
+      {boost::beast::http::verb::get,
        {{"Login", "ConfigureManager", "ConfigureSelf"}}}};
 
-  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                              entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseSuccess) {
   auto userPrivileges = Privileges{"ConfigureManager"};
   OperationMap entityPrivileges{
-      {crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}};
+      {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}};
 
-  EXPECT_TRUE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_TRUE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                             entityPrivileges, userPrivileges));
 }
 
 TEST(PrivilegeTest, PrivilegeCheckForORCaseFailure) {
   auto userPrivileges = Privileges{"ConfigureComponents"};
   OperationMap entityPrivileges = OperationMap(
-      {{crow::HTTPMethod::GET, {{"Login"}, {"ConfigureManager"}}}});
+      {{boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}}});
 
-  EXPECT_FALSE(isMethodAllowedWithPrivileges(crow::HTTPMethod::GET,
+  EXPECT_FALSE(isMethodAllowedWithPrivileges(boost::beast::http::verb::get,
                                              entityPrivileges, userPrivileges));
 }
 

@@ -2,6 +2,8 @@
 #include "crow/logging.h"
 #include "crow/settings.h"
 #include <boost/asio.hpp>
+#include <boost/lexical_cast.hpp>
+
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
@@ -21,7 +23,14 @@ struct SocketAdaptor {
 
   tcp::socket& socket() { return socket_; }
 
-  tcp::endpoint remote_endpoint() { return socket_.remote_endpoint(); }
+  std::string remote_endpoint() {
+    boost::system::error_code ec;
+    tcp::endpoint ep = socket_.remote_endpoint(ec);
+    if (ec) {
+      return "";
+    }
+    return boost::lexical_cast<std::string>(ep);
+  }
 
   bool is_open() { return socket_.is_open(); }
 
@@ -47,7 +56,7 @@ struct TestSocketAdaptor {
 
   tcp::socket& socket() { return socket_; }
 
-  tcp::endpoint remote_endpoint() { return socket_.remote_endpoint(); }
+  std::string remote_endpoint() { return "Testhost"; }
 
   bool is_open() { return socket_.is_open(); }
 
@@ -75,7 +84,14 @@ struct SSLAdaptor {
     return ssl_socket_->lowest_layer();
   }
 
-  tcp::endpoint remote_endpoint() { return raw_socket().remote_endpoint(); }
+  std::string remote_endpoint() {
+    boost::system::error_code ec;
+    tcp::endpoint ep = raw_socket().remote_endpoint(ec);
+    if (ec) {
+      return "";
+    }
+    return boost::lexical_cast<std::string>(ep);
+  }
 
   bool is_open() {
     /*TODO(ed) this is a bit of a cheat.

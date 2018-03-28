@@ -6,7 +6,8 @@
 #include <stdexcept>
 #include <string>
 #include <tuple>
-#include <type_traits>
+#include <boost/utility/string_view.hpp>
+#include "nlohmann/json.hpp"
 
 #include "crow/settings.h"
 
@@ -518,7 +519,8 @@ inline static std::string base64encode_urlsafe(const char* data, size_t size) {
 
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
-inline bool base64_decode(const std::string& input, std::string& output) {
+inline bool base64_decode(const boost::string_view input,
+                          std::string& output) {
   static const char nop = -1;
   // See note on encoding_data[] in above function
   static const char decoding_data[] = {

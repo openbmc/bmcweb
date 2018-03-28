@@ -11,7 +11,7 @@ TEST(TokenAuthentication, TestBasicReject) {
   App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
       app;
   decltype(app)::server_t server(&app, "127.0.0.1", 45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { server.run(); });
   asio::io_service is;
   std::string sendmsg;
@@ -50,7 +50,7 @@ TEST(TokenAuthentication, TestRejectedResource) {
   App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { app.run(); });
 
   asio::io_service is;
@@ -80,7 +80,7 @@ TEST(TokenAuthentication, TestGetLoginUrl) {
   App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { app.run(); });
 
   asio::io_service is;
@@ -110,7 +110,7 @@ TEST(TokenAuthentication, TestPostBadLoginUrl) {
   App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { app.run(); });
 
   asio::io_service is;
@@ -194,7 +194,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin) {
   App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { app.run(); });
 
   asio::io_service is;

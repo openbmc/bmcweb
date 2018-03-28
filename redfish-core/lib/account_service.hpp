@@ -37,12 +37,12 @@ class AccountService : public Node {
     Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
 
     entityPrivileges = {
-        {crow::HTTPMethod::GET, {{"ConfigureUsers"}, {"ConfigureManager"}}},
-        {crow::HTTPMethod::HEAD, {{"Login"}}},
-        {crow::HTTPMethod::PATCH, {{"ConfigureUsers"}}},
-        {crow::HTTPMethod::PUT, {{"ConfigureUsers"}}},
-        {crow::HTTPMethod::DELETE, {{"ConfigureUsers"}}},
-        {crow::HTTPMethod::POST, {{"ConfigureUsers"}}}};
+        {boost::beast::http::verb::get, {{"ConfigureUsers"}, {"ConfigureManager"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+        {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
+        {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
   }
 
  private:

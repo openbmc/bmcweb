@@ -68,11 +68,11 @@ class Middleware {
         if (jSessions != data.end()) {
           if (jSessions->is_object()) {
             for (const auto& elem : *jSessions) {
-              UserSession newSession;
+              std::shared_ptr<UserSession> newSession = std::make_shared<UserSession>();
 
-              if (newSession.fromJson(elem)) {
-                session_store->auth_tokens.emplace(newSession.unique_id,
-                                                   std::move(newSession));
+              if (newSession->fromJson(elem)) {
+                session_store->auth_tokens.emplace(newSession->unique_id,
+                                                   newSession);
               }
             }
           }

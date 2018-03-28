@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include "crow/utility.h"
+#include <boost/beast/http/verb.hpp>
 
 namespace crow {
 enum class HTTPMethod {
@@ -31,25 +32,25 @@ enum class HTTPMethod {
   Patch = 24,
 };
 
-inline std::string method_name(HTTPMethod method) {
+inline std::string method_name(boost::beast::http::verb method) {
   switch (method) {
-    case HTTPMethod::Delete:
+    case boost::beast::http::verb::delete_:
       return "DELETE";
-    case HTTPMethod::Get:
+    case boost::beast::http::verb::get:
       return "GET";
-    case HTTPMethod::Head:
+    case boost::beast::http::verb::head:
       return "HEAD";
-    case HTTPMethod::Post:
+    case boost::beast::http::verb::post:
       return "POST";
-    case HTTPMethod::Put:
+    case boost::beast::http::verb::put:
       return "PUT";
-    case HTTPMethod::Connect:
+    case boost::beast::http::verb::connect:
       return "CONNECT";
-    case HTTPMethod::Options:
+    case boost::beast::http::verb::options:
       return "OPTIONS";
-    case HTTPMethod::Trace:
+    case boost::beast::http::verb::trace:
       return "TRACE";
-    case HTTPMethod::Patch:
+    case boost::beast::http::verb::patch:
       return "PATCH";
   }
   return "invalid";
@@ -114,39 +115,24 @@ template <>
 inline std::string routing_params::get<std::string>(unsigned index) const {
   return string_params[index];
 }
+
 }  // namespace crow
 
-constexpr crow::HTTPMethod operator"" _method(const char* str, size_t /*len*/) {
-  return crow::black_magic::is_equ_p(str, "GET", 3)
-             ? crow::HTTPMethod::Get
-             : crow::black_magic::is_equ_p(str, "DELETE", 6)
-                   ? crow::HTTPMethod::Delete
-                   : crow::black_magic::is_equ_p(str, "HEAD", 4)
-                         ? crow::HTTPMethod::Head
-                         : crow::black_magic::is_equ_p(str, "POST", 4)
-                               ? crow::HTTPMethod::Post
-                               : crow::black_magic::is_equ_p(str, "PUT", 3)
-                                     ? crow::HTTPMethod::Put
-                                     : crow::black_magic::is_equ_p(str,
-                                                                   "OPTIONS", 7)
-                                           ? crow::HTTPMethod::Options
-                                           : crow::black_magic::is_equ_p(
-                                                 str, "CONNECT", 7)
-                                                 ? crow::HTTPMethod::Connect
-                                                 : crow::black_magic::is_equ_p(
-                                                       str, "TRACE", 5)
-                                                       ? crow::HTTPMethod::Trace
-                                                       : crow::black_magic::
-                                                                 is_equ_p(
-                                                                     str,
-                                                                     "PATCH", 5)
-                                                             ? crow::
-                                                                   HTTPMethod::
-                                                                       Patch
-                                                             : throw std::
-                                                                   runtime_error(
-                                                                       "invalid"
-                                                                       " http "
-                                                                       "metho"
-                                                                       "d");
+constexpr boost::beast::http::verb operator"" _method(const char* str,
+                                                      size_t /*len*/) {
+  using verb = boost::beast::http::verb;
+  // clang-format off
+  return
+    crow::black_magic::is_equ_p(str, "GET", 3) ? verb::get :
+    crow::black_magic::is_equ_p(str, "DELETE", 6) ? verb::delete_ :
+    crow::black_magic::is_equ_p(str, "HEAD", 4) ? verb::head :
+    crow::black_magic::is_equ_p(str, "POST", 4) ? verb::post :
+    crow::black_magic::is_equ_p(str, "PUT", 3) ? verb::put :
+    crow::black_magic::is_equ_p(str, "OPTIONS", 7) ? verb::options :
+    crow::black_magic::is_equ_p(str, "CONNECT", 7) ? verb::connect :
+    crow::black_magic::is_equ_p(str, "TRACE", 5) ? verb::trace :
+    crow::black_magic::is_equ_p(str, "PATCH", 5) ? verb::patch :
+    crow::black_magic::is_equ_p(str, "PURGE", 5) ? verb::purge :
+    throw std::runtime_error("invalid http method");
+  // clang-format on
 }

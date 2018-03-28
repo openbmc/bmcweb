@@ -36,12 +36,12 @@ class NetworkProtocol : public Node {
     Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["Status"]["State"] = "Enabled";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                        {boost::beast::http::verb::head, {{"Login"}}},
+                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:

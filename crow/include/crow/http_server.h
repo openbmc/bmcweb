@@ -7,7 +7,7 @@
 #include <memory>
 #include <utility>
 #include <vector>
-#include "crow/dumb_timer_queue.h"
+#include "crow/timer_queue.h"
 #include "crow/http_connection.h"
 #include "crow/logging.h"
 #include <boost/asio.hpp>
@@ -69,7 +69,7 @@ class Server {
     tick_timer_.expires_from_now(
         boost::posix_time::milliseconds(tick_interval_.count()));
     tick_timer_.async_wait([this](const boost::system::error_code& ec) {
-      if (ec != nullptr) {
+      if (ec) {
         return;
       }
       on_tick();
@@ -105,13 +105,12 @@ class Server {
       return this->date_str;
     };
 
-    timer_queue_.set_io_service(*io_service_);
     boost::asio::deadline_timer timer(*io_service_);
     timer.expires_from_now(boost::posix_time::seconds(1));
 
     std::function<void(const boost::system::error_code& ec)> handler;
     handler = [&](const boost::system::error_code& ec) {
-      if (ec != nullptr) {
+      if (ec) {
         return;
       }
       timer_queue_.process();
@@ -124,7 +123,7 @@ class Server {
       tick_timer_.expires_from_now(
           boost::posix_time::milliseconds(tick_interval_.count()));
       tick_timer_.async_wait([this](const boost::system::error_code& ec) {
-        if (ec != nullptr) {
+        if (ec) {
           return;
         }
         on_tick();
@@ -159,7 +158,7 @@ class Server {
 
  private:
   std::shared_ptr<asio::io_service> io_service_;
-  detail::dumb_timer_queue timer_queue_;
+  detail::timer_queue timer_queue_;
   std::function<std::string()> get_cached_date_str_;
   std::unique_ptr<tcp::acceptor> acceptor_;
   boost::asio::signal_set signals_;
