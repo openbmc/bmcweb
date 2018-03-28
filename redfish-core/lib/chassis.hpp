@@ -108,12 +108,13 @@ class ChassisCollection : public Node {
         "/redfish/v1/$metadata#ChassisCollection.ChassisCollection";
     Node::json["Name"] = "Chassis Collection";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:
@@ -138,7 +139,7 @@ class ChassisCollection : public Node {
             res.json_value = Node::json;
           } else {
             // ... otherwise, return INTERNALL ERROR
-            res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+            res.result(boost::beast::http::status::internal_server_error);
           }
           res.end();
         });
@@ -166,12 +167,13 @@ class Chassis : public Node {
     Node::json["Name"] = "Chassis Collection";
     Node::json["ChassisType"] = "RackMount";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:
@@ -183,7 +185,7 @@ class Chassis : public Node {
     // Check if there is required param, truly entering this shall be
     // impossible.
     if (params.size() != 1) {
-      res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+      res.result(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }
@@ -198,8 +200,8 @@ class Chassis : public Node {
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
           if (error_code) {
-            res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
             res.json_value = {};
+            res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
           }
@@ -211,14 +213,16 @@ class Chassis : public Node {
             const std::string &path = object.first;
             const std::vector<std::pair<std::string, std::vector<std::string>>>
                 &connectionNames = object.second;
+
             if (!boost::ends_with(path, chassis_id)) {
               continue;
             }
             if (connectionNames.size() < 1) {
-              res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
-              res.end();
-              return;
+              CROW_LOG_ERROR << "Only got " << connectionNames.size()
+                             << " connection names";
+              continue;
             }
+
             const std::string connectionName = connectionNames[0].first;
             crow::connections::system_bus->async_method_call(
                 [&res, chassis_id(std::string(chassis_id)) ](
@@ -244,8 +248,10 @@ class Chassis : public Node {
             // Found the connection we were looking for, return
             return;
           }
+
           // Couldn't find an object with that name.  return an error
-          res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+          res.result(boost::beast::http::status::not_found);
+
           res.end();
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -259,6 +265,6 @@ class Chassis : public Node {
   // Chassis Provider object
   // TODO(Pawel) consider move it to singleton
   OnDemandChassisProvider chassis_provider;
-};
+};  // namespace redfish
 
 }  // namespace redfish

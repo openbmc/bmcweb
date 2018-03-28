@@ -1,7 +1,7 @@
+#include "crow.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
-#include "crow.h"
 #include "gtest/gtest.h"
 #undef CROW_LOG_LEVEL
 #define CROW_LOG_LEVEL 0
@@ -66,7 +66,8 @@ TEST(Crow, Rule) {
 
   // executing handler
   ASSERT_EQUAL(0, x);
-  r.handle(request(), res, routing_params());
+  boost::beast::http::request<boost::beast::http::string_body> req{};
+  r.handle(request(req), res, routing_params());
   ASSERT_EQUAL(1, x);
 
   // registering handler with request argument
@@ -79,7 +80,7 @@ TEST(Crow, Rule) {
 
   // executing handler
   ASSERT_EQUAL(1, x);
-  r.handle(request(), res, routing_params());
+  r.handle(request(req), res, routing_params());
   ASSERT_EQUAL(2, x);
 }
 
@@ -119,41 +120,45 @@ TEST(Crow, PathRouting) {
   ([] { return "path"; });
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/file";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/file/";
 
     app.handle(req, res);
-    ASSERT_EQUAL(404, res.code);
+    ASSERT_EQUAL(404, res.result_int());
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/path";
 
     app.handle(req, res);
-    ASSERT_NOTEQUAL(404, res.code);
+    ASSERT_NOTEQUAL(404, res.result_int());
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/path/";
 
     app.handle(req, res);
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
   }
 }
 
@@ -200,52 +205,55 @@ TEST(Crow, RoutingTest) {
   app.validate();
   // app.debug_print();
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/-1";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(404, res.code);
+    ASSERT_EQUAL(404, res.result_int());
   }
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/0/1001999";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
 
     ASSERT_EQUAL(1001999, B);
   }
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/1/-100/1999";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
 
     ASSERT_EQUAL(-100, A);
     ASSERT_EQUAL(1999, B);
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/4/5000/3/-2.71828/hellhere";
-    req.add_header("TestHeader", "Value");
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
 
     ASSERT_EQUAL(5000, A);
     ASSERT_EQUAL(3, B);
@@ -253,15 +261,15 @@ TEST(Crow, RoutingTest) {
     ASSERT_EQUAL("hellhere", D);
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/5/-5/999/3.141592/hello_there/a/b/c/d";
-    req.add_header("TestHeader", "Value");
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.code);
+    ASSERT_EQUAL(200, res.result_int());
 
     ASSERT_EQUAL(-5, A);
     ASSERT_EQUAL(999, B);
@@ -272,9 +280,12 @@ TEST(Crow, RoutingTest) {
 }
 
 TEST(Crow, simple_response_routing_params) {
-  ASSERT_EQUAL(100, response(100).code);
-  ASSERT_EQUAL(200, response("Hello there").code);
-  ASSERT_EQUAL(500, response(500, "Internal Error?").code);
+  ASSERT_EQUAL(100,
+               response(boost::beast::http::status::continue_).result_int());
+  ASSERT_EQUAL(200, response("Hello there").result_int());
+  ASSERT_EQUAL(500, response(boost::beast::http::status::internal_server_error,
+                             "Internal Error?")
+                        .result_int());
 
   routing_params rp;
   rp.int_params.push_back(1);
@@ -299,7 +310,7 @@ TEST(Crow, http_method) {
 
   CROW_ROUTE(app, "/").methods("POST"_method,
                                "GET"_method)([](const request& req) {
-    if (req.method == "GET"_method)
+    if (req.method() == "GET"_method)
       return "2";
     else
       return "1";
@@ -316,44 +327,48 @@ TEST(Crow, http_method) {
   //([]{ return "2"; });
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/";
     app.handle(req, res);
 
-    ASSERT_EQUAL("2", res.body);
+    ASSERT_EQUAL("2", res.body());
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/";
-    req.method = "POST"_method;
+    r.method("POST"_method);
     app.handle(req, res);
 
-    ASSERT_EQUAL("1", res.body);
+    ASSERT_EQUAL("1", res.body());
   }
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/get_only";
     app.handle(req, res);
 
-    ASSERT_EQUAL("get", res.body);
+    ASSERT_EQUAL("get", res.body());
   }
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
 
     req.url = "/get_only";
-    req.method = "POST"_method;
+    r.method("POST"_method);
     app.handle(req, res);
 
-    ASSERT_NOTEQUAL("get", res.body);
+    ASSERT_NOTEQUAL("get", res.body());
   }
 }
 
@@ -426,208 +441,6 @@ TEST(Crow, multi_server) {
 
   server1.stop();
   server2.stop();
-}
-
-TEST(Crow, json_read) {
-  {
-    const char* json_error_tests[] = {
-        "{} 3",
-        "{{}",
-        "{3}",
-        "3.4.5",
-        "+3",
-        "3-2",
-        "00",
-        "03",
-        "1e3e3",
-        "1e+.3",
-        "nll",
-        "f",
-        "t",
-        "{\"x\":3,}",
-        "{\"x\"}",
-        "{\"x\":3   q}",
-        "{\"x\":[3 4]}",
-        "{\"x\":[\"",
-        "{\"x\":[[], 4],\"y\",}",
-        "{\"x\":[3",
-        "{\"x\":[ null, false, true}",
-    };
-    for (auto s : json_error_tests) {
-      auto x = json::load(s);
-      if (x) {
-        fail("should fail to parse ", s);
-        return;
-      }
-    }
-  }
-
-  auto x = json::load(R"({"message":"hello, world"})");
-  if (!x) fail("fail to parse");
-  ASSERT_EQUAL("hello, world", x["message"]);
-  ASSERT_EQUAL(1, x.size());
-  ASSERT_EQUAL(false, x.has("mess"));
-  ASSERT_THROW(x["mess"], std::exception);
-  // TODO returning false is better than exception
-  // ASSERT_THROW(3 == x["message"], std::exception);
-  ASSERT_EQUAL(12, x["message"].size());
-
-  std::string s = R"({"int":3,     "ints"  :[1,2,3,4,5]		})";
-  auto y = json::load(s);
-  ASSERT_EQUAL(3, y["int"]);
-  ASSERT_EQUAL(3.0, y["int"]);
-  ASSERT_NOTEQUAL(3.01, y["int"]);
-  ASSERT_EQUAL(5, y["ints"].size());
-  ASSERT_EQUAL(1, y["ints"][0]);
-  ASSERT_EQUAL(2, y["ints"][1]);
-  ASSERT_EQUAL(3, y["ints"][2]);
-  ASSERT_EQUAL(4, y["ints"][3]);
-  ASSERT_EQUAL(5, y["ints"][4]);
-  ASSERT_EQUAL(1u, y["ints"][0]);
-  ASSERT_EQUAL(1.f, y["ints"][0]);
-
-  int q = (int)y["ints"][1];
-  ASSERT_EQUAL(2, q);
-  q = y["ints"][2].i();
-  ASSERT_EQUAL(3, q);
-
-  std::string s2 = R"({"bools":[true, false], "doubles":[1.2, -3.4]})";
-  auto z = json::load(s2);
-  ASSERT_EQUAL(2, z["bools"].size());
-  ASSERT_EQUAL(2, z["doubles"].size());
-  ASSERT_EQUAL(true, z["bools"][0].b());
-  ASSERT_EQUAL(false, z["bools"][1].b());
-  ASSERT_EQUAL(1.2, z["doubles"][0].d());
-  ASSERT_EQUAL(-3.4, z["doubles"][1].d());
-
-  std::string s3 = R"({"uint64": 18446744073709551615})";
-  auto z1 = json::load(s3);
-  ASSERT_EQUAL(18446744073709551615ull, z1["uint64"].u());
-}
-
-TEST(Crow, json_read_real) {
-  vector<std::string> v{"0.036303908355795146",
-                        "0.18320417789757412",
-                        "0.05319940476190476",
-                        "0.15224702380952382",
-                        "0",
-                        "0.3296201145552561",
-                        "0.47921580188679247",
-                        "0.05873511904761905",
-                        "0.1577827380952381",
-                        "0.4996841307277628",
-                        "0.6425412735849056",
-                        "0.052113095238095236",
-                        "0.12830357142857143",
-                        "0.7871041105121294",
-                        "0.954220013477089",
-                        "0.05869047619047619",
-                        "0.1625",
-                        "0.8144794474393531",
-                        "0.9721613881401617",
-                        "0.1399404761904762",
-                        "0.24470238095238095",
-                        "0.04527459568733154",
-                        "0.2096950808625337",
-                        "0.35267857142857145",
-                        "0.42791666666666667",
-                        "0.855731974393531",
-                        "0.9352467991913747",
-                        "0.3816220238095238",
-                        "0.4282886904761905",
-                        "0.39414167789757415",
-                        "0.5316079851752021",
-                        "0.3809375",
-                        "0.4571279761904762",
-                        "0.03522995283018868",
-                        "0.1915641846361186",
-                        "0.6164136904761904",
-                        "0.7192708333333333",
-                        "0.05675117924528302",
-                        "0.21308541105121293",
-                        "0.7045386904761904",
-                        "0.8016815476190476"};
-  for (auto x : v) {
-    CROW_LOG_DEBUG << x;
-    ASSERT_EQUAL(json::load(x).d(), boost::lexical_cast<double>(x));
-  }
-
-  auto ret = json::load(
-      R"---({"balloons":[{"mode":"ellipse","left":0.036303908355795146,"right":0.18320417789757412,"top":0.05319940476190476,"bottom":0.15224702380952382,"index":"0"},{"mode":"ellipse","left":0.3296201145552561,"right":0.47921580188679247,"top":0.05873511904761905,"bottom":0.1577827380952381,"index":"1"},{"mode":"ellipse","left":0.4996841307277628,"right":0.6425412735849056,"top":0.052113095238095236,"bottom":0.12830357142857143,"index":"2"},{"mode":"ellipse","left":0.7871041105121294,"right":0.954220013477089,"top":0.05869047619047619,"bottom":0.1625,"index":"3"},{"mode":"ellipse","left":0.8144794474393531,"right":0.9721613881401617,"top":0.1399404761904762,"bottom":0.24470238095238095,"index":"4"},{"mode":"ellipse","left":0.04527459568733154,"right":0.2096950808625337,"top":0.35267857142857145,"bottom":0.42791666666666667,"index":"5"},{"mode":"ellipse","left":0.855731974393531,"right":0.9352467991913747,"top":0.3816220238095238,"bottom":0.4282886904761905,"index":"6"},{"mode":"ellipse","left":0.39414167789757415,"right":0.5316079851752021,"top":0.3809375,"bottom":0.4571279761904762,"index":"7"},{"mode":"ellipse","left":0.03522995283018868,"right":0.1915641846361186,"top":0.6164136904761904,"bottom":0.7192708333333333,"index":"8"},{"mode":"ellipse","left":0.05675117924528302,"right":0.21308541105121293,"top":0.7045386904761904,"bottom":0.8016815476190476,"index":"9"}]})---");
-  ASSERT_TRUE(static_cast<bool>(ret));
-}
-
-TEST(Crow, json_read_unescaping) {
-  {
-    auto x = json::load(R"({"data":"\ud55c\n\t\r"})");
-    if (!x) {
-      fail("fail to parse");
-      return;
-    }
-    ASSERT_EQUAL(6, x["data"].size());
-    ASSERT_EQUAL("한\n\t\r", x["data"]);
-  }
-  {
-    // multiple r_string instance
-    auto x = json::load(R"({"data":"\ud55c\n\t\r"})");
-    auto a = x["data"].s();
-    auto b = x["data"].s();
-    ASSERT_EQUAL(6, a.size());
-    ASSERT_EQUAL(6, b.size());
-    ASSERT_EQUAL(6, x["data"].size());
-  }
-}
-
-TEST(Crow, json_write) {
-  json::wvalue x;
-  x["message"] = "hello world";
-  ASSERT_EQUAL(R"({"message":"hello world"})", json::dump(x));
-  x["message"] = std::string("string value");
-  ASSERT_EQUAL(R"({"message":"string value"})", json::dump(x));
-  x["message"]["x"] = 3;
-  ASSERT_EQUAL(R"({"message":{"x":3}})", json::dump(x));
-  x["message"]["y"] = 5;
-  ASSERT_TRUE(R"({"message":{"x":3,"y":5}})" == json::dump(x) ||
-              R"({"message":{"y":5,"x":3}})" == json::dump(x));
-  x["message"] = 5.5;
-  ASSERT_EQUAL(R"({"message":5.5})", json::dump(x));
-
-  json::wvalue y;
-  y["scores"][0] = 1;
-  y["scores"][1] = "king";
-  y["scores"][2] = 3.5;
-  ASSERT_EQUAL(R"({"scores":[1,"king",3.5]})", json::dump(y));
-
-  y["scores"][2][0] = "real";
-  y["scores"][2][1] = false;
-  y["scores"][2][2] = true;
-  ASSERT_EQUAL(R"({"scores":[1,"king",["real",false,true]]})", json::dump(y));
-
-  y["scores"]["a"]["b"]["c"] = nullptr;
-  ASSERT_EQUAL(R"({"scores":{"a":{"b":{"c":null}}}})", json::dump(y));
-
-  y["scores"] = std::vector<int>{1, 2, 3};
-  ASSERT_EQUAL(R"({"scores":[1,2,3]})", json::dump(y));
-}
-
-TEST(Crow, template_basic) {
-  auto t = crow::mustache::compile(R"---(attack of {{name}})---");
-  crow::mustache::context ctx;
-  ctx["name"] = "killer tomatoes";
-  auto result = t.render(ctx);
-  ASSERT_EQUAL("attack of killer tomatoes", result);
-  // crow::mustache::load("basic.mustache");
-}
-
-TEST(Crow, template_load) {
-  crow::mustache::set_base(".");
-  ofstream("test.mustache") << R"---(attack of {{name}})---";
-  auto t = crow::mustache::load("test.mustache");
-  crow::mustache::context ctx;
-  ctx["name"] = "killer tomatoes";
-  auto result = t.render(ctx);
-  ASSERT_EQUAL("attack of killer tomatoes", result);
-  unlink("test.mustache");
 }
 
 TEST(Crow, black_magic) {
@@ -812,47 +625,6 @@ TEST(Crow, middleware_context) {
     ASSERT_EQUAL("2 before", out[1]);
     ASSERT_EQUAL("2 after", out[2]);
     ASSERT_EQUAL("1 after", out[3]);
-  }
-  server.stop();
-}
-
-TEST(Crow, middleware_cookieparser) {
-  static char buf[2048];
-
-  App<CookieParser> app;
-
-  std::string value1;
-  std::string value2;
-
-  CROW_ROUTE(app, "/")
-  ([&](const request& req) {
-    {
-      auto& ctx = app.get_context<CookieParser>(req);
-      value1 = ctx.get_cookie("key1");
-      value2 = ctx.get_cookie("key2");
-    }
-
-    return "";
-  });
-
-  decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
-  auto _ = async(launch::async, [&] { server.run(); });
-  std::string sendmsg =
-      "GET /\r\nCookie: key1=value1; key2=\"val\\\"ue2\"\r\n\r\n";
-  asio::io_service is;
-  {
-    asio::ip::tcp::socket c(is);
-    c.connect(asio::ip::tcp::endpoint(
-        asio::ip::address::from_string(LOCALHOST_ADDRESS), 45451));
-
-    c.send(asio::buffer(sendmsg));
-
-    c.receive(asio::buffer(buf, 2048));
-    c.close();
-  }
-  {
-    ASSERT_EQUAL("value1", value1);
-    ASSERT_EQUAL("val\"ue2", value2);
   }
   server.stop();
 }
@@ -1067,28 +839,32 @@ TEST(Crow, route_dynamic) {
   }
 
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
     req.url = "/";
     app.handle(req, res);
     ASSERT_EQUAL(x, 2);
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
     req.url = "/set_int/42";
     app.handle(req, res);
     ASSERT_EQUAL(x, 42);
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
     req.url = "/set5";
     app.handle(req, res);
     ASSERT_EQUAL(x, 5);
   }
   {
-    request req;
+    boost::beast::http::request<boost::beast::http::string_body> r{};
+    request req{r};
     response res;
     req.url = "/set4";
     app.handle(req, res);

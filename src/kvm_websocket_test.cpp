@@ -17,7 +17,7 @@ TEST(Kvm, BasicRfb) {
 
   crow::kvm::request_routes(app);
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(std::launch::async, [&] { app.run(); });
   auto routes = app.get_routes();
   asio::io_service is;

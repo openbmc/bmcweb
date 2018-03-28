@@ -1,9 +1,9 @@
 #pragma once
 #include <array>
-#include "crow/TinySHA1.hpp"
 #include "crow/http_request.h"
 #include "crow/socket_adaptors.h"
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/uuid/detail/sha1.hpp>
 
 namespace crow {
 namespace websocket {
@@ -57,12 +57,17 @@ class Connection : public connection {
     }
     // Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
     // Sec-WebSocket-Version: 13
-    std::string magic = req.get_header_value("Sec-WebSocket-Key") +
-                        "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
-    sha1::SHA1 s;
-    s.processBytes(magic.data(), magic.size());
-    uint8_t digest[20];
-    s.getDigestBytes(digest);
+    std::string magic(req.get_header_value("Sec-WebSocket-Key"));
+    magic += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
+    boost::uuids::detail::sha1 s;
+    s.process_bytes(magic.data(), magic.size());
+
+    // sha1 digests are 20 bytes long
+    uint32_t digest[20 / sizeof(uint32_t)];
+    s.get_digest(digest);
+    for (int i = 0; i < 5; i++) {
+      digest[i] = htonl(digest[i]);
+    }
     start(crow::utility::base64encode(reinterpret_cast<char*>(digest), 20));
   }
 

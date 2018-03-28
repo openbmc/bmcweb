@@ -157,8 +157,8 @@ class Privileges {
   std::bitset<MAX_PRIVILEGE_COUNT> privilegeBitset = 0;
 };
 
-using OperationMap =
-    boost::container::flat_map<crow::HTTPMethod, std::vector<Privileges>>;
+using OperationMap = boost::container::flat_map<boost::beast::http::verb,
+                                                std::vector<Privileges>>;
 
 /**
  * @brief Checks if given privileges allow to call an HTTP method
@@ -169,7 +169,7 @@ using OperationMap =
  * @return                 True if method allowed, false otherwise
  *
  */
-inline bool isMethodAllowedWithPrivileges(const crow::HTTPMethod method,
+inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
                                           const OperationMap& operationMap,
                                           const Privileges& userPrivileges) {
   const auto& it = operationMap.find(method);
@@ -199,7 +199,7 @@ inline bool isMethodAllowedWithPrivileges(const crow::HTTPMethod method,
  * @return                 True if method allowed, false otherwise
  *
  */
-inline bool isMethodAllowedForUser(const crow::HTTPMethod method,
+inline bool isMethodAllowedForUser(const boost::beast::http::verb method,
                                    const OperationMap& operationMap,
                                    const std::string& user) {
   // TODO: load user privileges from configuration as soon as its available

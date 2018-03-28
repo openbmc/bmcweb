@@ -2,53 +2,48 @@
 #include <string>
 
 #include "nlohmann/json.hpp"
-#include "crow/ci_map.h"
 #include "crow/http_request.h"
 #include "crow/logging.h"
+#include <boost/beast/http.hpp>
 
 namespace crow {
+
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection;
 
 struct response {
   template <typename Adaptor, typename Handler, typename... Middlewares>
   friend class crow::Connection;
+  using response_type =
+      boost::beast::http::response<boost::beast::http::string_body>;
 
-  int code{200};
-  std::string body;
+  boost::optional<response_type> string_response;
+
   nlohmann::json json_value;
 
-  std::shared_ptr<std::string> body_ptr;
-
-  std::string headers;
-
-  void add_header(const std::string& key, const std::string& value) {
-    const static std::string seperator = ": ";
-    const static std::string crlf = "\r\n";
-    headers.append(key);
-    headers.append(seperator);
-    headers.append(value);
-    headers.append(crlf);
+  void add_header(const boost::string_view key,
+                  const boost::string_view value) {
+    string_response->set(key, value);
   }
 
-  response() = default;
-  explicit response(int code) : code(code) {}
-  explicit response(std::string body) : body(std::move(body)) {}
-  explicit response(const char* body) : body(body) {}
-  explicit response(nlohmann::json&& json_value)
-      : json_value(std::move(json_value)) {
-    json_mode();
+  void add_header(boost::beast::http::field key, boost::string_view value) {
+    string_response->set(key, value);
   }
-  response(int code, const char* body) : code(code), body(body) {}
-  response(int code, std::string body) : code(code), body(std::move(body)) {}
-  // TODO(ed) make pretty printing JSON configurable
-  explicit response(const nlohmann::json& json_value)
-      : body(json_value.dump(4)) {
-    json_mode();
+
+  response() : string_response(response_type{}) {}
+
+  explicit response(boost::beast::http::status code)
+      : string_response(response_type{}) {}
+
+  explicit response(boost::string_view body_)
+      : string_response(response_type{}) {
+    string_response->body() = std::string(body_);
   }
-  response(int code, const nlohmann::json& json_value)
-      : code(code), body(json_value.dump(4)) {
-    json_mode();
+
+  response(boost::beast::http::status code, boost::string_view s)
+      : string_response(response_type{}) {
+    string_response->result(code);
+    string_response->body() = std::string(s);
   }
 
   response(response&& r) {
@@ -56,33 +51,45 @@ struct response {
     *this = std::move(r);
   }
 
-  ~response() { CROW_LOG_DEBUG << "Destroying response"; }
+  ~response() { CROW_LOG_DEBUG << this << " Destroying response"; }
 
   response& operator=(const response& r) = delete;
 
   response& operator=(response&& r) noexcept {
     CROW_LOG_DEBUG << "Moving response containers";
-    body = std::move(r.body);
+    string_response = std::move(r.string_response);
+    r.string_response.emplace(response_type{});
     json_value = std::move(r.json_value);
-    code = r.code;
-    headers = std::move(r.headers);
     completed_ = r.completed_;
     return *this;
   }
 
+  void result(boost::beast::http::status v) { string_response->result(v); }
+
+  boost::beast::http::status result() { return string_response->result(); }
+
+  unsigned result_int() { return string_response->result_int(); }
+
+  boost::string_view reason() { return string_response->reason(); }
+
   bool is_completed() const noexcept { return completed_; }
 
+  std::string& body() { return string_response->body(); }
+
+  void keep_alive(bool k) { string_response->keep_alive(k); }
+
+  void prepare_payload() { string_response->prepare_payload(); };
+
   void clear() {
-    CROW_LOG_DEBUG << "Clearing response containers";
-    body.clear();
+    CROW_LOG_DEBUG << this << " Clearing response containers";
+    string_response.emplace(response_type{});
     json_value.clear();
-    code = 200;
-    headers.clear();
     completed_ = false;
-    body_ptr.reset();
   }
 
-  void write(const std::string& body_part) { body += body_part; }
+  void write(boost::string_view body_part) {
+    string_response->body() += std::string(body_part);
+  }
 
   void end() {
     if (!completed_) {
@@ -94,8 +101,8 @@ struct response {
     }
   }
 
-  void end(const std::string& body_part) {
-    body += body_part;
+  void end(boost::string_view body_part) {
+    write(body_part);
     end();
   }
 

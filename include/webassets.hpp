@@ -4,7 +4,6 @@
 #include <fstream>
 #include <string>
 #include <crow/app.h>
-#include <crow/http_codes.h>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 #include <crow/routing.h>
@@ -88,7 +87,7 @@ void request_routes(Crow<Middlewares...>& app) {
 
       auto content_type_it = content_types.find(extension.c_str());
       if (content_type_it == content_types.end()) {
-        CROW_LOG_ERROR << "Cannot determine content-type for " << webpath
+        CROW_LOG_ERROR << "Cannot determine content-type for " << absolute_path
                        << " with extension " << extension;
       } else {
         content_type = content_type_it->second;
@@ -109,13 +108,12 @@ void request_routes(Crow<Middlewares...>& app) {
             std::ifstream inf(absolute_path);
             if (!inf) {
               CROW_LOG_DEBUG << "failed to read file";
-              res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
-              res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+              res.result(boost::beast::http::status::internal_server_error);
               res.end();
               return;
             }
 
-            res.body = {std::istreambuf_iterator<char>(inf),
+            res.body() = {std::istreambuf_iterator<char>(inf),
                         std::istreambuf_iterator<char>()};
             res.end();
           });

@@ -1,8 +1,9 @@
 #pragma once
 
 #include <security/pam_appl.h>
-#include <memory>
 #include <cstring>
+#include <memory>
+#include <boost/utility/string_view.hpp>
 
 // function used to get user input
 inline int pam_function_conversation(int num_msg,
@@ -32,13 +33,15 @@ inline int pam_function_conversation(int num_msg,
   return PAM_SUCCESS;
 }
 
-inline bool pam_authenticate_user(const std::string& username,
-                                  const std::string& password) {
+inline bool pam_authenticate_user(const boost::string_view username,
+                                  const boost::string_view password) {
+  std::string user_str(username);
+  std::string pass_str(password);
   const struct pam_conv local_conversation = {
-      pam_function_conversation, const_cast<char*>(password.c_str())};
+      pam_function_conversation, const_cast<char*>(pass_str.c_str())};
   pam_handle_t* local_auth_handle = NULL;  // this gets set by pam_start
 
-  if (pam_start("dropbear", username.c_str(), &local_conversation,
+  if (pam_start("dropbear", user_str.c_str(), &local_conversation,
                 &local_auth_handle) != PAM_SUCCESS) {
     return false;
   }

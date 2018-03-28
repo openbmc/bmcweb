@@ -11,36 +11,6 @@
 namespace crow {
 namespace redfish {
 
-template <typename... Middlewares>
-void get_redfish_sub_routes(Crow<Middlewares...>& app, const std::string& url,
-                            nlohmann::json& j) {
-  std::vector<const std::string*> routes = app.get_routes(url);
-  for (auto route : routes) {
-    auto redfish_sub_route =
-        route->substr(url.size(), route->size() - url.size() - 1);
-    // check if the route is at this level, and we didn't find and exact match
-    // also, filter out resources that start with $ to remove $metadata
-    if (!redfish_sub_route.empty() && redfish_sub_route[0] != '$' &&
-        redfish_sub_route.find('/') == std::string::npos) {
-      j[redfish_sub_route] = nlohmann::json{{"@odata.id", *route}};
-    }
-  }
-}
-
-std::string execute_process(const char* cmd) {
-  std::array<char, 128> buffer;
-  std::string result;
-  std::shared_ptr<FILE> pipe(popen(cmd, "r"), pclose);
-  if (!pipe) throw std::runtime_error("popen() failed!");
-  while (!feof(pipe.get())) {
-    if (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr)
-      result += buffer.data();
-  }
-  return result;
-}
-
-// GetManagedObjects unpack type.  Observe that variant has only one bool type,
-// because we don't actually use the values it provides
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
@@ -62,7 +32,7 @@ void request_routes(Crow<Middlewares...>& app) {
             [&](const boost::system::error_code ec,
                 const ManagedObjectType& users) {
               if (ec) {
-                res.code = 500;
+                res.result(boost::beast::http::status::internal_server_error);
               } else {
                 res.json_value = {
                     {"@odata.context",
@@ -107,7 +77,7 @@ void request_routes(Crow<Middlewares...>& app) {
                 const boost::system::error_code ec,
                 const ManagedObjectType& users) {
               if (ec) {
-                res.code = 500;
+                res.result(boost::beast::http::status::internal_server_error);
               } else {
                 for (auto& user : users) {
                   const std::string& path =
@@ -141,7 +111,7 @@ void request_routes(Crow<Middlewares...>& app) {
                   }
                 }
                 if (res.json_value.is_null()) {
-                  res.code = 404;
+                  res.result(boost::beast::http::status::not_found);
                 }
               }
               res.end();

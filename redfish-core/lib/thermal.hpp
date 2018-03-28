@@ -29,19 +29,20 @@ class Thermal : public Node {
     Node::json["Id"] = "Thermal";
     Node::json["Name"] = "Thermal";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
     if (params.size() != 1) {
-      res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+      res.result(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }

@@ -16,7 +16,7 @@ TEST(GetRoutes, TestEmptyRoutes) {
 TEST(GetRoutes, TestOneRoute) {
   SimpleApp app;
   decltype(app)::server_t server(&app, "127.0.0.1", 45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
 
   EXPECT_THAT(app.get_routes(),
               testing::ElementsAre(testing::Pointee(std::string("/"))));
@@ -26,12 +26,12 @@ TEST(GetRoutes, TestOneRoute) {
 TEST(GetRoutes, TestlotsOfRoutes) {
   SimpleApp app;
   decltype(app)::server_t server(&app, "127.0.0.1", 45451);
-  CROW_ROUTE(app, "/")([]() { return 200; });
-  CROW_ROUTE(app, "/foo")([]() { return 200; });
-  CROW_ROUTE(app, "/bar")([]() { return 200; });
-  CROW_ROUTE(app, "/baz")([]() { return 200; });
-  CROW_ROUTE(app, "/boo")([]() { return 200; });
-  CROW_ROUTE(app, "/moo")([]() { return 200; });
+  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  CROW_ROUTE(app, "/foo")([]() { return boost::beast::http::status::ok; });
+  CROW_ROUTE(app, "/bar")([]() { return boost::beast::http::status::ok; });
+  CROW_ROUTE(app, "/baz")([]() { return boost::beast::http::status::ok; });
+  CROW_ROUTE(app, "/boo")([]() { return boost::beast::http::status::ok; });
+  CROW_ROUTE(app, "/moo")([]() { return boost::beast::http::status::ok; });
 
   EXPECT_THAT(app.get_routes(), testing::UnorderedElementsAre(
                                     testing::Pointee(std::string("/")),

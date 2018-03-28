@@ -35,12 +35,12 @@ class ServiceRoot : public Node {
         app.template get_middleware<crow::PersistentData::Middleware>()
             .system_uuid;
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {}},
-                        {crow::HTTPMethod::HEAD, {}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {}},
+                        {boost::beast::http::verb::head, {}},
+                        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:

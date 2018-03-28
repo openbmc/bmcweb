@@ -2,6 +2,7 @@
 
 #include <tinyxml2.h>
 #include <dbus_singleton.hpp>
+#include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 
 namespace crow {
@@ -130,7 +131,7 @@ void handle_enumerate(crow::response &res, const std::string &object_path) {
           const boost::system::error_code ec,
           const GetSubTreeType &object_names) {
         if (ec) {
-          res.code = 500;
+          res.result(boost::beast::http::status::internal_server_error);
           res.end();
           return;
         }
@@ -144,7 +145,7 @@ void handle_enumerate(crow::response &res, const std::string &object_path) {
         }
 
         if (connections.size() <= 0) {
-          res.code = 404;
+          res.result(boost::beast::http::status::not_found);
           res.end();
           return;
         }
@@ -163,10 +164,10 @@ void handle_enumerate(crow::response &res, const std::string &object_path) {
 
 template <typename... Middlewares>
 void request_routes(Crow<Middlewares...> &app) {
-  CROW_ROUTE(app, "/bus/").methods("GET"_method)([](const crow::request &req) {
-    return nlohmann::json{{"busses", {{{"name", "system"}}}}, {"status", "ok"}};
-
-  });
+  CROW_ROUTE(app, "/bus/")
+      .methods("GET"_method)([](const crow::request &req, crow::response &res) {
+        res.json_value = {{"busses", {{{"name", "system"}}}}, {"status", "ok"}};
+      });
 
   CROW_ROUTE(app, "/bus/system/")
       .methods("GET"_method)([](const crow::request &req, crow::response &res) {
@@ -174,7 +175,7 @@ void request_routes(Crow<Middlewares...> &app) {
         auto myCallback = [&res](const boost::system::error_code ec,
                                  std::vector<std::string> &names) {
           if (ec) {
-            res.code = 500;
+            res.result(boost::beast::http::status::internal_server_error);
           } else {
             std::sort(names.begin(), names.end());
             nlohmann::json j{{"status", "ok"}};
@@ -197,7 +198,7 @@ void request_routes(Crow<Middlewares...> &app) {
             [&res](const boost::system::error_code ec,
                    const std::vector<std::string> &object_paths) {
               if (ec) {
-                res.code = 500;
+                res.result(boost::beast::http::status::internal_server_error);
               } else {
                 res.json_value = {{"status", "ok"},
                                   {"message", "200 OK"},
@@ -232,21 +233,21 @@ void request_routes(Crow<Middlewares...> &app) {
           auto request_dbus_data =
               nlohmann::json::parse(req.body, nullptr, false);
           if (request_dbus_data.is_discarded()) {
-            res.code = 400;
+            res.result(boost::beast::http::status::unauthorized);
             res.end();
             return;
           }
 
           auto property_value_it = request_dbus_data.find("data");
           if (property_value_it == request_dbus_data.end()) {
-            res.code = 400;
+            res.result(boost::beast::http::status::unauthorized);
             res.end();
             return;
           }
 
           property_set_value = property_value_it->get<const std::string>();
           if (property_set_value.empty()) {
-            res.code = 400;
+            res.result(boost::beast::http::status::unauthorized);
             res.end();
             return;
           }
@@ -266,16 +267,16 @@ void request_routes(Crow<Middlewares...> &app) {
             ](const boost::system::error_code ec,
               const GetObjectType &object_names) {
               if (ec) {
-                res.code = 500;
+                res.result(boost::beast::http::status::internal_server_error);
                 res.end();
                 return;
               }
               if (object_names.size() != 1) {
-                res.code = 404;
+                res.result(boost::beast::http::status::not_found);
                 res.end();
                 return;
               }
-              if (req.method == "GET"_method) {
+              if (req.method() == "GET"_method) {
                 for (auto &interface : object_names[0].second) {
                   crow::connections::system_bus->async_method_call(
                       [&res, transaction](
@@ -303,7 +304,7 @@ void request_routes(Crow<Middlewares...> &app) {
                       object_names[0].first, object_path,
                       "org.freedesktop.DBus.Properties", "GetAll", interface);
                 }
-              } else if (req.method == "PUT"_method) {
+              } else if (req.method() == "PUT"_method) {
                 for (auto &interface : object_names[0].second) {
                   crow::connections::system_bus->async_method_call(
                       [
@@ -351,7 +352,7 @@ void request_routes(Crow<Middlewares...> &app) {
                           // if nobody filled in the property, all calls either
                           // errored, or failed
                           if (transaction == nullptr) {
-                            res.code = 403;
+                            res.result(boost::beast::http::status::forbidden);
                             res.json_value = {{"status", "error"},
                                               {"message", "403 Forbidden"},
                                               {"data",
@@ -426,7 +427,7 @@ void request_routes(Crow<Middlewares...> &app) {
         if (it != strs.end()) {
           // if there is more levels past the method name, something went
           // wrong, throw an error
-          res.code = 404;
+          res.result(boost::beast::http::status::not_found);
           res.end();
           return;
         }
@@ -452,8 +453,9 @@ void request_routes(Crow<Middlewares...> &app) {
                     CROW_LOG_ERROR << "XML document failed to parse "
                                    << process_name << " " << object_path
                                    << "\n";
-                    res.write(nlohmann::json{{"status", "XML parse error"}});
-                    res.code = 500;
+                    res.json_value = {{"status", "XML parse error"}};
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
                   } else {
                     nlohmann::json interfaces_array = nlohmann::json::array();
                     tinyxml2::XMLElement *interface =
@@ -498,7 +500,8 @@ void request_routes(Crow<Middlewares...> &app) {
                     CROW_LOG_ERROR << "XML document failed to parse "
                                    << process_name << " " << object_path
                                    << "\n";
-                    res.code = 500;
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
 
                   } else {
                     tinyxml2::XMLElement *node =
@@ -575,7 +578,7 @@ void request_routes(Crow<Middlewares...> &app) {
                     if (interface == nullptr) {
                       // if we got to the end of the list and never found a
                       // match, throw 404
-                      res.code = 404;
+                      res.result(boost::beast::http::status::not_found);
                     }
                   }
                 }

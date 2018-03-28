@@ -73,12 +73,12 @@ struct UserSession {
   }
 };
 
-void to_json(nlohmann::json& j, const UserSession& p) {
-  if (p.persistence != PersistenceType::SINGLE_REQUEST) {
-    j = nlohmann::json{{"unique_id", p.unique_id},
-                       {"session_token", p.session_token},
-                       {"username", p.username},
-                       {"csrf_token", p.csrf_token}};
+void to_json(nlohmann::json& j, const std::shared_ptr<UserSession> p) {
+  if (p->persistence != PersistenceType::SINGLE_REQUEST) {
+    j = {{"unique_id", p->unique_id},
+         {"session_token", p->session_token},
+         {"username", p->username},
+         {"csrf_token", p->csrf_token}};
   }
 }
 
@@ -87,8 +87,8 @@ class Middleware;
 class SessionStore {
  public:
   SessionStore() : timeout_in_minutes(60) {}
-  const UserSession& generate_user_session(
-      const std::string& username,
+  std::shared_ptr<UserSession> generate_user_session(
+      const boost::string_view username,
       PersistenceType persistence = PersistenceType::TIMEOUT) {
     // TODO(ed) find a secure way to not generate session identifiers if
     // persistence is set to SINGLE_REQUEST
@@ -120,42 +120,42 @@ class SessionStore {
     for (int i = 0; i < unique_id.size(); ++i) {
       unique_id[i] = alphanum[dist(rd)];
     }
-
-    const auto session_it = auth_tokens.emplace(
-        session_token,
-        std::move(UserSession{unique_id, session_token, username, csrf_token,
-                              std::chrono::steady_clock::now(), persistence}));
-    const UserSession& user = (session_it).first->second;
+    auto session = std::make_shared<UserSession>(
+        UserSession{unique_id, session_token, std::string(username), csrf_token,
+                    std::chrono::steady_clock::now(), persistence});
+    auto it = auth_tokens.emplace(std::make_pair(session_token, session));
     // Only need to write to disk if session isn't about to be destroyed.
     need_write_ = persistence == PersistenceType::TIMEOUT;
-    return user;
+    return it.first->second;
   }
 
-  const UserSession* login_session_by_token(const std::string& token) {
+  std::shared_ptr<UserSession> login_session_by_token(
+      const boost::string_view token) {
     apply_session_timeouts();
-    auto session_it = auth_tokens.find(token);
+    auto session_it = auth_tokens.find(std::string(token));
     if (session_it == auth_tokens.end()) {
       return nullptr;
     }
-    UserSession& foo = session_it->second;
-    foo.last_updated = std::chrono::steady_clock::now();
-    return &foo;
+    std::shared_ptr<UserSession> user_session = session_it->second;
+    user_session->last_updated = std::chrono::steady_clock::now();
+    return user_session;
   }
 
-  const UserSession* get_session_by_uid(const std::string& uid) {
+  std::shared_ptr<UserSession> get_session_by_uid(
+      const boost::string_view uid) {
     apply_session_timeouts();
     // TODO(Ed) this is inefficient
     auto session_it = auth_tokens.begin();
     while (session_it != auth_tokens.end()) {
-      if (session_it->second.unique_id == uid) {
-        return &session_it->second;
+      if (session_it->second->unique_id == uid) {
+        return session_it->second;
       }
       session_it++;
     }
     return nullptr;
   }
 
-  void remove_session(const UserSession* session) {
+  void remove_session(std::shared_ptr<UserSession> session) {
     auth_tokens.erase(session->session_token);
     need_write_ = true;
   }
@@ -168,8 +168,8 @@ class SessionStore {
     std::vector<const std::string*> ret;
     ret.reserve(auth_tokens.size());
     for (auto& session : auth_tokens) {
-      if (getAll || type == session.second.persistence) {
-        ret.push_back(&session.second.unique_id);
+      if (getAll || type == session.second->persistence) {
+        ret.push_back(&session.second->unique_id);
       }
     }
     return ret;
@@ -191,7 +191,7 @@ class SessionStore {
       last_timeout_update = time_now;
       auto auth_tokens_it = auth_tokens.begin();
       while (auth_tokens_it != auth_tokens.end()) {
-        if (time_now - auth_tokens_it->second.last_updated >=
+        if (time_now - auth_tokens_it->second->last_updated >=
             timeout_in_minutes) {
           auth_tokens_it = auth_tokens.erase(auth_tokens_it);
           need_write_ = true;
@@ -202,11 +202,12 @@ class SessionStore {
     }
   }
   std::chrono::time_point<std::chrono::steady_clock> last_timeout_update;
-  boost::container::flat_map<std::string, UserSession> auth_tokens;
+  boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
+      auth_tokens;
   std::random_device rd;
   bool need_write_{false};
   std::chrono::minutes timeout_in_minutes;
 };
 
-}  // namespaec PersistentData
+}  // namespace PersistentData
 }  // namespace crow

@@ -355,12 +355,12 @@ class EthernetCollection : public Node {
     Node::json["Description"] =
         "Collection of EthernetInterfaces for this Manager";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                        {boost::beast::http::verb::head, {{"Login"}}},
+                        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:
@@ -391,7 +391,7 @@ class EthernetCollection : public Node {
             res.json_value = Node::json;
           } else {
             // No success, best what we can do is return INTERNALL ERROR
-            res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+            res.result(boost::beast::http::status::internal_server_error);
           }
           res.end();
         });
@@ -423,12 +423,12 @@ class EthernetInterface : public Node {
     Node::json["Name"] = "Manager Ethernet Interface";
     Node::json["Description"] = "Management Network Interface";
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureComponents"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureComponents"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                        {boost::beast::http::verb::head, {{"Login"}}},
+                        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:
@@ -442,7 +442,7 @@ class EthernetInterface : public Node {
     // Check if there is required param, truly entering this shall be
     // impossible.
     if (params.size() != 1) {
-      res.code = static_cast<int>(HttpRespCode::INTERNAL_ERROR);
+      res.result(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }
@@ -503,7 +503,7 @@ class EthernetInterface : public Node {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
-            res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+            res.result(boost::beast::http::status::not_found);
           }
           res.end();
         });

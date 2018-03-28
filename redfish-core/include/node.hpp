@@ -102,19 +102,19 @@ class Node {
 
   virtual void doPatch(crow::response& res, const crow::request& req,
                        const std::vector<std::string>& params) {
-    res.code = static_cast<int>(HttpRespCode::METHOD_NOT_ALLOWED);
+    res.result(boost::beast::http::status::method_not_allowed);
     res.end();
   }
 
   virtual void doPost(crow::response& res, const crow::request& req,
                       const std::vector<std::string>& params) {
-    res.code = static_cast<int>(HttpRespCode::METHOD_NOT_ALLOWED);
+    res.result(boost::beast::http::status::method_not_allowed);
     res.end();
   }
 
   virtual void doDelete(crow::response& res, const crow::request& req,
                         const std::vector<std::string>& params) {
-    res.code = static_cast<int>(HttpRespCode::METHOD_NOT_ALLOWED);
+    res.result(boost::beast::http::status::method_not_allowed);
     res.end();
   }
 
@@ -127,14 +127,14 @@ class Node {
     auto ctx =
         app.template get_context<crow::TokenAuthorization::Middleware>(req);
 
-    if (!isMethodAllowedForUser(req.method, entityPrivileges,
+    if (!isMethodAllowedForUser(req.method(), entityPrivileges,
                                 ctx.session->username)) {
-      res.code = static_cast<int>(HttpRespCode::METHOD_NOT_ALLOWED);
+      res.result(boost::beast::http::status::method_not_allowed);
       res.end();
       return;
     }
 
-    switch (req.method) {
+    switch (req.method()) {
       case "GET"_method:
         doGet(res, req, params);
         break;
@@ -152,7 +152,7 @@ class Node {
         break;
 
       default:
-        res.code = static_cast<int>(HttpRespCode::NOT_FOUND);
+        res.result(boost::beast::http::status::not_found);
         res.end();
     }
     return;

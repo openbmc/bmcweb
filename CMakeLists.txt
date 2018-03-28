@@ -79,10 +79,9 @@ add_definitions(-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions(-DBOOST_ALL_NO_LIB)
 add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
-# set(Boost_USE_STATIC_LIBS ON)
 
-#find_package(Boost 1.66 REQUIRED)
-include_directories(${CMAKE_BINARY_DIR}/boost-src)
+find_package(Boost 1.66 REQUIRED)
+include_directories(${BOOST_SRC_DIR})
 
 # sdbusplus
 if(NOT ${YOCTO_DEPENDENCIES})
@@ -159,7 +158,6 @@ if(${BMCWEB_BUILD_UT})
       src/ast_jpeg_decoder_test.cpp
       src/kvm_websocket_test.cpp
       src/msan_test.cpp
-      src/ci_map_tests.cpp
       src/ast_video_puller_test.cpp
       ${CMAKE_BINARY_DIR}/generated/blns.hpp) # big list of naughty strings
   add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp

@@ -4,19 +4,18 @@
 #include <chrono>
 #include <regex>
 #include <vector>
-#include "crow/dumb_timer_queue.h"
-#include "crow/http_parser_merged.h"
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
-#include "crow/parser.h"
 #include "crow/settings.h"
 #include "crow/socket_adaptors.h"
+#include "crow/timer_queue.h"
+#include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/array.hpp>
 #include <boost/asio.hpp>
-#include <boost/container/flat_map.hpp>
-#include <boost/lexical_cast.hpp>
+#include <boost/beast/core.hpp>
+#include <boost/beast/http.hpp>
+#include <boost/beast/websocket.hpp>
 
 #ifdef CROW_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
@@ -25,7 +24,7 @@
 namespace crow {
 
 inline bool is_browser(const crow::request& req) {
-  const std::string& header = req.get_header_value("accept");
+  boost::string_view header = req.get_header_value("accept");
   std::vector<std::string> encodings;
   // chrome currently sends 6 accepts headers, firefox sends 4.
   encodings.reserve(6);
@@ -34,8 +33,7 @@ inline bool is_browser(const crow::request& req) {
   for (const std::string& encoding : encodings) {
     if (encoding == "text/html") {
       return true;
-    }
-    else if (encoding == "application/json"){
+    } else if (encoding == "application/json") {
       return false;
     }
   }
@@ -43,24 +41,39 @@ inline bool is_browser(const crow::request& req) {
 }
 
 inline void escape_html(std::string& data) {
-    std::string buffer;
-    // less than 5% of characters should be larger, so reserve a buffer of the right size
-    buffer.reserve(data.size() * 1.05);
-    for(size_t pos = 0; pos != data.size(); ++pos) {
-        switch(data[pos]) {
-            case '&':  buffer.append("&amp;");       break;
-            case '\"': buffer.append("&quot;");      break;
-            case '\'': buffer.append("&apos;");      break;
-            case '<':  buffer.append("&lt;");        break;
-            case '>':  buffer.append("&gt;");        break;
-            default:   buffer.append(&data[pos], 1); break;
-        }
+  std::string buffer;
+  // less than 5% of characters should be larger, so reserve a buffer of the
+  // right size
+  buffer.reserve(data.size() * 1.05);
+  for (size_t pos = 0; pos != data.size(); ++pos) {
+    switch (data[pos]) {
+      case '&':
+        buffer.append("&amp;");
+        break;
+      case '\"':
+        buffer.append("&quot;");
+        break;
+      case '\'':
+        buffer.append("&apos;");
+        break;
+      case '<':
+        buffer.append("&lt;");
+        break;
+      case '>':
+        buffer.append("&gt;");
+        break;
+      default:
+        buffer.append(&data[pos], 1);
+        break;
     }
-    data.swap(buffer);
+  }
+  data.swap(buffer);
 }
 
 inline void convert_to_links(std::string& s) {
-  const static std::regex r{"(&quot;@odata\\.((id)|(context))&quot;[ \\n]*:[ \\n]*)(&quot;((?!&quot;).*)&quot;)"};
+  const static std::regex r{
+      "(&quot;@odata\\.((id)|(context))&quot;[ \\n]*:[ "
+      "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
   s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
 }
 
@@ -68,7 +81,7 @@ inline void pretty_print_json(crow::response& res) {
   std::string value = res.json_value.dump(4);
   escape_html(value);
   convert_to_links(value);
-  res.body =
+  res.body() =
       "<html>\n"
       "<head>\n"
       "<title>Redfish API</title>\n"
@@ -79,7 +92,8 @@ inline void pretty_print_json(crow::response& res) {
       "</head>\n"
       "<body>\n"
       "<div style=\"max-width: 576px;margin:0 auto;\">\n"
-      "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" height=\"406px\" "
+      "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" "
+      "height=\"406px\" "
       "width=\"576px\">\n"
       "<br>\n"
       "<pre>\n"
@@ -250,7 +264,7 @@ typename std::enable_if<(N > 0)>::type after_handlers_call_helper(
 }  // namespace detail
 
 #ifdef CROW_ENABLE_DEBUG
-static int connectionCount;
+static std::atomic<int> connectionCount;
 #endif
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection {
@@ -259,19 +273,21 @@ class Connection {
              const std::string& server_name,
              std::tuple<Middlewares...>* middlewares,
              std::function<std::string()>& get_cached_date_str_f,
-             detail::dumb_timer_queue& timer_queue,
+             detail::timer_queue& timer_queue,
              typename Adaptor::context* adaptor_ctx_)
       : adaptor_(io_service, adaptor_ctx_),
         handler_(handler),
-        parser_(this),
         server_name_(server_name),
         middlewares_(middlewares),
         get_cached_date_str(get_cached_date_str_f),
         timer_queue(timer_queue) {
+    parser_.emplace(std::piecewise_construct, std::make_tuple());
+
+    parser_->body_limit(1024 * 1024 * 1);  // 1MB
+    req_.emplace(parser_->get());
 #ifdef CROW_ENABLE_DEBUG
     connectionCount++;
-    CROW_LOG_DEBUG << "Connection open, total " << connectionCount << ", "
-                   << this;
+    CROW_LOG_DEBUG << this << " Connection open, total " << connectionCount;
 #endif
   }
 
@@ -280,8 +296,7 @@ class Connection {
     cancel_deadline_timer();
 #ifdef CROW_ENABLE_DEBUG
     connectionCount--;
-    CROW_LOG_DEBUG << "Connection closed, total " << connectionCount << ", "
-                   << this;
+    CROW_LOG_DEBUG << this << " Connection closed, total " << connectionCount;
 #endif
   }
 
@@ -294,65 +309,31 @@ class Connection {
       if (!ec) {
         start_deadline();
 
-        do_read();
+        do_read_headers();
       } else {
         check_destroy();
       }
     });
   }
 
-  void handle_header() {
-    // HTTP 1.1 Expect: 100-continue
-    if (parser_.check_version(1, 1) && parser_.headers.count("expect") &&
-        get_header_value(parser_.headers, "expect") == "100-continue") {
-      buffers_.clear();
-      static std::string expect_100_continue = "HTTP/1.1 100 Continue\r\n\r\n";
-      buffers_.emplace_back(expect_100_continue.data(),
-                            expect_100_continue.size());
-      do_write();
-    }
-  }
-
   void handle() {
     cancel_deadline_timer();
     bool is_invalid_request = false;
-    add_keep_alive_ = false;
+    const boost::string_view connection =
+        req_->get_header_value(boost::beast::http::field::connection);
 
-    req_ = std::move(parser_.to_request());
-    request& req = req_;
-    req.is_secure = Adaptor::secure::value;
-
-    if (parser_.check_version(1, 0)) {
-      // HTTP/1.0
-      if (req.headers.count("connection") != 0u) {
-        if (boost::iequals(req.get_header_value("connection"), "Keep-Alive")) {
-          add_keep_alive_ = true;
-        }
-      } else {
-        close_connection_ = true;
-      }
-    } else if (parser_.check_version(1, 1)) {
-      // HTTP/1.1
-      if (req.headers.count("connection") != 0u) {
-        if (req.get_header_value("connection") == "close") {
-          close_connection_ = true;
-        } else if (boost::iequals(req.get_header_value("connection"),
-                                  "Keep-Alive")) {
-          add_keep_alive_ = true;
-        }
-      }
-      if (req.headers.count("Host") == 0u) {
+    // Check for HTTP version 1.1.
+    if (req_->version() == 11) {
+      if (req_->get_header_value(boost::beast::http::field::host).empty()) {
         is_invalid_request = true;
-        res = response(400);
+        res = response(boost::beast::http::status::bad_request);
       }
     }
 
-    CROW_LOG_INFO << "Request: "
-                  << boost::lexical_cast<std::string>(
-                         adaptor_.remote_endpoint())
-                  << " " << this << " HTTP/" << parser_.http_major << "."
-                  << parser_.http_minor << ' ' << method_name(req.method) << " "
-                  << req.url;
+    CROW_LOG_INFO << "Request: " << adaptor_.remote_endpoint() << " " << this
+                  << " HTTP/" << req_->version() / 10 << "."
+                  << req_->version() % 10 << ' ' << req_->method_string() << " "
+                  << req_->target();
 
     need_to_call_after_handlers_ = false;
 
@@ -361,23 +342,24 @@ class Connection {
       res.is_alive_helper_ = [this]() -> bool { return adaptor_.is_open(); };
 
       ctx_ = detail::context<Middlewares...>();
-      req.middleware_context = (void*)&ctx_;
-      req.io_service = &adaptor_.get_io_service();
+      req_->middleware_context = (void*)&ctx_;
+      req_->io_service = &adaptor_.get_io_service();
       detail::middleware_call_helper<0, decltype(ctx_), decltype(*middlewares_),
-                                     Middlewares...>(*middlewares_, req, res,
+                                     Middlewares...>(*middlewares_, *req_, res,
                                                      ctx_);
 
       if (!res.completed_) {
-        if (parser_.is_upgrade() &&
-            boost::iequals(req.get_header_value("upgrade"), "websocket")) {
-          close_connection_ = true;
-          handler_->handle_upgrade(req, res, std::move(adaptor_));
+        if (req_->is_upgrade() &&
+            boost::iequals(
+                req_->get_header_value(boost::beast::http::field::upgrade),
+                "websocket")) {
+          handler_->handle_upgrade(*req_, res, std::move(adaptor_));
           return;
         }
         res.complete_request_handler_ = [this] { this->complete_request(); };
         need_to_call_after_handlers_ = true;
-        handler_->handle(req, res);
-        if (add_keep_alive_) {
+        handler_->handle(*req_, res);
+        if (req_->keep_alive()) {
           res.add_header("connection", "Keep-Alive");
         }
       } else {
@@ -389,8 +371,8 @@ class Connection {
   }
 
   void complete_request() {
-    CROW_LOG_INFO << "Response: " << this << ' ' << req_.raw_url << ' '
-                  << res.code << ' ' << close_connection_;
+    CROW_LOG_INFO << "Response: " << this << ' ' << req_->url << ' '
+                  << res.result_int() << " keepalive=" << req_->keep_alive();
 
     if (need_to_call_after_handlers_) {
       need_to_call_after_handlers_ = false;
@@ -399,7 +381,7 @@ class Connection {
       detail::after_handlers_call_helper<((int)sizeof...(Middlewares) - 1),
                                          decltype(ctx_),
                                          decltype(*middlewares_)>(
-          *middlewares_, ctx_, req_, res);
+          *middlewares_, ctx_, *req_, res);
     }
 
     // auto self = this->shared_from_this();
@@ -411,141 +393,101 @@ class Connection {
       // delete this;
       return;
     }
-
-    static boost::container::flat_map<int, std::string> statusCodes = {
-        {200, "HTTP/1.1 200 OK\r\n"},
-        {201, "HTTP/1.1 201 Created\r\n"},
-        {202, "HTTP/1.1 202 Accepted\r\n"},
-        {204, "HTTP/1.1 204 No Content\r\n"},
-
-        {300, "HTTP/1.1 300 Multiple Choices\r\n"},
-        {301, "HTTP/1.1 301 Moved Permanently\r\n"},
-        {302, "HTTP/1.1 302 Moved Temporarily\r\n"},
-        {304, "HTTP/1.1 304 Not Modified\r\n"},
-
-        {400, "HTTP/1.1 400 Bad Request\r\n"},
-        {401, "HTTP/1.1 401 Unauthorized\r\n"},
-        {403, "HTTP/1.1 403 Forbidden\r\n"},
-        {404, "HTTP/1.1 404 Not Found\r\n"},
-        {405, "HTTP/1.1 405 Method Not Allowed\r\n"},
-
-        {500, "HTTP/1.1 500 Internal Server Error\r\n"},
-        {501, "HTTP/1.1 501 Not Implemented\r\n"},
-        {502, "HTTP/1.1 502 Bad Gateway\r\n"},
-        {503, "HTTP/1.1 503 Service Unavailable\r\n"},
-    };
-
-    buffers_.clear();
-    buffers_.reserve(20);
-
-    if (res.body.empty() && !res.json_value.empty()) {
-      if (is_browser(req_)) {
+    if (res.body().empty() && !res.json_value.empty()) {
+      if (is_browser(*req_)) {
         pretty_print_json(res);
       } else {
         res.json_mode();
-        res.body = res.json_value.dump(4);
+        res.body() = res.json_value.dump(2);
       }
     }
 
-    if (!statusCodes.count(res.code)) {
-      res.code = 500;
+    if (res.result_int() >= 400 && res.body().empty()) {
+      res.body() = std::string(res.reason());
     }
-    {
-      auto& status = statusCodes.find(res.code)->second;
-      buffers_.emplace_back(status.data(), status.size());
-    }
+    res.add_header(boost::beast::http::field::server, server_name_);
+    res.add_header(boost::beast::http::field::date, get_cached_date_str());
 
-    if (res.code >= 400 && res.body.empty()) {
-      res.body = statusCodes[res.code].substr(9);
-    }
-
-    const static std::string crlf = "\r\n";
-    content_length_ = std::to_string(res.body.size());
-    static const std::string content_length_tag = "Content-Length";
-    res.add_header(content_length_tag, content_length_);
-
-    static const std::string server_tag = "Server: ";
-    res.add_header(server_tag, server_name_);
-
-    static const std::string date_tag = "Date: ";
-    date_str_ = get_cached_date_str();
-    res.add_header(date_tag, date_str_);
-
-    if (add_keep_alive_) {
-      static const std::string keep_alive_tag = "Connection";
-      static const std::string keep_alive_value = "Keep-Alive";
-      res.add_header(keep_alive_tag, keep_alive_value);
-    }
-
-    buffers_.emplace_back(res.headers.data(), res.headers.size());
-
-    buffers_.emplace_back(crlf.data(), crlf.size());
-    buffers_.emplace_back(res.body.data(), res.body.size());
+    res.keep_alive(req_->keep_alive());
 
     do_write();
-
-    if (need_to_start_read_after_complete_) {
-      need_to_start_read_after_complete_ = false;
-      start_deadline();
-      do_read();
-    }
   }
 
  private:
+  void do_read_headers() {
+    // auto self = this->shared_from_this();
+    is_reading = true;
+    CROW_LOG_DEBUG << this << " do_read_headers";
+
+    // Clean up any previous connection.
+    boost::beast::http::async_read_header(
+        adaptor_.socket(), buffer_, *parser_,
+        [this](const boost::system::error_code& ec,
+               std::size_t bytes_transferred) {
+          is_reading = false;
+          CROW_LOG_ERROR << this << " async_read_header " << bytes_transferred
+                         << " Bytes";
+          bool error_while_reading = false;
+          if (ec) {
+            error_while_reading = true;
+            CROW_LOG_ERROR << this << " Error while reading: " << ec.message();
+          } else {
+            // if the adaptor isn't open anymore, and wasn't handed to a
+            // websocket, treat as an error
+            if (!adaptor_.is_open() && !req_->is_upgrade()) {
+              error_while_reading = true;
+            }
+          }
+
+          if (error_while_reading) {
+            cancel_deadline_timer();
+            adaptor_.close();
+            CROW_LOG_DEBUG << this << " from read(1)";
+            check_destroy();
+            return;
+          }
+
+          // Compute the url parameters for the request
+          req_->url = req_->target();
+          std::size_t index = req_->url.find("?");
+          if (index != boost::string_view::npos) {
+            req_->url = req_->url.substr(0, index - 1);
+          }
+          req_->url_params = query_string(std::string(req_->target()));
+          do_read();
+        });
+  }
+
   void do_read() {
     // auto self = this->shared_from_this();
     is_reading = true;
-    adaptor_.socket().async_read_some(
-        boost::asio::buffer(buffer_),
+    CROW_LOG_DEBUG << this << " do_read";
+
+    boost::beast::http::async_read(
+        adaptor_.socket(), buffer_, *parser_,
         [this](const boost::system::error_code& ec,
                std::size_t bytes_transferred) {
-          CROW_LOG_ERROR << "Read " << bytes_transferred << " Bytes";
-          bool error_while_reading = true;
-          if (!ec) {
-            bool ret = parser_.feed(buffer_.data(), bytes_transferred);
-            if (parser_.upgrade) {
-              error_while_reading = false;
-            } else {
-              if (ret && adaptor_.is_open()) {
-                error_while_reading = false;
-              }
-            }
-          } else {
+          CROW_LOG_ERROR << this << " async_read " << bytes_transferred
+                         << " Bytes";
+          is_reading = false;
+
+          bool error_while_reading = false;
+          if (ec) {
             CROW_LOG_ERROR << "Error while reading: " << ec.message();
-#ifdef CROW_ENABLE_SSL
-            if (ec.category() == boost::asio::error::get_ssl_category()) {
-              auto err = std::string(" (") +
-                         std::to_string(ERR_GET_LIB(ec.value())) + "," +
-                         std::to_string(ERR_GET_FUNC(ec.value())) + "," +
-                         std::to_string(ERR_GET_REASON(ec.value())) + ") ";
-              // ERR_PACK /* crypto/err/err.h */
-              char buf[128];
-              ::ERR_error_string_n(ec.value(), buf, sizeof(buf));
-              err += buf;
-              CROW_LOG_ERROR << err;
+            error_while_reading = true;
+          } else {
+            if (!adaptor_.is_open()) {
+              error_while_reading = true;
             }
-#endif
           }
           if (error_while_reading) {
             cancel_deadline_timer();
-            parser_.done();
             adaptor_.close();
-            is_reading = false;
             CROW_LOG_DEBUG << this << " from read(1)";
             check_destroy();
-          } else if (close_connection_) {
-            cancel_deadline_timer();
-            parser_.done();
-            is_reading = false;
-            check_destroy();
-            // adaptor will close after write
-          } else if (!need_to_call_after_handlers_) {
-            start_deadline();
-            do_read();
-          } else {
-            // res will be completed later by user
-            need_to_start_read_after_complete_ = true;
+            return;
           }
+          handle();
         });
   }
 
@@ -553,25 +495,36 @@ class Connection {
     // auto self = this->shared_from_this();
     is_writing = true;
     CROW_LOG_DEBUG << "Doing Write";
-    boost::asio::async_write(adaptor_.socket(), buffers_,
-                             [&](const boost::system::error_code& ec,
-                                 std::size_t bytes_transferred) {
-                               CROW_LOG_DEBUG << "Wrote " << bytes_transferred
-                                              << "bytes";
+    res.prepare_payload();
+    serializer_.emplace(*res.string_response);
+    boost::beast::http::async_write(
+        adaptor_.socket(), *serializer_,
+        [&](const boost::system::error_code& ec,
+            std::size_t bytes_transferred) {
+          is_writing = false;
+          CROW_LOG_DEBUG << this << " Wrote " << bytes_transferred << " bytes";
 
-                               is_writing = false;
-                               res.clear();
-                               if (!ec) {
-                                 if (close_connection_) {
-                                   adaptor_.close();
-                                   CROW_LOG_DEBUG << this << " from write(1)";
-                                   check_destroy();
-                                 }
-                               } else {
-                                 CROW_LOG_DEBUG << this << " from write(2)";
-                                 check_destroy();
-                               }
-                             });
+          if (ec) {
+            CROW_LOG_DEBUG << this << " from write(2)";
+            check_destroy();
+            return;
+          }
+          if (!req_->keep_alive()) {
+            adaptor_.close();
+            CROW_LOG_DEBUG << this << " from write(1)";
+            check_destroy();
+            return;
+          }
+
+          serializer_.reset();
+          CROW_LOG_DEBUG << this << " Clearing response";
+          res.clear();
+          parser_.emplace(std::piecewise_construct, std::make_tuple());
+          buffer_.consume(buffer_.size());
+
+          req_.emplace(parser_->get());
+          do_read_headers();
+        });
   }
 
   void check_destroy() {
@@ -584,12 +537,12 @@ class Connection {
   }
 
   void cancel_deadline_timer() {
-    CROW_LOG_DEBUG << this << " timer cancelled: " << timer_cancel_key_.first
-                   << ' ' << timer_cancel_key_.second;
+    CROW_LOG_DEBUG << this << " timer cancelled: " << &timer_queue << ' '
+                   << timer_cancel_key_;
     timer_queue.cancel(timer_cancel_key_);
   }
 
-  void start_deadline(/*int timeout = 5*/) {
+  void start_deadline() {
     cancel_deadline_timer();
 
     timer_cancel_key_ = timer_queue.add([this] {
@@ -598,30 +551,32 @@ class Connection {
       }
       adaptor_.close();
     });
-    CROW_LOG_DEBUG << this << " timer added: " << timer_cancel_key_.first << ' '
-                   << timer_cancel_key_.second;
+    CROW_LOG_DEBUG << this << " timer added: " << &timer_queue << ' '
+                   << timer_cancel_key_;
   }
 
  private:
   Adaptor adaptor_;
   Handler* handler_;
 
-  std::array<char, 4096> buffer_{};
+  // Making this a boost::optional allows it to be efficiently destroyed and
+  // re-created on connection reset
+  boost::optional<
+      boost::beast::http::request_parser<boost::beast::http::string_body>>
+      parser_;
 
-  HTTPParser<Connection> parser_;
-  request req_;
-  response res;
+  boost::beast::flat_buffer buffer_{8192};
 
-  bool close_connection_ = false;
+  boost::optional<
+      boost::beast::http::response_serializer<boost::beast::http::string_body>>
+      serializer_;
+
+  boost::optional<crow::request> req_;
+  crow::response res;
 
   const std::string& server_name_;
-  std::vector<boost::asio::const_buffer> buffers_;
 
-  std::string content_length_;
-  std::string date_str_;
-
-  // boost::asio::deadline_timer deadline_;
-  detail::dumb_timer_queue::key timer_cancel_key_;
+  int timer_cancel_key_;
 
   bool is_reading{};
   bool is_writing{};
@@ -633,6 +588,6 @@ class Connection {
   detail::context<Middlewares...> ctx_;
 
   std::function<std::string()>& get_cached_date_str;
-  detail::dumb_timer_queue& timer_queue;
-};
+  detail::timer_queue& timer_queue;
+};  // namespace crow
 }  // namespace crow

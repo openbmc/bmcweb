@@ -34,12 +34,12 @@ class Roles : public Node {
                                         "ConfigureUsers", "ConfigureSelf",
                                         "ConfigureComponents"};
     Node::json["OemPrivileges"] = nlohmann::json::array();
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                        {boost::beast::http::verb::head, {{"Login"}}},
+                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -64,12 +64,12 @@ class RoleCollection : public Node {
     Node::json["Members"] = {
         {{"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}}};
 
-    entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
-                        {crow::HTTPMethod::HEAD, {{"Login"}}},
-                        {crow::HTTPMethod::PATCH, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::PUT, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::DELETE, {{"ConfigureManager"}}},
-                        {crow::HTTPMethod::POST, {{"ConfigureManager"}}}};
+    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                        {boost::beast::http::verb::head, {{"Login"}}},
+                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:

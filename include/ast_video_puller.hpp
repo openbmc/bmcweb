@@ -148,7 +148,7 @@ class AsyncVideoPuller {
     boost::asio::async_read(
         dev_video, mutable_buffer, [this](const boost::system::error_code &ec,
                                           std::size_t bytes_transferred) {
-          if (ec != nullptr) {
+          if (ec) {
             std::cerr << "Read failed with status " << ec << "\n";
           } else {
             this->read_done();
