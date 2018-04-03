@@ -38,19 +38,19 @@ using ManagedObjectsVectorType = std::vector<std::pair<
         std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
 
 /**
- * AsyncResp
+ * SensorsAsyncResp
  * Gathers data needed for response processing after async calls are done
  */
-class AsyncResp {
+class SensorsAsyncResp {
  public:
-  AsyncResp(crow::response& response, const std::string& chassisId,
-            const std::initializer_list<const char*> types)
-      : chassisId(chassisId), res(response), types(types) {
+  SensorsAsyncResp(crow::response& response, const std::string& chassisId,
+                   const std::initializer_list<const char*> types)
+      : res(response), chassisId(chassisId), types(types) {
     res.json_value["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisId + "/Thermal";
   }
 
-  ~AsyncResp() {
+  ~SensorsAsyncResp() {
     if (res.result() == boost::beast::http::status::internal_server_error) {
       // Reset the json object to clear out any data that made it in before the
       // error happened
@@ -59,23 +59,24 @@ class AsyncResp {
     }
     res.end();
   }
+
   void setErrorStatus() {
     res.result(boost::beast::http::status::internal_server_error);
   }
 
-  std::string chassisId{};
   crow::response& res;
+  std::string chassisId{};
   const std::vector<const char*> types;
 };
 
 /**
  * @brief Creates connections necessary for chassis sensors
- * @param asyncResp Pointer to object holding response data
+ * @param SensorsAsyncResp Pointer to object holding response data
  * @param sensorNames Sensors retrieved from chassis
  * @param callback Callback for processing gathered connections
  */
 template <typename Callback>
-void getConnections(std::shared_ptr<AsyncResp> asyncResp,
+void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                     const boost::container::flat_set<std::string>& sensorNames,
                     Callback&& callback) {
   CROW_LOG_DEBUG << "getConnections";
@@ -84,10 +85,11 @@ void getConnections(std::shared_ptr<AsyncResp> asyncResp,
       "xyz.openbmc_project.Sensor.Value"};
 
   // Response handler for parsing objects subtree
-  auto resp_handler = [ callback{std::move(callback)}, asyncResp, sensorNames ](
-      const boost::system::error_code ec, const GetSubTreeType& subtree) {
+  auto resp_handler =
+      [ callback{std::move(callback)}, SensorsAsyncResp, sensorNames ](
+          const boost::system::error_code ec, const GetSubTreeType& subtree) {
     if (ec) {
-      asyncResp->setErrorStatus();
+      SensorsAsyncResp->setErrorStatus();
       CROW_LOG_ERROR << "resp_handler: Dbus error " << ec;
       return;
     }
@@ -109,7 +111,7 @@ void getConnections(std::shared_ptr<AsyncResp> asyncResp,
              std::string,
              std::vector<std::pair<std::string, std::vector<std::string>>>>&
              object : subtree) {
-      for (const char* type : asyncResp->types) {
+      for (const char* type : SensorsAsyncResp->types) {
         if (boost::starts_with(object.first, type)) {
           auto lastPos = object.first.rfind('/');
           if (lastPos != std::string::npos) {
@@ -140,25 +142,26 @@ void getConnections(std::shared_ptr<AsyncResp> asyncResp,
 
 /**
  * @brief Retrieves requested chassis sensors and redundancy data from DBus .
- * @param asyncResp   Pointer to object holding response data
+ * @param SensorsAsyncResp   Pointer to object holding response data
  * @param callback  Callback for next step in gathered sensor processing
  */
 template <typename Callback>
-void getChassis(std::shared_ptr<AsyncResp> asyncResp, Callback&& callback) {
+void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
+                Callback&& callback) {
   CROW_LOG_DEBUG << "getChassis Done";
 
   // Process response from EntityManager and extract chassis data
-  auto resp_handler = [ callback{std::move(callback)}, asyncResp ](
+  auto resp_handler = [ callback{std::move(callback)}, SensorsAsyncResp ](
       const boost::system::error_code ec, ManagedObjectsVectorType& resp) {
     CROW_LOG_DEBUG << "getChassis resp_handler called back Done";
     if (ec) {
       CROW_LOG_ERROR << "getChassis resp_handler got error " << ec;
-      asyncResp->setErrorStatus();
+      SensorsAsyncResp->setErrorStatus();
       return;
     }
     boost::container::flat_set<std::string> sensorNames;
 
-    //   asyncResp->chassisId
+    //   SensorsAsyncResp->chassisId
     bool foundChassis = false;
     std::vector<std::string> split;
     // Reserve space for
@@ -177,7 +180,7 @@ void getChassis(std::shared_ptr<AsyncResp> asyncResp, Callback&& callback) {
       const std::string& sensorName = split.end()[-1];
       const std::string& chassisName = split.end()[-2];
 
-      if (chassisName != asyncResp->chassisId) {
+      if (chassisName != SensorsAsyncResp->chassisId) {
         split.clear();
         continue;
       }
@@ -188,8 +191,9 @@ void getChassis(std::shared_ptr<AsyncResp> asyncResp, Callback&& callback) {
     CROW_LOG_DEBUG << "Found " << sensorNames.size() << " Sensor names";
 
     if (!foundChassis) {
-      CROW_LOG_INFO << "Unable to find chassis named " << asyncResp->chassisId;
-      asyncResp->res.result(boost::beast::http::status::not_found);
+      CROW_LOG_INFO << "Unable to find chassis named "
+                    << SensorsAsyncResp->chassisId;
+      SensorsAsyncResp->res.result(boost::beast::http::status::not_found);
     } else {
       callback(sensorNames);
     }
@@ -330,94 +334,99 @@ void objectInterfacesToJson(
 /**
  * @brief Entry point for retrieving sensors data related to requested
  *        chassis.
- * @param asyncResp   Pointer to object holding response data
+ * @param SensorsAsyncResp   Pointer to object holding response data
  */
-void getChassisData(std::shared_ptr<AsyncResp> asyncResp) {
+void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
   CROW_LOG_DEBUG << "getChassisData";
-  auto getChassisCb = [&, asyncResp](boost::container::flat_set<std::string>&
-                                         sensorNames) {
+  auto getChassisCb = [&, SensorsAsyncResp](
+                          boost::container::flat_set<std::string>&
+                              sensorNames) {
     CROW_LOG_DEBUG << "getChassisCb Done";
-    auto getConnectionCb = [&, asyncResp, sensorNames](
-                               const boost::container::flat_set<std::string>&
-                                   connections) {
-      CROW_LOG_DEBUG << "getConnectionCb Done";
-      // Get managed objects from all services exposing sensors
-      for (const std::string& connection : connections) {
-        // Response handler to process managed objects
-        auto getManagedObjectsCb = [&, asyncResp, sensorNames](
-                                       const boost::system::error_code ec,
-                                       ManagedObjectsVectorType& resp) {
-          // Go through all objects and update response with
-          // sensor data
-          for (const auto& objDictEntry : resp) {
-            const std::string& objPath =
-                static_cast<const std::string&>(objDictEntry.first);
-            CROW_LOG_DEBUG << "getManagedObjectsCb parsing object " << objPath;
+    auto getConnectionCb =
+        [&, SensorsAsyncResp, sensorNames](
+            const boost::container::flat_set<std::string>& connections) {
+          CROW_LOG_DEBUG << "getConnectionCb Done";
+          // Get managed objects from all services exposing sensors
+          for (const std::string& connection : connections) {
+            // Response handler to process managed objects
+            auto getManagedObjectsCb = [&, SensorsAsyncResp, sensorNames](
+                                           const boost::system::error_code ec,
+                                           ManagedObjectsVectorType& resp) {
+              // Go through all objects and update response with
+              // sensor data
+              for (const auto& objDictEntry : resp) {
+                const std::string& objPath =
+                    static_cast<const std::string&>(objDictEntry.first);
+                CROW_LOG_DEBUG << "getManagedObjectsCb parsing object "
+                               << objPath;
 
-            std::vector<std::string> split;
-            // Reserve space for
-            // /xyz/openbmc_project/Sensors/<name>/<subname>
-            split.reserve(6);
-            boost::algorithm::split(split, objPath, boost::is_any_of("/"));
-            if (split.size() < 6) {
-              CROW_LOG_ERROR << "Got path that isn't long enough " << objPath;
-              continue;
-            }
-            // These indexes aren't intuitive, as boost::split puts an empty
-            // string at the beggining
-            const std::string& sensorType = split[4];
-            const std::string& sensorName = split[5];
-            CROW_LOG_DEBUG << "sensorName " << sensorName << " sensorType "
-                           << sensorType;
-            if (sensorNames.find(sensorName) == sensorNames.end()) {
-              CROW_LOG_ERROR << sensorName << " not in sensor list ";
-              continue;
-            }
+                std::vector<std::string> split;
+                // Reserve space for
+                // /xyz/openbmc_project/Sensors/<name>/<subname>
+                split.reserve(6);
+                boost::algorithm::split(split, objPath, boost::is_any_of("/"));
+                if (split.size() < 6) {
+                  CROW_LOG_ERROR << "Got path that isn't long enough "
+                                 << objPath;
+                  continue;
+                }
+                // These indexes aren't intuitive, as boost::split puts an empty
+                // string at the beggining
+                const std::string& sensorType = split[4];
+                const std::string& sensorName = split[5];
+                CROW_LOG_DEBUG << "sensorName " << sensorName << " sensorType "
+                               << sensorType;
+                if (sensorNames.find(sensorName) == sensorNames.end()) {
+                  CROW_LOG_ERROR << sensorName << " not in sensor list ";
+                  continue;
+                }
 
-            const char* fieldName = nullptr;
-            if (sensorType == "temperature") {
-              fieldName = "Temperatures";
-            } else if (sensorType == "fan" || sensorType == "fan_tach") {
-              fieldName = "Fans";
-            } else if (sensorType == "voltage") {
-              fieldName = "Voltages";
-            } else if (sensorType == "current") {
-              fieldName = "PowerSupply";
-            } else if (sensorType == "power") {
-              fieldName = "PowerSupply";
-            } else {
-              CROW_LOG_ERROR << "Unsure how to handle sensorType "
-                             << sensorType;
-              continue;
-            }
+                const char* fieldName = nullptr;
+                if (sensorType == "temperature") {
+                  fieldName = "Temperatures";
+                } else if (sensorType == "fan" || sensorType == "fan_tach") {
+                  fieldName = "Fans";
+                } else if (sensorType == "voltage") {
+                  fieldName = "Voltages";
+                } else if (sensorType == "current") {
+                  fieldName = "PowerSupply";
+                } else if (sensorType == "power") {
+                  fieldName = "PowerSupply";
+                } else {
+                  CROW_LOG_ERROR << "Unsure how to handle sensorType "
+                                 << sensorType;
+                  continue;
+                }
 
-            nlohmann::json& temp_array = asyncResp->res.json_value[fieldName];
+                nlohmann::json& temp_array =
+                    SensorsAsyncResp->res.json_value[fieldName];
 
-            // Create the array if it doesn't yet exist
-            if (temp_array.is_array() == false) {
-              temp_array = nlohmann::json::array();
-            }
+                // Create the array if it doesn't yet exist
+                if (temp_array.is_array() == false) {
+                  temp_array = nlohmann::json::array();
+                }
 
-            temp_array.push_back(
-                {{"@odata.id", "/redfish/v1/Chassis/" + asyncResp->chassisId +
-                                   "/Thermal#/" + sensorName}});
-            nlohmann::json& sensor_json = temp_array.back();
-            objectInterfacesToJson(sensorName, sensorType, objDictEntry.second,
-                                   sensor_json);
-          }
+                temp_array.push_back(
+                    {{"@odata.id", "/redfish/v1/Chassis/" +
+                                       SensorsAsyncResp->chassisId +
+                                       "/Thermal#/" + sensorName}});
+                nlohmann::json& sensor_json = temp_array.back();
+                objectInterfacesToJson(sensorName, sensorType,
+                                       objDictEntry.second, sensor_json);
+              }
+            };
+
+            crow::connections::system_bus->async_method_call(
+                getManagedObjectsCb, connection, "/xyz/openbmc_project/Sensors",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+          };
         };
-
-        crow::connections::system_bus->async_method_call(
-            getManagedObjectsCb, connection, "/xyz/openbmc_project/Sensors",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-      };
-    };
     // Get connections and then pass it to get sensors
-    getConnections(asyncResp, sensorNames, std::move(getConnectionCb));
+    getConnections(SensorsAsyncResp, sensorNames, std::move(getConnectionCb));
   };
 
   // Get chassis information related to sensors
-  getChassis(asyncResp, std::move(getChassisCb));
+  getChassis(SensorsAsyncResp, std::move(getChassisCb));
 };
 
 }  // namespace redfish
