@@ -23,6 +23,19 @@
 namespace redfish {
 
 /**
+ * AsyncResp
+ * Gathers data needed for response processing after async calls are done
+ */
+class AsyncResp {
+ public:
+  AsyncResp(crow::response& response) : res(response) {}
+
+  ~AsyncResp() { res.end(); }
+
+  crow::response& res;
+};
+
+/**
  * @brief  Abstract class used for implementing Redfish nodes.
  *
  */
