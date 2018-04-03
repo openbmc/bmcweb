@@ -136,6 +136,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
 set(SRC_FILES
     redfish-core/src/error_messages.cpp
+    redfish-core/src/utils/json_utils.cpp
     ${GENERATED_SRC_FILES}
 )
 
