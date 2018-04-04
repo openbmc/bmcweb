@@ -737,7 +737,6 @@ class OnDemandEthernetProvider {
  */
 class EthernetCollection : public Node {
  public:
-  template <typename CrowApp>
   // TODO(Pawel) Remove line from below, where we assume that there is only one
   // manager called openbmc This shall be generic, but requires to update
   // GetSubroutes method
@@ -809,7 +808,6 @@ class EthernetInterface : public Node {
   /*
    * Default Constructor
    */
-  template <typename CrowApp>
   // TODO(Pawel) Remove line from below, where we assume that there is only one
   // manager called openbmc This shall be generic, but requires to update
   // GetSubroutes method

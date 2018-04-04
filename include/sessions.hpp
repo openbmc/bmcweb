@@ -73,20 +73,10 @@ struct UserSession {
   }
 };
 
-void to_json(nlohmann::json& j, const std::shared_ptr<UserSession> p) {
-  if (p->persistence != PersistenceType::SINGLE_REQUEST) {
-    j = {{"unique_id", p->unique_id},
-         {"session_token", p->session_token},
-         {"username", p->username},
-         {"csrf_token", p->csrf_token}};
-  }
-}
-
 class Middleware;
 
 class SessionStore {
  public:
-  SessionStore() : timeout_in_minutes(60) {}
   std::shared_ptr<UserSession> generate_user_session(
       const boost::string_view username,
       PersistenceType persistence = PersistenceType::TIMEOUT) {
@@ -184,7 +174,17 @@ class SessionStore {
   // structure, which is private
   friend Middleware;
 
+  static SessionStore& getInstance() {
+    static SessionStore sessionStore;
+    return sessionStore;
+  }
+
+  SessionStore(const SessionStore&) = delete;
+  SessionStore& operator=(const SessionStore&) = delete;
+
  private:
+  SessionStore() : timeout_in_minutes(60) {}
+
   void apply_session_timeouts() {
     auto time_now = std::chrono::steady_clock::now();
     if (time_now - last_timeout_update > std::chrono::minutes(1)) {
@@ -211,3 +211,21 @@ class SessionStore {
 
 }  // namespace PersistentData
 }  // namespace crow
+
+// to_json(...) definition for objects of UserSession type
+namespace nlohmann {
+template <>
+struct adl_serializer<std::shared_ptr<crow::PersistentData::UserSession>> {
+  static void to_json(
+      nlohmann::json& j,
+      const std::shared_ptr<crow::PersistentData::UserSession>& p) {
+    if (p->persistence !=
+        crow::PersistentData::PersistenceType::SINGLE_REQUEST) {
+      j = nlohmann::json{{"unique_id", p->unique_id},
+                         {"session_token", p->session_token},
+                         {"username", p->username},
+                         {"csrf_token", p->csrf_token}};
+    }
+  }
+};
+}  // namespace nlohmann

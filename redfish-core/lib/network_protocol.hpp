@@ -22,8 +22,7 @@ namespace redfish {
 class NetworkProtocol : public Node {
  public:
   NetworkProtocol(CrowApp& app)
-      : Node(app,
-             "/redfish/v1/Managers/openbmc/NetworkProtocol") {
+      : Node(app, "/redfish/v1/Managers/openbmc/NetworkProtocol") {
     Node::json["@odata.type"] =
         "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
     Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc/NetworkProtocol";
@@ -36,12 +35,13 @@ class NetworkProtocol : public Node {
     Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["Status"]["State"] = "Enabled";
 
-    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                        {boost::beast::http::verb::head, {{"Login"}}},
-                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
