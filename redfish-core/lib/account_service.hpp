@@ -21,7 +21,6 @@ namespace redfish {
 
 class AccountService : public Node {
  public:
-  template <typename CrowApp>
   AccountService(CrowApp& app) : Node(app, "/redfish/v1/AccountService/") {
     Node::json["@odata.id"] = "/redfish/v1/AccountService";
     Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
@@ -37,7 +36,8 @@ class AccountService : public Node {
     Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
 
     entityPrivileges = {
-        {boost::beast::http::verb::get, {{"ConfigureUsers"}, {"ConfigureManager"}}},
+        {boost::beast::http::verb::get,
+         {{"ConfigureUsers"}, {"ConfigureManager"}}},
         {boost::beast::http::verb::head, {{"Login"}}},
         {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
         {boost::beast::http::verb::put, {{"ConfigureUsers"}}},

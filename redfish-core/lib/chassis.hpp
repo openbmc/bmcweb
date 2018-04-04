@@ -100,7 +100,6 @@ class OnDemandChassisProvider {
  */
 class ChassisCollection : public Node {
  public:
-  template <typename CrowApp>
   ChassisCollection(CrowApp &app) : Node(app, "/redfish/v1/Chassis/") {
     Node::json["@odata.type"] = "#ChassisCollection.ChassisCollection";
     Node::json["@odata.id"] = "/redfish/v1/Chassis";
@@ -155,10 +154,6 @@ class ChassisCollection : public Node {
  */
 class Chassis : public Node {
  public:
-  /*
-   * Default Constructor
-   */
-  template <typename CrowApp>
   Chassis(CrowApp &app)
       : Node(app, "/redfish/v1/Chassis/<str>/", std::string()) {
     Node::json["@odata.type"] = "#Chassis.v1_4_0.Chassis";
