@@ -76,7 +76,7 @@ class Middleware {
     if (ctx.session != nullptr &&
         ctx.session->persistence ==
             crow::PersistentData::PersistenceType::SINGLE_REQUEST) {
-      PersistentData::session_store->remove_session(ctx.session);
+      PersistentData::SessionStore::getInstance().remove_session(ctx.session);
     }
   }
 
@@ -114,7 +114,7 @@ class Middleware {
     // needed.
     // This whole flow needs to be revisited anyway, as we can't be
     // calling directly into pam for every request
-    return PersistentData::session_store->generate_user_session(
+    return PersistentData::SessionStore::getInstance().generate_user_session(
         user, crow::PersistentData::PersistenceType::SINGLE_REQUEST);
   }
 
@@ -123,7 +123,9 @@ class Middleware {
     CROW_LOG_DEBUG << "[AuthMiddleware] Token authentication";
 
     boost::string_view token = auth_header.substr(strlen("Token "));
-    auto session = PersistentData::session_store->login_session_by_token(token);
+    auto session =
+        PersistentData::SessionStore::getInstance().login_session_by_token(
+            token);
     return session;
   }
 
@@ -135,7 +137,9 @@ class Middleware {
     if (token.empty()) {
       return nullptr;
     }
-    auto session = PersistentData::session_store->login_session_by_token(token);
+    auto session =
+        PersistentData::SessionStore::getInstance().login_session_by_token(
+            token);
     return session;
   }
 
@@ -161,7 +165,8 @@ class Middleware {
         cookie_value.substr(start_index, end_index - start_index);
 
     const std::shared_ptr<crow::PersistentData::UserSession> session =
-        PersistentData::session_store->login_session_by_token(auth_key);
+        PersistentData::SessionStore::getInstance().login_session_by_token(
+            auth_key);
     if (session == nullptr) {
       return nullptr;
     }
@@ -302,8 +307,8 @@ void request_routes(Crow<Middlewares...>& app) {
           if (!pam_authenticate_user(username, password)) {
             res.result(boost::beast::http::status::unauthorized);
           } else {
-            auto session =
-                PersistentData::session_store->generate_user_session(username);
+            auto session = PersistentData::SessionStore::getInstance()
+                               .generate_user_session(username);
 
             if (looks_like_ibm) {
               // IBM requires a very specific login structure, and doesn't
@@ -340,18 +345,17 @@ void request_routes(Crow<Middlewares...>& app) {
       });
 
   CROW_ROUTE(app, "/logout")
-      .methods("POST"_method)(
-          [&](const crow::request& req, crow::response& res) {
-            auto& session =
-                app.template get_context<TokenAuthorization::Middleware>(req)
-                    .session;
-            if (session != nullptr) {
-              PersistentData::session_store->remove_session(session);
-            }
-            res.end();
-            return;
-
-          });
+      .methods(
+          "POST"_method)([&](const crow::request& req, crow::response& res) {
+        auto& session =
+            app.template get_context<TokenAuthorization::Middleware>(req)
+                .session;
+        if (session != nullptr) {
+          PersistentData::SessionStore::getInstance().remove_session(session);
+        }
+        res.end();
+        return;
+      });
 }
 }  // namespace TokenAuthorization
 }  // namespace crow
