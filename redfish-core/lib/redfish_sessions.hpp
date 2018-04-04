@@ -17,7 +17,7 @@
 
 #include "error_messages.hpp"
 #include "node.hpp"
-#include "session_storage_singleton.hpp"
+#include "persistent_data_middleware.hpp"
 
 namespace redfish {
 
@@ -45,7 +45,8 @@ class Sessions : public Node {
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
     auto session =
-        crow::PersistentData::session_store->get_session_by_uid(params[0]);
+        crow::PersistentData::SessionStore::getInstance().get_session_by_uid(
+            params[0]);
 
     if (session == nullptr) {
       messages::addMessageToErrorJson(
@@ -81,7 +82,8 @@ class Sessions : public Node {
     }
 
     auto session =
-        crow::PersistentData::session_store->get_session_by_uid(params[0]);
+        crow::PersistentData::SessionStore::getInstance().get_session_by_uid(
+            params[0]);
 
     if (session == nullptr) {
       messages::addMessageToErrorJson(
@@ -95,7 +97,7 @@ class Sessions : public Node {
     // DELETE should return representation of object that will be removed
     doGet(res, req, params);
 
-    crow::PersistentData::session_store->remove_session(session);
+    crow::PersistentData::SessionStore::getInstance().remove_session(session);
   }
 
   /**
@@ -132,7 +134,7 @@ class SessionCollection : public Node {
   void doGet(crow::response& res, const crow::request& req,
              const std::vector<std::string>& params) override {
     std::vector<const std::string*> session_ids =
-        crow::PersistentData::session_store->get_unique_ids(
+        crow::PersistentData::SessionStore::getInstance().get_unique_ids(
             false, crow::PersistentData::PersistenceType::TIMEOUT);
 
     Node::json["Members@odata.count"] = session_ids.size();
@@ -161,7 +163,8 @@ class SessionCollection : public Node {
 
     // User is authenticated - create session for him
     auto session =
-        crow::PersistentData::session_store->generate_user_session(username);
+        crow::PersistentData::SessionStore::getInstance().generate_user_session(
+            username);
     res.add_header("X-Auth-Token", session->session_token);
 
     // Return data for created session
@@ -301,7 +304,8 @@ class SessionService : public Node {
     Node::json["Id"] = "SessionService";
     Node::json["Description"] = "Session Service";
     Node::json["SessionTimeout"] =
-        crow::PersistentData::session_store->get_timeout_in_seconds();
+        crow::PersistentData::SessionStore::getInstance()
+            .get_timeout_in_seconds();
     Node::json["ServiceEnabled"] = true;
 
     entityPrivileges = {

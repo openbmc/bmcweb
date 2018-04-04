@@ -2,9 +2,9 @@
 
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
+#include <sessions.hpp>
 #include <webassets.hpp>
 #include <random>
-#include "session_storage_singleton.hpp"
 #include <crow/app.h>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
@@ -28,7 +28,7 @@ class Middleware {
   Middleware() { read_data(); }
 
   ~Middleware() {
-    if (PersistentData::session_store->needs_write()) {
+    if (PersistentData::SessionStore::getInstance().needs_write()) {
       write_data();
     }
   }
@@ -68,11 +68,12 @@ class Middleware {
         if (jSessions != data.end()) {
           if (jSessions->is_object()) {
             for (const auto& elem : *jSessions) {
-              std::shared_ptr<UserSession> newSession = std::make_shared<UserSession>();
+              std::shared_ptr<UserSession> newSession =
+                  std::make_shared<UserSession>();
 
               if (newSession->fromJson(elem)) {
-                session_store->auth_tokens.emplace(newSession->unique_id,
-                                                   newSession);
+                SessionStore::getInstance().auth_tokens.emplace(
+                    newSession->unique_id, newSession);
               }
             }
           }
@@ -97,7 +98,7 @@ class Middleware {
   void write_data() {
     std::ofstream persistent_file(filename);
     nlohmann::json data;
-    data["sessions"] = PersistentData::session_store->auth_tokens;
+    data["sessions"] = PersistentData::SessionStore::getInstance().auth_tokens;
     data["system_uuid"] = system_uuid;
     data["revision"] = json_revision;
     persistent_file << data;
@@ -106,5 +107,5 @@ class Middleware {
   std::string system_uuid;
 };
 
-}  // namespaec PersistentData
+}  // namespace PersistentData
 }  // namespace crow
