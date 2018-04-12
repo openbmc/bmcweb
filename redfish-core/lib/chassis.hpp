@@ -24,14 +24,16 @@ namespace redfish {
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-using ManagedObjectsType = std::vector<
-    std::pair<dbus::object_path,
-              std::vector<std::pair<
-                  std::string,
-                  std::vector<std::pair<std::string, dbus::dbus_variant>>>>>>;
+// Note, this is not a very useful variant, but because it isn't used to get
+// values, it should be as simple as possible
+// TODO(ed) invent a nullvariant type
+using VariantType = sdbusplus::message::variant<std::string>;
+using ManagedObjectsType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    std::vector<std::pair<std::string,
+                          std::vector<std::pair<std::string, VariantType>>>>>>;
 
-using PropertiesType =
-    boost::container::flat_map<std::string, dbus::dbus_variant>;
+using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
 /**
  * OnDemandChassisProvider
@@ -79,7 +81,8 @@ class OnDemandChassisProvider {
                     {"serial_number", "SerialNumber"}}}) {
             PropertiesType::const_iterator it = properties.find(p.first);
             if (it != properties.end()) {
-              const std::string *s = boost::get<std::string>(&it->second);
+              const std::string *s =
+                  mapbox::get_ptr<const std::string>(it->second);
               if (s != nullptr) {
                 output[p.second] = *s;
               }
@@ -88,9 +91,9 @@ class OnDemandChassisProvider {
           // Callback with success, and hopefully data.
           callback(true, output);
         },
-        {"xyz.openbmc_project.EntityManager",
-         "/xyz/openbmc_project/Inventory/Item/Chassis/" + res_name,
-         "org.freedesktop.DBus.Properties", "GetAll"},
+        "xyz.openbmc_project.EntityManager",
+        "/xyz/openbmc_project/Inventory/Item/Chassis/" + res_name,
+        "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Configuration.Chassis");
   }
 
@@ -126,7 +129,7 @@ class OnDemandChassisProvider {
               if (interface.first ==
                   "xyz.openbmc_project.Configuration.Chassis") {
                 // Cut out everything until last "/", ...
-                const std::string &chassis_id = objpath.first.value;
+                const std::string &chassis_id = objpath.first.str;
                 std::size_t last_pos = chassis_id.rfind("/");
                 if (last_pos != std::string::npos) {
                   // and put it into output vector.
@@ -138,9 +141,9 @@ class OnDemandChassisProvider {
           // Finally make a callback with useful data
           callback(true, chassis_list);
         },
-        {"xyz.openbmc_project.EntityManager",
-         "/xyz/openbmc_project/Inventory/Item/Chassis",
-         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
+        "xyz.openbmc_project.EntityManager",
+        "/xyz/openbmc_project/Inventory/Item/Chassis",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
   };
 };
 

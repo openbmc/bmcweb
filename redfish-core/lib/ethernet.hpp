@@ -24,14 +24,19 @@ namespace redfish {
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-using PropertiesMapType =
-    boost::container::flat_map<std::string, dbus::dbus_variant>;
+using PropertiesMapType = boost::container::flat_map<
+    std::string,
+    sdbusplus::message::variant<std::string, bool, uint8_t, int16_t, uint16_t,
+                                int32_t, uint32_t, int64_t, uint64_t, double>>;
 
 using GetManagedObjectsType = boost::container::flat_map<
-    dbus::object_path,
-    boost::container::flat_map<std::string, PropertiesMapType>>;
-
-using GetAllPropertiesType = PropertiesMapType;
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string,
+        boost::container::flat_map<
+            std::string, sdbusplus::message::variant<
+                             std::string, bool, uint8_t, int16_t, uint16_t,
+                             int32_t, uint32_t, int64_t, uint64_t, double>>>>;
 
 /**
  * Structure for keeping IPv4 data required by Redfish
@@ -76,8 +81,8 @@ class OnDemandEthernetProvider {
   // Helper function that allows to extract GetAllPropertiesType from
   // GetManagedObjectsType, based on object path, and interface name
   const PropertiesMapType *extractInterfaceProperties(
-      const dbus::object_path &objpath, const std::string &interface,
-      const GetManagedObjectsType &dbus_data) {
+      const sdbusplus::message::object_path &objpath,
+      const std::string &interface, const GetManagedObjectsType &dbus_data) {
     const auto &dbus_obj = dbus_data.find(objpath);
     if (dbus_obj != dbus_data.end()) {
       const auto &iface = dbus_obj->second.find(interface);
@@ -89,22 +94,22 @@ class OnDemandEthernetProvider {
   }
 
   // Helper Wrapper that does inline object_path conversion from string
-  // into dbus::object_path type
+  // into sdbusplus::message::object_path type
   inline const PropertiesMapType *extractInterfaceProperties(
       const std::string &objpath, const std::string &interface,
       const GetManagedObjectsType &dbus_data) {
-    const auto &dbus_obj = dbus::object_path{objpath};
+    const auto &dbus_obj = sdbusplus::message::object_path{objpath};
     return extractInterfaceProperties(dbus_obj, interface, dbus_data);
   }
 
   // Helper function that allows to get pointer to the property from
   // GetAllPropertiesType native, or extracted by GetAllPropertiesType
   template <typename T>
-  inline const T *extractProperty(const PropertiesMapType &properties,
-                                  const std::string &name) {
+  inline T const *const extractProperty(const PropertiesMapType &properties,
+                                        const std::string &name) {
     const auto &property = properties.find(name);
     if (property != properties.end()) {
-      return boost::get<T>(&property->second);
+      return mapbox::get_ptr<const T>(property->second);
     }
     return nullptr;
   }
@@ -177,7 +182,7 @@ class OnDemandEthernetProvider {
     for (auto &objpath : dbus_data) {
       // Check if proper patter for object path appears
       if (boost::starts_with(
-              objpath.first.value,
+              static_cast<std::string>(objpath.first),
               "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/")) {
         // and get approrpiate interface
         const auto &interface =
@@ -244,7 +249,7 @@ class OnDemandEthernetProvider {
           this, ethiface_id{std::move(ethiface_id)},
           callback{std::move(callback)}
         ](const boost::system::error_code error_code,
-          const GetManagedObjectsType &resp) {
+          GetManagedObjectsType &resp) {
 
           EthernetInterfaceData eth_data{};
           std::vector<IPv4AddressData> ipv4_data;
@@ -273,8 +278,8 @@ class OnDemandEthernetProvider {
           // Finally make a callback with useful data
           callback(true, eth_data, ipv4_data);
         },
-        {"xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
   };
 
   /**
@@ -288,7 +293,7 @@ class OnDemandEthernetProvider {
     crow::connections::system_bus->async_method_call(
         [ this, callback{std::move(callback)} ](
             const boost::system::error_code error_code,
-            const GetManagedObjectsType &resp) {
+            GetManagedObjectsType &resp) {
           // Callback requires vector<string> to retrieve all available ethernet
           // interfaces
           std::vector<std::string> iface_list;
@@ -310,8 +315,9 @@ class OnDemandEthernetProvider {
               // this is what we're looking for.
               if (interface.first ==
                   "xyz.openbmc_project.Network.EthernetInterface") {
-                // Cut out everything until last "/", ...
-                const std::string &iface_id = objpath.first.value;
+                // Cut out everyting until last "/", ...
+                const std::string iface_id =
+                    static_cast<std::string>(objpath.first);
                 std::size_t last_pos = iface_id.rfind("/");
                 if (last_pos != std::string::npos) {
                   // and put it into output vector.
@@ -323,8 +329,8 @@ class OnDemandEthernetProvider {
           // Finally make a callback with useful data
           callback(true, iface_list);
         },
-        {"xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
   };
 };
 

@@ -1,11 +1,6 @@
 #include <crow/app.h>
 
 #include <tinyxml2.h>
-#include <dbus/connection.hpp>
-#include <dbus/endpoint.hpp>
-#include <dbus/filter.hpp>
-#include <dbus/match.hpp>
-#include <dbus/message.hpp>
 #include <dbus_singleton.hpp>
 #include <boost/container/flat_set.hpp>
 
@@ -15,12 +10,11 @@ namespace openbmc_mapper {
 void introspect_objects(crow::response &res, std::string process_name,
                         std::string path,
                         std::shared_ptr<nlohmann::json> transaction) {
-  dbus::endpoint introspect_endpoint(
-      process_name, path, "org.freedesktop.DBus.Introspectable", "Introspect");
   crow::connections::system_bus->async_method_call(
-      [&, process_name{std::move(process_name)}, object_path{std::move(path)} ](
-          const boost::system::error_code ec,
-          const std::string &introspect_xml) {
+      [
+        &res, transaction, process_name{std::move(process_name)},
+        object_path{std::move(path)}
+      ](const boost::system::error_code ec, const std::string &introspect_xml) {
         if (ec) {
           CROW_LOG_ERROR << "Introspect call failed with error: "
                          << ec.message() << " on process: " << process_name
@@ -35,7 +29,7 @@ void introspect_objects(crow::response &res, std::string process_name,
           tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
           if (pRoot == nullptr) {
             CROW_LOG_ERROR << "XML document failed to parse " << process_name
-                           << " " << path << "\n";
+                           << " " << object_path << "\n";
 
           } else {
             tinyxml2::XMLElement *node = pRoot->FirstChildElement("node");
@@ -61,14 +55,23 @@ void introspect_objects(crow::response &res, std::string process_name,
           res.end();
         }
       },
-      introspect_endpoint);
+      process_name, path, "org.freedesktop.DBus.Introspectable", "Introspect");
 }
-using ManagedObjectType = std::vector<std::pair<
-    dbus::object_path, boost::container::flat_map<
-                           std::string, boost::container::flat_map<
-                                            std::string, dbus::dbus_variant>>>>;
 
-void get_manged_objects_for_enumerate(
+// A smattering of common types to unpack.  TODO(ed) this should really iterate
+// the sdbusplus object directly and build the json response
+using DbusRestVariantType = sdbusplus::message::variant<
+    std::vector<std::tuple<std::string, std::string, std::string>>, std::string,
+    int64_t, uint64_t, double, int32_t, uint32_t, int16_t, uint16_t, uint8_t,
+    bool>;
+
+using ManagedObjectType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string,
+        boost::container::flat_map<std::string, DbusRestVariantType>>>>;
+
+void get_managed_objects_for_enumerate(
     const std::string &object_name, const std::string &connection_name,
     crow::response &res, std::shared_ptr<nlohmann::json> transaction) {
   crow::connections::system_bus->async_method_call(
@@ -78,13 +81,29 @@ void get_manged_objects_for_enumerate(
           CROW_LOG_ERROR << ec;
         } else {
           nlohmann::json &data_json = *transaction;
+
           for (auto &object_path : objects) {
-            nlohmann::json &object_json = data_json[object_path.first.value];
+            CROW_LOG_DEBUG << "Reading object "
+                           << static_cast<const std::string&>(object_path.first);
+            nlohmann::json &object_json =
+                data_json[static_cast<const std::string&>(object_path.first)];
+            if (object_json.is_null()) {
+              object_json = nlohmann::json::object();
+            }
             for (const auto &interface : object_path.second) {
               for (const auto &property : interface.second) {
-                boost::apply_visitor(
-                    [&](auto &&val) { object_json[property.first] = val; },
+                nlohmann::json &property_json = object_json[property.first];
+                mapbox::util::apply_visitor(
+                    [&property_json](auto &&val) { property_json = val; },
                     property.second);
+
+                // dbus-rest represents booleans as 1 or 0, implement to match
+                // TODO(ed) see if dbus-rest should be changed
+                const bool *property_bool =
+                    property_json.get_ptr<const bool *>();
+                if (property_bool != nullptr) {
+                  property_json = *property_bool ? 1 : 0;
+                }
               }
             }
           }
@@ -97,9 +116,9 @@ void get_manged_objects_for_enumerate(
           res.end();
         }
       },
-      {connection_name, object_name, "org.freedesktop.DBus.ObjectManager",
-       "GetManagedObjects"});
-}  // namespace openbmc_mapper
+      connection_name, object_name, "org.freedesktop.DBus.ObjectManager",
+      "GetManagedObjects");
+}
 
 using GetSubTreeType = std::vector<
     std::pair<std::string,
@@ -132,14 +151,14 @@ void handle_enumerate(crow::response &res, const std::string &object_path) {
         auto transaction =
             std::make_shared<nlohmann::json>(nlohmann::json::object());
         for (const std::string &connection : connections) {
-          get_manged_objects_for_enumerate(object_path, connection, res,
-                                           transaction);
+          get_managed_objects_for_enumerate(object_path, connection, res,
+                                            transaction);
         }
 
       },
-      {"xyz.openbmc_project.ObjectMapper", "/xyz/openbmc_project/object_mapper",
-       "xyz.openbmc_project.ObjectMapper", "GetSubTree"},
-      object_path, (int32_t)0, std::array<std::string, 0>());
+      "xyz.openbmc_project.ObjectMapper", "/xyz/openbmc_project/object_mapper",
+      "xyz.openbmc_project.ObjectMapper", "GetSubTree", object_path, (int32_t)0,
+      std::array<std::string, 0>());
 }
 
 template <typename... Middlewares>
@@ -151,33 +170,32 @@ void request_routes(Crow<Middlewares...> &app) {
 
   CROW_ROUTE(app, "/bus/system/")
       .methods("GET"_method)([](const crow::request &req, crow::response &res) {
+
+        auto myCallback = [&res](const boost::system::error_code ec,
+                                 std::vector<std::string> &names) {
+          if (ec) {
+            res.code = 500;
+          } else {
+            std::sort(names.begin(), names.end());
+            nlohmann::json j{{"status", "ok"}};
+            auto &objects_sub = j["objects"];
+            for (auto &name : names) {
+              objects_sub.push_back({{"name", name}});
+            }
+            res.json_value = std::move(j);
+          }
+          res.end();
+        };
         crow::connections::system_bus->async_method_call(
-            [&](const boost::system::error_code ec,
-                std::vector<std::string> &names) {
-
-              if (ec) {
-                res.code = 500;
-              } else {
-                std::sort(names.begin(), names.end());
-                nlohmann::json j{{"status", "ok"}};
-                auto &objects_sub = j["objects"];
-                for (auto &name : names) {
-                  objects_sub.push_back({{"name", name}});
-                }
-                res.json_value = std::move(j);
-              }
-              res.end();
-            },
-            {"org.freedesktop.DBus", "/", "org.freedesktop.DBus", "ListNames"});
-
+            std::move(myCallback), "org.freedesktop.DBus", "/",
+            "org.freedesktop.DBus", "ListNames");
       });
 
   CROW_ROUTE(app, "/list/")
       .methods("GET"_method)([](const crow::request &req, crow::response &res) {
         crow::connections::system_bus->async_method_call(
-            [&](const boost::system::error_code ec,
-                const std::vector<std::string> &object_paths) {
-
+            [&res](const boost::system::error_code ec,
+                   const std::vector<std::string> &object_paths) {
               if (ec) {
                 res.code = 500;
               } else {
@@ -187,10 +205,10 @@ void request_routes(Crow<Middlewares...> &app) {
               }
               res.end();
             },
-            {"xyz.openbmc_project.ObjectMapper",
-             "/xyz/openbmc_project/object_mapper",
-             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths"},
-            "", static_cast<int32_t>(99), std::array<std::string, 0>());
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "",
+            static_cast<int32_t>(99), std::array<std::string, 0>());
       });
 
   CROW_ROUTE(app, "/xyz/<path>")
@@ -242,9 +260,9 @@ void request_routes(Crow<Middlewares...> &app) {
 
         crow::connections::system_bus->async_method_call(
             [
-                  &, object_path{std::move(object_path)},
-                  dest_property{std::move(dest_property)},
-                  property_set_value{std::move(property_set_value)}, transaction
+              &res, &req, object_path{std::move(object_path)},
+              dest_property{std::move(dest_property)},
+              property_set_value{std::move(property_set_value)}, transaction
             ](const boost::system::error_code ec,
               const GetObjectType &object_names) {
               if (ec) {
@@ -260,17 +278,17 @@ void request_routes(Crow<Middlewares...> &app) {
               if (req.method == "GET"_method) {
                 for (auto &interface : object_names[0].second) {
                   crow::connections::system_bus->async_method_call(
-                      [&](const boost::system::error_code ec,
+                      [&res, transaction](
+                          const boost::system::error_code ec,
                           const std::vector<std::pair<
-                              std::string, dbus::dbus_variant>> &properties) {
+                              std::string, DbusRestVariantType>> &properties) {
                         if (ec) {
                           CROW_LOG_ERROR << "Bad dbus request error: " << ec;
                         } else {
                           for (auto &property : properties) {
-                            boost::apply_visitor(
-                                [&](auto val) {
-                                  (*transaction)[property.first] = val;
-                                },
+                            nlohmann::json &it = (*transaction)[property.first];
+                            mapbox::util::apply_visitor(
+                                [&it](auto &&val) { it = val; },
                                 property.second);
                           }
                         }
@@ -282,9 +300,8 @@ void request_routes(Crow<Middlewares...> &app) {
                           res.end();
                         }
                       },
-                      {object_names[0].first, object_path,
-                       "org.freedesktop.DBus.Properties", "GetAll"},
-                      interface);
+                      object_names[0].first, object_path,
+                      "org.freedesktop.DBus.Properties", "GetAll", interface);
                 }
               } else if (req.method == "PUT"_method) {
                 for (auto &interface : object_names[0].second) {
@@ -298,18 +315,19 @@ void request_routes(Crow<Middlewares...> &app) {
                             transaction
                       ](const boost::system::error_code ec,
                         const boost::container::flat_map<
-                            std::string, dbus::dbus_variant> &properties) {
+                            std::string, DbusRestVariantType> &properties) {
                         if (ec) {
                           CROW_LOG_ERROR << "Bad dbus request error: " << ec;
                         } else {
                           auto it = properties.find(dest_property);
                           if (it != properties.end()) {
                             // find the matched property in the interface
-                            dbus::dbus_variant property_value(
-                                property_set_value);  // create the dbus
-                                                      // variant for dbus call
+                            DbusRestVariantType property_value(
+                                property_set_value);
+                            // create the dbus variant for dbus call
                             crow::connections::system_bus->async_method_call(
-                                [&](const boost::system::error_code ec) {
+                                [transaction](
+                                    const boost::system::error_code ec) {
                                   // use the method "Set" to set the property
                                   // value
                                   if (ec) {
@@ -323,8 +341,8 @@ void request_routes(Crow<Middlewares...> &app) {
                                                   {"data", nullptr}};
 
                                 },
-                                {object_names[0].first, object_path,
-                                 "org.freedesktop.DBus.Properties", "Set"},
+                                object_names[0].first, object_path,
+                                "org.freedesktop.DBus.Properties", "Set",
                                 interface, dest_property, property_value);
                           }
                         }
@@ -350,16 +368,15 @@ void request_routes(Crow<Middlewares...> &app) {
                           return;
                         }
                       },
-                      {object_names[0].first, object_path,
-                       "org.freedesktop.DBus.Properties", "GetAll"},
-                      interface);
+                      object_names[0].first, object_path,
+                      "org.freedesktop.DBus.Properties", "GetAll", interface);
                 }
               }
             },
-            {"xyz.openbmc_project.ObjectMapper",
-             "/xyz/openbmc_project/object_mapper",
-             "xyz.openbmc_project.ObjectMapper", "GetObject"},
-            object_path, std::array<std::string, 0>());
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetObject", object_path,
+            std::array<std::string, 0>());
       });
 
   CROW_ROUTE(app, "/bus/system/<str>/")
@@ -413,9 +430,6 @@ void request_routes(Crow<Middlewares...> &app) {
           res.end();
           return;
         }
-        dbus::endpoint introspect_endpoint(
-            process_name, object_path, "org.freedesktop.DBus.Introspectable",
-            "Introspect");
         if (interface_name.empty()) {
           crow::connections::system_bus->async_method_call(
               [
@@ -459,7 +473,8 @@ void request_routes(Crow<Middlewares...> &app) {
                 }
                 res.end();
               },
-              introspect_endpoint);
+              process_name, object_path, "org.freedesktop.DBus.Introspectable",
+              "Introspect");
         } else {
           crow::connections::system_bus->async_method_call(
               [
@@ -566,10 +581,11 @@ void request_routes(Crow<Middlewares...> &app) {
                 }
                 res.end();
               },
-              introspect_endpoint);
+              process_name, object_path, "org.freedesktop.DBus.Introspectable",
+              "Introspect");
         }
 
       });
-}
+}  // namespace openbmc_mapper
 }  // namespace openbmc_mapper
 }  // namespace crow

@@ -1,10 +1,6 @@
 #pragma once
 
-#include <dbus/connection.hpp>
-#include <dbus/endpoint.hpp>
-#include <dbus/filter.hpp>
-#include <dbus/match.hpp>
-#include <dbus/message.hpp>
+#include <dbus_singleton.hpp>
 #include <persistent_data_middleware.hpp>
 #include <token_authorization_middleware.hpp>
 #include <fstream>
@@ -43,10 +39,13 @@ std::string execute_process(const char* cmd) {
   return result;
 }
 
+// GetManagedObjects unpack type.  Observe that variant has only one bool type,
+// because we don't actually use the values it provides
 using ManagedObjectType = std::vector<std::pair<
-    dbus::object_path, boost::container::flat_map<
-                           std::string, boost::container::flat_map<
-                                            std::string, dbus::dbus_variant>>>>;
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string, boost::container::flat_map<
+                         std::string, sdbusplus::message::variant<bool>>>>>;
 
 template <typename... Middlewares>
 void request_routes(Crow<Middlewares...>& app) {
@@ -79,7 +78,8 @@ void request_routes(Crow<Middlewares...>& app) {
                 nlohmann::json member_array = nlohmann::json::array();
                 int user_index = 0;
                 for (auto& user : users) {
-                  const std::string& path = user.first.value;
+                  const std::string& path =
+                      static_cast<std::string>(user.first);
                   std::size_t last_index = path.rfind("/");
                   if (last_index == std::string::npos) {
                     last_index = 0;
@@ -94,8 +94,8 @@ void request_routes(Crow<Middlewares...>& app) {
               }
               res.end();
             },
-            {"xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
       });
 
   CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
@@ -110,7 +110,8 @@ void request_routes(Crow<Middlewares...>& app) {
                 res.code = 500;
               } else {
                 for (auto& user : users) {
-                  const std::string& path = user.first.value;
+                  const std::string& path =
+                      static_cast<std::string>(user.first);
                   std::size_t last_index = path.rfind("/");
                   if (last_index == std::string::npos) {
                     last_index = 0;
@@ -145,8 +146,8 @@ void request_routes(Crow<Middlewares...>& app) {
               }
               res.end();
             },
-            {"xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
       });
 }
 }  // namespace redfish
