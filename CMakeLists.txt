@@ -63,7 +63,8 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 if(NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure time
-  configure_file(CMakeLists.txt.in 3rdparty/CMakeLists.txt)
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.in
+                 3rdparty/CMakeLists.txt)
   execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
                   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
   execute_process(COMMAND ${CMAKE_COMMAND} --build .
@@ -80,8 +81,20 @@ add_definitions(-DBOOST_NO_RTTI)
 add_definitions(-DBOOST_NO_TYPEID)
 # set(Boost_USE_STATIC_LIBS ON)
 
-find_package(Boost 1.64 REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
+#find_package(Boost 1.66 REQUIRED)
+include_directories(${CMAKE_BINARY_DIR}/boost-src)
+
+# sdbusplus
+if(NOT ${YOCTO_DEPENDENCIES})
+  include_directories(${CMAKE_BINARY_DIR}/sdbusplus-src
+                     ${CMAKE_BINARY_DIR}/prefix/include)
+  set(WANT_TRANSACTION 0)
+
+  configure_file(${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/server.hpp.in
+                ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/server.hpp @ONLY)
+  configure_file(${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/bus.hpp.in
+                ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/bus.hpp @ONLY)
+endif()
 
 # Openssl
 find_package(OpenSSL REQUIRED)
@@ -95,6 +108,9 @@ if(CMAKE_BUILD_TYPE MATCHES Debug)
   add_definitions(-DCROW_ENABLE_LOGGING)
   add_definitions(-DCROW_ENABLE_DEBUG)
 endif(CMAKE_BUILD_TYPE MATCHES Debug)
+
+#add_definitions(-DCROW_ENABLE_LOGGING)
+#add_definitions(-DCROW_ENABLE_DEBUG)
 
 add_definitions(-DCROW_ENABLE_SSL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
@@ -112,9 +128,6 @@ else()
 endif()
 
 add_definitions("-Wno-attributes")
-
-# Boost-dbus
-find_package(boost-dbus REQUIRED)
 
 # tinyxml2
 find_package(tinyxml2 REQUIRED)
@@ -168,7 +181,6 @@ if(${BMCWEB_BUILD_UT})
   target_link_libraries(webtest ${GMOCK_LIBRARIES})
 
   target_link_libraries(webtest pthread)
-  target_link_libraries(webtest boost-dbus)
   target_link_libraries(webtest ${OPENSSL_LIBRARIES})
   target_link_libraries(webtest ${ZLIB_LIBRARIES})
   target_link_libraries(webtest pam)
@@ -182,7 +194,6 @@ install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 
 # bmcweb
 add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb boost-dbus)
 target_link_libraries(bmcweb pthread)
 target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries(bmcweb ${ZLIB_LIBRARIES})

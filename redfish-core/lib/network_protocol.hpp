@@ -95,10 +95,10 @@ class NetworkProtocol : public Node {
     }
   }
 
-  std::map<int, std::string> portToProtocolMap{
+  boost::container::flat_map<int, std::string> portToProtocolMap{
       {22, "SSH"}, {80, "HTTP"}, {443, "HTTPS"}, {623, "IPMI"}, {1900, "SSDP"}};
 
-  std::set<int> listeningPorts;
+  boost::container::flat_set<int> listeningPorts;
 };
 
 }  // namespace redfish
