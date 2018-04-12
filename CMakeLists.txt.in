@@ -2,6 +2,29 @@ cmake_minimum_required(VERSION 3.5)
 
 include(ExternalProject)
 
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix)
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix/include)
+
+
+# add back GIT_TAG in with the correct SHA1 once
+# https://gerrit.openbmc-project.xyz/#/c/10278/ is merged
+#GIT_TAG
+#2a3af936625bc66cfc6bae1952b57138f141377e
+ExternalProject_Add(
+    sdbusplus
+    GIT_REPOSITORY
+    "https://gerrit.openbmc-project.xyz/openbmc/sdbusplus"
+    GIT_TAG
+    fce038ad5ac9f458b03d55b441253a9c05dadc3e 
+    SOURCE_DIR        "${CMAKE_BINARY_DIR}/sdbusplus-src"
+    BINARY_DIR        "${CMAKE_BINARY_DIR}/sdbusplus-build"
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/prefix
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND cp -r "${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus"
+                          "${CMAKE_BINARY_DIR}/prefix/include"
+)
+
 ExternalProject_Add(
     tinyxml2
     GIT_REPOSITORY
@@ -23,17 +46,6 @@ ExternalProject_Add(
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND mkdir -p "${CMAKE_BINARY_DIR}/prefix/include/" && cp -R ${CMAKE_BINARY_DIR}/boost-src/boost ${CMAKE_BINARY_DIR}/prefix/include
-)
-
-ExternalProject_Add(
-    boost-dbus
-    GIT_REPOSITORY
-    "ssh://git-amr-2.devtools.intel.com:29418/openbmc-boost-dbus"
-    GIT_TAG
-    895ef1b67f3aaac3808296e4729b991fcf276832
-    SOURCE_DIR        "${CMAKE_BINARY_DIR}/boost-dbus-src"
-    BINARY_DIR        "${CMAKE_BINARY_DIR}/boost-dbus-build"
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/prefix -DBOOST_DBUS_BUILD_UT=OFF
 )
 
 ExternalProject_Add(

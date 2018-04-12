@@ -1,7 +1,6 @@
 #pragma once
-#include <dbus/filter.hpp>
-#include <dbus/match.hpp>
 #include <dbus_singleton.hpp>
+#include <sdbusplus/bus/match.hpp>
 #include <crow/app.h>
 #include <boost/container/flat_map.hpp>
 
@@ -9,34 +8,38 @@ namespace crow {
 namespace dbus_monitor {
 
 struct DbusWebsocketSession {
-  std::vector<std::unique_ptr<dbus::match>> matches;
-  std::vector<dbus::filter> filters;
+  std::vector<std::unique_ptr<sdbusplus::bus::match::match>> matches;
 };
 
 static boost::container::flat_map<crow::websocket::connection*,
                                   DbusWebsocketSession>
     sessions;
 
-void on_property_update(dbus::filter& filter, boost::system::error_code ec,
-                        dbus::message s) {
-  if (!ec) {
-    std::string object_name;
-    std::vector<std::pair<std::string, dbus::dbus_variant>> values;
-    s.unpack(object_name, values);
-    nlohmann::json j;
-    for (auto& value : values) {
-      boost::apply_visitor([&](auto val) { j[s.get_path()] = val; },
-                           value.second);
-    }
-    auto data_to_send = j.dump();
-
-    for (auto& session : sessions) {
-      session.first->send_text(data_to_send);
-    }
+int on_property_update(sd_bus_message* m, void* userdata,
+                       sd_bus_error* ret_error) {
+  if (ret_error == nullptr || sd_bus_error_is_set(ret_error)) {
+    CROW_LOG_ERROR << "Sdbus error in on_property_update";
+    return 0;
   }
-  filter.async_dispatch([&](boost::system::error_code ec, dbus::message s) {
-    on_property_update(filter, ec, s);
-  });
+  sdbusplus::message::message message(m);
+  std::string object_name;
+  std::vector<
+      std::pair<std::string, sdbusplus::message::variant<
+                                 std::string, bool, int64_t, uint64_t, double>>>
+      values;
+  message.read(object_name, values);
+  nlohmann::json j;
+  const std::string& path = message.get_path();
+  for (auto& value : values) {
+    mapbox::util::apply_visitor([&](auto&& val) { j[path] = val; },
+                                value.second);
+  }
+  std::string data_to_send = j.dump();
+
+  for (const std::pair<crow::websocket::connection*, DbusWebsocketSession>&
+           session : sessions) {
+    session.first->send_text(data_to_send);
+  }
 };
 
 template <typename... Middlewares>
@@ -56,19 +59,10 @@ void request_routes(Crow<Middlewares...>& app) {
             "interface='org.freedesktop.DBus.Properties',"
             "path_namespace='" +
             path_namespace + "'");
-        sessions[&conn].matches.push_back(std::make_unique<dbus::match>(
-            crow::connections::system_bus, std::move(match_string)));
-
-        sessions[&conn].filters.emplace_back(
-            crow::connections::system_bus, [path_namespace](dbus::message m) {
-              return m.get_member() == "PropertiesChanged" &&
-                     boost::starts_with(m.get_path(), path_namespace);
-            });
-        auto& this_filter = sessions[&conn].filters.back();
-        this_filter.async_dispatch(
-            [&](boost::system::error_code ec, dbus::message s) {
-              on_property_update(this_filter, ec, s);
-            });
+        sessions[&conn].matches.emplace_back(
+            std::make_unique<sdbusplus::bus::match::match>(
+                *crow::connections::system_bus, match_string,
+                on_property_update));
 
       })
       .onclose([&](crow::websocket::connection& conn,
@@ -78,5 +72,5 @@ void request_routes(Crow<Middlewares...>& app) {
         CROW_LOG_ERROR << "Got unexpected message from client on sensorws";
       });
 }
-}  // namespace redfish
+}  // namespace dbus_monitor
 }  // namespace crow

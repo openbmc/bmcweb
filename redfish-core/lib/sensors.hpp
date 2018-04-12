@@ -21,8 +21,6 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
-#include <boost/variant.hpp>
-#include <boost/variant/get.hpp>
 
 namespace redfish {
 
@@ -32,11 +30,12 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
+using SensorVariant = sdbusplus::message::variant<int64_t, double>;
+
 using ManagedObjectsVectorType = std::vector<std::pair<
-    dbus::object_path,
+    sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string,
-        boost::container::flat_map<dbus::string, dbus::dbus_variant>>>>;
+        std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
 
 /**
  * AsyncResp
@@ -83,9 +82,6 @@ void getConnections(const std::shared_ptr<AsyncResp>& asyncResp,
   const std::string path = "/xyz/openbmc_project/Sensors";
   const std::array<std::string, 1> interfaces = {
       "xyz.openbmc_project.Sensor.Value"};
-  const dbus::endpoint object_mapper(
-      "xyz.openbmc_project.ObjectMapper", "/xyz/openbmc_project/object_mapper",
-      "xyz.openbmc_project.ObjectMapper", "GetSubTree");
 
   // Response handler for parsing objects subtree
   auto resp_handler = [ callback{std::move(callback)}, asyncResp, sensorNames ](
@@ -136,8 +132,10 @@ void getConnections(const std::shared_ptr<AsyncResp>& asyncResp,
   };
 
   // Make call to ObjectMapper to find all sensors objects
-  crow::connections::system_bus->async_method_call(resp_handler, object_mapper,
-                                                   path, 2, interfaces);
+  crow::connections::system_bus->async_method_call(
+      resp_handler, "xyz.openbmc_project.ObjectMapper",
+      "/xyz/openbmc_project/object_mapper", "xyz.openbmc_project.ObjectMapper",
+      "GetSubTree", path, 2, interfaces);
 }
 
 /**
@@ -149,10 +147,6 @@ template <typename Callback>
 void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
                 Callback&& callback) {
   CROW_LOG_DEBUG << "getChassis Done";
-  const dbus::endpoint entityManager = {
-      "xyz.openbmc_project.EntityManager",
-      "/xyz/openbmc_project/Inventory/Item/Chassis",
-      "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"};
 
   // Process response from EntityManager and extract chassis data
   auto resp_handler = [ callback{std::move(callback)}, asyncResp ](
@@ -170,10 +164,11 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
     CROW_LOG_DEBUG << "Chassis Prefix " << chassis_prefix;
     bool foundChassis = false;
     for (const auto& objDictEntry : resp) {
-      if (boost::starts_with(objDictEntry.first.value, chassis_prefix)) {
+      if (boost::starts_with(static_cast<std::string>(objDictEntry.first),
+                             chassis_prefix)) {
         foundChassis = true;
         const std::string sensorName =
-            objDictEntry.first.value.substr(chassis_prefix.size());
+            std::string(objDictEntry.first).substr(chassis_prefix.size());
         // Make sure this isn't a subobject (like a threshold)
         const std::size_t sensorPos = sensorName.find('/');
         if (sensorPos == std::string::npos) {
@@ -194,7 +189,10 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
   };
 
   // Make call to EntityManager to find all chassis objects
-  crow::connections::system_bus->async_method_call(resp_handler, entityManager);
+  crow::connections::system_bus->async_method_call(
+      resp_handler, "xyz.openbmc_project.EntityManager",
+      "/xyz/openbmc_project/Inventory/Item/Chassis",
+      "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
 /**
@@ -209,8 +207,7 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
 void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
     const boost::container::flat_map<
-        std::string,
-        boost::container::flat_map<dbus::string, dbus::dbus_variant>>&
+        std::string, boost::container::flat_map<std::string, SensorVariant>>&
         interfacesDict,
     nlohmann::json& sensor_json) {
   // We need a value interface before we can do anything with it
@@ -226,7 +223,8 @@ void objectInterfacesToJson(
   auto scale_it = value_it->second.find("Scale");
   // If a scale exists, pull value as int64, and use the scaling.
   if (scale_it != value_it->second.end()) {
-    const int64_t* int64Value = boost::get<int64_t>(&scale_it->second);
+    const int64_t* int64Value =
+        mapbox::get_ptr<const int64_t>(scale_it->second);
     if (int64Value != nullptr) {
       scaleMultiplier = *int64Value;
     }
@@ -289,10 +287,12 @@ void objectInterfacesToJson(
     if (interfaceProperties != interfacesDict.end()) {
       auto value_it = interfaceProperties->second.find(std::get<1>(p));
       if (value_it != interfaceProperties->second.end()) {
-        const dbus::dbus_variant& valueVariant = value_it->second;
+        const SensorVariant& valueVariant = value_it->second;
         nlohmann::json& value_it = sensor_json[std::get<2>(p)];
+
         // Attempt to pull the int64 directly
-        const int64_t* int64Value = boost::get<int64_t>(&valueVariant);
+        const int64_t* int64Value =
+            mapbox::get_ptr<const int64_t>(valueVariant);
 
         if (int64Value != nullptr) {
           if (forceToInt || scaleMultiplier >= 0) {
@@ -303,7 +303,7 @@ void objectInterfacesToJson(
           }
         }
         // Attempt to pull the float directly
-        const double* doubleValue = boost::get<double>(&valueVariant);
+        const double* doubleValue = mapbox::get_ptr<const double>(valueVariant);
 
         if (doubleValue != nullptr) {
           if (!forceToInt) {
@@ -342,7 +342,8 @@ void getChassisData(const std::shared_ptr<AsyncResp>& asyncResp) {
               // Go through all objects and update response with
               // sensor data
               for (const auto& objDictEntry : resp) {
-                const std::string& objPath = objDictEntry.first.value;
+                const std::string& objPath =
+                    static_cast<std::string>(objDictEntry.first);
                 CROW_LOG_DEBUG << "getManagedObjectsCb parsing object "
                                << objPath;
                 if (!boost::starts_with(objPath, DBUS_SENSOR_PREFIX)) {
@@ -406,11 +407,9 @@ void getChassisData(const std::shared_ptr<AsyncResp>& asyncResp) {
               }
             };
 
-            dbus::endpoint ep(connection, "/xyz/openbmc_project/Sensors",
-                              "org.freedesktop.DBus.ObjectManager",
-                              "GetManagedObjects");
             crow::connections::system_bus->async_method_call(
-                getManagedObjectsCb, ep);
+                getManagedObjectsCb, connection, "/xyz/openbmc_project/Sensors",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
           };
         };
     // Get connections and then pass it to get sensors

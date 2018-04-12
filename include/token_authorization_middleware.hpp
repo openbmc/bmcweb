@@ -173,7 +173,8 @@ class Middleware {
   bool is_on_whitelist(const crow::request& req) const {
     // it's allowed to GET root node without authentication
     if ("GET"_method == req.method) {
-      if (req.url == "/redfish/v1") {
+      CROW_LOG_DEBUG << "TESTING ROUTE " << req.url;
+      if (req.url == "/redfish/v1" || req.url == "/redfish/v1/") {
         return true;
       } else if (crow::webassets::routes.find(req.url) !=
                  crow::webassets::routes.end()) {
@@ -183,7 +184,8 @@ class Middleware {
 
     // it's allowed to POST on session collection & login without authentication
     if ("POST"_method == req.method) {
-      if ((req.url == "/redfish/v1/SessionService/Sessions") ||
+      if ((req.url == "/redfish/v1/SessionService/Sessions" ||
+           req.url == "/redfish/v1/SessionService/Sessions/") ||
           (req.url == "/login") || (req.url == "/logout")) {
         return true;
       }
