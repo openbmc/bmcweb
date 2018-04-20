@@ -79,7 +79,7 @@ void request_routes(Crow<Middlewares...>& app) {
                 int user_index = 0;
                 for (auto& user : users) {
                   const std::string& path =
-                      static_cast<std::string>(user.first);
+                      static_cast<const std::string&>(user.first);
                   std::size_t last_index = path.rfind("/");
                   if (last_index == std::string::npos) {
                     last_index = 0;
@@ -111,7 +111,7 @@ void request_routes(Crow<Middlewares...>& app) {
               } else {
                 for (auto& user : users) {
                   const std::string& path =
-                      static_cast<std::string>(user.first);
+                      static_cast<const std::string&>(user.first);
                   std::size_t last_index = path.rfind("/");
                   if (last_index == std::string::npos) {
                     last_index = 0;
