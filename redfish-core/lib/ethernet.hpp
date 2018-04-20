@@ -182,7 +182,7 @@ class OnDemandEthernetProvider {
     for (auto &objpath : dbus_data) {
       // Check if proper patter for object path appears
       if (boost::starts_with(
-              static_cast<std::string>(objpath.first),
+              static_cast<const std::string&>(objpath.first),
               "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/")) {
         // and get approrpiate interface
         const auto &interface =
@@ -316,8 +316,8 @@ class OnDemandEthernetProvider {
               if (interface.first ==
                   "xyz.openbmc_project.Network.EthernetInterface") {
                 // Cut out everyting until last "/", ...
-                const std::string iface_id =
-                    static_cast<std::string>(objpath.first);
+                const std::string& iface_id =
+                    static_cast<const std::string&>(objpath.first);
                 std::size_t last_pos = iface_id.rfind("/");
                 if (last_pos != std::string::npos) {
                   // and put it into output vector.

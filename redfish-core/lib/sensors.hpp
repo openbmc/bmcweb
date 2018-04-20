@@ -88,7 +88,7 @@ void getConnections(const std::shared_ptr<AsyncResp>& asyncResp,
       const boost::system::error_code ec, const GetSubTreeType& subtree) {
     if (ec != 0) {
       asyncResp->setErrorStatus();
-      CROW_LOG_ERROR << "Dbus error " << ec;
+      CROW_LOG_ERROR << "resp_handler: Dbus error " << ec;
       return;
     }
 
@@ -133,7 +133,7 @@ void getConnections(const std::shared_ptr<AsyncResp>& asyncResp,
 
   // Make call to ObjectMapper to find all sensors objects
   crow::connections::system_bus->async_method_call(
-      resp_handler, "xyz.openbmc_project.ObjectMapper",
+      std::move(resp_handler), "xyz.openbmc_project.ObjectMapper",
       "/xyz/openbmc_project/object_mapper", "xyz.openbmc_project.ObjectMapper",
       "GetSubTree", path, 2, interfaces);
 }
@@ -158,25 +158,33 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
       return;
     }
     boost::container::flat_set<std::string> sensorNames;
-    const std::string chassis_prefix =
-        "/xyz/openbmc_project/Inventory/Item/Chassis/" + asyncResp->chassisId +
-        '/';
-    CROW_LOG_DEBUG << "Chassis Prefix " << chassis_prefix;
-    bool foundChassis = false;
-    for (const auto& objDictEntry : resp) {
-      if (boost::starts_with(static_cast<std::string>(objDictEntry.first),
-                             chassis_prefix)) {
-        foundChassis = true;
-        const std::string sensorName =
-            std::string(objDictEntry.first).substr(chassis_prefix.size());
-        // Make sure this isn't a subobject (like a threshold)
-        const std::size_t sensorPos = sensorName.find('/');
-        if (sensorPos == std::string::npos) {
-          CROW_LOG_DEBUG << "Adding sensor " << sensorName;
 
-          sensorNames.emplace(sensorName);
-        }
+    //   asyncResp->chassisId
+    bool foundChassis = false;
+    std::vector<std::string> split;
+    // Reserve space for
+    // /xyz/openbmc_project/inventory/<name>/<subname> + 3 subnames
+    split.reserve(8);
+
+    for (const auto& objDictEntry : resp) {
+      const std::string& objectPath =
+          static_cast<const std::string&>(objDictEntry.first);
+      boost::algorithm::split(split, objectPath, boost::is_any_of("/"));
+      if (split.size() < 2) {
+        CROW_LOG_ERROR << "Got path that isn't long enough " << objectPath;
+        split.clear();
+        continue;
       }
+      const std::string& sensorName = split.end()[-1];
+      const std::string& chassisName = split.end()[-2];
+
+      if (chassisName != asyncResp->chassisId) {
+        split.clear();
+        continue;
+      }
+      foundChassis = true;
+      sensorNames.emplace(sensorName);
+      split.clear();
     };
     CROW_LOG_DEBUG << "Found " << sensorNames.size() << " Sensor names";
 
@@ -191,8 +199,8 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
   // Make call to EntityManager to find all chassis objects
   crow::connections::system_bus->async_method_call(
       resp_handler, "xyz.openbmc_project.EntityManager",
-      "/xyz/openbmc_project/Inventory/Item/Chassis",
-      "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+      "/xyz/openbmc_project/inventory", "org.freedesktop.DBus.ObjectManager",
+      "GetManagedObjects");
 }
 
 /**
@@ -245,7 +253,7 @@ void objectInterfacesToJson(
     unit = "ReadingCelsius";
     // TODO(ed) Documentation says that path should be type fan_tach,
     // implementation seems to implement fan
-  } else if (sensorType == "fan" || sensorType == "fan_tach") {
+  } else if (sensorType == "fan" || sensorType == "fan_type") {
     unit = "Reading";
     sensor_json["ReadingUnits"] = "RPM";
     forceToInt = true;
@@ -343,7 +351,7 @@ void getChassisData(const std::shared_ptr<AsyncResp>& asyncResp) {
               // sensor data
               for (const auto& objDictEntry : resp) {
                 const std::string& objPath =
-                    static_cast<std::string>(objDictEntry.first);
+                    static_cast<const std::string&>(objDictEntry.first);
                 CROW_LOG_DEBUG << "getManagedObjectsCb parsing object "
                                << objPath;
                 if (!boost::starts_with(objPath, DBUS_SENSOR_PREFIX)) {
