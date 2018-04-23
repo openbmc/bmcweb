@@ -15,9 +15,10 @@
 */
 #pragma once
 
+#include <dbus_singleton.hpp>
 #include <error_messages.hpp>
+#include <node.hpp>
 #include <utils/json_utils.hpp>
-#include "node.hpp"
 #include <boost/container/flat_map.hpp>
 
 namespace redfish {
@@ -45,12 +46,21 @@ using GetManagedObjectsType = boost::container::flat_map<
  * TODO(Pawel) consider change everything to ptr, or to non-ptr values.
  */
 struct IPv4AddressData {
+  std::string id;
   const std::string *address;
   const std::string *domain;
   const std::string *gateway;
   std::string netmask;
   std::string origin;
   bool global;
+  /**
+   * @brief Operator< to enable sorting
+   *
+   * @param[in] obj   Object to compare with
+   *
+   * @return This object id < supplied object id
+   */
+  bool operator<(const IPv4AddressData &obj) const { return (id < obj.id); }
 };
 
 /**
@@ -179,6 +189,9 @@ class OnDemandEthernetProvider {
   void extractIPv4Data(const std::string &ethiface_id,
                        const GetManagedObjectsType &dbus_data,
                        std::vector<IPv4AddressData> &ipv4_config) {
+    const std::string pathStart =
+        "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/";
+
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
     for (auto &objpath : dbus_data) {
@@ -194,6 +207,10 @@ class OnDemandEthernetProvider {
           const PropertiesMapType &properties = interface->second;
           // Instance IPv4AddressData structure, and set as appropriate
           IPv4AddressData ipv4_address;
+
+          ipv4_address.id = static_cast<const std::string &>(objpath.first)
+                                .substr(pathStart.size());
+
           // IPv4 address
           ipv4_address.address =
               extractProperty<std::string>(properties, "Address");
@@ -205,11 +222,8 @@ class OnDemandEthernetProvider {
           const std::string *origin =
               extractProperty<std::string>(properties, "Origin");
           if (origin != nullptr) {
-            // ... and get everything after last dot
-            int last = origin->rfind(".");
-            if (last != std::string::npos) {
-              ipv4_address.origin = origin->substr(last + 1);
-            }
+            ipv4_address.origin =
+                translateAddressOriginBetweenDBusAndRedfish(origin, true, true);
           }
 
           // Netmask is presented as PrefixLength
@@ -233,57 +247,17 @@ class OnDemandEthernetProvider {
         }
       }
     }
+
+    /**
+     * We have to sort this vector and ensure that order of IPv4 addresses
+     * is consistent between GETs to allow modification and deletion in PATCHes
+     */
+    std::sort(ipv4_config.begin(), ipv4_config.end());
   }
 
+  static const constexpr int ipV4AddressSectionsCount = 4;
+
  public:
-  /**
-   * Function that retrieves all properties for given Ethernet Interface Object
-   * from EntityManager Network Manager
-   * @param ethiface_id a eth interface id to query on DBus
-   * @param callback a function that shall be called to convert Dbus output into
-   * JSON
-   */
-  template <typename CallbackFunc>
-  void getEthernetIfaceData(const std::string &ethiface_id,
-                            CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
-        [
-          this, ethiface_id{std::move(ethiface_id)},
-          callback{std::move(callback)}
-        ](const boost::system::error_code error_code,
-          GetManagedObjectsType &resp) {
-
-          EthernetInterfaceData eth_data{};
-          std::vector<IPv4AddressData> ipv4_data;
-          ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
-
-          if (error_code) {
-            // Something wrong on DBus, the error_code is not important at this
-            // moment, just return success=false, and empty output. Since size
-            // of vector may vary depending on information from Network Manager,
-            // and empty output could not be treated same way as error.
-            callback(false, eth_data, ipv4_data);
-            return;
-          }
-
-          extractEthernetInterfaceData(ethiface_id, resp, eth_data);
-          extractIPv4Data(ethiface_id, resp, ipv4_data);
-
-          // Fix global GW
-          for (IPv4AddressData &ipv4 : ipv4_data) {
-            if ((ipv4.global) &&
-                ((ipv4.gateway == nullptr) || (*ipv4.gateway == "0.0.0.0"))) {
-              ipv4.gateway = eth_data.default_gateway;
-            }
-          }
-
-          // Finally make a callback with useful data
-          callback(true, eth_data, ipv4_data);
-        },
-        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-  };
-
   /**
    * @brief Creates VLAN for given interface with given Id through D-Bus
    *
@@ -323,6 +297,192 @@ class OnDemandEthernetProvider {
   };
 
   /**
+   * @brief Helper function that verifies IP address to check if it is in
+   *        proper format. If bits pointer is provided, also calculates active
+   *        bit count for Subnet Mask.
+   *
+   * @param[in]  ip     IP that will be verified
+   * @param[out] bits   Calculated mask in bits notation
+   *
+   * @return true in case of success, false otherwise
+   */
+  bool ipv4VerifyIpAndGetBitcount(const std::string &ip,
+                                  uint8_t *bits = nullptr) {
+    std::vector<std::string> bytesInMask;
+
+    boost::split(bytesInMask, ip, boost::is_any_of("."));
+
+    if (bytesInMask.size() != ipV4AddressSectionsCount) {
+      return false;
+    }
+
+    if (bits != nullptr) {
+      *bits = 0;
+    }
+
+    char *endPtr;
+    long previousValue = 255;
+    bool firstZeroInByteHit;
+    for (uint8_t byteIdx = 0; byteIdx < ipV4AddressSectionsCount; byteIdx++) {
+      // Use strtol instead of stroi to avoid exceptions
+      long value = std::strtol(bytesInMask[byteIdx].c_str(), &endPtr, 10);
+
+      // endPtr should point to the end of the string, otherwise given string
+      // is not 100% number
+      if (*endPtr != '\0') {
+        return false;
+      }
+
+      // Value should be contained in byte
+      if (value < 0 || value > 255) {
+        return false;
+      }
+
+      if (bits != nullptr) {
+        // Mask has to be continuous between bytes
+        if (previousValue != 255 && value != 0) {
+          return false;
+        }
+
+        // Mask has to be continuous inside bytes
+        firstZeroInByteHit = false;
+
+        // Count bits
+        for (int bitIdx = 7; bitIdx >= 0; bitIdx--) {
+          if (value & (1 << bitIdx)) {
+            if (firstZeroInByteHit) {
+              // Continuity not preserved
+              return false;
+            } else {
+              (*bits)++;
+            }
+          } else {
+            firstZeroInByteHit = true;
+          }
+        }
+      }
+
+      previousValue = value;
+    }
+
+    return true;
+  }
+
+  /**
+   * @brief Changes IPv4 address type property (Address, Gateway)
+   *
+   * @param[in] ifaceId     Id of interface whose IP should be modified
+   * @param[in] ipIdx       Index of IP in input array that should be modified
+   * @param[in] ipHash      DBus Hash id of modified IP
+   * @param[in] name        Name of field in JSON representation
+   * @param[in] newValue    New value that should be written
+   * @param[io] asyncResp   Response object that will be returned to client
+   *
+   * @return true if give IP is valid and has been sent do D-Bus, false
+   * otherwise
+   */
+  void changeIPv4AddressProperty(const std::string &ifaceId, int ipIdx,
+                                 const std::string &ipHash,
+                                 const std::string &name,
+                                 const std::string &newValue,
+                                 const std::shared_ptr<AsyncResp> &asyncResp) {
+    auto callback = [
+      asyncResp, ipIdx{std::move(ipIdx)}, name{std::move(name)},
+      newValue{std::move(newValue)}
+    ](const boost::system::error_code ec) {
+      if (ec) {
+        messages::addMessageToJson(
+            asyncResp->res.json_value, messages::internalError(),
+            "/IPv4Addresses/" + std::to_string(ipIdx) + "/" + name);
+      } else {
+        asyncResp->res.json_value["IPv4Addresses"][ipIdx][name] = newValue;
+      }
+    };
+
+    crow::connections::system_bus->async_method_call(
+        std::move(callback), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", name,
+        sdbusplus::message::variant<std::string>(newValue));
+  };
+
+  /**
+   * @brief Changes IPv4 address origin property
+   *
+   * @param[in] ifaceId       Id of interface whose IP should be modified
+   * @param[in] ipIdx         Index of IP in input array that should be modified
+   * @param[in] ipHash        DBus Hash id of modified IP
+   * @param[in] newValue      New value in Redfish format
+   * @param[in] newValueDbus  New value in D-Bus format
+   * @param[io] asyncResp     Response object that will be returned to client
+   *
+   * @return true if give IP is valid and has been sent do D-Bus, false
+   * otherwise
+   */
+  void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
+                        const std::string &ipHash, const std::string &newValue,
+                        const std::string &newValueDbus,
+                        const std::shared_ptr<AsyncResp> &asyncResp) {
+    auto callback =
+        [ asyncResp, ipIdx{std::move(ipIdx)},
+          newValue{std::move(newValue)} ](const boost::system::error_code ec) {
+      if (ec) {
+        messages::addMessageToJson(
+            asyncResp->res.json_value, messages::internalError(),
+            "/IPv4Addresses/" + std::to_string(ipIdx) + "/AddressOrigin");
+      } else {
+        asyncResp->res.json_value["IPv4Addresses"][ipIdx]["AddressOrigin"] =
+            newValue;
+      }
+    };
+
+    crow::connections::system_bus->async_method_call(
+        std::move(callback), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "Origin",
+        sdbusplus::message::variant<std::string>(newValueDbus));
+  };
+
+  /**
+   * @brief Modifies SubnetMask for given IP
+   *
+   * @param[in] ifaceId      Id of interface whose IP should be modified
+   * @param[in] ipIdx        Index of IP in input array that should be modified
+   * @param[in] ipHash       DBus Hash id of modified IP
+   * @param[in] newValueStr  Mask in dot notation as string
+   * @param[in] newValue     Mask as PrefixLength in bitcount
+   * @param[io] asyncResp   Response object that will be returned to client
+   *
+   * @return None
+   */
+  void changeIPv4SubnetMaskProperty(
+      const std::string &ifaceId, int ipIdx, const std::string &ipHash,
+      const std::string &newValueStr, uint8_t &newValue,
+      const std::shared_ptr<AsyncResp> &asyncResp) {
+    auto callback = [
+      asyncResp, ipIdx{std::move(ipIdx)}, newValueStr{std::move(newValueStr)}
+    ](const boost::system::error_code ec) {
+      if (ec) {
+        messages::addMessageToJson(
+            asyncResp->res.json_value, messages::internalError(),
+            "/IPv4Addresses/" + std::to_string(ipIdx) + "/SubnetMask");
+      } else {
+        asyncResp->res.json_value["IPv4Addresses"][ipIdx]["SubnetMask"] =
+            newValueStr;
+      }
+    };
+
+    crow::connections::system_bus->async_method_call(
+        std::move(callback), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "PrefixLength",
+        sdbusplus::message::variant<uint8_t>(newValue));
+  };
+
+  /**
    * @brief Disables VLAN with given ifaceId
    *
    * @param[in] ifaceId   Id of VLAN interface that should be disabled
@@ -354,6 +514,165 @@ class OnDemandEthernetProvider {
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
         sdbusplus::message::variant<std::string>(newHostname));
+  };
+
+  /**
+   * @brief Deletes given IPv4
+   *
+   * @param[in] ifaceId     Id of interface whose IP should be deleted
+   * @param[in] ipIdx       Index of IP in input array that should be deleted
+   * @param[in] ipHash      DBus Hash id of IP that should be deleted
+   * @param[io] asyncResp   Response object that will be returned to client
+   *
+   * @return None
+   */
+  void deleteIPv4(const std::string &ifaceId, const std::string &ipHash,
+                  unsigned int ipIdx,
+                  const std::shared_ptr<AsyncResp> &asyncResp) {
+    crow::connections::system_bus->async_method_call(
+        [ ipIdx{std::move(ipIdx)}, asyncResp{std::move(asyncResp)} ](
+            const boost::system::error_code ec) {
+          if (ec) {
+            messages::addMessageToJson(
+                asyncResp->res.json_value, messages::internalError(),
+                "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
+          } else {
+            asyncResp->res.json_value["IPv4Addresses"][ipIdx] = nullptr;
+          }
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+  }
+
+  /**
+   * @brief Creates IPv4 with given data
+   *
+   * @param[in] ifaceId     Id of interface whose IP should be deleted
+   * @param[in] ipIdx       Index of IP in input array that should be deleted
+   * @param[in] ipHash      DBus Hash id of IP that should be deleted
+   * @param[io] asyncResp   Response object that will be returned to client
+   *
+   * @return None
+   */
+  void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
+                  uint8_t subnetMask, const std::string &gateway,
+                  const std::string &address,
+                  const std::shared_ptr<AsyncResp> &asyncResp) {
+    auto createIpHandler = [
+      ipIdx{std::move(ipIdx)}, asyncResp{std::move(asyncResp)}
+    ](const boost::system::error_code ec) {
+      if (ec) {
+        messages::addMessageToJson(
+            asyncResp->res.json_value, messages::internalError(),
+            "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
+      }
+    };
+
+    crow::connections::system_bus->async_method_call(
+        std::move(createIpHandler), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId,
+        "xyz.openbmc_project.Network.IP.Create", "IP",
+        "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, subnetMask,
+        gateway);
+  }
+
+  /**
+   * @brief Translates Address Origin value from D-Bus to Redfish format and
+   *        vice-versa
+   *
+   * @param[in] inputOrigin Input value that should be translated
+   * @param[in] isIPv4      True for IPv4 origins, False for IPv6
+   * @param[in] isFromDBus  True for DBus->Redfish conversion, false for reverse
+   *
+   * @return Empty string in case of failure, translated value otherwise
+   */
+  std::string translateAddressOriginBetweenDBusAndRedfish(
+      const std::string *inputOrigin, bool isIPv4, bool isFromDBus) {
+    // Invalid pointer
+    if (inputOrigin == nullptr) {
+      return "";
+    }
+
+    static const constexpr unsigned int firstIPv4OnlyIdx = 1;
+    static const constexpr unsigned int firstIPv6OnlyIdx = 3;
+
+    std::array<std::pair<const char *, const char *>, 6> translationTable{
+        {{"xyz.openbmc_project.Network.IP.AddressOrigin.Static", "Static"},
+         {"xyz.openbmc_project.Network.IP.AddressOrigin.DHCP", "DHCP"},
+         {"xyz.openbmc_project.Network.IP.AddressOrigin.LinkLocal",
+          "IPv4LinkLocal"},
+         {"xyz.openbmc_project.Network.IP.AddressOrigin.DHCP", "DHCPv6"},
+         {"xyz.openbmc_project.Network.IP.AddressOrigin.LinkLocal",
+          "LinkLocal"},
+         {"xyz.openbmc_project.Network.IP.AddressOrigin.SLAAC", "SLAAC"}}};
+
+    for (unsigned int i = 0; i < translationTable.size(); i++) {
+      // Skip unrelated
+      if (isIPv4 && i >= firstIPv6OnlyIdx) break;
+      if (!isIPv4 && i >= firstIPv4OnlyIdx && i < firstIPv6OnlyIdx) continue;
+
+      // When translating D-Bus to Redfish compare input to first element
+      if (isFromDBus && translationTable[i].first == *inputOrigin)
+        return translationTable[i].second;
+
+      // When translating Redfish to D-Bus compare input to second element
+      if (!isFromDBus && translationTable[i].second == *inputOrigin)
+        return translationTable[i].first;
+    }
+
+    // If we are still here, that means that value has not been found
+    return "";
+  }
+
+  /**
+   * Function that retrieves all properties for given Ethernet Interface
+   * Object
+   * from EntityManager Network Manager
+   * @param ethiface_id a eth interface id to query on DBus
+   * @param callback a function that shall be called to convert Dbus output
+   * into JSON
+   */
+  template <typename CallbackFunc>
+  void getEthernetIfaceData(const std::string &ethiface_id,
+                            CallbackFunc &&callback) {
+    crow::connections::system_bus->async_method_call(
+        [
+          this, ethiface_id{std::move(ethiface_id)},
+          callback{std::move(callback)}
+        ](const boost::system::error_code error_code,
+          const GetManagedObjectsType &resp) {
+
+          EthernetInterfaceData eth_data{};
+          std::vector<IPv4AddressData> ipv4_data;
+          ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
+
+          if (error_code) {
+            // Something wrong on DBus, the error_code is not important at
+            // this moment, just return success=false, and empty output. Since
+            // size of vector may vary depending on information from Network
+            // Manager, and empty output could not be treated same way as
+            // error.
+            callback(false, eth_data, ipv4_data);
+            return;
+          }
+
+          extractEthernetInterfaceData(ethiface_id, resp, eth_data);
+          extractIPv4Data(ethiface_id, resp, ipv4_data);
+
+          // Fix global GW
+          for (IPv4AddressData &ipv4 : ipv4_data) {
+            if ((ipv4.global) &&
+                ((ipv4.gateway == nullptr) || (*ipv4.gateway == "0.0.0.0"))) {
+              ipv4.gateway = eth_data.default_gateway;
+            }
+          }
+
+          // Finally make a callback with usefull data
+          callback(true, eth_data, ipv4_data);
+        },
+        "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
   };
 
   /**
@@ -646,6 +965,223 @@ class EthernetInterface : public Node {
     }
   }
 
+  void handleIPv4Patch(const std::string &ifaceId, const nlohmann::json &input,
+                       const std::vector<IPv4AddressData> &ipv4_data,
+                       const std::shared_ptr<AsyncResp> &asyncResp) {
+    if (!input.is_array()) {
+      messages::addMessageToJson(
+          asyncResp->res.json_value,
+          messages::propertyValueTypeError(input.dump(), "IPv4Addresses"),
+          "/IPv4Addresses");
+      return;
+    }
+
+    // According to Redfish PATCH definition, size must be at least equal
+    if (input.size() < ipv4_data.size()) {
+      // TODO(kkowalsk) This should be a message indicating that not enough
+      // data has been provided
+      messages::addMessageToJson(asyncResp->res.json_value,
+                                 messages::internalError(), "/IPv4Addresses");
+      return;
+    }
+
+    json_util::Result addressFieldState;
+    json_util::Result subnetMaskFieldState;
+    json_util::Result addressOriginFieldState;
+    json_util::Result gatewayFieldState;
+    const std::string *addressFieldValue;
+    const std::string *subnetMaskFieldValue;
+    const std::string *addressOriginFieldValue = nullptr;
+    const std::string *gatewayFieldValue;
+    uint8_t subnetMaskAsPrefixLength;
+    std::string addressOriginInDBusFormat;
+
+    bool errorDetected = false;
+    for (unsigned int entryIdx = 0; entryIdx < input.size(); entryIdx++) {
+      // Check that entry is not of some unexpected type
+      if (!input[entryIdx].is_object() && !input[entryIdx].is_null()) {
+        // Invalid object type
+        messages::addMessageToJson(
+            asyncResp->res.json_value,
+            messages::propertyValueTypeError(input[entryIdx].dump(),
+                                             "IPv4Address"),
+            "/IPv4Addresses/" + std::to_string(entryIdx));
+
+        continue;
+      }
+
+      // Try to load fields
+      addressFieldState = json_util::getString(
+          "Address", input[entryIdx], addressFieldValue,
+          static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
+          asyncResp->res.json_value,
+          "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
+      subnetMaskFieldState = json_util::getString(
+          "SubnetMask", input[entryIdx], subnetMaskFieldValue,
+          static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
+          asyncResp->res.json_value,
+          "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
+      addressOriginFieldState = json_util::getString(
+          "AddressOrigin", input[entryIdx], addressOriginFieldValue,
+          static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
+          asyncResp->res.json_value,
+          "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
+      gatewayFieldState = json_util::getString(
+          "Gateway", input[entryIdx], gatewayFieldValue,
+          static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
+          asyncResp->res.json_value,
+          "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
+
+      if (addressFieldState == json_util::Result::WRONG_TYPE ||
+          subnetMaskFieldState == json_util::Result::WRONG_TYPE ||
+          addressOriginFieldState == json_util::Result::WRONG_TYPE ||
+          gatewayFieldState == json_util::Result::WRONG_TYPE) {
+        return;
+      }
+
+      if (addressFieldState == json_util::Result::SUCCESS &&
+          !ethernet_provider.ipv4VerifyIpAndGetBitcount(*addressFieldValue)) {
+        errorDetected = true;
+        messages::addMessageToJson(
+            asyncResp->res.json_value,
+            messages::propertyValueFormatError(*addressFieldValue, "Address"),
+            "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
+      }
+
+      if (subnetMaskFieldState == json_util::Result::SUCCESS &&
+          !ethernet_provider.ipv4VerifyIpAndGetBitcount(
+              *subnetMaskFieldValue, &subnetMaskAsPrefixLength)) {
+        errorDetected = true;
+        messages::addMessageToJson(
+            asyncResp->res.json_value,
+            messages::propertyValueFormatError(*subnetMaskFieldValue,
+                                               "SubnetMask"),
+            "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
+      }
+
+      // Get Address origin in proper format
+      addressOriginInDBusFormat =
+          ethernet_provider.translateAddressOriginBetweenDBusAndRedfish(
+              addressOriginFieldValue, true, false);
+
+      if (addressOriginFieldState == json_util::Result::SUCCESS &&
+          addressOriginInDBusFormat.empty()) {
+        errorDetected = true;
+        messages::addMessageToJson(
+            asyncResp->res.json_value,
+            messages::propertyValueNotInList(*addressOriginFieldValue,
+                                             "AddressOrigin"),
+            "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
+      }
+
+      if (gatewayFieldState == json_util::Result::SUCCESS &&
+          !ethernet_provider.ipv4VerifyIpAndGetBitcount(*gatewayFieldValue)) {
+        errorDetected = true;
+        messages::addMessageToJson(
+            asyncResp->res.json_value,
+            messages::propertyValueFormatError(*gatewayFieldValue, "Gateway"),
+            "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
+      }
+
+      // If any error occured do not proceed with current entry, but do not
+      // end loop
+      if (errorDetected) {
+        errorDetected = false;
+        continue;
+      }
+
+      if (entryIdx >= ipv4_data.size()) {
+        asyncResp->res.json_value["IPv4Addresses"][entryIdx] = input[entryIdx];
+
+        // Verify that all field were provided
+        if (addressFieldState == json_util::Result::NOT_EXIST) {
+          errorDetected = true;
+          messages::addMessageToJson(
+              asyncResp->res.json_value, messages::propertyMissing("Address"),
+              "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
+        }
+
+        if (subnetMaskFieldState == json_util::Result::NOT_EXIST) {
+          errorDetected = true;
+          messages::addMessageToJson(
+              asyncResp->res.json_value,
+              messages::propertyMissing("SubnetMask"),
+              "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
+        }
+
+        if (addressOriginFieldState == json_util::Result::NOT_EXIST) {
+          errorDetected = true;
+          messages::addMessageToJson(
+              asyncResp->res.json_value,
+              messages::propertyMissing("AddressOrigin"),
+              "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
+        }
+
+        if (gatewayFieldState == json_util::Result::NOT_EXIST) {
+          errorDetected = true;
+          messages::addMessageToJson(
+              asyncResp->res.json_value, messages::propertyMissing("Gateway"),
+              "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
+        }
+
+        // If any error occured do not proceed with current entry, but do not
+        // end loop
+        if (errorDetected) {
+          errorDetected = false;
+          continue;
+        }
+
+        // Create IPv4 with provided data
+        ethernet_provider.createIPv4(
+            ifaceId, entryIdx, subnetMaskAsPrefixLength, *gatewayFieldValue,
+            *addressFieldValue, asyncResp);
+      } else {
+        // Existing object that should be modified/deleted/remain unchanged
+        if (input[entryIdx].is_null()) {
+          // Object should be deleted
+          ethernet_provider.deleteIPv4(ifaceId, ipv4_data[entryIdx].id,
+                                       entryIdx, asyncResp);
+        } else if (input[entryIdx].is_object()) {
+          if (input[entryIdx].size() == 0) {
+            // Object shall remain unchanged
+            continue;
+          }
+
+          // Apply changes
+          if (addressFieldState == json_util::Result::SUCCESS &&
+              ipv4_data[entryIdx].address != nullptr &&
+              *ipv4_data[entryIdx].address != *addressFieldValue) {
+            ethernet_provider.changeIPv4AddressProperty(
+                ifaceId, entryIdx, ipv4_data[entryIdx].id, "Address",
+                *addressFieldValue, asyncResp);
+          }
+
+          if (subnetMaskFieldState == json_util::Result::SUCCESS &&
+              ipv4_data[entryIdx].netmask != *subnetMaskFieldValue) {
+            ethernet_provider.changeIPv4SubnetMaskProperty(
+                ifaceId, entryIdx, ipv4_data[entryIdx].id,
+                *subnetMaskFieldValue, subnetMaskAsPrefixLength, asyncResp);
+          }
+
+          if (addressOriginFieldState == json_util::Result::SUCCESS &&
+              ipv4_data[entryIdx].origin != *addressFieldValue) {
+            ethernet_provider.changeIPv4Origin(
+                ifaceId, entryIdx, ipv4_data[entryIdx].id,
+                *addressOriginFieldValue, addressOriginInDBusFormat, asyncResp);
+          }
+
+          if (gatewayFieldState == json_util::Result::SUCCESS &&
+              ipv4_data[entryIdx].gateway != nullptr &&
+              *ipv4_data[entryIdx].gateway != *gatewayFieldValue) {
+            ethernet_provider.changeIPv4AddressProperty(
+                ifaceId, entryIdx, ipv4_data[entryIdx].id, "Gateway",
+                *gatewayFieldValue, asyncResp);
+          }
+        }
+      }
+    }
+  }
+
   nlohmann::json parseInterfaceData(
       const std::string &iface_id, const EthernetInterfaceData &eth_data,
       const std::vector<IPv4AddressData> &ipv4_data) {
@@ -744,15 +1280,9 @@ class EthernetInterface : public Node {
 
     const std::string &iface_id = params[0];
 
-    nlohmann::json patchReq = nlohmann::json::parse(req.body, nullptr, false);
+    nlohmann::json patchReq;
 
-    if (patchReq.is_discarded()) {
-      messages::addMessageToErrorJson(res.json_value,
-                                      messages::malformedJSON());
-
-      res.result(boost::beast::http::status::bad_request);
-      res.end();
-
+    if (!json_util::processJsonFromRequest(res, req, patchReq)) {
       return;
     }
 
@@ -785,9 +1315,14 @@ class EthernetInterface : public Node {
                               asyncResp);
             } else if (propertyIt.key() == "HostName") {
               handleHostnamePatch(propertyIt.value(), eth_data, asyncResp);
-              /* TODO(kkowalsk) Implement it in further patchset
-              } else if (propertyIt.key() == "IPv4Addresses" || propertyIt.key()
-              == "IPv6Addresses") {*/
+            } else if (propertyIt.key() == "IPv4Addresses") {
+              handleIPv4Patch(iface_id, propertyIt.value(), ipv4_data,
+                              asyncResp);
+            } else if (propertyIt.key() == "IPv6Addresses") {
+              // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
+              messages::addMessageToJsonRoot(
+                  res.json_value,
+                  messages::propertyNotWritable(propertyIt.key()));
             } else {
               auto fieldInJsonIt = res.json_value.find(propertyIt.key());
 
