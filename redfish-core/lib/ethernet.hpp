@@ -246,7 +246,7 @@ class OnDemandEthernetProvider {
         ](const boost::system::error_code error_code,
           const GetManagedObjectsType &resp) {
 
-          EthernetInterfaceData eth_data{};
+          EthernetInterfaceData eth_data;
           std::vector<IPv4AddressData> ipv4_data;
           ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
 
