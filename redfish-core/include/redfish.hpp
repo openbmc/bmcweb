@@ -16,14 +16,15 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/chassis.hpp"
+#include "../lib/ethernet.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
-#include "../lib/ethernet.hpp"
 #include "../lib/thermal.hpp"
-#include "../lib/chassis.hpp"
+#include "../lib/update_service.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish {
@@ -53,7 +54,9 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
     nodes.emplace_back(std::make_unique<ChassisCollection>(app));
     nodes.emplace_back(std::make_unique<Chassis>(app));
-
+    nodes.emplace_back(std::make_unique<UpdateService>(app));
+    nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
+    nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);
     }
