@@ -87,7 +87,8 @@ include_directories(${CMAKE_BINARY_DIR}/boost-src)
 # sdbusplus
 if(NOT ${YOCTO_DEPENDENCIES})
   include_directories(${CMAKE_BINARY_DIR}/sdbusplus-src
-                     ${CMAKE_BINARY_DIR}/prefix/include)
+                      ${CMAKE_BINARY_DIR}/prefix/include)
+
   set(WANT_TRANSACTION 0)
 
   configure_file(${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/server.hpp.in
