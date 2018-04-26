@@ -44,8 +44,19 @@ class Middleware {
     if (ctx.session == nullptr) {
       CROW_LOG_WARNING << "[AuthMiddleware] authorization failed";
 
-      res.result(boost::beast::http::status::unauthorized);
-      res.add_header("WWW-Authenticate", "Basic");
+      // If it's a browser connecting, don't send the HTTP authenticate header,
+      // to avoid possible CSRF attacks with basic auth
+      if (http_helpers::request_prefers_html(req)) {
+        res.result(boost::beast::http::status::temporary_redirect);
+        res.add_header("Location", "/#/login");
+      } else {
+        res.result(boost::beast::http::status::unauthorized);
+        // only send the WWW-authenticate header if this isn't a xhr from the
+        // browser.  most scripts,
+        if (req.get_header_value("User-Agent").empty()) {
+          res.add_header("WWW-Authenticate", "Basic");
+        }
+      }
 
       res.end();
       return;
@@ -187,7 +198,7 @@ class Middleware {
     if ("POST"_method == req.method()) {
       if ((req.url == "/redfish/v1/SessionService/Sessions") ||
           (req.url == "/redfish/v1/SessionService/Sessions/") ||
-          (req.url == "/login") || (req.url == "/logout")) {
+          (req.url == "/login")) {
         return true;
       }
     }
@@ -302,9 +313,20 @@ void request_routes(Crow<Middlewares...>& app) {
                   {"data", "User '" + std::string(username) + "' logged in"},
                   {"message", "200 OK"},
                   {"status", "ok"}};
-              res.add_header("Set-Cookie", "XSRF-TOKEN=" + session->csrf_token);
-              res.add_header("Set-Cookie", "SESSION=" + session->session_token +
-                                               "; Secure; HttpOnly");
+
+              // Hack alert.  Boost beast by default doesn't let you declare
+              // multiple headers of the same name, and in most cases this is
+              // fine.  Unfortunately here we need to set the Session cookie,
+              // which requires the httpOnly attribute, as well as the XSRF
+              // cookie, which requires it to not have an httpOnly attribute.
+              // To get the behavior we want, we simply inject the second
+              // "set-cookie" string into the value header, and get the result
+              // we want, even though we are technicaly declaring two headers
+              // here.
+              res.add_header("Set-Cookie",
+                             "XSRF-TOKEN=" + session->csrf_token +
+                                 "; Secure\r\nSet-Cookie: SESSION=" +
+                                 session->session_token + "; Secure; HttpOnly");
             } else {
               // if content type is json, assume json token
               res.json_value = {{"token", session->session_token}};

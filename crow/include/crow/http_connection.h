@@ -4,6 +4,7 @@
 #include <chrono>
 #include <regex>
 #include <vector>
+#include "http_utility.hpp"
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
@@ -22,23 +23,6 @@
 #endif
 
 namespace crow {
-
-inline bool is_browser(const crow::request& req) {
-  boost::string_view header = req.get_header_value("accept");
-  std::vector<std::string> encodings;
-  // chrome currently sends 6 accepts headers, firefox sends 4.
-  encodings.reserve(6);
-  boost::split(encodings, header, boost::is_any_of(", "),
-               boost::token_compress_on);
-  for (const std::string& encoding : encodings) {
-    if (encoding == "text/html") {
-      return true;
-    } else if (encoding == "application/json") {
-      return false;
-    }
-  }
-  return false;
-}
 
 inline void escape_html(std::string& data) {
   std::string buffer;
@@ -394,7 +378,7 @@ class Connection {
       return;
     }
     if (res.body().empty() && !res.json_value.empty()) {
-      if (is_browser(*req_)) {
+      if (http_helpers::request_prefers_html(*req_)) {
         pretty_print_json(res);
       } else {
         res.json_mode();
