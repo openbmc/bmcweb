@@ -85,9 +85,10 @@ void get_managed_objects_for_enumerate(
 
           for (auto &object_path : objects) {
             CROW_LOG_DEBUG << "Reading object "
-                           << static_cast<const std::string&>(object_path.first);
+                           << static_cast<const std::string &>(
+                                  object_path.first);
             nlohmann::json &object_json =
-                data_json[static_cast<const std::string&>(object_path.first)];
+                data_json[static_cast<const std::string &>(object_path.first)];
             if (object_json.is_null()) {
               object_json = nlohmann::json::object();
             }
@@ -220,36 +221,43 @@ void request_routes(Crow<Middlewares...> &app) {
             std::make_shared<nlohmann::json>(nlohmann::json::object());
         using GetObjectType =
             std::vector<std::pair<std::string, std::vector<std::string>>>;
-        std::string object_path;
+        std::string object_path = "/xyz/" + path;
+
         std::string dest_property;
         std::string property_set_value;
-        size_t attr_position = path.find("/attr/");
-        if (attr_position == path.npos) {
-          object_path = "/xyz/" + path;
-        } else {
+        constexpr char *attr_seperator = "/attr/";
+        size_t attr_position = path.find(attr_seperator);
+        if (attr_position != path.npos) {
           object_path = "/xyz/" + path.substr(0, attr_position);
-          dest_property =
-              path.substr((attr_position + strlen("/attr/")), path.length());
-          auto request_dbus_data =
-              nlohmann::json::parse(req.body, nullptr, false);
-          if (request_dbus_data.is_discarded()) {
-            res.result(boost::beast::http::status::unauthorized);
-            res.end();
-            return;
-          }
+          dest_property = path.substr((attr_position + strlen(attr_seperator)),
+                                      path.length());
+          // If this is attempting to write a property, parse the json in the
+          // request
+          if (req.method() == "PUT"_method) {
+            auto request_dbus_data =
+                nlohmann::json::parse(req.body, nullptr, false);
 
-          auto property_value_it = request_dbus_data.find("data");
-          if (property_value_it == request_dbus_data.end()) {
-            res.result(boost::beast::http::status::unauthorized);
-            res.end();
-            return;
-          }
+            if (request_dbus_data.is_discarded()) {
+              res.result(boost::beast::http::status::bad_request);
+              res.end();
+              return;
+            }
 
-          property_set_value = property_value_it->get<const std::string>();
-          if (property_set_value.empty()) {
-            res.result(boost::beast::http::status::unauthorized);
-            res.end();
-            return;
+            auto property_value_it = request_dbus_data.find("data");
+            if (property_value_it == request_dbus_data.end()) {
+              res.result(boost::beast::http::status::bad_request);
+              res.end();
+              return;
+            }
+
+            const std::string *ptr =
+                property_value_it->get_ptr<const std::string *>();
+            if (ptr == nullptr) {
+              res.result(boost::beast::http::status::bad_request);
+              res.end();
+              return;
+            }
+            property_set_value = *ptr;
           }
         }
 
@@ -279,15 +287,28 @@ void request_routes(Crow<Middlewares...> &app) {
               if (req.method() == "GET"_method) {
                 for (auto &interface : object_names[0].second) {
                   crow::connections::system_bus->async_method_call(
-                      [&res, transaction](
-                          const boost::system::error_code ec,
-                          const std::vector<std::pair<
-                              std::string, DbusRestVariantType>> &properties) {
+                      [
+                        &res, transaction,
+                        dest_property{std::move(dest_property)}
+                      ](const boost::system::error_code ec,
+                        const std::vector<std::pair<
+                            std::string, DbusRestVariantType>> &properties) {
                         if (ec) {
                           CROW_LOG_ERROR << "Bad dbus request error: " << ec;
                         } else {
                           for (auto &property : properties) {
-                            nlohmann::json &it = (*transaction)[property.first];
+                            nlohmann::json &it = (*transaction)["data"];
+                            // if we don't have a specific property, assume we
+                            // are getting all properties
+                            if (dest_property.empty()) {
+                              nlohmann::json &it = it[property.first];
+                            } else {
+                              // if the property doesn't match our single
+                              // property, nothing to do here
+                              if (dest_property != property.first) {
+                                continue;
+                              }
+                            }
                             mapbox::util::apply_visitor(
                                 [&it](auto &&val) { it = val; },
                                 property.second);
