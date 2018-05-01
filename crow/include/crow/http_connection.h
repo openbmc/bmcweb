@@ -560,7 +560,7 @@ class Connection {
 
   const std::string& server_name_;
 
-  int timer_cancel_key_;
+  int timer_cancel_key_{-1};
 
   bool is_reading{};
   bool is_writing{};

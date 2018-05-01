@@ -225,7 +225,7 @@ void request_routes(Crow<Middlewares...> &app) {
 
         std::string dest_property;
         std::string property_set_value;
-        constexpr char *attr_seperator = "/attr/";
+        constexpr const char *attr_seperator = "/attr/";
         size_t attr_position = path.find(attr_seperator);
         if (attr_position != path.npos) {
           object_path = "/xyz/" + path.substr(0, attr_position);
