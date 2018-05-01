@@ -92,12 +92,15 @@ struct response {
   }
 
   void end() {
-    if (!completed_) {
-      completed_ = true;
-
-      if (complete_request_handler_) {
-        complete_request_handler_();
-      }
+    if (completed_) {
+      CROW_LOG_ERROR << "Response was ended twice";
+      return;
+    }
+    completed_ = true;
+    CROW_LOG_DEBUG << "calling completion handler";
+    if (complete_request_handler_) {
+      CROW_LOG_DEBUG << "completion handler was valid";
+      complete_request_handler_();
     }
   }
 
