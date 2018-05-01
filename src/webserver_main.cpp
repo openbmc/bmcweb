@@ -1,7 +1,7 @@
 #include <systemd/sd-daemon.h>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
-#include <intel_oem.hpp>
+#include <image_upload.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data_middleware.hpp>
 #include <redfish_v1.hpp>
@@ -43,7 +43,7 @@ void setup_socket(crow::Crow<Middlewares...>& app) {
 }
 
 int main(int argc, char** argv) {
-    crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+  crow::logger::setLogLevel(crow::LogLevel::DEBUG);
 
   auto io = std::make_shared<boost::asio::io_service>();
   crow::PersistentData::session_store =
@@ -67,7 +67,7 @@ int main(int argc, char** argv) {
   crow::kvm::request_routes(app);
   crow::redfish::request_routes(app);
   crow::dbus_monitor::request_routes(app);
-  crow::intel_oem::request_routes(app);
+  crow::image_upload::requestRoutes(app);
   crow::openbmc_mapper::request_routes(app);
 
   CROW_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
@@ -80,4 +80,5 @@ int main(int argc, char** argv) {
   app.run();
   io->run();
 
+  crow::connections::system_bus.reset();
 }
