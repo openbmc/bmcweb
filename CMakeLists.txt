@@ -185,7 +185,8 @@ if (${BMCWEB_BUILD_UT})
          src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
          src/kvm_websocket_test.cpp src/msan_test.cpp
          src/ast_video_puller_test.cpp
-         ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
+         src/openbmc_jtag_rest_test.cpp
+	 ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
                                                       # strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
                         COMMAND
