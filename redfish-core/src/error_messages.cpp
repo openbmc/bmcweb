@@ -75,7 +75,8 @@ void addMessageToJsonRoot(nlohmann::json& target,
 
 void addMessageToJson(nlohmann::json& target, const nlohmann::json& message,
                       const std::string& fieldPath) {
-  nlohmann::json_pointer extendedInfo(fieldPath + messages::MESSAGE_ANNOTATION);
+  nlohmann::json_pointer<nlohmann::json> extendedInfo(
+      fieldPath + messages::MESSAGE_ANNOTATION);
 
   if (!target[extendedInfo].is_array()) {
     // Force object to be an array
@@ -1103,9 +1104,10 @@ nlohmann::json resourceExhaustion(const std::string& arg1) {
   return nlohmann::json{
       {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
       {"MessageId", "Base.1.2.0.ResourceExhaustion"},
-      {"Message", "The resource " + arg1 + " was unable to satisfy the request "
-                                           "due to unavailability of "
-                                           "resources."},
+      {"Message", "The resource " + arg1 +
+                      " was unable to satisfy the request "
+                      "due to unavailability of "
+                      "resources."},
       {"Severity", "Critical"},
       {"Resolution",
        "Ensure that the resources are available and resubmit the request."}};
@@ -1156,4 +1158,4 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
 
 }  // namespace messages
 
-}  // namespace redifsh
+}  // namespace redfish

@@ -178,66 +178,6 @@ set (SRC_FILES redfish-core/src/error_messages.cpp
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Unit Tests
-<<<<<<< HEAD
-if(${BMCWEB_BUILD_UT})
-  set(UT_FILES
-      src/crow_test.cpp
-      src/gtest_main.cpp
-      src/token_authorization_middleware_test.cpp
-      src/security_headers_middleware_test.cpp
-      src/webassets_test.cpp
-      src/crow_getroutes_test.cpp
-      src/ast_jpeg_decoder_test.cpp
-      src/kvm_websocket_test.cpp
-      src/msan_test.cpp
-      src/ast_video_puller_test.cpp
-      ${CMAKE_BINARY_DIR}/generated/blns.hpp) # big list of naughty strings
-  add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/generated/blns.hpp
-                     COMMAND
-                       xxd -i
-                       ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
-                       ${CMAKE_BINARY_DIR}/generated/blns.hpp)
-
-  set_source_files_properties(${CMAKE_BINARY_DIR}/generated/blns.hpp
-                              PROPERTIES
-                              GENERATED
-                              TRUE) # googletest
-  enable_testing()
-
-  add_executable(webtest ${SRC_FILES} ${UT_FILES})
-
-  find_package(GTest REQUIRED)
-  find_package(GMock REQUIRED)
-  target_link_libraries(webtest ${GTEST_LIBRARIES})
-  target_link_libraries(webtest ${GMOCK_LIBRARIES})
-
-  target_link_libraries(webtest pthread)
-  target_link_libraries(webtest ${OPENSSL_LIBRARIES})
-  target_link_libraries(webtest ${ZLIB_LIBRARIES})
-  target_link_libraries(webtest pam)
-  target_link_libraries(webtest tinyxml2)
-  target_link_libraries(webtest -lstdc++fs)
-  add_test(webtest webtest "--gtest_output=xml:webtest.xml")
-
-endif(${BMCWEB_BUILD_UT})
-
-install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
-
-# bmcweb
-add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries(bmcweb pthread)
-target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
-target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
-target_link_libraries(bmcweb pam)
-target_link_libraries(bmcweb -lsystemd)
-target_link_libraries(bmcweb -lstdc++fs)
-target_link_libraries(bmcweb tinyxml2)
-target_link_libraries(bmcweb sdbusplus)
-install(TARGETS bmcweb DESTINATION bin)
-
-add_executable(getvideo src/getvideo_main.cpp)
-target_link_libraries(getvideo pthread)
-=======
 if (${BMCWEB_BUILD_UT})
     set (UT_FILES src/crow_test.cpp src/gtest_main.cpp
          src/token_authorization_middleware_test.cpp
@@ -270,6 +210,7 @@ if (${BMCWEB_BUILD_UT})
     target_link_libraries (webtest ${ZLIB_LIBRARIES})
     target_link_libraries (webtest pam)
     target_link_libraries (webtest tinyxml2)
+    target_link_libraries (webtest sdbusplus)
     target_link_libraries (webtest -lstdc++fs)
     add_test (webtest webtest "--gtest_output=xml:webtest.xml")
 
@@ -285,12 +226,12 @@ target_link_libraries (bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries (bmcweb pam)
 target_link_libraries (bmcweb -lsystemd)
 target_link_libraries (bmcweb -lstdc++fs)
+target_link_libraries (bmcweb sdbusplus)
 target_link_libraries (bmcweb tinyxml2)
 install (TARGETS bmcweb DESTINATION bin)
 
 add_executable (getvideo src/getvideo_main.cpp)
 target_link_libraries (getvideo pthread)
->>>>>>> a7b5f2d... Implement feature selection in bmcweb
 
 # Visual Studio Code helper this needs to be at the end to make sure all
 # includes are handled correctly
