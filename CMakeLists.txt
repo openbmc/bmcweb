@@ -217,6 +217,7 @@ if (${BMCWEB_BUILD_UT})
     target_link_libraries (webtest pam)
     target_link_libraries (webtest tinyxml2)
     target_link_libraries (webtest sdbusplus)
+    target_link_libraries (webtest -lsystemd)
     target_link_libraries (webtest -lstdc++fs)
     add_test (webtest webtest "--gtest_output=xml:webtest.xml")
 
