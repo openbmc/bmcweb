@@ -246,8 +246,8 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       r = sd_bus_message_append_basic(m, arg_code[0],
                                       (void *)string_value->c_str());
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
     } else if (arg_code == "i") {
       if (int_value == nullptr) {
         return -1;
@@ -255,8 +255,8 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       int32_t i = static_cast<int32_t>(*int_value);
       r = sd_bus_message_append_basic(m, arg_code[0], &i);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
     } else if (arg_code == "b") {
       // lots of ways bool could be represented here.  Try them all
       int bool_int = false;
@@ -271,8 +271,8 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       }
       r = sd_bus_message_append_basic(m, arg_code[0], &bool_int);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
     } else if (arg_code == "n") {
       if (int_value == nullptr) {
         return -1;
@@ -280,16 +280,16 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       int16_t n = static_cast<int16_t>(*int_value);
       r = sd_bus_message_append_basic(m, arg_code[0], &n);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
     } else if (arg_code == "x") {
       if (int_value == nullptr) {
         return -1;
       }
       r = sd_bus_message_append_basic(m, arg_code[0], int_value);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
     } else if (arg_code == "y") {
       if (uint_value == nullptr) {
         return -1;
@@ -320,15 +320,15 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       r = sd_bus_message_open_container(m, SD_BUS_TYPE_ARRAY,
                                         contained_type.c_str());
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
 
       for (nlohmann::json::const_iterator it = j->begin(); it != j->end();
            ++it) {
         r = convert_json_to_dbus(m, contained_type, *it);
         if (r < 0) {
-          return r
-        };
+          return r;
+        }
 
         it++;
       }
@@ -340,18 +340,18 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       r = sd_bus_message_open_container(m, SD_BUS_TYPE_VARIANT,
                                         contained_type.c_str());
       if (r < 0) {
-        return r
+        return r;
       };
 
       r = convert_json_to_dbus(m, contained_type, input_json);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
 
       r = sd_bus_message_close_container(m);
       if (r < 0) {
-        return r
-      };
+        return r;
+      }
 
     } else if (boost::starts_with(arg_code, "(") &&
                boost::ends_with(arg_code, ")")) {
@@ -365,8 +365,8 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
         }
         r = convert_json_to_dbus(m, arg_code, *it);
         if (r < 0) {
-          return r
-        };
+          return r;
+        }
         it++;
       }
       r = sd_bus_message_close_container(m);
@@ -384,21 +384,21 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       for (auto it : j->items()) {
         r = convert_json_to_dbus(m, key_type, it.key());
         if (r < 0) {
-          return r
-        };
+          return r;
+        }
 
         r = convert_json_to_dbus(m, value_type, it.value());
         if (r < 0) {
-          return r
-        };
+          return r;
+        }
       }
       r = sd_bus_message_close_container(m);
     } else {
       return -2;
     }
     if (r < 0) {
-      return r
-    };
+      return r;
+    }
 
     if (arg_types.size() > 1) {
       j_it++;
