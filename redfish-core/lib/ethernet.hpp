@@ -1207,6 +1207,11 @@ class EthernetInterface : public Node {
       nlohmann::json &vlanObj = json_response["VLAN"];
       vlanObj["VLANEnable"] = true;
       vlanObj["VLANId"] = *eth_data.vlan_id;
+    } else {
+      nlohmann::json &vlanObj = json_response["VLANs"];
+      vlanObj["@odata.id"] =
+          "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + iface_id +
+          "/VLANs";
     }
 
     // ... at last, check if there are IPv4 data and prepare appropriate
@@ -1346,6 +1351,318 @@ class EthernetInterface : public Node {
   // Ethernet Provider object
   // TODO(Pawel) consider move it to singleton
   OnDemandEthernetProvider ethernet_provider;
+};
+
+class VlanNetworkInterfaceCollection;
+
+/**
+ * VlanNetworkInterface derived class for delivering VLANNetworkInterface Schema
+ */
+class VlanNetworkInterface : public Node {
+ public:
+  /*
+   * Default Constructor
+   */
+  template <typename CrowApp>
+  // TODO(Pawel) Remove line from below, where we assume that there is only one
+  // manager called openbmc This shall be generic, but requires to update
+  // GetSubroutes method
+  VlanNetworkInterface(CrowApp &app)
+      : Node(
+            app,
+            "/redfish/v1/Managers/openbmc/EthernetInterfaces/<str>/VLANs/<str>",
+            std::string(), std::string()) {
+    Node::json["@odata.type"] =
+        "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
+    Node::json["@odata.context"] =
+        "/redfish/v1/$metadata#VLanNetworkInterface.VLanNetworkInterface";
+    Node::json["Name"] = "VLAN Network Interface";
+
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  nlohmann::json parseInterfaceData(
+      const std::string &parent_iface_id, const std::string &iface_id,
+      const EthernetInterfaceData &eth_data,
+      const std::vector<IPv4AddressData> &ipv4_data) {
+    // Copy JSON object to avoid race condition
+    nlohmann::json json_response(Node::json);
+
+    if (eth_data.vlan_id == nullptr) {
+      // Interface not a VLAN - abort
+      messages::addMessageToErrorJson(json_response, messages::internalError());
+      return json_response;
+    }
+
+    // Fill out obvious data...
+    json_response["Id"] = iface_id;
+    json_response["@odata.id"] =
+        "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + parent_iface_id +
+        "/VLANs/" + iface_id;
+
+    json_response["VLANEnable"] = true;
+    json_response["VLANId"] = *eth_data.vlan_id;
+
+    return json_response;
+  }
+
+  /**
+   * Functions triggers appropriate requests on DBus
+   */
+  void doGet(crow::response &res, const crow::request &req,
+             const std::vector<std::string> &params) override {
+    // TODO(Pawel) this shall be parametrized call (two params) to get
+    // EthernetInterfaces for any Manager, not only hardcoded 'openbmc'.
+    // Check if there is required param, truly entering this shall be
+    // impossible.
+    if (params.size() != 2) {
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+      return;
+    }
+
+    const std::string &parent_iface_id = params[0];
+    const std::string &iface_id = params[1];
+
+    // Get single eth interface data, and call the below callback for JSON
+    // preparation
+    ethernet_provider.getEthernetIfaceData(
+        iface_id,
+        [&, parent_iface_id, iface_id](
+            const bool &success, const EthernetInterfaceData &eth_data,
+            const std::vector<IPv4AddressData> &ipv4_data) {
+          if (success) {
+            res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+                                                eth_data, ipv4_data);
+          } else {
+            // ... otherwise return error
+            // TODO(Pawel)consider distinguish between non existing object, and
+            // other errors
+            res.result(boost::beast::http::status::not_found);
+          }
+          res.end();
+        });
+  }
+
+  void doPatch(crow::response &res, const crow::request &req,
+               const std::vector<std::string> &params) override {
+    if (params.size() != 2) {
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+      return;
+    }
+
+    // TODO(kkowalsk) Will be implement in further patchset
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+  }
+
+  void doDelete(crow::response &res, const crow::request &req,
+                const std::vector<std::string> &params) override {
+    if (params.size() != 2) {
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+      return;
+    }
+
+    // TODO(kkowalsk) Will be implement in further patchset
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+  }
+
+  /**
+   * This allows VlanNetworkInterfaceCollection to reuse this class' doGet
+   * method, to maintain consistency of returned data, as Collection's doPost
+   * should return data for created member which should match member's doGet
+   * result in 100%.
+   */
+  friend VlanNetworkInterfaceCollection;
+
+  // Ethernet Provider object
+  // TODO(Pawel) consider move it to singleton
+  OnDemandEthernetProvider ethernet_provider;
+};
+
+/**
+ * VlanNetworkInterfaceCollection derived class for delivering
+ * VLANNetworkInterface Collection Schema
+ */
+class VlanNetworkInterfaceCollection : public Node {
+ public:
+  template <typename CrowApp>
+  // TODO(Pawel) Remove line from below, where we assume that there is only one
+  // manager called openbmc This shall be generic, but requires to update
+  // GetSubroutes method
+  VlanNetworkInterfaceCollection(CrowApp &app)
+      : Node(app,
+             "/redfish/v1/Managers/openbmc/EthernetInterfaces/<str>/VLANs/",
+             std::string()),
+        memberVlan(app) {
+    Node::json["@odata.type"] =
+        "#VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection";
+    Node::json["@odata.context"] =
+        "/redfish/v1/$metadata"
+        "#VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection";
+    Node::json["Name"] = "VLAN Network Interface Collection";
+
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  /**
+   * Functions triggers appropriate requests on DBus
+   */
+  void doGet(crow::response &res, const crow::request &req,
+             const std::vector<std::string> &params) override {
+    if (params.size() != 1) {
+      // This means there is a problem with the router
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+
+      return;
+    }
+
+    // TODO(Pawel) this shall be parametrized call to get EthernetInterfaces for
+    // any Manager, not only hardcoded 'openbmc'.
+    std::string manager_id = "openbmc";
+    std::string rootInterfaceName = params[0];
+
+    // Get eth interface list, and call the below callback for JSON preparation
+    ethernet_provider.getEthernetIfaceList([
+          &, manager_id{std::move(manager_id)},
+          rootInterfaceName{std::move(rootInterfaceName)}
+    ](const bool &success, const std::vector<std::string> &iface_list) {
+      if (success) {
+        bool rootInterfaceFound = false;
+        nlohmann::json iface_array = nlohmann::json::array();
+
+        for (const std::string &iface_item : iface_list) {
+          if (iface_item == rootInterfaceName) {
+            rootInterfaceFound = true;
+          } else if (boost::starts_with(iface_item, rootInterfaceName + "_")) {
+            iface_array.push_back(
+                {{"@odata.id", "/redfish/v1/Managers/" + manager_id +
+                                   "/EthernetInterfaces/" + rootInterfaceName +
+                                   "/VLANs/" + iface_item}});
+          }
+        }
+
+        if (rootInterfaceFound) {
+          Node::json["Members"] = iface_array;
+          Node::json["Members@odata.count"] = iface_array.size();
+          Node::json["@odata.id"] = "/redfish/v1/Managers/" + manager_id +
+                                    "/EthernetInterfaces/" + rootInterfaceName +
+                                    "/VLANs";
+          res.json_value = Node::json;
+        } else {
+          messages::addMessageToErrorJson(
+              res.json_value, messages::resourceNotFound("EthernetInterface",
+                                                         rootInterfaceName));
+          res.result(boost::beast::http::status::not_found);
+          res.end();
+        }
+      } else {
+        // No success, best what we can do is return INTERNALL ERROR
+        res.result(boost::beast::http::status::internal_server_error);
+      }
+      res.end();
+    });
+  }
+
+  void doPost(crow::response &res, const crow::request &req,
+              const std::vector<std::string> &params) override {
+    if (params.size() != 1) {
+      // This means there is a problem with the router
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+      return;
+    }
+
+    nlohmann::json postReq;
+
+    if (!json_util::processJsonFromRequest(res, req, postReq)) {
+      return;
+    }
+
+    // TODO(Pawel) this shall be parametrized call to get EthernetInterfaces for
+    // any Manager, not only hardcoded 'openbmc'.
+    std::string manager_id = "openbmc";
+    std::string rootInterfaceName = params[0];
+    uint64_t vlanId;
+    bool errorDetected;
+
+    if (json_util::getUnsigned(
+            "VLANId", postReq, vlanId,
+            static_cast<uint8_t>(json_util::MessageSetting::MISSING) |
+                static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
+            res.json_value, "/VLANId") != json_util::Result::SUCCESS) {
+      res.end();
+      return;
+    }
+
+    // Get eth interface list, and call the below callback for JSON preparation
+    ethernet_provider.getEthernetIfaceList([
+          &, manager_id{std::move(manager_id)},
+          rootInterfaceName{std::move(rootInterfaceName)}
+    ](const bool &success, const std::vector<std::string> &iface_list) {
+      if (success) {
+        bool rootInterfaceFound = false;
+
+        for (const std::string &iface_item : iface_list) {
+          if (iface_item == rootInterfaceName) {
+            rootInterfaceFound = true;
+            break;
+          }
+        }
+
+        if (rootInterfaceFound) {
+          ethernet_provider.createVlan(
+              rootInterfaceName, vlanId,
+              [&, vlanId, rootInterfaceName,
+               req{std::move(req)} ](const boost::system::error_code ec) {
+                if (ec) {
+                  messages::addMessageToErrorJson(res.json_value,
+                                                  messages::internalError());
+                  res.end();
+                } else {
+                  memberVlan.doGet(
+                      res, req,
+                      {rootInterfaceName,
+                       rootInterfaceName + "_" + std::to_string(vlanId)});
+                }
+              });
+        } else {
+          messages::addMessageToErrorJson(
+              res.json_value, messages::resourceNotFound("EthernetInterface",
+                                                         rootInterfaceName));
+          res.result(boost::beast::http::status::not_found);
+          res.end();
+        }
+      } else {
+        // No success, best what we can do is return INTERNALL ERROR
+        res.result(boost::beast::http::status::internal_server_error);
+        res.end();
+      }
+    });
+  }
+
+  // Ethernet Provider object
+  // TODO(Pawel) consider move it to singleton
+  OnDemandEthernetProvider ethernet_provider;
+  VlanNetworkInterface memberVlan;
 };
 
 }  // namespace redfish

@@ -57,6 +57,7 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<UpdateService>(app));
     nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
     nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
+    nodes.emplace_back(std::make_unique<VlanNetworkInterfaceCollection>(app));
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);
     }
