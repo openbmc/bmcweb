@@ -95,13 +95,13 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     endif (NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
-if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
-                               # time
-    configure_file (CMakeLists.txt.in 3rdparty/CMakeLists.txt)
-    execute_process (COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
-    execute_process (COMMAND ${CMAKE_COMMAND} --build .
-                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+if(NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure time
+  configure_file(${CMAKE_CURRENT_SOURCE_DIR}/CMakeLists.txt.in
+                 3rdparty/CMakeLists.txt)
+  execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+  execute_process(COMMAND ${CMAKE_COMMAND} --build .
+                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
 
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
@@ -143,10 +143,8 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions (-DCROW_ENABLE_DEBUG)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
-# add_definitions(-DCROW_ENABLE_LOGGING) add_definitions(-DCROW_ENABLE_DEBUG)
-
-add_definitions (-DCROW_ENABLE_SSL)
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
+add_definitions(-DCROW_ENABLE_SSL)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
 find_package (ZLIB REQUIRED)
