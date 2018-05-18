@@ -1,6 +1,6 @@
 #pragma once
 #include "crow/logging.h"
-#include "crow/settings.h"
+
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
 

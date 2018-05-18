@@ -13,7 +13,6 @@
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
 #include "crow/routing.h"
-#include "crow/settings.h"
 #include "crow/utility.h"
 
 #define CROW_ROUTE(app, url) \

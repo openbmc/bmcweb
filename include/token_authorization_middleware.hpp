@@ -165,7 +165,7 @@ class Middleware {
     if (session == nullptr) {
       return nullptr;
     }
-
+#ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
     // RFC7231 defines methods that need csrf protection
     if (req.method() != "GET"_method) {
       boost::string_view csrf = req.get_header_value("X-XSRF-TOKEN");
@@ -178,6 +178,7 @@ class Middleware {
         return nullptr;
       }
     }
+#endif
     return session;
   }
 
