@@ -285,8 +285,9 @@ class OnDemandEthernetProvider {
    * @return None.
    */
   template <typename CallbackFunc>
-  void changeVlanId(const std::string &ifaceId, const uint32_t &inputVlanId,
-                    CallbackFunc &&callback) {
+  static void changeVlanId(const std::string &ifaceId,
+                           const uint32_t &inputVlanId,
+                           CallbackFunc &&callback) {
     crow::connections::system_bus->async_method_call(
         callback, "xyz.openbmc_project.Network",
         std::string("/xyz/openbmc_project/network/") + ifaceId,
@@ -490,7 +491,7 @@ class OnDemandEthernetProvider {
    * @return None.
    */
   template <typename CallbackFunc>
-  void disableVlan(const std::string &ifaceId, CallbackFunc &&callback) {
+  static void disableVlan(const std::string &ifaceId, CallbackFunc &&callback) {
     crow::connections::system_bus->async_method_call(
         callback, "xyz.openbmc_project.Network",
         std::string("/xyz/openbmc_project/network/") + ifaceId,
@@ -825,27 +826,36 @@ class EthernetInterface : public Node {
         {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
- private:
-  void handleVlanPatch(const std::string &ifaceId, const nlohmann::json &input,
-                       const EthernetInterfaceData &eth_data,
-                       const std::shared_ptr<AsyncResp> &asyncResp) {
+  // TODO(kkowalsk) Find a suitable class/namespace for this
+  static void handleVlanPatch(const std::string &ifaceId,
+                              const nlohmann::json &input,
+                              const EthernetInterfaceData &eth_data,
+                              const std::string &pathPrefix,
+                              const std::shared_ptr<AsyncResp> &asyncResp) {
     if (!input.is_object()) {
       messages::addMessageToJson(
           asyncResp->res.json_value,
-          messages::propertyValueTypeError(input.dump(), "VLAN"), "/VLAN");
+          messages::propertyValueTypeError(input.dump(), "VLAN"), pathPrefix);
       return;
     }
 
+    const std::string pathStart = (pathPrefix == "/") ? "" : pathPrefix;
+    nlohmann::json &paramsJson =
+        (pathPrefix == "/")
+            ? asyncResp->res.json_value
+            : asyncResp->res.json_value[nlohmann::json_pointer<nlohmann::json>(
+                  pathPrefix)];
     bool inputVlanEnabled;
     uint64_t inputVlanId;
+
     json_util::Result inputVlanEnabledState = json_util::getBool(
         "VLANEnable", input, inputVlanEnabled,
         static_cast<int>(json_util::MessageSetting::TYPE_ERROR),
-        asyncResp->res.json_value, std::string("/VLAN/VLANEnable"));
+        asyncResp->res.json_value, std::string(pathStart + "/VLANEnable"));
     json_util::Result inputVlanIdState = json_util::getUnsigned(
         "VLANId", input, inputVlanId,
         static_cast<int>(json_util::MessageSetting::TYPE_ERROR),
-        asyncResp->res.json_value, std::string("/VLAN/VLANId"));
+        asyncResp->res.json_value, std::string(pathStart + "/VLANId"));
     bool inputInvalid = false;
 
     // Do not proceed if fields in VLAN object were of wrong type
@@ -856,31 +866,13 @@ class EthernetInterface : public Node {
 
     // Verify input
     if (eth_data.vlan_id == nullptr) {
-      // VLAN is currently disabled. User can only create/enable it. Change of
-      // VLANId is prohibited, and disable request (VLANEnabled == false) will
-      // not have any effect.
-      if (inputVlanEnabledState == json_util::Result::SUCCESS &&
-          inputVlanEnabled == true) {
-        // Creation requested, user should also provide ID for new VLAN
-        if (inputVlanIdState != json_util::Result::SUCCESS) {
-          messages::addMessageToJson(asyncResp->res.json_value,
-                                     messages::propertyMissing("VLANId"),
-                                     "/VLAN");
-          inputInvalid = true;
-        }
-      } else if (inputVlanIdState == json_util::Result::SUCCESS) {
-        // VLAN is disabled, but user requested modification. This is not valid.
-        messages::addMessageToJson(
-            asyncResp->res.json_value,
-            messages::actionParameterNotSupported("VLANId", "change VLAN Id"),
-            "/VLAN");
+      // This interface is not a VLAN. Cannot do anything with it
+      // TODO(kkowalsk) Change this message
+      messages::addMessageToJson(asyncResp->res.json_value,
+                                 messages::propertyMissing("VLANEnable"),
+                                 pathPrefix);
 
-        messages::addMessageToJson(asyncResp->res.json_value,
-                                   messages::propertyMissing("VLANEnable"),
-                                   "/VLAN");
-
-        inputInvalid = true;
-      }
+      inputInvalid = true;
     } else {
       // Load actual data into field values if they were not provided
       if (inputVlanEnabledState == json_util::Result::NOT_EXIST) {
@@ -897,45 +889,37 @@ class EthernetInterface : public Node {
       return;
     }
 
-    auto vlanEnabledAfterOperation =
-        [asyncResp](const boost::system::error_code ec) {
-          if (ec) {
-            messages::addMessageToJson(asyncResp->res.json_value,
-                                       messages::internalError(), "/VLAN");
-          } else {
-            asyncResp->res.json_value["VLAN"]["VLANEnable"] = true;
-          }
-        };
-
-    if (eth_data.vlan_id == nullptr) {
-      if (inputVlanEnabled == true) {
-        ethernet_provider.createVlan(ifaceId, inputVlanId,
-                                     std::move(vlanEnabledAfterOperation));
-        asyncResp->res.json_value["VLAN"]["VLANId"] = inputVlanId;
-      }
-    } else {
-      // VLAN is configured on the interface
-      if (inputVlanEnabled == true && inputVlanId != *eth_data.vlan_id) {
-        // Change VLAN Id
-        asyncResp->res.json_value["VLAN"]["VLANId"] = inputVlanId;
-        ethernet_provider.changeVlanId(ifaceId,
-                                       static_cast<uint32_t>(inputVlanId),
-                                       std::move(vlanEnabledAfterOperation));
-      } else if (inputVlanEnabled == false) {
-        // Disable VLAN
-        ethernet_provider.disableVlan(
-            ifaceId, [asyncResp](const boost::system::error_code ec) {
-              if (ec) {
-                messages::addMessageToJson(asyncResp->res.json_value,
-                                           messages::internalError(), "/VLAN");
-              } else {
-                asyncResp->res.json_value["VLAN"]["VLANEnable"] = false;
-              }
-            });
-      }
+    // VLAN is configured on the interface
+    if (inputVlanEnabled == true && inputVlanId != *eth_data.vlan_id) {
+      // Change VLAN Id
+      paramsJson["VLANId"] = inputVlanId;
+      OnDemandEthernetProvider::changeVlanId(
+          ifaceId, static_cast<uint32_t>(inputVlanId),
+          [&, asyncResp, pathPrefx{std::move(pathPrefix)} ](
+              const boost::system::error_code ec) {
+            if (ec) {
+              messages::addMessageToJson(asyncResp->res.json_value,
+                                         messages::internalError(), pathPrefix);
+            } else {
+              paramsJson["VLANEnable"] = true;
+            }
+          });
+    } else if (inputVlanEnabled == false) {
+      // Disable VLAN
+      OnDemandEthernetProvider::disableVlan(
+          ifaceId, [&, asyncResp, pathPrefx{std::move(pathPrefix)} ](
+                       const boost::system::error_code ec) {
+            if (ec) {
+              messages::addMessageToJson(asyncResp->res.json_value,
+                                         messages::internalError(), pathPrefix);
+            } else {
+              paramsJson["VLANEnable"] = false;
+            }
+          });
     }
   }
 
+ private:
   void handleHostnamePatch(const nlohmann::json &input,
                            const EthernetInterfaceData &eth_data,
                            const std::shared_ptr<AsyncResp> &asyncResp) {
@@ -1264,6 +1248,9 @@ class EthernetInterface : public Node {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("EthernetInterface", iface_id));
             res.result(boost::beast::http::status::not_found);
           }
           res.end();
@@ -1315,7 +1302,7 @@ class EthernetInterface : public Node {
           for (auto propertyIt = patchReq.begin(); propertyIt != patchReq.end();
                ++propertyIt) {
             if (propertyIt.key() == "VLAN") {
-              handleVlanPatch(iface_id, propertyIt.value(), eth_data,
+              handleVlanPatch(iface_id, propertyIt.value(), eth_data, "/VLAN",
                               asyncResp);
             } else if (propertyIt.key() == "HostName") {
               handleHostnamePatch(propertyIt.value(), eth_data, asyncResp);
@@ -1366,10 +1353,10 @@ class VlanNetworkInterface : public Node {
   // manager called openbmc This shall be generic, but requires to update
   // GetSubroutes method
   VlanNetworkInterface(CrowApp &app)
-      : Node(
-            app,
-            "/redfish/v1/Managers/openbmc/EthernetInterfaces/<str>/VLANs/<str>",
-            std::string(), std::string()) {
+      : Node(app,
+             "/redfish/v1/Managers/openbmc/EthernetInterfaces/<str>/VLANs/"
+             "<str>",
+             std::string(), std::string()) {
     Node::json["@odata.type"] =
         "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
     Node::json["@odata.context"] =
@@ -1393,12 +1380,6 @@ class VlanNetworkInterface : public Node {
     // Copy JSON object to avoid race condition
     nlohmann::json json_response(Node::json);
 
-    if (eth_data.vlan_id == nullptr) {
-      // Interface not a VLAN - abort
-      messages::addMessageToErrorJson(json_response, messages::internalError());
-      return json_response;
-    }
-
     // Fill out obvious data...
     json_response["Id"] = iface_id;
     json_response["@odata.id"] =
@@ -1409,6 +1390,21 @@ class VlanNetworkInterface : public Node {
     json_response["VLANId"] = *eth_data.vlan_id;
 
     return json_response;
+  }
+
+  bool verifyNames(crow::response &res, const std::string &parent,
+                   const std::string &iface) {
+    if (!boost::starts_with(iface, parent + "_")) {
+      messages::addMessageToErrorJson(
+          res.json_value,
+          messages::resourceNotFound("VLAN Network Interface", iface));
+      res.result(boost::beast::http::status::bad_request);
+      res.end();
+
+      return false;
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -1429,6 +1425,10 @@ class VlanNetworkInterface : public Node {
     const std::string &parent_iface_id = params[0];
     const std::string &iface_id = params[1];
 
+    if (!verifyNames(res, parent_iface_id, iface_id)) {
+      return;
+    }
+
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernet_provider.getEthernetIfaceData(
@@ -1436,12 +1436,13 @@ class VlanNetworkInterface : public Node {
         [&, parent_iface_id, iface_id](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
-          if (success) {
+          if (success && eth_data.vlan_id != nullptr) {
             res.json_value = parseInterfaceData(parent_iface_id, iface_id,
                                                 eth_data, ipv4_data);
           } else {
             // ... otherwise return error
-            // TODO(Pawel)consider distinguish between non existing object, and
+            // TODO(Pawel)consider distinguish between non existing object,
+            // and
             // other errors
             res.result(boost::beast::http::status::not_found);
           }
@@ -1457,9 +1458,66 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    // TODO(kkowalsk) Will be implement in further patchset
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
+    const std::string &parent_iface_id = params[0];
+    const std::string &iface_id = params[1];
+
+    if (!verifyNames(res, parent_iface_id, iface_id)) {
+      return;
+    }
+
+    nlohmann::json patchReq;
+
+    if (!json_util::processJsonFromRequest(res, req, patchReq)) {
+      return;
+    }
+
+    // Get single eth interface data, and call the below callback for JSON
+    // preparation
+    ethernet_provider.getEthernetIfaceData(
+        iface_id,
+        [&, parent_iface_id, iface_id, patchReq = std::move(patchReq) ](
+            const bool &success, const EthernetInterfaceData &eth_data,
+            const std::vector<IPv4AddressData> &ipv4_data) {
+          if (!success) {
+            // ... otherwise return error
+            // TODO(Pawel)consider distinguish between non existing object,
+            // and
+            // other errors
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+
+            return;
+          }
+
+          res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+                                              eth_data, ipv4_data);
+
+          std::shared_ptr<AsyncResp> asyncResp =
+              std::make_shared<AsyncResp>(res);
+
+          for (auto propertyIt = patchReq.begin(); propertyIt != patchReq.end();
+               ++propertyIt) {
+            if (propertyIt.key() != "VLANEnable" &&
+                propertyIt.key() != "VLANId") {
+              auto fieldInJsonIt = res.json_value.find(propertyIt.key());
+
+              if (fieldInJsonIt == res.json_value.end()) {
+                // Field not in scope of defined fields
+                messages::addMessageToJsonRoot(
+                    res.json_value,
+                    messages::propertyUnknown(propertyIt.key()));
+              } else if (*fieldInJsonIt != *propertyIt) {
+                // User attempted to modify non-writable field
+                messages::addMessageToJsonRoot(
+                    res.json_value,
+                    messages::propertyNotWritable(propertyIt.key()));
+              }
+            }
+          }
+
+          EthernetInterface::handleVlanPatch(iface_id, patchReq, eth_data, "/",
+                                             asyncResp);
+        });
   }
 
   void doDelete(crow::response &res, const crow::request &req,
@@ -1470,9 +1528,46 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    // TODO(kkowalsk) Will be implement in further patchset
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
+    const std::string &parent_iface_id = params[0];
+    const std::string &iface_id = params[1];
+
+    if (!verifyNames(res, parent_iface_id, iface_id)) {
+      return;
+    }
+
+    // Get single eth interface data, and call the below callback for JSON
+    // preparation
+    ethernet_provider.getEthernetIfaceData(
+        iface_id,
+        [&, parent_iface_id, iface_id](
+            const bool &success, const EthernetInterfaceData &eth_data,
+            const std::vector<IPv4AddressData> &ipv4_data) {
+          if (success && eth_data.vlan_id != nullptr) {
+            res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+                                                eth_data, ipv4_data);
+
+            // Disable VLAN
+            OnDemandEthernetProvider::disableVlan(
+                iface_id, [&](const boost::system::error_code ec) {
+                  if (ec) {
+                    res.json_value = nlohmann::json::object();
+                    messages::addMessageToErrorJson(res.json_value,
+                                                    messages::internalError());
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
+                  }
+                  res.end();
+                });
+          } else {
+            // ... otherwise return error
+            // TODO(Pawel)consider distinguish between non existing object,
+            // and
+            // other errors
+
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+          }
+        });
   }
 
   /**
