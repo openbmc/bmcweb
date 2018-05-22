@@ -43,10 +43,10 @@ using ManagedObjectsVectorType = std::vector<std::pair<
  */
 class SensorsAsyncResp {
  public:
-  SensorsAsyncResp(crow::response& response, const std::string& chassisId,
+  SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
                    const std::initializer_list<const char*> types)
       : res(response), chassisId(chassisId), types(types) {
-    res.json_value["@odata.id"] =
+    res.jsonValue["@odata.id"] =
         "/redfish/v1/Chassis/" + chassisId + "/Thermal";
   }
 
@@ -55,7 +55,7 @@ class SensorsAsyncResp {
       // Reset the json object to clear out any data that made it in before the
       // error happened
       // todo(ed) handle error condition with proper code
-      res.json_value = nlohmann::json::object();
+      res.jsonValue = nlohmann::json::object();
     }
     res.end();
   }
@@ -64,7 +64,7 @@ class SensorsAsyncResp {
     res.result(boost::beast::http::status::internal_server_error);
   }
 
-  crow::response& res;
+  crow::Response& res;
   std::string chassisId{};
   const std::vector<const char*> types;
 };
@@ -79,23 +79,23 @@ template <typename Callback>
 void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                     const boost::container::flat_set<std::string>& sensorNames,
                     Callback&& callback) {
-  CROW_LOG_DEBUG << "getConnections enter";
+  BMCWEB_LOG_DEBUG << "getConnections enter";
   const std::string path = "/xyz/openbmc_project/sensors";
   const std::array<std::string, 1> interfaces = {
       "xyz.openbmc_project.Sensor.Value"};
 
   // Response handler for parsing objects subtree
-  auto resp_handler =
+  auto respHandler =
       [ callback{std::move(callback)}, SensorsAsyncResp, sensorNames ](
           const boost::system::error_code ec, const GetSubTreeType& subtree) {
-    CROW_LOG_DEBUG << "getConnections resp_handler enter";
+    BMCWEB_LOG_DEBUG << "getConnections resp_handler enter";
     if (ec) {
       SensorsAsyncResp->setErrorStatus();
-      CROW_LOG_ERROR << "getConnections resp_handler: Dbus error " << ec;
+      BMCWEB_LOG_ERROR << "getConnections resp_handler: Dbus error " << ec;
       return;
     }
 
-    CROW_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
+    BMCWEB_LOG_DEBUG << "Found " << subtree.size() << " subtrees";
 
     // Make unique list of connections only for requested sensor types and
     // found in the chassis
@@ -103,9 +103,9 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     // Intrinsic to avoid malloc.  Most systems will have < 8 sensor producers
     connections.reserve(8);
 
-    CROW_LOG_DEBUG << "sensorNames list count: " << sensorNames.size();
+    BMCWEB_LOG_DEBUG << "sensorNames list count: " << sensorNames.size();
     for (const std::string& tsensor : sensorNames) {
-      CROW_LOG_DEBUG << "Sensor to find: " << tsensor;
+      BMCWEB_LOG_DEBUG << "Sensor to find: " << tsensor;
     }
 
     for (const std::pair<
@@ -119,10 +119,10 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
             std::string sensorName = object.first.substr(lastPos + 1);
 
             if (sensorNames.find(sensorName) != sensorNames.end()) {
-              // For each connection name
+              // For each Connection name
               for (const std::pair<std::string, std::vector<std::string>>&
                        objData : object.second) {
-                CROW_LOG_DEBUG << "Adding connection: " << objData.first;
+                BMCWEB_LOG_DEBUG << "Adding connection: " << objData.first;
                 connections.insert(objData.first);
               }
             }
@@ -131,17 +131,17 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         }
       }
     }
-    CROW_LOG_DEBUG << "Found " << connections.size() << " connections";
+    BMCWEB_LOG_DEBUG << "Found " << connections.size() << " connections";
     callback(std::move(connections));
-    CROW_LOG_DEBUG << "getConnections resp_handler exit";
+    BMCWEB_LOG_DEBUG << "getConnections resp_handler exit";
   };
 
   // Make call to ObjectMapper to find all sensors objects
-  crow::connections::system_bus->async_method_call(
-      std::move(resp_handler), "xyz.openbmc_project.ObjectMapper",
+  crow::connections::systemBus->async_method_call(
+      std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
       "/xyz/openbmc_project/object_mapper", "xyz.openbmc_project.ObjectMapper",
       "GetSubTree", path, 2, interfaces);
-  CROW_LOG_DEBUG << "getConnections exit";
+  BMCWEB_LOG_DEBUG << "getConnections exit";
 }
 
 /**
@@ -152,13 +152,13 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
 template <typename Callback>
 void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                 Callback&& callback) {
-  CROW_LOG_DEBUG << "getChassis enter";
+  BMCWEB_LOG_DEBUG << "getChassis enter";
   // Process response from EntityManager and extract chassis data
-  auto resp_handler = [ callback{std::move(callback)}, SensorsAsyncResp ](
+  auto respHandler = [ callback{std::move(callback)}, SensorsAsyncResp ](
       const boost::system::error_code ec, ManagedObjectsVectorType& resp) {
-    CROW_LOG_DEBUG << "getChassis resp_handler enter";
+    BMCWEB_LOG_DEBUG << "getChassis respHandler enter";
     if (ec) {
-      CROW_LOG_ERROR << "getChassis resp_handler DBUS error: " << ec;
+      BMCWEB_LOG_ERROR << "getChassis respHandler DBUS error: " << ec;
       SensorsAsyncResp->setErrorStatus();
       return;
     }
@@ -176,7 +176,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
           static_cast<const std::string&>(objDictEntry.first);
       boost::algorithm::split(split, objectPath, boost::is_any_of("/"));
       if (split.size() < 2) {
-        CROW_LOG_ERROR << "Got path that isn't long enough " << objectPath;
+        BMCWEB_LOG_ERROR << "Got path that isn't long enough " << objectPath;
         split.clear();
         continue;
       }
@@ -187,28 +187,28 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         split.clear();
         continue;
       }
-      CROW_LOG_DEBUG << "New sensor: " << sensorName;
+      BMCWEB_LOG_DEBUG << "New sensor: " << sensorName;
       foundChassis = true;
       sensorNames.emplace(sensorName);
       split.clear();
     };
-    CROW_LOG_DEBUG << "Found " << sensorNames.size() << " Sensor names";
+    BMCWEB_LOG_DEBUG << "Found " << sensorNames.size() << " Sensor names";
 
     if (!foundChassis) {
-      CROW_LOG_INFO << "Unable to find chassis named "
-                    << SensorsAsyncResp->chassisId;
+      BMCWEB_LOG_INFO << "Unable to find chassis named "
+                      << SensorsAsyncResp->chassisId;
       SensorsAsyncResp->res.result(boost::beast::http::status::not_found);
     } else {
       callback(sensorNames);
     }
-    CROW_LOG_DEBUG << "getChassis resp_handler exit";
+    BMCWEB_LOG_DEBUG << "getChassis respHandler exit";
   };
 
   // Make call to EntityManager to find all chassis objects
-  crow::connections::system_bus->async_method_call(
-      resp_handler, "xyz.openbmc_project.EntityManager", "/",
+  crow::connections::systemBus->async_method_call(
+      respHandler, "xyz.openbmc_project.EntityManager", "/",
       "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-  CROW_LOG_DEBUG << "getChassis exit";
+  BMCWEB_LOG_DEBUG << "getChassis exit";
 }
 
 /**
@@ -227,20 +227,19 @@ void objectInterfacesToJson(
         interfacesDict,
     nlohmann::json& sensor_json) {
   // We need a value interface before we can do anything with it
-  auto value_it = interfacesDict.find("xyz.openbmc_project.Sensor.Value");
-  if (value_it == interfacesDict.end()) {
-    CROW_LOG_ERROR << "Sensor doesn't have a value interface";
+  auto valueIt = interfacesDict.find("xyz.openbmc_project.Sensor.Value");
+  if (valueIt == interfacesDict.end()) {
+    BMCWEB_LOG_ERROR << "Sensor doesn't have a value interface";
     return;
   }
 
   // Assume values exist as is (10^0 == 1) if no scale exists
   int64_t scaleMultiplier = 0;
 
-  auto scale_it = value_it->second.find("Scale");
+  auto scaleIt = valueIt->second.find("Scale");
   // If a scale exists, pull value as int64, and use the scaling.
-  if (scale_it != value_it->second.end()) {
-    const int64_t* int64Value =
-        mapbox::get_ptr<const int64_t>(scale_it->second);
+  if (scaleIt != valueIt->second.end()) {
+    const int64_t* int64Value = mapbox::getPtr<const int64_t>(scaleIt->second);
     if (int64Value != nullptr) {
       scaleMultiplier = *int64Value;
     }
@@ -271,7 +270,7 @@ void objectInterfacesToJson(
     unit = "ReadingVolts";
     sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
   } else {
-    CROW_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
+    BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
     return;
   }
   // Map of dbus interface name, dbus property name and redfish property_name
@@ -304,39 +303,38 @@ void objectInterfacesToJson(
        properties) {
     auto interfaceProperties = interfacesDict.find(std::get<0>(p));
     if (interfaceProperties != interfacesDict.end()) {
-      auto value_it = interfaceProperties->second.find(std::get<1>(p));
-      if (value_it != interfaceProperties->second.end()) {
-        const SensorVariant& valueVariant = value_it->second;
-        nlohmann::json& value_it = sensor_json[std::get<2>(p)];
+      auto valueIt = interfaceProperties->second.find(std::get<1>(p));
+      if (valueIt != interfaceProperties->second.end()) {
+        const SensorVariant& valueVariant = valueIt->second;
+        nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
 
         // Attempt to pull the int64 directly
-        const int64_t* int64Value =
-            mapbox::get_ptr<const int64_t>(valueVariant);
+        const int64_t* int64Value = mapbox::getPtr<const int64_t>(valueVariant);
 
         if (int64Value != nullptr) {
           if (forceToInt || scaleMultiplier >= 0) {
-            value_it = *int64Value * std::pow(10, scaleMultiplier);
+            valueIt = *int64Value * std::pow(10, scaleMultiplier);
           } else {
-            value_it = *int64Value *
-                       std::pow(10, static_cast<double>(scaleMultiplier));
+            valueIt = *int64Value *
+                      std::pow(10, static_cast<double>(scaleMultiplier));
           }
         }
         // Attempt to pull the float directly
-        const double* doubleValue = mapbox::get_ptr<const double>(valueVariant);
+        const double* doubleValue = mapbox::getPtr<const double>(valueVariant);
 
         if (doubleValue != nullptr) {
           if (!forceToInt) {
-            value_it = *doubleValue *
-                       std::pow(10, static_cast<double>(scaleMultiplier));
+            valueIt = *doubleValue *
+                      std::pow(10, static_cast<double>(scaleMultiplier));
           } else {
-            value_it = static_cast<int64_t>(*doubleValue *
-                                            std::pow(10, scaleMultiplier));
+            valueIt = static_cast<int64_t>(*doubleValue *
+                                           std::pow(10, scaleMultiplier));
           }
         }
       }
     }
   }
-  CROW_LOG_DEBUG << "Added sensor " << sensorName;
+  BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
 }
 
 /**
@@ -345,24 +343,24 @@ void objectInterfacesToJson(
  * @param SensorsAsyncResp   Pointer to object holding response data
  */
 void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
-  CROW_LOG_DEBUG << "getChassisData enter";
+  BMCWEB_LOG_DEBUG << "getChassisData enter";
   auto getChassisCb = [&, SensorsAsyncResp](
                           boost::container::flat_set<std::string>&
                               sensorNames) {
-    CROW_LOG_DEBUG << "getChassisCb enter";
+    BMCWEB_LOG_DEBUG << "getChassisCb enter";
     auto getConnectionCb =
         [&, SensorsAsyncResp, sensorNames](
             const boost::container::flat_set<std::string>& connections) {
-          CROW_LOG_DEBUG << "getConnectionCb enter";
+          BMCWEB_LOG_DEBUG << "getConnectionCb enter";
           // Get managed objects from all services exposing sensors
           for (const std::string& connection : connections) {
             // Response handler to process managed objects
             auto getManagedObjectsCb = [&, SensorsAsyncResp, sensorNames](
                                            const boost::system::error_code ec,
                                            ManagedObjectsVectorType& resp) {
-              CROW_LOG_DEBUG << "getManagedObjectsCb enter";
+              BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
               if (ec) {
-                CROW_LOG_ERROR << "getManagedObjectsCb DBUS error: " << ec;
+                BMCWEB_LOG_ERROR << "getManagedObjectsCb DBUS error: " << ec;
                 SensorsAsyncResp->setErrorStatus();
                 return;
               }
@@ -371,8 +369,8 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
               for (const auto& objDictEntry : resp) {
                 const std::string& objPath =
                     static_cast<const std::string&>(objDictEntry.first);
-                CROW_LOG_DEBUG << "getManagedObjectsCb parsing object "
-                               << objPath;
+                BMCWEB_LOG_DEBUG << "getManagedObjectsCb parsing object "
+                                 << objPath;
 
                 std::vector<std::string> split;
                 // Reserve space for
@@ -380,18 +378,18 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
                 split.reserve(6);
                 boost::algorithm::split(split, objPath, boost::is_any_of("/"));
                 if (split.size() < 6) {
-                  CROW_LOG_ERROR << "Got path that isn't long enough "
-                                 << objPath;
+                  BMCWEB_LOG_ERROR << "Got path that isn't long enough "
+                                   << objPath;
                   continue;
                 }
                 // These indexes aren't intuitive, as boost::split puts an empty
                 // string at the beggining
                 const std::string& sensorType = split[4];
                 const std::string& sensorName = split[5];
-                CROW_LOG_DEBUG << "sensorName " << sensorName << " sensorType "
-                               << sensorType;
+                BMCWEB_LOG_DEBUG << "sensorName " << sensorName
+                                 << " sensorType " << sensorType;
                 if (sensorNames.find(sensorName) == sensorNames.end()) {
-                  CROW_LOG_ERROR << sensorName << " not in sensor list ";
+                  BMCWEB_LOG_ERROR << sensorName << " not in sensor list ";
                   continue;
                 }
 
@@ -407,43 +405,43 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
                 } else if (sensorType == "power") {
                   fieldName = "PowerSupply";
                 } else {
-                  CROW_LOG_ERROR << "Unsure how to handle sensorType "
-                                 << sensorType;
+                  BMCWEB_LOG_ERROR << "Unsure how to handle sensorType "
+                                   << sensorType;
                   continue;
                 }
 
-                nlohmann::json& temp_array =
-                    SensorsAsyncResp->res.json_value[fieldName];
+                nlohmann::json& tempArray =
+                    SensorsAsyncResp->res.jsonValue[fieldName];
 
                 // Create the array if it doesn't yet exist
-                if (temp_array.is_array() == false) {
-                  temp_array = nlohmann::json::array();
+                if (tempArray.is_array() == false) {
+                  tempArray = nlohmann::json::array();
                 }
 
-                temp_array.push_back(
+                tempArray.push_back(
                     {{"@odata.id", "/redfish/v1/Chassis/" +
                                        SensorsAsyncResp->chassisId +
                                        "/Thermal#/" + sensorName}});
-                nlohmann::json& sensor_json = temp_array.back();
+                nlohmann::json& sensorJson = tempArray.back();
                 objectInterfacesToJson(sensorName, sensorType,
-                                       objDictEntry.second, sensor_json);
+                                       objDictEntry.second, sensorJson);
               }
-              CROW_LOG_DEBUG << "getManagedObjectsCb exit";
+              BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
             };
-            crow::connections::system_bus->async_method_call(
+            crow::connections::systemBus->async_method_call(
                 getManagedObjectsCb, connection, "/",
                 "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
           };
-          CROW_LOG_DEBUG << "getConnectionCb exit";
+          BMCWEB_LOG_DEBUG << "getConnectionCb exit";
         };
-    // Get connections and then pass it to get sensors
+    // get connections and then pass it to get sensors
     getConnections(SensorsAsyncResp, sensorNames, std::move(getConnectionCb));
-    CROW_LOG_DEBUG << "getChassisCb exit";
+    BMCWEB_LOG_DEBUG << "getChassisCb exit";
   };
 
-  // Get chassis information related to sensors
+  // get chassis information related to sensors
   getChassis(SensorsAsyncResp, std::move(getChassisCb));
-  CROW_LOG_DEBUG << "getChassisData exit";
+  BMCWEB_LOG_DEBUG << "getChassisData exit";
 };
 
 }  // namespace redfish

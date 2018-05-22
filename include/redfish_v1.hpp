@@ -18,23 +18,23 @@ using ManagedObjectType = std::vector<std::pair<
                          std::string, sdbusplus::message::variant<bool>>>>>;
 
 template <typename... Middlewares>
-void request_routes(Crow<Middlewares...>& app) {
-  CROW_ROUTE(app, "/redfish/")
-      .methods("GET"_method)([](const crow::request& req, crow::response& res) {
-        res.json_value = {{"v1", "/redfish/v1/"}};
+void requestRoutes(Crow<Middlewares...>& app) {
+  BMCWEB_ROUTE(app, "/redfish/")
+      .methods("GET"_method)([](const crow::Request& req, crow::Response& res) {
+        res.jsonValue = {{"v1", "/redfish/v1/"}};
         res.end();
       });
 
-  CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
+  BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/")
       .methods(
-          "GET"_method)([&](const crow::request& req, crow::response& res) {
-        crow::connections::system_bus->async_method_call(
+          "GET"_method)([&](const crow::Request& req, crow::Response& res) {
+        crow::connections::systemBus->async_method_call(
             [&](const boost::system::error_code ec,
                 const ManagedObjectType& users) {
               if (ec) {
                 res.result(boost::beast::http::status::internal_server_error);
               } else {
-                res.json_value = {
+                res.jsonValue = {
                     {"@odata.context",
                      "/redfish/v1/"
                      "$metadata#ManagerAccountCollection."
@@ -45,22 +45,22 @@ void request_routes(Crow<Middlewares...>& app) {
                     {"Name", "Accounts Collection"},
                     {"Description", "BMC User Accounts"},
                     {"Members@odata.count", users.size()}};
-                nlohmann::json member_array = nlohmann::json::array();
-                int user_index = 0;
+                nlohmann::json memberArray = nlohmann::json::array();
+                int userIndex = 0;
                 for (auto& user : users) {
                   const std::string& path =
                       static_cast<const std::string&>(user.first);
-                  std::size_t last_index = path.rfind("/");
-                  if (last_index == std::string::npos) {
-                    last_index = 0;
+                  std::size_t lastIndex = path.rfind("/");
+                  if (lastIndex == std::string::npos) {
+                    lastIndex = 0;
                   } else {
-                    last_index += 1;
+                    lastIndex += 1;
                   }
-                  member_array.push_back(
+                  memberArray.push_back(
                       {{"@odata.id", "/redfish/v1/AccountService/Accounts/" +
-                                         path.substr(last_index)}});
+                                         path.substr(lastIndex)}});
                 }
-                res.json_value["Members"] = member_array;
+                res.jsonValue["Members"] = memberArray;
               }
               res.end();
             },
@@ -68,12 +68,12 @@ void request_routes(Crow<Middlewares...>& app) {
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
       });
 
-  CROW_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
-      .methods("GET"_method)([](const crow::request& req, crow::response& res,
+  BMCWEB_ROUTE(app, "/redfish/v1/AccountService/Accounts/<str>/")
+      .methods("GET"_method)([](const crow::Request& req, crow::Response& res,
                                 const std::string& account_name) {
 
-        crow::connections::system_bus->async_method_call(
-            [&, account_name{std::move(account_name)} ](
+        crow::connections::systemBus->async_method_call(
+            [&, accountName{std::move(account_name)} ](
                 const boost::system::error_code ec,
                 const ManagedObjectType& users) {
               if (ec) {
@@ -82,14 +82,14 @@ void request_routes(Crow<Middlewares...>& app) {
                 for (auto& user : users) {
                   const std::string& path =
                       static_cast<const std::string&>(user.first);
-                  std::size_t last_index = path.rfind("/");
-                  if (last_index == std::string::npos) {
-                    last_index = 0;
+                  std::size_t lastIndex = path.rfind("/");
+                  if (lastIndex == std::string::npos) {
+                    lastIndex = 0;
                   } else {
-                    last_index += 1;
+                    lastIndex += 1;
                   }
-                  if (path.substr(last_index) == account_name) {
-                    res.json_value = {
+                  if (path.substr(lastIndex) == accountName) {
+                    res.jsonValue = {
                         {"@odata.context",
                          "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
                         {"@odata.id", "/redfish/v1/AccountService/Accounts/1"},
@@ -100,7 +100,7 @@ void request_routes(Crow<Middlewares...>& app) {
                         {"Description", "User Account"},
                         {"Enabled", false},
                         {"Password", nullptr},
-                        {"UserName", account_name},
+                        {"UserName", accountName},
                         {"RoleId", "Administrator"},
                         {"Links",
                          {{"Role",
@@ -110,7 +110,7 @@ void request_routes(Crow<Middlewares...>& app) {
                     break;
                   }
                 }
-                if (res.json_value.is_null()) {
+                if (res.jsonValue.is_null()) {
                   res.result(boost::beast::http::status::not_found);
                 }
               }

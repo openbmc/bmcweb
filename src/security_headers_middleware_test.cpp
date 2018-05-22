@@ -1,7 +1,7 @@
 #include <security_headers_middleware.hpp>
 #include <crow/app.h>
-#include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <gtest/gtest.h>
 
 using namespace crow;
 using namespace std;
@@ -10,7 +10,7 @@ using namespace std;
 TEST(SecurityHeaders, TestHeadersExist) {
   App<SecurityHeadersMiddleware> app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(launch::async, [&] { app.run(); });
 
   asio::io_service is;

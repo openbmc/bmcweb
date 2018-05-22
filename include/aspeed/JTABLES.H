@@ -13,24 +13,24 @@ static const unsigned char dezigzag[64 + 15] = {
     // let corrupt input sample past end
     63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63, 63};
 
-static const unsigned char *std_luminance_qt;
-static const unsigned char *std_chrominance_qt;
+static const unsigned char *stdLuminanceQt;
+static const unsigned char *stdChrominanceQt;
 
 // Standard Huffman tables (cf. JPEG standard section K.3) */
 
-static const unsigned char std_dc_luminance_nrcodes[17] = {
+static const unsigned char stdDcLuminanceNrcodes[17] = {
     0, 0, 1, 5, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0};
-static const unsigned char std_dc_luminance_values[12] = {0, 1, 2, 3, 4,  5,
+static const unsigned char stdDcLuminanceValues[12] = {0, 1, 2, 3, 4,  5,
                                                           6, 7, 8, 9, 10, 11};
 
-static const unsigned char std_dc_chrominance_nrcodes[17] = {
+static const unsigned char stdDcChrominanceNrcodes[17] = {
     0, 0, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0};
-static const unsigned char std_dc_chrominance_values[12] = {0, 1, 2, 3, 4,  5,
+static const unsigned char stdDcChrominanceValues[12] = {0, 1, 2, 3, 4,  5,
                                                             6, 7, 8, 9, 10, 11};
 
-static const unsigned char std_ac_luminance_nrcodes[17] = {
+static const unsigned char stdAcLuminanceNrcodes[17] = {
     0, 0, 2, 1, 3, 3, 2, 4, 3, 5, 5, 4, 4, 0, 0, 1, 0x7d};
-static const unsigned char std_ac_luminance_values[162] = {
+static const unsigned char stdAcLuminanceValues[162] = {
     0x01, 0x02, 0x03, 0x00, 0x04, 0x11, 0x05, 0x12, 0x21, 0x31, 0x41, 0x06,
     0x13, 0x51, 0x61, 0x07, 0x22, 0x71, 0x14, 0x32, 0x81, 0x91, 0xa1, 0x08,
     0x23, 0x42, 0xb1, 0xc1, 0x15, 0x52, 0xd1, 0xf0, 0x24, 0x33, 0x62, 0x72,
@@ -46,9 +46,9 @@ static const unsigned char std_ac_luminance_values[162] = {
     0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xea, 0xf1, 0xf2, 0xf3, 0xf4,
     0xf5, 0xf6, 0xf7, 0xf8, 0xf9, 0xfa};
 
-static const unsigned char std_ac_chrominance_nrcodes[17] = {
+static const unsigned char stdAcChrominanceNrcodes[17] = {
     0, 0, 2, 1, 2, 4, 4, 3, 4, 7, 5, 4, 4, 0, 1, 2, 0x77};
-static const unsigned char std_ac_chrominance_values[162] = {
+static const unsigned char stdAcChrominanceValues[162] = {
     0x00, 0x01, 0x02, 0x03, 0x11, 0x04, 0x05, 0x21, 0x31, 0x06, 0x12, 0x41,
     0x51, 0x07, 0x61, 0x71, 0x13, 0x22, 0x32, 0x81, 0x08, 0x14, 0x42, 0x91,
     0xa1, 0xb1, 0xc1, 0x09, 0x23, 0x33, 0x52, 0xf0, 0x15, 0x62, 0x72, 0xd1,
@@ -64,7 +64,7 @@ static const unsigned char std_ac_chrominance_values[162] = {
     0xe2, 0xe3, 0xe4, 0xe5, 0xe6, 0xe7, 0xe8, 0xe9, 0xea, 0xf2, 0xf3, 0xf4,
     0xf5, 0xf6, 0xf7, 0xf8, 0xf9, 0xfa};
 
-static const unsigned short int DC_LUMINANCE_HUFFMANCODE[13 * 2] = {
+static const unsigned short int dcLuminanceHuffmancode[13 * 2] = {
     /* 0 */ 0x0000,  0,
     /* 1 */ 0x4000,  2,
     /* 2 */ 0x6000,  3,
@@ -80,7 +80,7 @@ static const unsigned short int DC_LUMINANCE_HUFFMANCODE[13 * 2] = {
     /* 12 */ 0xFFFF, 9,
 };
 
-static const unsigned short int DC_CHROMINANCE_HUFFMANCODE[13 * 2] = {
+static const unsigned short int dcChrominanceHuffmancode[13 * 2] = {
     /* 0 */ 0x0000,  0,
     /* 1 */ 0x4000,  2,
     /* 2 */ 0x8000,  2,
@@ -96,7 +96,7 @@ static const unsigned short int DC_CHROMINANCE_HUFFMANCODE[13 * 2] = {
     /* 12 */ 0xFFFF, 11,
 };
 
-static const unsigned short int AC_LUMINANCE_HUFFMANCODE[39 * 2] = {
+static const unsigned short int acLuminanceHuffmancode[39 * 2] = {
     /* 0 */ 0x0000,  0,
     /* 1 */ 0x4000,  2,
     /* 2 */ 0x8000,  2,
@@ -138,7 +138,7 @@ static const unsigned short int AC_LUMINANCE_HUFFMANCODE[39 * 2] = {
     /* 38 */ 0xFFFF, 16,
 };
 
-static const unsigned short int AC_CHROMINANCE_HUFFMANCODE[45 * 2] = {
+static const unsigned short int acChrominanceHuffmancode[45 * 2] = {
     /* 0 */ 0x0000,  0,
     /* 1 */ 0x4000,  2,
     /* 2 */ 0x8000,  2,
@@ -187,59 +187,59 @@ static const unsigned short int AC_CHROMINANCE_HUFFMANCODE[45 * 2] = {
 };
 
 //[100]=========================
-static const unsigned char Tbl_100Y[64] = {
+static const unsigned char tbl100Y[64] = {
     2, 1, 1, 2,  3,  5,  6,  7,  1, 1,  1,  2,  3,  7,  7,  6,
     1, 1, 2, 3,  5,  7,  8,  7,  1, 2,  2,  3,  6,  10, 10, 7,
     2, 2, 4, 7,  8,  13, 12, 9,  3, 4,  6,  8,  10, 13, 14, 11,
     6, 8, 9, 10, 12, 15, 15, 12, 9, 11, 11, 12, 14, 12, 12, 12};
-static const unsigned char Tbl_100UV[64] = {
+static const unsigned char tbl100Uv[64] = {
     3,  3,  4,  8,  18, 18, 18, 18, 3,  3,  4,  12, 18, 18, 18, 18,
     4,  4,  10, 18, 18, 18, 18, 18, 8,  12, 18, 18, 18, 18, 18, 18,
     18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18,
     18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18};
 
 //[086]=========================
-static const unsigned char Tbl_086Y[64] = {
+static const unsigned char tbl086Y[64] = {
     3, 2,  1,  3,  4,  7,  9,  11, 2,  2,  2,  3,  4,  10, 11, 10,
     2, 2,  3,  4,  7,  10, 12, 10, 2,  3,  4,  5,  9,  16, 15, 11,
     3, 4,  6,  10, 12, 20, 19, 14, 4,  6,  10, 12, 15, 19, 21, 17,
     9, 12, 14, 16, 19, 22, 22, 18, 13, 17, 17, 18, 21, 18, 19, 18};
-static const unsigned char Tbl_086UV[64] = {
+static const unsigned char tbl086Uv[64] = {
     4,  5,  6,  13, 27, 27, 27, 27, 5,  5,  7,  18, 27, 27, 27, 27,
     6,  7,  15, 27, 27, 27, 27, 27, 13, 18, 27, 27, 27, 27, 27, 27,
     27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27,
     27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27};
 
 //[071]=========================
-static const unsigned char Tbl_071Y[64] = {
+static const unsigned char tbl071Y[64] = {
     6,  4,  3,  6,  9,  15, 19, 22, 4,  4,  5,  7,  9,  21, 22, 20,
     5,  4,  6,  9,  15, 21, 25, 21, 5,  6,  8,  10, 19, 32, 30, 23,
     6,  8,  13, 21, 25, 40, 38, 28, 9,  13, 20, 24, 30, 39, 42, 34,
     18, 24, 29, 32, 38, 45, 45, 37, 27, 34, 35, 36, 42, 37, 38, 37};
-static const unsigned char Tbl_071UV[64] = {
+static const unsigned char tbl071Uv[64] = {
     9,  10, 13, 26, 55, 55, 55, 55, 10, 11, 14, 37, 55, 55, 55, 55,
     13, 14, 31, 55, 55, 55, 55, 55, 26, 37, 55, 55, 55, 55, 55, 55,
     55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55,
     55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55, 55};
 //[057]=========================
-static const unsigned char Tbl_057Y[64] = {
+static const unsigned char tbl057Y[64] = {
     9,  6,  5,  9,  13, 22, 28, 34, 6,  6,  7,  10, 14, 32, 33, 30,
     7,  7,  9,  13, 22, 32, 38, 31, 7,  9,  12, 16, 28, 48, 45, 34,
     10, 12, 20, 31, 38, 61, 57, 43, 13, 19, 30, 36, 45, 58, 63, 51,
     27, 36, 43, 48, 57, 68, 67, 56, 40, 51, 53, 55, 63, 56, 57, 55};
-static const unsigned char Tbl_057UV[64] = {
+static const unsigned char tbl057Uv[64] = {
     13, 14, 19, 38, 80, 80, 80, 80, 14, 17, 21, 53, 80, 80, 80, 80,
     19, 21, 45, 80, 80, 80, 80, 80, 38, 53, 80, 80, 80, 80, 80, 80,
     80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80,
     80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80, 80};
 
 //[043]=========================
-static const unsigned char Tbl_043Y[64] = {
+static const unsigned char tbl043Y[64] = {
     11, 7,  7,  11, 17, 28, 36, 43, 8,  8,  10, 13, 18, 41, 43, 39,
     10, 9,  11, 17, 28, 40, 49, 40, 10, 12, 15, 20, 36, 62, 57, 44,
     12, 15, 26, 40, 48, 78, 74, 55, 17, 25, 39, 46, 58, 74, 81, 66,
     35, 46, 56, 62, 74, 86, 86, 72, 51, 66, 68, 70, 80, 71, 74, 71};
-static const unsigned char Tbl_043UV[64] = {
+static const unsigned char tbl043Uv[64] = {
     18,  19,  26,  51,  108, 108, 108, 108, 19,  22,  28,  72,  108,
     108, 108, 108, 26,  28,  61,  108, 108, 108, 108, 108, 51,  72,
     108, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108,
@@ -247,12 +247,12 @@ static const unsigned char Tbl_043UV[64] = {
     108, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108, 108};
 
 //[029]=========================
-static const unsigned char Tbl_029Y[64] = {
+static const unsigned char tbl029Y[64] = {
     14, 9,  9,  14, 21, 36,  46,  55, 10, 10, 12, 17, 23,  52, 54,  49,
     12, 11, 14, 21, 36, 51,  62,  50, 12, 15, 19, 26, 46,  78, 72,  56,
     16, 19, 33, 50, 61, 98,  93,  69, 21, 31, 49, 58, 73,  94, 102, 83,
     44, 58, 70, 78, 93, 109, 108, 91, 65, 83, 86, 88, 101, 90, 93,  89};
-static const unsigned char Tbl_029UV[64] = {
+static const unsigned char tbl029Uv[64] = {
     22,  24,  32,  63,  133, 133, 133, 133, 24,  28,  34,  88,  133,
     133, 133, 133, 32,  34,  75,  133, 133, 133, 133, 133, 63,  88,
     133, 133, 133, 133, 133, 133, 133, 133, 133, 133, 133, 133, 133,
@@ -260,40 +260,40 @@ static const unsigned char Tbl_029UV[64] = {
     133, 133, 133, 133, 133, 133, 133, 133, 133, 133, 133, 133};
 
 //[014]=========================
-static const unsigned char Tbl_014Y[64] = {
+static const unsigned char tbl014Y[64] = {
     17, 12, 10, 17, 26,  43,  55,  66,  13, 13,  15,  20,  28,  63,  65,  60,
     15, 14, 17, 26, 43,  62,  75,  61,  15, 18,  24,  31,  55,  95,  87,  67,
     19, 24, 40, 61, 74,  119, 112, 84,  26, 38,  60,  70,  88,  113, 123, 100,
     53, 70, 85, 95, 112, 132, 131, 110, 78, 100, 103, 107, 122, 109, 112, 108};
-static const unsigned char Tbl_014UV[64] = {
+static const unsigned char tbl014Uv[64] = {
     27,  29,  39,  76,  160, 160, 160, 160, 29,  34,  42,  107, 160,
     160, 160, 160, 39,  42,  91,  160, 160, 160, 160, 160, 76,  107,
     160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160,
     160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160,
     160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160};
 //[000]=========================
-static const unsigned char Tbl_000Y[64] = {
+static const unsigned char tbl000Y[64] = {
     20, 13, 12, 20,  30,  50,  63,  76,  15, 15,  17,  23,  32,  72,  75,  68,
     17, 16, 20, 30,  50,  71,  86,  70,  17, 21,  27,  36,  63,  108, 100, 77,
     22, 27, 46, 70,  85,  136, 128, 96,  30, 43,  68,  80,  101, 130, 141, 115,
     61, 80, 97, 108, 128, 151, 150, 126, 90, 115, 118, 122, 140, 125, 128, 123};
-static const unsigned char Tbl_000UV[64] = {
+static const unsigned char tbl000Uv[64] = {
     31,  33,  45,  88,  185, 185, 185, 185, 33,  39,  48,  123, 185,
     185, 185, 185, 45,  48,  105, 185, 185, 185, 185, 185, 88,  123,
     185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185,
     185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185,
     185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185, 185};
 
-struct Huffman_table {
-  unsigned char Length[17];  // k =1-16 ; L[k] indicates the number of Huffman
+struct HuffmanTable {
+  unsigned char length[17];  // k =1-16 ; L[k] indicates the number of Huffman
                              // codes of length k
-  unsigned short int minor_code[17];  // indicates the value of the smallest
+  unsigned short int minorCode[17];  // indicates the value of the smallest
                                       // Huffman code of length k
-  unsigned short int major_code[17];  // similar, but the highest code
-  unsigned char V[65536];  // V[k][j] = Value associated to the j-th Huffman
+  unsigned short int majorCode[17];  // similar, but the highest code
+  unsigned char v[65536];  // V[k][j] = Value associated to the j-th Huffman
                            // code of length k
                            // High nibble = nr of previous 0 coefficients
   // Low nibble = size (in bits) of the coefficient which will be taken from the
   // data stream
-  unsigned char Len[65536];
+  unsigned char len[65536];
 };

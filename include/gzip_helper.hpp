@@ -4,8 +4,8 @@
 #include <cstring>
 #include <string>
 
-inline bool gzip_inflate(const std::string& compressedBytes,
-                        std::string& uncompressedBytes) {
+inline bool gzipInflate(const std::string& compressedBytes,
+                         std::string& uncompressedBytes) {
   if (compressedBytes.empty()) {
     uncompressedBytes = compressedBytes;
     return true;

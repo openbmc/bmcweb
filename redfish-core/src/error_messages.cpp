@@ -29,13 +29,13 @@ void addMessageToErrorJson(nlohmann::json& target,
   if (!error.is_object()) {
     auto message_id_iterator = message.find("MessageId");
     if (message_id_iterator == message.end()) {
-      CROW_LOG_CRITICAL << "Attempt to add error message without MessageId";
+      BMCWEB_LOG_CRITICAL << "Attempt to add error message without MessageId";
       return;
     }
 
     auto message_field_iterator = message.find("Message");
     if (message_field_iterator == message.end()) {
-      CROW_LOG_CRITICAL << "Attempt to add error message without Message";
+      BMCWEB_LOG_CRITICAL << "Attempt to add error message without Message";
       return;
     }
     // clang-format off
@@ -46,7 +46,7 @@ void addMessageToErrorJson(nlohmann::json& target,
     // clang-format on
   } else {
     // More than 1 error occurred, so the message has to be generic
-    error["code"] = std::string(MESSAGE_VERSION_PREFIX) + "GeneralError";
+    error["code"] = std::string(messageVersionPrefix) + "GeneralError";
     error["message"] =
         "A general error has occurred. See ExtendedInfo for more"
         "information.";
@@ -55,7 +55,7 @@ void addMessageToErrorJson(nlohmann::json& target,
   // This check could technically be done in in the default construction
   // branch above, but because we need the pointer to the extended info field
   // anyway, it's more efficient to do it here.
-  auto& extended_info = error[messages::MESSAGE_ANNOTATION];
+  auto& extended_info = error[messages::messageAnnotation];
   if (!extended_info.is_array()) {
     extended_info = nlohmann::json::array();
   }
@@ -65,18 +65,18 @@ void addMessageToErrorJson(nlohmann::json& target,
 
 void addMessageToJsonRoot(nlohmann::json& target,
                           const nlohmann::json& message) {
-  if (!target[messages::MESSAGE_ANNOTATION].is_array()) {
+  if (!target[messages::messageAnnotation].is_array()) {
     // Force object to be an array
-    target[messages::MESSAGE_ANNOTATION] = nlohmann::json::array();
+    target[messages::messageAnnotation] = nlohmann::json::array();
   }
 
-  target[messages::MESSAGE_ANNOTATION].push_back(message);
+  target[messages::messageAnnotation].push_back(message);
 }
 
 void addMessageToJson(nlohmann::json& target, const nlohmann::json& message,
                       const std::string& fieldPath) {
   nlohmann::json_pointer<nlohmann::json> extendedInfo(
-      fieldPath + messages::MESSAGE_ANNOTATION);
+      fieldPath + messages::messageAnnotation);
 
   if (!target[extendedInfo].is_array()) {
     // Force object to be an array
@@ -553,7 +553,7 @@ nlohmann::json couldNotEstablishConnection(const std::string& arg1) {
   return nlohmann::json{
       {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
       {"MessageId", "Base.1.2.0.CouldNotEstablishConnection"},
-      {"Message", "The service failed to establish a connection with the URI " +
+      {"Message", "The service failed to establish a Connection with the URI " +
                       arg1 + "."},
       {"Severity", "Critical"},
       {"Resolution",
@@ -675,7 +675,7 @@ nlohmann::json sourceDoesNotSupportProtocol(const std::string& arg1,
   return nlohmann::json{
       {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
       {"MessageId", "Base.1.2.0.SourceDoesNotSupportProtocol"},
-      {"Message", "The other end of the connection at " + arg1 +
+      {"Message", "The other end of the Connection at " + arg1 +
                       " does not support the specified protocol " + arg2 + "."},
       {"Severity", "Critical"},
       {"Resolution", "Change protocols or URIs. "}};
@@ -708,7 +708,7 @@ nlohmann::json accessDenied(const std::string& arg1) {
   return nlohmann::json{
       {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
       {"MessageId", "Base.1.2.0.AccessDenied"},
-      {"Message", "While attempting to establish a connection to " + arg1 +
+      {"Message", "While attempting to establish a Connection to " + arg1 +
                       ", the service denied access."},
       {"Severity", "Critical"},
       {"Resolution",
@@ -951,7 +951,7 @@ nlohmann::json invalidIndex(const int& arg1) {
   return nlohmann::json{
       {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
       {"MessageId", "Base.1.2.0.InvalidIndex"},
-      {"Message", "The Index " + std::to_string(arg1) +
+      {"Message", "The index " + std::to_string(arg1) +
                       " is not a valid offset into the array."},
       {"Severity", "Warning"},
       {"Resolution",
