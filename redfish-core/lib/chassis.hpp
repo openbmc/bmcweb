@@ -24,7 +24,7 @@ namespace redfish {
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
-// Note, this is not a very useful variant, but because it isn't used to get
+// Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
 using VariantType = sdbusplus::message::variant<bool, std::string>;
@@ -55,38 +55,38 @@ class OnDemandChassisProvider {
    * JSON.
    */
   template <typename CallbackFunc>
-  void get_chassis_list(CallbackFunc &&callback) {
+  void getChassisList(CallbackFunc &&callback) {
     const std::array<const char *, 4> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
         "xyz.openbmc_project.Inventory.Item.Chassis",
         "xyz.openbmc_project.Inventory.Item.PowerSupply",
         "xyz.openbmc_project.Inventory.Item.System",
     };
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code error_code,
             const std::vector<std::string> &resp) {
           // Callback requires vector<string> to retrieve all available chassis
           // list.
-          std::vector<std::string> chassis_list;
+          std::vector<std::string> chassisList;
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
             // of vector may vary depending on information from Entity Manager,
             // and empty output could not be treated same way as error.
-            callback(false, chassis_list);
+            callback(false, chassisList);
             return;
           }
           // Iterate over all retrieved ObjectPaths.
           for (const std::string &objpath : resp) {
-            std::size_t last_pos = objpath.rfind("/");
-            if (last_pos != std::string::npos) {
+            std::size_t lastPos = objpath.rfind("/");
+            if (lastPos != std::string::npos) {
               // and put it into output vector.
-              chassis_list.emplace_back(objpath.substr(last_pos + 1));
+              chassisList.emplace_back(objpath.substr(lastPos + 1));
             }
           }
-          // Finally make a callback with useful data
-          callback(true, chassis_list);
+          // Finally make a callback with usefull data
+          callback(true, chassisList);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -120,22 +120,22 @@ class ChassisCollection : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
-    // Get chassis list, and call the below callback for JSON preparation
-    chassis_provider.get_chassis_list(
+    // get chassis list, and call the below callback for JSON preparation
+    chassisProvider.getChassisList(
         [&](const bool &success, const std::vector<std::string> &output) {
           if (success) {
             // ... prepare json array with appropriate @odata.id links
-            nlohmann::json chassis_array = nlohmann::json::array();
-            for (const std::string &chassis_item : output) {
-              chassis_array.push_back(
-                  {{"@odata.id", "/redfish/v1/Chassis/" + chassis_item}});
+            nlohmann::json chassisArray = nlohmann::json::array();
+            for (const std::string &chassisItem : output) {
+              chassisArray.push_back(
+                  {{"@odata.id", "/redfish/v1/Chassis/" + chassisItem}});
             }
             // Then attach members, count size and return,
-            Node::json["Members"] = chassis_array;
-            Node::json["Members@odata.count"] = chassis_array.size();
-            res.json_value = Node::json;
+            Node::json["Members"] = chassisArray;
+            Node::json["Members@odata.count"] = chassisArray.size();
+            res.jsonValue = Node::json;
           } else {
             // ... otherwise, return INTERNALL ERROR
             res.result(boost::beast::http::status::internal_server_error);
@@ -146,7 +146,7 @@ class ChassisCollection : public Node {
 
   // Chassis Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandChassisProvider chassis_provider;
+  OnDemandChassisProvider chassisProvider;
 };
 
 /**
@@ -175,7 +175,7 @@ class Chassis : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     // Check if there is required param, truly entering this shall be
     // impossible.
@@ -185,17 +185,17 @@ class Chassis : public Node {
       return;
     }
 
-    res.json_value = Node::json;
-    const std::string &chassis_id = params[0];
-    crow::connections::system_bus->async_method_call(
-        [&res, chassis_id(std::string(chassis_id)) ](
+    res.jsonValue = Node::json;
+    const std::string &chassisId = params[0];
+    crow::connections::systemBus->async_method_call(
+        [&res, chassisId(std::string(chassisId)) ](
             const boost::system::error_code error_code,
             const std::vector<std::pair<
                 std::string,
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
           if (error_code) {
-            res.json_value = {};
+            res.jsonValue = {};
             res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
@@ -209,39 +209,39 @@ class Chassis : public Node {
             const std::vector<std::pair<std::string, std::vector<std::string>>>
                 &connectionNames = object.second;
 
-            if (!boost::ends_with(path, chassis_id)) {
+            if (!boost::ends_with(path, chassisId)) {
               continue;
             }
             if (connectionNames.size() < 1) {
-              CROW_LOG_ERROR << "Only got " << connectionNames.size()
-                             << " connection names";
+              BMCWEB_LOG_ERROR << "Only got " << connectionNames.size()
+                               << " Connection names";
               continue;
             }
 
             const std::string connectionName = connectionNames[0].first;
-            crow::connections::system_bus->async_method_call(
-                [&res, chassis_id(std::string(chassis_id)) ](
+            crow::connections::systemBus->async_method_call(
+                [&res, chassisId(std::string(chassisId)) ](
                     const boost::system::error_code error_code,
                     const std::vector<std::pair<std::string, VariantType>>
                         &propertiesList) {
                   for (const std::pair<std::string, VariantType> &property :
                        propertiesList) {
                     const std::string *value =
-                        mapbox::get_ptr<const std::string>(property.second);
+                        mapbox::getPtr<const std::string>(property.second);
                     if (value != nullptr) {
-                      res.json_value[property.first] = *value;
+                      res.jsonValue[property.first] = *value;
                     }
                   }
-                  res.json_value["Name"] = chassis_id;
-                  res.json_value["Id"] = chassis_id;
-                  res.json_value["Thermal"] = {
+                  res.jsonValue["Name"] = chassisId;
+                  res.jsonValue["Id"] = chassisId;
+                  res.jsonValue["Thermal"] = {
                       {"@odata.id",
-                       "/redfish/v1/Chassis/" + chassis_id + "/Thermal"}};
+                       "/redfish/v1/Chassis/" + chassisId + "/Thermal"}};
                   res.end();
                 },
                 connectionName, path, "org.freedesktop.DBus.Properties",
                 "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
-            // Found the connection we were looking for, return
+            // Found the Connection we were looking for, return
             return;
           }
 
@@ -260,7 +260,7 @@ class Chassis : public Node {
 
   // Chassis Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandChassisProvider chassis_provider;
+  OnDemandChassisProvider chassisProvider;
 };  // namespace redfish
 
 }  // namespace redfish

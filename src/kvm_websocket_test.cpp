@@ -15,11 +15,11 @@ TEST(Kvm, BasicRfb) {
   return;  // TODO(ed) Make hte code below work again
   SimpleApp app;
 
-  crow::kvm::request_routes(app);
+  crow::kvm::requestRoutes(app);
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
   auto _ = async(std::launch::async, [&] { app.run(); });
-  auto routes = app.get_routes();
+  auto routes = app.getRoutes();
   asio::io_service is;
 
   {
@@ -56,23 +56,23 @@ TEST(Kvm, BasicRfb) {
       asio::ip::address::from_string("127.0.0.1"), 45451));
   socket.send(asio::buffer(sendmsg));
 
-  // Read the response status line. The response streambuf will automatically
+  // Read the Response status line. The Response streambuf will automatically
   // grow to accommodate the entire line. The growth may be limited by passing
   // a maximum size to the streambuf constructor.
   boost::asio::streambuf response;
   boost::asio::read_until(socket, response, "\r\n");
 
-  // Check that response is OK.
+  // Check that Response is OK.
   std::istream response_stream(&response);
   std::string http_response;
   std::getline(response_stream, http_response);
 
   EXPECT_EQ(http_response, "HTTP/1.1 101 Switching Protocols\r");
 
-  // Read the response headers, which are terminated by a blank line.
+  // Read the Response headers, which are terminated by a blank line.
   boost::asio::read_until(socket, response, "\r\n\r\n");
 
-  // Process the response headers.
+  // Process the Response headers.
   std::string header;
   std::vector<std::string> headers;
   while (std::getline(response_stream, header) && header != "\r") {

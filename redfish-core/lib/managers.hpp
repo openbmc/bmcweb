@@ -30,8 +30,8 @@ class Manager : public Node {
     Node::json["Description"] = "Baseboard Management Controller";
     Node::json["PowerState"] = "On";
     Node::json["UUID"] =
-        app.template get_middleware<crow::PersistentData::Middleware>()
-            .system_uuid;
+        app.template getMiddleware<crow::persistent_data::Middleware>()
+            .systemUuid;
     Node::json["Model"] = "OpenBmc";               // TODO(ed), get model
     Node::json["FirmwareVersion"] = "1234456789";  // TODO(ed), get fwversion
     Node::json["EthernetInterfaces"] = nlohmann::json(
@@ -52,10 +52,11 @@ class Manager : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
     Node::json["DateTime"] = getDateTime();
-    res.json_value = Node::json;
+    // Copy over the static data to include the entries added by SubRoute
+    res.jsonValue = Node::json;
     res.end();
   }
 
@@ -96,9 +97,18 @@ class ManagerCollection : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = Node::json;
+    // Collections don't include the static data added by SubRoute because it
+    // has a duplicate entry for members
+    res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
+    res.jsonValue["@odata.type"] = "#ManagerCollection.ManagerCollection";
+    res.jsonValue["@odata.context"] =
+        "/redfish/v1/$metadata#ManagerCollection.ManagerCollection";
+    res.jsonValue["Name"] = "Manager Collection";
+    res.jsonValue["Members@odata.count"] = 1;
+    res.jsonValue["Members"] = {
+        {{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
     res.end();
   }
 
