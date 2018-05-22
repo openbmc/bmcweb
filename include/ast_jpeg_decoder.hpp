@@ -1,30 +1,30 @@
 #pragma once
 
+#include <aspeed/JTABLES.H>
 #include <ast_video_types.hpp>
 #include <array>
-#include <aspeed/JTABLES.H>
 #include <cassert>
 #include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <vector>
 
-namespace AstVideo {
+namespace ast_video {
 
-struct COLOR_CACHE {
-  COLOR_CACHE()
-      : Color{0x008080, 0xFF8080, 0x808080, 0xC08080}, Index{0, 1, 2, 3} {}
+struct ColorCache {
+  ColorCache()
+      : color{0x008080, 0xFF8080, 0x808080, 0xC08080}, index{0, 1, 2, 3} {}
 
-  unsigned long Color[4];
-  unsigned char Index[4];
-  unsigned char BitMapBits{};
+  unsigned long color[4];
+  unsigned char index[4];
+  unsigned char bitMapBits{};
 };
 
 struct RGB {
-  unsigned char B;
-  unsigned char G;
-  unsigned char R;
-  unsigned char Reserved;
+  unsigned char b;
+  unsigned char g;
+  unsigned char r;
+  unsigned char reserved;
 };
 
 enum class JpgBlock {
@@ -54,61 +54,60 @@ class AstJpegDecoder {
  public:
   AstJpegDecoder() {
     // TODO(ed) figure out how to init this in the constructor
-    YUVBuffer.resize(1920 * 1200);
-    OutBuffer.resize(1920 * 1200);
-    for (auto &r : OutBuffer) {
-      r.R = 0x00;
-      r.G = 0x00;
-      r.B = 0x00;
-      r.Reserved = 0xAA;
+    yuvBuffer.resize(1920 * 1200);
+    outBuffer.resize(1920 * 1200);
+    for (auto &r : outBuffer) {
+      r.r = 0x00;
+      r.g = 0x00;
+      r.b = 0x00;
+      r.reserved = 0xAA;
     }
 
     int qfactor = 16;
 
-    SCALEFACTOR = qfactor;
-    SCALEFACTORUV = qfactor;
-    ADVANCESCALEFACTOR = 16;
-    ADVANCESCALEFACTORUV = 16;
-    init_jpg_table();
+    scalefactor = qfactor;
+    scalefactoruv = qfactor;
+    advancescalefactor = 16;
+    advancescalefactoruv = 16;
+    initJpgTable();
   }
 
-  void load_quant_table(std::array<long, 64> &quant_table) {
-    float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
-                            1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
+  void loadQuantTable(std::array<long, 64> &quant_table) {
+    float scalefactor_f[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
+                              1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
     std::array<uint8_t, 64> tempQT{};
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
     // from zig-zag order
-    switch (Y_selector) {
+    switch (ySelector) {
       case 0:
-        std_luminance_qt = Tbl_000Y;
+        stdLuminanceQt = tbl000Y;
         break;
       case 1:
-        std_luminance_qt = Tbl_014Y;
+        stdLuminanceQt = tbl014Y;
         break;
       case 2:
-        std_luminance_qt = Tbl_029Y;
+        stdLuminanceQt = tbl029Y;
         break;
       case 3:
-        std_luminance_qt = Tbl_043Y;
+        stdLuminanceQt = tbl043Y;
         break;
       case 4:
-        std_luminance_qt = Tbl_057Y;
+        stdLuminanceQt = tbl057Y;
         break;
       case 5:
-        std_luminance_qt = Tbl_071Y;
+        stdLuminanceQt = tbl071Y;
         break;
       case 6:
-        std_luminance_qt = Tbl_086Y;
+        stdLuminanceQt = tbl086Y;
         break;
       case 7:
-        std_luminance_qt = Tbl_100Y;
+        stdLuminanceQt = tbl100Y;
         break;
     }
-    set_quant_table(std_luminance_qt, static_cast<uint8_t>(SCALEFACTOR),
-                    tempQT);
+    setQuantTable(stdLuminanceQt, static_cast<uint8_t>(scalefactor), tempQT);
 
     for (j = 0; j <= 63; j++) {
       quant_table[j] = tempQT[zigzag[j]];
@@ -117,14 +116,14 @@ class AstJpegDecoder {
     for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
         quant_table[j] = static_cast<long>(
-            (quant_table[j] * scalefactor[row] * scalefactor[col]) * 65536);
+            (quant_table[j] * scalefactor_f[row] * scalefactor_f[col]) * 65536);
         j++;
       }
     }
-    byte_pos += 64;
+    bytePos += 64;
   }
 
-  void load_quant_tableCb(std::array<long, 64> &quant_table) {
+  void loadQuantTableCb(std::array<long, 64> &quant_table) {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
@@ -132,63 +131,63 @@ class AstJpegDecoder {
 
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder from zig-zag order
-    if (Mapping == 0) {
-      switch (UV_selector) {
+    if (mapping == 0) {
+      switch (uvSelector) {
         case 0:
-          std_chrominance_qt = Tbl_000Y;
+          stdChrominanceQt = tbl000Y;
           break;
         case 1:
-          std_chrominance_qt = Tbl_014Y;
+          stdChrominanceQt = tbl014Y;
           break;
         case 2:
-          std_chrominance_qt = Tbl_029Y;
+          stdChrominanceQt = tbl029Y;
           break;
         case 3:
-          std_chrominance_qt = Tbl_043Y;
+          stdChrominanceQt = tbl043Y;
           break;
         case 4:
-          std_chrominance_qt = Tbl_057Y;
+          stdChrominanceQt = tbl057Y;
           break;
         case 5:
-          std_chrominance_qt = Tbl_071Y;
+          stdChrominanceQt = tbl071Y;
           break;
         case 6:
-          std_chrominance_qt = Tbl_086Y;
+          stdChrominanceQt = tbl086Y;
           break;
         case 7:
-          std_chrominance_qt = Tbl_100Y;
+          stdChrominanceQt = tbl100Y;
           break;
       }
     } else {
-      switch (UV_selector) {
+      switch (uvSelector) {
         case 0:
-          std_chrominance_qt = Tbl_000UV;
+          stdChrominanceQt = tbl000Uv;
           break;
         case 1:
-          std_chrominance_qt = Tbl_014UV;
+          stdChrominanceQt = tbl014Uv;
           break;
         case 2:
-          std_chrominance_qt = Tbl_029UV;
+          stdChrominanceQt = tbl029Uv;
           break;
         case 3:
-          std_chrominance_qt = Tbl_043UV;
+          stdChrominanceQt = tbl043Uv;
           break;
         case 4:
-          std_chrominance_qt = Tbl_057UV;
+          stdChrominanceQt = tbl057Uv;
           break;
         case 5:
-          std_chrominance_qt = Tbl_071UV;
+          stdChrominanceQt = tbl071Uv;
           break;
         case 6:
-          std_chrominance_qt = Tbl_086UV;
+          stdChrominanceQt = tbl086Uv;
           break;
         case 7:
-          std_chrominance_qt = Tbl_100UV;
+          stdChrominanceQt = tbl100Uv;
           break;
       }
     }
-    set_quant_table(std_chrominance_qt, static_cast<uint8_t>(SCALEFACTORUV),
-                    tempQT);
+    setQuantTable(stdChrominanceQt, static_cast<uint8_t>(scalefactoruv),
+                  tempQT);
 
     for (j = 0; j <= 63; j++) {
       quant_table[j] = tempQT[zigzag[j]];
@@ -201,10 +200,10 @@ class AstJpegDecoder {
         j++;
       }
     }
-    byte_pos += 64;
+    bytePos += 64;
   }
   //  Note: Added for Dual_JPEG
-  void load_advance_quant_table(std::array<long, 64> &quant_table) {
+  void loadAdvanceQuantTable(std::array<long, 64> &quant_table) {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
@@ -213,35 +212,35 @@ class AstJpegDecoder {
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
     // from zig-zag order
-    switch (advance_selector) {
+    switch (advanceSelector) {
       case 0:
-        std_luminance_qt = Tbl_000Y;
+        stdLuminanceQt = tbl000Y;
         break;
       case 1:
-        std_luminance_qt = Tbl_014Y;
+        stdLuminanceQt = tbl014Y;
         break;
       case 2:
-        std_luminance_qt = Tbl_029Y;
+        stdLuminanceQt = tbl029Y;
         break;
       case 3:
-        std_luminance_qt = Tbl_043Y;
+        stdLuminanceQt = tbl043Y;
         break;
       case 4:
-        std_luminance_qt = Tbl_057Y;
+        stdLuminanceQt = tbl057Y;
         break;
       case 5:
-        std_luminance_qt = Tbl_071Y;
+        stdLuminanceQt = tbl071Y;
         break;
       case 6:
-        std_luminance_qt = Tbl_086Y;
+        stdLuminanceQt = tbl086Y;
         break;
       case 7:
-        std_luminance_qt = Tbl_100Y;
+        stdLuminanceQt = tbl100Y;
         break;
     }
     //  Note: pass ADVANCE SCALE FACTOR to sub-function in Dual-JPEG
-    set_quant_table(std_luminance_qt, static_cast<uint8_t>(ADVANCESCALEFACTOR),
-                    tempQT);
+    setQuantTable(stdLuminanceQt, static_cast<uint8_t>(advancescalefactor),
+                  tempQT);
 
     for (j = 0; j <= 63; j++) {
       quant_table[j] = tempQT[zigzag[j]];
@@ -254,11 +253,11 @@ class AstJpegDecoder {
         j++;
       }
     }
-    byte_pos += 64;
+    bytePos += 64;
   }
 
   //  Note: Added for Dual-JPEG
-  void load_advance_quant_tableCb(std::array<long, 64> &quant_table) {
+  void loadAdvanceQuantTableCb(std::array<long, 64> &quant_table) {
     float scalefactor[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                             1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
@@ -267,64 +266,64 @@ class AstJpegDecoder {
     // Load quantization coefficients from JPG file, scale them for DCT and
     // reorder
     // from zig-zag order
-    if (Mapping == 1) {
-      switch (advance_selector) {
+    if (mapping == 1) {
+      switch (advanceSelector) {
         case 0:
-          std_chrominance_qt = Tbl_000Y;
+          stdChrominanceQt = tbl000Y;
           break;
         case 1:
-          std_chrominance_qt = Tbl_014Y;
+          stdChrominanceQt = tbl014Y;
           break;
         case 2:
-          std_chrominance_qt = Tbl_029Y;
+          stdChrominanceQt = tbl029Y;
           break;
         case 3:
-          std_chrominance_qt = Tbl_043Y;
+          stdChrominanceQt = tbl043Y;
           break;
         case 4:
-          std_chrominance_qt = Tbl_057Y;
+          stdChrominanceQt = tbl057Y;
           break;
         case 5:
-          std_chrominance_qt = Tbl_071Y;
+          stdChrominanceQt = tbl071Y;
           break;
         case 6:
-          std_chrominance_qt = Tbl_086Y;
+          stdChrominanceQt = tbl086Y;
           break;
         case 7:
-          std_chrominance_qt = Tbl_100Y;
+          stdChrominanceQt = tbl100Y;
           break;
       }
     } else {
-      switch (advance_selector) {
+      switch (advanceSelector) {
         case 0:
-          std_chrominance_qt = Tbl_000UV;
+          stdChrominanceQt = tbl000Uv;
           break;
         case 1:
-          std_chrominance_qt = Tbl_014UV;
+          stdChrominanceQt = tbl014Uv;
           break;
         case 2:
-          std_chrominance_qt = Tbl_029UV;
+          stdChrominanceQt = tbl029Uv;
           break;
         case 3:
-          std_chrominance_qt = Tbl_043UV;
+          stdChrominanceQt = tbl043Uv;
           break;
         case 4:
-          std_chrominance_qt = Tbl_057UV;
+          stdChrominanceQt = tbl057Uv;
           break;
         case 5:
-          std_chrominance_qt = Tbl_071UV;
+          stdChrominanceQt = tbl071Uv;
           break;
         case 6:
-          std_chrominance_qt = Tbl_086UV;
+          stdChrominanceQt = tbl086Uv;
           break;
         case 7:
-          std_chrominance_qt = Tbl_100UV;
+          stdChrominanceQt = tbl100Uv;
           break;
       }
     }
     //  Note: pass ADVANCE SCALE FACTOR to sub-function in Dual-JPEG
-    set_quant_table(std_chrominance_qt,
-                    static_cast<uint8_t>(ADVANCESCALEFACTORUV), tempQT);
+    setQuantTable(stdChrominanceQt, static_cast<uint8_t>(advancescalefactoruv),
+                  tempQT);
 
     for (j = 0; j <= 63; j++) {
       quant_table[j] = tempQT[zigzag[j]];
@@ -337,10 +336,10 @@ class AstJpegDecoder {
         j++;
       }
     }
-    byte_pos += 64;
+    bytePos += 64;
   }
 
-  void IDCT_transform(short *coef, uint8_t *data, uint8_t nBlock) {
+  void idctTransform(short *coef, uint8_t *data, uint8_t nBlock) {
 #define FIX_1_082392200 ((int)277) /* FIX(1.082392200) */
 #define FIX_1_414213562 ((int)362) /* FIX(1.414213562) */
 #define FIX_1_847759065 ((int)473) /* FIX(1.847759065) */
@@ -357,38 +356,38 @@ class AstJpegDecoder {
     long *quantptr;
     int *wsptr = workspace;
     unsigned char *outptr;
-    unsigned char *r_limit = rlimit_table + 128;
-    int ctr, dcval, DCTSIZE = 8;
+    unsigned char *rLimit = rlimitTable + 128;
+    int ctr, dcval, dctsize = 8;
 
-    quantptr = &QT[nBlock][0];
+    quantptr = &qt[nBlock][0];
 
     // Pass 1: process columns from input (inptr), store into work array(wsptr)
 
     for (ctr = 8; ctr > 0; ctr--) {
       /* Due to quantization, we will usually find that many of the input
-          * coefficients are zero, especially the AC terms.  We can exploit this
-          * by short-circuiting the IDCT calculation for any column in which all
-          * the AC terms are zero.  In that case each output is equal to the
-          * DC coefficient (with scale factor as needed).
-          * With typical images and quantization tables, half or more of the
-          * column DCT calculations can be simplified this way.
-          */
+       * coefficients are zero, especially the AC terms.  We can exploit this
+       * by short-circuiting the IDCT calculation for any column in which all
+       * the AC terms are zero.  In that case each output is equal to the
+       * DC coefficient (with scale factor as needed).
+       * With typical images and quantization tables, half or more of the
+       * column DCT calculations can be simplified this way.
+       */
 
-      if ((inptr[DCTSIZE * 1] | inptr[DCTSIZE * 2] | inptr[DCTSIZE * 3] |
-           inptr[DCTSIZE * 4] | inptr[DCTSIZE * 5] | inptr[DCTSIZE * 6] |
-           inptr[DCTSIZE * 7]) == 0) {
+      if ((inptr[dctsize * 1] | inptr[dctsize * 2] | inptr[dctsize * 3] |
+           inptr[dctsize * 4] | inptr[dctsize * 5] | inptr[dctsize * 6] |
+           inptr[dctsize * 7]) == 0) {
         /* AC terms all zero */
-        dcval = static_cast<int>((inptr[DCTSIZE * 0] * quantptr[DCTSIZE * 0]) >>
+        dcval = static_cast<int>((inptr[dctsize * 0] * quantptr[dctsize * 0]) >>
                                  16);
 
-        wsptr[DCTSIZE * 0] = dcval;
-        wsptr[DCTSIZE * 1] = dcval;
-        wsptr[DCTSIZE * 2] = dcval;
-        wsptr[DCTSIZE * 3] = dcval;
-        wsptr[DCTSIZE * 4] = dcval;
-        wsptr[DCTSIZE * 5] = dcval;
-        wsptr[DCTSIZE * 6] = dcval;
-        wsptr[DCTSIZE * 7] = dcval;
+        wsptr[dctsize * 0] = dcval;
+        wsptr[dctsize * 1] = dcval;
+        wsptr[dctsize * 2] = dcval;
+        wsptr[dctsize * 3] = dcval;
+        wsptr[dctsize * 4] = dcval;
+        wsptr[dctsize * 5] = dcval;
+        wsptr[dctsize * 6] = dcval;
+        wsptr[dctsize * 7] = dcval;
 
         inptr++; /* advance pointers to next column */
         quantptr++;
@@ -398,10 +397,10 @@ class AstJpegDecoder {
 
       /* Even part */
 
-      tmp0 = (inptr[DCTSIZE * 0] * quantptr[DCTSIZE * 0]) >> 16;
-      tmp1 = (inptr[DCTSIZE * 2] * quantptr[DCTSIZE * 2]) >> 16;
-      tmp2 = (inptr[DCTSIZE * 4] * quantptr[DCTSIZE * 4]) >> 16;
-      tmp3 = (inptr[DCTSIZE * 6] * quantptr[DCTSIZE * 6]) >> 16;
+      tmp0 = (inptr[dctsize * 0] * quantptr[dctsize * 0]) >> 16;
+      tmp1 = (inptr[dctsize * 2] * quantptr[dctsize * 2]) >> 16;
+      tmp2 = (inptr[dctsize * 4] * quantptr[dctsize * 4]) >> 16;
+      tmp3 = (inptr[dctsize * 6] * quantptr[dctsize * 6]) >> 16;
 
       tmp10 = tmp0 + tmp2; /* phase 3 */
       tmp11 = tmp0 - tmp2;
@@ -416,10 +415,10 @@ class AstJpegDecoder {
 
       /* Odd part */
 
-      tmp4 = (inptr[DCTSIZE * 1] * quantptr[DCTSIZE * 1]) >> 16;
-      tmp5 = (inptr[DCTSIZE * 3] * quantptr[DCTSIZE * 3]) >> 16;
-      tmp6 = (inptr[DCTSIZE * 5] * quantptr[DCTSIZE * 5]) >> 16;
-      tmp7 = (inptr[DCTSIZE * 7] * quantptr[DCTSIZE * 7]) >> 16;
+      tmp4 = (inptr[dctsize * 1] * quantptr[dctsize * 1]) >> 16;
+      tmp5 = (inptr[dctsize * 3] * quantptr[dctsize * 3]) >> 16;
+      tmp6 = (inptr[dctsize * 5] * quantptr[dctsize * 5]) >> 16;
+      tmp7 = (inptr[dctsize * 7] * quantptr[dctsize * 7]) >> 16;
 
       z13 = tmp6 + tmp5; /* phase 6 */
       z10 = tmp6 - tmp5;
@@ -437,14 +436,14 @@ class AstJpegDecoder {
       tmp5 = tmp11 - tmp6;
       tmp4 = tmp10 + tmp5;
 
-      wsptr[DCTSIZE * 0] = (tmp0 + tmp7);
-      wsptr[DCTSIZE * 7] = (tmp0 - tmp7);
-      wsptr[DCTSIZE * 1] = (tmp1 + tmp6);
-      wsptr[DCTSIZE * 6] = (tmp1 - tmp6);
-      wsptr[DCTSIZE * 2] = (tmp2 + tmp5);
-      wsptr[DCTSIZE * 5] = (tmp2 - tmp5);
-      wsptr[DCTSIZE * 4] = (tmp3 + tmp4);
-      wsptr[DCTSIZE * 3] = (tmp3 - tmp4);
+      wsptr[dctsize * 0] = (tmp0 + tmp7);
+      wsptr[dctsize * 7] = (tmp0 - tmp7);
+      wsptr[dctsize * 1] = (tmp1 + tmp6);
+      wsptr[dctsize * 6] = (tmp1 - tmp6);
+      wsptr[dctsize * 2] = (tmp2 + tmp5);
+      wsptr[dctsize * 5] = (tmp2 - tmp5);
+      wsptr[dctsize * 4] = (tmp3 + tmp4);
+      wsptr[dctsize * 3] = (tmp3 - tmp4);
 
       inptr++; /* advance pointers to next column */
       quantptr++;
@@ -460,16 +459,16 @@ class AstJpegDecoder {
 #define IDESCALE(x, n) ((int)((x) >> (n)))
 
     wsptr = workspace;
-    for (ctr = 0; ctr < DCTSIZE; ctr++) {
+    for (ctr = 0; ctr < dctsize; ctr++) {
       outptr = data + ctr * 8;
 
       /* Rows of zeroes can be exploited in the same way as we did with columns.
-      * However, the column calculation has created many nonzero AC terms, so
-      * the simplification applies less often (typically 5% to 10% of the time).
-      * On machines with very fast multiplication, it's possible that the
-      * test takes more time than it's worth.  In that case this section
-      * may be commented out.
-      */
+       * However, the column calculation has created many nonzero AC terms, so
+       * the simplification applies less often (typically 5% to 10% of the
+       * time). On machines with very fast multiplication, it's possible that
+       * the test takes more time than it's worth.  In that case this section
+       * may be commented out.
+       */
       /* Even part */
 
       tmp10 = (wsptr[0] + wsptr[4]);
@@ -503,32 +502,32 @@ class AstJpegDecoder {
 
       /* Final output stage: scale down by a factor of 8 and range-limit */
 
-      outptr[0] = r_limit[IDESCALE((tmp0 + tmp7), (PASS1_BITS + 3)) & 1023L];
-      outptr[7] = r_limit[IDESCALE((tmp0 - tmp7), (PASS1_BITS + 3)) & 1023L];
-      outptr[1] = r_limit[IDESCALE((tmp1 + tmp6), (PASS1_BITS + 3)) & 1023L];
-      outptr[6] = r_limit[IDESCALE((tmp1 - tmp6), (PASS1_BITS + 3)) & 1023L];
-      outptr[2] = r_limit[IDESCALE((tmp2 + tmp5), (PASS1_BITS + 3)) & 1023L];
-      outptr[5] = r_limit[IDESCALE((tmp2 - tmp5), (PASS1_BITS + 3)) & 1023L];
-      outptr[4] = r_limit[IDESCALE((tmp3 + tmp4), (PASS1_BITS + 3)) & 1023L];
-      outptr[3] = r_limit[IDESCALE((tmp3 - tmp4), (PASS1_BITS + 3)) & 1023L];
+      outptr[0] = rLimit[IDESCALE((tmp0 + tmp7), (PASS1_BITS + 3)) & 1023L];
+      outptr[7] = rLimit[IDESCALE((tmp0 - tmp7), (PASS1_BITS + 3)) & 1023L];
+      outptr[1] = rLimit[IDESCALE((tmp1 + tmp6), (PASS1_BITS + 3)) & 1023L];
+      outptr[6] = rLimit[IDESCALE((tmp1 - tmp6), (PASS1_BITS + 3)) & 1023L];
+      outptr[2] = rLimit[IDESCALE((tmp2 + tmp5), (PASS1_BITS + 3)) & 1023L];
+      outptr[5] = rLimit[IDESCALE((tmp2 - tmp5), (PASS1_BITS + 3)) & 1023L];
+      outptr[4] = rLimit[IDESCALE((tmp3 + tmp4), (PASS1_BITS + 3)) & 1023L];
+      outptr[3] = rLimit[IDESCALE((tmp3 - tmp4), (PASS1_BITS + 3)) & 1023L];
 
-      wsptr += DCTSIZE; /* advance pointer to next row */
+      wsptr += dctsize; /* advance pointer to next row */
     }
   }
-  void YUVToRGB(
+  void yuvToRgb(
       int txb, int tyb,
       unsigned char
           *pYCbCr,       // in, Y: 256 or 64 bytes; Cb: 64 bytes; Cr: 64 bytes
       struct RGB *pYUV,  // in, Y: 256 or 64 bytes; Cb: 64 bytes; Cr: 64 bytes
       unsigned char
           *pBgr  // out, BGR format, 16*16*3 = 768 bytes; or 8*8*3=192 bytes
-      ) {
+  ) {
     int i, j, pos, m, n;
     unsigned char cb, cr, *py, *pcb, *pcr, *py420[4];
     int y;
     struct RGB *pByte;
     int nBlocksInMcu = 6;
-    unsigned int pixel_x, pixel_y;
+    unsigned int pixelX, pixelY;
 
     pByte = reinterpret_cast<struct RGB *>(pBgr);
     if (yuvmode == YuvMode::YUV444) {
@@ -536,9 +535,9 @@ class AstJpegDecoder {
       pcb = pYCbCr + 64;
       pcr = pcb + 64;
 
-      pixel_x = txb * 8;
-      pixel_y = tyb * 8;
-      pos = (pixel_y * WIDTH) + pixel_x;
+      pixelX = txb * 8;
+      pixelY = tyb * 8;
+      pos = (pixelY * width) + pixelX;
 
       for (j = 0; j < 8; j++) {
         for (i = 0; i < 8; i++) {
@@ -548,14 +547,14 @@ class AstJpegDecoder {
           cr = pcr[m];
           n = pos + i;
           // For 2Pass. Save the YUV value
-          pYUV[n].B = cb;
-          pYUV[n].G = y;
-          pYUV[n].R = cr;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pYUV[n].b = cb;
+          pYUV[n].g = y;
+          pYUV[n].r = cr;
+          pByte[n].b = rlimitTable[mY[y] + mCbToB[cb]];
+          pByte[n].g = rlimitTable[mY[y] + mCbToG[cb] + mCrToG[cr]];
+          pByte[n].r = rlimitTable[mY[y] + mCrToR[cr]];
         }
-        pos += WIDTH;
+        pos += width;
       }
     } else {
       for (i = 0; i < nBlocksInMcu - 2; i++) {
@@ -564,9 +563,9 @@ class AstJpegDecoder {
       pcb = pYCbCr + (nBlocksInMcu - 2) * 64;
       pcr = pcb + 64;
 
-      pixel_x = txb * 16;
-      pixel_y = tyb * 16;
-      pos = (pixel_y * WIDTH) + pixel_x;
+      pixelX = txb * 16;
+      pixelY = tyb * 16;
+      pos = (pixelY * width) + pixelX;
 
       for (j = 0; j < 16; j++) {
         for (i = 0; i < 16; i++) {
@@ -576,15 +575,15 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pByte[n].b = rlimitTable[mY[y] + mCbToB[cb]];
+          pByte[n].g = rlimitTable[mY[y] + mCbToG[cb] + mCrToG[cr]];
+          pByte[n].r = rlimitTable[mY[y] + mCrToR[cr]];
         }
-        pos += WIDTH;
+        pos += width;
       }
     }
   }
-  void YUVToBuffer(
+  void yuvToBuffer(
       int txb, int tyb,
       unsigned char
           *pYCbCr,  // in, Y: 256 or 64 bytes; Cb: 64 bytes; Cr: 64 bytes
@@ -592,13 +591,13 @@ class AstJpegDecoder {
           *pYUV,  // out, BGR format, 16*16*3 = 768 bytes; or 8*8*3=192 bytes
       unsigned char
           *pBgr  // out, BGR format, 16*16*3 = 768 bytes; or 8*8*3=192 bytes
-      ) {
+  ) {
     int i, j, pos, m, n;
     unsigned char cb, cr, *py, *pcb, *pcr, *py420[4];
     int y;
     struct RGB *pByte;
     int nBlocksInMcu = 6;
-    unsigned int pixel_x, pixel_y;
+    unsigned int pixelX, pixelY;
 
     pByte = reinterpret_cast<struct RGB *>(pBgr);
     if (yuvmode == YuvMode::YUV444) {
@@ -606,25 +605,25 @@ class AstJpegDecoder {
       pcb = pYCbCr + 64;
       pcr = pcb + 64;
 
-      pixel_x = txb * 8;
-      pixel_y = tyb * 8;
-      pos = (pixel_y * WIDTH) + pixel_x;
+      pixelX = txb * 8;
+      pixelY = tyb * 8;
+      pos = (pixelY * width) + pixelX;
 
       for (j = 0; j < 8; j++) {
         for (i = 0; i < 8; i++) {
           m = ((j << 3) + i);
           n = pos + i;
-          y = pYUV[n].G + (py[m] - 128);
-          cb = pYUV[n].B + (pcb[m] - 128);
-          cr = pYUV[n].R + (pcr[m] - 128);
-          pYUV[n].B = cb;
-          pYUV[n].G = y;
-          pYUV[n].R = cr;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          y = pYUV[n].g + (py[m] - 128);
+          cb = pYUV[n].b + (pcb[m] - 128);
+          cr = pYUV[n].r + (pcr[m] - 128);
+          pYUV[n].b = cb;
+          pYUV[n].g = y;
+          pYUV[n].r = cr;
+          pByte[n].b = rlimitTable[mY[y] + mCbToB[cb]];
+          pByte[n].g = rlimitTable[mY[y] + mCbToG[cb] + mCrToG[cr]];
+          pByte[n].r = rlimitTable[mY[y] + mCrToR[cr]];
         }
-        pos += WIDTH;
+        pos += width;
       }
     } else {
       for (i = 0; i < nBlocksInMcu - 2; i++) {
@@ -633,9 +632,9 @@ class AstJpegDecoder {
       pcb = pYCbCr + (nBlocksInMcu - 2) * 64;
       pcr = pcb + 64;
 
-      pixel_x = txb * 16;
-      pixel_y = tyb * 16;
-      pos = (pixel_y * WIDTH) + pixel_x;
+      pixelX = txb * 16;
+      pixelY = tyb * 16;
+      pos = (pixelY * width) + pixelX;
 
       for (j = 0; j < 16; j++) {
         for (i = 0; i < 16; i++) {
@@ -645,125 +644,125 @@ class AstJpegDecoder {
           cb = pcb[m];
           cr = pcr[m];
           n = pos + i;
-          pByte[n].B = rlimit_table[m_Y[y] + m_CbToB[cb]];
-          pByte[n].G = rlimit_table[m_Y[y] + m_CbToG[cb] + m_CrToG[cr]];
-          pByte[n].R = rlimit_table[m_Y[y] + m_CrToR[cr]];
+          pByte[n].b = rlimitTable[mY[y] + mCbToB[cb]];
+          pByte[n].g = rlimitTable[mY[y] + mCbToG[cb] + mCrToG[cr]];
+          pByte[n].r = rlimitTable[mY[y] + mCrToR[cr]];
         }
-        pos += WIDTH;
+        pos += width;
       }
     }
   }
-  void Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection) {
+  void decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection) {
     unsigned char *ptr;
     unsigned char byTileYuv[768] = {};
 
-    memset(DCT_coeff, 0, 384 * 2);
+    memset(dctCoeff, 0, 384 * 2);
     ptr = byTileYuv;
-    process_Huffman_data_unit(YDC_nr, YAC_nr, &DCY, 0);
-    IDCT_transform(DCT_coeff, ptr, QT_TableSelection);
+    processHuffmanDataUnit(ydcNr, yacNr, &dcy, 0);
+    idctTransform(dctCoeff, ptr, QT_TableSelection);
     ptr += 64;
 
     if (yuvmode == YuvMode::YUV420) {
-      process_Huffman_data_unit(YDC_nr, YAC_nr, &DCY, 64);
-      IDCT_transform(DCT_coeff + 64, ptr, QT_TableSelection);
+      processHuffmanDataUnit(ydcNr, yacNr, &dcy, 64);
+      idctTransform(dctCoeff + 64, ptr, QT_TableSelection);
       ptr += 64;
 
-      process_Huffman_data_unit(YDC_nr, YAC_nr, &DCY, 128);
-      IDCT_transform(DCT_coeff + 128, ptr, QT_TableSelection);
+      processHuffmanDataUnit(ydcNr, yacNr, &dcy, 128);
+      idctTransform(dctCoeff + 128, ptr, QT_TableSelection);
       ptr += 64;
 
-      process_Huffman_data_unit(YDC_nr, YAC_nr, &DCY, 192);
-      IDCT_transform(DCT_coeff + 192, ptr, QT_TableSelection);
+      processHuffmanDataUnit(ydcNr, yacNr, &dcy, 192);
+      idctTransform(dctCoeff + 192, ptr, QT_TableSelection);
       ptr += 64;
 
-      process_Huffman_data_unit(CbDC_nr, CbAC_nr, &DCCb, 256);
-      IDCT_transform(DCT_coeff + 256, ptr, QT_TableSelection + 1);
+      processHuffmanDataUnit(cbDcNr, cbAcNr, &dcCb, 256);
+      idctTransform(dctCoeff + 256, ptr, QT_TableSelection + 1);
       ptr += 64;
 
-      process_Huffman_data_unit(CrDC_nr, CrAC_nr, &DCCr, 320);
-      IDCT_transform(DCT_coeff + 320, ptr, QT_TableSelection + 1);
+      processHuffmanDataUnit(crDcNr, crAcNr, &dcCr, 320);
+      idctTransform(dctCoeff + 320, ptr, QT_TableSelection + 1);
     } else {
-      process_Huffman_data_unit(CbDC_nr, CbAC_nr, &DCCb, 64);
-      IDCT_transform(DCT_coeff + 64, ptr, QT_TableSelection + 1);
+      processHuffmanDataUnit(cbDcNr, cbAcNr, &dcCb, 64);
+      idctTransform(dctCoeff + 64, ptr, QT_TableSelection + 1);
       ptr += 64;
 
-      process_Huffman_data_unit(CrDC_nr, CrAC_nr, &DCCr, 128);
-      IDCT_transform(DCT_coeff + 128, ptr, QT_TableSelection + 1);
+      processHuffmanDataUnit(crDcNr, crAcNr, &dcCr, 128);
+      idctTransform(dctCoeff + 128, ptr, QT_TableSelection + 1);
     }
 
-    //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
-    //  YUVBuffer for YUV record
-    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(),
+    //    yuvToRgb (txb, tyb, byTileYuv, (unsigned char *)outBuf);
+    //  yuvBuffer for YUV record
+    yuvToRgb(txb, tyb, byTileYuv, yuvBuffer.data(),
              reinterpret_cast<unsigned char *>(outBuf));
   }
 
-  void Decompress_2PASS(int txb, int tyb, char *outBuf,
-                        uint8_t QT_TableSelection) {
+  void decompress2Pass(int txb, int tyb, char *outBuf,
+                       uint8_t QT_TableSelection) {
     unsigned char *ptr;
     unsigned char byTileYuv[768];
-    memset(DCT_coeff, 0, 384 * 2);
+    memset(dctCoeff, 0, 384 * 2);
 
     ptr = byTileYuv;
-    process_Huffman_data_unit(YDC_nr, YAC_nr, &DCY, 0);
-    IDCT_transform(DCT_coeff, ptr, QT_TableSelection);
+    processHuffmanDataUnit(ydcNr, yacNr, &dcy, 0);
+    idctTransform(dctCoeff, ptr, QT_TableSelection);
     ptr += 64;
 
-    process_Huffman_data_unit(CbDC_nr, CbAC_nr, &DCCb, 64);
-    IDCT_transform(DCT_coeff + 64, ptr, QT_TableSelection + 1);
+    processHuffmanDataUnit(cbDcNr, cbAcNr, &dcCb, 64);
+    idctTransform(dctCoeff + 64, ptr, QT_TableSelection + 1);
     ptr += 64;
 
-    process_Huffman_data_unit(CrDC_nr, CrAC_nr, &DCCr, 128);
-    IDCT_transform(DCT_coeff + 128, ptr, QT_TableSelection + 1);
+    processHuffmanDataUnit(crDcNr, crAcNr, &dcCr, 128);
+    idctTransform(dctCoeff + 128, ptr, QT_TableSelection + 1);
 
-    YUVToBuffer(txb, tyb, byTileYuv, YUVBuffer.data(),
+    yuvToBuffer(txb, tyb, byTileYuv, yuvBuffer.data(),
                 reinterpret_cast<unsigned char *>(outBuf));
-    //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
+    //    yuvToRgb (txb, tyb, byTileYuv, (unsigned char *)outBuf);
   }
 
-  void VQ_Decompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection,
-                     struct COLOR_CACHE *VQ) {
+  void vqDecompress(int txb, int tyb, char *outBuf, uint8_t QT_TableSelection,
+                    struct ColorCache *VQ) {
     unsigned char *ptr, i;
     unsigned char byTileYuv[192];
-    int Data;
+    int data;
 
     ptr = byTileYuv;
-    if (VQ->BitMapBits == 0) {
+    if (VQ->bitMapBits == 0) {
       for (i = 0; i < 64; i++) {
-        ptr[0] = (VQ->Color[VQ->Index[0]] & 0xFF0000) >> 16;
-        ptr[64] = (VQ->Color[VQ->Index[0]] & 0x00FF00) >> 8;
-        ptr[128] = VQ->Color[VQ->Index[0]] & 0x0000FF;
+        ptr[0] = (VQ->color[VQ->index[0]] & 0xFF0000) >> 16;
+        ptr[64] = (VQ->color[VQ->index[0]] & 0x00FF00) >> 8;
+        ptr[128] = VQ->color[VQ->index[0]] & 0x0000FF;
         ptr += 1;
       }
     } else {
       for (i = 0; i < 64; i++) {
-        Data = static_cast<int>(lookKbits(VQ->BitMapBits));
-        ptr[0] = (VQ->Color[VQ->Index[Data]] & 0xFF0000) >> 16;
-        ptr[64] = (VQ->Color[VQ->Index[Data]] & 0x00FF00) >> 8;
-        ptr[128] = VQ->Color[VQ->Index[Data]] & 0x0000FF;
+        data = static_cast<int>(lookKbits(VQ->bitMapBits));
+        ptr[0] = (VQ->color[VQ->index[data]] & 0xFF0000) >> 16;
+        ptr[64] = (VQ->color[VQ->index[data]] & 0x00FF00) >> 8;
+        ptr[128] = VQ->color[VQ->index[data]] & 0x0000FF;
         ptr += 1;
-        skipKbits(VQ->BitMapBits);
+        skipKbits(VQ->bitMapBits);
       }
     }
-    //    YUVToRGB (txb, tyb, byTileYuv, (unsigned char *)outBuf);
-    YUVToRGB(txb, tyb, byTileYuv, YUVBuffer.data(),
+    //    yuvToRgb (txb, tyb, byTileYuv, (unsigned char *)outBuf);
+    yuvToRgb(txb, tyb, byTileYuv, yuvBuffer.data(),
              reinterpret_cast<unsigned char *>(outBuf));
   }
 
-  void MoveBlockIndex() {
+  void moveBlockIndex() {
     if (yuvmode == YuvMode::YUV444) {
       txb++;
-      if (txb >= static_cast<int>(WIDTH / 8)) {
+      if (txb >= static_cast<int>(width / 8)) {
         tyb++;
-        if (tyb >= static_cast<int>(HEIGHT / 8)) {
+        if (tyb >= static_cast<int>(height / 8)) {
           tyb = 0;
         }
         txb = 0;
       }
     } else {
       txb++;
-      if (txb >= static_cast<int>(WIDTH / 16)) {
+      if (txb >= static_cast<int>(width / 16)) {
         tyb++;
-        if (tyb >= static_cast<int>(HEIGHT / 16)) {
+        if (tyb >= static_cast<int>(height / 16)) {
           tyb = 0;
         }
         txb = 0;
@@ -771,7 +770,7 @@ class AstJpegDecoder {
     }
   }
 
-  void Init_Color_Table() {
+  void initColorTable() {
     int i, x;
     int nScale = 1L << 16;  // equal to power(2,16)
     int nHalf = nScale >> 1;
@@ -780,180 +779,180 @@ class AstJpegDecoder {
 
     /* i is the actual input pixel value, in the range 0..MAXJSAMPLE */
     /* The Cb or Cr value we are thinking of is x = i - CENTERJSAMPLE */
-    /* Cr=>R value is nearest int to 1.597656 * x */
-    /* Cb=>B value is nearest int to 2.015625 * x */
-    /* Cr=>G value is scaled-up -0.8125 * x */
-    /* Cb=>G value is scaled-up -0.390625 * x */
+    /* Cr=>r value is nearest int to 1.597656 * x */
+    /* Cb=>b value is nearest int to 2.015625 * x */
+    /* Cr=>g value is scaled-up -0.8125 * x */
+    /* Cb=>g value is scaled-up -0.390625 * x */
     for (i = 0, x = -128; i < 256; i++, x++) {
-      m_CrToR[i] = (FIX(1.597656) * x + nHalf) >> 16;
-      m_CbToB[i] = (FIX(2.015625) * x + nHalf) >> 16;
-      m_CrToG[i] = (-FIX(0.8125) * x + nHalf) >> 16;
-      m_CbToG[i] = (-FIX(0.390625) * x + nHalf) >> 16;
+      mCrToR[i] = (FIX(1.597656) * x + nHalf) >> 16;
+      mCbToB[i] = (FIX(2.015625) * x + nHalf) >> 16;
+      mCrToG[i] = (-FIX(0.8125) * x + nHalf) >> 16;
+      mCbToG[i] = (-FIX(0.390625) * x + nHalf) >> 16;
     }
     for (i = 0, x = -16; i < 256; i++, x++) {
-      m_Y[i] = (FIX(1.164) * x + nHalf) >> 16;
+      mY[i] = (FIX(1.164) * x + nHalf) >> 16;
     }
-    // For Color Text Enchance Y Re-map. Recommend to disable in default
+    // For color Text Enchance Y Re-map. Recommend to disable in default
     /*
             for (i = 0; i < (VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate);
        i++) {
                     temp = (double)i /
        VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate;
                     temp1 = 1.0 / VideoEngineInfo->INFData.Gamma1Parameter;
-                    m_Y[i] =
+                    mY[i] =
        (BYTE)(VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate * pow (temp,
        temp1));
-                    if (m_Y[i] > 255) m_Y[i] = 255;
+                    if (mY[i] > 255) mY[i] = 255;
             }
             for (i = (VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate); i < 256;
        i++) {
-                    m_Y[i] =
+                    mY[i] =
        (BYTE)((VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate) + (256 -
        VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate) * ( pow((double)((i -
        VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate) / (256 -
        (VideoEngineInfo->INFData.Gamma1_Gamma2_Seperate))), (1.0 /
        VideoEngineInfo->INFData.Gamma2Parameter)) ));
-                    if (m_Y[i] > 255) m_Y[i] = 255;
+                    if (mY[i] > 255) mY[i] = 255;
             }
     */
   }
-  void load_Huffman_table(Huffman_table *HT, const unsigned char *nrcode,
-                          const unsigned char *value,
-                          const unsigned short int *Huff_code) {
+  void loadHuffmanTable(HuffmanTable *HT, const unsigned char *nrcode,
+                        const unsigned char *value,
+                        const unsigned short int *Huff_code) {
     unsigned char k, j, i;
-    unsigned int code, code_index;
+    unsigned int code, codeIndex;
 
     for (j = 1; j <= 16; j++) {
-      HT->Length[j] = nrcode[j];
+      HT->length[j] = nrcode[j];
     }
     for (i = 0, k = 1; k <= 16; k++) {
-      for (j = 0; j < HT->Length[k]; j++) {
-        HT->V[WORD_hi_lo(k, j)] = value[i];
+      for (j = 0; j < HT->length[k]; j++) {
+        HT->v[wordHiLo(k, j)] = value[i];
         i++;
       }
     }
 
     code = 0;
     for (k = 1; k <= 16; k++) {
-      HT->minor_code[k] = static_cast<unsigned short int>(code);
-      for (j = 1; j <= HT->Length[k]; j++) {
+      HT->minorCode[k] = static_cast<unsigned short int>(code);
+      for (j = 1; j <= HT->length[k]; j++) {
         code++;
       }
-      HT->major_code[k] = static_cast<unsigned short int>(code - 1);
+      HT->majorCode[k] = static_cast<unsigned short int>(code - 1);
       code *= 2;
-      if (HT->Length[k] == 0) {
-        HT->minor_code[k] = 0xFFFF;
-        HT->major_code[k] = 0;
+      if (HT->length[k] == 0) {
+        HT->minorCode[k] = 0xFFFF;
+        HT->majorCode[k] = 0;
       }
     }
 
-    HT->Len[0] = 2;
+    HT->len[0] = 2;
     i = 2;
 
-    for (code_index = 1; code_index < 65535; code_index++) {
-      if (code_index < Huff_code[i]) {
-        HT->Len[code_index] = static_cast<unsigned char>(Huff_code[i + 1]);
+    for (codeIndex = 1; codeIndex < 65535; codeIndex++) {
+      if (codeIndex < Huff_code[i]) {
+        HT->len[codeIndex] = static_cast<unsigned char>(Huff_code[i + 1]);
       } else {
         i = i + 2;
-        HT->Len[code_index] = static_cast<unsigned char>(Huff_code[i + 1]);
+        HT->len[codeIndex] = static_cast<unsigned char>(Huff_code[i + 1]);
       }
     }
   }
-  void init_jpg_table() {
-    Init_Color_Table();
-    prepare_range_limit_table();
-    load_Huffman_table(&HTDC[0], std_dc_luminance_nrcodes,
-                       std_dc_luminance_values, DC_LUMINANCE_HUFFMANCODE);
-    load_Huffman_table(&HTAC[0], std_ac_luminance_nrcodes,
-                       std_ac_luminance_values, AC_LUMINANCE_HUFFMANCODE);
-    load_Huffman_table(&HTDC[1], std_dc_chrominance_nrcodes,
-                       std_dc_chrominance_values, DC_CHROMINANCE_HUFFMANCODE);
-    load_Huffman_table(&HTAC[1], std_ac_chrominance_nrcodes,
-                       std_ac_chrominance_values, AC_CHROMINANCE_HUFFMANCODE);
+  void initJpgTable() {
+    initColorTable();
+    prepareRangeLimitTable();
+    loadHuffmanTable(&htdc[0], stdDcLuminanceNrcodes, stdDcLuminanceValues,
+                     dcLuminanceHuffmancode);
+    loadHuffmanTable(&htac[0], stdAcLuminanceNrcodes, stdAcLuminanceValues,
+                     acLuminanceHuffmancode);
+    loadHuffmanTable(&htdc[1], stdDcChrominanceNrcodes, stdDcChrominanceValues,
+                     dcChrominanceHuffmancode);
+    loadHuffmanTable(&htac[1], stdAcChrominanceNrcodes, stdAcChrominanceValues,
+                     acChrominanceHuffmancode);
   }
 
-  void prepare_range_limit_table()
+  void prepareRangeLimitTable()
   /* Allocate and fill in the sample_range_limit table */
   {
     int j;
-    rlimit_table = reinterpret_cast<unsigned char *>(malloc(5 * 256L + 128));
+    rlimitTable = reinterpret_cast<unsigned char *>(malloc(5 * 256L + 128));
     /* First segment of "simple" table: limit[x] = 0 for x < 0 */
-    memset((void *)rlimit_table, 0, 256);
-    rlimit_table += 256; /* allow negative subscripts of simple table */
+    memset((void *)rlimitTable, 0, 256);
+    rlimitTable += 256; /* allow negative subscripts of simple table */
     /* Main part of "simple" table: limit[x] = x */
     for (j = 0; j < 256; j++) {
-      rlimit_table[j] = j;
+      rlimitTable[j] = j;
     }
     /* End of simple table, rest of first half of post-IDCT table */
     for (j = 256; j < 640; j++) {
-      rlimit_table[j] = 255;
+      rlimitTable[j] = 255;
     }
 
     /* Second half of post-IDCT table */
-    memset((void *)(rlimit_table + 640), 0, 384);
+    memset((void *)(rlimitTable + 640), 0, 384);
     for (j = 0; j < 128; j++) {
-      rlimit_table[j + 1024] = j;
+      rlimitTable[j + 1024] = j;
     }
   }
 
-  inline unsigned short int WORD_hi_lo(uint8_t byte_high, uint8_t byte_low) {
+  inline unsigned short int wordHiLo(uint8_t byte_high, uint8_t byte_low) {
     return (byte_high << 8) + byte_low;
   }
 
   // river
-  void process_Huffman_data_unit(uint8_t DC_nr, uint8_t AC_nr,
-                                 signed short int *previous_DC,
-                                 unsigned short int position) {
+  void processHuffmanDataUnit(uint8_t DC_nr, uint8_t AC_nr,
+                              signed short int *previous_DC,
+                              unsigned short int position) {
     uint8_t nr = 0;
     uint8_t k;
-    unsigned short int tmp_Hcode;
-    uint8_t size_val, count_0;
-    unsigned short int *min_code;
-    uint8_t *huff_values;
-    uint8_t byte_temp;
+    unsigned short int tmpHcode;
+    uint8_t sizeVal, count0;
+    unsigned short int *minCode;
+    uint8_t *huffValues;
+    uint8_t byteTemp;
 
-    min_code = HTDC[DC_nr].minor_code;
-    //   maj_code=HTDC[DC_nr].major_code;
-    huff_values = HTDC[DC_nr].V;
+    minCode = htdc[DC_nr].minorCode;
+    //   maj_code=htdc[DC_nr].majorCode;
+    huffValues = htdc[DC_nr].v;
 
     // DC
-    k = HTDC[DC_nr].Len[static_cast<unsigned short int>(codebuf >> 16)];
+    k = htdc[DC_nr].len[static_cast<unsigned short int>(codebuf >> 16)];
     // river
     //	 tmp_Hcode=lookKbits(k);
-    tmp_Hcode = static_cast<unsigned short int>(codebuf >> (32 - k));
+    tmpHcode = static_cast<unsigned short int>(codebuf >> (32 - k));
     skipKbits(k);
-    size_val = huff_values[WORD_hi_lo(
-        k, static_cast<uint8_t>(tmp_Hcode - min_code[k]))];
-    if (size_val == 0) {
-      DCT_coeff[position + 0] = *previous_DC;
+    sizeVal =
+        huffValues[wordHiLo(k, static_cast<uint8_t>(tmpHcode - minCode[k]))];
+    if (sizeVal == 0) {
+      dctCoeff[position + 0] = *previous_DC;
     } else {
-      DCT_coeff[position + 0] = *previous_DC + getKbits(size_val);
-      *previous_DC = DCT_coeff[position + 0];
+      dctCoeff[position + 0] = *previous_DC + getKbits(sizeVal);
+      *previous_DC = dctCoeff[position + 0];
     }
 
     // Second, AC coefficient decoding
-    min_code = HTAC[AC_nr].minor_code;
-    //   maj_code=HTAC[AC_nr].major_code;
-    huff_values = HTAC[AC_nr].V;
+    minCode = htac[AC_nr].minorCode;
+    //   maj_code=htac[AC_nr].majorCode;
+    huffValues = htac[AC_nr].v;
 
     nr = 1;  // AC coefficient
     do {
-      k = HTAC[AC_nr].Len[static_cast<unsigned short int>(codebuf >> 16)];
-      tmp_Hcode = static_cast<unsigned short int>(codebuf >> (32 - k));
+      k = htac[AC_nr].len[static_cast<unsigned short int>(codebuf >> 16)];
+      tmpHcode = static_cast<unsigned short int>(codebuf >> (32 - k));
       skipKbits(k);
 
-      byte_temp = huff_values[WORD_hi_lo(
-          k, static_cast<uint8_t>(tmp_Hcode - min_code[k]))];
-      size_val = byte_temp & 0xF;
-      count_0 = byte_temp >> 4;
-      if (size_val == 0) {
-        if (count_0 != 0xF) {
+      byteTemp =
+          huffValues[wordHiLo(k, static_cast<uint8_t>(tmpHcode - minCode[k]))];
+      sizeVal = byteTemp & 0xF;
+      count0 = byteTemp >> 4;
+      if (sizeVal == 0) {
+        if (count0 != 0xF) {
           break;
         }
         nr += 16;
       } else {
-        nr += count_0;  // skip count_0 zeroes
-        DCT_coeff[position + dezigzag[nr++]] = getKbits(size_val);
+        nr += count0;  // skip count_0 zeroes
+        dctCoeff[position + dezigzag[nr++]] = getKbits(sizeVal);
       }
     } while (nr < 64);
   }
@@ -970,8 +969,8 @@ class AstJpegDecoder {
     unsigned long readbuf;
 
     if ((newbits - k) <= 0) {
-      readbuf = Buffer[buffer_index];
-      buffer_index++;
+      readbuf = buffer[bufferIndex];
+      bufferIndex++;
       codebuf =
           (codebuf << k) | ((newbuf | (readbuf >> (newbits))) >> (32 - k));
       newbuf = readbuf << (k - newbits);
@@ -984,38 +983,38 @@ class AstJpegDecoder {
   }
 
   signed short int getKbits(uint8_t k) {
-    signed short int signed_wordvalue;
+    signed short int signedWordvalue;
 
     // river
     // signed_wordvalue=lookKbits(k);
-    signed_wordvalue = static_cast<unsigned short int>(codebuf >> (32 - k));
-    if (((1L << (k - 1)) & signed_wordvalue) == 0) {
+    signedWordvalue = static_cast<unsigned short int>(codebuf >> (32 - k));
+    if (((1L << (k - 1)) & signedWordvalue) == 0) {
       // neg_pow2 was previously defined as the below.  It seemed silly to keep
       // a table of values around for something
       // THat's relatively easy to compute, so it was replaced with the
       // appropriate math
       // signed_wordvalue = signed_wordvalue - (0xFFFF >> (16 - k));
-      std::array<signed short int, 17> neg_pow2 = {
+      std::array<signed short int, 17> negPow2 = {
           0,    -1,   -3,    -7,    -15,   -31,   -63,    -127,
           -255, -511, -1023, -2047, -4095, -8191, -16383, -32767};
 
-      signed_wordvalue = signed_wordvalue + neg_pow2[k];
+      signedWordvalue = signedWordvalue + negPow2[k];
     }
     skipKbits(k);
-    return signed_wordvalue;
+    return signedWordvalue;
   }
-  int init_JPG_decoding() {
-    byte_pos = 0;
-    load_quant_table(QT[0]);
-    load_quant_tableCb(QT[1]);
+  int initJpgDecoding() {
+    bytePos = 0;
+    loadQuantTable(qt[0]);
+    loadQuantTableCb(qt[1]);
     //  Note: Added for Dual-JPEG
-    load_advance_quant_table(QT[2]);
-    load_advance_quant_tableCb(QT[3]);
+    loadAdvanceQuantTable(qt[2]);
+    loadAdvanceQuantTableCb(qt[3]);
     return 1;
   }
 
-  void set_quant_table(const uint8_t *basic_table, uint8_t scale_factor,
-                       std::array<uint8_t, 64>& newtable)
+  void setQuantTable(const uint8_t *basic_table, uint8_t scale_factor,
+                     std::array<uint8_t, 64> &newtable)
   // Set quantization table and zigzag reorder it
   {
     uint8_t i;
@@ -1034,12 +1033,12 @@ class AstJpegDecoder {
   }
 
   void updatereadbuf(uint32_t *codebuf, uint32_t *newbuf, int walks,
-                     int *newbits, std::vector<uint32_t> &Buffer) {
+                     int *newbits, std::vector<uint32_t> &buffer) {
     unsigned long readbuf;
 
     if ((*newbits - walks) <= 0) {
-      readbuf = Buffer[buffer_index];
-      buffer_index++;
+      readbuf = buffer[bufferIndex];
+      bufferIndex++;
       *codebuf = (*codebuf << walks) |
                  ((*newbuf | (readbuf >> (*newbits))) >> (32 - walks));
       *newbuf = readbuf << (walks - *newbits);
@@ -1051,71 +1050,71 @@ class AstJpegDecoder {
     }
   }
 
-  uint32_t decode(std::vector<uint32_t> &buffer, unsigned long width,
-                  unsigned long height, YuvMode yuvmode_in, int y_selector,
-                  int uv_selector) {
-    COLOR_CACHE Decode_Color;
-    if (width != USER_WIDTH || height != USER_HEIGHT || yuvmode_in != yuvmode ||
-        y_selector != Y_selector || uv_selector != UV_selector) {
+  uint32_t decode(std::vector<uint32_t> &bufferVector, unsigned long width,
+                  unsigned long height, YuvMode yuvmode_in, int ySelector,
+                  int uvSelector) {
+    ColorCache decodeColor;
+    if (width != userWidth || height != userHeight || yuvmode_in != yuvmode ||
+        ySelector != ySelector || uvSelector != uvSelector) {
       yuvmode = yuvmode_in;
-      Y_selector = y_selector;    // 0-7
-      UV_selector = uv_selector;  // 0-7
-      USER_HEIGHT = height;
-      USER_WIDTH = width;
-      WIDTH = width;
-      HEIGHT = height;
+      ySelector = ySelector;    // 0-7
+      uvSelector = uvSelector;  // 0-7
+      userHeight = height;
+      userWidth = width;
+      width = width;
+      height = height;
 
       // TODO(ed) Magic number section.  Document appropriately
-      advance_selector = 0;  // 0-7
-      Mapping = 0;           // 0 or 1
+      advanceSelector = 0;  // 0-7
+      mapping = 0;          // 0 or 1
 
       if (yuvmode == YuvMode::YUV420) {
-        if ((WIDTH % 16) != 0u) {
-          WIDTH = WIDTH + 16 - (WIDTH % 16);
+        if ((width % 16) != 0u) {
+          width = width + 16 - (width % 16);
         }
-        if ((HEIGHT % 16) != 0u) {
-          HEIGHT = HEIGHT + 16 - (HEIGHT % 16);
+        if ((height % 16) != 0u) {
+          height = height + 16 - (height % 16);
         }
       } else {
-        if ((WIDTH % 8) != 0u) {
-          WIDTH = WIDTH + 8 - (WIDTH % 8);
+        if ((width % 8) != 0u) {
+          width = width + 8 - (width % 8);
         }
-        if ((HEIGHT % 8) != 0u) {
-          HEIGHT = HEIGHT + 8 - (HEIGHT % 8);
+        if ((height % 8) != 0u) {
+          height = height + 8 - (height % 8);
         }
       }
 
-      init_JPG_decoding();
+      initJpgDecoding();
     }
     // TODO(ed) cleanup cruft
-    Buffer = buffer.data();
+    buffer = bufferVector.data();
 
-    codebuf = buffer[0];
-    newbuf = buffer[1];
-    buffer_index = 2;
+    codebuf = bufferVector[0];
+    newbuf = bufferVector[1];
+    bufferIndex = 2;
 
     txb = tyb = 0;
     newbits = 32;
-    DCY = DCCb = DCCr = 0;
+    dcy = dcCb = dcCr = 0;
 
-    static const uint32_t VQ_HEADER_MASK = 0x01;
-    static const uint32_t VQ_NO_UPDATE_HEADER = 0x00;
-    static const uint32_t VQ_UPDATE_HEADER = 0x01;
-    static const int VQ_NO_UPDATE_LENGTH = 0x03;
-    static const int VQ_UPDATE_LENGTH = 0x1B;
-    static const uint32_t VQ_INDEX_MASK = 0x03;
-    static const uint32_t VQ_COLOR_MASK = 0xFFFFFF;
+    static const uint32_t vqHeaderMask = 0x01;
+    static const uint32_t vqNoUpdateHeader = 0x00;
+    static const uint32_t vqUpdateHeader = 0x01;
+    static const int vqNoUpdateLength = 0x03;
+    static const int vqUpdateLength = 0x1B;
+    static const uint32_t vqIndexMask = 0x03;
+    static const uint32_t vqColorMask = 0xFFFFFF;
 
-    static const int BLOCK_AST2100_START_LENGTH = 0x04;
-    static const int BLOCK_AST2100_SKIP_LENGTH = 20;  // S:1 H:3 X:8 Y:8
+    static const int blockAsT2100StartLength = 0x04;
+    static const int blockAsT2100SkipLength = 20;  // S:1 H:3 X:8 Y:8
 
     do {
-      auto block_header = static_cast<JpgBlock>((codebuf >> 28) & 0xFF);
-      switch (block_header) {
+      auto blockHeader = static_cast<JpgBlock>((codebuf >> 28) & 0xFF);
+      switch (blockHeader) {
         case JpgBlock::JPEG_NO_SKIP_CODE:
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
-                        buffer);
-          Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0);
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100StartLength, &newbits,
+                        bufferVector);
+          decompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0);
           break;
         case JpgBlock::FRAME_END_CODE:
           return 0;
@@ -1125,116 +1124,116 @@ class AstJpegDecoder {
           txb = (codebuf & 0x0FF00000) >> 20;
           tyb = (codebuf & 0x0FF000) >> 12;
 
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
-                        buffer);
-          Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0);
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100SkipLength, &newbits,
+                        bufferVector);
+          decompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0);
           break;
         case JpgBlock::VQ_NO_SKIP_1_COLOR_CODE:
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 0;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100StartLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 0;
 
           for (int i = 0; i < 1; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+            decodeColor.index[i] = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[decodeColor.index[i]] =
+                  ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
           break;
         case JpgBlock::VQ_SKIP_1_COLOR_CODE:
           txb = (codebuf & 0x0FF00000) >> 20;
           tyb = (codebuf & 0x0FF000) >> 12;
 
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 0;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100SkipLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 0;
 
           for (int i = 0; i < 1; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+            decodeColor.index[i] = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[decodeColor.index[i]] =
+                  ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
           break;
 
         case JpgBlock::VQ_NO_SKIP_2_COLOR_CODE:
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 1;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100StartLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 1;
 
           for (int i = 0; i < 2; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+            decodeColor.index[i] = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[decodeColor.index[i]] =
+                  ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
           break;
         case JpgBlock::VQ_SKIP_2_COLOR_CODE:
           txb = (codebuf & 0x0FF00000) >> 20;
           tyb = (codebuf & 0x0FF000) >> 12;
 
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 1;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100SkipLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 1;
 
           for (int i = 0; i < 2; i++) {
-            Decode_Color.Index[i] = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+            decodeColor.index[i] = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[Decode_Color.Index[i]] =
-                  ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[decodeColor.index[i]] =
+                  ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
 
           break;
         case JpgBlock::VQ_NO_SKIP_4_COLOR_CODE:
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_START_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 2;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100StartLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 2;
 
-          for (unsigned char &i : Decode_Color.Index) {
-            i = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+          for (unsigned char &i : decodeColor.index) {
+            i = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[i] = ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[i] = ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
 
           break;
 
@@ -1242,33 +1241,33 @@ class AstJpegDecoder {
           txb = (codebuf & 0x0FF00000) >> 20;
           tyb = (codebuf & 0x0FF000) >> 12;
 
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
-                        buffer);
-          Decode_Color.BitMapBits = 2;
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100SkipLength, &newbits,
+                        bufferVector);
+          decodeColor.bitMapBits = 2;
 
-          for (unsigned char &i : Decode_Color.Index) {
-            i = ((codebuf >> 29) & VQ_INDEX_MASK);
-            if (((codebuf >> 31) & VQ_HEADER_MASK) == VQ_NO_UPDATE_HEADER) {
-              updatereadbuf(&codebuf, &newbuf, VQ_NO_UPDATE_LENGTH, &newbits,
-                            buffer);
+          for (unsigned char &i : decodeColor.index) {
+            i = ((codebuf >> 29) & vqIndexMask);
+            if (((codebuf >> 31) & vqHeaderMask) == vqNoUpdateHeader) {
+              updatereadbuf(&codebuf, &newbuf, vqNoUpdateLength, &newbits,
+                            bufferVector);
             } else {
-              Decode_Color.Color[i] = ((codebuf >> 5) & VQ_COLOR_MASK);
-              updatereadbuf(&codebuf, &newbuf, VQ_UPDATE_LENGTH, &newbits,
-                            buffer);
+              decodeColor.color[i] = ((codebuf >> 5) & vqColorMask);
+              updatereadbuf(&codebuf, &newbuf, vqUpdateLength, &newbits,
+                            bufferVector);
             }
           }
-          VQ_Decompress(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()), 0,
-                        &Decode_Color);
+          vqDecompress(txb, tyb, reinterpret_cast<char *>(outBuffer.data()), 0,
+                       &decodeColor);
 
           break;
         case JpgBlock::JPEG_SKIP_PASS2_CODE:
           txb = (codebuf & 0x0FF00000) >> 20;
           tyb = (codebuf & 0x0FF000) >> 12;
 
-          updatereadbuf(&codebuf, &newbuf, BLOCK_AST2100_SKIP_LENGTH, &newbits,
-                        buffer);
-          Decompress_2PASS(txb, tyb, reinterpret_cast<char *>(OutBuffer.data()),
-                           2);
+          updatereadbuf(&codebuf, &newbuf, blockAsT2100SkipLength, &newbits,
+                        bufferVector);
+          decompress2Pass(txb, tyb, reinterpret_cast<char *>(outBuffer.data()),
+                          2);
 
           break;
         default:
@@ -1276,22 +1275,22 @@ class AstJpegDecoder {
           return -1;
           break;
       }
-      MoveBlockIndex();
+      moveBlockIndex();
 
-    } while (buffer_index <= buffer.size());
+    } while (bufferIndex <= bufferVector.size());
 
     return -1;
   }
 
 #ifdef cimg_version
   void dump_to_bitmap_file() {
-    cimg_library::CImg<unsigned char> image(WIDTH, HEIGHT, 1, 3);
-    for (int y = 0; y < WIDTH; y++) {
-      for (int x = 0; x < HEIGHT; x++) {
-        auto pixel = OutBuffer[x + (y * WIDTH)];
-        image(x, y, 0) = pixel.R;
-        image(x, y, 1) = pixel.G;
-        image(x, y, 2) = pixel.B;
+    cimg_library::CImg<unsigned char> image(width, height, 1, 3);
+    for (int y = 0; y < width; y++) {
+      for (int x = 0; x < height; x++) {
+        auto pixel = outBuffer[x + (y * width)];
+        image(x, y, 0) = pixel.r;
+        image(x, y, 1) = pixel.g;
+        image(x, y, 2) = pixel.b;
       }
     }
     image.save("/tmp/file2.bmp");
@@ -1300,56 +1299,56 @@ class AstJpegDecoder {
 
  private:
   YuvMode yuvmode{};
-  // WIDTH and HEIGHT are the modes your display used
-  unsigned long WIDTH{};
-  unsigned long HEIGHT{};
-  unsigned long USER_WIDTH{};
-  unsigned long USER_HEIGHT{};
-  unsigned char Y_selector{};
-  int SCALEFACTOR;
-  int SCALEFACTORUV;
-  int ADVANCESCALEFACTOR;
-  int ADVANCESCALEFACTORUV;
-  int Mapping{};
-  unsigned char UV_selector{};
-  unsigned char advance_selector{};
-  int byte_pos{};  // current byte position
+  // width and height are the modes your display used
+  unsigned long width{};
+  unsigned long height{};
+  unsigned long userWidth{};
+  unsigned long userHeight{};
+  unsigned char ySelector{};
+  int scalefactor;
+  int scalefactoruv;
+  int advancescalefactor;
+  int advancescalefactoruv;
+  int mapping{};
+  unsigned char uvSelector{};
+  unsigned char advanceSelector{};
+  int bytePos{};  // current byte position
 
   // quantization tables, no more than 4 quantization tables
-  std::array<std::array<long, 64>, 4> QT{};
+  std::array<std::array<long, 64>, 4> qt{};
 
   // DC huffman tables , no more than 4 (0..3)
-  std::array<Huffman_table, 4> HTDC{};
+  std::array<HuffmanTable, 4> htdc{};
   // AC huffman tables (0..3)
-  std::array<Huffman_table, 4> HTAC{};
-  std::array<int, 256> m_CrToR{};
-  std::array<int, 256> m_CbToB{};
-  std::array<int, 256> m_CrToG{};
-  std::array<int, 256> m_CbToG{};
-  std::array<int, 256> m_Y{};
-  unsigned long buffer_index{};
+  std::array<HuffmanTable, 4> htac{};
+  std::array<int, 256> mCrToR{};
+  std::array<int, 256> mCbToB{};
+  std::array<int, 256> mCrToG{};
+  std::array<int, 256> mCbToG{};
+  std::array<int, 256> mY{};
+  unsigned long bufferIndex{};
   uint32_t codebuf{}, newbuf{}, readbuf{};
-  const unsigned char *std_luminance_qt{};
-  const uint8_t *std_chrominance_qt{};
+  const unsigned char *stdLuminanceQt{};
+  const uint8_t *stdChrominanceQt{};
 
-  signed short int DCY{}, DCCb{}, DCCr{};  // Coeficientii DC pentru Y,Cb,Cr
-  signed short int DCT_coeff[384]{};
-  // std::vector<signed short int> DCT_coeff;  // Current DCT_coefficients
+  signed short int dcy{}, dcCb{}, dcCr{};  // Coeficientii DC pentru Y,Cb,Cr
+  signed short int dctCoeff[384]{};
+  // std::vector<signed short int> dctCoeff;  // Current DCT_coefficients
   // quantization table number for Y, Cb, Cr
-  uint8_t YQ_nr = 0, CbQ_nr = 1, CrQ_nr = 1;
+  uint8_t yqNr = 0, cbQNr = 1, crQNr = 1;
   // DC Huffman table number for Y,Cb, Cr
-  uint8_t YDC_nr = 0, CbDC_nr = 1, CrDC_nr = 1;
+  uint8_t ydcNr = 0, cbDcNr = 1, crDcNr = 1;
   // AC Huffman table number for Y,Cb, Cr
-  uint8_t YAC_nr = 0, CbAC_nr = 1, CrAC_nr = 1;
+  uint8_t yacNr = 0, cbAcNr = 1, crAcNr = 1;
   int txb = 0;
   int tyb = 0;
   int newbits{};
-  uint8_t *rlimit_table{};
-  std::vector<RGB> YUVBuffer;
+  uint8_t *rlimitTable{};
+  std::vector<RGB> yuvBuffer;
   // TODO(ed) this shouldn't exist.  It is cruft that needs cleaning up
-  uint32_t *Buffer{};
+  uint32_t *buffer{};
 
  public:
-  std::vector<RGB> OutBuffer;
+  std::vector<RGB> outBuffer;
 };
-}  // namespace AstVideo
+}  // namespace ast_video

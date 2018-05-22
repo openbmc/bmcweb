@@ -3,8 +3,8 @@
 #include <sstream>
 #include <vector>
 #include "gtest/gtest.h"
-#undef CROW_LOG_LEVEL
-#define CROW_LOG_LEVEL 0
+#undef BMCWEB_LOG_LEVEL
+#define BMCWEB_LOG_LEVEL 0
 
 using namespace std;
 using namespace crow;
@@ -62,16 +62,16 @@ TEST(Crow, Rule) {
 
   r.validate();
 
-  response res;
+  Response res;
 
   // executing handler
   ASSERT_EQUAL(0, x);
   boost::beast::http::request<boost::beast::http::string_body> req{};
-  r.handle(request(req), res, routing_params());
+  r.handle(Request(req), res, RoutingParams());
   ASSERT_EQUAL(1, x);
 
-  // registering handler with request argument
-  r([&x](const crow::request&) {
+  // registering handler with Request argument
+  r([&x](const crow::Request&) {
     x = 2;
     return "";
   });
@@ -80,14 +80,14 @@ TEST(Crow, Rule) {
 
   // executing handler
   ASSERT_EQUAL(1, x);
-  r.handle(request(req), res, routing_params());
+  r.handle(Request(req), res, RoutingParams());
   ASSERT_EQUAL(2, x);
 }
 
 TEST(Crow, ParameterTagging) {
-  static_assert(black_magic::is_valid("<int><int><int>"), "valid url");
-  static_assert(!black_magic::is_valid("<int><int<<int>"), "invalid url");
-  static_assert(!black_magic::is_valid("nt>"), "invalid url");
+  static_assert(black_magic::isValid("<int><int><int>"), "valid url");
+  static_assert(!black_magic::isValid("<int><int<<int>"), "invalid url");
+  static_assert(!black_magic::isValid("nt>"), "invalid url");
   ASSERT_EQUAL(1, black_magic::get_parameter_tag("<int>"));
   ASSERT_EQUAL(2, black_magic::get_parameter_tag("<uint>"));
   ASSERT_EQUAL(3, black_magic::get_parameter_tag("<float>"));
@@ -106,96 +106,96 @@ TEST(Crow, ParameterTagging) {
   // to template argument
   static_assert(
       std::is_same<black_magic::S<uint64_t, double, int64_t>,
-                   black_magic::arguments<6 * 6 + 6 * 3 + 2>::type>::value,
+                   black_magic::Arguments<6 * 6 + 6 * 3 + 2>::type>::value,
       "tag to type container");
 }
 
 TEST(Crow, PathRouting) {
   SimpleApp app;
 
-  CROW_ROUTE(app, "/file")
+  BMCWEB_ROUTE(app, "/file")
   ([] { return "file"; });
 
-  CROW_ROUTE(app, "/path/")
+  BMCWEB_ROUTE(app, "/path/")
   ([] { return "path"; });
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/file";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/file/";
 
     app.handle(req, res);
-    ASSERT_EQUAL(404, res.result_int());
+    ASSERT_EQUAL(404, res.resultInt());
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/path";
 
     app.handle(req, res);
-    ASSERT_NOTEQUAL(404, res.result_int());
+    ASSERT_NOTEQUAL(404, res.resultInt());
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/path/";
 
     app.handle(req, res);
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
   }
 }
 
 TEST(Crow, RoutingTest) {
   SimpleApp app;
   int A{};
-  uint32_t B{};
+  uint32_t b{};
   double C{};
   string D{};
   string E{};
 
-  CROW_ROUTE(app, "/0/<uint>")
+  BMCWEB_ROUTE(app, "/0/<uint>")
   ([&](uint32_t b) {
-    B = b;
+    b = b;
     return "OK";
   });
 
-  CROW_ROUTE(app, "/1/<int>/<uint>")
+  BMCWEB_ROUTE(app, "/1/<int>/<uint>")
   ([&](int a, uint32_t b) {
     A = a;
-    B = b;
+    b = b;
     return "OK";
   });
 
-  CROW_ROUTE(app, "/4/<int>/<uint>/<double>/<string>")
+  BMCWEB_ROUTE(app, "/4/<int>/<uint>/<double>/<string>")
   ([&](int a, uint32_t b, double c, string d) {
     A = a;
-    B = b;
+    b = b;
     C = c;
     D = d;
     return "OK";
   });
 
-  CROW_ROUTE(app, "/5/<int>/<uint>/<double>/<string>/<path>")
+  BMCWEB_ROUTE(app, "/5/<int>/<uint>/<double>/<string>/<path>")
   ([&](int a, uint32_t b, double c, string d, string e) {
     A = a;
-    B = b;
+    b = b;
     C = c;
     D = d;
     E = e;
@@ -203,96 +203,96 @@ TEST(Crow, RoutingTest) {
   });
 
   app.validate();
-  // app.debug_print();
+  // app.debugPrint();
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/-1";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(404, res.result_int());
+    ASSERT_EQUAL(404, res.resultInt());
   }
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/0/1001999";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
 
-    ASSERT_EQUAL(1001999, B);
+    ASSERT_EQUAL(1001999, b);
   }
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/1/-100/1999";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
 
     ASSERT_EQUAL(-100, A);
-    ASSERT_EQUAL(1999, B);
+    ASSERT_EQUAL(1999, b);
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/4/5000/3/-2.71828/hellhere";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
 
     ASSERT_EQUAL(5000, A);
-    ASSERT_EQUAL(3, B);
+    ASSERT_EQUAL(3, b);
     ASSERT_EQUAL(-2.71828, C);
     ASSERT_EQUAL("hellhere", D);
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/5/-5/999/3.141592/hello_there/a/b/c/d";
 
     app.handle(req, res);
 
-    ASSERT_EQUAL(200, res.result_int());
+    ASSERT_EQUAL(200, res.resultInt());
 
     ASSERT_EQUAL(-5, A);
-    ASSERT_EQUAL(999, B);
+    ASSERT_EQUAL(999, b);
     ASSERT_EQUAL(3.141592, C);
     ASSERT_EQUAL("hello_there", D);
     ASSERT_EQUAL("a/b/c/d", E);
   }
 }
 
-TEST(Crow, simple_response_routing_params) {
+TEST(Crow, simple_response_RoutingParams) {
   ASSERT_EQUAL(100,
-               response(boost::beast::http::status::continue_).result_int());
-  ASSERT_EQUAL(200, response("Hello there").result_int());
-  ASSERT_EQUAL(500, response(boost::beast::http::status::internal_server_error,
+               Response(boost::beast::http::status::continue_).resultInt());
+  ASSERT_EQUAL(200, Response("Hello there").resultInt());
+  ASSERT_EQUAL(500, Response(boost::beast::http::status::internal_server_error,
                              "Internal Error?")
-                        .result_int());
+                        .resultInt());
 
-  routing_params rp;
-  rp.int_params.push_back(1);
-  rp.int_params.push_back(5);
-  rp.uint_params.push_back(2);
-  rp.double_params.push_back(3);
-  rp.string_params.push_back("hello");
+  RoutingParams rp;
+  rp.intParams.push_back(1);
+  rp.intParams.push_back(5);
+  rp.uintParams.push_back(2);
+  rp.doubleParams.push_back(3);
+  rp.stringParams.push_back("hello");
   ASSERT_EQUAL(1, rp.get<int64_t>(0));
   ASSERT_EQUAL(5, rp.get<int64_t>(1));
   ASSERT_EQUAL(2, rp.get<uint64_t>(0));
@@ -302,34 +302,34 @@ TEST(Crow, simple_response_routing_params) {
 
 TEST(Crow, handler_with_response) {
   SimpleApp app;
-  CROW_ROUTE(app, "/")([](const crow::request&, crow::response&) {});
+  BMCWEB_ROUTE(app, "/")([](const crow::Request&, crow::Response&) {});
 }
 
 TEST(Crow, http_method) {
   SimpleApp app;
 
-  CROW_ROUTE(app, "/").methods("POST"_method,
-                               "GET"_method)([](const request& req) {
+  BMCWEB_ROUTE(app, "/").methods("POST"_method,
+                                 "GET"_method)([](const Request& req) {
     if (req.method() == "GET"_method)
       return "2";
     else
       return "1";
   });
 
-  CROW_ROUTE(app, "/get_only")
-      .methods("GET"_method)([](const request& /*req*/) { return "get"; });
-  CROW_ROUTE(app, "/post_only")
-      .methods("POST"_method)([](const request& /*req*/) { return "post"; });
+  BMCWEB_ROUTE(app, "/get_only")
+      .methods("GET"_method)([](const Request& /*req*/) { return "get"; });
+  BMCWEB_ROUTE(app, "/post_only")
+      .methods("POST"_method)([](const Request& /*req*/) { return "post"; });
 
   // cannot have multiple handlers for the same url
-  // CROW_ROUTE(app, "/")
+  // BMCWEB_ROUTE(app, "/")
   //.methods("GET"_method)
   //([]{ return "2"; });
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/";
     app.handle(req, res);
@@ -338,8 +338,8 @@ TEST(Crow, http_method) {
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/";
     r.method("POST"_method);
@@ -350,8 +350,8 @@ TEST(Crow, http_method) {
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/get_only";
     app.handle(req, res);
@@ -361,8 +361,8 @@ TEST(Crow, http_method) {
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
 
     req.url = "/get_only";
     r.method("POST"_method);
@@ -375,7 +375,7 @@ TEST(Crow, http_method) {
 TEST(Crow, server_handling_error_request) {
   static char buf[2048];
   SimpleApp app;
-  CROW_ROUTE(app, "/")([] { return "A"; });
+  BMCWEB_ROUTE(app, "/")([] { return "A"; });
   Server<SimpleApp> server(&app, LOCALHOST_ADDRESS, 45451);
   auto _ = async(launch::async, [&] { server.run(); });
   std::string sendmsg = "POX";
@@ -400,10 +400,10 @@ TEST(Crow, server_handling_error_request) {
 TEST(Crow, multi_server) {
   static char buf[2048];
   SimpleApp app1, app2;
-  CROW_ROUTE(app1, "/").methods("GET"_method,
-                                "POST"_method)([] { return "A"; });
-  CROW_ROUTE(app2, "/").methods("GET"_method,
-                                "POST"_method)([] { return "B"; });
+  BMCWEB_ROUTE(app1, "/").methods("GET"_method,
+                                  "POST"_method)([] { return "A"; });
+  BMCWEB_ROUTE(app2, "/").methods("GET"_method,
+                                  "POST"_method)([] { return "B"; });
 
   Server<SimpleApp> server1(&app1, LOCALHOST_ADDRESS, 45451);
   Server<SimpleApp> server2(&app2, LOCALHOST_ADDRESS, 45452);
@@ -412,7 +412,7 @@ TEST(Crow, multi_server) {
   auto _2 = async(launch::async, [&] { server2.run(); });
 
   std::string sendmsg =
-      "POST /\r\nContent-Length:3\r\nX-HeaderTest: 123\r\n\r\nA=B\r\n";
+      "POST /\r\nContent-Length:3\r\nX-HeaderTest: 123\r\n\r\nA=b\r\n";
   asio::io_service is;
   {
     asio::ip::tcp::socket c(is);
@@ -436,7 +436,7 @@ TEST(Crow, multi_server) {
     }
 
     size_t recved = c.receive(asio::buffer(buf, 2048));
-    ASSERT_EQUAL('B', buf[recved - 1]);
+    ASSERT_EQUAL('b', buf[recved - 1]);
   }
 
   server1.stop();
@@ -446,58 +446,59 @@ TEST(Crow, multi_server) {
 TEST(Crow, black_magic) {
   using namespace black_magic;
   static_assert(
-      std::is_same<void, last_element_type<int, char, void>::type>::value,
-      "last_element_type");
-  static_assert(std::is_same<char, pop_back<int, char, void>::rebind<
-                                       last_element_type>::type>::value,
-                "pop_back");
+      std::is_same<void, LastElementType<int, char, void>::type>::value,
+      "LastElementType");
   static_assert(
-      std::is_same<int, pop_back<int, char, void>::rebind<pop_back>::rebind<
-                            last_element_type>::type>::value,
+      std::is_same<
+          char, PopBack<int, char, void>::rebind<LastElementType>::type>::value,
+      "pop_back");
+  static_assert(
+      std::is_same<int, PopBack<int, char, void>::rebind<PopBack>::rebind<
+                            LastElementType>::type>::value,
       "pop_back");
 }
 
 struct NullMiddleware {
-  struct context {};
+  struct Context {};
 
   template <typename AllContext>
-  void before_handle(request&, response&, context&, AllContext&) {}
+  void beforeHandle(Request&, Response&, Context&, AllContext&) {}
 
   template <typename AllContext>
-  void after_handle(request&, response&, context&, AllContext&) {}
+  void afterHandle(Request&, Response&, Context&, AllContext&) {}
 };
 
 struct NullSimpleMiddleware {
-  struct context {};
+  struct Context {};
 
-  void before_handle(request& /*req*/, response& /*res*/, context& /*ctx*/) {}
+  void beforeHandle(Request& /*req*/, Response& /*res*/, Context& /*ctx*/) {}
 
-  void after_handle(request& /*req*/, response& /*res*/, context& /*ctx*/) {}
+  void afterHandle(Request& /*req*/, Response& /*res*/, Context& /*ctx*/) {}
 };
 
 TEST(Crow, middleware_simple) {
   App<NullMiddleware, NullSimpleMiddleware> app;
   decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
-  CROW_ROUTE(app, "/")
-  ([&](const crow::request& req) {
-    app.get_context<NullMiddleware>(req);
-    app.get_context<NullSimpleMiddleware>(req);
+  BMCWEB_ROUTE(app, "/")
+  ([&](const crow::Request& req) {
+    app.getContext<NullMiddleware>(req);
+    app.getContext<NullSimpleMiddleware>(req);
     return "";
   });
 }
 
 struct IntSettingMiddleware {
-  struct context {
+  struct Context {
     int val;
   };
 
   template <typename AllContext>
-  void before_handle(request&, response&, context& ctx, AllContext&) {
+  void beforeHandle(Request&, Response&, Context& ctx, AllContext&) {
     ctx.val = 1;
   }
 
   template <typename AllContext>
-  void after_handle(request&, response&, context& ctx, AllContext&) {
+  void afterHandle(Request&, Response&, Context& ctx, AllContext&) {
     ctx.val = 2;
   }
 };
@@ -505,49 +506,49 @@ struct IntSettingMiddleware {
 std::vector<std::string> test_middleware_context_vector;
 
 struct FirstMW {
-  struct context {
+  struct Context {
     std::vector<string> v;
   };
 
-  void before_handle(request& /*req*/, response& /*res*/, context& ctx) {
+  void beforeHandle(Request& /*req*/, Response& /*res*/, Context& ctx) {
     ctx.v.push_back("1 before");
   }
 
-  void after_handle(request& /*req*/, response& /*res*/, context& ctx) {
+  void afterHandle(Request& /*req*/, Response& /*res*/, Context& ctx) {
     ctx.v.push_back("1 after");
     test_middleware_context_vector = ctx.v;
   }
 };
 
 struct SecondMW {
-  struct context {};
+  struct Context {};
   template <typename AllContext>
-  void before_handle(request& req, response& res, context&,
-                     AllContext& all_ctx) {
+  void beforeHandle(Request& req, Response& res, Context&,
+                    AllContext& all_ctx) {
     all_ctx.template get<FirstMW>().v.push_back("2 before");
     if (req.url == "/break") res.end();
   }
 
   template <typename AllContext>
-  void after_handle(request&, response&, context&, AllContext& all_ctx) {
+  void afterHandle(Request&, Response&, Context&, AllContext& all_ctx) {
     all_ctx.template get<FirstMW>().v.push_back("2 after");
   }
 };
 
 struct ThirdMW {
-  struct context {};
+  struct Context {};
   template <typename AllContext>
-  void before_handle(request&, response&, context&, AllContext& all_ctx) {
+  void beforeHandle(Request&, Response&, Context&, AllContext& all_ctx) {
     all_ctx.template get<FirstMW>().v.push_back("3 before");
   }
 
   template <typename AllContext>
-  void after_handle(request&, response&, context&, AllContext& all_ctx) {
+  void afterHandle(Request&, Response&, Context&, AllContext& all_ctx) {
     all_ctx.template get<FirstMW>().v.push_back("3 after");
   }
 };
 
-TEST(Crow, middleware_context) {
+TEST(Crow, middlewareContext) {
   static char buf[2048];
   // SecondMW depends on FirstMW (it uses all_ctx.get<FirstMW>)
   // so it leads to compile error if we remove FirstMW from definition
@@ -558,23 +559,23 @@ TEST(Crow, middleware_context) {
   App<IntSettingMiddleware, FirstMW, SecondMW, ThirdMW> app;
 
   int x{};
-  CROW_ROUTE(app, "/")
-  ([&](const request& req) {
+  BMCWEB_ROUTE(app, "/")
+  ([&](const Request& req) {
     {
-      auto& ctx = app.get_context<IntSettingMiddleware>(req);
+      auto& ctx = app.getContext<IntSettingMiddleware>(req);
       x = ctx.val;
     }
     {
-      auto& ctx = app.get_context<FirstMW>(req);
+      auto& ctx = app.getContext<FirstMW>(req);
       ctx.v.push_back("handle");
     }
 
     return "";
   });
-  CROW_ROUTE(app, "/break")
-  ([&](const request& req) {
+  BMCWEB_ROUTE(app, "/break")
+  ([&](const Request& req) {
     {
-      auto& ctx = app.get_context<FirstMW>(req);
+      auto& ctx = app.getContext<FirstMW>(req);
       ctx.v.push_back("handle");
     }
 
@@ -634,7 +635,7 @@ TEST(Crow, bug_quick_repeated_request) {
 
   SimpleApp app;
 
-  CROW_ROUTE(app, "/")([&] { return "hello"; });
+  BMCWEB_ROUTE(app, "/")([&] { return "hello"; });
 
   decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
   auto _ = async(launch::async, [&] { server.run(); });
@@ -667,11 +668,11 @@ TEST(Crow, simple_url_params) {
 
   SimpleApp app;
 
-  query_string last_url_params;
+  QueryString lastUrlParams;
 
-  CROW_ROUTE(app, "/params")
-  ([&last_url_params](const crow::request& req) {
-    last_url_params = std::move(req.url_params);
+  BMCWEB_ROUTE(app, "/params")
+  ([&lastUrlParams](const crow::Request& req) {
+    lastUrlParams = std::move(req.urlParams);
     return "OK";
   });
 
@@ -693,7 +694,7 @@ TEST(Crow, simple_url_params) {
     c.close();
 
     stringstream ss;
-    ss << last_url_params;
+    ss << lastUrlParams;
 
     ASSERT_EQUAL("[  ]", ss.str());
   }
@@ -707,9 +708,9 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_TRUE(last_url_params.get("missing") == nullptr);
-    ASSERT_TRUE(last_url_params.get("foobar") != nullptr);
-    ASSERT_TRUE(last_url_params.get_list("missing").empty());
+    ASSERT_TRUE(lastUrlParams.get("missing") == nullptr);
+    ASSERT_TRUE(lastUrlParams.get("foobar") != nullptr);
+    ASSERT_TRUE(lastUrlParams.getList("missing").empty());
   }
   // check multiple presence
   sendmsg = "GET /params?foo&bar&baz\r\n\r\n";
@@ -721,10 +722,10 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_TRUE(last_url_params.get("missing") == nullptr);
-    ASSERT_TRUE(last_url_params.get("foo") != nullptr);
-    ASSERT_TRUE(last_url_params.get("bar") != nullptr);
-    ASSERT_TRUE(last_url_params.get("baz") != nullptr);
+    ASSERT_TRUE(lastUrlParams.get("missing") == nullptr);
+    ASSERT_TRUE(lastUrlParams.get("foo") != nullptr);
+    ASSERT_TRUE(lastUrlParams.get("bar") != nullptr);
+    ASSERT_TRUE(lastUrlParams.get("baz") != nullptr);
   }
   // check single value
   sendmsg = "GET /params?hello=world\r\n\r\n";
@@ -736,7 +737,7 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_EQUAL(string(last_url_params.get("hello")), "world");
+    ASSERT_EQUAL(string(lastUrlParams.get("hello")), "world");
   }
   // check multiple value
   sendmsg = "GET /params?hello=world&left=right&up=down\r\n\r\n";
@@ -748,9 +749,9 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_EQUAL(string(last_url_params.get("hello")), "world");
-    ASSERT_EQUAL(string(last_url_params.get("left")), "right");
-    ASSERT_EQUAL(string(last_url_params.get("up")), "down");
+    ASSERT_EQUAL(string(lastUrlParams.get("hello")), "world");
+    ASSERT_EQUAL(string(lastUrlParams.get("left")), "right");
+    ASSERT_EQUAL(string(lastUrlParams.get("up")), "down");
   }
   // check multiple value, multiple types
   sendmsg = "GET /params?int=100&double=123.45&boolean=1\r\n\r\n";
@@ -762,11 +763,10 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_EQUAL(boost::lexical_cast<int>(last_url_params.get("int")), 100);
-    ASSERT_EQUAL(boost::lexical_cast<double>(last_url_params.get("double")),
+    ASSERT_EQUAL(boost::lexical_cast<int>(lastUrlParams.get("int")), 100);
+    ASSERT_EQUAL(boost::lexical_cast<double>(lastUrlParams.get("double")),
                  123.45);
-    ASSERT_EQUAL(boost::lexical_cast<bool>(last_url_params.get("boolean")),
-                 true);
+    ASSERT_EQUAL(boost::lexical_cast<bool>(lastUrlParams.get("boolean")), true);
   }
   // check single array value
   sendmsg = "GET /params?tmnt[]=leonardo\r\n\r\n";
@@ -779,9 +779,9 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_TRUE(last_url_params.get("tmnt") == nullptr);
-    ASSERT_EQUAL(last_url_params.get_list("tmnt").size(), 1);
-    ASSERT_EQUAL(string(last_url_params.get_list("tmnt")[0]), "leonardo");
+    ASSERT_TRUE(lastUrlParams.get("tmnt") == nullptr);
+    ASSERT_EQUAL(lastUrlParams.getList("tmnt").size(), 1);
+    ASSERT_EQUAL(string(lastUrlParams.getList("tmnt")[0]), "leonardo");
   }
   // check multiple array value
   sendmsg =
@@ -795,43 +795,43 @@ TEST(Crow, simple_url_params) {
     c.receive(asio::buffer(buf, 2048));
     c.close();
 
-    ASSERT_EQUAL(last_url_params.get_list("tmnt").size(), 3);
-    ASSERT_EQUAL(string(last_url_params.get_list("tmnt")[0]), "leonardo");
-    ASSERT_EQUAL(string(last_url_params.get_list("tmnt")[1]), "donatello");
-    ASSERT_EQUAL(string(last_url_params.get_list("tmnt")[2]), "raphael");
+    ASSERT_EQUAL(lastUrlParams.getList("tmnt").size(), 3);
+    ASSERT_EQUAL(string(lastUrlParams.getList("tmnt")[0]), "leonardo");
+    ASSERT_EQUAL(string(lastUrlParams.getList("tmnt")[1]), "donatello");
+    ASSERT_EQUAL(string(lastUrlParams.getList("tmnt")[2]), "raphael");
   }
   server.stop();
 }
 
-TEST(Crow, route_dynamic) {
+TEST(Crow, routeDynamic) {
   SimpleApp app;
   int x = 1;
-  app.route_dynamic("/")([&] {
+  app.routeDynamic("/")([&] {
     x = 2;
     return "";
   });
 
-  app.route_dynamic("/set4")([&](const request&) {
+  app.routeDynamic("/set4")([&](const Request&) {
     x = 4;
     return "";
   });
-  app.route_dynamic("/set5")([&](const request&, response& res) {
+  app.routeDynamic("/set5")([&](const Request&, Response& res) {
     x = 5;
     res.end();
   });
 
-  app.route_dynamic("/set_int/<int>")([&](int y) {
+  app.routeDynamic("/set_int/<int>")([&](int y) {
     x = y;
     return "";
   });
 
   try {
-    app.route_dynamic("/invalid_test/<double>/<path>")([]() { return ""; });
+    app.routeDynamic("/invalid_test/<double>/<path>")([]() { return ""; });
     fail();
   } catch (std::exception&) {
   }
 
-  // app is in an invalid state when route_dynamic throws an exception.
+  // app is in an invalid state when routeDynamic throws an exception.
   try {
     app.validate();
     fail();
@@ -840,32 +840,32 @@ TEST(Crow, route_dynamic) {
 
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
     req.url = "/";
     app.handle(req, res);
     ASSERT_EQUAL(x, 2);
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
     req.url = "/set_int/42";
     app.handle(req, res);
     ASSERT_EQUAL(x, 42);
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
     req.url = "/set5";
     app.handle(req, res);
     ASSERT_EQUAL(x, 5);
   }
   {
     boost::beast::http::request<boost::beast::http::string_body> r{};
-    request req{r};
-    response res;
+    Request req{r};
+    Response res;
     req.url = "/set4";
     app.handle(req, res);
     ASSERT_EQUAL(x, 4);

@@ -24,21 +24,21 @@
 constexpr int defaultPort = 18080;
 
 template <typename... Middlewares>
-void setup_socket(crow::Crow<Middlewares...>& app) {
-  int listen_fd = sd_listen_fds(0);
-  if (1 == listen_fd) {
-    CROW_LOG_INFO << "attempting systemd socket activation";
+void setupSocket(crow::Crow<Middlewares...>& app) {
+  int listenFd = sd_listen_fds(0);
+  if (1 == listenFd) {
+    BMCWEB_LOG_INFO << "attempting systemd socket activation";
     if (sd_is_socket_inet(SD_LISTEN_FDS_START, AF_UNSPEC, SOCK_STREAM, 1, 0)) {
-      CROW_LOG_INFO << "Starting webserver on socket handle "
-                    << SD_LISTEN_FDS_START;
+      BMCWEB_LOG_INFO << "Starting webserver on socket handle "
+                      << SD_LISTEN_FDS_START;
       app.socket(SD_LISTEN_FDS_START);
     } else {
-      CROW_LOG_INFO << "bad incoming socket, starting webserver on port "
-                    << defaultPort;
+      BMCWEB_LOG_INFO << "bad incoming socket, starting webserver on port "
+                      << defaultPort;
       app.port(defaultPort);
     }
   } else {
-    CROW_LOG_INFO << "Starting webserver on port " << defaultPort;
+    BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
     app.port(defaultPort);
   }
 }
@@ -51,47 +51,47 @@ int main(int argc, char** argv) {
       std::make_shared<crow::PersistentData::SessionStore>();
   CrowApp app(io);
 
-#ifdef CROW_ENABLE_SSL
-  std::string ssl_pem_file("server.pem");
-  std::cout << "Building SSL context\n";
+#ifdef BMCWEB_ENABLE_SSL
+  std::string sslPemFile("server.pem");
+  std::cout << "Building SSL Context\n";
 
-  ensuressl::ensure_openssl_key_present_and_valid(ssl_pem_file);
+  ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
   std::cout << "SSL Enabled\n";
-  auto ssl_context = ensuressl::get_ssl_context(ssl_pem_file);
-  app.ssl(std::move(ssl_context));
+  auto sslContext = ensuressl::getSslContext(sslPemFile);
+  app.ssl(std::move(sslContext));
 #endif
   // Static assets need to be initialized before Authorization, because auth
   // needs to build the whitelist from the static routes
 
 #ifdef BMCWEB_ENABLE_PHOSPHOR_WEBUI
-  crow::webassets::request_routes(app);
+  crow::webassets::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_KVM
-  crow::kvm::request_routes(app);
+  crow::kvm::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH
-  crow::redfish::request_routes(app);
+  crow::redfish::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
-  crow::dbus_monitor::request_routes(app);
+  crow::dbus_monitor::requestRoutes(app);
   crow::image_upload::requestRoutes(app);
-  crow::openbmc_mapper::request_routes(app);
+  crow::openbmc_mapper::requestRoutes(app);
 #endif
 
-  crow::TokenAuthorization::request_routes(app);
+  crow::token_authorization::requestRoutes(app);
 
-  CROW_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
-  setup_socket(app);
+  BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
+  setupSocket(app);
 
-  crow::connections::system_bus =
+  crow::connections::systemBus =
       std::make_shared<sdbusplus::asio::connection>(*io);
   redfish::RedfishService redfish(app);
 
   app.run();
   io->run();
 
-  crow::connections::system_bus.reset();
+  crow::connections::systemBus.reset();
 }

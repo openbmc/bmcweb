@@ -14,17 +14,17 @@ namespace image_upload {
 
 std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
-inline void uploadImageHandler(const crow::request& req, crow::response& res,
+inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
                                const std::string& filename) {
   // Only allow one FW update at a time
-  if (fwUpdateMatcher != nullptr) {
-    res.add_header("Retry-After", "30");
+  if (fwupdatematcher != nullptr) {
+    res.addHeader("Retry-After", "30");
     res.result(boost::beast::http::status::service_unavailable);
     res.end();
     return;
   }
   // Make this const static so it survives outside this method
-  static boost::asio::deadline_timer timeout(*req.io_service,
+  static boost::asio::deadline_timer timeout(*req.ioService,
                                              boost::posix_time::seconds(5));
 
   timeout.expires_from_now(boost::posix_time::seconds(5));
@@ -35,10 +35,10 @@ inline void uploadImageHandler(const crow::request& req, crow::response& res,
       // expected, we were canceled before the timer completed.
       return;
     }
-    CROW_LOG_ERROR << "Timed out waiting for log event";
+    BMCWEB_LOG_ERROR << "Timed out waiting for log event";
 
     if (ec) {
-      CROW_LOG_ERROR << "Async_wait failed " << ec;
+      BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
       return;
     }
 
@@ -48,11 +48,11 @@ inline void uploadImageHandler(const crow::request& req, crow::response& res,
 
   std::function<void(sdbusplus::message::message&)> callback =
       [&res](sdbusplus::message::message& m) {
-        CROW_LOG_DEBUG << "Match fired";
+        BMCWEB_LOG_DEBUG << "Match fired";
         boost::system::error_code ec;
         timeout.cancel(ec);
         if (ec) {
-          CROW_LOG_ERROR << "error canceling timer " << ec;
+          BMCWEB_LOG_ERROR << "error canceling timer " << ec;
         }
         std::string versionInfo;
         m.read(versionInfo);  // Read in the object path that was just created
@@ -61,15 +61,15 @@ inline void uploadImageHandler(const crow::request& req, crow::response& res,
         if (index != std::string::npos) {
           versionInfo.erase(0, index);
         }
-        res.json_value = {{"data", std::move(versionInfo)},
-                          {"message", "200 OK"},
-                          {"status", "ok"}};
-        CROW_LOG_DEBUG << "ending response";
+        res.jsonValue = {{"data", std::move(versionInfo)},
+                         {"message", "200 OK"},
+                         {"status", "ok"}};
+        BMCWEB_LOG_DEBUG << "ending response";
         res.end();
         fwUpdateMatcher = nullptr;
       };
-  fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
-      *crow::connections::system_bus,
+  fwupdatematcher = std::make_unique<sdbusplus::bus::match::match>(
+      *crow::connections::systemBus,
       "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
       "member='InterfacesAdded',path='/xyz/openbmc_project/logging'",
       callback);
@@ -77,7 +77,7 @@ inline void uploadImageHandler(const crow::request& req, crow::response& res,
   std::string filepath(
       "/tmp/images/" +
       boost::uuids::to_string(boost::uuids::random_generator()()));
-  CROW_LOG_DEBUG << "Writing file to " << filepath;
+  BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
   std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                   std::ofstream::trunc);
   out << req.body;
@@ -86,16 +86,16 @@ inline void uploadImageHandler(const crow::request& req, crow::response& res,
 
 template <typename... Middlewares>
 void requestRoutes(Crow<Middlewares...>& app) {
-  CROW_ROUTE(app, "/upload/image/<str>")
+  BMCWEB_ROUTE(app, "/upload/image/<str>")
       .methods("POST"_method,
-               "PUT"_method)([](const crow::request& req, crow::response& res,
+               "PUT"_method)([](const crow::Request& req, crow::Response& res,
                                 const std::string& filename) {
         uploadImageHandler(req, res, filename);
       });
 
-  CROW_ROUTE(app, "/upload/image")
+  BMCWEB_ROUTE(app, "/upload/image")
       .methods("POST"_method,
-               "PUT"_method)([](const crow::request& req, crow::response& res) {
+               "PUT"_method)([](const crow::Request& req, crow::Response& res) {
         uploadImageHandler(req, res, "");
       });
 }

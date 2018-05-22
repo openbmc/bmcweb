@@ -31,23 +31,44 @@ class ServiceRoot : public Node {
     Node::json["RedfishVersion"] = "1.1.0";
     Node::json["Links"]["Sessions"] = {
         {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-    Node::json["UUID"] =
-        app.template get_middleware<crow::PersistentData::Middleware>()
-            .system_uuid;
 
-    entityPrivileges = {{boost::beast::http::verb::get, {}},
-                        {boost::beast::http::verb::head, {}},
-                        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-                        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-                        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-                        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    Node::json["UUID"] = getUuid();
+
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {}},
+        {boost::beast::http::verb::head, {}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
+  }
+
+  const std::string getUuid() {
+  // If we are using a version of systemd that can get the app specific uuid,
+  // use that
+#ifdef sd_id128_get_machine_app_specific
+    std::array<char, SD_ID128_STRING_MAX> string;
+    sd_id128_t id = SD_ID128_NULL;
+
+    // This ID needs to match the one in ipmid
+    int r = sd_id128_get_machine_app_specific(
+        SD_ID128_MAKE(e0, e1, 73, 76, 64, 61, 47, da, a5, 0c, d0, cc, 64, 12,
+                      45, 78),
+        &id);
+    if (r < 0) {
+      return "00000000-0000-0000-0000-000000000000";
+    }
+    return string.data();
+#else
+    return "00000000-0000-0000-0000-000000000000";
+#endif
   }
 };
 

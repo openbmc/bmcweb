@@ -34,7 +34,7 @@ constexpr std::array<const char*, 5> basePrivileges{
 constexpr const int basePrivilegeCount = basePrivileges.size();
 
 /** @brief Max number of privileges per type  */
-constexpr const int MAX_PRIVILEGE_COUNT = 32;
+constexpr const int maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
@@ -45,7 +45,7 @@ static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
  *
  *        Entity privileges and user privileges are represented by this class.
  *
- *        Each incoming connection requires a comparison between privileges held
+ *        Each incoming Connection requires a comparison between privileges held
  *        by the user issuing a request and the target entity's privileges.
  *
  *        To ensure best runtime performance of this comparison, privileges
@@ -73,8 +73,8 @@ class Privileges {
   Privileges(std::initializer_list<const char*> privilegeList) {
     for (const char* privilege : privilegeList) {
       if (!setSinglePrivilege(privilege)) {
-        CROW_LOG_CRITICAL << "Unable to set privilege " << privilege
-                          << "in constructor";
+        BMCWEB_LOG_CRITICAL << "Unable to set privilege " << privilege
+                            << "in constructor";
       }
     }
   }
@@ -88,10 +88,10 @@ class Privileges {
    *
    */
   bool setSinglePrivilege(const char* privilege) {
-    for (int search_index = 0; search_index < privilegeNames.size();
-         search_index++) {
-      if (privilege == privilegeNames[search_index]) {
-        privilegeBitset.set(search_index);
+    for (int searchIndex = 0; searchIndex < privilegeNames.size();
+         searchIndex++) {
+      if (privilege == privilegeNames[searchIndex]) {
+        privilegeBitset.set(searchIndex);
         return true;
       }
     }
@@ -124,16 +124,16 @@ class Privileges {
       const PrivilegeType type) const {
     std::vector<const std::string*> activePrivileges;
 
-    int search_index = 0;
-    int end_index = basePrivilegeCount;
+    int searchIndex = 0;
+    int endIndex = basePrivilegeCount;
     if (type == PrivilegeType::OEM) {
-      search_index = basePrivilegeCount - 1;
-      end_index = privilegeNames.size();
+      searchIndex = basePrivilegeCount - 1;
+      endIndex = privilegeNames.size();
     }
 
-    for (; search_index < end_index; search_index++) {
-      if (privilegeBitset.test(search_index)) {
-        activePrivileges.emplace_back(&privilegeNames[search_index]);
+    for (; searchIndex < endIndex; searchIndex++) {
+      if (privilegeBitset.test(searchIndex)) {
+        activePrivileges.emplace_back(&privilegeNames[searchIndex]);
       }
     }
 
@@ -154,7 +154,7 @@ class Privileges {
   }
 
  private:
-  std::bitset<MAX_PRIVILEGE_COUNT> privilegeBitset = 0;
+  std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 
 using OperationMap = boost::container::flat_map<boost::beast::http::verb,

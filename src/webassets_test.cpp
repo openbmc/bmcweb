@@ -16,11 +16,11 @@ using namespace testing;
 TEST(Webassets, StaticFilesFixedRoutes) {
   std::array<char, 2048> buf;
   SimpleApp app;
-  webassets::request_routes(app);
+  webassets::requestRoutes(app);
   Server<SimpleApp> server(&app, "127.0.0.1", 45451);
   auto _ = async(launch::async, [&] { server.run(); });
 
-  // Get the homepage
+  // get the homepage
   std::string sendmsg = "GET /\r\n\r\n";
 
   asio::io_service is;
@@ -70,7 +70,7 @@ TEST(Webassets, StaticFilesFixedRoutes) {
   // Once this occurs, this line will be obsolete
   std::string ungziped_content = http_content;
   if (content_encoding == "gzip") {
-    EXPECT_TRUE(gzip_inflate(http_content, ungziped_content));
+    EXPECT_TRUE(gzipInflate(http_content, ungziped_content));
   }
 
   EXPECT_EQ(headers[0], "HTTP/1.1 200 OK");
@@ -86,11 +86,11 @@ TEST(Webassets, StaticFilesFixedRoutes) {
 TEST(Webassets, EtagIsSane) {
   std::array<char, 2048> buf;
   SimpleApp app;
-  webassets::request_routes(app);
+  webassets::requestRoutes(app);
   Server<SimpleApp> server(&app, "127.0.0.1", 45451);
   auto _ = async(launch::async, [&] { server.run(); });
 
-  // Get the homepage
+  // get the homepage
   std::string sendmsg = "GET /\r\n\r\n";
 
   asio::io_service is;

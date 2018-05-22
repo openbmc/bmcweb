@@ -4,7 +4,7 @@
 
 namespace mapbox {
 template <typename T, typename... Types>
-const T* get_ptr(const mapbox::util::variant<Types...>& v) {
+const T* getPtr(const mapbox::util::variant<Types...>& v) {
   if (v.template is<std::remove_const_t<T>>()) {
     return &v.template get_unchecked<std::remove_const_t<T>>();
   } else {
@@ -15,7 +15,7 @@ const T* get_ptr(const mapbox::util::variant<Types...>& v) {
 
 namespace crow {
 namespace connections {
-static std::shared_ptr<sdbusplus::asio::connection> system_bus;
+static std::shared_ptr<sdbusplus::asio::connection> systemBus;
 
 }  // namespace connections
 }  // namespace crow

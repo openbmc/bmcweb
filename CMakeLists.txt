@@ -135,18 +135,16 @@ find_package (OpenSSL REQUIRED)
 include_directories (${OPENSSL_INCLUDE_DIR})
 message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
-# Crow
+# bmcweb
 message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     message ("Logging disabled")
-    add_definitions (-DCROW_ENABLE_LOGGING)
-    add_definitions (-DCROW_ENABLE_DEBUG)
+    add_definitions (-DBMCWEB_ENABLE_LOGGING)
+    add_definitions (-DBMCWEB_ENABLE_DEBUG)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
-if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
-    add_definitions(-DCROW_ENABLE_SSL)
-endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
+add_definitions (-DBMCWEB_ENABLE_SSL)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
 find_package (ZLIB REQUIRED)
