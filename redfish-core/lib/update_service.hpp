@@ -23,7 +23,7 @@ namespace redfish {
 class OnDemandSoftwareInventoryProvider {
  public:
   template <typename CallbackFunc>
-  void get_all_software_inventory_data(CallbackFunc &&callback) {
+  void get_all_software_inventory_object(CallbackFunc &&callback) {
     crow::connections::system_bus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code error_code,
@@ -31,99 +31,29 @@ class OnDemandSoftwareInventoryProvider {
                 std::string,
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
-
-          std::vector<boost::container::flat_map<std::string, std::string>>
-              output;
-
+          CROW_LOG_DEBUG << "get all software inventory object callback...";
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
             // of vector may vary depending on information from Entity Manager,
             // and empty output could not be treated same way as error.
-            callback(false, output);
+            callback(false, subtree);
             return;
           }
 
-          for (auto &obj : subtree) {
-            const std::vector<std::pair<std::string, std::vector<std::string>>>
-                &connectionNames = obj.second;
-
-            const std::string connectionName = connectionNames[0].first;
-
-            crow::connections::system_bus->async_method_call(
-                [&](const boost::system::error_code error_code,
-                    const std::vector<std::pair<std::string, VariantType>>
-                        &propertiesList) {
-                  for (auto &property : propertiesList) {
-                    boost::container::flat_map<std::string, std::string>
-                        single_sw_item_properties;
-                    single_sw_item_properties[property.first] =
-                        *(mapbox::get_ptr<const std::string>(property.second));
-                    output.emplace_back(single_sw_item_properties);
-                  }
-                },
-                connectionName, obj.first, "org.freedesktop.DBus.Properties",
-                "GetAll", "xyz.openbmc_project.Software.Version");
-            // Finally make a callback with usefull data
-            callback(true, output);
+          if (subtree.empty()) {
+            CROW_LOG_DEBUG << "subtree empty";
+            callback(false, subtree);
+          } else {
+            CROW_LOG_DEBUG << "subtree has something";
+            callback(true, subtree);
           }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/software", int32_t(0),
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/software", int32_t(1),
         std::array<const char *, 1>{"xyz.openbmc_project.Software.Version"});
-  }
-  /*
-   * Function that retrieves all SoftwareInventory available through
-   * Software.BMC.Updater.
-   * @param callback a function that shall be called to convert Dbus output into
-   * JSON.
-   */
-  template <typename CallbackFunc>
-  void get_software_inventory_list(CallbackFunc &&callback) {
-    get_all_software_inventory_data(
-        [callback](
-            const bool &success,
-            const std::vector<
-                boost::container::flat_map<std::string, std::string>> &output) {
-          std::vector<std::string> sw_inv_list;
-          for (auto &i : output) {
-            boost::container::flat_map<std::string, std::string>::const_iterator
-                p = i.find("Purpose");
-            if ((p != i.end())) {
-              const std::string &sw_inv_purpose =
-                  boost::get<std::string>(p->second);
-              std::size_t last_pos = sw_inv_purpose.rfind(".");
-              if (last_pos != std::string::npos) {
-                // and put it into output vector.
-                sw_inv_list.emplace_back(sw_inv_purpose.substr(last_pos + 1));
-              }
-            }
-          }
-          callback(true, sw_inv_list);
-        });
-  };
-
-  template <typename CallbackFunc>
-  void get_software_inventory_data(const std::string &res_name,
-                                   CallbackFunc &&callback) {
-    get_all_software_inventory_data(
-        [res_name, callback](
-            const bool &success,
-            const std::vector<
-                boost::container::flat_map<std::string, std::string>> &output) {
-          for (auto &i : output) {
-            boost::container::flat_map<std::string, std::string>::const_iterator
-                p = i.find("Purpose");
-            // Find the one with Purpose matching res_name
-            if ((p != i.end()) &&
-                boost::ends_with(boost::get<std::string>(p->second),
-                                 "." + res_name)) {
-              callback(true, i);
-            }
-          }
-        });
   }
 };
 
@@ -138,8 +68,8 @@ class UpdateService : public Node {
     Node::json["Description"] = "Service for Software Update";
     Node::json["Name"] = "Update Service";
     Node::json["ServiceEnabled"] = true;  // UpdateService cannot be disabled
-    Node::json["SoftwareInventory"] = {
-        {"@odata.id", "/redfish/v1/UpdateService/SoftwareInventory"}};
+    Node::json["FirmwareInventory"] = {
+        {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
 
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"Login"}}},
@@ -165,10 +95,10 @@ class SoftwareInventoryCollection : public Node {
    */
   template <typename CrowApp>
   SoftwareInventoryCollection(CrowApp &app)
-      : Node(app, "/redfish/v1/UpdateService/SoftwareInventory/") {
+      : Node(app, "/redfish/v1/UpdateService/FirmwareInventory/") {
     Node::json["@odata.type"] =
         "#SoftwareInventoryCollection.SoftwareInventoryCollection";
-    Node::json["@odata.id"] = "/redfish/v1/UpdateService/SoftwareInventory";
+    Node::json["@odata.id"] = "/redfish/v1/UpdateService/FirmwareInventory";
     Node::json["@odata.context"] =
         "/redfish/v1/"
         "$metadata#SoftwareInventoryCollection.SoftwareInventoryCollection";
@@ -190,30 +120,68 @@ class SoftwareInventoryCollection : public Node {
   void doGet(crow::response &res, const crow::request &req,
              const std::vector<std::string> &params) override {
     res.json_value = Node::json;
-    // Get sw inventory list, and call the below callback for JSON preparation
-    software_inventory_provider.get_software_inventory_list(
-        [&](const bool &success, const std::vector<std::string> &output) {
-
-          if (success) {
-            // ... prepare json array with appropriate @odata.id links
-            nlohmann::json sw_inventory_array = nlohmann::json::array();
-            for (const std::string &sw_item : output) {
-              sw_inventory_array.push_back(
-                  {{"@odata.id",
-                    "/redfish/v1/UpdateService/SoftwareInventory/" + sw_item}});
-            }
-            // Then attach members, count size and return
-
-            Node::json["Members"] = sw_inventory_array;
-            Node::json["Members@odata.count"] = sw_inventory_array.size();
-            res.json_value = Node::json;
-          } else {
-            // ... otherwise, return INTERNALL ERROR
+    software_inventory_provider.get_all_software_inventory_object(
+        [&](const bool &success,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>
+                &subtree) {
+          if (!success) {
             res.result(boost::beast::http::status::internal_server_error);
+            res.end();
+            return;
           }
-          res.end();
+
+          if (subtree.empty()) {
+            CROW_LOG_DEBUG << "subtree empty!!";
+            res.end();
+            return;
+          }
+
+          res.json_value["Members"] = nlohmann::json::array();
+
+          for (auto &obj : subtree) {
+            const std::vector<std::pair<std::string, std::vector<std::string>>>
+                &connections = obj.second;
+
+            for (auto &conn : connections) {
+              const std::string connectionName = conn.first;
+              CROW_LOG_DEBUG << "connectionName = " << connectionName;
+              CROW_LOG_DEBUG << "obj.first = " << obj.first;
+
+              crow::connections::system_bus->async_method_call(
+                  [&](const boost::system::error_code error_code,
+                      const boost::container::flat_map<std::string, VariantType>
+                          &propertiesList) {
+                    CROW_LOG_DEBUG << "safe returned in lambda function";
+                    if (error_code) {
+                      res.result(
+                          boost::beast::http::status::internal_server_error);
+                      res.end();
+                      return;
+                    }
+                    boost::container::flat_map<std::string,
+                                               VariantType>::const_iterator it =
+                        propertiesList.find("Purpose");
+                    const std::string &sw_inv_purpose =
+                        *(mapbox::get_ptr<const std::string>(it->second));
+                    std::size_t last_pos = sw_inv_purpose.rfind(".");
+                    if (last_pos != std::string::npos) {
+                      res.json_value["Members"].push_back(
+                          {{"@odata.id",
+                            "/redfish/v1/UpdateService/FirmwareInventory/" +
+                                sw_inv_purpose.substr(last_pos + 1)}});
+                      res.json_value["Members@odata.count"] =
+                          res.json_value["Members"].size();
+                      res.end();
+                    }
+
+                  },
+                  connectionName, obj.first, "org.freedesktop.DBus.Properties",
+                  "GetAll", "xyz.openbmc_project.Software.Version");
+            }
+          }
         });
-    res.end();
   }
   OnDemandSoftwareInventoryProvider software_inventory_provider;
 };
@@ -227,15 +195,14 @@ class SoftwareInventory : public Node {
    */
   template <typename CrowApp>
   SoftwareInventory(CrowApp &app)
-      : Node(app, "/redfish/v1/UpdateService/SoftwareInventory/<str>/",
+      : Node(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
              std::string()) {
     Node::json["@odata.type"] = "#SoftwareInventory.v1_1_0.SoftwareInventory";
-    Node::json["@odata.id"] = "/redfish/v1/UpdateService/SoftwareInventory";
     Node::json["@odata.context"] =
         "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
     Node::json["Name"] = "Software Inventory";
     Node::json["Status"] = "OK";  // TODO
-    Node::json["Updateable"] = "No";
+    Node::json["Updateable"] = false;
 
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"Login"}}},
@@ -252,34 +219,84 @@ class SoftwareInventory : public Node {
    */
   void doGet(crow::response &res, const crow::request &req,
              const std::vector<std::string> &params) override {
+    res.json_value = Node::json;
+
     if (params.size() != 1) {
       res.result(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }
-    const std::string &sw_id = params[0];
-    software_inventory_provider.get_software_inventory_data(
-        sw_id, [&, id{std::string(sw_id)} ](
-                   const bool &success,
-                   const boost::container::flat_map<std::string, std::string>
-                       &output) {
-          res.json_value = Node::json;
-          // If success...
-          if (success) {
-            // prepare all the schema required fields.
-            res.json_value["@odata.id"] =
-                "/redfish/v1/UpdateService/SoftwareInventory/" + id;
-            // also the one from dbus
-            boost::container::flat_map<std::string, std::string>::const_iterator
-                it = output.find("Version");
-            res.json_value["Version"] = boost::get<std::string>(it->second);
 
-            res.json_value["Id"] = id;
-            // prepare respond, and send
-          } else {
-            res.result(boost::beast::http::status::not_found);
+    const std::string &sw_id = params[0];
+    res.json_value["@odata.id"] =
+        "/redfish/v1/UpdateService/FirmwareInventory/" + sw_id;
+    software_inventory_provider.get_all_software_inventory_object(
+        [&, id{std::string(sw_id)} ](
+            const bool &success,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>
+                &subtree) {
+          CROW_LOG_DEBUG << "doGet callback...";
+          if (!success) {
+            res.result(boost::beast::http::status::internal_server_error);
+            res.end();
+            return;
           }
-          res.end();
+
+          if (subtree.empty()) {
+            CROW_LOG_DEBUG << "subtree empty!!";
+            res.end();
+            return;
+          }
+
+          for (auto &obj : subtree) {
+            const std::vector<std::pair<std::string, std::vector<std::string>>>
+                &connections = obj.second;
+
+            for (auto &conn : connections) {
+              const std::string connectionName = conn.first;
+              CROW_LOG_DEBUG << "connectionName = " << connectionName;
+              CROW_LOG_DEBUG << "obj.first = " << obj.first;
+
+              crow::connections::system_bus->async_method_call(
+                  [&, id{std::string(id)} ](
+                      const boost::system::error_code error_code,
+                      const boost::container::flat_map<std::string, VariantType>
+                          &propertiesList) {
+                    if (error_code) {
+                      res.result(
+                          boost::beast::http::status::internal_server_error);
+                      res.end();
+                      return;
+                    }
+                    boost::container::flat_map<std::string,
+                                               VariantType>::const_iterator it =
+                        propertiesList.find("Purpose");
+                    if (it == propertiesList.end()) {
+                      CROW_LOG_DEBUG << "Can't find property \"Purpose\"!";
+                      return;
+                    }
+                    const std::string &sw_inv_purpose =
+                        *(mapbox::get_ptr<const std::string>(it->second));
+                    CROW_LOG_DEBUG << "sw_inv_purpose = " << sw_inv_purpose;
+                    if (boost::ends_with(sw_inv_purpose, "." + id)) {
+                      it = propertiesList.find("Version");
+                      if (it == propertiesList.end()) {
+                        CROW_LOG_DEBUG << "Can't find property \"Version\"!";
+                        return;
+                      }
+                      res.json_value["Version"] =
+                          *(mapbox::get_ptr<const std::string>(it->second));
+                      res.json_value["Id"] = id;
+                      res.end();
+                    }
+
+                  },
+                  connectionName, obj.first, "org.freedesktop.DBus.Properties",
+                  "GetAll", "xyz.openbmc_project.Software.Version");
+            }
+          }
         });
   }
 
