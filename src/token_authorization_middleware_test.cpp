@@ -6,13 +6,30 @@
 using namespace crow;
 using namespace std;
 
-// Tests that static urls are correctly passed
-TEST(TokenAuthentication, TestBasicReject) {
-  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
-      app;
-  decltype(app)::server_t server(&app, "127.0.0.1", 45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-  auto _ = async(launch::async, [&] { server.run(); });
+class TokenAuth : public ::testing::Test {
+ public:
+  TokenAuth()
+      : lk(std::unique_lock<std::mutex>(m)),
+        io(std::make_shared<boost::asio::io_service>()) {}
+
+  std::mutex m;
+  std::condition_variable cv;
+  std::unique_lock<std::mutex> lk;
+  std::shared_ptr<boost::asio::io_service> io;
+  int testPort = 45451;
+};
+
+TEST_F(TokenAuth, SpecialResourcesAreAcceptedWithoutAuth) {
+  CrowApp app(io);
+  crow::token_authorization::requestRoutes(app);
+  BMCWEB_ROUTE(app, "/redfish/v1")
+  ([]() { return boost::beast::http::status::ok; });
+  auto _ = std::async(std::launch::async, [&] {
+    app.port(testPort).run();
+    cv.notify_one();
+    io->run();
+  });
+
   asio::io_service is;
   std::string sendmsg;
 
@@ -47,11 +64,11 @@ TEST(TokenAuthentication, TestBasicReject) {
 
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestRejectedResource) {
-  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+  App<crow::persistent_data::Middleware, crow::token_authorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-  auto _ = async(launch::async, [&] { app.run(); });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  auto _ = async(std::launch::async, [&] { app.run(); });
 
   asio::io_service is;
   static char buf[2048];
@@ -77,11 +94,11 @@ TEST(TokenAuthentication, TestRejectedResource) {
 
 // Tests that Base64 basic strings work
 TEST(TokenAuthentication, TestGetLoginUrl) {
-  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+  App<crow::persistent_data::Middleware, crow::token_authorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-  auto _ = async(launch::async, [&] { app.run(); });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  auto _ = async(std::launch::async, [&] { app.run(); });
 
   asio::io_service is;
   static char buf[2048];
@@ -107,11 +124,11 @@ TEST(TokenAuthentication, TestGetLoginUrl) {
 
 // Tests boundary conditions on login
 TEST(TokenAuthentication, TestPostBadLoginUrl) {
-  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+  App<crow::persistent_data::Middleware, crow::token_authorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-  auto _ = async(launch::async, [&] { app.run(); });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  auto _ = async(std::launch::async, [&] { app.run(); });
 
   asio::io_service is;
   std::array<char, 2048> buf;
@@ -191,11 +208,11 @@ class KnownLoginAuthenticator {
 };
 
 TEST(TokenAuthentication, TestSuccessfulLogin) {
-  App<crow::PersistentData::Middleware, crow::TokenAuthorization::Middleware>
+  App<crow::persistent_data::Middleware, crow::token_authorization::Middleware>
       app;
   app.bindaddr("127.0.0.1").port(45451);
-  CROW_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
-  auto _ = async(launch::async, [&] { app.run(); });
+  BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
+  auto _ = async(std::launch::async, [&] { app.run(); });
 
   asio::io_service is;
   std::array<char, 2048> buf;

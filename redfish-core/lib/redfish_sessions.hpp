@@ -42,50 +42,52 @@ class Sessions : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
     auto session =
-        crow::PersistentData::session_store->get_session_by_uid(params[0]);
+        crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+            params[0]);
 
     if (session == nullptr) {
       messages::addMessageToErrorJson(
-          res.json_value, messages::resourceNotFound("Session", params[0]));
+          res.jsonValue, messages::resourceNotFound("Session", params[0]));
 
       res.result(boost::beast::http::status::not_found);
       res.end();
       return;
     }
 
-    Node::json["Id"] = session->unique_id;
+    Node::json["Id"] = session->uniqueId;
     Node::json["UserName"] = session->username;
     Node::json["@odata.id"] =
-        "/redfish/v1/SessionService/Sessions/" + session->unique_id;
+        "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
 
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 
-  void doDelete(crow::response& res, const crow::request& req,
+  void doDelete(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override {
     // Need only 1 param which should be id of session to be deleted
     if (params.size() != 1) {
       // This should be handled by crow and never happen
-      CROW_LOG_ERROR
+      BMCWEB_LOG_ERROR
           << "Session DELETE has been called with invalid number of params";
 
       res.result(boost::beast::http::status::bad_request);
-      messages::addMessageToErrorJson(res.json_value, messages::generalError());
+      messages::addMessageToErrorJson(res.jsonValue, messages::generalError());
 
       res.end();
       return;
     }
 
     auto session =
-        crow::PersistentData::session_store->get_session_by_uid(params[0]);
+        crow::persistent_data::SessionStore::getInstance().getSessionByUid(
+            params[0]);
 
     if (session == nullptr) {
       messages::addMessageToErrorJson(
-          res.json_value, messages::resourceNotFound("Session", params[0]));
+          res.jsonValue, messages::resourceNotFound("Session", params[0]));
 
       res.result(boost::beast::http::status::not_found);
       res.end();
@@ -95,7 +97,7 @@ class Sessions : public Node {
     // DELETE should return representation of object that will be removed
     doGet(res, req, params);
 
-    crow::PersistentData::session_store->remove_session(session);
+    crow::persistent_data::SessionStore::getInstance().removeSession(session);
   }
 
   /**
@@ -129,29 +131,29 @@ class SessionCollection : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    std::vector<const std::string*> session_ids =
-        crow::PersistentData::session_store->get_unique_ids(
-            false, crow::PersistentData::PersistenceType::TIMEOUT);
+    std::vector<const std::string*> sessionIds =
+        crow::persistent_data::SessionStore::getInstance().getUniqueIds(
+            false, crow::persistent_data::PersistenceType::TIMEOUT);
 
-    Node::json["Members@odata.count"] = session_ids.size();
+    Node::json["Members@odata.count"] = sessionIds.size();
     Node::json["Members"] = nlohmann::json::array();
-    for (const std::string* uid : session_ids) {
+    for (const std::string* uid : sessionIds) {
       Node::json["Members"].push_back(
           {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
     }
 
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 
-  void doPost(crow::response& res, const crow::request& req,
+  void doPost(crow::Response& res, const crow::Request& req,
               const std::vector<std::string>& params) override {
     boost::beast::http::status status;
     std::string username;
     bool userAuthSuccessful =
-        authenticateUser(req, status, username, res.json_value);
+        authenticateUser(req, status, username, res.jsonValue);
     res.result(status);
 
     if (!userAuthSuccessful) {
@@ -161,11 +163,12 @@ class SessionCollection : public Node {
 
     // User is authenticated - create session for him
     auto session =
-        crow::PersistentData::session_store->generate_user_session(username);
-    res.add_header("X-Auth-Token", session->session_token);
+        crow::persistent_data::SessionStore::getInstance().generateUserSession(
+            username);
+    res.addHeader("X-Auth-Token", session->sessionToken);
 
     // Return data for created session
-    memberSession.doGet(res, req, {session->unique_id});
+    memberSession.doGet(res, req, {session->uniqueId});
 
     // No need for res.end(), as it is called by doGet()
   }
@@ -180,15 +183,15 @@ class SessionCollection : public Node {
    *
    * @return true if authentication was successful, false otherwise
    */
-  bool authenticateUser(const crow::request& req,
+  bool authenticateUser(const crow::Request& req,
                         boost::beast::http::status& httpRespCode,
                         std::string& user, nlohmann::json& errJson) {
     // We need only UserName and Password - nothing more, nothing less
     static constexpr const unsigned int numberOfRequiredFieldsInReq = 2;
 
     // call with exceptions disabled
-    auto login_credentials = nlohmann::json::parse(req.body, nullptr, false);
-    if (login_credentials.is_discarded()) {
+    auto loginCredentials = nlohmann::json::parse(req.body, nullptr, false);
+    if (loginCredentials.is_discarded()) {
       httpRespCode = boost::beast::http::status::bad_request;
 
       messages::addMessageToErrorJson(errJson, messages::malformedJSON());
@@ -197,7 +200,7 @@ class SessionCollection : public Node {
     }
 
     // Check that there are only as many fields as there should be
-    if (login_credentials.size() != numberOfRequiredFieldsInReq) {
+    if (loginCredentials.size() != numberOfRequiredFieldsInReq) {
       httpRespCode = boost::beast::http::status::bad_request;
 
       messages::addMessageToErrorJson(errJson, messages::malformedJSON());
@@ -206,18 +209,17 @@ class SessionCollection : public Node {
     }
 
     // Find fields that we need - UserName and Password
-    auto user_it = login_credentials.find("UserName");
-    auto pass_it = login_credentials.find("Password");
-    if (user_it == login_credentials.end() ||
-        pass_it == login_credentials.end()) {
+    auto userIt = loginCredentials.find("UserName");
+    auto passIt = loginCredentials.find("Password");
+    if (userIt == loginCredentials.end() || passIt == loginCredentials.end()) {
       httpRespCode = boost::beast::http::status::bad_request;
 
-      if (user_it == login_credentials.end()) {
+      if (userIt == loginCredentials.end()) {
         messages::addMessageToErrorJson(errJson,
                                         messages::propertyMissing("UserName"));
       }
 
-      if (pass_it == login_credentials.end()) {
+      if (passIt == loginCredentials.end()) {
         messages::addMessageToErrorJson(errJson,
                                         messages::propertyMissing("Password"));
       }
@@ -226,27 +228,27 @@ class SessionCollection : public Node {
     }
 
     // Check that given data is of valid type (string)
-    if (!user_it->is_string() || !pass_it->is_string()) {
+    if (!userIt->is_string() || !passIt->is_string()) {
       httpRespCode = boost::beast::http::status::bad_request;
 
-      if (!user_it->is_string()) {
+      if (!userIt->is_string()) {
         messages::addMessageToErrorJson(
             errJson,
-            messages::propertyValueTypeError(user_it->dump(), "UserName"));
+            messages::propertyValueTypeError(userIt->dump(), "UserName"));
       }
 
-      if (!pass_it->is_string()) {
+      if (!passIt->is_string()) {
         messages::addMessageToErrorJson(
             errJson,
-            messages::propertyValueTypeError(user_it->dump(), "Password"));
+            messages::propertyValueTypeError(userIt->dump(), "Password"));
       }
 
       return false;
     }
 
     // Extract username and password
-    std::string username = user_it->get<const std::string>();
-    std::string password = pass_it->get<const std::string>();
+    std::string username = userIt->get<const std::string>();
+    std::string password = passIt->get<const std::string>();
 
     // Verify that required fields are not empty
     if (username.empty() || password.empty()) {
@@ -266,7 +268,7 @@ class SessionCollection : public Node {
     }
 
     // Finally - try to authenticate user
-    if (!pam_authenticate_user(username, password)) {
+    if (!pamAuthenticateUser(username, password)) {
       httpRespCode = boost::beast::http::status::unauthorized;
 
       messages::addMessageToErrorJson(
@@ -301,7 +303,8 @@ class SessionService : public Node {
     Node::json["Id"] = "SessionService";
     Node::json["Description"] = "Session Service";
     Node::json["SessionTimeout"] =
-        crow::PersistentData::session_store->get_timeout_in_seconds();
+        crow::persistent_data::SessionStore::getInstance()
+            .getTimeoutInSeconds();
     Node::json["ServiceEnabled"] = true;
 
     entityPrivileges = {
@@ -314,9 +317,9 @@ class SessionService : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 };

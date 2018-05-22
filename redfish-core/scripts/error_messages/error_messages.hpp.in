@@ -28,8 +28,8 @@ namespace redfish {
 
 namespace messages {
 
-constexpr const char* MESSAGE_VERSION_PREFIX = "Base.1.2.0.";
-constexpr const char* MESSAGE_ANNOTATION = "@Message.ExtendedInfo";
+constexpr const char* messageVersionPrefix = "Base.1.2.0.";
+constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
  * @brief Adds Message JSON object to error object

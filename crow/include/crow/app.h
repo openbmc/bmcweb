@@ -15,11 +15,11 @@
 #include "crow/routing.h"
 #include "crow/utility.h"
 
-#define CROW_ROUTE(app, url) \
+#define BMCWEB_ROUTE(app, url) \
   app.template route<crow::black_magic::get_parameter_tag(url)>(url)
 
 namespace crow {
-#ifdef CROW_ENABLE_SSL
+#ifdef BMCWEB_ENABLE_SSL
 using ssl_context_t = boost::asio::ssl::context;
 #endif
 template <typename... Middlewares>
@@ -27,184 +27,184 @@ class Crow {
  public:
   using self_t = Crow;
   using server_t = Server<Crow, SocketAdaptor, Middlewares...>;
-#ifdef CROW_ENABLE_SSL
+#ifdef BMCWEB_ENABLE_SSL
   using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
 #endif
   explicit Crow(std::shared_ptr<boost::asio::io_service> io =
                     std::make_shared<boost::asio::io_service>())
-      : io_(std::move(io)) {}
+      : io(std::move(io)) {}
   ~Crow() { this->stop(); }
 
   template <typename Adaptor>
-  void handle_upgrade(const request& req, response& res, Adaptor&& adaptor) {
-    router_.handle_upgrade(req, res, adaptor);
+  void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor) {
+    router.handleUpgrade(req, res, adaptor);
   }
 
-  void handle(const request& req, response& res) { router_.handle(req, res); }
+  void handle(const Request& req, Response& res) { router.handle(req, res); }
 
-  DynamicRule& route_dynamic(std::string&& rule) {
-    return router_.new_rule_dynamic(rule);
+  DynamicRule& routeDynamic(std::string&& rule) {
+    return router.newRuleDynamic(rule);
   }
 
   template <uint64_t Tag>
   auto route(std::string&& rule) -> typename std::result_of<
-      decltype (&Router::new_rule_tagged<Tag>)(Router, std::string&&)>::type {
-    return router_.new_rule_tagged<Tag>(std::move(rule));
+      decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type {
+    return router.newRuleTagged<Tag>(std::move(rule));
   }
 
   self_t& socket(int existing_socket) {
-    socket_ = existing_socket;
+    socketFd = existing_socket;
     return *this;
   }
 
   self_t& port(std::uint16_t port) {
-    port_ = port;
+    portUint = port;
     return *this;
   }
 
   self_t& bindaddr(std::string bindaddr) {
-    bindaddr_ = bindaddr;
+    bindaddrStr = bindaddr;
     return *this;
   }
 
-  void validate() { router_.validate(); }
+  void validate() { router.validate(); }
 
   void run() {
     validate();
-#ifdef CROW_ENABLE_SSL
-    if (use_ssl_) {
-      if (-1 == socket_) {
-        ssl_server_ = std::move(std::make_unique<ssl_server_t>(
-            this, bindaddr_, port_, &middlewares_, &ssl_context_, io_));
+#ifdef BMCWEB_ENABLE_SSL
+    if (useSsl) {
+      if (-1 == socketFd) {
+        sslServer = std::move(std::make_unique<ssl_server_t>(
+            this, bindaddrStr, portUint, &middlewares, &sslContext, io));
       } else {
-        ssl_server_ = std::move(std::make_unique<ssl_server_t>(
-            this, socket_, &middlewares_, &ssl_context_, io_));
+        sslServer = std::move(std::make_unique<ssl_server_t>(
+            this, socketFd, &middlewares, &sslContext, io));
       }
-      ssl_server_->set_tick_function(tick_interval_, tick_function_);
-      ssl_server_->run();
+      sslServer->setTickFunction(tickInterval, tickFunction);
+      sslServer->run();
     } else
 #endif
     {
-      if (-1 == socket_) {
-        server_ = std::move(std::make_unique<server_t>(
-            this, bindaddr_, port_, &middlewares_, nullptr, io_));
+      if (-1 == socketFd) {
+        server = std::move(std::make_unique<server_t>(
+            this, bindaddrStr, portUint, &middlewares, nullptr, io));
       } else {
-        server_ = std::move(std::make_unique<server_t>(
-            this, socket_, &middlewares_, nullptr, io_));
+        server = std::move(std::make_unique<server_t>(
+            this, socketFd, &middlewares, nullptr, io));
       }
-      server_->set_tick_function(tick_interval_, tick_function_);
-      server_->run();
+      server->setTickFunction(tickInterval, tickFunction);
+      server->run();
     }
   }
 
-  void stop() { io_->stop(); }
+  void stop() { io->stop(); }
 
-  void debug_print() {
-    CROW_LOG_DEBUG << "Routing:";
-    router_.debug_print();
+  void debugPrint() {
+    BMCWEB_LOG_DEBUG << "Routing:";
+    router.debugPrint();
   }
 
-  std::vector<const std::string*> get_routes() {
+  std::vector<const std::string*> getRoutes() {
     // TODO(ed) Should this be /?
     const std::string root("");
-    return router_.get_routes(root);
+    return router.getRoutes(root);
   }
-  std::vector<const std::string*> get_routes(const std::string& parent) {
-    return router_.get_routes(parent);
+  std::vector<const std::string*> getRoutes(const std::string& parent) {
+    return router.getRoutes(parent);
   }
 
-#ifdef CROW_ENABLE_SSL
-  self_t& ssl_file(const std::string& crt_filename,
-                   const std::string& key_filename) {
-    use_ssl_ = true;
-    ssl_context_.set_verify_mode(boost::asio::ssl::verify_peer);
-    ssl_context_.use_certificate_file(crt_filename, ssl_context_t::pem);
-    ssl_context_.use_private_key_file(key_filename, ssl_context_t::pem);
-    ssl_context_.set_options(boost::asio::ssl::context::default_workarounds |
-                             boost::asio::ssl::context::no_sslv2 |
-                             boost::asio::ssl::context::no_sslv3);
+#ifdef BMCWEB_ENABLE_SSL
+  self_t& sslFile(const std::string& crt_filename,
+                  const std::string& key_filename) {
+    useSsl = true;
+    sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
+    sslContext.use_certificate_file(crt_filename, ssl_context_t::pem);
+    sslContext.use_private_key_file(key_filename, ssl_context_t::pem);
+    sslContext.set_options(boost::asio::ssl::context::default_workarounds |
+                           boost::asio::ssl::context::no_sslv2 |
+                           boost::asio::ssl::context::no_sslv3);
     return *this;
   }
 
-  self_t& ssl_file(const std::string& pem_filename) {
-    use_ssl_ = true;
-    ssl_context_.set_verify_mode(boost::asio::ssl::verify_peer);
-    ssl_context_.load_verify_file(pem_filename);
-    ssl_context_.set_options(boost::asio::ssl::context::default_workarounds |
-                             boost::asio::ssl::context::no_sslv2 |
-                             boost::asio::ssl::context::no_sslv3);
+  self_t& sslFile(const std::string& pem_filename) {
+    useSsl = true;
+    sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
+    sslContext.load_verify_file(pem_filename);
+    sslContext.set_options(boost::asio::ssl::context::default_workarounds |
+                           boost::asio::ssl::context::no_sslv2 |
+                           boost::asio::ssl::context::no_sslv3);
     return *this;
   }
 
   self_t& ssl(boost::asio::ssl::context&& ctx) {
-    use_ssl_ = true;
-    ssl_context_ = std::move(ctx);
+    useSsl = true;
+    sslContext = std::move(ctx);
     return *this;
   }
 
-  bool use_ssl_{false};
-  ssl_context_t ssl_context_{boost::asio::ssl::context::sslv23};
+  bool useSsl{false};
+  ssl_context_t sslContext{boost::asio::ssl::context::sslv23};
 
 #else
   template <typename T, typename... Remain>
   self_t& ssl_file(T&&, Remain&&...) {
-    // We can't call .ssl() member function unless CROW_ENABLE_SSL is defined.
+    // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is defined.
     static_assert(
         // make static_assert dependent to T; always false
         std::is_base_of<T, void>::value,
-        "Define CROW_ENABLE_SSL to enable ssl support.");
+        "Define BMCWEB_ENABLE_SSL to enable ssl support.");
     return *this;
   }
 
   template <typename T>
   self_t& ssl(T&&) {
-    // We can't call .ssl() member function unless CROW_ENABLE_SSL is defined.
+    // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is defined.
     static_assert(
         // make static_assert dependent to T; always false
         std::is_base_of<T, void>::value,
-        "Define CROW_ENABLE_SSL to enable ssl support.");
+        "Define BMCWEB_ENABLE_SSL to enable ssl support.");
     return *this;
   }
 #endif
 
   // middleware
-  using context_t = detail::context<Middlewares...>;
+  using context_t = detail::Context<Middlewares...>;
   template <typename T>
-  typename T::context& get_context(const request& req) {
-    static_assert(black_magic::contains<T, Middlewares...>::value,
+  typename T::Context& getContext(const Request& req) {
+    static_assert(black_magic::Contains<T, Middlewares...>::value,
                   "App doesn't have the specified middleware type.");
-    auto& ctx = *reinterpret_cast<context_t*>(req.middleware_context);
+    auto& ctx = *reinterpret_cast<context_t*>(req.middlewareContext);
     return ctx.template get<T>();
   }
 
   template <typename T>
-  T& get_middleware() {
-    return utility::get_element_by_type<T, Middlewares...>(middlewares_);
+  T& getMiddleware() {
+    return utility::getElementByType<T, Middlewares...>(middlewares);
   }
 
   template <typename Duration, typename Func>
   self_t& tick(Duration d, Func f) {
-    tick_interval_ = std::chrono::duration_cast<std::chrono::milliseconds>(d);
-    tick_function_ = f;
+    tickInterval = std::chrono::duration_cast<std::chrono::milliseconds>(d);
+    tickFunction = f;
     return *this;
   }
 
  private:
-  std::shared_ptr<asio::io_service> io_;
-  uint16_t port_ = 80;
-  std::string bindaddr_ = "::";
-  int socket_ = -1;
-  Router router_;
+  std::shared_ptr<asio::io_service> io;
+  uint16_t portUint = 80;
+  std::string bindaddrStr = "::";
+  int socketFd = -1;
+  Router router;
 
-  std::chrono::milliseconds tick_interval_{};
-  std::function<void()> tick_function_;
+  std::chrono::milliseconds tickInterval{};
+  std::function<void()> tickFunction;
 
-  std::tuple<Middlewares...> middlewares_;
+  std::tuple<Middlewares...> middlewares;
 
-#ifdef CROW_ENABLE_SSL
-  std::unique_ptr<ssl_server_t> ssl_server_;
+#ifdef BMCWEB_ENABLE_SSL
+  std::unique_ptr<ssl_server_t> sslServer;
 #endif
-  std::unique_ptr<server_t> server_;
+  std::unique_ptr<server_t> server;
 };
 template <typename... Middlewares>
 using App = Crow<Middlewares...>;
