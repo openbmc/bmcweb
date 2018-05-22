@@ -432,12 +432,12 @@ Result getDouble(const char* fieldName, const nlohmann::json& json,
   return Result::SUCCESS;
 }
 
-bool processJsonFromRequest(crow::response& res, const crow::request& req,
+bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson) {
   reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
   if (reqJson.is_discarded()) {
-    messages::addMessageToErrorJson(res.json_value, messages::malformedJSON());
+    messages::addMessageToErrorJson(res.jsonValue, messages::malformedJSON());
 
     res.result(boost::beast::http::status::bad_request);
     res.end();

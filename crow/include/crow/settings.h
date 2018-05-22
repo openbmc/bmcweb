@@ -3,13 +3,13 @@
 // TODO - replace with runtime config. libucl?
 
 /* #ifdef - enables debug mode */
-//#define CROW_ENABLE_DEBUG
+//#define BMCWEB_ENABLE_DEBUG
 
 /* #ifdef - enables logging */
-//#define CROW_ENABLE_LOGGING
+//#define BMCWEB_ENABLE_LOGGING
 
 /* #ifdef - enables ssl */
-//#define CROW_ENABLE_SSL
+//#define BMCWEB_ENABLE_SSL
 
 /* #define - specifies log level */
 /*
@@ -21,11 +21,11 @@
 
     default to INFO
 */
-#define CROW_LOG_LEVEL 1
+#define BMCWEB_LOG_LEVEL 1
 
 // compiler flags
 #if __cplusplus >= 201402L
-#define CROW_CAN_USE_CPP14
+#define BMCWEB_CAN_USE_CPP14
 #endif
 
 #if defined(_MSC_VER)

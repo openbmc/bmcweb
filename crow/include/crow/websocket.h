@@ -15,49 +15,50 @@ enum class WebSocketReadState {
   Payload,
 };
 
-struct connection {
+struct Connection {
  public:
-  explicit connection(const crow::request& req)
-      : req(req), userdata_(nullptr){};
+  explicit Connection(const crow::Request& req)
+      : req(req), userdataPtr(nullptr){};
 
-  virtual void send_binary(const std::string& msg) = 0;
-  virtual void send_text(const std::string& msg) = 0;
+  virtual void sendBinary(const std::string& msg) = 0;
+  virtual void sendText(const std::string& msg) = 0;
   virtual void close(const std::string& msg = "quit") = 0;
-  virtual boost::asio::io_service& get_io_service() = 0;
-  virtual ~connection() = default;
+  virtual boost::asio::io_service& getIoService() = 0;
+  virtual ~Connection() = default;
 
-  void userdata(void* u) { userdata_ = u; }
-  void* userdata() { return userdata_; }
+  void userdata(void* u) { userdataPtr = u; }
+  void* userdata() { return userdataPtr; }
 
-  crow::request req;
+  crow::Request req;
 
  private:
-  void* userdata_;
+  void* userdataPtr;
 };
 
 template <typename Adaptor>
-class Connection : public connection {
+class ConnectionImpl : public Connection {
  public:
-  Connection(const crow::request& req, Adaptor&& adaptor,
-             std::function<void(connection&)> open_handler,
-             std::function<void(connection&, const std::string&, bool)>
-                 message_handler,
-             std::function<void(connection&, const std::string&)> close_handler,
-             std::function<void(connection&)> error_handler)
-      : adaptor_(std::move(adaptor)),
-        connection(req),
-        open_handler_(std::move(open_handler)),
-        message_handler_(std::move(message_handler)),
-        close_handler_(std::move(close_handler)),
-        error_handler_(std::move(error_handler)) {
-    if (!boost::iequals(req.get_header_value("upgrade"), "websocket")) {
+  ConnectionImpl(
+      const crow::Request& req, Adaptor&& adaptor,
+      std::function<void(Connection&)> open_handler,
+      std::function<void(Connection&, const std::string&, bool)>
+          message_handler,
+      std::function<void(Connection&, const std::string&)> close_handler,
+      std::function<void(Connection&)> error_handler)
+      : adaptor(std::move(adaptor)),
+        Connection(req),
+        openHandler(std::move(open_handler)),
+        messageHandler(std::move(message_handler)),
+        closeHandler(std::move(close_handler)),
+        errorHandler(std::move(error_handler)) {
+    if (!boost::iequals(req.getHeaderValue("upgrade"), "websocket")) {
       adaptor.close();
       delete this;
       return;
     }
     // Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
     // Sec-WebSocket-Version: 13
-    std::string magic(req.get_header_value("Sec-WebSocket-Key"));
+    std::string magic(req.getHeaderValue("Sec-WebSocket-Key"));
     magic += "258EAFA5-E914-47DA-95CA-C5AB0DC85B11";
     boost::uuids::detail::sha1 s;
     s.process_bytes(magic.data(), magic.size());
@@ -73,64 +74,64 @@ class Connection : public connection {
 
   template <typename CompletionHandler>
   void dispatch(CompletionHandler handler) {
-    adaptor_.get_io_service().dispatch(handler);
+    adaptor.getIoService().dispatch(handler);
   }
 
   template <typename CompletionHandler>
   void post(CompletionHandler handler) {
-    adaptor_.get_io_service().post(handler);
+    adaptor.getIoService().post(handler);
   }
 
-  boost::asio::io_service& get_io_service() override {
-    return adaptor_.get_io_service();
+  boost::asio::io_service& getIoService() override {
+    return adaptor.getIoService();
   }
 
-  void send_pong(const std::string& msg) {
+  void sendPong(const std::string& msg) {
     dispatch([this, msg] {
       char buf[3] = "\x8A\x00";
       buf[1] += msg.size();
-      write_buffers_.emplace_back(buf, buf + 2);
-      write_buffers_.emplace_back(msg);
-      do_write();
+      writeBuffers.emplace_back(buf, buf + 2);
+      writeBuffers.emplace_back(msg);
+      doWrite();
     });
   }
 
-  void send_binary(const std::string& msg) override {
+  void sendBinary(const std::string& msg) override {
     dispatch([this, msg] {
-      auto header = build_header(2, msg.size());
-      write_buffers_.emplace_back(std::move(header));
-      write_buffers_.emplace_back(msg);
-      do_write();
+      auto header = buildHeader(2, msg.size());
+      writeBuffers.emplace_back(std::move(header));
+      writeBuffers.emplace_back(msg);
+      doWrite();
     });
   }
 
-  void send_text(const std::string& msg) override {
+  void sendText(const std::string& msg) override {
     dispatch([this, msg] {
-      auto header = build_header(1, msg.size());
-      write_buffers_.emplace_back(std::move(header));
-      write_buffers_.emplace_back(msg);
-      do_write();
+      auto header = buildHeader(1, msg.size());
+      writeBuffers.emplace_back(std::move(header));
+      writeBuffers.emplace_back(msg);
+      doWrite();
     });
   }
 
   void close(const std::string& msg) override {
     dispatch([this, msg] {
-      has_sent_close_ = true;
-      if (has_recv_close_ && !is_close_handler_called_) {
-        is_close_handler_called_ = true;
-        if (close_handler_) {
-          close_handler_(*this, msg);
+      hasSentClose = true;
+      if (hasRecvClose && !isCloseHandlerCalled) {
+        isCloseHandlerCalled = true;
+        if (closeHandler) {
+          closeHandler(*this, msg);
         }
       }
-      auto header = build_header(0x8, msg.size());
-      write_buffers_.emplace_back(std::move(header));
-      write_buffers_.emplace_back(msg);
-      do_write();
+      auto header = buildHeader(0x8, msg.size());
+      writeBuffers.emplace_back(std::move(header));
+      writeBuffers.emplace_back(msg);
+      doWrite();
     });
   }
 
  protected:
-  std::string build_header(int opcode, uint64_t size) {
+  std::string buildHeader(int opcode, uint64_t size) {
     char buf[2 + 8] = "\x80\x00";
     buf[0] += opcode;
     if (size < 126) {
@@ -158,34 +159,33 @@ class Connection : public connection {
         "Upgrade: websocket\r\n"
         "Connection: Upgrade\r\n"
         //"Sec-WebSocket-Protocol: binary\r\n"  // TODO(ed): this hardcodes
-        // binary mode
-        // find a better way
+        // binary mode find a better way
         "Sec-WebSocket-Accept: ";
     static std::string crlf = "\r\n";
-    write_buffers_.emplace_back(header);
-    write_buffers_.emplace_back(std::move(hello));
-    write_buffers_.emplace_back(crlf);
-    write_buffers_.emplace_back(crlf);
-    do_write();
-    if (open_handler_) {
-      open_handler_(*this);
+    writeBuffers.emplace_back(header);
+    writeBuffers.emplace_back(std::move(hello));
+    writeBuffers.emplace_back(crlf);
+    writeBuffers.emplace_back(crlf);
+    doWrite();
+    if (openHandler) {
+      openHandler(*this);
     }
-    do_read();
+    doRead();
   }
 
-  void do_read() {
-    is_reading = true;
-    switch (state_) {
+  void doRead() {
+    isReading = true;
+    switch (state) {
       case WebSocketReadState::MiniHeader: {
-        // boost::asio::async_read(adaptor_.socket(),
-        // boost::asio::buffer(&mini_header_, 1),
-        adaptor_.socket().async_read_some(
-            boost::asio::buffer(&mini_header_, 2),
+        // boost::asio::async_read(adaptor.socket(),
+        // boost::asio::buffer(&miniHeader, 1),
+        adaptor.socket().async_read_some(
+            boost::asio::buffer(&miniHeader, 2),
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-              is_reading = false;
-              mini_header_ = htons(mini_header_);
-#ifdef CROW_ENABLE_DEBUG
+              isReading = false;
+              miniHeader = htons(miniHeader);
+#ifdef BMCWEB_ENABLE_DEBUG
 
               if (!ec && bytes_transferred != 2) {
                 throw std::runtime_error(
@@ -193,35 +193,35 @@ class Connection : public connection {
               }
 #endif
 
-              if (!ec && ((mini_header_ & 0x80) == 0x80)) {
-                if ((mini_header_ & 0x7f) == 127) {
-                  state_ = WebSocketReadState::Len64;
-                } else if ((mini_header_ & 0x7f) == 126) {
-                  state_ = WebSocketReadState::Len16;
+              if (!ec && ((miniHeader & 0x80) == 0x80)) {
+                if ((miniHeader & 0x7f) == 127) {
+                  state = WebSocketReadState::Len64;
+                } else if ((miniHeader & 0x7f) == 126) {
+                  state = WebSocketReadState::Len16;
                 } else {
-                  remaining_length_ = mini_header_ & 0x7f;
-                  state_ = WebSocketReadState::Mask;
+                  remainingLength = miniHeader & 0x7f;
+                  state = WebSocketReadState::Mask;
                 }
-                do_read();
+                doRead();
               } else {
-                close_connection_ = true;
-                adaptor_.close();
-                if (error_handler_) {
-                  error_handler_(*this);
+                closeConnection = true;
+                adaptor.close();
+                if (errorHandler) {
+                  errorHandler(*this);
                 }
-                check_destroy();
+                checkDestroy();
               }
             });
       } break;
       case WebSocketReadState::Len16: {
-        remaining_length_ = 0;
+        remainingLength = 0;
         boost::asio::async_read(
-            adaptor_.socket(), boost::asio::buffer(&remaining_length_, 2),
+            adaptor.socket(), boost::asio::buffer(&remainingLength, 2),
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-              is_reading = false;
-              remaining_length_ = ntohs(*(uint16_t*)&remaining_length_);
-#ifdef CROW_ENABLE_DEBUG
+              isReading = false;
+              remainingLength = ntohs(*(uint16_t*)&remainingLength);
+#ifdef BMCWEB_ENABLE_DEBUG
               if (!ec && bytes_transferred != 2) {
                 throw std::runtime_error(
                     "WebSocket:Len16:async_read fail:asio bug?");
@@ -229,31 +229,30 @@ class Connection : public connection {
 #endif
 
               if (!ec) {
-                state_ = WebSocketReadState::Mask;
-                do_read();
+                state = WebSocketReadState::Mask;
+                doRead();
               } else {
-                close_connection_ = true;
-                adaptor_.close();
-                if (error_handler_) {
-                  error_handler_(*this);
+                closeConnection = true;
+                adaptor.close();
+                if (errorHandler) {
+                  errorHandler(*this);
                 }
-                check_destroy();
+                checkDestroy();
               }
             });
       } break;
       case WebSocketReadState::Len64: {
         boost::asio::async_read(
-            adaptor_.socket(), boost::asio::buffer(&remaining_length_, 8),
+            adaptor.socket(), boost::asio::buffer(&remainingLength, 8),
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-              is_reading = false;
-              remaining_length_ =
+              isReading = false;
+              remainingLength =
                   ((1 == ntohl(1))
-                       ? (remaining_length_)
-                       : ((uint64_t)ntohl((remaining_length_)&0xFFFFFFFF)
-                          << 32) |
-                             ntohl((remaining_length_) >> 32));
-#ifdef CROW_ENABLE_DEBUG
+                       ? (remainingLength)
+                       : ((uint64_t)ntohl((remainingLength)&0xFFFFFFFF) << 32) |
+                             ntohl((remainingLength) >> 32));
+#ifdef BMCWEB_ENABLE_DEBUG
               if (!ec && bytes_transferred != 8) {
                 throw std::runtime_error(
                     "WebSocket:Len16:async_read fail:asio bug?");
@@ -261,25 +260,25 @@ class Connection : public connection {
 #endif
 
               if (!ec) {
-                state_ = WebSocketReadState::Mask;
-                do_read();
+                state = WebSocketReadState::Mask;
+                doRead();
               } else {
-                close_connection_ = true;
-                adaptor_.close();
-                if (error_handler_) {
-                  error_handler_(*this);
+                closeConnection = true;
+                adaptor.close();
+                if (errorHandler) {
+                  errorHandler(*this);
                 }
-                check_destroy();
+                checkDestroy();
               }
             });
       } break;
       case WebSocketReadState::Mask:
         boost::asio::async_read(
-            adaptor_.socket(), boost::asio::buffer((char*)&mask_, 4),
+            adaptor.socket(), boost::asio::buffer((char*)&mask, 4),
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-              is_reading = false;
-#ifdef CROW_ENABLE_DEBUG
+              isReading = false;
+#ifdef BMCWEB_ENABLE_DEBUG
               if (!ec && bytes_transferred != 4) {
                 throw std::runtime_error(
                     "WebSocket:Mask:async_read fail:asio bug?");
@@ -287,185 +286,185 @@ class Connection : public connection {
 #endif
 
               if (!ec) {
-                state_ = WebSocketReadState::Payload;
-                do_read();
+                state = WebSocketReadState::Payload;
+                doRead();
               } else {
-                close_connection_ = true;
-                if (error_handler_) {
-                  error_handler_(*this);
+                closeConnection = true;
+                if (errorHandler) {
+                  errorHandler(*this);
                 }
-                adaptor_.close();
+                adaptor.close();
               }
             });
         break;
       case WebSocketReadState::Payload: {
-        size_t to_read = buffer_.size();
-        if (remaining_length_ < to_read) {
-          to_read = remaining_length_;
+        size_t toRead = buffer.size();
+        if (remainingLength < toRead) {
+          toRead = remainingLength;
         }
-        adaptor_.socket().async_read_some(
-            boost::asio::buffer(buffer_, to_read),
+        adaptor.socket().async_read_some(
+            boost::asio::buffer(buffer, toRead),
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-              is_reading = false;
+              isReading = false;
 
               if (!ec) {
-                fragment_.insert(fragment_.end(), buffer_.begin(),
-                                 buffer_.begin() + bytes_transferred);
-                remaining_length_ -= bytes_transferred;
-                if (remaining_length_ == 0) {
-                  handle_fragment();
-                  state_ = WebSocketReadState::MiniHeader;
-                  do_read();
+                fragment.insert(fragment.end(), buffer.begin(),
+                                buffer.begin() + bytes_transferred);
+                remainingLength -= bytes_transferred;
+                if (remainingLength == 0) {
+                  handleFragment();
+                  state = WebSocketReadState::MiniHeader;
+                  doRead();
                 }
               } else {
-                close_connection_ = true;
-                if (error_handler_) {
-                  error_handler_(*this);
+                closeConnection = true;
+                if (errorHandler) {
+                  errorHandler(*this);
                 }
-                adaptor_.close();
+                adaptor.close();
               }
             });
       } break;
     }
   }
 
-  bool is_FIN() { return mini_header_ & 0x8000; }
+  bool isFin() { return miniHeader & 0x8000; }
 
-  int opcode() { return (mini_header_ & 0x0f00) >> 8; }
+  int opcode() { return (miniHeader & 0x0f00) >> 8; }
 
-  void handle_fragment() {
-    for (decltype(fragment_.length()) i = 0; i < fragment_.length(); i++) {
-      fragment_[i] ^= ((char*)&mask_)[i % 4];
+  void handleFragment() {
+    for (decltype(fragment.length()) i = 0; i < fragment.length(); i++) {
+      fragment[i] ^= ((char*)&mask)[i % 4];
     }
     switch (opcode()) {
       case 0:  // Continuation
       {
-        message_ += fragment_;
-        if (is_FIN()) {
-          if (message_handler_) {
-            message_handler_(*this, message_, is_binary_);
+        message += fragment;
+        if (isFin()) {
+          if (messageHandler) {
+            messageHandler(*this, message, isBinary);
           }
-          message_.clear();
+          message.clear();
         }
       }
       case 1:  // Text
       {
-        is_binary_ = false;
-        message_ += fragment_;
-        if (is_FIN()) {
-          if (message_handler_) {
-            message_handler_(*this, message_, is_binary_);
+        isBinary = false;
+        message += fragment;
+        if (isFin()) {
+          if (messageHandler) {
+            messageHandler(*this, message, isBinary);
           }
-          message_.clear();
+          message.clear();
         }
       } break;
       case 2:  // Binary
       {
-        is_binary_ = true;
-        message_ += fragment_;
-        if (is_FIN()) {
-          if (message_handler_) {
-            message_handler_(*this, message_, is_binary_);
+        isBinary = true;
+        message += fragment;
+        if (isFin()) {
+          if (messageHandler) {
+            messageHandler(*this, message, isBinary);
           }
-          message_.clear();
+          message.clear();
         }
       } break;
       case 0x8:  // Close
       {
-        has_recv_close_ = true;
-        if (!has_sent_close_) {
-          close(fragment_);
+        hasRecvClose = true;
+        if (!hasSentClose) {
+          close(fragment);
         } else {
-          adaptor_.close();
-          close_connection_ = true;
-          if (!is_close_handler_called_) {
-            if (close_handler_) {
-              close_handler_(*this, fragment_);
+          adaptor.close();
+          closeConnection = true;
+          if (!isCloseHandlerCalled) {
+            if (closeHandler) {
+              closeHandler(*this, fragment);
             }
-            is_close_handler_called_ = true;
+            isCloseHandlerCalled = true;
           }
-          check_destroy();
+          checkDestroy();
         }
       } break;
       case 0x9:  // Ping
       {
-        send_pong(fragment_);
+        sendPong(fragment);
       } break;
       case 0xA:  // Pong
       {
-        pong_received_ = true;
+        pongReceived = true;
       } break;
     }
 
-    fragment_.clear();
+    fragment.clear();
   }
 
-  void do_write() {
-    if (sending_buffers_.empty()) {
-      sending_buffers_.swap(write_buffers_);
+  void doWrite() {
+    if (sendingBuffers.empty()) {
+      sendingBuffers.swap(writeBuffers);
       std::vector<boost::asio::const_buffer> buffers;
-      buffers.reserve(sending_buffers_.size());
-      for (auto& s : sending_buffers_) {
+      buffers.reserve(sendingBuffers.size());
+      for (auto& s : sendingBuffers) {
         buffers.emplace_back(boost::asio::buffer(s));
       }
-      boost::asio::async_write(adaptor_.socket(), buffers,
+      boost::asio::async_write(adaptor.socket(), buffers,
                                [&](const boost::system::error_code& ec,
                                    std::size_t /*bytes_transferred*/) {
-                                 sending_buffers_.clear();
-                                 if (!ec && !close_connection_) {
-                                   if (!write_buffers_.empty()) {
-                                     do_write();
+                                 sendingBuffers.clear();
+                                 if (!ec && !closeConnection) {
+                                   if (!writeBuffers.empty()) {
+                                     doWrite();
                                    }
-                                   if (has_sent_close_) {
-                                     close_connection_ = true;
+                                   if (hasSentClose) {
+                                     closeConnection = true;
                                    }
                                  } else {
-                                   close_connection_ = true;
-                                   check_destroy();
+                                   closeConnection = true;
+                                   checkDestroy();
                                  }
                                });
     }
   }
 
-  void check_destroy() {
-    // if (has_sent_close_ && has_recv_close_)
-    if (!is_close_handler_called_) {
-      if (close_handler_) {
-        close_handler_(*this, "uncleanly");
+  void checkDestroy() {
+    // if (hasSentClose && hasRecvClose)
+    if (!isCloseHandlerCalled) {
+      if (closeHandler) {
+        closeHandler(*this, "uncleanly");
       }
     }
-    if (sending_buffers_.empty() && !is_reading) {
+    if (sendingBuffers.empty() && !isReading) {
       delete this;
     }
   }
 
  private:
-  Adaptor adaptor_;
+  Adaptor adaptor;
 
-  std::vector<std::string> sending_buffers_;
-  std::vector<std::string> write_buffers_;
+  std::vector<std::string> sendingBuffers;
+  std::vector<std::string> writeBuffers;
 
-  std::array<char, 4096> buffer_{};
-  bool is_binary_{};
-  std::string message_;
-  std::string fragment_;
-  WebSocketReadState state_{WebSocketReadState::MiniHeader};
-  uint64_t remaining_length_{0};
-  bool close_connection_{false};
-  bool is_reading{false};
-  uint32_t mask_{};
-  uint16_t mini_header_{};
-  bool has_sent_close_{false};
-  bool has_recv_close_{false};
-  bool error_occured_{false};
-  bool pong_received_{false};
-  bool is_close_handler_called_{false};
+  std::array<char, 4096> buffer{};
+  bool isBinary{};
+  std::string message;
+  std::string fragment;
+  WebSocketReadState state{WebSocketReadState::MiniHeader};
+  uint64_t remainingLength{0};
+  bool closeConnection{false};
+  bool isReading{false};
+  uint32_t mask{};
+  uint16_t miniHeader{};
+  bool hasSentClose{false};
+  bool hasRecvClose{false};
+  bool errorOccured{false};
+  bool pongReceived{false};
+  bool isCloseHandlerCalled{false};
 
-  std::function<void(connection&)> open_handler_;
-  std::function<void(connection&, const std::string&, bool)> message_handler_;
-  std::function<void(connection&, const std::string&)> close_handler_;
-  std::function<void(connection&)> error_handler_;
+  std::function<void(Connection&)> openHandler;
+  std::function<void(Connection&, const std::string&, bool)> messageHandler;
+  std::function<void(Connection&, const std::string&)> closeHandler;
+  std::function<void(Connection&)> errorHandler;
 };
 }  // namespace websocket
 }  // namespace crow
