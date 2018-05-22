@@ -39,18 +39,18 @@ class Thermal : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
     if (params.size() != 1) {
       res.result(boost::beast::http::status::internal_server_error);
       res.end();
       return;
     }
-    const std::string& chassis_name = params[0];
+    const std::string& chassisName = params[0];
 
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     auto asyncResp = std::make_shared<SensorsAsyncResp>(
-        res, chassis_name,
+        res, chassisName,
         std::initializer_list<const char*>{
             "/xyz/openbmc_project/sensors/fan",
             "/xyz/openbmc_project/sensors/temperature"});

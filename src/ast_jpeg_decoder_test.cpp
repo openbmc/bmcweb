@@ -15,7 +15,7 @@ MATCHER_P2(IsBetween, a, b,
 };
 
 TEST(AstJpegDecoder, AllBlue) {
-  AstVideo::RawVideoBuffer out;
+  ast_video::RawVideoBuffer out;
 
   // This binary blog was created on the aspeed hardware using a blue screen
   // consisting of the color 0x8EFFFA in a web browser window
@@ -28,33 +28,33 @@ TEST(AstJpegDecoder, AllBlue) {
 
   ASSERT_GT(bufferlen, 0);
 
-  out.y_selector = 0;
-  out.uv_selector = 0;
-  out.mode = AstVideo::YuvMode::YUV444;
+  out.ySelector = 0;
+  out.uvSelector = 0;
+  out.mode = ast_video::YuvMode::YUV444;
   out.width = 800;
   out.height = 600;
 
-  AstVideo::AstJpegDecoder d;
-  d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
-           out.uv_selector);
+  ast_video::AstJpegDecoder d;
+  d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
+           out.uvSelector);
 
   int tolerance = 16;
 
   // All pixels should be blue (0x8EFFFA) to within a tolerance (due to jpeg
   // compression artifacts and quanitization)
   for (int i = 0; i < out.width * out.height; i++) {
-    AstVideo::RGB &pixel = d.OutBuffer[i];
-    EXPECT_GT(pixel.R, 0x8E - tolerance);
-    EXPECT_LT(pixel.R, 0x8E + tolerance);
-    EXPECT_GT(pixel.G, 0xFF - tolerance);
-    EXPECT_LT(pixel.G, 0xFF + tolerance);
-    EXPECT_GT(pixel.B, 0xF1 - tolerance);
-    EXPECT_LT(pixel.B, 0xF1 + tolerance);
+    ast_video::RGB &pixel = d.outBuffer[i];
+    EXPECT_GT(pixel.r, 0x8E - tolerance);
+    EXPECT_LT(pixel.r, 0x8E + tolerance);
+    EXPECT_GT(pixel.g, 0xFF - tolerance);
+    EXPECT_LT(pixel.g, 0xFF + tolerance);
+    EXPECT_GT(pixel.b, 0xF1 - tolerance);
+    EXPECT_LT(pixel.b, 0xF1 + tolerance);
   }
 }
 
 TEST(AstJpegDecoder, AllBlack) {
-  AstVideo::RawVideoBuffer out;
+  ast_video::RawVideoBuffer out;
 
   // This binary blog was created on the aspeed hardware using a black screen
   FILE *fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
@@ -65,30 +65,30 @@ TEST(AstJpegDecoder, AllBlack) {
 
   ASSERT_GT(bufferlen, 0);
 
-  out.y_selector = 0;
-  out.uv_selector = 0;
-  out.mode = AstVideo::YuvMode::YUV444;
+  out.ySelector = 0;
+  out.uvSelector = 0;
+  out.mode = ast_video::YuvMode::YUV444;
   out.width = 800;
   out.height = 600;
 
-  AstVideo::AstJpegDecoder d;
-  d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
-           out.uv_selector);
+  ast_video::AstJpegDecoder d;
+  d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
+           out.uvSelector);
 
   // All pixels should be blue (0x8EFFFA) to within a tolerance (due to jpeg
   // compression artifacts and quanitization)
   for (int x = 0; x < out.width; x++) {
     for (int y = 0; y < out.height; y++) {
-      AstVideo::RGB pixel = d.OutBuffer[x + (y * out.width)];
-      ASSERT_EQ(pixel.R, 0x00) << "X:" << x << " Y: " << y;
-      ASSERT_EQ(pixel.G, 0x00) << "X:" << x << " Y: " << y;
-      ASSERT_EQ(pixel.B, 0x00) << "X:" << x << " Y: " << y;
+      ast_video::RGB pixel = d.outBuffer[x + (y * out.width)];
+      ASSERT_EQ(pixel.r, 0x00) << "X:" << x << " Y: " << y;
+      ASSERT_EQ(pixel.g, 0x00) << "X:" << x << " Y: " << y;
+      ASSERT_EQ(pixel.b, 0x00) << "X:" << x << " Y: " << y;
     }
   }
 }
 
 TEST(AstJpegDecoder, TestColors) {
-  AstVideo::RawVideoBuffer out;
+  ast_video::RawVideoBuffer out;
 
   // This binary blog was created on the aspeed hardware using a blue screen
   // consisting of the color 0x8EFFFA in a web browser window
@@ -100,33 +100,33 @@ TEST(AstJpegDecoder, TestColors) {
 
   ASSERT_GT(bufferlen, 0);
 
-  out.y_selector = 0;
-  out.uv_selector = 0;
-  out.mode = AstVideo::YuvMode::YUV444;
+  out.ySelector = 0;
+  out.uvSelector = 0;
+  out.mode = ast_video::YuvMode::YUV444;
   out.width = 800;
   out.height = 600;
 
-  AstVideo::AstJpegDecoder d;
-  d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
-           out.uv_selector);
+  ast_video::AstJpegDecoder d;
+  d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
+           out.uvSelector);
 
   int tolerance = 16;
   /*
   for (int i = 0; i < out.width * out.height; i++) {
-    AstVideo::RGB &pixel = d.OutBuffer[i];
-    EXPECT_GT(pixel.R, 0x8E - tolerance);
-    EXPECT_LT(pixel.R, 0x8E + tolerance);
-    EXPECT_GT(pixel.G, 0xFF - tolerance);
-    EXPECT_LT(pixel.G, 0xFF + tolerance);
-    EXPECT_GT(pixel.B, 0xF1 - tolerance);
-    EXPECT_LT(pixel.B, 0xF1 + tolerance);
+    ast_video::RGB &pixel = d.outBuffer[i];
+    EXPECT_GT(pixel.r, 0x8E - tolerance);
+    EXPECT_LT(pixel.r, 0x8E + tolerance);
+    EXPECT_GT(pixel.g, 0xFF - tolerance);
+    EXPECT_LT(pixel.g, 0xFF + tolerance);
+    EXPECT_GT(pixel.b, 0xF1 - tolerance);
+    EXPECT_LT(pixel.b, 0xF1 + tolerance);
   }
   */
 }
 
 // Tests the buffers around the screen aren't written to
 TEST(AstJpegDecoder, BufferLimits) {
-  AstVideo::RawVideoBuffer out;
+  ast_video::RawVideoBuffer out;
 
   // This binary blog was created on the aspeed hardware using a black screen
   FILE *fp = fopen("test_resources/aspeedblackscreen.bin", "rb");
@@ -137,23 +137,23 @@ TEST(AstJpegDecoder, BufferLimits) {
 
   ASSERT_GT(bufferlen, 0);
 
-  out.y_selector = 0;
-  out.uv_selector = 0;
-  out.mode = AstVideo::YuvMode::YUV444;
+  out.ySelector = 0;
+  out.uvSelector = 0;
+  out.mode = ast_video::YuvMode::YUV444;
   out.width = 800;
   out.height = 600;
 
-  AstVideo::AstJpegDecoder d;
-  d.decode(out.buffer, out.width, out.height, out.mode, out.y_selector,
-           out.uv_selector);
-  // Reserved pixel should be default value
-  for (auto &pixel : d.OutBuffer) {
-    EXPECT_EQ(pixel.Reserved, 0xAA);
+  ast_video::AstJpegDecoder d;
+  d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
+           out.uvSelector);
+  // reserved pixel should be default value
+  for (auto &pixel : d.outBuffer) {
+    EXPECT_EQ(pixel.reserved, 0xAA);
   }
   // All pixels beyond the buffer should be zero
-  for (int i = out.width * out.height; i < d.OutBuffer.size(); i++) {
-    EXPECT_EQ(d.OutBuffer[i].R, 0x00) << "index:" << i;
-    EXPECT_EQ(d.OutBuffer[i].B, 0x00) << "index:" << i;
-    EXPECT_EQ(d.OutBuffer[i].G, 0x00) << "index:" << i;
+  for (int i = out.width * out.height; i < d.outBuffer.size(); i++) {
+    EXPECT_EQ(d.outBuffer[i].r, 0x00) << "index:" << i;
+    EXPECT_EQ(d.outBuffer[i].b, 0x00) << "index:" << i;
+    EXPECT_EQ(d.outBuffer[i].g, 0x00) << "index:" << i;
   }
 }

@@ -45,11 +45,11 @@ class NetworkProtocol : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
     refreshProtocolsState();
     Node::json["HostName"] = getHostName();
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 

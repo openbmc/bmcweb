@@ -69,11 +69,11 @@ struct IPv4AddressData {
  */
 struct EthernetInterfaceData {
   const unsigned int *speed;
-  const bool *auto_neg;
+  const bool *autoNeg;
   const std::string *hostname;
-  const std::string *default_gateway;
-  const std::string *mac_address;
-  const unsigned int *vlan_id;
+  const std::string *defaultGateway;
+  const std::string *macAddress;
+  const unsigned int *vlanId;
 };
 
 /**
@@ -88,17 +88,17 @@ struct EthernetInterfaceData {
 class OnDemandEthernetProvider {
  private:
   // Consts that may have influence on EthernetProvider performance/memory usage
-  const size_t MAX_IPV4_ADDRESSES_PER_INTERFACE = 10;
+  const size_t maxIpV4AddressesPerInterface = 10;
 
   // Helper function that allows to extract GetAllPropertiesType from
   // GetManagedObjectsType, based on object path, and interface name
   const PropertiesMapType *extractInterfaceProperties(
       const sdbusplus::message::object_path &objpath,
       const std::string &interface, const GetManagedObjectsType &dbus_data) {
-    const auto &dbus_obj = dbus_data.find(objpath);
-    if (dbus_obj != dbus_data.end()) {
-      const auto &iface = dbus_obj->second.find(interface);
-      if (iface != dbus_obj->second.end()) {
+    const auto &dbusObj = dbus_data.find(objpath);
+    if (dbusObj != dbus_data.end()) {
+      const auto &iface = dbusObj->second.find(interface);
+      if (iface != dbusObj->second.end()) {
         return &iface->second;
       }
     }
@@ -110,8 +110,8 @@ class OnDemandEthernetProvider {
   inline const PropertiesMapType *extractInterfaceProperties(
       const std::string &objpath, const std::string &interface,
       const GetManagedObjectsType &dbus_data) {
-    const auto &dbus_obj = sdbusplus::message::object_path{objpath};
-    return extractInterfaceProperties(dbus_obj, interface, dbus_data);
+    const auto &dbusObj = sdbusplus::message::object_path{objpath};
+    return extractInterfaceProperties(dbusObj, interface, dbus_data);
   }
 
   // Helper function that allows to get pointer to the property from
@@ -121,7 +121,7 @@ class OnDemandEthernetProvider {
                                         const std::string &name) {
     const auto &property = properties.find(name);
     if (property != properties.end()) {
-      return mapbox::get_ptr<const T>(property->second);
+      return mapbox::getPtr<const T>(property->second);
     }
     return nullptr;
   }
@@ -130,47 +130,47 @@ class OnDemandEthernetProvider {
 
   // Helper function that extracts data from several dbus objects and several
   // interfaces required by single ethernet interface instance
-  void extractEthernetInterfaceData(const std::string &ethiface_id,
+  void extractEthernetInterfaceData(const std::string &ethifaceId,
                                     const GetManagedObjectsType &dbus_data,
                                     EthernetInterfaceData &eth_data) {
     // Extract data that contains MAC Address
-    const PropertiesMapType *mac_properties = extractInterfaceProperties(
-        "/xyz/openbmc_project/network/" + ethiface_id,
+    const PropertiesMapType *macProperties = extractInterfaceProperties(
+        "/xyz/openbmc_project/network/" + ethifaceId,
         "xyz.openbmc_project.Network.MACAddress", dbus_data);
 
-    if (mac_properties != nullptr) {
-      eth_data.mac_address =
-          extractProperty<std::string>(*mac_properties, "MACAddress");
+    if (macProperties != nullptr) {
+      eth_data.macAddress =
+          extractProperty<std::string>(*macProperties, "MACAddress");
     }
 
-    const PropertiesMapType *vlan_properties = extractInterfaceProperties(
-        "/xyz/openbmc_project/network/" + ethiface_id,
+    const PropertiesMapType *vlanProperties = extractInterfaceProperties(
+        "/xyz/openbmc_project/network/" + ethifaceId,
         "xyz.openbmc_project.Network.VLAN", dbus_data);
 
-    if (vlan_properties != nullptr) {
-      eth_data.vlan_id = extractProperty<unsigned int>(*vlan_properties, "Id");
+    if (vlanProperties != nullptr) {
+      eth_data.vlanId = extractProperty<unsigned int>(*vlanProperties, "Id");
     }
 
     // Extract data that contains link information (auto negotiation and speed)
-    const PropertiesMapType *eth_properties = extractInterfaceProperties(
-        "/xyz/openbmc_project/network/" + ethiface_id,
+    const PropertiesMapType *ethProperties = extractInterfaceProperties(
+        "/xyz/openbmc_project/network/" + ethifaceId,
         "xyz.openbmc_project.Network.EthernetInterface", dbus_data);
 
-    if (eth_properties != nullptr) {
-      eth_data.auto_neg = extractProperty<bool>(*eth_properties, "AutoNeg");
-      eth_data.speed = extractProperty<unsigned int>(*eth_properties, "Speed");
+    if (ethProperties != nullptr) {
+      eth_data.autoNeg = extractProperty<bool>(*ethProperties, "AutoNeg");
+      eth_data.speed = extractProperty<unsigned int>(*ethProperties, "Speed");
     }
 
     // Extract data that contains network config (HostName and DefaultGW)
-    const PropertiesMapType *config_properties = extractInterfaceProperties(
+    const PropertiesMapType *configProperties = extractInterfaceProperties(
         "/xyz/openbmc_project/network/config",
         "xyz.openbmc_project.Network.SystemConfiguration", dbus_data);
 
-    if (config_properties != nullptr) {
+    if (configProperties != nullptr) {
       eth_data.hostname =
-          extractProperty<std::string>(*config_properties, "HostName");
-      eth_data.default_gateway =
-          extractProperty<std::string>(*config_properties, "DefaultGateway");
+          extractProperty<std::string>(*configProperties, "HostName");
+      eth_data.defaultGateway =
+          extractProperty<std::string>(*configProperties, "DefaultGateway");
     }
   }
 
@@ -186,11 +186,11 @@ class OnDemandEthernetProvider {
   }
 
   // Helper function that extracts data for single ethernet ipv4 address
-  void extractIPv4Data(const std::string &ethiface_id,
+  void extractIPv4Data(const std::string &ethifaceId,
                        const GetManagedObjectsType &dbus_data,
                        std::vector<IPv4AddressData> &ipv4_config) {
     const std::string pathStart =
-        "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/";
+        "/xyz/openbmc_project/network/" + ethifaceId + "/ipv4/";
 
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
@@ -206,23 +206,23 @@ class OnDemandEthernetProvider {
           // Make a properties 'shortcut', to make everything more readable
           const PropertiesMapType &properties = interface->second;
           // Instance IPv4AddressData structure, and set as appropriate
-          IPv4AddressData ipv4_address;
+          IPv4AddressData ipv4Address;
 
-          ipv4_address.id = static_cast<const std::string &>(objpath.first)
-                                .substr(pathStart.size());
+          ipv4Address.id = static_cast<const std::string &>(objpath.first)
+                               .substr(pathStart.size());
 
           // IPv4 address
-          ipv4_address.address =
+          ipv4Address.address =
               extractProperty<std::string>(properties, "Address");
           // IPv4 gateway
-          ipv4_address.gateway =
+          ipv4Address.gateway =
               extractProperty<std::string>(properties, "Gateway");
 
           // Origin is kind of DBus object so fetch pointer...
           const std::string *origin =
               extractProperty<std::string>(properties, "Origin");
           if (origin != nullptr) {
-            ipv4_address.origin =
+            ipv4Address.origin =
                 translateAddressOriginBetweenDBusAndRedfish(origin, true, true);
           }
 
@@ -231,18 +231,18 @@ class OnDemandEthernetProvider {
               extractProperty<uint8_t>(properties, "PrefixLength");
           if (mask != nullptr) {
             // convert it to the string
-            ipv4_address.netmask = getNetmask(*mask);
+            ipv4Address.netmask = getNetmask(*mask);
           }
 
           // Attach IPv4 only if address is present
-          if (ipv4_address.address != nullptr) {
-            // Check if given address is local, or global
-            if (boost::starts_with(*ipv4_address.address, "169.254")) {
-              ipv4_address.global = false;
+          if (ipv4Address.address != nullptr) {
+            // Check if given addres is local, or global
+            if (boost::starts_with(*ipv4Address.address, "169.254")) {
+              ipv4Address.global = false;
             } else {
-              ipv4_address.global = true;
+              ipv4Address.global = true;
             }
-            ipv4_config.emplace_back(std::move(ipv4_address));
+            ipv4_config.emplace_back(std::move(ipv4Address));
           }
         }
       }
@@ -270,7 +270,7 @@ class OnDemandEthernetProvider {
   template <typename CallbackFunc>
   void createVlan(const std::string &ifaceId, const uint64_t &inputVlanId,
                   CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         callback, "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "xyz.openbmc_project.Network.VLAN.Create", "VLAN", ifaceId,
         static_cast<uint32_t>(inputVlanId));
@@ -289,7 +289,7 @@ class OnDemandEthernetProvider {
   static void changeVlanId(const std::string &ifaceId,
                            const uint32_t &inputVlanId,
                            CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         callback, "xyz.openbmc_project.Network",
         std::string("/xyz/openbmc_project/network/") + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
@@ -377,7 +377,7 @@ class OnDemandEthernetProvider {
    * @brief Changes IPv4 address type property (Address, Gateway)
    *
    * @param[in] ifaceId     Id of interface whose IP should be modified
-   * @param[in] ipIdx       Index of IP in input array that should be modified
+   * @param[in] ipIdx       index of IP in input array that should be modified
    * @param[in] ipHash      DBus Hash id of modified IP
    * @param[in] name        Name of field in JSON representation
    * @param[in] newValue    New value that should be written
@@ -397,14 +397,14 @@ class OnDemandEthernetProvider {
     ](const boost::system::error_code ec) {
       if (ec) {
         messages::addMessageToJson(
-            asyncResp->res.json_value, messages::internalError(),
+            asyncResp->res.jsonValue, messages::internalError(),
             "/IPv4Addresses/" + std::to_string(ipIdx) + "/" + name);
       } else {
-        asyncResp->res.json_value["IPv4Addresses"][ipIdx][name] = newValue;
+        asyncResp->res.jsonValue["IPv4Addresses"][ipIdx][name] = newValue;
       }
     };
 
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         std::move(callback), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
@@ -416,7 +416,7 @@ class OnDemandEthernetProvider {
    * @brief Changes IPv4 address origin property
    *
    * @param[in] ifaceId       Id of interface whose IP should be modified
-   * @param[in] ipIdx         Index of IP in input array that should be modified
+   * @param[in] ipIdx         index of IP in input array that should be modified
    * @param[in] ipHash        DBus Hash id of modified IP
    * @param[in] newValue      New value in Redfish format
    * @param[in] newValueDbus  New value in D-Bus format
@@ -434,15 +434,15 @@ class OnDemandEthernetProvider {
           newValue{std::move(newValue)} ](const boost::system::error_code ec) {
       if (ec) {
         messages::addMessageToJson(
-            asyncResp->res.json_value, messages::internalError(),
+            asyncResp->res.jsonValue, messages::internalError(),
             "/IPv4Addresses/" + std::to_string(ipIdx) + "/AddressOrigin");
       } else {
-        asyncResp->res.json_value["IPv4Addresses"][ipIdx]["AddressOrigin"] =
+        asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["AddressOrigin"] =
             newValue;
       }
     };
 
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         std::move(callback), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
@@ -454,7 +454,7 @@ class OnDemandEthernetProvider {
    * @brief Modifies SubnetMask for given IP
    *
    * @param[in] ifaceId      Id of interface whose IP should be modified
-   * @param[in] ipIdx        Index of IP in input array that should be modified
+   * @param[in] ipIdx        index of IP in input array that should be modified
    * @param[in] ipHash       DBus Hash id of modified IP
    * @param[in] newValueStr  Mask in dot notation as string
    * @param[in] newValue     Mask as PrefixLength in bitcount
@@ -471,15 +471,15 @@ class OnDemandEthernetProvider {
     ](const boost::system::error_code ec) {
       if (ec) {
         messages::addMessageToJson(
-            asyncResp->res.json_value, messages::internalError(),
+            asyncResp->res.jsonValue, messages::internalError(),
             "/IPv4Addresses/" + std::to_string(ipIdx) + "/SubnetMask");
       } else {
-        asyncResp->res.json_value["IPv4Addresses"][ipIdx]["SubnetMask"] =
+        asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["SubnetMask"] =
             newValueStr;
       }
     };
 
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         std::move(callback), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
@@ -497,7 +497,7 @@ class OnDemandEthernetProvider {
    */
   template <typename CallbackFunc>
   static void disableVlan(const std::string &ifaceId, CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         callback, "xyz.openbmc_project.Network",
         std::string("/xyz/openbmc_project/network/") + ifaceId,
         "xyz.openbmc_project.Object.Delete", "Delete");
@@ -513,7 +513,7 @@ class OnDemandEthernetProvider {
    */
   template <typename CallbackFunc>
   void setHostName(const std::string &newHostname, CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         callback, "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/config",
         "org.freedesktop.DBus.Properties", "Set",
@@ -525,7 +525,7 @@ class OnDemandEthernetProvider {
    * @brief Deletes given IPv4
    *
    * @param[in] ifaceId     Id of interface whose IP should be deleted
-   * @param[in] ipIdx       Index of IP in input array that should be deleted
+   * @param[in] ipIdx       index of IP in input array that should be deleted
    * @param[in] ipHash      DBus Hash id of IP that should be deleted
    * @param[io] asyncResp   Response object that will be returned to client
    *
@@ -534,15 +534,15 @@ class OnDemandEthernetProvider {
   void deleteIPv4(const std::string &ifaceId, const std::string &ipHash,
                   unsigned int ipIdx,
                   const std::shared_ptr<AsyncResp> &asyncResp) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         [ ipIdx{std::move(ipIdx)}, asyncResp{std::move(asyncResp)} ](
             const boost::system::error_code ec) {
           if (ec) {
             messages::addMessageToJson(
-                asyncResp->res.json_value, messages::internalError(),
+                asyncResp->res.jsonValue, messages::internalError(),
                 "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
           } else {
-            asyncResp->res.json_value["IPv4Addresses"][ipIdx] = nullptr;
+            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx] = nullptr;
           }
         },
         "xyz.openbmc_project.Network",
@@ -554,7 +554,7 @@ class OnDemandEthernetProvider {
    * @brief Creates IPv4 with given data
    *
    * @param[in] ifaceId     Id of interface whose IP should be deleted
-   * @param[in] ipIdx       Index of IP in input array that should be deleted
+   * @param[in] ipIdx       index of IP in input array that should be deleted
    * @param[in] ipHash      DBus Hash id of IP that should be deleted
    * @param[io] asyncResp   Response object that will be returned to client
    *
@@ -569,12 +569,12 @@ class OnDemandEthernetProvider {
     ](const boost::system::error_code ec) {
       if (ec) {
         messages::addMessageToJson(
-            asyncResp->res.json_value, messages::internalError(),
+            asyncResp->res.jsonValue, messages::internalError(),
             "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
       }
     };
 
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
@@ -634,23 +634,25 @@ class OnDemandEthernetProvider {
    * Function that retrieves all properties for given Ethernet Interface
    * Object
    * from EntityManager Network Manager
-   * @param ethiface_id a eth interface id to query on DBus
+   * @param ethifaceId a eth interface id to query on DBus
    * @param callback a function that shall be called to convert Dbus output
    * into JSON
    */
   template <typename CallbackFunc>
-  void getEthernetIfaceData(const std::string &ethiface_id,
+  void getEthernetIfaceData(const std::string &ethifaceId,
                             CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         [
-          this, ethiface_id{std::move(ethiface_id)},
+          this, ethifaceId{std::move(ethifaceId)},
           callback{std::move(callback)}
         ](const boost::system::error_code error_code,
           const GetManagedObjectsType &resp) {
 
-          EthernetInterfaceData eth_data{};
-          std::vector<IPv4AddressData> ipv4_data;
-          ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
+          EthernetInterfaceData ethData;
+          std::vector<IPv4AddressData> ipv4Data;
+          ipv4Data.reserve(maxIpV4AddressesPerInterface);
+
+          memset(&ethData, 0, sizeof(EthernetInterfaceData));
 
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at
@@ -658,31 +660,31 @@ class OnDemandEthernetProvider {
             // size of vector may vary depending on information from Network
             // Manager, and empty output could not be treated same way as
             // error.
-            callback(false, eth_data, ipv4_data);
+            callback(false, ethData, ipv4Data);
             return;
           }
 
           // Find interface
-          if (resp.find("/xyz/openbmc_project/network/" + ethiface_id) ==
+          if (resp.find("/xyz/openbmc_project/network/" + ethifaceId) ==
               resp.end()) {
             // Interface has not been found
-            callback(false, eth_data, ipv4_data);
+            callback(false, ethData, ipv4Data);
             return;
           }
 
-          extractEthernetInterfaceData(ethiface_id, resp, eth_data);
-          extractIPv4Data(ethiface_id, resp, ipv4_data);
+          extractEthernetInterfaceData(ethifaceId, resp, ethData);
+          extractIPv4Data(ethifaceId, resp, ipv4Data);
 
           // Fix global GW
-          for (IPv4AddressData &ipv4 : ipv4_data) {
+          for (IPv4AddressData &ipv4 : ipv4Data) {
             if ((ipv4.global) &&
                 ((ipv4.gateway == nullptr) || (*ipv4.gateway == "0.0.0.0"))) {
-              ipv4.gateway = eth_data.default_gateway;
+              ipv4.gateway = ethData.defaultGateway;
             }
           }
 
           // Finally make a callback with usefull data
-          callback(true, eth_data, ipv4_data);
+          callback(true, ethData, ipv4Data);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -696,20 +698,20 @@ class OnDemandEthernetProvider {
    */
   template <typename CallbackFunc>
   void getEthernetIfaceList(CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         [ this, callback{std::move(callback)} ](
             const boost::system::error_code error_code,
             GetManagedObjectsType &resp) {
           // Callback requires vector<string> to retrieve all available ethernet
           // interfaces
-          std::vector<std::string> iface_list;
-          iface_list.reserve(resp.size());
+          std::vector<std::string> ifaceList;
+          ifaceList.reserve(resp.size());
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
             // of vector may vary depending on information from Network Manager,
             // and empty output could not be treated same way as error.
-            callback(false, iface_list);
+            callback(false, ifaceList);
             return;
           }
 
@@ -722,18 +724,18 @@ class OnDemandEthernetProvider {
               if (interface.first ==
                   "xyz.openbmc_project.Network.EthernetInterface") {
                 // Cut out everyting until last "/", ...
-                const std::string &iface_id =
+                const std::string &ifaceId =
                     static_cast<const std::string &>(objpath.first);
-                std::size_t last_pos = iface_id.rfind("/");
-                if (last_pos != std::string::npos) {
+                std::size_t lastPos = ifaceId.rfind("/");
+                if (lastPos != std::string::npos) {
                   // and put it into output vector.
-                  iface_list.emplace_back(iface_id.substr(last_pos + 1));
+                  ifaceList.emplace_back(ifaceId.substr(lastPos + 1));
                 }
               }
             }
           }
-          // Finally make a callback with useful data
-          callback(true, iface_list);
+          // Finally make a callback with usefull data
+          callback(true, ifaceList);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -774,39 +776,38 @@ class EthernetCollection : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     // TODO(Pawel) this shall be parametrized call to get EthernetInterfaces for
     // any Manager, not only hardcoded 'openbmc'.
-    std::string manager_id = "openbmc";
+    std::string managerId = "openbmc";
 
-    // Get eth interface list, and call the below callback for JSON preparation
-    ethernet_provider.getEthernetIfaceList(
-        [&, manager_id{std::move(manager_id)} ](
-            const bool &success, const std::vector<std::string> &iface_list) {
-          if (success) {
-            nlohmann::json iface_array = nlohmann::json::array();
-            for (const std::string &iface_item : iface_list) {
-              iface_array.push_back(
-                  {{"@odata.id", "/redfish/v1/Managers/" + manager_id +
-                                     "/EthernetInterfaces/" + iface_item}});
-            }
-            Node::json["Members"] = iface_array;
-            Node::json["Members@odata.count"] = iface_array.size();
-            Node::json["@odata.id"] =
-                "/redfish/v1/Managers/" + manager_id + "/EthernetInterfaces";
-            res.json_value = Node::json;
-          } else {
-            // No success, best what we can do is return INTERNALL ERROR
-            res.result(boost::beast::http::status::internal_server_error);
-          }
-          res.end();
-        });
+    // get eth interface list, and call the below callback for JSON preparation
+    ethernetProvider.getEthernetIfaceList([&, managerId{std::move(managerId)} ](
+        const bool &success, const std::vector<std::string> &iface_list) {
+      if (success) {
+        nlohmann::json ifaceArray = nlohmann::json::array();
+        for (const std::string &ifaceItem : iface_list) {
+          ifaceArray.push_back(
+              {{"@odata.id", "/redfish/v1/Managers/" + managerId +
+                                 "/EthernetInterfaces/" + ifaceItem}});
+        }
+        Node::json["Members"] = ifaceArray;
+        Node::json["Members@odata.count"] = ifaceArray.size();
+        Node::json["@odata.id"] =
+            "/redfish/v1/Managers/" + managerId + "/EthernetInterfaces";
+        res.jsonValue = Node::json;
+      } else {
+        // No success, best what we can do is return INTERNALL ERROR
+        res.result(boost::beast::http::status::internal_server_error);
+      }
+      res.end();
+    });
   }
 
   // Ethernet Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandEthernetProvider ethernet_provider;
+  OnDemandEthernetProvider ethernetProvider;
 };
 
 /**
@@ -847,7 +848,7 @@ class EthernetInterface : public Node {
                               const std::shared_ptr<AsyncResp> &asyncResp) {
     if (!input.is_object()) {
       messages::addMessageToJson(
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           messages::propertyValueTypeError(input.dump(), "VLAN"), pathPrefix);
       return;
     }
@@ -855,8 +856,8 @@ class EthernetInterface : public Node {
     const std::string pathStart = (pathPrefix == "/") ? "" : pathPrefix;
     nlohmann::json &paramsJson =
         (pathPrefix == "/")
-            ? asyncResp->res.json_value
-            : asyncResp->res.json_value[nlohmann::json_pointer<nlohmann::json>(
+            ? asyncResp->res.jsonValue
+            : asyncResp->res.jsonValue[nlohmann::json_pointer<nlohmann::json>(
                   pathPrefix)];
     bool inputVlanEnabled;
     uint64_t inputVlanId;
@@ -864,11 +865,11 @@ class EthernetInterface : public Node {
     json_util::Result inputVlanEnabledState = json_util::getBool(
         "VLANEnable", input, inputVlanEnabled,
         static_cast<int>(json_util::MessageSetting::TYPE_ERROR),
-        asyncResp->res.json_value, std::string(pathStart + "/VLANEnable"));
+        asyncResp->res.jsonValue, std::string(pathStart + "/VLANEnable"));
     json_util::Result inputVlanIdState = json_util::getUnsigned(
         "VLANId", input, inputVlanId,
         static_cast<int>(json_util::MessageSetting::TYPE_ERROR),
-        asyncResp->res.json_value, std::string(pathStart + "/VLANId"));
+        asyncResp->res.jsonValue, std::string(pathStart + "/VLANId"));
     bool inputInvalid = false;
 
     // Do not proceed if fields in VLAN object were of wrong type
@@ -878,10 +879,10 @@ class EthernetInterface : public Node {
     }
 
     // Verify input
-    if (eth_data.vlan_id == nullptr) {
+    if (eth_data.vlanId == nullptr) {
       // This interface is not a VLAN. Cannot do anything with it
       // TODO(kkowalsk) Change this message
-      messages::addMessageToJson(asyncResp->res.json_value,
+      messages::addMessageToJson(asyncResp->res.jsonValue,
                                  messages::propertyMissing("VLANEnable"),
                                  pathPrefix);
 
@@ -893,7 +894,7 @@ class EthernetInterface : public Node {
       }
 
       if (inputVlanIdState == json_util::Result::NOT_EXIST) {
-        inputVlanId = *eth_data.vlan_id;
+        inputVlanId = *eth_data.vlanId;
       }
     }
 
@@ -903,7 +904,7 @@ class EthernetInterface : public Node {
     }
 
     // VLAN is configured on the interface
-    if (inputVlanEnabled == true && inputVlanId != *eth_data.vlan_id) {
+    if (inputVlanEnabled == true && inputVlanId != *eth_data.vlanId) {
       // Change VLAN Id
       paramsJson["VLANId"] = inputVlanId;
       OnDemandEthernetProvider::changeVlanId(
@@ -911,7 +912,7 @@ class EthernetInterface : public Node {
           [&, asyncResp, pathPrefx{std::move(pathPrefix)} ](
               const boost::system::error_code ec) {
             if (ec) {
-              messages::addMessageToJson(asyncResp->res.json_value,
+              messages::addMessageToJson(asyncResp->res.jsonValue,
                                          messages::internalError(), pathPrefix);
             } else {
               paramsJson["VLANEnable"] = true;
@@ -923,7 +924,7 @@ class EthernetInterface : public Node {
           ifaceId, [&, asyncResp, pathPrefx{std::move(pathPrefix)} ](
                        const boost::system::error_code ec) {
             if (ec) {
-              messages::addMessageToJson(asyncResp->res.json_value,
+              messages::addMessageToJson(asyncResp->res.jsonValue,
                                          messages::internalError(), pathPrefix);
             } else {
               paramsJson["VLANEnable"] = false;
@@ -941,21 +942,21 @@ class EthernetInterface : public Node {
 
       if (eth_data.hostname == nullptr || newHostname != *eth_data.hostname) {
         // Change hostname
-        ethernet_provider.setHostName(
+        ethernetProvider.setHostName(
             newHostname,
             [asyncResp, newHostname](const boost::system::error_code ec) {
               if (ec) {
-                messages::addMessageToJson(asyncResp->res.json_value,
+                messages::addMessageToJson(asyncResp->res.jsonValue,
                                            messages::internalError(),
                                            "/HostName");
               } else {
-                asyncResp->res.json_value["HostName"] = newHostname;
+                asyncResp->res.jsonValue["HostName"] = newHostname;
               }
             });
       }
     } else {
       messages::addMessageToJson(
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           messages::propertyValueTypeError(input.dump(), "HostName"),
           "/HostName");
     }
@@ -966,7 +967,7 @@ class EthernetInterface : public Node {
                        const std::shared_ptr<AsyncResp> &asyncResp) {
     if (!input.is_array()) {
       messages::addMessageToJson(
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           messages::propertyValueTypeError(input.dump(), "IPv4Addresses"),
           "/IPv4Addresses");
       return;
@@ -976,7 +977,7 @@ class EthernetInterface : public Node {
     if (input.size() < ipv4_data.size()) {
       // TODO(kkowalsk) This should be a message indicating that not enough
       // data has been provided
-      messages::addMessageToJson(asyncResp->res.json_value,
+      messages::addMessageToJson(asyncResp->res.jsonValue,
                                  messages::internalError(), "/IPv4Addresses");
       return;
     }
@@ -998,7 +999,7 @@ class EthernetInterface : public Node {
       if (!input[entryIdx].is_object() && !input[entryIdx].is_null()) {
         // Invalid object type
         messages::addMessageToJson(
-            asyncResp->res.json_value,
+            asyncResp->res.jsonValue,
             messages::propertyValueTypeError(input[entryIdx].dump(),
                                              "IPv4Address"),
             "/IPv4Addresses/" + std::to_string(entryIdx));
@@ -1010,22 +1011,22 @@ class EthernetInterface : public Node {
       addressFieldState = json_util::getString(
           "Address", input[entryIdx], addressFieldValue,
           static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
       subnetMaskFieldState = json_util::getString(
           "SubnetMask", input[entryIdx], subnetMaskFieldValue,
           static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
       addressOriginFieldState = json_util::getString(
           "AddressOrigin", input[entryIdx], addressOriginFieldValue,
           static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
       gatewayFieldState = json_util::getString(
           "Gateway", input[entryIdx], gatewayFieldValue,
           static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
-          asyncResp->res.json_value,
+          asyncResp->res.jsonValue,
           "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
 
       if (addressFieldState == json_util::Result::WRONG_TYPE ||
@@ -1036,45 +1037,45 @@ class EthernetInterface : public Node {
       }
 
       if (addressFieldState == json_util::Result::SUCCESS &&
-          !ethernet_provider.ipv4VerifyIpAndGetBitcount(*addressFieldValue)) {
+          !ethernetProvider.ipv4VerifyIpAndGetBitcount(*addressFieldValue)) {
         errorDetected = true;
         messages::addMessageToJson(
-            asyncResp->res.json_value,
+            asyncResp->res.jsonValue,
             messages::propertyValueFormatError(*addressFieldValue, "Address"),
             "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
       }
 
       if (subnetMaskFieldState == json_util::Result::SUCCESS &&
-          !ethernet_provider.ipv4VerifyIpAndGetBitcount(
+          !ethernetProvider.ipv4VerifyIpAndGetBitcount(
               *subnetMaskFieldValue, &subnetMaskAsPrefixLength)) {
         errorDetected = true;
         messages::addMessageToJson(
-            asyncResp->res.json_value,
+            asyncResp->res.jsonValue,
             messages::propertyValueFormatError(*subnetMaskFieldValue,
                                                "SubnetMask"),
             "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
       }
 
-      // Get Address origin in proper format
+      // get Address origin in proper format
       addressOriginInDBusFormat =
-          ethernet_provider.translateAddressOriginBetweenDBusAndRedfish(
+          ethernetProvider.translateAddressOriginBetweenDBusAndRedfish(
               addressOriginFieldValue, true, false);
 
       if (addressOriginFieldState == json_util::Result::SUCCESS &&
           addressOriginInDBusFormat.empty()) {
         errorDetected = true;
         messages::addMessageToJson(
-            asyncResp->res.json_value,
+            asyncResp->res.jsonValue,
             messages::propertyValueNotInList(*addressOriginFieldValue,
                                              "AddressOrigin"),
             "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
       }
 
       if (gatewayFieldState == json_util::Result::SUCCESS &&
-          !ethernet_provider.ipv4VerifyIpAndGetBitcount(*gatewayFieldValue)) {
+          !ethernetProvider.ipv4VerifyIpAndGetBitcount(*gatewayFieldValue)) {
         errorDetected = true;
         messages::addMessageToJson(
-            asyncResp->res.json_value,
+            asyncResp->res.jsonValue,
             messages::propertyValueFormatError(*gatewayFieldValue, "Gateway"),
             "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
       }
@@ -1087,28 +1088,27 @@ class EthernetInterface : public Node {
       }
 
       if (entryIdx >= ipv4_data.size()) {
-        asyncResp->res.json_value["IPv4Addresses"][entryIdx] = input[entryIdx];
+        asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] = input[entryIdx];
 
         // Verify that all field were provided
         if (addressFieldState == json_util::Result::NOT_EXIST) {
           errorDetected = true;
           messages::addMessageToJson(
-              asyncResp->res.json_value, messages::propertyMissing("Address"),
+              asyncResp->res.jsonValue, messages::propertyMissing("Address"),
               "/IPv4Addresses/" + std::to_string(entryIdx) + "/Address");
         }
 
         if (subnetMaskFieldState == json_util::Result::NOT_EXIST) {
           errorDetected = true;
           messages::addMessageToJson(
-              asyncResp->res.json_value,
-              messages::propertyMissing("SubnetMask"),
+              asyncResp->res.jsonValue, messages::propertyMissing("SubnetMask"),
               "/IPv4Addresses/" + std::to_string(entryIdx) + "/SubnetMask");
         }
 
         if (addressOriginFieldState == json_util::Result::NOT_EXIST) {
           errorDetected = true;
           messages::addMessageToJson(
-              asyncResp->res.json_value,
+              asyncResp->res.jsonValue,
               messages::propertyMissing("AddressOrigin"),
               "/IPv4Addresses/" + std::to_string(entryIdx) + "/AddressOrigin");
         }
@@ -1116,7 +1116,7 @@ class EthernetInterface : public Node {
         if (gatewayFieldState == json_util::Result::NOT_EXIST) {
           errorDetected = true;
           messages::addMessageToJson(
-              asyncResp->res.json_value, messages::propertyMissing("Gateway"),
+              asyncResp->res.jsonValue, messages::propertyMissing("Gateway"),
               "/IPv4Addresses/" + std::to_string(entryIdx) + "/Gateway");
         }
 
@@ -1128,15 +1128,15 @@ class EthernetInterface : public Node {
         }
 
         // Create IPv4 with provided data
-        ethernet_provider.createIPv4(
-            ifaceId, entryIdx, subnetMaskAsPrefixLength, *gatewayFieldValue,
-            *addressFieldValue, asyncResp);
+        ethernetProvider.createIPv4(ifaceId, entryIdx, subnetMaskAsPrefixLength,
+                                    *gatewayFieldValue, *addressFieldValue,
+                                    asyncResp);
       } else {
         // Existing object that should be modified/deleted/remain unchanged
         if (input[entryIdx].is_null()) {
           // Object should be deleted
-          ethernet_provider.deleteIPv4(ifaceId, ipv4_data[entryIdx].id,
-                                       entryIdx, asyncResp);
+          ethernetProvider.deleteIPv4(ifaceId, ipv4_data[entryIdx].id, entryIdx,
+                                      asyncResp);
         } else if (input[entryIdx].is_object()) {
           if (input[entryIdx].size() == 0) {
             // Object shall remain unchanged
@@ -1147,21 +1147,21 @@ class EthernetInterface : public Node {
           if (addressFieldState == json_util::Result::SUCCESS &&
               ipv4_data[entryIdx].address != nullptr &&
               *ipv4_data[entryIdx].address != *addressFieldValue) {
-            ethernet_provider.changeIPv4AddressProperty(
+            ethernetProvider.changeIPv4AddressProperty(
                 ifaceId, entryIdx, ipv4_data[entryIdx].id, "Address",
                 *addressFieldValue, asyncResp);
           }
 
           if (subnetMaskFieldState == json_util::Result::SUCCESS &&
               ipv4_data[entryIdx].netmask != *subnetMaskFieldValue) {
-            ethernet_provider.changeIPv4SubnetMaskProperty(
+            ethernetProvider.changeIPv4SubnetMaskProperty(
                 ifaceId, entryIdx, ipv4_data[entryIdx].id,
                 *subnetMaskFieldValue, subnetMaskAsPrefixLength, asyncResp);
           }
 
           if (addressOriginFieldState == json_util::Result::SUCCESS &&
               ipv4_data[entryIdx].origin != *addressFieldValue) {
-            ethernet_provider.changeIPv4Origin(
+            ethernetProvider.changeIPv4Origin(
                 ifaceId, entryIdx, ipv4_data[entryIdx].id,
                 *addressOriginFieldValue, addressOriginInDBusFormat, asyncResp);
           }
@@ -1169,7 +1169,7 @@ class EthernetInterface : public Node {
           if (gatewayFieldState == json_util::Result::SUCCESS &&
               ipv4_data[entryIdx].gateway != nullptr &&
               *ipv4_data[entryIdx].gateway != *gatewayFieldValue) {
-            ethernet_provider.changeIPv4AddressProperty(
+            ethernetProvider.changeIPv4AddressProperty(
                 ifaceId, entryIdx, ipv4_data[entryIdx].id, "Gateway",
                 *gatewayFieldValue, asyncResp);
           }
@@ -1179,63 +1179,63 @@ class EthernetInterface : public Node {
   }
 
   nlohmann::json parseInterfaceData(
-      const std::string &iface_id, const EthernetInterfaceData &eth_data,
+      const std::string &ifaceId, const EthernetInterfaceData &eth_data,
       const std::vector<IPv4AddressData> &ipv4_data) {
     // Copy JSON object to avoid race condition
-    nlohmann::json json_response(Node::json);
+    nlohmann::json jsonResponse(Node::json);
 
     // Fill out obvious data...
-    json_response["Id"] = iface_id;
-    json_response["@odata.id"] =
-        "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + iface_id;
+    jsonResponse["Id"] = ifaceId;
+    jsonResponse["@odata.id"] =
+        "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + ifaceId;
 
     // ... then the one from DBus, regarding eth iface...
-    if (eth_data.speed != nullptr) json_response["SpeedMbps"] = *eth_data.speed;
+    if (eth_data.speed != nullptr) jsonResponse["SpeedMbps"] = *eth_data.speed;
 
-    if (eth_data.mac_address != nullptr)
-      json_response["MACAddress"] = *eth_data.mac_address;
+    if (eth_data.macAddress != nullptr)
+      jsonResponse["MACAddress"] = *eth_data.macAddress;
 
     if (eth_data.hostname != nullptr)
-      json_response["HostName"] = *eth_data.hostname;
+      jsonResponse["HostName"] = *eth_data.hostname;
 
-    if (eth_data.vlan_id != nullptr) {
-      nlohmann::json &vlanObj = json_response["VLAN"];
+    if (eth_data.vlanId != nullptr) {
+      nlohmann::json &vlanObj = jsonResponse["VLAN"];
       vlanObj["VLANEnable"] = true;
-      vlanObj["VLANId"] = *eth_data.vlan_id;
+      vlanObj["VLANId"] = *eth_data.vlanId;
     } else {
-      nlohmann::json &vlanObj = json_response["VLANs"];
+      nlohmann::json &vlanObj = jsonResponse["VLANs"];
       vlanObj["@odata.id"] =
-          "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + iface_id +
+          "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + ifaceId +
           "/VLANs";
     }
 
     // ... at last, check if there are IPv4 data and prepare appropriate
     // collection
     if (ipv4_data.size() > 0) {
-      nlohmann::json ipv4_array = nlohmann::json::array();
-      for (auto &ipv4_config : ipv4_data) {
-        nlohmann::json json_ipv4;
-        if (ipv4_config.address != nullptr) {
-          json_ipv4["Address"] = *ipv4_config.address;
-          if (ipv4_config.gateway != nullptr)
-            json_ipv4["Gateway"] = *ipv4_config.gateway;
+      nlohmann::json ipv4Array = nlohmann::json::array();
+      for (auto &ipv4Config : ipv4_data) {
+        nlohmann::json jsonIpv4;
+        if (ipv4Config.address != nullptr) {
+          jsonIpv4["Address"] = *ipv4Config.address;
+          if (ipv4Config.gateway != nullptr)
+            jsonIpv4["Gateway"] = *ipv4Config.gateway;
 
-          json_ipv4["AddressOrigin"] = ipv4_config.origin;
-          json_ipv4["SubnetMask"] = ipv4_config.netmask;
+          jsonIpv4["AddressOrigin"] = ipv4Config.origin;
+          jsonIpv4["SubnetMask"] = ipv4Config.netmask;
 
-          ipv4_array.push_back(std::move(json_ipv4));
+          ipv4Array.push_back(std::move(jsonIpv4));
         }
       }
-      json_response["IPv4Addresses"] = std::move(ipv4_array);
+      jsonResponse["IPv4Addresses"] = std::move(ipv4Array);
     }
 
-    return json_response;
+    return jsonResponse;
   }
 
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     // TODO(Pawel) this shall be parametrized call (two params) to get
     // EthernetInterfaces for any Manager, not only hardcoded 'openbmc'.
@@ -1247,30 +1247,30 @@ class EthernetInterface : public Node {
       return;
     }
 
-    const std::string &iface_id = params[0];
+    const std::string &ifaceId = params[0];
 
-    // Get single eth interface data, and call the below callback for JSON
+    // get single eth interface data, and call the below callback for JSON
     // preparation
-    ethernet_provider.getEthernetIfaceData(
-        iface_id, [&, iface_id](const bool &success,
-                                const EthernetInterfaceData &eth_data,
-                                const std::vector<IPv4AddressData> &ipv4_data) {
+    ethernetProvider.getEthernetIfaceData(
+        ifaceId,
+        [&, ifaceId](const bool &success, const EthernetInterfaceData &eth_data,
+                     const std::vector<IPv4AddressData> &ipv4_data) {
           if (success) {
-            res.json_value = parseInterfaceData(iface_id, eth_data, ipv4_data);
+            res.jsonValue = parseInterfaceData(ifaceId, eth_data, ipv4_data);
           } else {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
             messages::addMessageToErrorJson(
-                res.json_value,
-                messages::resourceNotFound("EthernetInterface", iface_id));
+                res.jsonValue,
+                messages::resourceNotFound("EthernetInterface", ifaceId));
             res.result(boost::beast::http::status::not_found);
           }
           res.end();
         });
   }
 
-  void doPatch(crow::response &res, const crow::request &req,
+  void doPatch(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override {
     // TODO(Pawel) this shall be parametrized call (two params) to get
     // EthernetInterfaces for any Manager, not only hardcoded 'openbmc'.
@@ -1282,7 +1282,7 @@ class EthernetInterface : public Node {
       return;
     }
 
-    const std::string &iface_id = params[0];
+    const std::string &ifaceId = params[0];
 
     nlohmann::json patchReq;
 
@@ -1290,27 +1290,26 @@ class EthernetInterface : public Node {
       return;
     }
 
-    // Get single eth interface data, and call the below callback for JSON
+    // get single eth interface data, and call the below callback for JSON
     // preparation
-    ethernet_provider.getEthernetIfaceData(
-        iface_id,
-        [&, iface_id, patchReq = std::move(patchReq) ](
-            const bool &success, const EthernetInterfaceData &eth_data,
-            const std::vector<IPv4AddressData> &ipv4_data) {
+    ethernetProvider.getEthernetIfaceData(
+        ifaceId, [&, ifaceId, patchReq = std::move(patchReq) ](
+                     const bool &success, const EthernetInterfaceData &eth_data,
+                     const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
             messages::addMessageToErrorJson(
-                res.json_value,
-                messages::resourceNotFound("VLAN Network Interface", iface_id));
+                res.jsonValue,
+                messages::resourceNotFound("VLAN Network Interface", ifaceId));
             res.result(boost::beast::http::status::not_found);
             res.end();
 
             return;
           }
 
-          res.json_value = parseInterfaceData(iface_id, eth_data, ipv4_data);
+          res.jsonValue = parseInterfaceData(ifaceId, eth_data, ipv4_data);
 
           std::shared_ptr<AsyncResp> asyncResp =
               std::make_shared<AsyncResp>(res);
@@ -1318,30 +1317,29 @@ class EthernetInterface : public Node {
           for (auto propertyIt = patchReq.begin(); propertyIt != patchReq.end();
                ++propertyIt) {
             if (propertyIt.key() == "VLAN") {
-              handleVlanPatch(iface_id, propertyIt.value(), eth_data, "/VLAN",
+              handleVlanPatch(ifaceId, propertyIt.value(), eth_data, "/VLAN",
                               asyncResp);
             } else if (propertyIt.key() == "HostName") {
               handleHostnamePatch(propertyIt.value(), eth_data, asyncResp);
             } else if (propertyIt.key() == "IPv4Addresses") {
-              handleIPv4Patch(iface_id, propertyIt.value(), ipv4_data,
+              handleIPv4Patch(ifaceId, propertyIt.value(), ipv4_data,
                               asyncResp);
             } else if (propertyIt.key() == "IPv6Addresses") {
               // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
               messages::addMessageToJsonRoot(
-                  res.json_value,
+                  res.jsonValue,
                   messages::propertyNotWritable(propertyIt.key()));
             } else {
-              auto fieldInJsonIt = res.json_value.find(propertyIt.key());
+              auto fieldInJsonIt = res.jsonValue.find(propertyIt.key());
 
-              if (fieldInJsonIt == res.json_value.end()) {
+              if (fieldInJsonIt == res.jsonValue.end()) {
                 // Field not in scope of defined fields
                 messages::addMessageToJsonRoot(
-                    res.json_value,
-                    messages::propertyUnknown(propertyIt.key()));
+                    res.jsonValue, messages::propertyUnknown(propertyIt.key()));
               } else if (*fieldInJsonIt != *propertyIt) {
                 // User attempted to modify non-writable field
                 messages::addMessageToJsonRoot(
-                    res.json_value,
+                    res.jsonValue,
                     messages::propertyNotWritable(propertyIt.key()));
               }
             }
@@ -1351,7 +1349,7 @@ class EthernetInterface : public Node {
 
   // Ethernet Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandEthernetProvider ethernet_provider;
+  OnDemandEthernetProvider ethernetProvider;
 };
 
 class VlanNetworkInterfaceCollection;
@@ -1390,11 +1388,11 @@ class VlanNetworkInterface : public Node {
 
  private:
   nlohmann::json parseInterfaceData(
-      const std::string &parent_iface_id, const std::string &iface_id,
+      const std::string &parent_ifaceId, const std::string &ifaceId,
       const EthernetInterfaceData &eth_data,
       const std::vector<IPv4AddressData> &ipv4_data) {
     // Copy JSON object to avoid race condition
-    nlohmann::json json_response(Node::json);
+    nlohmann::json jsonResponse(Node::json);
 
     if (eth_data.vlan_id == nullptr) {
       // Interface not a VLAN - abort
@@ -1403,22 +1401,22 @@ class VlanNetworkInterface : public Node {
     }
 
     // Fill out obvious data...
-    json_response["Id"] = iface_id;
-    json_response["@odata.id"] =
-        "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + parent_iface_id +
-        "/VLANs/" + iface_id;
+    jsonResponse["Id"] = ifaceId;
+    jsonResponse["@odata.id"] =
+        "/redfish/v1/Managers/openbmc/EthernetInterfaces/" + parent_ifaceId +
+        "/VLANs/" + ifaceId;
 
-    json_response["VLANEnable"] = true;
-    json_response["VLANId"] = *eth_data.vlan_id;
+    jsonResponse["VLANEnable"] = true;
+    jsonResponse["VLANId"] = *eth_data.vlanId;
 
-    return json_response;
+    return jsonResponse;
   }
 
-  bool verifyNames(crow::response &res, const std::string &parent,
+  bool verifyNames(crow::Response &res, const std::string &parent,
                    const std::string &iface) {
     if (!boost::starts_with(iface, parent + "_")) {
       messages::addMessageToErrorJson(
-          res.json_value,
+          res.jsonValue,
           messages::resourceNotFound("VLAN Network Interface", iface));
       res.result(boost::beast::http::status::not_found);
       res.end();
@@ -1432,7 +1430,7 @@ class VlanNetworkInterface : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     // TODO(Pawel) this shall be parametrized call (two params) to get
     // EthernetInterfaces for any Manager, not only hardcoded 'openbmc'.
@@ -1444,33 +1442,37 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_iface_id = params[0];
-    const std::string &iface_id = params[1];
+    const std::string &parentIfaceId = params[0];
+    const std::string &ifaceId = params[1];
+
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
+      return;
+    }
 
     // Get single eth interface data, and call the below callback for JSON
     // preparation
-    ethernet_provider.getEthernetIfaceData(
-        iface_id,
-        [&, parent_iface_id, iface_id](
+    ethernetProvider.getEthernetIfaceData(
+        ifaceId,
+        [&, parentIfaceId, ifaceId](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
-          if (success) {
-            res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+          if (success && eth_data.vlanId != nullptr) {
+            res.jsonValue = parseInterfaceData(parentIfaceId, ifaceId,
                                                 eth_data, ipv4_data);
           } else {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
             messages::addMessageToErrorJson(
-                res.json_value,
-                messages::resourceNotFound("VLAN Network Interface", iface_id));
+                res.jsonValue,
+                messages::resourceNotFound("VLAN Network Interface", ifaceId));
             res.result(boost::beast::http::status::not_found);
           }
           res.end();
         });
   }
 
-  void doPatch(crow::response &res, const crow::request &req,
+  void doPatch(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override {
     if (params.size() != 2) {
       res.result(boost::beast::http::status::internal_server_error);
@@ -1478,10 +1480,10 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_iface_id = params[0];
-    const std::string &iface_id = params[1];
+    const std::string &parent_ifaceId = params[0];
+    const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_iface_id, iface_id)) {
+    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
       return;
     }
 
@@ -1493,9 +1495,9 @@ class VlanNetworkInterface : public Node {
 
     // Get single eth interface data, and call the below callback for JSON
     // preparation
-    ethernet_provider.getEthernetIfaceData(
-        iface_id,
-        [&, parent_iface_id, iface_id, patchReq = std::move(patchReq) ](
+    ethernetProvider.getEthernetIfaceData(
+        ifaceId,
+        [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
@@ -1504,15 +1506,15 @@ class VlanNetworkInterface : public Node {
             // and
             // other errors
             messages::addMessageToErrorJson(
-                res.json_value,
-                messages::resourceNotFound("VLAN Network Interface", iface_id));
+                res.jsonValue,
+                messages::resourceNotFound("VLAN Network Interface", ifaceId));
             res.result(boost::beast::http::status::not_found);
             res.end();
 
             return;
           }
 
-          res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+          res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
                                               eth_data, ipv4_data);
 
           std::shared_ptr<AsyncResp> asyncResp =
@@ -1522,28 +1524,28 @@ class VlanNetworkInterface : public Node {
                ++propertyIt) {
             if (propertyIt.key() != "VLANEnable" &&
                 propertyIt.key() != "VLANId") {
-              auto fieldInJsonIt = res.json_value.find(propertyIt.key());
+              auto fieldInJsonIt = res.jsonValue.find(propertyIt.key());
 
-              if (fieldInJsonIt == res.json_value.end()) {
+              if (fieldInJsonIt == res.jsonValue.end()) {
                 // Field not in scope of defined fields
                 messages::addMessageToJsonRoot(
-                    res.json_value,
+                    res.jsonValue,
                     messages::propertyUnknown(propertyIt.key()));
               } else if (*fieldInJsonIt != *propertyIt) {
                 // User attempted to modify non-writable field
                 messages::addMessageToJsonRoot(
-                    res.json_value,
+                    res.jsonValue,
                     messages::propertyNotWritable(propertyIt.key()));
               }
             }
           }
 
-          EthernetInterface::handleVlanPatch(iface_id, patchReq, eth_data, "/",
+          EthernetInterface::handleVlanPatch(ifaceId, patchReq, eth_data, "/",
                                              asyncResp);
         });
   }
 
-  void doDelete(crow::response &res, const crow::request &req,
+  void doDelete(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override {
     if (params.size() != 2) {
       res.result(boost::beast::http::status::internal_server_error);
@@ -1551,30 +1553,30 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_iface_id = params[0];
-    const std::string &iface_id = params[1];
+    const std::string &parent_ifaceId = params[0];
+    const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_iface_id, iface_id)) {
+    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
       return;
     }
 
     // Get single eth interface data, and call the below callback for JSON
     // preparation
-    ethernet_provider.getEthernetIfaceData(
-        iface_id,
-        [&, parent_iface_id, iface_id](
+    ethernetProvider.getEthernetIfaceData(
+        ifaceId,
+        [&, parent_ifaceId, ifaceId](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
-          if (success && eth_data.vlan_id != nullptr) {
-            res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+          if (success && eth_data.vlanId != nullptr) {
+            res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
                                                 eth_data, ipv4_data);
 
             // Disable VLAN
             OnDemandEthernetProvider::disableVlan(
-                iface_id, [&](const boost::system::error_code ec) {
+                ifaceId, [&](const boost::system::error_code ec) {
                   if (ec) {
-                    res.json_value = nlohmann::json::object();
-                    messages::addMessageToErrorJson(res.json_value,
+                    res.jsonValue = nlohmann::json::object();
+                    messages::addMessageToErrorJson(res.jsonValue,
                                                     messages::internalError());
                     res.result(
                         boost::beast::http::status::internal_server_error);
@@ -1587,8 +1589,8 @@ class VlanNetworkInterface : public Node {
             // and
             // other errors
             messages::addMessageToErrorJson(
-                res.json_value,
-                messages::resourceNotFound("VLAN Network Interface", iface_id));
+                res.jsonValue,
+                messages::resourceNotFound("VLAN Network Interface", ifaceId));
             res.result(boost::beast::http::status::not_found);
             res.end();
           }
@@ -1605,7 +1607,7 @@ class VlanNetworkInterface : public Node {
 
   // Ethernet Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandEthernetProvider ethernet_provider;
+  OnDemandEthernetProvider ethernetProvider;
 };
 
 /**
@@ -1643,7 +1645,7 @@ class VlanNetworkInterfaceCollection : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     if (params.size() != 1) {
       // This means there is a problem with the router
@@ -1655,40 +1657,40 @@ class VlanNetworkInterfaceCollection : public Node {
 
     // TODO(Pawel) this shall be parametrized call to get EthernetInterfaces for
     // any Manager, not only hardcoded 'openbmc'.
-    std::string manager_id = "openbmc";
+    std::string managerId = "openbmc";
     std::string rootInterfaceName = params[0];
 
-    // Get eth interface list, and call the below callback for JSON preparation
-    ethernet_provider.getEthernetIfaceList([
-          &, manager_id{std::move(manager_id)},
+    // get eth interface list, and call the below callback for JSON preparation
+    ethernetProvider.getEthernetIfaceList([
+          &, managerId{std::move(managerId)},
           rootInterfaceName{std::move(rootInterfaceName)}
     ](const bool &success, const std::vector<std::string> &iface_list) {
       if (success) {
         bool rootInterfaceFound = false;
-        nlohmann::json iface_array = nlohmann::json::array();
+        nlohmann::json ifaceArray = nlohmann::json::array();
 
-        for (const std::string &iface_item : iface_list) {
-          if (iface_item == rootInterfaceName) {
+        for (const std::string &ifaceItem : iface_list) {
+          if (ifaceItem == rootInterfaceName) {
             rootInterfaceFound = true;
-          } else if (boost::starts_with(iface_item, rootInterfaceName + "_")) {
-            iface_array.push_back(
-                {{"@odata.id", "/redfish/v1/Managers/" + manager_id +
+          } else if (boost::starts_with(ifaceItem, rootInterfaceName + "_")) {
+            ifaceArray.push_back(
+                {{"@odata.id", "/redfish/v1/Managers/" + managerId +
                                    "/EthernetInterfaces/" + rootInterfaceName +
-                                   "/VLANs/" + iface_item}});
+                                   "/VLANs/" + ifaceItem}});
           }
         }
 
         if (rootInterfaceFound) {
-          Node::json["Members"] = iface_array;
-          Node::json["Members@odata.count"] = iface_array.size();
-          Node::json["@odata.id"] = "/redfish/v1/Managers/" + manager_id +
+          Node::json["Members"] = ifaceArray;
+          Node::json["Members@odata.count"] = ifaceArray.size();
+          Node::json["@odata.id"] = "/redfish/v1/Managers/" + managerId +
                                     "/EthernetInterfaces/" + rootInterfaceName +
                                     "/VLANs";
-          res.json_value = Node::json;
+          res.jsonValue = Node::json;
         } else {
           messages::addMessageToErrorJson(
-              res.json_value, messages::resourceNotFound("EthernetInterface",
-                                                         rootInterfaceName));
+              res.jsonValue, messages::resourceNotFound("EthernetInterface",
+                                                        rootInterfaceName));
           res.result(boost::beast::http::status::not_found);
           res.end();
         }
@@ -1700,7 +1702,7 @@ class VlanNetworkInterfaceCollection : public Node {
     });
   }
 
-  void doPost(crow::response &res, const crow::request &req,
+  void doPost(crow::Response &res, const crow::Request &req,
               const std::vector<std::string> &params) override {
     if (params.size() != 1) {
       // This means there is a problem with the router
@@ -1717,7 +1719,7 @@ class VlanNetworkInterfaceCollection : public Node {
 
     // TODO(Pawel) this shall be parametrized call to get EthernetInterfaces for
     // any Manager, not only hardcoded 'openbmc'.
-    std::string manager_id = "openbmc";
+    std::string managerId = "openbmc";
     std::string rootInterfaceName = params[0];
     uint64_t vlanId;
     bool errorDetected;
@@ -1726,33 +1728,33 @@ class VlanNetworkInterfaceCollection : public Node {
             "VLANId", postReq, vlanId,
             static_cast<uint8_t>(json_util::MessageSetting::MISSING) |
                 static_cast<uint8_t>(json_util::MessageSetting::TYPE_ERROR),
-            res.json_value, "/VLANId") != json_util::Result::SUCCESS) {
+            res.jsonValue, "/VLANId") != json_util::Result::SUCCESS) {
       res.end();
       return;
     }
 
-    // Get eth interface list, and call the below callback for JSON preparation
-    ethernet_provider.getEthernetIfaceList([
-          &, manager_id{std::move(manager_id)},
+    // get eth interface list, and call the below callback for JSON preparation
+    ethernetProvider.getEthernetIfaceList([
+          &, managerId{std::move(managerId)},
           rootInterfaceName{std::move(rootInterfaceName)}
     ](const bool &success, const std::vector<std::string> &iface_list) {
       if (success) {
         bool rootInterfaceFound = false;
 
-        for (const std::string &iface_item : iface_list) {
-          if (iface_item == rootInterfaceName) {
+        for (const std::string &ifaceItem : iface_list) {
+          if (ifaceItem == rootInterfaceName) {
             rootInterfaceFound = true;
             break;
           }
         }
 
         if (rootInterfaceFound) {
-          ethernet_provider.createVlan(
+          ethernetProvider.createVlan(
               rootInterfaceName, vlanId,
               [&, vlanId, rootInterfaceName,
                req{std::move(req)} ](const boost::system::error_code ec) {
                 if (ec) {
-                  messages::addMessageToErrorJson(res.json_value,
+                  messages::addMessageToErrorJson(res.jsonValue,
                                                   messages::internalError());
                   res.end();
                 } else {
@@ -1764,8 +1766,8 @@ class VlanNetworkInterfaceCollection : public Node {
               });
         } else {
           messages::addMessageToErrorJson(
-              res.json_value, messages::resourceNotFound("EthernetInterface",
-                                                         rootInterfaceName));
+              res.jsonValue, messages::resourceNotFound("EthernetInterface",
+                                                        rootInterfaceName));
           res.result(boost::beast::http::status::not_found);
           res.end();
         }
@@ -1779,7 +1781,7 @@ class VlanNetworkInterfaceCollection : public Node {
 
   // Ethernet Provider object
   // TODO(Pawel) consider move it to singleton
-  OnDemandEthernetProvider ethernet_provider;
+  OnDemandEthernetProvider ethernetProvider;
   VlanNetworkInterface memberVlan;
 };
 
