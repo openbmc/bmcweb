@@ -12,7 +12,7 @@ int main()
 {
     crow::SimpleApp app;
 
-    CROW_ROUTE(app, "/")([](){
+    BMCWEB_ROUTE(app, "/")([](){
         return "Hello world";
     });
 
@@ -32,7 +32,7 @@ int main()
    - You can also use [json11](https://github.com/dropbox/json11) or [rapidjson](https://github.com/miloyip/rapidjson) for better speed or readability
  - [Mustache](http://mustache.github.io/) based templating library (crow::mustache)
  - Header only
- - Provide an amalgamated header file `crow_all.h' with every features
+ - Provide an amalgamated header file `BMCWEB_all.h' with every features
  - Middleware support
  - Websocket support
 
@@ -44,7 +44,7 @@ int main()
 
 #### JSON Response
 ```c++
-CROW_ROUTE(app, "/json")
+BMCWEB_ROUTE(app, "/json")
 ([]{
     crow::json::wvalue x;
     x["message"] = "Hello, World!";
@@ -54,42 +54,42 @@ CROW_ROUTE(app, "/json")
 
 #### Arguments
 ```c++
-CROW_ROUTE(app,"/hello/<int>")
+BMCWEB_ROUTE(app,"/hello/<int>")
 ([](int count){
     if (count > 100)
-        return crow::response(400);
+        return crow::Response(400);
     std::ostringstream os;
     os << count << " bottles of beer!";
-    return crow::response(os.str());
+    return crow::Response(os.str());
 });
 ```
 Handler arguments type check at compile time
 ```c++
 // Compile error with message "Handler type is mismatched with URL paramters"
-CROW_ROUTE(app,"/another/<int>")
+BMCWEB_ROUTE(app,"/another/<int>")
 ([](int a, int b){
-    return crow::response(500);
+    return crow::Response(500);
 });
 ```
 
 #### Handling JSON Requests
 ```c++
-CROW_ROUTE(app, "/add_json")
+BMCWEB_ROUTE(app, "/add_json")
 .methods("POST"_method)
-([](const crow::request& req){
+([](const crow::Request& req){
     auto x = crow::json::load(req.body);
     if (!x)
-        return crow::response(400);
+        return crow::Response(400);
     int sum = x["a"].i()+x["b"].i();
     std::ostringstream os;
     os << sum;
-    return crow::response{os.str()};
+    return crow::Response{os.str()};
 });
 ```
 
 ## How to Build
 
-If you just want to use crow, copy amalgamate/crow_all.h and include it.
+If you just want to use crow, copy amalgamate/BMCWEB_all.h and include it.
 
 ### Requirements
 

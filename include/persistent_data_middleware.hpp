@@ -15,55 +15,55 @@
 
 namespace crow {
 
-namespace PersistentData {
+namespace persistent_data {
 
 class Middleware {
   // todo(ed) should read this from a fixed location somewhere, not CWD
   static constexpr const char* filename = "bmcweb_persistent_data.json";
-  int json_revision = 1;
+  int jsonRevision = 1;
 
  public:
-  struct context {};
+  struct Context {};
 
-  Middleware() { read_data(); }
+  Middleware() { readData(); }
 
   ~Middleware() {
-    if (PersistentData::SessionStore::getInstance().needs_write()) {
-      write_data();
+    if (persistent_data::SessionStore::getInstance().needsWrite()) {
+      writeData();
     }
   }
 
-  void before_handle(crow::request& req, response& res, context& ctx) {}
+  void beforeHandle(crow::Request& req, Response& res, Context& ctx) {}
 
-  void after_handle(request& req, response& res, context& ctx) {}
+  void afterHandle(Request& req, Response& res, Context& ctx) {}
 
   // TODO(ed) this should really use protobuf, or some other serialization
   // library, but adding another dependency is somewhat outside the scope of
   // this application for the moment
-  void read_data() {
-    std::ifstream persistent_file(filename);
-    int file_revision = 0;
-    if (persistent_file.is_open()) {
+  void readData() {
+    std::ifstream persistentFile(filename);
+    int fileRevision = 0;
+    if (persistentFile.is_open()) {
       // call with exceptions disabled
-      auto data = nlohmann::json::parse(persistent_file, nullptr, false);
+      auto data = nlohmann::json::parse(persistentFile, nullptr, false);
       if (data.is_discarded()) {
-        CROW_LOG_ERROR << "Error parsing persistent data in json file.";
+        BMCWEB_LOG_ERROR << "Error parsing persistent data in json file.";
       } else {
         for (const auto& item : data.items()) {
           if (item.key() == "revision") {
-            file_revision = 0;
+            fileRevision = 0;
 
             const uint64_t* uintPtr = item.value().get_ptr<const uint64_t*>();
             if (uintPtr == nullptr) {
-              CROW_LOG_ERROR << "Failed to read revision flag";
+              BMCWEB_LOG_ERROR << "Failed to read revision flag";
             } else {
-              file_revision = *uintPtr;
+              fileRevision = *uintPtr;
             }
           } else if (item.key() == "system_uuid") {
             const std::string* jSystemUuid =
                 item.value().get_ptr<const std::string*>();
             if (jSystemUuid != nullptr) {
-              system_uuid = *jSystemUuid;
+              systemUuid = *jSystemUuid;
             }
           } else if (item.key() == "sessions") {
             for (const auto& elem : item.value()) {
@@ -71,16 +71,16 @@ class Middleware {
                   UserSession::fromJson(elem);
 
               if (newSession == nullptr) {
-                CROW_LOG_ERROR
+                BMCWEB_LOG_ERROR
                     << "Problem reading session from persistent store";
                 continue;
               }
 
-              CROW_LOG_DEBUG << "Restored session: " << newSession->csrf_token
-                             << " " << newSession->unique_id << " "
-                             << newSession->session_token;
-              SessionStore::getInstance().auth_tokens.emplace(
-                  newSession->session_token, newSession);
+              BMCWEB_LOG_DEBUG << "Restored session: " << newSession->csrfToken
+                             << " " << newSession->uniqueId << " "
+                             << newSession->sessionToken;
+              SessionStore::getInstance().authTokens.emplace(
+                  newSession->sessionToken, newSession);
             }
           } else {
             // Do nothing in the case of extra fields.  We may have cases where
@@ -91,32 +91,32 @@ class Middleware {
         }
       }
     }
-    bool need_write = false;
+    bool needWrite = false;
 
-    if (system_uuid.empty()) {
-      system_uuid = boost::uuids::to_string(boost::uuids::random_generator()());
-      need_write = true;
+    if (systemUuid.empty()) {
+      systemUuid = boost::uuids::to_string(boost::uuids::random_generator()());
+      needWrite = true;
     }
-    if (file_revision < json_revision) {
-      need_write = true;
+    if (fileRevision < jsonRevision) {
+      needWrite = true;
     }
     // write revision changes or system uuid changes immediately
-    if (need_write) {
-      write_data();
+    if (needWrite) {
+      writeData();
     }
   }
 
-  void write_data() {
-    std::ofstream persistent_file(filename);
+  void writeData() {
+    std::ofstream persistentFile(filename);
     nlohmann::json data{
-        {"sessions", PersistentData::SessionStore::getInstance().auth_tokens},
-        {"system_uuid", system_uuid},
-        {"revision", json_revision}};
-    persistent_file << data;
+        {"sessions", SessionStore::getInstance().authTokens},
+        {"system_uuid", systemUuid},
+        {"revision", jsonRevision}};
+    persistentFile << data;
   }
 
-  std::string system_uuid{""};
+  std::string systemUuid{""};
 };
 
-}  // namespace PersistentData
+}  // namespace persistent_data
 }  // namespace crow

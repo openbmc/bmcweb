@@ -32,7 +32,7 @@ enum class HTTPMethod {
   Patch = 24,
 };
 
-inline std::string method_name(boost::beast::http::verb method) {
+inline std::string methodName(boost::beast::http::verb method) {
   switch (method) {
     case boost::beast::http::verb::delete_:
       return "DELETE";
@@ -66,27 +66,27 @@ enum class ParamType {
   MAX
 };
 
-struct routing_params {
-  std::vector<int64_t> int_params;
-  std::vector<uint64_t> uint_params;
-  std::vector<double> double_params;
-  std::vector<std::string> string_params;
+struct RoutingParams {
+  std::vector<int64_t> intParams;
+  std::vector<uint64_t> uintParams;
+  std::vector<double> doubleParams;
+  std::vector<std::string> stringParams;
 
-  void debug_print() const {
-    std::cerr << "routing_params" << std::endl;
-    for (auto i : int_params) {
+  void debugPrint() const {
+    std::cerr << "RoutingParams" << std::endl;
+    for (auto i : intParams) {
       std::cerr << i << ", ";
     }
     std::cerr << std::endl;
-    for (auto i : uint_params) {
+    for (auto i : uintParams) {
       std::cerr << i << ", ";
     }
     std::cerr << std::endl;
-    for (auto i : double_params) {
+    for (auto i : doubleParams) {
       std::cerr << i << ", ";
     }
     std::cerr << std::endl;
-    for (auto& i : string_params) {
+    for (auto& i : stringParams) {
       std::cerr << i << ", ";
     }
     std::cerr << std::endl;
@@ -97,23 +97,23 @@ struct routing_params {
 };
 
 template <>
-inline int64_t routing_params::get<int64_t>(unsigned index) const {
-  return int_params[index];
+inline int64_t RoutingParams::get<int64_t>(unsigned index) const {
+  return intParams[index];
 }
 
 template <>
-inline uint64_t routing_params::get<uint64_t>(unsigned index) const {
-  return uint_params[index];
+inline uint64_t RoutingParams::get<uint64_t>(unsigned index) const {
+  return uintParams[index];
 }
 
 template <>
-inline double routing_params::get<double>(unsigned index) const {
-  return double_params[index];
+inline double RoutingParams::get<double>(unsigned index) const {
+  return doubleParams[index];
 }
 
 template <>
-inline std::string routing_params::get<std::string>(unsigned index) const {
-  return string_params[index];
+inline std::string RoutingParams::get<std::string>(unsigned index) const {
+  return stringParams[index];
 }
 
 }  // namespace crow
@@ -123,16 +123,16 @@ constexpr boost::beast::http::verb operator"" _method(const char* str,
   using verb = boost::beast::http::verb;
   // clang-format off
   return
-    crow::black_magic::is_equ_p(str, "GET", 3) ? verb::get :
-    crow::black_magic::is_equ_p(str, "DELETE", 6) ? verb::delete_ :
-    crow::black_magic::is_equ_p(str, "HEAD", 4) ? verb::head :
-    crow::black_magic::is_equ_p(str, "POST", 4) ? verb::post :
-    crow::black_magic::is_equ_p(str, "PUT", 3) ? verb::put :
-    crow::black_magic::is_equ_p(str, "OPTIONS", 7) ? verb::options :
-    crow::black_magic::is_equ_p(str, "CONNECT", 7) ? verb::connect :
-    crow::black_magic::is_equ_p(str, "TRACE", 5) ? verb::trace :
-    crow::black_magic::is_equ_p(str, "PATCH", 5) ? verb::patch :
-    crow::black_magic::is_equ_p(str, "PURGE", 5) ? verb::purge :
+    crow::black_magic::isEquP(str, "GET", 3) ? verb::get :
+    crow::black_magic::isEquP(str, "DELETE", 6) ? verb::delete_ :
+    crow::black_magic::isEquP(str, "HEAD", 4) ? verb::head :
+    crow::black_magic::isEquP(str, "POST", 4) ? verb::post :
+    crow::black_magic::isEquP(str, "PUT", 3) ? verb::put :
+    crow::black_magic::isEquP(str, "OPTIONS", 7) ? verb::options :
+    crow::black_magic::isEquP(str, "CONNECT", 7) ? verb::connect :
+    crow::black_magic::isEquP(str, "TRACE", 5) ? verb::trace :
+    crow::black_magic::isEquP(str, "PATCH", 5) ? verb::patch :
+    crow::black_magic::isEquP(str, "PURGE", 5) ? verb::purge :
     throw std::runtime_error("invalid http method");
   // clang-format on
 }

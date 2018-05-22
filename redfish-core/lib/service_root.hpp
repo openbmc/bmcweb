@@ -33,7 +33,7 @@ class ServiceRoot : public Node {
     Node::json["Links"]["Sessions"] = {
         {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
 
-    Node::json["UUID"] = get_uuid();
+    Node::json["UUID"] = getUuid();
 
     entityPrivileges = {
         {boost::beast::http::verb::get, {}},
@@ -45,13 +45,13 @@ class ServiceRoot : public Node {
   }
 
  private:
-  void doGet(crow::response& res, const crow::request& req,
+  void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 
-  const std::string get_uuid() {
+  const std::string getUuid() {
   // If we are using a version of systemd that can get the app specific uuid,
   // use that
 #ifdef sd_id128_get_machine_app_specific

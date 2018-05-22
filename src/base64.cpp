@@ -109,7 +109,8 @@ bool base64_decode(const std::string &input, std::string &output) {
     if (base64code1 == nop) {  // non base64 character
       return false;
     }
-    output += static_cast<char>((base64code0 << 2) | ((base64code1 >> 4) & 0x3));
+    output +=
+        static_cast<char>((base64code0 << 2) | ((base64code1 >> 4) & 0x3));
 
     if (++i < input_length) {
       char c = input[i];
@@ -120,7 +121,8 @@ bool base64_decode(const std::string &input, std::string &output) {
       if (base64code2 == nop) {  // non base64 character
         return false;
       }
-      output += static_cast<char>(((base64code1 << 4) & 0xf0) | ((base64code2 >> 2) & 0x0f));
+      output += static_cast<char>(((base64code1 << 4) & 0xf0) |
+                                  ((base64code2 >> 2) & 0x0f));
     }
 
     if (++i < input_length) {
