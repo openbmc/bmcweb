@@ -28,11 +28,11 @@ namespace redfish {
  */
 class AsyncResp {
  public:
-  AsyncResp(crow::response& response) : res(response) {}
+  AsyncResp(crow::Response& response) : res(response) {}
 
   ~AsyncResp() { res.end(); }
 
-  crow::response& res;
+  crow::Response& res;
 };
 
 /**
@@ -43,10 +43,10 @@ class Node {
  public:
   template <typename... Params>
   Node(CrowApp& app, std::string&& entityUrl, Params... params) {
-    app.route_dynamic(entityUrl.c_str())
+    app.routeDynamic(entityUrl.c_str())
         .methods("GET"_method, "PATCH"_method, "POST"_method,
-                 "DELETE"_method)([&](const crow::request& req,
-                                      crow::response& res, Params... params) {
+                 "DELETE"_method)([&](const crow::Request& req,
+                                      crow::Response& res, Params... params) {
           std::vector<std::string> paramVec = {params...};
           dispatchRequest(app, req, res, paramVec);
         });
@@ -74,14 +74,14 @@ class Node {
   void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes) {
     const std::string* url = getUrl();
     if (url == nullptr) {
-      //CROW_LOG_CRITICAL << "Unable to get url for route";
+      //BMCWEB_LOG_CRITICAL << "Unable to get url for route";
       return;
     }
 
     for (const auto& node : allNodes) {
       const std::string* route = node->getUrl();
       if (route == nullptr) {
-        //CROW_LOG_CRITICAL << "Unable to get url for route";
+        //BMCWEB_LOG_CRITICAL << "Unable to get url for route";
         continue;
       }
       if (boost::starts_with(*route, *url)) {
@@ -110,22 +110,25 @@ class Node {
 
  protected:
   // Node is designed to be an abstract class, so doGet is pure virtual
-  virtual void doGet(crow::response& res, const crow::request& req,
-                     const std::vector<std::string>& params) = 0;
+  virtual void doGet(crow::Response& res, const crow::Request& req,
+                     const std::vector<std::string>& params) {
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+  }
 
-  virtual void doPatch(crow::response& res, const crow::request& req,
+  virtual void doPatch(crow::Response& res, const crow::Request& req,
                        const std::vector<std::string>& params) {
     res.result(boost::beast::http::status::method_not_allowed);
     res.end();
   }
 
-  virtual void doPost(crow::response& res, const crow::request& req,
+  virtual void doPost(crow::Response& res, const crow::Request& req,
                       const std::vector<std::string>& params) {
     res.result(boost::beast::http::status::method_not_allowed);
     res.end();
   }
 
-  virtual void doDelete(crow::response& res, const crow::request& req,
+  virtual void doDelete(crow::Response& res, const crow::Request& req,
                         const std::vector<std::string>& params) {
     res.result(boost::beast::http::status::method_not_allowed);
     res.end();
@@ -134,11 +137,11 @@ class Node {
   nlohmann::json json;
 
  private:
-  void dispatchRequest(CrowApp& app, const crow::request& req,
-                       crow::response& res,
+  void dispatchRequest(CrowApp& app, const crow::Request& req,
+                       crow::Response& res,
                        const std::vector<std::string>& params) {
     auto ctx =
-        app.template get_context<crow::TokenAuthorization::Middleware>(req);
+        app.template getContext<crow::token_authorization::Middleware>(req);
 
     if (!isMethodAllowedForUser(req.method(), entityPrivileges,
                                 ctx.session->username)) {

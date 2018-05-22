@@ -9,42 +9,38 @@
 
 namespace crow {
 
-struct request {
+struct Request {
   boost::string_view url{};
-  query_string url_params{};
-  bool is_secure{false};
+  QueryString urlParams{};
+  bool isSecure{false};
 
   const std::string& body;
 
-  void* middleware_context{};
-  boost::asio::io_service* io_service{};
+  void* middlewareContext{};
+  boost::asio::io_service* ioService{};
 
-  request(boost::beast::http::request<boost::beast::http::string_body>& req)
+  Request(boost::beast::http::request<boost::beast::http::string_body>& req)
       : req(req), body(req.body()) {}
 
   const boost::beast::http::verb method() const { return req.method(); }
 
-  const boost::string_view get_header_value(
-      boost::string_view key) const {
+  const boost::string_view getHeaderValue(boost::string_view key) const {
     return req[key];
   }
 
-  const boost::string_view get_header_value(
-      boost::beast::http::field key) const {
+  const boost::string_view getHeaderValue(boost::beast::http::field key) const {
     return req[key];
   }
 
-  const boost::string_view method_string() const {
-    return req.method_string();
-  }
+  const boost::string_view methodString() const { return req.method_string(); }
 
   const boost::string_view target() const { return req.target(); }
 
   unsigned version() { return req.version(); }
 
-  bool is_upgrade() { return boost::beast::websocket::is_upgrade(req); }
+  bool isUpgrade() { return boost::beast::websocket::is_upgrade(req); }
 
-  bool keep_alive() { return req.keep_alive(); }
+  bool keepAlive() { return req.keep_alive(); }
 
  private:
   boost::beast::http::request<boost::beast::http::string_body>& req;

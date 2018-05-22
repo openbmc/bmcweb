@@ -284,7 +284,7 @@ Result getDouble(const char* fieldName, const nlohmann::json& json,
  * @return true if JSON is valid, false when JSON is invalid and response has
  *         been filled with message and ended.
  */
-bool processJsonFromRequest(crow::response& res, const crow::request& req,
+bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
 
 }  // namespace json_util

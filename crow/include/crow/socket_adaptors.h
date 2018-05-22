@@ -4,7 +4,7 @@
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
 
-#ifdef CROW_ENABLE_SSL
+#ifdef BMCWEB_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #endif
 namespace crow {
@@ -14,128 +14,128 @@ using tcp = asio::ip::tcp;
 struct SocketAdaptor {
   using secure = std::false_type;
   using context = void;
-  SocketAdaptor(boost::asio::io_service& io_service, context* /*unused*/)
-      : socket_(io_service) {}
+  SocketAdaptor(boost::asio::io_service& ioService, context* /*unused*/)
+      : socketCls(ioService) {}
 
-  boost::asio::io_service& get_io_service() { return socket_.get_io_service(); }
+  boost::asio::io_service& getIoService() { return socketCls.get_io_service(); }
 
-  tcp::socket& raw_socket() { return socket_; }
+  tcp::socket& rawSocket() { return socketCls; }
 
-  tcp::socket& socket() { return socket_; }
+  tcp::socket& socket() { return socketCls; }
 
-  std::string remote_endpoint() {
+  std::string remoteEndpoint() {
     boost::system::error_code ec;
-    tcp::endpoint ep = socket_.remote_endpoint(ec);
+    tcp::endpoint ep = socketCls.remote_endpoint(ec);
     if (ec) {
       return "";
     }
     return boost::lexical_cast<std::string>(ep);
   }
 
-  bool is_open() { return socket_.is_open(); }
+  bool isOpen() { return socketCls.is_open(); }
 
-  void close() { socket_.close(); }
+  void close() { socketCls.close(); }
 
   template <typename F>
   void start(F f) {
     f(boost::system::error_code());
   }
 
-  tcp::socket socket_;
+  tcp::socket socketCls;
 };
 
 struct TestSocketAdaptor {
   using secure = std::false_type;
   using context = void;
-  TestSocketAdaptor(boost::asio::io_service& io_service, context* /*unused*/)
-      : socket_(io_service) {}
+  TestSocketAdaptor(boost::asio::io_service& ioService, context* /*unused*/)
+      : socketCls(ioService) {}
 
-  boost::asio::io_service& get_io_service() { return socket_.get_io_service(); }
+  boost::asio::io_service& getIoService() { return socketCls.get_io_service(); }
 
-  tcp::socket& raw_socket() { return socket_; }
+  tcp::socket& rawSocket() { return socketCls; }
 
-  tcp::socket& socket() { return socket_; }
+  tcp::socket& socket() { return socketCls; }
 
-  std::string remote_endpoint() { return "Testhost"; }
+  std::string remoteEndpoint() { return "Testhost"; }
 
-  bool is_open() { return socket_.is_open(); }
+  bool isOpen() { return socketCls.is_open(); }
 
-  void close() { socket_.close(); }
+  void close() { socketCls.close(); }
 
   template <typename F>
   void start(F f) {
     f(boost::system::error_code());
   }
 
-  tcp::socket socket_;
+  tcp::socket socketCls;
 };
 
-#ifdef CROW_ENABLE_SSL
+#ifdef BMCWEB_ENABLE_SSL
 struct SSLAdaptor {
   using secure = std::true_type;
   using context = boost::asio::ssl::context;
   using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
-  SSLAdaptor(boost::asio::io_service& io_service, context* ctx)
-      : ssl_socket_(new ssl_socket_t(io_service, *ctx)) {}
+  SSLAdaptor(boost::asio::io_service& ioService, context* ctx)
+      : sslSocket(new ssl_socket_t(ioService, *ctx)) {}
 
-  boost::asio::ssl::stream<tcp::socket>& socket() { return *ssl_socket_; }
+  boost::asio::ssl::stream<tcp::socket>& socket() { return *sslSocket; }
 
-  tcp::socket::lowest_layer_type& raw_socket() {
-    return ssl_socket_->lowest_layer();
+  tcp::socket::lowest_layer_type& rawSocket() {
+    return sslSocket->lowest_layer();
   }
 
-  std::string remote_endpoint() {
+  std::string remoteEndpoint() {
     boost::system::error_code ec;
-    tcp::endpoint ep = raw_socket().remote_endpoint(ec);
+    tcp::endpoint ep = rawSocket().remote_endpoint(ec);
     if (ec) {
       return "";
     }
     return boost::lexical_cast<std::string>(ep);
   }
 
-  bool is_open() {
+  bool isOpen() {
     /*TODO(ed) this is a bit of a cheat.
-     There are cases  when running a websocket where ssl_socket_ might have
+     There are cases  when running a websocket where sslSocket might have
     std::move() called on it (to transfer ownership to websocket::Connection)
     and be empty.  This (and the check on close()) is a cheat to do something
     sane in this scenario. the correct fix would likely involve changing the
     http parser to return a specific code meaning "has been upgraded" so that
-    the do_read function knows not to try to close the connection which would
-    fail, because the adapter is gone.  As is, do_read believes the parse
-    failed, because is_open now returns False (which could also mean the client
+    the doRead function knows not to try to close the Connection which would
+    fail, because the adapter is gone.  As is, doRead believes the parse
+    failed, because isOpen now returns False (which could also mean the client
     disconnected during parse)
-    UPdate: The parser does in fact have an "is_upgrade" method that is intended
-    for exactly this purpose.  Todo is now to make do_read obey the flag
+    UPdate: The parser does in fact have an "isUpgrade" method that is intended
+    for exactly this purpose.  Todo is now to make doRead obey the flag
     appropriately so this code can be changed back.
     */
-    if (ssl_socket_ != nullptr) {
-      return ssl_socket_->lowest_layer().is_open();
+    if (sslSocket != nullptr) {
+      return sslSocket->lowest_layer().is_open();
     }
     return false;
   }
 
   void close() {
-    if (ssl_socket_ == nullptr) {
+    if (sslSocket == nullptr) {
       return;
     }
     boost::system::error_code ec;
 
     // Shut it down
-    this->ssl_socket_->lowest_layer().close();
+    this->sslSocket->lowest_layer().close();
   }
 
-  boost::asio::io_service& get_io_service() {
-    return raw_socket().get_io_service();
+  boost::asio::io_service& getIoService() {
+    return rawSocket().get_io_service();
   }
 
   template <typename F>
   void start(F f) {
-    ssl_socket_->async_handshake(
+    sslSocket->async_handshake(
         boost::asio::ssl::stream_base::server,
         [f](const boost::system::error_code& ec) { f(ec); });
   }
 
-  std::unique_ptr<boost::asio::ssl::stream<tcp::socket>> ssl_socket_;
+  std::unique_ptr<boost::asio::ssl::stream<tcp::socket>> sslSocket;
 };
 #endif
 }  // namespace crow

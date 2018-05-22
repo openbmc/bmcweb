@@ -28,8 +28,8 @@ namespace redfish {
 
 namespace messages {
 
-constexpr const char* MESSAGE_VERSION_PREFIX = "Base.1.2.0.";
-constexpr const char* MESSAGE_ANNOTATION = "@Message.ExtendedInfo";
+constexpr const char* messageVersionPrefix = "Base.1.2.0.";
+constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
  * @brief Adds Message JSON object to error object
@@ -318,7 +318,7 @@ nlohmann::json resourceNotFound(const std::string& arg1,
 
 /**
  * @brief Formats CouldNotEstablishConnection message into JSON
- * Message body: "The service failed to establish a connection with the URI
+ * Message body: "The service failed to establish a Connection with the URI
  * <arg0>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -383,7 +383,7 @@ nlohmann::json actionParameterNotSupported(const std::string& arg1,
 
 /**
  * @brief Formats SourceDoesNotSupportProtocol message into JSON
- * Message body: "The other end of the connection at <arg0> does not support the
+ * Message body: "The other end of the Connection at <arg0> does not support the
  * specified protocol <arg1>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -403,7 +403,7 @@ nlohmann::json accountRemoved();
 
 /**
  * @brief Formats AccessDenied message into JSON
- * Message body: "While attempting to establish a connection to <arg0>, the
+ * Message body: "While attempting to establish a Connection to <arg0>, the
  * service denied access."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -524,7 +524,7 @@ nlohmann::json actionNotSupported(const std::string& arg1);
 
 /**
  * @brief Formats InvalidIndex message into JSON
- * Message body: "The Index <arg0> is not a valid offset into the array."
+ * Message body: "The index <arg0> is not a valid offset into the array."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *

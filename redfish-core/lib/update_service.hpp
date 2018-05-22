@@ -24,14 +24,14 @@ class OnDemandSoftwareInventoryProvider {
  public:
   template <typename CallbackFunc>
   void get_all_software_inventory_object(CallbackFunc &&callback) {
-    crow::connections::system_bus->async_method_call(
+    crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code error_code,
             const std::vector<std::pair<
                 std::string,
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
-          CROW_LOG_DEBUG << "get all software inventory object callback...";
+          BMCWEB_LOG_DEBUG << "get all software inventory object callback...";
           if (error_code) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
@@ -42,10 +42,10 @@ class OnDemandSoftwareInventoryProvider {
           }
 
           if (subtree.empty()) {
-            CROW_LOG_DEBUG << "subtree empty";
+            BMCWEB_LOG_DEBUG << "subtree empty";
             callback(false, subtree);
           } else {
-            CROW_LOG_DEBUG << "subtree has something";
+            BMCWEB_LOG_DEBUG << "subtree has something";
             callback(true, subtree);
           }
         },
@@ -81,9 +81,9 @@ class UpdateService : public Node {
   }
 
  private:
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
     res.end();
   }
 };
@@ -117,10 +117,10 @@ class SoftwareInventoryCollection : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
-    res.json_value = Node::json;
-    software_inventory_provider.get_all_software_inventory_object(
+    res.jsonValue = Node::json;
+    softwareInventoryProvider.get_all_software_inventory_object(
         [&](const bool &success,
             const std::vector<std::pair<
                 std::string,
@@ -133,12 +133,12 @@ class SoftwareInventoryCollection : public Node {
           }
 
           if (subtree.empty()) {
-            CROW_LOG_DEBUG << "subtree empty!!";
+            BMCWEB_LOG_DEBUG << "subtree empty!!";
             res.end();
             return;
           }
 
-          res.json_value["Members"] = nlohmann::json::array();
+          res.jsonValue["Members"] = nlohmann::json::array();
 
           for (auto &obj : subtree) {
             const std::vector<std::pair<std::string, std::vector<std::string>>>
@@ -146,14 +146,14 @@ class SoftwareInventoryCollection : public Node {
 
             for (auto &conn : connections) {
               const std::string connectionName = conn.first;
-              CROW_LOG_DEBUG << "connectionName = " << connectionName;
-              CROW_LOG_DEBUG << "obj.first = " << obj.first;
+              BMCWEB_LOG_DEBUG << "connectionName = " << connectionName;
+              BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
 
-              crow::connections::system_bus->async_method_call(
+              crow::connections::systemBus->async_method_call(
                   [&](const boost::system::error_code error_code,
                       const boost::container::flat_map<std::string, VariantType>
                           &propertiesList) {
-                    CROW_LOG_DEBUG << "safe returned in lambda function";
+                    BMCWEB_LOG_DEBUG << "safe returned in lambda function";
                     if (error_code) {
                       res.result(
                           boost::beast::http::status::internal_server_error);
@@ -164,15 +164,15 @@ class SoftwareInventoryCollection : public Node {
                                                VariantType>::const_iterator it =
                         propertiesList.find("Purpose");
                     const std::string &sw_inv_purpose =
-                        *(mapbox::get_ptr<const std::string>(it->second));
+                        *(mapbox::getPtr<const std::string>(it->second));
                     std::size_t last_pos = sw_inv_purpose.rfind(".");
                     if (last_pos != std::string::npos) {
-                      res.json_value["Members"].push_back(
+                      res.jsonValue["Members"].push_back(
                           {{"@odata.id",
                             "/redfish/v1/UpdateService/FirmwareInventory/" +
                                 sw_inv_purpose.substr(last_pos + 1)}});
-                      res.json_value["Members@odata.count"] =
-                          res.json_value["Members"].size();
+                      res.jsonValue["Members@odata.count"] =
+                          res.jsonValue["Members"].size();
                       res.end();
                     }
 
@@ -183,7 +183,7 @@ class SoftwareInventoryCollection : public Node {
           }
         });
   }
-  OnDemandSoftwareInventoryProvider software_inventory_provider;
+  OnDemandSoftwareInventoryProvider softwareInventoryProvider;
 };
 /**
  * Chassis override class for delivering Chassis Schema
@@ -217,9 +217,9 @@ class SoftwareInventory : public Node {
   /**
    * Functions triggers appropriate requests on DBus
    */
-  void doGet(crow::response &res, const crow::request &req,
+  void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
-    res.json_value = Node::json;
+    res.jsonValue = Node::json;
 
     if (params.size() != 1) {
       res.result(boost::beast::http::status::internal_server_error);
@@ -228,16 +228,16 @@ class SoftwareInventory : public Node {
     }
 
     const std::string &sw_id = params[0];
-    res.json_value["@odata.id"] =
+    res.jsonValue["@odata.id"] =
         "/redfish/v1/UpdateService/FirmwareInventory/" + sw_id;
-    software_inventory_provider.get_all_software_inventory_object(
+    softwareInventoryProvider.get_all_software_inventory_object(
         [&, id{std::string(sw_id)} ](
             const bool &success,
             const std::vector<std::pair<
                 std::string,
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
-          CROW_LOG_DEBUG << "doGet callback...";
+          BMCWEB_LOG_DEBUG << "doGet callback...";
           if (!success) {
             res.result(boost::beast::http::status::internal_server_error);
             res.end();
@@ -245,7 +245,7 @@ class SoftwareInventory : public Node {
           }
 
           if (subtree.empty()) {
-            CROW_LOG_DEBUG << "subtree empty!!";
+            BMCWEB_LOG_DEBUG << "subtree empty!!";
             res.end();
             return;
           }
@@ -256,10 +256,10 @@ class SoftwareInventory : public Node {
 
             for (auto &conn : connections) {
               const std::string connectionName = conn.first;
-              CROW_LOG_DEBUG << "connectionName = " << connectionName;
-              CROW_LOG_DEBUG << "obj.first = " << obj.first;
+              BMCWEB_LOG_DEBUG << "connectionName = " << connectionName;
+              BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
 
-              crow::connections::system_bus->async_method_call(
+              crow::connections::systemBus->async_method_call(
                   [&, id{std::string(id)} ](
                       const boost::system::error_code error_code,
                       const boost::container::flat_map<std::string, VariantType>
@@ -274,21 +274,21 @@ class SoftwareInventory : public Node {
                                                VariantType>::const_iterator it =
                         propertiesList.find("Purpose");
                     if (it == propertiesList.end()) {
-                      CROW_LOG_DEBUG << "Can't find property \"Purpose\"!";
+                      BMCWEB_LOG_DEBUG << "Can't find property \"Purpose\"!";
                       return;
                     }
                     const std::string &sw_inv_purpose =
-                        *(mapbox::get_ptr<const std::string>(it->second));
-                    CROW_LOG_DEBUG << "sw_inv_purpose = " << sw_inv_purpose;
+                        *(mapbox::getPtr<const std::string>(it->second));
+                    BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << sw_inv_purpose;
                     if (boost::ends_with(sw_inv_purpose, "." + id)) {
                       it = propertiesList.find("Version");
                       if (it == propertiesList.end()) {
-                        CROW_LOG_DEBUG << "Can't find property \"Version\"!";
+                        BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
                         return;
                       }
-                      res.json_value["Version"] =
-                          *(mapbox::get_ptr<const std::string>(it->second));
-                      res.json_value["Id"] = id;
+                      res.jsonValue["Version"] =
+                          *(mapbox::getPtr<const std::string>(it->second));
+                      res.jsonValue["Id"] = id;
                       res.end();
                     }
 
@@ -300,7 +300,7 @@ class SoftwareInventory : public Node {
         });
   }
 
-  OnDemandSoftwareInventoryProvider software_inventory_provider;
+  OnDemandSoftwareInventoryProvider softwareInventoryProvider;
 };
 
 }  // namespace redfish
