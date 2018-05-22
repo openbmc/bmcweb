@@ -15,7 +15,7 @@ namespace webassets {
 
 namespace filesystem = std::experimental::filesystem;
 
-struct cmp_str {
+struct CmpStr {
   bool operator()(const char* a, const char* b) const {
     return std::strcmp(a, b) < 0;
   }
@@ -24,9 +24,9 @@ struct cmp_str {
 static boost::container::flat_set<std::string> routes;
 
 template <typename... Middlewares>
-void request_routes(Crow<Middlewares...>& app) {
-  const static boost::container::flat_map<const char*, const char*, cmp_str>
-      content_types{
+void requestRoutes(Crow<Middlewares...>& app) {
+  const static boost::container::flat_map<const char*, const char*, CmpStr>
+      contentTypes{
           {{".css", "text/css;charset=UTF-8"},
            {".html", "text/html;charset=UTF-8"},
            {".js", "text/html;charset=UTF-8"},
@@ -46,12 +46,12 @@ void request_routes(Crow<Middlewares...>& app) {
            // https://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-javascript-source-map-files
            {".map", "application/json"}}};
   filesystem::path rootpath{"/usr/share/www/"};
-  filesystem::recursive_directory_iterator dir_iter(rootpath);
+  filesystem::recursive_directory_iterator dirIter(rootpath);
 
-  for (const filesystem::directory_entry& dir : dir_iter) {
-    filesystem::path absolute_path = dir.path();
-    filesystem::path relative_path{
-        absolute_path.string().substr(rootpath.string().size() - 1)};
+  for (const filesystem::directory_entry& dir : dirIter) {
+    filesystem::path absolutePath = dir.path();
+    filesystem::path relativePath{
+        absolutePath.string().substr(rootpath.string().size() - 1)};
     // make sure we don't recurse into certain directories
     // note: maybe check for is_directory() here as well...
 
@@ -59,18 +59,18 @@ void request_routes(Crow<Middlewares...>& app) {
       // don't recurse into hidden directories or symlinks
       if (boost::starts_with(dir.path().filename().string(), ".") ||
           filesystem::is_symlink(dir)) {
-        dir_iter.disable_recursion_pending();
+        dirIter.disable_recursion_pending();
       }
     } else if (filesystem::is_regular_file(dir)) {
-      std::string extension = relative_path.extension();
-      filesystem::path webpath = relative_path;
-      const char* content_encoding = nullptr;
+      std::string extension = relativePath.extension();
+      filesystem::path webpath = relativePath;
+      const char* contentEncoding = nullptr;
 
       if (extension == ".gz") {
         webpath = webpath.replace_extension("");
         // Use the non-gzip version for determining content type
         extension = webpath.extension().string();
-        content_encoding = "gzip";
+        contentEncoding = "gzip";
       }
 
       if (boost::starts_with(webpath.filename().string(), "index.")) {
@@ -83,38 +83,38 @@ void request_routes(Crow<Middlewares...>& app) {
       }
 
       routes.insert(webpath);
-      const char* content_type = nullptr;
+      const char* contentType = nullptr;
 
-      auto content_type_it = content_types.find(extension.c_str());
-      if (content_type_it == content_types.end()) {
-        CROW_LOG_ERROR << "Cannot determine content-type for " << absolute_path
-                       << " with extension " << extension;
+      auto contentTypeIt = contentTypes.find(extension.c_str());
+      if (contentTypeIt == contentTypes.end()) {
+        BMCWEB_LOG_ERROR << "Cannot determine content-type for " << absolutePath
+                         << " with extension " << extension;
       } else {
-        content_type = content_type_it->second;
+        contentType = contentTypeIt->second;
       }
 
-      app.route_dynamic(webpath)(
-          [absolute_path, content_type, content_encoding](
-              const crow::request& req, crow::response& res) {
-            if (content_type != nullptr) {
-              res.add_header("Content-Type", content_type);
+      app.routeDynamic(webpath)(
+          [absolutePath, contentType, contentEncoding](const crow::Request& req,
+                                                       crow::Response& res) {
+            if (contentType != nullptr) {
+              res.addHeader("Content-Type", contentType);
             }
 
-            if (content_encoding != nullptr) {
-              res.add_header("Content-Encoding", content_encoding);
+            if (contentEncoding != nullptr) {
+              res.addHeader("Content-Encoding", contentEncoding);
             }
 
             // res.set_header("Cache-Control", "public, max-age=86400");
-            std::ifstream inf(absolute_path);
+            std::ifstream inf(absolutePath);
             if (!inf) {
-              CROW_LOG_DEBUG << "failed to read file";
+              BMCWEB_LOG_DEBUG << "failed to read file";
               res.result(boost::beast::http::status::internal_server_error);
               res.end();
               return;
             }
 
             res.body() = {std::istreambuf_iterator<char>(inf),
-                        std::istreambuf_iterator<char>()};
+                          std::istreambuf_iterator<char>()};
             res.end();
           });
     }

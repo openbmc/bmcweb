@@ -43,29 +43,29 @@ class logger {
     char date[32];
     time_t t = time(0);
 
-    tm my_tm{};
+    tm myTm{};
 
 #ifdef _MSC_VER
     gmtime_s(&my_tm, &t);
 #else
-    gmtime_r(&t, &my_tm);
+    gmtime_r(&t, &myTm);
 #endif
 
-    size_t sz = strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", &my_tm);
+    size_t sz = strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", &myTm);
     return std::string(date, date + sz);
   }
 
  public:
-  logger(const std::string& prefix, LogLevel level) : level_(level) {
-#ifdef CROW_ENABLE_LOGGING
-    stringstream_ << "(" << timestamp() << ") [" << prefix << "] ";
+  logger(const std::string& prefix, LogLevel level) : level(level) {
+#ifdef BMCWEB_ENABLE_LOGGING
+    stringstream << "(" << timestamp() << ") [" << prefix << "] ";
 #endif
   }
   ~logger() {
-#ifdef CROW_ENABLE_LOGGING
-    if (level_ >= get_current_log_level()) {
-      stringstream_ << std::endl;
-      get_handler_ref()->log(stringstream_.str(), level_);
+#ifdef BMCWEB_ENABLE_LOGGING
+    if (level >= get_current_log_level()) {
+      stringstream << std::endl;
+      getHandlerRef()->log(stringstream.str(), level);
     }
 #endif
   }
@@ -73,51 +73,51 @@ class logger {
   //
   template <typename T>
   logger& operator<<(T const& value) {
-#ifdef CROW_ENABLE_LOGGING
-    if (level_ >= get_current_log_level()) {
-      stringstream_ << value;
+#ifdef BMCWEB_ENABLE_LOGGING
+    if (level >= get_current_log_level()) {
+      stringstream << value;
     }
 #endif
     return *this;
   }
 
   //
-  static void setLogLevel(LogLevel level) { get_log_level_ref() = level; }
+  static void setLogLevel(LogLevel level) { getLogLevelRef() = level; }
 
-  static void setHandler(ILogHandler* handler) { get_handler_ref() = handler; }
+  static void setHandler(ILogHandler* handler) { getHandlerRef() = handler; }
 
-  static LogLevel get_current_log_level() { return get_log_level_ref(); }
+  static LogLevel get_current_log_level() { return getLogLevelRef(); }
 
  private:
   //
-  static LogLevel& get_log_level_ref() {
-    static auto current_level = static_cast<LogLevel>(1);
-    return current_level;
+  static LogLevel& getLogLevelRef() {
+    static auto currentLevel = static_cast<LogLevel>(1);
+    return currentLevel;
   }
-  static ILogHandler*& get_handler_ref() {
-    static CerrLogHandler default_handler;
-    static ILogHandler* current_handler = &default_handler;
-    return current_handler;
+  static ILogHandler*& getHandlerRef() {
+    static CerrLogHandler defaultHandler;
+    static ILogHandler* currentHandler = &defaultHandler;
+    return currentHandler;
   }
 
   //
-  std::ostringstream stringstream_;
-  LogLevel level_;
+  std::ostringstream stringstream;
+  LogLevel level;
 };
 }  // namespace crow
 
-#define CROW_LOG_CRITICAL                                                \
+#define BMCWEB_LOG_CRITICAL                                              \
   if (crow::logger::get_current_log_level() <= crow::LogLevel::Critical) \
   crow::logger("CRITICAL", crow::LogLevel::Critical)
-#define CROW_LOG_ERROR                                                \
+#define BMCWEB_LOG_ERROR                                              \
   if (crow::logger::get_current_log_level() <= crow::LogLevel::Error) \
   crow::logger("ERROR   ", crow::LogLevel::Error)
-#define CROW_LOG_WARNING                                                \
+#define BMCWEB_LOG_WARNING                                              \
   if (crow::logger::get_current_log_level() <= crow::LogLevel::Warning) \
   crow::logger("WARNING ", crow::LogLevel::Warning)
-#define CROW_LOG_INFO                                                \
+#define BMCWEB_LOG_INFO                                              \
   if (crow::logger::get_current_log_level() <= crow::LogLevel::Info) \
   crow::logger("INFO    ", crow::LogLevel::Info)
-#define CROW_LOG_DEBUG                                                \
+#define BMCWEB_LOG_DEBUG                                              \
   if (crow::logger::get_current_log_level() <= crow::LogLevel::Debug) \
   crow::logger("DEBUG   ", crow::LogLevel::Debug)

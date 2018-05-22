@@ -19,7 +19,7 @@
 #include "security_headers_middleware.hpp"
 #include "webserver_common.hpp"
 
-using CrowApp = crow::App<crow::PersistentData::Middleware,
-                          crow::TokenAuthorization::Middleware,
+using CrowApp = crow::App<crow::persistent_data::Middleware,
+                          crow::token_authorization::Middleware,
                           crow::SecurityHeadersMiddleware>;
 
