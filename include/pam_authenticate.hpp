@@ -41,7 +41,7 @@ inline bool pam_authenticate_user(const boost::string_view username,
       pam_function_conversation, const_cast<char*>(pass_str.c_str())};
   pam_handle_t* local_auth_handle = NULL;  // this gets set by pam_start
 
-  if (pam_start("dropbear", user_str.c_str(), &local_conversation,
+  if (pam_start("webserver", user_str.c_str(), &local_conversation,
                 &local_auth_handle) != PAM_SUCCESS) {
     return false;
   }

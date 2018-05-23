@@ -158,7 +158,9 @@ else ()
     add_definitions ("-DWEBSERVER_DISABLE_PAM")
 endif ()
 
-add_definitions ("-Wno-attributes")
+add_definitions("-Wno-attributes")
+# Copy pam-webserver to etc/pam.d
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver DESTINATION /etc/pam.d/ RENAME webserver)
 
 # tinyxml2
 find_package (tinyxml2 REQUIRED)
