@@ -1,6 +1,7 @@
 /*
 // Copyright (c) 2018 Intel Corporation
-//
+// Copyright (c) 2018 Ampere Computing LLC
+/
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -20,14 +21,14 @@
 
 namespace redfish {
 
-class Thermal : public Node {
+class Power : public Node {
  public:
-  Thermal(CrowApp& app)
-      : Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string()) {
-    Node::json["@odata.type"] = "#Thermal.v1_2_0.Thermal";
-    Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
-    Node::json["Id"] = "Thermal";
-    Node::json["Name"] = "Thermal";
+  Power(CrowApp& app)
+      : Node((app), "/redfish/v1/Chassis/<str>/Power/", std::string()) {
+    Node::json["@odata.type"] = "#Power.v1_2_1.Power";
+    Node::json["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
+    Node::json["Id"] = "Power";
+    Node::json["Name"] = "Power";
 
     entityPrivileges = {{crow::HTTPMethod::GET, {{"Login"}}},
                         {crow::HTTPMethod::HEAD, {{"Login"}}},
@@ -47,26 +48,17 @@ class Thermal : public Node {
     }
     const std::string& chassis_name = params[0];
 
-#ifdef OCP_CUSTOM_FLAG // Add specific chassis sub-node name: Thermal
-    const std::string& subNodeName = "Thermal";
-#endif //OCP_CUSTOM_FLAG
-#ifdef OCP_CUSTOM_FLAG // Allocate @odata.id to appropriate schema
-    Node::json["@odata.id"] = "/redfish/v1/Chassis/" +
-                              chassis_name + "/Thermal";
-#endif //OCP_CUSTOM_FLAG
+    // Add specific Chassis sub-node name: Power
+    const std::string& subNodeName = "Power";
+    Node::json["@odata.id"] = "/redfish/v1/Chassis/" + chassis_name + "/Power";
     res.json_value = Node::json;
     auto sensorAsyncResp = std::make_shared<SensorAsyncResp>(
         res, chassis_name,
         std::initializer_list<const char*>{
-#ifdef OCP_CUSTOM_FLAG // Remove Entity-Manager object
-            "/xyz/openbmc_project/sensors/fan_tach",
-            "/xyz/openbmc_project/sensors/temperature"},
+            "/xyz/openbmc_project/sensors/voltage",
+            "/xyz/openbmc_project/sensors/power"},
         subNodeName);
-#else
-            "/xyz/openbmc_project/Sensors/fan",
-            "/xyz/openbmc_project/Sensors/temperature"});
-#endif //OCP_CUSTOM_FLAG
-    // TODO Need to get Chassis Redundancy information.
+    // TODO Need to retrieve Power Control information.
     getChassisData(sensorAsyncResp);
   }
 };

@@ -23,7 +23,14 @@
 #include "../lib/service_root.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/thermal.hpp"
+#ifdef OCP_CUSTOM_FLAG // TODO Add OCP custom flag for include target header
+#include "../lib/ocp-chassis.hpp"
+#include "../lib/power.hpp"
+#else
 #include "../lib/chassis.hpp"
+#endif
+#include "../lib/systems.hpp"
+#include "../lib/logservices.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish {
@@ -52,7 +59,19 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<Thermal>(app));
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
     nodes.emplace_back(std::make_unique<ChassisCollection>(app));
+#ifdef OCP_CUSTOM_FLAG // Add power node
+    nodes.emplace_back(std::make_unique<Power>(app));
+#endif //OCP_CUSTOM_FLAG
+#ifndef OCP_CUSTOM_FLAG // TODO Remove Chassis node
+                        // which unused in case definition of OCP custom flag
     nodes.emplace_back(std::make_unique<Chassis>(app));
+#endif
+    nodes.emplace_back(std::make_unique<SystemsCollection>(app));
+    nodes.emplace_back(std::make_unique<Systems>(app));
+    nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+    nodes.emplace_back(std::make_unique<LogService>(app));
+    nodes.emplace_back(std::make_unique<LogEntryCollection>(app));
+    nodes.emplace_back(std::make_unique<LogEntry>(app));
 
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);

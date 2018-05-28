@@ -113,6 +113,9 @@ endif()
 
 add_definitions("-Wno-attributes")
 
+# TODO Enable OCP custom flag
+add_definitions(-DOCP_CUSTOM_FLAG)
+
 # Boost-dbus
 find_package(boost-dbus REQUIRED)
 
@@ -126,6 +129,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 
 set(SRC_FILES
     redfish-core/src/error_messages.cpp
+    redfish-core/src/utils/json_utils.cpp
     ${GENERATED_SRC_FILES}
 )
 

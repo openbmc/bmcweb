@@ -23,10 +23,10 @@ class NetworkProtocol : public Node {
  public:
   NetworkProtocol(CrowApp& app)
       : Node(app,
-             "/redfish/v1/Managers/openbmc/NetworkProtocol") {
+             "/redfish/v1/Managers/bmc/NetworkProtocol") {
     Node::json["@odata.type"] =
         "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
-    Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc/NetworkProtocol";
+    Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol";
     Node::json["@odata.context"] =
         "/redfish/v1/$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol";
     Node::json["Id"] = "NetworkProtocol";
