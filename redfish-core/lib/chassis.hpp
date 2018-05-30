@@ -27,7 +27,7 @@ namespace redfish {
 // Note, this is not a very useful variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = sdbusplus::message::variant<std::string>;
+using VariantType = sdbusplus::message::variant<bool, std::string>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,

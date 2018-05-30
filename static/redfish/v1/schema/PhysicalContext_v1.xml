@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PhysicalContext  v1.0.3-->
+<!--# Redfish Schema:  PhysicalContext  v1.3.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -14,12 +14,103 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EnumType Name="PhysicalContext">
+        <Member Name="Room">
+          <Annotation Term="OData.Description" String="The room."/>
+        </Member>
+        <Member Name="Intake">
+          <Annotation Term="OData.Description" String="The air intake point of the chassis."/>
+        </Member>
+        <Member Name="Exhaust">
+          <Annotation Term="OData.Description" String="The air exhaust point of the chassis."/>
+        </Member>
+        <Member Name="LiquidInlet">
+          <Annotation Term="OData.Description" String="The liquid inlet point of the chassis."/>
+        </Member>
+        <Member Name="LiquidOutlet">
+          <Annotation Term="OData.Description" String="The liquid outlet point of the chassis."/>
+        </Member>
+        <Member Name="Front">
+          <Annotation Term="OData.Description" String="The front of the chassis."/>
+        </Member>
+        <Member Name="Back">
+          <Annotation Term="OData.Description" String="The back of the chassis."/>
+        </Member>
+        <Member Name="Upper">
+          <Annotation Term="OData.Description" String="The upper portion of the chassis."/>
+        </Member>
+        <Member Name="Lower">
+          <Annotation Term="OData.Description" String="The lower portion of the chassis."/>
+        </Member>
+        <Member Name="CPU">
+          <Annotation Term="OData.Description" String="A Processor (CPU)."/>
+        </Member>
+        <Member Name="GPU">
+          <Annotation Term="OData.Description" String="A Graphics Processor (GPU)."/>
+        </Member>
+        <Member Name="ASIC">
+          <Annotation Term="OData.Description" String="An ASIC device, such as an FPGA or a GPGPU."/>
+        </Member>
+        <Member Name="Backplane">
+          <Annotation Term="OData.Description" String="A backplane within the chassis."/>
+        </Member>
+        <Member Name="SystemBoard">
+          <Annotation Term="OData.Description" String="The system board (PCB)."/>
+        </Member>
+        <Member Name="PowerSupply">
+          <Annotation Term="OData.Description" String="A power supply."/>
+        </Member>
+        <Member Name="VoltageRegulator">
+          <Annotation Term="OData.Description" String="A voltage regulator device."/>
+        </Member>
+        <Member Name="StorageDevice">
+          <Annotation Term="OData.Description" String="A storage device."/>
+        </Member>
+        <Member Name="NetworkingDevice">
+          <Annotation Term="OData.Description" String="A networking device."/>
+        </Member>
+        <Member Name="ComputeBay">
+          <Annotation Term="OData.Description" String="Within a compute bay."/>
+        </Member>
+        <Member Name="StorageBay">
+          <Annotation Term="OData.Description" String="Within a storage bay."/>
+        </Member>
+        <Member Name="NetworkBay">
+          <Annotation Term="OData.Description" String="Within a networking bay."/>
+        </Member>
+        <Member Name="ExpansionBay">
+          <Annotation Term="OData.Description" String="Within an expansion bay."/>
+        </Member>
+        <Member Name="PowerSupplyBay">
+          <Annotation Term="OData.Description" String="Within a power supply bay."/>
+        </Member>
+        <Member Name="Memory">
+          <Annotation Term="OData.Description" String="A memory device."/>
+        </Member>
+        <Member Name="Chassis">
+          <Annotation Term="OData.Description" String="The entire chassis."/>
+        </Member>
+        <Member Name="Fan">
+          <Annotation Term="OData.Description" String="A fan."/>
+        </Member>
+      </EnumType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EnumType Name="PhysicalContext">
+        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
         <Member Name="Room">
           <Annotation Term="OData.Description" String="The room."/>
         </Member>
@@ -80,16 +171,57 @@
         <Member Name="PowerSupplyBay">
           <Annotation Term="OData.Description" String="Within a power supply bay."/>
         </Member>
+        <Member Name="Memory">
+          <Annotation Term="OData.Description" String="A memory device."/>
+        </Member>
+        <Member Name="Chassis">
+          <Annotation Term="OData.Description" String="The entire chassis."/>
+        </Member>
+        <Member Name="Fan">
+          <Annotation Term="OData.Description" String="A fan."/>
+        </Member>
       </EnumType>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the versioned definition of PhysicalContext to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show the PhysicalContext enumerated list was updated."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the versioned definition of PhysicalContext to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show the PhysicalContext enumerated list was updated."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the versioned definition of PhysicalContext to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PhysicalContext.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show the PhysicalContext enumerated list was updated."/>
     </Schema>
 
   </edmx:DataServices>

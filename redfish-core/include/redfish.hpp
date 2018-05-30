@@ -23,6 +23,7 @@
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
+#include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
 #include "webserver_common.hpp"
@@ -58,6 +59,10 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
     nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
     nodes.emplace_back(std::make_unique<VlanNetworkInterfaceCollection>(app));
+    nodes.emplace_back(std::make_unique<SystemsCollection>(app));
+    nodes.emplace_back(std::make_unique<Systems>(app));
+
+
     for (auto& node : nodes) {
       node->getSubRoutes(nodes);
     }

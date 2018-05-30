@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService  v1.1.0-->
+<!--# Redfish Schema:  UpdateService  v1.2.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -14,19 +14,15 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
-    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
-  </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
-    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
-    <edmx:Include Namespace="Resource.v1_1_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventoryCollection_v1.xml">
     <edmx:Include Namespace="SoftwareInventoryCollection"/>
@@ -35,7 +31,9 @@
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService">
-      <EntityType Name="UpdateService" BaseType="Resource.v1_0_0.Resource">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="UpdateService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="This is the schema definition for the Update Service. It represents the properties for the service itself and has links to collections of firmware and software inventory."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an Update Service for a Redfish implementation. It represents the properties that affect the service itself."/>
         <Annotation Term="Capabilities.InsertRestrictions">
@@ -68,10 +66,16 @@
           <Annotation Term="OData.Description" String="The network protocol used by the Update Service to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the network protocol that the Update Service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within ImageURI, the Update Service shall use HTTP to retrieve the image."/>
         </Parameter>
+        <Parameter Name="Targets" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Description" String="The array of URIs indicating where the update image is to be applied."/>
+          <Annotation Term="OData.LongDescription" String="This array property shall contain zero or more URIs indicating where the update image is to be applied."/>
+          <Annotation Term="OData.IsURL"/>
+        </Parameter>
       </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="UpdateService" BaseType="UpdateService.UpdateService">
         <Annotation Term="OData.Description" String="This is the schema definition for the Update Service. It represents the properties for the service itself and has links to collections of firmware and software inventory."/>
@@ -82,13 +86,13 @@
           <Annotation Term="OData.Description" String="This indicates whether this service is enabled."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service is enabled."/>
         </Property>
-        <NavigationProperty Name="FirmwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection">
+        <NavigationProperty Name="FirmwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of firmware."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type SoftwareInventoryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <NavigationProperty Name="SoftwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection">
+        <NavigationProperty Name="SoftwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of software."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type SoftwareInventoryCollection."/>
@@ -101,11 +105,15 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="UpdateService.v1_0_0.OemActions" Nullable="false"/>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="TransferProtocolType">
@@ -141,11 +149,25 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_0.UpdateService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_2.UpdateService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_1.UpdateService">
         <Property Name="HttpPushUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -154,7 +176,42 @@
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
-
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_1.UpdateService">
+        <Property Name="HttpPushUriTargets" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The array of URIs indicating the target for applying the update image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs indicating the targets for applying the update image when using HttpPushUri to push a software image.  If this property is not present, the Service shall determine where to apply the software image."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <Property Name="HttpPushUriTargetsBusy" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="This represents if the HttpPushUriTargets property is reserved by any client."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be a boolean that is set by client when the HttpPushUriTargets property is being used by a client for firmware updates.  It shall provide multiple clients a way to negotiate its ownership.  This will help clients to know if a firmware update using HttpPushUriTargets is used by another client."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_0.UpdateService"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>
