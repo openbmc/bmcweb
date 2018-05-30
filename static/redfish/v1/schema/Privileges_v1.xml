@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Privileges  v1.0.3-->
+<!--# Redfish Schema:  Privileges  v1.0.4-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -14,12 +14,40 @@
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_0">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EnumType Name="PrivilegeType">
+        <Member Name="Login">
+          <Annotation Term="OData.Description" String="Able to log into the service and read resources."/>
+        </Member>
+        <Member Name="ConfigureManager">
+          <Annotation Term="OData.Description" String="Able to configure Manager resources."/>
+        </Member>
+        <Member Name="ConfigureUsers">
+          <Annotation Term="OData.Description" String="Able to configure Users and their Accounts."/>
+        </Member>
+        <Member Name="ConfigureSelf">
+          <Annotation Term="OData.Description" String="Able to change the password for the current user Account."/>
+        </Member>
+        <Member Name="ConfigureComponents">
+          <Annotation Term="OData.Description" String="Able to configure components managed by this service."/>
+        </Member>
+      </EnumType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EnumType Name="PrivilegeType">
+        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
         <Member Name="Login">
           <Annotation Term="OData.Description" String="Able to log into the service and read resources."/>
         </Member>
@@ -53,11 +81,18 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the versioned definition of PrivilegeType to use an unversioned definition."/>
     </Schema>
 
   </edmx:DataServices>

@@ -99,6 +99,7 @@
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Session_v1.xml">
         <edmx:Include Namespace="Session"/>
+        <edmx:Include Namespace="Session.v1_0_2"/>
         <edmx:Include Namespace="Session.v1_0_3"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/SessionCollection_v1.xml">
@@ -106,6 +107,7 @@
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/SessionService_v1.xml">
         <edmx:Include Namespace="SessionService"/>
+        <edmx:Include Namespace="SessionService.v1_0_2"/>
         <edmx:Include Namespace="SessionService.v1_0_3"/>
         <edmx:Include Namespace="SessionService.v1_1_1"/>
     </edmx:Reference>
@@ -188,12 +190,14 @@
     <edmx:Reference Uri="/redfish/v1/schema/SoftwareInventory_v1.xml">
         <edmx:Include Namespace="SoftwareInventory"/>
         <edmx:Include Namespace="SoftwareInventory.v1_0_1"/>
+        <edmx:Include Namespace="SoftwareInventory.v1_1_0"/>
         <edmx:Include Namespace="SoftwareInventory.v1_1_1"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/UpdateService_v1.xml">
         <edmx:Include Namespace="UpdateService"/>
         <edmx:Include Namespace="UpdateService.v1_0_1"/>
         <edmx:Include Namespace="UpdateService.v1_1_0"/>
+        <edmx:Include Namespace="UpdateService.v1_2_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/Message_v1.xml">
         <edmx:Include Namespace="Message"/>
