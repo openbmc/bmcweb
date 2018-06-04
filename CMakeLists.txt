@@ -221,18 +221,19 @@ endif (${BMCWEB_BUILD_UT})
 install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 
 # bmcweb
-add_executable (bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries (bmcweb pthread)
-target_link_libraries (bmcweb ${OPENSSL_LIBRARIES})
-target_link_libraries (bmcweb ${ZLIB_LIBRARIES})
-target_link_libraries (bmcweb pam)
-target_link_libraries (bmcweb -lsystemd)
-target_link_libraries (bmcweb -lstdc++fs)
-target_link_libraries (bmcweb tinyxml2)
-install (TARGETS bmcweb DESTINATION bin)
+add_executable(bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
+target_link_libraries(bmcweb pthread)
+target_link_libraries(bmcweb ${OPENSSL_LIBRARIES})
+target_link_libraries(bmcweb ${ZLIB_LIBRARIES})
+target_link_libraries(bmcweb pam)
+target_link_libraries(bmcweb -lsystemd)
+target_link_libraries(bmcweb -lstdc++fs)
+target_link_libraries(bmcweb tinyxml2)
+target_link_libraries(bmcweb sdbusplus)
+install(TARGETS bmcweb DESTINATION bin)
 
-add_executable (getvideo src/getvideo_main.cpp)
-target_link_libraries (getvideo pthread)
+add_executable(getvideo src/getvideo_main.cpp)
+target_link_libraries(getvideo pthread)
 
 # Visual Studio Code helper this needs to be at the end to make sure all
 # includes are handled correctly
