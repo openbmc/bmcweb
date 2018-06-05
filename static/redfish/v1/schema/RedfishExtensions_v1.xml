@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -17,11 +17,15 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Settings_v1.xml">
     <edmx:Include Namespace="Settings"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CollectionCapabilities_v1.xml">
+    <edmx:Include Namespace="CollectionCapabilities"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
     <!--These terms extend the schema language for Redfish-specific information-->
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"  Namespace="RedfishExtensions.v1_0_0">
+      <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
         <Annotation Term="OData.Description" String="The set of allowable values for a parameter."/>
@@ -36,9 +40,11 @@
         <Annotation Term="OData.Description" String="Reference to the resource that represents the settings to be applied to this object."/>
       </Term>
       <Term Name="AutoExpandReferences" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="RedfishExtensions.v1_0_0.Deprecated" String="This term has been deprecated in favor of OData.AutoExpandReferences."/>
         <Annotation Term="OData.Description" String="The term can be applied to a navigation property in order to specify that the default behavior for the service is to expand the references for the related resource or collection of resources in responses."/>
       </Term>
       <Term Name="AutoExpand" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="RedfishExtensions.v1_0_0.Deprecated" String="This term has been deprecated in favor of OData.AutoExpand."/>
         <Annotation Term="OData.Description" String="The term can be applied to a navigation property in order to specify that the default behavior for the service is to expand the related resource or collection of resources in responses."/>
       </Term>
       <Term Name="IPv6Format" Type="Edm.Boolean" DefaultValue="true">
@@ -48,15 +54,65 @@
         <Annotation Term="OData.Description" String="The term is applied to Redfish payload samples in order to specify copyright information. It would not generally be used in production payloads."/>
       </Term>
       <Term Name="Deprecated" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term shall be applied to a property in order to specify that the property is deprecated.  The value of the string should explain the deprecation, including new property or properties to be used. The property can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties are likely to be removed in a future major version of the schema."/>
+        <Annotation Term="OData.Description" String="The term shall be applied to a property or value in order to specify that the property or value is deprecated.  The value of the string should explain the deprecation, including new property or properties or value to be used.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema."/>
       </Term>
       <Term Name="ActionInfo" Type="Edm.String">
         <Annotation Term="OData.Description" String="The term can be applied to an Action to specify a URI to an ActionInfo resource which describes the parameters supported by this instance of the Action."/>
         <Annotation Term="OData.IsURL"/>
       </Term>
       <Term Name="DynamicPropertyPatterns" Type="Collection(RedfishExtensions.v1_0_0.PropertyPattern)" Nullable="false"/>
+      <Term Name="SetOnlyOnCreate" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term specifies that a property can only be set when a client is creating a new instance of a resource via POST."/>
+      </Term>
+      <Term Name="OptionalOnCreate" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term specifies that a property may be set when a client is creating a new instance of a resource via POST."/>
+      </Term>
+      <Term Name="UpdatableAfterCreate" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term specifies that a property may be set by a client using PATCH after creating a new instance of a resource via POST."/>
+      </Term>
+      <Term Name="CollectionCapabilities" Type="CollectionCapabilities.CollectionCapabilities">
+        <Annotation Term="OData.Description" String="Reference to the resource that represents the POST capabilities of a given collection."/>
+      </Term>
+      <Term Name="Confidential" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies that a schema or property is un-released and is therefore confidential material not for public disclosure."/>
+      </Term>
+      <Term Name="ReleaseStatus" Type="RedfishExtensions.v1_0_0.ReleaseStatusType">
+        <Annotation Term="OData.Description" String="The term specifies the public release status of a property or schema."/>
+      </Term>
+      <Term Name="SettingsApplyTime" Type="Settings.PreferredApplyTime">
+        <Annotation Term="OData.Description" String="Configuration settings for when the values in the settings object are applied to a given resource."/>
+      </Term>
+      <Term Name="OperationApplyTime" Type="Settings.OperationApplyTime">
+        <Annotation Term="OData.Description" String="The requested apply time from a client when performing a Create, Delete, or Action operation."/>
+      </Term>
+      <Term Name="OperationApplyTimeSupport" Type="Settings.OperationApplyTimeSupport">
+        <Annotation Term="OData.Description" String="Indicates if a client is allowed to request for a specific apply time of a Create, Delete, or Action operation of a given resource via the OperationApplyTime term."/>
+      </Term>
+      <Term Name="MaintenanceWindow" Type="Settings.MaintenanceWindow">
+        <Annotation Term="OData.Description" String="Maintenance window configuration of a resource for when to apply settings or operations."/>
+      </Term>
+      <Term Name="OwningEntity" Type="Edm.String">
+        <Annotation Term="OData.Description" String="Indicates the name of the entity responsible for development, publication and maintenance of a given schema.  Possible values include DMTF, SNIA or an OEM label such as is used in a Redfish OEM extension section."/>
+      </Term>      
+
+      <EnumType Name="ReleaseStatusType">
+        <Member Name="Standard">
+          <Annotation Term="OData.Description" String="Released as normative standard or specification."/>
+        </Member>
+        <Member Name="Informational">
+          <Annotation Term="OData.Description" String="Released as an informational, non-normative document."/>
+        </Member>
+        <Member Name="WorkInProgress">
+          <Annotation Term="OData.Description" String="Released as Work In Progress, subject to change perhaps profoundly and without notice."/>
+        </Member>
+        <Member Name="InDevelopment">
+          <Annotation Term="OData.Description" String="Un-released work product currently under development or review."/>
+        </Member>
+      </EnumType>
 
       <ComplexType Name="PropertyPattern">
+        <Annotation Term="OData.Description" String="The pattern by which property names must adhere."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the pattern to which a dynamic property name must adhere."/>
         <Property Name="Pattern" Type="Edm.String">
           <Annotation Term="OData.Description" String="The pattern that the property name shall match."/>
         </Property>
@@ -70,6 +126,8 @@
       </Term>
 
       <ComplexType Name="EnumerationMember">
+        <Annotation Term="OData.Description" String="This type describes a member of an enumeration used for compatability purposes for enumerations which do not comply with OData rules."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a member of an enumeration which contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules."/>
         <Property Name="Member" Type="Edm.String">
           <Annotation Term="OData.Description" String="An allowable string member."/>
         </Property>
@@ -79,6 +137,7 @@
 
     <!--These terms are used for validating a property value-->
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm"  Namespace="Validation.v1_0_0">
+      <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="Pattern" Type="Edm.String">
         <Annotation Term="OData.Description" String="The pattern that a string property or parameter must match."/>

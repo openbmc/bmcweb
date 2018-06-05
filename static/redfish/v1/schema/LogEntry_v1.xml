@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry  v1.1.1-->
+<!--# Redfish Schema:  LogEntry  v1.3.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -23,15 +23,15 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
-    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Event_v1.xml">
-    <edmx:Include Namespace="Event.v1_0_0"/>
+    <edmx:Include Namespace="Event"/>
   </edmx:Reference>
 
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="LogEntry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="This resource defines the record format for a log.  It is designed to be used for SEL logs (from IPMI) as well as Event Logs and OEM-specific log formats.  The EntryType field indicates the type of log and the resource includes several additional properties dependent on the EntryType."/>
@@ -57,6 +57,7 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="LogEntry" BaseType="LogEntry.LogEntry">
         <Property Name="Severity" Type="LogEntry.v1_0_0.EventSeverity">
@@ -118,6 +119,8 @@
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
         <NavigationProperty Name="OriginOfCondition" Type="Resource.Item" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This is the URI of the resource that caused the log entry."/>
@@ -127,15 +130,27 @@
       </ComplexType>
 
       <EnumType Name="EventSeverity">
-        <Member Name="OK"/>
-        <Member Name="Warning"/>
-        <Member Name="Critical"/>
+        <Member Name="OK">
+          <Annotation Term="OData.Description" String="Informational or operating normally."/>
+        </Member>
+        <Member Name="Warning">
+          <Annotation Term="OData.Description" String="A condition requiring attention."/>
+        </Member>
+        <Member Name="Critical">
+          <Annotation Term="OData.Description" String="A critical condition requiring immediate attention."/>
+        </Member>
       </EnumType>
 
       <EnumType Name="LogEntryType">
-        <Member Name="Event"/>
-        <Member Name="SEL"/>
-        <Member Name="Oem"/>
+        <Member Name="Event">
+          <Annotation Term="OData.Description" String="Contains a Redfish-defined message (event)."/>
+        </Member>
+        <Member Name="SEL">
+          <Annotation Term="OData.Description" String="Contains a legacy IPMI System Event Log (SEL) entry."/>
+        </Member>
+        <Member Name="Oem">
+          <Annotation Term="OData.Description" String="Contains an entry in an OEM-defined format."/>
+        </Member>
       </EnumType>
 
       <TypeDefinition Name="LogEntryCode" UnderlyingType="Edm.String">
@@ -143,180 +158,243 @@
           <Collection>
             <Record>
               <PropertyValue Property="Member" String="Assert"/>
+              <Annotation Term="OData.Description" String="The condition has been asserted."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Deassert"/>
+              <Annotation Term="OData.Description" String="The condition has been deasserted."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Non-critical - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Non-critical threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Non-critical - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Non-critical threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Critical - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Critical threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Critical - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Critical threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Non-recoverable - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Non-recoverable threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Lower Non-recoverable - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Lower Non-recoverable threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Non-critical - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Non-critical threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Non-critical - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Non-critical threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Critical - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Critical threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Critical - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Critical threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Non-recoverable - going low"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Non-recoverable threshold while going low."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Upper Non-recoverable - going high"/>
+              <Annotation Term="OData.Description" String="The reading crossed the Upper Non-recoverable threshold while going high."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Idle"/>
+              <Annotation Term="OData.Description" String="The state transitioned to idle."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Active"/>
+              <Annotation Term="OData.Description" String="The state transitioned to active."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Busy"/>
+              <Annotation Term="OData.Description" String="The state transitioned to busy."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="State Deasserted"/>
+              <Annotation Term="OData.Description" String="The state has been deasserted."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="State Asserted"/>
+              <Annotation Term="OData.Description" String="The state has been asserted."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Predictive Failure deasserted"/>
+              <Annotation Term="OData.Description" String="A Predictive Failure is no longer present."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Predictive Failure asserted"/>
+              <Annotation Term="OData.Description" String="A Predictive Failure has been detected."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Limit Not Exceeded"/>
+              <Annotation Term="OData.Description" String="A limit has not been exceeded."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Limit Exceeded"/>
+              <Annotation Term="OData.Description" String="A limit has been exceeded."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Performance Met"/>
+              <Annotation Term="OData.Description" String="Performance meets expectations."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Performance Lags"/>
+              <Annotation Term="OData.Description" String="Performance does not meet expectations."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to OK"/>
+              <Annotation Term="OData.Description" String="A state has changed to OK."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Non-Critical from OK"/>
+              <Annotation Term="OData.Description" String="A state has changed to Non-Critical from OK."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Critical from less severe"/>
+              <Annotation Term="OData.Description" String="A state has changed to Critical from less severe."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Non-recoverable from less severe"/>
+              <Annotation Term="OData.Description" String="A state has changed to Non-recoverable from less severe."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Non-Critical from more severe"/>
+              <Annotation Term="OData.Description" String="A state has changed to Non-Critical from more severe."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Critical from Non-recoverable"/>
+              <Annotation Term="OData.Description" String="A state has changed to Critical from Non-recoverable."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Non-recoverable"/>
+              <Annotation Term="OData.Description" String="A state has changed to Non-recoverable."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Monitor"/>
+              <Annotation Term="OData.Description" String="A Monitor event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Informational"/>
+              <Annotation Term="OData.Description" String="An Informational event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Device Removed / Device Absent"/>
+              <Annotation Term="OData.Description" String="A device has been removed or is now absent."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Device Inserted / Device Present"/>
+              <Annotation Term="OData.Description" String="A device has been inserted or is now present."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Device Disabled"/>
+              <Annotation Term="OData.Description" String="A device has been disabled."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Device Enabled"/>
+              <Annotation Term="OData.Description" String="A device has been enabled."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Running"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Running."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to In Test"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to In Test."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Power Off"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Power Off."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to On Line"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to On Line."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Off Line"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Off Line."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Off Duty"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Off Duty."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Degraded"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Degraded."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Transition to Power Save"/>
+              <Annotation Term="OData.Description" String="A state has transitioned to Power Save."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Install Error"/>
+              <Annotation Term="OData.Description" String="An Install Error has been detected."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Fully Redundant"/>
+              <Annotation Term="OData.Description" String="Indicates that full redundancy has been regained."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Redundancy Lost"/>
+              <Annotation Term="OData.Description" String="Entered any non-redundant state, including Non-redundant: Insufficient Resources."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Redundancy Degraded"/>
+              <Annotation Term="OData.Description" String="Redundancy still exists, but at less than full level."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Non-redundant:Sufficient Resources from Redundant"/>
+              <Annotation Term="OData.Description" String="Redundancy has been lost but unit is functioning with minimum resources needed for normal operation."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Non-redundant:Sufficient Resources from Insufficient Resources"/>
+              <Annotation Term="OData.Description" String="Unit has regianed minimum resources needed for normal operation."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Non-redundant:Insufficient Resources"/>
+              <Annotation Term="OData.Description" String="Unit is non-redundant and has insufficient resource to maintain normal operation."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Redundancy Degraded from Fully Redundant"/>
+              <Annotation Term="OData.Description" String="Unit has lost some redundant resource(s) but is still in a redundant state."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Redundancy Degraded from Non-redundant"/>
+              <Annotation Term="OData.Description" String="Unit has regained some resource(s) and is redundant but not fully redundant."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="D0 Power State"/>
+              <Annotation Term="OData.Description" String="The ACPI defined D0 Power State."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="D1 Power State"/>
+              <Annotation Term="OData.Description" String="The ACPI defined D1 Power State."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="D2 Power State"/>
+              <Annotation Term="OData.Description" String="The ACPI defined D2 Power State."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="D3 Power State"/>
+              <Annotation Term="OData.Description" String="The ACPI defined D3 Power State."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="OEM"/>
+              <Annotation Term="OData.Description" String="An OEM defined event."/>
             </Record>
           </Collection>
         </Annotation>
@@ -327,132 +405,179 @@
           <Collection>
             <Record>
               <PropertyValue Property="Member" String="Platform Security Violation Attempt"/>
+              <Annotation Term="OData.Description" String="A platform security sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Temperature"/>
+              <Annotation Term="OData.Description" String="A temperature sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Voltage"/>
+              <Annotation Term="OData.Description" String="A voltage sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Current"/>
+              <Annotation Term="OData.Description" String="A current sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Fan"/>
+              <Annotation Term="OData.Description" String="A fan sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Physical Chassis Security"/>
+              <Annotation Term="OData.Description" String="A physical security sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Processor"/>
+              <Annotation Term="OData.Description" String="A sensor for a processor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Power Supply / Converter"/>
+              <Annotation Term="OData.Description" String="A sensor for a power supply or DC-to-DC converter."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="PowerUnit"/>
+              <Annotation Term="OData.Description" String="A sensor for a power unit."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="CoolingDevice"/>
+              <Annotation Term="OData.Description" String="A sensor for a cooling device."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Other Units-based Sensor"/>
+              <Annotation Term="OData.Description" String="A sensor for a miscellaneous analog sensor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Memory"/>
+              <Annotation Term="OData.Description" String="A sensor for a memory device."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Drive Slot/Bay"/>
+              <Annotation Term="OData.Description" String="A sensor for a drive slot or bay."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="POST Memory Resize"/>
+              <Annotation Term="OData.Description" String="A sensor for a POST memory resize event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="System Firmware Progress"/>
+              <Annotation Term="OData.Description" String="A sensor for a system firmware progress event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Event Logging Disabled"/>
+              <Annotation Term="OData.Description" String="A sensor for the event log."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="System Event"/>
+              <Annotation Term="OData.Description" String="A sensor for a system event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Critical Interrupt"/>
+              <Annotation Term="OData.Description" String="A sensor for a critical interrupt event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Button/Switch"/>
+              <Annotation Term="OData.Description" String="A sensor for a button or switch."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Module/Board"/>
+              <Annotation Term="OData.Description" String="A sensor for a module or board."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Microcontroller/Coprocessor"/>
+              <Annotation Term="OData.Description" String="A sensor for a microcontroller or coprocessor."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Add-in Card"/>
+              <Annotation Term="OData.Description" String="A sensor for an add-in card."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Chassis"/>
+              <Annotation Term="OData.Description" String="A sensor for a chassis."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="ChipSet"/>
+              <Annotation Term="OData.Description" String="A sensor for a chipset."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Other FRU"/>
+              <Annotation Term="OData.Description" String="A sensor for an other type of FRU."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Cable/Interconnect"/>
+              <Annotation Term="OData.Description" String="A sensor for a cable or interconnect type of device."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Terminator"/>
+              <Annotation Term="OData.Description" String="A sensor for a terminator."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="SystemBoot/Restart"/>
+              <Annotation Term="OData.Description" String="A sensor for a system boot or restart event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Boot Error"/>
+              <Annotation Term="OData.Description" String="A sensor for a boot error event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="BaseOSBoot/InstallationStatus"/>
+              <Annotation Term="OData.Description" String="A sensor for a base OS boot or installation status event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="OS Stop/Shutdown"/>
+              <Annotation Term="OData.Description" String="A sensor for an OS stop or shutdown event"/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Slot/Connector"/>
+              <Annotation Term="OData.Description" String="A sensor for a slot or connector."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="System ACPI PowerState"/>
+              <Annotation Term="OData.Description" String="A sensor for an ACPI power state event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Watchdog"/>
+              <Annotation Term="OData.Description" String="A sensor for a watchdog event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Platform Alert"/>
+              <Annotation Term="OData.Description" String="A sensor for a platform alert event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Entity Presence"/>
+              <Annotation Term="OData.Description" String="A sensor for an entity presence event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Monitor ASIC/IC"/>
+              <Annotation Term="OData.Description" String="A sensor for a monitor ASIC or IC."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="LAN"/>
+              <Annotation Term="OData.Description" String="A sensor for a LAN device."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Management Subsystem Health"/>
+              <Annotation Term="OData.Description" String="A sensor for a management subsystem health event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Battery"/>
+              <Annotation Term="OData.Description" String="A sensor for a battery."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Session Audit"/>
+              <Annotation Term="OData.Description" String="A sensor for a session audit event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="Version Change"/>
+              <Annotation Term="OData.Description" String="A sensor for a version change event."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="FRUState"/>
+              <Annotation Term="OData.Description" String="A sensor for a FRU state event."/>
+            </Record>
+            <Record>
+              <PropertyValue Property="Member" String="OEM"/>
+              <Annotation Term="OData.Description" String="An OEM defined sensor."/>
             </Record>
           </Collection>
         </Annotation>
@@ -461,18 +586,33 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_0.LogEntry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_3.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add descriptions to various enum values."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_4.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_2.LogEntry">
-        <Property Name="EventType" Type="Event.v1_0_0.EventType" Nullable="false">
+        <Property Name="EventType" Type="Event.EventType" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This indicates the type of an event recorded in this log."/>
           <Annotation Term="OData.LongDescription" String="If present, this LogEntry records an Event and the value shall indicate the type of event."/>
@@ -491,8 +631,67 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_1.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change references to EventType to use the unversioned definition.  It was also created to add descriptions to various enum values."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_2.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_2.LogEntry">
+        <Property Name="Actions" Type="LogEntry.v1_2_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="LogEntry.v1_2_0.OemActions" Nullable="false"/>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change references to EventType to use the unversioned definition.  It was also created to add descriptions to various enum values."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add OEM enumerations for legacy IPMI log implementations."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_1.LogEntry">
+        <Property Name="OemLogEntryCode" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="If the LogEntryCode type is OEM, this will contain the OEM-specific entry code."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall represent the OEM specific Log Entry Code type of the Entry.  This property shall only be present if the value of EntryType is SEL and the value of LogEntryCode is OEM."/>
+        </Property>
+        <Property Name="OemSensorType" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="If the Sensor Type is OEM, this will contain the OEM-specific sensor type."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall represent the OEM specific sensor type of the Entry.  This property shall only be used if the value of EntryType is SEL and the value of SensorType is OEM."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
