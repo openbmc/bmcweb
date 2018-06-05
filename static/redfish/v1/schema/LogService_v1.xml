@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService  v1.0.3-->
+<!--# Redfish Schema:  LogService  v1.1.0 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -18,8 +18,8 @@
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
-    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
     <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -32,6 +32,7 @@
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="LogService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="This resource contains properties for monitoring and configuring an event log service for the resource or service to which it is associated."/>
@@ -56,11 +57,14 @@
 
       <Action Name="ClearLog" IsBound="true">
         <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
+        <Annotation Term="OData.Description" String="This action is used to clear the log for this Log Service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the Entries collection for this Log Service."/>
       </Action>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="LogService" BaseType="LogService.LogService">
         <Annotation Term="OData.Description" String="This resource represents the log service for the resource or service to which it is associated."/>
@@ -92,7 +96,7 @@
           <Annotation Term="OData.LongDescription" String="The value is property shall represent the offset from UTC time that the current value of DataTime property contains."/>
           <Annotation Term="Validation.Pattern" String="([-+][0-1][0-9]:[0-5][0-9])"/>
         </Property>
-        <NavigationProperty Name="Entries" Type="LogEntryCollection.LogEntryCollection" Nullable="false">
+        <NavigationProperty Name="Entries" Type="LogEntryCollection.LogEntryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="References to the log entry collection."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall reference a collection of resources of type LogEntry."/>
@@ -107,11 +111,15 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="LogService.v1_0_0.OemActions" Nullable="false"/>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="OverWritePolicy">
@@ -129,13 +137,54 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="LogService" BaseType="LogService.v1_0_0.LogService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="LogService" BaseType="LogService.v1_0_2.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_0_3.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the Descriptions and LongDescriptions used in the defined Actions."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_0_4.LogService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add LogPurpose and EntryType properties."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_0_5.LogService">
+        <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The format of the Entries of this log."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall represent the EntryType of all LogEntry resources contained in the Entries collection.  If a single EntryType for all LogEntry resources cannot be determined or guaranteed by the Service, the value of this property shall be 'Multiple'."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="LogEntryTypes">
+        <Member Name="Event">
+          <Annotation Term="OData.Description" String="The log contains Redfish-defined messages (events)."/>
+        </Member>
+        <Member Name="SEL">
+          <Annotation Term="OData.Description" String="The log contains legacy IPMI System Event Log (SEL) entries."/>
+        </Member>
+        <Member Name="Multiple">
+          <Annotation Term="OData.Description" String="The log contains multiple Log Entry types or a single entry type cannot be guaranteed by the Log Service."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="The log contains entries in an OEM-defined format."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

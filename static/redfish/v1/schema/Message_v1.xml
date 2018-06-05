@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message  v1.0.4-->
+<!--# Redfish Schema:  Message  v1.0.5-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2016 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -19,24 +19,27 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
-    <edmx:Include Namespace="Resource.v1_0_0"/>
   </edmx:Reference>
 
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <Term Name="ExtendedInfo" Type="Collection(Message.Message)" Nullable="false">
         <Annotation Term="OData.Description" String="The ExtendedInfo annotation can be applied to any object or property to provide additional information about the item."/>
       </Term>
 
-      <ComplexType Name="Message">
+      <ComplexType Name="Message" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This type describes a Message returned by the Redfish service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall define a Message as described in the Redfish specification."/>
       </ComplexType>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <ComplexType Name="Message" BaseType="Message.Message">
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
@@ -79,15 +82,27 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_0.Message"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_2.Message"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_3.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_4.Message"/>
     </Schema>
 
   </edmx:DataServices>
