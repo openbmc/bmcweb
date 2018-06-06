@@ -324,9 +324,13 @@ class OnDemandEthernetProvider {
     char *endPtr;
     long previousValue = 255;
     bool firstZeroInByteHit;
-    for (uint8_t byteIdx = 0; byteIdx < ipV4AddressSectionsCount; byteIdx++) {
+    for (const std::string &byte : bytesInMask) {  
+      if (byte.empty()) {
+        return false;
+      }
+
       // Use strtol instead of stroi to avoid exceptions
-      long value = std::strtol(bytesInMask[byteIdx].c_str(), &endPtr, 10);
+      long value = std::strtol(byte.c_str(), &endPtr, 10);
 
       // endPtr should point to the end of the string, otherwise given string
       // is not 100% number
