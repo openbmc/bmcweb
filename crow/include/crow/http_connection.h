@@ -248,6 +248,10 @@ typename std::enable_if<(N > 0)>::type afterHandlersCallHelper(
 #ifdef BMCWEB_ENABLE_DEBUG
 static std::atomic<int> connectionCount;
 #endif
+
+// request body limit size: 30M
+constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 30;
+
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection {
  public:
@@ -264,8 +268,9 @@ class Connection {
         getCachedDateStr(get_cached_date_str_f),
         timerQueue(timerQueue) {
     parser.emplace(std::piecewise_construct, std::make_tuple());
-
-    parser->body_limit(1024 * 1024 * 1);  // 1MB
+    // Temporarily changed to 30MB; Need to modify uploading/authentication
+    // mechanism
+    parser->body_limit(httpReqBodyLimit);
     req.emplace(parser->get());
 #ifdef BMCWEB_ENABLE_DEBUG
     connectionCount++;
@@ -503,6 +508,8 @@ class Connection {
           BMCWEB_LOG_DEBUG << this << " Clearing response";
           res.clear();
           parser.emplace(std::piecewise_construct, std::make_tuple());
+          parser->body_limit(httpReqBodyLimit);  // reset body limit for
+                                                 // newly created parser
           buffer.consume(buffer.size());
 
           req.emplace(parser->get());
