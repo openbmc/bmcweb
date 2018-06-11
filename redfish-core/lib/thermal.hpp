@@ -24,7 +24,7 @@ class Thermal : public Node {
  public:
   Thermal(CrowApp& app)
       : Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string()) {
-    Node::json["@odata.type"] = "#Thermal.v1_2_0.Thermal";
+    Node::json["@odata.type"] = "#Thermal.v1_4_0.Thermal";
     Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
     Node::json["Id"] = "Thermal";
     Node::json["Name"] = "Thermal";
