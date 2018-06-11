@@ -15,9 +15,99 @@
 */
 #pragma once
 
+#include "error_messages.hpp"
 #include "node.hpp"
 
 namespace redfish {
+
+enum NetworkProtocolUnitStructFields {
+  NET_PROTO_UNIT_NAME,
+  NET_PROTO_UNIT_DESC,
+  NET_PROTO_UNIT_LOAD_STATE,
+  NET_PROTO_UNIT_ACTIVE_STATE,
+  NET_PROTO_UNIT_SUB_STATE,
+  NET_PROTO_UNIT_DEVICE,
+  NET_PROTO_UNIT_OBJ_PATH,
+  NET_PROTO_UNIT_ALWAYS_0,
+  NET_PROTO_UNIT_ALWAYS_EMPTY,
+  NET_PROTO_UNIT_ALWAYS_ROOT_PATH
+};
+
+enum NetworkProtocolListenResponseElements {
+  NET_PROTO_LISTEN_TYPE,
+  NET_PROTO_LISTEN_STREAM
+};
+
+/**
+ * @brief D-Bus Unit structure returned in array from ListUnits Method
+ */
+using UnitStruct =
+    std::tuple<std::string, std::string, std::string, std::string, std::string,
+               std::string, sdbusplus::message::object_path, uint32_t,
+               std::string, sdbusplus::message::object_path>;
+
+struct ServiceConfiguration {
+  std::string serviceName;
+  std::string socketPath;
+};
+
+class OnDemandNetworkProtocolProvider {
+ public:
+  template <typename CallbackFunc>
+  static void getServices(CallbackFunc&& callback) {
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const std::vector<UnitStruct>& resp) {
+          if (ec) {
+            callback(false, resp);
+          } else {
+            callback(true, resp);
+          }
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "ListUnits");
+  }
+
+  template <typename CallbackFunc>
+  static void getSocketListenPort(const std::string& path,
+                                  CallbackFunc&& callback) {
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code ec,
+            const sdbusplus::message::variant<
+                std::vector<std::tuple<std::string, std::string>>>& resp) {
+          if (ec) {
+            callback(false, false, 0);
+          } else {
+            auto responsePtr = mapbox::getPtr<
+                const std::vector<std::tuple<std::string, std::string>>>(resp);
+
+            std::string listenStream =
+                std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
+            auto lastColonPos = listenStream.rfind(":");
+            if (lastColonPos != std::string::npos) {
+              std::string portStr = listenStream.substr(lastColonPos + 1);
+              char* endPtr;
+              // Use strtol instead of stroi to avoid exceptions
+              long port = std::strtol(portStr.c_str(), &endPtr, 10);
+
+              if (*endPtr != '\0' || portStr.empty()) {
+                // Invalid value
+                callback(true, false, 0);
+              } else {
+                // Everything OK
+                callback(true, true, port);
+              }
+            } else {
+              // Not a port
+              callback(true, false, 0);
+            }
+          }
+        },
+        "org.freedesktop.systemd1", path, "org.freedesktop.DBus.Properties",
+        "Get", "org.freedesktop.systemd1.Socket", "Listen");
+  }
+};
 
 class NetworkProtocol : public Node {
  public:
@@ -35,6 +125,10 @@ class NetworkProtocol : public Node {
     Node::json["Status"]["HealthRollup"] = "OK";
     Node::json["Status"]["State"] = "Enabled";
 
+    for (auto& protocol : protocolToDBus) {
+      Node::json[protocol.first]["ProtocolEnabled"] = false;
+    }
+
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"Login"}}},
         {boost::beast::http::verb::head, {{"Login"}}},
@@ -47,10 +141,9 @@ class NetworkProtocol : public Node {
  private:
   void doGet(crow::Response& res, const crow::Request& req,
              const std::vector<std::string>& params) override {
-    refreshProtocolsState();
-    Node::json["HostName"] = getHostName();
-    res.jsonValue = Node::json;
-    res.end();
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+    getData(asyncResp);
   }
 
   std::string getHostName() const {
@@ -63,42 +156,69 @@ class NetworkProtocol : public Node {
     return hostName;
   }
 
-  void refreshProtocolsState() {
-    refreshListeningPorts();
-    for (auto& kv : portToProtocolMap) {
-      Node::json[kv.second]["Port"] = kv.first;
-      if (listeningPorts.find(kv.first) != listeningPorts.end()) {
-        Node::json[kv.second]["ProtocolEnabled"] = true;
-      } else {
-        Node::json[kv.second]["ProtocolEnabled"] = false;
-      }
-    }
+  void getData(const std::shared_ptr<AsyncResp>& asyncResp) {
+    Node::json["HostName"] = getHostName();
+    asyncResp->res.jsonValue = Node::json;
+
+    OnDemandNetworkProtocolProvider::getServices(
+        [&, asyncResp](const bool success,
+                       const std::vector<UnitStruct>& resp) {
+          if (!success) {
+            asyncResp->res.jsonValue = nlohmann::json::object();
+            messages::addMessageToErrorJson(asyncResp->res.jsonValue,
+                                            messages::internalError());
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+          }
+
+          for (auto& unit : resp) {
+            for (auto& kv : protocolToDBus) {
+              if (kv.second.serviceName ==
+                  std::get<NET_PROTO_UNIT_NAME>(unit)) {
+                std::string service = kv.first;
+
+                // Process state
+                if (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) == "running") {
+                  asyncResp->res.jsonValue[service]["ProtocolEnabled"] = true;
+                } else {
+                  asyncResp->res.jsonValue[service]["ProtocolEnabled"] = false;
+                }
+
+                // Process port
+                OnDemandNetworkProtocolProvider::getSocketListenPort(
+                    kv.second.socketPath,
+                    [&, asyncResp, service{std::move(service)} ](
+                        const bool fetchSuccess, const bool portAvailable,
+                        const unsigned long port) {
+                      if (fetchSuccess) {
+                        if (portAvailable) {
+                          asyncResp->res.jsonValue[service]["Port"] = port;
+                        } else {
+                          asyncResp->res.jsonValue[service]["Port"] = nullptr;
+                        }
+                      } else {
+                        messages::addMessageToJson(asyncResp->res.jsonValue,
+                                                   messages::internalError(),
+                                                   "/" + service);
+                      }
+                    });
+                break;
+              }
+            }
+          }
+        });
   }
 
-  void refreshListeningPorts() {
-    listeningPorts.clear();
-    std::array<char, 128> netstatLine;
-    FILE* p = popen("netstat -tuln | awk '{ print $4 }'", "r");
-    if (p != nullptr) {
-      while (fgets(netstatLine.data(), netstatLine.size(), p) != nullptr) {
-        auto s = std::string(netstatLine.data());
-
-        // get port num from strings such as: ".*:.*:.*:port"
-        s.erase(0, s.find_last_of(":") + strlen(":"));
-
-        auto port = atoi(s.c_str());
-        if (port != 0 &&
-            portToProtocolMap.find(port) != portToProtocolMap.end()) {
-          listeningPorts.insert(port);
-        }
-      }
-    }
-  }
-
-  boost::container::flat_map<int, std::string> portToProtocolMap{
-      {22, "SSH"}, {80, "HTTP"}, {443, "HTTPS"}, {623, "IPMI"}, {1900, "SSDP"}};
-
-  boost::container::flat_set<int> listeningPorts;
+  boost::container::flat_map<std::string, ServiceConfiguration> protocolToDBus{
+      {"SSH",
+       {"dropbear.service",
+        "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
+      {"HTTPS",
+       {"phosphor-gevent.service",
+        "/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
+      {"IPMI",
+       {"phosphor-ipmi-net.service",
+        "/org/freedesktop/systemd1/unit/phosphor_2dipmi_2dnet_2esocket"}}};
 };
 
 }  // namespace redfish
