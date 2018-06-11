@@ -238,6 +238,7 @@ class Chassis : public Node {
                     }
                   }
                   res.json_value["Name"] = chassis_id;
+                  res.json_value["Id"] = chassis_id;
                   res.json_value["Thermal"] = {
                       {"@odata.id",
                        "/redfish/v1/Chassis/" + chassis_id + "/Thermal"}};

@@ -79,7 +79,7 @@ template <typename Callback>
 void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                     const boost::container::flat_set<std::string>& sensorNames,
                     Callback&& callback) {
-  CROW_LOG_DEBUG << "getConnections";
+  CROW_LOG_DEBUG << "getConnections enter";
   const std::string path = "/xyz/openbmc_project/Sensors";
   const std::array<std::string, 1> interfaces = {
       "xyz.openbmc_project.Sensor.Value"};
@@ -88,9 +88,10 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
   auto resp_handler =
       [ callback{std::move(callback)}, SensorsAsyncResp, sensorNames ](
           const boost::system::error_code ec, const GetSubTreeType& subtree) {
+    CROW_LOG_DEBUG << "getConnections resp_handler enter";
     if (ec) {
       SensorsAsyncResp->setErrorStatus();
-      CROW_LOG_ERROR << "resp_handler: Dbus error " << ec;
+      CROW_LOG_ERROR << "getConnections resp_handler: Dbus error " << ec;
       return;
     }
 
@@ -102,7 +103,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     // Intrinsic to avoid malloc.  Most systems will have < 8 sensor producers
     connections.reserve(8);
 
-    CROW_LOG_DEBUG << "sensorNames list cout: " << sensorNames.size();
+    CROW_LOG_DEBUG << "sensorNames list count: " << sensorNames.size();
     for (const std::string& tsensor : sensorNames) {
       CROW_LOG_DEBUG << "Sensor to find: " << tsensor;
     }
@@ -121,6 +122,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
               // For each connection name
               for (const std::pair<std::string, std::vector<std::string>>&
                        objData : object.second) {
+                CROW_LOG_DEBUG << "Adding connection: " << objData.first;
                 connections.insert(objData.first);
               }
             }
@@ -131,6 +133,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     }
     CROW_LOG_DEBUG << "Found " << connections.size() << " connections";
     callback(std::move(connections));
+    CROW_LOG_DEBUG << "getConnections resp_handler exit";
   };
 
   // Make call to ObjectMapper to find all sensors objects
@@ -138,6 +141,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
       std::move(resp_handler), "xyz.openbmc_project.ObjectMapper",
       "/xyz/openbmc_project/object_mapper", "xyz.openbmc_project.ObjectMapper",
       "GetSubTree", path, 2, interfaces);
+  CROW_LOG_DEBUG << "getConnections exit";
 }
 
 /**
@@ -148,14 +152,13 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
 template <typename Callback>
 void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                 Callback&& callback) {
-  CROW_LOG_DEBUG << "getChassis Done";
-
+  CROW_LOG_DEBUG << "getChassis enter";
   // Process response from EntityManager and extract chassis data
   auto resp_handler = [ callback{std::move(callback)}, SensorsAsyncResp ](
       const boost::system::error_code ec, ManagedObjectsVectorType& resp) {
-    CROW_LOG_DEBUG << "getChassis resp_handler called back Done";
+    CROW_LOG_DEBUG << "getChassis resp_handler enter";
     if (ec) {
-      CROW_LOG_ERROR << "getChassis resp_handler got error " << ec;
+      CROW_LOG_ERROR << "getChassis resp_handler DBUS error: " << ec;
       SensorsAsyncResp->setErrorStatus();
       return;
     }
@@ -184,6 +187,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         split.clear();
         continue;
       }
+      CROW_LOG_DEBUG << "New sensor: " << sensorName;
       foundChassis = true;
       sensorNames.emplace(sensorName);
       split.clear();
@@ -197,13 +201,14 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     } else {
       callback(sensorNames);
     }
+    CROW_LOG_DEBUG << "getChassis resp_handler exit";
   };
 
   // Make call to EntityManager to find all chassis objects
   crow::connections::system_bus->async_method_call(
-      resp_handler, "xyz.openbmc_project.EntityManager",
-      "/xyz/openbmc_project/inventory", "org.freedesktop.DBus.ObjectManager",
-      "GetManagedObjects");
+      resp_handler, "xyz.openbmc_project.EntityManager", "/",
+      "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+  CROW_LOG_DEBUG << "getChassis exit";
 }
 
 /**
@@ -254,14 +259,17 @@ void objectInterfacesToJson(
   const char* unit = "Reading";
   if (sensorType == "temperature") {
     unit = "ReadingCelsius";
+    sensor_json["@odata.type"] = "#Thermal.v1_3_0.Temperature";
     // TODO(ed) Documentation says that path should be type fan_tach,
     // implementation seems to implement fan
   } else if (sensorType == "fan" || sensorType == "fan_type") {
     unit = "Reading";
     sensor_json["ReadingUnits"] = "RPM";
+    sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
     forceToInt = true;
   } else if (sensorType == "voltage") {
     unit = "ReadingVolts";
+    sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
   } else {
     CROW_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
     return;
@@ -337,21 +345,27 @@ void objectInterfacesToJson(
  * @param SensorsAsyncResp   Pointer to object holding response data
  */
 void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
-  CROW_LOG_DEBUG << "getChassisData";
+  CROW_LOG_DEBUG << "getChassisData enter";
   auto getChassisCb = [&, SensorsAsyncResp](
                           boost::container::flat_set<std::string>&
                               sensorNames) {
-    CROW_LOG_DEBUG << "getChassisCb Done";
+    CROW_LOG_DEBUG << "getChassisCb enter";
     auto getConnectionCb =
         [&, SensorsAsyncResp, sensorNames](
             const boost::container::flat_set<std::string>& connections) {
-          CROW_LOG_DEBUG << "getConnectionCb Done";
+          CROW_LOG_DEBUG << "getConnectionCb enter";
           // Get managed objects from all services exposing sensors
           for (const std::string& connection : connections) {
             // Response handler to process managed objects
             auto getManagedObjectsCb = [&, SensorsAsyncResp, sensorNames](
                                            const boost::system::error_code ec,
                                            ManagedObjectsVectorType& resp) {
+              CROW_LOG_DEBUG << "getManagedObjectsCb enter";
+              if (ec) {
+                CROW_LOG_ERROR << "getManagedObjectsCb DBUS error: " << ec;
+                SensorsAsyncResp->setErrorStatus();
+                return;
+              }
               // Go through all objects and update response with
               // sensor data
               for (const auto& objDictEntry : resp) {
@@ -414,19 +428,22 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
                 objectInterfacesToJson(sensorName, sensorType,
                                        objDictEntry.second, sensor_json);
               }
+              CROW_LOG_DEBUG << "getManagedObjectsCb exit";
             };
-
             crow::connections::system_bus->async_method_call(
-                getManagedObjectsCb, connection, "/xyz/openbmc_project/Sensors",
+                getManagedObjectsCb, connection, "/",
                 "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
           };
+          CROW_LOG_DEBUG << "getConnectionCb exit";
         };
     // Get connections and then pass it to get sensors
     getConnections(SensorsAsyncResp, sensorNames, std::move(getConnectionCb));
+    CROW_LOG_DEBUG << "getChassisCb exit";
   };
 
   // Get chassis information related to sensors
   getChassis(SensorsAsyncResp, std::move(getChassisCb));
+  CROW_LOG_DEBUG << "getChassisData exit";
 };
 
 }  // namespace redfish
