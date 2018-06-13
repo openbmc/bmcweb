@@ -10,8 +10,8 @@
     - Application startup time should be less than 1 second on target hardware
       (AST2500)
 
-2. ### Asyncronous programming
-   Care should be taken to ensure that all code is written to be asyncronous in
+2. ### Asynchronous programming
+   Care should be taken to ensure that all code is written to be asynchronous in
    nature, to avoid blocking methods from stopping the processing of other
    tasks.  At this time the webserver uses boost::asio for it async framework.
    Threads should be avoided if possible, and instead use async tasks within
@@ -104,7 +104,7 @@
 
 8. ### Abstraction/interfacing
    In general, the OpenBMC webserver is built using the data driven design.
-   Abstraction and Interface gaurentees should be used when multiple
+   Abstraction and Interface guarantees should be used when multiple
    implementations exist, but for implementations where only a single
    implementation exists, prefer to make the code correct and clean rather than
    implement a concrete interface.
@@ -206,10 +206,10 @@ Fields common to all schemas
 - PowerState
 - Thermal
     - Shall be included if component contains temperature sensors, otherwise
-      shall be omited.
+      shall be omitted.
 - Power
     - Shall be included if component contains voltage/current sensing
-      components, otherwise will be omited.
+      components, otherwise will be omitted.
 
 
 #### /redfish/v1/Chassis/<ChassisName>/Thermal
