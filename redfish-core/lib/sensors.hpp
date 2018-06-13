@@ -200,7 +200,7 @@ void getChassis(const std::shared_ptr<AsyncResp>& asyncResp,
 /**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
- * @param sensorType  The type (temperature, fan_tach, ect) of the sensor to
+ * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
  * @param interfacesDict  A dictionary of the interfaces and properties of said
  * interfaces to be built from
@@ -361,7 +361,7 @@ void getChassisData(const std::shared_ptr<AsyncResp>& asyncResp) {
                   continue;
                 }
                 // These indexes aren't intuitive, as boost::split puts an empty
-                // string at the beggining
+                // string at the beginning
                 const std::string& sensorType = split[4];
                 const std::string& sensorName = split[5];
                 CROW_LOG_DEBUG << "sensorName " << sensorName << " sensorType "
