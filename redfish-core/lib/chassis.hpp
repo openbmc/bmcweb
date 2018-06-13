@@ -35,7 +35,7 @@ using PropertiesType =
 
 /**
  * OnDemandChassisProvider
- * Chassis provider class that retrieves data directly from dbus, before seting
+ * Chassis provider class that retrieves data directly from dbus, before setting
  * it into JSON output. This does not cache any data.
  *
  * Class can be a good example on how to scale different data providing
@@ -125,7 +125,7 @@ class OnDemandChassisProvider {
               // is Chassis.
               if (interface.first ==
                   "xyz.openbmc_project.Configuration.Chassis") {
-                // Cut out everyting until last "/", ...
+                // Cut out everything until last "/", ...
                 const std::string &chassis_id = objpath.first.value;
                 std::size_t last_pos = chassis_id.rfind("/");
                 if (last_pos != std::string::npos) {
@@ -135,7 +135,7 @@ class OnDemandChassisProvider {
               }
             }
           }
-          // Finally make a callback with usefull data
+          // Finally make a callback with useful data
           callback(true, chassis_list);
         },
         {"xyz.openbmc_project.EntityManager",

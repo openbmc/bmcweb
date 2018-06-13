@@ -61,8 +61,8 @@ struct EthernetInterfaceData {
 
 /**
  * OnDemandEthernetProvider
- * Ethernet provider class that retrieves data directly from dbus, before seting
- * it into JSON output. This does not cache any data.
+ * Ethernet provider class that retrieves data directly from dbus, before
+ * setting it into JSON output. This does not cache any data.
  *
  * TODO(Pawel)
  * This perhaps shall be different file, which has to be chosen on compile time
@@ -175,7 +175,7 @@ class OnDemandEthernetProvider {
     // Since there might be several IPv4 configurations aligned with
     // single ethernet interface, loop over all of them
     for (auto &objpath : dbus_data) {
-      // Check if propper patter for object path appears
+      // Check if proper patter for object path appears
       if (boost::starts_with(
               objpath.first.value,
               "/xyz/openbmc_project/network/" + ethiface_id + "/ipv4/")) {
@@ -215,7 +215,7 @@ class OnDemandEthernetProvider {
 
           // Attach IPv4 only if address is present
           if (ipv4_address.address != nullptr) {
-            // Check if given addres is local, or global
+            // Check if given address is local, or global
             if (boost::starts_with(*ipv4_address.address, "169.254")) {
               ipv4_address.global = false;
             } else {
@@ -270,7 +270,7 @@ class OnDemandEthernetProvider {
             }
           }
 
-          // Finally make a callback with usefull data
+          // Finally make a callback with useful data
           callback(true, eth_data, ipv4_data);
         },
         {"xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
@@ -310,7 +310,7 @@ class OnDemandEthernetProvider {
               // this is what we're looking for.
               if (interface.first ==
                   "xyz.openbmc_project.Network.EthernetInterface") {
-                // Cut out everyting until last "/", ...
+                // Cut out everything until last "/", ...
                 const std::string &iface_id = objpath.first.value;
                 std::size_t last_pos = iface_id.rfind("/");
                 if (last_pos != std::string::npos) {
@@ -320,7 +320,7 @@ class OnDemandEthernetProvider {
               }
             }
           }
-          // Finally make a callback with usefull data
+          // Finally make a callback with useful data
           callback(true, iface_list);
         },
         {"xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
