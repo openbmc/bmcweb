@@ -47,6 +47,16 @@ struct IPv4AddressData {
 };
 
 /**
+ * Structure for keeping IPv6 data required by Redfish
+ */
+struct IPv6AddressData {
+  const std::string *address;
+  const std::string *state;
+  const uint8_t *prefix_length;
+  std::string origin;
+};
+
+/**
  * Structure for keeping basic single Ethernet Interface information
  * available from DBus
  */
@@ -228,6 +238,40 @@ class OnDemandEthernetProvider {
     }
   }
 
+  // Helper function that extracts data for single ethernet ipv6 address
+  void extractIPv6Data(const std::string &ethiface_id,
+                       const GetManagedObjectsType &dbus_data,
+                       std::vector<IPv6AddressData> &ipv6_config) {
+    // Same process as extractIPv4Data but different properties
+    for (auto &objpath : dbus_data) {
+      if (boost::starts_with(
+              objpath.first.value,
+              "/xyz/openbmc_project/network/" + ethiface_id + "/ipv6/")) {
+        const auto &interface =
+            objpath.second.find("xyz.openbmc_project.Network.IP");
+        if (interface != objpath.second.end()) {
+          const PropertiesMapType &properties = interface->second;
+
+          IPv6AddressData ipv6_address;
+          ipv6_address.address =
+              extractProperty<std::string>(properties, "Address");
+          const std::string *origin =
+              extractProperty<std::string>(properties, "Origin");
+          if (origin != nullptr) {
+            int last = origin->rfind(".");
+            if (last != std::string::npos) {
+              ipv6_address.origin = origin->substr(last + 1);
+            }
+          }
+          ipv6_address.prefix_length=
+              extractProperty<uint8_t>(properties, "PrefixLength");
+
+          ipv6_config.emplace_back(std::move(ipv6_address));
+        }
+      }
+    }
+  }
+
  public:
   /**
    * Function that retrieves all properties for given Ethernet Interface Object
@@ -248,6 +292,7 @@ class OnDemandEthernetProvider {
 
           EthernetInterfaceData eth_data{};
           std::vector<IPv4AddressData> ipv4_data;
+          std::vector<IPv6AddressData> ipv6_data;
           ipv4_data.reserve(MAX_IPV4_ADDRESSES_PER_INTERFACE);
 
           if (error_code) {
@@ -255,12 +300,13 @@ class OnDemandEthernetProvider {
             // moment, just return success=false, and empty output. Since size
             // of vector may vary depending on information from Network Manager,
             // and empty output could not be treated same way as error.
-            callback(false, eth_data, ipv4_data);
+            callback(false, eth_data, ipv4_data, ipv6_data);
             return;
           }
 
           extractEthernetInterfaceData(ethiface_id, resp, eth_data);
           extractIPv4Data(ethiface_id, resp, ipv4_data);
+          extractIPv6Data(ethiface_id, resp, ipv6_data);
 
           // Fix global GW
           for (IPv4AddressData &ipv4 : ipv4_data) {
@@ -271,7 +317,7 @@ class OnDemandEthernetProvider {
           }
 
           // Finally make a callback with usefull data
-          callback(true, eth_data, ipv4_data);
+          callback(true, eth_data, ipv4_data, ipv6_data);
         },
         {"xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
          "org.freedesktop.DBus.ObjectManager", "GetManagedObjects"});
@@ -448,7 +494,8 @@ class EthernetInterface : public Node {
     ethernet_provider.getEthernetIfaceData(
         iface_id, [&, iface_id](const bool &success,
                                 const EthernetInterfaceData &eth_data,
-                                const std::vector<IPv4AddressData> &ipv4_data) {
+                                const std::vector<IPv4AddressData> &ipv4_data,
+                                const std::vector<IPv6AddressData> &ipv6_data) {
           if (success) {
             // Copy JSON object to avoid race condition
             nlohmann::json json_response(Node::json);
@@ -475,7 +522,7 @@ class EthernetInterface : public Node {
 
             // ... at last, check if there are IPv4 data and prepare appropriate
             // collection
-            if (ipv4_data.size() > 0) {
+            if (!ipv4_data.empty()) {
               nlohmann::json ipv4_array = nlohmann::json::array();
               for (auto &ipv4_config : ipv4_data) {
                 nlohmann::json json_ipv4;
@@ -492,6 +539,24 @@ class EthernetInterface : public Node {
               }
               json_response["IPv4Addresses"] = ipv4_array;
             }
+
+            if (!ipv6_data.empty()) {
+              nlohmann::json ipv6_array = nlohmann::json::array();
+              for (auto &ipv6_config : ipv6_data) {
+                nlohmann::json json_ipv6;
+                if (ipv6_config.address != nullptr) {
+                  json_ipv6["Address"] = *ipv6_config.address;
+                  json_ipv6["AddressOrigin"] = ipv6_config.origin;
+                  json_ipv6["PrefixLength"] = *ipv6_config.prefix_length;
+                  // TODO: Support Oem property
+                  //       Support AddressState property (RFC 4682)
+
+                  ipv6_array.push_back(json_ipv6);
+                }
+              }
+              json_response["IPv6Addresses"] = ipv6_array;
+            }
+
             res.json_value = std::move(json_response);
           } else {
             // ... otherwise return error
