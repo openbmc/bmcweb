@@ -662,6 +662,14 @@ class OnDemandEthernetProvider {
             return;
           }
 
+          // Find interface
+          if (resp.find("/xyz/openbmc_project/network/" + ethiface_id) ==
+              resp.end()) {
+            // Interface has not been found
+            callback(false, eth_data, ipv4_data);
+            return;
+          }
+
           extractEthernetInterfaceData(ethiface_id, resp, eth_data);
           extractIPv4Data(ethiface_id, resp, ipv4_data);
 
@@ -1291,6 +1299,9 @@ class EthernetInterface : public Node {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
             res.end();
 
@@ -1401,6 +1412,21 @@ class VlanNetworkInterface : public Node {
     return json_response;
   }
 
+  bool verifyNames(crow::response &res, const std::string &parent,
+                   const std::string &iface) {
+    if (!boost::starts_with(iface, parent + "_")) {
+      messages::addMessageToErrorJson(
+          res.json_value,
+          messages::resourceNotFound("VLAN Network Interface", iface));
+      res.result(boost::beast::http::status::not_found);
+      res.end();
+
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   /**
    * Functions triggers appropriate requests on DBus
    */
@@ -1433,6 +1459,9 @@ class VlanNetworkInterface : public Node {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
           }
           res.end();
@@ -1447,9 +1476,69 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    // TODO(kkowalsk) Will be implement in further patchset
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
+    const std::string &parent_iface_id = params[0];
+    const std::string &iface_id = params[1];
+
+    if (!verifyNames(res, parent_iface_id, iface_id)) {
+      return;
+    }
+
+    nlohmann::json patchReq;
+
+    if (!json_util::processJsonFromRequest(res, req, patchReq)) {
+      return;
+    }
+
+    // Get single eth interface data, and call the below callback for JSON
+    // preparation
+    ethernet_provider.getEthernetIfaceData(
+        iface_id,
+        [&, parent_iface_id, iface_id, patchReq = std::move(patchReq) ](
+            const bool &success, const EthernetInterfaceData &eth_data,
+            const std::vector<IPv4AddressData> &ipv4_data) {
+          if (!success) {
+            // ... otherwise return error
+            // TODO(Pawel)consider distinguish between non existing object,
+            // and
+            // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+
+            return;
+          }
+
+          res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+                                              eth_data, ipv4_data);
+
+          std::shared_ptr<AsyncResp> asyncResp =
+              std::make_shared<AsyncResp>(res);
+
+          for (auto propertyIt = patchReq.begin(); propertyIt != patchReq.end();
+               ++propertyIt) {
+            if (propertyIt.key() != "VLANEnable" &&
+                propertyIt.key() != "VLANId") {
+              auto fieldInJsonIt = res.json_value.find(propertyIt.key());
+
+              if (fieldInJsonIt == res.json_value.end()) {
+                // Field not in scope of defined fields
+                messages::addMessageToJsonRoot(
+                    res.json_value,
+                    messages::propertyUnknown(propertyIt.key()));
+              } else if (*fieldInJsonIt != *propertyIt) {
+                // User attempted to modify non-writable field
+                messages::addMessageToJsonRoot(
+                    res.json_value,
+                    messages::propertyNotWritable(propertyIt.key()));
+              }
+            }
+          }
+
+          EthernetInterface::handleVlanPatch(iface_id, patchReq, eth_data, "/",
+                                             asyncResp);
+        });
   }
 
   void doDelete(crow::response &res, const crow::request &req,
@@ -1460,9 +1549,48 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    // TODO(kkowalsk) Will be implement in further patchset
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
+    const std::string &parent_iface_id = params[0];
+    const std::string &iface_id = params[1];
+
+    if (!verifyNames(res, parent_iface_id, iface_id)) {
+      return;
+    }
+
+    // Get single eth interface data, and call the below callback for JSON
+    // preparation
+    ethernet_provider.getEthernetIfaceData(
+        iface_id,
+        [&, parent_iface_id, iface_id](
+            const bool &success, const EthernetInterfaceData &eth_data,
+            const std::vector<IPv4AddressData> &ipv4_data) {
+          if (success && eth_data.vlan_id != nullptr) {
+            res.json_value = parseInterfaceData(parent_iface_id, iface_id,
+                                                eth_data, ipv4_data);
+
+            // Disable VLAN
+            OnDemandEthernetProvider::disableVlan(
+                iface_id, [&](const boost::system::error_code ec) {
+                  if (ec) {
+                    res.json_value = nlohmann::json::object();
+                    messages::addMessageToErrorJson(res.json_value,
+                                                    messages::internalError());
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
+                  }
+                  res.end();
+                });
+          } else {
+            // ... otherwise return error
+            // TODO(Pawel)consider distinguish between non existing object,
+            // and
+            // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+          }
+        });
   }
 
   /**
