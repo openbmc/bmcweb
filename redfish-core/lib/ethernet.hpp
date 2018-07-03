@@ -662,6 +662,14 @@ class OnDemandEthernetProvider {
             return;
           }
 
+          // Find interface
+          if (resp.find("/xyz/openbmc_project/network/" + ethiface_id) ==
+              resp.end()) {
+            // Interface has not been found
+            callback(false, eth_data, ipv4_data);
+            return;
+          }
+
           extractEthernetInterfaceData(ethiface_id, resp, eth_data);
           extractIPv4Data(ethiface_id, resp, ipv4_data);
 
@@ -1288,6 +1296,9 @@ class EthernetInterface : public Node {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
             res.end();
 
@@ -1398,7 +1409,7 @@ class VlanNetworkInterface : public Node {
       messages::addMessageToErrorJson(
           res.json_value,
           messages::resourceNotFound("VLAN Network Interface", iface));
-      res.result(boost::beast::http::status::bad_request);
+      res.result(boost::beast::http::status::not_found);
       res.end();
 
       return false;
@@ -1444,6 +1455,9 @@ class VlanNetworkInterface : public Node {
             // TODO(Pawel)consider distinguish between non existing object,
             // and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
           }
           res.end();
@@ -1483,6 +1497,9 @@ class VlanNetworkInterface : public Node {
             // TODO(Pawel)consider distinguish between non existing object,
             // and
             // other errors
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
             res.end();
 
@@ -1563,7 +1580,9 @@ class VlanNetworkInterface : public Node {
             // TODO(Pawel)consider distinguish between non existing object,
             // and
             // other errors
-
+            messages::addMessageToErrorJson(
+                res.json_value,
+                messages::resourceNotFound("VLAN Network Interface", iface_id));
             res.result(boost::beast::http::status::not_found);
             res.end();
           }
