@@ -24,7 +24,7 @@
 
 namespace redfish {
 
-constexpr const char* DBUS_SENSOR_PREFIX = "/xyz/openbmc_project/Sensors/";
+constexpr const char* DBUS_SENSOR_PREFIX = "/xyz/openbmc_project/sensors/";
 
 using GetSubTreeType = std::vector<
     std::pair<std::string,
@@ -80,7 +80,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
                     const boost::container::flat_set<std::string>& sensorNames,
                     Callback&& callback) {
   CROW_LOG_DEBUG << "getConnections enter";
-  const std::string path = "/xyz/openbmc_project/Sensors";
+  const std::string path = "/xyz/openbmc_project/sensors";
   const std::array<std::string, 1> interfaces = {
       "xyz.openbmc_project.Sensor.Value"};
 
@@ -262,7 +262,7 @@ void objectInterfacesToJson(
     sensor_json["@odata.type"] = "#Thermal.v1_3_0.Temperature";
     // TODO(ed) Documentation says that path should be type fan_tach,
     // implementation seems to implement fan
-  } else if (sensorType == "fan" || sensorType == "fan_type") {
+  } else if (sensorType == "fan" || sensorType == "fan_tach") {
     unit = "Reading";
     sensor_json["ReadingUnits"] = "RPM";
     sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
@@ -376,7 +376,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp) {
 
                 std::vector<std::string> split;
                 // Reserve space for
-                // /xyz/openbmc_project/Sensors/<name>/<subname>
+                // /xyz/openbmc_project/sensors/<name>/<subname>
                 split.reserve(6);
                 boost::algorithm::split(split, objPath, boost::is_any_of("/"));
                 if (split.size() < 6) {
