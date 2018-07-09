@@ -38,38 +38,40 @@ struct UserSession {
    *
    * @return true if data has been loaded properly, false otherwise
    */
-  bool fromJson(const nlohmann::json& j) {
-    auto jUid = j.find("unique_id");
-    auto jToken = j.find("session_token");
-    auto jUsername = j.find("username");
-    auto jCsrf = j.find("csrf_token");
-
-    // Verify existence
-    if (jUid == j.end() || jToken == j.end() || jUsername == j.end() ||
-        jCsrf == j.end()) {
-      return false;
+  static std::shared_ptr<UserSession> fromJson(const nlohmann::json& j) {
+    std::shared_ptr<UserSession> userSession = std::make_shared<UserSession>();
+    for (const auto& element : j.items()) {
+      const std::string* thisValue =
+          element.value().get_ptr<const std::string*>();
+      if (thisValue == nullptr) {
+        CROW_LOG_ERROR << "Error reading persistent store.  Property "
+                       << element.key() << " was not of type string";
+        return nullptr;
+      }
+      if (element.key() == "unique_id") {
+        userSession->unique_id = *thisValue;
+      } else if (element.key() == "session_token") {
+        userSession->session_token = *thisValue;
+      } else if (element.key() == "csrf_token") {
+        userSession->csrf_token = *thisValue;
+      } else if (element.key() == "username") {
+        userSession->username = *thisValue;
+      } else {
+        CROW_LOG_ERROR << "Got unexpected property reading persistent file: "
+                       << element.key();
+        return nullptr;
+      }
     }
 
-    // Verify types
-    if (!jUid->is_string() || !jToken->is_string() || !jUsername->is_string() ||
-        !jCsrf->is_string()) {
-      return false;
-    }
-
-    unique_id = jUid->get<std::string>();
-    session_token = jToken->get<std::string>();
-    username = jUsername->get<std::string>();
-    csrf_token = jCsrf->get<std::string>();
-
-    // For now, sessions that were persisted through a reboot get their timer
-    // reset.  This could probably be overcome with a better understanding of
-    // wall clock time and steady timer time, possibly persisting values with
+    // For now, sessions that were persisted through a reboot get their idle
+    // timer reset.  This could probably be overcome with a better understanding
+    // of wall clock time and steady timer time, possibly persisting values with
     // wall clock time instead of steady timer, but the tradeoffs of all the
     // corner cases involved are non-trivial, so this is done temporarily
-    last_updated = std::chrono::steady_clock::now();
-    persistence = PersistenceType::TIMEOUT;
+    userSession->last_updated = std::chrono::steady_clock::now();
+    userSession->persistence = PersistenceType::TIMEOUT;
 
-    return true;
+    return userSession;
   }
 };
 
