@@ -910,7 +910,7 @@ class Router {
 
     if (!rule_index) {
       CROW_LOG_DEBUG << "Cannot match rules " << req.url;
-      res = response(boost::beast::http::status::not_found);
+      res.result(boost::beast::http::status::not_found);
       res.end();
       return;
     }
