@@ -46,36 +46,47 @@ class Middleware {
     if (persistent_file.is_open()) {
       // call with exceptions disabled
       auto data = nlohmann::json::parse(persistent_file, nullptr, false);
-      if (!data.is_discarded()) {
-        auto jRevision = data.find("revision");
-        auto jUuid = data.find("system_uuid");
-        auto jSessions = data.find("sessions");
+      if (data.is_discarded()) {
+        CROW_LOG_ERROR << "Error parsing persistent data in json file.";
+      } else {
+        for (const auto& item : data.items()) {
+          if (item.key() == "revision") {
+            file_revision = 0;
 
-        file_revision = 0;
-        if (jRevision != data.end()) {
-          if (jRevision->is_number_integer()) {
-            file_revision = jRevision->get<int>();
-          }
-        }
-
-        system_uuid = "";
-        if (jUuid != data.end()) {
-          if (jUuid->is_string()) {
-            system_uuid = jUuid->get<std::string>();
-          }
-        }
-
-        if (jSessions != data.end()) {
-          if (jSessions->is_object()) {
-            for (const auto& elem : *jSessions) {
-              std::shared_ptr<UserSession> newSession =
-                  std::make_shared<UserSession>();
-
-              if (newSession->fromJson(elem)) {
-                SessionStore::getInstance().auth_tokens.emplace(
-                    newSession->unique_id, newSession);
-              }
+            const uint64_t* uintPtr = item.value().get_ptr<const uint64_t*>();
+            if (uintPtr == nullptr) {
+              CROW_LOG_ERROR << "Failed to read revision flag";
+            } else {
+              file_revision = *uintPtr;
             }
+          } else if (item.key() == "system_uuid") {
+            const std::string* jSystemUuid =
+                item.value().get_ptr<const std::string*>();
+            if (jSystemUuid != nullptr) {
+              system_uuid = *jSystemUuid;
+            }
+          } else if (item.key() == "sessions") {
+            for (const auto& elem : item.value()) {
+              std::shared_ptr<UserSession> newSession =
+                  UserSession::fromJson(elem);
+
+              if (newSession == nullptr) {
+                CROW_LOG_ERROR
+                    << "Problem reading session from persistent store";
+                continue;
+              }
+
+              CROW_LOG_DEBUG << "Restored session: " << newSession->csrf_token
+                             << " " << newSession->unique_id << " "
+                             << newSession->session_token;
+              SessionStore::getInstance().auth_tokens.emplace(
+                  newSession->session_token, newSession);
+            }
+          } else {
+            // Do nothing in the case of extra fields.  We may have cases where
+            // fields are added in the future, and we want to at least attempt
+            // to gracefully support downgrades in that case, even if we don't
+            // officially support it
           }
         }
       }
@@ -97,14 +108,14 @@ class Middleware {
 
   void write_data() {
     std::ofstream persistent_file(filename);
-    nlohmann::json data;
-    data["sessions"] = PersistentData::SessionStore::getInstance().auth_tokens;
-    data["system_uuid"] = system_uuid;
-    data["revision"] = json_revision;
+    nlohmann::json data{
+        {"sessions", PersistentData::SessionStore::getInstance().auth_tokens},
+        {"system_uuid", system_uuid},
+        {"revision", json_revision}};
     persistent_file << data;
   }
 
-  std::string system_uuid;
+  std::string system_uuid{""};
 };
 
 }  // namespace PersistentData
