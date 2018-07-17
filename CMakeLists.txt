@@ -143,7 +143,9 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions (-DCROW_ENABLE_DEBUG)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
-add_definitions(-DCROW_ENABLE_SSL)
+if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
+    add_definitions(-DCROW_ENABLE_SSL)
+endif(BMCWEB_INSECURE_DISABLE_SSL)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
