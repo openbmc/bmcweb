@@ -68,14 +68,17 @@ class RedfishService
         nodes.emplace_back(
             std::make_unique<VlanNetworkInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<BMCLogService>(app));
+        nodes.emplace_back(std::make_unique<BMCLogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<BMCLogEntry>(app));
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        nodes.emplace_back(std::make_unique<CpuLogService>(app));
-        nodes.emplace_back(std::make_unique<CpuLogEntryCollection>(app));
-        nodes.emplace_back(std::make_unique<CpuLogEntry>(app));
-        nodes.emplace_back(std::make_unique<ImmediateCpuLog>(app));
+        nodes.emplace_back(std::make_unique<CPULogService>(app));
+        nodes.emplace_back(std::make_unique<CPULogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<CPULogEntry>(app));
+        nodes.emplace_back(std::make_unique<ImmediateCPULog>(app));
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
-        nodes.emplace_back(std::make_unique<SendRawPeci>(app));
+        nodes.emplace_back(std::make_unique<SendRawPECI>(app));
 #endif // BMCWEB_ENABLE_REDFISH_RAW_PECI
 #endif // BMCWEB_ENABLE_REDFISH_CPU_LOG
 
