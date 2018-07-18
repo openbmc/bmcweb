@@ -474,11 +474,12 @@ struct function_traits<std::function<r(Args...)>> {
   using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
 
-inline static std::string base64encode(
-    const char* data, size_t size,
-    const char* key =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/") {
+inline static std::string base64encode(const boost::string_view input) {
+  const char* key =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
   std::string ret;
+  const char* data = input.data();
+  size_t size = input.size();
   ret.resize((size + 2) / 3 * 4);
   auto it = ret.begin();
   while (size >= 3) {
@@ -506,12 +507,6 @@ inline static std::string base64encode(
     *it++ = '=';
   }
   return ret;
-}
-
-inline static std::string base64encodeUrlsafe(const char* data, size_t size) {
-  return base64encode(
-      data, size,
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_");
 }
 
 // TODO this is temporary and should be deleted once base64 is refactored out of

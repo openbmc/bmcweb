@@ -15,9 +15,11 @@
 */
 #pragma once
 
+#include <systemd/sd-journal.h>
 #include <experimental/filesystem>
 #include "node.hpp"
 #include <boost/container/flat_map.hpp>
+#include <boost/utility/string_view.hpp>
 
 namespace redfish {
 
@@ -67,6 +69,10 @@ class LogServiceCollection : public Node {
     res.jsonValue["Description"] = "Collection of LogServices for this Manager";
     nlohmann::json &logserviceArray = res.jsonValue["Members"];
     logserviceArray = nlohmann::json::array();
+
+    logserviceArray.push_back(
+        {{"@odata.id", "/redfish/v1/Managers/openbmc/LogServices/BmcLog"}});
+
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
     logserviceArray.push_back(
         {{"@odata.id", "/redfish/v1/Managers/openbmc/LogServices/CpuLog"}});
@@ -76,11 +82,193 @@ class LogServiceCollection : public Node {
   }
 };
 
-class CpuLogService : public Node {
+class LogServiceBmc : public Node {
  public:
   template <typename CrowApp>
-  CpuLogService(CrowApp &app)
-      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog") {
+  LogServiceBmc(CrowApp &app)
+      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/BmcLog/") {
+    // Set the id for SubRoute
+    Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc/LogServices/BmcLog";
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  void doGet(crow::Response &res, const crow::Request &req,
+             const std::vector<std::string> &params) override {
+    // Copy over the static data to include the entries added by SubRoute
+    res.jsonValue = Node::json;
+    res.jsonValue["@odata.type"] = "#LogService.v1_1_0.LogService";
+    res.jsonValue["@odata.context"] =
+        "/redfish/v1/"
+        "$metadata#LogService.LogService";
+    res.jsonValue["Name"] = "Open BMC Log Service";
+    res.jsonValue["Description"] = "BMC Log Service";
+    res.jsonValue["Id"] = "BMC Log";
+    res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+    res.end();
+  }
+};
+
+class LogEntryCollectionBmc : public Node {
+ public:
+  template <typename CrowApp>
+  LogEntryCollectionBmc(CrowApp &app)
+      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/BmcLog/Entries/") {
+    // Collections use static ID for SubRoute to add to its parent, but only
+    // load dynamic data so the duplicate static members don't get displayed
+    Node::json["@odata.id"] =
+        "/redfish/v1/Managers/openbmc/LogServices/BmcLog/Entries";
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  void doGet(crow::Response &res, const crow::Request &req,
+             const std::vector<std::string> &params) override {
+    // Collections don't include the static data added by SubRoute because it
+    // has a duplicate entry for members
+    res.jsonValue["@odata.type"] = "#LogEntryCollection.LogEntryCollection";
+    res.jsonValue["@odata.context"] =
+        "/redfish/v1/"
+        "$metadata#LogEntryCollection.LogEntryCollection";
+    res.jsonValue["Name"] = "Open BMC Journal Entries";
+    res.jsonValue["Description"] = "Collection of BMC Journal Entries";
+    nlohmann::json &logentry_array = res.jsonValue["Members"];
+    logentry_array = nlohmann::json::array();
+
+    // Go through the journal and use the timestamp to create a unique ID for
+    // each entry
+    int r = 0;
+    sd_journal *j = nullptr;
+    r = sd_journal_open(&j, SD_JOURNAL_LOCAL_ONLY);
+    if (r < 0) {
+      BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-r);
+      res.result(boost::beast::http::status::internal_server_error);
+      res.end();
+      return;
+    }
+    uint64_t prevTs = 0;
+    uint16_t index = 0;
+    SD_JOURNAL_FOREACH(j) {
+      // Get the entry timestamp
+      uint64_t curTs = 0;
+      r = sd_journal_get_realtime_usec(j, &curTs);
+      if (r < 0) {
+        BMCWEB_LOG_ERROR << "Failed to read entry timestamp: " << strerror(-r);
+        continue;
+      }
+      // If the timestamp isn't unique, increment the index
+      if (curTs == prevTs) {
+        index++;
+      } else {
+        // Otherwise, reset it
+        index = 0;
+      }
+      // Save the timestamp
+      prevTs = curTs;
+
+      // Get the Log Entry contents
+      const char *d = nullptr;
+      size_t l = 0;
+
+      std::string msg;
+      r = sd_journal_get_data(j, "MESSAGE", (const void **)&d, &l);
+      if (r < 0) {
+        BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-r);
+        res.result(boost::beast::http::status::internal_server_error);
+        res.end();
+        return;
+      }
+      boost::string_view v;
+      v = boost::string_view(d, l);
+      // Only use the content after the "=" character.
+      v.remove_prefix(std::min(v.find("=") + 1, v.size()));
+      msg = v.to_string();
+
+      // Get the severity from the PRIORITY field
+      boost::string_view priority;
+      int severity = 8;  // Default to an invalid priority
+      r = sd_journal_get_data(j, "PRIORITY", (const void **)&d, &l);
+      if (r < 0) {
+        BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-r);
+        res.result(boost::beast::http::status::internal_server_error);
+        res.end();
+        return;
+      }
+      priority = boost::string_view(d, l);
+      // Check length for sanity. Must be a single digit in the form
+      // "PRIORITY=[0-7]"
+      if (priority.size() > sizeof("PRIORITY=0")) {
+        BMCWEB_LOG_ERROR << "Invalid PRIORITY field length";
+        res.result(boost::beast::http::status::internal_server_error);
+        res.end();
+        return;
+      }
+      // Only use the content after the "=" character.
+      priority.remove_prefix(std::min(priority.find("=") + 1, priority.size()));
+      severity = strtol(priority.data(), nullptr, 10);
+
+      // Get the Created time from the timestamp
+      time_t t =
+          static_cast<time_t>(curTs / 1000 / 1000);  // Convert from us to s
+      struct tm *loctime = localtime(&t);
+      char entryTime[64] = {};
+      if (NULL != loctime) {
+        strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
+      }
+      // Insert the ':' into the timezone
+      boost::string_view t1(entryTime);
+      boost::string_view t2(entryTime);
+      if (t1.size() > 2 && t2.size() > 2) {
+        t1.remove_suffix(2);
+        t2.remove_prefix(t2.size() - 2);
+      }
+      const std::string entryTimeStr(t1.to_string() + ":" + t2.to_string());
+
+      std::string idStr(std::to_string(curTs));
+      if (index > 0) {
+        idStr += "_" + std::to_string(index);
+      }
+
+      logentry_array.push_back(
+          {{"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+           {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
+           {"@odata.id",
+            "/redfish/v1/Managers/openbmc/LogServices/BmcLog/Entries/#" +
+                idStr},
+           {"Name", "BMC Journal Entry"},
+           {"Id", idStr},
+           {"Message", std::move(msg)},
+           {"EntryType", "Oem"},
+           {"Severity",
+            severity <= 2
+                ? "Critical"
+                : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
+           {"OemRecordFormat", "Intel BMC Journal Entry"},
+           {"Created", std::move(entryTimeStr)}});
+    }
+    sd_journal_close(j);
+    res.jsonValue["Members@odata.count"] = logentry_array.size();
+    res.end();
+  }
+};
+
+class LogServiceCpu : public Node {
+ public:
+  template <typename CrowApp>
+  LogServiceCpu(CrowApp &app)
+      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/") {
     // Set the id for SubRoute
     Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc/LogServices/CpuLog";
     entityPrivileges = {
@@ -127,11 +315,11 @@ class CpuLogService : public Node {
   }
 };
 
-class CpuLogEntryCollection : public Node {
+class LogEntryCollectionCpu : public Node {
  public:
   template <typename CrowApp>
-  CpuLogEntryCollection(CrowApp &app)
-      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries") {
+  LogEntryCollectionCpu(CrowApp &app)
+      : Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries/") {
     // Collections use static ID for SubRoute to add to its parent, but only
     // load dynamic data so the duplicate static members don't get displayed
     Node::json["@odata.id"] =
@@ -211,9 +399,9 @@ std::string getLogCreatedTime(const nlohmann::json &cpuLog) {
   return std::string();
 }
 
-class CpuLogEntry : public Node {
+class LogEntryCpu : public Node {
  public:
-  CpuLogEntry(CrowApp &app)
+  LogEntryCpu(CrowApp &app)
       : Node(app,
              "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries/<str>/",
              std::string()) {
@@ -283,7 +471,7 @@ class ImmediateCpuLog : public Node {
   ImmediateCpuLog(CrowApp &app)
       : Node(app,
              "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
-             "CpuLog.Immediate") {
+             "CpuLog.Immediate/") {
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
         {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
@@ -418,7 +606,7 @@ class SendRawPeci : public Node {
   SendRawPeci(CrowApp &app)
       : Node(app,
              "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
-             "CpuLog.SendRawPeci") {
+             "CpuLog.SendRawPeci/") {
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
         {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
