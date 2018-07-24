@@ -167,6 +167,9 @@ class SessionCollection : public Node {
             username);
     res.addHeader("X-Auth-Token", session->sessionToken);
 
+    res.addHeader("Location",
+                  "/redfish/v1/SessionService/Sessions/" + session->uniqueId);
+
     // Return data for created session
     memberSession.doGet(res, req, {session->uniqueId});
 
