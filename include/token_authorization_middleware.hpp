@@ -189,7 +189,9 @@ class Middleware {
   bool isOnWhitelist(const crow::Request& req) const {
     // it's allowed to GET root node without authentica tion
     if ("GET"_method == req.method()) {
-      if (req.url == "/redfish/v1" || req.url == "/redfish/v1/") {
+      if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
+          req.url == "/redfish" || req.url == "/redfish/" ||
+          req.url == "/redfish/v1/odata" || req.url == "/redfish/v1/odata/") {
         return true;
       } else if (crow::webassets::routes.find(std::string(req.url)) !=
                  crow::webassets::routes.end()) {
