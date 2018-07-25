@@ -111,7 +111,10 @@ class Node {
  protected:
   // Node is designed to be an abstract class, so doGet is pure virtual
   virtual void doGet(crow::response& res, const crow::request& req,
-                     const std::vector<std::string>& params) = 0;
+                     const std::vector<std::string>& params) {
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+  };
 
   virtual void doPatch(crow::response& res, const crow::request& req,
                        const std::vector<std::string>& params) {
