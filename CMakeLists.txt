@@ -10,32 +10,21 @@ option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 option (BMCWEB_ENABLE_KVM "Enable KVM websocket interfaces" ON)
 option (BMCWEB_ENABLE_DBUS_REST "Enable rest dbus interfaces" ON)
 option (BMCWEB_ENABLE_REDFISH "Enable redfish interfaces" ON)
-option (BMCWEB_ENABLE_PHOSPHOR_WEBUI
-        "Enable webui interfaces; Requires
+option (BMCWEB_ENABLE_PHOSPHOR_WEBUI "Enable webui interfaces; Requires
        DBUS_REST interfaces" ON)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
 # comprehends the implications of doing so.  In general, enabling these options
 # will cause security problems of varying degrees
-option (
-    BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
-    "Disable CSRF prevention checks.
-       Should be set to OFF for production systems."
-    OFF
-)
+option (BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION "Disable CSRF prevention checks.
+       Should be set to OFF for production systems." OFF)
 
-option (BMCWEB_INSECURE_DISABLE_SSL
-        "Disable SSL ports. Should be set to OFF for
-       production systems."
-        OFF)
+option (BMCWEB_INSECURE_DISABLE_SSL "Disable SSL ports. Should be set to OFF for
+       production systems." OFF)
 
-option (
-    BMCWEB_INSECURE_DISABLE_AUTHENTICATION
-    "Disable authentication on all
-       ports. Should be set to OFF for production systems"
-    OFF
-)
+option (BMCWEB_INSECURE_DISABLE_AUTHENTICATION "Disable authentication on all
+       ports. Should be set to OFF for production systems" OFF)
 
 option (BMCWEB_INSECURE_DISABLE_XSS_PREVENTION "Disable XSS preventions" OFF)
 
@@ -57,19 +46,18 @@ set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 option (BMCWEB_BUILD_UT "Enable Unit test" ON)
 
 # security flags
-set (
-    SECURITY_FLAGS
-    "\
+set (SECURITY_FLAGS "\
     -fstack-protector-strong \
     -fPIE \
     -fPIC \
     -D_FORTIFY_SOURCE=2 \
     -Wformat \
-    -Wformat-security"
-)
+    -Wformat-security")
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}")
-set (CMAKE_CXX_FLAGS_RELWITHDEBINFO
-     "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}")
+set (
+    CMAKE_CXX_FLAGS_RELWITHDEBINFO
+    "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}"
+)
 set (CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 
 # Enable link time optimization This is a temporary workaround because
@@ -79,29 +67,32 @@ set (CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (NOT CMAKE_BUILD_TYPE MATCHES Debug)
         string (REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
-        string (REGEX
-                REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
+        string (
+            REGEX
+            REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB}
+        )
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
 
         # Reduce the binary size by removing unnecessary dynamic symbol table
         # entries
-        set (
-            CMAKE_CXX_FLAGS
-            "${CMAKE_CXX_FLAGS} \
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
         -fvisibility=hidden \
         -fvisibility-inlines-hidden \
-        -Wl,--exclude-libs,ALL"
-        )
+        -Wl,--exclude-libs,ALL")
     endif (NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
                                # time
     configure_file (CMakeLists.txt.in 3rdparty/CMakeLists.txt)
-    execute_process (COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
-    execute_process (COMMAND ${CMAKE_COMMAND} --build .
-                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+    execute_process (
+        COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty
+    )
+    execute_process (
+        COMMAND ${CMAKE_COMMAND} --build .
+        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty
+    )
 
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
@@ -118,16 +109,20 @@ include_directories (${BOOST_SRC_DIR})
 
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
-    include_directories (${CMAKE_BINARY_DIR}/sdbusplus-src
-                         ${CMAKE_BINARY_DIR}/prefix/include)
+    include_directories (
+        ${CMAKE_BINARY_DIR}/sdbusplus-src ${CMAKE_BINARY_DIR}/prefix/include
+    )
 
     set (WANT_TRANSACTION 0)
 
-    configure_file (${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/server.hpp.in
-                    ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/server.hpp
-                    @ONLY)
-    configure_file (${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/bus.hpp.in
-                    ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/bus.hpp @ONLY)
+    configure_file (
+        ${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/server.hpp.in
+        ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/server.hpp @ONLY
+    )
+    configure_file (
+        ${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/bus.hpp.in
+        ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/bus.hpp @ONLY
+    )
 endif ()
 
 # Openssl
@@ -144,7 +139,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
-    add_definitions(-DBMCWEB_ENABLE_SSL)
+    add_definitions (-DCROW_ENABLE_SSL)
 endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
@@ -160,9 +155,13 @@ else ()
     add_definitions ("-DWEBSERVER_DISABLE_PAM")
 endif ()
 
-add_definitions("-Wno-attributes")
+add_definitions ("-Wno-attributes")
 # Copy pam-webserver to etc/pam.d
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver DESTINATION /etc/pam.d/ RENAME webserver)
+install (
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver
+    DESTINATION /etc/pam.d/
+    RENAME webserver
+)
 
 # tinyxml2
 find_package (tinyxml2 REQUIRED)
@@ -176,31 +175,35 @@ file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/bmcweb)
 configure_file (settings.hpp.in ${CMAKE_BINARY_DIR}/include/bmcweb/settings.hpp)
 include_directories (${CMAKE_BINARY_DIR}/include)
 
-set (SRC_FILES redfish-core/src/error_messages.cpp
-     redfish-core/src/utils/json_utils.cpp ${GENERATED_SRC_FILES})
+set (
+    SRC_FILES redfish-core/src/error_messages.cpp
+    redfish-core/src/utils/json_utils.cpp ${GENERATED_SRC_FILES}
+)
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Unit Tests
 if (${BMCWEB_BUILD_UT})
-    set (UT_FILES src/crow_test.cpp src/gtest_main.cpp
-         src/token_authorization_middleware_test.cpp
-         src/security_headers_middleware_test.cpp src/webassets_test.cpp
-         src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
-         src/kvm_websocket_test.cpp src/msan_test.cpp
-         src/ast_video_puller_test.cpp
-         src/openbmc_jtag_rest_test.cpp
-         redfish-core/ut/privileges_test.cpp
-	 ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
-                                                      # strings
-    add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
-                        COMMAND
-                            xxd -i
-                            ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
-                            ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp)
+    set (
+        UT_FILES src/crow_test.cpp src/gtest_main.cpp
+        src/token_authorization_middleware_test.cpp
+        src/security_headers_middleware_test.cpp src/webassets_test.cpp
+        src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
+        src/kvm_websocket_test.cpp src/msan_test.cpp
+        src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
+        redfish-core/ut/privileges_test.cpp
+        ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
+    ) # big list of naughty strings
+    add_custom_command (
+        OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
+        COMMAND
+            xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
+            ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
+    )
 
-    set_source_files_properties (${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
-                                 PROPERTIES GENERATED TRUE)
+    set_source_files_properties (
+        ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp PROPERTIES GENERATED TRUE
+    )
 
     enable_testing ()
 
@@ -243,13 +246,15 @@ target_link_libraries (getvideo pthread)
 # Visual Studio Code helper this needs to be at the end to make sure all
 # includes are handled correctly
 include (CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs)
-get_property (C_INCLUDE_DIRS
-              DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-              PROPERTY INCLUDE_DIRECTORIES)
+get_property (
+    C_INCLUDE_DIRS
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    PROPERTY INCLUDE_DIRECTORIES
+)
 
 execute_process (
-    COMMAND python3
-            ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py
-            ${C_INCLUDE_DIRS} ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS}
-            ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS}
+    COMMAND
+        python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py
+        ${C_INCLUDE_DIRS} ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS}
+        ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS}
 )
