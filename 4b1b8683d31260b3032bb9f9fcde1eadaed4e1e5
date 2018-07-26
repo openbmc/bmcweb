@@ -1,0 +1,7 @@
+Code-Review+2: Vernon Mauery <vernon.mauery@linux.intel.com>
+Verified+1: Ed Tanous <ed.tanous@intel.com>
+Submitted-by: Ed Tanous <ed.tanous@intel.com>
+Submitted-at: Thu, 26 Jul 2018 22:47:48 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/10731
+Project: openbmc/bmcweb
+Branch: refs/heads/master
