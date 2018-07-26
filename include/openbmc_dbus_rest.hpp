@@ -100,13 +100,6 @@ void getManagedObjectsForEnumerate(
                 mapbox::util::apply_visitor(
                     [&propertyJson](auto &&val) { propertyJson = val; },
                     property.second);
-
-                // dbus-rest represents booleans as 1 or 0, implement to match
-                // TODO(ed) see if dbus-rest should be changed
-                const bool *propertyBool = propertyJson.get_ptr<const bool *>();
-                if (propertyBool != nullptr) {
-                  propertyJson = *propertyBool ? 1 : 0;
-                }
               }
             }
           }
