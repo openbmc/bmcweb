@@ -1,0 +1,136 @@
+{
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_2_0.json",
+    "title": "#CollectionCapabilities.v1_0_0",
+    "definitions": {
+        "Capability": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "UseCase": {
+                    "$ref": "#/definitions/UseCase",
+                    "readonly": true,
+                    "description": "This property represents the use case in which a client may issue a POST request to the collection.",
+                    "longDescription": "The value of this property shall be an enumerated value describing the use case for this capability instance."
+                },
+                "Links": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                            "type": [
+                                "array",
+                                "boolean",
+                                "number",
+                                "null",
+                                "object",
+                                "string"
+                            ],
+                            "description": "This property shall specify a valid odata or Redfish property."
+                        }
+                    },
+                    "additionalProperties": false,
+                    "properties": {
+                        "Oem": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                            "description": "Oem extension object.",
+                            "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                        },
+                        "TargetCollection": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResourceCollection",
+                            "readonly": true,
+                            "description": "Reference to the collection that this capabilities structure is describing.",
+                            "longDescription": "The value of this property shall be a reference to a Resource Collection that this structure is describing.  This structure may be used by a client in order to understand how to form the POST request for the given collection."
+                        },
+                        "RelatedItem@odata.count": {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/count"
+                        },
+                        "RelatedItem@odata.navigationLink": {
+                            "type": "string",
+                            "format": "uri"
+                        },
+                        "RelatedItem": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/idRef"
+                            },
+                            "readonly": true,
+                            "description": "The ID(s) of the resources associated with this capability.",
+                            "longDescription": "The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that is related to this capability."
+                        }
+                    },
+                    "required": [
+                        "TargetCollection"
+                    ],
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "CapabilitiesObject": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/idRef",
+                    "readonly": true,
+                    "description": "Reference to the resource the client may GET to in order to understand how to form a POST request for a given collection.",
+                    "longDescription": "The value of this property shall be a reference to a Resource that matches the type for the given collection and shall contain annotations that describe the properties allowed in the POST request."
+                }
+            },
+            "required": [
+                "UseCase",
+                "Links",
+                "CapabilitiesObject"
+            ],
+            "description": "This type describes a specific capability of a collection for a given use case.",
+            "longDescription": "This type shall describe a specific capability of a collection in terms of how a client is able to create new resources within the collection for the specified use case."
+        },
+        "CollectionCapabilities": {
+            "type": "object",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "type": [
+                        "array",
+                        "boolean",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ],
+                    "description": "This property shall specify a valid odata or Redfish property."
+                }
+            },
+            "additionalProperties": false,
+            "properties": {
+                "Capabilities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Capability"
+                    },
+                    "description": "This property contains the list of capabilities supported by this resource.",
+                    "longDescription": "The value of this property shall be an array of Capability structures."
+                }
+            },
+            "description": "This type describes the capabilities of a collection.",
+            "longDescription": "This type shall describe any capabilities of a collection in terms of how a client is able to create new resources within the collection."
+        },
+        "UseCase": {
+            "type": "string",
+            "enum": [
+                "ComputerSystemComposition",
+                "VolumeCreation"
+            ],
+            "enumDescriptions": {
+                "ComputerSystemComposition": "This capability describes a client creating a new ComputerSystem instance from a set of disaggregated hardware.",
+                "VolumeCreation": "This capability describes a client creating a new Volume instance as part of an existing storage subsystem."
+            }
+        }
+    },
+    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+}
