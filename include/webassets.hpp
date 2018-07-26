@@ -44,6 +44,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
              {".svg", "image/svg+xml"},
              {".eot", "application/vnd.ms-fontobject"},
              {".xml", "application/xml"},
+             {".json", "application/json"},
              {".jpg", "image/jpeg"},
              {".jpeg", "image/jpeg"},
              {".json", "application/json"},
