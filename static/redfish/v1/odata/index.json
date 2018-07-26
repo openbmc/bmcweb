@@ -13,6 +13,11 @@
         },
         {
             "kind": "Singleton",
+            "name": "JsonSchemas",
+            "url": "/redfish/v1/JsonSchemas"
+        },
+        {
+            "kind": "Singleton",
             "name": "Service",
             "url": "/redfish/v1/"
         },
