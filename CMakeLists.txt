@@ -98,6 +98,7 @@ if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
 endif ()
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions (-DBOOST_ALL_NO_LIB)
@@ -218,7 +219,6 @@ install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 
 # bmcweb
 add_executable (bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
-target_link_libraries (bmcweb pthread)
 target_link_libraries (bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries (bmcweb ${ZLIB_LIBRARIES})
 target_link_libraries (bmcweb pam)
