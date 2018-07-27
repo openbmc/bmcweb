@@ -77,8 +77,8 @@ class Middleware {
               }
 
               BMCWEB_LOG_DEBUG << "Restored session: " << newSession->csrfToken
-                             << " " << newSession->uniqueId << " "
-                             << newSession->sessionToken;
+                               << " " << newSession->uniqueId << " "
+                               << newSession->sessionToken;
               SessionStore::getInstance().authTokens.emplace(
                   newSession->sessionToken, newSession);
             }
@@ -108,10 +108,9 @@ class Middleware {
 
   void writeData() {
     std::ofstream persistentFile(filename);
-    nlohmann::json data{
-        {"sessions", SessionStore::getInstance().authTokens},
-        {"system_uuid", systemUuid},
-        {"revision", jsonRevision}};
+    nlohmann::json data{{"sessions", SessionStore::getInstance().authTokens},
+                        {"system_uuid", systemUuid},
+                        {"revision", jsonRevision}};
     persistentFile << data;
   }
 

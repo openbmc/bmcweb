@@ -85,7 +85,7 @@ class OnDemandChassisProvider {
               chassisList.emplace_back(objpath.substr(lastPos + 1));
             }
           }
-          // Finally make a callback with usefull data
+          // Finally make a callback with useful data
           callback(true, chassisList);
         },
         "xyz.openbmc_project.ObjectMapper",
