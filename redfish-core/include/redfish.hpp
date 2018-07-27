@@ -18,6 +18,7 @@
 #include "../lib/account_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
+#include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/redfish_sessions.hpp"
@@ -64,6 +65,18 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
             std::make_unique<VlanNetworkInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+
+#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
+        nodes.emplace_back(std::make_unique<CpuLogService>(app));
+        nodes.emplace_back(std::make_unique<CpuLogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<CpuLogEntry>(app));
+        nodes.emplace_back(std::make_unique<ImmediateCpuLog>(app));
+#ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
+        nodes.emplace_back(std::make_unique<SendRawPeci>(app));
+#endif // BMCWEB_ENABLE_REDFISH_RAW_PECI
+#endif // BMCWEB_ENABLE_REDFISH_CPU_LOG
+
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
 
