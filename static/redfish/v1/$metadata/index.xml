@@ -44,6 +44,7 @@
         <edmx:Include Namespace="LogEntry"/>
         <edmx:Include Namespace="LogEntry.v1_0_3"/>
         <edmx:Include Namespace="LogEntry.v1_1_1"/>
+        <edmx:Include Namespace="LogEntry.v1_3_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/LogEntryCollection_v1.xml">
         <edmx:Include Namespace="LogEntryCollection"/>
@@ -51,6 +52,7 @@
     <edmx:Reference Uri="/redfish/v1/schema/LogService_v1.xml">
         <edmx:Include Namespace="LogService"/>
         <edmx:Include Namespace="LogService.v1_0_3"/>
+        <edmx:Include Namespace="LogService.v1_1_0"/>
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/LogServiceCollection_v1.xml">
         <edmx:Include Namespace="LogServiceCollection"/>
