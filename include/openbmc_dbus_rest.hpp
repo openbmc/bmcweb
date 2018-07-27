@@ -156,41 +156,34 @@ std::vector<std::string> dbus_arg_split(const std::string &string) {
   }
   ret.push_back("");
   int container_depth = 0;
-  std::string::const_iterator character = string.begin();
-  while (character != string.end()) {
+
+  for (std::string::const_iterator character = string.begin();
+       character != string.end(); character++) {
+    ret.back() += *character;
     switch (*character) {
       case ('a'):
-        ret.back() += *character;
         break;
       case ('('):
       case ('{'):
-        ret.back() += *character;
         container_depth++;
         break;
       case ('}'):
       case (')'):
-        ret.back() += *character;
         container_depth--;
         if (container_depth == 0) {
-          character++;
-          if (character != string.end()) {
+          if (character + 1 != string.end()) {
             ret.push_back("");
           }
-          continue;
         }
         break;
       default:
-        ret.back() += *character;
         if (container_depth == 0) {
-          character++;
-          if (character != string.end()) {
+          if (character + 1 != string.end()) {
             ret.push_back("");
           }
-          continue;
         }
         break;
     }
-    character++;
   }
 }
 
@@ -351,7 +344,6 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
       if (r < 0) {
         return r;
       }
-
     } else if (boost::starts_with(arg_code, "(") &&
                boost::ends_with(arg_code, ")")) {
       std::string contained_type = arg_code.substr(1, arg_code.size() - 1);
@@ -384,7 +376,7 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
         r = convert_json_to_dbus(m, key_type, it.key());
         if (r < 0) {
           return r;
-        };
+        }
 
         r = convert_json_to_dbus(m, value_type, it.value());
         if (r < 0) {
@@ -600,12 +592,16 @@ void handle_get(crow::Response &res, std::string &object_path,
   BMCWEB_LOG_DEBUG << "handle_get: " << object_path
                    << " prop:" << dest_property;
   std::shared_ptr<std::string> property_name =
-      std::make_shared<std::string>(dest_property);
+      std::make_shared<std::string>(std::move(dest_property));
+
+  std::shared_ptr<std::string> path =
+      std::make_shared<std::string>(std::move(object_path));
+
   using GetObjectType =
       std::vector<std::pair<std::string, std::vector<std::string>>>;
   crow::connections::systemBus->async_method_call(
-      [&res, object_path, property_name](const boost::system::error_code ec,
-                                         const GetObjectType &object_names) {
+      [&res, path, property_name](const boost::system::error_code ec,
+                                  const GetObjectType &object_names) {
         if (ec || object_names.size() <= 0) {
           res.result(boost::beast::http::status::not_found);
           res.end();
@@ -660,13 +656,13 @@ void handle_get(crow::Response &res, std::string &object_path,
                     res.end();
                   }
                 },
-                connection.first, object_path,
-                "org.freedesktop.DBus.Properties", "GetAll", interface);
+                connection.first, *path, "org.freedesktop.DBus.Properties",
+                "GetAll", interface);
           }
         }
       },
       "xyz.openbmc_project.ObjectMapper", "/xyz/openbmc_project/object_mapper",
-      "xyz.openbmc_project.ObjectMapper", "GetObject", object_path,
+      "xyz.openbmc_project.ObjectMapper", "GetObject", *path,
       std::array<std::string, 0>());
 }
 
