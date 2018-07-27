@@ -139,7 +139,7 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
-    add_definitions (-DCROW_ENABLE_SSL)
+    add_definitions (-DBMCWEB_ENABLE_SSL)
 endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 

@@ -53,6 +53,7 @@ class RedfishService {
     nodes.emplace_back(std::make_unique<EthernetInterface>(app));
     nodes.emplace_back(std::make_unique<Thermal>(app));
     nodes.emplace_back(std::make_unique<ManagerCollection>(app));
+    nodes.emplace_back(std::make_unique<Manager>(app));
     nodes.emplace_back(std::make_unique<ChassisCollection>(app));
     nodes.emplace_back(std::make_unique<Chassis>(app));
     nodes.emplace_back(std::make_unique<UpdateService>(app));

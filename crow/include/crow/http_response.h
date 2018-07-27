@@ -97,12 +97,10 @@ struct Response {
     }
     completed = true;
     BMCWEB_LOG_DEBUG << "calling completion handler";
-    if (!completeRequestHandler) {
-      BMCWEB_LOG_ERROR << "completion handler was invalid";
-      return;
+    if (completeRequestHandler) {
+      BMCWEB_LOG_DEBUG << "completion handler was valid";
+      completeRequestHandler();
     }
-    completeRequestHandler();
-
   }
 
   void end(boost::string_view body_part) {

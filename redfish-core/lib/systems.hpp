@@ -116,7 +116,7 @@ class OnDemandSystemsProvider {
     };
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [ name, aResp{std::move(aResp)} ](
+        [name, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -146,7 +146,7 @@ class OnDemandSystemsProvider {
               BMCWEB_LOG_DEBUG << "Found name: " << name;
               const std::string connectionName = connectionNames[0].first;
               crow::connections::systemBus->async_method_call(
-                  [ aResp, name(std::string(name)) ](
+                  [aResp, name(std::string(name))](
                       const boost::system::error_code ec,
                       const std::vector<std::pair<std::string, VariantType>>
                           &propertiesList) {
@@ -156,7 +156,7 @@ class OnDemandSystemsProvider {
                       return;
                     }
                     BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
-                                   << "properties for system";
+                                     << "properties for system";
                     for (const std::pair<std::string, VariantType> &property :
                          propertiesList) {
                       const std::string *value =
@@ -187,7 +187,7 @@ class OnDemandSystemsProvider {
                             return;
                           }
                           BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                         << "Dimm properties.";
+                                           << "Dimm properties.";
                           for (const auto &p : properties) {
                             if (p.first == "MemorySize") {
                               const std::string *value =
@@ -200,7 +200,8 @@ class OnDemandSystemsProvider {
                                 } else if (boost::ends_with(*value, "KB")) {
                                   unitCoeff = 1000000;
                                 } else {
-                                  BMCWEB_LOG_ERROR << "Unsupported memory units";
+                                  BMCWEB_LOG_ERROR
+                                      << "Unsupported memory units";
                                   aResp->setErrorStatus();
                                   return;
                                 }
@@ -210,7 +211,7 @@ class OnDemandSystemsProvider {
                                 aResp->res.jsonValue["TotalSystemMemoryGiB"] +=
                                     memSize * unitCoeff;
                                 aResp->res.jsonValue["MemorySummary"]["Status"]
-                                                     ["State"] = "Enabled";
+                                                    ["State"] = "Enabled";
                               }
                             }
                           }
@@ -229,7 +230,7 @@ class OnDemandSystemsProvider {
                             return;
                           }
                           BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                         << "Cpu properties.";
+                                           << "Cpu properties.";
                           for (const auto &p : properties) {
                             if (p.first == "ProcessorFamily") {
                               const std::string *value =
@@ -242,7 +243,7 @@ class OnDemandSystemsProvider {
                                         .get<int>() +
                                     1;
                                 aResp->res.jsonValue["ProcessorSummary"]
-                                                     ["Status"]["State"] =
+                                                    ["Status"]["State"] =
                                     "Enabled";
                                 aResp->res
                                     .jsonValue["ProcessorSummary"]["Model"] =
@@ -265,7 +266,7 @@ class OnDemandSystemsProvider {
                             return;
                           }
                           BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                         << "UUID properties.";
+                                           << "UUID properties.";
                           for (const std::pair<std::string, VariantType> &p :
                                properties) {
                             if (p.first == "BIOSVer") {
@@ -279,7 +280,7 @@ class OnDemandSystemsProvider {
                               const std::string *value =
                                   mapbox::getPtr<const std::string>(p.second);
                               BMCWEB_LOG_DEBUG << "UUID = " << *value
-                                             << " length " << value->length();
+                                               << " length " << value->length();
                               if (value != nullptr) {
                                 // Workaround for to short return str in smbios
                                 // demo app, 32 bytes are described by spec
@@ -331,9 +332,9 @@ class OnDemandSystemsProvider {
                            CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
-        [
-          aResp{std::move(aResp)}, &callback
-        ](const boost::system::error_code &ec, const ManagedObjectsType &resp) {
+        [aResp{std::move(aResp)}, &callback](
+            const boost::system::error_code &ec,
+            const ManagedObjectsType &resp) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -371,9 +372,8 @@ class OnDemandSystemsProvider {
                       CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get identify led properties";
     crow::connections::systemBus->async_method_call(
-        [ aResp{std::move(aResp)}, &callback ](
-            const boost::system::error_code ec,
-            const PropertiesType &properties) {
+        [aResp{std::move(aResp)}, &callback](const boost::system::error_code ec,
+                                             const PropertiesType &properties) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -645,7 +645,7 @@ class Systems : public Node {
       // Update led group
       BMCWEB_LOG_DEBUG << "Update led group.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)} ](
+          [&, asyncResp{std::move(asyncResp)}](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -663,7 +663,7 @@ class Systems : public Node {
       // Update identify led status
       BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)} ](
+          [&, asyncResp{std::move(asyncResp)}](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;

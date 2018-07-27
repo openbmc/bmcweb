@@ -36,7 +36,8 @@ struct UserSession {
    *
    * @param[in] j   JSON object from which data should be loaded
    *
-   * @return a shared pointer if data has been loaded properly, nullptr otherwise
+   * @return a shared pointer if data has been loaded properly, nullptr
+   * otherwise
    */
   static std::shared_ptr<UserSession> fromJson(const nlohmann::json& j) {
     std::shared_ptr<UserSession> userSession = std::make_shared<UserSession>();
@@ -45,7 +46,7 @@ struct UserSession {
           element.value().get_ptr<const std::string*>();
       if (thisValue == nullptr) {
         BMCWEB_LOG_ERROR << "Error reading persistent store.  Property "
-                       << element.key() << " was not of type string";
+                         << element.key() << " was not of type string";
         return nullptr;
       }
       if (element.key() == "unique_id") {
@@ -58,7 +59,7 @@ struct UserSession {
         userSession->username = *thisValue;
       } else {
         BMCWEB_LOG_ERROR << "Got unexpected property reading persistent file: "
-                       << element.key();
+                         << element.key();
         return nullptr;
       }
     }
