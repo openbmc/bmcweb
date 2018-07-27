@@ -324,6 +324,7 @@ class OnDemandEthernetProvider {
     char *endPtr;
     long previousValue = 255;
     bool firstZeroInByteHit;
+
     for (const std::string &byte : bytesInMask) {
       if (byte.empty()) {
         return false;
@@ -1390,12 +1391,6 @@ class VlanNetworkInterface : public Node {
     // Copy JSON object to avoid race condition
     nlohmann::json jsonResponse(Node::json);
 
-    if (eth_data.vlanId == nullptr) {
-      // Interface not a VLAN - abort
-      messages::addMessageToErrorJson(jsonResponse, messages::internalError());
-      return jsonResponse;
-    }
-
     // Fill out obvious data...
     jsonResponse["Id"] = ifaceId;
     jsonResponse["@odata.id"] =
@@ -1440,6 +1435,10 @@ class VlanNetworkInterface : public Node {
 
     const std::string &parentIfaceId = params[0];
     const std::string &ifaceId = params[1];
+
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
+      return;
+    }
 
     // Get single eth interface data, and call the below callback for JSON
     // preparation
