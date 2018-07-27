@@ -230,19 +230,3 @@ install (TARGETS bmcweb DESTINATION bin)
 
 add_executable (getvideo src/getvideo_main.cpp)
 target_link_libraries (getvideo pthread)
-
-# Visual Studio Code helper this needs to be at the end to make sure all
-# includes are handled correctly
-include (CMakeExtraGeneratorDetermineCompilerMacrosAndIncludeDirs)
-get_property (
-    C_INCLUDE_DIRS
-    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-    PROPERTY INCLUDE_DIRECTORIES
-)
-
-execute_process (
-    COMMAND
-        python3 ${CMAKE_CURRENT_SOURCE_DIR}/scripts/prime_vscode_compile_db.py
-        ${C_INCLUDE_DIRS} ${CMAKE_EXTRA_GENERATOR_C_SYSTEM_INCLUDE_DIRS}
-        ${CMAKE_EXTRA_GENERATOR_CXX_SYSTEM_INCLUDE_DIRS}
-)
