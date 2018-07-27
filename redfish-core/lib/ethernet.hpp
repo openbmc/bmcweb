@@ -323,6 +323,7 @@ class OnDemandEthernetProvider {
     char *endPtr;
     long previousValue = 255;
     bool firstZeroInByteHit;
+
     for (const std::string &byte : bytesInMask) {
       if (byte.empty()) {
         return false;
