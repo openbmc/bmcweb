@@ -14,7 +14,16 @@ option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial websocket" ON)
 option (BMCWEB_ENABLE_STATIC_HOSTING "Enable hosting of static files.
        For example, redfish schema and webui files" ON)
 
-# Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
+option (
+    BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through redfish"
+    OFF
+)
+option (
+    BMCWEB_ENABLE_REDFISH_CPU_LOG
+    "Enable CPU log service transactions through redfish" OFF
+)
+
+# Insecure options.Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
 # comprehends the implications of doing so.  In general, enabling these options
 # will cause security problems of varying degrees
@@ -194,7 +203,6 @@ if (${BMCWEB_BUILD_UT})
     set_source_files_properties (
         ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp PROPERTIES GENERATED TRUE
     )
-
     enable_testing ()
 
     add_executable (webtest ${SRC_FILES} ${UT_FILES})
