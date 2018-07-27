@@ -6,7 +6,6 @@
 #include <future>
 #include <memory>
 #include <string>
-#include <thread>
 #include <utility>
 #include "crow/http_request.h"
 #include "crow/http_server.h"
