@@ -19,45 +19,6 @@
 #include <boost/container/flat_map.hpp>
 
 namespace redfish {
-static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
-
-class OnDemandSoftwareInventoryProvider {
- public:
-  template <typename CallbackFunc>
-  void getAllSoftwareInventoryObject(CallbackFunc &&callback) {
-    crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](
-            const boost::system::error_code error_code,
-            const std::vector<std::pair<
-                std::string,
-                std::vector<std::pair<std::string, std::vector<std::string>>>>>
-                &subtree) {
-          BMCWEB_LOG_DEBUG << "get all software inventory object callback...";
-          if (error_code) {
-            // Something wrong on DBus, the error_code is not important at this
-            // moment, just return success=false, and empty output. Since size
-            // of vector may vary depending on information from Entity Manager,
-            // and empty output could not be treated same way as error.
-            callback(false, subtree);
-            return;
-          }
-
-          if (subtree.empty()) {
-            BMCWEB_LOG_DEBUG << "subtree empty";
-            callback(false, subtree);
-          } else {
-            BMCWEB_LOG_DEBUG << "subtree has something";
-            callback(true, subtree);
-          }
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/software", int32_t(1),
-        std::array<const char *, 1>{"xyz.openbmc_project.Software.Activation"});
-  }
-};
-
 class UpdateService : public Node {
  public:
   UpdateService(CrowApp &app) : Node(app, "/redfish/v1/UpdateService/") {
@@ -201,9 +162,6 @@ class UpdateService : public Node {
 
 class SoftwareInventoryCollection : public Node {
  public:
-  /*
-   * Default Constructor
-   */
   template <typename CrowApp>
   SoftwareInventoryCollection(CrowApp &app)
       : Node(app, "/redfish/v1/UpdateService/FirmwareInventory/") {
@@ -225,107 +183,80 @@ class SoftwareInventoryCollection : public Node {
   }
 
  private:
-  /**
-   * Functions triggers appropriate requests on DBus
-   */
   void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
     res.jsonValue = Node::json;
-    softwareInventoryProvider.getAllSoftwareInventoryObject(
-        [&](const bool &success,
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](
+            const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
                 std::vector<std::pair<std::string, std::vector<std::string>>>>>
                 &subtree) {
-          if (!success) {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue = messages::internalError();
-            res.end();
+          if (ec) {
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
             return;
           }
-
-          if (subtree.empty()) {
-            BMCWEB_LOG_DEBUG << "subtree empty!!";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue = messages::internalError();
-            res.end();
-            return;
-          }
-
-          res.jsonValue["Members"] = nlohmann::json::array();
-          res.jsonValue["Members@odata.count"] = 0;
-
-          std::shared_ptr<AsyncResp> asyncResp =
-              std::make_shared<AsyncResp>(res);
+          asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+          asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
           for (auto &obj : subtree) {
             const std::vector<std::pair<std::string, std::vector<std::string>>>
                 &connections = obj.second;
 
-            // if can't parse fw id then return
-            std::size_t id_pos;
-            if ((id_pos = obj.first.rfind("/")) == std::string::npos) {
-              res.result(boost::beast::http::status::internal_server_error);
-              res.jsonValue = messages::internalError();
-              BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
-              res.end();
-              return;
-            }
-            std::string fw_id = obj.first.substr(id_pos + 1);
-
-            for (const auto &conn : connections) {
-              const std::string connectionName = conn.first;
+            for (auto &conn : connections) {
+              const std::string &connectionName = conn.first;
               BMCWEB_LOG_DEBUG << "connectionName = " << connectionName;
               BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
 
               crow::connections::systemBus->async_method_call(
-                  [asyncResp, fw_id](
+                  [asyncResp](
                       const boost::system::error_code error_code,
-                      const sdbusplus::message::variant<std::string>
-                          &activation_status) {
+                      const boost::container::flat_map<std::string, VariantType>
+                          &propertiesList) {
                     BMCWEB_LOG_DEBUG << "safe returned in lambda function";
                     if (error_code) {
                       asyncResp->res.result(
                           boost::beast::http::status::internal_server_error);
-                      asyncResp->res.jsonValue = messages::internalError();
-                      asyncResp->res.end();
                       return;
                     }
-                    const std::string *activation_status_str =
-                        mapbox::getPtr<const std::string>(activation_status);
-                    if (activation_status_str != nullptr &&
-                        *activation_status_str !=
-                            "xyz.openbmc_project.Software.Activation."
-                            "Activations.Active") {
-                      // The activation status of this software is not currently
-                      // active, so does not need to be listed in the response
-                      return;
+
+                    boost::container::flat_map<std::string,
+                                               VariantType>::const_iterator it =
+                        propertiesList.find("Purpose");
+                    const std::string &sw_inv_purpose =
+                        *(mapbox::getPtr<const std::string>(it->second));
+                    std::size_t last_pos = sw_inv_purpose.rfind(".");
+                    if (last_pos != std::string::npos) {
+                      nlohmann::json &members =
+                          asyncResp->res.jsonValue["Members"];
+                      members.push_back(
+                          {{"@odata.id",
+                            "/redfish/v1/UpdateService/FirmwareInventory/" +
+                                sw_inv_purpose.substr(last_pos + 1)}});
+                      asyncResp->res.jsonValue["Members@odata.count"] =
+                          members.size();
                     }
-                    asyncResp->res.jsonValue["Members"].push_back(
-                        {{"@odata.id",
-                          "/redfish/v1/UpdateService/FirmwareInventory/" +
-                              fw_id}});
-                    asyncResp->res.jsonValue["Members@odata.count"] =
-                        asyncResp->res.jsonValue["Members"].size();
                   },
                   connectionName, obj.first, "org.freedesktop.DBus.Properties",
                   "Get", "xyz.openbmc_project.Software.Activation",
                   "Activation");
             }
           }
-        });
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/software", int32_t(1),
+        std::array<const char *, 1>{"xyz.openbmc_project.Software.Version"});
   }
-
-  OnDemandSoftwareInventoryProvider softwareInventoryProvider;
 };
-/**
- * Chassis override class for delivering Chassis Schema
- */
+
 class SoftwareInventory : public Node {
  public:
-  /*
-   * Default Constructor
-   */
   template <typename CrowApp>
   SoftwareInventory(CrowApp &app)
       : Node(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
@@ -348,11 +279,9 @@ class SoftwareInventory : public Node {
   }
 
  private:
-  /**
-   * Functions triggers appropriate requests on DBus
-   */
   void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
     res.jsonValue = Node::json;
 
     if (params.size() != 1) {
@@ -362,29 +291,23 @@ class SoftwareInventory : public Node {
       return;
     }
 
-    const std::string &fw_id = params[0];
-    res.jsonValue["Id"] = fw_id;
-    res.jsonValue["@odata.id"] =
-        "/redfish/v1/UpdateService/FirmwareInventory/" + fw_id;
-    softwareInventoryProvider.getAllSoftwareInventoryObject([
-      &res, id{std::string(fw_id)}
-    ](const bool &success,
-      const std::vector<std::pair<
-          std::string,
-          std::vector<std::pair<std::string, std::vector<std::string>>>>>
-          &subtree) {
-      BMCWEB_LOG_DEBUG << "doGet callback...";
-      if (!success) {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue = messages::internalError();
-        res.end();
-        return;
-      }
+    std::shared_ptr<std::string> sw_id =
+        std::make_shared<std::string>(params[0]);
 
-      if (subtree.empty()) {
-        BMCWEB_LOG_ERROR << "subtree empty!!";
-        res.result(boost::beast::http::status::not_found);
-        res.end();
+    res.jsonValue["@odata.id"] =
+        "/redfish/v1/UpdateService/FirmwareInventory/" + *sw_id;
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, sw_id](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>
+                &subtree) {
+      BMCWEB_LOG_DEBUG << "doGet callback...";
+      if (ec) {
+        asyncResp->res.result(
+            boost::beast::http::status::internal_server_error);
         return;
       }
 
@@ -396,88 +319,68 @@ class SoftwareInventory : public Node {
         }
         fw_id_found = true;
 
-        const std::vector<std::pair<std::string, std::vector<std::string>>>
-            &connections = obj.second;
-
-        if (connections.size() <= 0) {
-          continue;
-        }
-        const std::pair<std::string, std::vector<std::string>> &conn =
-            connections[0];
-        const std::string &connectionName = conn.first;
-        BMCWEB_LOG_DEBUG << "connectionName = " << connectionName;
-        BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
-
         crow::connections::systemBus->async_method_call(
-            [&res, id](
+            [asyncResp, sw_id](
                 const boost::system::error_code error_code,
                 const boost::container::flat_map<std::string, VariantType>
                     &propertiesList) {
               if (error_code) {
-                res.result(boost::beast::http::status::internal_server_error);
-                res.jsonValue = messages::internalError();
-                res.end();
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
                 return;
               }
-
               boost::container::flat_map<std::string,
                                          VariantType>::const_iterator it =
                   propertiesList.find("Purpose");
               if (it == propertiesList.end()) {
-                BMCWEB_LOG_ERROR << "Can't find property \"Purpose\"!";
-                res.result(boost::beast::http::status::internal_server_error);
-                res.jsonValue = messages::internalError();
-                res.end();
+                BMCWEB_LOG_DEBUG << "Can't find property \"Purpose\"!";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
                 return;
               }
-
-              // SoftwareId
               const std::string *sw_inv_purpose =
                   mapbox::getPtr<const std::string>(it->second);
               if (sw_inv_purpose == nullptr) {
-                res.jsonValue = redfish::messages::internalError();
-                res.jsonValue = messages::internalError();
+                BMCWEB_LOG_DEBUG << "wrong types for property\"Purpose\"!";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
                 return;
               }
-              BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << sw_inv_purpose;
-              std::size_t last_pos = sw_inv_purpose->rfind(".");
-              if (last_pos != std::string::npos) {
-                res.jsonValue["SoftwareId"] =
-                    sw_inv_purpose->substr(last_pos + 1);
-              } else {
-                BMCWEB_LOG_ERROR << "Can't parse software purpose!";
-              }
 
-              // Version
-              it = propertiesList.find("Version");
-              if (it != propertiesList.end()) {
-                const std::string *version =
-                    mapbox::getPtr<const std::string>(it->second);
-                if (version == nullptr) {
-                  res.jsonValue = redfish::messages::internalError();
-                  res.jsonValue = messages::internalError();
+              BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << *sw_inv_purpose;
+              if (boost::ends_with(*sw_inv_purpose, "." + *sw_id)) {
+                it = propertiesList.find("Version");
+                if (it == propertiesList.end()) {
+                  BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
+                  asyncResp->res.result(
+                      boost::beast::http::status::internal_server_error);
                   return;
                 }
-                res.jsonValue["Version"] =
-                    *(mapbox::getPtr<const std::string>(it->second));
-              } else {
-                BMCWEB_LOG_DEBUG << "Can't find version info!";
-              }
 
-              res.end();
+                const std::string *version =
+                    mapbox::getPtr<const std::string>(it->second);
+
+                if (version != nullptr) {
+                  BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
+                  asyncResp->res.result(
+                      boost::beast::http::status::internal_server_error);
+                  return;
+                }
+                asyncResp->res.jsonValue["Version"] = *version;
+                asyncResp->res.jsonValue["Id"] = *sw_id;
+              }
             },
             connectionName, obj.first, "org.freedesktop.DBus.Properties",
             "GetAll", "xyz.openbmc_project.Software.Version");
       }
-      if (!fw_id_found) {
-        res.result(boost::beast::http::status::not_found);
-        res.end();
-        return;
-      }
-    });
-  }
-
-  OnDemandSoftwareInventoryProvider softwareInventoryProvider;
-};
+          }
+  },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/software", int32_t(1),
+        std::array<const char *, 1>{"xyz.openbmc_project.Software.Version"});
+}
+};  // namespace redfish
 
 }  // namespace redfish
