@@ -78,8 +78,7 @@ class Manager : public Node {
 
 class ManagerCollection : public Node {
  public:
-  ManagerCollection(CrowApp& app)
-      : Node(app, "/redfish/v1/Managers/"), memberManager(app) {
+  ManagerCollection(CrowApp& app) : Node(app, "/redfish/v1/Managers/") {
     Node::json["@odata.id"] = "/redfish/v1/Managers";
     Node::json["@odata.type"] = "#ManagerCollection.ManagerCollection";
     Node::json["@odata.context"] =
@@ -111,8 +110,6 @@ class ManagerCollection : public Node {
         {{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
     res.end();
   }
-
-  Manager memberManager;
 };
 
 }  // namespace redfish
