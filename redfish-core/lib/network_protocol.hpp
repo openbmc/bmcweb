@@ -47,67 +47,21 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path>;
 
 struct ServiceConfiguration {
-  std::string serviceName;
-  std::string socketPath;
+  const char* serviceName;
+  const char* socketPath;
 };
 
-class OnDemandNetworkProtocolProvider {
- public:
-  template <typename CallbackFunc>
-  static void getServices(CallbackFunc&& callback) {
-    crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code ec,
-                                        const std::vector<UnitStruct>& resp) {
-          if (ec) {
-            callback(false, resp);
-          } else {
-            callback(true, resp);
-          }
-        },
-        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
-        "org.freedesktop.systemd1.Manager", "ListUnits");
-  }
-
-  template <typename CallbackFunc>
-  static void getSocketListenPort(const std::string& path,
-                                  CallbackFunc&& callback) {
-    crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](
-            const boost::system::error_code ec,
-            const sdbusplus::message::variant<
-                std::vector<std::tuple<std::string, std::string>>>& resp) {
-          if (ec) {
-            callback(false, false, 0);
-          } else {
-            auto responsePtr = mapbox::getPtr<
-                const std::vector<std::tuple<std::string, std::string>>>(resp);
-
-            std::string listenStream =
-                std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
-            auto lastColonPos = listenStream.rfind(":");
-            if (lastColonPos != std::string::npos) {
-              std::string portStr = listenStream.substr(lastColonPos + 1);
-              char* endPtr;
-              // Use strtol instead of stroi to avoid exceptions
-              long port = std::strtol(portStr.c_str(), &endPtr, 10);
-
-              if (*endPtr != '\0' || portStr.empty()) {
-                // Invalid value
-                callback(true, false, 0);
-              } else {
-                // Everything OK
-                callback(true, true, port);
-              }
-            } else {
-              // Not a port
-              callback(true, false, 0);
-            }
-          }
-        },
-        "org.freedesktop.systemd1", path, "org.freedesktop.DBus.Properties",
-        "Get", "org.freedesktop.systemd1.Socket", "Listen");
-  }
-};
+const static boost::container::flat_map<const char*, ServiceConfiguration>
+    protocolToDBus{
+        {"SSH",
+         {"dropbear.service",
+          "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
+        {"HTTPS",
+         {"phosphor-gevent.service",
+          "/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
+        {"IPMI",
+         {"phosphor-ipmi-net.service",
+          "/org/freedesktop/systemd1/unit/phosphor_2dipmi_2dnet_2esocket"}}};
 
 class NetworkProtocol : public Node {
  public:
@@ -160,65 +114,77 @@ class NetworkProtocol : public Node {
     Node::json["HostName"] = getHostName();
     asyncResp->res.jsonValue = Node::json;
 
-    OnDemandNetworkProtocolProvider::getServices(
-        [&, asyncResp](const bool success,
-                       const std::vector<UnitStruct>& resp) {
-          if (!success) {
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<UnitStruct>& resp) {
+          if (ec) {
             asyncResp->res.jsonValue = nlohmann::json::object();
             messages::addMessageToErrorJson(asyncResp->res.jsonValue,
                                             messages::internalError());
             asyncResp->res.result(
                 boost::beast::http::status::internal_server_error);
+            return;
           }
 
           for (auto& unit : resp) {
             for (auto& kv : protocolToDBus) {
               if (kv.second.serviceName ==
                   std::get<NET_PROTO_UNIT_NAME>(unit)) {
-                std::string service = kv.first;
-
-                // Process state
-                if (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) == "running") {
-                  asyncResp->res.jsonValue[service]["ProtocolEnabled"] = true;
-                } else {
-                  asyncResp->res.jsonValue[service]["ProtocolEnabled"] = false;
-                }
-
-                // Process port
-                OnDemandNetworkProtocolProvider::getSocketListenPort(
-                    kv.second.socketPath,
-                    [&, asyncResp, service{std::move(service)} ](
-                        const bool fetchSuccess, const bool portAvailable,
-                        const unsigned long port) {
-                      if (fetchSuccess) {
-                        if (portAvailable) {
-                          asyncResp->res.jsonValue[service]["Port"] = port;
-                        } else {
-                          asyncResp->res.jsonValue[service]["Port"] = nullptr;
-                        }
-                      } else {
-                        messages::addMessageToJson(asyncResp->res.jsonValue,
-                                                   messages::internalError(),
-                                                   "/" + service);
-                      }
-                    });
-                break;
+                continue;
               }
+              const char* service = kv.first;
+              const char* socketPath = kv.second.socketPath;
+
+              asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
+                  std::get<NET_PROTO_UNIT_SUB_STATE>(unit) == "running";
+
+              crow::connections::systemBus->async_method_call(
+                  [ asyncResp, service{std::string(service)}, socketPath ](
+                      const boost::system::error_code ec,
+                      const sdbusplus::message::variant<std::vector<
+                          std::tuple<std::string, std::string>>>& resp) {
+                    if (ec) {
+                      messages::addMessageToJson(asyncResp->res.jsonValue,
+                                                 messages::internalError(),
+                                                 "/" + service);
+                      return;
+                    }
+                    const std::vector<std::tuple<std::string, std::string>>*
+                        responsePtr = mapbox::getPtr<const std::vector<
+                            std::tuple<std::string, std::string>>>(resp);
+                    if (responsePtr == nullptr || responsePtr->size() < 1) {
+                      return;
+                    }
+
+                    const std::string& listenStream =
+                        std::get<NET_PROTO_LISTEN_STREAM>((*responsePtr)[0]);
+                    std::size_t lastColonPos = listenStream.rfind(":");
+                    if (lastColonPos == std::string::npos) {
+                      // Not a port
+                      return;
+                    }
+                    std::string portStr = listenStream.substr(lastColonPos + 1);
+                    char* endPtr = nullptr;
+                    // Use strtol instead of stroi to avoid exceptions
+                    long port = std::strtol(portStr.c_str(), &endPtr, 10);
+
+                    if (*endPtr != '\0' || portStr.empty()) {
+                      // Invalid value
+                      asyncResp->res.jsonValue[service]["Port"] = nullptr;
+                    } else {
+                      // Everything OK
+                      asyncResp->res.jsonValue[service]["Port"] = port;
+                    }
+                  },
+                  "org.freedesktop.systemd1", socketPath,
+                  "org.freedesktop.DBus.Properties", "Get",
+                  "org.freedesktop.systemd1.Socket", "Listen");
             }
           }
-        });
+        },
+        "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+        "org.freedesktop.systemd1.Manager", "ListUnits");
   }
-
-  boost::container::flat_map<std::string, ServiceConfiguration> protocolToDBus{
-      {"SSH",
-       {"dropbear.service",
-        "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
-      {"HTTPS",
-       {"phosphor-gevent.service",
-        "/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
-      {"IPMI",
-       {"phosphor-ipmi-net.service",
-        "/org/freedesktop/systemd1/unit/phosphor_2dipmi_2dnet_2esocket"}}};
 };
 
 }  // namespace redfish
