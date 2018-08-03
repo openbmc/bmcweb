@@ -42,7 +42,6 @@ struct Request {
 
   bool keepAlive() { return req.keep_alive(); }
 
- private:
   boost::beast::http::request<boost::beast::http::string_body>& req;
 };
 

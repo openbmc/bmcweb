@@ -12,6 +12,7 @@ using namespace boost;
 using tcp = asio::ip::tcp;
 
 struct SocketAdaptor {
+  using streamType = tcp::socket;
   using secure = std::false_type;
   using context = void;
   SocketAdaptor(boost::asio::io_service& ioService, context* /*unused*/)
@@ -38,7 +39,8 @@ struct SocketAdaptor {
 
   template <typename F>
   void start(F f) {
-    f(boost::system::error_code());
+    boost::system::error_code ec;
+    f(ec);
   }
 
   tcp::socket socketCls;
@@ -72,6 +74,7 @@ struct TestSocketAdaptor {
 
 #ifdef BMCWEB_ENABLE_SSL
 struct SSLAdaptor {
+  using streamType = boost::asio::ssl::stream<tcp::socket>;
   using secure = std::true_type;
   using context = boost::asio::ssl::context;
   using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
@@ -104,9 +107,9 @@ struct SSLAdaptor {
     fail, because the adapter is gone.  As is, doRead believes the parse
     failed, because isOpen now returns False (which could also mean the client
     disconnected during parse)
-    UPdate: The parser does in fact have an "isUpgrade" method that is intended
-    for exactly this purpose.  Todo is now to make doRead obey the flag
-    appropriately so this code can be changed back.
+    UPdate: The parser does in fact have an "isUpgrade" method that is
+    intended for exactly this purpose.  Todo is now to make doRead obey the
+    flag appropriately so this code can be changed back.
     */
     if (sslSocket != nullptr) {
       return sslSocket->lowest_layer().is_open();

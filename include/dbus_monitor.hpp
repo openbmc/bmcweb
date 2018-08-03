@@ -50,7 +50,8 @@ void requestRoutes(Crow<Middlewares...>& app) {
         std::string pathNamespace(conn.req.urlParams.get("path_namespace"));
         if (pathNamespace.empty()) {
           conn.sendText(
-              nlohmann::json({"error", "Did not specify path_namespace"}));
+              nlohmann::json({"error", "Did not specify path_namespace"})
+                  .dump());
           conn.close("error");
         }
         sessions[&conn] = DbusWebsocketSession();
@@ -62,7 +63,6 @@ void requestRoutes(Crow<Middlewares...>& app) {
         sessions[&conn].matches.emplace_back(
             std::make_unique<sdbusplus::bus::match::match>(
                 *crow::connections::systemBus, matchString, onPropertyUpdate));
-
       })
       .onclose([&](crow::websocket::Connection& conn,
                    const std::string& reason) { sessions.erase(&conn); })

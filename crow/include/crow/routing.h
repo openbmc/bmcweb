@@ -264,9 +264,11 @@ class WebSocketRule : public BaseRule {
 #ifdef BMCWEB_ENABLE_SSL
   void handleUpgrade(const Request& req, Response&,
                      SSLAdaptor&& adaptor) override {
-    new crow::websocket::ConnectionImpl<SSLAdaptor>(req, std::move(adaptor),
-                                                    openHandler, messageHandler,
-                                                    closeHandler, errorHandler);
+    std::shared_ptr<crow::websocket::ConnectionImpl<SSLAdaptor>> myConnection =
+        std::make_shared<crow::websocket::ConnectionImpl<SSLAdaptor>>(
+            req, std::move(adaptor), openHandler, messageHandler, closeHandler,
+            errorHandler);
+    myConnection->start();
   }
 #endif
 
