@@ -1,0 +1,7 @@
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Verified+1: James Feist <james.feist@linux.intel.com>
+Submitted-by: James Feist <james.feist@linux.intel.com>
+Submitted-at: Mon, 06 Aug 2018 16:23:26 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/11712
+Project: openbmc/bmcweb
+Branch: refs/heads/master
