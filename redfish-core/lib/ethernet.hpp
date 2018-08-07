@@ -1472,10 +1472,10 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_ifaceId = params[0];
+    const std::string &parentIfaceId = params[0];
     const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
       return;
     }
 
@@ -1489,7 +1489,7 @@ class VlanNetworkInterface : public Node {
     // preparation
     ethernetProvider.getEthernetIfaceData(
         ifaceId,
-        [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
+        [&, parentIfaceId, ifaceId, patchReq = std::move(patchReq) ](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
@@ -1506,7 +1506,7 @@ class VlanNetworkInterface : public Node {
             return;
           }
 
-          res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
+          res.jsonValue = parseInterfaceData(parentIfaceId, ifaceId,
                                               eth_data, ipv4_data);
 
           std::shared_ptr<AsyncResp> asyncResp =
@@ -1545,10 +1545,10 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_ifaceId = params[0];
+    const std::string &parentIfaceId = params[0];
     const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
       return;
     }
 
@@ -1556,11 +1556,11 @@ class VlanNetworkInterface : public Node {
     // preparation
     ethernetProvider.getEthernetIfaceData(
         ifaceId,
-        [&, parent_ifaceId, ifaceId](
+        [&, parentIfaceId, ifaceId](
             const bool &success, const EthernetInterfaceData &eth_data,
             const std::vector<IPv4AddressData> &ipv4_data) {
           if (success && eth_data.vlanId != nullptr) {
-            res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
+            res.jsonValue = parseInterfaceData(parentIfaceId, ifaceId,
                                                 eth_data, ipv4_data);
 
             // Disable VLAN

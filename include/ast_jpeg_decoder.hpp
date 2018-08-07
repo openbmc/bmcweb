@@ -73,7 +73,7 @@ class AstJpegDecoder {
   }
 
   void loadQuantTable(std::array<long, 64> &quant_table) {
-    float scalefactor_f[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
+    float scalefactorF[8] = {1.0f, 1.387039845f, 1.306562965f, 1.175875602f,
                               1.0f, 0.785694958f, 0.541196100f, 0.275899379f};
     uint8_t j, row, col;
     std::array<uint8_t, 64> tempQT{};
@@ -116,7 +116,7 @@ class AstJpegDecoder {
     for (row = 0; row <= 7; row++) {
       for (col = 0; col <= 7; col++) {
         quant_table[j] = static_cast<long>(
-            (quant_table[j] * scalefactor_f[row] * scalefactor_f[col]) * 65536);
+            (quant_table[j] * scalefactorF[row] * scalefactorF[col]) * 65536);
         j++;
       }
     }
