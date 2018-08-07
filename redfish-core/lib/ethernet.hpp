@@ -645,7 +645,6 @@ class OnDemandEthernetProvider {
           this, ethifaceId{std::move(ethifaceId)}, callback{std::move(callback)}
         ](const boost::system::error_code error_code,
           const GetManagedObjectsType &resp) {
-
           EthernetInterfaceData ethData{};
           std::vector<IPv4AddressData> ipv4Data;
           ipv4Data.reserve(maxIpV4AddressesPerInterface);
@@ -1467,10 +1466,10 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_ifaceId = params[0];
+    const std::string &parentIfaceId = params[0];
     const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
       return;
     }
 
@@ -1483,7 +1482,7 @@ class VlanNetworkInterface : public Node {
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId, [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
+        ifaceId, [&, parentIfaceId, ifaceId, patchReq = std::move(patchReq) ](
                      const bool &success, const EthernetInterfaceData &eth_data,
                      const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
@@ -1501,7 +1500,7 @@ class VlanNetworkInterface : public Node {
           }
 
           res.jsonValue =
-              parseInterfaceData(parent_ifaceId, ifaceId, eth_data, ipv4_data);
+              parseInterfaceData(parentIfaceId, ifaceId, eth_data, ipv4_data);
 
           std::shared_ptr<AsyncResp> asyncResp =
               std::make_shared<AsyncResp>(res);
@@ -1538,22 +1537,22 @@ class VlanNetworkInterface : public Node {
       return;
     }
 
-    const std::string &parent_ifaceId = params[0];
+    const std::string &parentIfaceId = params[0];
     const std::string &ifaceId = params[1];
 
-    if (!verifyNames(res, parent_ifaceId, ifaceId)) {
+    if (!verifyNames(res, parentIfaceId, ifaceId)) {
       return;
     }
 
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId, [&, parent_ifaceId, ifaceId](
+        ifaceId, [&, parentIfaceId, ifaceId](
                      const bool &success, const EthernetInterfaceData &eth_data,
                      const std::vector<IPv4AddressData> &ipv4_data) {
           if (success && eth_data.vlanId != nullptr) {
-            res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
-                                               eth_data, ipv4_data);
+            res.jsonValue =
+                parseInterfaceData(parentIfaceId, ifaceId, eth_data, ipv4_data);
 
             // Disable VLAN
             OnDemandEthernetProvider::disableVlan(
