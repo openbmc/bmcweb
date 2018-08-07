@@ -116,16 +116,16 @@ class UpdateService : public Node {
           std::string,
           std::vector<std::pair<std::string,
                                 sdbusplus::message::variant<std::string>>>>>
-          interfaces_properties;
+          interfacesProperties;
 
       sdbusplus::message::object_path objPath;
 
-      m.read(objPath, interfaces_properties);  // Read in the object path
-                                               // that was just created
+      m.read(objPath, interfacesProperties);  // Read in the object path
+                                              // that was just created
       // std::string str_objpath = objPath.str;  // keep a copy for
       // constructing response message
       BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;  // str_objpath;
-      for (auto &interface : interfaces_properties) {
+      for (auto &interface : interfacesProperties) {
         BMCWEB_LOG_DEBUG << "interface = " << interface.first;
 
         if (interface.first == "xyz.openbmc_project.Software.Activation") {
@@ -225,14 +225,14 @@ class SoftwareInventoryCollection : public Node {
                       return;
                     }
 
-                    const std::string *sw_inv_purpose =
+                    const std::string *swInvPurpose =
                         mapbox::getPtr<const std::string>(activation);
-                    if (sw_inv_purpose == nullptr) {
+                    if (swInvPurpose == nullptr) {
                       asyncResp->res.result(
                           boost::beast::http::status::internal_server_error);
                       return;
                     }
-                    std::size_t last_pos = sw_inv_purpose->rfind(".");
+                    std::size_t last_pos = swInvPurpose->rfind(".");
                     if (last_pos == std::string::npos) {
                       asyncResp->res.result(
                           boost::beast::http::status::internal_server_error);
@@ -243,7 +243,7 @@ class SoftwareInventoryCollection : public Node {
                     members.push_back(
                         {{"@odata.id",
                           "/redfish/v1/UpdateService/FirmwareInventory/" +
-                              sw_inv_purpose->substr(last_pos + 1)}});
+                              swInvPurpose->substr(last_pos + 1)}});
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         members.size();
                   },
@@ -297,14 +297,14 @@ class SoftwareInventory : public Node {
       return;
     }
 
-    std::shared_ptr<std::string> sw_id =
+    std::shared_ptr<std::string> swId =
         std::make_shared<std::string>(params[0]);
 
     res.jsonValue["@odata.id"] =
-        "/redfish/v1/UpdateService/FirmwareInventory/" + *sw_id;
+        "/redfish/v1/UpdateService/FirmwareInventory/" + *swId;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, sw_id](
+        [asyncResp, swId](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -321,7 +321,7 @@ class SoftwareInventory : public Node {
                                std::vector<std::pair<std::string,
                                                      std::vector<std::string>>>>
                    &obj : subtree) {
-            if (boost::ends_with(obj.first, *sw_id) != true) {
+            if (boost::ends_with(obj.first, *swId) != true) {
               continue;
             }
 
@@ -330,7 +330,7 @@ class SoftwareInventory : public Node {
             }
 
             crow::connections::systemBus->async_method_call(
-                [asyncResp, sw_id](
+                [asyncResp, swId](
                     const boost::system::error_code error_code,
                     const boost::container::flat_map<std::string, VariantType>
                         &propertiesList) {
@@ -348,17 +348,17 @@ class SoftwareInventory : public Node {
                         boost::beast::http::status::internal_server_error);
                     return;
                   }
-                  const std::string *sw_inv_purpose =
+                  const std::string *swInvPurpose =
                       mapbox::getPtr<const std::string>(it->second);
-                  if (sw_inv_purpose == nullptr) {
+                  if (swInvPurpose == nullptr) {
                     BMCWEB_LOG_DEBUG << "wrong types for property\"Purpose\"!";
                     asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
                     return;
                   }
 
-                  BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << *sw_inv_purpose;
-                  if (boost::ends_with(*sw_inv_purpose, "." + *sw_id)) {
+                  BMCWEB_LOG_DEBUG << "swInvPurpose = " << *swInvPurpose;
+                  if (boost::ends_with(*swInvPurpose, "." + *swId)) {
                     it = propertiesList.find("Version");
                     if (it == propertiesList.end()) {
                       BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
@@ -377,7 +377,7 @@ class SoftwareInventory : public Node {
                       return;
                     }
                     asyncResp->res.jsonValue["Version"] = *version;
-                    asyncResp->res.jsonValue["Id"] = *sw_id;
+                    asyncResp->res.jsonValue["Id"] = *swId;
                   }
                 },
                 obj.second[0].first, obj.first,
