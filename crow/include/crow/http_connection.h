@@ -97,39 +97,39 @@ template <typename MW>
 struct CheckBeforeHandleArity3Const {
   template <typename T, void (T::*)(Request&, Response&, typename MW::Context&)
                             const = &T::beforeHandle>
-  struct get {};
+  struct Get {};
 };
 
 template <typename MW>
 struct CheckBeforeHandleArity3 {
   template <typename T, void (T::*)(Request&, Response&,
                                     typename MW::Context&) = &T::beforeHandle>
-  struct get {};
+  struct Get {};
 };
 
 template <typename MW>
 struct CheckAfterHandleArity3Const {
   template <typename T, void (T::*)(Request&, Response&, typename MW::Context&)
                             const = &T::afterHandle>
-  struct get {};
+  struct Get {};
 };
 
 template <typename MW>
 struct CheckAfterHandleArity3 {
   template <typename T, void (T::*)(Request&, Response&,
                                     typename MW::Context&) = &T::afterHandle>
-  struct get {};
+  struct Get {};
 };
 
 template <typename T>
 struct IsBeforeHandleArity3Impl {
   template <typename C>
   static std::true_type f(
-      typename CheckBeforeHandleArity3Const<T>::template get<C>*);
+      typename CheckBeforeHandleArity3Const<T>::template Get<C>*);
 
   template <typename C>
   static std::true_type f(
-      typename CheckBeforeHandleArity3<T>::template get<C>*);
+      typename CheckBeforeHandleArity3<T>::template Get<C>*);
 
   template <typename C>
   static std::false_type f(...);
@@ -142,10 +142,10 @@ template <typename T>
 struct IsAfterHandleArity3Impl {
   template <typename C>
   static std::true_type f(
-      typename CheckAfterHandleArity3Const<T>::template get<C>*);
+      typename CheckAfterHandleArity3Const<T>::template Get<C>*);
 
   template <typename C>
-  static std::true_type f(typename CheckAfterHandleArity3<T>::template get<C>*);
+  static std::true_type f(typename CheckAfterHandleArity3<T>::template Get<C>*);
 
   template <typename C>
   static std::false_type f(...);
@@ -306,7 +306,7 @@ class Connection {
   void handle() {
     cancelDeadlineTimer();
     bool isInvalidRequest = false;
-    const boost::string_view Connection =
+    const boost::string_view connection =
         req->getHeaderValue(boost::beast::http::field::connection);
 
     // Check for HTTP version 1.1.
