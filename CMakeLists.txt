@@ -43,7 +43,7 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
-option (BMCWEB_BUILD_UT "Enable Unit test" ON)
+option (BMCWEB_BUILD_UT "Enable Unit test" OFF)
 
 # security flags
 set (SECURITY_FLAGS "\
