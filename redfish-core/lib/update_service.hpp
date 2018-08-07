@@ -23,7 +23,7 @@ namespace redfish {
 class OnDemandSoftwareInventoryProvider {
  public:
   template <typename CallbackFunc>
-  void get_all_software_inventory_object(CallbackFunc &&callback) {
+  void getAllSoftwareInventoryObject(CallbackFunc &&callback) {
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](
             const boost::system::error_code error_code,
@@ -120,7 +120,7 @@ class SoftwareInventoryCollection : public Node {
   void doGet(crow::Response &res, const crow::Request &req,
              const std::vector<std::string> &params) override {
     res.jsonValue = Node::json;
-    softwareInventoryProvider.get_all_software_inventory_object(
+    softwareInventoryProvider.getAllSoftwareInventoryObject(
         [&](const bool &success,
             const std::vector<std::pair<
                 std::string,
@@ -163,14 +163,14 @@ class SoftwareInventoryCollection : public Node {
                     boost::container::flat_map<std::string,
                                                VariantType>::const_iterator it =
                         propertiesList.find("Purpose");
-                    const std::string &sw_inv_purpose =
+                    const std::string &swInvPurpose =
                         *(mapbox::getPtr<const std::string>(it->second));
-                    std::size_t last_pos = sw_inv_purpose.rfind(".");
-                    if (last_pos != std::string::npos) {
+                    std::size_t lastPos = swInvPurpose.rfind(".");
+                    if (lastPos != std::string::npos) {
                       res.jsonValue["Members"].push_back(
                           {{"@odata.id",
                             "/redfish/v1/UpdateService/FirmwareInventory/" +
-                                sw_inv_purpose.substr(last_pos + 1)}});
+                                swInvPurpose.substr(lastPos + 1)}});
                       res.jsonValue["Members@odata.count"] =
                           res.jsonValue["Members"].size();
                       res.end();
@@ -227,11 +227,11 @@ class SoftwareInventory : public Node {
       return;
     }
 
-    const std::string &sw_id = params[0];
+    const std::string &swId = params[0];
     res.jsonValue["@odata.id"] =
-        "/redfish/v1/UpdateService/FirmwareInventory/" + sw_id;
-    softwareInventoryProvider.get_all_software_inventory_object(
-        [&, id{std::string(sw_id)} ](
+        "/redfish/v1/UpdateService/FirmwareInventory/" + swId;
+    softwareInventoryProvider.getAllSoftwareInventoryObject(
+        [&, id{std::string(swId)} ](
             const bool &success,
             const std::vector<std::pair<
                 std::string,
@@ -277,10 +277,10 @@ class SoftwareInventory : public Node {
                       BMCWEB_LOG_DEBUG << "Can't find property \"Purpose\"!";
                       return;
                     }
-                    const std::string &sw_inv_purpose =
+                    const std::string &swInvPurpose =
                         *(mapbox::getPtr<const std::string>(it->second));
-                    BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << sw_inv_purpose;
-                    if (boost::ends_with(sw_inv_purpose, "." + id)) {
+                    BMCWEB_LOG_DEBUG << "sw_inv_purpose = " << swInvPurpose;
+                    if (boost::ends_with(swInvPurpose, "." + id)) {
                       it = propertiesList.find("Version");
                       if (it == propertiesList.end()) {
                         BMCWEB_LOG_DEBUG << "Can't find property \"Version\"!";
