@@ -24,7 +24,7 @@
 
 namespace redfish {
 
-constexpr const char* DBUS_SENSOR_PREFIX = "/xyz/openbmc_project/sensors/";
+constexpr const char* dbusSensorPrefix = "/xyz/openbmc_project/sensors/";
 
 using GetSubTreeType = std::vector<
     std::pair<std::string,
