@@ -88,15 +88,15 @@ class UpdateService : public Node {
     res.jsonValue = Node::json;
     res.end();
   }
-  static void activateImage(const std::string &obj_path) {
+  static void activateImage(const std::string &objPath) {
     crow::connections::systemBus->async_method_call(
-        [obj_path](const boost::system::error_code error_code) {
+        [objPath](const boost::system::error_code error_code) {
           if (error_code) {
             BMCWEB_LOG_DEBUG << "error_code = " << error_code;
             BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
           }
         },
-        "xyz.openbmc_project.Software.BMC.Updater", obj_path,
+        "xyz.openbmc_project.Software.BMC.Updater", objPath,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Software.Activation", "RequestedActivation",
         sdbusplus::message::variant<std::string>(
@@ -154,13 +154,13 @@ class UpdateService : public Node {
                                 sdbusplus::message::variant<std::string>>>>>
           interfaces_properties;
 
-      sdbusplus::message::object_path obj_path;
+      sdbusplus::message::object_path objPath;
 
-      m.read(obj_path, interfaces_properties);  // Read in the object path
+      m.read(objPath, interfaces_properties);  // Read in the object path
                                                 // that was just created
-      // std::string str_objpath = obj_path.str;  // keep a copy for
+      // std::string str_objpath = objPath.str;  // keep a copy for
       // constructing response message
-      BMCWEB_LOG_DEBUG << "obj path = " << obj_path.str;  // str_objpath;
+      BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;  // str_objpath;
       for (auto &interface : interfaces_properties) {
         BMCWEB_LOG_DEBUG << "interface = " << interface.first;
 
@@ -172,7 +172,7 @@ class UpdateService : public Node {
           if (ec) {
             BMCWEB_LOG_ERROR << "error canceling timer " << ec;
           }
-          UpdateService::activateImage(obj_path.str);  // str_objpath);
+          UpdateService::activateImage(objPath.str);  // str_objpath);
           res.jsonValue = redfish::messages::success();
           BMCWEB_LOG_DEBUG << "ending response";
           res.end();
@@ -271,7 +271,7 @@ class SoftwareInventoryCollection : public Node {
               res.end();
               return;
             }
-            std::string fw_id = obj.first.substr(id_pos + 1);
+            std::string fwId = obj.first.substr(id_pos + 1);
 
             for (const auto &conn : connections) {
               const std::string connectionName = conn.first;
@@ -279,7 +279,7 @@ class SoftwareInventoryCollection : public Node {
               BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
 
               crow::connections::systemBus->async_method_call(
-                  [asyncResp, fw_id](
+                  [asyncResp, fwId](
                       const boost::system::error_code error_code,
                       const sdbusplus::message::variant<std::string>
                           &activation_status) {
@@ -304,7 +304,7 @@ class SoftwareInventoryCollection : public Node {
                     asyncResp->res.jsonValue["Members"].push_back(
                         {{"@odata.id",
                           "/redfish/v1/UpdateService/FirmwareInventory/" +
-                              fw_id}});
+                              fwId}});
                     asyncResp->res.jsonValue["Members@odata.count"] =
                         asyncResp->res.jsonValue["Members"].size();
                   },
@@ -362,12 +362,12 @@ class SoftwareInventory : public Node {
       return;
     }
 
-    const std::string &fw_id = params[0];
-    res.jsonValue["Id"] = fw_id;
+    const std::string &fwId = params[0];
+    res.jsonValue["Id"] = fwId;
     res.jsonValue["@odata.id"] =
-        "/redfish/v1/UpdateService/FirmwareInventory/" + fw_id;
+        "/redfish/v1/UpdateService/FirmwareInventory/" + fwId;
     softwareInventoryProvider.getAllSoftwareInventoryObject([
-      &res, id{std::string(fw_id)}
+      &res, id{std::string(fwId)}
     ](const bool &success,
       const std::vector<std::pair<
           std::string,
@@ -388,13 +388,13 @@ class SoftwareInventory : public Node {
         return;
       }
 
-      bool fw_id_found = false;
+      bool fwId_found = false;
 
       for (auto &obj : subtree) {
         if (boost::ends_with(obj.first, id) != true) {
           continue;
         }
-        fw_id_found = true;
+        fwId_found = true;
 
         const std::vector<std::pair<std::string, std::vector<std::string>>>
             &connections = obj.second;
@@ -469,7 +469,7 @@ class SoftwareInventory : public Node {
             connectionName, obj.first, "org.freedesktop.DBus.Properties",
             "GetAll", "xyz.openbmc_project.Software.Version");
       }
-      if (!fw_id_found) {
+      if (!fwId_found) {
         res.result(boost::beast::http::status::not_found);
         res.end();
         return;

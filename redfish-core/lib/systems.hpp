@@ -69,25 +69,25 @@ class OnDemandSystemsProvider {
                                         const std::vector<std::string> &resp) {
           // Callback requires vector<string> to retrieve all available board
           // list.
-          std::vector<std::string> board_list;
+          std::vector<std::string> boardList;
           if (ec) {
             // Something wrong on DBus, the error_code is not important at this
             // moment, just return success=false, and empty output. Since size
             // of vector may vary depending on information from Entity Manager,
             // and empty output could not be treated same way as error.
-            callback(false, board_list);
+            callback(false, boardList);
             return;
           }
           BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
           // Iterate over all retrieved ObjectPaths.
           for (const std::string &objpath : resp) {
-            std::size_t last_pos = objpath.rfind("/");
-            if (last_pos != std::string::npos) {
-              board_list.emplace_back(objpath.substr(last_pos + 1));
+            std::size_t lastPos = objpath.rfind("/");
+            if (lastPos != std::string::npos) {
+              boardList.emplace_back(objpath.substr(lastPos + 1));
             }
           }
           // Finally make a callback with useful data
-          callback(true, board_list);
+          callback(true, boardList);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -493,9 +493,9 @@ class SystemsCollection : public Node {
           if (success) {
             // ... prepare json array with appropriate @odata.id links
             nlohmann::json boardArray = nlohmann::json::array();
-            for (const std::string &board_item : output) {
+            for (const std::string &boardItem : output) {
               boardArray.push_back(
-                  {{"@odata.id", "/redfish/v1/Systems/" + board_item}});
+                  {{"@odata.id", "/redfish/v1/Systems/" + boardItem}});
             }
             // Then attach members, count size and return,
             Node::json["Members"] = boardArray;
