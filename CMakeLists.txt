@@ -109,20 +109,8 @@ include_directories (${BOOST_SRC_DIR})
 
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
-    include_directories (
-        ${CMAKE_BINARY_DIR}/sdbusplus-src ${CMAKE_BINARY_DIR}/prefix/include
-    )
-
-    set (WANT_TRANSACTION 0)
-
-    configure_file (
-        ${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/server.hpp.in
-        ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/server.hpp @ONLY
-    )
-    configure_file (
-        ${CMAKE_BINARY_DIR}/sdbusplus-src/sdbusplus/bus.hpp.in
-        ${CMAKE_BINARY_DIR}/prefix/include/sdbusplus/bus.hpp @ONLY
-    )
+    include_directories (${CMAKE_BINARY_DIR}/sdbusplus-src)
+    link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/.libs)
 endif ()
 
 # Openssl
