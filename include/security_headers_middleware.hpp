@@ -29,7 +29,13 @@ static const char* cacheControlValue = "no-Store,no-Cache";
 struct SecurityHeadersMiddleware {
   struct Context {};
 
-  void beforeHandle(crow::Request& req, Response& res, Context& ctx) {}
+  void beforeHandle(crow::Request& req, Response& res, Context& ctx) {
+#ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
+    if ("OPTIONS"_method == req.method()) {
+      res.end();
+    }
+#endif
+  }
 
   void afterHandle(Request& req, Response& res, Context& ctx) {
     /*
@@ -44,6 +50,16 @@ struct SecurityHeadersMiddleware {
     res.addHeader(contentSecurityKey, contentSecurityValue);
     res.addHeader(pragmaKey, pragmaValue);
     res.addHeader(cacheControlKey, cacheControlValue);
+
+#ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
+
+    res.addHeader("Access-Control-Allow-Origin", "http://localhost:8080");
+    res.addHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH");
+    res.addHeader("Access-Control-Allow-Credentials", "true");
+    res.addHeader("Access-Control-Allow-Headers",
+                  "Origin, Content-Type, Accept, Cookie, X-XSRF-TOKEN");
+
+#endif
   }
 };
 }  // namespace crow
