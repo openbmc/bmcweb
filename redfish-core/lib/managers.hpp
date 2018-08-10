@@ -20,10 +20,23 @@
 namespace redfish
 {
 
+/**
+ * DBus types primitives for several generic DBus interfaces
+ * TODO consider move this to separate file into boost::dbus
+ */
+using GetManagedObjectsType = boost::container::flat_map<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string,
+        boost::container::flat_map<
+            std::string, sdbusplus::message::variant<
+                             std::string, bool, uint8_t, int16_t, uint16_t,
+                             int32_t, uint32_t, int64_t, uint64_t, double>>>>;
+
 class Manager : public Node
 {
   public:
-    Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/openbmc/")
+    Manager(CrowApp &app) : Node(app, "/redfish/v1/Managers/openbmc/")
     {
         Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc";
         Node::json["@odata.type"] = "#Manager.v1_3_0.Manager";
@@ -32,19 +45,13 @@ class Manager : public Node
         Node::json["Name"] = "OpenBmc Manager";
         Node::json["Description"] = "Baseboard Management Controller";
         Node::json["PowerState"] = "On";
+        Node::json["ManagerType"] = "BMC";
         Node::json["UUID"] =
             app.template getMiddleware<crow::persistent_data::Middleware>()
                 .systemUuid;
-        Node::json["Model"] = "OpenBmc";              // TODO(ed), get model
-        Node::json["FirmwareVersion"] = "1234456789"; // TODO(ed), get fwversion
-        Node::json["EthernetInterfaces"] = nlohmann::json(
-            {{"@odata.id", "/redfish/v1/Managers/openbmc/"
-                           "EthernetInterfaces"}}); // TODO(Pawel),
-                                                    // remove this
-                                                    // when
-                                                    // subroutes
-                                                    // will work
-                                                    // correctly
+        Node::json["Model"] = "OpenBmc"; // TODO(ed), get model
+        Node::json["EthernetInterfaces"] = {
+            {"@odata.id", "/redfish/v1/Managers/openbmc/EthernetInterfaces"}};
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -56,13 +63,58 @@ class Manager : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
     {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue = Node::json;
+
         Node::json["DateTime"] = getDateTime();
-        // Copy over the static data to include the entries added by SubRoute
         res.jsonValue = Node::json;
-        res.end();
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error while getting Software Version";
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+
+                for (auto &objpath : resp)
+                {
+                    for (auto &interface : objpath.second)
+                    {
+                        // If interface is xyz.openbmc_project.Software.Version,
+                        // this is what we're looking for.
+                        if (interface.first ==
+                            "xyz.openbmc_project.Software.Version")
+                        {
+                            // Cut out everyting until last "/", ...
+                            const std::string &iface_id = objpath.first;
+                            for (auto &property : interface.second)
+                            {
+                                if (property.first == "Version")
+                                {
+                                    const std::string *value =
+                                        mapbox::getPtr<const std::string>(
+                                            property.second);
+                                    if (value == nullptr)
+                                    {
+                                        continue;
+                                    }
+                                    asyncResp->res
+                                        .jsonValue["FirmwareVersion"] = *value;
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.Software.BMC.Updater",
+            "/xyz/openbmc_project/software",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
     std::string getDateTime() const
@@ -86,7 +138,7 @@ class Manager : public Node
 class ManagerCollection : public Node
 {
   public:
-    ManagerCollection(CrowApp& app) : Node(app, "/redfish/v1/Managers/")
+    ManagerCollection(CrowApp &app) : Node(app, "/redfish/v1/Managers/")
     {
         Node::json["@odata.id"] = "/redfish/v1/Managers";
         Node::json["@odata.type"] = "#ManagerCollection.ManagerCollection";
@@ -107,8 +159,8 @@ class ManagerCollection : public Node
     }
 
   private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
     {
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
