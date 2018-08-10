@@ -22,6 +22,105 @@
 
 namespace redfish
 {
+
+/**
+ * ManagerActionsReset class supports handle POST method for Reset action.
+ * The class retrieves and sends data directly to dbus.
+ */
+class ManagerActionsReset : public Node
+{
+  public:
+    ManagerActionsReset(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/Actions/Manager.Reset/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Function handles GET method request.
+     * ManagerActionReset supports for POST method,
+     * it is not required to retrieve more information in GET.
+     */
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = Node::json;
+        res.end();
+    }
+
+    /**
+     * Function handles POST method request.
+     * Analyzes POST body message before sends Reset request data to dbus.
+     * OpenBMC allows for ResetType is GracefulRestart only.
+     */
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        std::string resetType;
+
+        if (!json_util::readJson(req, res, "ResetType", resetType))
+        {
+            return;
+        }
+
+        if (resetType != "GracefulRestart")
+        {
+            res.result(boost::beast::http::status::bad_request);
+            messages::actionParameterNotSupported(res, resetType, "ResetType");
+            BMCWEB_LOG_ERROR << "Request incorrect action parameter: "
+                             << resetType;
+            res.end();
+            return;
+        }
+        doBMCGracefulRestart(res, req, params);
+    }
+
+    /**
+     * Function transceives data with dbus directly.
+     * All BMC state properties will be retrieved before sending reset request.
+     */
+    void doBMCGracefulRestart(crow::Response& res, const crow::Request& req,
+                              const std::vector<std::string>& params)
+    {
+        const char* processName = "xyz.openbmc_project.State.BMC";
+        const char* objectPath = "/xyz/openbmc_project/state/bmc0";
+        const char* interfaceName = "xyz.openbmc_project.State.BMC";
+        const std::string& propertyValue =
+            "xyz.openbmc_project.State.BMC.Transition.Reboot";
+        const char* destProperty = "RequestedBMCTransition";
+
+        // Create the D-Bus variant for D-Bus call.
+        VariantType dbusPropertyValue(propertyValue);
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                // Use "Set" method to set the property value.
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "[Set] Bad D-Bus request error: " << ec;
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                asyncResp->res.result(boost::beast::http::status::ok);
+                messages::success(asyncResp->res);
+            },
+            processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
+            interfaceName, destProperty, dbusPropertyValue);
+    }
+};
+
 static constexpr const char* objectManagerIface =
     "org.freedesktop.DBus.ObjectManager";
 static constexpr const char* pidConfigurationIface =
@@ -625,11 +724,18 @@ class Manager : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        asyncResp->res.jsonValue = Node::json;
+        // Update Actions object.
+        nlohmann::json manager_reset;
+        manager_reset["target"] =
+            "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
+        manager_reset["ResetType@Redfish.AllowableValues"] = {
+            "GracefulRestart"};
+
+        Node::json["Actions"]["#Manager.Reset"] = manager_reset;
 
         Node::json["DateTime"] = getDateTime();
-        res.jsonValue = Node::json;
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue = Node::json;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
