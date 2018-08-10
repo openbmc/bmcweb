@@ -61,7 +61,7 @@ int main(int argc, char** argv) {
   // Static assets need to be initialized before Authorization, because auth
   // needs to build the whitelist from the static routes
 
-#ifdef BMCWEB_ENABLE_PHOSPHOR_WEBUI
+#ifdef BMCWEB_ENABLE_STATIC_HOSTING
   crow::webassets::requestRoutes(app);
 #endif
 
