@@ -5,7 +5,7 @@
 #include <string>
 
 inline bool gzipInflate(const std::string& compressedBytes,
-                         std::string& uncompressedBytes) {
+                        std::string& uncompressedBytes) {
   if (compressedBytes.empty()) {
     uncompressedBytes = compressedBytes;
     return true;

@@ -74,14 +74,14 @@ class Node {
   void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes) {
     const std::string* url = getUrl();
     if (url == nullptr) {
-      //BMCWEB_LOG_CRITICAL << "Unable to get url for route";
+      // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
       return;
     }
 
     for (const auto& node : allNodes) {
       const std::string* route = node->getUrl();
       if (route == nullptr) {
-        //BMCWEB_LOG_CRITICAL << "Unable to get url for route";
+        // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
         continue;
       }
       if (boost::starts_with(*route, *url)) {

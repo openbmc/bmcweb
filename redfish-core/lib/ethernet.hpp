@@ -640,10 +640,11 @@ class OnDemandEthernetProvider {
   void getEthernetIfaceData(const std::string &ethifaceId,
                             CallbackFunc &&callback) {
     crow::connections::systemBus->async_method_call(
-        [this, ethifaceId{std::move(ethifaceId)},
-         callback{std::move(callback)}](
-            const boost::system::error_code error_code,
-            const GetManagedObjectsType &resp) {
+        [
+          this, ethifaceId{std::move(ethifaceId)}, callback{std::move(callback)}
+        ](const boost::system::error_code error_code,
+          const GetManagedObjectsType &resp) {
+
           EthernetInterfaceData ethData{};
           std::vector<IPv4AddressData> ipv4Data;
           ipv4Data.reserve(maxIpV4AddressesPerInterface);
@@ -1482,7 +1483,7 @@ class VlanNetworkInterface : public Node {
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId, [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq)](
+        ifaceId, [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
                      const bool &success, const EthernetInterfaceData &eth_data,
                      const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
