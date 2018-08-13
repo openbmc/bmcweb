@@ -116,7 +116,7 @@ class OnDemandSystemsProvider {
     };
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [name, aResp{std::move(aResp)}](
+        [ name, aResp{std::move(aResp)} ](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -146,7 +146,7 @@ class OnDemandSystemsProvider {
               BMCWEB_LOG_DEBUG << "Found name: " << name;
               const std::string connectionName = connectionNames[0].first;
               crow::connections::systemBus->async_method_call(
-                  [aResp, name(std::string(name))](
+                  [ aResp, name(std::string(name)) ](
                       const boost::system::error_code ec,
                       const std::vector<std::pair<std::string, VariantType>>
                           &propertiesList) {
@@ -332,9 +332,9 @@ class OnDemandSystemsProvider {
                            CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}, &callback](
-            const boost::system::error_code &ec,
-            const ManagedObjectsType &resp) {
+        [
+          aResp{std::move(aResp)}, &callback
+        ](const boost::system::error_code &ec, const ManagedObjectsType &resp) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -372,8 +372,9 @@ class OnDemandSystemsProvider {
                       CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get identify led properties";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}, &callback](const boost::system::error_code ec,
-                                             const PropertiesType &properties) {
+        [ aResp{std::move(aResp)}, &callback ](
+            const boost::system::error_code ec,
+            const PropertiesType &properties) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -645,7 +646,7 @@ class Systems : public Node {
       // Update led group
       BMCWEB_LOG_DEBUG << "Update led group.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)}](
+          [&, asyncResp{std::move(asyncResp)} ](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -663,7 +664,7 @@ class Systems : public Node {
       // Update identify led status
       BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)}](
+          [&, asyncResp{std::move(asyncResp)} ](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;

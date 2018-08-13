@@ -53,8 +53,8 @@ void introspectObjects(crow::Response &res, std::string process_name,
         // if we're the last outstanding caller, finish the request
         if (transaction.use_count() == 1) {
           res.jsonValue = {{"status", "ok"},
-                            {"bus_name", processName},
-                            {"objects", std::move(*transaction)}};
+                           {"bus_name", processName},
+                           {"objects", std::move(*transaction)}};
           res.end();
         }
       },
@@ -198,7 +198,7 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
                          const nlohmann::json &input_json) {
   int r = 0;
   BMCWEB_LOG_DEBUG << "Converting " << input_json.dump()
-                 << " to type: " << arg_type;
+                   << " to type: " << arg_type;
   const std::vector<std::string> arg_types = dbus_arg_split(arg_type);
 
   // Assume a single object for now.
@@ -335,7 +335,7 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
     } else if (boost::starts_with(arg_code, "v")) {
       std::string contained_type = arg_code.substr(1);
       BMCWEB_LOG_DEBUG << "variant type: " << arg_code
-                     << " appending variant of type: " << contained_type;
+                       << " appending variant of type: " << contained_type;
       r = sd_bus_message_open_container(m, SD_BUS_TYPE_VARIANT,
                                         contained_type.c_str());
       if (r < 0) {
@@ -408,7 +408,7 @@ int convert_json_to_dbus(sd_bus_message *m, const std::string &arg_type,
 void find_action_on_interface(std::shared_ptr<InProgressActionData> transaction,
                               const std::string &connectionName) {
   BMCWEB_LOG_DEBUG << "find_action_on_interface for connection "
-                 << connectionName;
+                   << connectionName;
   crow::connections::systemBus->async_method_call(
       [
         transaction, connectionName{std::string(connectionName)}
@@ -416,16 +416,16 @@ void find_action_on_interface(std::shared_ptr<InProgressActionData> transaction,
         BMCWEB_LOG_DEBUG << "got xml:\n " << introspect_xml;
         if (ec) {
           BMCWEB_LOG_ERROR << "Introspect call failed with error: "
-                         << ec.message() << " on process: " << connectionName
-                         << "\n";
+                           << ec.message() << " on process: " << connectionName
+                           << "\n";
         } else {
           tinyxml2::XMLDocument doc;
 
           doc.Parse(introspect_xml.c_str());
           tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
           if (pRoot == nullptr) {
-            BMCWEB_LOG_ERROR << "XML document failed to parse " << connectionName
-                           << "\n";
+            BMCWEB_LOG_ERROR << "XML document failed to parse "
+                             << connectionName << "\n";
 
           } else {
             tinyxml2::XMLElement *interface_node =
@@ -478,8 +478,8 @@ void find_action_on_interface(std::shared_ptr<InProgressActionData> transaction,
                           return;
                         }
                         transaction->res.jsonValue = {{"status", "ok"},
-                                                       {"message", "200 OK"},
-                                                       {"data", nullptr}};
+                                                      {"message", "200 OK"},
+                                                      {"data", nullptr}};
                       });
                   break;
                 }
@@ -526,7 +526,7 @@ void handle_action(const crow::Request &req, crow::Response &res,
         }
 
         BMCWEB_LOG_DEBUG << "GetObject returned objects "
-                       << interface_names.size();
+                         << interface_names.size();
 
         for (const std::pair<std::string, std::vector<std::string>> &object :
              interface_names) {
@@ -546,8 +546,8 @@ void handle_list(crow::Response &res, const std::string &objectPath) {
           res.result(boost::beast::http::status::internal_server_error);
         } else {
           res.jsonValue = {{"status", "ok"},
-                            {"message", "200 OK"},
-                            {"data", std::move(objectPaths)}};
+                           {"message", "200 OK"},
+                           {"data", std::move(objectPaths)}};
         }
         res.end();
       },
@@ -563,8 +563,8 @@ void handle_enumerate(crow::Response &res, const std::string &objectPath) {
           const GetSubTreeType &object_names) {
         if (ec) {
           res.jsonValue = {{"message", "200 OK"},
-                            {"status", "ok"},
-                            {"data", nlohmann::json::object()}};
+                           {"status", "ok"},
+                           {"data", nlohmann::json::object()}};
 
           res.end();
           return;
@@ -597,14 +597,15 @@ void handle_enumerate(crow::Response &res, const std::string &objectPath) {
 
 void handle_get(crow::Response &res, std::string &object_path,
                 std::string &dest_property) {
-  BMCWEB_LOG_DEBUG << "handle_get: " << object_path << " prop:" << dest_property;
+  BMCWEB_LOG_DEBUG << "handle_get: " << object_path
+                   << " prop:" << dest_property;
   std::shared_ptr<std::string> property_name =
       std::make_shared<std::string>(dest_property);
   using GetObjectType =
       std::vector<std::pair<std::string, std::vector<std::string>>>;
   crow::connections::systemBus->async_method_call(
       [&res, object_path, property_name](const boost::system::error_code ec,
-                                  const GetObjectType &object_names) {
+                                         const GetObjectType &object_names) {
         if (ec || object_names.size() <= 0) {
           res.result(boost::beast::http::status::not_found);
           res.end();
@@ -653,8 +654,8 @@ void handle_get(crow::Response &res, std::string &object_path,
                   }
                   if (response.use_count() == 1) {
                     res.jsonValue = {{"status", "ok"},
-                                      {"message", "200 OK"},
-                                      {"data", *response}};
+                                     {"message", "200 OK"},
+                                     {"data", *response}};
 
                     res.end();
                   }
@@ -761,7 +762,7 @@ void handle_put(const crow::Request &req, crow::Response &res,
                 tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
                 if (pRoot == nullptr) {
                   BMCWEB_LOG_ERROR << "XML document failed to parse: "
-                                 << introspectXml;
+                                   << introspectXml;
                   transaction->setErrorStatus();
                   return;
                 }
@@ -1004,9 +1005,8 @@ void requestRoutes(Crow<Middlewares...> &app) {
         }
         if (interfaceName.empty()) {
           crow::connections::systemBus->async_method_call(
-              [&, processName, objectPath](
-                  const boost::system::error_code ec,
-                  const std::string &introspect_xml) {
+              [&, processName, objectPath](const boost::system::error_code ec,
+                                           const std::string &introspect_xml) {
                 if (ec) {
                   BMCWEB_LOG_ERROR
                       << "Introspect call failed with error: " << ec.message()
