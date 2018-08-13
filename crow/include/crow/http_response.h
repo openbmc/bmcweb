@@ -102,7 +102,6 @@ struct Response {
       return;
     }
     completeRequestHandler();
-
   }
 
   void end(boost::string_view body_part) {

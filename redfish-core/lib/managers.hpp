@@ -43,12 +43,13 @@ class Manager : public Node {
                                                                  // will work
                                                                  // correctly
 
-    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                        {boost::beast::http::verb::head, {{"Login"}}},
-                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
@@ -87,12 +88,13 @@ class ManagerCollection : public Node {
     Node::json["Members@odata.count"] = 1;
     Node::json["Members"] = {{{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
 
-    entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                        {boost::beast::http::verb::head, {{"Login"}}},
-                        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-                        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    entityPrivileges = {
+        {boost::beast::http::verb::get, {{"Login"}}},
+        {boost::beast::http::verb::head, {{"Login"}}},
+        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
   }
 
  private:
