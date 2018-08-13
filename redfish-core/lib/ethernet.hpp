@@ -643,8 +643,7 @@ class OnDemandEthernetProvider {
                             CallbackFunc &&callback) {
     crow::connections::systemBus->async_method_call(
         [
-          this, ethifaceId{std::move(ethifaceId)},
-          callback{std::move(callback)}
+          this, ethifaceId{std::move(ethifaceId)}, callback{std::move(callback)}
         ](const boost::system::error_code error_code,
           const GetManagedObjectsType &resp) {
 
@@ -1444,13 +1443,12 @@ class VlanNetworkInterface : public Node {
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId,
-        [&, parentIfaceId, ifaceId](
-            const bool &success, const EthernetInterfaceData &eth_data,
-            const std::vector<IPv4AddressData> &ipv4_data) {
+        ifaceId, [&, parentIfaceId, ifaceId](
+                     const bool &success, const EthernetInterfaceData &eth_data,
+                     const std::vector<IPv4AddressData> &ipv4_data) {
           if (success && eth_data.vlanId != nullptr) {
-            res.jsonValue = parseInterfaceData(parentIfaceId, ifaceId,
-                                                eth_data, ipv4_data);
+            res.jsonValue =
+                parseInterfaceData(parentIfaceId, ifaceId, eth_data, ipv4_data);
           } else {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object, and
@@ -1488,10 +1486,9 @@ class VlanNetworkInterface : public Node {
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId,
-        [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
-            const bool &success, const EthernetInterfaceData &eth_data,
-            const std::vector<IPv4AddressData> &ipv4_data) {
+        ifaceId, [&, parent_ifaceId, ifaceId, patchReq = std::move(patchReq) ](
+                     const bool &success, const EthernetInterfaceData &eth_data,
+                     const std::vector<IPv4AddressData> &ipv4_data) {
           if (!success) {
             // ... otherwise return error
             // TODO(Pawel)consider distinguish between non existing object,
@@ -1506,8 +1503,8 @@ class VlanNetworkInterface : public Node {
             return;
           }
 
-          res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
-                                              eth_data, ipv4_data);
+          res.jsonValue =
+              parseInterfaceData(parent_ifaceId, ifaceId, eth_data, ipv4_data);
 
           std::shared_ptr<AsyncResp> asyncResp =
               std::make_shared<AsyncResp>(res);
@@ -1521,8 +1518,7 @@ class VlanNetworkInterface : public Node {
               if (fieldInJsonIt == res.jsonValue.end()) {
                 // Field not in scope of defined fields
                 messages::addMessageToJsonRoot(
-                    res.jsonValue,
-                    messages::propertyUnknown(propertyIt.key()));
+                    res.jsonValue, messages::propertyUnknown(propertyIt.key()));
               } else if (*fieldInJsonIt != *propertyIt) {
                 // User attempted to modify non-writable field
                 messages::addMessageToJsonRoot(
@@ -1555,13 +1551,12 @@ class VlanNetworkInterface : public Node {
     // Get single eth interface data, and call the below callback for JSON
     // preparation
     ethernetProvider.getEthernetIfaceData(
-        ifaceId,
-        [&, parent_ifaceId, ifaceId](
-            const bool &success, const EthernetInterfaceData &eth_data,
-            const std::vector<IPv4AddressData> &ipv4_data) {
+        ifaceId, [&, parent_ifaceId, ifaceId](
+                     const bool &success, const EthernetInterfaceData &eth_data,
+                     const std::vector<IPv4AddressData> &ipv4_data) {
           if (success && eth_data.vlanId != nullptr) {
             res.jsonValue = parseInterfaceData(parent_ifaceId, ifaceId,
-                                                eth_data, ipv4_data);
+                                               eth_data, ipv4_data);
 
             // Disable VLAN
             OnDemandEthernetProvider::disableVlan(
