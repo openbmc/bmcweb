@@ -41,6 +41,7 @@ void requestRoutes(Crow<Middlewares...>& app) {
            {".xml", "application/xml"},
            {".jpg", "image/jpeg"},
            {".jpeg", "image/jpeg"},
+           {".json", "application/json"},
            // dev tools don't care about map type, setting to json causes
            // browser to show as text
            // https://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-javascript-source-map-files
