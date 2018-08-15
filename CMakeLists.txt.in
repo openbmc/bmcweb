@@ -6,15 +6,16 @@ file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix)
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix/include)
 
 # requires apt install autoconf-archive and autoconf
-externalproject_add (sdbusplus-project PREFIX
-                     ${CMAKE_BINARY_DIR}/sdbusplus-project GIT_REPOSITORY
-                     https://github.com/openbmc/sdbusplus.git GIT_TAG
-                     fac43a650e59e873688d5fc6e06b5bdc88ba0546 SOURCE_DIR
-                     ${CMAKE_BINARY_DIR}/sdbusplus-src BINARY_DIR
-                     ${CMAKE_BINARY_DIR}/sdbusplus-build CONFIGURE_COMMAND ""
-                     BUILD_COMMAND cd ${CMAKE_BINARY_DIR}/sdbusplus-src &&
-                     ./bootstrap.sh && ./configure --enable-transaction && make
-                     -j libsdbusplus.la INSTALL_COMMAND "" LOG_DOWNLOAD ON)
+externalproject_add (
+    sdbusplus-project PREFIX ${CMAKE_BINARY_DIR}/sdbusplus-project
+    GIT_REPOSITORY https://github.com/openbmc/sdbusplus.git GIT_TAG
+    fac43a650e59e873688d5fc6e06b5bdc88ba0546 SOURCE_DIR
+    ${CMAKE_BINARY_DIR}/sdbusplus-src BINARY_DIR
+    ${CMAKE_BINARY_DIR}/sdbusplus-build CONFIGURE_COMMAND "" BUILD_COMMAND cd
+    ${CMAKE_BINARY_DIR}/sdbusplus-src && ./bootstrap.sh && ./configure
+    --enable-transaction && make -j libsdbusplus.la INSTALL_COMMAND ""
+    LOG_DOWNLOAD ON
+)
 
 externalproject_add (
     tinyxml2 GIT_REPOSITORY https://github.com/leethomason/tinyxml2.git GIT_TAG
