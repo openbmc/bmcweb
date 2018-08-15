@@ -116,7 +116,7 @@ class OnDemandSystemsProvider {
     };
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [ name, aResp{std::move(aResp)} ](
+        [name, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -146,7 +146,7 @@ class OnDemandSystemsProvider {
               BMCWEB_LOG_DEBUG << "Found name: " << name;
               const std::string connectionName = connectionNames[0].first;
               crow::connections::systemBus->async_method_call(
-                  [ aResp, name(std::string(name)) ](
+                  [aResp, name(std::string(name))](
                       const boost::system::error_code ec,
                       const std::vector<std::pair<std::string, VariantType>>
                           &propertiesList) {
@@ -332,9 +332,9 @@ class OnDemandSystemsProvider {
                            CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
-        [
-          aResp{std::move(aResp)}, &callback
-        ](const boost::system::error_code &ec, const ManagedObjectsType &resp) {
+        [aResp{std::move(aResp)}, &callback](
+            const boost::system::error_code &ec,
+            const ManagedObjectsType &resp) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -372,9 +372,8 @@ class OnDemandSystemsProvider {
                       CallbackFunc &&callback) {
     BMCWEB_LOG_DEBUG << "Get identify led properties";
     crow::connections::systemBus->async_method_call(
-        [ aResp{std::move(aResp)}, &callback ](
-            const boost::system::error_code ec,
-            const PropertiesType &properties) {
+        [aResp{std::move(aResp)}, &callback](const boost::system::error_code ec,
+                                             const PropertiesType &properties) {
           if (ec) {
             BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
             aResp->setErrorStatus();
@@ -513,7 +512,116 @@ class SystemsCollection : public Node {
 };
 
 /**
- * Systems override class for delivering ComputerSystems Schema
+ * SystemActionsReset class supports handle POST method for Reset action.
+ * The class retrieves and sends data directly to D-Bus.
+ */
+class SystemActionsReset : public Node {
+ public:
+  SystemActionsReset(CrowApp &app)
+      : Node(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/",
+             std::string()) {
+    entityPrivileges = {
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  /**
+   * Function handles POST method request.
+   * Analyzes POST body message before sends Reset request data to D-Bus.
+   */
+  void doPost(crow::Response &res, const crow::Request &req,
+              const std::vector<std::string> &params) override {
+    // Parse JSON request body.
+    nlohmann::json post;
+    if (!json_util::processJsonFromRequest(res, req, post)) {
+      return;
+    }
+
+    auto asyncResp = std::make_shared<AsyncResp>(res);
+
+    for (const auto &item : post.items()) {
+      if (item.key() == "ResetType") {
+        const std::string *reqResetType =
+            item.value().get_ptr<const std::string *>();
+        if (reqResetType == nullptr) {
+          res.result(boost::beast::http::status::bad_request);
+          messages::addMessageToErrorJson(
+              asyncResp->res.jsonValue,
+              messages::actionParameterValueFormatError(
+                  item.value().dump(), "ResetType", "ComputerSystem.Reset"));
+          res.end();
+          return;
+        }
+
+        if (*reqResetType == "ForceOff") {
+          // Force off acts on the chassis
+          crow::connections::systemBus->async_method_call(
+              [asyncResp](const boost::system::error_code ec) {
+                if (ec) {
+                  BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                  asyncResp->res.result(
+                      boost::beast::http::status::internal_server_error);
+                  return;
+                }
+                // TODO Consider support polling mechanism to verify status of
+                // host and chassis after execute the requested action.
+                BMCWEB_LOG_DEBUG << "Response with no content";
+                asyncResp->res.result(boost::beast::http::status::no_content);
+              },
+              "xyz.openbmc_project.State.Chassis",
+              "/xyz/openbmc_project/state/chassis0",
+              "org.freedesktop.DBus.Properties", "Set",
+              "RequestedPowerTransition",
+              sdbusplus::message::variant<std::string>{
+                  "xyz.openbmc_project.State.Chassis.Transition.Off"});
+          return;
+        }
+        // all other actions operate on the host
+        std::string command;
+        // Execute Reset Action regarding to each reset type.
+        if (*reqResetType == "On") {
+          command = "xyz.openbmc_project.State.Host.Transition.On";
+        } else if (*reqResetType == "GracefulShutdown") {
+          command = "xyz.openbmc_project.State.Host.Transition.Off";
+        } else if (*reqResetType == "GracefulRestart") {
+          command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+        } else {
+          res.result(boost::beast::http::status::bad_request);
+          messages::addMessageToErrorJson(
+              asyncResp->res.jsonValue,
+              messages::actionParameterUnknown("Reset", *reqResetType));
+          res.end();
+          return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+              if (ec) {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+              }
+              // TODO Consider support polling mechanism to verify status of
+              // host and chassis after execute the requested action.
+              BMCWEB_LOG_DEBUG << "Response with no content";
+              asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            "xyz.openbmc_project.State.Host",
+            "/xyz/openbmc_project/state/host0",
+            "org.freedesktop.DBus.Properties", "Set", "RequestedHostTransition",
+            sdbusplus::message::variant<std::string>{command});
+      } else {
+        messages::addMessageToErrorJson(
+            asyncResp->res.jsonValue, messages::actionParameterUnknown(
+                                          "ComputerSystem.Reset", item.key()));
+      }
+    }
+  }
+};
+
+/**
+ * Systems derived class for delivering Computer Systems Schema.
  */
 class Systems : public Node {
  public:
@@ -540,7 +648,6 @@ class Systems : public Node {
     Node::json["ProcessorSummary"]["Status"]["State"] = "Disabled";
     Node::json["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
     Node::json["MemorySummary"]["Status"]["State"] = "Disabled";
-
     entityPrivileges = {
         {boost::beast::http::verb::get, {{"Login"}}},
         {boost::beast::http::verb::head, {{"Login"}}},
@@ -570,6 +677,13 @@ class Systems : public Node {
 
     res.jsonValue = Node::json;
     res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+
+    // TODO Need to support ForceRestart.
+    res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+        {"target",
+         "/redfish/v1/Systems/" + name + "/Actions/ComputerSystem.Reset"},
+        {"ResetType@Redfish.AllowableValues",
+         {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
 
     auto asyncResp = std::make_shared<SystemAsyncResp>(res);
 
@@ -646,7 +760,7 @@ class Systems : public Node {
       // Update led group
       BMCWEB_LOG_DEBUG << "Update led group.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)} ](
+          [&, asyncResp{std::move(asyncResp)}](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -664,7 +778,7 @@ class Systems : public Node {
       // Update identify led status
       BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
       crow::connections::systemBus->async_method_call(
-          [&, asyncResp{std::move(asyncResp)} ](
+          [&, asyncResp{std::move(asyncResp)}](
               const boost::system::error_code ec) {
             if (ec) {
               BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
