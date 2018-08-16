@@ -1,5 +1,18 @@
-#pragma once
+// Copyright (c) 2018 Intel Corporation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
+#pragma once
 #include <crow/app.h>
 #include <tinyxml2.h>
 
@@ -7,6 +20,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+#include <dbus_utility.hpp>
 #include <experimental/filesystem>
 #include <fstream>
 
@@ -77,29 +91,15 @@ void introspectObjects(const std::string &processName,
         "Introspect");
 }
 
-// A smattering of common types to unpack.  TODO(ed) this should really iterate
-// the sdbusplus object directly and build the json response
-using DbusRestVariantType = sdbusplus::message::variant<
-    std::vector<std::tuple<std::string, std::string, std::string>>, std::string,
-    int64_t, uint64_t, double, int32_t, uint32_t, int16_t, uint16_t, uint8_t,
-    bool>;
-
-using ManagedObjectType = std::vector<std::pair<
-    sdbusplus::message::object_path,
-    boost::container::flat_map<
-        std::string,
-        boost::container::flat_map<std::string, DbusRestVariantType>>>>;
-
-void getManagedObjectsForEnumerate(const std::string &object_name,
+void getManagedObjectsForEnumerate(const std::striqng &object_name,
                                    const std::string &object_manager_path,
                                    const std::string &connection_name,
                                    crow::Response &res,
                                    std::shared_ptr<nlohmann::json> transaction)
 {
     crow::connections::systemBus->async_method_call(
-        [&res, transaction, object_name{std::string(object_name)}](
-            const boost::system::error_code ec,
-            const ManagedObjectType &objects) {
+        [&res, transaction](const boost::system::error_code ec,
+                            const dbus::utility::ManagedObjectType &objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -840,8 +840,8 @@ void handleGet(crow::Response &res, std::string &objectPath,
                     crow::connections::systemBus->async_method_call(
                         [&res, response, propertyName](
                             const boost::system::error_code ec,
-                            const std::vector<
-                                std::pair<std::string, DbusRestVariantType>>
+                            const std::vector<std::pair<
+                                std::string, dbus::utility::DbusVariantType>>
                                 &properties) {
                             if (ec)
                             {
@@ -850,8 +850,9 @@ void handleGet(crow::Response &res, std::string &objectPath,
                             }
                             else
                             {
-                                for (const std::pair<std::string,
-                                                     DbusRestVariantType>
+                                for (const std::pair<
+                                         std::string,
+                                         dbus::utility::DbusVariantType>
                                          &property : properties)
                                 {
                                     // if property name is empty, or matches our
