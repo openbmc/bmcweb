@@ -266,19 +266,86 @@ void objectInterfacesToJson(
         BMCWEB_LOG_ERROR << "Sensor doesn't have a value interface";
         return;
     }
+  }
 
-    // Assume values exist as is (10^0 == 1) if no scale exists
-    int64_t scaleMultiplier = 0;
+  sensor_json["MemberId"] = sensorName;
+  sensor_json["Name"] = sensorName;
+  sensor_json["Status"]["State"] = "Enabled";
+  sensor_json["Status"]["Health"] = "OK";
 
-    auto scaleIt = valueIt->second.find("Scale");
-    // If a scale exists, pull value as int64, and use the scaling.
-    if (scaleIt != valueIt->second.end())
-    {
-        const int64_t* int64Value =
-            mapbox::getPtr<const int64_t>(scaleIt->second);
-        if (int64Value != nullptr)
-        {
-            scaleMultiplier = *int64Value;
+  // Parameter to set to override the type we get from dbus, and force it to
+  // int, regardless of what is available.  This is used for schemas like fan,
+  // that require integers, not floats.
+  bool forceToInt = false;
+
+  const char* unit = "Reading";
+  if (sensorType == "temperature") {
+    unit = "ReadingCelsius";
+    sensor_json["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+    // TODO(ed) Documentation says that path should be type fan_tach,
+    // implementation seems to implement fan
+  } else if (sensorType == "fan" || sensorType == "fan_tach") {
+    unit = "Reading";
+    sensor_json["ReadingUnits"] = "RPM";
+    sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+    forceToInt = true;
+  } else if (sensorType == "fan_pwm") {
+    unit = "Reading";
+    sensor_json["ReadingUnits"] = "Percentage";
+    sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+    forceToInt = true;
+  } else if (sensorType == "voltage") {
+    unit = "ReadingVolts";
+    sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
+  } else {
+    BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
+    return;
+  }
+  // Map of dbus interface name, dbus property name and redfish property_name
+  std::vector<std::tuple<const char*, const char*, const char*>> properties;
+  properties.reserve(7);
+
+  properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
+  properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                          "WarningHigh", "UpperThresholdNonCritical");
+  properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                          "WarningLow", "LowerThresholdNonCritical");
+  properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                          "CriticalHigh", "UpperThresholdCritical");
+  properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                          "CriticalLow", "LowerThresholdCritical");
+
+  if (sensorType == "temperature") {
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
+                            "MinReadingRangeTemp");
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
+                            "MaxReadingRangeTemp");
+  } else {
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
+                            "MinReadingRange");
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
+                            "MaxReadingRange");
+  }
+
+  for (const std::tuple<const char*, const char*, const char*>& p :
+       properties) {
+    auto interfaceProperties = interfacesDict.find(std::get<0>(p));
+    if (interfaceProperties != interfacesDict.end()) {
+      auto valueIt = interfaceProperties->second.find(std::get<1>(p));
+      if (valueIt != interfaceProperties->second.end()) {
+        const SensorVariant& valueVariant = valueIt->second;
+        nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
+
+        // Attempt to pull the int64 directly
+        const int64_t* int64Value = mapbox::getPtr<const int64_t>(valueVariant);
+
+        if (int64Value != nullptr) {
+          if (forceToInt || scaleMultiplier >= 0) {
+            valueIt = *int64Value * std::pow(10, scaleMultiplier);
+          } else {
+            valueIt = *int64Value *
+                      std::pow(10, static_cast<double>(scaleMultiplier));
+          }
         }
     }
 
@@ -304,6 +371,13 @@ void objectInterfacesToJson(
     {
         unit = "Reading";
         sensor_json["ReadingUnits"] = "RPM";
+        sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        forceToInt = true;
+    }
+    else if (sensorType == "fan_pwm")
+    {
+        unit = "Reading";
+        sensor_json["ReadingUnits"] = "Percent";
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
         forceToInt = true;
     }
@@ -357,41 +431,35 @@ void objectInterfacesToJson(
             {
                 const SensorVariant& valueVariant = valueIt->second;
                 nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
-
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value =
                     mapbox::getPtr<const int64_t>(valueVariant);
 
-                if (int64Value != nullptr)
-                {
-                    if (forceToInt || scaleMultiplier >= 0)
-                    {
-                        valueIt = *int64Value * std::pow(10, scaleMultiplier);
-                    }
-                    else
-                    {
-                        valueIt =
-                            *int64Value *
-                            std::pow(10, static_cast<double>(scaleMultiplier));
-                    }
-                }
-                // Attempt to pull the float directly
                 const double* doubleValue =
                     mapbox::getPtr<const double>(valueVariant);
-
-                if (doubleValue != nullptr)
+                double temp = 0.0;
+                if (int64Value != nullptr)
                 {
-                    if (!forceToInt)
-                    {
-                        valueIt =
-                            *doubleValue *
-                            std::pow(10, static_cast<double>(scaleMultiplier));
-                    }
-                    else
-                    {
-                        valueIt = static_cast<int64_t>(
-                            *doubleValue * std::pow(10, scaleMultiplier));
-                    }
+                    temp = *int64Value;
+                }
+                else if (doubleValue != nullptr)
+                {
+                    temp = *doubleValue;
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Got value interface that wasn't int or double";
+                    continue;
+                }
+                temp = temp * std::pow(10, scaleMultiplier);
+                if (forceToInt)
+                {
+                    valueIt = static_cast<int64_t>(temp);
+                }
+                else
+                {
+                    valueIt = temp;
                 }
             }
         }
@@ -477,7 +545,8 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                                     fieldName = "Temperatures";
                                 }
                                 else if (sensorType == "fan" ||
-                                         sensorType == "fan_tach")
+                                         sensorType == "fan_tach" ||
+                                         sensorType == "fan_pwm")
                                 {
                                     fieldName = "Fans";
                                 }
@@ -504,18 +573,14 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                                 nlohmann::json& tempArray =
                                     SensorsAsyncResp->res.jsonValue[fieldName];
 
-                                // Create the array if it doesn't yet exist
-                                if (tempArray.is_array() == false)
-                                {
-                                    tempArray = nlohmann::json::array();
-                                }
-
                                 tempArray.push_back(
                                     {{"@odata.id",
                                       "/redfish/v1/Chassis/" +
                                           SensorsAsyncResp->chassisId +
-                                          "/Thermal#/" + sensorName}});
+                                          "/Thermal#/" + fieldName + "/" +
+                                          std::to_string(tempArray.size())}});
                                 nlohmann::json& sensorJson = tempArray.back();
+
                                 objectInterfacesToJson(sensorName, sensorType,
                                                        objDictEntry.second,
                                                        sensorJson);

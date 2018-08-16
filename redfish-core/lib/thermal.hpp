@@ -58,7 +58,8 @@ class Thermal : public Node
             res, chassisName,
             std::initializer_list<const char*>{
                 "/xyz/openbmc_project/sensors/fan",
-                "/xyz/openbmc_project/sensors/temperature"});
+                "/xyz/openbmc_project/sensors/temperature",
+                "/xyz/openbmc_project/sensors/fan_pwm"});
         getChassisData(asyncResp);
     }
 };
