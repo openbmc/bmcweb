@@ -307,6 +307,13 @@ void objectInterfacesToJson(
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
         forceToInt = true;
     }
+    else if (sensorType == "fan_pwm")
+    {
+        unit = "Reading";
+        sensor_json["ReadingUnits"] = "Percentage";
+        sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        forceToInt = true;
+    }
     else if (sensorType == "voltage")
     {
         unit = "ReadingVolts";
@@ -477,7 +484,8 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                                     fieldName = "Temperatures";
                                 }
                                 else if (sensorType == "fan" ||
-                                         sensorType == "fan_tach")
+                                         sensorType == "fan_tach" ||
+                                         sensorType == "fan_pwm")
                                 {
                                     fieldName = "Fans";
                                 }
