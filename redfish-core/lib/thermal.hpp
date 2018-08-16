@@ -41,26 +41,15 @@ class Thermal : public Node
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
-  private:
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        if (params.size() != 1)
-        {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
-        const std::string& chassisName = params[0];
-
-        res.jsonValue = Node::json;
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName,
-            std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/fan",
-                "/xyz/openbmc_project/sensors/temperature"});
-        getChassisData(asyncResp);
-    }
+    res.jsonValue = Node::json;
+    auto asyncResp = std::make_shared<SensorsAsyncResp>(
+        res, chassisName,
+        std::initializer_list<const char*>{
+            "/xyz/openbmc_project/sensors/fan",
+            "/xyz/openbmc_project/sensors/temperature",
+            "/xyz/openbmc_project/sensors/fan_pwm"});
+    getChassisData(asyncResp);
+  }
 };
 
 } // namespace redfish
