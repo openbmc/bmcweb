@@ -18,51 +18,10 @@
 #include "boost/container/flat_map.hpp"
 #include "node.hpp"
 
-#include <error_messages.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
 {
-
-template <typename CallbackFunc> void getBaseboardList(CallbackFunc &&callback)
-{
-    BMCWEB_LOG_DEBUG << "Get list of available boards.";
-    crow::connections::systemBus->async_method_call(
-        [callback{std::move(callback)}](const boost::system::error_code ec,
-                                        const std::vector<std::string> &resp) {
-            // Callback requires vector<string> to retrieve all available board
-            // list.
-            std::vector<std::string> boardList;
-            if (ec)
-            {
-                // Something wrong on DBus, the error_code is not important at
-                // this moment, just return success=false, and empty output.
-                // Since size of vector may vary depending on information from
-                // Entity Manager, and empty output could not be treated same
-                // way as error.
-                callback(false, boardList);
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
-            // Iterate over all retrieved ObjectPaths.
-            for (const std::string &objpath : resp)
-            {
-                std::size_t lastPos = objpath.rfind("/");
-                if (lastPos != std::string::npos)
-                {
-                    boardList.emplace_back(objpath.substr(lastPos + 1));
-                }
-            }
-            // Finally make a callback with useful data
-            callback(true, boardList);
-        },
-        "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char *, 1>{
-            "xyz.openbmc_project.Inventory.Item.Board"});
-};
 
 /**
  * @brief Retrieves computer system properties over dbus
@@ -75,13 +34,6 @@ template <typename CallbackFunc> void getBaseboardList(CallbackFunc &&callback)
 void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                        const std::string &name)
 {
-    const std::array<const char *, 5> interfaces = {
-        "xyz.openbmc_project.Inventory.Decorator.Asset",
-        "xyz.openbmc_project.Inventory.Item.Cpu",
-        "xyz.openbmc_project.Inventory.Item.Dimm",
-        "xyz.openbmc_project.Inventory.Item.System",
-        "xyz.openbmc_project.Common.UUID",
-    };
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
         [name, aResp{std::move(aResp)}](
@@ -167,7 +119,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                 BMCWEB_LOG_DEBUG
                                     << "Found Dimm, now get it properties.";
                                 crow::connections::systemBus->async_method_call(
-                                    [&, aResp](
+                                    [aResp](
                                         const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
@@ -245,7 +197,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                 BMCWEB_LOG_DEBUG
                                     << "Found Cpu, now get it properties.";
                                 crow::connections::systemBus->async_method_call(
-                                    [&, aResp](
+                                    [aResp](
                                         const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
@@ -404,7 +356,14 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char *, 5>{
+            "xyz.openbmc_project.Inventory.Decorator.Asset",
+            "xyz.openbmc_project.Inventory.Item.Cpu",
+            "xyz.openbmc_project.Inventory.Item.Dimm",
+            "xyz.openbmc_project.Inventory.Item.System",
+            "xyz.openbmc_project.Common.UUID",
+        });
 }
 
 /**
@@ -420,39 +379,42 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                          CallbackFunc &&callback)
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
-  crow::connections::systemBus->async_method_call(
-      [ aResp{std::move(aResp)}, &callback ](
-          const boost::system::error_code &ec, const ManagedObjectsType &resp) {
-        if (ec)
-        {
-            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-            aResp->res.result(
-                boost::beast::http::status::internal_server_error);
-            return;
-        }
-        BMCWEB_LOG_DEBUG << "Got " << resp.size() << "led group objects.";
-        for (const auto &objPath : resp)
-        {
-            const std::string &path = objPath.first;
-            if (path.rfind("enclosure_identify") != std::string::npos)
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)},
+         callback{std::move(callback)}](const boost::system::error_code &ec,
+                                        const ManagedObjectsType &resp) {
+            if (ec)
             {
-                for (const auto &interface : objPath.second)
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                aResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Got " << resp.size() << "led group objects.";
+            for (const auto &objPath : resp)
+            {
+                const std::string &path = objPath.first;
+                if (path.rfind("enclosure_identify") != std::string::npos)
                 {
-                    if (interface.first == "xyz.openbmc_project.Led.Group")
+                    for (const auto &interface : objPath.second)
                     {
-                        for (const auto &property : interface.second)
+                        if (interface.first == "xyz.openbmc_project.Led.Group")
                         {
-                            if (property.first == "Asserted")
+                            for (const auto &property : interface.second)
                             {
-                                const bool *asserted =
-                                    mapbox::getPtr<const bool>(property.second);
-                                if (nullptr != asserted)
+                                if (property.first == "Asserted")
                                 {
-                                    callback(*asserted, aResp);
-                                }
-                                else
-                                {
-                                    callback(false, aResp);
+                                    const bool *asserted =
+                                        mapbox::getPtr<const bool>(
+                                            property.second);
+                                    if (nullptr != asserted)
+                                    {
+                                        callback(*asserted, aResp);
+                                    }
+                                    else
+                                    {
+                                        callback(false, aResp);
+                                    }
                                 }
                             }
                         }
@@ -460,63 +422,65 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                 }
             }
         },
-      "xyz.openbmc_project.LED.GroupManager", "/xyz/openbmc_project/led/groups",
-      "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        "xyz.openbmc_project.LED.GroupManager",
+        "/xyz/openbmc_project/led/groups", "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
 }
 
 template <typename CallbackFunc>
-void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback) {
-        BMCWEB_LOG_DEBUG << "Get identify led properties";
-        crow::connections::systemBus->async_method_call(
-            [aResp{std::move(aResp)},
-             &callback](const boost::system::error_code ec,
-                        const PropertiesType &properties) {
-                if (ec)
+void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
+{
+    BMCWEB_LOG_DEBUG << "Get identify led properties";
+    crow::connections::systemBus->async_method_call(
+        [aResp,
+         callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const PropertiesType &properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                aResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Got " << properties.size()
+                             << "led properties.";
+            std::string output;
+            for (const auto &property : properties)
+            {
+                if (property.first == "State")
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    aResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                 << "led properties.";
-                std::string output;
-                for (const auto &property : properties)
-                {
-                    if (property.first == "State")
+                    const std::string *s =
+                        mapbox::getPtr<std::string>(property.second);
+                    if (nullptr != s)
                     {
-                        const std::string *s =
-                            mapbox::getPtr<std::string>(property.second);
-                        if (nullptr != s)
+                        BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
+                        const auto pos = s->rfind('.');
+                        if (pos != std::string::npos)
                         {
-                            BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
-                            const auto pos = s->rfind('.');
-                            if (pos != std::string::npos)
+                            auto led = s->substr(pos + 1);
+                            for (const std::pair<const char *, const char *>
+                                     &p :
+                                 std::array<
+                                     std::pair<const char *, const char *>, 3>{
+                                     {{"On", "Lit"},
+                                      {"Blink", "Blinking"},
+                                      {"Off", "Off"}}})
                             {
-                                auto led = s->substr(pos + 1);
-                                for (const std::pair<const char *, const char *>
-                                         &p :
-                                     std::array<
-                                         std::pair<const char *, const char *>,
-                                         3>{{{"On", "Lit"},
-                                             {"Blink", "Blinking"},
-                                             {"Off", "Off"}}})
+                                if (led == p.first)
                                 {
-                                    if (led == p.first)
-                                    {
-                                        output = p.second;
-                                    }
+                                    output = p.second;
                                 }
                             }
                         }
                     }
                 }
-                callback(output, aResp);
-            },
-            "xyz.openbmc_project.LED.Controller.identify",
-            "/xyz/openbmc_project/led/physical/identify",
-            "org.freedesktop.DBus.Properties", "GetAll",
-            "xyz.openbmc_project.Led.Physical");
+            }
+            callback(output, aResp);
+        },
+        "xyz.openbmc_project.LED.Controller.identify",
+        "/xyz/openbmc_project/led/physical/identify",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Led.Physical");
 }
 
 /**
@@ -526,54 +490,41 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback) {
  *
  * @return None.
  */
-void getHostState(std::shared_ptr<AsyncResp> aResp) {
-        BMCWEB_LOG_DEBUG << "Get host information.";
-        crow::connections::systemBus->async_method_call(
-            [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                      const PropertiesType &properties) {
-                if (ec)
+void getHostState(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get host information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const sdbusplus::message::variant<std::string> &hostState) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                aResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+
+            const std::string *s = mapbox::getPtr<const std::string>(hostState);
+            BMCWEB_LOG_DEBUG << "Host state: " << *s;
+            if (s != nullptr)
+            {
+                // Verify Host State
+                if (*s == "xyz.openbmc_project.State.Host.Running")
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    aResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    return;
+                    aResp->res.jsonValue["PowerState"] = "On";
+                    aResp->res.jsonValue["Status"]["State"] = "Enabled";
                 }
-                BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                                 << "host properties.";
-                for (const auto &property : properties)
+                else
                 {
-                    if (property.first == "CurrentHostState")
-                    {
-                        const std::string *s =
-                            mapbox::getPtr<const std::string>(property.second);
-                        BMCWEB_LOG_DEBUG << "Host state: " << *s;
-                        if (nullptr != s)
-                        {
-                            const auto pos = s->rfind('.');
-                            if (pos != std::string::npos)
-                            {
-                                // Verify Host State
-                                if (s->substr(pos + 1) == "Running")
-                                {
-                                    aResp->res.jsonValue["PowerState"] = "On";
-                                    aResp->res.jsonValue["Status"]["State"] =
-                                        "Enabled";
-                                }
-                                else
-                                {
-                                    aResp->res.jsonValue["PowerState"] = "Off";
-                                    aResp->res.jsonValue["Status"]["State"] =
-                                        "Disabled";
-                                }
-                            }
-                        }
-                    }
+                    aResp->res.jsonValue["PowerState"] = "Off";
+                    aResp->res.jsonValue["Status"]["State"] = "Disabled";
                 }
-            },
-            "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "org.freedesktop.DBus.Properties", "GetAll",
-            "xyz.openbmc_project.State.Host");
+            }
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Host", "CurrentHostState");
 }
 
 /**
@@ -582,282 +533,282 @@ void getHostState(std::shared_ptr<AsyncResp> aResp) {
  */
 class SystemsCollection : public Node
 {
-      public:
-        SystemsCollection(CrowApp & app) : Node(app, "/redfish/v1/Systems/")
-        {
-            Node::json["@odata.type"] =
-                "#ComputerSystemCollection.ComputerSystemCollection";
-            Node::json["@odata.id"] = "/redfish/v1/Systems";
-            Node::json["@odata.context"] =
-                "/redfish/v1/"
-                "$metadata#ComputerSystemCollection.ComputerSystemCollection";
-            Node::json["Name"] = "Computer System Collection";
+  public:
+    SystemsCollection(CrowApp &app) : Node(app, "/redfish/v1/Systems/")
+    {
+        Node::json["@odata.type"] =
+            "#ComputerSystemCollection.ComputerSystemCollection";
+        Node::json["@odata.id"] = "/redfish/v1/Systems";
+        Node::json["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#ComputerSystemCollection.ComputerSystemCollection";
+        Node::json["Name"] = "Computer System Collection";
 
-            entityPrivileges = {
-                {boost::beast::http::verb::get, {{"Login"}}},
-                {boost::beast::http::verb::head, {{"Login"}}},
-                {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-                {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-                {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-                {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "Get list of available boards.";
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        res.jsonValue = Node::json;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string> &resp) {
+                if (ec)
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
+
+                // ... prepare json array with appropriate @odata.id links
+                nlohmann::json &boardArray =
+                    asyncResp->res.jsonValue["Members"];
+                boardArray = nlohmann::json::array();
+
+                // Iterate over all retrieved ObjectPaths.
+                for (const std::string &objpath : resp)
+                {
+                    std::size_t lastPos = objpath.rfind("/");
+                    if (lastPos != std::string::npos)
+                    {
+                        boardArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/" +
+                                               objpath.substr(lastPos + 1)}});
+                    }
+                }
+
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    boardArray.size();
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+            "/xyz/openbmc_project/inventory", int32_t(0),
+            std::array<const char *, 1>{
+                "xyz.openbmc_project.Inventory.Item.Board"});
+    }
+};
+
+/**
+ * Systems derived class for delivering Computer Systems Schema.
+ */
+class Systems : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    Systems(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/<str>/", std::string())
+    {
+        Node::json["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
+        Node::json["@odata.context"] =
+            "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
+        Node::json["SystemType"] = "Physical";
+        Node::json["Description"] = "Computer System";
+        Node::json["Boot"]["BootSourceOverrideEnabled"] =
+            "Disabled"; // TODO(Dawid), get real boot data
+        Node::json["Boot"]["BootSourceOverrideTarget"] =
+            "None"; // TODO(Dawid), get real boot data
+        Node::json["Boot"]["BootSourceOverrideMode"] =
+            "Legacy"; // TODO(Dawid), get real boot data
+        Node::json["Boot"]["BootSourceOverrideTarget@Redfish.AllowableValues"] =
+            {"None",      "Pxe",       "Hdd", "Cd",
+             "BiosSetup", "UefiShell", "Usb"}; // TODO(Dawid), get real boot
+                                               // data
+        Node::json["ProcessorSummary"]["Count"] = int(0);
+        Node::json["ProcessorSummary"]["Status"]["State"] = "Disabled";
+        Node::json["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
+        Node::json["MemorySummary"]["Status"]["State"] = "Disabled";
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            res.end();
+            return;
         }
 
-      private:
-        /**
-         * Functions triggers appropriate requests on DBus
-         */
-  void doGet(crow::Response &res, const crow::Request &req,
-             const std::vector<std::string> &params) override {
-    // Get board list, and call the below callback for JSON preparation
-    getBaseboardList(
-        [&](const bool &success, const std::vector<std::string> &output) {
-            if (success)
-            {
-                // ... prepare json array with appropriate @odata.id links
-                nlohmann::json boardArray = nlohmann::json::array();
-                for (const std::string &boardItem : output)
+        const std::string &name = params[0];
+
+        res.jsonValue = Node::json;
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        getLedGroupIdentify(
+            asyncResp,
+            [&](const bool &asserted, const std::shared_ptr<AsyncResp> &aResp) {
+                if (asserted)
                 {
-                    boardArray.push_back(
-                        {{"@odata.id", "/redfish/v1/Systems/" + boardItem}});
+                    // If led group is asserted, then another call is needed to
+                    // get led status
+                    getLedIdentify(
+                        aResp, [](const std::string &ledStatus,
+                                  const std::shared_ptr<AsyncResp> &aResp) {
+                            if (!ledStatus.empty())
+                            {
+                                aResp->res.jsonValue["IndicatorLED"] =
+                                    ledStatus;
+                            }
+                        });
                 }
                 else
                 {
-                    // ... otherwise, return INTERNALL ERROR
-                    res.result(
-                        boost::beast::http::status::internal_server_error);
+                    aResp->res.jsonValue["IndicatorLED"] = "Off";
                 }
-                res.end();
             });
-  }
+        getComputerSystem(asyncResp, name);
+        getHostState(asyncResp);
+    }
+
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            return;
+        }
+        // Parse JSON request body
+        nlohmann::json patch;
+        if (!json_util::processJsonFromRequest(res, req, patch))
+        {
+            return;
+        }
+
+        const std::string &name = params[0];
+
+        res.jsonValue = Node::json;
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+
+        for (const auto &item : patch.items())
+        {
+            if (item.key() == "IndicatorLed")
+            {
+                const std::string *reqLedState =
+                    item.value().get_ptr<const std::string *>();
+                if (reqLedState == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueFormatError(item.value().dump(),
+                                                           item.key()));
+                    return;
+                }
+
+                // Verify key value
+                std::string dbusLedState;
+                if (*reqLedState == "On")
+                {
+                    dbusLedState =
+                        "xyz.openbmc_project.Led.Physical.Action.Lit";
+                }
+                else if (*reqLedState == "Blink")
+                {
+                    dbusLedState =
+                        "xyz.openbmc_project.Led.Physical.Action.Blinking";
+                }
+                else if (*reqLedState == "Off")
+                {
+                    dbusLedState =
+                        "xyz.openbmc_project.Led.Physical.Action.Off";
+                }
+                else
+                {
+                    messages::addMessageToJsonRoot(
+                        res.jsonValue, messages::propertyValueNotInList(
+                                           *reqLedState, "IndicatorLED"));
+                    return;
+                }
+
+                getHostState(asyncResp);
+                getComputerSystem(asyncResp, name);
+
+                // Update led group
+                BMCWEB_LOG_DEBUG << "Update led group.";
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp{std::move(asyncResp)}](
+                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            return;
+                        }
+                        BMCWEB_LOG_DEBUG << "Led group update done.";
+                    },
+                    "xyz.openbmc_project.LED.GroupManager",
+                    "/xyz/openbmc_project/led/groups/enclosure_identify",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Led.Group", "Asserted",
+                    sdbusplus::message::variant<bool>(
+                        (dbusLedState ==
+                                 "xyz.openbmc_project.Led.Physical.Action.Off"
+                             ? false
+                             : true)));
+                // Update identify led status
+                BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp{std::move(asyncResp)},
+                     reqLedState{std::move(*reqLedState)}](
+                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            return;
+                        }
+                        BMCWEB_LOG_DEBUG << "Led state update done.";
+                        asyncResp->res.jsonValue["IndicatorLED"] =
+                            std::move(reqLedState);
+                    },
+                    "xyz.openbmc_project.LED.Controller.identify",
+                    "/xyz/openbmc_project/led/physical/identify",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Led.Physical", "State",
+                    sdbusplus::message::variant<std::string>(dbusLedState));
+            }
+            else
+            {
+                messages::addMessageToErrorJson(
+                    asyncResp->res.jsonValue,
+                    messages::propertyNotWritable(item.key()));
+                return;
+            }
+        }
+    }
 };
-
-  /**
-   * Systems override class for delivering ComputerSystems Schema
-   */
-  class Systems : public Node
-  {
-    public:
-      /*
-       * Default Constructor
-       */
-      Systems(CrowApp &app) :
-          Node(app, "/redfish/v1/Systems/<str>/", std::string())
-      {
-          Node::json["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
-          Node::json["@odata.context"] =
-              "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
-          Node::json["SystemType"] = "Physical";
-          Node::json["Description"] = "Computer System";
-          Node::json["Boot"]["BootSourceOverrideEnabled"] =
-              "Disabled"; // TODO(Dawid), get real boot data
-          Node::json["Boot"]["BootSourceOverrideTarget"] =
-              "None"; // TODO(Dawid), get real boot data
-          Node::json["Boot"]["BootSourceOverrideMode"] =
-              "Legacy"; // TODO(Dawid), get real boot data
-          Node::json["Boot"]
-                    ["BootSourceOverrideTarget@Redfish.AllowableValues"] = {
-                        "None",      "Pxe",       "Hdd", "Cd",
-                        "BiosSetup", "UefiShell", "Usb"}; // TODO(Dawid), get
-                                                          // real boot data
-          Node::json["ProcessorSummary"]["Count"] = int(0);
-          Node::json["ProcessorSummary"]["Status"]["State"] = "Disabled";
-          Node::json["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
-          Node::json["MemorySummary"]["Status"]["State"] = "Disabled";
-
-        private:
-          /**
-           * Functions triggers appropriate requests on DBus
-           */
-          void doGet(crow::Response & res, const crow::Request &req,
-                     const std::vector<std::string> &params) override
-          {
-              // Check if there is required param, truly entering this shall be
-              // impossible
-              if (params.size() != 1)
-              {
-                  res.result(boost::beast::http::status::internal_server_error);
-                  res.end();
-                  return;
-              }
-
-            private:
-              OnDemandSystemsProvider provider;
-
-              /**
-               * Functions triggers appropriate requests on DBus
-               */
-              void doGet(crow::Response & res, const crow::Request &req,
-                         const std::vector<std::string> &params) override
-              {
-                  // Check if there is required param, truly entering this shall
-                  // be impossible
-                  if (params.size() != 1)
-                  {
-                      res.result(
-                          boost::beast::http::status::internal_server_error);
-                      res.end();
-                      return;
-                  }
-
-                  const std::string &name = params[0];
-
-                  res.jsonValue = Node::json;
-                  res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
-
-                  getLedGroupIdentify(
-                      asyncResp, [&](const bool &asserted,
-                                     const std::shared_ptr<AsyncResp> &aResp) {
-                          if (asserted)
-                          {
-                              // If led group is asserted, then another call is
-                              // needed to get led status
-                              getLedIdentify(
-                                  aResp,
-                                  [](const std::string &ledStatus,
-                                     const std::shared_ptr<AsyncResp> &aResp) {
-                                      if (!ledStatus.empty())
-                                      {
-                                          aResp->res.jsonValue["IndicatorLED"] =
-                                              ledStatus;
-                                      }
-                                  });
-                          }
-                          else
-                          {
-                              aResp->res.jsonValue["IndicatorLED"] = "Off";
-                          }
-                      });
-                  getComputerSystem(asyncResp, name);
-                  getHostState(asyncResp);
-              }
-
-              provider.getLedGroupIdentify(
-                  asyncResp, [&](const bool &asserted,
-                                 const std::shared_ptr<AsyncResp> &aResp) {
-                      if (asserted)
-                      {
-                          // If led group is asserted, then another call is
-                          // needed to get led status
-                          provider.getLedIdentify(
-                              aResp,
-                              [](const std::string &ledStatus,
-                                 const std::shared_ptr<AsyncResp> &aResp) {
-                                  if (!ledStatus.empty())
-                                  {
-                                      aResp->res.jsonValue["IndicatorLED"] =
-                                          ledStatus;
-                                  }
-                              });
-                      }
-                      else
-                      {
-                          aResp->res.jsonValue["IndicatorLED"] = "Off";
-                      }
-                  });
-              provider.getComputerSystem(asyncResp, name);
-              provider.getHostState(asyncResp);
-          }
-
-          void doPatch(crow::Response & res, const crow::Request &req,
-                       const std::vector<std::string> &params) override
-          {
-              // Check if there is required param, truly entering this shall be
-              // impossible
-              if (params.size() != 1)
-              {
-                  res.result(boost::beast::http::status::internal_server_error);
-                  res.end();
-                  return;
-              }
-              // Parse JSON request body
-              nlohmann::json patch;
-              if (!json_util::processJsonFromRequest(res, req, patch))
-              {
-                  return;
-              }
-              // Find key with new led value
-              const std::string &name = params[0];
-              const std::string *reqLedState = nullptr;
-              json_util::Result r = json_util::getString(
-                  "IndicatorLED", patch, reqLedState,
-                  static_cast<int>(json_util::MessageSetting::TYPE_ERROR) |
-                      static_cast<int>(json_util::MessageSetting::MISSING),
-                  res.jsonValue, std::string("/" + name + "/IndicatorLED"));
-              if ((r != json_util::Result::SUCCESS) || (reqLedState == nullptr))
-              {
-                  res.result(boost::beast::http::status::bad_request);
-                  res.end();
-                  return;
-              }
-              // Verify key value
-              std::string dbusLedState;
-              for (const auto &p :
-                   boost::container::flat_map<const char *, const char *>{
-                       {"On", "Lit"}, {"Blink", "Blinking"}, {"Off", "Off"}})
-              {
-                  if (*reqLedState == p.second)
-                  {
-                      dbusLedState = p.first;
-                  }
-              }
-
-              getHostState(asyncResp);
-              getComputerSystem(asyncResp, name);
-
-              provider.getHostState(asyncResp);
-              provider.getComputerSystem(asyncResp, name);
-
-              if (dbusLedState.empty())
-              {
-                  messages::addMessageToJsonRoot(
-                      res.jsonValue, messages::propertyValueNotInList(
-                                         *reqLedState, "IndicatorLED"));
-              }
-              else
-              {
-                  // Update led group
-                  BMCWEB_LOG_DEBUG << "Update led group.";
-                  crow::connections::systemBus->async_method_call(
-                      [&, asyncResp{std::move(asyncResp)}](
-                          const boost::system::error_code ec) {
-                          if (ec)
-                          {
-                              BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                              asyncResp->res.result(boost::beast::http::status::
-                                                        internal_server_error);
-                              return;
-                          }
-                          BMCWEB_LOG_DEBUG << "Led group update done.";
-                      },
-                      "xyz.openbmc_project.LED.GroupManager",
-                      "/xyz/openbmc_project/led/groups/enclosure_identify",
-                      "org.freedesktop.DBus.Properties", "Set",
-                      "xyz.openbmc_project.Led.Group", "Asserted",
-                      sdbusplus::message::variant<bool>(
-                          (dbusLedState == "Off" ? false : true)));
-                  // Update identify led status
-                  BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
-                  crow::connections::systemBus->async_method_call(
-                      [&, asyncResp{std::move(asyncResp)}](
-                          const boost::system::error_code ec) {
-                          if (ec)
-                          {
-                              BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                              asyncResp->res.result(boost::beast::http::status::
-                                                        internal_server_error);
-                              return;
-                          }
-                          BMCWEB_LOG_DEBUG << "Led state update done.";
-                          res.jsonValue["IndicatorLED"] = *reqLedState;
-                      },
-                      "xyz.openbmc_project.LED.Controller.identify",
-                      "/xyz/openbmc_project/led/physical/identify",
-                      "org.freedesktop.DBus.Properties", "Set",
-                      "xyz.openbmc_project.Led.Physical", "State",
-                      sdbusplus::message::variant<std::string>(
-                          "xyz.openbmc_project.Led.Physical.Action." +
-                          dbusLedState));
-              }
-          }
-      };
-    } // namespace redfish
+} // namespace redfish
