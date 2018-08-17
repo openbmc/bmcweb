@@ -22,6 +22,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
+#include <error_messages.hpp>
 #include <variant>
 
 namespace redfish
@@ -37,6 +38,52 @@ constexpr char const *cpuLogRawPECIInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
 
 namespace fs = std::filesystem;
+
+using GetManagedPropertyType = boost::container::flat_map<
+    std::string,
+    sdbusplus::message::variant<std::string, bool, uint8_t, int16_t, uint16_t,
+                                int32_t, uint32_t, int64_t, uint64_t, double>>;
+
+using GetManagedObjectsType = boost::container::flat_map<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<std::string, GetManagedPropertyType>>;
+
+inline std::string translateSeverityDbusToRedfish(const std::string &s)
+{
+    if (s == "xyz.openbmc_project.Logging.Entry.Level.Alert")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Critical")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Debug")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Error")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Informational")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Notice")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
+    {
+        return "Warning";
+    }
+    return "";
+}
 
 static int getJournalMetadata(sd_journal *journal,
                               const std::string_view &field,
@@ -296,7 +343,8 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/CpuLog"}});
+            {{ "@odata.id",
+               "/redfish/v1/Systems/system/LogServices/CpuLog" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -407,7 +455,7 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
 
     // Fill in the log entry with the gathered data
     bmcLogEntryJson = {
-        {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
@@ -467,9 +515,10 @@ class EventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
+
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
-
         // Go through the journal and create a unique ID for each entry
         sd_journal *journalTmp = nullptr;
         int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
@@ -525,6 +574,129 @@ class EventLogEntryCollection : public Node
                 "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
                 std::to_string(skip + top);
         }
+#else
+        // DBus implementation of EventLog/Entries
+        // Make call to Logging Service to find all log entry objects
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    // TODO Handle for specific error code
+                    BMCWEB_LOG_ERROR
+                        << "getLogEntriesIfaceData resp_handler got error "
+                        << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json &entriesArray =
+                    asyncResp->res.jsonValue["Members"];
+                entriesArray = nlohmann::json::array();
+                for (auto &objectPath : resp)
+                {
+                    for (auto &interfaceMap : objectPath.second)
+                    {
+                        if (interfaceMap.first !=
+                            "xyz.openbmc_project.Logging.Entry")
+                        {
+                            BMCWEB_LOG_DEBUG << "Bailing early on "
+                                             << interfaceMap.first;
+                            continue;
+                        }
+                        entriesArray.push_back({});
+                        nlohmann::json &thisEntry = entriesArray.back();
+                        uint32_t *id;
+                        std::time_t timestamp;
+                        std::string *severity, *message;
+                        bool *resolved;
+                        for (auto &propertyMap : interfaceMap.second)
+                        {
+                            if (propertyMap.first == "Id")
+                            {
+                                id = sdbusplus::message::variant_ns::get_if<
+                                    uint32_t>(&propertyMap.second);
+                                if (id == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Id");
+                                }
+                            }
+                            else if (propertyMap.first == "Timestamp")
+                            {
+                                const uint64_t *millisTimeStamp =
+                                    std::get_if<uint64_t>(&propertyMap.second);
+                                if (millisTimeStamp == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Timestamp");
+                                }
+                                // Retrieve Created property with format:
+                                // yyyy-mm-ddThh:mm:ss
+                                std::chrono::milliseconds chronoTimeStamp(
+                                    *millisTimeStamp);
+                                timestamp =
+                                    std::chrono::duration_cast<
+                                        std::chrono::seconds>(chronoTimeStamp)
+                                        .count();
+                            }
+                            else if (propertyMap.first == "Severity")
+                            {
+                                severity = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (severity == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Severity");
+                                }
+                            }
+                            else if (propertyMap.first == "Message")
+                            {
+                                message = std::get_if<std::string>(
+                                    &propertyMap.second);
+                                if (message == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Message");
+                                }
+                            }
+                            else if (propertyMap.first == "Resolved")
+                            {
+                                resolved =
+                                    std::get_if<bool>(&propertyMap.second);
+                                if (resolved != nullptr)
+                                {
+                                    // No place to put this for now
+                                }
+                            }
+                        }
+                        thisEntry = {
+                            {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                            {"@odata.context", "/redfish/v1/"
+                                               "$metadata#LogEntry.LogEntry"},
+                            {"@odata.id",
+                             "/redfish/v1/Systems/system/LogServices/EventLog/"
+                             "Entries/" +
+                                 std::to_string(*id)},
+                            {"Name", "System DBus Event Log Entry"},
+                            {"Id", std::to_string(*id)},
+                            {"Message", *message},
+                            {"EntryType", "Event"},
+                            {"Severity",
+                             translateSeverityDbusToRedfish(*severity)},
+                            {"Created", crow::utility::getDateTime(timestamp)}};
+                    }
+                }
+                std::sort(entriesArray.begin(), entriesArray.end(),
+                          [](const nlohmann::json &left,
+                             const nlohmann::json &right) {
+                              return (left["Id"] <= right["Id"]);
+                          });
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    entriesArray.size();
+            },
+            "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+#endif
     }
 };
 
@@ -556,6 +728,8 @@ class EventLogEntry : public Node
             return;
         }
         const std::string &entryID = params[0];
+
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         // Convert the unique ID back to a timestamp to find the entry
         uint64_t ts = 0;
         uint16_t index = 0;
@@ -605,6 +779,99 @@ class EventLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
+#else
+        // DBus implementation of EventLog/Entries
+        // Make call to Logging Service to find all log entry objects
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryID](const boost::system::error_code ec,
+                                 GetManagedPropertyType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "EventLogEntry (DBus) resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                uint32_t *id;
+                std::time_t timestamp;
+                std::string *severity, *message;
+                bool *resolved;
+                for (auto &propertyMap : resp)
+                {
+                    if (propertyMap.first == "Id")
+                    {
+                        id = std::get_if<uint32_t>(&propertyMap.second);
+                        if (id == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res, "Id");
+                        }
+                    }
+                    else if (propertyMap.first == "Timestamp")
+                    {
+                        const uint64_t *millisTimeStamp =
+                            std::get_if<uint64_t>(&propertyMap.second);
+                        if (millisTimeStamp == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "Timestamp");
+                        }
+                        // Retrieve Created property with format:
+                        // yyyy-mm-ddThh:mm:ss
+                        std::chrono::milliseconds chronoTimeStamp(
+                            *millisTimeStamp);
+                        timestamp =
+                            std::chrono::duration_cast<std::chrono::seconds>(
+                                chronoTimeStamp)
+                                .count();
+                    }
+                    else if (propertyMap.first == "Severity")
+                    {
+                        severity =
+                            std::get_if<std::string>(&propertyMap.second);
+                        if (severity == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "Severity");
+                        }
+                    }
+                    else if (propertyMap.first == "Message")
+                    {
+                        message = std::get_if<std::string>(&propertyMap.second);
+                        if (message == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "Message");
+                        }
+                    }
+                    else if (propertyMap.first == "Resolved")
+                    {
+                        resolved = std::get_if<bool>(&propertyMap.second);
+                        if (resolved != nullptr)
+                        {
+                            // No place to put this for now
+                        }
+                    }
+                }
+                asyncResp->res.jsonValue = {
+                    {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                    {"@odata.context", "/redfish/v1/"
+                                       "$metadata#LogEntry.LogEntry"},
+                    {"@odata.id",
+                     "/redfish/v1/Systems/system/LogServices/EventLog/"
+                     "Entries/" +
+                         std::to_string(*id)},
+                    {"Name", "System DBus Event Log Entry"},
+                    {"Id", std::to_string(*id)},
+                    {"Message", *message},
+                    {"EntryType", "Event"},
+                    {"Severity", translateSeverityDbusToRedfish(*severity)},
+                    {"Created", crow::utility::getDateTime(timestamp)}};
+            },
+            "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "org.freedesktop.DBus.Properties", "GetAll",
+            "xyz.openbmc_project.Logging.Entry");
+#endif
     }
 };
 
@@ -647,7 +914,8 @@ class BMCLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
+            {{ "@odata.id",
+               "/redfish/v1/Managers/bmc/LogServices/Journal" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -724,7 +992,7 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
 
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson = {
-        {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
                           bmcJournalLogEntryID},
@@ -956,8 +1224,9 @@ class CPULogService : public Node
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#CpuLog.SendRawPeci",
-             {{"target", "/redfish/v1/Systems/system/LogServices/CpuLog/"
-                         "Actions/Oem/CpuLog.SendRawPeci"}}});
+             { { "target",
+                 "/redfish/v1/Systems/system/LogServices/CpuLog/"
+                 "Actions/Oem/CpuLog.SendRawPeci" } }});
 #endif
     }
 };
@@ -1118,7 +1387,7 @@ class CPULogEntry : public Node
             }
             std::string t = getLogCreatedTime(j);
             asyncResp->res.jsonValue = {
-                {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+                {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
                 {"@odata.id",
                  "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/" +
@@ -1231,7 +1500,7 @@ class ImmediateCPULog : public Node
             }
             std::string t = getLogCreatedTime(j);
             asyncResp->res.jsonValue = {
-                {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+                {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
                 {"Name", "CPU Debug Log"},
                 {"EntryType", "Oem"},
@@ -1335,4 +1604,57 @@ class SendRawPECI : public Node
     }
 };
 
+/**
+ * DBusLogServiceActionsClear class supports POST method for ClearLog action.
+ */
+class DBusLogServiceActionsClear : public Node
+{
+  public:
+    DBusLogServiceActionsClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
+                  "LogService.Reset")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Function handles POST method request.
+     * The Clear Log actions does not require any parameter.The action deletes
+     * all entries found in the Entries collection for this Log Service.
+     */
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "Do delete all entries.";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        // Process response from Logging service.
+        auto resp_handler = [asyncResp](const boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
+            if (ec)
+            {
+                // TODO Handle for specific error code
+                BMCWEB_LOG_ERROR << "doClearLog resp_handler got error " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+
+            asyncResp->res.result(boost::beast::http::status::no_content);
+        };
+
+        // Make call to Logging service to request Clear Log
+        crow::connections::systemBus->async_method_call(
+            resp_handler, "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging",
+            "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
+    }
+};
 } // namespace redfish
