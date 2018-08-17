@@ -292,8 +292,10 @@ class SystemLogServiceCollection : public Node
             "Collection of LogServices for this Computer System";
         nlohmann::json &logServiceArray = asyncResp->res.jsonValue["Members"];
         logServiceArray = nlohmann::json::array();
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_SERVICES
         logServiceArray.push_back({{"@odata.id", "/redfish/v1/Systems/" + name +
                                                      "/LogServices/EventLog"}});
+#endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
