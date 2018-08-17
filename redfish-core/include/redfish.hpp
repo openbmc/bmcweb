@@ -20,6 +20,7 @@
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/log_services.hpp"
+#include "../lib/logservices.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/power.hpp"
@@ -103,6 +104,10 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+        nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<LogService>(app));
+        nodes.emplace_back(std::make_unique<LogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<LogServiceActionsClear>(app));
     }
 
   private:
