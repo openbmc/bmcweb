@@ -103,6 +103,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+        nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
+#endif
     }
 
   private:

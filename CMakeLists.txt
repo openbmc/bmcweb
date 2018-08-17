@@ -32,6 +32,9 @@ option (BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through
 option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
        through Redfish.  Paths are under
        '/redfish/v1/Systems/system/LogServices/CpuLog'." OFF)
+option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
+        transactions through Redfish. Paths are under
+        '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -261,4 +264,6 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_RAW_PECI}>: -DBMCWEB_ENABLE_REDFISH_RAW_PECI>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>: -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
+
 )
