@@ -22,6 +22,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
+#include <error_messages.hpp>
 #include <variant>
 
 namespace redfish
@@ -37,6 +38,52 @@ constexpr char const *cpuLogRawPECIInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
 
 namespace fs = std::filesystem;
+
+using GetManagedObjectsType = boost::container::flat_map<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string,
+        boost::container::flat_map<
+            std::string, sdbusplus::message::variant<
+                             std::string, bool, uint8_t, int16_t, uint16_t,
+                             int32_t, uint32_t, int64_t, uint64_t, double>>>>;
+
+inline std::string translateSeverityDbusToRedfish(const std::string &s)
+{
+    if (s == "xyz.openbmc_project.Logging.Entry.Level.Alert")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Critical")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Debug")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Emergency")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Error")
+    {
+        return "Critical";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Information")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Notice")
+    {
+        return "OK";
+    }
+    else if (s == "xyz.openbmc_project.Logging.Entry.Level.Warning")
+    {
+        return "Warning";
+    }
+    return "";
+}
 
 static int getJournalMetadata(sd_journal *journal,
                               const boost::string_view &field,
@@ -522,6 +569,132 @@ class EventLogEntryCollection : public Node
                 "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
                 std::to_string(skip + top);
         }
+
+        // DBus implementation of EventLog/Entries
+        // Make call to Logging Service to find all log entry objects
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    // TODO Handle for specific error code
+                    BMCWEB_LOG_ERROR
+                        << "getLogEntriesIfaceData resp_handler got error "
+                        << ec;
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+                nlohmann::json &entriesArray =
+                    asyncResp->res.jsonValue["Members"];
+                entriesArray = nlohmann::json::array();
+                nlohmann::json thisEntry;
+                for (auto &objectPath : resp)
+                {
+                    for (auto &interfaceMap : objectPath.second)
+                    {
+                        if (interfaceMap.first !=
+                            "xyz.openbmc_project.Logging.Entry")
+                        {
+                            BMCWEB_LOG_DEBUG << "Bailing early on "
+                                             << interfaceMap.first;
+                            continue;
+                        }
+
+                        for (auto &propertyMap : interfaceMap.second)
+                        {
+                            thisEntry["@odata.type"] =
+                                "#LogService.v1_3_0.LogService";
+                            thisEntry["@odata.context"] =
+                                "/redfish/v1/$metadata#LogEntry.LogEntry";
+                            thisEntry["EntryType"] = "Event"; // Event Log
+                            if (propertyMap.first == "Id")
+                            {
+                                const uint32_t *id =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        uint32_t>(&propertyMap.second);
+                                if (id == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Id");
+                                }
+                                thisEntry["Id"] = *id;
+                                thisEntry["Name"] = std::to_string(*id);
+                            }
+                            else if (propertyMap.first == "Timestamp")
+                            {
+                                const uint64_t *millisTimeStamp =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        uint64_t>(&propertyMap.second);
+                                if (millisTimeStamp == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Timestamp");
+                                }
+                                // Retrieve Created property with format:
+                                // yyyy-mm-ddThh:mm:ss
+                                std::chrono::milliseconds chronoTimeStamp(
+                                    *millisTimeStamp);
+                                std::time_t timestamp =
+                                    std::chrono::duration_cast<
+                                        std::chrono::seconds>(chronoTimeStamp)
+                                        .count();
+                                thisEntry["Created"] =
+                                    crow::utility::getDateTime(timestamp);
+                            }
+                            else if (propertyMap.first == "Severity")
+                            {
+                                const std::string *severity =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        std::string>(&propertyMap.second);
+                                if (severity == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Severity");
+                                }
+                                thisEntry["Severity"] =
+                                    translateSeverityDbusToRedfish(*severity);
+                            }
+                            else if (propertyMap.first == "Message")
+                            {
+                                const std::string *message =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        std::string>(&propertyMap.second);
+                                if (message == nullptr)
+                                {
+                                    messages::propertyMissing(asyncResp->res,
+                                                              "Message");
+                                }
+                                thisEntry["Message"] = *message;
+                            }
+                            else if (propertyMap.first == "Resolved")
+                            {
+                                const bool *resolved =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        bool>(&propertyMap.second);
+                                if (resolved != nullptr)
+                                {
+                                    // No place to put this for now
+                                }
+                            }
+                        }
+                        entriesArray.push_back(std::move(thisEntry));
+                        // Not sure if this is neccesary, but technically move
+                        // could leave thisEntry in any state it wants
+                        thisEntry.clear();
+                    }
+                }
+                std::sort(entriesArray.begin(), entriesArray.end(),
+                          [](const nlohmann::json &left,
+                             const nlohmann::json &right) {
+                              return (left["Id"] <= right["Id"]);
+                          });
+
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    entriesArray.size();
+            },
+            "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 };
 
@@ -1326,4 +1499,57 @@ class SendRawPECI : public Node
     }
 };
 
+/**
+ * DBusLogServiceActionsClear class supports POST method for ClearLog action.
+ */
+class DBusLogServiceActionsClear : public Node
+{
+  public:
+    DBusLogServiceActionsClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
+                  "LogService.Reset")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Function handles POST method request.
+     * The Clear Log actions does not require any parameter.The action deletes
+     * all entries found in the Entries collection for this Log Service.
+     */
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "Do delete all entries.";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        // Process response from Logging service.
+        auto resp_handler = [asyncResp](const boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
+            if (ec)
+            {
+                // TODO Handle for specific error code
+                BMCWEB_LOG_ERROR << "doClearLog resp_handler got error " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+
+            asyncResp->res.result(boost::beast::http::status::no_content);
+        };
+
+        // Make call to Logging service to request Clear Log
+        crow::connections::systemBus->async_method_call(
+            resp_handler, "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging",
+            "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
+    }
+};
 } // namespace redfish

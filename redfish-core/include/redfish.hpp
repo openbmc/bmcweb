@@ -103,6 +103,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+
+        nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
     }
 
   private:
