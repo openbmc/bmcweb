@@ -725,7 +725,7 @@ class Manager : public Node
         manager_reset["ResetType@Redfish.AllowableValues"] = {
             "GracefulRestart"};
 
-        res.jsonValue["DateTime"] = getDateTime();
+        res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
@@ -987,23 +987,6 @@ class Manager : public Node
                 }
             }
         }
-    }
-
-    std::string getDateTime() const
-    {
-        std::array<char, 128> dateTime;
-        std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
-        std::time_t time = std::time(nullptr);
-
-        if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
-                          std::localtime(&time)))
-        {
-            // insert the colon required by the ISO 8601 standard
-            redfishDateTime = std::string(dateTime.data());
-            redfishDateTime.insert(redfishDateTime.end() - 2, ':');
-        }
-
-        return redfishDateTime;
     }
 
     std::string uuid;
