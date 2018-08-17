@@ -35,6 +35,9 @@ option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
 option (BMCWEB_ENABLE_REDFISH_ONE_CHASSIS "Enable Redfish to assume only one
        chassis is present.  All sensors will be assumed to be under this
        chassis.  The chassis path is '/redfish/v1/Chassis/chassis'." OFF)
+option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
+        transactions through Redfish. Paths are under
+        '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -267,4 +270,6 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>: -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_ONE_CHASSIS}>: -DBMCWEB_ENABLE_REDFISH_ONE_CHASSIS>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
+
 )
