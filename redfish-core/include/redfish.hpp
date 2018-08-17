@@ -18,6 +18,7 @@
 #include "../lib/account_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/ethernet.hpp"
+#include "../lib/logservices.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/redfish_sessions.hpp"
@@ -66,6 +67,10 @@ class RedfishService
             std::make_unique<VlanNetworkInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
+        nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<LogService>(app));
+        nodes.emplace_back(std::make_unique<LogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<LogServiceActionsClear>(app));
 
         for (auto& node : nodes)
         {

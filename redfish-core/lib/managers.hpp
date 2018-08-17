@@ -59,27 +59,10 @@ class Manager : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        Node::json["DateTime"] = getDateTime();
+        Node::json["DateTime"] = crow::utility::dateTimeNow();
         // Copy over the static data to include the entries added by SubRoute
         res.jsonValue = Node::json;
         res.end();
-    }
-
-    std::string getDateTime() const
-    {
-        std::array<char, 128> dateTime;
-        std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
-        std::time_t time = std::time(nullptr);
-
-        if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
-                          std::localtime(&time)))
-        {
-            // insert the colon required by the ISO 8601 standard
-            redfishDateTime = std::string(dateTime.data());
-            redfishDateTime.insert(redfishDateTime.end() - 2, ':');
-        }
-
-        return redfishDateTime;
     }
 };
 
