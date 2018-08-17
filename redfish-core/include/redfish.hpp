@@ -73,7 +73,9 @@ class RedfishService
             std::make_unique<VlanNetworkInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
 
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_SERVICES
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
+#endif
         nodes.emplace_back(std::make_unique<EventLogService>(app));
         nodes.emplace_back(std::make_unique<EventLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogEntry>(app));
@@ -103,6 +105,13 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_SERVICES
+        nodes.emplace_back(std::make_unique<LogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<LogService>(app));
+        nodes.emplace_back(std::make_unique<LogServiceActionsClear>(app));
+#endif
     }
 
   private:
