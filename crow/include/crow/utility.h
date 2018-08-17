@@ -599,5 +599,33 @@ inline bool base64Decode(const boost::string_view input, std::string& output) {
   return true;
 }
 
+/**
+ * Method returns Date Time information according to requested format
+ *
+ * @param[in] time time in second since the Epoch
+ * @param[in] format conversion specifier for strftime
+ *
+ * @return Date Time according to requested format
+ * TODO This method will be allocated in util.hpp
+ */
+inline std::string getDateTime(const std::time_t& time) {
+  std::array<char, 128> dateTime;
+  std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
+
+  if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
+                    std::localtime(&time))) {
+    // insert the colon required by the ISO 8601 standard
+    redfishDateTime = std::string(dateTime.data());
+    redfishDateTime.insert(redfishDateTime.end() - 2, ':');
+  }
+
+  return redfishDateTime;
+}
+
+inline std::string dateTimeNow() {
+  std::time_t time = std::time(nullptr);
+  return getDateTime(time);
+}
+
 }  // namespace utility
 }  // namespace crow
