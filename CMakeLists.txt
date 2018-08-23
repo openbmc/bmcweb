@@ -10,6 +10,7 @@ option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 option (BMCWEB_ENABLE_KVM "Enable KVM websocket interfaces" ON)
 option (BMCWEB_ENABLE_DBUS_REST "Enable rest dbus interfaces" ON)
 option (BMCWEB_ENABLE_REDFISH "Enable redfish interfaces" ON)
+option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial websocket" ON)
 option (BMCWEB_ENABLE_STATIC_HOSTING "Enable hosting of static files.
        For example, redfish schema and webui files" ON)
 
