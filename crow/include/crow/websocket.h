@@ -4,6 +4,7 @@
 #include "crow/http_request.h"
 #include "crow/socket_adaptors.h"
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/asio/buffer.hpp>
 #include <boost/beast/websocket.hpp>
 
 #ifdef BMCWEB_ENABLE_SSL
@@ -45,6 +46,8 @@ class ConnectionImpl : public Connection {
       std::function<void(Connection&, const std::string&)> close_handler,
       std::function<void(Connection&)> error_handler)
       : adaptor(std::move(adaptorIn)),
+        inString(),
+        inBuffer(inString, 4096),
         ws(adaptor.socket()),
         Connection(req),
         openHandler(std::move(open_handler)),
@@ -129,30 +132,26 @@ class ConnectionImpl : public Connection {
   }
 
   void doRead() {
-    ws.async_read(
-        inBuffer, [ this, self(shared_from_this()) ](
+    ws.async_read(inBuffer,
+                  [ this, self(shared_from_this()) ](
                       boost::beast::error_code ec, std::size_t bytes_read) {
-          if (ec) {
-            if (ec != boost::beast::websocket::error::closed) {
-              BMCWEB_LOG_ERROR << "doRead error " << ec;
-            }
-            if (closeHandler) {
-              boost::beast::string_view reason = ws.reason().reason;
-              closeHandler(*this, std::string(reason));
-            }
-            return;
-          }
-          if (messageHandler) {
-            // TODO(Ed) There must be a more direct way to do this conversion,
-            // but I can't find it at the moment.  It should get optimized away
-            boost::asio::const_buffer cb =
-                boost::beast::buffers_front(inBuffer.data());
-            boost::beast::string_view message(
-                reinterpret_cast<char const*>(cb.data()), cb.size());
-            messageHandler(*this, std::string(message), ws.got_text());
-          }
-          doRead();
-        });
+                    if (ec) {
+                      if (ec != boost::beast::websocket::error::closed) {
+                        BMCWEB_LOG_ERROR << "doRead error " << ec;
+                      }
+                      if (closeHandler) {
+                        boost::beast::string_view reason = ws.reason().reason;
+                        closeHandler(*this, std::string(reason));
+                      }
+                      return;
+                    }
+                    if (messageHandler) {
+                      messageHandler(*this, inString, ws.got_text());
+                    }
+                    inBuffer.consume(bytes_read);
+                    inString.clear();
+                    doRead();
+                  });
   }
 
   void doWrite() {
@@ -193,7 +192,11 @@ class ConnectionImpl : public Connection {
       std::add_lvalue_reference_t<typename Adaptor::streamType>>
       ws;
 
-  boost::beast::flat_static_buffer<4096> inBuffer;
+  std::string inString;
+  boost::asio::dynamic_string_buffer<std::string::value_type,
+                                     std::string::traits_type,
+                                     std::string::allocator_type>
+      inBuffer;
   std::vector<std::string> outBuffer;
   bool doingWrite = false;
 
