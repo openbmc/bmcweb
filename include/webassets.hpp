@@ -48,14 +48,19 @@ void requestRoutes(Crow<Middlewares...>& app) {
            {".map", "application/json"}}};
   filesystem::path rootpath{"/usr/share/www/"};
   filesystem::recursive_directory_iterator dirIter(rootpath);
+  // In certain cases, we might have both a gzipped version of the file AND a
+  // non-gzipped version.  To avoid duplicated routes, we need to make sure we
+  // get the gzipped version first.  Because the gzipped path should be longer
+  // than the non gzipped path, if we sort in Ascending order, we should be
+  // guaranteed to get the gzip version first.
+  std::vector<filesystem::directory_entry> paths(filesystem::begin(dirIter),
+                                                 filesystem::end(dirIter));
+  std::sort(paths.rbegin(), paths.rend());
 
-  for (const filesystem::directory_entry& dir : dirIter) {
+  for (const filesystem::directory_entry& dir : paths) {
     filesystem::path absolutePath = dir.path();
     filesystem::path relativePath{
         absolutePath.string().substr(rootpath.string().size() - 1)};
-    // make sure we don't recurse into certain directories
-    // note: maybe check for is_directory() here as well...
-
     if (filesystem::is_directory(dir)) {
       // don't recurse into hidden directories or symlinks
       if (boost::starts_with(dir.path().filename().string(), ".") ||
@@ -83,7 +88,14 @@ void requestRoutes(Crow<Middlewares...>& app) {
         }
       }
 
-      routes.insert(webpath);
+      std::pair<boost::container::flat_set<std::string>::iterator, bool>
+          inserted = routes.insert(webpath);
+
+      if (!inserted.second) {
+        // Got a duplicated path.  This is expected in certain situations
+        BMCWEB_LOG_DEBUG << "Got duplicated path " << webpath;
+        continue;
+      }
       const char* contentType = nullptr;
 
       auto contentTypeIt = contentTypes.find(extension.c_str());
