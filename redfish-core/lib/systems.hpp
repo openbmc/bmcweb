@@ -25,37 +25,6 @@ namespace redfish
 {
 
 /**
- * SystemAsyncResp
- * Gathers data needed for response processing after async calls are done
- */
-class SystemAsyncResp
-{
-  public:
-    SystemAsyncResp(crow::Response &response) : res(response)
-    {
-    }
-
-    ~SystemAsyncResp()
-    {
-        if (res.result() != (boost::beast::http::status::ok))
-        {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            res.jsonValue = messages::internalError();
-        }
-        res.end();
-    }
-
-    void setErrorStatus()
-    {
-        res.result(boost::beast::http::status::internal_server_error);
-    }
-
-    crow::Response &res;
-};
-
-/**
  * OnDemandSystemsProvider
  * Board provider class that retrieves data directly from dbus, before seting
  * it into JSON output. This does not cache any data.
@@ -120,7 +89,7 @@ class OnDemandSystemsProvider
      *
      * @return None.
      */
-    void getComputerSystem(std::shared_ptr<SystemAsyncResp> aResp,
+    void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                            const std::string &name)
     {
         const std::array<const char *, 5> interfaces = {
@@ -141,7 +110,8 @@ class OnDemandSystemsProvider
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error";
-                    aResp->setErrorStatus();
+                    aResp->res.result(
+                        boost::beast::http::status::internal_server_error);
                     return;
                 }
                 bool foundName = false;
@@ -178,7 +148,9 @@ class OnDemandSystemsProvider
                                 {
                                     BMCWEB_LOG_ERROR << "DBUS response error: "
                                                      << ec;
-                                    aResp->setErrorStatus();
+                                    aResp->res.result(
+                                        boost::beast::http::status::
+                                            internal_server_error);
                                     return;
                                 }
                                 BMCWEB_LOG_DEBUG << "Got "
@@ -227,7 +199,9 @@ class OnDemandSystemsProvider
                                                 BMCWEB_LOG_ERROR
                                                     << "DBUS response error "
                                                     << ec;
-                                                aResp->setErrorStatus();
+                                                aResp->res.result(
+                                                    boost::beast::http::status::
+                                                        internal_server_error);
                                                 return;
                                             }
                                             BMCWEB_LOG_DEBUG
@@ -264,8 +238,10 @@ class OnDemandSystemsProvider
                                                                 << "Unsupported"
                                                                    " memory "
                                                                    "units";
-                                                            aResp
-                                                                ->setErrorStatus();
+                                                            aResp->res.result(
+                                                                boost::beast::
+                                                                    http::status::
+                                                                        internal_server_error);
                                                             return;
                                                         }
 
@@ -298,75 +274,63 @@ class OnDemandSystemsProvider
                                 {
                                     BMCWEB_LOG_DEBUG
                                         << "Found Cpu, now get it properties.";
-                                    crow::connections::systemBus
-                                        ->async_method_call(
-                                            [&, aResp](
-                                                const boost::system::error_code
-                                                    ec,
-                                                const std::vector<std::pair<
-                                                    std::string, VariantType>>
-                                                    &properties) {
-                                                if (ec)
+                                    crow::connections::systemBus->async_method_call(
+                                        [&, aResp](
+                                            const boost::system::error_code ec,
+                                            const std::vector<std::pair<
+                                                std::string, VariantType>>
+                                                &properties) {
+                                            if (ec)
+                                            {
+                                                BMCWEB_LOG_ERROR
+                                                    << "DBUS response error "
+                                                    << ec;
+                                                aResp->res.result(
+                                                    boost::beast::http::status::
+                                                        internal_server_error);
+                                                return;
+                                            }
+                                            BMCWEB_LOG_DEBUG
+                                                << "Got " << properties.size()
+                                                << "Cpu properties.";
+                                            for (const auto &p : properties)
+                                            {
+                                                if (p.first ==
+                                                    "ProcessorFamily")
                                                 {
-                                                    BMCWEB_LOG_ERROR
-                                                        << "DBUS response "
-                                                           "error "
-                                                        << ec;
-                                                    aResp->setErrorStatus();
-                                                    return;
-                                                }
-                                                BMCWEB_LOG_DEBUG
-                                                    << "Got "
-                                                    << properties.size()
-                                                    << "Cpu properties.";
-                                                for (const auto &p : properties)
-                                                {
-                                                    if (p.first ==
-                                                        "ProcessorFamily")
+                                                    const std::string *value =
+                                                        mapbox::getPtr<
+                                                            const std::string>(
+                                                            p.second);
+                                                    if (value != nullptr)
                                                     {
-                                                        const std::string
-                                                            *value =
-                                                                mapbox::getPtr<
-                                                                    const std::
-                                                                        string>(
-                                                                    p.second);
-                                                        if (value != nullptr)
-                                                        {
-                                                            aResp->res.jsonValue
-                                                                ["ProcessorSumm"
-                                                                 "ary"]
-                                                                ["Count"] =
-                                                                aResp->res
-                                                                    .jsonValue
-                                                                        ["Proce"
-                                                                         "ssorS"
-                                                                         "ummar"
-                                                                         "y"]
-                                                                        ["Coun"
-                                                                         "t"]
-                                                                    .get<
-                                                                        int>() +
-                                                                1;
-                                                            aResp->res.jsonValue
-                                                                ["ProcessorSumm"
-                                                                 "ary"]
-                                                                ["Status"]
-                                                                ["State"] =
-                                                                "Enabled";
-                                                            aResp->res.jsonValue
-                                                                ["ProcessorSumm"
-                                                                 "ary"]
-                                                                ["Model"] =
-                                                                *value;
-                                                        }
+                                                        aResp->res.jsonValue
+                                                            ["ProcessorSummary"]
+                                                            ["Count"] =
+                                                            aResp->res
+                                                                .jsonValue
+                                                                    ["Processor"
+                                                                     "Summary"]
+                                                                    ["Count"]
+                                                                .get<int>() +
+                                                            1;
+                                                        aResp->res.jsonValue
+                                                            ["ProcessorSummary"]
+                                                            ["Status"]
+                                                            ["State"] =
+                                                            "Enabled";
+                                                        aResp->res.jsonValue
+                                                            ["ProcessorSummary"]
+                                                            ["Model"] = *value;
                                                     }
                                                 }
-                                            },
-                                            s.first, path,
-                                            "org.freedesktop.DBus.Properties",
-                                            "GetAll",
-                                            "xyz.openbmc_project.Inventory."
-                                            "Item.Cpu");
+                                            }
+                                        },
+                                        s.first, path,
+                                        "org.freedesktop.DBus.Properties",
+                                        "GetAll",
+                                        "xyz.openbmc_project.Inventory.Item."
+                                        "Cpu");
                                 }
                                 else if (boost::ends_with(i, "UUID"))
                                 {
@@ -383,7 +347,9 @@ class OnDemandSystemsProvider
                                                 BMCWEB_LOG_DEBUG
                                                     << "DBUS response error "
                                                     << ec;
-                                                aResp->setErrorStatus();
+                                                aResp->res.result(
+                                                    boost::beast::http::status::
+                                                        internal_server_error);
                                                 return;
                                             }
                                             BMCWEB_LOG_DEBUG
@@ -475,7 +441,8 @@ class OnDemandSystemsProvider
                 }
                 if (foundName == false)
                 {
-                    aResp->setErrorStatus();
+                    aResp->res.result(
+                        boost::beast::http::status::internal_server_error);
                 }
             },
             "xyz.openbmc_project.ObjectMapper",
@@ -493,7 +460,7 @@ class OnDemandSystemsProvider
      * @return None.
      */
     template <typename CallbackFunc>
-    void getLedGroupIdentify(std::shared_ptr<SystemAsyncResp> aResp,
+    void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                              CallbackFunc &&callback)
     {
         BMCWEB_LOG_DEBUG << "Get led groups";
@@ -504,7 +471,8 @@ class OnDemandSystemsProvider
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    aResp->setErrorStatus();
+                    aResp->res.result(
+                        boost::beast::http::status::internal_server_error);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Got " << resp.size()
@@ -547,7 +515,7 @@ class OnDemandSystemsProvider
     }
 
     template <typename CallbackFunc>
-    void getLedIdentify(std::shared_ptr<SystemAsyncResp> aResp,
+    void getLedIdentify(std::shared_ptr<AsyncResp> aResp,
                         CallbackFunc &&callback)
     {
         BMCWEB_LOG_DEBUG << "Get identify led properties";
@@ -558,7 +526,8 @@ class OnDemandSystemsProvider
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    aResp->setErrorStatus();
+                    aResp->res.result(
+                        boost::beast::http::status::internal_server_error);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Got " << properties.size()
@@ -609,7 +578,7 @@ class OnDemandSystemsProvider
      *
      * @return None.
      */
-    void getHostState(std::shared_ptr<SystemAsyncResp> aResp)
+    void getHostState(std::shared_ptr<AsyncResp> aResp)
     {
         BMCWEB_LOG_DEBUG << "Get host information.";
         crow::connections::systemBus->async_method_call(
@@ -618,7 +587,8 @@ class OnDemandSystemsProvider
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    aResp->setErrorStatus();
+                    aResp->res.result(
+                        boost::beast::http::status::internal_server_error);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Got " << properties.size()
@@ -786,19 +756,18 @@ class Systems : public Node
         res.jsonValue = Node::json;
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
-        auto asyncResp = std::make_shared<SystemAsyncResp>(res);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
 
         provider.getLedGroupIdentify(
-            asyncResp, [&](const bool &asserted,
-                           const std::shared_ptr<SystemAsyncResp> &aResp) {
+            asyncResp,
+            [&](const bool &asserted, const std::shared_ptr<AsyncResp> &aResp) {
                 if (asserted)
                 {
                     // If led group is asserted, then another call is needed to
                     // get led status
                     provider.getLedIdentify(
-                        aResp,
-                        [](const std::string &ledStatus,
-                           const std::shared_ptr<SystemAsyncResp> &aResp) {
+                        aResp, [](const std::string &ledStatus,
+                                  const std::shared_ptr<AsyncResp> &aResp) {
                             if (!ledStatus.empty())
                             {
                                 aResp->res.jsonValue["IndicatorLED"] =
@@ -859,7 +828,7 @@ class Systems : public Node
         }
 
         // Update led status
-        auto asyncResp = std::make_shared<SystemAsyncResp>(res);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = Node::json;
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
@@ -882,7 +851,8 @@ class Systems : public Node
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                        asyncResp->setErrorStatus();
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
                         return;
                     }
                     BMCWEB_LOG_DEBUG << "Led group update done.";
@@ -901,7 +871,8 @@ class Systems : public Node
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                        asyncResp->setErrorStatus();
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
                         return;
                     }
                     BMCWEB_LOG_DEBUG << "Led state update done.";

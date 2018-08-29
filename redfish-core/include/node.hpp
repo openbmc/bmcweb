@@ -19,6 +19,8 @@
 #include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
 
+#include <error_messages.hpp>
+
 #include "crow.h"
 
 namespace redfish
@@ -37,6 +39,23 @@ class AsyncResp
 
     ~AsyncResp()
     {
+        if (res.result() != boost::beast::http::status::ok)
+        {
+            nlohmann::json::iterator error = res.jsonValue.find("error");
+
+            if (error == res.jsonValue.end())
+            {
+                // If an error value hasn't yet been set, assume that whatever
+                // content we have is garbage, and provide a worthless internal
+                // server error
+                res.jsonValue = {};
+            }
+            // Reset the json object to clear out any data that made it in
+            // before the error happened todo(ed) handle error condition with
+            // proper code
+            messages::addMessageToErrorJson(res.jsonValue,
+                                            messages::internalError());
+        }
         res.end();
     }
 
