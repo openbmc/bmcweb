@@ -439,6 +439,116 @@ class SystemsCollection : public Node {
 };
 
 /**
+ * SystemActionsReset class supports handle POST method for Reset action.
+ * The class retrieves and sends data directly to D-Bus.
+ */
+class SystemActionsReset : public Node {
+ public:
+  SystemActionsReset(CrowApp &app)
+      : Node(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/",
+             std::string()) {
+    entityPrivileges = {
+        {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+  }
+
+ private:
+  /**
+   * Function handles POST method request.
+   * Analyzes POST body message before sends Reset request data to D-Bus.
+   */
+  void doPost(crow::Response &res, const crow::Request &req,
+              const std::vector<std::string> &params) override {
+    // Parse JSON request body.
+    nlohmann::json post;
+    if (!json_util::processJsonFromRequest(res, req, post)) {
+      return;
+    }
+
+    auto asyncResp = std::make_shared<AsyncResp>(res);
+
+    for (const auto &item : post.items()) {
+      if (item.key() == "ResetType") {
+        const std::string *reqResetType =
+            item.value().get_ptr<const std::string *>();
+        if (reqResetType == nullptr) {
+          res.result(boost::beast::http::status::bad_request);
+          messages::addMessageToErrorJson(
+              asyncResp->res.jsonValue,
+              messages::actionParameterValueFormatError(
+                  item.value().dump(), "ResetType", "ComputerSystem.Reset"));
+          res.end();
+          return;
+        }
+
+        if (*reqResetType == "ForceOff") {
+          // Force off acts on the chassis
+          crow::connections::systemBus->async_method_call(
+              [asyncResp](const boost::system::error_code ec) {
+                if (ec) {
+                  BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                  asyncResp->res.result(
+                      boost::beast::http::status::internal_server_error);
+                  return;
+                }
+                // TODO Consider support polling mechanism to verify status of
+                // host and chassis after execute the requested action.
+                BMCWEB_LOG_DEBUG << "Response with no content";
+                asyncResp->res.result(boost::beast::http::status::no_content);
+              },
+              "xyz.openbmc_project.State.Chassis",
+              "/xyz/openbmc_project/state/chassis0",
+              "org.freedesktop.DBus.Properties", "Set",
+              "RequestedPowerTransition", "xyz.openbmc_project.State.Chassis",
+              sdbusplus::message::variant<std::string>{
+                  "xyz.openbmc_project.State.Chassis.Transition.Off"});
+          return;
+        }
+        // all other actions operate on the host
+        std::string command;
+        // Execute Reset Action regarding to each reset type.
+        if (*reqResetType == "On") {
+          command = "xyz.openbmc_project.State.Host.Transition.On";
+        } else if (*reqResetType == "GracefulShutdown") {
+          command = "xyz.openbmc_project.State.Host.Transition.Off";
+        } else if (*reqResetType == "GracefulRestart") {
+          command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+        } else {
+          res.result(boost::beast::http::status::bad_request);
+          messages::addMessageToErrorJson(
+              asyncResp->res.jsonValue,
+              messages::actionParameterUnknown("Reset", *reqResetType));
+          res.end();
+          return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+              if (ec) {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+              }
+              // TODO Consider support polling mechanism to verify status of
+              // host and chassis after execute the requested action.
+              BMCWEB_LOG_DEBUG << "Response with no content";
+              asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            "xyz.openbmc_project.State.Host",
+            "/xyz/openbmc_project/state/host0",
+            "org.freedesktop.DBus.Properties", "Set", "RequestedHostTransition",
+            "xyz.openbmc_project.State.Host",
+            sdbusplus::message::variant<std::string>{command});
+      } else {
+        messages::addMessageToErrorJson(
+            asyncResp->res.jsonValue, messages::actionParameterUnknown(
+                                          "ComputerSystem.Reset", item.key()));
+      }
+    }
+  }
+};
+
+/**
  * Systems derived class for delivering Computer Systems Schema.
  */
 class Systems : public Node {
@@ -493,6 +603,13 @@ class Systems : public Node {
 
     res.jsonValue = Node::json;
     res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+
+    // TODO Need to support ForceRestart.
+    res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
+        {"target",
+         "/redfish/v1/Systems/" + name + "/Actions/ComputerSystem.Reset"},
+        {"ResetType@Redfish.AllowableValues",
+         {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
 
     auto asyncResp = std::make_shared<AsyncResp>(res);
 
