@@ -272,6 +272,294 @@ static void asyncPopulatePid(const std::string& connection,
         connection, path, objectManagerIface, "GetManagedObjects");
 }
 
+enum class CreatePIDRet
+{
+    fail,
+    del,
+    patch
+};
+
+static CreatePIDRet createPidInterface(
+    const std::shared_ptr<AsyncResp>& response, const std::string& type,
+    const nlohmann::json& record, const std::string& path,
+    const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
+    boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
+        output,
+    std::string& chassis)
+{
+
+    if (type == "PidControllers" || type == "FanControllers")
+    {
+        if (createNewObject)
+        {
+            output["Class"] = type == "PidControllers" ? std::string("temp")
+                                                       : std::string("fan");
+            output["Type"] = std::string("Pid");
+        }
+        else if (record == nullptr)
+        {
+            // delete interface
+            crow::connections::systemBus->async_method_call(
+                [response,
+                 path{std::string(path)}](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Error patching " << path << ": "
+                                         << ec;
+                        response->res.result(
+                            boost::beast::http::status::internal_server_error);
+                    }
+                },
+                "xyz.openbmc_project.EntityManager", path,
+                pidConfigurationIface, "Delete");
+            return CreatePIDRet::del;
+        }
+
+        for (auto& field : record.items())
+        {
+            if (field.key() == "Zones")
+            {
+                if (!field.value().is_array())
+                {
+                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    messages::addMessageToErrorJson(
+                        response->res.jsonValue,
+                        messages::propertyValueFormatError(field.value(),
+                                                           field.key()));
+                    response->res.result(
+                        boost::beast::http::status::bad_request);
+                    return CreatePIDRet::fail;
+                }
+                std::vector<std::string> inputs;
+                for (const auto& odata : field.value().items())
+                {
+                    for (const auto& value : odata.value().items())
+                    {
+                        const std::string* path =
+                            value.value().get_ptr<const std::string*>();
+                        if (path == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                            messages::addMessageToErrorJson(
+                                response->res.jsonValue,
+                                messages::propertyValueFormatError(
+                                    field.value().dump(), field.key()));
+                            response->res.result(
+                                boost::beast::http::status::bad_request);
+                            return CreatePIDRet::fail;
+                        }
+                        std::string input;
+                        if (!dbus::utility::getNthStringFromPath(*path, 4,
+                                                                 input))
+                        {
+                            BMCWEB_LOG_ERROR << "Got invalid path " << *path;
+                            messages::addMessageToErrorJson(
+                                response->res.jsonValue,
+                                messages::propertyValueFormatError(
+                                    field.value().dump(), field.key()));
+                            response->res.result(
+                                boost::beast::http::status::bad_request);
+                            return CreatePIDRet::fail;
+                        }
+                        boost::replace_all(input, "_", " ");
+                        inputs.emplace_back(std::move(input));
+                    }
+                }
+                output["Zones"] = std::move(inputs);
+            }
+            else if (field.key() == "Inputs" || field.key() == "Outputs")
+            {
+                if (!field.value().is_array())
+                {
+                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    messages::addMessageToErrorJson(
+                        response->res.jsonValue,
+                        messages::propertyValueFormatError(field.value().dump(),
+                                                           field.key()));
+                    response->res.result(
+                        boost::beast::http::status::bad_request);
+                    return CreatePIDRet::fail;
+                }
+                std::vector<std::string> inputs;
+                for (const auto& value : field.value().items())
+                {
+                    const std::string* sensor =
+                        value.value().get_ptr<const std::string*>();
+
+                    if (sensor == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal Type "
+                                         << field.value().dump();
+                        messages::addMessageToErrorJson(
+                            response->res.jsonValue,
+                            messages::propertyValueFormatError(
+                                field.value().dump(), field.key()));
+                        response->res.result(
+                            boost::beast::http::status::bad_request);
+                        return CreatePIDRet::fail;
+                    }
+
+                    std::string input =
+                        boost::replace_all_copy(*sensor, "_", " ");
+                    inputs.push_back(std::move(input));
+                    // try to find the sensor in the
+                    // configuration
+                    if (chassis.empty())
+                    {
+                        std::find_if(
+                            managedObj.begin(), managedObj.end(),
+                            [&chassis, sensor](const auto& obj) {
+                                if (boost::algorithm::ends_with(obj.first.str,
+                                                                *sensor))
+                                {
+                                    return dbus::utility::getNthStringFromPath(
+                                        obj.first.str, 5, chassis);
+                                }
+                                return false;
+                            });
+                    }
+                }
+                output[field.key()] = inputs;
+            }
+
+            // doubles
+            else if (field.key() == "FFGainCoefficient" ||
+                     field.key() == "FFOffCoefficient" ||
+                     field.key() == "ICoefficient" ||
+                     field.key() == "ILimitMax" || field.key() == "ILimitMin" ||
+                     field.key() == "OutLimitMax" ||
+                     field.key() == "OutLimitMin" ||
+                     field.key() == "PCoefficient" ||
+                     field.key() == "SetPoint" || field.key() == "SlewNeg" ||
+                     field.key() == "SlewPos")
+            {
+                const double* ptr = field.value().get_ptr<const double*>();
+                if (ptr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    messages::addMessageToErrorJson(
+                        response->res.jsonValue,
+                        messages::propertyValueFormatError(field.value().dump(),
+                                                           field.key()));
+                    response->res.result(
+                        boost::beast::http::status::bad_request);
+                    return CreatePIDRet::fail;
+                }
+                output[field.key()] = *ptr;
+            }
+
+            else
+            {
+                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                messages::addMessageToErrorJson(
+                    response->res.jsonValue,
+                    messages::propertyUnknown(field.key()));
+                response->res.result(boost::beast::http::status::bad_request);
+                return CreatePIDRet::fail;
+            }
+        }
+    }
+    else if (type == "FanZones")
+    {
+        if (!createNewObject && record == nullptr)
+        {
+            // delete interface
+            crow::connections::systemBus->async_method_call(
+                [response,
+                 path{std::string(path)}](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Error patching " << path << ": "
+                                         << ec;
+                        response->res.result(
+                            boost::beast::http::status::internal_server_error);
+                    }
+                },
+                "xyz.openbmc_project.EntityManager", path,
+                pidZoneConfigurationIface, "Delete");
+            return CreatePIDRet::del;
+        }
+        output["Type"] = std::string("Pid.Zone");
+
+        for (auto& field : record.items())
+        {
+            if (field.key() == "Chassis")
+            {
+                const std::string* chassisId = nullptr;
+                for (const auto& id : field.value().items())
+                {
+                    if (id.key() != "@odata.id")
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal Type " << id.key();
+                        messages::addMessageToErrorJson(
+                            response->res.jsonValue,
+                            messages::propertyUnknown(field.key()));
+                        response->res.result(
+                            boost::beast::http::status::bad_request);
+                        return CreatePIDRet::fail;
+                    }
+                    chassisId = id.value().get_ptr<const std::string*>();
+                    if (chassisId == nullptr)
+                    {
+                        messages::addMessageToErrorJson(
+                            response->res.jsonValue,
+                            messages::createFailedMissingReqProperties(
+                                field.key()));
+                        response->res.result(
+                            boost::beast::http::status::bad_request);
+                        return CreatePIDRet::fail;
+                    }
+                }
+
+                // /refish/v1/chassis/chassis_name/
+                if (!dbus::utility::getNthStringFromPath(*chassisId, 3,
+                                                         chassis))
+                {
+                    BMCWEB_LOG_ERROR << "Got invalid path " << *chassisId;
+                    response->res.result(
+                        boost::beast::http::status::bad_request);
+                    return CreatePIDRet::fail;
+                }
+            }
+            else if (field.key() == "FailSafePercent" ||
+                     field.key() == "MinThermalRpm")
+            {
+                const double* ptr = field.value().get_ptr<const double*>();
+                if (ptr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    messages::addMessageToErrorJson(
+                        response->res.jsonValue,
+                        messages::propertyValueFormatError(field.value().dump(),
+                                                           field.key()));
+                    response->res.result(
+                        boost::beast::http::status::bad_request);
+                    return CreatePIDRet::fail;
+                }
+                output[field.key()] = *ptr;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                messages::addMessageToErrorJson(
+                    response->res.jsonValue,
+                    messages::propertyUnknown(field.key()));
+                response->res.result(boost::beast::http::status::bad_request);
+                return CreatePIDRet::fail;
+            }
+        }
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "Illegal Type " << type;
+        messages::addMessageToErrorJson(response->res.jsonValue,
+                                        messages::propertyUnknown(type));
+        response->res.result(boost::beast::http::status::bad_request);
+        return CreatePIDRet::fail;
+    }
+    return CreatePIDRet::patch;
+}
+
 class Manager : public Node
 {
   public:
@@ -433,10 +721,256 @@ class Manager : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         getPidValues(asyncResp);
     }
+    void setPidValues(std::shared_ptr<AsyncResp> response,
+                      const nlohmann::json& data)
+    {
+        // todo(james): might make sense to do a mapper call here if this
+        // interface gets more traction
+        crow::connections::systemBus->async_method_call(
+            [response,
+             data](const boost::system::error_code ec,
+                   const dbus::utility::ManagedObjectType& managedObj) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error communicating to Entity Manager";
+                    response->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+                for (const auto& type : data.items())
+                {
+                    if (!type.value().is_object())
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal Type " << type.key();
+                        messages::addMessageToErrorJson(
+                            response->res.jsonValue,
+                            messages::propertyValueFormatError(type.value(),
+                                                               type.key()));
+                        response->res.result(
+                            boost::beast::http::status::bad_request);
+                        return;
+                    }
+                    for (const auto& record : type.value().items())
+                    {
+                        const std::string& name = record.key();
+                        auto pathItr =
+                            std::find_if(managedObj.begin(), managedObj.end(),
+                                         [&name](const auto& obj) {
+                                             return boost::algorithm::ends_with(
+                                                 obj.first.str, name);
+                                         });
+                        boost::container::flat_map<
+                            std::string, dbus::utility::DbusVariantType>
+                            output;
+
+                        output.reserve(16); // The pid interface length
+
+                        // determines if we're patching entity-manager or
+                        // creating a new object
+                        bool createNewObject = (pathItr == managedObj.end());
+                        if (type.key() == "PidControllers" ||
+                            type.key() == "FanControllers")
+                        {
+                            if (!createNewObject &&
+                                pathItr->second.find(pidConfigurationIface) ==
+                                    pathItr->second.end())
+                            {
+                                createNewObject = true;
+                            }
+                        }
+                        else if (!createNewObject &&
+                                 pathItr->second.find(
+                                     pidZoneConfigurationIface) ==
+                                     pathItr->second.end())
+                        {
+                            createNewObject = true;
+                        }
+                        output["Name"] =
+                            boost::replace_all_copy(name, "_", " ");
+
+                        std::string chassis;
+                        CreatePIDRet ret = createPidInterface(
+                            response, type.key(), record.value(),
+                            pathItr->first.str, managedObj, createNewObject,
+                            output, chassis);
+                        if (ret == CreatePIDRet::fail)
+                        {
+                            return;
+                        }
+                        else if (ret == CreatePIDRet::del)
+                        {
+                            continue;
+                        }
+
+                        if (!createNewObject)
+                        {
+                            for (const auto& property : output)
+                            {
+                                const char* iface =
+                                    type.key() == "FanZones"
+                                        ? pidZoneConfigurationIface
+                                        : pidConfigurationIface;
+                                crow::connections::systemBus->async_method_call(
+                                    [response,
+                                     propertyName{std::string(property.first)}](
+                                        const boost::system::error_code ec) {
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "Error patching "
+                                                << propertyName << ": " << ec;
+                                            response->res.result(
+                                                boost::beast::http::status::
+                                                    internal_server_error);
+                                        }
+                                    },
+                                    "xyz.openbmc_project.EntityManager",
+                                    pathItr->first.str,
+                                    "org.freedesktop.DBus.Properties", "Set",
+                                    std::string(iface), property.first,
+                                    property.second);
+                            }
+                        }
+                        else
+                        {
+                            if (chassis.empty())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Failed to get chassis from config";
+                                response->res.result(
+                                    boost::beast::http::status::bad_request);
+                                return;
+                            }
+
+                            bool foundChassis = false;
+                            for (const auto& obj : managedObj)
+                            {
+                                if (boost::algorithm::ends_with(obj.first.str,
+                                                                chassis))
+                                {
+                                    chassis = obj.first.str;
+                                    foundChassis = true;
+                                    break;
+                                }
+                            }
+                            if (!foundChassis)
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Failed to find chassis on dbus";
+                                messages::addMessageToErrorJson(
+                                    response->res.jsonValue,
+                                    messages::resourceMissingAtURI(
+                                        "/redfish/v1/Chassis/" + chassis));
+                                response->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
+                            }
+
+                            crow::connections::systemBus->async_method_call(
+                                [response](const boost::system::error_code ec) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "Error Adding Pid Object " << ec;
+                                        response->res.result(
+                                            boost::beast::http::status::
+                                                internal_server_error);
+                                    }
+                                },
+                                "xyz.openbmc_project.EntityManager", chassis,
+                                "xyz.openbmc_project.AddObject", "AddObject",
+                                output);
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.EntityManager", "/", objectManagerIface,
+            "GetManagedObjects");
+    }
 
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
+        nlohmann::json patch;
+        if (!json_util::processJsonFromRequest(res, req, patch))
+        {
+            return;
+        }
+        std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
+        for (const auto& topLevel : patch.items())
+        {
+            if (topLevel.key() == "Oem")
+            {
+                if (!topLevel.value().is_object())
+                {
+                    BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
+                    res.result(boost::beast::http::status::bad_request);
+                    return;
+                }
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
+                messages::addMessageToErrorJson(
+                    response->res.jsonValue,
+                    messages::propertyUnknown(topLevel.key()));
+                res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+            for (const auto& oemLevel : topLevel.value().items())
+            {
+                if (oemLevel.key() == "OpenBmc")
+                {
+                    if (!oemLevel.value().is_object())
+                    {
+                        BMCWEB_LOG_ERROR << "Bad Patch " << oemLevel.key();
+                        res.result(boost::beast::http::status::bad_request);
+                        return;
+                    }
+                    for (const auto& typeLevel : oemLevel.value().items())
+                    {
+
+                        if (typeLevel.key() == "Fan")
+                        {
+                            if (!typeLevel.value().is_object())
+                            {
+                                BMCWEB_LOG_ERROR << "Bad Patch "
+                                                 << typeLevel.key();
+                                messages::addMessageToErrorJson(
+                                    response->res.jsonValue,
+                                    messages::propertyValueFormatError(
+                                        typeLevel.value().dump(),
+                                        typeLevel.key()));
+                                res.result(
+                                    boost::beast::http::status::bad_request);
+                                return;
+                            }
+                            setPidValues(response,
+                                         std::move(typeLevel.value()));
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR << "Bad Patch " << typeLevel.key();
+                            messages::addMessageToErrorJson(
+                                response->res.jsonValue,
+                                messages::propertyUnknown(typeLevel.key()));
+                            res.result(boost::beast::http::status::bad_request);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "Bad Patch " << oemLevel.key();
+                    messages::addMessageToErrorJson(
+                        response->res.jsonValue,
+                        messages::propertyUnknown(oemLevel.key()));
+                    res.result(boost::beast::http::status::bad_request);
+                    return;
+                }
+            }
+        }
     }
 
     std::string getDateTime() const
@@ -483,8 +1017,8 @@ class ManagerCollection : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        // Collections don't include the static data added by SubRoute because
-        // it has a duplicate entry for members
+        // Collections don't include the static data added by SubRoute
+        // because it has a duplicate entry for members
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
         res.jsonValue["@odata.type"] = "#ManagerCollection.ManagerCollection";
         res.jsonValue["@odata.context"] =
