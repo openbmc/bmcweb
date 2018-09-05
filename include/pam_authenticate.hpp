@@ -55,14 +55,6 @@ inline bool pamAuthenticateUser(const boost::string_view username,
 
     if (retval != PAM_SUCCESS)
     {
-        if (retval == PAM_AUTH_ERR)
-        {
-            // printf("Authentication failure.\n");
-        }
-        else
-        {
-            // printf("pam_authenticate returned %d\n", retval);
-        }
         pam_end(localAuthHandle, PAM_SUCCESS);
         return false;
     }
@@ -70,6 +62,34 @@ inline bool pamAuthenticateUser(const boost::string_view username,
     /* check that the account is healthy */
     if (pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK) !=
         PAM_SUCCESS)
+    {
+        pam_end(localAuthHandle, PAM_SUCCESS);
+        return false;
+    }
+
+    if (pam_end(localAuthHandle, PAM_SUCCESS) != PAM_SUCCESS)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+inline bool pamUpdatePassword(const std::string& username,
+                              const std::string& password)
+{
+    const struct pam_conv localConversation = {
+        pamFunctionConversation, const_cast<char*>(password.c_str())};
+    pam_handle_t* localAuthHandle = NULL; // this gets set by pam_start
+
+    if (pam_start("passwd", username.c_str(), &localConversation,
+                  &localAuthHandle) != PAM_SUCCESS)
+    {
+        return false;
+    }
+    int retval = pam_chauthtok(localAuthHandle, PAM_SILENT);
+
+    if (retval != PAM_SUCCESS)
     {
         pam_end(localAuthHandle, PAM_SUCCESS);
         return false;
