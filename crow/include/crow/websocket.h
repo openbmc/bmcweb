@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <boost/algorithm/string/predicate.hpp>
+#include <boost/asio/buffer.hpp>
 #include <boost/beast/websocket.hpp>
 #include <functional>
 
@@ -55,8 +56,8 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
         adaptor(std::move(adaptorIn)),
-        ws(adaptor.socket()), Connection(req),
-        openHandler(std::move(open_handler)),
+        inString(), inBuffer(inString, 4096), ws(adaptor.socket()),
+        Connection(req), openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),
         errorHandler(std::move(error_handler))
@@ -170,15 +171,10 @@ template <typename Adaptor> class ConnectionImpl : public Connection
                 }
                 if (messageHandler)
                 {
-                    // TODO(Ed) There must be a more direct way to do this
-                    // conversion, but I can't find it at the moment.  It should
-                    // get optimized away
-                    boost::asio::const_buffer cb =
-                        boost::beast::buffers_front(inBuffer.data());
-                    boost::beast::string_view message(
-                        reinterpret_cast<char const*>(cb.data()), cb.size());
-                    messageHandler(*this, std::string(message), ws.got_text());
+                    messageHandler(*this, inString, ws.got_text());
                 }
+                inBuffer.consume(bytes_read);
+                inString.clear();
                 doRead();
             });
     }
@@ -227,7 +223,11 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         std::add_lvalue_reference_t<typename Adaptor::streamType>>
         ws;
 
-    boost::beast::flat_static_buffer<4096> inBuffer;
+    std::string inString;
+    boost::asio::dynamic_string_buffer<std::string::value_type,
+                                       std::string::traits_type,
+                                       std::string::allocator_type>
+        inBuffer;
     std::vector<std::string> outBuffer;
     bool doingWrite = false;
 
