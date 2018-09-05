@@ -378,10 +378,19 @@ class Connection
 
             if (!res.completed)
             {
-                if (req->isUpgrade() &&
+                // While not technically an http "upgrade", handle SSE event
+                // requests through the handleUpgrade path.
+                // TODO(ed) in the future, we could likely just have a single
+                // templated "handle" method that could be shared amongst all
+                // handler types, regardless of whether or not they take control
+                // of the stream
+                if ((req->isUpgrade() &&
+                     boost::iequals(req->getHeaderValue(
+                                        boost::beast::http::field::upgrade),
+                                    "websocket")) ||
                     boost::iequals(
-                        req->getHeaderValue(boost::beast::http::field::upgrade),
-                        "websocket"))
+                        req->getHeaderValue(boost::beast::http::field::accept),
+                        "text/event-stream"))
                 {
                     handler->handleUpgrade(*req, res, std::move(adaptor));
                     return;
