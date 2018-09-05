@@ -11,12 +11,18 @@
 #include <sdbusplus/bus/match.hpp>
 
 #include "logging.h"
+#include "utility.h"
 
 namespace crow
 {
 
 namespace persistent_data
 {
+
+// entropy: 20 characters, 62 possibilities.  log2(62^20) = 119 bits of
+// entropy.  OWASP recommends at least 64
+// https://cheatsheetseries.owasp.org/cheatsheets/Session_Management_Cheat_Sheet.html#session-id-entropy
+constexpr std::size_t sessionTokenSize = 20;
 
 enum class PersistenceType
 {
@@ -399,11 +405,8 @@ class SessionStore
             'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-        // entropy: 30 characters, 62 possibilities.  log2(62^30) = 178 bits of
-        // entropy.  OWASP recommends at least 60
-        // https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Entropy
         std::string sessionToken;
-        sessionToken.resize(20, '0');
+        sessionToken.resize(sessionTokenSize, '0');
         std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
         for (size_t i = 0; i < sessionToken.size(); ++i)
         {
@@ -411,7 +414,7 @@ class SessionStore
         }
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
-        csrfToken.resize(20, '0');
+        csrfToken.resize(sessionTokenSize, '0');
         for (size_t i = 0; i < csrfToken.size(); ++i)
         {
             csrfToken[i] = alphanum[dist(rd)];
@@ -437,6 +440,10 @@ class SessionStore
         loginSessionByToken(const std::string_view token)
     {
         applySessionTimeouts();
+        if (token.size() != sessionTokenSize)
+        {
+            return nullptr;
+        }
         auto sessionIt = authTokens.find(std::string(token));
         if (sessionIt == authTokens.end())
         {
@@ -549,7 +556,9 @@ class SessionStore
     }
 
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
-    boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
+    std::unordered_map<std::string, std::shared_ptr<UserSession>,
+                       std::hash<std::string>,
+                       crow::utility::ConstantTimeCompare>
         authTokens;
     std::random_device rd;
     bool needWrite{false};

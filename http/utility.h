@@ -2,6 +2,8 @@
 
 #include "nlohmann/json.hpp"
 
+#include <openssl/crypto.h>
+
 #include <cstdint>
 #include <cstring>
 #include <functional>
@@ -778,6 +780,26 @@ inline std::string dateTimeNow()
     std::time_t time = std::time(nullptr);
     return getDateTime(time);
 }
+
+inline bool constantTimeStringCompare(const std::string_view a,
+                                      const std::string_view b)
+{
+    // Important note, this function is ONLY constant time if the two input
+    // sizes are the same
+    if (a.size() != b.size())
+    {
+        return false;
+    }
+    return CRYPTO_memcmp(a.data(), b.data(), a.size()) == 0;
+}
+
+struct ConstantTimeCompare
+{
+    bool operator()(const std::string_view a, const std::string_view b) const
+    {
+        return constantTimeStringCompare(a, b);
+    }
+};
 
 } // namespace utility
 } // namespace crow
