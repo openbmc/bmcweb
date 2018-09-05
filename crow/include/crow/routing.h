@@ -16,6 +16,7 @@
 #include "crow/http_request.h"
 #include "crow/http_response.h"
 #include "crow/logging.h"
+#include "crow/server_sent_event.h"
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
@@ -302,9 +303,12 @@ class WebSocketRule : public BaseRule
     void handleUpgrade(const Request& req, Response&,
                        SocketAdaptor&& adaptor) override
     {
-        new crow::websocket::ConnectionImpl<SocketAdaptor>(
-            req, std::move(adaptor), openHandler, messageHandler, closeHandler,
-            errorHandler);
+        std::shared_ptr<crow::websocket::ConnectionImpl<SocketAdaptor>>
+            myConnection = std::make_shared<
+                crow::websocket::ConnectionImpl<SocketAdaptor>>(
+                req, std::move(adaptor), openHandler, messageHandler,
+                closeHandler, errorHandler);
+        myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
     void handleUpgrade(const Request& req, Response&,
@@ -352,6 +356,55 @@ class WebSocketRule : public BaseRule
     std::function<void(crow::websocket::Connection&)> errorHandler;
 };
 
+template <typename OpenHandler, typename CloseHandler>
+class SseSocketRule : public BaseRule
+{
+    using self_t = SseSocketRule;
+
+  public:
+    SseSocketRule(std::string rule, OpenHandler&& open, CloseHandler&& close) :
+        BaseRule(std::move(rule)), openHandler(std::move(open)),
+        closeHandler(std::move(close))
+    {
+    }
+
+    void validate() override
+    {
+    }
+
+    void handle(const Request&, Response& res, const RoutingParams&) override
+    {
+        res = Response(boost::beast::http::status::not_found);
+        res.end();
+    }
+
+    void handleUpgrade(const Request& req, Response&,
+                       SocketAdaptor&& adaptor) override
+    {
+        auto myConnection = std::make_shared<crow::SseConnectionImpl<
+            SocketAdaptor, decltype(openHandler), decltype(closeHandler)>>(
+            req, std::move(adaptor), std::move(openHandler),
+            std::move(closeHandler));
+        myConnection->start();
+    }
+
+#ifdef BMCWEB_ENABLE_SSL
+    void handleUpgrade(const Request& req, Response&,
+                       SSLAdaptor&& adaptor) override
+    {
+        auto myConnection = std::make_shared<crow::SseConnectionImpl<
+            SSLAdaptor, decltype(openHandler), decltype(closeHandler)>>(
+            req, std::move(adaptor), std::move(openHandler),
+            std::move(closeHandler));
+        myConnection->start();
+    }
+#endif
+
+  private:
+    OpenHandler openHandler;
+    CloseHandler closeHandler;
+};
+
 template <typename T> struct RuleParameterTraits
 {
     using self_t = T;
@@ -360,6 +413,14 @@ template <typename T> struct RuleParameterTraits
         auto p = new WebSocketRule(((self_t*)this)->rule);
         ((self_t*)this)->ruleToUpgrade.reset(p);
         return *p;
+    }
+
+    template <typename OpenHandler, typename CloseHandler>
+    void serverSentEvent(OpenHandler&& open, CloseHandler&& close)
+    {
+        auto p = new SseSocketRule<OpenHandler, CloseHandler>(
+            ((self_t*)this)->rule, std::move(open), std::move(close));
+        ((self_t*)this)->ruleToUpgrade.reset(p);
     }
 
     self_t& name(std::string name) noexcept
@@ -513,7 +574,7 @@ class TaggedRule : public BaseRule,
                                            std::declval<Args>()...))>::value,
             "Handler function cannot have void return type; valid return "
             "types: "
-            "string, int, crow::resposne,nlohmann::json");
+            "string, int, crow::Response,nlohmann::json");
 
         handler = [f = std::move(f)](const crow::Request& req,
                                      crow::Response& res, Args... args) {
@@ -1036,12 +1097,13 @@ class Router
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                res.addHeader("Location", std::string(req.url) + "/");
+                res.addHeader(boost::beast::http::field::location,
+                              std::string(req.url) + "/");
             }
             else
             {
                 res.addHeader(
-                    "Location",
+                    boost::beast::http::field::location,
                     req.isSecure
                         ? "https://"
                         : "http://" + std::string(req.getHeaderValue("Host")) +
@@ -1116,11 +1178,12 @@ class Router
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
             {
-                res.addHeader("Location", std::string(req.url) + "/");
+                res.addHeader(boost::beast::http::field::location,
+                              std::string(req.url) + "/");
             }
             else
             {
-                res.addHeader("Location",
+                res.addHeader(boost::beast::http::field::location,
                               (req.isSecure ? "https://" : "http://") +
                                   std::string(req.getHeaderValue("Host")) +
                                   std::string(req.url) + "/");
