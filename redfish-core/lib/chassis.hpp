@@ -38,72 +38,6 @@ using ManagedObjectsType = std::vector<std::pair<
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
 /**
- * OnDemandChassisProvider
- * Chassis provider class that retrieves data directly from dbus, before setting
- * it into JSON output. This does not cache any data.
- *
- * Class can be a good example on how to scale different data providing
- * solutions to produce single schema output.
- *
- * TODO(Pawel)
- * This perhaps shall be different file, which has to be chosen on compile time
- * depending on OEM needs
- */
-class OnDemandChassisProvider
-{
-  public:
-    /**
-     * Function that retrieves all Chassis available through EntityManager.
-     * @param callback a function that shall be called to convert Dbus output
-     * into JSON.
-     */
-    template <typename CallbackFunc>
-    void getChassisList(CallbackFunc &&callback)
-    {
-        const std::array<const char *, 4> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply",
-            "xyz.openbmc_project.Inventory.Item.System",
-        };
-        crow::connections::systemBus->async_method_call(
-            [callback{std::move(callback)}](
-                const boost::system::error_code error_code,
-                const std::vector<std::string> &resp) {
-                // Callback requires vector<string> to retrieve all available
-                // chassis list.
-                std::vector<std::string> chassisList;
-                if (error_code)
-                {
-                    // Something wrong on DBus, the error_code is not important
-                    // at this moment, just return success=false, and empty
-                    // output. Since size of vector may vary depending on
-                    // information from Entity Manager, and empty output could
-                    // not be treated same way as error.
-                    callback(false, chassisList);
-                    return;
-                }
-                // Iterate over all retrieved ObjectPaths.
-                for (const std::string &objpath : resp)
-                {
-                    std::size_t lastPos = objpath.rfind("/");
-                    if (lastPos != std::string::npos)
-                    {
-                        // and put it into output vector.
-                        chassisList.emplace_back(objpath.substr(lastPos + 1));
-                    }
-                }
-                // Finally make a callback with useful data
-                callback(true, chassisList);
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(3), interfaces);
-    };
-};
-
-/**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  */
 class ChassisCollection : public Node
@@ -133,37 +67,49 @@ class ChassisCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        // get chassis list, and call the below callback for JSON preparation
-        chassisProvider.getChassisList(
-            [&](const bool &success, const std::vector<std::string> &output) {
-                if (success)
+        const std::array<const char *, 4> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply",
+            "xyz.openbmc_project.Inventory.Item.System",
+        };
+        res.jsonValue = Node::json;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string> &chassisList) {
+                if (ec)
                 {
-                    // ... prepare json array with appropriate @odata.id links
-                    nlohmann::json chassisArray = nlohmann::json::array();
-                    for (const std::string &chassisItem : output)
-                    {
-                        chassisArray.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Chassis/" + chassisItem}});
-                    }
-                    // Then attach members, count size and return,
-                    Node::json["Members"] = chassisArray;
-                    Node::json["Members@odata.count"] = chassisArray.size();
-                    res.jsonValue = Node::json;
-                }
-                else
-                {
-                    // ... otherwise, return INTERNALL ERROR
-                    res.result(
+                    messages::addMessageToErrorJson(asyncResp->res.jsonValue,
+                                                    messages::internalError());
+                    asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
+                    return;
                 }
-                res.end();
-            });
-    }
+                nlohmann::json &chassisArray =
+                    asyncResp->res.jsonValue["Members"];
+                chassisArray = nlohmann::json::array();
+                for (const std::string &objpath : chassisList)
+                {
+                    std::size_t lastPos = objpath.rfind("/");
+                    if (lastPos == std::string::npos)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
+                        continue;
+                    }
+                    chassisArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                           objpath.substr(lastPos + 1)}});
+                }
 
-    // Chassis Provider object
-    // TODO(Pawel) consider move it to singleton
-    OnDemandChassisProvider chassisProvider;
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    chassisArray.size();
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+            "/xyz/openbmc_project/inventory", int32_t(3), interfaces);
+    }
 };
 
 /**
@@ -208,19 +154,20 @@ class Chassis : public Node
 
         res.jsonValue = Node::json;
         const std::string &chassisId = params[0];
+        auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
-            [&res, chassisId(std::string(chassisId))](
-                const boost::system::error_code error_code,
+            [asyncResp, chassisId(std::string(chassisId))](
+                const boost::system::error_code ec,
                 const std::vector<std::pair<
                     std::string, std::vector<std::pair<
                                      std::string, std::vector<std::string>>>>>
                     &subtree) {
-                if (error_code)
+                if (ec)
                 {
-                    res.jsonValue = {};
-                    res.result(
+                    messages::addMessageToErrorJson(asyncResp->res.jsonValue,
+                                                    messages::internalError());
+                    asyncResp->res.result(
                         boost::beast::http::status::internal_server_error);
-                    res.end();
                     return;
                 }
                 // Iterate over all retrieved ObjectPaths.
@@ -249,8 +196,8 @@ class Chassis : public Node
 
                     const std::string connectionName = connectionNames[0].first;
                     crow::connections::systemBus->async_method_call(
-                        [&res, chassisId(std::string(chassisId))](
-                            const boost::system::error_code error_code,
+                        [asyncResp, chassisId(std::string(chassisId))](
+                            const boost::system::error_code ec,
                             const std::vector<std::pair<
                                 std::string, VariantType>> &propertiesList) {
                             for (const std::pair<std::string, VariantType>
@@ -261,27 +208,26 @@ class Chassis : public Node
                                         property.second);
                                 if (value != nullptr)
                                 {
-                                    res.jsonValue[property.first] = *value;
+                                    asyncResp->res.jsonValue[property.first] =
+                                        *value;
                                 }
                             }
-                            res.jsonValue["Name"] = chassisId;
-                            res.jsonValue["Id"] = chassisId;
-                            res.jsonValue["Thermal"] = {
+                            asyncResp->res.jsonValue["Name"] = chassisId;
+                            asyncResp->res.jsonValue["Id"] = chassisId;
+                            asyncResp->res.jsonValue["Thermal"] = {
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/Thermal"}};
-                            res.end();
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
                         "xyz.openbmc_project.Inventory.Decorator.Asset");
-                    // Found the Connection we were looking for, return
                     return;
                 }
 
                 // Couldn't find an object with that name.  return an error
-                res.result(boost::beast::http::status::not_found);
-
-                res.end();
+                asyncResp->res.jsonValue = redfish::messages::resourceNotFound(
+                    "#Chassis.v1_4_0.Chassis", chassisId);
+                asyncResp->res.result(boost::beast::http::status::not_found);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -290,10 +236,5 @@ class Chassis : public Node
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Inventory.Decorator.Asset"});
     }
-
-    // Chassis Provider object
-    // TODO(Pawel) consider move it to singleton
-    OnDemandChassisProvider chassisProvider;
-}; // namespace redfish
-
+};
 } // namespace redfish
