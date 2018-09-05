@@ -17,6 +17,7 @@
 #include "node.hpp"
 
 #include <openbmc_dbus_rest.hpp>
+#include <utils/json_utils.hpp>
 
 namespace redfish
 {
@@ -134,6 +135,23 @@ class AccountsCollection : public Node
     }
 };
 
+template <typename Callback>
+inline void checkDbusPathExists(const std::string& path, Callback&& callback)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const GetObjectType& object_names) {
+            callback(ec || object_names.size() == 0);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path,
+        std::array<std::string, 0>());
+}
+
 class ManagerAccount : public Node
 {
   public:
@@ -217,6 +235,116 @@ class ManagerAccount : public Node
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        nlohmann::json patchRequest;
+        if (!json_util::processJsonFromRequest(res, req, patchRequest))
+        {
+            return;
+        }
+
+        // Check the user exists before updating the fields
+        checkDbusPathExists(
+            "/xyz/openbmc_project/users/" + params[0],
+            [username{std::string(params[0])},
+             patchRequest(std::move(patchRequest)),
+             asyncResp](bool userExists) {
+                if (!userExists)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::resourceNotFound(
+                            "#ManagerAccount.v1_0_3.ManagerAccount", username));
+
+                    asyncResp->res.result(
+                        boost::beast::http::status::not_found);
+                    return;
+                }
+
+                for (const auto& item : patchRequest.items())
+                {
+                    if (item.key() == "Password")
+                    {
+                        const std::string* passStr =
+                            item.value().get_ptr<const std::string*>();
+                        if (passStr == nullptr)
+                        {
+                            messages::addMessageToErrorJson(
+                                asyncResp->res.jsonValue,
+                                messages::propertyValueFormatError(
+                                    item.value().dump(), "Password"));
+                            return;
+                        }
+                        BMCWEB_LOG_DEBUG << "Updating user: " << username
+                                         << " to password " << *passStr;
+                        if (!pamUpdatePassword(username, *passStr))
+                        {
+                            BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            return;
+                        }
+                    }
+                    else if (item.key() == "Enabled")
+                    {
+                        const bool* enabledBool =
+                            item.value().get_ptr<const bool*>();
+
+                        if (enabledBool == nullptr)
+                        {
+                            messages::addMessageToErrorJson(
+                                asyncResp->res.jsonValue,
+                                messages::propertyValueFormatError(
+                                    item.value().dump(), "Enabled"));
+                            return;
+                        }
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp](const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "D-Bus responses error: " << ec;
+                                    asyncResp->res.result(
+                                        boost::beast::http::status::
+                                            internal_server_error);
+                                    return;
+                                }
+                                // TODO Consider support polling mechanism to
+                                // verify status of host and chassis after
+                                // execute the requested action.
+                                BMCWEB_LOG_DEBUG << "Response with no content";
+                                asyncResp->res.result(
+                                    boost::beast::http::status::no_content);
+                            },
+                            "xyz.openbmc_project.User.Manager",
+                            "/xyz/openbmc_project/users/" + username,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.User.Attributes"
+                            "UserEnabled",
+                            sdbusplus::message::variant<bool>{*enabledBool});
+                    }
+                    else
+                    {
+                        messages::addMessageToErrorJson(
+                            asyncResp->res.jsonValue,
+                            messages::propertyNotWritable(item.key()));
+                        asyncResp->res.result(
+                            boost::beast::http::status::bad_request);
+                        return;
+                    }
+                }
+            });
     }
 };
 
