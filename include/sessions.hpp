@@ -19,6 +19,11 @@ namespace crow
 namespace persistent_data
 {
 
+// entropy: 30 characters, 62 possibilities.  log2(62^30) = 178 bits of
+// entropy.  OWASP recommends at least 60
+// https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Entropy
+constexpr std::size_t SessionTokenSize = 20;
+
 enum class PersistenceType
 {
     TIMEOUT, // User session times out after a predetermined amount of time
@@ -114,11 +119,8 @@ class SessionStore
             'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-        // entropy: 30 characters, 62 possibilities.  log2(62^30) = 178 bits of
-        // entropy.  OWASP recommends at least 60
-        // https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Entropy
         std::string sessionToken;
-        sessionToken.resize(20, '0');
+        sessionToken.resize(SessionTokenSize, '0');
         std::uniform_int_distribution<int> dist(0, alphanum.size() - 1);
         for (int i = 0; i < sessionToken.size(); ++i)
         {
@@ -126,7 +128,7 @@ class SessionStore
         }
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
-        csrfToken.resize(20, '0');
+        csrfToken.resize(SessionTokenSize, '0');
         for (int i = 0; i < csrfToken.size(); ++i)
         {
             csrfToken[i] = alphanum[dist(rd)];
@@ -151,6 +153,10 @@ class SessionStore
         loginSessionByToken(const boost::string_view token)
     {
         applySessionTimeouts();
+        if (token.size() != SessionTokenSize)
+        {
+            return nullptr;
+        }
         auto sessionIt = authTokens.find(std::string(token));
         if (sessionIt == authTokens.end())
         {
@@ -251,7 +257,8 @@ class SessionStore
         }
     }
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
-    boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
+    boost::container::flat_map<std::string, std::shared_ptr<UserSession>,
+                               crow::utility::ConstantTimeCompare>
         authTokens;
     std::random_device rd;
     bool needWrite{false};

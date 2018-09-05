@@ -2,6 +2,8 @@
 
 #include "nlohmann/json.hpp"
 
+#include <openssl/crypto.h>
+
 #include <boost/utility/string_view.hpp>
 #include <cstdint>
 #include <cstring>
@@ -665,6 +667,27 @@ inline bool base64Decode(const boost::string_view input, std::string& output)
 
     return true;
 }
+
+inline bool constantTimeStringCompare(const boost::string_view a,
+                                      const boost::string_view b)
+{
+    // Important note, this function is ONLY constant time if the two input
+    // sizes are the same
+    if (a.size() != b.size())
+    {
+        return false;
+    }
+    return CRYPTO_memcmp(a.data(), b.data(), a.size()) == 0;
+}
+
+struct ConstantTimeCompare
+{
+    bool operator()(const boost::string_view a,
+                    const boost::string_view b) const
+    {
+        return constantTimeStringCompare(a, b);
+    }
+};
 
 } // namespace utility
 } // namespace crow

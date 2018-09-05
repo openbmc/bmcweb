@@ -214,8 +214,14 @@ class Middleware
             {
                 return nullptr;
             }
+
+            if (csrf.size() != crow::persistent_data::SessionTokenSize)
+            {
+                return nullptr;
+            }
             // Reject if csrf token not available
-            if (csrf != session->csrfToken)
+            if (!crow::utility::constantTimeStringCompare(csrf,
+                                                          session->csrfToken))
             {
                 return nullptr;
             }
