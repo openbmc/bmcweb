@@ -47,9 +47,10 @@ class SensorsAsyncResp
 {
   public:
     SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::initializer_list<const char*> types) :
-        res(response),
-        chassisId(chassisId), types(types)
+                     const std::initializer_list<const char*> types,
+                     const std::string& subNode) :
+        chassisId(chassisId),
+        res(response), types(types), chassisSubNode(subNode)
     {
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisId + "/Thermal";
@@ -75,6 +76,7 @@ class SensorsAsyncResp
     crow::Response& res;
     std::string chassisId{};
     const std::vector<const char*> types;
+    std::string chassisSubNode{};
 };
 
 /**
@@ -319,6 +321,10 @@ void objectInterfacesToJson(
         unit = "ReadingVolts";
         sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
     }
+    else if (sensorType == "power")
+    {
+        unit = "LastPowerOutputWatts";
+    }
     else
     {
         BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
@@ -337,6 +343,8 @@ void objectInterfacesToJson(
                             "CriticalHigh", "UpperThresholdCritical");
     properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
                             "CriticalLow", "LowerThresholdCritical");
+
+    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
     if (sensorType == "temperature")
     {
@@ -509,8 +517,9 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                                 tempArray.push_back(
                                     {{"@odata.id",
                                       "/redfish/v1/Chassis/" +
-                                          SensorsAsyncResp->chassisId +
-                                          "/Thermal#/" + fieldName + "/" +
+                                          SensorsAsyncResp->chassisId + "/" +
+                                          SensorsAsyncResp->chassisSubNode +
+                                          "#/" + fieldName + "/" +
                                           std::to_string(tempArray.size())}});
                                 nlohmann::json& sensorJson = tempArray.back();
 

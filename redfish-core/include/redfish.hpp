@@ -21,6 +21,7 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
+#include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
 #include "../lib/service_root.hpp"
@@ -60,6 +61,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<Thermal>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
+        nodes.emplace_back(std::make_unique<Power>(app));
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
