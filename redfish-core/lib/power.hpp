@@ -1,6 +1,7 @@
 /*
 // Copyright (c) 2018 Intel Corporation
-//
+// Copyright (c) 2018 Ampere Computing LLC
+/
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
@@ -21,16 +22,16 @@
 namespace redfish
 {
 
-class Thermal : public Node
+class Power : public Node
 {
   public:
-    Thermal(CrowApp& app) :
-        Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
+    Power(CrowApp& app) :
+        Node((app), "/redfish/v1/Chassis/<str>/Power/", std::string())
     {
-        Node::json["@odata.type"] = "#Thermal.v1_4_0.Thermal";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
-        Node::json["Id"] = "Thermal";
-        Node::json["Name"] = "Thermal";
+        Node::json["@odata.type"] = "#Power.v1_2_1.Power";
+        Node::json["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
+        Node::json["Id"] = "Power";
+        Node::json["Name"] = "Power";
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -51,23 +52,18 @@ class Thermal : public Node
             res.end();
             return;
         }
-        const std::string& chassisName = params[0];
-
-        res.jsonValue = Node::json;
+        const std::string& chassis_name = params[0];
 
         Node::json["@odata.id"] =
-            "/redfish/v1/Chassis/" + chassisName + "/Thermal";
-
+            "/redfish/v1/Chassis/" + chassis_name + "/Power";
         res.jsonValue = Node::json;
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName,
+            res, chassis_name,
             std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/fan",
-                "/xyz/openbmc_project/sensors/temperature",
-                "/xyz/openbmc_project/sensors/fan_pwm"},
-            "Thermal");
-
-        // TODO Need to get Chassis Redundancy information.
+                "/xyz/openbmc_project/sensors/voltage",
+                "/xyz/openbmc_project/sensors/power"},
+            "Power");
+        // TODO Need to retrieve Power Control information.
         getChassisData(sensorAsyncResp);
     }
 };

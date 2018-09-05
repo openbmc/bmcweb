@@ -47,9 +47,10 @@ class SensorsAsyncResp
 {
   public:
     SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::initializer_list<const char*> types) :
-        res(response),
-        chassisId(chassisId), types(types)
+                     const std::initializer_list<const char*> types,
+                     const std::string& subNode) :
+        chassisId(chassisId),
+        res(response), types(types), chassisSubNode(subNode)
     {
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisId + "/Thermal";
@@ -75,6 +76,7 @@ class SensorsAsyncResp
     crow::Response& res;
     std::string chassisId{};
     const std::vector<const char*> types;
+    std::string chassisSubNode{};
 };
 
 /**
@@ -344,8 +346,68 @@ for (const std::tuple<const char*, const char*, const char*>& p : properties)
     auto interfaceProperties = interfacesDict.find(std::get<0>(p));
     if (interfaceProperties != interfacesDict.end())
     {
-        auto valueIt = interfaceProperties->second.find(std::get<1>(p));
-        if (valueIt != interfaceProperties->second.end())
+        unit = "Reading";
+        sensor_json["ReadingUnits"] = "RPM";
+        sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        forceToInt = true;
+    }
+    else if (sensorType == "fan_pwm")
+    {
+        unit = "Reading";
+        sensor_json["ReadingUnits"] = "Percent";
+        sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        forceToInt = true;
+    }
+    else if (sensorType == "voltage")
+    {
+        unit = "ReadingVolts";
+        sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
+    }
+    else if (sensorType == "power")
+    {
+        unit = "LastPowerOutputWatts";
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "Redfish cannot map object type for " << sensorName;
+        return;
+    }
+    // Map of dbus interface name, dbus property name and redfish property_name
+    std::vector<std::tuple<const char*, const char*, const char*>> properties;
+    properties.reserve(7);
+
+    properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
+    properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                            "WarningHigh", "UpperThresholdNonCritical");
+    properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                            "WarningLow", "LowerThresholdNonCritical");
+    properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                            "CriticalHigh", "UpperThresholdCritical");
+    properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                            "CriticalLow", "LowerThresholdCritical");
+
+    // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
+
+    if (sensorType == "temperature")
+    {
+        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
+                                "MinReadingRangeTemp");
+        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
+                                "MaxReadingRangeTemp");
+    }
+    else
+    {
+        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
+                                "MinReadingRange");
+        properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MaxValue",
+                                "MaxReadingRange");
+    }
+
+    for (const std::tuple<const char*, const char*, const char*>& p :
+         properties)
+    {
+        auto interfaceProperties = interfacesDict.find(std::get<0>(p));
+        if (interfaceProperties != interfacesDict.end())
         {
             const SensorVariant& valueVariant = valueIt->second;
             nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
@@ -600,8 +662,9 @@ for (const std::tuple<const char*, const char*, const char*>& p : properties)
                                 tempArray.push_back(
                                     {{"@odata.id",
                                       "/redfish/v1/Chassis/" +
-                                          SensorsAsyncResp->chassisId +
-                                          "/Thermal#/" + fieldName + "/" +
+                                          SensorsAsyncResp->chassisId + "/" +
+                                          SensorsAsyncResp->chassisSubNode +
+                                          "#/" + fieldName + "/" +
                                           std::to_string(tempArray.size())}});
                                 nlohmann::json& sensorJson = tempArray.back();
 
