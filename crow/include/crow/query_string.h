@@ -6,7 +6,8 @@
 #include <string>
 #include <vector>
 
-namespace crow {
+namespace crow
+{
 // ----------------------------------------------------------------------------
 // qs_parse (modified)
 // https://github.com/bartgrantham/qs_parse
@@ -37,306 +38,376 @@ char* qsScanvalue(const char* key, const char* qs, char* val, size_t val_len);
 #undef _qsSORTING
 
 // isxdigit _is_ available in <ctype.h>, but let's avoid another header instead
-#define BMCWEB_QS_ISHEX(x)                                      \
-  ((((x) >= '0' && (x) <= '9') || ((x) >= 'A' && (x) <= 'F') || \
-    ((x) >= 'a' && (x) <= 'f'))                                 \
-       ? 1                                                      \
-       : 0)
-#define BMCWEB_QS_HEX2DEC(x)                 \
-  (((x) >= '0' && (x) <= '9')                \
-       ? (x)-48                              \
-       : ((x) >= 'A' && (x) <= 'F') ? (x)-55 \
-                                    : ((x) >= 'a' && (x) <= 'f') ? (x)-87 : 0)
-#define BMCWEB_QS_ISQSCHR(x) \
-  ((((x) == '=') || ((x) == '#') || ((x) == '&') || ((x) == '\0')) ? 0 : 1)
+#define BMCWEB_QS_ISHEX(x)                                                     \
+    ((((x) >= '0' && (x) <= '9') || ((x) >= 'A' && (x) <= 'F') ||              \
+      ((x) >= 'a' && (x) <= 'f'))                                              \
+         ? 1                                                                   \
+         : 0)
+#define BMCWEB_QS_HEX2DEC(x)                                                   \
+    (((x) >= '0' && (x) <= '9')                                                \
+         ? (x)-48                                                              \
+         : ((x) >= 'A' && (x) <= 'F')                                          \
+               ? (x)-55                                                        \
+               : ((x) >= 'a' && (x) <= 'f') ? (x)-87 : 0)
+#define BMCWEB_QS_ISQSCHR(x)                                                   \
+    ((((x) == '=') || ((x) == '#') || ((x) == '&') || ((x) == '\0')) ? 0 : 1)
 
-inline int qsStrncmp(const char* s, const char* qs, size_t n) {
-  int i = 0;
-  unsigned char u1, u2, unyb, lnyb;
+inline int qsStrncmp(const char* s, const char* qs, size_t n)
+{
+    int i = 0;
+    unsigned char u1, u2, unyb, lnyb;
 
-  while (n-- > 0) {
-    u1 = static_cast<unsigned char>(*s++);
-    u2 = static_cast<unsigned char>(*qs++);
-
-    if (!BMCWEB_QS_ISQSCHR(u1)) {
-      u1 = '\0';
-    }
-    if (!BMCWEB_QS_ISQSCHR(u2)) {
-      u2 = '\0';
-    }
-
-    if (u1 == '+') {
-      u1 = ' ';
-    }
-    if (u1 == '%')  // easier/safer than scanf
+    while (n-- > 0)
     {
-      unyb = static_cast<unsigned char>(*s++);
-      lnyb = static_cast<unsigned char>(*s++);
-      if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb)) {
-        u1 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
-      } else {
-        u1 = '\0';
-      }
-    }
+        u1 = static_cast<unsigned char>(*s++);
+        u2 = static_cast<unsigned char>(*qs++);
 
-    if (u2 == '+') {
-      u2 = ' ';
+        if (!BMCWEB_QS_ISQSCHR(u1))
+        {
+            u1 = '\0';
+        }
+        if (!BMCWEB_QS_ISQSCHR(u2))
+        {
+            u2 = '\0';
+        }
+
+        if (u1 == '+')
+        {
+            u1 = ' ';
+        }
+        if (u1 == '%') // easier/safer than scanf
+        {
+            unyb = static_cast<unsigned char>(*s++);
+            lnyb = static_cast<unsigned char>(*s++);
+            if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb))
+            {
+                u1 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
+            }
+            else
+            {
+                u1 = '\0';
+            }
+        }
+
+        if (u2 == '+')
+        {
+            u2 = ' ';
+        }
+        if (u2 == '%') // easier/safer than scanf
+        {
+            unyb = static_cast<unsigned char>(*qs++);
+            lnyb = static_cast<unsigned char>(*qs++);
+            if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb))
+            {
+                u2 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
+            }
+            else
+            {
+                u2 = '\0';
+            }
+        }
+
+        if (u1 != u2)
+        {
+            return u1 - u2;
+        }
+        if (u1 == '\0')
+        {
+            return 0;
+        }
+        i++;
     }
-    if (u2 == '%')  // easier/safer than scanf
+    if (BMCWEB_QS_ISQSCHR(*qs))
     {
-      unyb = static_cast<unsigned char>(*qs++);
-      lnyb = static_cast<unsigned char>(*qs++);
-      if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb)) {
-        u2 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
-      } else {
-        u2 = '\0';
-      }
+        return -1;
     }
-
-    if (u1 != u2) {
-      return u1 - u2;
+    else
+    {
+        return 0;
     }
-    if (u1 == '\0') {
-      return 0;
-    }
-    i++;
-  }
-  if (BMCWEB_QS_ISQSCHR(*qs)) {
-    return -1;
-  } else {
-    return 0;
-  }
 }
 
-inline int qsParse(char* qs, char* qs_kv[], int qs_kv_size) {
-  int i, j;
-  char* substrPtr;
+inline int qsParse(char* qs, char* qs_kv[], int qs_kv_size)
+{
+    int i, j;
+    char* substrPtr;
 
-  for (i = 0; i < qs_kv_size; i++) {
-    qs_kv[i] = NULL;
-  }
-
-  // find the beginning of the k/v substrings or the fragment
-  substrPtr = qs + strcspn(qs, "?#");
-  if (substrPtr[0] != '\0') {
-    substrPtr++;
-  } else {
-    return 0;  // no query or fragment
-  }
-
-  i = 0;
-  while (i < qs_kv_size) {
-    qs_kv[i] = substrPtr;
-    j = strcspn(substrPtr, "&");
-    if (substrPtr[j] == '\0') {
-      break;
+    for (i = 0; i < qs_kv_size; i++)
+    {
+        qs_kv[i] = NULL;
     }
-    substrPtr += j + 1;
-    i++;
-  }
-  i++;  // x &'s -> means x iterations of this loop -> means *x+1* k/v pairs
 
-  // we only decode the values in place, the keys could have '='s in them
-  // which will hose our ability to distinguish keys from values later
-  for (j = 0; j < i; j++) {
-    substrPtr = qs_kv[j] + strcspn(qs_kv[j], "=&#");
-    if (substrPtr[0] == '&' ||
-        substrPtr[0] == '\0') {  // blank value: skip decoding
-      substrPtr[0] = '\0';
-    } else {
-      qsDecode(++substrPtr);
+    // find the beginning of the k/v substrings or the fragment
+    substrPtr = qs + strcspn(qs, "?#");
+    if (substrPtr[0] != '\0')
+    {
+        substrPtr++;
     }
-  }
+    else
+    {
+        return 0; // no query or fragment
+    }
+
+    i = 0;
+    while (i < qs_kv_size)
+    {
+        qs_kv[i] = substrPtr;
+        j = strcspn(substrPtr, "&");
+        if (substrPtr[j] == '\0')
+        {
+            break;
+        }
+        substrPtr += j + 1;
+        i++;
+    }
+    i++; // x &'s -> means x iterations of this loop -> means *x+1* k/v pairs
+
+    // we only decode the values in place, the keys could have '='s in them
+    // which will hose our ability to distinguish keys from values later
+    for (j = 0; j < i; j++)
+    {
+        substrPtr = qs_kv[j] + strcspn(qs_kv[j], "=&#");
+        if (substrPtr[0] == '&' || substrPtr[0] == '\0')
+        { // blank value: skip decoding
+            substrPtr[0] = '\0';
+        }
+        else
+        {
+            qsDecode(++substrPtr);
+        }
+    }
 
 #ifdef _qsSORTING
 // TODO: qsort qs_kv, using qs_strncmp() for the comparison
 #endif
 
-  return i;
+    return i;
 }
 
-inline int qsDecode(char* qs) {
-  int i = 0, j = 0;
+inline int qsDecode(char* qs)
+{
+    int i = 0, j = 0;
 
-  while (BMCWEB_QS_ISQSCHR(qs[j])) {
-    if (qs[j] == '+') {
-      qs[i] = ' ';
-    } else if (qs[j] == '%')  // easier/safer than scanf
+    while (BMCWEB_QS_ISQSCHR(qs[j]))
     {
-      if (!BMCWEB_QS_ISHEX(qs[j + 1]) || !BMCWEB_QS_ISHEX(qs[j + 2])) {
-        qs[i] = '\0';
-        return i;
-      }
-      qs[i] =
-          (BMCWEB_QS_HEX2DEC(qs[j + 1]) * 16) + BMCWEB_QS_HEX2DEC(qs[j + 2]);
-      j += 2;
-    } else {
-      qs[i] = qs[j];
+        if (qs[j] == '+')
+        {
+            qs[i] = ' ';
+        }
+        else if (qs[j] == '%') // easier/safer than scanf
+        {
+            if (!BMCWEB_QS_ISHEX(qs[j + 1]) || !BMCWEB_QS_ISHEX(qs[j + 2]))
+            {
+                qs[i] = '\0';
+                return i;
+            }
+            qs[i] = (BMCWEB_QS_HEX2DEC(qs[j + 1]) * 16) +
+                    BMCWEB_QS_HEX2DEC(qs[j + 2]);
+            j += 2;
+        }
+        else
+        {
+            qs[i] = qs[j];
+        }
+        i++;
+        j++;
     }
-    i++;
-    j++;
-  }
-  qs[i] = '\0';
+    qs[i] = '\0';
 
-  return i;
+    return i;
 }
 
 inline char* qsK2v(const char* key, char* const* qs_kv, int qs_kv_size,
-                   int nth = 0) {
-  int i;
-  size_t keyLen, skip;
+                   int nth = 0)
+{
+    int i;
+    size_t keyLen, skip;
 
-  keyLen = strlen(key);
+    keyLen = strlen(key);
 
 #ifdef _qsSORTING
 // TODO: binary search for key in the sorted qs_kv
-#else   // _qsSORTING
-  for (i = 0; i < qs_kv_size; i++) {
-    // we rely on the unambiguous '=' to find the value in our k/v pair
-    if (qsStrncmp(key, qs_kv[i], keyLen) == 0) {
-      skip = strcspn(qs_kv[i], "=");
-      if (qs_kv[i][skip] == '=') {
-        skip++;
-      }
-      // return (zero-char value) ? ptr to trailing '\0' : ptr to value
-      if (nth == 0) {
-        return qs_kv[i] + skip;
-      } else {
-        --nth;
-      }
+#else  // _qsSORTING
+    for (i = 0; i < qs_kv_size; i++)
+    {
+        // we rely on the unambiguous '=' to find the value in our k/v pair
+        if (qsStrncmp(key, qs_kv[i], keyLen) == 0)
+        {
+            skip = strcspn(qs_kv[i], "=");
+            if (qs_kv[i][skip] == '=')
+            {
+                skip++;
+            }
+            // return (zero-char value) ? ptr to trailing '\0' : ptr to value
+            if (nth == 0)
+            {
+                return qs_kv[i] + skip;
+            }
+            else
+            {
+                --nth;
+            }
+        }
     }
-  }
-#endif  // _qsSORTING
+#endif // _qsSORTING
 
-  return NULL;
+    return NULL;
 }
 
 inline char* qsScanvalue(const char* key, const char* qs, char* val,
-                         size_t val_len) {
-  size_t i, keyLen;
-  const char* tmp;
+                         size_t val_len)
+{
+    size_t i, keyLen;
+    const char* tmp;
 
-  // find the beginning of the k/v substrings
-  if ((tmp = strchr(qs, '?')) != NULL) {
-    qs = tmp + 1;
-  }
-
-  keyLen = strlen(key);
-  while (qs[0] != '#' && qs[0] != '\0') {
-    if (qsStrncmp(key, qs, keyLen) == 0) {
-      break;
+    // find the beginning of the k/v substrings
+    if ((tmp = strchr(qs, '?')) != NULL)
+    {
+        qs = tmp + 1;
     }
-    qs += strcspn(qs, "&") + 1;
-  }
 
-  if (qs[0] == '\0') {
-    return NULL;
-  }
-
-  qs += strcspn(qs, "=&#");
-  if (qs[0] == '=') {
-    qs++;
-    i = strcspn(qs, "&=#");
-    strncpy(val, qs, (val_len - 1) < (i + 1) ? (val_len - 1) : (i + 1));
-    qsDecode(val);
-  } else {
-    if (val_len > 0) {
-      val[0] = '\0';
+    keyLen = strlen(key);
+    while (qs[0] != '#' && qs[0] != '\0')
+    {
+        if (qsStrncmp(key, qs, keyLen) == 0)
+        {
+            break;
+        }
+        qs += strcspn(qs, "&") + 1;
     }
-  }
 
-  return val;
+    if (qs[0] == '\0')
+    {
+        return NULL;
+    }
+
+    qs += strcspn(qs, "=&#");
+    if (qs[0] == '=')
+    {
+        qs++;
+        i = strcspn(qs, "&=#");
+        strncpy(val, qs, (val_len - 1) < (i + 1) ? (val_len - 1) : (i + 1));
+        qsDecode(val);
+    }
+    else
+    {
+        if (val_len > 0)
+        {
+            val[0] = '\0';
+        }
+    }
+
+    return val;
 }
-}  // namespace crow
+} // namespace crow
 // ----------------------------------------------------------------------------
 
-namespace crow {
-class QueryString {
- public:
-  static const int maxKeyValuePairsCount = 256;
+namespace crow
+{
+class QueryString
+{
+  public:
+    static const int maxKeyValuePairsCount = 256;
 
-  QueryString() = default;
+    QueryString() = default;
 
-  QueryString(const QueryString& qs) : url(qs.url) {
-    for (auto p : qs.keyValuePairs) {
-      keyValuePairs.push_back(
-          const_cast<char*>(p - qs.url.c_str() + url.c_str()));
-    }
-  }
-
-  QueryString& operator=(const QueryString& qs) {
-    url = qs.url;
-    keyValuePairs.clear();
-    for (auto p : qs.keyValuePairs) {
-      keyValuePairs.push_back(
-          const_cast<char*>(p - qs.url.c_str() + url.c_str()));
-    }
-    return *this;
-  }
-
-  QueryString& operator=(QueryString&& qs) {
-    keyValuePairs = std::move(qs.keyValuePairs);
-    auto* oldData = const_cast<char*>(qs.url.c_str());
-    url = std::move(qs.url);
-    for (auto& p : keyValuePairs) {
-      p += const_cast<char*>(url.c_str()) - oldData;
-    }
-    return *this;
-  }
-
-  explicit QueryString(std::string url) : url(std::move(url)) {
-    if (url.empty()) {
-      return;
+    QueryString(const QueryString& qs) : url(qs.url)
+    {
+        for (auto p : qs.keyValuePairs)
+        {
+            keyValuePairs.push_back(
+                const_cast<char*>(p - qs.url.c_str() + url.c_str()));
+        }
     }
 
-    keyValuePairs.resize(maxKeyValuePairsCount);
-
-    int count = qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
-    keyValuePairs.resize(count);
-  }
-
-  void clear() {
-    keyValuePairs.clear();
-    url.clear();
-  }
-
-  friend std::ostream& operator<<(std::ostream& os, const QueryString& qs) {
-    os << "[ ";
-    for (size_t i = 0; i < qs.keyValuePairs.size(); ++i) {
-      if (i != 0u) {
-        os << ", ";
-      }
-      os << qs.keyValuePairs[i];
+    QueryString& operator=(const QueryString& qs)
+    {
+        url = qs.url;
+        keyValuePairs.clear();
+        for (auto p : qs.keyValuePairs)
+        {
+            keyValuePairs.push_back(
+                const_cast<char*>(p - qs.url.c_str() + url.c_str()));
+        }
+        return *this;
     }
-    os << " ]";
-    return os;
-  }
 
-  char* get(const std::string& name) const {
-    char* ret = qsK2v(name.c_str(), keyValuePairs.data(), keyValuePairs.size());
-    return ret;
-  }
-
-  std::vector<char*> getList(const std::string& name) const {
-    std::vector<char*> ret;
-    std::string plus = name + "[]";
-    char* element = nullptr;
-
-    int count = 0;
-    while (1) {
-      element = qsK2v(plus.c_str(), keyValuePairs.data(), keyValuePairs.size(),
-                      count++);
-      if (element == nullptr) {
-        break;
-      }
-      ret.push_back(element);
+    QueryString& operator=(QueryString&& qs)
+    {
+        keyValuePairs = std::move(qs.keyValuePairs);
+        auto* oldData = const_cast<char*>(qs.url.c_str());
+        url = std::move(qs.url);
+        for (auto& p : keyValuePairs)
+        {
+            p += const_cast<char*>(url.c_str()) - oldData;
+        }
+        return *this;
     }
-    return ret;
-  }
 
- private:
-  std::string url;
-  std::vector<char*> keyValuePairs;
+    explicit QueryString(std::string url) : url(std::move(url))
+    {
+        if (url.empty())
+        {
+            return;
+        }
+
+        keyValuePairs.resize(maxKeyValuePairsCount);
+
+        int count = qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
+        keyValuePairs.resize(count);
+    }
+
+    void clear()
+    {
+        keyValuePairs.clear();
+        url.clear();
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const QueryString& qs)
+    {
+        os << "[ ";
+        for (size_t i = 0; i < qs.keyValuePairs.size(); ++i)
+        {
+            if (i != 0u)
+            {
+                os << ", ";
+            }
+            os << qs.keyValuePairs[i];
+        }
+        os << " ]";
+        return os;
+    }
+
+    char* get(const std::string& name) const
+    {
+        char* ret =
+            qsK2v(name.c_str(), keyValuePairs.data(), keyValuePairs.size());
+        return ret;
+    }
+
+    std::vector<char*> getList(const std::string& name) const
+    {
+        std::vector<char*> ret;
+        std::string plus = name + "[]";
+        char* element = nullptr;
+
+        int count = 0;
+        while (1)
+        {
+            element = qsK2v(plus.c_str(), keyValuePairs.data(),
+                            keyValuePairs.size(), count++);
+            if (element == nullptr)
+            {
+                break;
+            }
+            ret.push_back(element);
+        }
+        return ret;
+    }
+
+  private:
+    std::string url;
+    std::vector<char*> keyValuePairs;
 };
 
-}  // namespace crow
+} // namespace crow

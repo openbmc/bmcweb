@@ -1,4 +1,6 @@
 #pragma once
+#include "boost/beast/core.hpp"
+
 #include "crow/app.h"
 #include "crow/common.h"
 #include "crow/http_connection.h"
@@ -13,4 +15,3 @@
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
 #include "crow/websocket.h"
-#include "boost/beast/core.hpp"

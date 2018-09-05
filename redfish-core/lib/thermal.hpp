@@ -18,44 +18,49 @@
 #include "node.hpp"
 #include "sensors.hpp"
 
-namespace redfish {
+namespace redfish
+{
 
-class Thermal : public Node {
- public:
-  Thermal(CrowApp& app)
-      : Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string()) {
-    Node::json["@odata.type"] = "#Thermal.v1_4_0.Thermal";
-    Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
-    Node::json["Id"] = "Thermal";
-    Node::json["Name"] = "Thermal";
+class Thermal : public Node
+{
+  public:
+    Thermal(CrowApp& app) :
+        Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
+    {
+        Node::json["@odata.type"] = "#Thermal.v1_4_0.Thermal";
+        Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
+        Node::json["Id"] = "Thermal";
+        Node::json["Name"] = "Thermal";
 
-    entityPrivileges = {
-        {boost::beast::http::verb::get, {{"Login"}}},
-        {boost::beast::http::verb::head, {{"Login"}}},
-        {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-        {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-        {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-        {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-  }
-
- private:
-  void doGet(crow::Response& res, const crow::Request& req,
-             const std::vector<std::string>& params) override {
-    if (params.size() != 1) {
-      res.result(boost::beast::http::status::internal_server_error);
-      res.end();
-      return;
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
-    const std::string& chassisName = params[0];
 
-    res.jsonValue = Node::json;
-    auto asyncResp = std::make_shared<SensorsAsyncResp>(
-        res, chassisName,
-        std::initializer_list<const char*>{
-            "/xyz/openbmc_project/sensors/fan",
-            "/xyz/openbmc_project/sensors/temperature"});
-    getChassisData(asyncResp);
-  }
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            res.end();
+            return;
+        }
+        const std::string& chassisName = params[0];
+
+        res.jsonValue = Node::json;
+        auto asyncResp = std::make_shared<SensorsAsyncResp>(
+            res, chassisName,
+            std::initializer_list<const char*>{
+                "/xyz/openbmc_project/sensors/fan",
+                "/xyz/openbmc_project/sensors/temperature"});
+        getChassisData(asyncResp);
+    }
 };
 
-}  // namespace redfish
+} // namespace redfish

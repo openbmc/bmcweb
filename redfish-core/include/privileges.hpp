@@ -16,15 +16,21 @@
 #pragma once
 
 #include <bitset>
-#include <cstdint>
-#include <vector>
-#include "crow.h"
 #include <boost/container/flat_map.hpp>
 #include <boost/optional.hpp>
+#include <cstdint>
+#include <vector>
 
-namespace redfish {
+#include "crow.h"
 
-enum class PrivilegeType { BASE, OEM };
+namespace redfish
+{
+
+enum class PrivilegeType
+{
+    BASE,
+    OEM
+};
 
 /** @brief A fixed array of compile time privileges  */
 constexpr std::array<const char*, 5> basePrivileges{
@@ -56,105 +62,118 @@ static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
  *        (user domain) and false otherwise.
  *
  */
-class Privileges {
- public:
-  /**
-   * @brief Constructs object without any privileges active
-   *
-   */
-  Privileges() = default;
+class Privileges
+{
+  public:
+    /**
+     * @brief Constructs object without any privileges active
+     *
+     */
+    Privileges() = default;
 
-  /**
-   * @brief Constructs object with given privileges active
-   *
-   * @param[in] privilegeList  List of privileges to be activated
-   *
-   */
-  Privileges(std::initializer_list<const char*> privilegeList) {
-    for (const char* privilege : privilegeList) {
-      if (!setSinglePrivilege(privilege)) {
-        BMCWEB_LOG_CRITICAL << "Unable to set privilege " << privilege
-                            << "in constructor";
-      }
-    }
-  }
-
-  /**
-   * @brief Sets given privilege in the bitset
-   *
-   * @param[in] privilege  Privilege to be set
-   *
-   * @return               None
-   *
-   */
-  bool setSinglePrivilege(const char* privilege) {
-    for (int searchIndex = 0; searchIndex < privilegeNames.size();
-         searchIndex++) {
-      if (privilege == privilegeNames[searchIndex]) {
-        privilegeBitset.set(searchIndex);
-        return true;
-      }
+    /**
+     * @brief Constructs object with given privileges active
+     *
+     * @param[in] privilegeList  List of privileges to be activated
+     *
+     */
+    Privileges(std::initializer_list<const char*> privilegeList)
+    {
+        for (const char* privilege : privilegeList)
+        {
+            if (!setSinglePrivilege(privilege))
+            {
+                BMCWEB_LOG_CRITICAL << "Unable to set privilege " << privilege
+                                    << "in constructor";
+            }
+        }
     }
 
-    return false;
-  }
+    /**
+     * @brief Sets given privilege in the bitset
+     *
+     * @param[in] privilege  Privilege to be set
+     *
+     * @return               None
+     *
+     */
+    bool setSinglePrivilege(const char* privilege)
+    {
+        for (int searchIndex = 0; searchIndex < privilegeNames.size();
+             searchIndex++)
+        {
+            if (privilege == privilegeNames[searchIndex])
+            {
+                privilegeBitset.set(searchIndex);
+                return true;
+            }
+        }
 
-  /**
-   * @brief Sets given privilege in the bitset
-   *
-   * @param[in] privilege  Privilege to be set
-   *
-   * @return               None
-   *
-   */
-  bool setSinglePrivilege(const std::string& privilege) {
-    return setSinglePrivilege(privilege.c_str());
-  }
-
-  /**
-   * @brief Retrieves names of all active privileges for a given type
-   *
-   * @param[in] type    Base or OEM
-   *
-   * @return            Vector of active privileges.  Pointers are valid until
-   * the setSinglePrivilege is called, or the Privilege structure is destroyed
-   *
-   */
-  std::vector<const std::string*> getActivePrivilegeNames(
-      const PrivilegeType type) const {
-    std::vector<const std::string*> activePrivileges;
-
-    int searchIndex = 0;
-    int endIndex = basePrivilegeCount;
-    if (type == PrivilegeType::OEM) {
-      searchIndex = basePrivilegeCount - 1;
-      endIndex = privilegeNames.size();
+        return false;
     }
 
-    for (; searchIndex < endIndex; searchIndex++) {
-      if (privilegeBitset.test(searchIndex)) {
-        activePrivileges.emplace_back(&privilegeNames[searchIndex]);
-      }
+    /**
+     * @brief Sets given privilege in the bitset
+     *
+     * @param[in] privilege  Privilege to be set
+     *
+     * @return               None
+     *
+     */
+    bool setSinglePrivilege(const std::string& privilege)
+    {
+        return setSinglePrivilege(privilege.c_str());
     }
 
-    return activePrivileges;
-  }
+    /**
+     * @brief Retrieves names of all active privileges for a given type
+     *
+     * @param[in] type    Base or OEM
+     *
+     * @return            Vector of active privileges.  Pointers are valid until
+     * the setSinglePrivilege is called, or the Privilege structure is destroyed
+     *
+     */
+    std::vector<const std::string*>
+        getActivePrivilegeNames(const PrivilegeType type) const
+    {
+        std::vector<const std::string*> activePrivileges;
 
-  /**
-   * @brief Determines if this Privilege set is a superset of the given
-   * privilege set
-   *
-   * @param[in] privilege  Privilege to be checked
-   *
-   * @return               None
-   *
-   */
-  bool isSupersetOf(const Privileges& p) const {
-    return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
-  }
+        int searchIndex = 0;
+        int endIndex = basePrivilegeCount;
+        if (type == PrivilegeType::OEM)
+        {
+            searchIndex = basePrivilegeCount - 1;
+            endIndex = privilegeNames.size();
+        }
 
- private:
-  std::bitset<maxPrivilegeCount> privilegeBitset = 0;
+        for (; searchIndex < endIndex; searchIndex++)
+        {
+            if (privilegeBitset.test(searchIndex))
+            {
+                activePrivileges.emplace_back(&privilegeNames[searchIndex]);
+            }
+        }
+
+        return activePrivileges;
+    }
+
+    /**
+     * @brief Determines if this Privilege set is a superset of the given
+     * privilege set
+     *
+     * @param[in] privilege  Privilege to be checked
+     *
+     * @return               None
+     *
+     */
+    bool isSupersetOf(const Privileges& p) const
+    {
+        return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
+    }
+
+  private:
+    std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 
 using OperationMap = boost::container::flat_map<boost::beast::http::verb,
@@ -171,23 +190,28 @@ using OperationMap = boost::container::flat_map<boost::beast::http::verb,
  */
 inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
                                           const OperationMap& operationMap,
-                                          const Privileges& userPrivileges) {
-  const auto& it = operationMap.find(method);
-  if (it == operationMap.end()) {
-    return false;
-  }
-
-  // If there are no privileges assigned, assume no privileges required
-  if (it->second.empty()) {
-    return true;
-  }
-
-  for (auto& requiredPrivileges : it->second) {
-    if (userPrivileges.isSupersetOf(requiredPrivileges)) {
-      return true;
+                                          const Privileges& userPrivileges)
+{
+    const auto& it = operationMap.find(method);
+    if (it == operationMap.end())
+    {
+        return false;
     }
-  }
-  return false;
+
+    // If there are no privileges assigned, assume no privileges required
+    if (it->second.empty())
+    {
+        return true;
+    }
+
+    for (auto& requiredPrivileges : it->second)
+    {
+        if (userPrivileges.isSupersetOf(requiredPrivileges))
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
@@ -201,13 +225,14 @@ inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
  */
 inline bool isMethodAllowedForUser(const boost::beast::http::verb method,
                                    const OperationMap& operationMap,
-                                   const std::string& user) {
-  // TODO: load user privileges from configuration as soon as its available
-  // now we are granting all privileges to everyone.
-  Privileges userPrivileges{"Login", "ConfigureManager", "ConfigureSelf",
-                            "ConfigureUsers", "ConfigureComponents"};
+                                   const std::string& user)
+{
+    // TODO: load user privileges from configuration as soon as its available
+    // now we are granting all privileges to everyone.
+    Privileges userPrivileges{"Login", "ConfigureManager", "ConfigureSelf",
+                              "ConfigureUsers", "ConfigureComponents"};
 
-  return isMethodAllowedWithPrivileges(method, operationMap, userPrivileges);
+    return isMethodAllowedWithPrivileges(method, operationMap, userPrivileges);
 }
 
-}  // namespace redfish
+} // namespace redfish
