@@ -122,7 +122,7 @@ struct SSLAdaptor
     using context = boost::asio::ssl::context;
     using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
     SSLAdaptor(boost::asio::io_service& ioService, context* ctx) :
-        sslSocket(new ssl_socket_t(ioService, *ctx))
+        sslSocket(std::make_unique<ssl_socket_t>(ioService, *ctx))
     {
     }
 
@@ -176,8 +176,6 @@ struct SSLAdaptor
         {
             return;
         }
-        boost::system::error_code ec;
-
         // Shut it down
         this->sslSocket->lowest_layer().close();
     }
