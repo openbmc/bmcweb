@@ -14,26 +14,36 @@
 // limitations under the License.
 */
 #pragma once
-#include <nlohmann/json.hpp>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 
-namespace redfish {
+#include <nlohmann/json.hpp>
 
-namespace json_util {
+namespace redfish
+{
+
+namespace json_util
+{
 
 /**
  * @brief Defines JSON utils operation status
  */
-enum class Result { SUCCESS, NOT_EXIST, WRONG_TYPE, NULL_POINTER };
+enum class Result
+{
+    SUCCESS,
+    NOT_EXIST,
+    WRONG_TYPE,
+    NULL_POINTER
+};
 
 /**
  * @brief Describes JSON utils messages requirement
  */
-enum class MessageSetting {
-  NONE = 0x0,       ///< No messages will be added
-  MISSING = 0x1,    ///< PropertyMissing message will be added
-  TYPE_ERROR = 0x2  ///< PropertyValueTypeError message will be added
+enum class MessageSetting
+{
+    NONE = 0x0,      ///< No messages will be added
+    MISSING = 0x1,   ///< PropertyMissing message will be added
+    TYPE_ERROR = 0x2 ///< PropertyValueTypeError message will be added
 };
 
 /**
@@ -287,6 +297,6 @@ Result getDouble(const char* fieldName, const nlohmann::json& json,
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
 
-}  // namespace json_util
+} // namespace json_util
 
-}  // namespace redfish
+} // namespace redfish

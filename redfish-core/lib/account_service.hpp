@@ -17,40 +17,45 @@
 
 #include "node.hpp"
 
-namespace redfish {
+namespace redfish
+{
 
-class AccountService : public Node {
- public:
-  AccountService(CrowApp& app) : Node(app, "/redfish/v1/AccountService/") {
-    Node::json["@odata.id"] = "/redfish/v1/AccountService";
-    Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
-    Node::json["@odata.context"] =
-        "/redfish/v1/$metadata#AccountService.AccountService";
-    Node::json["Id"] = "AccountService";
-    Node::json["Description"] = "BMC User Accounts";
-    Node::json["Name"] = "Account Service";
-    Node::json["ServiceEnabled"] = true;
-    Node::json["MinPasswordLength"] = 1;
-    Node::json["MaxPasswordLength"] = 20;
-    Node::json["Accounts"]["@odata.id"] = "/redfish/v1/AccountService/Accounts";
-    Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
+class AccountService : public Node
+{
+  public:
+    AccountService(CrowApp& app) : Node(app, "/redfish/v1/AccountService/")
+    {
+        Node::json["@odata.id"] = "/redfish/v1/AccountService";
+        Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
+        Node::json["@odata.context"] =
+            "/redfish/v1/$metadata#AccountService.AccountService";
+        Node::json["Id"] = "AccountService";
+        Node::json["Description"] = "BMC User Accounts";
+        Node::json["Name"] = "Account Service";
+        Node::json["ServiceEnabled"] = true;
+        Node::json["MinPasswordLength"] = 1;
+        Node::json["MaxPasswordLength"] = 20;
+        Node::json["Accounts"]["@odata.id"] =
+            "/redfish/v1/AccountService/Accounts";
+        Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
 
-    entityPrivileges = {
-        {boost::beast::http::verb::get,
-         {{"ConfigureUsers"}, {"ConfigureManager"}}},
-        {boost::beast::http::verb::head, {{"Login"}}},
-        {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
-        {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
-        {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
-        {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
-  }
+        entityPrivileges = {
+            {boost::beast::http::verb::get,
+             {{"ConfigureUsers"}, {"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
+    }
 
- private:
-  void doGet(crow::Response& res, const crow::Request& req,
-             const std::vector<std::string>& params) override {
-    res.jsonValue = Node::json;
-    res.end();
-  }
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = Node::json;
+        res.end();
+    }
 };
 
-}  // namespace redfish
+} // namespace redfish

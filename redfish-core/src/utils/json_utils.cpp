@@ -14,440 +14,512 @@
 // limitations under the License.
 */
 #include "utils/json_utils.hpp"
+
 #include <error_messages.hpp>
 
-namespace redfish {
+namespace redfish
+{
 
-namespace json_util {
+namespace json_util
+{
 
 Result getString(const char* fieldName, const nlohmann::json& json,
-                 const std::string*& output) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                 const std::string*& output)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  output = fieldIt->get_ptr<const std::string*>();
+    output = fieldIt->get_ptr<const std::string*>();
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (output == nullptr) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (output == nullptr)
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getObject(const char* fieldName, const nlohmann::json& json,
-                 nlohmann::json* output) {
-  // Verify input pointer
-  if (output == nullptr) {
-    return Result::NULL_POINTER;
-  }
+                 nlohmann::json* output)
+{
+    // Verify input pointer
+    if (output == nullptr)
+    {
+        return Result::NULL_POINTER;
+    }
 
-  // Find field
-  auto fieldIt = json.find(fieldName);
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  // Verify type
-  if (!fieldIt->is_object()) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type
+    if (!fieldIt->is_object())
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  *output = *fieldIt;
+    // Extract value
+    *output = *fieldIt;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getArray(const char* fieldName, const nlohmann::json& json,
-                nlohmann::json* output) {
-  // Verify input pointer
-  if (output == nullptr) {
-    return Result::NULL_POINTER;
-  }
+                nlohmann::json* output)
+{
+    // Verify input pointer
+    if (output == nullptr)
+    {
+        return Result::NULL_POINTER;
+    }
 
-  // Find field
-  auto fieldIt = json.find(fieldName);
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  // Verify type
-  if (!fieldIt->is_array()) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type
+    if (!fieldIt->is_array())
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  *output = *fieldIt;
+    // Extract value
+    *output = *fieldIt;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getInt(const char* fieldName, const nlohmann::json& json,
-              int64_t& output) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+              int64_t& output)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  const int64_t* retVal = fieldIt->get_ptr<const int64_t*>();
+    const int64_t* retVal = fieldIt->get_ptr<const int64_t*>();
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  output = *retVal;
+    // Extract value
+    output = *retVal;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getUnsigned(const char* fieldName, const nlohmann::json& json,
-                   uint64_t& output) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                   uint64_t& output)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  const uint64_t* retVal = fieldIt->get_ptr<const uint64_t*>();
+    const uint64_t* retVal = fieldIt->get_ptr<const uint64_t*>();
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  output = *retVal;
+    // Extract value
+    output = *retVal;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
-Result getBool(const char* fieldName, const nlohmann::json& json,
-               bool& output) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+Result getBool(const char* fieldName, const nlohmann::json& json, bool& output)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  const bool* retVal = fieldIt->get_ptr<const bool*>();
+    const bool* retVal = fieldIt->get_ptr<const bool*>();
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  output = *retVal;
+    // Extract value
+    output = *retVal;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getDouble(const char* fieldName, const nlohmann::json& json,
-                 double& output) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                 double& output)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    return Result::NOT_EXIST;
-  }
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        return Result::NOT_EXIST;
+    }
 
-  const double* retVal = fieldIt->get_ptr<const double*>();
+    const double* retVal = fieldIt->get_ptr<const double*>();
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    return Result::WRONG_TYPE;
-  }
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        return Result::WRONG_TYPE;
+    }
 
-  // Extract value
-  output = *retVal;
+    // Extract value
+    output = *retVal;
 
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getString(const char* fieldName, const nlohmann::json& json,
                  const std::string*& output, uint8_t msgCfgMap,
-                 nlohmann::json& msgJson, const std::string&& fieldPath) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                 nlohmann::json& msgJson, const std::string&& fieldPath)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::NOT_EXIST;
-  }
+    output = fieldIt->get_ptr<const std::string*>();
 
-  output = fieldIt->get_ptr<const std::string*>();
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (output == nullptr)
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (output == nullptr) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+        return Result::WRONG_TYPE;
     }
 
-    return Result::WRONG_TYPE;
-  }
-
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getObject(const char* fieldName, const nlohmann::json& json,
                  nlohmann::json* output, uint8_t msgCfgMap,
-                 nlohmann::json& msgJson, const std::string&& fieldPath) {
-  // Verify input pointer
-  if (output == nullptr) {
-    return Result::NULL_POINTER;
-  }
-
-  // Find field
-  auto fieldIt = json.find(fieldName);
-
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+                 nlohmann::json& msgJson, const std::string&& fieldPath)
+{
+    // Verify input pointer
+    if (output == nullptr)
+    {
+        return Result::NULL_POINTER;
     }
 
-    return Result::NOT_EXIST;
-  }
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify type
-  if (!fieldIt->is_object()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Verify type
+    if (!fieldIt->is_object())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Extract value
-  *output = *fieldIt;
+        return Result::WRONG_TYPE;
+    }
 
-  return Result::SUCCESS;
+    // Extract value
+    *output = *fieldIt;
+
+    return Result::SUCCESS;
 }
 
 Result getArray(const char* fieldName, const nlohmann::json& json,
                 nlohmann::json* output, uint8_t msgCfgMap,
-                nlohmann::json& msgJson, const std::string&& fieldPath) {
-  // Verify input pointer
-  if (output == nullptr) {
-    return Result::NULL_POINTER;
-  }
-
-  // Find field
-  auto fieldIt = json.find(fieldName);
-
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+                nlohmann::json& msgJson, const std::string&& fieldPath)
+{
+    // Verify input pointer
+    if (output == nullptr)
+    {
+        return Result::NULL_POINTER;
     }
 
-    return Result::NOT_EXIST;
-  }
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify type
-  if (!fieldIt->is_array()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Verify type
+    if (!fieldIt->is_array())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Extract value
-  *output = *fieldIt;
+        return Result::WRONG_TYPE;
+    }
 
-  return Result::SUCCESS;
+    // Extract value
+    *output = *fieldIt;
+
+    return Result::SUCCESS;
 }
 
 Result getInt(const char* fieldName, const nlohmann::json& json,
               int64_t& output, uint8_t msgCfgMap, nlohmann::json& msgJson,
-              const std::string&& fieldPath) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+              const std::string&& fieldPath)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::NOT_EXIST;
-  }
+    const int64_t* retVal = fieldIt->get_ptr<const int64_t*>();
 
-  const int64_t* retVal = fieldIt->get_ptr<const int64_t*>();
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+        return Result::WRONG_TYPE;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Extract value
+    output = *retVal;
 
-  // Extract value
-  output = *retVal;
-
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getUnsigned(const char* fieldName, const nlohmann::json& json,
                    uint64_t& output, uint8_t msgCfgMap, nlohmann::json& msgJson,
-                   const std::string&& fieldPath) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                   const std::string&& fieldPath)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::NOT_EXIST;
-  }
+    const uint64_t* retVal = fieldIt->get_ptr<const uint64_t*>();
 
-  const uint64_t* retVal = fieldIt->get_ptr<const uint64_t*>();
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+        return Result::WRONG_TYPE;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Extract value
+    output = *retVal;
 
-  // Extract value
-  output = *retVal;
-
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getBool(const char* fieldName, const nlohmann::json& json, bool& output,
                uint8_t msgCfgMap, nlohmann::json& msgJson,
-               const std::string&& fieldPath) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+               const std::string&& fieldPath)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::NOT_EXIST;
-  }
+    const bool* retVal = fieldIt->get_ptr<const bool*>();
 
-  const bool* retVal = fieldIt->get_ptr<const bool*>();
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+        return Result::WRONG_TYPE;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Extract value
+    output = *retVal;
 
-  // Extract value
-  output = *retVal;
-
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 Result getDouble(const char* fieldName, const nlohmann::json& json,
                  double& output, uint8_t msgCfgMap, nlohmann::json& msgJson,
-                 const std::string&& fieldPath) {
-  // Find field
-  auto fieldIt = json.find(fieldName);
+                 const std::string&& fieldPath)
+{
+    // Find field
+    auto fieldIt = json.find(fieldName);
 
-  // Verify existence
-  if (fieldIt == json.end()) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::MISSING)) {
-      messages::addMessageToJson(msgJson, messages::propertyMissing(fieldName),
-                                 fieldPath);
+    // Verify existence
+    if (fieldIt == json.end())
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::MISSING))
+        {
+            messages::addMessageToJson(
+                msgJson, messages::propertyMissing(fieldName), fieldPath);
+        }
+
+        return Result::NOT_EXIST;
     }
 
-    return Result::NOT_EXIST;
-  }
+    const double* retVal = fieldIt->get_ptr<const double*>();
 
-  const double* retVal = fieldIt->get_ptr<const double*>();
+    // Verify type - we know that it exists, so nullptr means wrong type
+    if (retVal == nullptr)
+    {
+        if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR))
+        {
+            messages::addMessageToJson(
+                msgJson,
+                messages::propertyValueTypeError(fieldIt->dump(), fieldName),
+                fieldPath);
+        }
 
-  // Verify type - we know that it exists, so nullptr means wrong type
-  if (retVal == nullptr) {
-    if (msgCfgMap & static_cast<int>(MessageSetting::TYPE_ERROR)) {
-      messages::addMessageToJson(
-          msgJson, messages::propertyValueTypeError(fieldIt->dump(), fieldName),
-          fieldPath);
+        return Result::WRONG_TYPE;
     }
 
-    return Result::WRONG_TYPE;
-  }
+    // Extract value
+    output = *retVal;
 
-  // Extract value
-  output = *retVal;
-
-  return Result::SUCCESS;
+    return Result::SUCCESS;
 }
 
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
-                            nlohmann::json& reqJson) {
-  reqJson = nlohmann::json::parse(req.body, nullptr, false);
+                            nlohmann::json& reqJson)
+{
+    reqJson = nlohmann::json::parse(req.body, nullptr, false);
 
-  if (reqJson.is_discarded()) {
-    messages::addMessageToErrorJson(res.jsonValue, messages::malformedJSON());
+    if (reqJson.is_discarded())
+    {
+        messages::addMessageToErrorJson(res.jsonValue,
+                                        messages::malformedJSON());
 
-    res.result(boost::beast::http::status::bad_request);
-    res.end();
+        res.result(boost::beast::http::status::bad_request);
+        res.end();
 
-    return false;
-  }
+        return false;
+    }
 
-  return true;
+    return true;
 }
 
-}  // namespace json_util
+} // namespace json_util
 
-}  // namespace redfish
+} // namespace redfish

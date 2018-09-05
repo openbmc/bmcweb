@@ -18,161 +18,190 @@
 #include "privileges.hpp"
 #include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
+
 #include "crow.h"
 
-namespace redfish {
+namespace redfish
+{
 
 /**
  * AsyncResp
  * Gathers data needed for response processing after async calls are done
  */
-class AsyncResp {
- public:
-  AsyncResp(crow::Response& response) : res(response) {}
+class AsyncResp
+{
+  public:
+    AsyncResp(crow::Response& response) : res(response)
+    {
+    }
 
-  ~AsyncResp() { res.end(); }
+    ~AsyncResp()
+    {
+        res.end();
+    }
 
-  crow::Response& res;
+    crow::Response& res;
 };
 
 /**
  * @brief  Abstract class used for implementing Redfish nodes.
  *
  */
-class Node {
- public:
-  template <typename... Params>
-  Node(CrowApp& app, std::string&& entityUrl, Params... params) {
-    app.routeDynamic(entityUrl.c_str())
-        .methods("GET"_method, "PATCH"_method, "POST"_method,
-                 "DELETE"_method)([&](const crow::Request& req,
-                                      crow::Response& res, Params... params) {
-          std::vector<std::string> paramVec = {params...};
-          dispatchRequest(app, req, res, paramVec);
-        });
-  }
-
-  virtual ~Node() = default;
-
-  const std::string* getUrl() const {
-    auto odataId = json.find("@odata.id");
-    if (odataId == json.end()) {
-      return nullptr;
+class Node
+{
+  public:
+    template <typename... Params>
+    Node(CrowApp& app, std::string&& entityUrl, Params... params)
+    {
+        app.routeDynamic(entityUrl.c_str())
+            .methods("GET"_method, "PATCH"_method, "POST"_method,
+                     "DELETE"_method)([&](const crow::Request& req,
+                                          crow::Response& res,
+                                          Params... params) {
+                std::vector<std::string> paramVec = {params...};
+                dispatchRequest(app, req, res, paramVec);
+            });
     }
 
-    return odataId->get_ptr<const std::string*>();
-  }
+    virtual ~Node() = default;
 
-  /**
-   * @brief Inserts subroute fields into for the node's json in the form:
-   *        "subroute_name" : { "odata.id": "node_url/subroute_name/" }
-   *        Excludes metadata urls starting with "$" and child urls having
-   *        more than one level.
-   *
-   * @return  None
-   */
-  void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes) {
-    const std::string* url = getUrl();
-    if (url == nullptr) {
-      // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
-      return;
+    const std::string* getUrl() const
+    {
+        auto odataId = json.find("@odata.id");
+        if (odataId == json.end())
+        {
+            return nullptr;
+        }
+
+        return odataId->get_ptr<const std::string*>();
     }
 
-    for (const auto& node : allNodes) {
-      const std::string* route = node->getUrl();
-      if (route == nullptr) {
-        // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
-        continue;
-      }
-      if (boost::starts_with(*route, *url)) {
-        std::string subRoute = route->substr(url->size());
-        if (subRoute.empty()) {
-          continue;
+    /**
+     * @brief Inserts subroute fields into for the node's json in the form:
+     *        "subroute_name" : { "odata.id": "node_url/subroute_name/" }
+     *        Excludes metadata urls starting with "$" and child urls having
+     *        more than one level.
+     *
+     * @return  None
+     */
+    void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes)
+    {
+        const std::string* url = getUrl();
+        if (url == nullptr)
+        {
+            // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
+            return;
         }
 
-        if (boost::starts_with(subRoute, "/")) {
-          subRoute.erase(0, 1);
+        for (const auto& node : allNodes)
+        {
+            const std::string* route = node->getUrl();
+            if (route == nullptr)
+            {
+                // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
+                continue;
+            }
+            if (boost::starts_with(*route, *url))
+            {
+                std::string subRoute = route->substr(url->size());
+                if (subRoute.empty())
+                {
+                    continue;
+                }
+
+                if (boost::starts_with(subRoute, "/"))
+                {
+                    subRoute.erase(0, 1);
+                }
+
+                if (boost::ends_with(subRoute, "/"))
+                {
+                    subRoute.pop_back();
+                }
+
+                if (!boost::starts_with(subRoute, "$") &&
+                    subRoute.find('/') == std::string::npos)
+                {
+                    json[subRoute] = nlohmann::json{{"@odata.id", *route}};
+                }
+            }
         }
-
-        if (boost::ends_with(subRoute, "/")) {
-          subRoute.pop_back();
-        }
-
-        if (!boost::starts_with(subRoute, "$") &&
-            subRoute.find('/') == std::string::npos) {
-          json[subRoute] = nlohmann::json{{"@odata.id", *route}};
-        }
-      }
-    }
-  }
-
-  OperationMap entityPrivileges;
-
- protected:
-  // Node is designed to be an abstract class, so doGet is pure virtual
-  virtual void doGet(crow::Response& res, const crow::Request& req,
-                     const std::vector<std::string>& params) {
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
-  }
-
-  virtual void doPatch(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params) {
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
-  }
-
-  virtual void doPost(crow::Response& res, const crow::Request& req,
-                      const std::vector<std::string>& params) {
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
-  }
-
-  virtual void doDelete(crow::Response& res, const crow::Request& req,
-                        const std::vector<std::string>& params) {
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.end();
-  }
-
-  nlohmann::json json;
-
- private:
-  void dispatchRequest(CrowApp& app, const crow::Request& req,
-                       crow::Response& res,
-                       const std::vector<std::string>& params) {
-    auto ctx =
-        app.template getContext<crow::token_authorization::Middleware>(req);
-
-    if (!isMethodAllowedForUser(req.method(), entityPrivileges,
-                                ctx.session->username)) {
-      res.result(boost::beast::http::status::method_not_allowed);
-      res.end();
-      return;
     }
 
-    switch (req.method()) {
-      case "GET"_method:
-        doGet(res, req, params);
-        break;
+    OperationMap entityPrivileges;
 
-      case "PATCH"_method:
-        doPatch(res, req, params);
-        break;
-
-      case "POST"_method:
-        doPost(res, req, params);
-        break;
-
-      case "DELETE"_method:
-        doDelete(res, req, params);
-        break;
-
-      default:
-        res.result(boost::beast::http::status::not_found);
+  protected:
+    // Node is designed to be an abstract class, so doGet is pure virtual
+    virtual void doGet(crow::Response& res, const crow::Request& req,
+                       const std::vector<std::string>& params)
+    {
+        res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
-    return;
-  }
+
+    virtual void doPatch(crow::Response& res, const crow::Request& req,
+                         const std::vector<std::string>& params)
+    {
+        res.result(boost::beast::http::status::method_not_allowed);
+        res.end();
+    }
+
+    virtual void doPost(crow::Response& res, const crow::Request& req,
+                        const std::vector<std::string>& params)
+    {
+        res.result(boost::beast::http::status::method_not_allowed);
+        res.end();
+    }
+
+    virtual void doDelete(crow::Response& res, const crow::Request& req,
+                          const std::vector<std::string>& params)
+    {
+        res.result(boost::beast::http::status::method_not_allowed);
+        res.end();
+    }
+
+    nlohmann::json json;
+
+  private:
+    void dispatchRequest(CrowApp& app, const crow::Request& req,
+                         crow::Response& res,
+                         const std::vector<std::string>& params)
+    {
+        auto ctx =
+            app.template getContext<crow::token_authorization::Middleware>(req);
+
+        if (!isMethodAllowedForUser(req.method(), entityPrivileges,
+                                    ctx.session->username))
+        {
+            res.result(boost::beast::http::status::method_not_allowed);
+            res.end();
+            return;
+        }
+
+        switch (req.method())
+        {
+            case "GET"_method:
+                doGet(res, req, params);
+                break;
+
+            case "PATCH"_method:
+                doPatch(res, req, params);
+                break;
+
+            case "POST"_method:
+                doPost(res, req, params);
+                break;
+
+            case "DELETE"_method:
+                doDelete(res, req, params);
+                break;
+
+            default:
+                res.result(boost::beast::http::status::not_found);
+                res.end();
+        }
+        return;
+    }
 };
 
-}  // namespace redfish
+} // namespace redfish
