@@ -8,6 +8,7 @@ from collections import OrderedDict
 from distutils.version import StrictVersion
 import shutil
 import json
+import glob
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -31,11 +32,17 @@ zip_ref = zipfile.ZipFile(zipBytesIO)
 
 # Remove the old files
 if os.path.exists(schema_path):
-    shutil.rmtree(schema_path)
+    files = glob.glob(os.path.join(schema_path, '[!Oem]*'))
+    for f in files:
+        os.remove(f)
 if os.path.exists(json_schema_path):
-    shutil.rmtree(json_schema_path)
-os.makedirs(schema_path)
-os.makedirs(json_schema_path)
+    files = glob.glob(os.path.join(json_schema_path, '[!Oem]*'))
+    for f in files:
+        shutil.rmtree(f)
+if not os.path.exists(schema_path):
+    os.makedirs(schema_path)
+if not os.path.exists(json_schema_path):
+    os.makedirs(json_schema_path)
 
 for zip_filepath in zip_ref.namelist():
 
