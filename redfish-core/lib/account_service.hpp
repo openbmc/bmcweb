@@ -14,11 +14,18 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "node.hpp"
+
+#include <openbmc_dbus_rest.hpp>
 
 namespace redfish
 {
+
+using ManagedObjectType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string, boost::container::flat_map<
+                         std::string, sdbusplus::message::variant<bool>>>>>;
 
 class AccountService : public Node
 {
@@ -55,6 +62,161 @@ class AccountService : public Node
     {
         res.jsonValue = Node::json;
         res.end();
+    }
+};
+class AccountsCollection : public Node
+{
+  public:
+    AccountsCollection(CrowApp& app) :
+        Node(app, "/redfish/v1/AccountService/Accounts/")
+    {
+
+        Node::json = {{"@odata.context", "/redfish/v1/"
+                                         "$metadata#ManagerAccountCollection."
+                                         "ManagerAccountCollection"},
+                      {"@odata.id", "/redfish/v1/AccountService/Accounts"},
+                      {"@odata.type", "#ManagerAccountCollection."
+                                      "ManagerAccountCollection"},
+                      {"Name", "Accounts Collection"},
+                      {"Description", "BMC User Accounts"}};
+
+        entityPrivileges = {
+            {boost::beast::http::verb::get,
+             {{"ConfigureUsers"}, {"ConfigureManager"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = Node::json;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const ManagedObjectType& users) {
+                if (ec)
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+
+                nlohmann::json& memberArray =
+                    asyncResp->res.jsonValue["Members"];
+                memberArray = nlohmann::json::array();
+
+                asyncResp->res.jsonValue["Members@odata.count"] = users.size();
+                for (auto& user : users)
+                {
+                    const std::string& path =
+                        static_cast<const std::string&>(user.first);
+                    std::size_t lastIndex = path.rfind("/");
+                    if (lastIndex == std::string::npos)
+                    {
+                        lastIndex = 0;
+                    }
+                    else
+                    {
+                        lastIndex += 1;
+                    }
+                    memberArray.push_back(
+                        {{"@odata.id", "/redfish/v1/AccountService/Accounts/" +
+                                           path.substr(lastIndex)}});
+                }
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+};
+
+class ManagerAccount : public Node
+{
+  public:
+    ManagerAccount(CrowApp& app) :
+        Node(app, "/redfish/v1/AccountService/Accounts/<str>/", std::string())
+    {
+        Node::json = {{"@odata.context",
+                       "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
+                      {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
+
+                      {"Name", "User Account"},
+                      {"Description", "User Account"},
+                      {"Enabled", false},
+                      {"Password", nullptr},
+                      {"RoleId", "Administrator"},
+                      {"Links",
+                       {{"Role",
+                         {{"@odata.id", "/redfish/v1/AccountService/Roles/"
+                                        "Administrator"}}}}}};
+
+        entityPrivileges = {
+            {boost::beast::http::verb::get,
+             {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        res.jsonValue = Node::json;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, accountName{std::string(params[0])}](
+                const boost::system::error_code ec,
+                const ManagedObjectType& users) {
+                if (ec)
+                {
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+
+                for (auto& user : users)
+                {
+                    const std::string& path =
+                        static_cast<const std::string&>(user.first);
+                    std::size_t lastIndex = path.rfind("/");
+                    if (lastIndex == std::string::npos)
+                    {
+                        lastIndex = 0;
+                    }
+                    else
+                    {
+                        lastIndex += 1;
+                    }
+                    if (path.substr(lastIndex) == accountName)
+                    {
+                        asyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/AccountService/Accounts/" +
+                            accountName;
+                        asyncResp->res.jsonValue["Id"] = accountName;
+                        asyncResp->res.jsonValue["UserName"] = accountName;
+
+                        return;
+                    }
+                }
+
+                asyncResp->res.result(boost::beast::http::status::not_found);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 };
 
