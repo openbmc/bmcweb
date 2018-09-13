@@ -46,6 +46,8 @@ class RedfishService
     RedfishService(CrowApp& app)
     {
         nodes.emplace_back(std::make_unique<AccountService>(app));
+        nodes.emplace_back(std::make_unique<AccountsCollection>(app));
+        nodes.emplace_back(std::make_unique<ManagerAccount>(app));
         nodes.emplace_back(std::make_unique<SessionCollection>(app));
         nodes.emplace_back(std::make_unique<Roles>(app));
         nodes.emplace_back(std::make_unique<RoleCollection>(app));
