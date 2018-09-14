@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+        <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+        <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Manager_v1.xml">
+        <edmx:Include Namespace="Manager"/>
+        <edmx:Include Namespace="Manager.v1_4_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+        <edmx:Include Namespace="Resource"/>
+        <edmx:Include Namespace="Resource.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
+        <edmx:Include Namespace="Chassis"/>
+    </edmx:Reference>
+
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemManager">
+            <ComplexType Name="Oem" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OemManager Oem properties." />
+                <Annotation Term="OData.AutoExpand"/>
+                <NavigationProperty Name="OpenBmc" Type="OemManager.OpenBmc"/>
+            </ComplexType>
+
+            <EntityType Name="OpenBmc" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
+                <Annotation Term="OData.AutoExpand"/>
+                <NavigationProperty Name="Fan" Type="OemManager.Fan"/>
+            </EntityType>
+
+            <EntityType Name="Fan" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OpenBmc oem fan properties." />
+                <Annotation Term="OData.AutoExpand"/>
+                <NavigationProperty Name="FanControllers" Type="OemManager.FanControllers"/>
+                <NavigationProperty Name="PidControllers" Type="OemManager.PidControllers"/>
+                <NavigationProperty Name="FanZones" Type="OemManager.FanZones"/>
+            </EntityType>
+
+            <EntityType Name="FanControllers" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OpenBmc FanControllers." />
+                <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan controllers." />
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Annotation Term="OData.AutoExpand"/>
+                    <Collection ContainsTarget="true">
+                        <NavigationProperty Type="OemManager.FanController">
+                            <Annotation Term="OData.AutoExpand"/>
+                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
+                            <PropertyValue Property="Type" String="OemManager.FanController" />
+                        </NavigationProperty>
+                    </Collection>
+                </Annotation>
+            </EntityType>
+
+            <EntityType Name="PidControllers" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OpenBmc PidControllers." />
+                <Annotation Term="OData.LongDescription" String="Container for OpenBmc pid controllers." />
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Annotation Term="OData.AutoExpand"/>
+                    <Collection ContainsTarget="true">
+                        <NavigationProperty>
+                            <Annotation Term="OData.AutoExpand"/>
+                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
+                            <PropertyValue Property="Type" String="OemManager.PidController" />
+                        </NavigationProperty>
+                    </Collection>
+                </Annotation>
+            </EntityType>
+
+            <EntityType Name="FanZones" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OpenBmc FanZones." />
+                <Annotation Term="OData.LongDescription" String="Container for OpenBmc fan zones." />
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Annotation Term="OData.AutoExpand"/>
+                    <Collection ContainsTarget="true">
+                        <NavigationProperty>
+                            <Annotation Term="OData.AutoExpand"/>
+                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
+                            <PropertyValue Property="Type" String="OemManager.FanZone" />
+                        </NavigationProperty>
+                    </Collection>
+                </Annotation>
+            </EntityType>
+
+            <!-- In reality we'd like these all to be entities, but the Pattern Expansion for
+            Navigation Properties doesn't seem to quite work right. As FanZones should always have
+            some FanController / PidController, the navigation properties in those fields sould let
+            the conformance test find them. However FanControllers / PidControllers are only linked to
+            by the pattern expansion, as that's not working they are complex types -->
+
+            <ComplexType Name="FanController" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false" />
+                <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
+                <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Feed forward gain coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficent for the PID." />
+                </Property>
+                <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Feed forward offset coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficent for the PID." />
+                </Property>
+                <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral Coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral Coefficent for the PID." />
+                </Property>
+                <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit maxiumum for the PID." />
+                </Property>
+                <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral limit miniumum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit miniumum for the PID." />
+                </Property>
+                <Property Name="Inputs" Type="Collection(Edm.String)">
+                    <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
+                    <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
+                </Property>
+                <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Output limit maxiumum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit maxiumum for the pwm." />
+                </Property>
+                <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm." />
+                </Property>
+                <Property Name="Outputs" Type="Collection(Edm.String)">
+                    <Annotation Term="OData.Description" String="Output sensors to the PID controller."/>
+                    <Annotation Term="OData.LongDescription" String="Output sensors to the PID controller."/>
+                </Property>
+                <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Polynomial coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Polynomial coefficent for the PID." />
+                </Property>
+                <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID." />
+                </Property>
+                <Property Name="SlewPos" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Positive slew rate for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID." />
+                </Property>
+                <NavigationProperty Name="Zones" Type="Collection(OemManager.FanZone)" ContainsTarget="true">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+                    <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to." />
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+            </ComplexType>
+
+            <EntityType Name="FanZone" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false" />
+                <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
+                <Property Name="FailSafePercent" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="If the sensors are in fail-safe mode, this is the percentage to use." />
+                    <Annotation Term="OData.LongDescription" String="If the sensors are in fail-safe mode, this is the percentage to use." />
+                </Property>
+                <Property Name="MinThermalRpm" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Minimum thermal RPM that can be set in this Zone." />
+                    <Annotation Term="OData.LongDescription" String="Minimum thermal RPM that can be set in this Zone." />
+                </Property>
+                <NavigationProperty Name="Chassis" Type="Chassis.Chassis" ContainsTarget="true">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                    <Annotation Term="OData.Description" String="The Chassis that enables this Zone."/>
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+            </EntityType>
+
+            <ComplexType Name="PidController" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false" />
+                <Annotation Term="OData.Description" String="Configuration data for Fan Controllers." />
+                <Property Name="FFGainCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Feed forward gain coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward gain coefficent for the PID." />
+                </Property>
+                <Property Name="FFOffCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Feed forward offset coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Feed forward offset coefficent for the PID." />
+                </Property>
+                <Property Name="ICoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral Coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral Coefficent for the PID." />
+                </Property>
+                <Property Name="ILimitMax" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral limit maxiumum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit maxiumum for the PID." />
+                </Property>
+                <Property Name="ILimitMin" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Integral limit miniumum for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Integral limit miniumum for the PID." />
+                </Property>
+                <Property Name="Inputs" Type="Collection(Edm.String)">
+                    <Annotation Term="OData.Description" String="Input sensors to the PID controller."/>
+                    <Annotation Term="OData.LongDescription" String="Input sensors to the PID controller."/>
+                </Property>
+                <Property Name="OutLimitMax" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Output limit maxiumum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit maxiumum for the pwm." />
+                </Property>
+                <Property Name="OutLimitMin" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Output limit minimum for the pwm." />
+                    <Annotation Term="OData.LongDescription" String="Output limit minimum for the pwm." />
+                </Property>
+                <Property Name="PCoefficient" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Polynomial coefficent for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Polynomial coefficent for the PID." />
+                </Property>
+                <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID." />
+                </Property>
+                <Property Name="SlewPos" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Positive slew rate for the PID." />
+                    <Annotation Term="OData.LongDescription" String="Positive slew rate for the PID." />
+                </Property>
+                <NavigationProperty Name="Zones" Type="Collection(OemManager.FanZone)" ContainsTarget="true">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+                    <Annotation Term="OData.Description" String="Contains the Zones that this PID contributes to." />
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+            </ComplexType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
