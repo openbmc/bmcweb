@@ -235,6 +235,18 @@ class SoftwareInventoryCollection : public Node
                         std::pair<std::string, std::vector<std::string>>>
                         &connections = obj.second;
 
+                    // if can't parse fw id then return
+                    std::size_t idPos;
+                    if ((idPos = obj.first.rfind("/")) == std::string::npos)
+                    {
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue = messages::internalError();
+                        BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
+                        return;
+                    }
+                    std::string swId = obj.first.substr(idPos + 1);
+
                     for (auto &conn : connections)
                     {
                         const std::string &connectionName = conn.first;
@@ -243,9 +255,9 @@ class SoftwareInventoryCollection : public Node
                         BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp](
-                                const boost::system::error_code error_code,
-                                const VariantType &activation) {
+                            [asyncResp,
+                             swId](const boost::system::error_code error_code,
+                                   const VariantType &activation) {
                                 BMCWEB_LOG_DEBUG
                                     << "safe returned in lambda function";
                                 if (error_code)
@@ -256,31 +268,33 @@ class SoftwareInventoryCollection : public Node
                                     return;
                                 }
 
-                                const std::string *swInvPurpose =
+                                const std::string *swActivationStatus =
                                     mapbox::getPtr<const std::string>(
                                         activation);
-                                if (swInvPurpose == nullptr)
+                                if (swActivationStatus == nullptr)
                                 {
                                     asyncResp->res.result(
                                         boost::beast::http::status::
                                             internal_server_error);
                                     return;
                                 }
-                                std::size_t last_pos = swInvPurpose->rfind(".");
-                                if (last_pos == std::string::npos)
+                                if (swActivationStatus != nullptr &&
+                                    *swActivationStatus !=
+                                        "xyz.openbmc_project.Software."
+                                        "Activation."
+                                        "Activations.Active")
                                 {
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    // The activation status of this software is
+                                    // not currently active, so does not need to
+                                    // be listed in the response
                                     return;
                                 }
                                 nlohmann::json &members =
                                     asyncResp->res.jsonValue["Members"];
                                 members.push_back(
-                                    {{"@odata.id",
-                                      "/redfish/v1/UpdateService/"
-                                      "FirmwareInventory/" +
-                                          swInvPurpose->substr(last_pos + 1)}});
+                                    {{"@odata.id", "/redfish/v1/UpdateService/"
+                                                   "FirmwareInventory/" +
+                                                       swId}});
                                 asyncResp->res
                                     .jsonValue["Members@odata.count"] =
                                     members.size();
@@ -374,7 +388,7 @@ class SoftwareInventory : public Node
                         continue;
                     }
 
-                    if (obj.second.size() <= 1)
+                    if (obj.second.size() < 1)
                     {
                         continue;
                     }
@@ -417,35 +431,33 @@ class SoftwareInventory : public Node
 
                             BMCWEB_LOG_DEBUG << "swInvPurpose = "
                                              << *swInvPurpose;
-                            if (boost::ends_with(*swInvPurpose, "." + *swId))
+                            it = propertiesList.find("Version");
+                            if (it == propertiesList.end())
                             {
-                                it = propertiesList.find("Version");
-                                if (it == propertiesList.end())
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
-                                    return;
-                                }
-
-                                const std::string *version =
-                                    mapbox::getPtr<const std::string>(
-                                        it->second);
-
-                                if (version != nullptr)
-                                {
-                                    BMCWEB_LOG_DEBUG
-                                        << "Can't find property \"Version\"!";
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["Version"] = *version;
-                                asyncResp->res.jsonValue["Id"] = *swId;
+                                BMCWEB_LOG_DEBUG
+                                    << "Can't find property \"Version\"!";
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
                             }
+
+                            BMCWEB_LOG_DEBUG << "Version found!";
+
+                            const std::string *version =
+                                mapbox::getPtr<const std::string>(it->second);
+
+                            if (version == nullptr)
+                            {
+                                BMCWEB_LOG_DEBUG
+                                    << "Can't find property \"Version\"!";
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
+                            }
+                            asyncResp->res.jsonValue["Version"] = *version;
+                            asyncResp->res.jsonValue["Id"] = *swId;
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
