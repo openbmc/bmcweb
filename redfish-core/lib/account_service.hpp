@@ -16,6 +16,7 @@
 #pragma once
 #include "node.hpp"
 
+#include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <utils/json_utils.hpp>
 
@@ -164,7 +165,6 @@ class ManagerAccount : public Node
 
                       {"Name", "User Account"},
                       {"Description", "User Account"},
-                      {"Enabled", false},
                       {"Password", nullptr},
                       {"RoleId", "Administrator"},
                       {"Links",
@@ -221,6 +221,46 @@ class ManagerAccount : public Node
                     }
                     if (path.substr(lastIndex) == accountName)
                     {
+                        for (const auto& interface : user.second)
+                        {
+                            if (interface.first ==
+                                "xyz.openbmc_project.User.Attributes")
+                            {
+                                for (const auto& property : interface.second)
+                                {
+                                    if (property.first == "UserEnabled")
+                                    {
+                                        const bool* userEnabled =
+                                            mapbox::getPtr<const bool>(
+                                                property.second);
+                                        if (userEnabled == nullptr)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "UserEnabled wasn't a bool";
+                                            continue;
+                                        }
+                                        asyncResp->res.jsonValue["Enabled"] =
+                                            *userEnabled;
+                                    }
+                                    else if (property.first ==
+                                             "UserLockedForFailedAttempt")
+                                    {
+                                        const bool* userLocked =
+                                            mapbox::getPtr<const bool>(
+                                                property.second);
+                                        if (userLocked == nullptr)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "UserEnabled wasn't a bool";
+                                            continue;
+                                        }
+                                        asyncResp->res.jsonValue["Locked"] =
+                                            *userLocked;
+                                    }
+                                }
+                            }
+                        }
+
                         asyncResp->res.jsonValue["@odata.id"] =
                             "/redfish/v1/AccountService/Accounts/" +
                             accountName;
