@@ -386,6 +386,40 @@ class ManagerAccount : public Node
                 }
             });
     }
+
+    void doDelete(crow::Response& res, const crow::Request& req,
+                  const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        const std::string userPath = "/xyz/openbmc_project/user/" + params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, username{std::move(params[0])}](
+                const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::resourceNotFound(
+                            "#ManagerAccount.v1_0_3.ManagerAccount", username));
+                    asyncResp->res.result(
+                        boost::beast::http::status::not_found);
+                    return;
+                }
+
+                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                               messages::accountRemoved());
+            },
+            "xyz.openbmc_project.User.Manager", userPath,
+            "xyz.openbmc_project.Object.Delete", "Delete");
+    }
 };
 
 } // namespace redfish
