@@ -134,6 +134,197 @@ class AccountsCollection : public Node
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        nlohmann::json patchRequest;
+        if (!json_util::processJsonFromRequest(res, req, patchRequest))
+        {
+            return;
+        }
+
+        const std::string* username = nullptr;
+        const std::string* password = nullptr;
+        // Default to user
+        std::string privilege = "priv-user";
+        // default to enabled
+        bool enabled = true;
+        for (const auto& item : patchRequest.items())
+        {
+            if (item.key() == "UserName")
+            {
+                username = item.value().get_ptr<const std::string*>();
+                if (username == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueFormatError(item.value().dump(),
+                                                           item.key()));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+            }
+            else if (item.key() == "Enabled")
+            {
+                const bool* enabledJson = item.value().get_ptr<const bool*>();
+                if (enabledJson == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueFormatError(item.value().dump(),
+                                                           item.key()));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                enabled = *enabledJson;
+            }
+            else if (item.key() == "Password")
+            {
+                password = item.value().get_ptr<const std::string*>();
+                if (password == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueFormatError(item.value().dump(),
+                                                           item.key()));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+            }
+            else if (item.key() == "RoleId")
+            {
+                const std::string* roleIdJson =
+                    item.value().get_ptr<const std::string*>();
+                if (roleIdJson == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueFormatError(item.value().dump(),
+                                                           item.key()));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                const char* priv = getRoleIdFromPrivilege(*roleIdJson);
+                if (priv == nullptr)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::propertyValueNotInList(*roleIdJson,
+                                                         item.key()));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+                privilege = priv;
+            }
+            else
+            {
+                messages::addMessageToErrorJson(
+                    asyncResp->res.jsonValue,
+                    messages::propertyNotWritable(item.key()));
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+        }
+
+        if (username == nullptr)
+        {
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::createFailedMissingReqProperties("UserName"));
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+
+        if (password == nullptr)
+        {
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::createFailedMissingReqProperties("Password"));
+            asyncResp->res.result(boost::beast::http::status::bad_request);
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, username{std::string(*username)},
+             password{std::string(*password)}](
+                const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::addMessageToErrorJson(
+                        asyncResp->res.jsonValue,
+                        messages::resourceAlreadyExists(
+                            "#ManagerAccount.v1_0_3.ManagerAccount", "UserName",
+                            username));
+                    asyncResp->res.result(
+                        boost::beast::http::status::bad_request);
+                    return;
+                }
+
+                if (!pamUpdatePassword(username, password))
+                {
+                    // At this point we have a user that's been created, but the
+                    // password set failed.  Something is wrong, so delete the
+                    // user that we've already created
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
+                            }
+
+                            asyncResp->res.result(
+                                boost::beast::http::status::bad_request);
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        "/xyz/openbmc_project/user/" + username,
+                        "xyz.openbmc_project.Object.Delete", "Delete");
+
+                    BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                    return;
+                }
+
+                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                               messages::created());
+                asyncResp->res.addHeader(
+                    "Location",
+                    "/redfish/v1/AccountService/Accounts/" + username);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "CreateUser", *username,
+            std::array<const char*, 4>{"ipmi", "redfish", "ssh", "web"},
+            privilege, enabled);
+    }
+
+    static const char* getRoleIdFromPrivilege(boost::beast::string_view role)
+    {
+        if (role == "Administrator")
+        {
+            return "priv-admin";
+        }
+        else if (role == "Callback")
+        {
+            return "priv-callback";
+        }
+        else if (role == "User")
+        {
+            return "priv-user";
+        }
+        else if (role == "Operator")
+        {
+            return "priv-operator";
+        }
+        return nullptr;
+    }
 };
 
 template <typename Callback>
