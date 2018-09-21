@@ -139,121 +139,30 @@ class AccountsCollection : public Node
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        nlohmann::json patchRequest;
-        if (!json_util::processJsonFromRequest(res, req, patchRequest))
+        std::string username;
+        std::string password;
+        boost::optional<std::string> roleId("User");
+        boost::optional<bool> enabled = true;
+        if (!json_util::readJson(req, res, "UserName", username, "Password",
+                                 password, "RoleId", roleId, "Enabled",
+                                 enabled))
         {
             return;
         }
 
-        const std::string* username = nullptr;
-        const std::string* password = nullptr;
-        // Default to user
-        std::string privilege = "priv-user";
-        // default to enabled
-        bool enabled = true;
-        for (const auto& item : patchRequest.items())
-        {
-            if (item.key() == "UserName")
-            {
-                username = item.value().get_ptr<const std::string*>();
-                if (username == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(item.value().dump(),
-                                                           item.key()));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-            }
-            else if (item.key() == "Enabled")
-            {
-                const bool* enabledJson = item.value().get_ptr<const bool*>();
-                if (enabledJson == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(item.value().dump(),
-                                                           item.key()));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-                enabled = *enabledJson;
-            }
-            else if (item.key() == "Password")
-            {
-                password = item.value().get_ptr<const std::string*>();
-                if (password == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(item.value().dump(),
-                                                           item.key()));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-            }
-            else if (item.key() == "RoleId")
-            {
-                const std::string* roleIdJson =
-                    item.value().get_ptr<const std::string*>();
-                if (roleIdJson == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(item.value().dump(),
-                                                           item.key()));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-                const char* priv = getRoleIdFromPrivilege(*roleIdJson);
-                if (priv == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueNotInList(*roleIdJson,
-                                                         item.key()));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
-                    return;
-                }
-                privilege = priv;
-            }
-            else
-            {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::propertyNotWritable(item.key()));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
-                return;
-            }
-        }
-
-        if (username == nullptr)
+        const char* priv = getRoleIdFromPrivilege(*roleId);
+        if (priv == nullptr)
         {
             messages::addMessageToErrorJson(
-                asyncResp->res.jsonValue,
-                messages::createFailedMissingReqProperties("UserName"));
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+                res.jsonValue,
+                messages::propertyValueNotInList(*roleId, "RoleId"));
+            res.result(boost::beast::http::status::bad_request);
             return;
         }
-
-        if (password == nullptr)
-        {
-            messages::addMessageToErrorJson(
-                asyncResp->res.jsonValue,
-                messages::createFailedMissingReqProperties("Password"));
-            asyncResp->res.result(boost::beast::http::status::bad_request);
-            return;
-        }
+        roleId = priv;
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, username{std::string(*username)},
-             password{std::string(*password)}](
+            [asyncResp, username, password{std::move(password)}](
                 const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -300,9 +209,9 @@ class AccountsCollection : public Node
                     "/redfish/v1/AccountService/Accounts/" + username);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "CreateUser", *username,
+            "xyz.openbmc_project.User.Manager", "CreateUser", username,
             std::array<const char*, 4>{"ipmi", "redfish", "ssh", "web"},
-            privilege, enabled);
+            *roleId, *enabled);
     }
 
     static const char* getRoleIdFromPrivilege(boost::beast::string_view role)
@@ -472,15 +381,16 @@ class ManagerAccount : public Node
                  const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-
         if (params.size() != 1)
         {
             res.result(boost::beast::http::status::internal_server_error);
             return;
         }
 
-        nlohmann::json patchRequest;
-        if (!json_util::processJsonFromRequest(res, req, patchRequest))
+        boost::optional<std::string> password;
+        boost::optional<bool> enabled;
+        if (!json_util::readJson(req, res, "Password", password, "Enabled",
+                                 enabled))
         {
             return;
         }
@@ -488,9 +398,8 @@ class ManagerAccount : public Node
         // Check the user exists before updating the fields
         checkDbusPathExists(
             "/xyz/openbmc_project/users/" + params[0],
-            [username{std::string(params[0])},
-             patchRequest(std::move(patchRequest)),
-             asyncResp](bool userExists) {
+            [username{std::string(params[0])}, password(std::move(password)),
+             enabled(std::move(enabled)), asyncResp](bool userExists) {
                 if (!userExists)
                 {
                     messages::addMessageToErrorJson(
@@ -503,77 +412,43 @@ class ManagerAccount : public Node
                     return;
                 }
 
-                for (const auto& item : patchRequest.items())
+                if (password)
                 {
-                    if (item.key() == "Password")
+                    if (!pamUpdatePassword(username, *password))
                     {
-                        const std::string* passStr =
-                            item.value().get_ptr<const std::string*>();
-                        if (passStr == nullptr)
-                        {
-                            messages::addMessageToErrorJson(
-                                asyncResp->res.jsonValue,
-                                messages::propertyValueFormatError(
-                                    item.value().dump(), "Password"));
-                            return;
-                        }
-                        BMCWEB_LOG_DEBUG << "Updating user: " << username
-                                         << " to password " << *passStr;
-                        if (!pamUpdatePassword(username, *passStr))
-                        {
-                            BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                            asyncResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
-                            return;
-                        }
-                    }
-                    else if (item.key() == "Enabled")
-                    {
-                        const bool* enabledBool =
-                            item.value().get_ptr<const bool*>();
-
-                        if (enabledBool == nullptr)
-                        {
-                            messages::addMessageToErrorJson(
-                                asyncResp->res.jsonValue,
-                                messages::propertyValueFormatError(
-                                    item.value().dump(), "Enabled"));
-                            return;
-                        }
-                        crow::connections::systemBus->async_method_call(
-                            [asyncResp](const boost::system::error_code ec) {
-                                if (ec)
-                                {
-                                    BMCWEB_LOG_ERROR
-                                        << "D-Bus responses error: " << ec;
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
-                                    return;
-                                }
-                                // TODO Consider support polling mechanism to
-                                // verify status of host and chassis after
-                                // execute the requested action.
-                                BMCWEB_LOG_DEBUG << "Response with no content";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::no_content);
-                            },
-                            "xyz.openbmc_project.User.Manager",
-                            "/xyz/openbmc_project/users/" + username,
-                            "org.freedesktop.DBus.Properties", "Set",
-                            "xyz.openbmc_project.User.Attributes"
-                            "UserEnabled",
-                            sdbusplus::message::variant<bool>{*enabledBool});
-                    }
-                    else
-                    {
-                        messages::addMessageToErrorJson(
-                            asyncResp->res.jsonValue,
-                            messages::propertyNotWritable(item.key()));
+                        BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
                         asyncResp->res.result(
-                            boost::beast::http::status::bad_request);
+                            boost::beast::http::status::internal_server_error);
                         return;
                     }
+                }
+
+                if (enabled)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                return;
+                            }
+                            // TODO Consider support polling mechanism to
+                            // verify status of host and chassis after
+                            // execute the requested action.
+                            BMCWEB_LOG_DEBUG << "Response with no content";
+                            asyncResp->res.result(
+                                boost::beast::http::status::no_content);
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        "/xyz/openbmc_project/users/" + username,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.Attributes"
+                        "UserEnabled",
+                        sdbusplus::message::variant<bool>{*enabled});
                 }
             });
     }
@@ -611,6 +486,6 @@ class ManagerAccount : public Node
             "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
     }
-};
+}; // namespace redfish
 
 } // namespace redfish
