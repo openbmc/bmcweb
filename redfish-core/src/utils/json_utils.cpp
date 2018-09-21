@@ -15,8 +15,6 @@
 */
 #include "utils/json_utils.hpp"
 
-#include <error_messages.hpp>
-
 namespace redfish
 {
 
@@ -521,5 +519,4 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
 }
 
 } // namespace json_util
-
 } // namespace redfish
