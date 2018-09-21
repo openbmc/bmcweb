@@ -168,51 +168,13 @@ class SessionCollection : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        nlohmann::json postRequest;
-        if (!json_util::processJsonFromRequest(res, req, postRequest))
+        std::string username;
+        std::string password;
+        if (!json_util::readJson(req, res, "UserName", username, "Password",
+                                 password))
         {
             res.end();
             return;
-        }
-
-        std::string username;
-        std::string password;
-        for (const auto& item : postRequest.items())
-        {
-            const std::string* strVal =
-                item.value().get_ptr<const std::string*>();
-            if (item.key() == "UserName")
-            {
-                if (strVal == nullptr)
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    messages::addMessageToErrorJson(
-                        res.jsonValue, messages::propertyValueTypeError(
-                                           item.value().dump(), item.key()));
-                    continue;
-                }
-                username = *strVal;
-            }
-            else if (item.key() == "Password")
-            {
-                if (strVal == nullptr)
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    messages::addMessageToErrorJson(
-                        res.jsonValue, messages::propertyValueTypeError(
-                                           item.value().dump(), item.key()));
-                    continue;
-                }
-
-                password = *strVal;
-            }
-            else
-            {
-                res.result(boost::beast::http::status::bad_request);
-                messages::addMessageToErrorJson(
-                    res.jsonValue, messages::propertyUnknown(item.key()));
-                continue;
-            }
         }
 
         if (password.empty() || username.empty() ||

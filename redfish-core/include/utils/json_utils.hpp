@@ -14,11 +14,13 @@
 // limitations under the License.
 */
 #pragma once
+
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 
+#include <bitset>
+#include <error_messages.hpp>
 #include <nlohmann/json.hpp>
-
 namespace redfish
 {
 
@@ -296,7 +298,125 @@ Result getDouble(const char* fieldName, const nlohmann::json& json,
  */
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
+namespace details
+{
+template <typename Type> struct unpackValue
+{
+    using isRequired = std::true_type;
+    using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
+};
+
+template <typename OptionalType>
+struct unpackValue<boost::optional<OptionalType>>
+{
+    using isRequired = std::false_type;
+    using JsonType = std::add_const_t<std::add_pointer_t<OptionalType>>;
+};
+
+template <size_t Count, size_t Index>
+void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+                    crow::Response& res, std::bitset<Count>& handled)
+{
+    BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
+    messages::addMessageToErrorJson(res.jsonValue,
+                                    messages::propertyUnknown(key));
+    res.result(boost::beast::http::status::bad_request);
+}
+
+template <size_t Count, size_t Index, typename ValueType,
+          typename... UnpackTypes>
+void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+                    crow::Response& res, std::bitset<Count>& handled,
+                    const char* keyToCheck, ValueType& valueToFill,
+                    UnpackTypes&... in)
+{
+    if (key != keyToCheck)
+    {
+        readJsonValues<Count, Index + 1>(key, jsonValue, res, handled, in...);
+        return;
+    }
+
+    handled.set(Index);
+
+    using UnpackType = typename unpackValue<ValueType>::JsonType;
+    UnpackType value = jsonValue.get_ptr<UnpackType>();
+    if (value == nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Value for key " << key
+                         << " was incorrect type: " << jsonValue.type_name();
+        messages::addMessageToErrorJson(
+            res.jsonValue,
+            messages::propertyValueTypeError(jsonValue.dump(), key));
+        res.result(boost::beast::http::status::bad_request);
+
+        return;
+    }
+
+    valueToFill = *value;
+}
+
+template <size_t Index = 0, size_t Count>
+void handleMissing(std::bitset<Count>& handled, crow::Response& res)
+{
+}
+
+template <size_t Index = 0, size_t Count, typename ValueType,
+          typename... UnpackTypes>
+void handleMissing(std::bitset<Count>& handled, crow::Response& res,
+                   const char* key, ValueType& unused, UnpackTypes&... in)
+{
+    if (!handled.test(Index) && unpackValue<ValueType>::isRequired::value)
+    {
+        messages::addMessageToErrorJson(res.jsonValue,
+                                        messages::propertyMissing(key));
+        res.result(boost::beast::http::status::bad_request);
+    }
+    details::handleMissing<Index + 1, Count>(handled, res, in...);
+}
+} // namespace details
+
+template <typename... UnpackTypes>
+bool readJson(const crow::Request& req, crow::Response& res, const char* key,
+              UnpackTypes&... in)
+{
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return false;
+    }
+    if (!jsonRequest.is_object())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is not an object";
+        messages::addMessageToErrorJson(res.jsonValue,
+                                        messages::unrecognizedRequestBody());
+        res.result(boost::beast::http::status::bad_request);
+        return false;
+    }
+
+    if (jsonRequest.empty())
+    {
+        BMCWEB_LOG_DEBUG << "Json value is empty";
+        messages::addMessageToErrorJson(res.jsonValue, messages::emptyJSON());
+        res.result(boost::beast::http::status::bad_request);
+        return false;
+    }
+
+    std::bitset<(sizeof...(in) + 1) / 2> handled(0);
+    for (const auto& item : jsonRequest.items())
+    {
+        details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
+            item.key(), item.value(), res, handled, key, in...);
+    }
+
+    if (!handled.all())
+    {
+        details::handleMissing(handled, res, key, in...);
+
+        return false;
+    }
+    return res.result() == boost::beast::http::status::ok;
+}
 
 } // namespace json_util
-
 } // namespace redfish
