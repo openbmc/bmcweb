@@ -238,6 +238,38 @@ class BMCLogEntryCollection : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        static constexpr const long maxEntriesPerPage = 1000;
+        long skip = 0;
+        long top = maxEntriesPerPage; // Show max entries by default
+        char *skipParam = req.urlParams.get("$skip");
+        if (skipParam != nullptr)
+        {
+            skip = std::strtol(skipParam, nullptr, 10);
+            if (skip < 0)
+            {
+                messages::addMessageToErrorJson(
+                    asyncResp->res.jsonValue,
+                    messages::queryParameterOutOfRange(
+                        std::to_string(skip), "$skip", "greater than 0"));
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+        }
+        char *topParam = req.urlParams.get("$top");
+        if (topParam != nullptr)
+        {
+            top = std::strtol(topParam, nullptr, 10);
+            if (top < 1 || top > maxEntriesPerPage)
+            {
+                messages::addMessageToErrorJson(
+                    asyncResp->res.jsonValue,
+                    messages::queryParameterOutOfRange(
+                        std::to_string(top), "$top",
+                        "1-" + std::to_string(maxEntriesPerPage)));
+                asyncResp->res.result(boost::beast::http::status::bad_request);
+                return;
+            }
+        }
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
@@ -269,8 +301,17 @@ class BMCLogEntryCollection : public Node
         journalTmp = nullptr;
         uint64_t prevTs = 0;
         int index = 0;
+        uint64_t entryCount = 0;
         SD_JOURNAL_FOREACH(journal.get())
         {
+            entryCount++;
+            // Handle paging using skip (number of entries to skip from the
+            // start) and top (number of entries to display)
+            if (entryCount <= skip || entryCount > skip + top)
+            {
+                continue;
+            }
+
             // Get the entry timestamp
             uint64_t curTs = 0;
             ret = sd_journal_get_realtime_usec(journal.get(), &curTs);
@@ -307,7 +348,13 @@ class BMCLogEntryCollection : public Node
                 return;
             }
         }
-        asyncResp->res.jsonValue["Members@odata.count"] = logEntryArray.size();
+        asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
+        if (skip + top < entryCount)
+        {
+            asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
+                std::to_string(skip + top);
+        }
     }
 };
 
