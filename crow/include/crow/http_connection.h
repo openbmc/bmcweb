@@ -64,11 +64,16 @@ inline void convertToLinks(std::string& s)
     const static std::regex r{"(&quot;@odata\\.((id)|(Context))&quot;[ \\n]*:[ "
                               "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
     s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
+
+    const static std::regex nextLink{
+        "(&quot;Members@odata\\.((nextLink))&quot;[ \\n]*:[ "
+        "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
+    s = std::regex_replace(s, nextLink, "$1<a href=\"$5\">$4</a>");
 }
 
 inline void prettyPrintJson(crow::Response& res)
 {
-    std::string value = res.jsonValue.dump(4);
+    std::string value = res.jsonValue.dump(4, ' ', true);
     escapeHtml(value);
     convertToLinks(value);
     res.body() = "<html>\n"
@@ -443,7 +448,7 @@ class Connection
             else
             {
                 res.jsonMode();
-                res.body() = res.jsonValue.dump(2);
+                res.body() = res.jsonValue.dump(2, ' ', true);
             }
         }
 
