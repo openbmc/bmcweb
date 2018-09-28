@@ -170,6 +170,61 @@ class Server
                                        boost::asio::ip::tcp::socket>>::value)
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
+	            adaptorTemp->set_verify_callback(
+            [this](bool preverified, boost::asio::ssl::verify_context& ctx) {
+                X509_STORE_CTX* cts = ctx.native_handle();
+                X509* cert =
+                    X509_STORE_CTX_get_current_cert(ctx.native_handle());
+                if (cert == nullptr)
+                {
+                    return preverified;
+                }
+
+                int error = X509_STORE_CTX_get_error(cts);
+                int32_t depth = X509_STORE_CTX_get_error_depth(cts);
+                BMCWEB_LOG_DEBUG << "CTX DEPTH : " << depth;
+
+                switch (error)
+                {
+                    case X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT:
+                        BMCWEB_LOG_DEBUG
+                            << "X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT";
+                        break;
+                    case X509_V_ERR_CERT_NOT_YET_VALID:
+                    case X509_V_ERR_ERROR_IN_CERT_NOT_BEFORE_FIELD:
+                        BMCWEB_LOG_DEBUG << "Certificate not yet valid!!";
+                        break;
+                    case X509_V_ERR_CERT_HAS_EXPIRED:
+                    case X509_V_ERR_ERROR_IN_CERT_NOT_AFTER_FIELD:
+                        BMCWEB_LOG_DEBUG << "Certificate expired..";
+                        break;
+                    case X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN:
+                        BMCWEB_LOG_DEBUG
+                            << "Self signed certificate in chain!!!";
+                        break;
+                    default:
+                        break;
+                }
+                if (error == X509_V_OK)
+                {
+                    authenticatedUsername.resize(256, '\0');
+                    X509_NAME_get_text_by_NID(X509_get_subject_name(cert),
+                                              NID_commonName,
+                                              &authenticatedUsername[0],
+                                              authenticatedUsername.size());
+
+                    BMCWEB_LOG_DEBUG << "Subject name="
+                                     << &authenticatedUsername[0];
+                }
+                else
+                {
+                    // If anything in the cert chain is invalid, clear the
+                    // username field
+                    authenticatedUsername.clear();
+                }
+                return preverified;
+            });
+
         }
         else
         {

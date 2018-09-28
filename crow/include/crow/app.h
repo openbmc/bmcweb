@@ -125,6 +125,19 @@ template <typename... Middlewares> class Crow
 #endif
     }
 
+#ifdef BMCWEB_ENABLE_SSL
+
+    self_t& ssl(boost::asio::ssl::context&& ctx)
+    {
+        useSsl = true;
+        sslContext = std::move(ctx);
+        return *this;
+    }
+
+    bool useSsl{false};
+    ssl_context_t sslContext{boost::asio::ssl::context::sslv23};
+#endif
+
     void stop()
     {
         io->stop();
@@ -146,61 +159,6 @@ template <typename... Middlewares> class Crow
     {
         return router.getRoutes(parent);
     }
-
-#ifdef BMCWEB_ENABLE_SSL
-    self_t& sslFile(const std::string& crt_filename,
-                    const std::string& key_filename)
-    {
-        sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext.use_certificate_file(crt_filename, ssl_context_t::pem);
-        sslContext.use_private_key_file(key_filename, ssl_context_t::pem);
-        sslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                               boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3);
-        return *this;
-    }
-
-    self_t& sslFile(const std::string& pem_filename)
-    {
-        sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext.load_verify_file(pem_filename);
-        sslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                               boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3);
-        return *this;
-    }
-
-    self_t& ssl(boost::asio::ssl::context&& ctx)
-    {
-        sslContext = std::move(ctx);
-        return *this;
-    }
-
-    ssl_context_t sslContext{boost::asio::ssl::context::sslv23};
-
-#else
-    template <typename T, typename... Remain> self_t& ssl_file(T&&, Remain&&...)
-    {
-        // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
-        // defined.
-        static_assert(
-            // make static_assert dependent to T; always false
-            std::is_base_of<T, void>::value,
-            "Define BMCWEB_ENABLE_SSL to enable ssl support.");
-        return *this;
-    }
-
-    template <typename T> self_t& ssl(T&&)
-    {
-        // We can't call .ssl() member function unless BMCWEB_ENABLE_SSL is
-        // defined.
-        static_assert(
-            // make static_assert dependent to T; always false
-            std::is_base_of<T, void>::value,
-            "Define BMCWEB_ENABLE_SSL to enable ssl support.");
-        return *this;
-    }
-#endif
 
     // middleware
     using context_t = detail::Context<Middlewares...>;

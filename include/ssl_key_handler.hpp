@@ -290,11 +290,14 @@ inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
                             boost::asio::ssl::context::no_tlsv1 |
                             boost::asio::ssl::context::no_tlsv1_1);
 
-    // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
+    mSslContext.set_verify_mode(boost::asio::ssl::verify_peer);
     mSslContext.use_certificate_file(ssl_pem_file,
                                      boost::asio::ssl::context::pem);
     mSslContext.use_private_key_file(ssl_pem_file,
                                      boost::asio::ssl::context::pem);
+
+    // Pretty sure we need to be more explicit here.
+    mSslContext.set_default_verify_paths();
 
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio

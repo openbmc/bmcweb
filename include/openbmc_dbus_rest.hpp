@@ -465,6 +465,7 @@ std::vector<std::string> dbusArgSplit(const std::string &string)
                 break;
         }
     }
+    return ret;
 }
 
 int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,

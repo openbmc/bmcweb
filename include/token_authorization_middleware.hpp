@@ -32,11 +32,27 @@ class Middleware
             return;
         }
 
-        ctx.session = performXtokenAuth(req);
+        if (req.preauthenticatedUsername != "")
+        {
+            // TODO.  Need to ensure the user actually exists?  Will that get
+            // handled in the authorization setup?  Needs more thought here.
+            ctx.session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(
+                        req.preauthenticatedUsername,
+                        crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+        }
+
+        if (ctx.session == nullptr)
+        {
+            ctx.session = performXtokenAuth(req);
+        }
+
         if (ctx.session == nullptr)
         {
             ctx.session = performCookieAuth(req);
         }
+
         if (ctx.session == nullptr)
         {
             boost::string_view authHeader = req.getHeaderValue("Authorization");

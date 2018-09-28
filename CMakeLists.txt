@@ -148,6 +148,9 @@ if (CMAKE_BUILD_TYPE MATCHES Debug)
     add_definitions (-DBMCWEB_ENABLE_DEBUG)
 endif (CMAKE_BUILD_TYPE MATCHES Debug)
 
+add_definitions (-DBMCWEB_ENABLE_LOGGING)
+add_definitions (-DBMCWEB_ENABLE_DEBUG)
+
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
     add_definitions (-DBMCWEB_ENABLE_SSL)
 endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")

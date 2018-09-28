@@ -261,6 +261,11 @@ class Connection
         // mechanism
         parser->body_limit(httpReqBodyLimit);
         req.emplace(parser->get());
+        if (!adaptor.authenticatedUsername.empty())
+        {
+            req->preauthenticatedUsername ==
+                std::move(adaptor.authenticatedUsername);
+        }
 #ifdef BMCWEB_ENABLE_DEBUG
         connectionCount++;
         BMCWEB_LOG_DEBUG << this << " Connection open, total "

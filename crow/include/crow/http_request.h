@@ -67,6 +67,7 @@ struct Request
     }
 
     boost::beast::http::request<boost::beast::http::string_body>& req;
+    std::string preauthenticatedUsername;
 };
 
 } // namespace crow
