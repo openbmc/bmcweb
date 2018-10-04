@@ -168,157 +168,96 @@ class SessionCollection : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        boost::beast::http::status status;
-        std::string username;
-        bool userAuthSuccessful =
-            authenticateUser(req, status, username, res.jsonValue);
-        res.result(status);
-
-        if (!userAuthSuccessful)
+        nlohmann::json postRequest;
+        if (!json_util::processJsonFromRequest(res, req, postRequest))
         {
             res.end();
             return;
         }
 
-        // User is authenticated - create session for him
-        auto session = crow::persistent_data::SessionStore::getInstance()
-                           .generateUserSession(username);
-        res.addHeader("X-Auth-Token", session->sessionToken);
-
-        res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
-                                      session->uniqueId);
-
-        // Return data for created session
-        memberSession.doGet(res, req, {session->uniqueId});
-
-        // No need for res.end(), as it is called by doGet()
-    }
-
-    /**
-     * @brief Verifies data provided in request and tries to authenticate user
-     *
-     * @param[in]  req            Crow request containing authentication data
-     * @param[out] httpRespCode   HTTP Code that should be returned in response
-     * @param[out] user           Retrieved username - not filled on failure
-     * @param[out] errJson        JSON to which error messages will be written
-     *
-     * @return true if authentication was successful, false otherwise
-     */
-    bool authenticateUser(const crow::Request& req,
-                          boost::beast::http::status& httpRespCode,
-                          std::string& user, nlohmann::json& errJson)
-    {
-        // We need only UserName and Password - nothing more, nothing less
-        static constexpr const unsigned int numberOfRequiredFieldsInReq = 2;
-
-        // call with exceptions disabled
-        auto loginCredentials = nlohmann::json::parse(req.body, nullptr, false);
-        if (loginCredentials.is_discarded())
+        std::string username;
+        std::string password;
+        for (const auto& item : postRequest.items())
         {
-            httpRespCode = boost::beast::http::status::bad_request;
+            const std::string* strVal =
+                item.value().get_ptr<const std::string*>();
+            if (item.key() == "UserName")
+            {
+                if (strVal == nullptr)
+                {
+                    res.result(boost::beast::http::status::bad_request);
+                    messages::addMessageToErrorJson(
+                        res.jsonValue, messages::propertyValueTypeError(
+                                           item.value().dump(), item.key()));
+                    continue;
+                }
+                username = *strVal;
+            }
+            else if (item.key() == "Password")
+            {
+                if (strVal == nullptr)
+                {
+                    res.result(boost::beast::http::status::bad_request);
+                    messages::addMessageToErrorJson(
+                        res.jsonValue, messages::propertyValueTypeError(
+                                           item.value().dump(), item.key()));
+                    continue;
+                }
 
-            messages::addMessageToErrorJson(errJson, messages::malformedJSON());
-
-            return false;
+                password = *strVal;
+            }
+            else
+            {
+                res.result(boost::beast::http::status::bad_request);
+                messages::addMessageToErrorJson(
+                    res.jsonValue, messages::propertyUnknown(item.key()));
+                continue;
+            }
         }
 
-        // Check that there are only as many fields as there should be
-        if (loginCredentials.size() != numberOfRequiredFieldsInReq)
+        if (password.empty() || username.empty() ||
+            res.result() != boost::beast::http::status::ok)
         {
-            httpRespCode = boost::beast::http::status::bad_request;
-
-            messages::addMessageToErrorJson(errJson, messages::malformedJSON());
-
-            return false;
-        }
-
-        // Find fields that we need - UserName and Password
-        auto userIt = loginCredentials.find("UserName");
-        auto passIt = loginCredentials.find("Password");
-        if (userIt == loginCredentials.end() ||
-            passIt == loginCredentials.end())
-        {
-            httpRespCode = boost::beast::http::status::bad_request;
-
-            if (userIt == loginCredentials.end())
-            {
-                messages::addMessageToErrorJson(
-                    errJson, messages::propertyMissing("UserName"));
-            }
-
-            if (passIt == loginCredentials.end())
-            {
-                messages::addMessageToErrorJson(
-                    errJson, messages::propertyMissing("Password"));
-            }
-
-            return false;
-        }
-
-        // Check that given data is of valid type (string)
-        if (!userIt->is_string() || !passIt->is_string())
-        {
-            httpRespCode = boost::beast::http::status::bad_request;
-
-            if (!userIt->is_string())
-            {
-                messages::addMessageToErrorJson(
-                    errJson, messages::propertyValueTypeError(userIt->dump(),
-                                                              "UserName"));
-            }
-
-            if (!passIt->is_string())
-            {
-                messages::addMessageToErrorJson(
-                    errJson, messages::propertyValueTypeError(userIt->dump(),
-                                                              "Password"));
-            }
-
-            return false;
-        }
-
-        // Extract username and password
-        std::string username = userIt->get<const std::string>();
-        std::string password = passIt->get<const std::string>();
-
-        // Verify that required fields are not empty
-        if (username.empty() || password.empty())
-        {
-            httpRespCode = boost::beast::http::status::bad_request;
-
             if (username.empty())
             {
+                res.result(boost::beast::http::status::bad_request);
                 messages::addMessageToErrorJson(
-                    errJson, messages::propertyMissing("UserName"));
+                    res.jsonValue, messages::propertyMissing("UserName"));
             }
 
             if (password.empty())
             {
+                res.result(boost::beast::http::status::bad_request);
                 messages::addMessageToErrorJson(
-                    errJson, messages::propertyMissing("Password"));
+                    res.jsonValue, messages::propertyMissing("Password"));
             }
+            res.end();
 
-            return false;
+            return;
         }
 
-        // Finally - try to authenticate user
         if (!pamAuthenticateUser(username, password))
         {
-            httpRespCode = boost::beast::http::status::unauthorized;
 
+            res.result(boost::beast::http::status::unauthorized);
             messages::addMessageToErrorJson(
-                errJson,
+                res.jsonValue,
                 messages::resourceAtUriUnauthorized(
                     std::string(req.url), "Invalid username or password"));
+            res.end();
 
-            return false;
+            return;
         }
 
-        // User authenticated successfully
-        httpRespCode = boost::beast::http::status::ok;
-        user = username;
-
-        return true;
+        // User is authenticated - create session
+        std::shared_ptr<crow::persistent_data::UserSession> session =
+            crow::persistent_data::SessionStore::getInstance()
+                .generateUserSession(username);
+        res.addHeader("X-Auth-Token", session->sessionToken);
+        res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
+                                      session->uniqueId);
+        res.result(boost::beast::http::status::created);
+        memberSession.doGet(res, req, {session->uniqueId});
     }
 
     /**
