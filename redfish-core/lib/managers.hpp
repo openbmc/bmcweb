@@ -40,9 +40,8 @@ static void asyncPopulatePid(const std::string& connection,
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue.clear();
+                messages::internalError(asyncResp->res);
                 return;
             }
             nlohmann::json& configRoot =
@@ -87,8 +86,7 @@ static void asyncPopulatePid(const std::string& connection,
                     if (findName == intfPair.second.end())
                     {
                         BMCWEB_LOG_ERROR << "Pid Field missing Name";
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res, "Name");
                         return;
                     }
                     const std::string* namePtr =
@@ -138,9 +136,7 @@ static void asyncPopulatePid(const std::string& connection,
                             {
                                 BMCWEB_LOG_ERROR << "Field Illegal "
                                                  << propertyPair.first;
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::internalError(asyncResp->res);
                                 return;
                             }
                             zones[name][propertyPair.first] = *ptr;
@@ -159,9 +155,8 @@ static void asyncPopulatePid(const std::string& connection,
                             if (classPtr == nullptr)
                             {
                                 BMCWEB_LOG_ERROR << "Pid Class Field illegal";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::internalError(asyncResp->res,
+                                                        "Class");
                                 return;
                             }
                             bool isFan = *classPtr == "fan";
@@ -204,9 +199,8 @@ static void asyncPopulatePid(const std::string& connection,
                                 {
                                     BMCWEB_LOG_ERROR
                                         << "Zones Pid Field Illegal";
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    messages::internalError(asyncResp->res,
+                                                            "Zones");
                                     return;
                                 }
                                 auto& data = element[propertyPair.first];
@@ -241,9 +235,7 @@ static void asyncPopulatePid(const std::string& connection,
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
                                                      << propertyPair.first;
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 data = *inputs;
@@ -267,9 +259,7 @@ static void asyncPopulatePid(const std::string& connection,
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
                                                      << propertyPair.first;
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 element[propertyPair.first] = *ptr;
@@ -331,8 +321,7 @@ class Manager : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << ec;
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -395,8 +384,7 @@ class Manager : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error while getting Software Version";
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 

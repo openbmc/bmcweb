@@ -47,7 +47,7 @@ class Thermal : public Node
     {
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(res);
             res.end();
             return;
         }

@@ -44,8 +44,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
-                aResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(aResp->res);
                 return;
             }
             bool foundName = false;
@@ -79,8 +78,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                             {
                                 BMCWEB_LOG_ERROR << "DBUS response error: "
                                                  << ec;
-                                aResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
+                                messages::internalError(aResp->res);
                                 return;
                             }
                             BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
@@ -128,9 +126,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         {
                                             BMCWEB_LOG_ERROR
                                                 << "DBUS response error " << ec;
-                                            aResp->res.result(
-                                                boost::beast::http::status::
-                                                    internal_server_error);
+                                            messages::internalError(aResp->res);
                                             return;
                                         }
                                         BMCWEB_LOG_DEBUG << "Got "
@@ -180,9 +176,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         {
                                             BMCWEB_LOG_ERROR
                                                 << "DBUS response error " << ec;
-                                            aResp->res.result(
-                                                boost::beast::http::status::
-                                                    internal_server_error);
+                                            messages::internalError(aResp->res);
                                             return;
                                         }
                                         BMCWEB_LOG_DEBUG << "Got "
@@ -238,9 +232,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         {
                                             BMCWEB_LOG_DEBUG
                                                 << "DBUS response error " << ec;
-                                            aResp->res.result(
-                                                boost::beast::http::status::
-                                                    internal_server_error);
+                                            messages::internalError(aResp->res);
                                             return;
                                         }
                                         BMCWEB_LOG_DEBUG << "Got "
@@ -305,8 +297,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
             }
             if (foundName == false)
             {
-                aResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(aResp->res);
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -342,8 +333,7 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                aResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(aResp->res);
                 return;
             }
             BMCWEB_LOG_DEBUG << "Got " << resp.size() << "led group objects.";
@@ -394,8 +384,7 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                aResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(aResp->res);
                 return;
             }
             BMCWEB_LOG_DEBUG << "Got " << properties.size()
@@ -456,8 +445,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                aResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(aResp->res);
                 return;
             }
 
@@ -521,8 +509,7 @@ class SystemsCollection : public Node
                         const std::vector<std::string> &resp) {
                 if (ec)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
@@ -595,16 +582,13 @@ class SystemActionsReset : public Node
                     if (ec)
                     {
                         BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     // TODO Consider support polling mechanism to verify
                     // status of host and chassis after execute the
                     // requested action.
-                    BMCWEB_LOG_DEBUG << "Response with no content";
-                    asyncResp->res.result(
-                        boost::beast::http::status::no_content);
+                    messages::success(asyncResp->res);
                 },
                 "xyz.openbmc_project.State.Chassis",
                 "/xyz/openbmc_project/state/chassis0",
@@ -631,10 +615,7 @@ class SystemActionsReset : public Node
         }
         else
         {
-            res.result(boost::beast::http::status::bad_request);
-            messages::addMessageToErrorJson(
-                asyncResp->res.jsonValue,
-                messages::actionParameterUnknown("Reset", resetType));
+            messages::actionParameterUnknown(res, "Reset", resetType);
             return;
         }
 
@@ -643,15 +624,13 @@ class SystemActionsReset : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 // TODO Consider support polling mechanism to verify
                 // status of host and chassis after execute the
                 // requested action.
-                BMCWEB_LOG_DEBUG << "Response with no content";
-                asyncResp->res.result(boost::beast::http::status::no_content);
+                messages::success(asyncResp->res);
             },
             "xyz.openbmc_project.State.Host",
             "/xyz/openbmc_project/state/host0",
@@ -712,7 +691,7 @@ class Systems : public Node
         // impossible
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(res);
             res.end();
             return;
         }
@@ -765,7 +744,7 @@ class Systems : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -799,9 +778,8 @@ class Systems : public Node
             }
             else
             {
-                messages::addMessageToJsonRoot(
-                    res.jsonValue, messages::propertyValueNotInList(
-                                       *indicatorLed, "IndicatorLED"));
+                messages::propertyValueNotInList(
+                    res, *indicatorLed, "IndicatorLED", "IndicatorLED");
                 return;
             }
 
@@ -816,8 +794,7 @@ class Systems : public Node
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     BMCWEB_LOG_DEBUG << "Led group update done.";
@@ -840,8 +817,7 @@ class Systems : public Node
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     BMCWEB_LOG_DEBUG << "Led state update done.";

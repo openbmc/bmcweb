@@ -132,10 +132,7 @@ class NetworkProtocol : public Node
                 if (ec)
                 {
                     asyncResp->res.jsonValue = nlohmann::json::object();
-                    messages::addMessageToErrorJson(asyncResp->res.jsonValue,
-                                                    messages::internalError());
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -164,10 +161,8 @@ class NetworkProtocol : public Node
                                     resp) {
                                 if (ec)
                                 {
-                                    messages::addMessageToJson(
-                                        asyncResp->res.jsonValue,
-                                        messages::internalError(),
-                                        "/" + service);
+                                    messages::internalError(asyncResp->res,
+                                                            "/" + service);
                                     return;
                                 }
                                 const std::vector<std::tuple<

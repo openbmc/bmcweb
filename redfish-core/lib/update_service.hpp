@@ -83,8 +83,7 @@ class UpdateService : public Node
         if (fwUpdateMatcher != nullptr)
         {
             res.addHeader("Retry-After", "30");
-            res.result(boost::beast::http::status::service_unavailable);
-            res.jsonValue = messages::serviceTemporarilyUnavailable("3");
+            messages::serviceTemporarilyUnavailable(res, "3");
             res.end();
             return;
         }
@@ -111,8 +110,7 @@ class UpdateService : public Node
                 return;
             }
 
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue = redfish::messages::internalError();
+            redfish::messages::internalError(res);
             res.end();
         });
 
@@ -156,7 +154,7 @@ class UpdateService : public Node
                         BMCWEB_LOG_ERROR << "error canceling timer " << ec;
                     }
                     UpdateService::activateImage(objPath.str); // str_objpath);
-                    res.jsonValue = redfish::messages::success();
+                    redfish::messages::success(res);
                     BMCWEB_LOG_DEBUG << "ending response";
                     res.end();
                     fwUpdateMatcher = nullptr;
@@ -222,8 +220,7 @@ class SoftwareInventoryCollection : public Node
                     &subtree) {
                 if (ec)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
@@ -240,9 +237,7 @@ class SoftwareInventoryCollection : public Node
                     if (idPos == std::string::npos ||
                         idPos + 1 == obj.first.size())
                     {
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
-                        asyncResp->res.jsonValue = messages::internalError();
+                        messages::internalError(asyncResp->res);
                         BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
                         return;
                     }
@@ -264,9 +259,7 @@ class SoftwareInventoryCollection : public Node
                                     << "safe returned in lambda function";
                                 if (error_code)
                                 {
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
 
@@ -275,9 +268,7 @@ class SoftwareInventoryCollection : public Node
                                         activation);
                                 if (swActivationStatus == nullptr)
                                 {
-                                    asyncResp->res.result(
-                                        boost::beast::http::status::
-                                            internal_server_error);
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 if (swActivationStatus != nullptr &&
@@ -352,8 +343,7 @@ class SoftwareInventory : public Node
 
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue = messages::internalError();
+            messages::internalError(res);
             res.end();
             return;
         }
@@ -374,8 +364,7 @@ class SoftwareInventory : public Node
                 BMCWEB_LOG_DEBUG << "doGet callback...";
                 if (ec)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -402,9 +391,7 @@ class SoftwareInventory : public Node
                                    std::string, VariantType> &propertiesList) {
                             if (error_code)
                             {
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::internalError(asyncResp->res);
                                 return;
                             }
                             boost::container::flat_map<
@@ -414,9 +401,8 @@ class SoftwareInventory : public Node
                             {
                                 BMCWEB_LOG_DEBUG
                                     << "Can't find property \"Purpose\"!";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::propertyMissing(asyncResp->res,
+                                                          "Purpose");
                                 return;
                             }
                             const std::string *swInvPurpose =
@@ -425,9 +411,8 @@ class SoftwareInventory : public Node
                             {
                                 BMCWEB_LOG_DEBUG
                                     << "wrong types for property\"Purpose\"!";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::propertyValueTypeError(asyncResp->res,
+                                                                 "", "Purpose");
                                 return;
                             }
 
@@ -438,9 +423,8 @@ class SoftwareInventory : public Node
                             {
                                 BMCWEB_LOG_DEBUG
                                     << "Can't find property \"Version\"!";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::propertyMissing(asyncResp->res,
+                                                          "Version");
                                 return;
                             }
 
@@ -453,9 +437,9 @@ class SoftwareInventory : public Node
                             {
                                 BMCWEB_LOG_DEBUG
                                     << "Can't find property \"Version\"!";
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+
+                                messages::propertyValueTypeError(asyncResp->res,
+                                                                 "", "Version");
                                 return;
                             }
                             asyncResp->res.jsonValue["Version"] = *version;
