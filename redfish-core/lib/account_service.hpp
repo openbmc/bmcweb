@@ -103,8 +103,7 @@ class AccountsCollection : public Node
                         const ManagedObjectType& users) {
                 if (ec)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -153,10 +152,7 @@ class AccountsCollection : public Node
         const char* priv = getRoleIdFromPrivilege(*roleId);
         if (priv == nullptr)
         {
-            messages::addMessageToErrorJson(
-                res.jsonValue,
-                messages::propertyValueNotInList(*roleId, "RoleId"));
-            res.result(boost::beast::http::status::bad_request);
+            messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
             return;
         }
         roleId = priv;
@@ -166,13 +162,9 @@ class AccountsCollection : public Node
                 const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceAlreadyExists(
-                            "#ManagerAccount.v1_0_3.ManagerAccount", "UserName",
-                            username));
-                    asyncResp->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::resourceAlreadyExists(
+                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
+                        "UserName", username);
                     return;
                 }
 
@@ -185,14 +177,11 @@ class AccountsCollection : public Node
                         [asyncResp](const boost::system::error_code ec) {
                             if (ec)
                             {
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::internalError(asyncResp->res);
                                 return;
                             }
 
-                            asyncResp->res.result(
-                                boost::beast::http::status::bad_request);
+                            messages::invalidObject(asyncResp->res, "Password");
                         },
                         "xyz.openbmc_project.User.Manager",
                         "/xyz/openbmc_project/user/" + username,
@@ -202,8 +191,7 @@ class AccountsCollection : public Node
                     return;
                 }
 
-                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
-                                               messages::created());
+                messages::created(asyncResp->res);
                 asyncResp->res.addHeader(
                     "Location",
                     "/redfish/v1/AccountService/Accounts/" + username);
@@ -291,7 +279,7 @@ class ManagerAccount : public Node
 
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -301,8 +289,7 @@ class ManagerAccount : public Node
                 const ManagedObjectType& users) {
                 if (ec)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
@@ -371,7 +358,8 @@ class ManagerAccount : public Node
                     }
                 }
 
-                asyncResp->res.result(boost::beast::http::status::not_found);
+                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                           accountName);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -383,7 +371,7 @@ class ManagerAccount : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -402,13 +390,9 @@ class ManagerAccount : public Node
              enabled(std::move(enabled)), asyncResp](bool userExists) {
                 if (!userExists)
                 {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound(
-                            "#ManagerAccount.v1_0_3.ManagerAccount", username));
-
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(
+                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
+                        username);
                     return;
                 }
 
@@ -417,8 +401,7 @@ class ManagerAccount : public Node
                     if (!pamUpdatePassword(username, *password))
                     {
                         BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                 }
@@ -431,17 +414,13 @@ class ManagerAccount : public Node
                             {
                                 BMCWEB_LOG_ERROR << "D-Bus responses error: "
                                                  << ec;
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::internalError(asyncResp->res);
                                 return;
                             }
                             // TODO Consider support polling mechanism to
                             // verify status of host and chassis after
                             // execute the requested action.
-                            BMCWEB_LOG_DEBUG << "Response with no content";
-                            asyncResp->res.result(
-                                boost::beast::http::status::no_content);
+                            messages::success(asyncResp->res);
                         },
                         "xyz.openbmc_project.User.Manager",
                         "/xyz/openbmc_project/users/" + username,
@@ -460,7 +439,7 @@ class ManagerAccount : public Node
 
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -471,17 +450,13 @@ class ManagerAccount : public Node
                 const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound(
-                            "#ManagerAccount.v1_0_3.ManagerAccount", username));
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(
+                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
+                        username);
                     return;
                 }
 
-                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
-                                               messages::accountRemoved());
+                messages::accountRemoved(asyncResp->res);
             },
             "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");

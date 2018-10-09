@@ -260,8 +260,7 @@ class BMCLogEntryCollection : public Node
         if (ret < 0)
         {
             BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
         std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
@@ -302,8 +301,7 @@ class BMCLogEntryCollection : public Node
             nlohmann::json &bmcLogEntry = logEntryArray.back();
             if (fillBMCLogEntryJson(idStr, journal.get(), bmcLogEntry) != 0)
             {
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(asyncResp->res);
                 return;
             }
         }
@@ -334,8 +332,7 @@ class BMCLogEntry : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
         // Convert the unique ID back to a timestamp to find the entry
@@ -364,8 +361,7 @@ class BMCLogEntry : public Node
         if (ret < 0)
         {
             BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
         std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
@@ -380,8 +376,7 @@ class BMCLogEntry : public Node
         if (fillBMCLogEntryJson(params[0], journal.get(),
                                 asyncResp->res.jsonValue) != 0)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
     }
@@ -482,8 +477,7 @@ class CPULogEntryCollection : public Node
                 {
                     BMCWEB_LOG_DEBUG << "failed to get entries ec: "
                                      << ec.message();
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
             }
@@ -570,8 +564,7 @@ class CPULogEntry : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
         const uint8_t logId = std::atoi(params[0].c_str());
@@ -583,23 +576,20 @@ class CPULogEntry : public Node
                 {
                     BMCWEB_LOG_DEBUG << "failed to get log ec: "
                                      << ec.message();
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 const std::string *log =
                     mapbox::getPtr<const std::string>(resp);
                 if (log == nullptr)
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
                 if (j.is_discarded())
                 {
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 std::string t = getLogCreatedTime(j);
@@ -652,12 +642,7 @@ class ImmediateCPULog : public Node
         if (immediateLogMatcher != nullptr)
         {
             asyncResp->res.addHeader("Retry-After", "30");
-            asyncResp->res.result(
-                boost::beast::http::status::service_unavailable);
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::serviceTemporarilyUnavailable("30"),
-                "/CpuLog.Immediate");
+            messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
             return;
         }
         // Make this static so it survives outside this method
@@ -678,8 +663,7 @@ class ImmediateCPULog : public Node
             }
             BMCWEB_LOG_ERROR << "Timed out waiting for immediate log";
 
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
         });
 
         auto immediateLogMatcherCallback = [asyncResp](
@@ -702,8 +686,7 @@ class ImmediateCPULog : public Node
                 interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(asyncResp->res);
                 // Careful with immediateLogMatcher.  It is a unique_ptr to the
                 // match object inside which this lambda is executing.  Once it
                 // is set to nullptr, the match object will be destroyed and the
@@ -715,8 +698,7 @@ class ImmediateCPULog : public Node
             nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
             if (j.is_discarded())
             {
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
+                messages::internalError(res);
                 // Careful with immediateLogMatcher.  It is a unique_ptr to the
                 // match object inside which this lambda is executing.  Once it
                 // is set to nullptr, the match object will be destroyed and the
@@ -755,16 +737,11 @@ class ImmediateCPULog : public Node
                     if (ec.value() ==
                         boost::system::errc::operation_not_supported)
                     {
-                        messages::addMessageToJson(
-                            asyncResp->res.jsonValue,
-                            messages::resourceInStandby(), "/CpuLog.Immediate");
-                        asyncResp->res.result(
-                            boost::beast::http::status::service_unavailable);
+                        messages::resourceInStandby(asyncResp->res);
                     }
                     else
                     {
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
                     }
                     boost::system::error_code timeoutec;
                     timeout.cancel(timeoutec);
@@ -814,20 +791,15 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator caIt = rawPECICmd.find("ClientAddress");
         if (caIt == rawPECICmd.end())
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyMissing("ClientAddress"), "/ClientAddress");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::propertyMissing(asyncResp->res, "ClientAddress",
+                                      "/ClientAddress");
             return;
         }
         const uint64_t *ca = caIt->get_ptr<const uint64_t *>();
         if (ca == nullptr)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(caIt->dump(), "ClientAddress"),
-                "/ClientAddress");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::propertyValueTypeError(asyncResp->res, caIt->dump(),
+                                             "ClientAddress", "/ClientAddress");
             return;
         }
         // Get the Read Length from the request
@@ -835,20 +807,15 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator rlIt = rawPECICmd.find("ReadLength");
         if (rlIt == rawPECICmd.end())
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyMissing("ReadLength"),
-                                       "/ReadLength");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::propertyMissing(asyncResp->res, "ReadLength",
+                                      "/ReadLength");
             return;
         }
         const uint64_t *rl = rlIt->get_ptr<const uint64_t *>();
         if (rl == nullptr)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(rlIt->dump(), "ReadLength"),
-                "/ReadLength");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::propertyValueTypeError(asyncResp->res, rlIt->dump(),
+                                             "ReadLength", "/ReadLength");
             return;
         }
         // Get the PECI Command from the request
@@ -856,10 +823,8 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator pcIt = rawPECICmd.find("PECICommand");
         if (pcIt == rawPECICmd.end())
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyMissing("PECICommand"),
-                                       "/PECICommand");
-            asyncResp->res.result(boost::beast::http::status::bad_request);
+            messages::propertyMissing(asyncResp->res, "PECICommand",
+                                      "/PECICommand");
             return;
         }
         std::vector<uint8_t> peciCommand;
@@ -868,13 +833,10 @@ class SendRawPECI : public Node
             const uint64_t *val = pc.get_ptr<const uint64_t *>();
             if (val == nullptr)
             {
-                messages::addMessageToJson(
-                    asyncResp->res.jsonValue,
-                    messages::propertyValueTypeError(
-                        pc.dump(),
-                        "PECICommand/" + std::to_string(peciCommand.size())),
+                messages::propertyValueTypeError(
+                    asyncResp->res, pc.dump(),
+                    "PECICommand/" + std::to_string(peciCommand.size()),
                     "/PECICommand");
-                asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
             peciCommand.push_back(static_cast<uint8_t>(*val));
@@ -887,8 +849,7 @@ class SendRawPECI : public Node
                 {
                     BMCWEB_LOG_DEBUG << "failed to send PECI command ec: "
                                      << ec.message();
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 asyncResp->res.jsonValue = {{"Name", "PECI Command Response"},

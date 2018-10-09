@@ -54,11 +54,7 @@ class Sessions : public Node
 
         if (session == nullptr)
         {
-            messages::addMessageToErrorJson(
-                res.jsonValue,
-                messages::resourceNotFound("Session", params[0]));
-
-            res.result(boost::beast::http::status::not_found);
+            messages::resourceNotFound(res, "Session", params[0]);
             res.end();
             return;
         }
@@ -82,10 +78,7 @@ class Sessions : public Node
             BMCWEB_LOG_ERROR << "Session DELETE has been called with invalid "
                                 "number of params";
 
-            res.result(boost::beast::http::status::bad_request);
-            messages::addMessageToErrorJson(res.jsonValue,
-                                            messages::generalError());
-
+            messages::generalError(res);
             res.end();
             return;
         }
@@ -96,11 +89,7 @@ class Sessions : public Node
 
         if (session == nullptr)
         {
-            messages::addMessageToErrorJson(
-                res.jsonValue,
-                messages::resourceNotFound("Session", params[0]));
-
-            res.result(boost::beast::http::status::not_found);
+            messages::resourceNotFound(res, "Session", params[0]);
             res.end();
             return;
         }
@@ -182,16 +171,12 @@ class SessionCollection : public Node
         {
             if (username.empty())
             {
-                res.result(boost::beast::http::status::bad_request);
-                messages::addMessageToErrorJson(
-                    res.jsonValue, messages::propertyMissing("UserName"));
+                messages::propertyMissing(res, "UserName", "UserName");
             }
 
             if (password.empty())
             {
-                res.result(boost::beast::http::status::bad_request);
-                messages::addMessageToErrorJson(
-                    res.jsonValue, messages::propertyMissing("Password"));
+                messages::propertyMissing(res, "Password", "Password");
             }
             res.end();
 
@@ -200,12 +185,8 @@ class SessionCollection : public Node
 
         if (!pamAuthenticateUser(username, password))
         {
-
-            res.result(boost::beast::http::status::unauthorized);
-            messages::addMessageToErrorJson(
-                res.jsonValue,
-                messages::resourceAtUriUnauthorized(
-                    std::string(req.url), "Invalid username or password"));
+            messages::resourceAtUriUnauthorized(res, std::string(req.url),
+                                                "Invalid username or password");
             res.end();
 
             return;

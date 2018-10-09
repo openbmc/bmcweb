@@ -480,9 +480,9 @@ inline void changeIPv4AddressProperty(
                         const boost::system::error_code ec) {
         if (ec)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue, messages::internalError(),
-                "/IPv4Addresses/" + std::to_string(ipIdx) + "/" + name);
+            messages::internalError(asyncResp->res, "/IPv4Addresses/" +
+                                                        std::to_string(ipIdx) +
+                                                        "/" + name);
         }
         else
         {
@@ -522,9 +522,9 @@ inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
                         const boost::system::error_code ec) {
         if (ec)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue, messages::internalError(),
-                "/IPv4Addresses/" + std::to_string(ipIdx) + "/AddressOrigin");
+            messages::internalError(asyncResp->res, "/IPv4Addresses/" +
+                                                        std::to_string(ipIdx) +
+                                                        "/AddressOrigin");
         }
         else
         {
@@ -564,9 +564,9 @@ inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
                         const boost::system::error_code ec) {
         if (ec)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue, messages::internalError(),
-                "/IPv4Addresses/" + std::to_string(ipIdx) + "/SubnetMask");
+            messages::internalError(asyncResp->res, "/IPv4Addresses/" +
+                                                        std::to_string(ipIdx) +
+                                                        "/SubnetMask");
         }
         else
         {
@@ -620,9 +620,9 @@ inline void deleteIPv4(const std::string &ifaceId, const std::string &ipHash,
         [ipIdx, asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
-                messages::addMessageToJson(
-                    asyncResp->res.jsonValue, messages::internalError(),
-                    "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
+                messages::internalError(asyncResp->res,
+                                        "/IPv4Addresses/" +
+                                            std::to_string(ipIdx) + "/");
             }
             else
             {
@@ -653,9 +653,9 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
                             asyncResp](const boost::system::error_code ec) {
         if (ec)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue, messages::internalError(),
-                "/IPv4Addresses/" + std::to_string(ipIdx) + "/");
+            messages::internalError(asyncResp->res, "/IPv4Addresses/" +
+                                                        std::to_string(ipIdx) +
+                                                        "/");
         }
     };
 
@@ -805,31 +805,31 @@ class EthernetCollection : public Node
         res.jsonValue = Node::json;
         // Get eth interface list, and call the below callback for JSON
         // preparation
-        getEthernetIfaceList([&res](
-                                 const bool &success,
-                                 const std::vector<std::string> &iface_list) {
-            if (!success)
-            {
-                res.result(boost::beast::http::status::internal_server_error);
+        getEthernetIfaceList(
+            [&res](const bool &success,
+                   const std::vector<std::string> &iface_list) {
+                if (!success)
+                {
+                    messages::internalError(res);
+                    res.end();
+                    return;
+                }
+
+                nlohmann::json &iface_array = res.jsonValue["Members"];
+                iface_array = nlohmann::json::array();
+                for (const std::string &iface_item : iface_list)
+                {
+                    iface_array.push_back(
+                        {{"@odata.id",
+                          "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                              iface_item}});
+                }
+
+                res.jsonValue["Members@odata.count"] = iface_array.size();
+                res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces";
                 res.end();
-                return;
-            }
-
-            nlohmann::json &iface_array = res.jsonValue["Members"];
-            iface_array = nlohmann::json::array();
-            for (const std::string &iface_item : iface_list)
-            {
-                iface_array.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                          iface_item}});
-            }
-
-            res.jsonValue["Members@odata.count"] = iface_array.size();
-            res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/EthernetInterfaces";
-            res.end();
-        });
+            });
     }
 };
 
@@ -871,45 +871,37 @@ class EthernetInterface : public Node
     {
         if (!input.is_object())
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(input.dump(), "VLAN"), "/");
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "VLAN", "/");
             return;
         }
 
         nlohmann::json::const_iterator vlanEnable = input.find("VLANEnable");
         if (vlanEnable == input.end())
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyMissing("VLANEnable"),
-                                       "/VLANEnable");
+            messages::propertyMissing(asyncResp->res, "VLANEnable",
+                                      "/VLANEnable");
             return;
         }
         const bool *vlanEnableBool = vlanEnable->get_ptr<const bool *>();
         if (vlanEnableBool == nullptr)
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyValueTypeError(
-                                           vlanEnable->dump(), "VLANEnable"),
-                                       "/VLANEnable");
+            messages::propertyValueTypeError(asyncResp->res, vlanEnable->dump(),
+                                             "VLANEnable", "/VLANEnable");
             return;
         }
 
         nlohmann::json::const_iterator vlanId = input.find("VLANId");
         if (vlanId == input.end())
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyMissing("VLANId"),
-                                       "/VLANId");
+            messages::propertyMissing(asyncResp->res, "VLANId", "/VLANId");
             return;
         }
         const uint64_t *vlanIdUint = vlanId->get_ptr<const uint64_t *>();
         if (vlanIdUint == nullptr)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(vlanId->dump(), "VLANId"),
-                "/VLANId");
+            messages::propertyValueTypeError(asyncResp->res, vlanId->dump(),
+                                             "VLANId", "/VLANId");
             return;
         }
 
@@ -917,9 +909,8 @@ class EthernetInterface : public Node
         {
             // This interface is not a VLAN. Cannot do anything with it
             // TODO(kkowalsk) Change this message
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyNotWritable("VLANEnable"), "/VLANEnable");
+            messages::propertyNotWritable(asyncResp->res, "VLANEnable",
+                                          "/VLANEnable");
 
             return;
         }
@@ -932,8 +923,7 @@ class EthernetInterface : public Node
             auto callback = [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::addMessageToJson(asyncResp->res.jsonValue,
-                                               messages::internalError(), "/");
+                    messages::internalError(asyncResp->res);
                 }
                 else
                 {
@@ -952,8 +942,7 @@ class EthernetInterface : public Node
             auto callback = [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::addMessageToJson(asyncResp->res.jsonValue,
-                                               messages::internalError(), "/");
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 asyncResp->res.jsonValue["VLANEnable"] = false;
@@ -973,10 +962,8 @@ class EthernetInterface : public Node
         const std::string *newHostname = input.get_ptr<const std::string *>();
         if (newHostname == nullptr)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(input.dump(), "HostName"),
-                "/HostName");
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "HostName", "/HostName");
             return;
         }
 
@@ -986,9 +973,7 @@ class EthernetInterface : public Node
                               const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::addMessageToJson(asyncResp->res.jsonValue,
-                                               messages::internalError(),
-                                               "/HostName");
+                    messages::internalError(asyncResp->res, "/HostName");
                 }
                 else
                 {
@@ -1004,10 +989,8 @@ class EthernetInterface : public Node
     {
         if (!input.is_array())
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(input.dump(), "IPv4Addresses"),
-                "/IPv4Addresses");
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "IPv4Addresses", "/IPv4Addresses");
             return;
         }
 
@@ -1016,9 +999,7 @@ class EthernetInterface : public Node
         {
             // TODO(kkowalsk) This should be a message indicating that not
             // enough data has been provided
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::internalError(),
-                                       "/IPv4Addresses");
+            messages::internalError(asyncResp->res, "/IPv4Addresses");
             return;
         }
 
@@ -1032,10 +1013,8 @@ class EthernetInterface : public Node
             // Check that entry is not of some unexpected type
             if (!thisJson.is_object() && !thisJson.is_null())
             {
-                messages::addMessageToJson(asyncResp->res.jsonValue,
-                                           messages::propertyValueTypeError(
-                                               thisJson.dump(), "IPv4Address"),
-                                           pathString);
+                messages::propertyValueTypeError(
+                    asyncResp->res, thisJson.dump(), "IPv4Address", pathString);
 
                 continue;
             }
@@ -1048,10 +1027,8 @@ class EthernetInterface : public Node
                 addressField = addressFieldIt->get_ptr<const std::string *>();
                 if (addressField == nullptr)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(
-                            addressFieldIt->dump(), "Address"),
+                    messages::propertyValueFormatError(
+                        asyncResp->res, addressFieldIt->dump(), "Address",
                         pathString + "/Address");
                     continue;
                 }
@@ -1059,10 +1036,8 @@ class EthernetInterface : public Node
                 {
                     if (!ipv4VerifyIpAndGetBitcount(*addressField))
                     {
-                        messages::addMessageToJson(
-                            asyncResp->res.jsonValue,
-                            messages::propertyValueFormatError(*addressField,
-                                                               "Address"),
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *addressField, "Address",
                             pathString + "/Address");
                         continue;
                     }
@@ -1078,10 +1053,8 @@ class EthernetInterface : public Node
                 subnetField = subnetFieldIt->get_ptr<const std::string *>();
                 if (subnetField == nullptr)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(*subnetField,
-                                                           "SubnetMask"),
+                    messages::propertyValueFormatError(
+                        asyncResp->res, *subnetField, "SubnetMask",
                         pathString + "/SubnetMask");
                     continue;
                 }
@@ -1091,10 +1064,8 @@ class EthernetInterface : public Node
                     if (!ipv4VerifyIpAndGetBitcount(*subnetField,
                                                     &*prefixLength))
                     {
-                        messages::addMessageToJson(
-                            asyncResp->res.jsonValue,
-                            messages::propertyValueFormatError(*subnetField,
-                                                               "SubnetMask"),
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *subnetField, "SubnetMask",
                             pathString + "/SubnetMask");
                         continue;
                     }
@@ -1111,10 +1082,8 @@ class EthernetInterface : public Node
                     addressOriginFieldIt->get_ptr<const std::string *>();
                 if (addressOriginField == nullptr)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(*addressOriginField,
-                                                           "AddressOrigin"),
+                    messages::propertyValueFormatError(
+                        asyncResp->res, *addressOriginField, "AddressOrigin",
                         pathString + "/AddressOrigin");
                     continue;
                 }
@@ -1126,11 +1095,9 @@ class EthernetInterface : public Node
                             *addressOriginField);
                     if (addressOriginInDBusFormat.empty())
                     {
-                        messages::addMessageToJson(
-                            asyncResp->res.jsonValue,
-                            messages::propertyValueNotInList(
-                                *addressOriginField, "AddressOrigin"),
-                            pathString + "/AddressOrigin");
+                        messages::propertyValueNotInList(
+                            asyncResp->res, *addressOriginField,
+                            "AddressOrigin", pathString + "/AddressOrigin");
                         continue;
                     }
                 }
@@ -1146,11 +1113,9 @@ class EthernetInterface : public Node
                 if (gatewayField == nullptr ||
                     !ipv4VerifyIpAndGetBitcount(*gatewayField))
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(*gatewayField,
-                                                           "Gateway"),
-                        pathString + "/Gateway");
+                    messages::propertyValueFormatError(asyncResp->res,
+                                                       *gatewayField, "Gateway",
+                                                       pathString + "/Gateway");
                     continue;
                 }
             }
@@ -1167,10 +1132,9 @@ class EthernetInterface : public Node
                                         const boost::system::error_code ec) {
                         if (ec)
                         {
-                            messages::addMessageToJson(
-                                asyncResp->res.jsonValue,
-                                messages::internalError(),
-                                "/IPv4Addresses/" + entryIdx + "/");
+                            messages::internalError(asyncResp->res,
+                                                    "/IPv4Addresses/" +
+                                                        entryIdx + "/");
                             return;
                         }
                         asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] =
@@ -1193,9 +1157,8 @@ class EthernetInterface : public Node
                                 const boost::system::error_code ec) {
                                 if (ec)
                                 {
-                                    messages::addMessageToJson(
-                                        asyncResp->res.jsonValue,
-                                        messages::internalError(),
+                                    messages::internalError(
+                                        asyncResp->res,
                                         "/IPv4Addresses/" +
                                             std::to_string(entryIdx) +
                                             "/Address");
@@ -1239,9 +1202,8 @@ class EthernetInterface : public Node
                                 const boost::system::error_code ec) {
                                 if (ec)
                                 {
-                                    messages::addMessageToJson(
-                                        asyncResp->res.jsonValue,
-                                        messages::internalError(),
+                                    messages::internalError(
+                                        asyncResp->res,
                                         "/IPv4Addresses/" +
                                             std::to_string(entryIdx) +
                                             "/Gateway");
@@ -1270,28 +1232,22 @@ class EthernetInterface : public Node
                 // Create IPv4 with provided data
                 if (gatewayField == nullptr)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyMissing("Gateway"),
-                        pathString + "/Gateway");
+                    messages::propertyMissing(asyncResp->res, "Gateway",
+                                              pathString + "/Gateway");
                     continue;
                 }
 
                 if (addressField == nullptr)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyMissing("Address"),
-                        pathString + "/Address");
+                    messages::propertyMissing(asyncResp->res, "Address",
+                                              pathString + "/Address");
                     continue;
                 }
 
                 if (!prefixLength)
                 {
-                    messages::addMessageToJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyMissing("SubnetMask"),
-                        pathString + "/SubnetMask");
+                    messages::propertyMissing(asyncResp->res, "SubnetMask",
+                                              pathString + "/SubnetMask");
                     continue;
                 }
 
@@ -1365,8 +1321,7 @@ class EthernetInterface : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1379,12 +1334,8 @@ class EthernetInterface : public Node
                 {
                     // TODO(Pawel)consider distinguish between non existing
                     // object, and other errors
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound("EthernetInterface",
-                                                   iface_id));
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", iface_id);
                     return;
                 }
                 asyncResp->res.jsonValue =
@@ -1398,7 +1349,7 @@ class EthernetInterface : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1422,14 +1373,8 @@ class EthernetInterface : public Node
                     // ... otherwise return error
                     // TODO(Pawel)consider distinguish between non existing
                     // object, and other errors
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound("VLAN Network Interface",
-                                                   iface_id));
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
-                    asyncResp->res.end();
-
+                    messages::resourceNotFound(
+                        asyncResp->res, "VLAN Network Interface", iface_id);
                     return;
                 }
 
@@ -1455,9 +1400,8 @@ class EthernetInterface : public Node
                     else if (propertyIt.key() == "IPv6Addresses")
                     {
                         // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
-                        messages::addMessageToJsonRoot(
-                            asyncResp->res.jsonValue,
-                            messages::propertyNotWritable(propertyIt.key()));
+                        messages::propertyNotWritable(
+                            asyncResp->res, propertyIt.key(), propertyIt.key());
                     }
                     else
                     {
@@ -1467,17 +1411,16 @@ class EthernetInterface : public Node
                         if (fieldInJsonIt == asyncResp->res.jsonValue.end())
                         {
                             // Field not in scope of defined fields
-                            messages::addMessageToJsonRoot(
-                                asyncResp->res.jsonValue,
-                                messages::propertyUnknown(propertyIt.key()));
+                            messages::propertyUnknown(asyncResp->res,
+                                                      propertyIt.key(),
+                                                      propertyIt.key());
                         }
                         else
                         {
                             // User attempted to modify non-writable field
-                            messages::addMessageToJsonRoot(
-                                asyncResp->res.jsonValue,
-                                messages::propertyNotWritable(
-                                    propertyIt.key()));
+                            messages::propertyNotWritable(asyncResp->res,
+                                                          propertyIt.key(),
+                                                          propertyIt.key());
                         }
                     }
                 }
@@ -1546,14 +1489,11 @@ class VlanNetworkInterface : public Node
     bool verifyNames(crow::Response &res, const std::string &parent,
                      const std::string &iface)
     {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (!boost::starts_with(iface, parent + "_"))
         {
-            messages::addMessageToErrorJson(
-                res.jsonValue,
-                messages::resourceNotFound("VLAN Network Interface", iface));
-            res.result(boost::beast::http::status::not_found);
-            res.end();
-
+            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
+                                       iface);
             return false;
         }
         else
@@ -1575,7 +1515,7 @@ class VlanNetworkInterface : public Node
         // impossible.
         if (params.size() != 2)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(res);
             res.end();
             return;
         }
@@ -1605,12 +1545,8 @@ class VlanNetworkInterface : public Node
                     // ... otherwise return error
                     // TODO(Pawel)consider distinguish between non existing
                     // object, and other errors
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound("VLAN Network Interface",
-                                                   iface_id));
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
+                    messages::resourceNotFound(
+                        asyncResp->res, "VLAN Network Interface", iface_id);
                 }
             });
     }
@@ -1621,8 +1557,7 @@ class VlanNetworkInterface : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 2)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1652,13 +1587,8 @@ class VlanNetworkInterface : public Node
                 {
                     // TODO(Pawel)consider distinguish between non existing
                     // object, and other errors
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::resourceNotFound("VLAN Network Interface",
-                                                   ifaceId));
-                    asyncResp->res.result(
-                        boost::beast::http::status::not_found);
-                    asyncResp->res.end();
+                    messages::resourceNotFound(
+                        asyncResp->res, "VLAN Network Interface", ifaceId);
 
                     return;
                 }
@@ -1676,17 +1606,16 @@ class VlanNetworkInterface : public Node
                         if (fieldInJsonIt == asyncResp->res.jsonValue.end())
                         {
                             // Field not in scope of defined fields
-                            messages::addMessageToJsonRoot(
-                                asyncResp->res.jsonValue,
-                                messages::propertyUnknown(propertyIt.key()));
+                            messages::propertyUnknown(asyncResp->res,
+                                                      propertyIt.key(),
+                                                      propertyIt.key());
                         }
                         else
                         {
                             // User attempted to modify non-writable field
-                            messages::addMessageToJsonRoot(
-                                asyncResp->res.jsonValue,
-                                messages::propertyNotWritable(
-                                    propertyIt.key()));
+                            messages::propertyNotWritable(asyncResp->res,
+                                                          propertyIt.key(),
+                                                          propertyIt.key());
                         }
                     }
                 }
@@ -1702,8 +1631,7 @@ class VlanNetworkInterface : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 2)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1717,49 +1645,38 @@ class VlanNetworkInterface : public Node
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
-        getEthernetIfaceData(ifaceId, [this, asyncResp,
-                                       parentIfaceId{
-                                           std::string(parentIfaceId)},
-                                       ifaceId{std::string(ifaceId)}](
-                                          const bool &success,
-                                          const EthernetInterfaceData &ethData,
-                                          const boost::container::flat_set<
-                                              IPv4AddressData> &ipv4Data) {
-            if (success && ethData.vlan_id)
-            {
-                asyncResp->res.jsonValue = parseInterfaceData(
-                    parentIfaceId, ifaceId, ethData, ipv4Data);
+        getEthernetIfaceData(
+            ifaceId,
+            [this, asyncResp, parentIfaceId{std::string(parentIfaceId)},
+             ifaceId{std::string(ifaceId)}](
+                const bool &success, const EthernetInterfaceData &ethData,
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                if (success && ethData.vlan_id)
+                {
+                    asyncResp->res.jsonValue = parseInterfaceData(
+                        parentIfaceId, ifaceId, ethData, ipv4Data);
 
-                auto callback = [asyncResp](
-                                    const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        messages::addMessageToErrorJson(
-                            asyncResp->res.jsonValue,
-                            messages::internalError());
-                        asyncResp->res.result(
-                            boost::beast::http::status::internal_server_error);
-                    }
-                };
-                crow::connections::systemBus->async_method_call(
-                    std::move(callback), "xyz.openbmc_project.Network",
-                    std::string("/xyz/openbmc_project/network/") + ifaceId,
-                    "xyz.openbmc_project.Object.Delete", "Delete");
-            }
-            else
-            {
-                // ... otherwise return error
-                // TODO(Pawel)consider distinguish between non existing object,
-                // and
-                // other errors
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::resourceNotFound("VLAN Network Interface",
-                                               ifaceId));
-                asyncResp->res.result(boost::beast::http::status::not_found);
-                asyncResp->res.end();
-            }
-        });
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                            }
+                        };
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        std::string("/xyz/openbmc_project/network/") + ifaceId,
+                        "xyz.openbmc_project.Object.Delete", "Delete");
+                }
+                else
+                {
+                    // ... otherwise return error
+                    // TODO(Pawel)consider distinguish between non existing
+                    // object, and other errors
+                    messages::resourceNotFound(
+                        asyncResp->res, "VLAN Network Interface", ifaceId);
+                }
+            });
     }
 };
 
@@ -1805,8 +1722,7 @@ class VlanNetworkInterfaceCollection : public Node
         if (params.size() != 1)
         {
             // This means there is a problem with the router
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1814,48 +1730,44 @@ class VlanNetworkInterfaceCollection : public Node
 
         // Get eth interface list, and call the below callback for JSON
         // preparation
-        getEthernetIfaceList([this, asyncResp,
-                              rootInterfaceName{
-                                  std::string(rootInterfaceName)}](
-                                 const bool &success,
-                                 const std::vector<std::string> &iface_list) {
-            if (!success)
-            {
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                return;
-            }
-            asyncResp->res.jsonValue = Node::json;
-
-            nlohmann::json iface_array = nlohmann::json::array();
-
-            for (const std::string &iface_item : iface_list)
-            {
-                if (boost::starts_with(iface_item, rootInterfaceName + "_"))
+        getEthernetIfaceList(
+            [this, asyncResp,
+             rootInterfaceName{std::string(rootInterfaceName)}](
+                const bool &success,
+                const std::vector<std::string> &iface_list) {
+                if (!success)
                 {
-                    iface_array.push_back(
-                        {{"@odata.id",
-                          "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                              rootInterfaceName + "/VLANs/" + iface_item}});
+                    messages::internalError(asyncResp->res);
+                    return;
                 }
-            }
+                asyncResp->res.jsonValue = Node::json;
 
-            if (iface_array.empty())
-            {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::resourceNotFound("EthernetInterface",
-                                               rootInterfaceName));
-                asyncResp->res.result(boost::beast::http::status::not_found);
-                return;
-            }
-            asyncResp->res.jsonValue["Members@odata.count"] =
-                iface_array.size();
-            asyncResp->res.jsonValue["Members"] = std::move(iface_array);
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                rootInterfaceName + "/VLANs";
-        });
+                nlohmann::json iface_array = nlohmann::json::array();
+
+                for (const std::string &iface_item : iface_list)
+                {
+                    if (boost::starts_with(iface_item, rootInterfaceName + "_"))
+                    {
+                        iface_array.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                                  rootInterfaceName + "/VLANs/" + iface_item}});
+                    }
+                }
+
+                if (iface_array.empty())
+                {
+                    messages::resourceNotFound(
+                        asyncResp->res, "EthernetInterface", rootInterfaceName);
+                    return;
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    iface_array.size();
+                asyncResp->res.jsonValue["Members"] = std::move(iface_array);
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                    rootInterfaceName + "/VLANs";
+            });
     }
 
     void doPost(crow::Response &res, const crow::Request &req,
@@ -1864,8 +1776,7 @@ class VlanNetworkInterfaceCollection : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (params.size() != 1)
         {
-            asyncResp->res.result(
-                boost::beast::http::status::internal_server_error);
+            messages::internalError(asyncResp->res);
             return;
         }
 
@@ -1878,19 +1789,15 @@ class VlanNetworkInterfaceCollection : public Node
         auto vlanIdJson = json.find("VLANId");
         if (vlanIdJson == json.end())
         {
-            messages::addMessageToJson(asyncResp->res.jsonValue,
-                                       messages::propertyMissing("VLANId"),
-                                       "/VLANId");
+            messages::propertyMissing(asyncResp->res, "VLANId", "/VLANId");
             return;
         }
 
         const uint64_t *vlanId = vlanIdJson->get_ptr<const uint64_t *>();
         if (vlanId == nullptr)
         {
-            messages::addMessageToJson(
-                asyncResp->res.jsonValue,
-                messages::propertyValueTypeError(vlanIdJson->dump(), "VLANId"),
-                "/VLANId");
+            messages::propertyValueTypeError(asyncResp->res, vlanIdJson->dump(),
+                                             "VLANId", "/VLANId");
             return;
         }
         const std::string &rootInterfaceName = params[0];
@@ -1900,13 +1807,10 @@ class VlanNetworkInterfaceCollection : public Node
             {
                 // TODO(ed) make more consistent error messages based on
                 // phosphor-network responses
-                messages::addMessageToErrorJson(asyncResp->res.jsonValue,
-                                                messages::internalError());
+                messages::internalError(asyncResp->res);
                 return;
             }
-            asyncResp->res.result(boost::beast::http::status::created);
-            messages::addMessageToErrorJson(asyncResp->res.jsonValue,
-                                            messages::created());
+            messages::created(asyncResp->res);
         };
         crow::connections::systemBus->async_method_call(
             std::move(callback), "xyz.openbmc_project.Network",

@@ -227,7 +227,8 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         {
             BMCWEB_LOG_INFO << "Unable to find chassis named "
                             << SensorsAsyncResp->chassisId;
-            SensorsAsyncResp->res.result(boost::beast::http::status::not_found);
+            messages::resourceNotFound(SensorsAsyncResp->res, "Chassis",
+                                       SensorsAsyncResp->chassisId);
         }
         else
         {

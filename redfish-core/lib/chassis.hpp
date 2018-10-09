@@ -80,10 +80,7 @@ class ChassisCollection : public Node
                         const std::vector<std::string> &chassisList) {
                 if (ec)
                 {
-                    messages::addMessageToErrorJson(asyncResp->res.jsonValue,
-                                                    messages::internalError());
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 nlohmann::json &chassisArray =
@@ -148,7 +145,7 @@ class Chassis : public Node
         // impossible.
         if (params.size() != 1)
         {
-            res.result(boost::beast::http::status::internal_server_error);
+            messages::internalError(res);
             res.end();
             return;
         }
@@ -165,10 +162,7 @@ class Chassis : public Node
                     &subtree) {
                 if (ec)
                 {
-                    messages::addMessageToErrorJson(asyncResp->res.jsonValue,
-                                                    messages::internalError());
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
                     return;
                 }
                 // Iterate over all retrieved ObjectPaths.
@@ -226,9 +220,8 @@ class Chassis : public Node
                 }
 
                 // Couldn't find an object with that name.  return an error
-                asyncResp->res.jsonValue = redfish::messages::resourceNotFound(
-                    "#Chassis.v1_4_0.Chassis", chassisId);
-                asyncResp->res.result(boost::beast::http::status::not_found);
+                messages::resourceNotFound(
+                    asyncResp->res, "#Chassis.v1_4_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
