@@ -306,8 +306,7 @@ static CreatePIDRet createPidInterface(
                     {
                         BMCWEB_LOG_ERROR << "Error patching " << path << ": "
                                          << ec;
-                        response->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(response->res);
                     }
                 },
                 "xyz.openbmc_project.EntityManager", path,
@@ -322,12 +321,8 @@ static CreatePIDRet createPidInterface(
                 if (!field.value().is_array())
                 {
                     BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::addMessageToErrorJson(
-                        response->res.jsonValue,
-                        messages::propertyValueFormatError(field.value(),
-                                                           field.key()));
-                    response->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::propertyValueFormatError(
+                        response->res, field.value(), field.key());
                     return CreatePIDRet::fail;
                 }
                 std::vector<std::string> inputs;
@@ -340,12 +335,9 @@ static CreatePIDRet createPidInterface(
                         if (path == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                            messages::addMessageToErrorJson(
-                                response->res.jsonValue,
-                                messages::propertyValueFormatError(
-                                    field.value().dump(), field.key()));
-                            response->res.result(
-                                boost::beast::http::status::bad_request);
+                            messages::propertyValueFormatError(
+                                response->res, field.value().dump(),
+                                field.key());
                             return CreatePIDRet::fail;
                         }
                         std::string input;
@@ -353,12 +345,9 @@ static CreatePIDRet createPidInterface(
                                                                  input))
                         {
                             BMCWEB_LOG_ERROR << "Got invalid path " << *path;
-                            messages::addMessageToErrorJson(
-                                response->res.jsonValue,
-                                messages::propertyValueFormatError(
-                                    field.value().dump(), field.key()));
-                            response->res.result(
-                                boost::beast::http::status::bad_request);
+                            messages::propertyValueFormatError(
+                                response->res, field.value().dump(),
+                                field.key());
                             return CreatePIDRet::fail;
                         }
                         boost::replace_all(input, "_", " ");
@@ -372,12 +361,8 @@ static CreatePIDRet createPidInterface(
                 if (!field.value().is_array())
                 {
                     BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::addMessageToErrorJson(
-                        response->res.jsonValue,
-                        messages::propertyValueFormatError(field.value().dump(),
-                                                           field.key()));
-                    response->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
                 }
                 std::vector<std::string> inputs;
@@ -390,12 +375,8 @@ static CreatePIDRet createPidInterface(
                     {
                         BMCWEB_LOG_ERROR << "Illegal Type "
                                          << field.value().dump();
-                        messages::addMessageToErrorJson(
-                            response->res.jsonValue,
-                            messages::propertyValueFormatError(
-                                field.value().dump(), field.key()));
-                        response->res.result(
-                            boost::beast::http::status::bad_request);
+                        messages::propertyValueFormatError(
+                            response->res, field.value().dump(), field.key());
                         return CreatePIDRet::fail;
                     }
 
@@ -437,12 +418,8 @@ static CreatePIDRet createPidInterface(
                 if (ptr == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::addMessageToErrorJson(
-                        response->res.jsonValue,
-                        messages::propertyValueFormatError(field.value().dump(),
-                                                           field.key()));
-                    response->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
                 }
                 output[field.key()] = *ptr;
@@ -451,10 +428,7 @@ static CreatePIDRet createPidInterface(
             else
             {
                 BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                messages::addMessageToErrorJson(
-                    response->res.jsonValue,
-                    messages::propertyUnknown(field.key()));
-                response->res.result(boost::beast::http::status::bad_request);
+                messages::propertyUnknown(response->res, field.key());
                 return CreatePIDRet::fail;
             }
         }
@@ -471,8 +445,7 @@ static CreatePIDRet createPidInterface(
                     {
                         BMCWEB_LOG_ERROR << "Error patching " << path << ": "
                                          << ec;
-                        response->res.result(
-                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(response->res);
                     }
                 },
                 "xyz.openbmc_project.EntityManager", path,
@@ -491,22 +464,14 @@ static CreatePIDRet createPidInterface(
                     if (id.key() != "@odata.id")
                     {
                         BMCWEB_LOG_ERROR << "Illegal Type " << id.key();
-                        messages::addMessageToErrorJson(
-                            response->res.jsonValue,
-                            messages::propertyUnknown(field.key()));
-                        response->res.result(
-                            boost::beast::http::status::bad_request);
+                        messages::propertyUnknown(response->res, field.key());
                         return CreatePIDRet::fail;
                     }
                     chassisId = id.value().get_ptr<const std::string*>();
                     if (chassisId == nullptr)
                     {
-                        messages::addMessageToErrorJson(
-                            response->res.jsonValue,
-                            messages::createFailedMissingReqProperties(
-                                field.key()));
-                        response->res.result(
-                            boost::beast::http::status::bad_request);
+                        messages::createFailedMissingReqProperties(
+                            response->res, field.key());
                         return CreatePIDRet::fail;
                     }
                 }
@@ -516,8 +481,7 @@ static CreatePIDRet createPidInterface(
                                                          chassis))
                 {
                     BMCWEB_LOG_ERROR << "Got invalid path " << *chassisId;
-                    response->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::invalidObject(response->res, *chassisId);
                     return CreatePIDRet::fail;
                 }
             }
@@ -528,12 +492,8 @@ static CreatePIDRet createPidInterface(
                 if (ptr == nullptr)
                 {
                     BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::addMessageToErrorJson(
-                        response->res.jsonValue,
-                        messages::propertyValueFormatError(field.value().dump(),
-                                                           field.key()));
-                    response->res.result(
-                        boost::beast::http::status::bad_request);
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
                 }
                 output[field.key()] = *ptr;
@@ -541,10 +501,7 @@ static CreatePIDRet createPidInterface(
             else
             {
                 BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                messages::addMessageToErrorJson(
-                    response->res.jsonValue,
-                    messages::propertyUnknown(field.key()));
-                response->res.result(boost::beast::http::status::bad_request);
+                messages::propertyUnknown(response->res, field.key());
                 return CreatePIDRet::fail;
             }
         }
@@ -552,9 +509,7 @@ static CreatePIDRet createPidInterface(
     else
     {
         BMCWEB_LOG_ERROR << "Illegal Type " << type;
-        messages::addMessageToErrorJson(response->res.jsonValue,
-                                        messages::propertyUnknown(type));
-        response->res.result(boost::beast::http::status::bad_request);
+        messages::propertyUnknown(response->res, type);
         return CreatePIDRet::fail;
     }
     return CreatePIDRet::patch;
@@ -733,8 +688,7 @@ class Manager : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error communicating to Entity Manager";
-                    response->res.result(
-                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(response->res);
                     return;
                 }
                 for (const auto& type : data.items())
@@ -742,12 +696,8 @@ class Manager : public Node
                     if (!type.value().is_object())
                     {
                         BMCWEB_LOG_ERROR << "Illegal Type " << type.key();
-                        messages::addMessageToErrorJson(
-                            response->res.jsonValue,
-                            messages::propertyValueFormatError(type.value(),
-                                                               type.key()));
-                        response->res.result(
-                            boost::beast::http::status::bad_request);
+                        messages::propertyValueFormatError(
+                            response->res, type.value(), type.key());
                         return;
                     }
                     for (const auto& record : type.value().items())
@@ -819,9 +769,8 @@ class Manager : public Node
                                             BMCWEB_LOG_ERROR
                                                 << "Error patching "
                                                 << propertyName << ": " << ec;
-                                            response->res.result(
-                                                boost::beast::http::status::
-                                                    internal_server_error);
+                                            messages::internalError(
+                                                response->res);
                                         }
                                     },
                                     "xyz.openbmc_project.EntityManager",
@@ -837,8 +786,7 @@ class Manager : public Node
                             {
                                 BMCWEB_LOG_ERROR
                                     << "Failed to get chassis from config";
-                                response->res.result(
-                                    boost::beast::http::status::bad_request);
+                                messages::invalidObject(response->res, name);
                                 return;
                             }
 
@@ -857,13 +805,9 @@ class Manager : public Node
                             {
                                 BMCWEB_LOG_ERROR
                                     << "Failed to find chassis on dbus";
-                                messages::addMessageToErrorJson(
-                                    response->res.jsonValue,
-                                    messages::resourceMissingAtURI(
-                                        "/redfish/v1/Chassis/" + chassis));
-                                response->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
+                                messages::resourceMissingAtURI(
+                                    response->res,
+                                    "/redfish/v1/Chassis/" + chassis);
                                 return;
                             }
 
@@ -873,9 +817,7 @@ class Manager : public Node
                                     {
                                         BMCWEB_LOG_ERROR
                                             << "Error Adding Pid Object " << ec;
-                                        response->res.result(
-                                            boost::beast::http::status::
-                                                internal_server_error);
+                                        messages::internalError(response->res);
                                     }
                                 },
                                 "xyz.openbmc_project.EntityManager", chassis,
@@ -905,17 +847,15 @@ class Manager : public Node
                 if (!topLevel.value().is_object())
                 {
                     BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
-                    res.result(boost::beast::http::status::bad_request);
+                    messages::propertyValueFormatError(
+                        response->res, topLevel.key(), "OemManager.Oem");
                     return;
                 }
             }
             else
             {
                 BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
-                messages::addMessageToErrorJson(
-                    response->res.jsonValue,
-                    messages::propertyUnknown(topLevel.key()));
-                res.result(boost::beast::http::status::bad_request);
+                messages::propertyUnknown(response->res, topLevel.key());
                 return;
             }
             for (const auto& oemLevel : topLevel.value().items())
@@ -925,7 +865,9 @@ class Manager : public Node
                     if (!oemLevel.value().is_object())
                     {
                         BMCWEB_LOG_ERROR << "Bad Patch " << oemLevel.key();
-                        res.result(boost::beast::http::status::bad_request);
+                        messages::propertyValueFormatError(
+                            response->res, topLevel.key(),
+                            "OemManager.OpenBmc");
                         return;
                     }
                     for (const auto& typeLevel : oemLevel.value().items())
@@ -937,13 +879,9 @@ class Manager : public Node
                             {
                                 BMCWEB_LOG_ERROR << "Bad Patch "
                                                  << typeLevel.key();
-                                messages::addMessageToErrorJson(
-                                    response->res.jsonValue,
-                                    messages::propertyValueFormatError(
-                                        typeLevel.value().dump(),
-                                        typeLevel.key()));
-                                res.result(
-                                    boost::beast::http::status::bad_request);
+                                messages::propertyValueFormatError(
+                                    response->res, typeLevel.value().dump(),
+                                    typeLevel.key());
                                 return;
                             }
                             setPidValues(response,
@@ -952,10 +890,8 @@ class Manager : public Node
                         else
                         {
                             BMCWEB_LOG_ERROR << "Bad Patch " << typeLevel.key();
-                            messages::addMessageToErrorJson(
-                                response->res.jsonValue,
-                                messages::propertyUnknown(typeLevel.key()));
-                            res.result(boost::beast::http::status::bad_request);
+                            messages::propertyUnknown(response->res,
+                                                      typeLevel.key());
                             return;
                         }
                     }
@@ -963,10 +899,7 @@ class Manager : public Node
                 else
                 {
                     BMCWEB_LOG_ERROR << "Bad Patch " << oemLevel.key();
-                    messages::addMessageToErrorJson(
-                        response->res.jsonValue,
-                        messages::propertyUnknown(oemLevel.key()));
-                    res.result(boost::beast::http::status::bad_request);
+                    messages::propertyUnknown(response->res, oemLevel.key());
                     return;
                 }
             }

@@ -248,20 +248,17 @@ class BMCLogEntryCollection : public Node
             skip = std::strtol(skipParam, &ptr, 10);
             if (*skipParam == '\0' || *ptr != '\0')
             {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::queryParameterValueTypeError(
-                        std::string(skipParam), "$skip"));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
+
+                messages::queryParameterValueTypeError(
+                    asyncResp->res, std::string(skipParam), "$skip");
                 return;
             }
             if (skip < 0)
             {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::queryParameterOutOfRange(
-                        std::to_string(skip), "$skip", "greater than 0"));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
+
+                messages::queryParameterOutOfRange(asyncResp->res,
+                                                   std::to_string(skip),
+                                                   "$skip", "greater than 0");
                 return;
             }
         }
@@ -272,20 +269,16 @@ class BMCLogEntryCollection : public Node
             top = std::strtol(topParam, &ptr, 10);
             if (*topParam == '\0' || *ptr != '\0')
             {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::queryParameterValueTypeError(
-                        std::string(topParam), "$top"));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
+                messages::queryParameterValueTypeError(
+                    asyncResp->res, std::string(topParam), "$top");
                 return;
             }
             if (top < 1 || top > maxEntriesPerPage)
             {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::queryParameterOutOfRange(
-                        std::to_string(top), "$top",
-                        "1-" + std::to_string(maxEntriesPerPage)));
+
+                messages::queryParameterOutOfRange(
+                    asyncResp->res, std::to_string(top), "$top",
+                    "1-" + std::to_string(maxEntriesPerPage));
                 asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
