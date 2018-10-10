@@ -26,8 +26,50 @@ namespace redfish
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, sdbusplus::message::variant<bool>>>>>;
+        std::string,
+        boost::container::flat_map<
+            std::string, sdbusplus::message::variant<bool, std::string>>>>>;
+
+inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
+{
+    if (role == "priv-admin")
+    {
+        return "Administrator";
+    }
+    else if (role == "priv-callback")
+    {
+        return "Callback";
+    }
+    else if (role == "priv-user")
+    {
+        return "User";
+    }
+    else if (role == "priv-operator")
+    {
+        return "Operator";
+    }
+    return "";
+}
+inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
+{
+    if (role == "Administrator")
+    {
+        return "priv-admin";
+    }
+    else if (role == "Callback")
+    {
+        return "priv-callback";
+    }
+    else if (role == "User")
+    {
+        return "priv-user";
+    }
+    else if (role == "Operator")
+    {
+        return "priv-operator";
+    }
+    return "";
+}
 
 class AccountService : public Node
 {
@@ -148,8 +190,8 @@ class AccountsCollection : public Node
             return;
         }
 
-        const char* priv = getRoleIdFromPrivilege(*roleId);
-        if (priv == nullptr)
+        std::string priv = getRoleIdFromPrivilege(*roleId);
+        if (priv.empty())
         {
             messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
             return;
@@ -200,27 +242,6 @@ class AccountsCollection : public Node
             std::array<const char*, 4>{"ipmi", "redfish", "ssh", "web"},
             *roleId, *enabled);
     }
-
-    static const char* getRoleIdFromPrivilege(boost::beast::string_view role)
-    {
-        if (role == "Administrator")
-        {
-            return "priv-admin";
-        }
-        else if (role == "Callback")
-        {
-            return "priv-callback";
-        }
-        else if (role == "User")
-        {
-            return "priv-user";
-        }
-        else if (role == "Operator")
-        {
-            return "priv-operator";
-        }
-        return nullptr;
-    }
 };
 
 template <typename Callback>
@@ -232,7 +253,7 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](const boost::system::error_code ec,
                                         const GetObjectType& object_names) {
-            callback(ec || object_names.size() == 0);
+            callback(!ec && object_names.size() != 0);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -264,15 +285,10 @@ class ManagerAccount : public Node
             {"@odata.context",
              "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
             {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-
             {"Name", "User Account"},
             {"Description", "User Account"},
             {"Password", nullptr},
-            {"RoleId", "Administrator"},
-            {"Links",
-             {{"Role",
-               {{"@odata.id",
-                 "/redfish/v1/AccountService/Roles/Administrator"}}}}}};
+            {"RoleId", "Administrator"}};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -291,74 +307,95 @@ class ManagerAccount : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                auto userIt = users.begin();
 
-                for (auto& user : users)
+                for (; userIt != users.end(); userIt++)
                 {
-                    const std::string& path =
-                        static_cast<const std::string&>(user.first);
-                    std::size_t lastIndex = path.rfind("/");
-                    if (lastIndex == std::string::npos)
+                    if (boost::ends_with(userIt->first.str, "/" + accountName))
                     {
-                        lastIndex = 0;
+                        break;
                     }
-                    else
+                }
+                if (userIt == users.end())
+                {
+                    messages::resourceNotFound(asyncResp->res, "ManagerAccount",
+                                               accountName);
+                    return;
+                }
+                for (const auto& interface : userIt->second)
+                {
+                    if (interface.first ==
+                        "xyz.openbmc_project.User.Attributes")
                     {
-                        lastIndex += 1;
-                    }
-                    if (path.substr(lastIndex) == accountName)
-                    {
-                        for (const auto& interface : user.second)
+                        for (const auto& property : interface.second)
                         {
-                            if (interface.first ==
-                                "xyz.openbmc_project.User.Attributes")
+                            if (property.first == "UserEnabled")
                             {
-                                for (const auto& property : interface.second)
+                                const bool* userEnabled =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        bool>(&property.second);
+                                if (userEnabled == nullptr)
                                 {
-                                    if (property.first == "UserEnabled")
-                                    {
-                                        const bool* userEnabled =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
-                                        if (userEnabled == nullptr)
-                                        {
-                                            BMCWEB_LOG_ERROR
-                                                << "UserEnabled wasn't a bool";
-                                            continue;
-                                        }
-                                        asyncResp->res.jsonValue["Enabled"] =
-                                            *userEnabled;
-                                    }
-                                    else if (property.first ==
-                                             "UserLockedForFailedAttempt")
-                                    {
-                                        const bool* userLocked =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
-                                        if (userLocked == nullptr)
-                                        {
-                                            BMCWEB_LOG_ERROR
-                                                << "UserEnabled wasn't a bool";
-                                            continue;
-                                        }
-                                        asyncResp->res.jsonValue["Locked"] =
-                                            *userLocked;
-                                    }
+                                    BMCWEB_LOG_ERROR
+                                        << "UserEnabled wasn't a bool";
+                                    messages::internalError(asyncResp->res);
+                                    return;
                                 }
+                                asyncResp->res.jsonValue["Enabled"] =
+                                    *userEnabled;
+                            }
+                            else if (property.first ==
+                                     "UserLockedForFailedAttempt")
+                            {
+                                const bool* userLocked =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        bool>(&property.second);
+                                if (userLocked == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR << "UserLockedForF"
+                                                        "ailedAttempt "
+                                                        "wasn't a bool";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["Locked"] =
+                                    *userLocked;
+                            }
+                            else if (property.first == "UserPrivilege")
+                            {
+                                const std::string* userRolePtr =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        std::string>(&property.second);
+                                if (userRolePtr == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "UserPrivilege wasn't a "
+                                           "string";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                std::string priv =
+                                    getPrivilegeFromRoleId(*userRolePtr);
+                                if (priv.empty())
+                                {
+                                    BMCWEB_LOG_ERROR << "Invalid user role";
+                                    return;
+                                }
+                                asyncResp->res.jsonValue["RoleId"] = priv;
+
+                                asyncResp->res.jsonValue["Links"]["Role"] = {
+                                    {"@odata.id", "/redfish/v1/AccountService/"
+                                                  "Roles/" +
+                                                      priv}};
                             }
                         }
-
-                        asyncResp->res.jsonValue["@odata.id"] =
-                            "/redfish/v1/AccountService/Accounts/" +
-                            accountName;
-                        asyncResp->res.jsonValue["Id"] = accountName;
-                        asyncResp->res.jsonValue["UserName"] = accountName;
-
-                        return;
                     }
                 }
 
-                messages::resourceNotFound(asyncResp->res, "ManagerAccount",
-                                           accountName);
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/AccountService/Accounts/" + accountName;
+                asyncResp->res.jsonValue["Id"] = accountName;
+                asyncResp->res.jsonValue["UserName"] = accountName;
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -374,61 +411,114 @@ class ManagerAccount : public Node
             return;
         }
 
+        boost::optional<std::string> newUserName;
         boost::optional<std::string> password;
         boost::optional<bool> enabled;
-        if (!json_util::readJson(req, res, "Password", password, "Enabled",
+        boost::optional<std::string> roleId;
+        if (!json_util::readJson(req, res, "UserName", newUserName, "Password",
+                                 password, "RoleId", roleId, "Enabled",
                                  enabled))
         {
             return;
         }
 
-        // Check the user exists before updating the fields
-        checkDbusPathExists(
-            "/xyz/openbmc_project/users/" + params[0],
-            [username{std::string(params[0])}, password(std::move(password)),
-             enabled(std::move(enabled)), asyncResp](bool userExists) {
-                if (!userExists)
-                {
-                    messages::resourceNotFound(
-                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
-                        username);
-                    return;
-                }
+        const std::string& username = params[0];
 
-                if (password)
-                {
-                    if (!pamUpdatePassword(username, *password))
+        if (!newUserName)
+        {
+            // If the username isn't being updated, we can update the properties
+            // directly
+            updateUserProperties(asyncResp, username, password, enabled,
+                                 roleId);
+            return;
+        }
+        else
+        {
+            crow::connections::systemBus->async_method_call(
+                [this, asyncResp, username, password(std::move(password)),
+                 roleId(std::move(roleId)), enabled(std::move(enabled)),
+                 newUser{std::string(*newUserName)}](
+                    const boost::system::error_code ec) {
+                    if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        messages::resourceNotFound(
+                            asyncResp->res,
+                            "#ManagerAccount.v1_0_3.ManagerAccount", username);
+                        return;
+                    }
+
+                    updateUserProperties(asyncResp, newUser, password, enabled,
+                                         roleId);
+                },
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "xyz.openbmc_project.User.Manager", "RenameUser", username,
+                *newUserName);
+        }
+    }
+
+    void updateUserProperties(std::shared_ptr<AsyncResp> asyncResp,
+                              const std::string& username,
+                              boost::optional<std::string> password,
+                              boost::optional<bool> enabled,
+                              boost::optional<std::string> roleId)
+    {
+        if (password)
+        {
+            if (!pamUpdatePassword(username, *password))
+            {
+                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        }
+
+        if (enabled)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
                         messages::internalError(asyncResp->res);
                         return;
                     }
-                }
+                    messages::success(asyncResp->res);
+                    return;
+                },
+                "xyz.openbmc_project.User.Manager",
+                "/xyz/openbmc_project/user/" + username,
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.User.Attributes", "UserEnabled",
+                sdbusplus::message::variant<bool>{*enabled});
+        }
 
-                if (enabled)
-                {
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
-                                                 << ec;
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            // TODO Consider support polling mechanism to
-                            // verify status of host and chassis after
-                            // execute the requested action.
-                            messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/users/" + username,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.Attributes"
-                        "UserEnabled",
-                        sdbusplus::message::variant<bool>{*enabled});
-                }
-            });
+        if (roleId)
+        {
+            std::string priv = getRoleIdFromPrivilege(*roleId);
+            if (priv.empty())
+            {
+                messages::propertyValueNotInList(asyncResp->res, *roleId,
+                                                 "RoleId");
+                return;
+            }
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.User.Manager",
+                "/xyz/openbmc_project/user/" + username,
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.User.Attributes", "UserPrivilege",
+                sdbusplus::message::variant<std::string>{priv});
+        }
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,
@@ -460,6 +550,6 @@ class ManagerAccount : public Node
             "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
     }
-}; // namespace redfish
+};
 
 } // namespace redfish
