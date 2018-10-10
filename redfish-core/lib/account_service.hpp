@@ -26,8 +26,50 @@ namespace redfish
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, sdbusplus::message::variant<bool>>>>>;
+        std::string,
+        boost::container::flat_map<
+            std::string, sdbusplus::message::variant<bool, std::string>>>>>;
+
+static const char* getPrivilegeFromRoleId(boost::beast::string_view role)
+{
+    if (role == "priv-admin")
+    {
+        return "Administrator";
+    }
+    else if (role == "priv-callback")
+    {
+        return "Callback";
+    }
+    else if (role == "priv-user")
+    {
+        return "User";
+    }
+    else if (role == "priv-operator")
+    {
+        return "Operator";
+    }
+    return nullptr;
+}
+static const char* getRoleIdFromPrivilege(boost::beast::string_view role)
+{
+    if (role == "Administrator")
+    {
+        return "priv-admin";
+    }
+    else if (role == "Callback")
+    {
+        return "priv-callback";
+    }
+    else if (role == "User")
+    {
+        return "priv-user";
+    }
+    else if (role == "Operator")
+    {
+        return "priv-operator";
+    }
+    return nullptr;
+}
 
 class AccountService : public Node
 {
@@ -200,27 +242,6 @@ class AccountsCollection : public Node
             std::array<const char*, 4>{"ipmi", "redfish", "ssh", "web"},
             *roleId, *enabled);
     }
-
-    static const char* getRoleIdFromPrivilege(boost::beast::string_view role)
-    {
-        if (role == "Administrator")
-        {
-            return "priv-admin";
-        }
-        else if (role == "Callback")
-        {
-            return "priv-callback";
-        }
-        else if (role == "User")
-        {
-            return "priv-user";
-        }
-        else if (role == "Operator")
-        {
-            return "priv-operator";
-        }
-        return nullptr;
-    }
 };
 
 template <typename Callback>
@@ -232,7 +253,7 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
     crow::connections::systemBus->async_method_call(
         [callback{std::move(callback)}](const boost::system::error_code ec,
                                         const GetObjectType& object_names) {
-            callback(ec || object_names.size() == 0);
+            callback(!ec && object_names.size() != 0);
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -264,15 +285,10 @@ class ManagerAccount : public Node
             {"@odata.context",
              "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
             {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-
             {"Name", "User Account"},
             {"Description", "User Account"},
             {"Password", nullptr},
-            {"RoleId", "Administrator"},
-            {"Links",
-             {{"Role",
-               {{"@odata.id",
-                 "/redfish/v1/AccountService/Roles/Administrator"}}}}}};
+            {"RoleId", "Administrator"}};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -336,12 +352,48 @@ class ManagerAccount : public Node
                                                 property.second);
                                         if (userLocked == nullptr)
                                         {
-                                            BMCWEB_LOG_ERROR
-                                                << "UserEnabled wasn't a bool";
+                                            BMCWEB_LOG_ERROR << "UserLockedForF"
+                                                                "ailedAttempt "
+                                                                "wasn't a bool";
                                             continue;
                                         }
                                         asyncResp->res.jsonValue["Locked"] =
                                             *userLocked;
+                                    }
+                                    else if (property.first == "UserPrivilege")
+                                    {
+                                        const std::string* userRolePtr =
+                                            mapbox::getPtr<const std::string>(
+                                                property.second);
+                                        if (userRolePtr == nullptr)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "UserPrivilege wasn't a "
+                                                   "string";
+                                            continue;
+                                        }
+                                        const char* priv =
+                                            getPrivilegeFromRoleId(
+                                                *userRolePtr);
+                                        if (priv == nullptr)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "Invalid user role";
+                                            continue;
+                                        }
+                                        asyncResp->res.jsonValue["RoleId"] =
+                                            static_cast<std::string>(priv);
+
+                                        nlohmann::json& linksObj =
+                                            asyncResp->res.jsonValue["Links"];
+                                        linksObj = nlohmann::json::object();
+
+                                        linksObj["Role"] = {
+                                            {"@odata.id",
+                                             "/redfish/v1/AccountService/"
+                                             "Roles/" +
+                                                 static_cast<std::string>(
+                                                     priv)}};
                                     }
                                 }
                             }
@@ -374,30 +426,157 @@ class ManagerAccount : public Node
             return;
         }
 
+        boost::optional<std::string> newUserName;
         boost::optional<std::string> password;
         boost::optional<bool> enabled;
-        if (!json_util::readJson(req, res, "Password", password, "Enabled",
+        boost::optional<std::string> roleId;
+        if (!json_util::readJson(req, res, "UserName", newUserName, "Password",
+                                 password, "RoleId", roleId, "Enabled",
                                  enabled))
         {
             return;
         }
 
+        std::shared_ptr<std::string> username =
+            std::make_shared<std::string>(params[0]);
         // Check the user exists before updating the fields
         checkDbusPathExists(
-            "/xyz/openbmc_project/users/" + params[0],
-            [username{std::string(params[0])}, password(std::move(password)),
+            "/xyz/openbmc_project/user/" + params[0],
+            [username, newUserName(std::move(newUserName)),
+             password(std::move(password)), roleId(std::move(roleId)),
              enabled(std::move(enabled)), asyncResp](bool userExists) {
                 if (!userExists)
                 {
                     messages::resourceNotFound(
                         asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
-                        username);
+                        *username);
                     return;
+                }
+
+                if (newUserName)
+                {
+                    // Rename user: This makes dbus object change internally
+                    if (*username != *newUserName)
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            [asyncResp, username, password(std::move(password)),
+                             roleId(std::move(roleId)),
+                             enabled(std::move(enabled)),
+                             newUser{std::string(*newUserName)}](
+                                const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "D-Bus responses error: " << ec;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                // Update username as remaining properties works
+                                // with new object.
+                                *username = newUser;
+
+                                if (password)
+                                {
+                                    if (!pamUpdatePassword(*username,
+                                                           *password))
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "pamUpdatePassword Failed";
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
+                                }
+
+                                if (enabled)
+                                {
+                                    crow::connections::systemBus
+                                        ->async_method_call(
+                                            [asyncResp](
+                                                const boost::system::error_code
+                                                    ec) {
+                                                if (ec)
+                                                {
+                                                    BMCWEB_LOG_ERROR
+                                                        << "D-Bus responses "
+                                                           "error: "
+                                                        << ec;
+                                                    messages::internalError(
+                                                        asyncResp->res);
+                                                    return;
+                                                }
+                                                messages::success(
+                                                    asyncResp->res);
+                                                return;
+                                            },
+                                            "xyz.openbmc_project.User.Manager",
+                                            "/xyz/openbmc_project/user/" +
+                                                *username,
+                                            "org.freedesktop.DBus.Properties",
+                                            "Set",
+                                            "xyz.openbmc_project.User."
+                                            "Attributes",
+                                            "UserEnabled",
+                                            sdbusplus::message::variant<bool>{
+                                                *enabled});
+                                }
+
+                                if (roleId)
+                                {
+                                    const char* priv =
+                                        getRoleIdFromPrivilege(*roleId);
+                                    if (priv == nullptr)
+                                    {
+                                        messages::propertyValueNotInList(
+                                            asyncResp->res, *roleId, "RoleId");
+                                        return;
+                                    }
+
+                                    crow::connections::systemBus
+                                        ->async_method_call(
+                                            [asyncResp](
+                                                const boost::system::error_code
+                                                    ec) {
+                                                if (ec)
+                                                {
+                                                    BMCWEB_LOG_ERROR
+                                                        << "D-Bus responses "
+                                                           "error: "
+                                                        << ec;
+                                                    messages::internalError(
+                                                        asyncResp->res);
+                                                    return;
+                                                }
+                                                messages::success(
+                                                    asyncResp->res);
+                                                return;
+                                            },
+                                            "xyz.openbmc_project.User.Manager",
+                                            "/xyz/openbmc_project/user/" +
+                                                *username,
+                                            "org.freedesktop.DBus.Properties",
+                                            "Set",
+                                            "xyz.openbmc_project.User."
+                                            "Attributes",
+                                            "UserPrivilege",
+                                            sdbusplus::message::variant<
+                                                std::string>{
+                                                static_cast<std::string>(
+                                                    priv)});
+                                }
+                                return;
+                            },
+                            "xyz.openbmc_project.User.Manager",
+                            "/xyz/openbmc_project/user",
+                            "xyz.openbmc_project.User.Manager", "RenameUser",
+                            *username, *newUserName);
+
+                        return; // All done, lets return here.
+                    }
                 }
 
                 if (password)
                 {
-                    if (!pamUpdatePassword(username, *password))
+                    if (!pamUpdatePassword(*username, *password))
                     {
                         BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
                         messages::internalError(asyncResp->res);
@@ -416,17 +595,44 @@ class ManagerAccount : public Node
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            // TODO Consider support polling mechanism to
-                            // verify status of host and chassis after
-                            // execute the requested action.
                             messages::success(asyncResp->res);
+                            return;
                         },
                         "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/users/" + username,
+                        "/xyz/openbmc_project/user/" + *username,
                         "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.User.Attributes"
-                        "UserEnabled",
+                        "xyz.openbmc_project.User.Attributes", "UserEnabled",
                         sdbusplus::message::variant<bool>{*enabled});
+                }
+
+                if (roleId)
+                {
+                    const char* priv = getRoleIdFromPrivilege(*roleId);
+                    if (priv == nullptr)
+                    {
+                        messages::propertyValueNotInList(asyncResp->res,
+                                                         *roleId, "RoleId");
+                        return;
+                    }
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                            return;
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        "/xyz/openbmc_project/user/" + *username,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.Attributes", "UserPrivilege",
+                        sdbusplus::message::variant<std::string>{
+                            static_cast<std::string>(priv)});
                 }
             });
     }
