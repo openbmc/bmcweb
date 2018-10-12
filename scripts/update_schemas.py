@@ -8,6 +8,7 @@ from collections import OrderedDict
 from distutils.version import StrictVersion
 import shutil
 import json
+import glob
 
 import xml.etree.ElementTree as ET
 
@@ -34,7 +35,9 @@ zip_ref = zipfile.ZipFile(zipBytesIO)
 
 # Remove the old files
 if os.path.exists(schema_path):
-    shutil.rmtree(schema_path)
+    files = glob.glob(os.path.join(schema_path, '[!Oem]*'))
+    for f in files:
+        os.remove(f)
 if os.path.exists(json_schema_path):
     files = glob.glob(os.path.join(json_schema_path, '[!Oem]*'))
     for f in files:

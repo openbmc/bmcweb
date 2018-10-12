@@ -287,26 +287,20 @@ class Manager : public Node
   public:
     Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/bmc/")
     {
-        Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc";
+        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc";
         Node::json["@odata.type"] = "#Manager.v1_3_0.Manager";
         Node::json["@odata.context"] = "/redfish/v1/$metadata#Manager.Manager";
-        Node::json["Id"] = "openbmc";
+        Node::json["Id"] = "bmc";
         Node::json["Name"] = "OpenBmc Manager";
         Node::json["Description"] = "Baseboard Management Controller";
         Node::json["PowerState"] = "On";
+        Node::json["ManagerType"] = "BMC";
         Node::json["UUID"] =
             app.template getMiddleware<crow::persistent_data::Middleware>()
                 .systemUuid;
-        Node::json["Model"] = "OpenBmc";              // TODO(ed), get model
-        Node::json["FirmwareVersion"] = "1234456789"; // TODO(ed), get fwversion
-        Node::json["EthernetInterfaces"] = nlohmann::json(
-            {{"@odata.id", "/redfish/v1/Managers/openbmc/"
-                           "EthernetInterfaces"}}); // TODO(Pawel),
-                                                    // remove this
-                                                    // when
-                                                    // subroutes
-                                                    // will work
-                                                    // correctly
+        Node::json["Model"] = "OpenBmc"; // TODO(ed), get model
+        Node::json["EthernetInterfaces"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -392,7 +386,8 @@ class Manager : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue = Node::json;
 
-        res.jsonValue["DateTime"] = getDateTime();
+        Node::json["DateTime"] = getDateTime();
+        res.jsonValue = Node::json;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -475,8 +470,7 @@ class ManagerCollection : public Node
             "/redfish/v1/$metadata#ManagerCollection.ManagerCollection";
         Node::json["Name"] = "Manager Collection";
         Node::json["Members@odata.count"] = 1;
-        Node::json["Members"] = {
-            {{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
+        Node::json["Members"] = {{{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -500,7 +494,7 @@ class ManagerCollection : public Node
         res.jsonValue["Name"] = "Manager Collection";
         res.jsonValue["Members@odata.count"] = 1;
         res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Managers/openbmc"}}};
+            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
         res.end();
     }
 };
