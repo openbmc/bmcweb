@@ -7,6 +7,7 @@
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
 #include <memory>
+#include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data_middleware.hpp>
 #include <redfish.hpp>
@@ -88,6 +89,10 @@ int main(int argc, char** argv)
     crow::dbus_monitor::requestRoutes(app);
     crow::image_upload::requestRoutes(app);
     crow::openbmc_mapper::requestRoutes(app);
+#endif
+
+#ifdef BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
+    crow::obmc_console::requestRoutes(app);
 #endif
 
     crow::token_authorization::requestRoutes(app);
