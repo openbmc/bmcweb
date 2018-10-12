@@ -57,7 +57,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
     // In certain cases, we might have both a gzipped version of the file AND a
     // non-gzipped version.  To avoid duplicated routes, we need to make sure we
     // get the gzipped version first.  Because the gzipped path should be longer
-    // than the non gzipped path, if we sort in Ascending order, we should be
+    // than the non gzipped path, if we sort in descending order, we should be
     // guaranteed to get the gzip version first.
     std::vector<filesystem::directory_entry> paths(filesystem::begin(dirIter),
                                                    filesystem::end(dirIter));
