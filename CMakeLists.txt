@@ -23,7 +23,7 @@ option (
     "Enable CPU log service transactions through redfish" OFF
 )
 
-# Insecure options.Every option that starts with a BMCWEB_INSECURE flag should
+# Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
 # comprehends the implications of doing so.  In general, enabling these options
 # will cause security problems of varying degrees
