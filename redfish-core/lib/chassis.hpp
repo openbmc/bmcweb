@@ -126,6 +126,7 @@ class Chassis : public Node
         Node::json["@odata.context"] = "/redfish/v1/$metadata#Chassis.Chassis";
         Node::json["Name"] = "Chassis Collection";
         Node::json["ChassisType"] = "RackMount";
+        Node::json["PowerState"] = "On";
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
