@@ -166,9 +166,9 @@ void findObjectManagerPathForEnumerate(
                 return;
             }
 
-            for (auto pathGroup : objects)
+            for (const auto &pathGroup : objects)
             {
-                for (auto connectionGroup : pathGroup.second)
+                for (const auto &connectionGroup : pathGroup.second)
                 {
                     if (connectionGroup.first == connection_name)
                     {
