@@ -67,6 +67,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
             std::make_unique<VlanNetworkInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
         nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
@@ -81,7 +82,6 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
-        nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
 
         for (auto& node : nodes)
         {

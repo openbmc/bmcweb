@@ -338,8 +338,8 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)},
-         callback{std::move(callback)}](const boost::system::error_code &ec,
-                                        const ManagedObjectsType &resp) {
+         &callback](const boost::system::error_code &ec,
+                    const ManagedObjectsType &resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -603,7 +603,6 @@ class SystemActionsReset : public Node
                         messages::actionParameterValueFormatError(
                             item.value().dump(), "ResetType",
                             "ComputerSystem.Reset"));
-                    res.end();
                     return;
                 }
 
@@ -632,7 +631,6 @@ class SystemActionsReset : public Node
                         "/xyz/openbmc_project/state/chassis0",
                         "org.freedesktop.DBus.Properties", "Set",
                         "RequestedPowerTransition",
-                        "xyz.openbmc_project.State.Chassis",
                         sdbusplus::message::variant<std::string>{
                             "xyz.openbmc_project.State.Chassis.Transition."
                             "Off"});
@@ -661,7 +659,6 @@ class SystemActionsReset : public Node
                         asyncResp->res.jsonValue,
                         messages::actionParameterUnknown("Reset",
                                                          *reqResetType));
-                    res.end();
                     return;
                 }
 
@@ -684,7 +681,7 @@ class SystemActionsReset : public Node
                     "xyz.openbmc_project.State.Host",
                     "/xyz/openbmc_project/state/host0",
                     "org.freedesktop.DBus.Properties", "Set",
-                    "RequestedHostTransition", "xyz.openbmc_project.State.Host",
+                    "RequestedHostTransition",
                     sdbusplus::message::variant<std::string>{command});
             }
             else

@@ -21,6 +21,7 @@
 
 namespace redfish
 {
+
 static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
 class UpdateService : public Node
