@@ -23,14 +23,13 @@
 namespace redfish
 {
 
-constexpr char const *CPU_LOG_OBJECT = "com.intel.CpuDebugLog";
-constexpr char const *CPU_LOG_PATH = "/com/intel/CpuDebugLog";
-constexpr char const *CPU_LOG_IMMEDIATE_PATH =
-    "/com/intel/CpuDebugLog/Immediate";
-constexpr char const *CPU_LOG_INTERFACE = "com.intel.CpuDebugLog";
-constexpr char const *CPU_LOG_IMMEDIATE_INTERFACE =
+constexpr char const *cpuLogObject = "com.intel.CpuDebugLog";
+constexpr char const *cpuLogPath = "/com/intel/CpuDebugLog";
+constexpr char const *cpuLogImmediatePath = "/com/intel/CpuDebugLog/Immediate";
+constexpr char const *cpuLogInterface = "com.intel.CpuDebugLog";
+constexpr char const *cpuLogImmediateInterface =
     "com.intel.CpuDebugLog.Immediate";
-constexpr char const *CPU_LOG_RAW_PECI_INTERFACE =
+constexpr char const *cpuLogRawPeciInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
 
 namespace fs = std::experimental::filesystem;
@@ -40,11 +39,11 @@ class LogServiceCollection : public Node
   public:
     template <typename CrowApp>
     LogServiceCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/openbmc/LogServices/")
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/")
     {
         // Collections use static ID for SubRoute to add to its parent, but only
         // load dynamic data so the duplicate static members don't get displayed
-        Node::json["@odata.id"] = "/redfish/v1/Managers/openbmc/LogServices";
+        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
@@ -68,7 +67,7 @@ class LogServiceCollection : public Node
         res.jsonValue["@odata.context"] =
             "/redfish/v1/"
             "$metadata#LogServiceCollection.LogServiceCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/openbmc/LogServices";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices";
         res.jsonValue["Name"] = "Open BMC Log Services Collection";
         res.jsonValue["Description"] =
             "Collection of LogServices for this Manager";
@@ -76,7 +75,7 @@ class LogServiceCollection : public Node
         logserviceArray = nlohmann::json::array();
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logserviceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/openbmc/LogServices/CpuLog"}});
+            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/CpuLog"}});
 #endif
         res.jsonValue["Members@odata.count"] = logserviceArray.size();
         res.end();
@@ -88,11 +87,10 @@ class CpuLogService : public Node
   public:
     template <typename CrowApp>
     CpuLogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog")
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog")
     {
         // Set the id for SubRoute
-        Node::json["@odata.id"] =
-            "/redfish/v1/Managers/openbmc/LogServices/CpuLog";
+        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/CpuLog";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
@@ -123,14 +121,14 @@ class CpuLogService : public Node
             {"Oem",
              {{"#CpuLog.Immediate",
                {{"target",
-                 "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
+                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
                  "CpuLog.Immediate"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         res.jsonValue["Actions"]["Oem"].push_back(
             {"#CpuLog.SendRawPeci",
              {{"target",
-               "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
+               "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
                "CpuLog.SendRawPeci"}}});
 #endif
         res.end();
@@ -142,12 +140,12 @@ class CpuLogEntryCollection : public Node
   public:
     template <typename CrowApp>
     CpuLogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries")
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries")
     {
         // Collections use static ID for SubRoute to add to its parent, but only
         // load dynamic data so the duplicate static members don't get displayed
         Node::json["@odata.id"] =
-            "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries";
+            "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
@@ -189,25 +187,25 @@ class CpuLogEntryCollection : public Node
                     "$metadata#LogEntryCollection.LogEntryCollection";
                 res.jsonValue["Name"] = "Open BMC CPU Log Entries";
                 res.jsonValue["Description"] = "Collection of CPU Log Entries";
-                nlohmann::json &logentry_array = res.jsonValue["Members"];
-                logentry_array = nlohmann::json::array();
+                nlohmann::json &logentryArray = res.jsonValue["Members"];
+                logentryArray = nlohmann::json::array();
                 for (const std::string &objpath : resp)
                 {
                     // Don't list the immediate log
-                    if (objpath.compare(CPU_LOG_IMMEDIATE_PATH) == 0)
+                    if (objpath.compare(cpuLogImmediatePath) == 0)
                     {
                         continue;
                     }
-                    std::size_t last_pos = objpath.rfind("/");
-                    if (last_pos != std::string::npos)
+                    std::size_t lastPos = objpath.rfind("/");
+                    if (lastPos != std::string::npos)
                     {
-                        logentry_array.push_back(
-                            {{"@odata.id", "/redfish/v1/Managers/openbmc/"
+                        logentryArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Managers/bmc/"
                                            "LogServices/CpuLog/Entries/" +
-                                               objpath.substr(last_pos + 1)}});
+                                               objpath.substr(lastPos + 1)}});
                     }
                 }
-                res.jsonValue["Members@odata.count"] = logentry_array.size();
+                res.jsonValue["Members@odata.count"] = logentryArray.size();
                 res.end();
             };
         crow::connections::systemBus->async_method_call(
@@ -215,7 +213,7 @@ class CpuLogEntryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "", 0,
-            std::array<const char *, 1>{CPU_LOG_INTERFACE});
+            std::array<const char *, 1>{cpuLogInterface});
     }
 };
 
@@ -243,8 +241,7 @@ class CpuLogEntry : public Node
 {
   public:
     CpuLogEntry(CrowApp &app) :
-        Node(app,
-             "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries/<str>/",
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -266,11 +263,11 @@ class CpuLogEntry : public Node
             res.end();
             return;
         }
-        const uint8_t log_id = std::atoi(params[0].c_str());
+        const uint8_t logId = std::atoi(params[0].c_str());
         auto getStoredLogCallback = [&res,
-                                     log_id](const boost::system::error_code ec,
-                                             const sdbusplus::message::variant<
-                                                 std::string> &resp) {
+                                     logId](const boost::system::error_code ec,
+                                            const sdbusplus::message::variant<
+                                                std::string> &resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
@@ -297,10 +294,10 @@ class CpuLogEntry : public Node
                 {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
                 {"@odata.id",
-                 "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Entries/" +
-                     std::to_string(log_id)},
+                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/" +
+                     std::to_string(logId)},
                 {"Name", "CPU Debug Log"},
-                {"Id", log_id},
+                {"Id", logId},
                 {"EntryType", "Oem"},
                 {"OemRecordFormat", "Intel CPU Log"},
                 {"Oem", {{"Intel", std::move(j)}}},
@@ -308,9 +305,9 @@ class CpuLogEntry : public Node
             res.end();
         };
         crow::connections::systemBus->async_method_call(
-            std::move(getStoredLogCallback), CPU_LOG_OBJECT,
-            CPU_LOG_PATH + std::string("/") + std::to_string(log_id),
-            "org.freedesktop.DBus.Properties", "Get", CPU_LOG_INTERFACE, "Log");
+            std::move(getStoredLogCallback), cpuLogObject,
+            cpuLogPath + std::string("/") + std::to_string(logId),
+            "org.freedesktop.DBus.Properties", "Get", cpuLogInterface, "Log");
     }
 };
 
@@ -318,7 +315,7 @@ class ImmediateCpuLog : public Node
 {
   public:
     ImmediateCpuLog(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
                   "CpuLog.Immediate")
     {
         entityPrivileges = {
@@ -379,15 +376,15 @@ class ImmediateCpuLog : public Node
             {
                 BMCWEB_LOG_ERROR << "error canceling timer " << ec;
             }
-            sdbusplus::message::object_path obj_path;
+            sdbusplus::message::object_path objPath;
             boost::container::flat_map<
                 std::string,
                 boost::container::flat_map<
                     std::string, sdbusplus::message::variant<std::string>>>
-                interfaces_added;
-            m.read(obj_path, interfaces_added);
+                interfacesAdded;
+            m.read(objPath, interfacesAdded);
             const std::string *log = mapbox::getPtr<const std::string>(
-                interfaces_added[CPU_LOG_INTERFACE]["Log"]);
+                interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
                 res.result(boost::beast::http::status::internal_server_error);
@@ -433,8 +430,7 @@ class ImmediateCpuLog : public Node
         immediateLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
             *crow::connections::systemBus,
             sdbusplus::bus::match::rules::interfacesAdded() +
-                sdbusplus::bus::match::rules::argNpath(0,
-                                                       CPU_LOG_IMMEDIATE_PATH),
+                sdbusplus::bus::match::rules::argNpath(0, cpuLogImmediatePath),
             std::move(immediateLogMatcherCallback));
 
         auto generateImmediateLogCallback =
@@ -469,8 +465,8 @@ class ImmediateCpuLog : public Node
                 }
             };
         crow::connections::systemBus->async_method_call(
-            std::move(generateImmediateLogCallback), CPU_LOG_OBJECT,
-            CPU_LOG_PATH, CPU_LOG_IMMEDIATE_INTERFACE, "GenerateImmediateLog");
+            std::move(generateImmediateLogCallback), cpuLogObject, cpuLogPath,
+            cpuLogImmediateInterface, "GenerateImmediateLog");
     }
 };
 
@@ -478,7 +474,7 @@ class SendRawPeci : public Node
 {
   public:
     SendRawPeci(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/openbmc/LogServices/CpuLog/Actions/Oem/"
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
                   "CpuLog.SendRawPeci")
     {
         entityPrivileges = {
@@ -592,9 +588,9 @@ class SendRawPeci : public Node
         };
         // Call the SendRawPECI command with the provided data
         crow::connections::systemBus->async_method_call(
-            std::move(sendRawPeciCallback), CPU_LOG_OBJECT, CPU_LOG_PATH,
-            CPU_LOG_RAW_PECI_INTERFACE, "SendRawPeci", clientAddress,
-            readLength, peciCommand);
+            std::move(sendRawPeciCallback), cpuLogObject, cpuLogPath,
+            cpuLogRawPeciInterface, "SendRawPeci", clientAddress, readLength,
+            peciCommand);
     }
 };
 
