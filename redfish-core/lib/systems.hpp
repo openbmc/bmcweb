@@ -603,8 +603,8 @@ class SystemActionsReset : public Node
                     // status of host and chassis after execute the
                     // requested action.
                     BMCWEB_LOG_DEBUG << "Response with no content";
-                    asyncResp->res.result(
-                        boost::beast::http::status::no_content);
+                    messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                                   messages::success());
                 },
                 "xyz.openbmc_project.State.Chassis",
                 "/xyz/openbmc_project/state/chassis0",
@@ -651,7 +651,8 @@ class SystemActionsReset : public Node
                 // status of host and chassis after execute the
                 // requested action.
                 BMCWEB_LOG_DEBUG << "Response with no content";
-                asyncResp->res.result(boost::beast::http::status::no_content);
+                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                               messages::success());
             },
             "xyz.openbmc_project.State.Host",
             "/xyz/openbmc_project/state/host0",
