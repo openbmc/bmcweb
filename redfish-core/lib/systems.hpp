@@ -15,9 +15,8 @@
 */
 #pragma once
 
-#include "boost/container/flat_map.hpp"
-#include "node.hpp"
-
+#include <boost/container/flat_map.hpp>
+#include <node.hpp>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -338,8 +337,8 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)},
-         callback{std::move(callback)}](const boost::system::error_code &ec,
-                                        const ManagedObjectsType &resp) {
+         &callback](const boost::system::error_code &ec,
+                    const ManagedObjectsType &resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -580,121 +579,87 @@ class SystemActionsReset : public Node
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
-        // Parse JSON request body.
-        nlohmann::json post;
-        if (!json_util::processJsonFromRequest(res, req, post))
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::string resetType;
+        if (!json_util::readJson(req, res, "ResetType", resetType))
         {
             return;
         }
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
-        for (const auto &item : post.items())
+        if (resetType == "ForceOff")
         {
-            if (item.key() == "ResetType")
-            {
-                const std::string *reqResetType =
-                    item.value().get_ptr<const std::string *>();
-                if (reqResetType == nullptr)
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::actionParameterValueFormatError(
-                            item.value().dump(), "ResetType",
-                            "ComputerSystem.Reset"));
-                    res.end();
-                    return;
-                }
-
-                if (*reqResetType == "ForceOff")
-                {
-                    // Force off acts on the chassis
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
-                                                 << ec;
-                                asyncResp->res.result(
-                                    boost::beast::http::status::
-                                        internal_server_error);
-                                return;
-                            }
-                            // TODO Consider support polling mechanism to verify
-                            // status of host and chassis after execute the
-                            // requested action.
-                            BMCWEB_LOG_DEBUG << "Response with no content";
-                            asyncResp->res.result(
-                                boost::beast::http::status::no_content);
-                        },
-                        "xyz.openbmc_project.State.Chassis",
-                        "/xyz/openbmc_project/state/chassis0",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "RequestedPowerTransition",
-                        "xyz.openbmc_project.State.Chassis",
-                        sdbusplus::message::variant<std::string>{
-                            "xyz.openbmc_project.State.Chassis.Transition."
-                            "Off"});
-                    return;
-                }
-                // all other actions operate on the host
-                std::string command;
-                // Execute Reset Action regarding to each reset type.
-                if (*reqResetType == "On")
-                {
-                    command = "xyz.openbmc_project.State.Host.Transition.On";
-                }
-                else if (*reqResetType == "GracefulShutdown")
-                {
-                    command = "xyz.openbmc_project.State.Host.Transition.Off";
-                }
-                else if (*reqResetType == "GracefulRestart")
-                {
-                    command =
-                        "xyz.openbmc_project.State.Host.Transition.Reboot";
-                }
-                else
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::actionParameterUnknown("Reset",
-                                                         *reqResetType));
-                    res.end();
-                    return;
-                }
-
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp](const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                            asyncResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
-                            return;
-                        }
-                        // TODO Consider support polling mechanism to verify
-                        // status of host and chassis after execute the
-                        // requested action.
-                        BMCWEB_LOG_DEBUG << "Response with no content";
+            // Force off acts on the chassis
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
                         asyncResp->res.result(
-                            boost::beast::http::status::no_content);
-                    },
-                    "xyz.openbmc_project.State.Host",
-                    "/xyz/openbmc_project/state/host0",
-                    "org.freedesktop.DBus.Properties", "Set",
-                    "RequestedHostTransition", "xyz.openbmc_project.State.Host",
-                    sdbusplus::message::variant<std::string>{command});
-            }
-            else
-            {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::actionParameterUnknown("ComputerSystem.Reset",
-                                                     item.key()));
-            }
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
+                    // TODO Consider support polling mechanism to verify
+                    // status of host and chassis after execute the
+                    // requested action.
+                    BMCWEB_LOG_DEBUG << "Response with no content";
+                    messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                                   messages::success());
+                },
+                "xyz.openbmc_project.State.Chassis",
+                "/xyz/openbmc_project/state/chassis0",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
+                sdbusplus::message::variant<std::string>{
+                    "xyz.openbmc_project.State.Chassis.Transition."
+                    "Off"});
+            return;
         }
+        // all other actions operate on the host
+        std::string command;
+        // Execute Reset Action regarding to each reset type.
+        if (resetType == "On")
+        {
+            command = "xyz.openbmc_project.State.Host.Transition.On";
+        }
+        else if (resetType == "GracefulShutdown")
+        {
+            command = "xyz.openbmc_project.State.Host.Transition.Off";
+        }
+        else if (resetType == "GracefulRestart")
+        {
+            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+        }
+        else
+        {
+            res.result(boost::beast::http::status::bad_request);
+            messages::addMessageToErrorJson(
+                asyncResp->res.jsonValue,
+                messages::actionParameterUnknown("Reset", resetType));
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    return;
+                }
+                // TODO Consider support polling mechanism to verify
+                // status of host and chassis after execute the
+                // requested action.
+                BMCWEB_LOG_DEBUG << "Response with no content";
+                messages::addMessageToJsonRoot(asyncResp->res.jsonValue,
+                                               messages::success());
+            },
+            "xyz.openbmc_project.State.Host",
+            "/xyz/openbmc_project/state/host0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+            sdbusplus::message::variant<std::string>{command});
     }
 };
 
@@ -805,114 +770,91 @@ class Systems : public Node
             res.result(boost::beast::http::status::internal_server_error);
             return;
         }
-        // Parse JSON request body
-        nlohmann::json patch;
-        if (!json_util::processJsonFromRequest(res, req, patch))
-        {
-            return;
-        }
 
         const std::string &name = params[0];
 
         res.jsonValue = Node::json;
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
-        for (const auto &item : patch.items())
+        std::string indicatorLedTemp;
+        boost::optional<std::string> indicatorLed = indicatorLedTemp;
+        if (!json_util::readJson(req, res, "IndicatorLed", indicatorLed))
         {
-            if (item.key() == "IndicatorLed")
+            return;
+        }
+
+        if (indicatorLed)
+        {
+            std::string dbusLedState;
+            if (*indicatorLed == "On")
             {
-                const std::string *reqLedState =
-                    item.value().get_ptr<const std::string *>();
-                if (reqLedState == nullptr)
-                {
-                    messages::addMessageToErrorJson(
-                        asyncResp->res.jsonValue,
-                        messages::propertyValueFormatError(item.value().dump(),
-                                                           item.key()));
-                    return;
-                }
-
-                // Verify key value
-                std::string dbusLedState;
-                if (*reqLedState == "On")
-                {
-                    dbusLedState =
-                        "xyz.openbmc_project.Led.Physical.Action.Lit";
-                }
-                else if (*reqLedState == "Blink")
-                {
-                    dbusLedState =
-                        "xyz.openbmc_project.Led.Physical.Action.Blinking";
-                }
-                else if (*reqLedState == "Off")
-                {
-                    dbusLedState =
-                        "xyz.openbmc_project.Led.Physical.Action.Off";
-                }
-                else
-                {
-                    messages::addMessageToJsonRoot(
-                        res.jsonValue, messages::propertyValueNotInList(
-                                           *reqLedState, "IndicatorLED"));
-                    return;
-                }
-
-                getHostState(asyncResp);
-                getComputerSystem(asyncResp, name);
-
-                // Update led group
-                BMCWEB_LOG_DEBUG << "Update led group.";
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp{std::move(asyncResp)}](
-                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                            asyncResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
-                            return;
-                        }
-                        BMCWEB_LOG_DEBUG << "Led group update done.";
-                    },
-                    "xyz.openbmc_project.LED.GroupManager",
-                    "/xyz/openbmc_project/led/groups/enclosure_identify",
-                    "org.freedesktop.DBus.Properties", "Set",
-                    "xyz.openbmc_project.Led.Group", "Asserted",
-                    sdbusplus::message::variant<bool>(
-                        (dbusLedState ==
-                                 "xyz.openbmc_project.Led.Physical.Action.Off"
-                             ? false
-                             : true)));
-                // Update identify led status
-                BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
-                crow::connections::systemBus->async_method_call(
-                    [asyncResp{std::move(asyncResp)},
-                     reqLedState{std::move(*reqLedState)}](
-                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                            asyncResp->res.result(boost::beast::http::status::
-                                                      internal_server_error);
-                            return;
-                        }
-                        BMCWEB_LOG_DEBUG << "Led state update done.";
-                        asyncResp->res.jsonValue["IndicatorLED"] =
-                            std::move(reqLedState);
-                    },
-                    "xyz.openbmc_project.LED.Controller.identify",
-                    "/xyz/openbmc_project/led/physical/identify",
-                    "org.freedesktop.DBus.Properties", "Set",
-                    "xyz.openbmc_project.Led.Physical", "State",
-                    sdbusplus::message::variant<std::string>(dbusLedState));
+                dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Lit";
+            }
+            else if (*indicatorLed == "Blink")
+            {
+                dbusLedState =
+                    "xyz.openbmc_project.Led.Physical.Action.Blinking";
+            }
+            else if (*indicatorLed == "Off")
+            {
+                dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Off";
             }
             else
             {
-                messages::addMessageToErrorJson(
-                    asyncResp->res.jsonValue,
-                    messages::propertyNotWritable(item.key()));
+                messages::addMessageToJsonRoot(
+                    res.jsonValue, messages::propertyValueNotInList(
+                                       *indicatorLed, "IndicatorLED"));
                 return;
             }
+
+            getHostState(asyncResp);
+            getComputerSystem(asyncResp, name);
+
+            // Update led group
+            BMCWEB_LOG_DEBUG << "Update led group.";
+            crow::connections::systemBus->async_method_call(
+                [asyncResp{std::move(asyncResp)}](
+                    const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Led group update done.";
+                },
+                "xyz.openbmc_project.LED.GroupManager",
+                "/xyz/openbmc_project/led/groups/enclosure_identify",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                sdbusplus::message::variant<bool>(
+                    (dbusLedState ==
+                             "xyz.openbmc_project.Led.Physical.Action.Off"
+                         ? false
+                         : true)));
+            // Update identify led status
+            BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
+            crow::connections::systemBus->async_method_call(
+                [asyncResp{std::move(asyncResp)},
+                 indicatorLed{std::move(*indicatorLed)}](
+                    const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        return;
+                    }
+                    BMCWEB_LOG_DEBUG << "Led state update done.";
+                    asyncResp->res.jsonValue["IndicatorLED"] =
+                        std::move(indicatorLed);
+                },
+                "xyz.openbmc_project.LED.Controller.identify",
+                "/xyz/openbmc_project/led/physical/identify",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Led.Physical", "State",
+                sdbusplus::message::variant<std::string>(dbusLedState));
         }
     }
 };
