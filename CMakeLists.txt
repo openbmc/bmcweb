@@ -114,6 +114,7 @@ add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions (-DBOOST_ALL_NO_LIB)
 add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
+add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 
 find_package (Boost 1.66 REQUIRED)
 include_directories (${BOOST_SRC_DIR})
