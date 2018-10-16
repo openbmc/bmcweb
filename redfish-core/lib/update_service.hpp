@@ -70,7 +70,7 @@ class UpdateService : public Node
             "xyz.openbmc_project.Software.BMC.Updater", objPath,
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Software.Activation", "RequestedActivation",
-            sdbusplus::message::variant<std::string>(
+            std::variant<std::string>(
                 "xyz.openbmc_project.Software.Activation.RequestedActivations."
                 "Active"));
     }
@@ -128,8 +128,7 @@ class UpdateService : public Node
             }
             std::vector<std::pair<
                 std::string,
-                std::vector<std::pair<
-                    std::string, sdbusplus::message::variant<std::string>>>>>
+                std::vector<std::pair<std::string, std::variant<std::string>>>>>
                 interfacesProperties;
 
             sdbusplus::message::object_path objPath;
@@ -271,8 +270,7 @@ class SoftwareInventoryCollection : public Node
                                 }
 
                                 const std::string *swActivationStatus =
-                                    mapbox::getPtr<const std::string>(
-                                        activation);
+                                    std::get_if<std::string>(&activation);
                                 if (swActivationStatus == nullptr)
                                 {
                                     asyncResp->res.result(
@@ -420,7 +418,7 @@ class SoftwareInventory : public Node
                                 return;
                             }
                             const std::string *swInvPurpose =
-                                mapbox::getPtr<const std::string>(it->second);
+                                std::get_if<std::string>(&it->second);
                             if (swInvPurpose == nullptr)
                             {
                                 BMCWEB_LOG_DEBUG
@@ -447,7 +445,7 @@ class SoftwareInventory : public Node
                             BMCWEB_LOG_DEBUG << "Version found!";
 
                             const std::string *version =
-                                mapbox::getPtr<const std::string>(it->second);
+                                std::get_if<std::string>(&it->second);
 
                             if (version == nullptr)
                             {

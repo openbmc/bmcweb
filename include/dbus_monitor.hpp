@@ -9,12 +9,11 @@
 
 namespace nlohmann
 {
-template <typename... Args>
-struct adl_serializer<sdbusplus::message::variant<Args...>>
+template <typename... Args> struct adl_serializer<std::variant<Args...>>
 {
-    static void to_json(json& j, const sdbusplus::message::variant<Args...>& v)
+    static void to_json(json& j, const std::variant<Args...>& v)
     {
-        mapbox::util::apply_visitor([&](auto&& val) { j = val; }, v);
+        std::visit([&](auto&& val) { j = val; }, v);
     }
 };
 } // namespace nlohmann
@@ -51,8 +50,8 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         return 0;
     }
     sdbusplus::message::message message(m);
-    using VariantType = sdbusplus::message::variant<std::string, bool, int64_t,
-                                                    uint64_t, double>;
+    using VariantType =
+        std::variant<std::string, bool, int64_t, uint64_t, double>;
     nlohmann::json j{{"event", message.get_member()},
                      {"path", message.get_path()}};
     if (strcmp(message.get_member(), "PropertiesChanged") == 0)
