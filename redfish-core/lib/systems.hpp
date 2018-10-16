@@ -754,7 +754,7 @@ class Systems : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
         std::string indicatorLedTemp;
-        boost::optional<std::string> indicatorLed = indicatorLedTemp;
+        std::optional<std::string> indicatorLed = indicatorLedTemp;
         if (!json_util::readJson(req, res, "IndicatorLed", indicatorLed))
         {
             return;

@@ -48,8 +48,7 @@ template <typename Type> struct unpackValue
     using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
 };
 
-template <typename OptionalType>
-struct unpackValue<boost::optional<OptionalType>>
+template <typename OptionalType> struct unpackValue<std::optional<OptionalType>>
 {
     using isRequired = std::false_type;
     using JsonType = std::add_const_t<std::add_pointer_t<OptionalType>>;
