@@ -52,6 +52,7 @@ int main()
 
     FILE *fp = fopen("/tmp/screendata.bin", "wb");
     fwrite(out.buffer.data(), sizeof(char), out.buffer.size(), fp);
+    fclose(fp);
 
     ast_video::AstJpegDecoder d;
     d.decode(out.buffer, out.width, out.height, out.mode, out.ySelector,
