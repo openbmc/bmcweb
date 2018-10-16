@@ -32,7 +32,7 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-using SensorVariant = sdbusplus::message::variant<int64_t, double>;
+using SensorVariant = std::variant<int64_t, double>;
 
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
@@ -274,8 +274,7 @@ void objectInterfacesToJson(
     // If a scale exists, pull value as int64, and use the scaling.
     if (scaleIt != valueIt->second.end())
     {
-        const int64_t* int64Value =
-            mapbox::getPtr<const int64_t>(scaleIt->second);
+        const int64_t* int64Value = std::get_if<int64_t>(&scaleIt->second);
         if (int64Value != nullptr)
         {
             scaleMultiplier = *int64Value;
@@ -359,9 +358,9 @@ void objectInterfacesToJson(
                 nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
 
                 // Attempt to pull the int64 directly
-                const int64_t* int64Value =
-                    mapbox::getPtr<const int64_t>(valueVariant);
-
+                const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
+                const double* doubleValue = std::get_if<double>(&valueVariant);
+                double temp = 0.0;
                 if (int64Value != nullptr)
                 {
                     if (forceToInt || scaleMultiplier >= 0)
@@ -375,9 +374,6 @@ void objectInterfacesToJson(
                             std::pow(10, static_cast<double>(scaleMultiplier));
                     }
                 }
-                // Attempt to pull the float directly
-                const double* doubleValue =
-                    mapbox::getPtr<const double>(valueVariant);
 
                 if (doubleValue != nullptr)
                 {

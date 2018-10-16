@@ -26,8 +26,8 @@ namespace redfish
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string, boost::container::flat_map<
-                         std::string, sdbusplus::message::variant<bool>>>>>;
+        std::string,
+        boost::container::flat_map<std::string, std::variant<bool>>>>>;
 
 class AccountService : public Node
 {
@@ -331,8 +331,7 @@ class ManagerAccount : public Node
                                     if (property.first == "UserEnabled")
                                     {
                                         const bool* userEnabled =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            std::get_if<bool>(&property.second);
                                         if (userEnabled == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR
@@ -346,8 +345,7 @@ class ManagerAccount : public Node
                                              "UserLockedForFailedAttempt")
                                     {
                                         const bool* userLocked =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            std::get_if<bool>(&property.second);
                                         if (userLocked == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR
@@ -448,7 +446,7 @@ class ManagerAccount : public Node
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes"
                         "UserEnabled",
-                        sdbusplus::message::variant<bool>{*enabled});
+                        std::variant<bool>{*enabled});
                 }
             });
     }

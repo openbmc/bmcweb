@@ -92,7 +92,7 @@ static void asyncPopulatePid(const std::string& connection,
                         return;
                     }
                     const std::string* namePtr =
-                        mapbox::getPtr<const std::string>(findName->second);
+                        std::get_if<std::string>(&findName->second);
                     if (namePtr == nullptr)
                     {
                         BMCWEB_LOG_ERROR << "Pid Name Field illegal";
@@ -132,8 +132,8 @@ static void asyncPopulatePid(const std::string& connection,
                         // zones
                         if (intfPair.first == pidZoneConfigurationIface)
                         {
-                            const double* ptr = mapbox::getPtr<const double>(
-                                propertyPair.second);
+                            const double* ptr =
+                                std::get_if<double>(&propertyPair.second);
                             if (ptr == nullptr)
                             {
                                 BMCWEB_LOG_ERROR << "Field Illegal "
@@ -153,8 +153,8 @@ static void asyncPopulatePid(const std::string& connection,
                             auto findClass = intfPair.second.find("Class");
                             if (findClass != intfPair.second.end())
                             {
-                                classPtr = mapbox::getPtr<const std::string>(
-                                    findClass->second);
+                                classPtr = std::get_if<std::string>(
+                                    &findClass->second);
                             }
                             if (classPtr == nullptr)
                             {
@@ -196,9 +196,8 @@ static void asyncPopulatePid(const std::string& connection,
                             if (propertyPair.first == "Zones")
                             {
                                 const std::vector<std::string>* inputs =
-                                    mapbox::getPtr<
-                                        const std::vector<std::string>>(
-                                        propertyPair.second);
+                                    std::get_if<std::vector<std::string>>(
+                                        &propertyPair.second);
 
                                 if (inputs == nullptr)
                                 {
@@ -233,9 +232,8 @@ static void asyncPopulatePid(const std::string& connection,
                             {
                                 auto& data = element[propertyPair.first];
                                 const std::vector<std::string>* inputs =
-                                    mapbox::getPtr<
-                                        const std::vector<std::string>>(
-                                        propertyPair.second);
+                                    std::get_if<std::vector<std::string>>(
+                                        &propertyPair.second);
 
                                 if (inputs == nullptr)
                                 {
@@ -261,8 +259,7 @@ static void asyncPopulatePid(const std::string& connection,
                                      propertyPair.first == "SlewPos")
                             {
                                 const double* ptr =
-                                    mapbox::getPtr<const double>(
-                                        propertyPair.second);
+                                    std::get_if<double>(&propertyPair.second);
                                 if (ptr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
@@ -416,8 +413,8 @@ class Manager : public Node
                                 if (property.first == "Version")
                                 {
                                     const std::string* value =
-                                        mapbox::getPtr<const std::string>(
-                                            property.second);
+                                        std::get_if<std::string>(
+                                            &property.second);
                                     if (value == nullptr)
                                     {
                                         continue;

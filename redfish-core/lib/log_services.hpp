@@ -264,10 +264,9 @@ class CpuLogEntry : public Node
             return;
         }
         const uint8_t logId = std::atoi(params[0].c_str());
-        auto getStoredLogCallback = [&res,
-                                     logId](const boost::system::error_code ec,
-                                            const sdbusplus::message::variant<
-                                                std::string> &resp) {
+        auto getStoredLogCallback = [&res, logId](
+                                        const boost::system::error_code ec,
+                                        const std::variant<std::string> &resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
@@ -275,7 +274,7 @@ class CpuLogEntry : public Node
                 res.end();
                 return;
             }
-            const std::string *log = mapbox::getPtr<const std::string>(resp);
+            const std::string *log = std::get_if<std::string>(&resp);
             if (log == nullptr)
             {
                 res.result(boost::beast::http::status::internal_server_error);
@@ -378,13 +377,12 @@ class ImmediateCpuLog : public Node
             }
             sdbusplus::message::object_path objPath;
             boost::container::flat_map<
-                std::string,
-                boost::container::flat_map<
-                    std::string, sdbusplus::message::variant<std::string>>>
+                std::string, boost::container::flat_map<
+                                 std::string, std::variant<std::string>>>
                 interfacesAdded;
             m.read(objPath, interfacesAdded);
-            const std::string *log = mapbox::getPtr<const std::string>(
-                interfacesAdded[cpuLogInterface]["Log"]);
+            const std::string *log = std::get_if<std::string>(
+                &interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
                 res.result(boost::beast::http::status::internal_server_error);
