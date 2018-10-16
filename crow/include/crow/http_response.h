@@ -20,7 +20,7 @@ struct Response
     using response_type =
         boost::beast::http::response<boost::beast::http::string_body>;
 
-    boost::optional<response_type> stringResponse;
+    std::optional<response_type> stringResponse;
 
     nlohmann::json jsonValue;
 
