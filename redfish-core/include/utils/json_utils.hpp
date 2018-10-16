@@ -122,6 +122,35 @@ template <size_t Count, size_t Index, typename ValueType,
           typename... UnpackTypes>
 void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled,
+                    const char* keyToCheck, std::vector<ValueType>& valueToFill,
+                    UnpackTypes&... in)
+{
+    if (key != keyToCheck)
+    {
+        readJsonValues<Count, Index + 1>(key, jsonValue, res, handled, in...);
+        return;
+    }
+
+    handled.set(Index);
+
+    if (!jsonValue.is_array())
+    {
+        messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
+        return;
+    }
+
+    for (int jsonIndex = 0; jsonIndex < jsonValue.size(); jsonIndex++)
+    {
+        valueToFill.emplace_back();
+        unpackValue<ValueType>(jsonValue[jsonIndex], key, res,
+                               valueToFill.back());
+    }
+}
+
+template <size_t Count, size_t Index, typename ValueType,
+          typename... UnpackTypes>
+void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+                    crow::Response& res, std::bitset<Count>& handled,
                     const char* keyToCheck, ValueType& valueToFill,
                     UnpackTypes&... in)
 {

@@ -841,66 +841,16 @@ class SendRawPECI : public Node
                 const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        // Get the Raw PECI command from the request
-        nlohmann::json rawPECICmd;
-        if (!json_util::processJsonFromRequest(res, req, rawPECICmd))
-        {
-            return;
-        }
-        // Get the Client Address from the request
-        nlohmann::json::const_iterator caIt = rawPECICmd.find("ClientAddress");
-        if (caIt == rawPECICmd.end())
-        {
-            messages::propertyMissing(asyncResp->res, "ClientAddress",
-                                      "/ClientAddress");
-            return;
-        }
-        const uint64_t *ca = caIt->get_ptr<const uint64_t *>();
-        if (ca == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, caIt->dump(),
-                                             "ClientAddress", "/ClientAddress");
-            return;
-        }
-        // Get the Read Length from the request
-        const uint8_t clientAddress = static_cast<uint8_t>(*ca);
-        nlohmann::json::const_iterator rlIt = rawPECICmd.find("ReadLength");
-        if (rlIt == rawPECICmd.end())
-        {
-            messages::propertyMissing(asyncResp->res, "ReadLength",
-                                      "/ReadLength");
-            return;
-        }
-        const uint64_t *rl = rlIt->get_ptr<const uint64_t *>();
-        if (rl == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, rlIt->dump(),
-                                             "ReadLength", "/ReadLength");
-            return;
-        }
-        // Get the PECI Command from the request
-        const uint32_t readLength = static_cast<uint32_t>(*rl);
-        nlohmann::json::const_iterator pcIt = rawPECICmd.find("PECICommand");
-        if (pcIt == rawPECICmd.end())
-        {
-            messages::propertyMissing(asyncResp->res, "PECICommand",
-                                      "/PECICommand");
-            return;
-        }
+        uint8_t clientAddress = 0;
+        uint8_t readLength = 0;
         std::vector<uint8_t> peciCommand;
-        for (auto pc : *pcIt)
+        if (!json_util::readJson(req, res, "ClientAddress", clientAddress,
+                                 "ReadLength", readLength, "PECICommand",
+                                 peciCommand))
         {
-            const uint64_t *val = pc.get_ptr<const uint64_t *>();
-            if (val == nullptr)
-            {
-                messages::propertyValueTypeError(
-                    asyncResp->res, pc.dump(),
-                    "PECICommand/" + std::to_string(peciCommand.size()),
-                    "/PECICommand");
-                return;
-            }
-            peciCommand.push_back(static_cast<uint8_t>(*val));
+            return;
         }
+
         // Callback to return the Raw PECI response
         auto sendRawPECICallback =
             [asyncResp](const boost::system::error_code ec,
