@@ -55,6 +55,16 @@ struct is_optional<boost::optional<Type>> : std::true_type
 template <typename Type>
 constexpr bool is_optional_v = is_optional<Type>::value;
 
+template <typename Type> struct is_vector : std::false_type
+{
+};
+
+template <typename Type> struct is_vector<std::vector<Type>> : std::true_type
+{
+};
+
+template <typename Type> constexpr bool is_vector_v = is_vector<Type>::value;
+
 template <typename Type>
 void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
@@ -93,6 +103,21 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
     {
         value.emplace();
         unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+    }
+    else if constexpr (is_vector_v<Type>)
+    {
+        if (!jsonValue.is_array())
+        {
+            messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
+            return;
+        }
+
+        for (const auto& val : jsonValue.items())
+        {
+            value.emplace_back();
+            unpackValue<typename Type::value_type>(val.value(), key, res,
+                                                   value.back());
+        }
     }
     else
     {
