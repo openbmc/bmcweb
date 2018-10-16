@@ -344,7 +344,7 @@ class QueryString
         return *this;
     }
 
-    explicit QueryString(std::string url) : url(std::move(url))
+    explicit QueryString(std::string newUrl) : url(std::move(newUrl))
     {
         if (url.empty())
         {

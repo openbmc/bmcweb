@@ -505,7 +505,7 @@ class Connection
                 std::size_t index = req->url.find("?");
                 if (index != boost::string_view::npos)
                 {
-                    req->url = req->url.substr(0, index - 1);
+                    req->url = req->url.substr(0, index);
                 }
                 req->urlParams = QueryString(std::string(req->target()));
                 doRead();
