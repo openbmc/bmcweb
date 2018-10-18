@@ -6,6 +6,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <sdbusplus/bus/match.hpp>
+#include <sdbusplus/message/types.hpp>
 
 namespace nlohmann
 {
@@ -14,7 +15,7 @@ struct adl_serializer<sdbusplus::message::variant<Args...>>
 {
     static void to_json(json& j, const sdbusplus::message::variant<Args...>& v)
     {
-        mapbox::util::apply_visitor([&](auto&& val) { j = val; }, v);
+        sdbusplus::message::variant_ns::visit([&](auto&& val) { j = val; }, v);
     }
 };
 } // namespace nlohmann
