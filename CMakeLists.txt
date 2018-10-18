@@ -5,7 +5,7 @@ cmake_policy (SET CMP0054 NEW)
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 option (BUILD_STATIC_LIBS "Built static libraries" ON)
-option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
+option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" ON)
 
 option (BMCWEB_ENABLE_KVM "Enable KVM websocket interfaces" ON)
 option (BMCWEB_ENABLE_DBUS_REST "Enable rest dbus interfaces" ON)
@@ -42,7 +42,7 @@ project (bmc-webserver CXX)
 
 include (CTest)
 
-set (CMAKE_CXX_STANDARD 14)
+set (CMAKE_CXX_STANDARD 17)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)

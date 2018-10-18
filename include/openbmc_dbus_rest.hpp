@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <experimental/filesystem>
 #include <fstream>
+#include <sdbusplus/message/types.hpp>
 
 namespace crow
 {
@@ -126,7 +127,7 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
                         {
                             nlohmann::json &propertyJson =
                                 objectJson[property.first];
-                            mapbox::util::apply_visitor(
+                            sdbusplus::message::variant_ns::visit(
                                 [&propertyJson](auto &&val) {
                                     propertyJson = val;
                                 },
@@ -860,7 +861,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
 
                                     if (propertyName->empty())
                                     {
-                                        mapbox::util::apply_visitor(
+                                        sdbusplus::message::variant_ns::visit(
                                             [&response, &property](auto &&val) {
                                                 (*response)[property.first] =
                                                     val;
@@ -869,7 +870,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
                                     }
                                     else if (property.first == *propertyName)
                                     {
-                                        mapbox::util::apply_visitor(
+                                        sdbusplus::message::variant_ns::visit(
                                             [&response](auto &&val) {
                                                 (*response) = val;
                                             },
