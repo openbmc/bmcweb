@@ -17,6 +17,7 @@
 
 #include "../lib/account_service.hpp"
 #include "../lib/chassis.hpp"
+#include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
@@ -81,6 +82,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SendRawPECI>(app));
 #endif // BMCWEB_ENABLE_REDFISH_RAW_PECI
 #endif // BMCWEB_ENABLE_REDFISH_CPU_LOG
+
+        nodes.emplace_back(std::make_unique<ProcessorCollection>(app));
+        nodes.emplace_back(std::make_unique<Processor>(app));
+        nodes.emplace_back(std::make_unique<MemoryCollection>(app));
+        nodes.emplace_back(std::make_unique<Memory>(app));
 
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
