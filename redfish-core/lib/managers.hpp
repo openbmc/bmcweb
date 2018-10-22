@@ -328,10 +328,17 @@ class Manager : public Node
                 // create map of <connection, path to objMgr>>
                 boost::container::flat_map<std::string, std::string>
                     objectMgrPaths;
+                boost::container::flat_set<std::string> calledConnections;
                 for (const auto& pathGroup : subtree)
                 {
                     for (const auto& connectionGroup : pathGroup.second)
                     {
+                        auto findConnection =
+                            calledConnections.find(connectionGroup.first);
+                        if (findConnection != calledConnections.end())
+                        {
+                            break;
+                        }
                         for (const std::string& interface :
                              connectionGroup.second)
                         {
@@ -353,6 +360,9 @@ class Manager : public Node
                                                      << "Has no Object Manager";
                                     continue;
                                 }
+
+                                calledConnections.insert(connectionGroup.first);
+
                                 asyncPopulatePid(findObjMgr->first,
                                                  findObjMgr->second, asyncResp);
                                 break;
