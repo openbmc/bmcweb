@@ -701,6 +701,10 @@ class Systems : public Node
         res.jsonValue = Node::json;
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
+        res.jsonValue["Processors"] = {
+            {"@odata.id", "/redfish/v1/Systems/" + name + "/Processors"}};
+        res.jsonValue["Memory"] = {
+            {"@odata.id", "/redfish/v1/Systems/" + name + "/Memory"}};
         // TODO Need to support ForceRestart.
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
