@@ -99,8 +99,9 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
                                    std::shared_ptr<nlohmann::json> transaction)
 {
     crow::connections::systemBus->async_method_call(
-        [&res, transaction](const boost::system::error_code ec,
-                            const dbus::utility::ManagedObjectType &objects) {
+        [&res, transaction, object_name,
+         connection_name](const boost::system::error_code ec,
+                          const dbus::utility::ManagedObjectType &objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -111,27 +112,37 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
 
                 for (auto &objectPath : objects)
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "Reading object "
-                        << static_cast<const std::string &>(objectPath.first);
-                    nlohmann::json &objectJson =
-                        dataJson[static_cast<const std::string &>(
-                            objectPath.first)];
-                    if (objectJson.is_null())
+                    if (boost::starts_with(objectPath.first.str, object_name))
                     {
-                        objectJson = nlohmann::json::object();
-                    }
-                    for (const auto &interface : objectPath.second)
-                    {
-                        for (const auto &property : interface.second)
+                        BMCWEB_LOG_DEBUG << "Reading object "
+                                         << static_cast<const std::string &>(
+                                                objectPath.first);
+                        nlohmann::json &objectJson =
+                            dataJson[static_cast<const std::string &>(
+                                objectPath.first)];
+                        if (objectJson.is_null())
                         {
-                            nlohmann::json &propertyJson =
-                                objectJson[property.first];
-                            sdbusplus::message::variant_ns::visit(
-                                [&propertyJson](auto &&val) {
-                                    propertyJson = val;
-                                },
-                                property.second);
+                            objectJson = nlohmann::json::object();
+                        }
+                        for (const auto &interface : objectPath.second)
+                        {
+                            for (const auto &property : interface.second)
+                            {
+                                nlohmann::json &propertyJson =
+                                    objectJson[property.first];
+                                sdbusplus::message::variant_ns::visit(
+                                    [&propertyJson](auto &&val) {
+                                        propertyJson = val;
+                                    },
+                                    property.second);
+                            }
+                            if (interface.first ==
+                                "org.freedesktop.DBus.ObjectManager")
+                            {
+                                getManagedObjectsForEnumerate(
+                                    objectPath.first.str, objectPath.first.str,
+                                    connection_name, res, transaction);
+                            }
                         }
                     }
                 }
