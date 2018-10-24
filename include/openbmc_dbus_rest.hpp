@@ -767,14 +767,24 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                 res.end();
                 return;
             }
-
-            boost::container::flat_set<std::string> connections;
+            // Map indicating connection name, and whether or not objectmanager
+            // exists at the root
+            boost::container::flat_map<std::string, bool> connections;
 
             for (const auto &object : object_names)
             {
-                for (const auto &Connection : object.second)
+                for (const auto &connection : object.second)
                 {
-                    connections.insert(Connection.first);
+                    bool hasObjectManagerAtRoot = false;
+                    for (auto &interface : connection.second)
+                    {
+                        if (interface == "org.freedesktop.DBus.ObjectManager")
+                        {
+                            hasObjectManagerAtRoot = true;
+                            break;
+                        }
+                    }
+                    connections[connection.first] = hasObjectManagerAtRoot;
                 }
             }
 
@@ -786,10 +796,24 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
             }
             auto transaction =
                 std::make_shared<nlohmann::json>(nlohmann::json::object());
-            for (const std::string &Connection : connections)
+            for (const auto &connection : connections)
             {
-                findObjectManagerPathForEnumerate(objectPath, Connection, res,
+                // If we already know where the object manager is, we don't need
+                // to search for it, we can call directly in to
+                // getManagedObjects
+                if (connection.second)
+                {
+                    getManagedObjectsForEnumerate(objectPath, objectPath,
+                                                  connection.first, res,
                                                   transaction);
+                }
+                else
+                {
+                    // otherwise we need to find the object manager path before
+                    // we can continue
+                    findObjectManagerPathForEnumerate(
+                        objectPath, connection.first, res, transaction);
+                }
             }
         },
         "xyz.openbmc_project.ObjectMapper",
