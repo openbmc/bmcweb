@@ -95,28 +95,31 @@ void introspectObjects(const std::string &processName,
 void getManagedObjectsForEnumerate(const std::string &object_name,
                                    const std::string &object_manager_path,
                                    const std::string &connection_name,
-                                   crow::Response &res,
-                                   std::shared_ptr<nlohmann::json> transaction)
+                                   std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
+    BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
+                     << " object_manager_path " << object_manager_path
+                     << " connection_name " << connection_name;
     crow::connections::systemBus->async_method_call(
-        [&res, transaction](const boost::system::error_code ec,
-                            const dbus::utility::ManagedObjectType &objects) {
+        [asyncResp, object_name,
+         connection_name](const boost::system::error_code ec,
+                          const dbus::utility::ManagedObjectType &objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR << "GetManagedObjects on path " << object_name
+                                 << " failed with code " << ec;
+                return;
             }
-            else
-            {
-                nlohmann::json &dataJson = *transaction;
 
-                for (auto &objectPath : objects)
+            nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+
+            for (auto &objectPath : objects)
+            {
+                if (boost::starts_with(objectPath.first.str, object_name))
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "Reading object "
-                        << static_cast<const std::string &>(objectPath.first);
-                    nlohmann::json &objectJson =
-                        dataJson[static_cast<const std::string &>(
-                            objectPath.first)];
+                    BMCWEB_LOG_DEBUG << "Reading object "
+                                     << objectPath.first.str;
+                    nlohmann::json &objectJson = dataJson[objectPath.first.str];
                     if (objectJson.is_null())
                     {
                         objectJson = nlohmann::json::object();
@@ -135,14 +138,15 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
                         }
                     }
                 }
-            }
-
-            if (transaction.use_count() == 1)
-            {
-                res.jsonValue = {{"message", "200 OK"},
-                                 {"status", "ok"},
-                                 {"data", std::move(*transaction)}};
-                res.end();
+                for (const auto &interface : objectPath.second)
+                {
+                    if (interface.first == "org.freedesktop.DBus.ObjectManager")
+                    {
+                        getManagedObjectsForEnumerate(
+                            objectPath.first.str, objectPath.first.str,
+                            connection_name, asyncResp);
+                    }
+                }
             }
         },
         connection_name, object_manager_path,
@@ -151,11 +155,12 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
 
 void findObjectManagerPathForEnumerate(
     const std::string &object_name, const std::string &connection_name,
-    crow::Response &res, std::shared_ptr<nlohmann::json> transaction)
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
+    BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
+                     << " on connection:" << connection_name;
     crow::connections::systemBus->async_method_call(
-        [&res, transaction, object_name{std::string(object_name)},
-         connection_name{std::string(connection_name)}](
+        [asyncResp, object_name, connection_name](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -163,7 +168,8 @@ void findObjectManagerPathForEnumerate(
                 &objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR << "GetAncestors on path " << object_name
+                                 << " failed with code " << ec;
                 return;
             }
 
@@ -175,8 +181,8 @@ void findObjectManagerPathForEnumerate(
                     {
                         // Found the object manager path for this resource.
                         getManagedObjectsForEnumerate(
-                            object_name, pathGroup.first, connection_name, res,
-                            transaction);
+                            object_name, pathGroup.first, connection_name,
+                            asyncResp);
                         return;
                     }
                 }
@@ -754,17 +760,19 @@ void handleList(crow::Response &res, const std::string &objectPath)
 
 void handleEnumerate(crow::Response &res, const std::string &objectPath)
 {
+    BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
+
+    asyncResp->res.jsonValue = {{"message", "200 OK"},
+                                {"status", "ok"},
+                                {"data", nlohmann::json::object()}};
+
     crow::connections::systemBus->async_method_call(
-        [&res, objectPath{std::string(objectPath)}](
+        [asyncResp, objectPath{std::string(objectPath)}](
             const boost::system::error_code ec,
             const GetSubTreeType &object_names) {
             if (ec)
             {
-                res.jsonValue = {{"message", "200 OK"},
-                                 {"status", "ok"},
-                                 {"data", nlohmann::json::object()}};
-
-                res.end();
                 return;
             }
             // Map indicating connection name, and whether or not objectmanager
@@ -775,27 +783,20 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
             {
                 for (const auto &connection : object.second)
                 {
-                    bool hasObjectManagerAtRoot = false;
+                    bool &hasObjectManager = connections[connection.first];
                     for (auto &interface : connection.second)
                     {
+                        BMCWEB_LOG_DEBUG << connection.first
+                                         << " has interface " << interface;
                         if (interface == "org.freedesktop.DBus.ObjectManager")
                         {
-                            hasObjectManagerAtRoot = true;
-                            break;
+                            hasObjectManager = true;
                         }
                     }
-                    connections[connection.first] = hasObjectManagerAtRoot;
                 }
             }
+            BMCWEB_LOG_DEBUG << "Got " << connections.size() << " connections";
 
-            if (connections.size() <= 0)
-            {
-                res.result(boost::beast::http::status::not_found);
-                res.end();
-                return;
-            }
-            auto transaction =
-                std::make_shared<nlohmann::json>(nlohmann::json::object());
             for (const auto &connection : connections)
             {
                 // If we already know where the object manager is, we don't need
@@ -804,22 +805,21 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                 if (connection.second)
                 {
                     getManagedObjectsForEnumerate(objectPath, objectPath,
-                                                  connection.first, res,
-                                                  transaction);
+                                                  connection.first, asyncResp);
                 }
                 else
                 {
                     // otherwise we need to find the object manager path before
                     // we can continue
                     findObjectManagerPathForEnumerate(
-                        objectPath, connection.first, res, transaction);
+                        objectPath, connection.first, asyncResp);
                 }
             }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath,
-        (int32_t)0, std::array<std::string, 0>());
+        (int32_t)0, std::array<const char *, 0>());
 }
 
 void handleGet(crow::Response &res, std::string &objectPath,
