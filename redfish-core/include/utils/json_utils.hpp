@@ -140,12 +140,8 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
             item.key(), item.value(), res, handled, key, in...);
     }
 
-    if (!handled.all())
-    {
-        details::handleMissing(handled, res, key, in...);
+    details::handleMissing(handled, res, key, in...);
 
-        return false;
-    }
     return res.result() == boost::beast::http::status::ok;
 }
 
