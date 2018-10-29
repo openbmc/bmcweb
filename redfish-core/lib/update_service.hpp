@@ -21,6 +21,7 @@
 
 namespace redfish
 {
+
 static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 
 class UpdateService : public Node
@@ -233,15 +234,13 @@ class SoftwareInventoryCollection : public Node
                         &connections = obj.second;
 
                     // if can't parse fw id then return
-                    std::size_t idPos = obj.first.rfind("/");
-                    if (idPos == std::string::npos ||
-                        idPos + 1 == obj.first.size())
+                    std::size_t idPos;
+                    if ((idPos = obj.first.rfind("/")) == std::string::npos)
                     {
                         messages::internalError(asyncResp->res);
                         BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
                         return;
                     }
-
                     std::string swId = obj.first.substr(idPos + 1);
 
                     for (auto &conn : connections)
