@@ -294,6 +294,26 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
                         const int& arg2);
 
 /**
+ * @brief Formats SessionTerminated message into JSON
+ * Message body: "The session was successfully terminated."
+ *
+ *
+ * @returns Message SessionTerminated formatted to JSON */
+void sessionTerminated(crow::Response& res);
+
+/**
+ * @brief Formats ResourceTypeIncompatible message into JSON
+ * Message body: "The @odata.type of the request body <arg1> is incompatible
+ * with the @odata.type of the resource which is <arg2>."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message ResourceTypeIncompatible formatted to JSON */
+void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
+                              const int& arg2);
+
+/**
  * @brief Formats PropertyValueTypeError message into JSON
  * Message body: "The value <arg1> for the property <arg2> is of a different
  * type than the property can accept."
@@ -487,6 +507,15 @@ void success(crow::Response& res, const std::string& fieldPath);
  *
  * @returns Message Created formatted to JSON */
 void created(crow::Response& res);
+
+/**
+ * @brief Formats NoOperation message into JSON
+ * Message body: "The request body submitted contain no data to act upon and
+ * no changes to the resource took place."
+ *
+ *
+ * @returns Message NoOperation formatted to JSON */
+void noOperation(crow::Response& res);
 
 /**
  * @brief Formats PropertyUnknown message into JSON
