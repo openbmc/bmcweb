@@ -1129,6 +1129,69 @@ void handlePut(const crow::Request &req, crow::Response &res,
         transaction->objectPath, std::array<std::string, 0>());
 }
 
+inline void handleDbusUrl(const crow::Request &req, crow::Response &res,
+                          std::string &objectPath)
+{
+    // Trim any trailing "/" at the end
+    if (boost::ends_with(objectPath, "/"))
+    {
+        objectPath.pop_back();
+    }
+
+    // If accessing a single attribute, fill in and update objectPath,
+    // otherwise leave destProperty blank
+    std::string destProperty = "";
+    const char *attrSeperator = "/attr/";
+    size_t attrPosition = objectPath.find(attrSeperator);
+    if (attrPosition != objectPath.npos)
+    {
+        objectPath = "/xyz/" + objectPath.substr(0, attrPosition);
+        destProperty = objectPath.substr(attrPosition + strlen(attrSeperator),
+                                         objectPath.length());
+    }
+
+    if (req.method() == "POST"_method)
+    {
+        constexpr const char *actionSeperator = "/action/";
+        size_t actionPosition = objectPath.find(actionSeperator);
+        if (actionPosition != objectPath.npos)
+        {
+            objectPath = "/xyz/" + objectPath.substr(0, actionPosition);
+            std::string postProperty =
+                objectPath.substr((actionPosition + strlen(actionSeperator)),
+                                  objectPath.length());
+            handleAction(req, res, objectPath, postProperty);
+            return;
+        }
+    }
+    else if (req.method() == "GET"_method)
+    {
+        if (boost::ends_with(objectPath, "/enumerate"))
+        {
+            objectPath.erase(objectPath.end() - 10, objectPath.end());
+            handleEnumerate(res, objectPath);
+        }
+        else if (boost::ends_with(objectPath, "/list"))
+        {
+            objectPath.erase(objectPath.end() - 5, objectPath.end());
+            handleList(res, objectPath);
+        }
+        else
+        {
+            handleGet(res, objectPath, destProperty);
+        }
+        return;
+    }
+    else if (req.method() == "PUT"_method)
+    {
+        handlePut(req, res, objectPath, destProperty);
+        return;
+    }
+
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
@@ -1174,71 +1237,20 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .methods("GET"_method, "PUT"_method,
-                 "POST"_method)([](const crow::Request &req,
-                                   crow::Response &res,
-                                   const std::string &path) {
-            std::string objectPath = "/xyz/" + path;
+        .methods("GET"_method, "PUT"_method, "POST"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/xyz/" + path;
+                handleDbusUrl(req, res, objectPath);
+            });
 
-            // Trim any trailing "/" at the end
-            if (boost::ends_with(objectPath, "/"))
-            {
-                objectPath.pop_back();
-            }
-
-            // If accessing a single attribute, fill in and update objectPath,
-            // otherwise leave destProperty blank
-            std::string destProperty = "";
-            const char *attrSeperator = "/attr/";
-            size_t attrPosition = path.find(attrSeperator);
-            if (attrPosition != path.npos)
-            {
-                objectPath = "/xyz/" + path.substr(0, attrPosition);
-                destProperty = path.substr(attrPosition + strlen(attrSeperator),
-                                           path.length());
-            }
-
-            if (req.method() == "POST"_method)
-            {
-                constexpr const char *actionSeperator = "/action/";
-                size_t actionPosition = path.find(actionSeperator);
-                if (actionPosition != path.npos)
-                {
-                    objectPath = "/xyz/" + path.substr(0, actionPosition);
-                    std::string postProperty =
-                        path.substr((actionPosition + strlen(actionSeperator)),
-                                    path.length());
-                    handleAction(req, res, objectPath, postProperty);
-                    return;
-                }
-            }
-            else if (req.method() == "GET"_method)
-            {
-                if (boost::ends_with(objectPath, "/enumerate"))
-                {
-                    objectPath.erase(objectPath.end() - 10, objectPath.end());
-                    handleEnumerate(res, objectPath);
-                }
-                else if (boost::ends_with(objectPath, "/list"))
-                {
-                    objectPath.erase(objectPath.end() - 5, objectPath.end());
-                    handleList(res, objectPath);
-                }
-                else
-                {
-                    handleGet(res, objectPath, destProperty);
-                }
-                return;
-            }
-            else if (req.method() == "PUT"_method)
-            {
-                handlePut(req, res, objectPath, destProperty);
-                return;
-            }
-
-            res.result(boost::beast::http::status::method_not_allowed);
-            res.end();
-        });
+    BMCWEB_ROUTE(app, "/org/<path>")
+        .methods("GET"_method, "PUT"_method, "POST"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/org/" + path;
+                handleDbusUrl(req, res, objectPath);
+            });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
