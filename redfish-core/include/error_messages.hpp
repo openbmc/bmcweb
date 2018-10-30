@@ -55,7 +55,7 @@ void malformedJSON(crow::Response& res);
 
 /**
  * @brief Formats ResourceMissingAtURI message into JSON
- * Message body: "The resource at the URI <arg0> was not found."
+ * Message body: "The resource at the URI <arg1> was not found."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -64,7 +64,7 @@ void resourceMissingAtURI(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats ActionParameterValueFormatError message into JSON
- * Message body: "The value <arg0> for the parameter <arg1> in the action <arg2>
+ * Message body: "The value <arg1> for the parameter <arg2> in the action <arg3>
  * is of a different format than the parameter can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -106,8 +106,8 @@ void unrecognizedRequestBody(crow::Response& res);
 
 /**
  * @brief Formats ResourceAtUriUnauthorized message into JSON
- * Message body: "While accessing the resource at <arg0>, the service received
- * an authorization error <arg1>."
+ * Message body: "While accessing the resource at <arg1>, the service received
+ * an authorization error <arg2>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -118,8 +118,8 @@ void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats ActionParameterUnknown message into JSON
- * Message body: "The action <arg0> was submitted with the invalid parameter
- * <arg1>."
+ * Message body: "The action <arg1> was submitted with the invalid parameter
+ * <arg2>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -139,7 +139,7 @@ void resourceCannotBeDeleted(crow::Response& res);
 
 /**
  * @brief Formats PropertyDuplicate message into JSON
- * Message body: "The property <arg0> was duplicated in the request."
+ * Message body: "The property <arg1> was duplicated in the request."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -148,7 +148,7 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats ServiceTemporarilyUnavailable message into JSON
- * Message body: "The service is temporarily unavailable.  Retry in <arg0>
+ * Message body: "The service is temporarily unavailable.  Retry in <arg1>
  * seconds."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -159,8 +159,8 @@ void serviceTemporarilyUnavailable(crow::Response& res,
 
 /**
  * @brief Formats ResourceAlreadyExists message into JSON
- * Message body: "The requested resource of type <arg0> with the property <arg1>
- * with the value <arg2> already exists."
+ * Message body: "The requested resource of type <arg1> with the property <arg2>
+ * with the value <arg3> already exists."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -182,7 +182,7 @@ void accountForSessionNoLongerExists(crow::Response& res);
 /**
  * @brief Formats CreateFailedMissingReqProperties message into JSON
  * Message body: "The create operation failed because the required property
- * <arg0> was missing from the request."
+ * <arg1> was missing from the request."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -192,7 +192,7 @@ void createFailedMissingReqProperties(crow::Response& res,
 
 /**
  * @brief Formats PropertyValueFormatError message into JSON
- * Message body: "The value <arg0> for the property <arg1> is of a different
+ * Message body: "The value <arg1> for the property <arg2> is of a different
  * format than the property can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -205,7 +205,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
 /**
  * @brief Formats PropertyValueFormatError message into JSON for the specified
  * property
- * Message body: "The value <arg0> for the property <arg1> is of a different
+ * Message body: "The value <arg1> for the property <arg2> is of a different
  * format than the property can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -218,7 +218,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats PropertyValueNotInList message into JSON
- * Message body: "The value <arg0> for the property <arg1> is not in the list of
+ * Message body: "The value <arg1> for the property <arg2> is not in the list of
  * acceptable values."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -231,7 +231,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
 /**
  * @brief Formats PropertyValueNotInList message into JSON for the specified
  * property
- * Message body: "The value <arg0> for the property <arg1> is not in
+ * Message body: "The value <arg1> for the property <arg2> is not in
  * the list of acceptable values."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -244,7 +244,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats ResourceAtUriInUnknownFormat message into JSON
- * Message body: "The resource at <arg0> is in a format not recognized by the
+ * Message body: "The resource at <arg1> is in a format not recognized by the
  * service."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -272,7 +272,7 @@ void eventSubscriptionLimitExceeded(crow::Response& res);
 
 /**
  * @brief Formats ActionParameterMissing message into JSON
- * Message body: "The action <arg0> requires the parameter <arg1> to be present
+ * Message body: "The action <arg1> requires the parameter <arg2> to be present
  * in the request body."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -284,7 +284,7 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats StringValueTooLong message into JSON
- * Message body: "The string <arg0> exceeds the length limit <arg1>."
+ * Message body: "The string <arg1> exceeds the length limit <arg2>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -295,7 +295,7 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats PropertyValueTypeError message into JSON
- * Message body: "The value <arg0> for the property <arg1> is of a different
+ * Message body: "The value <arg1> for the property <arg2> is of a different
  * type than the property can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -308,7 +308,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
 /**
  * @brief Formats PropertyValueTypeError message into JSON for the specified
  * property
- * Message body: "The value <arg0> for the property <arg1> is of a
+ * Message body: "The value <arg1> for the property <arg2> is of a
  * different type than the property can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -321,7 +321,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats ResourceNotFound message into JSON
- * Message body: "The requested resource of type <arg0> named <arg1> was not
+ * Message body: "The requested resource of type <arg1> named <arg2> was not
  * found."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -334,7 +334,7 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
 /**
  * @brief Formats CouldNotEstablishConnection message into JSON
  * Message body: "The service failed to establish a Connection with the URI
- * <arg0>."
+ * <arg1>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -343,7 +343,7 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats PropertyNotWritable message into JSON
- * Message body: "The property <arg0> is a read only property and cannot be
+ * Message body: "The property <arg1> is a read only property and cannot be
  * assigned a value."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -354,7 +354,7 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1);
 /**
  * @brief Formats PropertyNotWritable message into JSON for the specified
  * property
- * Message body: "The property <arg0> is a read only property and
+ * Message body: "The property <arg1> is a read only property and
  * cannot be assigned a value."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -365,7 +365,7 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats QueryParameterValueTypeError message into JSON
- * Message body: "The value <arg0> for the query parameter <arg1> is of a
+ * Message body: "The value <arg1> for the query parameter <arg2> is of a
  * different type than the parameter can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -386,8 +386,8 @@ void serviceShuttingDown(crow::Response& res);
 
 /**
  * @brief Formats ActionParameterDuplicate message into JSON
- * Message body: "The action <arg0> was submitted with more than one value for
- * the parameter <arg1>."
+ * Message body: "The action <arg1> was submitted with more than one value for
+ * the parameter <arg2>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -398,7 +398,7 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats ActionParameterNotSupported message into JSON
- * Message body: "The parameter <arg0> for the action <arg1> is not supported on
+ * Message body: "The parameter <arg1> for the action <arg2> is not supported on
  * the target resource."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -410,8 +410,8 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats SourceDoesNotSupportProtocol message into JSON
- * Message body: "The other end of the Connection at <arg0> does not support the
- * specified protocol <arg1>."
+ * Message body: "The other end of the Connection at <arg1> does not support the
+ * specified protocol <arg2>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.
@@ -430,7 +430,7 @@ void accountRemoved(crow::Response& res);
 
 /**
  * @brief Formats AccessDenied message into JSON
- * Message body: "While attempting to establish a Connection to <arg0>, the
+ * Message body: "While attempting to establish a Connection to <arg1>, the
  * service denied access."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -490,7 +490,7 @@ void created(crow::Response& res);
 
 /**
  * @brief Formats PropertyUnknown message into JSON
- * Message body: "The property <arg0> is not in the list of valid properties for
+ * Message body: "The property <arg1> is not in the list of valid properties for
  * the resource."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -500,7 +500,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats PropertyUnknown message into JSON for the specified property
- * Message body: "The property <arg0> is not in the list of valid properties for
+ * Message body: "The property <arg1> is not in the list of valid properties for
  * the resource."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -520,7 +520,7 @@ void noValidSession(crow::Response& res);
 
 /**
  * @brief Formats InvalidObject message into JSON
- * Message body: "The object at <arg0> is invalid."
+ * Message body: "The object at <arg1> is invalid."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -538,7 +538,7 @@ void resourceInStandby(crow::Response& res);
 
 /**
  * @brief Formats ActionParameterValueTypeError message into JSON
- * Message body: "The value <arg0> for the parameter <arg1> in the action <arg2>
+ * Message body: "The value <arg1> for the parameter <arg2> in the action <arg3>
  * is of a different type than the parameter can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -561,7 +561,7 @@ void sessionLimitExceeded(crow::Response& res);
 
 /**
  * @brief Formats ActionNotSupported message into JSON
- * Message body: "The action <arg0> is not supported by the resource."
+ * Message body: "The action <arg1> is not supported by the resource."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -570,7 +570,7 @@ void actionNotSupported(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats InvalidIndex message into JSON
- * Message body: "The index <arg0> is not a valid offset into the array."
+ * Message body: "The index <arg1> is not a valid offset into the array."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  *
@@ -606,7 +606,7 @@ void insufficientPrivilege(crow::Response& res);
 
 /**
  * @brief Formats PropertyValueModified message into JSON
- * Message body: "The property <arg0> was assigned the value <arg1> due to
+ * Message body: "The property <arg1> was assigned the value <arg2> due to
  * modification by the service."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -626,7 +626,7 @@ void accountNotModified(crow::Response& res);
 
 /**
  * @brief Formats QueryParameterValueFormatError message into JSON
- * Message body: "The value <arg0> for the parameter <arg1> is of a different
+ * Message body: "The value <arg1> for the parameter <arg2> is of a different
  * format than the parameter can accept."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -639,7 +639,7 @@ void queryParameterValueFormatError(crow::Response& res,
 
 /**
  * @brief Formats PropertyMissing message into JSON
- * Message body: "The property <arg0> is a required property and must be
+ * Message body: "The property <arg1> is a required property and must be
  * included in the request."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -649,7 +649,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1);
 
 /**
  * @brief Formats PropertyMissing message into JSON for the specified property
- * Message body: "The property <arg0> is a required property and must be
+ * Message body: "The property <arg1> is a required property and must be
  * included in the request."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -660,7 +660,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1,
 
 /**
  * @brief Formats ResourceExhaustion message into JSON
- * Message body: "The resource <arg0> was unable to satisfy the request due to
+ * Message body: "The resource <arg1> was unable to satisfy the request due to
  * unavailability of resources."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
@@ -678,8 +678,8 @@ void accountModified(crow::Response& res, const std::string& fieldPath);
 
 /**
  * @brief Formats QueryParameterOutOfRange message into JSON
- * Message body: "The value <arg0> for the query parameter <arg1> is out of
- * range <arg2>."
+ * Message body: "The value <arg1> for the query parameter <arg2> is out of
+ * range <arg3>."
  *
  * @param[in] arg1 Parameter of message that will replace %1 in its body.
  * @param[in] arg2 Parameter of message that will replace %2 in its body.

@@ -58,9 +58,8 @@ static void addMessageToErrorJson(nlohmann::json& target,
     {
         // More than 1 error occurred, so the message has to be generic
         error["code"] = std::string(messageVersionPrefix) + "GeneralError";
-        error["message"] =
-            "A general error has occurred. See ExtendedInfo for more"
-            "information.";
+        error["message"] = "A general error has occurred. See ExtendedInfo for "
+                           "more information.";
     }
 
     // This check could technically be done in in the default construction
@@ -119,14 +118,11 @@ void resourceInUse(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ResourceInUse"},
-            {"Message",
-             "The change to the requested resource failed because the "
-             "resource is in "
-             "use or in transition."},
+            {"Message", "The change to the requested resource failed because "
+                        "the resource is in use or in transition."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the condition and resubmit the request if the operation "
-             "failed."}});
+            {"Resolution", "Remove the condition and resubmit the request if "
+                           "the operation failed."}});
 }
 
 /**
@@ -144,10 +140,8 @@ void malformedJSON(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.MalformedJSON"},
-            {"Message",
-             "The request body submitted was malformed JSON and could "
-             "not be parsed "
-             "by the receiving service."},
+            {"Message", "The request body submitted was malformed JSON and "
+                        "could not be parsed by the receiving service."},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the request body is valid JSON and "
                            "resubmit the request."}});
@@ -170,10 +164,8 @@ void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.2.0.ResourceMissingAtURI"},
             {"Message", "The resource at the URI " + arg1 + " was not found."},
             {"Severity", "Critical"},
-            {"Resolution",
-             "Place a valid resource at the URI or correct the URI "
-             "and resubmit the "
-             "request."}});
+            {"Resolution", "Place a valid resource at the URI or correct the "
+                           "URI and resubmit the request."}});
 }
 
 /**
@@ -199,9 +191,9 @@ void actionParameterValueFormatError(crow::Response& res,
                  " in the action " + arg3 +
                  " is of a different format than the parameter can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the parameter in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the parameter in the request body and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -220,12 +212,10 @@ void internalError(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.InternalError"},
             {"Message", "The request failed due to an internal service error.  "
-                        "The service is "
-                        "still operational."},
+                        "The service is still operational."},
             {"Severity", "Critical"},
             {"Resolution", "Resubmit the request.  If the problem persists, "
-                           "consider resetting the "
-                           "service."}});
+                           "consider resetting the service."}});
 }
 
 /**
@@ -244,12 +234,10 @@ void internalError(crow::Response& res, const std::string& field)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.InternalError"},
             {"Message", "The request failed due to an internal service error.  "
-                        "The service is "
-                        "still operational."},
+                        "The service is still operational."},
             {"Severity", "Critical"},
             {"Resolution", "Resubmit the request.  If the problem persists, "
-                           "consider resetting the "
-                           "service."}},
+                           "consider resetting the service."}},
         field);
 }
 
@@ -269,8 +257,7 @@ void unrecognizedRequestBody(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.UnrecognizedRequestBody"},
             {"Message", "The service detected a malformed request body that it "
-                        "was unable to "
-                        "interpret."},
+                        "was unable to interpret."},
             {"Severity", "Warning"},
             {"Resolution", "Correct the request body and resubmit the request "
                            "if it failed."}});
@@ -297,8 +284,7 @@ void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
                             arg2 + "."},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the appropriate access is provided for "
-                           "the service in "
-                           "order for it to access the URI."}});
+                           "the service in order for it to access the URI."}});
 }
 
 /**
@@ -321,9 +307,8 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
                             " was submitted with the invalid parameter " +
                             arg2 + "."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Correct the invalid parameter and resubmit the request if the "
-             "operation failed."}});
+            {"Resolution", "Correct the invalid parameter and resubmit the "
+                           "request if the operation failed."}});
 }
 
 /**
@@ -342,8 +327,7 @@ void resourceCannotBeDeleted(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ResourceCannotBeDeleted"},
             {"Message", "The delete request failed because the resource "
-                        "requested cannot be "
-                        "deleted."},
+                        "requested cannot be deleted."},
             {"Severity", "Critical"},
             {"Resolution",
              "Do not attempt to delete a non-deletable resource."}});
@@ -367,9 +351,9 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
             {"Message",
              "The property " + arg1 + " was duplicated in the request."},
             {"Severity", "Warning"},
-            {"Resolution", "Remove the duplicate property from the request "
-                           "body and resubmit the "
-                           "request if the operation failed."}});
+            {"Resolution",
+             "Remove the duplicate property from the request body and resubmit "
+             "the request if the operation failed."}});
 }
 
 /**
@@ -415,8 +399,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                             arg3 + " already exists."},
             {"Severity", "Critical"},
             {"Resolution", "Do not repeat the create operation as the resource "
-                           "has already been "
-                           "created."}});
+                           "has already been created."}});
 }
 
 /**
@@ -436,8 +419,7 @@ void accountForSessionNoLongerExists(crow::Response& res,
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.AccountForSessionNoLongerExists"},
             {"Message", "The account for the current session has been removed, "
-                        "thus the current "
-                        "session has been removed as well."},
+                        "thus the current session has been removed as well."},
             {"Severity", "OK"},
             {"Resolution", "Attempt to connect with a valid account."}},
         fieldPath);
@@ -465,8 +447,7 @@ void createFailedMissingReqProperties(crow::Response& res,
             {"Severity", "Critical"},
             {"Resolution",
              "Correct the body to include the required property with a valid "
-             "value "
-             "and resubmit the request if the operation failed."}});
+             "value and resubmit the request if the operation failed."}});
 }
 
 /**
@@ -489,9 +470,9 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different format than the property can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the property in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the property in the request body and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -516,9 +497,9 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different format than the property can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the property in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}},
+            {"Resolution",
+             "Correct the value for the property in the request body and "
+             "resubmit the request if the operation failed."}},
         property);
 }
 
@@ -543,8 +524,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
             {"Severity", "Warning"},
             {"Resolution",
              "Choose a value from the enumeration list that the implementation "
-             "can "
-             "support and resubmit the request if the operation failed."}});
+             "can support and resubmit the request if the operation failed."}});
 }
 
 /**
@@ -569,8 +549,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
             {"Severity", "Warning"},
             {"Resolution",
              "Choose a value from the enumeration list that the implementation "
-             "can "
-             "support and resubmit the request if the operation failed."}},
+             "can support and resubmit the request if the operation failed."}},
         property);
 }
 
@@ -593,8 +572,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
                             " is in a format not recognized by the service."},
             {"Severity", "Critical"},
             {"Resolution", "Place an image or resource or file that is "
-                           "recognized by the service "
-                           "at the URI."}});
+                           "recognized by the service at the URI."}});
 }
 
 /**
@@ -612,13 +590,12 @@ void serviceInUnknownState(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ServiceInUnknownState"},
-            {"Message", "The operation failed because the service is in an "
-                        "unknown state and "
-                        "can no longer take incoming requests."},
+            {"Message",
+             "The operation failed because the service is in an unknown state "
+             "and can no longer take incoming requests."},
             {"Severity", "Critical"},
-            {"Resolution",
-             "Restart the service and resubmit the request if the operation "
-             "failed."}});
+            {"Resolution", "Restart the service and resubmit the request if "
+                           "the operation failed."}});
 }
 
 /**
@@ -642,9 +619,8 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
             {"Severity", "Critical"},
             {"Resolution",
              "Reduce the number of other subscriptions before trying to "
-             "establish "
-             "the event subscription or increase the limit of simultaneous "
-             "subscriptions (if supported)."}});
+             "establish the event subscription or increase the limit of "
+             "simultaneous subscriptions (if supported)."}});
 }
 
 /**
@@ -667,9 +643,8 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
                             arg2 + " to be present in the request body."},
             {"Severity", "Critical"},
             {"Resolution",
-             "Supply the action with the required parameter in the "
-             "request body when "
-             "the request is resubmitted."}});
+             "Supply the action with the required parameter in the request "
+             "body when the request is resubmitted."}});
 }
 
 /**
@@ -715,9 +690,9 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different type than the property can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the property in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the property in the request body and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -742,9 +717,9 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different type than the property can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the property in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}},
+            {"Resolution",
+             "Correct the value for the property in the request body and "
+             "resubmit the request if the operation failed."}},
         property);
 }
 
@@ -790,9 +765,9 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
              "The service failed to establish a Connection with the URI " +
                  arg1 + "."},
             {"Severity", "Critical"},
-            {"Resolution", "Ensure that the URI contains a valid and reachable "
-                           "node name, protocol "
-                           "information and other URI components."}});
+            {"Resolution",
+             "Ensure that the URI contains a valid and reachable node name, "
+             "protocol information and other URI components."}});
 }
 
 /**
@@ -814,10 +789,8 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1)
              "The property " + arg1 +
                  " is a read only property and cannot be assigned a value."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the property from the request body and resubmit "
-             "the request if "
-             "the operation failed."}});
+            {"Resolution", "Remove the property from the request body and "
+                           "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -841,10 +814,8 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1,
              "The property " + arg1 +
                  " is a read only property and cannot be assigned a value."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the property from the request body and resubmit "
-             "the request if "
-             "the operation failed."}},
+            {"Resolution", "Remove the property from the request body and "
+                           "resubmit the request if the operation failed."}},
         property);
 }
 
@@ -868,9 +839,9 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the query parameter " + arg2 +
                  " is of a different type than the parameter can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the query parameter in the "
-                           "request and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the query parameter in the request and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -889,12 +860,10 @@ void serviceShuttingDown(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ServiceShuttingDown"},
             {"Message", "The operation failed because the service is shutting "
-                        "down and can no "
-                        "longer take incoming requests."},
+                        "down and can no longer take incoming requests."},
             {"Severity", "Critical"},
-            {"Resolution",
-             "When the service becomes available, resubmit the request if the "
-             "operation failed."}});
+            {"Resolution", "When the service becomes available, resubmit the "
+                           "request if the operation failed."}});
 }
 
 /**
@@ -918,9 +887,9 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
                  " was submitted with more than one value for the parameter " +
                  arg2 + "."},
             {"Severity", "Warning"},
-            {"Resolution", "Resubmit the action with only one instance of the "
-                           "parameter in the "
-                           "request body if the operation failed."}});
+            {"Resolution",
+             "Resubmit the action with only one instance of the parameter in "
+             "the request body if the operation failed."}});
 }
 
 /**
@@ -942,9 +911,8 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
             {"Message", "The parameter " + arg1 + " for the action " + arg2 +
                             " is not supported on the target resource."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the parameter supplied and resubmit the request if the "
-             "operation failed."}});
+            {"Resolution", "Remove the parameter supplied and resubmit the "
+                           "request if the operation failed."}});
 }
 
 /**
@@ -1008,10 +976,8 @@ void accessDenied(crow::Response& res, const std::string& arg1)
             {"Message", "While attempting to establish a Connection to " +
                             arg1 + ", the service denied access."},
             {"Severity", "Critical"},
-            {"Resolution",
-             "Attempt to ensure that the URI is correct and that the "
-             "service has the "
-             "appropriate credentials."}});
+            {"Resolution", "Attempt to ensure that the URI is correct and that "
+                           "the service has the appropriate credentials."}});
 }
 
 /**
@@ -1031,10 +997,8 @@ void queryNotSupported(crow::Response& res)
             {"MessageId", "Base.1.2.0.QueryNotSupported"},
             {"Message", "Querying is not supported by the implementation."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the query parameters and resubmit the request "
-             "if the operation "
-             "failed."}});
+            {"Resolution", "Remove the query parameters and resubmit the "
+                           "request if the operation failed."}});
 }
 
 /**
@@ -1053,12 +1017,11 @@ void createLimitReachedForResource(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.CreateLimitReachedForResource"},
             {"Message", "The create operation failed because the resource has "
-                        "reached the limit "
-                        "of possible resources."},
+                        "reached the limit of possible resources."},
             {"Severity", "Critical"},
-            {"Resolution", "Either delete resources and resubmit the request "
-                           "if the operation "
-                           "failed or do not resubmit the request."}});
+            {"Resolution",
+             "Either delete resources and resubmit the request if the "
+             "operation failed or do not resubmit the request."}});
 }
 
 /**
@@ -1076,9 +1039,8 @@ void generalError(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.GeneralError"},
-            {"Message",
-             "A general error has occurred. See ExtendedInfo for more "
-             "information."},
+            {"Message", "A general error has occurred. See ExtendedInfo for "
+                        "more information."},
             {"Severity", "Critical"},
             {"Resolution", "See ExtendedInfo for more information."}});
 }
@@ -1163,9 +1125,9 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
              "The property " + arg1 +
                  " is not in the list of valid properties for the resource."},
             {"Severity", "Warning"},
-            {"Resolution", "Remove the unknown property from the request body "
-                           "and resubmit the "
-                           "request if the operation failed."}});
+            {"Resolution",
+             "Remove the unknown property from the request body and resubmit "
+             "the request if the operation failed."}});
 }
 
 /**
@@ -1188,9 +1150,9 @@ void propertyUnknown(crow::Response& res, const std::string& arg1,
              "The property " + arg1 +
                  " is not in the list of valid properties for the resource."},
             {"Severity", "Warning"},
-            {"Resolution", "Remove the unknown property from the request body "
-                           "and resubmit the "
-                           "request if the operation failed."}},
+            {"Resolution",
+             "Remove the unknown property from the request body and resubmit "
+             "the request if the operation failed."}},
         property);
 }
 
@@ -1234,9 +1196,8 @@ void invalidObject(crow::Response& res, const std::string& arg1)
             {"Message", "The object at " + arg1 + " is invalid."},
             {"Severity", "Critical"},
             {"Resolution",
-             "Either the object is malformed or the URI is not "
-             "correct.  Correct the "
-             "condition and resubmit the request if it failed."}});
+             "Either the object is malformed or the URI is not correct.  "
+             "Correct the condition and resubmit the request if it failed."}});
 }
 
 /**
@@ -1254,13 +1215,11 @@ void resourceInStandby(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ResourceInStandby"},
-            {"Message",
-             "The request could not be performed because the resource is in "
-             "standby."},
+            {"Message", "The request could not be performed because the "
+                        "resource is in standby."},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the resource is in the correct power "
-                           "state and resubmit "
-                           "the request."}});
+                           "state and resubmit the request."}});
 }
 
 /**
@@ -1285,9 +1244,9 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
                  " in the action " + arg3 +
                  " is of a different type than the parameter can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the parameter in the request "
-                           "body and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the parameter in the request body and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -1306,14 +1265,12 @@ void sessionLimitExceeded(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.SessionLimitExceeded"},
             {"Message", "The session establishment failed due to the number of "
-                        "simultaneous "
-                        "sessions exceeding the limit of the implementation."},
+                        "simultaneous sessions exceeding the limit of the "
+                        "implementation."},
             {"Severity", "Critical"},
-            {"Resolution",
-             "Reduce the number of other sessions before trying to establish "
-             "the "
-             "session or increase the limit of simultaneous sessions (if "
-             "supported)."}});
+            {"Resolution", "Reduce the number of other sessions before trying "
+                           "to establish the session or increase the limit of "
+                           "simultaneous sessions (if supported)."}});
 }
 
 /**
@@ -1336,10 +1293,9 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
             {"Severity", "Critical"},
             {"Resolution",
              "The action supplied cannot be resubmitted to the implementation. "
-             " "
-             "Perhaps the action was invalid, the wrong resource was the "
-             "target or "
-             "the implementation documentation may be of assistance."}});
+             " Perhaps the action was invalid, the wrong resource was the "
+             "target or the implementation documentation may be of "
+             "assistance."}});
 }
 
 /**
@@ -1380,8 +1336,7 @@ void emptyJSON(crow::Response& res)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.EmptyJSON"},
             {"Message", "The request body submitted contained an empty JSON "
-                        "object and the "
-                        "service is unable to process it."},
+                        "object and the service is unable to process it."},
             {"Severity", "Warning"},
             {"Resolution",
              "Add properties in the JSON object and resubmit the request."}});
@@ -1404,10 +1359,8 @@ void queryNotSupportedOnResource(crow::Response& res)
             {"MessageId", "Base.1.2.0.QueryNotSupportedOnResource"},
             {"Message", "Querying is not supported on the requested resource."},
             {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the query parameters and resubmit the request "
-             "if the operation "
-             "failed."}});
+            {"Resolution", "Remove the query parameters and resubmit the "
+                           "request if the operation failed."}});
 }
 
 /**
@@ -1425,15 +1378,13 @@ void insufficientPrivilege(crow::Response& res)
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.InsufficientPrivilege"},
-            {"Message",
-             "There are insufficient privileges for the account or credentials "
-             "associated with the current session to perform the requested "
-             "operation."},
+            {"Message", "There are insufficient privileges for the account or "
+                        "credentials associated with the current session to "
+                        "perform the requested operation."},
             {"Severity", "Critical"},
             {"Resolution",
              "Either abandon the operation or change the associated access "
-             "rights "
-             "and resubmit the request if the operation failed."}});
+             "rights and resubmit the request if the operation failed."}});
 }
 
 /**
@@ -1478,8 +1429,7 @@ void accountNotModified(crow::Response& res)
             {"Message", "The account modification request failed."},
             {"Severity", "Warning"},
             {"Resolution", "The modification may have failed due to permission "
-                           "issues or issues "
-                           "with the request body."}});
+                           "issues or issues with the request body."}});
 }
 
 /**
@@ -1503,9 +1453,9 @@ void queryParameterValueFormatError(crow::Response& res,
              "The value " + arg1 + " for the parameter " + arg2 +
                  " is of a different format than the parameter can accept."},
             {"Severity", "Warning"},
-            {"Resolution", "Correct the value for the query parameter in the "
-                           "request and resubmit "
-                           "the request if the operation failed."}});
+            {"Resolution",
+             "Correct the value for the query parameter in the request and "
+             "resubmit the request if the operation failed."}});
 }
 
 /**
@@ -1528,9 +1478,8 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
                             "the request."},
             {"Severity", "Warning"},
             {"Resolution",
-             "Ensure that the property is in the request body and "
-             "has a valid value "
-             "and resubmit the request if the operation failed."}});
+             "Ensure that the property is in the request body and has a valid "
+             "value and resubmit the request if the operation failed."}});
 }
 
 /**
@@ -1554,9 +1503,8 @@ void propertyMissing(crow::Response& res, const std::string& arg1,
                             "the request."},
             {"Severity", "Warning"},
             {"Resolution",
-             "Ensure that the property is in the request body and "
-             "has a valid value "
-             "and resubmit the request if the operation failed."}},
+             "Ensure that the property is in the request body and has a valid "
+             "value and resubmit the request if the operation failed."}},
         property);
 }
 
@@ -1576,9 +1524,8 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.2.0.ResourceExhaustion"},
             {"Message", "The resource " + arg1 +
-                            " was unable to satisfy the request "
-                            "due to unavailability of "
-                            "resources."},
+                            " was unable to satisfy the request due to "
+                            "unavailability of resources."},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the resources are available and "
                            "resubmit the request."}});
@@ -1626,12 +1573,9 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
             {"Severity", "Warning"},
             {"Resolution",
              "Reduce the value for the query parameter to a value that is "
-             "within "
-             "range, such as a start or count value that is within bounds of "
-             "the "
-             "number of resources in a collection or a page that is within the "
-             "range "
-             "of valid pages."}});
+             "within range, such as a start or count value that is within "
+             "bounds of the number of resources in a collection or a page that "
+             "is within the range of valid pages."}});
 }
 
 } // namespace messages
