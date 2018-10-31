@@ -775,22 +775,23 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
             {
                 return;
             }
-            // Map indicating connection name, and whether or not objectmanager
-            // exists at the root
-            boost::container::flat_map<std::string, bool> connections;
+            // Map indicating connection name, and the path where the object
+            // manager exists
+            boost::container::flat_map<std::string, std::string> connections;
 
             for (const auto &object : object_names)
             {
                 for (const auto &connection : object.second)
                 {
-                    bool &hasObjectManager = connections[connection.first];
+                    std::string &objectManagerPath =
+                        connections[connection.first];
                     for (auto &interface : connection.second)
                     {
                         BMCWEB_LOG_DEBUG << connection.first
                                          << " has interface " << interface;
                         if (interface == "org.freedesktop.DBus.ObjectManager")
                         {
-                            hasObjectManager = true;
+                            objectManagerPath = connection.first;
                         }
                     }
                 }
@@ -802,9 +803,9 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                 // If we already know where the object manager is, we don't need
                 // to search for it, we can call directly in to
                 // getManagedObjects
-                if (connection.second)
+                if (!connection.second.empty())
                 {
-                    getManagedObjectsForEnumerate(objectPath, objectPath,
+                    getManagedObjectsForEnumerate(objectPath, connection.second,
                                                   connection.first, asyncResp);
                 }
                 else
