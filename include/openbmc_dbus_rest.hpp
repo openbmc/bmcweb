@@ -95,28 +95,31 @@ void introspectObjects(const std::string &processName,
 void getManagedObjectsForEnumerate(const std::string &object_name,
                                    const std::string &object_manager_path,
                                    const std::string &connection_name,
-                                   crow::Response &res,
-                                   std::shared_ptr<nlohmann::json> transaction)
+                                   std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
+    BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
+                     << " object_manager_path " << object_manager_path
+                     << " connection_name " << connection_name;
     crow::connections::systemBus->async_method_call(
-        [&res, transaction](const boost::system::error_code ec,
-                            const dbus::utility::ManagedObjectType &objects) {
+        [asyncResp, object_name,
+         connection_name](const boost::system::error_code ec,
+                          const dbus::utility::ManagedObjectType &objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR << "GetManagedObjects on path " << object_name
+                                 << " failed with code " << ec;
+                return;
             }
-            else
-            {
-                nlohmann::json &dataJson = *transaction;
 
-                for (auto &objectPath : objects)
+            nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+
+            for (const auto &objectPath : objects)
+            {
+                if (boost::starts_with(objectPath.first.str, object_name))
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "Reading object "
-                        << static_cast<const std::string &>(objectPath.first);
-                    nlohmann::json &objectJson =
-                        dataJson[static_cast<const std::string &>(
-                            objectPath.first)];
+                    BMCWEB_LOG_DEBUG << "Reading object "
+                                     << objectPath.first.str;
+                    nlohmann::json &objectJson = dataJson[objectPath.first.str];
                     if (objectJson.is_null())
                     {
                         objectJson = nlohmann::json::object();
@@ -135,14 +138,15 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
                         }
                     }
                 }
-            }
-
-            if (transaction.use_count() == 1)
-            {
-                res.jsonValue = {{"message", "200 OK"},
-                                 {"status", "ok"},
-                                 {"data", std::move(*transaction)}};
-                res.end();
+                for (const auto &interface : objectPath.second)
+                {
+                    if (interface.first == "org.freedesktop.DBus.ObjectManager")
+                    {
+                        getManagedObjectsForEnumerate(
+                            objectPath.first.str, objectPath.first.str,
+                            connection_name, asyncResp);
+                    }
+                }
             }
         },
         connection_name, object_manager_path,
@@ -151,11 +155,12 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
 
 void findObjectManagerPathForEnumerate(
     const std::string &object_name, const std::string &connection_name,
-    crow::Response &res, std::shared_ptr<nlohmann::json> transaction)
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
 {
+    BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
+                     << " on connection:" << connection_name;
     crow::connections::systemBus->async_method_call(
-        [&res, transaction, object_name{std::string(object_name)},
-         connection_name{std::string(connection_name)}](
+        [asyncResp, object_name, connection_name](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -163,7 +168,8 @@ void findObjectManagerPathForEnumerate(
                 &objects) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << ec;
+                BMCWEB_LOG_ERROR << "GetAncestors on path " << object_name
+                                 << " failed with code " << ec;
                 return;
             }
 
@@ -175,8 +181,8 @@ void findObjectManagerPathForEnumerate(
                     {
                         // Found the object manager path for this resource.
                         getManagedObjectsForEnumerate(
-                            object_name, pathGroup.first, connection_name, res,
-                            transaction);
+                            object_name, pathGroup.first, connection_name,
+                            asyncResp);
                         return;
                     }
                 }
@@ -754,48 +760,67 @@ void handleList(crow::Response &res, const std::string &objectPath)
 
 void handleEnumerate(crow::Response &res, const std::string &objectPath)
 {
+    BMCWEB_LOG_DEBUG << "Doing enumerate on " << objectPath;
+    auto asyncResp = std::make_shared<bmcweb::AsyncResp>(res);
+
+    asyncResp->res.jsonValue = {{"message", "200 OK"},
+                                {"status", "ok"},
+                                {"data", nlohmann::json::object()}};
+
     crow::connections::systemBus->async_method_call(
-        [&res, objectPath{std::string(objectPath)}](
+        [asyncResp, objectPath{std::string(objectPath)}](
             const boost::system::error_code ec,
             const GetSubTreeType &object_names) {
             if (ec)
             {
-                res.jsonValue = {{"message", "200 OK"},
-                                 {"status", "ok"},
-                                 {"data", nlohmann::json::object()}};
-
-                res.end();
                 return;
             }
-
-            boost::container::flat_set<std::string> connections;
+            // Map indicating connection name, and the path where the object
+            // manager exists
+            boost::container::flat_map<std::string, std::string> connections;
 
             for (const auto &object : object_names)
             {
-                for (const auto &Connection : object.second)
+                for (const auto &connection : object.second)
                 {
-                    connections.insert(Connection.first);
+                    std::string &objectManagerPath =
+                        connections[connection.first];
+                    for (auto &interface : connection.second)
+                    {
+                        BMCWEB_LOG_DEBUG << connection.first
+                                         << " has interface " << interface;
+                        if (interface == "org.freedesktop.DBus.ObjectManager")
+                        {
+                            objectManagerPath = object.first;
+                        }
+                    }
                 }
             }
+            BMCWEB_LOG_DEBUG << "Got " << connections.size() << " connections";
 
-            if (connections.size() <= 0)
+            for (const auto &connection : connections)
             {
-                res.result(boost::beast::http::status::not_found);
-                res.end();
-                return;
-            }
-            auto transaction =
-                std::make_shared<nlohmann::json>(nlohmann::json::object());
-            for (const std::string &Connection : connections)
-            {
-                findObjectManagerPathForEnumerate(objectPath, Connection, res,
-                                                  transaction);
+                // If we already know where the object manager is, we don't need
+                // to search for it, we can call directly in to
+                // getManagedObjects
+                if (!connection.second.empty())
+                {
+                    getManagedObjectsForEnumerate(objectPath, connection.second,
+                                                  connection.first, asyncResp);
+                }
+                else
+                {
+                    // otherwise we need to find the object manager path before
+                    // we can continue
+                    findObjectManagerPathForEnumerate(
+                        objectPath, connection.first, asyncResp);
+                }
             }
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath,
-        (int32_t)0, std::array<std::string, 0>());
+        static_cast<int32_t>(0), std::array<const char *, 0>());
 }
 
 void handleGet(crow::Response &res, std::string &objectPath,
@@ -1105,6 +1130,69 @@ void handlePut(const crow::Request &req, crow::Response &res,
         transaction->objectPath, std::array<std::string, 0>());
 }
 
+inline void handleDbusUrl(const crow::Request &req, crow::Response &res,
+                          std::string &objectPath)
+{
+    // Trim any trailing "/" at the end
+    if (boost::ends_with(objectPath, "/"))
+    {
+        objectPath.pop_back();
+    }
+
+    // If accessing a single attribute, fill in and update objectPath,
+    // otherwise leave destProperty blank
+    std::string destProperty = "";
+    const char *attrSeperator = "/attr/";
+    size_t attrPosition = objectPath.find(attrSeperator);
+    if (attrPosition != objectPath.npos)
+    {
+        destProperty = objectPath.substr(attrPosition + strlen(attrSeperator),
+                                         objectPath.length());
+        objectPath = objectPath.substr(0, attrPosition);
+    }
+
+    if (req.method() == "POST"_method)
+    {
+        constexpr const char *actionSeperator = "/action/";
+        size_t actionPosition = objectPath.find(actionSeperator);
+        if (actionPosition != objectPath.npos)
+        {
+            std::string postProperty =
+                objectPath.substr((actionPosition + strlen(actionSeperator)),
+                                  objectPath.length());
+            objectPath = objectPath.substr(0, actionPosition);
+            handleAction(req, res, objectPath, postProperty);
+            return;
+        }
+    }
+    else if (req.method() == "GET"_method)
+    {
+        if (boost::ends_with(objectPath, "/enumerate"))
+        {
+            objectPath.erase(objectPath.end() - 10, objectPath.end());
+            handleEnumerate(res, objectPath);
+        }
+        else if (boost::ends_with(objectPath, "/list"))
+        {
+            objectPath.erase(objectPath.end() - 5, objectPath.end());
+            handleList(res, objectPath);
+        }
+        else
+        {
+            handleGet(res, objectPath, destProperty);
+        }
+        return;
+    }
+    else if (req.method() == "PUT"_method)
+    {
+        handlePut(req, res, objectPath, destProperty);
+        return;
+    }
+
+    res.result(boost::beast::http::status::method_not_allowed);
+    res.end();
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
@@ -1150,71 +1238,20 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .methods("GET"_method, "PUT"_method,
-                 "POST"_method)([](const crow::Request &req,
-                                   crow::Response &res,
-                                   const std::string &path) {
-            std::string objectPath = "/xyz/" + path;
+        .methods("GET"_method, "PUT"_method, "POST"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/xyz/" + path;
+                handleDbusUrl(req, res, objectPath);
+            });
 
-            // Trim any trailing "/" at the end
-            if (boost::ends_with(objectPath, "/"))
-            {
-                objectPath.pop_back();
-            }
-
-            // If accessing a single attribute, fill in and update objectPath,
-            // otherwise leave destProperty blank
-            std::string destProperty = "";
-            const char *attrSeperator = "/attr/";
-            size_t attrPosition = path.find(attrSeperator);
-            if (attrPosition != path.npos)
-            {
-                objectPath = "/xyz/" + path.substr(0, attrPosition);
-                destProperty = path.substr(attrPosition + strlen(attrSeperator),
-                                           path.length());
-            }
-
-            if (req.method() == "POST"_method)
-            {
-                constexpr const char *actionSeperator = "/action/";
-                size_t actionPosition = path.find(actionSeperator);
-                if (actionPosition != path.npos)
-                {
-                    objectPath = "/xyz/" + path.substr(0, actionPosition);
-                    std::string postProperty =
-                        path.substr((actionPosition + strlen(actionSeperator)),
-                                    path.length());
-                    handleAction(req, res, objectPath, postProperty);
-                    return;
-                }
-            }
-            else if (req.method() == "GET"_method)
-            {
-                if (boost::ends_with(objectPath, "/enumerate"))
-                {
-                    objectPath.erase(objectPath.end() - 10, objectPath.end());
-                    handleEnumerate(res, objectPath);
-                }
-                else if (boost::ends_with(objectPath, "/list"))
-                {
-                    objectPath.erase(objectPath.end() - 5, objectPath.end());
-                    handleList(res, objectPath);
-                }
-                else
-                {
-                    handleGet(res, objectPath, destProperty);
-                }
-                return;
-            }
-            else if (req.method() == "PUT"_method)
-            {
-                handlePut(req, res, objectPath, destProperty);
-                return;
-            }
-
-            res.result(boost::beast::http::status::method_not_allowed);
-            res.end();
-        });
+    BMCWEB_ROUTE(app, "/org/<path>")
+        .methods("GET"_method, "PUT"_method, "POST"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/org/" + path;
+                handleDbusUrl(req, res, objectPath);
+            });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
