@@ -1,0 +1,109 @@
+{
+    "@Redfish.Copyright": "Copyright 2018 Intel. All rights reserved.",
+    "@odata.type": "#MessageRegistry.v1_0_0.MessageRegistry",
+    "Id": "OpenBMC.0.1.0",
+    "Name": "OpenBMC Message Registry",
+    "Language": "en",
+    "Description": "This registry defines the base messages for OpenBMC",
+    "RegistryPrefix": "OpenBMC",
+    "RegistryVersion": "0.1.0",
+    "OwningEntity": "OpenBMC",
+    "Messages": {
+        "SensorThresholdCriticalLowGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a critical low threshold going low.",
+            "Message": "%1 sensor crossed a critical low threshold going low. Reading=%2 Threshold=%3.",
+            "Severity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "Check the sensor or subsystem for errors."
+        },
+        "SensorThresholdWarningLowGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a warning low threshold going low.",
+            "Message": "%1 sensor crossed a warning low threshold going low. Reading=%2 Threshold=%3.",
+            "Severity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "Check the sensor or subsystem for errors."
+        },
+        "SensorThresholdWarningHighGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a warning high threshold going high.",
+            "Message": "%1 sensor crossed a warning high threshold going high. Reading=%2 Threshold=%3.",
+            "Severity": "Warning",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "Check the sensor or subsystem for errors."
+        },
+        "SensorThresholdCriticalHighGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a critical high threshold going high.",
+            "Message": "%1 sensor crossed a critical high threshold going high. Reading=%2 Threshold=%3.",
+            "Severity": "Critical",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "Check the sensor or subsystem for errors."
+        },
+        "SensorThresholdCriticalLowGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a critical low threshold going high.",
+            "Message": "%1 sensor crossed a critical low threshold going high. Reading=%2 Threshold=%3.",
+            "Severity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "None."
+        },
+        "SensorThresholdWarningLowGoingHigh": {
+            "Description": "Indicates that a threshold sensor has crossed a warning low threshold going high.",
+            "Message": "%1 sensor crossed a warning low threshold going high. Reading=%2 Threshold=%3.",
+            "Severity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "None."
+        },
+        "SensorThresholdWarningHighGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a warning high threshold going low.",
+            "Message": "%1 sensor crossed a warning high threshold going low. Reading=%2 Threshold=%3.",
+            "Severity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "None."
+        },
+        "SensorThresholdCriticalHighGoingLow": {
+            "Description": "Indicates that a threshold sensor has crossed a critical high threshold going low.",
+            "Message": "%1 sensor crossed a critical high threshold going low. Reading=%2 Threshold=%3.",
+            "Severity": "OK",
+            "NumberOfArgs": 3,
+            "ParamTypes": [
+                "string",
+                "number",
+                "number"
+            ],
+            "Resolution": "None."
+        }
+    }
+}
