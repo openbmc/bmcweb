@@ -37,6 +37,223 @@ constexpr char const *cpuLogRawPECIInterface =
 
 namespace fs = std::experimental::filesystem;
 
+static int getJournalMetadata(sd_journal *journal,
+                              const boost::string_view &field,
+                              boost::string_view &contents)
+{
+    const char *data = nullptr;
+    size_t length = 0;
+    int ret = 0;
+    // Get the metadata from the requested field of the journal entry
+    ret = sd_journal_get_data(journal, field.data(), (const void **)&data,
+                              &length);
+    if (ret < 0)
+    {
+        return ret;
+    }
+    contents = boost::string_view(data, length);
+    // Only use the content after the "=" character.
+    contents.remove_prefix(std::min(contents.find("=") + 1, contents.size()));
+    return ret;
+}
+
+static int getJournalMetadata(sd_journal *journal,
+                              const boost::string_view &field, const int &base,
+                              int &contents)
+{
+    int ret = 0;
+    boost::string_view metadata;
+    // Get the metadata from the requested field of the journal entry
+    ret = getJournalMetadata(journal, field, metadata);
+    if (ret < 0)
+    {
+        return ret;
+    }
+    contents = strtol(metadata.data(), nullptr, base);
+    return ret;
+}
+
+static bool getEntryTimestamp(sd_journal *journal, std::string &entryTimestamp)
+{
+    int ret = 0;
+    uint64_t timestamp = 0;
+    ret = sd_journal_get_realtime_usec(journal, &timestamp);
+    if (ret < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to read entry timestamp: "
+                         << strerror(-ret);
+        return false;
+    }
+    time_t t =
+        static_cast<time_t>(timestamp / 1000 / 1000); // Convert from us to s
+    struct tm *loctime = localtime(&t);
+    char entryTime[64] = {};
+    if (NULL != loctime)
+    {
+        strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
+    }
+    // Insert the ':' into the timezone
+    boost::string_view t1(entryTime);
+    boost::string_view t2(entryTime);
+    if (t1.size() > 2 && t2.size() > 2)
+    {
+        t1.remove_suffix(2);
+        t2.remove_prefix(t2.size() - 2);
+    }
+    entryTimestamp = t1.to_string() + ":" + t2.to_string();
+    return true;
+}
+
+static bool getSkipParam(crow::Response &res, const crow::Request &req,
+                         long &skip)
+{
+    char *skipParam = req.urlParams.get("$skip");
+    if (skipParam != nullptr)
+    {
+        char *ptr = nullptr;
+        skip = std::strtol(skipParam, &ptr, 10);
+        if (*skipParam == '\0' || *ptr != '\0')
+        {
+
+            messages::queryParameterValueTypeError(res, std::string(skipParam),
+                                                   "$skip");
+            return false;
+        }
+        if (skip < 0)
+        {
+
+            messages::queryParameterOutOfRange(res, std::to_string(skip),
+                                               "$skip", "greater than 0");
+            return false;
+        }
+    }
+    return true;
+}
+
+static constexpr const long maxEntriesPerPage = 1000;
+static bool getTopParam(crow::Response &res, const crow::Request &req,
+                        long &top)
+{
+    char *topParam = req.urlParams.get("$top");
+    if (topParam != nullptr)
+    {
+        char *ptr = nullptr;
+        top = std::strtol(topParam, &ptr, 10);
+        if (*topParam == '\0' || *ptr != '\0')
+        {
+            messages::queryParameterValueTypeError(res, std::string(topParam),
+                                                   "$top");
+            return false;
+        }
+        if (top < 1 || top > maxEntriesPerPage)
+        {
+
+            messages::queryParameterOutOfRange(
+                res, std::to_string(top), "$top",
+                "1-" + std::to_string(maxEntriesPerPage));
+            return false;
+        }
+    }
+    return true;
+}
+
+static bool getUniqueEntryID(sd_journal *journal, std::string &entryID)
+{
+    int ret = 0;
+    static uint64_t prevTs = 0;
+    static int index = 0;
+    // Get the entry timestamp
+    uint64_t curTs = 0;
+    ret = sd_journal_get_realtime_usec(journal, &curTs);
+    if (ret < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to read entry timestamp: "
+                         << strerror(-ret);
+        return false;
+    }
+    // If the timestamp isn't unique, increment the index
+    if (curTs == prevTs)
+    {
+        index++;
+    }
+    else
+    {
+        // Otherwise, reset it
+        index = 0;
+    }
+    // Save the timestamp
+    prevTs = curTs;
+
+    entryID = std::to_string(curTs);
+    if (index > 0)
+    {
+        entryID += "_" + std::to_string(index);
+    }
+    return true;
+}
+
+static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
+                               uint64_t &timestamp, uint16_t &index)
+{
+    if (entryID.empty())
+    {
+        return false;
+    }
+    // Convert the unique ID back to a timestamp to find the entry
+    boost::string_view tsStr(entryID);
+
+    auto underscorePos = tsStr.find("_");
+    if (underscorePos != tsStr.npos)
+    {
+        // Timestamp has an index
+        tsStr.remove_suffix(tsStr.size() - underscorePos);
+        boost::string_view indexStr(entryID);
+        indexStr.remove_prefix(underscorePos + 1);
+        std::size_t pos;
+        try
+        {
+            index = std::stoul(indexStr.to_string(), &pos);
+        }
+        catch (std::invalid_argument)
+        {
+            messages::resourceMissingAtURI(res, entryID);
+            return false;
+        }
+        catch (std::out_of_range)
+        {
+            messages::resourceMissingAtURI(res, entryID);
+            return false;
+        }
+        if (pos != indexStr.size())
+        {
+            messages::resourceMissingAtURI(res, entryID);
+            return false;
+        }
+    }
+    // Timestamp has no index
+    std::size_t pos;
+    try
+    {
+        timestamp = std::stoull(tsStr.to_string(), &pos);
+    }
+    catch (std::invalid_argument)
+    {
+        messages::resourceMissingAtURI(res, entryID);
+        return false;
+    }
+    catch (std::out_of_range)
+    {
+        messages::resourceMissingAtURI(res, entryID);
+        return false;
+    }
+    if (pos != tsStr.size())
+    {
+        messages::resourceMissingAtURI(res, entryID);
+        return false;
+    }
+    return true;
+}
+
 class LogServiceCollection : public Node
 {
   public:
@@ -131,69 +348,30 @@ static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
 {
     // Get the Log Entry contents
     int ret = 0;
-    const char *data = nullptr;
-    size_t length = 0;
 
-    ret =
-        sd_journal_get_data(journal, "MESSAGE", (const void **)&data, &length);
+    boost::string_view msg;
+    ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
         return 1;
     }
-    boost::string_view msg;
-    msg = boost::string_view(data, length);
-    // Only use the content after the "=" character.
-    msg.remove_prefix(std::min(msg.find("=") + 1, msg.size()));
 
     // Get the severity from the PRIORITY field
-    boost::string_view priority;
     int severity = 8; // Default to an invalid priority
-    ret =
-        sd_journal_get_data(journal, "PRIORITY", (const void **)&data, &length);
+    ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
         return 1;
     }
-    priority = boost::string_view(data, length);
-    // Check length for sanity. Must be a single digit in the form
-    // "PRIORITY=[0-7]"
-    if (priority.size() > sizeof("PRIORITY=0"))
-    {
-        BMCWEB_LOG_ERROR << "Invalid PRIORITY field length";
-        return 1;
-    }
-    // Only use the content after the "=" character.
-    priority.remove_prefix(std::min(priority.find("=") + 1, priority.size()));
-    severity = strtol(priority.data(), nullptr, 10);
 
     // Get the Created time from the timestamp
-    // Get the entry timestamp
-    uint64_t timestamp = 0;
-    ret = sd_journal_get_realtime_usec(journal, &timestamp);
-    if (ret < 0)
+    std::string entryTimeStr;
+    if (!getEntryTimestamp(journal, entryTimeStr))
     {
-        BMCWEB_LOG_ERROR << "Failed to read entry timestamp: "
-                         << strerror(-ret);
+        return 1;
     }
-    time_t t =
-        static_cast<time_t>(timestamp / 1000 / 1000); // Convert from us to s
-    struct tm *loctime = localtime(&t);
-    char entryTime[64] = {};
-    if (NULL != loctime)
-    {
-        strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
-    }
-    // Insert the ':' into the timezone
-    boost::string_view t1(entryTime);
-    boost::string_view t2(entryTime);
-    if (t1.size() > 2 && t2.size() > 2)
-    {
-        t1.remove_suffix(2);
-        t2.remove_prefix(t2.size() - 2);
-    }
-    const std::string entryTimeStr(t1.to_string() + ":" + t2.to_string());
 
     // Fill in the log entry with the gathered data
     bmcLogEntryJson = {
@@ -203,7 +381,7 @@ static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
                           bmcLogEntryID},
         {"Name", "BMC Journal Entry"},
         {"Id", bmcLogEntryID},
-        {"Message", msg.to_string()},
+        {"Message", msg},
         {"EntryType", "Oem"},
         {"Severity",
          severity <= 2 ? "Critical"
@@ -241,47 +419,13 @@ class BMCLogEntryCollection : public Node
         static constexpr const long maxEntriesPerPage = 1000;
         long skip = 0;
         long top = maxEntriesPerPage; // Show max entries by default
-        char *skipParam = req.urlParams.get("$skip");
-        if (skipParam != nullptr)
+        if (!getSkipParam(asyncResp->res, req, skip))
         {
-            char *ptr = nullptr;
-            skip = std::strtol(skipParam, &ptr, 10);
-            if (*skipParam == '\0' || *ptr != '\0')
-            {
-
-                messages::queryParameterValueTypeError(
-                    asyncResp->res, std::string(skipParam), "$skip");
-                return;
-            }
-            if (skip < 0)
-            {
-
-                messages::queryParameterOutOfRange(asyncResp->res,
-                                                   std::to_string(skip),
-                                                   "$skip", "greater than 0");
-                return;
-            }
+            return;
         }
-        char *topParam = req.urlParams.get("$top");
-        if (topParam != nullptr)
+        if (!getTopParam(asyncResp->res, req, top))
         {
-            char *ptr = nullptr;
-            top = std::strtol(topParam, &ptr, 10);
-            if (*topParam == '\0' || *ptr != '\0')
-            {
-                messages::queryParameterValueTypeError(
-                    asyncResp->res, std::string(topParam), "$top");
-                return;
-            }
-            if (top < 1 || top > maxEntriesPerPage)
-            {
-
-                messages::queryParameterOutOfRange(
-                    asyncResp->res, std::to_string(top), "$top",
-                    "1-" + std::to_string(maxEntriesPerPage));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
-                return;
-            }
+            return;
         }
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
@@ -311,8 +455,6 @@ class BMCLogEntryCollection : public Node
         std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
             journalTmp, sd_journal_close);
         journalTmp = nullptr;
-        uint64_t prevTs = 0;
-        int index = 0;
         uint64_t entryCount = 0;
         SD_JOURNAL_FOREACH(journal.get())
         {
@@ -324,33 +466,12 @@ class BMCLogEntryCollection : public Node
                 continue;
             }
 
-            // Get the entry timestamp
-            uint64_t curTs = 0;
-            ret = sd_journal_get_realtime_usec(journal.get(), &curTs);
-            if (ret < 0)
+            std::string idStr;
+            if (!getUniqueEntryID(journal.get(), idStr))
             {
-                BMCWEB_LOG_ERROR << "Failed to read entry timestamp: "
-                                 << strerror(-ret);
                 continue;
             }
-            // If the timestamp isn't unique, increment the index
-            if (curTs == prevTs)
-            {
-                index++;
-            }
-            else
-            {
-                // Otherwise, reset it
-                index = 0;
-            }
-            // Save the timestamp
-            prevTs = curTs;
 
-            std::string idStr(std::to_string(curTs));
-            if (index > 0)
-            {
-                idStr += "_" + std::to_string(index);
-            }
             logEntryArray.push_back({});
             nlohmann::json &bmcLogEntry = logEntryArray.back();
             if (fillBMCLogEntryJson(idStr, journal.get(), bmcLogEntry) != 0)
@@ -395,25 +516,13 @@ class BMCLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
+        const std::string &entryID = params[0];
         // Convert the unique ID back to a timestamp to find the entry
-        boost::string_view tsStr(params[0]);
-        boost::string_view indexStr(params[0]);
         uint64_t ts = 0;
         uint16_t index = 0;
-        auto underscorePos = tsStr.find("_");
-        if (underscorePos == tsStr.npos)
+        if (!getTimestampFromID(asyncResp->res, entryID, ts, index))
         {
-            // Timestamp has no index
-            ts = strtoull(tsStr.data(), nullptr, 10);
-        }
-        else
-        {
-            // Timestamp has an index
-            tsStr.remove_suffix(tsStr.size() - underscorePos + 1);
-            ts = strtoull(tsStr.data(), nullptr, 10);
-            indexStr.remove_prefix(underscorePos + 1);
-            index =
-                static_cast<uint16_t>(strtoul(indexStr.data(), nullptr, 10));
+            return;
         }
 
         sd_journal *journalTmp = nullptr;
