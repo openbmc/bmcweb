@@ -13,6 +13,7 @@ At this time, the webserver implements a few interfaces:
 + Static file hosting.  Currently, static files are hosted from the fixed location at /usr/share/www.  This is intended to allow loose coupling with yocto projects, and allow overriding static files at build time.
 + Dbus-monitor over websocket.  A generic endpoint that allows UIs to open a websocket and register for notification of events to avoid polling in single page applications.  (this interface may be modified in the future due to security concerns.
 
+See also the [Configuration Guide](./config-guide.md).
 
 ## Crow patches ##
 The crow project has had a number of additions to make it more useful for use in the OpenBmc Project.  A non-exhaustive list is below.  At the time of this writing, the crow project is not accepting patches, so for the time being crow will simply be checked in as is.
