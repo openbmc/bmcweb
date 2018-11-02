@@ -71,6 +71,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
             std::make_unique<VlanNetworkInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
         nodes.emplace_back(std::make_unique<LogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<BMCLogService>(app));
         nodes.emplace_back(std::make_unique<BMCLogEntryCollection>(app));
