@@ -125,48 +125,66 @@ class BMCLogService : public Node
     }
 };
 
+static int getJournalMetadata(sd_journal *journal,
+                              const boost::string_view &field,
+                              boost::string_view &contents)
+{
+    const char *data = nullptr;
+    size_t length = 0;
+    int ret = 0;
+    // Get the metadata from the requested field of the journal entry
+    ret = sd_journal_get_data(journal, field.data(), (const void **)&data,
+                              &length);
+    if (ret < 0)
+    {
+        return ret;
+    }
+    contents = boost::string_view(data, length);
+    // Only use the content after the "=" character.
+    contents.remove_prefix(std::min(contents.find("=") + 1, contents.size()));
+    return ret;
+}
+
+template <typename T>
+static int getJournalMetadata(sd_journal *journal,
+                              const boost::string_view &field, const int &base,
+                              T &contents)
+{
+    int ret = 0;
+    boost::string_view metadata;
+    // Get the metadata from the requested field of the journal entry
+    ret = getJournalMetadata(journal, field, metadata);
+    if (ret < 0)
+    {
+        return ret;
+    }
+    contents = static_cast<T>(strtol(metadata.data(), nullptr, base));
+    return ret;
+}
+
 static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
                                sd_journal *journal,
                                nlohmann::json &bmcLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
-    const char *data = nullptr;
-    size_t length = 0;
 
-    ret =
-        sd_journal_get_data(journal, "MESSAGE", (const void **)&data, &length);
+    boost::string_view msg;
+    ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
         return 1;
     }
-    boost::string_view msg;
-    msg = boost::string_view(data, length);
-    // Only use the content after the "=" character.
-    msg.remove_prefix(std::min(msg.find("=") + 1, msg.size()));
 
     // Get the severity from the PRIORITY field
-    boost::string_view priority;
     int severity = 8; // Default to an invalid priority
-    ret =
-        sd_journal_get_data(journal, "PRIORITY", (const void **)&data, &length);
+    ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
         return 1;
     }
-    priority = boost::string_view(data, length);
-    // Check length for sanity. Must be a single digit in the form
-    // "PRIORITY=[0-7]"
-    if (priority.size() > sizeof("PRIORITY=0"))
-    {
-        BMCWEB_LOG_ERROR << "Invalid PRIORITY field length";
-        return 1;
-    }
-    // Only use the content after the "=" character.
-    priority.remove_prefix(std::min(priority.find("=") + 1, priority.size()));
-    severity = strtol(priority.data(), nullptr, 10);
 
     // Get the Created time from the timestamp
     // Get the entry timestamp
@@ -203,7 +221,7 @@ static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
                           bmcLogEntryID},
         {"Name", "BMC Journal Entry"},
         {"Id", bmcLogEntryID},
-        {"Message", msg.to_string()},
+        {"Message", msg},
         {"EntryType", "Oem"},
         {"Severity",
          severity <= 2 ? "Critical"
@@ -279,7 +297,6 @@ class BMCLogEntryCollection : public Node
                 messages::queryParameterOutOfRange(
                     asyncResp->res, std::to_string(top), "$top",
                     "1-" + std::to_string(maxEntriesPerPage));
-                asyncResp->res.result(boost::beast::http::status::bad_request);
                 return;
             }
         }
