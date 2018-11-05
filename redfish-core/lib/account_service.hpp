@@ -108,6 +108,7 @@ class AccountService : public Node
         res.end();
     }
 };
+
 class AccountsCollection : public Node
 {
   public:
