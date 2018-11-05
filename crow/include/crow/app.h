@@ -1,5 +1,7 @@
 #pragma once
 
+#include "privileges.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <functional>

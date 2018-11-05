@@ -1,7 +1,9 @@
 #pragma once
 
-#include "boost/container/flat_map.hpp"
+#include "privileges.hpp"
 
+#include <boost/container/flat_map.hpp>
+#include <boost/container/small_vector.hpp>
 #include <boost/lexical_cast.hpp>
 #include <cerrno>
 #include <cstdint>
@@ -21,10 +23,14 @@
 
 namespace crow
 {
+
+constexpr int maxHttpVerbCount =
+    static_cast<int>(boost::beast::http::verb::unlink);
+
 class BaseRule
 {
   public:
-    BaseRule(std::string rule) : rule(std::move(rule))
+    BaseRule(std::string rule) : rule_(std::move(rule))
     {
     }
 
@@ -59,13 +65,50 @@ class BaseRule
         return methodsBitfield;
     }
 
+    template <typename F> void foreach_method(F f)
+    {
+        for (uint32_t method = 0, method_bit = 1; method < maxHttpVerbCount;
+             method++, method_bit <<= 1)
+        {
+            if (methodsBitfield & method_bit)
+                f(method);
+        }
+    }
+    const std::string& rule()
+    {
+        return rule_;
+    }
+
+    bool checkPrivileges(const redfish::Privileges& userPrivileges)
+    {
+        // If there are no privileges assigned, assume no privileges
+        // required
+        if (privilegesSet.empty())
+        {
+            return true;
+        }
+
+        for (auto& requiredPrivileges : privilegesSet)
+        {
+            if (userPrivileges.isSupersetOf(requiredPrivileges))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
   protected:
     uint32_t methodsBitfield{1 << (int)boost::beast::http::verb::get};
 
-    std::string rule;
+    std::vector<redfish::Privileges> privilegesSet;
+
+    std::string rule_;
     std::string nameStr;
 
     std::unique_ptr<BaseRule> ruleToUpgrade;
+
+    std::unique_ptr<BaseRule> rule_to_upgrade_;
 
     friend class Router;
     template <typename T> friend struct RuleParameterTraits;
@@ -357,7 +400,7 @@ template <typename T> struct RuleParameterTraits
     using self_t = T;
     WebSocketRule& websocket()
     {
-        auto p = new WebSocketRule(((self_t*)this)->rule);
+        auto p = new WebSocketRule(((self_t*)this)->rule());
         ((self_t*)this)->ruleToUpgrade.reset(p);
         return *p;
     }
@@ -381,6 +424,23 @@ template <typename T> struct RuleParameterTraits
         ((self_t*)this)->methodsBitfield |= 1 << (int)method;
         return (self_t&)*this;
     }
+
+    template <typename... MethodArgs>
+    self_t& requires(std::initializer_list<const char*> l)
+    {
+        ((self_t*)this)->privilegesSet.emplace_back(l);
+        return (self_t&)*this;
+    }
+
+    template <typename... MethodArgs>
+    self_t& requires(const std::vector<redfish::Privileges>& p)
+    {
+        for (const auto& privilege : p)
+        {
+            ((self_t*)this)->privilegesSet.emplace_back(privilege);
+        }
+        return (self_t&)*this;
+    }
 };
 
 class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
@@ -395,7 +455,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         if (!erasedHandler)
         {
             throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
+                                     "no handler for url " + rule_);
         }
     }
 
@@ -425,13 +485,13 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         using function_t = utility::function_traits<Func>;
 
         if (!black_magic::isParameterTagCompatible(
-                black_magic::getParameterTagRuntime(rule.c_str()),
+                black_magic::getParameterTagRuntime(rule_.c_str()),
                 black_magic::compute_parameter_tag_from_args_list<
                     typename function_t::template arg<Indices>...>::value))
         {
             throw std::runtime_error("routeDynamic: Handler type is mismatched "
                                      "with URL parameters: " +
-                                     rule);
+                                     rule_);
         }
         auto ret = detail::routing_handler_call_helper::Wrapped<
             Func, typename function_t::template arg<Indices>...>();
@@ -467,7 +527,7 @@ class TaggedRule : public BaseRule,
         if (!handler)
         {
             throw std::runtime_error(nameStr + (!nameStr.empty() ? ": " : "") +
-                                     "no handler for url " + rule);
+                                     "no handler for url " + rule_);
         }
     }
 
@@ -542,7 +602,8 @@ class TaggedRule : public BaseRule,
             std::is_same<void, decltype(f(std::declval<crow::Request>(),
                                           std::declval<crow::Response&>(),
                                           std::declval<Args>()...))>::value,
-            "Handler function with response argument should have void return "
+            "Handler function with response argument should have void "
+            "return "
             "type");
 
         handler = std::move(f);
@@ -653,7 +714,7 @@ class Trie
 
     void findRouteIndexes(const std::string& req_url,
                           std::vector<unsigned>& route_indexes,
-                          const Node* node = nullptr, unsigned pos = 0)
+                          const Node* node = nullptr, unsigned pos = 0) const
     {
         if (node == nullptr)
         {
@@ -954,7 +1015,7 @@ class Trie
 class Router
 {
   public:
-    Router() : rules(2)
+    Router()
     {
     }
 
@@ -963,7 +1024,7 @@ class Router
         std::unique_ptr<DynamicRule> ruleObject =
             std::make_unique<DynamicRule>(rule);
         DynamicRule* ptr = ruleObject.get();
-        internalAddRuleObject(rule, std::move(ruleObject));
+        all_rules_.emplace_back(std::move(ruleObject));
 
         return *ptr;
     }
@@ -976,30 +1037,32 @@ class Router
             TaggedRule>;
         std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
         RuleT* ptr = ruleObject.get();
-
-        internalAddRuleObject(rule, std::move(ruleObject));
+        all_rules_.emplace_back(std::move(ruleObject));
 
         return *ptr;
     }
 
-    void internalAddRuleObject(const std::string& rule,
-                               std::unique_ptr<BaseRule> ruleObject)
+    void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
-        rules.emplace_back(std::move(ruleObject));
-        trie.add(rule, rules.size() - 1);
-
-        // directory case:
-        //   request to `/about' url matches `/about/' rule
-        if (rule.size() > 2 && rule.back() == '/')
-        {
-            trie.add(rule.substr(0, rule.size() - 1), rules.size() - 1);
-        }
+        ruleObject->foreach_method([&](int method) {
+            per_methods_[method].rules.emplace_back(ruleObject);
+            per_methods_[method].trie.add(
+                rule, per_methods_[method].rules.size() - 1);
+            // directory case:
+            // directory case:
+            //   request to `/about' url matches `/about/' rule
+            if (rule.size() > 2 && rule.back() == '/')
+            {
+                per_methods_[method].trie.add(
+                    rule.substr(0, rule.size() - 1),
+                    per_methods_[method].rules.size() - 1);
+            }
+        });
     }
 
     void validate()
     {
-        trie.validate();
-        for (auto& rule : rules)
+        for (auto& rule : all_rules_)
         {
             if (rule)
             {
@@ -1007,13 +1070,25 @@ class Router
                 if (upgraded)
                     rule = std::move(upgraded);
                 rule->validate();
+                internalAddRuleObject(rule->rule(), rule.get());
             }
+        }
+        for (auto& per_method : per_methods_)
+        {
+            per_method.trie.validate();
         }
     }
 
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
+        if (static_cast<int>(req.method()) >= per_methods_.size())
+            return;
+
+        auto& per_method = per_methods_[(int)req.method()];
+        auto& trie = per_method.trie;
+        auto& rules = per_method.rules;
+
         auto found = trie.find(req.url);
         unsigned ruleIndex = found.first;
         if (!ruleIndex)
@@ -1063,8 +1138,9 @@ class Router
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
-                         << "' " << (uint32_t)req.method() << " / "
+        BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '"
+                         << rules[ruleIndex]->rule_ << "' "
+                         << (uint32_t)req.method() << " / "
                          << rules[ruleIndex]->getMethods();
 
         // any uncaught exceptions become 500s
@@ -1092,6 +1168,12 @@ class Router
 
     void handle(const Request& req, Response& res)
     {
+        if ((int)req.method() >= per_methods_.size())
+            return;
+        auto& per_method = per_methods_[(int)req.method()];
+        auto& trie = per_method.trie;
+        auto& rules = per_method.rules;
+
         auto found = trie.find(req.url);
 
         unsigned ruleIndex = found.first;
@@ -1141,9 +1223,22 @@ class Router
             return;
         }
 
-        BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule << "' "
+        BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule() << "' "
                          << (uint32_t)req.method() << " / "
                          << rules[ruleIndex]->getMethods();
+
+        // TODO: load user privileges from configuration as soon as its
+        // available now we are granting all privileges to everyone.
+        redfish::Privileges userPrivileges{"Login", "ConfigureManager",
+                                           "ConfigureSelf", "ConfigureUsers",
+                                           "ConfigureComponents"};
+
+        if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+        {
+            res.result(boost::beast::http::status::method_not_allowed);
+            res.end();
+            return;
+        }
 
         // any uncaught exceptions become 500s
         try
@@ -1170,23 +1265,41 @@ class Router
 
     void debugPrint()
     {
-        trie.debugPrint();
+        for (int i = 0; i < per_methods_.size(); i++)
+        {
+            BMCWEB_LOG_DEBUG << methodName((boost::beast::http::verb)i);
+            per_methods_[i].trie.debugPrint();
+        }
     }
 
     std::vector<const std::string*> getRoutes(const std::string& parent)
     {
-        std::vector<unsigned> x;
         std::vector<const std::string*> ret;
-        trie.findRouteIndexes(parent, x);
-        for (unsigned index : x)
+
+        for (const PerMethod& pm : per_methods_)
         {
-            ret.push_back(&rules[index]->rule);
+            std::vector<unsigned> x;
+            pm.trie.findRouteIndexes(parent, x);
+            for (unsigned index : x)
+            {
+                ret.push_back(&pm.rules[index]->rule_);
+            }
         }
         return ret;
     }
 
   private:
-    std::vector<std::unique_ptr<BaseRule>> rules;
-    Trie trie;
+    struct PerMethod
+    {
+        std::vector<BaseRule*> rules;
+        Trie trie;
+        // rule index 0, 1 has special meaning; preallocate it to avoid
+        // duplication.
+        PerMethod() : rules(2)
+        {
+        }
+    };
+    std::array<PerMethod, maxHttpVerbCount> per_methods_;
+    std::vector<std::unique_ptr<BaseRule>> all_rules_;
 };
 } // namespace crow
