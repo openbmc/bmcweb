@@ -95,6 +95,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+
+        for (const auto& node : nodes)
+        {
+            node->initPrivileges();
+        }
     }
 
   private:
