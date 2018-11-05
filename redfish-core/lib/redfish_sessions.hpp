@@ -139,6 +139,7 @@ class SessionCollection : public Node
             res.jsonValue["Members"].push_back(
                 {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
         }
+        res.jsonValue["Members@odata.count"] = sessionIds.size();
         res.jsonValue["@odata.type"] = "#SessionCollection.SessionCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
         res.jsonValue["@odata.context"] =
