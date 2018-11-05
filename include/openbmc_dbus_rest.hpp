@@ -1972,6 +1972,7 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
+        .requires({"Login"})
         .methods("GET"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 res.jsonValue = {{"busses", {{{"name", "system"}}}},
@@ -1980,6 +1981,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/bus/system/")
+        .requires({"Login"})
         .methods("GET"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 auto myCallback = [&res](const boost::system::error_code ec,
@@ -2008,13 +2010,23 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/list/")
+        .requires({"Login"})
         .methods("GET"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 handleList(res, "/");
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .methods("GET"_method, "PUT"_method, "POST"_method, "DELETE"_method)(
+        .requires({"Login"})
+        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
+                                  const std::string &path) {
+            std::string objectPath = "/xyz/" + path;
+            handleDBusUrl(req, res, objectPath);
+        });
+
+    BMCWEB_ROUTE(app, "/xyz/<path>")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
                 std::string objectPath = "/xyz/" + path;
@@ -2022,14 +2034,24 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .methods("GET"_method, "PUT"_method, "POST"_method, "DELETE"_method)(
+        .requires({"Login"})
+        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
+                                  const std::string &path) {
+            std::string objectPath = "/xyz/" + path;
+            handleDBusUrl(req, res, objectPath);
+        });
+
+    BMCWEB_ROUTE(app, "/org/<path>")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
-                std::string objectPath = "/org/" + path;
+                std::string objectPath = "/xyz/" + path;
                 handleDBusUrl(req, res, objectPath);
             });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
+        .requires({"ConfigureManager"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
                                   const std::string &dumpId) {
             std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
@@ -2073,6 +2095,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/")
+        .requires({"Login"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
                                   const std::string &Connection) {
             introspectObjects(Connection, "/",
