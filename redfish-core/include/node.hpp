@@ -55,19 +55,87 @@ class Node
     template <typename... Params>
     Node(CrowApp& app, std::string&& entityUrl, Params... params)
     {
-        app.routeDynamic(entityUrl.c_str())
-            .methods("GET"_method, "PATCH"_method, "POST"_method,
-                     "DELETE"_method)([&](const crow::Request& req,
-                                          crow::Response& res,
-                                          Params... params) {
-                std::vector<std::string> paramVec = {params...};
-                dispatchRequest(app, req, res, paramVec);
-            });
+        crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
+        getRule = &get;
+        get.methods("GET"_method)([this](const crow::Request& req,
+                                         crow::Response& res,
+                                         Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doGet(res, req, paramVec);
+        });
+
+        crow::DynamicRule& patch = app.routeDynamic(entityUrl.c_str());
+        patchRule = &patch;
+        patch.methods("PATCH"_method)([this](const crow::Request& req,
+                                             crow::Response& res,
+                                             Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doPatch(res, req, paramVec);
+        });
+
+        crow::DynamicRule& post = app.routeDynamic(entityUrl.c_str());
+        postRule = &post;
+        post.methods("POST"_method)([this](const crow::Request& req,
+                                           crow::Response& res,
+                                           Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doPost(res, req, paramVec);
+        });
+
+        crow::DynamicRule& delete_ = app.routeDynamic(entityUrl.c_str());
+        deleteRule = &delete_;
+        delete_.methods("DELETE"_method)([this](const crow::Request& req,
+                                                crow::Response& res,
+                                                Params... params) {
+            std::vector<std::string> paramVec = {params...};
+            doDelete(res, req, paramVec);
+        });
+    }
+
+    void initPrivileges()
+    {
+        auto it = entityPrivileges.find(boost::beast::http::verb::get);
+        if (it != entityPrivileges.end())
+        {
+            if (getRule != nullptr)
+            {
+                getRule->requires(it->second);
+            }
+        }
+        it = entityPrivileges.find(boost::beast::http::verb::post);
+        if (it != entityPrivileges.end())
+        {
+            if (postRule != nullptr)
+            {
+                postRule->requires(it->second);
+            }
+        }
+        it = entityPrivileges.find(boost::beast::http::verb::patch);
+        if (it != entityPrivileges.end())
+        {
+            if (patchRule != nullptr)
+            {
+                patchRule->requires(it->second);
+            }
+        }
+        it = entityPrivileges.find(boost::beast::http::verb::delete_);
+        if (it != entityPrivileges.end())
+        {
+            if (deleteRule != nullptr)
+            {
+                deleteRule->requires(it->second);
+            }
+        }
     }
 
     virtual ~Node() = default;
 
     OperationMap entityPrivileges;
+
+    crow::DynamicRule* getRule = nullptr;
+    crow::DynamicRule* postRule = nullptr;
+    crow::DynamicRule* patchRule = nullptr;
+    crow::DynamicRule* deleteRule = nullptr;
 
   protected:
     // Node is designed to be an abstract class, so doGet is pure virtual
@@ -97,47 +165,6 @@ class Node
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
-    }
-
-  private:
-    void dispatchRequest(CrowApp& app, const crow::Request& req,
-                         crow::Response& res,
-                         const std::vector<std::string>& params)
-    {
-        auto ctx =
-            app.template getContext<crow::token_authorization::Middleware>(req);
-
-        if (!isMethodAllowedForUser(req.method(), entityPrivileges,
-                                    ctx.session->username))
-        {
-            res.result(boost::beast::http::status::method_not_allowed);
-            res.end();
-            return;
-        }
-
-        switch (req.method())
-        {
-            case "GET"_method:
-                doGet(res, req, params);
-                break;
-
-            case "PATCH"_method:
-                doPatch(res, req, params);
-                break;
-
-            case "POST"_method:
-                doPost(res, req, params);
-                break;
-
-            case "DELETE"_method:
-                doDelete(res, req, params);
-                break;
-
-            default:
-                res.result(boost::beast::http::status::not_found);
-                res.end();
-        }
-        return;
     }
 };
 
