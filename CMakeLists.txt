@@ -15,6 +15,11 @@ option (BMCWEB_ENABLE_STATIC_HOSTING "Enable hosting of static files.
        For example, redfish schema and webui files" ON)
 
 option (
+    BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
+    "Enable BMC journal access through redfish" OFF
+)
+
+option (
     BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through redfish"
     OFF
 )
@@ -252,4 +257,5 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_INSECURE_DISABLE_XSS_PREVENTION}>: -DBMCWEB_INSECURE_DISABLE_XSS_PREVENTION>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_RAW_PECI}>: -DBMCWEB_ENABLE_REDFISH_RAW_PECI>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>: -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
 )
