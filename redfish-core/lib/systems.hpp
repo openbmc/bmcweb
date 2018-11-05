@@ -712,6 +712,9 @@ class Systems : public Node
             {"ResetType@Redfish.AllowableValues",
              {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
 
+        res.jsonValue["LogServices"] = {
+            {"@odata.id", "/redfish/v1/Systems/" + name + "/LogServices"}};
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getLedGroupIdentify(

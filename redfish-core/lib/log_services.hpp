@@ -254,11 +254,367 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
     return true;
 }
 
-class LogServiceCollection : public Node
+class SystemLogServiceCollection : public Node
 {
   public:
     template <typename CrowApp>
-    LogServiceCollection(CrowApp &app) :
+    SystemLogServiceCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        const std::string &name = params[0];
+        // Collections don't include the static data added by SubRoute because
+        // it has a duplicate entry for members
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogServiceCollection.LogServiceCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogServiceCollection.LogServiceCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/" + name + "/LogServices";
+        asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of LogServices for this Computer System";
+        nlohmann::json &logServiceArray = asyncResp->res.jsonValue["Members"];
+        logServiceArray = nlohmann::json::array();
+        logServiceArray.push_back({{"@odata.id", "/redfish/v1/Systems/" + name +
+                                                     "/LogServices/EventLog"}});
+        asyncResp->res.jsonValue["Members@odata.count"] =
+            logServiceArray.size();
+    }
+};
+
+class EventLogService : public Node
+{
+  public:
+    template <typename CrowApp>
+    EventLogService(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        const std::string &name = params[0];
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/" + name + "/LogServices/EventLog";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogService.LogService";
+        asyncResp->res.jsonValue["Name"] = "Event Log Service";
+        asyncResp->res.jsonValue["Description"] = "System Event Log Service";
+        asyncResp->res.jsonValue["Id"] = "Event Log";
+        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Systems/" + name + "/LogServices/EventLog/Entries"}};
+    }
+};
+
+static int fillEventLogEntryJson(const std::string &systemName,
+                                 const std::string &bmcLogEntryID,
+                                 const boost::string_view &messageID,
+                                 sd_journal *journal,
+                                 nlohmann::json &bmcLogEntryJson)
+{
+    // Get the Log Entry contents
+    int ret = 0;
+
+    boost::string_view msg;
+    ret = getJournalMetadata(journal, "MESSAGE", msg);
+    if (ret < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
+        return 1;
+    }
+
+    // Get the severity from the PRIORITY field
+    int severity = 8; // Default to an invalid priority
+    ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
+    if (ret < 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
+        return 1;
+    }
+
+    // Get the MessageArgs from the journal entry by finding all of the
+    // REDFISH_MESSAGE_ARG_x fields
+    const void *data;
+    size_t length;
+    std::vector<std::string> messageArgs;
+    SD_JOURNAL_FOREACH_DATA(journal, data, length)
+    {
+        boost::string_view field(static_cast<const char *>(data), length);
+        if (field.starts_with("REDFISH_MESSAGE_ARG_"))
+        {
+            // Get the Arg number from the field name
+            field.remove_prefix(sizeof("REDFISH_MESSAGE_ARG_") - 1);
+            if (field.empty())
+            {
+                continue;
+            }
+            int argNum = std::strtoul(field.data(), nullptr, 10);
+            if (argNum == 0)
+            {
+                continue;
+            }
+            // Get the Arg value after the "=" character.
+            field.remove_prefix(std::min(field.find("=") + 1, field.size()));
+            // Make sure we have enough space in messageArgs
+            if (argNum > messageArgs.size())
+            {
+                messageArgs.resize(argNum);
+            }
+            messageArgs[argNum - 1] = field.to_string();
+        }
+    }
+
+    // Get the Created time from the timestamp
+    std::string entryTimeStr;
+    if (!getEntryTimestamp(journal, entryTimeStr))
+    {
+        return 1;
+    }
+
+    // Fill in the log entry with the gathered data
+    bmcLogEntryJson = {
+        {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+        {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
+        {"@odata.id", "/redfish/v1/Systems/" + systemName +
+                          "/LogServices/EventLog/Entries/" + bmcLogEntryID},
+        {"Name", "System Event Log Entry"},
+        {"Id", bmcLogEntryID},
+        {"Message", msg},
+        {"MessageId", messageID},
+        {"MessageArgs", std::move(messageArgs)},
+        {"EntryType", "Event"},
+        {"Severity",
+         severity <= 2 ? "Critical"
+                       : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
+        {"Created", std::move(entryTimeStr)}};
+    return 0;
+}
+
+class EventLogEntryCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    EventLogEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        long skip = 0;
+        long top = maxEntriesPerPage; // Show max entries by default
+        if (!getSkipParam(asyncResp->res, req, skip))
+        {
+            return;
+        }
+        if (!getTopParam(asyncResp->res, req, top))
+        {
+            return;
+        }
+        const std::string &name = params[0];
+        // Collections don't include the static data added by SubRoute because
+        // it has a duplicate entry for members
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/" + name + "/LogServices/EventLog/Entries";
+        asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of System Event Log Entries";
+        nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
+        logEntryArray = nlohmann::json::array();
+
+        // Go through the journal and create a unique ID for each entry
+        sd_journal *journalTmp = nullptr;
+        int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
+        if (ret < 0)
+        {
+            BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
+            journalTmp, sd_journal_close);
+        journalTmp = nullptr;
+        uint64_t entryCount = 0;
+        SD_JOURNAL_FOREACH(journal.get())
+        {
+            // Look for only journal entries that contain a REDFISH_MESSAGE_ID
+            // field
+            boost::string_view messageID;
+            ret = getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID",
+                                     messageID);
+            if (ret < 0)
+            {
+                continue;
+            }
+
+            entryCount++;
+            // Handle paging using skip (number of entries to skip from the
+            // start) and top (number of entries to display)
+            if (entryCount <= skip || entryCount > skip + top)
+            {
+                continue;
+            }
+
+            std::string idStr;
+            if (!getUniqueEntryID(journal.get(), idStr))
+            {
+                continue;
+            }
+
+            logEntryArray.push_back({});
+            nlohmann::json &bmcLogEntry = logEntryArray.back();
+            if (fillEventLogEntryJson(name, idStr, messageID, journal.get(),
+                                      bmcLogEntry) != 0)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        }
+        asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
+        if (skip + top < entryCount)
+        {
+            asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
+                std::to_string(skip + top);
+        }
+    }
+};
+
+class EventLogEntry : public Node
+{
+  public:
+    EventLogEntry(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
+             std::string(), std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 2)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string &name = params[0];
+        const std::string &entryID = params[1];
+        // Convert the unique ID back to a timestamp to find the entry
+        uint64_t ts = 0;
+        uint16_t index = 0;
+        if (!getTimestampFromID(asyncResp->res, entryID, ts, index))
+        {
+            return;
+        }
+
+        sd_journal *journalTmp = nullptr;
+        int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
+        if (ret < 0)
+        {
+            BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
+            journalTmp, sd_journal_close);
+        journalTmp = nullptr;
+        // Go to the timestamp in the log and move to the entry at the index
+        ret = sd_journal_seek_realtime_usec(journal.get(), ts);
+        for (int i = 0; i <= index; i++)
+        {
+            sd_journal_next(journal.get());
+        }
+        // Confirm that the entry ID matches what was requested
+        std::string idStr;
+        if (!getUniqueEntryID(journal.get(), idStr) || idStr != entryID)
+        {
+            messages::resourceMissingAtURI(asyncResp->res, entryID);
+            return;
+        }
+
+        // only use journal entries that contain a REDFISH_MESSAGE_ID
+        // field
+        boost::string_view messageID;
+        ret =
+            getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID", messageID);
+        if (ret < 0)
+        {
+            messages::resourceNotFound(asyncResp->res, "LogEntry", name);
+            return;
+        }
+
+        if (fillEventLogEntryJson(name, entryID, messageID, journal.get(),
+                                  asyncResp->res.jsonValue) != 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+    }
+};
+
+class BMCLogServiceCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    BMCLogServiceCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/")
     {
         // Collections use static ID for SubRoute to add to its parent, but only
@@ -286,35 +642,37 @@ class LogServiceCollection : public Node
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogServiceCollection.LogServiceCollection";
         asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#LogServiceCollection.LogServiceCollection";
+            "/redfish/v1/$metadata#LogServiceCollection.LogServiceCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices";
         asyncResp->res.jsonValue["Name"] = "Open BMC Log Services Collection";
         asyncResp->res.jsonValue["Description"] =
             "Collection of LogServices for this Manager";
-        nlohmann::json &logserviceArray = asyncResp->res.jsonValue["Members"];
-        logserviceArray = nlohmann::json::array();
-        logserviceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/BmcLog"}});
+        nlohmann::json &logServiceArray = asyncResp->res.jsonValue["Members"];
+        logServiceArray = nlohmann::json::array();
+#ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
+        logServiceArray.push_back(
+            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
+#endif
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        logserviceArray.push_back(
+        logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/CpuLog"}});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
-            logserviceArray.size();
+            logServiceArray.size();
     }
 };
 
-class BMCLogService : public Node
+class BMCJournalLogService : public Node
 {
   public:
     template <typename CrowApp>
-    BMCLogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/BmcLog/")
+    BMCJournalLogService(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/")
     {
         // Set the id for SubRoute
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/BmcLog";
+        Node::json["@odata.id"] =
+            "/redfish/v1/Managers/bmc/LogServices/Journal";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -335,16 +693,16 @@ class BMCLogService : public Node
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogService.LogService";
-        asyncResp->res.jsonValue["Name"] = "Open BMC Log Service";
-        asyncResp->res.jsonValue["Description"] = "BMC Log Service";
-        asyncResp->res.jsonValue["Id"] = "BMC Log";
+        asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
+        asyncResp->res.jsonValue["Description"] = "BMC Journal Log Service";
+        asyncResp->res.jsonValue["Id"] = "BMC Journal";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
     }
 };
 
-static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
-                               sd_journal *journal,
-                               nlohmann::json &bmcLogEntryJson)
+static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
+                                      sd_journal *journal,
+                                      nlohmann::json &bmcJournalLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
@@ -374,13 +732,13 @@ static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
     }
 
     // Fill in the log entry with the gathered data
-    bmcLogEntryJson = {
+    bmcJournalLogEntryJson = {
         {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
-        {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries/" +
-                          bmcLogEntryID},
+        {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
+                          bmcJournalLogEntryID},
         {"Name", "BMC Journal Entry"},
-        {"Id", bmcLogEntryID},
+        {"Id", bmcJournalLogEntryID},
         {"Message", msg},
         {"EntryType", "Oem"},
         {"Severity",
@@ -391,17 +749,17 @@ static int fillBMCLogEntryJson(const std::string &bmcLogEntryID,
     return 0;
 }
 
-class BMCLogEntryCollection : public Node
+class BMCJournalLogEntryCollection : public Node
 {
   public:
     template <typename CrowApp>
-    BMCLogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries/")
+    BMCJournalLogEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/")
     {
         // Collections use static ID for SubRoute to add to its parent, but only
         // load dynamic data so the duplicate static members don't get displayed
         Node::json["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries";
+            "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -432,10 +790,9 @@ class BMCLogEntryCollection : public Node
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#LogEntryCollection.LogEntryCollection";
+            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries";
+            "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of BMC Journal Entries";
@@ -473,8 +830,9 @@ class BMCLogEntryCollection : public Node
             }
 
             logEntryArray.push_back({});
-            nlohmann::json &bmcLogEntry = logEntryArray.back();
-            if (fillBMCLogEntryJson(idStr, journal.get(), bmcLogEntry) != 0)
+            nlohmann::json &bmcJournalLogEntry = logEntryArray.back();
+            if (fillBMCJournalLogEntryJson(idStr, journal.get(),
+                                           bmcJournalLogEntry) != 0)
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -484,17 +842,17 @@ class BMCLogEntryCollection : public Node
         if (skip + top < entryCount)
         {
             asyncResp->res.jsonValue["Members@odata.nextLink"] =
-                "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
+                "/redfish/v1/Managers/bmc/LogServices/Journal/Entries?$skip=" +
                 std::to_string(skip + top);
         }
     }
 };
 
-class BMCLogEntry : public Node
+class BMCJournalLogEntry : public Node
 {
   public:
-    BMCLogEntry(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries/<str>/",
+    BMCJournalLogEntry(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -542,8 +900,16 @@ class BMCLogEntry : public Node
         {
             sd_journal_next(journal.get());
         }
-        if (fillBMCLogEntryJson(params[0], journal.get(),
-                                asyncResp->res.jsonValue) != 0)
+        // Confirm that the entry ID matches what was requested
+        std::string idStr;
+        if (!getUniqueEntryID(journal.get(), idStr) || idStr != entryID)
+        {
+            messages::resourceMissingAtURI(asyncResp->res, entryID);
+            return;
+        }
+
+        if (fillBMCJournalLogEntryJson(entryID, journal.get(),
+                                       asyncResp->res.jsonValue) != 0)
         {
             messages::internalError(asyncResp->res);
             return;
@@ -582,8 +948,7 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#LogService.LogService";
+            "/redfish/v1/$metadata#LogService.LogService";
         asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Service";
         asyncResp->res.jsonValue["Description"] = "CPU Log Service";
         asyncResp->res.jsonValue["Id"] = "CPU Log";
@@ -592,16 +957,14 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
              {{"#CpuLog.Immediate",
-               {{"target",
-                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
-                 "CpuLog.Immediate"}}}}}};
+               {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/"
+                           "Actions/Oem/CpuLog.Immediate"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#CpuLog.SendRawPeci",
-             {{"target",
-               "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
-               "CpuLog.SendRawPeci"}}});
+             {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/"
+                         "Oem/CpuLog.SendRawPeci"}}});
 #endif
     }
 };
@@ -653,8 +1016,7 @@ class CPULogEntryCollection : public Node
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/"
-                "$metadata#LogEntryCollection.LogEntryCollection";
+                "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
             asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Entries";
