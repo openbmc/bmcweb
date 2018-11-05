@@ -1,5 +1,7 @@
 #pragma once
 
+#include "privileges.hpp"
+
 #include <chrono>
 #include <cstdint>
 #include <functional>
@@ -60,6 +62,14 @@ template <typename... Middlewares> class Crow
     template <uint64_t Tag>
     auto route(std::string&& rule) -> typename std::result_of<
         decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type
+    {
+        return router.newRuleTagged<Tag>(std::move(rule));
+    }
+
+    template <uint64_t Tag>
+    auto route(std::string&& rule, redfish::Privileges p) ->
+        typename std::result_of<
+            decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type
     {
         return router.newRuleTagged<Tag>(std::move(rule));
     }
