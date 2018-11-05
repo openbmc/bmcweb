@@ -55,7 +55,7 @@ class ServiceRoot : public Node
         res.jsonValue["JsonSchemas"] = {
             {"@odata.id", "/redfish/v1/JsonSchemas"}};
         res.jsonValue["SessionService"] = {
-            {"@odata.id", "/redfish/v1/UpdateService"}};
+            {"@odata.id", "/redfish/v1/SessionService"}};
         res.jsonValue["Systems"] = {{"@odata.id", "/redfish/v1/Systems"}};
         res.jsonValue["UpdateService"] = {
             {"@odata.id", "/redfish/v1/UpdateService"}};
