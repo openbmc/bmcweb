@@ -14,6 +14,7 @@
 #include "crow/middleware_context.h"
 #include "crow/routing.h"
 #include "crow/utility.h"
+#include "privileges.hpp"
 
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::black_magic::get_parameter_tag(url)>(url)
@@ -60,6 +61,14 @@ template <typename... Middlewares> class Crow
     template <uint64_t Tag>
     auto route(std::string&& rule) -> typename std::result_of<
         decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type
+    {
+        return router.newRuleTagged<Tag>(std::move(rule));
+    }
+
+    template <uint64_t Tag>
+    auto route(std::string&& rule, redfish::Privileges p) ->
+        typename std::result_of<
+            decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type
     {
         return router.newRuleTagged<Tag>(std::move(rule));
     }
