@@ -1,7 +1,9 @@
 #pragma once
 
-#include "boost/container/flat_map.hpp"
+#include "privileges.hpp"
 
+#include <boost/container/flat_map.hpp>
+#include <boost/container/small_vector.hpp>
 #include <boost/lexical_cast.hpp>
 #include <cerrno>
 #include <cstdint>
@@ -21,10 +23,14 @@
 
 namespace crow
 {
+
+constexpr int maxHttpVerbCount =
+    static_cast<int>(boost::beast::http::verb::unlink);
+
 class BaseRule
 {
   public:
-    BaseRule(std::string rule) : rule(std::move(rule))
+    BaseRule(std::string thisRule) : rule(std::move(thisRule))
     {
     }
 
@@ -62,8 +68,28 @@ class BaseRule
         return methodsBitfield;
     }
 
-  protected:
+    bool checkPrivileges(const redfish::Privileges& userPrivileges)
+    {
+        // If there are no privileges assigned, assume no privileges
+        // required
+        if (privilegesSet.empty())
+        {
+            return true;
+        }
+
+        for (const redfish::Privileges& requiredPrivileges : privilegesSet)
+        {
+            if (userPrivileges.isSupersetOf(requiredPrivileges))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     uint32_t methodsBitfield{1 << (int)boost::beast::http::verb::get};
+
+    std::vector<redfish::Privileges> privilegesSet;
 
     std::string rule;
     std::string nameStr;
@@ -178,16 +204,11 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
                 const Request&>::value,
             int>::type = 0)
     {
-        handler = (
-#ifdef BMCWEB_CAN_USE_CPP14
-            [f = std::move(f)]
-#else
-            [f]
-#endif
-            (const Request&, Response& res, Args... args) {
-                res = Response(f(args...));
-                res.end();
-            });
+        handler = [f = std::move(f)](const Request&, Response& res,
+                                     Args... args) {
+            res = Response(f(args...));
+            res.end();
+        };
     }
 
     template <typename Req, typename... Args> struct ReqHandlerWrapper
@@ -362,7 +383,7 @@ template <typename T> struct RuleParameterTraits
     using self_t = T;
     WebSocketRule& websocket()
     {
-        auto p = new WebSocketRule(((self_t*)this)->rule);
+        WebSocketRule* p = new WebSocketRule(((self_t*)this)->rule);
         ((self_t*)this)->ruleToUpgrade.reset(p);
         return *p;
     }
@@ -384,6 +405,23 @@ template <typename T> struct RuleParameterTraits
     {
         methods(args_method...);
         ((self_t*)this)->methodsBitfield |= 1 << (int)method;
+        return (self_t&)*this;
+    }
+
+    template <typename... MethodArgs>
+    self_t& requires(std::initializer_list<const char*> l)
+    {
+        ((self_t*)this)->privilegesSet.emplace_back(l);
+        return (self_t&)*this;
+    }
+
+    template <typename... MethodArgs>
+    self_t& requires(const std::vector<redfish::Privileges>& p)
+    {
+        for (const redfish::Privileges& privilege : p)
+        {
+            ((self_t*)this)->privilegesSet.emplace_back(privilege);
+        }
         return (self_t&)*this;
     }
 };
@@ -547,7 +585,8 @@ class TaggedRule : public BaseRule,
             std::is_same<void, decltype(f(std::declval<crow::Request>(),
                                           std::declval<crow::Response&>(),
                                           std::declval<Args>()...))>::value,
-            "Handler function with response argument should have void return "
+            "Handler function with response argument should have void "
+            "return "
             "type");
 
         handler = std::move(f);
@@ -599,7 +638,7 @@ class Trie
   private:
     void optimizeNode(Node* node)
     {
-        for (auto x : node->paramChildrens)
+        for (unsigned int x : node->paramChildrens)
         {
             if (!x)
                 continue;
@@ -609,7 +648,7 @@ class Trie
         if (node->children.empty())
             return;
         bool mergeWithChild = true;
-        for (auto& kv : node->children)
+        for (const std::pair<std::string, unsigned>& kv : node->children)
         {
             Node* child = &nodes[kv.second];
             if (!child->isSimpleNode())
@@ -621,10 +660,11 @@ class Trie
         if (mergeWithChild)
         {
             decltype(node->children) merged;
-            for (auto& kv : node->children)
+            for (const std::pair<std::string, unsigned>& kv : node->children)
             {
                 Node* child = &nodes[kv.second];
-                for (auto& childKv : child->children)
+                for (const std::pair<std::string, unsigned>& childKv :
+                     child->children)
                 {
                     merged[kv.first + childKv.first] = childKv.second;
                 }
@@ -634,7 +674,7 @@ class Trie
         }
         else
         {
-            for (auto& kv : node->children)
+            for (const std::pair<std::string, unsigned>& kv : node->children)
             {
                 Node* child = &nodes[kv.second];
                 optimizeNode(child);
@@ -658,13 +698,13 @@ class Trie
 
     void findRouteIndexes(const std::string& req_url,
                           std::vector<unsigned>& route_indexes,
-                          const Node* node = nullptr, unsigned pos = 0)
+                          const Node* node = nullptr, unsigned pos = 0) const
     {
         if (node == nullptr)
         {
             node = head();
         }
-        for (auto& kv : node->children)
+        for (const std::pair<std::string, unsigned>& kv : node->children)
         {
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
@@ -725,7 +765,7 @@ class Trie
                 if (errno != ERANGE && eptr != req_url.data() + pos)
                 {
                     params->intParams.push_back(value);
-                    auto ret =
+                    std::pair<unsigned, RoutingParams> ret =
                         find(req_url,
                              &nodes[node->paramChildrens[(int)ParamType::INT]],
                              eptr - req_url.data(), params);
@@ -747,7 +787,7 @@ class Trie
                 if (errno != ERANGE && eptr != req_url.data() + pos)
                 {
                     params->uintParams.push_back(value);
-                    auto ret =
+                    std::pair<unsigned, RoutingParams> ret =
                         find(req_url,
                              &nodes[node->paramChildrens[(int)ParamType::UINT]],
                              eptr - req_url.data(), params);
@@ -768,7 +808,7 @@ class Trie
                 if (errno != ERANGE && eptr != req_url.data() + pos)
                 {
                     params->doubleParams.push_back(value);
-                    auto ret = find(
+                    std::pair<unsigned, RoutingParams> ret = find(
                         req_url,
                         &nodes[node->paramChildrens[(int)ParamType::DOUBLE]],
                         eptr - req_url.data(), params);
@@ -791,7 +831,7 @@ class Trie
             {
                 params->stringParams.emplace_back(
                     req_url.substr(pos, epos - pos));
-                auto ret =
+                std::pair<unsigned, RoutingParams> ret =
                     find(req_url,
                          &nodes[node->paramChildrens[(int)ParamType::STRING]],
                          epos, params);
@@ -808,7 +848,7 @@ class Trie
             {
                 params->stringParams.emplace_back(
                     req_url.substr(pos, epos - pos));
-                auto ret = find(
+                std::pair<unsigned, RoutingParams> ret = find(
                     req_url, &nodes[node->paramChildrens[(int)ParamType::PATH]],
                     epos, params);
                 updateFound(ret);
@@ -816,14 +856,15 @@ class Trie
             }
         }
 
-        for (auto& kv : node->children)
+        for (const std::pair<std::string, unsigned>& kv : node->children)
         {
             const std::string& fragment = kv.first;
             const Node* child = &nodes[kv.second];
 
             if (req_url.compare(pos, fragment.size(), fragment) == 0)
             {
-                auto ret = find(req_url, child, pos + fragment.size(), params);
+                std::pair<unsigned, RoutingParams> ret =
+                    find(req_url, child, pos + fragment.size(), params);
                 updateFound(ret);
             }
         }
@@ -840,31 +881,29 @@ class Trie
             char c = url[i];
             if (c == '<')
             {
-                static struct ParamTraits
-                {
-                    ParamType type;
-                    std::string name;
-                } paramTraits[] = {
-                    {ParamType::INT, "<int>"},
-                    {ParamType::UINT, "<uint>"},
-                    {ParamType::DOUBLE, "<float>"},
-                    {ParamType::DOUBLE, "<double>"},
-                    {ParamType::STRING, "<str>"},
-                    {ParamType::STRING, "<string>"},
-                    {ParamType::PATH, "<path>"},
-                };
+                const static std::array<std::pair<ParamType, std::string>, 7>
+                    paramTraits = {{
+                        {ParamType::INT, "<int>"},
+                        {ParamType::UINT, "<uint>"},
+                        {ParamType::DOUBLE, "<float>"},
+                        {ParamType::DOUBLE, "<double>"},
+                        {ParamType::STRING, "<str>"},
+                        {ParamType::STRING, "<string>"},
+                        {ParamType::PATH, "<path>"},
+                    }};
 
-                for (auto& x : paramTraits)
+                for (const std::pair<ParamType, std::string>& x : paramTraits)
                 {
-                    if (url.compare(i, x.name.size(), x.name) == 0)
+                    if (url.compare(i, x.second.size(), x.second) == 0)
                     {
-                        if (!nodes[idx].paramChildrens[(int)x.type])
+                        if (!nodes[idx].paramChildrens[(int)x.first])
                         {
-                            auto newNodeIdx = newNode();
-                            nodes[idx].paramChildrens[(int)x.type] = newNodeIdx;
+                            unsigned newNodeIdx = newNode();
+                            nodes[idx].paramChildrens[(int)x.first] =
+                                newNodeIdx;
                         }
-                        idx = nodes[idx].paramChildrens[(int)x.type];
-                        i += x.name.size();
+                        idx = nodes[idx].paramChildrens[(int)x.first];
+                        i += x.second.size();
                         break;
                     }
                 }
@@ -876,7 +915,7 @@ class Trie
                 std::string piece(&c, 1);
                 if (!nodes[idx].children.count(piece))
                 {
-                    auto newNodeIdx = newNode();
+                    unsigned newNodeIdx = newNode();
                     nodes[idx].children.emplace(piece, newNodeIdx);
                 }
                 idx = nodes[idx].children[piece];
@@ -921,7 +960,7 @@ class Trie
                 debugNodePrint(&nodes[n->paramChildrens[i]], level + 1);
             }
         }
-        for (auto& kv : n->children)
+        for (const std::pair<std::string, unsigned>& kv : n->children)
         {
             BMCWEB_LOG_DEBUG
                 << std::string(2 * level, ' ') /*<< "(" << kv.second << ") "*/
@@ -959,7 +998,7 @@ class Trie
 class Router
 {
   public:
-    Router() : rules(2)
+    Router()
     {
     }
 
@@ -968,7 +1007,7 @@ class Router
         std::unique_ptr<DynamicRule> ruleObject =
             std::make_unique<DynamicRule>(rule);
         DynamicRule* ptr = ruleObject.get();
-        internalAddRuleObject(rule, std::move(ruleObject));
+        allRules.emplace_back(std::move(ruleObject));
 
         return *ptr;
     }
@@ -981,45 +1020,67 @@ class Router
             TaggedRule>;
         std::unique_ptr<RuleT> ruleObject = std::make_unique<RuleT>(rule);
         RuleT* ptr = ruleObject.get();
-
-        internalAddRuleObject(rule, std::move(ruleObject));
+        allRules.emplace_back(std::move(ruleObject));
 
         return *ptr;
     }
 
-    void internalAddRuleObject(const std::string& rule,
-                               std::unique_ptr<BaseRule> ruleObject)
+    void internalAddRuleObject(const std::string& rule, BaseRule* ruleObject)
     {
-        rules.emplace_back(std::move(ruleObject));
-        trie.add(rule, rules.size() - 1);
-
-        // directory case:
-        //   request to `/about' url matches `/about/' rule
-        if (rule.size() > 2 && rule.back() == '/')
+        if (ruleObject == nullptr)
         {
-            trie.add(rule.substr(0, rule.size() - 1), rules.size() - 1);
+            return;
+        }
+        for (uint32_t method = 0, method_bit = 1; method < maxHttpVerbCount;
+             method++, method_bit <<= 1)
+        {
+            if (ruleObject->methodsBitfield & method_bit)
+            {
+                perMethods[method].rules.emplace_back(ruleObject);
+                perMethods[method].trie.add(
+                    rule, perMethods[method].rules.size() - 1);
+                // directory case:
+                //   request to `/about' url matches `/about/' rule
+                if (rule.size() > 2 && rule.back() == '/')
+                {
+                    perMethods[method].trie.add(
+                        rule.substr(0, rule.size() - 1),
+                        perMethods[method].rules.size() - 1);
+                }
+            }
         }
     }
 
     void validate()
     {
-        trie.validate();
-        for (auto& rule : rules)
+        for (std::unique_ptr<BaseRule>& rule : allRules)
         {
             if (rule)
             {
-                auto upgraded = rule->upgrade();
+                std::unique_ptr<BaseRule> upgraded = rule->upgrade();
                 if (upgraded)
                     rule = std::move(upgraded);
                 rule->validate();
+                internalAddRuleObject(rule->rule, rule.get());
             }
+        }
+        for (PerMethod& perMethod : perMethods)
+        {
+            perMethod.trie.validate();
         }
     }
 
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
-        auto found = trie.find(req.url);
+        if (static_cast<int>(req.method()) >= perMethods.size())
+            return;
+
+        PerMethod& perMethod = perMethods[(int)req.method()];
+        Trie& trie = perMethod.trie;
+        std::vector<BaseRule*>& rules = perMethod.rules;
+
+        const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
         unsigned ruleIndex = found.first;
         if (!ruleIndex)
         {
@@ -1097,7 +1158,13 @@ class Router
 
     void handle(const Request& req, Response& res)
     {
-        auto found = trie.find(req.url);
+        if ((int)req.method() >= perMethods.size())
+            return;
+        PerMethod& perMethod = perMethods[(int)req.method()];
+        Trie& trie = perMethod.trie;
+        std::vector<BaseRule*>& rules = perMethod.rules;
+
+        const std::pair<unsigned, RoutingParams>& found = trie.find(req.url);
 
         unsigned ruleIndex = found.first;
 
@@ -1150,6 +1217,19 @@ class Router
                          << (uint32_t)req.method() << " / "
                          << rules[ruleIndex]->getMethods();
 
+        // TODO: load user privileges from configuration as soon as its
+        // available now we are granting all privileges to everyone.
+        redfish::Privileges userPrivileges{"Login", "ConfigureManager",
+                                           "ConfigureSelf", "ConfigureUsers",
+                                           "ConfigureComponents"};
+
+        if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+        {
+            res.result(boost::beast::http::status::method_not_allowed);
+            res.end();
+            return;
+        }
+
         // any uncaught exceptions become 500s
         try
         {
@@ -1175,23 +1255,41 @@ class Router
 
     void debugPrint()
     {
-        trie.debugPrint();
+        for (int i = 0; i < perMethods.size(); i++)
+        {
+            BMCWEB_LOG_DEBUG << methodName((boost::beast::http::verb)i);
+            perMethods[i].trie.debugPrint();
+        }
     }
 
     std::vector<const std::string*> getRoutes(const std::string& parent)
     {
-        std::vector<unsigned> x;
         std::vector<const std::string*> ret;
-        trie.findRouteIndexes(parent, x);
-        for (unsigned index : x)
+
+        for (const PerMethod& pm : perMethods)
         {
-            ret.push_back(&rules[index]->rule);
+            std::vector<unsigned> x;
+            pm.trie.findRouteIndexes(parent, x);
+            for (unsigned index : x)
+            {
+                ret.push_back(&pm.rules[index]->rule);
+            }
         }
         return ret;
     }
 
   private:
-    std::vector<std::unique_ptr<BaseRule>> rules;
-    Trie trie;
+    struct PerMethod
+    {
+        std::vector<BaseRule*> rules;
+        Trie trie;
+        // rule index 0, 1 has special meaning; preallocate it to avoid
+        // duplication.
+        PerMethod() : rules(2)
+        {
+        }
+    };
+    std::array<PerMethod, maxHttpVerbCount> perMethods;
+    std::vector<std::unique_ptr<BaseRule>> allRules;
 };
 } // namespace crow

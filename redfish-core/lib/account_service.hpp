@@ -205,6 +205,7 @@ class AccountService : public Node
         }
     }
 };
+
 class AccountsCollection : public Node
 {
   public:
