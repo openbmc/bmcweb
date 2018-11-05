@@ -1,6 +1,8 @@
 #pragma once
 #include <boost/algorithm/string.hpp>
 
+#include "crow/http_request.h"
+
 namespace http_helpers
 {
 inline bool requestPrefersHtml(const crow::Request& req)
