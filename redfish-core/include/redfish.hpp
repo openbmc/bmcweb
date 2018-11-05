@@ -76,6 +76,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<BMCLogService>(app));
         nodes.emplace_back(std::make_unique<BMCLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<BMCLogEntry>(app));
+        nodes.emplace_back(std::make_unique<BMCJournalLogService>(app));
+        nodes.emplace_back(std::make_unique<BMCJournalLogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<BMCJournalLogEntry>(app));
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         nodes.emplace_back(std::make_unique<CPULogService>(app));
