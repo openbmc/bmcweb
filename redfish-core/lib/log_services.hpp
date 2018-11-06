@@ -851,15 +851,14 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator caIt = rawPECICmd.find("ClientAddress");
         if (caIt == rawPECICmd.end())
         {
-            messages::propertyMissing(asyncResp->res, "ClientAddress",
-                                      "/ClientAddress");
+            messages::propertyMissing(asyncResp->res, "ClientAddress");
             return;
         }
         const uint64_t *ca = caIt->get_ptr<const uint64_t *>();
         if (ca == nullptr)
         {
             messages::propertyValueTypeError(asyncResp->res, caIt->dump(),
-                                             "ClientAddress", "/ClientAddress");
+                                             "ClientAddress");
             return;
         }
         // Get the Read Length from the request
@@ -867,15 +866,14 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator rlIt = rawPECICmd.find("ReadLength");
         if (rlIt == rawPECICmd.end())
         {
-            messages::propertyMissing(asyncResp->res, "ReadLength",
-                                      "/ReadLength");
+            messages::propertyMissing(asyncResp->res, "ReadLength");
             return;
         }
         const uint64_t *rl = rlIt->get_ptr<const uint64_t *>();
         if (rl == nullptr)
         {
             messages::propertyValueTypeError(asyncResp->res, rlIt->dump(),
-                                             "ReadLength", "/ReadLength");
+                                             "ReadLength");
             return;
         }
         // Get the PECI Command from the request
@@ -883,8 +881,7 @@ class SendRawPECI : public Node
         nlohmann::json::const_iterator pcIt = rawPECICmd.find("PECICommand");
         if (pcIt == rawPECICmd.end())
         {
-            messages::propertyMissing(asyncResp->res, "PECICommand",
-                                      "/PECICommand");
+            messages::propertyMissing(asyncResp->res, "PECICommand");
             return;
         }
         std::vector<uint8_t> peciCommand;
@@ -895,8 +892,7 @@ class SendRawPECI : public Node
             {
                 messages::propertyValueTypeError(
                     asyncResp->res, pc.dump(),
-                    "PECICommand/" + std::to_string(peciCommand.size()),
-                    "/PECICommand");
+                    "PECICommand/" + std::to_string(peciCommand.size()));
                 return;
             }
             peciCommand.push_back(static_cast<uint8_t>(*val));

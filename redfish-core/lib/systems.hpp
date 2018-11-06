@@ -782,8 +782,8 @@ class Systems : public Node
             }
             else
             {
-                messages::propertyValueNotInList(
-                    res, *indicatorLed, "IndicatorLED", "IndicatorLED");
+                messages::propertyValueNotInList(res, *indicatorLed,
+                                                 "IndicatorLED");
                 return;
             }
 

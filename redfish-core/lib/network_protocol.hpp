@@ -161,8 +161,7 @@ class NetworkProtocol : public Node
                                     resp) {
                                 if (ec)
                                 {
-                                    messages::internalError(asyncResp->res,
-                                                            "/" + service);
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 const std::vector<std::tuple<

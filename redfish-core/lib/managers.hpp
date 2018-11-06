@@ -182,7 +182,7 @@ static void asyncPopulatePid(const std::string& connection,
                     if (findName == intfPair.second.end())
                     {
                         BMCWEB_LOG_ERROR << "Pid Field missing Name";
-                        messages::internalError(asyncResp->res, "Name");
+                        messages::internalError(asyncResp->res);
                         return;
                     }
                     const std::string* namePtr =
@@ -251,8 +251,7 @@ static void asyncPopulatePid(const std::string& connection,
                             if (classPtr == nullptr)
                             {
                                 BMCWEB_LOG_ERROR << "Pid Class Field illegal";
-                                messages::internalError(asyncResp->res,
-                                                        "Class");
+                                messages::internalError(asyncResp->res);
                                 return;
                             }
                             bool isFan = *classPtr == "fan";
@@ -295,8 +294,7 @@ static void asyncPopulatePid(const std::string& connection,
                                 {
                                     BMCWEB_LOG_ERROR
                                         << "Zones Pid Field Illegal";
-                                    messages::internalError(asyncResp->res,
-                                                            "Zones");
+                                    messages::internalError(asyncResp->res);
                                     return;
                                 }
                                 auto& data = element[propertyPair.first];

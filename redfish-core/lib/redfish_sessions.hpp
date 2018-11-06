@@ -171,12 +171,12 @@ class SessionCollection : public Node
         {
             if (username.empty())
             {
-                messages::propertyMissing(res, "UserName", "UserName");
+                messages::propertyMissing(res, "UserName");
             }
 
             if (password.empty())
             {
-                messages::propertyMissing(res, "Password", "Password");
+                messages::propertyMissing(res, "Password");
             }
             res.end();
 

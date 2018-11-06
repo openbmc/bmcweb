@@ -60,7 +60,7 @@ void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
-    messages::propertyUnknown(res, key, key);
+    messages::propertyUnknown(res, key);
 }
 
 template <size_t Count, size_t Index, typename ValueType,
@@ -84,7 +84,7 @@ void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
     {
         BMCWEB_LOG_DEBUG << "Value for key " << key
                          << " was incorrect type: " << jsonValue.type_name();
-        messages::propertyValueTypeError(res, jsonValue.dump(), key, key);
+        messages::propertyValueTypeError(res, jsonValue.dump(), key);
         return;
     }
 
@@ -103,7 +103,7 @@ void handleMissing(std::bitset<Count>& handled, crow::Response& res,
 {
     if (!handled.test(Index) && unpackValue<ValueType>::isRequired::value)
     {
-        messages::propertyMissing(res, key, key);
+        messages::propertyMissing(res, key);
     }
     details::handleMissing<Index + 1, Count>(handled, res, in...);
 }

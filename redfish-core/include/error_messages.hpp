@@ -87,15 +87,6 @@ void actionParameterValueFormatError(crow::Response& res,
 void internalError(crow::Response& res);
 
 /**
- * @brief Formats InternalError message into JSON for the specified field
- * Message body: "The request failed due to an internal service error.  The
- * service is still operational."
- *
- *
- * @returns Message InternalError formatted to JSON */
-void internalError(crow::Response& res, const std::string& fieldPath);
-
-/**
  * @brief Formats UnrecognizedRequestBody message into JSON
  * Message body: "The service detected a malformed request body that it was
  * unable to interpret."
@@ -203,20 +194,6 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
                               const std::string& arg2);
 
 /**
- * @brief Formats PropertyValueFormatError message into JSON for the specified
- * property
- * Message body: "The value <arg1> for the property <arg2> is of a different
- * format than the property can accept."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- * @param[in] arg2 Parameter of message that will replace %2 in its body.
- *
- * @returns Message PropertyValueFormatError formatted to JSON */
-void propertyValueFormatError(crow::Response& res, const std::string& arg1,
-                              const std::string& arg2,
-                              const std::string property);
-
-/**
  * @brief Formats PropertyValueNotInList message into JSON
  * Message body: "The value <arg1> for the property <arg2> is not in the list of
  * acceptable values."
@@ -227,20 +204,6 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
  * @returns Message PropertyValueNotInList formatted to JSON */
 void propertyValueNotInList(crow::Response& res, const std::string& arg1,
                             const std::string& arg2);
-
-/**
- * @brief Formats PropertyValueNotInList message into JSON for the specified
- * property
- * Message body: "The value <arg1> for the property <arg2> is not in
- * the list of acceptable values."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- * @param[in] arg2 Parameter of message that will replace %2 in its body.
- *
- * @returns Message PropertyValueNotInList formatted to JSON */
-void propertyValueNotInList(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2,
-                            const std::string property);
 
 /**
  * @brief Formats ResourceAtUriInUnknownFormat message into JSON
@@ -326,20 +289,6 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
                             const std::string& arg2);
 
 /**
- * @brief Formats PropertyValueTypeError message into JSON for the specified
- * property
- * Message body: "The value <arg1> for the property <arg2> is of a
- * different type than the property can accept."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- * @param[in] arg2 Parameter of message that will replace %2 in its body.
- *
- * @returns Message PropertyValueTypeError formatted to JSON */
-void propertyValueTypeError(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2,
-                            const std::string& property);
-
-/**
  * @brief Formats ResourceNotFound message into JSON
  * Message body: "The requested resource of type <arg1> named <arg2> was not
  * found."
@@ -370,18 +319,6 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1);
  *
  * @returns Message PropertyNotWritable formatted to JSON */
 void propertyNotWritable(crow::Response& res, const std::string& arg1);
-
-/**
- * @brief Formats PropertyNotWritable message into JSON for the specified
- * property
- * Message body: "The property <arg1> is a read only property and
- * cannot be assigned a value."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- *
- * @returns Message PropertyNotWritable formatted to JSON */
-void propertyNotWritable(crow::Response& res, const std::string& arg1,
-                         const std::string& property);
 
 /**
  * @brief Formats QueryParameterValueTypeError message into JSON
@@ -493,14 +430,6 @@ void generalError(crow::Response& res);
 void success(crow::Response& res);
 
 /**
- * @brief Formats Success message into JSON for the specified field
- * Message body: "Successfully Completed Request"
- *
- *
- * @returns Message Success formatted to JSON */
-void success(crow::Response& res, const std::string& fieldPath);
-
-/**
  * @brief Formats Created message into JSON
  * Message body: "The resource has been created successfully"
  *
@@ -526,17 +455,6 @@ void noOperation(crow::Response& res);
  *
  * @returns Message PropertyUnknown formatted to JSON */
 void propertyUnknown(crow::Response& res, const std::string& arg1);
-
-/**
- * @brief Formats PropertyUnknown message into JSON for the specified property
- * Message body: "The property <arg1> is not in the list of valid properties for
- * the resource."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- *
- * @returns Message PropertyUnknown formatted to JSON */
-void propertyUnknown(crow::Response& res, const std::string& arg1,
-                     const std::string& property);
 
 /**
  * @brief Formats NoValidSession message into JSON
@@ -677,17 +595,6 @@ void queryParameterValueFormatError(crow::Response& res,
 void propertyMissing(crow::Response& res, const std::string& arg1);
 
 /**
- * @brief Formats PropertyMissing message into JSON for the specified property
- * Message body: "The property <arg1> is a required property and must be
- * included in the request."
- *
- * @param[in] arg1 Parameter of message that will replace %1 in its body.
- *
- * @returns Message PropertyMissing formatted to JSON */
-void propertyMissing(crow::Response& res, const std::string& arg1,
-                     const std::string& property);
-
-/**
  * @brief Formats ResourceExhaustion message into JSON
  * Message body: "The resource <arg1> was unable to satisfy the request due to
  * unavailability of resources."
@@ -703,7 +610,7 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1);
  *
  *
  * @returns Message AccountModified formatted to JSON */
-void accountModified(crow::Response& res, const std::string& fieldPath);
+void accountModified(crow::Response& res);
 
 /**
  * @brief Formats QueryParameterOutOfRange message into JSON

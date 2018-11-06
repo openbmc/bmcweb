@@ -90,8 +90,7 @@ static void addMessageToJson(nlohmann::json& target,
                              const nlohmann::json& message,
                              const std::string& fieldPath)
 {
-    nlohmann::json_pointer<nlohmann::json> extendedInfo(
-        fieldPath + messages::messageAnnotation);
+    std::string extendedInfo(fieldPath + messages::messageAnnotation);
 
     if (!target[extendedInfo].is_array())
     {
@@ -220,29 +219,6 @@ void internalError(crow::Response& res)
 
 /**
  * @internal
- * @brief Formats InternalError message into JSON for the specified field
- *
- * See header file for more information
- * @endinternal
- */
-void internalError(crow::Response& res, const std::string& field)
-{
-    res.result(boost::beast::http::status::internal_server_error);
-    addMessageToJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.InternalError"},
-            {"Message", "The request failed due to an internal service error.  "
-                        "The service is still operational."},
-            {"Severity", "Critical"},
-            {"Resolution", "Resubmit the request.  If the problem persists, "
-                           "consider resetting the service."}},
-        field);
-}
-
-/**
- * @internal
  * @brief Formats UnrecognizedRequestBody message into JSON
  *
  * See header file for more information
@@ -343,7 +319,7 @@ void resourceCannotBeDeleted(crow::Response& res)
 void propertyDuplicate(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
+    addMessageToJson(
         res.jsonValue,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
@@ -353,7 +329,8 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
             {"Severity", "Warning"},
             {"Resolution",
              "Remove the duplicate property from the request body and resubmit "
-             "the request if the operation failed."}});
+             "the request if the operation failed."}},
+        arg1);
 }
 
 /**
@@ -389,7 +366,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                            const std::string& arg2, const std::string& arg3)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
+    addMessageToJson(
         res.jsonValue,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
@@ -399,7 +376,8 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
                             arg3 + " already exists."},
             {"Severity", "Critical"},
             {"Resolution", "Do not repeat the create operation as the resource "
-                           "has already been created."}});
+                           "has already been created."}},
+        arg2);
 }
 
 /**
@@ -409,11 +387,10 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void accountForSessionNoLongerExists(crow::Response& res,
-                                     const std::string& fieldPath)
+void accountForSessionNoLongerExists(crow::Response& res)
 {
     res.result(boost::beast::http::status::forbidden);
-    addMessageToJson(
+    addMessageToErrorJson(
         res.jsonValue,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
@@ -421,8 +398,7 @@ void accountForSessionNoLongerExists(crow::Response& res,
             {"Message", "The account for the current session has been removed, "
                         "thus the current session has been removed as well."},
             {"Severity", "OK"},
-            {"Resolution", "Attempt to connect with a valid account."}},
-        fieldPath);
+            {"Resolution", "Attempt to connect with a valid account."}});
 }
 
 /**
@@ -436,7 +412,7 @@ void createFailedMissingReqProperties(crow::Response& res,
                                       const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
+    addMessageToJson(
         res.jsonValue,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
@@ -447,32 +423,8 @@ void createFailedMissingReqProperties(crow::Response& res,
             {"Severity", "Critical"},
             {"Resolution",
              "Correct the body to include the required property with a valid "
-             "value and resubmit the request if the operation failed."}});
-}
-
-/**
- * @internal
- * @brief Formats PropertyValueFormatError message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyValueFormatError(crow::Response& res, const std::string& arg1,
-                              const std::string& arg2)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyValueFormatError"},
-            {"Message",
-             "The value " + arg1 + " for the property " + arg2 +
-                 " is of a different format than the property can accept."},
-            {"Severity", "Warning"},
-            {"Resolution",
-             "Correct the value for the property in the request body and "
-             "resubmit the request if the operation failed."}});
+             "value and resubmit the request if the operation failed."}},
+        arg1);
 }
 
 /**
@@ -484,8 +436,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
  * @endinternal
  */
 void propertyValueFormatError(crow::Response& res, const std::string& arg1,
-                              const std::string& arg2,
-                              const std::string property)
+                              const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
@@ -500,31 +451,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
             {"Resolution",
              "Correct the value for the property in the request body and "
              "resubmit the request if the operation failed."}},
-        property);
-}
-
-/**
- * @internal
- * @brief Formats PropertyValueNotInList message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyValueNotInList(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyValueNotInList"},
-            {"Message", "The value " + arg1 + " for the property " + arg2 +
-                            " is not in the list of acceptable values."},
-            {"Severity", "Warning"},
-            {"Resolution",
-             "Choose a value from the enumeration list that the implementation "
-             "can support and resubmit the request if the operation failed."}});
+        arg2);
 }
 
 /**
@@ -536,7 +463,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
  * @endinternal
  */
 void propertyValueNotInList(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2, const std::string property)
+                            const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
@@ -550,7 +477,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
             {"Resolution",
              "Choose a value from the enumeration list that the implementation "
              "can support and resubmit the request if the operation failed."}},
-        property);
+        arg2);
 }
 
 /**
@@ -717,31 +644,6 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
 
 /**
  * @internal
- * @brief Formats PropertyValueTypeError message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyValueTypeError(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyValueTypeError"},
-            {"Message",
-             "The value " + arg1 + " for the property " + arg2 +
-                 " is of a different type than the property can accept."},
-            {"Severity", "Warning"},
-            {"Resolution",
-             "Correct the value for the property in the request body and "
-             "resubmit the request if the operation failed."}});
-}
-
-/**
- * @internal
  * @brief Formats PropertyValueTypeError message into JSON for the specified
  * property
  *
@@ -749,8 +651,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
  * @endinternal
  */
 void propertyValueTypeError(crow::Response& res, const std::string& arg1,
-                            const std::string& arg2,
-                            const std::string& property)
+                            const std::string& arg2)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
@@ -765,7 +666,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
             {"Resolution",
              "Correct the value for the property in the request body and "
              "resubmit the request if the operation failed."}},
-        property);
+        arg2);
 }
 
 /**
@@ -817,37 +718,13 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
 
 /**
  * @internal
- * @brief Formats PropertyNotWritable message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyNotWritable(crow::Response& res, const std::string& arg1)
-{
-    res.result(boost::beast::http::status::forbidden);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyNotWritable"},
-            {"Message",
-             "The property " + arg1 +
-                 " is a read only property and cannot be assigned a value."},
-            {"Severity", "Warning"},
-            {"Resolution", "Remove the property from the request body and "
-                           "resubmit the request if the operation failed."}});
-}
-
-/**
- * @internal
  * @brief Formats PropertyNotWritable message into JSON for the specified
  * property
  *
  * See header file for more information
  * @endinternal
  */
-void propertyNotWritable(crow::Response& res, const std::string& arg1,
-                         const std::string& property)
+void propertyNotWritable(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::forbidden);
     addMessageToJson(
@@ -861,7 +738,7 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1,
             {"Severity", "Warning"},
             {"Resolution", "Remove the property from the request body and "
                            "resubmit the request if the operation failed."}},
-        property);
+        arg1);
 }
 
 /**
@@ -1112,27 +989,6 @@ void success(crow::Response& res)
 
 /**
  * @internal
- * @brief Formats Success message into JSON for the specified field
- *
- * See header file for more information
- * @endinternal
- */
-void success(crow::Response& res, const std::string& fieldPath)
-{
-    res.result(boost::beast::http::status::ok);
-    addMessageToJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.Success"},
-            {"Message", "Successfully Completed Request"},
-            {"Severity", "OK"},
-            {"Resolution", "None"}},
-        fieldPath);
-}
-
-/**
- * @internal
  * @brief Formats Created message into JSON
  *
  * See header file for more information
@@ -1175,37 +1031,12 @@ void noOperation(crow::Response& res)
 
 /**
  * @internal
- * @brief Formats PropertyUnknown message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyUnknown(crow::Response& res, const std::string& arg1)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyUnknown"},
-            {"Message",
-             "The property " + arg1 +
-                 " is not in the list of valid properties for the resource."},
-            {"Severity", "Warning"},
-            {"Resolution",
-             "Remove the unknown property from the request body and resubmit "
-             "the request if the operation failed."}});
-}
-
-/**
- * @internal
  * @brief Formats PropertyUnknown message into JSON for the specified property
  *
  * See header file for more information
  * @endinternal
  */
-void propertyUnknown(crow::Response& res, const std::string& arg1,
-                     const std::string& property)
+void propertyUnknown(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
@@ -1220,7 +1051,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1,
             {"Resolution",
              "Remove the unknown property from the request body and resubmit "
              "the request if the operation failed."}},
-        property);
+        arg1);
 }
 
 /**
@@ -1462,8 +1293,7 @@ void insufficientPrivilege(crow::Response& res)
  * @endinternal
  */
 void propertyValueModified(crow::Response& res, const std::string& arg1,
-                           const std::string& arg2,
-                           const std::string& fieldPath)
+                           const std::string& arg2)
 {
     res.result(boost::beast::http::status::ok);
     addMessageToJson(
@@ -1475,7 +1305,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
                             arg2 + " due to modification by the service."},
             {"Severity", "Warning"},
             {"Resolution", "No resolution is required."}},
-        fieldPath);
+        arg1);
 }
 
 /**
@@ -1527,37 +1357,12 @@ void queryParameterValueFormatError(crow::Response& res,
 
 /**
  * @internal
- * @brief Formats PropertyMissing message into JSON
- *
- * See header file for more information
- * @endinternal
- */
-void propertyMissing(crow::Response& res, const std::string& arg1)
-{
-    res.result(boost::beast::http::status::bad_request);
-    addMessageToErrorJson(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.PropertyMissing"},
-            {"Message", "The property " + arg1 +
-                            " is a required property and must be included in "
-                            "the request."},
-            {"Severity", "Warning"},
-            {"Resolution",
-             "Ensure that the property is in the request body and has a valid "
-             "value and resubmit the request if the operation failed."}});
-}
-
-/**
- * @internal
  * @brief Formats PropertyMissing message into JSON for the specified property
  *
  * See header file for more information
  * @endinternal
  */
-void propertyMissing(crow::Response& res, const std::string& arg1,
-                     const std::string& property)
+void propertyMissing(crow::Response& res, const std::string& arg1)
 {
     res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
@@ -1572,7 +1377,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1,
             {"Resolution",
              "Ensure that the property is in the request body and has a valid "
              "value and resubmit the request if the operation failed."}},
-        property);
+        arg1);
 }
 
 /**
@@ -1605,18 +1410,17 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void accountModified(crow::Response& res, const std::string& fieldPath)
+void accountModified(crow::Response& res)
 {
     res.result(boost::beast::http::status::ok);
-    addMessageToJson(
+    addMessageToErrorJson(
         res.jsonValue,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccountModified"},
             {"Message", "The account was successfully modified."},
             {"Severity", "OK"},
-            {"Resolution", "No resolution is required."}},
-        fieldPath);
+            {"Resolution", "No resolution is required."}});
 }
 
 /**
