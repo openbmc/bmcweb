@@ -163,6 +163,7 @@ void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceMissingAtURI"},
             {"Message", "The resource at the URI " + arg1 + " was not found."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution", "Place a valid resource at the URI or correct the "
                            "URI and resubmit the request."}});
@@ -190,6 +191,7 @@ void actionParameterValueFormatError(crow::Response& res,
              "The value " + arg1 + " for the parameter " + arg2 +
                  " in the action " + arg3 +
                  " is of a different format than the parameter can accept."},
+            {"MessageArgs", {arg1, arg2, arg3}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the parameter in the request body and "
@@ -282,6 +284,7 @@ void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
             {"Message", "While accessing the resource at " + arg1 +
                             ", the service received an authorization error " +
                             arg2 + "."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the appropriate access is provided for "
                            "the service in order for it to access the URI."}});
@@ -306,6 +309,7 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
             {"Message", "The action " + arg1 +
                             " was submitted with the invalid parameter " +
                             arg2 + "."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution", "Correct the invalid parameter and resubmit the "
                            "request if the operation failed."}});
@@ -350,6 +354,7 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.4.0.PropertyDuplicate"},
             {"Message",
              "The property " + arg1 + " was duplicated in the request."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution",
              "Remove the duplicate property from the request body and resubmit "
@@ -373,6 +378,7 @@ void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.4.0.ServiceTemporarilyUnavailable"},
             {"Message", "The service is temporarily unavailable.  Retry in " +
                             arg1 + " seconds."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution", "Wait for the indicated retry duration and retry "
                            "the operation."}});
@@ -397,6 +403,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
             {"Message", "The requested resource of type " + arg1 +
                             " with the property " + arg2 + " with the value " +
                             arg3 + " already exists."},
+            {"MessageArgs", {arg1, arg2, arg3}},
             {"Severity", "Critical"},
             {"Resolution", "Do not repeat the create operation as the resource "
                            "has already been created."}});
@@ -444,6 +451,7 @@ void createFailedMissingReqProperties(crow::Response& res,
             {"Message",
              "The create operation failed because the required property " +
                  arg1 + " was missing from the request."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution",
              "Correct the body to include the required property with a valid "
@@ -469,6 +477,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
             {"Message",
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different format than the property can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the property in the request body and "
@@ -496,6 +505,7 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
             {"Message",
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different format than the property can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the property in the request body and "
@@ -521,6 +531,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.PropertyValueNotInList"},
             {"Message", "The value " + arg1 + " for the property " + arg2 +
                             " is not in the list of acceptable values."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Choose a value from the enumeration list that the implementation "
@@ -546,6 +557,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.PropertyValueNotInList"},
             {"Message", "The value " + arg1 + " for the property " + arg2 +
                             " is not in the list of acceptable values."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Choose a value from the enumeration list that the implementation "
@@ -570,6 +582,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.4.0.ResourceAtUriInUnknownFormat"},
             {"Message", "The resource at " + arg1 +
                             " is in a format not recognized by the service."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution", "Place an image or resource or file that is "
                            "recognized by the service at the URI."}});
@@ -641,6 +654,7 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.ActionParameterMissing"},
             {"Message", "The action " + arg1 + " requires the parameter " +
                             arg2 + " to be present in the request body."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Critical"},
             {"Resolution",
              "Supply the action with the required parameter in the request "
@@ -665,6 +679,7 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.StringValueTooLong"},
             {"Message", "The string " + arg1 + " exceeds the length limit " +
                             std::to_string(arg2) + "."},
+            {"MessageArgs", {arg1, std::to_string(arg2)}},
             {"Severity", "Warning"},
             {"Resolution",
              "Resubmit the request with an appropriate string length."}});
@@ -710,6 +725,7 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
                             " is incompatible with the @odata.type of the "
                             "resource which is " +
                             arg2 + "."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Critical"},
             {"Resolution", "Resubmit the request with a payload compatible "
                            "with the resource's schema."}});
@@ -734,6 +750,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
             {"Message",
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different type than the property can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the property in the request body and "
@@ -761,6 +778,7 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
             {"Message",
              "The value " + arg1 + " for the property " + arg2 +
                  " is of a different type than the property can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the property in the request body and "
@@ -786,6 +804,7 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.ResourceNotFound"},
             {"Message", "The requested resource of type " + arg1 + " named " +
                             arg2 + " was not found."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Critical"},
             {"Resolution",
              "Provide a valid resource identifier and resubmit the request."}});
@@ -809,6 +828,7 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
             {"Message",
              "The service failed to establish a Connection with the URI " +
                  arg1 + "."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution",
              "Ensure that the URI contains a valid and reachable node name, "
@@ -833,6 +853,7 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1)
             {"Message",
              "The property " + arg1 +
                  " is a read only property and cannot be assigned a value."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution", "Remove the property from the request body and "
                            "resubmit the request if the operation failed."}});
@@ -858,6 +879,7 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1,
             {"Message",
              "The property " + arg1 +
                  " is a read only property and cannot be assigned a value."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution", "Remove the property from the request body and "
                            "resubmit the request if the operation failed."}},
@@ -883,6 +905,7 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
             {"Message",
              "The value " + arg1 + " for the query parameter " + arg2 +
                  " is of a different type than the parameter can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the query parameter in the request and "
@@ -931,6 +954,7 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
              "The action " + arg1 +
                  " was submitted with more than one value for the parameter " +
                  arg2 + "."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Resubmit the action with only one instance of the parameter in "
@@ -955,6 +979,7 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.ActionParameterNotSupported"},
             {"Message", "The parameter " + arg1 + " for the action " + arg2 +
                             " is not supported on the target resource."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution", "Remove the parameter supplied and resubmit the "
                            "request if the operation failed."}});
@@ -979,6 +1004,7 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
             {"Message", "The other end of the Connection at " + arg1 +
                             " does not support the specified protocol " + arg2 +
                             "."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Critical"},
             {"Resolution", "Change protocols or URIs. "}});
 }
@@ -1020,6 +1046,7 @@ void accessDenied(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.4.0.AccessDenied"},
             {"Message", "While attempting to establish a Connection to " +
                             arg1 + ", the service denied access."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution", "Attempt to ensure that the URI is correct and that "
                            "the service has the appropriate credentials."}});
@@ -1191,6 +1218,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
             {"Message",
              "The property " + arg1 +
                  " is not in the list of valid properties for the resource."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution",
              "Remove the unknown property from the request body and resubmit "
@@ -1216,6 +1244,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1,
             {"Message",
              "The property " + arg1 +
                  " is not in the list of valid properties for the resource."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution",
              "Remove the unknown property from the request body and resubmit "
@@ -1261,6 +1290,7 @@ void invalidObject(crow::Response& res, const std::string& arg1)
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.InvalidObject"},
             {"Message", "The object at " + arg1 + " is invalid."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution",
              "Either the object is malformed or the URI is not correct.  "
@@ -1310,6 +1340,7 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
              "The value " + arg1 + " for the parameter " + arg2 +
                  " in the action " + arg3 +
                  " is of a different type than the parameter can accept."},
+            {"MessageArgs", {arg1, arg2, arg3}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the parameter in the request body and "
@@ -1357,6 +1388,7 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
             {"MessageId", "Base.1.4.0.ActionNotSupported"},
             {"Message",
              "The action " + arg1 + " is not supported by the resource."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution",
              "The action supplied cannot be resubmitted to the implementation. "
@@ -1382,6 +1414,7 @@ void invalidIndex(crow::Response& res, const int& arg1)
             {"MessageId", "Base.1.4.0.InvalidIndex"},
             {"Message", "The index " + std::to_string(arg1) +
                             " is not a valid offset into the array."},
+            {"MessageArgs", {std::to_string(arg1)}},
             {"Severity", "Warning"},
             {"Resolution", "Verify the index value provided is within the "
                            "bounds of the array."}});
@@ -1473,6 +1506,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.PropertyValueModified"},
             {"Message", "The property " + arg1 + " was assigned the value " +
                             arg2 + " due to modification by the service."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution", "No resolution is required."}},
         fieldPath);
@@ -1519,6 +1553,7 @@ void queryParameterValueFormatError(crow::Response& res,
             {"Message",
              "The value " + arg1 + " for the parameter " + arg2 +
                  " is of a different format than the parameter can accept."},
+            {"MessageArgs", {arg1, arg2}},
             {"Severity", "Warning"},
             {"Resolution",
              "Correct the value for the query parameter in the request and "
@@ -1543,6 +1578,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
             {"Message", "The property " + arg1 +
                             " is a required property and must be included in "
                             "the request."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution",
              "Ensure that the property is in the request body and has a valid "
@@ -1568,6 +1604,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1,
             {"Message", "The property " + arg1 +
                             " is a required property and must be included in "
                             "the request."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Warning"},
             {"Resolution",
              "Ensure that the property is in the request body and has a valid "
@@ -1593,6 +1630,7 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
             {"Message", "The resource " + arg1 +
                             " was unable to satisfy the request due to "
                             "unavailability of resources."},
+            {"MessageArgs", {arg1}},
             {"Severity", "Critical"},
             {"Resolution", "Ensure that the resources are available and "
                            "resubmit the request."}});
@@ -1637,6 +1675,7 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
             {"MessageId", "Base.1.4.0.QueryParameterOutOfRange"},
             {"Message", "The value " + arg1 + " for the query parameter " +
                             arg2 + " is out of range " + arg3 + "."},
+            {"MessageArgs", {arg1, arg2, arg3}},
             {"Severity", "Warning"},
             {"Resolution",
              "Reduce the value for the query parameter to a value that is "
