@@ -46,6 +46,35 @@ template <typename Type> struct unpackValue
 {
     using isRequired = std::true_type;
     using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
+    Type value;
+    bool valid = false;
+    unpackValue(nlohmann::json& jsonValue)
+    {
+        if constexpr (std::is_arithmetic_v<Type>)
+        {
+            uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+            if (jsonPtr == nullptr)
+            {
+                return;
+            }
+            if (*jsonPtr > std::numeric_limits<Type>::max())
+            {
+                return;
+            }
+            value = static_cast<Type>(*jsonPtr);
+        }
+        else
+        {
+            JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
+            if (jsonPtr == nullptr)
+            {
+                return;
+            }
+            value = std::move(*jsonPtr);
+        }
+
+        valid = true;
+    }
 };
 
 template <typename OptionalType>
@@ -53,6 +82,35 @@ struct unpackValue<boost::optional<OptionalType>>
 {
     using isRequired = std::false_type;
     using JsonType = std::add_const_t<std::add_pointer_t<OptionalType>>;
+    OptionalType value;
+    bool valid = false;
+    unpackValue(nlohmann::json& jsonValue)
+    {
+        if constexpr (std::is_arithmetic_v<OptionalType>)
+        {
+            uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+            if (jsonPtr == nullptr)
+            {
+                return;
+            }
+            if (*jsonPtr > std::numeric_limits<OptionalType>::max())
+            {
+                return;
+            }
+            value = static_cast<OptionalType>(*jsonPtr);
+        }
+        else
+        {
+            JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
+            if (jsonPtr == nullptr)
+            {
+                return;
+            }
+            value = std::move(*jsonPtr);
+        }
+
+        valid = true;
+    }
 };
 
 template <size_t Count, size_t Index>
@@ -78,9 +136,8 @@ void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
 
     handled.set(Index);
 
-    using UnpackType = typename unpackValue<ValueType>::JsonType;
-    UnpackType value = jsonValue.get_ptr<UnpackType>();
-    if (value == nullptr)
+    unpackValue<ValueType> value(jsonValue);
+    if (!value.valid)
     {
         BMCWEB_LOG_DEBUG << "Value for key " << key
                          << " was incorrect type: " << jsonValue.type_name();
@@ -88,7 +145,7 @@ void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
         return;
     }
 
-    valueToFill = *value;
+    valueToFill = std::move(value.value);
 }
 
 template <size_t Index = 0, size_t Count>
