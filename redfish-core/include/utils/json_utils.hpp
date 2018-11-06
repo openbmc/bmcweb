@@ -42,18 +42,73 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
 namespace details
 {
-template <typename Type> struct unpackValue
+
+template <typename Type> struct is_optional : std::false_type
 {
-    using isRequired = std::true_type;
-    using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
 };
 
-template <typename OptionalType>
-struct unpackValue<boost::optional<OptionalType>>
+template <typename Type>
+struct is_optional<boost::optional<Type>> : std::true_type
 {
-    using isRequired = std::false_type;
-    using JsonType = std::add_const_t<std::add_pointer_t<OptionalType>>;
 };
+
+template <typename Type>
+constexpr bool is_optional_v = is_optional<Type>::value;
+
+template <typename Type>
+void unpackValue(nlohmann::json& jsonValue, const std::string& key,
+                 crow::Response& res, Type& value)
+{
+    if constexpr (std::is_arithmetic_v<Type>)
+    {
+        using NumType =
+            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>;
+
+        NumType* jsonPtr = jsonValue.get_ptr<NumType*>();
+        if (jsonPtr == nullptr)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Value for key " << key
+                << " was incorrect type: " << jsonValue.type_name();
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
+            return;
+        }
+        if (*jsonPtr > std::numeric_limits<Type>::max())
+        {
+            BMCWEB_LOG_DEBUG << "Value for key " << key
+                             << " was out of range: " << jsonValue.type_name();
+            messages::propertyValueNotInList(res, jsonValue.dump(), key);
+            return;
+        }
+        if (*jsonPtr < std::numeric_limits<Type>::min())
+        {
+            BMCWEB_LOG_DEBUG << "Value for key " << key
+                             << " was out of range: " << jsonValue.type_name();
+            messages::propertyValueNotInList(res, jsonValue.dump(), key);
+            return;
+        }
+        value = static_cast<Type>(*jsonPtr);
+    }
+    else if constexpr (is_optional_v<Type>)
+    {
+        value.emplace();
+        unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+    }
+    else
+    {
+        using JsonType = std::add_const_t<std::add_pointer_t<Type>>;
+        JsonType jsonPtr = jsonValue.get_ptr<JsonType>();
+        if (jsonPtr == nullptr)
+        {
+            BMCWEB_LOG_DEBUG
+                << "Value for key " << key
+                << " was incorrect type: " << jsonValue.type_name();
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
+            return;
+        }
+        value = std::move(*jsonPtr);
+    }
+}
 
 template <size_t Count, size_t Index>
 void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
@@ -78,17 +133,7 @@ void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
 
     handled.set(Index);
 
-    using UnpackType = typename unpackValue<ValueType>::JsonType;
-    UnpackType value = jsonValue.get_ptr<UnpackType>();
-    if (value == nullptr)
-    {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was incorrect type: " << jsonValue.type_name();
-        messages::propertyValueTypeError(res, jsonValue.dump(), key, key);
-        return;
-    }
-
-    valueToFill = *value;
+    unpackValue<ValueType>(jsonValue, key, res, valueToFill);
 }
 
 template <size_t Index = 0, size_t Count>
@@ -101,7 +146,7 @@ template <size_t Index = 0, size_t Count, typename ValueType,
 void handleMissing(std::bitset<Count>& handled, crow::Response& res,
                    const char* key, ValueType& unused, UnpackTypes&... in)
 {
-    if (!handled.test(Index) && unpackValue<ValueType>::isRequired::value)
+    if (!handled.test(Index) && !is_optional_v<ValueType>)
     {
         messages::propertyMissing(res, key, key);
     }
