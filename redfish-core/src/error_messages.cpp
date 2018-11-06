@@ -90,8 +90,14 @@ static void addMessageToJson(nlohmann::json& target,
                              const nlohmann::json& message,
                              const std::string& fieldPath)
 {
+    // Add a required preceding '/' character if not present
+    std::string slash;
+    if (fieldPath[0] != '/')
+    {
+        slash = "/";
+    }
     nlohmann::json_pointer<nlohmann::json> extendedInfo(
-        fieldPath + messages::messageAnnotation);
+        slash + fieldPath + messages::messageAnnotation);
 
     if (!target[extendedInfo].is_array())
     {
