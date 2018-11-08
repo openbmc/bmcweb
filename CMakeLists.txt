@@ -7,13 +7,45 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 option (BUILD_STATIC_LIBS "Built static libraries" ON)
 option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
 
-option (BMCWEB_ENABLE_KVM "Enable KVM websocket interfaces" ON)
-option (BMCWEB_ENABLE_DBUS_REST "Enable rest dbus interfaces" ON)
-option (BMCWEB_ENABLE_REDFISH "Enable redfish interfaces" ON)
-option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial websocket" ON)
-option (BMCWEB_ENABLE_STATIC_HOSTING "Enable hosting of static files.
-       For example, redfish schema and webui files" ON)
+string(CONCAT BMCWEB_ENABLE_KVM_HELP
+  "Enable host video."
+  " Served by '/kvmws' WebSocket upgrade."
+)
+string(CONCAT BMCWEB_ENABLE_DBUS_REST_HELP
+  "Enable Phosphor D-Bus APIs. Served by:"
+  " '/subscribe' WebSocket upgrade to get to signals,"
+  " '/upload/image' to upload firmware images,"
+  " '/bus/system/<str>/<path>' to proxy objects,"
+  " '/list/<path>' for ObjectMapper,"
+  " '/xyz/<path>' and '/org/<path>' to proxy object attributes,"
+  " '/download/dump' to download phosphor-debug-collector dumps."
+)
+string(CONCAT BMCWEB_ENABLE_REDFISH_HELP
+  "Enable Redfish APIs."
+  " Served by '/redfish/v1/' (various paths)."
+)
+string(CONCAT BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET_HELP
+  "Enable host serial console."
+  " Served by '/console0' WebSocket upgrade."
+)
+string(CONCAT BMCWEB_ENABLE_STATIC_HOSTING_HELP
+  "Enable static content."
+  " Served by various paths, for example:"
+  " '/redfish' for Redfish schema, and"
+  " '/index.html' for web apps."
+)
 
+option (BMCWEB_ENABLE_KVM BMCWEB_ENABLE_KVM_HELP ON)
+option (BMCWEB_ENABLE_DBUS_REST BMCWEB_ENABLE_DBUS_REST_HELP ON)
+option (BMCWEB_ENABLE_REDFISH BMCWEB_ENABLE_REDFISH_HELP ON)
+option (
+    BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
+    BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET_HELP ON
+)
+option (
+    BMCWEB_ENABLE_STATIC_HOSTING
+    BMCWEB_ENABLE_STATIC_HOSTING_HELP ON
+)
 option (
     BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through redfish"
     OFF
