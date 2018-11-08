@@ -5,23 +5,29 @@ cmake_policy (SET CMP0054 NEW)
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 option (BUILD_STATIC_LIBS "Built static libraries" ON)
-option (YOCTO_DEPENDENCIES "Use YOCTO depedencies system" OFF)
+option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
 
-option (BMCWEB_ENABLE_KVM "Enable KVM websocket interfaces" ON)
-option (BMCWEB_ENABLE_DBUS_REST "Enable rest dbus interfaces" ON)
-option (BMCWEB_ENABLE_REDFISH "Enable redfish interfaces" ON)
-option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial websocket" ON)
-option (BMCWEB_ENABLE_STATIC_HOSTING "Enable hosting of static files.
-       For example, redfish schema and webui files" ON)
-
-option (
-    BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through redfish"
-    OFF
-)
-option (
-    BMCWEB_ENABLE_REDFISH_CPU_LOG
-    "Enable CPU log service transactions through redfish" OFF
-)
+option (BMCWEB_ENABLE_KVM "Enable the KVM host video WebSocket.  Path is
+       '/kvmws'.  Video is from the BMC's '/dev/video' device." ON)
+option (BMCWEB_ENABLE_DBUS_REST "Enable Phosphor REST (D-Bus) APIs.  Paths
+       directly map Phosphor D-Bus object paths, for example,
+       '/xyz/openbmc_project/logging/entry/enumerate'.  See
+       https://github.com/openbmc/docs/blob/master/rest-api.md." ON)
+option (BMCWEB_ENABLE_REDFISH "Enable Redfish APIs.  Paths are under
+       '/redfish/v1/'.  See
+       https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish."
+       ON)
+option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial console
+       WebSocket.  Path is '/console0'.  See
+       https://github.com/openbmc/docs/blob/master/console.md." ON)
+option (BMCWEB_ENABLE_STATIC_HOSTING "Enable serving files from the
+       '/usr/share/www' directory as paths under '/'." ON)
+option (BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through
+       Redfish.  Paths are under '/redfish/v1/Managers/bmc/LogServices/CpuLog/
+       Actions/Oem/CpuLog.SendRawPeci'." OFF)
+option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
+       through Redfish.  Paths are under
+       '/redfish/v1/Managers/bmc/LogServices/CpuLog'." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
