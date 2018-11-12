@@ -36,6 +36,7 @@ class ServiceRoot : public Node
         Node::json["RedfishVersion"] = "1.1.0";
         Node::json["Links"]["Sessions"] = {
             {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+        Node::json["AccountService"] = {{"@odata.id", "/redfish/v1/AccountService"}};
         Node::json["JsonSchemas"] = {{"@odata.id", "/redfish/v1/JsonSchemas"}};
 
         Node::json["UUID"] = getUuid();
