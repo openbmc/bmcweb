@@ -628,6 +628,10 @@ class Manager : public Node
             app.template getMiddleware<crow::persistent_data::Middleware>()
                 .systemUuid;
         Node::json["Model"] = "OpenBmc"; // TODO(ed), get model
+
+        Node::json["LogServices"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
+
         Node::json["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
 
