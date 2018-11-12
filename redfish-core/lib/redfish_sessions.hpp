@@ -30,11 +30,6 @@ class Sessions : public Node
     Sessions(CrowApp& app) :
         Node(app, "/redfish/v1/SessionService/Sessions/<str>/", std::string())
     {
-        Node::json["@odata.type"] = "#Session.v1_0_2.Session";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Session.Session";
-        Node::json["Name"] = "User Session";
-        Node::json["Description"] = "Manager User Session";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -59,12 +54,16 @@ class Sessions : public Node
             return;
         }
 
-        Node::json["Id"] = session->uniqueId;
-        Node::json["UserName"] = session->username;
-        Node::json["@odata.id"] =
+        res.jsonValue["Id"] = session->uniqueId;
+        res.jsonValue["UserName"] = session->username;
+        res.jsonValue["@odata.id"] =
             "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
+        res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Session.Session";
+        res.jsonValue["Name"] = "User Session";
+        res.jsonValue["Description"] = "Manager User Session";
 
-        res.jsonValue = Node::json;
         res.end();
     }
 
@@ -116,15 +115,6 @@ class SessionCollection : public Node
     SessionCollection(CrowApp& app) :
         Node(app, "/redfish/v1/SessionService/Sessions/"), memberSession(app)
     {
-        Node::json["@odata.type"] = "#SessionCollection.SessionCollection";
-        Node::json["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#SessionCollection.SessionCollection";
-        Node::json["Name"] = "Session Collection";
-        Node::json["Description"] = "Session Collection";
-        Node::json["Members@odata.count"] = 0;
-        Node::json["Members"] = nlohmann::json::array();
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -142,15 +132,21 @@ class SessionCollection : public Node
             crow::persistent_data::SessionStore::getInstance().getUniqueIds(
                 false, crow::persistent_data::PersistenceType::TIMEOUT);
 
-        Node::json["Members@odata.count"] = sessionIds.size();
-        Node::json["Members"] = nlohmann::json::array();
+        res.jsonValue["Members@odata.count"] = sessionIds.size();
+        res.jsonValue["Members"] = nlohmann::json::array();
         for (const std::string* uid : sessionIds)
         {
-            Node::json["Members"].push_back(
+            res.jsonValue["Members"].push_back(
                 {{"@odata.id", "/redfish/v1/SessionService/Sessions/" + *uid}});
         }
-
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#SessionCollection.SessionCollection";
+        res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#SessionCollection.SessionCollection";
+        res.jsonValue["Name"] = "Session Collection";
+        res.jsonValue["Description"] = "Session Collection";
+        res.jsonValue["Members@odata.count"] = 0;
+        res.jsonValue["Members"] = nlohmann::json::array();
         res.end();
     }
 
@@ -215,17 +211,6 @@ class SessionService : public Node
   public:
     SessionService(CrowApp& app) : Node(app, "/redfish/v1/SessionService/")
     {
-        Node::json["@odata.type"] = "#SessionService.v1_0_2.SessionService";
-        Node::json["@odata.id"] = "/redfish/v1/SessionService/";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#SessionService.SessionService";
-        Node::json["Name"] = "Session Service";
-        Node::json["Id"] = "SessionService";
-        Node::json["Description"] = "Session Service";
-        Node::json["SessionTimeout"] =
-            crow::persistent_data::SessionStore::getInstance()
-                .getTimeoutInSeconds();
-        Node::json["ServiceEnabled"] = true;
 
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -240,7 +225,18 @@ class SessionService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#SessionService.v1_0_2.SessionService";
+        res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#SessionService.SessionService";
+        res.jsonValue["Name"] = "Session Service";
+        res.jsonValue["Id"] = "SessionService";
+        res.jsonValue["Description"] = "Session Service";
+        res.jsonValue["SessionTimeout"] =
+            crow::persistent_data::SessionStore::getInstance()
+                .getTimeoutInSeconds();
+        res.jsonValue["ServiceEnabled"] = true;
+
         res.end();
     }
 };

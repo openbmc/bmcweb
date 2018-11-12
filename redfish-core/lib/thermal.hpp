@@ -27,11 +27,6 @@ class Thermal : public Node
     Thermal(CrowApp& app) :
         Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
     {
-        Node::json["@odata.type"] = "#Thermal.v1_4_0.Thermal";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Thermal.Thermal";
-        Node::json["Id"] = "Thermal";
-        Node::json["Name"] = "Thermal";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -53,12 +48,15 @@ class Thermal : public Node
         }
         const std::string& chassisName = params[0];
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Thermal.Thermal";
+        res.jsonValue["Id"] = "Thermal";
+        res.jsonValue["Name"] = "Thermal";
 
-        Node::json["@odata.id"] =
+        res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
 
-        res.jsonValue = Node::json;
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName,
             std::initializer_list<const char*>{

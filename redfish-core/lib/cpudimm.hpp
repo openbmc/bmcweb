@@ -318,11 +318,6 @@ class ProcessorCollection : public Node
     ProcessorCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/<str>/Processors/", std::string())
     {
-
-        Node::json["@odata.type"] = "#ProcessorCollection.ProcessorCollection";
-        Node::json["Name"] = "Processor Collection";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -349,7 +344,12 @@ class ProcessorCollection : public Node
         }
         const std::string &name = params[0];
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#ProcessorCollection.ProcessorCollection";
+        res.jsonValue["Name"] = "Processor Collection";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
+
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/" + name + "/Processors/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -369,10 +369,6 @@ class Processor : public Node
         Node(app, "/redfish/v1/Systems/<str>/Processors/<str>/", std::string(),
              std::string())
     {
-
-        Node::json["@odata.type"] = "#Processor.v1_1_0.Processor";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#Processor.Processor";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -400,8 +396,9 @@ class Processor : public Node
         }
         const std::string &name = params[0];
         const std::string &cpuId = params[1];
-
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#Processor.v1_1_0.Processor";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/" + name + "/Processors/" + cpuId;
 
@@ -420,11 +417,6 @@ class MemoryCollection : public Node
     MemoryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/<str>/Memory/", std::string())
     {
-
-        Node::json["@odata.type"] = "#MemoryCollection.MemoryCollection";
-        Node::json["Name"] = "Memory Module Collection";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#MemoryCollection.MemoryCollection";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -452,7 +444,10 @@ class MemoryCollection : public Node
         }
         const std::string &name = params[0];
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
+        res.jsonValue["Name"] = "Memory Module Collection";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#MemoryCollection.MemoryCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name + "/Memory/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -471,9 +466,6 @@ class Memory : public Node
         Node(app, "/redfish/v1/Systems/<str>/Memory/<str>/", std::string(),
              std::string())
     {
-
-        Node::json["@odata.type"] = "#Memory.v1_2_0.Memory";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Memory.Memory";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -501,7 +493,8 @@ class Memory : public Node
         const std::string &name = params[0];
         const std::string &dimmId = params[1];
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#Memory.v1_2_0.Memory";
+        res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Memory.Memory";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/" + name + "/Memory/" + dimmId;
         auto asyncResp = std::make_shared<AsyncResp>(res);

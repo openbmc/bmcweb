@@ -617,9 +617,6 @@ class BMCLogServiceCollection : public Node
     BMCLogServiceCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/")
     {
-        // Collections use static ID for SubRoute to add to its parent, but only
-        // load dynamic data so the duplicate static members don't get displayed
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -670,9 +667,6 @@ class BMCJournalLogService : public Node
     BMCJournalLogService(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/")
     {
-        // Set the id for SubRoute
-        Node::json["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/Journal";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -687,10 +681,10 @@ class BMCJournalLogService : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        // Copy over the static data to include the entries added by SubRoute
-        asyncResp->res.jsonValue = Node::json;
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Managers/bmc/LogServices/Journal";
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogService.LogService";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
@@ -756,10 +750,6 @@ class BMCJournalLogEntryCollection : public Node
     BMCJournalLogEntryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/")
     {
-        // Collections use static ID for SubRoute to add to its parent, but only
-        // load dynamic data so the duplicate static members don't get displayed
-        Node::json["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -789,6 +779,8 @@ class BMCJournalLogEntryCollection : public Node
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
@@ -796,6 +788,8 @@ class BMCJournalLogEntryCollection : public Node
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of BMC Journal Entries";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries";
         nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
 
@@ -924,8 +918,6 @@ class CPULogService : public Node
     CPULogService(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/")
     {
-        // Set the id for SubRoute
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/LogServices/CpuLog";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -944,7 +936,8 @@ class CPULogService : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Copy over the static data to include the entries added by SubRoute
-        asyncResp->res.jsonValue = Node::json;
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Managers/bmc/LogServices/CpuLog";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
@@ -976,10 +969,6 @@ class CPULogEntryCollection : public Node
     CPULogEntryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/")
     {
-        // Collections use static ID for SubRoute to add to its parent, but only
-        // load dynamic data so the duplicate static members don't get displayed
-        Node::json["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -1015,6 +1004,8 @@ class CPULogEntryCollection : public Node
             }
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
             asyncResp->res.jsonValue["@odata.context"] =
                 "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
