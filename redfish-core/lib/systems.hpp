@@ -480,14 +480,6 @@ class SystemsCollection : public Node
   public:
     SystemsCollection(CrowApp &app) : Node(app, "/redfish/v1/Systems/")
     {
-        Node::json["@odata.type"] =
-            "#ComputerSystemCollection.ComputerSystemCollection";
-        Node::json["@odata.id"] = "/redfish/v1/Systems";
-        Node::json["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#ComputerSystemCollection.ComputerSystemCollection";
-        Node::json["Name"] = "Computer System Collection";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -503,7 +495,13 @@ class SystemsCollection : public Node
     {
         BMCWEB_LOG_DEBUG << "Get list of available boards.";
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#ComputerSystemCollection.ComputerSystemCollection";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#ComputerSystemCollection.ComputerSystemCollection";
+        res.jsonValue["Name"] = "Computer System Collection";
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const std::vector<std::string> &resp) {
@@ -652,25 +650,6 @@ class Systems : public Node
     Systems(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/<str>/", std::string())
     {
-        Node::json["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
-        Node::json["SystemType"] = "Physical";
-        Node::json["Description"] = "Computer System";
-        Node::json["Boot"]["BootSourceOverrideEnabled"] =
-            "Disabled"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideTarget"] =
-            "None"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideMode"] =
-            "Legacy"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideTarget@Redfish.AllowableValues"] =
-            {"None",      "Pxe",       "Hdd", "Cd",
-             "BiosSetup", "UefiShell", "Usb"}; // TODO(Dawid), get real boot
-                                               // data
-        Node::json["ProcessorSummary"]["Count"] = 0;
-        Node::json["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        Node::json["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
-        Node::json["MemorySummary"]["Status"]["State"] = "Disabled";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -698,7 +677,26 @@ class Systems : public Node
 
         const std::string &name = params[0];
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
+        res.jsonValue["SystemType"] = "Physical";
+        res.jsonValue["Description"] = "Computer System";
+        res.jsonValue["Boot"]["BootSourceOverrideEnabled"] =
+            "Disabled"; // TODO(Dawid), get real boot data
+        res.jsonValue["Boot"]["BootSourceOverrideTarget"] =
+            "None"; // TODO(Dawid), get real boot data
+        res.jsonValue["Boot"]["BootSourceOverrideMode"] =
+            "Legacy"; // TODO(Dawid), get real boot data
+        res.jsonValue["Boot"]
+                     ["BootSourceOverrideTarget@Redfish.AllowableValues"] = {
+            "None",      "Pxe",       "Hdd", "Cd",
+            "BiosSetup", "UefiShell", "Usb"}; // TODO(Dawid), get real boot
+                                              // data
+        res.jsonValue["ProcessorSummary"]["Count"] = 0;
+        res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
+        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
+        res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
 
         res.jsonValue["Processors"] = {
@@ -754,8 +752,7 @@ class Systems : public Node
 
         const std::string &name = params[0];
 
-        res.jsonValue = Node::json;
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+        messages::success(asyncResp->res);
 
         std::string indicatorLedTemp;
         boost::optional<std::string> indicatorLed = indicatorLedTemp;
@@ -825,8 +822,6 @@ class Systems : public Node
                         return;
                     }
                     BMCWEB_LOG_DEBUG << "Led state update done.";
-                    asyncResp->res.jsonValue["IndicatorLED"] =
-                        std::move(indicatorLed);
                 },
                 "xyz.openbmc_project.LED.Controller.identify",
                 "/xyz/openbmc_project/led/physical/identify",

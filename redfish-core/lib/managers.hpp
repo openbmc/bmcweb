@@ -44,18 +44,6 @@ class ManagerActionsReset : public Node
 
   private:
     /**
-     * Function handles GET method request.
-     * ManagerActionReset supports for POST method,
-     * it is not required to retrieve more information in GET.
-     */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        res.jsonValue = Node::json;
-        res.end();
-    }
-
-    /**
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to dbus.
      * OpenBMC allows for ResetType is GracefulRestart only.
@@ -616,21 +604,8 @@ class Manager : public Node
   public:
     Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/bmc/")
     {
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc";
-        Node::json["@odata.type"] = "#Manager.v1_3_0.Manager";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Manager.Manager";
-        Node::json["Id"] = "bmc";
-        Node::json["Name"] = "OpenBmc Manager";
-        Node::json["Description"] = "Baseboard Management Controller";
-        Node::json["PowerState"] = "On";
-        Node::json["ManagerType"] = "BMC";
-        Node::json["UUID"] =
-            app.template getMiddleware<crow::persistent_data::Middleware>()
-                .systemUuid;
-        Node::json["Model"] = "OpenBmc"; // TODO(ed), get model
-        Node::json["EthernetInterfaces"] = {
-            {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
-
+        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
+                   .systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -638,17 +613,6 @@ class Manager : public Node
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
-
-        // default oem data
-        nlohmann::json& oem = Node::json["Oem"];
-        nlohmann::json& oemOpenbmc = oem["OpenBmc"];
-        oem["@odata.type"] = "#OemManager.Oem";
-        oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
-        oem["@odata.context"] = "/redfish/v1/$metadata#OemManager.Oem";
-        oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
-        oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
-        oemOpenbmc["@odata.context"] =
-            "/redfish/v1/$metadata#OemManager.OpenBmc";
     }
 
   private:
@@ -721,16 +685,48 @@ class Manager : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
+        res.jsonValue["@odata.type"] = "#Manager.v1_3_0.Manager";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Manager.Manager";
+        res.jsonValue["Id"] = "bmc";
+        res.jsonValue["Name"] = "OpenBmc Manager";
+        res.jsonValue["Description"] = "Baseboard Management Controller";
+        res.jsonValue["PowerState"] = "On";
+        res.jsonValue["ManagerType"] = "BMC";
+        res.jsonValue["UUID"] =
+
+            res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+
+        res.jsonValue["LogServices"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
+
+        res.jsonValue["NetworkProtocol"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
+
+        res.jsonValue["EthernetInterfaces"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+        // default oem data
+        nlohmann::json& oem = res.jsonValue["Oem"];
+        nlohmann::json& oemOpenbmc = oem["OpenBmc"];
+        oem["@odata.type"] = "#OemManager.Oem";
+        oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
+        oem["@odata.context"] = "/redfish/v1/$metadata#OemManager.Oem";
+        oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
+        oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
+        oemOpenbmc["@odata.context"] =
+            "/redfish/v1/$metadata#OemManager.OpenBmc";
+
         // Update Actions object.
-        nlohmann::json& manager_reset = Node::json["Actions"]["#Manager.Reset"];
+        nlohmann::json& manager_reset =
+            res.jsonValue["Actions"]["#Manager.Reset"];
         manager_reset["target"] =
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
         manager_reset["ResetType@Redfish.AllowableValues"] = {
             "GracefulRestart"};
 
-        Node::json["DateTime"] = getDateTime();
+        res.jsonValue["DateTime"] = getDateTime();
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        asyncResp->res.jsonValue = Node::json;
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -1023,6 +1019,8 @@ class Manager : public Node
 
         return redfishDateTime;
     }
+
+    std::string uuid;
 };
 
 class ManagerCollection : public Node
@@ -1030,14 +1028,6 @@ class ManagerCollection : public Node
   public:
     ManagerCollection(CrowApp& app) : Node(app, "/redfish/v1/Managers/")
     {
-        Node::json["@odata.id"] = "/redfish/v1/Managers";
-        Node::json["@odata.type"] = "#ManagerCollection.ManagerCollection";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ManagerCollection.ManagerCollection";
-        Node::json["Name"] = "Manager Collection";
-        Node::json["Members@odata.count"] = 1;
-        Node::json["Members"] = {{{"@odata.id", "/redfish/v1/Managers/bmc"}}};
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},

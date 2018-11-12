@@ -45,12 +45,6 @@ class ChassisCollection : public Node
   public:
     ChassisCollection(CrowApp &app) : Node(app, "/redfish/v1/Chassis/")
     {
-        Node::json["@odata.type"] = "#ChassisCollection.ChassisCollection";
-        Node::json["@odata.id"] = "/redfish/v1/Chassis";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ChassisCollection.ChassisCollection";
-        Node::json["Name"] = "Chassis Collection";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -73,7 +67,12 @@ class ChassisCollection : public Node
             "xyz.openbmc_project.Inventory.Item.PowerSupply",
             "xyz.openbmc_project.Inventory.Item.System",
         };
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#ChassisCollection.ChassisCollection";
+        res.jsonValue["Name"] = "Chassis Collection";
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -118,13 +117,6 @@ class Chassis : public Node
     Chassis(CrowApp &app) :
         Node(app, "/redfish/v1/Chassis/<str>/", std::string())
     {
-        Node::json["@odata.type"] = "#Chassis.v1_4_0.Chassis";
-        Node::json["@odata.id"] = "/redfish/v1/Chassis";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Chassis.Chassis";
-        Node::json["Name"] = "Chassis Collection";
-        Node::json["ChassisType"] = "RackMount";
-        Node::json["PowerState"] = "On";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -150,7 +142,14 @@ class Chassis : public Node
             return;
         }
 
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#Chassis.v1_4_0.Chassis";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Chassis.Chassis";
+        res.jsonValue["Name"] = "Chassis Collection";
+        res.jsonValue["ChassisType"] = "RackMount";
+        res.jsonValue["PowerState"] = "On";
+
         const std::string &chassisId = params[0];
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
