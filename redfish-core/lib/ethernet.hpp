@@ -776,16 +776,6 @@ class EthernetCollection : public Node
     EthernetCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
     {
-        Node::json["@odata.type"] =
-            "#EthernetInterfaceCollection.EthernetInterfaceCollection";
-        Node::json["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#EthernetInterfaceCollection.EthernetInterfaceCollection";
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/EthernetInterfaces";
-        Node::json["Name"] = "Ethernet Network Interface Collection";
-        Node::json["Description"] =
-            "Collection of EthernetInterfaces for this Manager";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -802,7 +792,17 @@ class EthernetCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#EthernetInterfaceCollection.EthernetInterfaceCollection";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#EthernetInterfaceCollection.EthernetInterfaceCollection";
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/Managers/bmc/EthernetInterfaces";
+        res.jsonValue["Name"] = "Ethernet Network Interface Collection";
+        res.jsonValue["Description"] =
+            "Collection of EthernetInterfaces for this Manager";
+
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
@@ -847,13 +847,6 @@ class EthernetInterface : public Node
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/",
              std::string())
     {
-        Node::json["@odata.type"] =
-            "#EthernetInterface.v1_2_0.EthernetInterface";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#EthernetInterface.EthernetInterface";
-        Node::json["Name"] = "Manager Ethernet Interface";
-        Node::json["Description"] = "Management Network Interface";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -1259,13 +1252,11 @@ class EthernetInterface : public Node
         }
     }
 
-    nlohmann::json parseInterfaceData(
-        const std::string &iface_id, const EthernetInterfaceData &ethData,
+    void parseInterfaceData(
+        nlohmann::json &json_response, const std::string &iface_id,
+        const EthernetInterfaceData &ethData,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data)
     {
-        // Copy JSON object to avoid race condition
-        nlohmann::json json_response(Node::json);
-
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
@@ -1308,8 +1299,6 @@ class EthernetInterface : public Node
                 }
             }
         }
-
-        return json_response;
     }
 
     /**
@@ -1338,8 +1327,16 @@ class EthernetInterface : public Node
                                                "EthernetInterface", iface_id);
                     return;
                 }
-                asyncResp->res.jsonValue =
-                    parseInterfaceData(iface_id, ethData, ipv4Data);
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EthernetInterface.v1_2_0.EthernetInterface";
+                asyncResp->res.jsonValue["@odata.context"] =
+                    "/redfish/v1/$metadata#EthernetInterface.EthernetInterface";
+                asyncResp->res.jsonValue["Name"] = "Manager Ethernet Interface";
+                asyncResp->res.jsonValue["Description"] =
+                    "Management Network Interface";
+
+                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
+                                   ipv4Data);
             });
     }
 
@@ -1378,8 +1375,8 @@ class EthernetInterface : public Node
                     return;
                 }
 
-                asyncResp->res.jsonValue =
-                    parseInterfaceData(iface_id, ethData, ipv4Data);
+                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
+                                   ipv4Data);
 
                 for (auto propertyIt : patchReq.items())
                 {
@@ -1439,21 +1436,11 @@ class VlanNetworkInterface : public Node
      * Default Constructor
      */
     template <typename CrowApp>
-    // TODO(Pawel) Remove line from below, where we assume that there is only
-    // one manager called openbmc.  This shall be generic, but requires to
-    // update GetSubroutes method
     VlanNetworkInterface(CrowApp &app) :
         Node(app,
-             "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>>/VLANs/"
-             "<str>",
+             "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>",
              std::string(), std::string())
     {
-        Node::json["@odata.type"] =
-            "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#VLanNetworkInterface.VLanNetworkInterface";
-        Node::json["Name"] = "VLAN Network Interface";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -1464,14 +1451,11 @@ class VlanNetworkInterface : public Node
     }
 
   private:
-    nlohmann::json parseInterfaceData(
-        const std::string &parent_iface_id, const std::string &iface_id,
-        const EthernetInterfaceData &ethData,
+    void parseInterfaceData(
+        nlohmann::json &json_response, const std::string &parent_iface_id,
+        const std::string &iface_id, const EthernetInterfaceData &ethData,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data)
     {
-        // Copy JSON object to avoid race condition
-        nlohmann::json json_response(Node::json);
-
         // Fill out obvious data...
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
@@ -1483,7 +1467,6 @@ class VlanNetworkInterface : public Node
         {
             json_response["VLANId"] = *ethData.vlan_id;
         }
-        return json_response;
     }
 
     bool verifyNames(crow::Response &res, const std::string &parent,
@@ -1522,6 +1505,11 @@ class VlanNetworkInterface : public Node
 
         const std::string &parent_iface_id = params[0];
         const std::string &iface_id = params[1];
+        res.jsonValue["@odata.type"] =
+            "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#VLanNetworkInterface.VLanNetworkInterface";
+        res.jsonValue["Name"] = "VLAN Network Interface";
 
         if (!verifyNames(res, parent_iface_id, iface_id))
         {
@@ -1537,8 +1525,9 @@ class VlanNetworkInterface : public Node
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (success && ethData.vlan_id)
                 {
-                    asyncResp->res.jsonValue = parseInterfaceData(
-                        parent_iface_id, iface_id, ethData, ipv4Data);
+                    parseInterfaceData(asyncResp->res.jsonValue,
+                                       parent_iface_id, iface_id, ethData,
+                                       ipv4Data);
                 }
                 else
                 {
@@ -1593,8 +1582,8 @@ class VlanNetworkInterface : public Node
                     return;
                 }
 
-                asyncResp->res.jsonValue = parseInterfaceData(
-                    parentIfaceId, ifaceId, ethData, ipv4Data);
+                parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
+                                   ifaceId, ethData, ipv4Data);
 
                 for (auto propertyIt : patchReq.items())
                 {
@@ -1653,8 +1642,8 @@ class VlanNetworkInterface : public Node
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (success && ethData.vlan_id)
                 {
-                    asyncResp->res.jsonValue = parseInterfaceData(
-                        parentIfaceId, ifaceId, ethData, ipv4Data);
+                    parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
+                                       ifaceId, ethData, ipv4Data);
 
                     auto callback =
                         [asyncResp](const boost::system::error_code ec) {
@@ -1688,20 +1677,10 @@ class VlanNetworkInterfaceCollection : public Node
 {
   public:
     template <typename CrowApp>
-    // TODO(Pawel) Remove line from below, where we assume that there is only
-    // one manager called openbmc.  This shall be generic, but requires to
-    // update GetSubroutes method
     VlanNetworkInterfaceCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/",
              std::string())
     {
-        Node::json["@odata.type"] =
-            "#VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata"
-            "#VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection";
-        Node::json["Name"] = "VLAN Network Interface Collection";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -1740,7 +1719,15 @@ class VlanNetworkInterfaceCollection : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                asyncResp->res.jsonValue = Node::json;
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#VLanNetworkInterfaceCollection."
+                    "VLanNetworkInterfaceCollection";
+                asyncResp->res.jsonValue["@odata.context"] =
+                    "/redfish/v1/$metadata"
+                    "#VLanNetworkInterfaceCollection."
+                    "VLanNetworkInterfaceCollection";
+                asyncResp->res.jsonValue["Name"] =
+                    "VLAN Network Interface Collection";
 
                 nlohmann::json iface_array = nlohmann::json::array();
 
@@ -1786,8 +1773,8 @@ class VlanNetworkInterfaceCollection : public Node
             return;
         }
 
-        auto vlanIdJson = json.find("VLANId");
-        if (vlanIdJson == json.end())
+        auto vlanIdJson = postReq.find("VLANId");
+        if (vlanIdJson == postReq.end())
         {
             messages::propertyMissing(asyncResp->res, "VLANId", "/VLANId");
             return;
