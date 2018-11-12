@@ -67,69 +67,6 @@ class Node
 
     virtual ~Node() = default;
 
-    const std::string* getUrl() const
-    {
-        auto odataId = json.find("@odata.id");
-        if (odataId == json.end())
-        {
-            return nullptr;
-        }
-
-        return odataId->get_ptr<const std::string*>();
-    }
-
-    /**
-     * @brief Inserts subroute fields into for the node's json in the form:
-     *        "subroute_name" : { "odata.id": "node_url/subroute_name/" }
-     *        Excludes metadata urls starting with "$" and child urls having
-     *        more than one level.
-     *
-     * @return  None
-     */
-    void getSubRoutes(const std::vector<std::unique_ptr<Node>>& allNodes)
-    {
-        const std::string* url = getUrl();
-        if (url == nullptr)
-        {
-            // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
-            return;
-        }
-
-        for (const auto& node : allNodes)
-        {
-            const std::string* route = node->getUrl();
-            if (route == nullptr)
-            {
-                // BMCWEB_LOG_CRITICAL << "Unable to get url for route";
-                continue;
-            }
-            if (boost::starts_with(*route, *url))
-            {
-                std::string subRoute = route->substr(url->size());
-                if (subRoute.empty())
-                {
-                    continue;
-                }
-
-                if (boost::starts_with(subRoute, "/"))
-                {
-                    subRoute.erase(0, 1);
-                }
-
-                if (boost::ends_with(subRoute, "/"))
-                {
-                    subRoute.pop_back();
-                }
-
-                if (!boost::starts_with(subRoute, "$") &&
-                    subRoute.find('/') == std::string::npos)
-                {
-                    json[subRoute] = nlohmann::json{{"@odata.id", *route}};
-                }
-            }
-        }
-    }
-
     OperationMap entityPrivileges;
 
   protected:
@@ -161,8 +98,6 @@ class Node
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
-
-    nlohmann::json json;
 
   private:
     void dispatchRequest(CrowApp& app, const crow::Request& req,

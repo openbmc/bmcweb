@@ -34,20 +34,6 @@ class AccountService : public Node
   public:
     AccountService(CrowApp& app) : Node(app, "/redfish/v1/AccountService/")
     {
-        Node::json["@odata.id"] = "/redfish/v1/AccountService";
-        Node::json["@odata.type"] = "#AccountService.v1_1_0.AccountService";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#AccountService.AccountService";
-        Node::json["Id"] = "AccountService";
-        Node::json["Description"] = "BMC User Accounts";
-        Node::json["Name"] = "Account Service";
-        Node::json["ServiceEnabled"] = true;
-        Node::json["MinPasswordLength"] = 1;
-        Node::json["MaxPasswordLength"] = 20;
-        Node::json["Accounts"]["@odata.id"] =
-            "/redfish/v1/AccountService/Accounts";
-        Node::json["Roles"]["@odata.id"] = "/redfish/v1/AccountService/Roles";
-
         entityPrivileges = {
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}}},
@@ -62,7 +48,21 @@ class AccountService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.id"] = "/redfish/v1/AccountService";
+        res.jsonValue["@odata.type"] = "#AccountService.v1_1_0.AccountService";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#AccountService.AccountService";
+        res.jsonValue["Id"] = "AccountService";
+        res.jsonValue["Description"] = "BMC User Accounts";
+        res.jsonValue["Name"] = "Account Service";
+        res.jsonValue["ServiceEnabled"] = true;
+        res.jsonValue["MinPasswordLength"] = 1;
+        res.jsonValue["MaxPasswordLength"] = 20;
+        res.jsonValue["Accounts"]["@odata.id"] =
+            "/redfish/v1/AccountService/Accounts";
+        res.jsonValue["Roles"]["@odata.id"] =
+            "/redfish/v1/AccountService/Roles";
+
         res.end();
     }
 };
@@ -72,16 +72,6 @@ class AccountsCollection : public Node
     AccountsCollection(CrowApp& app) :
         Node(app, "/redfish/v1/AccountService/Accounts/")
     {
-
-        Node::json = {{"@odata.context", "/redfish/v1/"
-                                         "$metadata#ManagerAccountCollection."
-                                         "ManagerAccountCollection"},
-                      {"@odata.id", "/redfish/v1/AccountService/Accounts"},
-                      {"@odata.type", "#ManagerAccountCollection."
-                                      "ManagerAccountCollection"},
-                      {"Name", "Accounts Collection"},
-                      {"Description", "BMC User Accounts"}};
-
         entityPrivileges = {
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}}},
@@ -96,8 +86,17 @@ class AccountsCollection : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = Node::json;
         auto asyncResp = std::make_shared<AsyncResp>(res);
+        res.jsonValue = {{"@odata.context",
+                          "/redfish/v1/"
+                          "$metadata#ManagerAccountCollection."
+                          "ManagerAccountCollection"},
+                         {"@odata.id", "/redfish/v1/AccountService/Accounts"},
+                         {"@odata.type", "#ManagerAccountCollection."
+                                         "ManagerAccountCollection"},
+                         {"Name", "Accounts Collection"},
+                         {"Description", "BMC User Accounts"}};
+
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const ManagedObjectType& users) {
@@ -247,19 +246,6 @@ class ManagerAccount : public Node
     ManagerAccount(CrowApp& app) :
         Node(app, "/redfish/v1/AccountService/Accounts/<str>/", std::string())
     {
-        Node::json = {{"@odata.context",
-                       "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
-                      {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-
-                      {"Name", "User Account"},
-                      {"Description", "User Account"},
-                      {"Password", nullptr},
-                      {"RoleId", "Administrator"},
-                      {"Links",
-                       {{"Role",
-                         {{"@odata.id", "/redfish/v1/AccountService/Roles/"
-                                        "Administrator"}}}}}};
-
         entityPrivileges = {
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
@@ -274,7 +260,20 @@ class ManagerAccount : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue = {
+            {"@odata.context",
+             "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
+            {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
+
+            {"Name", "User Account"},
+            {"Description", "User Account"},
+            {"Password", nullptr},
+            {"RoleId", "Administrator"},
+            {"Links",
+             {{"Role",
+               {{"@odata.id",
+                 "/redfish/v1/AccountService/Roles/Administrator"}}}}}};
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)

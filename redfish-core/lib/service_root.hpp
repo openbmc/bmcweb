@@ -27,19 +27,6 @@ class ServiceRoot : public Node
   public:
     ServiceRoot(CrowApp& app) : Node(app, "/redfish/v1/")
     {
-        Node::json["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
-        Node::json["@odata.id"] = "/redfish/v1/";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
-        Node::json["Id"] = "RootService";
-        Node::json["Name"] = "Root Service";
-        Node::json["RedfishVersion"] = "1.1.0";
-        Node::json["Links"]["Sessions"] = {
-            {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-        Node::json["JsonSchemas"] = {{"@odata.id", "/redfish/v1/JsonSchemas"}};
-
-        Node::json["UUID"] = getUuid();
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {}},
             {boost::beast::http::verb::head, {}},
@@ -53,7 +40,27 @@ class ServiceRoot : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
+        res.jsonValue["@odata.id"] = "/redfish/v1/";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
+        res.jsonValue["Id"] = "RootService";
+        res.jsonValue["Name"] = "Root Service";
+        res.jsonValue["RedfishVersion"] = "1.1.0";
+        res.jsonValue["Links"]["Sessions"] = {
+            {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+        res.jsonValue["AccountService"] = {
+            {"@odata.id", "/redfish/v1/AccountService"}};
+        res.jsonValue["Chassis"] = {{"@odata.id", "/redfish/v1/Chassis"}};
+        res.jsonValue["JsonSchemas"] = {
+            {"@odata.id", "/redfish/v1/JsonSchemas"}};
+        res.jsonValue["SessionService"] = {
+            {"@odata.id", "/redfish/v1/UpdateService"}};
+        res.jsonValue["Systems"] = {{"@odata.id", "/redfish/v1/Systems"}};
+        res.jsonValue["UpdateService"] = {
+            {"@odata.id", "/redfish/v1/UpdateService"}};
+
+        res.jsonValue["UUID"] = getUuid();
         res.end();
     }
 

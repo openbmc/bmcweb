@@ -29,19 +29,6 @@ class UpdateService : public Node
   public:
     UpdateService(CrowApp &app) : Node(app, "/redfish/v1/UpdateService/")
     {
-        Node::json["@odata.type"] = "#UpdateService.v1_2_0.UpdateService";
-        Node::json["@odata.id"] = "/redfish/v1/UpdateService";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#UpdateService.UpdateService";
-        Node::json["Id"] = "UpdateService";
-        Node::json["Description"] = "Service for Software Update";
-        Node::json["Name"] = "Update Service";
-        Node::json["HttpPushUri"] = "/redfish/v1/UpdateService";
-        // UpdateService cannot be disabled
-        Node::json["ServiceEnabled"] = true;
-        Node::json["FirmwareInventory"] = {
-            {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -55,7 +42,18 @@ class UpdateService : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_2_0.UpdateService";
+        res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#UpdateService.UpdateService";
+        res.jsonValue["Id"] = "UpdateService";
+        res.jsonValue["Description"] = "Service for Software Update";
+        res.jsonValue["Name"] = "Update Service";
+        res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        // UpdateService cannot be disabled
+        res.jsonValue["ServiceEnabled"] = true;
+        res.jsonValue["FirmwareInventory"] = {
+            {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
         res.end();
     }
     static void activateImage(const std::string &objPath)
@@ -188,14 +186,6 @@ class SoftwareInventoryCollection : public Node
     SoftwareInventoryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/")
     {
-        Node::json["@odata.type"] =
-            "#SoftwareInventoryCollection.SoftwareInventoryCollection";
-        Node::json["@odata.id"] = "/redfish/v1/UpdateService/FirmwareInventory";
-        Node::json["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#SoftwareInventoryCollection.SoftwareInventoryCollection";
-        Node::json["Name"] = "Software Inventory Collection";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -210,7 +200,14 @@ class SoftwareInventoryCollection : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#SoftwareInventoryCollection.SoftwareInventoryCollection";
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/UpdateService/FirmwareInventory";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#SoftwareInventoryCollection.SoftwareInventoryCollection";
+        res.jsonValue["Name"] = "Software Inventory Collection";
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](
@@ -315,15 +312,6 @@ class SoftwareInventory : public Node
         Node(app, "/redfish/v1/UpdateService/FirmwareInventory/<str>/",
              std::string())
     {
-        Node::json["@odata.type"] =
-            "#SoftwareInventory.v1_1_0.SoftwareInventory";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
-        Node::json["Name"] = "Software Inventory";
-        Node::json["Updateable"] = false;
-        Node::json["Status"]["Health"] = "OK";
-        Node::json["Status"]["HealthRollup"] = "OK";
-        Node::json["Status"]["State"] = "Enabled";
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -338,7 +326,15 @@ class SoftwareInventory : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#SoftwareInventory.v1_1_0.SoftwareInventory";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
+        res.jsonValue["Name"] = "Software Inventory";
+        res.jsonValue["Updateable"] = false;
+        res.jsonValue["Status"]["Health"] = "OK";
+        res.jsonValue["Status"]["HealthRollup"] = "OK";
+        res.jsonValue["Status"]["State"] = "Enabled";
 
         if (params.size() != 1)
         {
