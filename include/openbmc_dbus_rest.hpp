@@ -735,7 +735,8 @@ void handleAction(const crow::Request &req, crow::Response &res,
         std::array<std::string, 0>());
 }
 
-void handleList(crow::Response &res, const std::string &objectPath)
+void handleList(crow::Response &res, const std::string &objectPath,
+                int32_t depth = 0)
 {
     crow::connections::systemBus->async_method_call(
         [&res](const boost::system::error_code ec,
@@ -755,7 +756,7 @@ void handleList(crow::Response &res, const std::string &objectPath)
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", objectPath,
-        static_cast<int32_t>(0), std::array<std::string, 0>());
+        depth, std::array<std::string, 0>());
 }
 
 void handleEnumerate(crow::Response &res, const std::string &objectPath)
@@ -1132,11 +1133,6 @@ void handlePut(const crow::Request &req, crow::Response &res,
 inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
                           std::string &objectPath)
 {
-    // Trim any trailing "/" at the end
-    if (boost::ends_with(objectPath, "/"))
-    {
-        objectPath.pop_back();
-    }
 
     // If accessing a single attribute, fill in and update objectPath,
     // otherwise leave destProperty blank
@@ -1180,7 +1176,16 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
         }
         else
         {
-            handleGet(res, objectPath, destProperty);
+            // Trim any trailing "/" at the end
+            if (boost::ends_with(objectPath, "/"))
+            {
+                objectPath.pop_back();
+                handleList(res, objectPath, 1);
+            }
+            else
+            {
+                handleGet(res, objectPath, destProperty);
+            }
         }
         return;
     }
