@@ -18,8 +18,9 @@ static const char* xframeValue = "DENY";
 static const char* xssKey = "X-XSS-Protection";
 static const char* xssValue = "1; mode=block";
 
-static const char* contentSecurityKey = "X-Content-Security-Policy";
-static const char* contentSecurityValue = "default-src 'self'";
+static const char* contentSecurityKey = "Content-Security-Policy";
+static const char* contentSecurityValue =
+    "script-src 'self'; object-src 'self'";
 
 static const char* pragmaKey = "Pragma";
 static const char* pragmaValue = "no-cache";
