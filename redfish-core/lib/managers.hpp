@@ -604,6 +604,8 @@ class Manager : public Node
   public:
     Manager(CrowApp& app) : Node(app, "/redfish/v1/Managers/bmc/")
     {
+        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
+                   .systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -693,9 +695,8 @@ class Manager : public Node
         res.jsonValue["PowerState"] = "On";
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] =
-            app.template getMiddleware<crow::persistent_data::Middleware>()
-                .systemUuid;
-        res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+
+            res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
@@ -1018,6 +1019,8 @@ class Manager : public Node
 
         return redfishDateTime;
     }
+
+    std::string uuid;
 };
 
 class ManagerCollection : public Node

@@ -344,7 +344,7 @@ class ProcessorCollection : public Node
         }
         const std::string &name = params[0];
 
-        res.jsonValue"@odata.type"] = "#ProcessorCollection.ProcessorCollection";
+        res.jsonValue["@odata.type"] = "#ProcessorCollection.ProcessorCollection";
         res.jsonValue["Name"] = "Processor Collection";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";

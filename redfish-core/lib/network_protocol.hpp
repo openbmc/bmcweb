@@ -105,25 +105,25 @@ class NetworkProtocol : public Node
 
     void getData(const std::shared_ptr<AsyncResp>& asyncResp)
     {
-        res.jsonValue["@odata.type"] =
+        asyncResp->res.jsonValue["@odata.type"] =
             "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol";
-        res.jsonValue["@odata.context"] =
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol";
+        asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/"
             "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol";
-        res.jsonValue["Id"] = "NetworkProtocol";
-        res.jsonValue["Name"] = "Manager Network Protocol";
-        res.jsonValue["Description"] = "Manager Network Service";
-        res.jsonValue["Status"]["Health"] = "OK";
-        res.jsonValue["Status"]["HealthRollup"] = "OK";
-        res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
+        asyncResp->res.jsonValue["Name"] = "Manager Network Protocol";
+        asyncResp->res.jsonValue["Description"] = "Manager Network Service";
+        asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+        asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
+        asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
         for (auto& protocol : protocolToDBus)
         {
-            res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
+            asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
         }
 
-        res.jsonValue["HostName"] = getHostName();
+        asyncResp->res.jsonValue["HostName"] = getHostName();
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,

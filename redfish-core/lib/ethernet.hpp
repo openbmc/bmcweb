@@ -1252,12 +1252,11 @@ class EthernetInterface : public Node
         }
     }
 
-    nlohmann::json parseInterfaceData(
-        const std::string &iface_id, const EthernetInterfaceData &ethData,
+    void parseInterfaceData(
+        nlohmann::json &json_response, const std::string &iface_id,
+        const EthernetInterfaceData &ethData,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data)
     {
-        nlohmann::json json_response;
-
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
@@ -1300,8 +1299,6 @@ class EthernetInterface : public Node
                 }
             }
         }
-
-        return json_response;
     }
 
     /**
@@ -1330,12 +1327,13 @@ class EthernetInterface : public Node
                                                "EthernetInterface", iface_id);
                     return;
                 }
-                res.jsonValue["@odata.type"] =
+                asyncResp->res.jsonValue["@odata.type"] =
                     "#EthernetInterface.v1_2_0.EthernetInterface";
-                res.jsonValue["@odata.context"] =
+                asyncResp->res.jsonValue["@odata.context"] =
                     "/redfish/v1/$metadata#EthernetInterface.EthernetInterface";
-                res.jsonValue["Name"] = "Manager Ethernet Interface";
-                res.jsonValue["Description"] = "Management Network Interface";
+                asyncResp->res.jsonValue["Name"] = "Manager Ethernet Interface";
+                asyncResp->res.jsonValue["Description"] =
+                    "Management Network Interface";
 
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
@@ -1377,8 +1375,8 @@ class EthernetInterface : public Node
                     return;
                 }
 
-                asyncResp->res.jsonValue =
-                    parseInterfaceData(iface_id, ethData, ipv4Data);
+                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
+                                   ipv4Data);
 
                 for (auto propertyIt : patchReq.items())
                 {
@@ -1453,7 +1451,7 @@ class VlanNetworkInterface : public Node
     }
 
   private:
-    nlohmann::json parseInterfaceData(
+    void parseInterfaceData(
         nlohmann::json &json_response, const std::string &parent_iface_id,
         const std::string &iface_id, const EthernetInterfaceData &ethData,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data)
@@ -1469,7 +1467,6 @@ class VlanNetworkInterface : public Node
         {
             json_response["VLANId"] = *ethData.vlan_id;
         }
-        return json_response;
     }
 
     bool verifyNames(crow::Response &res, const std::string &parent,
@@ -1585,8 +1582,8 @@ class VlanNetworkInterface : public Node
                     return;
                 }
 
-                asyncResp->res.jsonValue = parseInterfaceData(
-                    parentIfaceId, ifaceId, ethData, ipv4Data);
+                parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
+                                   ifaceId, ethData, ipv4Data);
 
                 for (auto propertyIt : patchReq.items())
                 {
@@ -1645,8 +1642,8 @@ class VlanNetworkInterface : public Node
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (success && ethData.vlan_id)
                 {
-                    asyncResp->res.jsonValue = parseInterfaceData(
-                        parentIfaceId, ifaceId, ethData, ipv4Data);
+                    parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
+                                       ifaceId, ethData, ipv4Data);
 
                     auto callback =
                         [asyncResp](const boost::system::error_code ec) {
@@ -1776,8 +1773,8 @@ class VlanNetworkInterfaceCollection : public Node
             return;
         }
 
-        auto vlanIdJson = json.find("VLANId");
-        if (vlanIdJson == json.end())
+        auto vlanIdJson = postReq.find("VLANId");
+        if (vlanIdJson == postReq.end())
         {
             messages::propertyMissing(asyncResp->res, "VLANId", "/VLANId");
             return;
