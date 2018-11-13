@@ -73,24 +73,6 @@ class NetworkProtocol : public Node
     NetworkProtocol(CrowApp& app) :
         Node(app, "/redfish/v1/Managers/bmc/NetworkProtocol")
     {
-        Node::json["@odata.type"] =
-            "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
-        Node::json["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol";
-        Node::json["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol";
-        Node::json["Id"] = "NetworkProtocol";
-        Node::json["Name"] = "Manager Network Protocol";
-        Node::json["Description"] = "Manager Network Service";
-        Node::json["Status"]["Health"] = "OK";
-        Node::json["Status"]["HealthRollup"] = "OK";
-        Node::json["Status"]["State"] = "Enabled";
-
-        for (auto& protocol : protocolToDBus)
-        {
-            Node::json[protocol.first]["ProtocolEnabled"] = false;
-        }
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -123,8 +105,25 @@ class NetworkProtocol : public Node
 
     void getData(const std::shared_ptr<AsyncResp>& asyncResp)
     {
-        Node::json["HostName"] = getHostName();
-        asyncResp->res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] =
+            "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol";
+        res.jsonValue["Id"] = "NetworkProtocol";
+        res.jsonValue["Name"] = "Manager Network Protocol";
+        res.jsonValue["Description"] = "Manager Network Service";
+        res.jsonValue["Status"]["Health"] = "OK";
+        res.jsonValue["Status"]["HealthRollup"] = "OK";
+        res.jsonValue["Status"]["State"] = "Enabled";
+
+        for (auto& protocol : protocolToDBus)
+        {
+            res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
+        }
+
+        res.jsonValue["HostName"] = getHostName();
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,

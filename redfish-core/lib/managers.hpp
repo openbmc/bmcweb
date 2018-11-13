@@ -700,6 +700,9 @@ class Manager : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
 
+        res.jsonValue["NetworkProtocol"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
+
         res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
         // default oem data
