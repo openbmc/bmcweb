@@ -28,11 +28,6 @@ class Power : public Node
     Power(CrowApp& app) :
         Node((app), "/redfish/v1/Chassis/<str>/Power/", std::string())
     {
-        Node::json["@odata.type"] = "#Power.v1_2_1.Power";
-        Node::json["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
-        Node::json["Id"] = "Power";
-        Node::json["Name"] = "Power";
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -54,9 +49,12 @@ class Power : public Node
         }
         const std::string& chassis_name = params[0];
 
-        Node::json["@odata.id"] =
+        res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassis_name + "/Power";
-        res.jsonValue = Node::json;
+        res.jsonValue["@odata.type"] = "#Power.v1_2_1.Power";
+        res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
+        res.jsonValue["Id"] = "Power";
+        res.jsonValue["Name"] = "Power";
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name,
             std::initializer_list<const char*>{
