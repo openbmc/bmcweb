@@ -44,18 +44,6 @@ class ManagerActionsReset : public Node
 
   private:
     /**
-     * Function handles GET method request.
-     * ManagerActionReset supports for POST method,
-     * it is not required to retrieve more information in GET.
-     */
-    void doGet(crow::Response& res, const crow::Request& req,
-               const std::vector<std::string>& params) override
-    {
-        res.jsonValue = Node::json;
-        res.end();
-    }
-
-    /**
      * Function handles POST method request.
      * Analyzes POST body message before sends Reset request data to dbus.
      * OpenBMC allows for ResetType is GracefulRestart only.
