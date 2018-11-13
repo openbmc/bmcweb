@@ -36,11 +36,15 @@ class ServiceRoot : public Node
         Node::json["RedfishVersion"] = "1.1.0";
         Node::json["Links"]["Sessions"] = {
             {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
-        Node::json["AccountService"] = {{"@odata.id", "/redfish/v1/AccountService"}};
+        Node::json["AccountService"] = {
+            {"@odata.id", "/redfish/v1/AccountService"}};
         Node::json["Chassis"] = {{"@odata.id", "/redfish/v1/Chassis"}};
         Node::json["JsonSchemas"] = {{"@odata.id", "/redfish/v1/JsonSchemas"}};
+        Node::json["SessionService"] = {
+            {"@odata.id", "/redfish/v1/UpdateService"}};
         Node::json["Systems"] = {{"@odata.id", "/redfish/v1/Systems"}};
-        Node::json["UpdateService"] = {{"@odata.id", "/redfish/v1/UpdateService"}};
+        Node::json["UpdateService"] = {
+            {"@odata.id", "/redfish/v1/UpdateService"}};
 
         Node::json["UUID"] = getUuid();
 
