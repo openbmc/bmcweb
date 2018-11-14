@@ -1279,30 +1279,32 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .requires({"ConfigureManager"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
                                   const std::string &dumpId) {
-            std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]+)$");
+            std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
             if (!std::regex_match(dumpId, validFilename))
             {
-                res.result(boost::beast::http::status::not_found);
+                res.result(boost::beast::http::status::bad_request);
                 res.end();
                 return;
             }
             std::experimental::filesystem::path loc(
                 "/var/lib/phosphor-debug-collector/dumps");
 
-            loc += dumpId;
+            loc /= dumpId;
 
             if (!std::experimental::filesystem::exists(loc) ||
                 !std::experimental::filesystem::is_directory(loc))
             {
+                BMCWEB_LOG_ERROR << loc << "Not found";
                 res.result(boost::beast::http::status::not_found);
                 res.end();
                 return;
             }
             std::experimental::filesystem::directory_iterator files(loc);
+
             for (auto &file : files)
             {
                 std::ifstream readFile(file.path());
-                if (readFile.good())
+                if (!readFile.good())
                 {
                     continue;
                 }
@@ -1310,6 +1312,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 res.body() = {std::istreambuf_iterator<char>(readFile),
                               std::istreambuf_iterator<char>()};
                 res.end();
+                return;
             }
             res.result(boost::beast::http::status::not_found);
             res.end();
