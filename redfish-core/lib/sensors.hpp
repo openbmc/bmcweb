@@ -68,11 +68,6 @@ class SensorsAsyncResp
         res.end();
     }
 
-    void setErrorStatus()
-    {
-        res.result(boost::beast::http::status::internal_server_error);
-    }
-
     crow::Response& res;
     std::string chassisId{};
     const std::vector<const char*> types;
@@ -102,7 +97,7 @@ void getConnections(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         BMCWEB_LOG_DEBUG << "getConnections resp_handler enter";
         if (ec)
         {
-            SensorsAsyncResp->setErrorStatus();
+            messages::internalError(SensorsAsyncResp->res);
             BMCWEB_LOG_ERROR << "getConnections resp_handler: Dbus error "
                              << ec;
             return;
@@ -186,7 +181,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         if (ec)
         {
             BMCWEB_LOG_ERROR << "getChassis respHandler DBUS error: " << ec;
-            SensorsAsyncResp->setErrorStatus();
+            messages::internalError(SensorsAsyncResp->res);
             return;
         }
         boost::container::flat_set<std::string> sensorNames;
@@ -438,7 +433,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                             {
                                 BMCWEB_LOG_ERROR
                                     << "getManagedObjectsCb DBUS error: " << ec;
-                                SensorsAsyncResp->setErrorStatus();
+                                messages::internalError(SensorsAsyncResp->res);
                                 return;
                             }
                             // Go through all objects and update response with
