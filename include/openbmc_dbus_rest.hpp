@@ -1310,6 +1310,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 res.body() = {std::istreambuf_iterator<char>(readFile),
                               std::istreambuf_iterator<char>()};
                 res.end();
+                return;
             }
             res.result(boost::beast::http::status::not_found);
             res.end();
