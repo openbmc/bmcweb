@@ -1,7 +1,6 @@
 #include <crow/app.h>
 #include <systemd/sd-daemon.h>
 
-#include <bmcweb/settings.hpp>
 #include <boost/asio.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
