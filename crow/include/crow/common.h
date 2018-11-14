@@ -10,30 +10,6 @@
 
 namespace crow
 {
-enum class HTTPMethod
-{
-#ifndef DELETE
-    DELETE = 0,
-    GET,
-    HEAD,
-    POST,
-    PUT,
-    CONNECT,
-    OPTIONS,
-    TRACE,
-    PATCH = 24, // see http_parser_merged.h line 118 for why it is 24
-#endif
-
-    Delete = 0,
-    Get,
-    Head,
-    Post,
-    Put,
-    Connect,
-    Options,
-    Trace,
-    Patch = 24,
-};
 
 inline std::string methodName(boost::beast::http::verb method)
 {
