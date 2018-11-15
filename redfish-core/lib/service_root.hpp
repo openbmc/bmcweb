@@ -66,25 +66,23 @@ class ServiceRoot : public Node
 
     const std::string getUuid()
     {
-        // If we are using a version of systemd that can get the app specific
-        // uuid, use that
-#ifdef sd_id128_get_machine_app_specific
-        std::array<char, SD_ID128_STRING_MAX> string;
-        sd_id128_t id = SD_ID128_NULL;
-
+        std::string ret;
         // This ID needs to match the one in ipmid
-        int r = sd_id128_get_machine_app_specific(
-            SD_ID128_MAKE(e0, e1, 73, 76, 64, 61, 47, da, a5, 0c, d0, cc, 64,
-                          12, 45, 78),
-            &id);
-        if (r < 0)
+        sd_id128_t appId = SD_ID128_MAKE(e0, e1, 73, 76, 64, 61, 47, da, a5, 0c,
+                                         d0, cc, 64, 12, 45, 78);
+        sd_id128_t machineId = SD_ID128_NULL;
+
+        if (sd_id128_get_machine_app_specific(appId, &machineId) == 0)
         {
-            return "00000000-0000-0000-0000-000000000000";
+            std::array<char, SD_ID128_STRING_MAX> str;
+            ret = sd_id128_to_string(machineId, str.data());
+            ret.insert(8, 1, '-');
+            ret.insert(13, 1, '-');
+            ret.insert(18, 1, '-');
+            ret.insert(23, 1, '-');
         }
-        return string.data();
-#else
-        return "00000000-0000-0000-0000-000000000000";
-#endif
+
+        return ret;
     }
 };
 
