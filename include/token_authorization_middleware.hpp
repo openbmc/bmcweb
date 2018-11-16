@@ -63,7 +63,8 @@ class Middleware
             if (http_helpers::requestPrefersHtml(req))
             {
                 res.result(boost::beast::http::status::temporary_redirect);
-                res.addHeader("Location", "/#/login");
+                res.addHeader("Location", "/#/login?next=" +
+                                              http_helpers::urlEncode(req.url));
             }
             else
             {
