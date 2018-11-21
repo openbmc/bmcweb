@@ -57,9 +57,7 @@ template <typename... Middlewares> class Crow
         return router.newRuleDynamic(rule);
     }
 
-    template <uint64_t Tag>
-    auto route(std::string&& rule) -> typename std::result_of<
-        decltype (&Router::newRuleTagged<Tag>)(Router, std::string&&)>::type
+    template <uint64_t Tag> auto& route(std::string&& rule)
     {
         return router.newRuleTagged<Tag>(std::move(rule));
     }
