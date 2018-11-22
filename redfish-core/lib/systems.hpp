@@ -656,28 +656,6 @@ class Systems : public Node
     Systems(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/<str>/", std::string())
     {
-<<<<<<< HEAD
-=======
-        Node::json["@odata.type"] = "#ComputerSystem.v1_5_1.ComputerSystem";
-        Node::json["@odata.context"] =
-            "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
-        Node::json["SystemType"] = "Physical";
-        Node::json["Description"] = "Computer System";
-        Node::json["Boot"]["BootSourceOverrideEnabled"] =
-            "Disabled"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideTarget"] =
-            "None"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideMode"] =
-            "Legacy"; // TODO(Dawid), get real boot data
-        Node::json["Boot"]["BootSourceOverrideTarget@Redfish.AllowableValues"] =
-            {"None",      "Pxe",       "Hdd", "Cd",
-             "BiosSetup", "UefiShell", "Usb"}; // TODO(Dawid), get real boot
-                                               // data
-        Node::json["ProcessorSummary"]["Count"] = 0;
-        Node::json["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        Node::json["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
-        Node::json["MemorySummary"]["Status"]["State"] = "Disabled";
->>>>>>> 5207348... Update schema versions to latest for some components
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -705,7 +683,7 @@ class Systems : public Node
 
         const std::string &name = params[0];
 
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_5_1.ComputerSystem";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
         res.jsonValue["SystemType"] = "Physical";
