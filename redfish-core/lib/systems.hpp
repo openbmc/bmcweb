@@ -683,7 +683,7 @@ class Systems : public Node
 
         const std::string &name = params[0];
 
-        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_3_0.ComputerSystem";
+        res.jsonValue["@odata.type"] = "#ComputerSystem.v1_5_1.ComputerSystem";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
         res.jsonValue["SystemType"] = "Physical";
