@@ -394,7 +394,7 @@ class Processor : public Node
         }
         const std::string &name = params[0];
         const std::string &cpuId = params[1];
-        res.jsonValue["@odata.type"] = "#Processor.v1_1_0.Processor";
+        res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
@@ -491,7 +491,7 @@ class Memory : public Node
         const std::string &name = params[0];
         const std::string &dimmId = params[1];
 
-        res.jsonValue["@odata.type"] = "#Memory.v1_2_0.Memory";
+        res.jsonValue["@odata.type"] = "#Memory.v1_6_0.Memory";
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Memory.Memory";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/" + name + "/Memory/" + dimmId;
