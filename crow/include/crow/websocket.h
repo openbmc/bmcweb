@@ -6,7 +6,6 @@
 #include <functional>
 
 #include "crow/http_request.h"
-#include "crow/socket_adaptors.h"
 
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/beast/websocket/ssl.hpp>
@@ -27,7 +26,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void sendText(const boost::beast::string_view msg) = 0;
     virtual void sendText(std::string&& msg) = 0;
     virtual void close(const boost::beast::string_view msg = "quit") = 0;
-    virtual boost::asio::io_service& getIoService() = 0;
+    virtual boost::asio::io_service& get_io_service() = 0;
     virtual ~Connection() = default;
 
     void userdata(void* u)
@@ -49,15 +48,15 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& req, Adaptor&& adaptorIn,
+        const crow::Request& req, std::unique_ptr<Adaptor> adaptorIn,
         std::function<void(Connection&)> open_handler,
         std::function<void(Connection&, const std::string&, bool)>
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
         adaptor(std::move(adaptorIn)),
-        inString(), inBuffer(inString, 4096), ws(adaptor.socket()),
-        Connection(req), openHandler(std::move(open_handler)),
+        inString(), inBuffer(inString, 4096), ws(*adaptor), Connection(req),
+        openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),
         errorHandler(std::move(error_handler))
@@ -65,9 +64,9 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
 
-    boost::asio::io_service& getIoService() override
+    boost::asio::io_service& get_io_service() override
     {
-        return adaptor.getIoService();
+        return adaptor->get_io_service();
     }
 
     void start()
@@ -136,7 +135,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
                     BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
                     return;
                 }
-                adaptor.close();
+                adaptor->lowest_layer().close();
             });
     }
 
@@ -217,11 +216,9 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     }
 
   private:
-    Adaptor adaptor;
+    std::unique_ptr<Adaptor> adaptor;
 
-    boost::beast::websocket::stream<
-        std::add_lvalue_reference_t<typename Adaptor::streamType>>
-        ws;
+    boost::beast::websocket::stream<std::add_lvalue_reference_t<Adaptor>> ws;
 
     std::string inString;
     boost::asio::dynamic_string_buffer<std::string::value_type,

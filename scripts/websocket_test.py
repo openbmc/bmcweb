@@ -1,21 +1,18 @@
-import json
+import asyncio
+import websockets
 import ssl
-import websocket
 
-websocket.enableTrace(True)
+ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+ssl_context.check_hostname = False
+ssl_context.verify_mode = ssl.CERT_NONE
 
-ws = websocket.create_connection('wss://10.243.48.93:18080/subscribe',
-                       sslopt={"cert_reqs": ssl.CERT_NONE},
-                       cookie="XSRF-TOKEN=m0KhYNbxFmUEI4Sr1I22; SESSION=0mdwzoQy3gggQxW3vrEw")
-request = json.dumps({
-    "paths": ["/xyz/openbmc_project/logging", "/xyz/openbmc_project/sensors"],
-    "interfaces": ["xyz.openbmc_project.Logging.Entry", "xyz.openbmc_project.Sensor.Value"]
-})
 
-ws.send(request)
-print("Sent")
-print("Receiving...")
-while True:
-    result = ws.recv()
-    print("Received '%s'" % result)
-ws.close()
+async def hello():
+    async with websockets.connect(
+            'wss://10.243.48.21:18080/asdjtag0', ssl=ssl_context, extra_headers={"Authorization": "Basic cm9vdDowcGVuQm1j"}) as websocket:
+        greeting = await websocket.recv()
+        print(greeting)
+        await websocket.send("foobar")
+
+
+asyncio.get_event_loop().run_until_complete(hello())

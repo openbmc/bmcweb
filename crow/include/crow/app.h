@@ -29,9 +29,12 @@ template <typename... Middlewares> class Crow
 {
   public:
     using self_t = Crow;
-    using server_t = Server<Crow, SocketAdaptor, Middlewares...>;
+    using socket_t = boost::asio::ip::tcp::socket;
+    using server_t = Server<Crow, socket_t, Middlewares...>;
+
 #ifdef BMCWEB_ENABLE_SSL
-    using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
+    using ssl_socket_t = boost::asio::ssl::stream<socket_t>;
+    using ssl_server_t = Server<Crow, ssl_socket_t, Middlewares...>;
 #endif
     explicit Crow(std::shared_ptr<boost::asio::io_service> io =
                       std::make_shared<boost::asio::io_service>()) :
@@ -44,9 +47,9 @@ template <typename... Middlewares> class Crow
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
+    void handleUpgrade(const Request& req, Response& res, std::unique_ptr<Adaptor> adaptor)
     {
-        router.handleUpgrade(req, res, adaptor);
+        router.handleUpgrade(req, res, std::move(adaptor));
     }
 
     void handle(const Request& req, Response& res)
