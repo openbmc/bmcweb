@@ -16,7 +16,6 @@
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
-#include "crow/socket_adaptors.h"
 #include "crow/timer_queue.h"
 
 #ifdef BMCWEB_ENABLE_SSL
@@ -295,9 +294,8 @@ class Connection
                const std::string& server_name,
                std::tuple<Middlewares...>* middlewares,
                std::function<std::string()>& get_cached_date_str_f,
-               detail::TimerQueue& timerQueue,
-               typename Adaptor::context* adaptorCtx) :
-        adaptor(ioService, adaptorCtx),
+               detail::TimerQueue& timerQueue, std::unique_ptr<Adaptor> adaptor) :
+        adaptor(std::move(adaptor)),
         handler(handler), serverName(server_name), middlewares(middlewares),
         getCachedDateStr(get_cached_date_str_f), timerQueue(timerQueue)
     {
@@ -324,25 +322,38 @@ class Connection
 #endif
     }
 
-    decltype(std::declval<Adaptor>().rawSocket())& socket()
+    Adaptor& socket()
     {
-        return adaptor.rawSocket();
+        return *adaptor;
     }
 
     void start()
     {
-        adaptor.start([this](const boost::system::error_code& ec) {
-            if (!ec)
-            {
-                startDeadline();
-
-                doReadHeaders();
-            }
-            else
-            {
-                checkDestroy();
-            }
-        });
+        // TODO(ed) Abstract this to a more clever class with the idea of an
+        // asynchronous "start"
+        if constexpr (std::is_same<Adaptor,
+                                   boost::asio::ssl::stream<
+                                       boost::asio::ip::tcp::socket>>::value)
+        {
+            adaptor->async_handshake(
+                boost::asio::ssl::stream_base::server,
+                [this](const boost::system::error_code& ec) {
+                    if (ec)
+                    {
+                        checkDestroy();
+                    }
+                    else
+                    {
+                        startDeadline();
+                        doReadHeaders();
+                    }
+                });
+        }
+        else
+        {
+            startDeadline();
+            doReadHeaders();
+        }
     }
 
     void handle()
@@ -362,21 +373,30 @@ class Connection
             }
         }
 
-        BMCWEB_LOG_INFO << "Request: " << adaptor.remoteEndpoint() << " "
-                        << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
+        std::string ep_name;
+        boost::system::error_code ec;
+        tcp::endpoint ep = adaptor->lowest_layer().remote_endpoint(ec);
+        if (!ec)
+        {
+            ep_name = boost::lexical_cast<std::string>(ep);
+        }
+
+        BMCWEB_LOG_INFO << "Request: " << ep_name << " " << this << " HTTP/"
+                        << req->version() / 10 << "." << req->version() % 10
+                        << ' ' << req->methodString() << " " << req->target();
 
         needToCallAfterHandlers = false;
 
         if (!isInvalidRequest)
         {
             res.completeRequestHandler = [] {};
-            res.isAliveHelper = [this]() -> bool { return adaptor.isOpen(); };
+            res.isAliveHelper = [this]() -> bool {
+                return adaptor->lowest_layer().is_open();
+            };
 
             ctx = detail::Context<Middlewares...>();
             req->middlewareContext = (void*)&ctx;
-            req->ioService = &adaptor.getIoService();
+            req->ioService = &adaptor->get_io_service();
             detail::middlewareCallHelper<
                 0, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
@@ -431,7 +451,7 @@ class Connection
         // auto self = this->shared_from_this();
         res.completeRequestHandler = nullptr;
 
-        if (!adaptor.isOpen())
+        if (!adaptor->lowest_layer().is_open())
         {
             // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
             // isReading
@@ -473,7 +493,7 @@ class Connection
 
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
-            adaptor.socket(), buffer, *parser,
+            *adaptor, buffer, *parser,
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
                 isReading = false;
@@ -490,7 +510,7 @@ class Connection
                 {
                     // if the adaptor isn't open anymore, and wasn't handed to a
                     // websocket, treat as an error
-                    if (!adaptor.isOpen() && !req->isUpgrade())
+                    if (!adaptor->lowest_layer().is_open() && !req->isUpgrade())
                     {
                         errorWhileReading = true;
                     }
@@ -499,7 +519,7 @@ class Connection
                 if (errorWhileReading)
                 {
                     cancelDeadlineTimer();
-                    adaptor.close();
+                    adaptor->lowest_layer().close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     checkDestroy();
                     return;
@@ -524,7 +544,7 @@ class Connection
         BMCWEB_LOG_DEBUG << this << " doRead";
 
         boost::beast::http::async_read(
-            adaptor.socket(), buffer, *parser,
+            *adaptor, buffer, *parser,
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
                 BMCWEB_LOG_ERROR << this << " async_read " << bytes_transferred
@@ -539,7 +559,7 @@ class Connection
                 }
                 else
                 {
-                    if (!adaptor.isOpen())
+                    if (!adaptor->lowest_layer().is_open())
                     {
                         errorWhileReading = true;
                     }
@@ -547,7 +567,7 @@ class Connection
                 if (errorWhileReading)
                 {
                     cancelDeadlineTimer();
-                    adaptor.close();
+                    adaptor->lowest_layer().close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     checkDestroy();
                     return;
@@ -564,7 +584,7 @@ class Connection
         res.preparePayload();
         serializer.emplace(*res.stringResponse);
         boost::beast::http::async_write(
-            adaptor.socket(), *serializer,
+            *adaptor, *serializer,
             [&](const boost::system::error_code& ec,
                 std::size_t bytes_transferred) {
                 isWriting = false;
@@ -579,7 +599,7 @@ class Connection
                 }
                 if (!req->keepAlive())
                 {
-                    adaptor.close();
+                    adaptor->lowest_layer().close();
                     BMCWEB_LOG_DEBUG << this << " from write(1)";
                     checkDestroy();
                     return;
@@ -621,18 +641,19 @@ class Connection
         cancelDeadlineTimer();
 
         timerCancelKey = timerQueue.add([this] {
-            if (!adaptor.isOpen())
+            if (!adaptor->lowest_layer().is_open())
             {
                 return;
             }
-            adaptor.close();
+            adaptor->lowest_layer().close();
         });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
                          << timerCancelKey;
     }
 
   private:
-    Adaptor adaptor;
+    // TODO(ed) this should really be a value, not a unique_ptr, but std::move was calling the rvalue reference when I attempted it
+    std::unique_ptr<Adaptor> adaptor;
     Handler* handler;
 
     // Making this a boost::optional allows it to be efficiently destroyed and

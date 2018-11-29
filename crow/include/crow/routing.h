@@ -47,13 +47,13 @@ class BaseRule
     }
 
     virtual void handle(const Request&, Response&, const RoutingParams&) = 0;
-    virtual void handleUpgrade(const Request&, Response& res, SocketAdaptor&&)
+    virtual void handleUpgrade(const Request&, Response& res, std::unique_ptr<boost::asio::ip::tcp::socket>)
     {
         res = Response(boost::beast::http::status::not_found);
         res.end();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    virtual void handleUpgrade(const Request&, Response& res, SSLAdaptor&&)
+    virtual void handleUpgrade(const Request&, Response& res, std::unique_ptr<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>)
     {
         res = Response(boost::beast::http::status::not_found);
         res.end();
@@ -343,19 +343,19 @@ class WebSocketRule : public BaseRule
     }
 
     void handleUpgrade(const Request& req, Response&,
-                       SocketAdaptor&& adaptor) override
+                       std::unique_ptr<boost::asio::ip::tcp::socket> adaptor) override
     {
-        new crow::websocket::ConnectionImpl<SocketAdaptor>(
+        new crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>(
             req, std::move(adaptor), openHandler, messageHandler, closeHandler,
             errorHandler);
     }
 #ifdef BMCWEB_ENABLE_SSL
     void handleUpgrade(const Request& req, Response&,
-                       SSLAdaptor&& adaptor) override
+                       std::unique_ptr<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>> adaptor) override
     {
-        std::shared_ptr<crow::websocket::ConnectionImpl<SSLAdaptor>>
+        std::shared_ptr<crow::websocket::ConnectionImpl<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>
             myConnection =
-                std::make_shared<crow::websocket::ConnectionImpl<SSLAdaptor>>(
+                std::make_shared<crow::websocket::ConnectionImpl<boost::asio::ssl::stream<boost::asio::ip::tcp::socket>>>(
                     req, std::move(adaptor), openHandler, messageHandler,
                     closeHandler, errorHandler);
         myConnection->start();
@@ -1080,7 +1080,7 @@ class Router
     }
 
     template <typename Adaptor>
-    void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
+    void handleUpgrade(const Request& req, Response& res, std::unique_ptr<Adaptor> adaptor)
     {
         if (static_cast<int>(req.method()) >= per_methods_.size())
             return;
