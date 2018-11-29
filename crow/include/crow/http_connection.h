@@ -10,13 +10,13 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
-#include <regex>
 #include <vector>
 
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/middleware_context.h"
 #include "crow/timer_queue.h"
+#include "crow/utility.h"
 
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/asio/ssl/stream.hpp>
@@ -25,56 +25,11 @@
 namespace crow
 {
 
-inline void escapeHtml(std::string& data)
-{
-    std::string buffer;
-    // less than 5% of characters should be larger, so reserve a buffer of the
-    // right size
-    buffer.reserve(data.size() * 1.05);
-    for (size_t pos = 0; pos != data.size(); ++pos)
-    {
-        switch (data[pos])
-        {
-            case '&':
-                buffer.append("&amp;");
-                break;
-            case '\"':
-                buffer.append("&quot;");
-                break;
-            case '\'':
-                buffer.append("&apos;");
-                break;
-            case '<':
-                buffer.append("&lt;");
-                break;
-            case '>':
-                buffer.append("&gt;");
-                break;
-            default:
-                buffer.append(&data[pos], 1);
-                break;
-        }
-    }
-    data.swap(buffer);
-}
-
-inline void convertToLinks(std::string& s)
-{
-    const static std::regex r{"(&quot;@odata\\.((id)|(Context))&quot;[ \\n]*:[ "
-                              "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
-
-    const static std::regex nextLink{
-        "(&quot;Members@odata\\.((nextLink))&quot;[ \\n]*:[ "
-        "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, nextLink, "$1<a href=\"$5\">$4</a>");
-}
-
 inline void prettyPrintJson(crow::Response& res)
 {
     std::string value = res.jsonValue.dump(4, ' ', true);
-    escapeHtml(value);
-    convertToLinks(value);
+    utility::escapeHtml(value);
+    utility::convertToLinks(value);
     res.body() = "<html>\n"
                  "<head>\n"
                  "<title>Redfish API</title>\n"
