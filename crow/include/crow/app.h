@@ -27,9 +27,14 @@ template <typename... Middlewares> class Crow
 {
   public:
     using self_t = Crow;
-    using server_t = Server<Crow, SocketAdaptor, Middlewares...>;
+
 #ifdef BMCWEB_ENABLE_SSL
-    using ssl_server_t = Server<Crow, SSLAdaptor, Middlewares...>;
+    using ssl_socket_t = SocketAdaptor;
+    using ssl_server_t = Server<Crow, ssl_socket_t, Middlewares...>;
+#else
+    using socket_t = SSLAdaptor;
+    using server_t = Server<Crow, socket_t, Middlewares...>;
+
 #endif
     explicit Crow(std::shared_ptr<boost::asio::io_service> io =
                       std::make_shared<boost::asio::io_service>()) :
@@ -89,38 +94,35 @@ template <typename... Middlewares> class Crow
     {
         validate();
 #ifdef BMCWEB_ENABLE_SSL
-        if (useSsl)
+        if (-1 == socketFd)
         {
-            if (-1 == socketFd)
-            {
-                sslServer = std::move(std::make_unique<ssl_server_t>(
-                    this, bindaddrStr, portUint, &middlewares, &sslContext,
-                    io));
-            }
-            else
-            {
-                sslServer = std::move(std::make_unique<ssl_server_t>(
-                    this, socketFd, &middlewares, &sslContext, io));
-            }
-            sslServer->setTickFunction(tickInterval, tickFunction);
-            sslServer->run();
+            sslServer = std::move(std::make_unique<ssl_server_t>(
+                this, bindaddrStr, portUint, &middlewares, &sslContext, io));
         }
         else
-#endif
         {
-            if (-1 == socketFd)
-            {
-                server = std::move(std::make_unique<server_t>(
-                    this, bindaddrStr, portUint, &middlewares, nullptr, io));
-            }
-            else
-            {
-                server = std::move(std::make_unique<server_t>(
-                    this, socketFd, &middlewares, nullptr, io));
-            }
-            server->setTickFunction(tickInterval, tickFunction);
-            server->run();
+            sslServer = std::move(std::make_unique<ssl_server_t>(
+                this, socketFd, &middlewares, &sslContext, io));
         }
+        sslServer->setTickFunction(tickInterval, tickFunction);
+        sslServer->run();
+
+#else
+
+        if (-1 == socketFd)
+        {
+            server = std::move(std::make_unique<server_t>(
+                this, bindaddrStr, portUint, &middlewares, nullptr, io));
+        }
+        else
+        {
+            server = std::move(std::make_unique<server_t>(
+                this, socketFd, &middlewares, nullptr, io));
+        }
+        server->setTickFunction(tickInterval, tickFunction);
+        server->run();
+
+#endif
     }
 
     void stop()
@@ -149,7 +151,6 @@ template <typename... Middlewares> class Crow
     self_t& sslFile(const std::string& crt_filename,
                     const std::string& key_filename)
     {
-        useSsl = true;
         sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
         sslContext.use_certificate_file(crt_filename, ssl_context_t::pem);
         sslContext.use_private_key_file(key_filename, ssl_context_t::pem);
@@ -161,7 +162,6 @@ template <typename... Middlewares> class Crow
 
     self_t& sslFile(const std::string& pem_filename)
     {
-        useSsl = true;
         sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
         sslContext.load_verify_file(pem_filename);
         sslContext.set_options(boost::asio::ssl::context::default_workarounds |
@@ -172,12 +172,10 @@ template <typename... Middlewares> class Crow
 
     self_t& ssl(boost::asio::ssl::context&& ctx)
     {
-        useSsl = true;
         sslContext = std::move(ctx);
         return *this;
     }
 
-    bool useSsl{false};
     ssl_context_t sslContext{boost::asio::ssl::context::sslv23};
 
 #else
@@ -228,7 +226,11 @@ template <typename... Middlewares> class Crow
 
   private:
     std::shared_ptr<asio::io_service> io;
+#ifdef BMCWEB_ENABLE_SSL
+    uint16_t portUint = 443;
+#else
     uint16_t portUint = 80;
+#endif
     std::string bindaddrStr = "::";
     int socketFd = -1;
     Router router;
@@ -240,8 +242,9 @@ template <typename... Middlewares> class Crow
 
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
-#endif
+#else
     std::unique_ptr<server_t> server;
+#endif
 };
 template <typename... Middlewares> using App = Crow<Middlewares...>;
 using SimpleApp = Crow<>;
