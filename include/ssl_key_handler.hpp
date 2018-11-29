@@ -11,7 +11,7 @@
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
 
-#include <boost/asio.hpp>
+#include <boost/asio/ssl/context.hpp>
 #include <random>
 
 namespace ensuressl

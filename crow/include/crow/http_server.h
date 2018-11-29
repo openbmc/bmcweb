@@ -1,7 +1,9 @@
 #pragma once
 
 #include <atomic>
-#include <boost/asio.hpp>
+#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/signal_set.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
@@ -14,7 +16,7 @@
 #include "crow/logging.h"
 #include "crow/timer_queue.h"
 #ifdef BMCWEB_ENABLE_SSL
-#include <boost/asio/ssl.hpp>
+#include <boost/asio/ssl/context.hpp>
 #endif
 
 namespace crow

@@ -1,7 +1,7 @@
 #include <crow/app.h>
 #include <systemd/sd-daemon.h>
 
-#include <boost/asio.hpp>
+#include <boost/asio/io_service.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
