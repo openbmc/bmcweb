@@ -1,12 +1,12 @@
 #pragma once
 #include "http_utility.hpp"
 
-#include <array>
 #include <atomic>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/asio.hpp>
-#include <boost/beast/core.hpp>
+#include <boost/asio/io_service.hpp>
+#include <boost/asio/ip/tcp.hpp>
+#include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
@@ -20,7 +20,7 @@
 #include "crow/utility.h"
 
 #ifdef BMCWEB_ENABLE_SSL
-#include <boost/asio/ssl.hpp>
+#include <boost/asio/ssl/stream.hpp>
 #endif
 
 namespace crow
@@ -596,7 +596,7 @@ class Connection
         boost::beast::http::request_parser<boost::beast::http::string_body>>
         parser;
 
-    boost::beast::flat_buffer buffer{8192};
+    boost::beast::flat_static_buffer<8192> buffer;
 
     boost::optional<boost::beast::http::response_serializer<
         boost::beast::http::string_body>>
@@ -620,5 +620,5 @@ class Connection
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;
-}; // namespace crow
+};
 } // namespace crow

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/asio.hpp>
+#include <boost/asio/io_service.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 
