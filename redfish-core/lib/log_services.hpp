@@ -1102,7 +1102,7 @@ class CPULogEntry : public Node
                     return;
                 }
                 const std::string *log =
-                    mapbox::getPtr<const std::string>(resp);
+                    sdbusplus::message::variant_ns::get_if<std::string>(&resp);
                 if (log == nullptr)
                 {
                     messages::internalError(asyncResp->res);
@@ -1204,8 +1204,9 @@ class ImmediateCPULog : public Node
                     std::string, sdbusplus::message::variant<std::string>>>
                 interfacesAdded;
             m.read(objPath, interfacesAdded);
-            const std::string *log = mapbox::getPtr<const std::string>(
-                interfacesAdded[cpuLogInterface]["Log"]);
+            const std::string *log =
+                sdbusplus::message::variant_ns::get_if<std::string>(
+                    &interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
                 messages::internalError(asyncResp->res);

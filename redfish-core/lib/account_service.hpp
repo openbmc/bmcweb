@@ -317,8 +317,8 @@ class ManagerAccount : public Node
                                     if (property.first == "UserEnabled")
                                     {
                                         const bool* userEnabled =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            sdbusplus::message::variant_ns::
+                                                get_if<bool>(&property.second);
                                         if (userEnabled == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR
@@ -332,8 +332,8 @@ class ManagerAccount : public Node
                                              "UserLockedForFailedAttempt")
                                     {
                                         const bool* userLocked =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            sdbusplus::message::variant_ns::
+                                                get_if<bool>(&property.second);
                                         if (userLocked == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR
