@@ -166,9 +166,10 @@ class NetworkProtocol : public Node
                                 }
                                 const std::vector<std::tuple<
                                     std::string, std::string>>* responsePtr =
-                                    mapbox::getPtr<const std::vector<
-                                        std::tuple<std::string, std::string>>>(
-                                        resp);
+                                    sdbusplus::message::variant_ns::get_if<
+                                        std::vector<std::tuple<std::string,
+                                                               std::string>>>(
+                                        &resp);
                                 if (responsePtr == nullptr ||
                                     responsePtr->size() < 1)
                                 {

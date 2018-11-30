@@ -273,7 +273,7 @@ void objectInterfacesToJson(
     if (scaleIt != valueIt->second.end())
     {
         const int64_t* int64Value =
-            mapbox::getPtr<const int64_t>(scaleIt->second);
+            sdbusplus::message::variant_ns::get_if<int64_t>(&scaleIt->second);
         if (int64Value != nullptr)
         {
             scaleMultiplier = *int64Value;
@@ -370,10 +370,12 @@ void objectInterfacesToJson(
                 nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value =
-                    mapbox::getPtr<const int64_t>(valueVariant);
+                    sdbusplus::message::variant_ns::get_if<int64_t>(
+                        &valueVariant);
 
                 const double* doubleValue =
-                    mapbox::getPtr<const double>(valueVariant);
+                    sdbusplus::message::variant_ns::get_if<double>(
+                        &valueVariant);
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
