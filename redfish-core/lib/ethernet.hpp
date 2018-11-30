@@ -850,46 +850,11 @@ class EthernetInterface : public Node
     }
 
     // TODO(kkowalsk) Find a suitable class/namespace for this
-    static void handleVlanPatch(const std::string &ifaceId,
-                                const nlohmann::json &input,
+    static void handleVlanPatch(const std::string &ifaceId, bool vlanEnable,
+                                uint64_t vlanId,
                                 const EthernetInterfaceData &ethData,
                                 const std::shared_ptr<AsyncResp> asyncResp)
     {
-        if (!input.is_object())
-        {
-            messages::propertyValueTypeError(asyncResp->res, input.dump(),
-                                             "VLAN");
-            return;
-        }
-
-        nlohmann::json::const_iterator vlanEnable = input.find("VLANEnable");
-        if (vlanEnable == input.end())
-        {
-            messages::propertyMissing(asyncResp->res, "VLANEnable");
-            return;
-        }
-        const bool *vlanEnableBool = vlanEnable->get_ptr<const bool *>();
-        if (vlanEnableBool == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, vlanEnable->dump(),
-                                             "VLANEnable");
-            return;
-        }
-
-        nlohmann::json::const_iterator vlanId = input.find("VLANId");
-        if (vlanId == input.end())
-        {
-            messages::propertyMissing(asyncResp->res, "VLANId");
-            return;
-        }
-        const uint64_t *vlanIdUint = vlanId->get_ptr<const uint64_t *>();
-        if (vlanIdUint == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, vlanId->dump(),
-                                             "VLANId");
-            return;
-        }
-
         if (!ethData.vlan_id)
         {
             // This interface is not a VLAN. Cannot do anything with it
@@ -900,10 +865,10 @@ class EthernetInterface : public Node
         }
 
         // VLAN is configured on the interface
-        if (*vlanEnableBool == true)
+        if (vlanEnable == true)
         {
             // Change VLAN Id
-            asyncResp->res.jsonValue["VLANId"] = *vlanIdUint;
+            asyncResp->res.jsonValue["VLANId"] = vlanId;
             auto callback = [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
@@ -919,7 +884,7 @@ class EthernetInterface : public Node
                 "/xyz/openbmc_project/network/" + ifaceId,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Network.VLAN", "Id",
-                sdbusplus::message::variant<uint32_t>(*vlanIdUint));
+                sdbusplus::message::variant<uint32_t>(vlanId));
         }
         else
         {
@@ -1332,17 +1297,50 @@ class EthernetInterface : public Node
 
         const std::string &iface_id = params[0];
 
-        nlohmann::json patchReq;
-        if (!json_util::processJsonFromRequest(res, req, patchReq))
+        std::optional<nlohmann::json> vlan;
+        std::optional<nlohmann::json> hostname;
+        std::optional<nlohmann::json> ipv4Addresses;
+        std::optional<nlohmann::json> ipv6Addresses;
+
+        if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
+                                 "IPv4Addresses", ipv4Addresses,
+                                 "IPv6Addresses", ipv6Addresses))
         {
             return;
+        }
+        std::optional<uint64_t> vlanId = 0;
+        std::optional<bool> vlanEnable = false;
+        if (vlan)
+        {
+            if (!json_util::readJson(*vlan, res, "VLANEnable", vlanEnable,
+                                     "VLANId", vlanId))
+            {
+                return;
+            }
+            // Need both vlanId and vlanEnable to service this request
+            if (static_cast<bool>(vlanId) ^ static_cast<bool>(vlanEnable))
+            {
+                if (vlanId)
+                {
+                    messages::propertyMissing(asyncResp->res, "VLANEnable");
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res, "VLANId");
+                }
+
+                return;
+            }
         }
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
         getEthernetIfaceData(
             iface_id,
-            [this, asyncResp, iface_id, patchReq = std::move(patchReq)](
+            [this, asyncResp, iface_id, vlanId, vlanEnable,
+             hostname = std::move(hostname),
+             ipv4Addresses = std::move(ipv4Addresses),
+             ipv6Addresses = std::move(ipv6Addresses)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1358,46 +1356,28 @@ class EthernetInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
 
-                for (auto propertyIt : patchReq.items())
+                if (vlanId && vlanEnable)
                 {
-                    if (propertyIt.key() == "VLAN")
-                    {
-                        handleVlanPatch(iface_id, propertyIt.value(), ethData,
-                                        asyncResp);
-                    }
-                    else if (propertyIt.key() == "HostName")
-                    {
-                        handleHostnamePatch(propertyIt.value(), asyncResp);
-                    }
-                    else if (propertyIt.key() == "IPv4Addresses")
-                    {
-                        handleIPv4Patch(iface_id, propertyIt.value(), ipv4Data,
-                                        asyncResp);
-                    }
-                    else if (propertyIt.key() == "IPv6Addresses")
-                    {
-                        // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
-                        messages::propertyNotWritable(asyncResp->res,
-                                                      propertyIt.key());
-                    }
-                    else
-                    {
-                        auto fieldInJsonIt =
-                            asyncResp->res.jsonValue.find(propertyIt.key());
+                    handleVlanPatch(iface_id, *vlanId, *vlanEnable, ethData,
+                                    asyncResp);
+                }
 
-                        if (fieldInJsonIt == asyncResp->res.jsonValue.end())
-                        {
-                            // Field not in scope of defined fields
-                            messages::propertyUnknown(asyncResp->res,
-                                                      propertyIt.key());
-                        }
-                        else
-                        {
-                            // User attempted to modify non-writable field
-                            messages::propertyNotWritable(asyncResp->res,
-                                                          propertyIt.key());
-                        }
-                    }
+                if (hostname)
+                {
+                    handleHostnamePatch(*hostname, asyncResp);
+                }
+
+                if (ipv4Addresses)
+                {
+                    handleIPv4Patch(iface_id, *ipv4Addresses, ipv4Data,
+                                    asyncResp);
+                }
+
+                if (ipv6Addresses)
+                {
+                    // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
+                    messages::propertyNotWritable(asyncResp->res,
+                                                  "IPv6Addresses");
                 }
             });
     }
@@ -1536,8 +1516,11 @@ class VlanNetworkInterface : public Node
             return;
         }
 
-        nlohmann::json patchReq;
-        if (!json_util::processJsonFromRequest(res, req, patchReq))
+        bool vlanEnable = false;
+        uint64_t vlanId = 0;
+
+        if (!json_util::readJson(req, res, "VLANEnable", vlanEnable, "VLANId",
+                                 vlanId))
         {
             return;
         }
@@ -1546,8 +1529,7 @@ class VlanNetworkInterface : public Node
         // preparation
         getEthernetIfaceData(
             ifaceId,
-            [this, asyncResp, parentIfaceId, ifaceId,
-             patchReq{std::move(patchReq)}](
+            [this, asyncResp, parentIfaceId, ifaceId, vlanEnable, vlanId](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1563,30 +1545,8 @@ class VlanNetworkInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
                                    ifaceId, ethData, ipv4Data);
 
-                for (auto propertyIt : patchReq.items())
-                {
-                    if (propertyIt.key() != "VLANEnable" &&
-                        propertyIt.key() != "VLANId")
-                    {
-                        auto fieldInJsonIt =
-                            asyncResp->res.jsonValue.find(propertyIt.key());
-                        if (fieldInJsonIt == asyncResp->res.jsonValue.end())
-                        {
-                            // Field not in scope of defined fields
-                            messages::propertyUnknown(asyncResp->res,
-                                                      propertyIt.key());
-                        }
-                        else
-                        {
-                            // User attempted to modify non-writable field
-                            messages::propertyNotWritable(asyncResp->res,
-                                                          propertyIt.key());
-                        }
-                    }
-                }
-
-                EthernetInterface::handleVlanPatch(ifaceId, patchReq, ethData,
-                                                   asyncResp);
+                EthernetInterface::handleVlanPatch(ifaceId, vlanId, vlanEnable,
+                                                   ethData, asyncResp);
             });
     }
 
@@ -1742,29 +1702,13 @@ class VlanNetworkInterfaceCollection : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        nlohmann::json postReq;
-        if (!json_util::processJsonFromRequest(res, req, postReq))
-        {
-            return;
-        }
 
-        auto vlanIdJson = postReq.find("VLANId");
-
-        if (vlanIdJson == postReq.end())
+        uint32_t vlanId = 0;
+        if (!json_util::readJson(req, res, "VLANId", vlanId))
         {
-            messages::propertyMissing(asyncResp->res, "VLANId");
-            return;
-        }
-
-        const uint64_t *vlanId = vlanIdJson->get_ptr<const uint64_t *>();
-        if (vlanId == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, vlanIdJson->dump(),
-                                             "VLANId");
             return;
         }
         const std::string &rootInterfaceName = params[0];
-
         auto callback = [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
@@ -1779,7 +1723,7 @@ class VlanNetworkInterfaceCollection : public Node
             std::move(callback), "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network",
             "xyz.openbmc_project.Network.VLAN.Create", "VLAN",
-            rootInterfaceName, static_cast<uint32_t>(*vlanId));
+            rootInterfaceName, vlanId);
     }
 };
 } // namespace redfish
