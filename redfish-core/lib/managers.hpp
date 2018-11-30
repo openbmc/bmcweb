@@ -932,31 +932,18 @@ class Manager : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        nlohmann::json patch;
-        if (!json_util::processJsonFromRequest(res, req, patch))
+        std::optional<nlohmann::json> oem;
+
+        if (!json_util::readJson(req, res, "Oem", oem))
         {
             return;
         }
+
         std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
-        for (const auto& topLevel : patch.items())
+
+        if (oem)
         {
-            if (topLevel.key() == "Oem")
-            {
-                if (!topLevel.value().is_object())
-                {
-                    BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
-                    messages::propertyValueFormatError(
-                        response->res, topLevel.key(), "OemManager.Oem");
-                    return;
-                }
-            }
-            else
-            {
-                BMCWEB_LOG_ERROR << "Bad Patch " << topLevel.key();
-                messages::propertyUnknown(response->res, topLevel.key());
-                return;
-            }
-            for (const auto& oemLevel : topLevel.value().items())
+            for (const auto& oemLevel : oem->items())
             {
                 if (oemLevel.key() == "OpenBmc")
                 {
@@ -964,8 +951,7 @@ class Manager : public Node
                     {
                         BMCWEB_LOG_ERROR << "Bad Patch " << oemLevel.key();
                         messages::propertyValueFormatError(
-                            response->res, topLevel.key(),
-                            "OemManager.OpenBmc");
+                            response->res, "Oem", "OemManager.OpenBmc");
                         return;
                     }
                     for (const auto& typeLevel : oemLevel.value().items())
