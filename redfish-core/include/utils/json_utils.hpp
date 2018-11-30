@@ -21,6 +21,7 @@
 #include <bitset>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
+
 namespace redfish
 {
 
@@ -103,6 +104,18 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
     {
         value.emplace();
         unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+    }
+    else if constexpr (std::is_same_v<nlohmann::json, Type>)
+    {
+        // Must be a complex type.  Simple types (int string ect) should be
+        // unpacked directly
+        if (!jsonValue.is_object() && !jsonValue.is_array())
+        {
+            messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
+            return;
+        }
+
+        value = std::move(jsonValue);
     }
     else if constexpr (is_vector_v<Type>)
     {
