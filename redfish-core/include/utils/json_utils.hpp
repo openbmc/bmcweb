@@ -21,6 +21,7 @@
 #include <bitset>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
+
 namespace redfish
 {
 
@@ -104,6 +105,18 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         value.emplace();
         unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
     }
+    else if constexpr (std::is_same_v<nlohmann::json, Type>)
+    {
+        // Must be a complex type.  Simple types (int string etc) should be
+        // unpacked directly
+        if (!jsonValue.is_object() && !jsonValue.is_array())
+        {
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
+            return;
+        }
+
+        value = std::move(jsonValue);
+    }
     else if constexpr (is_vector_v<Type>)
     {
         if (!jsonValue.is_array())
@@ -180,15 +193,9 @@ void handleMissing(std::bitset<Count>& handled, crow::Response& res,
 } // namespace details
 
 template <typename... UnpackTypes>
-bool readJson(const crow::Request& req, crow::Response& res, const char* key,
+bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
               UnpackTypes&... in)
 {
-    nlohmann::json jsonRequest;
-    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
-    {
-        BMCWEB_LOG_DEBUG << "Json value not readable";
-        return false;
-    }
     if (!jsonRequest.is_object())
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
@@ -213,6 +220,19 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
     details::handleMissing(handled, res, key, in...);
 
     return res.result() == boost::beast::http::status::ok;
+}
+
+template <typename... UnpackTypes>
+bool readJson(const crow::Request& req, crow::Response& res, const char* key,
+              UnpackTypes&... in)
+{
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return false;
+    }
+    return readJson(req, res, key, in...);
 }
 
 } // namespace json_util
