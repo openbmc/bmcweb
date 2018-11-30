@@ -93,7 +93,8 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
             const uint16_t *coresCount =
-                mapbox::getPtr<const uint16_t>(coresCountProperty->second);
+                sdbusplus::message::variant_ns::get_if<uint16_t>(
+                    &coresCountProperty->second);
             if (coresCount == nullptr)
             {
                 // Important property not in desired type
@@ -123,7 +124,8 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                 {
                     aResp->res.jsonValue["Manufacturer"] = property.second;
                     const std::string *value =
-                        mapbox::getPtr<const std::string>(property.second);
+                        sdbusplus::message::variant_ns::get_if<std::string>(
+                            &property.second);
                     if (value != nullptr)
                     {
                         // Otherwise would be unexpected.
@@ -224,7 +226,8 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
             const uint32_t *memorySize =
-                mapbox::getPtr<const uint32_t>(memorySizeProperty->second);
+                sdbusplus::message::variant_ns::get_if<uint32_t>(
+                    &memorySizeProperty->second);
             if (memorySize == nullptr)
             {
                 // Important property not in desired type
@@ -253,7 +256,8 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 else if (property.first == "MemoryType")
                 {
                     const auto *value =
-                        mapbox::getPtr<const std::string>(property.second);
+                        sdbusplus::message::variant_ns::get_if<std::string>(
+                            &property.second);
                     if (value != nullptr)
                     {
                         aResp->res.jsonValue["MemoryDeviceType"] = *value;
