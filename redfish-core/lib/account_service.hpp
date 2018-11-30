@@ -334,8 +334,8 @@ class ManagerAccount : public Node
                                     if (property.first == "UserEnabled")
                                     {
                                         const bool* userEnabled =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            sdbusplus::message::variant_ns::
+                                                get_if<bool>(&property.second);
                                         if (userEnabled == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR
@@ -349,8 +349,8 @@ class ManagerAccount : public Node
                                              "UserLockedForFailedAttempt")
                                     {
                                         const bool* userLocked =
-                                            mapbox::getPtr<const bool>(
-                                                property.second);
+                                            sdbusplus::message::variant_ns::
+                                                get_if<bool>(&property.second);
                                         if (userLocked == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR << "UserLockedForF"
@@ -364,8 +364,9 @@ class ManagerAccount : public Node
                                     else if (property.first == "UserPrivilege")
                                     {
                                         const std::string* userRolePtr =
-                                            mapbox::getPtr<const std::string>(
-                                                property.second);
+                                            sdbusplus::message::variant_ns::
+                                                get_if<std::string>(
+                                                    &property.second);
                                         if (userRolePtr == nullptr)
                                         {
                                             BMCWEB_LOG_ERROR

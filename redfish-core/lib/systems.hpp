@@ -87,8 +87,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                      &property : propertiesList)
                             {
                                 const std::string *value =
-                                    mapbox::getPtr<const std::string>(
-                                        property.second);
+                                    sdbusplus::message::variant_ns::get_if<
+                                        std::string>(&property.second);
                                 if (value != nullptr)
                                 {
                                     aResp->res.jsonValue[property.first] =
@@ -140,9 +140,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                 "MemorySizeInKb")
                                             {
                                                 const uint64_t *value =
-                                                    mapbox::getPtr<
-                                                        const uint64_t>(
-                                                        property.second);
+                                                    sdbusplus::message::
+                                                        variant_ns::get_if<
+                                                            uint64_t>(
+                                                            &property.second);
                                                 if (value != nullptr)
                                                 {
                                                     aResp->res.jsonValue
@@ -188,9 +189,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                 "ProcessorFamily")
                                             {
                                                 const std::string *value =
-                                                    mapbox::getPtr<
-                                                        const std::string>(
-                                                        property.second);
+                                                    sdbusplus::message::
+                                                        variant_ns::get_if<
+                                                            std::string>(
+                                                            &property.second);
                                                 if (value != nullptr)
                                                 {
                                                     nlohmann::json
@@ -245,9 +247,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             if (property.first == "BIOSVer")
                                             {
                                                 const std::string *value =
-                                                    mapbox::getPtr<
-                                                        const std::string>(
-                                                        property.second);
+                                                    sdbusplus::message::
+                                                        variant_ns::get_if<
+                                                            std::string>(
+                                                            &property.second);
                                                 if (value != nullptr)
                                                 {
                                                     aResp->res.jsonValue
@@ -258,9 +261,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             if (property.first == "UUID")
                                             {
                                                 const std::string *value =
-                                                    mapbox::getPtr<
-                                                        const std::string>(
-                                                        property.second);
+                                                    sdbusplus::message::
+                                                        variant_ns::get_if<
+                                                            std::string>(
+                                                            &property.second);
 
                                                 if (value != nullptr)
                                                 {
@@ -351,8 +355,8 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                                 if (property.first == "Asserted")
                                 {
                                     const bool *asserted =
-                                        mapbox::getPtr<const bool>(
-                                            property.second);
+                                        sdbusplus::message::variant_ns::get_if<
+                                            bool>(&property.second);
                                     if (nullptr != asserted)
                                     {
                                         callback(*asserted, aResp);
@@ -395,7 +399,8 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                 if (property.first == "State")
                 {
                     const std::string *s =
-                        mapbox::getPtr<std::string>(property.second);
+                        sdbusplus::message::variant_ns::get_if<std::string>(
+                            &property.second);
                     if (nullptr != s)
                     {
                         BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
@@ -449,7 +454,8 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const std::string *s = mapbox::getPtr<const std::string>(hostState);
+            const std::string *s =
+                sdbusplus::message::variant_ns::get_if<std::string>(&hostState);
             BMCWEB_LOG_DEBUG << "Host state: " << *s;
             if (s != nullptr)
             {
