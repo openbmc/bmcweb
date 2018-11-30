@@ -17,7 +17,6 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
-#include <boost/optional.hpp>
 #include <dbus_singleton.hpp>
 #include <error_messages.hpp>
 #include <node.hpp>
@@ -80,7 +79,7 @@ struct EthernetInterfaceData
     std::string hostname;
     std::string default_gateway;
     std::string mac_address;
-    boost::optional<uint32_t> vlan_id;
+    std::optional<uint32_t> vlan_id;
 };
 
 // Helper function that changes bits netmask notation (i.e. /24)
@@ -993,7 +992,7 @@ class EthernetInterface : public Node
                 }
             }
 
-            boost::optional<uint8_t> prefixLength;
+            std::optional<uint8_t> prefixLength;
             const std::string *subnetField = nullptr;
             nlohmann::json::const_iterator subnetFieldIt =
                 thisJson.find("SubnetMask");
@@ -1297,10 +1296,10 @@ class EthernetInterface : public Node
 
         const std::string &iface_id = params[0];
 
-        boost::optional<nlohmann::json> vlan;
-        boost::optional<nlohmann::json> hostname;
-        boost::optional<nlohmann::json> ipv4Addresses;
-        boost::optional<nlohmann::json> ipv6Addresses;
+        std::optional<nlohmann::json> vlan;
+        std::optional<nlohmann::json> hostname;
+        std::optional<nlohmann::json> ipv4Addresses;
+        std::optional<nlohmann::json> ipv6Addresses;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,

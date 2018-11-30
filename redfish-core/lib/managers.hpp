@@ -932,7 +932,7 @@ class Manager : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        boost::optional<nlohmann::json> oem;
+        std::optional<nlohmann::json> oem;
 
         if (!json_util::readJson(req, res, "Oem", oem))
         {

@@ -182,8 +182,8 @@ class AccountsCollection : public Node
 
         std::string username;
         std::string password;
-        boost::optional<std::string> roleId("User");
-        boost::optional<bool> enabled = true;
+        std::optional<std::string> roleId("User");
+        std::optional<bool> enabled = true;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
                                  password, "RoleId", roleId, "Enabled",
                                  enabled))
@@ -428,10 +428,10 @@ class ManagerAccount : public Node
             return;
         }
 
-        boost::optional<std::string> newUserName;
-        boost::optional<std::string> password;
-        boost::optional<bool> enabled;
-        boost::optional<std::string> roleId;
+        std::optional<std::string> newUserName;
+        std::optional<std::string> password;
+        std::optional<bool> enabled;
+        std::optional<std::string> roleId;
         if (!json_util::readJson(req, res, "UserName", newUserName, "Password",
                                  password, "RoleId", roleId, "Enabled",
                                  enabled))

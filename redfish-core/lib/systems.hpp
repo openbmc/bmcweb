@@ -764,7 +764,7 @@ class Systems : public Node
         messages::success(asyncResp->res);
 
         std::string indicatorLedTemp;
-        boost::optional<std::string> indicatorLed = indicatorLedTemp;
+        std::optional<std::string> indicatorLed = indicatorLedTemp;
         if (!json_util::readJson(req, res, "IndicatorLed", indicatorLed))
         {
             return;
