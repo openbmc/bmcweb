@@ -17,6 +17,7 @@
 #include "crow/timer_queue.h"
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/asio/ssl/context.hpp>
+#include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
 
 namespace crow
@@ -24,14 +25,14 @@ namespace crow
 using namespace boost;
 using tcp = asio::ip::tcp;
 
-template <typename Handler, typename Adaptor = SocketAdaptor,
+template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket,
           typename... Middlewares>
 class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           typename Adaptor::context* adaptor_ctx = nullptr,
+           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
@@ -43,7 +44,7 @@ class Server
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           typename Adaptor::context* adaptor_ctx = nullptr,
+           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
@@ -57,7 +58,7 @@ class Server
 
     Server(Handler* handler, int existing_socket,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           typename Adaptor::context* adaptor_ctx = nullptr,
+           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
@@ -163,21 +164,36 @@ class Server
 
     void doAccept()
     {
-        auto p = new Connection<Adaptor, Handler, Middlewares...>(
-            *ioService, handler, serverName, middlewares, getCachedDateStr,
-            timerQueue, adaptorCtx);
-        acceptor->async_accept(
-            p->socket(), [this, p](boost::system::error_code ec) {
-                if (!ec)
-                {
-                    this->ioService->post([p] { p->start(); });
-                }
-                else
-                {
-                    delete p;
-                }
-                doAccept();
-            });
+        std::optional<Adaptor> adaptorTemp;
+        if constexpr (std::is_same<Adaptor,
+                                   boost::beast::ssl_stream<
+                                       boost::asio::ip::tcp::socket>>::value)
+        {
+            adaptorTemp = Adaptor(*ioService, *adaptorCtx);
+        }
+        else
+        {
+            adaptorTemp = Adaptor(*ioService);
+        }
+
+        Connection<Adaptor, Handler, Middlewares...>* p =
+            new Connection<Adaptor, Handler, Middlewares...>(
+                *ioService, handler, serverName, middlewares, getCachedDateStr,
+                timerQueue, std::move(adaptorTemp.value()));
+
+        acceptor->async_accept(p->socket().lowest_layer(),
+                               [this, p](boost::system::error_code ec) {
+                                   if (!ec)
+                                   {
+                                       this->ioService->post(
+                                           [p] { p->start(); });
+                                   }
+                                   else
+                                   {
+                                       delete p;
+                                   }
+                                   doAccept();
+                               });
     }
 
   private:
@@ -200,8 +216,7 @@ class Server
 
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
-    boost::asio::ssl::context sslContext{boost::asio::ssl::context::sslv23};
 #endif
-    typename Adaptor::context* adaptorCtx;
+    boost::asio::ssl::context* adaptorCtx;
 }; // namespace crow
 } // namespace crow
