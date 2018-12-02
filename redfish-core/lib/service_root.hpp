@@ -41,7 +41,7 @@ class ServiceRoot : public Node
                const std::vector<std::string>& params) override
     {
         res.jsonValue["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
-        res.jsonValue["@odata.id"] = "/redfish/v1/";
+        res.jsonValue["@odata.id"] = "/redfish/v1";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
         res.jsonValue["Id"] = "RootService";
@@ -57,6 +57,7 @@ class ServiceRoot : public Node
         res.jsonValue["Managers"] = {{"@odata.id", "/redfish/v1/Managers"}};
         res.jsonValue["SessionService"] = {
             {"@odata.id", "/redfish/v1/SessionService"}};
+        res.jsonValue["Managers"] = {{"@odata.id", "/redfish/v1/Managers"}};
         res.jsonValue["Systems"] = {{"@odata.id", "/redfish/v1/Systems"}};
         res.jsonValue["Registries"] = {{"@odata.id", "/redfish/v1/Registries"}};
 
