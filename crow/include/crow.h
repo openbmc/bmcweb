@@ -11,7 +11,6 @@
 #include "crow/middleware_context.h"
 #include "crow/query_string.h"
 #include "crow/routing.h"
-#include "crow/socket_adaptors.h"
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
 #include "crow/websocket.h"
