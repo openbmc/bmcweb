@@ -17,11 +17,11 @@
 
 #include <crow/logging.h>
 
+#include <array>
 #include <bitset>
 #include <boost/beast/http/verb.hpp>
 #include <boost/container/flat_map.hpp>
 #include <cstdint>
-#include <array>
 #include <vector>
 
 namespace redfish

@@ -1506,12 +1506,12 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method, "POST"_method, "DELETE"_method)([](const crow::Request &req,
-                                                 crow::Response &res,
-                                                 const std::string &path) {
-            std::string objectPath = "/xyz/" + path;
-            handleDBusUrl(req, res, objectPath);
-        });
+        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/xyz/" + path;
+                handleDBusUrl(req, res, objectPath);
+            });
 
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"Login"})
@@ -1523,12 +1523,12 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method, "POST"_method, "DELETE"_method)([](const crow::Request &req,
-                                                 crow::Response &res,
-                                                 const std::string &path) {
-            std::string objectPath = "/xyz/" + path;
-            handleDBusUrl(req, res, objectPath);
-        });
+        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/xyz/" + path;
+                handleDBusUrl(req, res, objectPath);
+            });
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .requires({"ConfigureManager"})
