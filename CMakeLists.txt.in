@@ -36,8 +36,8 @@ externalproject_add (
 
 externalproject_add (
     Boost URL
-    https://dl.bintray.com/boostorg/release/1.66.0/source/boost_1_66_0.tar.gz
-    URL_MD5 d275cd85b00022313c171f602db59fc5 SOURCE_DIR
+    https://dl.bintray.com/boostorg/release/1.68.0/source/boost_1_68_0.tar.gz
+    URL_MD5 5d8b4503582fffa9eefdb9045359c239 SOURCE_DIR
     "${CMAKE_BINARY_DIR}/boost-src" BINARY_DIR "${CMAKE_BINARY_DIR}/boost-build"
     CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_COMMAND mkdir -p
     "${CMAKE_BINARY_DIR}/prefix/include/" && cp -R
