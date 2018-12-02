@@ -114,6 +114,11 @@ struct Response
         stringResponse->keep_alive(k);
     }
 
+    bool keepAlive()
+    {
+        return stringResponse->keep_alive();
+    }
+
     void preparePayload()
     {
         stringResponse->prepare_payload();

@@ -6,7 +6,6 @@
 #include <functional>
 
 #include "crow/http_request.h"
-#include "crow/socket_adaptors.h"
 
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/beast/websocket/ssl.hpp>
@@ -27,7 +26,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void sendText(const boost::beast::string_view msg) = 0;
     virtual void sendText(std::string&& msg) = 0;
     virtual void close(const boost::beast::string_view msg = "quit") = 0;
-    virtual boost::asio::io_context& getIoService() = 0;
+    virtual boost::asio::io_context& get_io_context() = 0;
     virtual ~Connection() = default;
 
     void userdata(void* u)
@@ -49,15 +48,15 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& req, Adaptor&& adaptorIn,
+        const crow::Request& req, Adaptor adaptorIn,
         std::function<void(Connection&)> open_handler,
         std::function<void(Connection&, const std::string&, bool)>
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        adaptor(std::move(adaptorIn)),
-        inString(), inBuffer(inString, 4096), ws(adaptor.socket()),
-        Connection(req), openHandler(std::move(open_handler)),
+        inString(),
+        inBuffer(inString, 4096), ws(std::move(adaptorIn)), Connection(req),
+        openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),
         errorHandler(std::move(error_handler))
@@ -65,9 +64,9 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
 
-    boost::asio::io_context& getIoService() override
+    boost::asio::io_context& get_io_context() override
     {
-        return adaptor.getIoService();
+        return ws.get_executor().context();
     }
 
     void start()
@@ -131,12 +130,15 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         ws.async_close(
             boost::beast::websocket::close_code::normal,
             [this, self(shared_from_this())](boost::system::error_code ec) {
+                if (ec == boost::asio::error::operation_aborted)
+                {
+                    return;
+                }
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error closing websocket " << ec;
                     return;
                 }
-                adaptor.close();
             });
     }
 
@@ -217,11 +219,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     }
 
   private:
-    Adaptor adaptor;
-
-    boost::beast::websocket::stream<
-        std::add_lvalue_reference_t<typename Adaptor::streamType>>
-        ws;
+    boost::beast::websocket::stream<Adaptor> ws;
 
     std::string inString;
     boost::asio::dynamic_string_buffer<std::string::value_type,
