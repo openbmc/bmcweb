@@ -23,11 +23,6 @@
 */
 #define BMCWEB_LOG_LEVEL 1
 
-// compiler flags
-#if __cplusplus >= 201402L
-#define BMCWEB_CAN_USE_CPP14
-#endif
-
 #if defined(_MSC_VER)
 #if _MSC_VER < 1900
 #error "MSVC versions betfore VS2015 are not supported"
