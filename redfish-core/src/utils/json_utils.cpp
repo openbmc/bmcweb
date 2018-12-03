@@ -15,6 +15,7 @@
 */
 #include "utils/json_utils.hpp"
 
+#include <error_messages.hpp>
 namespace redfish
 {
 

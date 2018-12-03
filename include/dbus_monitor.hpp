@@ -7,6 +7,7 @@
 #include <dbus_singleton.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
+#include <webserver_common.hpp>
 
 namespace nlohmann
 {
@@ -94,7 +95,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
     return 0;
 };
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
         .websocket()

@@ -3,6 +3,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
+#include <sessions.hpp>
 
 #include "crow/common.h"
 #include "crow/query_string.h"
@@ -18,8 +19,9 @@ struct Request
 
     const std::string& body;
 
-    void* middlewareContext{};
     boost::asio::io_service* ioService{};
+
+    std::shared_ptr<crow::persistent_data::UserSession> session;
 
     Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
         req(req), body(req.body())

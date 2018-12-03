@@ -1,6 +1,5 @@
 #pragma once
 
-#include <crow/app.h>
 #include <crow/http_request.h>
 #include <crow/http_response.h>
 #include <crow/routing.h>
@@ -10,6 +9,7 @@
 #include <experimental/filesystem>
 #include <fstream>
 #include <string>
+#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -28,7 +28,7 @@ struct CmpStr
 
 static boost::container::flat_set<std::string> routes;
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(CrowApp& app)
 {
     const static boost::container::flat_map<const char*, const char*, CmpStr>
         contentTypes{
