@@ -8,25 +8,22 @@
 #include <memory>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
-#include <persistent_data_middleware.hpp>
+#include <persistent_data.hpp>
 #include <redfish.hpp>
 #include <redfish_v1.hpp>
 #include <sdbusplus/asio/connection.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
-#include <security_headers_middleware.hpp>
 #include <ssl_key_handler.hpp>
 #include <string>
-#include <token_authorization_middleware.hpp>
+#include <token_authorization_routes.hpp>
 #include <web_kvm.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
 
-constexpr int defaultPort = 18080;
-
-template <typename... Middlewares>
-void setupSocket(crow::Crow<Middlewares...>& app)
+void setupSocket(CrowApp& app)
 {
+    constexpr int defaultPort = 18080;
     int listenFd = sd_listen_fds(0);
     if (1 == listenFd)
     {
@@ -37,27 +34,24 @@ void setupSocket(crow::Crow<Middlewares...>& app)
             BMCWEB_LOG_INFO << "Starting webserver on socket handle "
                             << SD_LISTEN_FDS_START;
             app.socket(SD_LISTEN_FDS_START);
+            return;
         }
-        else
-        {
-            BMCWEB_LOG_INFO
-                << "bad incoming socket, starting webserver on port "
-                << defaultPort;
-            app.port(defaultPort);
-        }
+
+        BMCWEB_LOG_INFO << "bad incoming socket";
     }
-    else
-    {
-        BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
-        app.port(defaultPort);
-    }
+
+    BMCWEB_LOG_INFO << "Starting webserver on port " << defaultPort;
+    app.port(defaultPort);
 }
 
 int main(int argc, char** argv)
 {
     crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+    crow::PersistentData pd;
 
     auto io = std::make_shared<boost::asio::io_service>();
+    crow::connections::systemBus =
+        std::make_shared<sdbusplus::asio::connection>(*io);
     CrowApp app(io);
 
 #ifdef BMCWEB_ENABLE_SSL
@@ -82,6 +76,7 @@ int main(int argc, char** argv)
 
 #ifdef BMCWEB_ENABLE_REDFISH
     crow::redfish::requestRoutes(app);
+    redfish::RedfishService redfish(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
@@ -98,10 +93,6 @@ int main(int argc, char** argv)
 
     BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
     setupSocket(app);
-
-    crow::connections::systemBus =
-        std::make_shared<sdbusplus::asio::connection>(*io);
-    redfish::RedfishService redfish(app);
 
     app.run();
     io->run();
