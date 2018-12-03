@@ -1,5 +1,8 @@
 #pragma once
-#include "http_utility.hpp"
+#include <crow/http_request.h>
+#include <crow/http_response.h>
+#include <crow/logging.h>
+#include <crow/timer_queue.h>
 
 #include <atomic>
 #include <boost/algorithm/string.hpp>
@@ -15,14 +18,24 @@
 #endif
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
+#include <boost/lexical_cast.hpp>
 #include <chrono>
+#include <http_utility.hpp>
+#include <optional>
+#include <regex>
+#include <security_headers.hpp>
+#include <token_authorization_middleware.hpp>
 #include <vector>
 
 #include "crow/http_response.h"
 #include "crow/logging.h"
-#include "crow/middleware_context.h"
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
+
+#ifdef BMCWEB_ENABLE_SSL
+#include <boost/asio/ssl.hpp>
+#include <boost/beast/experimental/core/ssl_stream.hpp>
+#endif
 
 namespace crow
 {
@@ -57,211 +70,22 @@ inline void prettyPrintJson(crow::Response& res)
     res.addHeader("Content-Type", "text/html;charset=UTF-8");
 }
 
-using namespace boost;
-using tcp = asio::ip::tcp;
-
-namespace detail
-{
-template <typename MW> struct CheckBeforeHandleArity3Const
-{
-    template <typename T,
-              void (T::*)(Request&, Response&, typename MW::Context&) const =
-                  &T::beforeHandle>
-    struct Get
-    {
-    };
-};
-
-template <typename MW> struct CheckBeforeHandleArity3
-{
-    template <typename T, void (T::*)(Request&, Response&,
-                                      typename MW::Context&) = &T::beforeHandle>
-    struct Get
-    {
-    };
-};
-
-template <typename MW> struct CheckAfterHandleArity3Const
-{
-    template <typename T,
-              void (T::*)(Request&, Response&, typename MW::Context&) const =
-                  &T::afterHandle>
-    struct Get
-    {
-    };
-};
-
-template <typename MW> struct CheckAfterHandleArity3
-{
-    template <typename T, void (T::*)(Request&, Response&,
-                                      typename MW::Context&) = &T::afterHandle>
-    struct Get
-    {
-    };
-};
-
-template <typename T> struct IsBeforeHandleArity3Impl
-{
-    template <typename C>
-    static std::true_type
-        f(typename CheckBeforeHandleArity3Const<T>::template Get<C>*);
-
-    template <typename C>
-    static std::true_type
-        f(typename CheckBeforeHandleArity3<T>::template Get<C>*);
-
-    template <typename C> static std::false_type f(...);
-
-  public:
-    static const bool value = decltype(f<T>(nullptr))::value;
-};
-
-template <typename T> struct IsAfterHandleArity3Impl
-{
-    template <typename C>
-    static std::true_type
-        f(typename CheckAfterHandleArity3Const<T>::template Get<C>*);
-
-    template <typename C>
-    static std::true_type
-        f(typename CheckAfterHandleArity3<T>::template Get<C>*);
-
-    template <typename C> static std::false_type f(...);
-
-  public:
-    static const bool value = decltype(f<T>(nullptr))::value;
-};
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<!IsBeforeHandleArity3Impl<MW>::value>::type
-    beforeHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                      ParentContext& /*parent_ctx*/)
-{
-    mw.beforeHandle(req, res, ctx.template get<MW>(), ctx);
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<IsBeforeHandleArity3Impl<MW>::value>::type
-    beforeHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                      ParentContext& /*parent_ctx*/)
-{
-    mw.beforeHandle(req, res, ctx.template get<MW>());
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<!IsAfterHandleArity3Impl<MW>::value>::type
-    afterHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                     ParentContext& /*parent_ctx*/)
-{
-    mw.afterHandle(req, res, ctx.template get<MW>(), ctx);
-}
-
-template <typename MW, typename Context, typename ParentContext>
-typename std::enable_if<IsAfterHandleArity3Impl<MW>::value>::type
-    afterHandlerCall(MW& mw, Request& req, Response& res, Context& ctx,
-                     ParentContext& /*parent_ctx*/)
-{
-    mw.afterHandle(req, res, ctx.template get<MW>());
-}
-
-template <int N, typename Context, typename Container, typename CurrentMW,
-          typename... Middlewares>
-bool middlewareCallHelper(Container& middlewares, Request& req, Response& res,
-                          Context& ctx)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    beforeHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-
-    if (res.isCompleted())
-    {
-        afterHandlerCall<CurrentMW, Context, parent_context_t>(
-            std::get<N>(middlewares), req, res, ctx,
-            static_cast<parent_context_t&>(ctx));
-        return true;
-    }
-
-    if (middlewareCallHelper<N + 1, Context, Container, Middlewares...>(
-            middlewares, req, res, ctx))
-    {
-        afterHandlerCall<CurrentMW, Context, parent_context_t>(
-            std::get<N>(middlewares), req, res, ctx,
-            static_cast<parent_context_t&>(ctx));
-        return true;
-    }
-
-    return false;
-}
-
-template <int N, typename Context, typename Container>
-bool middlewareCallHelper(Container& /*middlewares*/, Request& /*req*/,
-                          Response& /*res*/, Context& /*ctx*/)
-{
-    return false;
-}
-
-template <int N, typename Context, typename Container>
-typename std::enable_if<(N < 0)>::type
-    afterHandlersCallHelper(Container& /*middlewares*/, Context& /*Context*/,
-                            Request& /*req*/, Response& /*res*/)
-{
-}
-
-template <int N, typename Context, typename Container>
-typename std::enable_if<(N == 0)>::type
-    afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
-                            Response& res)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    using CurrentMW = typename std::tuple_element<
-        N, typename std::remove_reference<Container>::type>::type;
-    afterHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-}
-
-template <int N, typename Context, typename Container>
-typename std::enable_if<(N > 0)>::type
-    afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
-                            Response& res)
-{
-    using parent_context_t = typename Context::template partial<N - 1>;
-    using CurrentMW = typename std::tuple_element<
-        N, typename std::remove_reference<Container>::type>::type;
-    afterHandlerCall<CurrentMW, Context, parent_context_t>(
-        std::get<N>(middlewares), req, res, ctx,
-        static_cast<parent_context_t&>(ctx));
-    afterHandlersCallHelper<N - 1, Context, Container>(middlewares, ctx, req,
-                                                       res);
-}
-} // namespace detail
-
 #ifdef BMCWEB_ENABLE_DEBUG
 static std::atomic<int> connectionCount;
 #endif
 
-// request body limit size: 30M
-constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 30;
-
-template <typename Adaptor, typename Handler, typename... Middlewares>
-class Connection
+template <typename Adaptor, typename Handler>
+class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
   public:
     Connection(boost::asio::io_context& ioService, Handler* handler,
-               const std::string& server_name,
-               std::tuple<Middlewares...>* middlewares,
                std::function<std::string()>& get_cached_date_str_f,
                detail::TimerQueue& timerQueue, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
-        handler(handler), serverName(server_name), middlewares(middlewares),
+        parser(std::in_place), req(parser->get()), handler(handler),
         getCachedDateStr(get_cached_date_str_f), timerQueue(timerQueue)
     {
-        parser.emplace(std::piecewise_construct, std::make_tuple());
-        // Temporarily changed to 30MB; Need to modify uploading/authentication
-        // mechanism
-        parser->body_limit(httpReqBodyLimit);
-        req.emplace(parser->get());
+        parser->header_limit(4096);
 #ifdef BMCWEB_ENABLE_DEBUG
         connectionCount++;
         BMCWEB_LOG_DEBUG << this << " Connection open, total "
@@ -271,6 +95,7 @@ class Connection
 
     ~Connection()
     {
+        crow::token_authorization::cleanupTemporarySession(req);
         res.completeRequestHandler = nullptr;
         cancelDeadlineTimer();
 #ifdef BMCWEB_ENABLE_DEBUG
@@ -285,93 +110,161 @@ class Connection
         return adaptor;
     }
 
-    void start()
+    void start(boost::asio::yield_context yield)
     {
-
-        startDeadline();
-        // TODO(ed) Abstract this to a more clever class with the idea of an
-        // asynchronous "start"
-        if constexpr (std::is_same_v<Adaptor,
-                                     boost::beast::ssl_stream<
-                                         boost::asio::ip::tcp::socket>>)
+        std::shared_ptr<Connection> self = this->shared_from_this();
+        boost::system::error_code ec;
+        while (true)
         {
-            adaptor.async_handshake(
-                boost::asio::ssl::stream_base::server,
-                [this](const boost::system::error_code& ec) {
-                    if (ec)
-                    {
-                        checkDestroy();
-                        return;
-                    }
-                    doReadHeaders();
-                });
-        }
-        else
-        {
-            doReadHeaders();
-        }
-    }
-
-    void handle()
-    {
-        cancelDeadlineTimer();
-        bool isInvalidRequest = false;
-
-        // Check for HTTP version 1.1.
-        if (req->version() == 11)
-        {
-            if (req->getHeaderValue(boost::beast::http::field::host).empty())
+            startDeadline();
+            if constexpr (std::is_same_v<Adaptor,
+                                         boost::beast::ssl_stream<
+                                             boost::asio::ip::tcp::socket>>)
             {
-                isInvalidRequest = true;
-                res.result(boost::beast::http::status::bad_request);
-            }
-        }
-
-        BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
-
-        needToCallAfterHandlers = false;
-
-        if (!isInvalidRequest)
-        {
-            res.completeRequestHandler = [] {};
-            res.isAliveHelper = [this]() -> bool { return isAlive(); };
-
-            ctx = detail::Context<Middlewares...>();
-            req->middlewareContext = static_cast<void*>(&ctx);
-            req->ioService = static_cast<decltype(req->ioService)>(
-                &adaptor.get_executor().context());
-            detail::middlewareCallHelper<
-                0, decltype(ctx), decltype(*middlewares), Middlewares...>(
-                *middlewares, *req, res, ctx);
-
-            if (!res.completed)
-            {
-                if (req->isUpgrade() &&
-                    boost::iequals(
-                        req->getHeaderValue(boost::beast::http::field::upgrade),
-                        "websocket"))
+                adaptor.async_handshake(boost::asio::ssl::stream_base::server,
+                                        yield[ec]);
+                if (ec)
                 {
-                    handler->handleUpgrade(*req, res, std::move(adaptor));
-                    return;
+                    BMCWEB_LOG_DEBUG << this << " Handshake failed";
+                    break;
                 }
-                res.completeRequestHandler = [this] {
-                    this->completeRequest();
-                };
-                needToCallAfterHandlers = true;
-                handler->handle(*req, res);
+            }
+            BMCWEB_LOG_DEBUG << this << " async_read_header";
+
+            boost::beast::http::async_read_header(adaptor, buffer, *parser,
+                                                  yield[ec]);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << this
+                                 << " Error while reading: " << ec.message();
+                cancelDeadlineTimer();
+                adaptor.lowest_layer().close();
+                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                break;
+            }
+
+            // After we have the headers, there should be enough information
+            // to authenticate the request.  We do this before the payload
+            // so we can modify the payload sizes.  Authenticated users can
+            // be trusted with larger payloads than unauthenticated users.
+            crow::token_authorization::authorizeRequest(req, res);
+            if (req.session != nullptr)
+            {
+                parser->body_limit(30 * 1024 * 1024);
             }
             else
             {
+                // TODO(ed) validate that 16KB is a reasonable limit for
+                // unauthenticated users.
+                parser->body_limit(16 * 1024);
+            }
+            // Compute the url parameters for the request
+            req.url = req.target();
+            std::size_t index = req.url.find("?");
+            if (index != std::string_view::npos)
+            {
+                req.url = req.url.substr(0, index);
+            }
+            req.urlParams = QueryString(std::string(req.target()));
+            BMCWEB_LOG_DEBUG << this << " async_read";
+            boost::beast::http::async_read(adaptor, buffer, *parser, yield[ec]);
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Error while reading: " << ec;
+                cancelDeadlineTimer();
+                adaptor.lowest_layer().close();
+                BMCWEB_LOG_DEBUG << this << " from read(1)";
+                break;
+            }
+            handle(yield);
+            completeRequest();
+            res.preparePayload();
+            serializer.emplace(*res.stringResponse);
+            BMCWEB_LOG_DEBUG << this << " async_write";
+            boost::beast::http::async_write(adaptor, *serializer, yield[ec]);
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << this
+                                 << " closing after async_write ec=" << ec;
+                break;
+            }
+            if (!req.keepAlive())
+            {
+                adaptor.lowest_layer().close();
+                BMCWEB_LOG_DEBUG << this
+                                 << " closing after keepAlive() == false";
+                break;
+            }
+            if (req.isUpgrade())
+            {
+                break;
+            }
+
+            serializer.reset();
+            BMCWEB_LOG_DEBUG << this << " Clearing response";
+            res.clear();
+            parser.emplace(std::piecewise_construct, std::make_tuple());
+            buffer.consume(buffer.size());
+
+            parser->header_limit(4096);
+            req.req = parser->get();
+        }
+    }
+
+    void handle(boost::asio::yield_context yield)
+    {
+        cancelDeadlineTimer();
+        const std::string_view connection =
+            req.getHeaderValue(boost::beast::http::field::connection);
+
+        // Check for HTTP version 1.1.
+        if (req.version() == 11)
+        {
+            if (req.getHeaderValue(boost::beast::http::field::host).empty())
+            {
+                res.result(boost::beast::http::status::bad_request);
                 completeRequest();
+                return;
             }
         }
-        else
+
+        boost::system::error_code ec;
+        boost::asio::ip::tcp::endpoint ep =
+            adaptor.lowest_layer().remote_endpoint(ec);
+        if (ec)
+        {
+            return;
+        }
+
+        std::string ep_name = boost::lexical_cast<std::string>(ep);
+        BMCWEB_LOG_INFO << "Request: " << ep_name << " " << this << " HTTP/"
+                        << req.version() / 10 << "." << req.version() % 10
+                        << ' ' << req.methodString() << " " << req.target();
+
+        needToCallAfterHandlers = false;
+
+        res.completeRequestHandler = [] {};
+
+        req.ioService = &adaptor.get_executor().context();
+        bmcweb::addSecurityHeaders(res);
+        if (res.completed)
         {
             completeRequest();
+            return;
         }
+        if (req.isUpgrade())
+        {
+            handler->handleUpgrade(req, res, std::move(adaptor));
+            return;
+        }
+        res.completeRequestHandler = [this] { this->completeRequest(); };
+        needToCallAfterHandlers = true;
+        handler->handle(req, res);
+        if (req.keepAlive())
+        {
+            res.addHeader(boost::beast::http::field::connection, "Keep-Alive");
+        }
+        completeRequest();
     }
 
     bool isAlive()
@@ -405,34 +298,18 @@ class Connection
 
     void completeRequest()
     {
-        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << req->keepAlive();
+        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req.url << ' '
+                        << res.resultInt() << " keepalive=" << req.keepAlive();
 
         if (needToCallAfterHandlers)
         {
             needToCallAfterHandlers = false;
-
-            // call all afterHandler of middlewares
-            detail::afterHandlersCallHelper<((int)sizeof...(Middlewares) - 1),
-                                            decltype(ctx),
-                                            decltype(*middlewares)>(
-                *middlewares, ctx, *req, res);
         }
+        res.completeRequestHandler = nullptr;
 
-        // auto self = this->shared_from_this();
-        res.completeRequestHandler = res.completeRequestHandler = [] {};
-
-        if (!isAlive())
-        {
-            // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
-            // isReading
-            // << ' ' << isWriting;
-            // delete this;
-            return;
-        }
         if (res.body().empty() && !res.jsonValue.empty())
         {
-            if (http_helpers::requestPrefersHtml(*req))
+            if (http_helpers::requestPrefersHtml(req))
             {
                 prettyPrintJson(res);
             }
@@ -447,157 +324,10 @@ class Connection
         {
             res.body() = std::string(res.reason());
         }
-        res.addHeader(boost::beast::http::field::server, serverName);
+        res.addHeader(boost::beast::http::field::server, "iBMC");
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
-        res.keepAlive(req->keepAlive());
-
-        doWrite();
-    }
-
-  private:
-    void doReadHeaders()
-    {
-        // auto self = this->shared_from_this();
-        isReading = true;
-        BMCWEB_LOG_DEBUG << this << " doReadHeaders";
-
-        // Clean up any previous Connection.
-        boost::beast::http::async_read_header(
-            adaptor, buffer, *parser,
-            [this](const boost::system::error_code& ec,
-                   std::size_t bytes_transferred) {
-                isReading = false;
-                BMCWEB_LOG_ERROR << this << " async_read_header "
-                                 << bytes_transferred << " Bytes";
-                bool errorWhileReading = false;
-                if (ec)
-                {
-                    errorWhileReading = true;
-                    BMCWEB_LOG_ERROR
-                        << this << " Error while reading: " << ec.message();
-                }
-                else
-                {
-                    // if the adaptor isn't open anymore, and wasn't handed to a
-                    // websocket, treat as an error
-                    if (!isAlive() && !req->isUpgrade())
-                    {
-                        errorWhileReading = true;
-                    }
-                }
-
-                if (errorWhileReading)
-                {
-                    cancelDeadlineTimer();
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    checkDestroy();
-                    return;
-                }
-
-                // Compute the url parameters for the request
-                req->url = req->target();
-                std::size_t index = req->url.find("?");
-                if (index != std::string_view::npos)
-                {
-                    req->url = req->url.substr(0, index);
-                }
-                req->urlParams = QueryString(std::string(req->target()));
-                doRead();
-            });
-    }
-
-    void doRead()
-    {
-        // auto self = this->shared_from_this();
-        isReading = true;
-        BMCWEB_LOG_DEBUG << this << " doRead";
-
-        boost::beast::http::async_read(
-            adaptor, buffer, *parser,
-            [this](const boost::system::error_code& ec,
-                   std::size_t bytes_transferred) {
-                BMCWEB_LOG_ERROR << this << " async_read " << bytes_transferred
-                                 << " Bytes";
-                isReading = false;
-
-                bool errorWhileReading = false;
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error while reading: " << ec.message();
-                    errorWhileReading = true;
-                }
-                else
-                {
-                    if (!isAlive())
-                    {
-                        errorWhileReading = true;
-                    }
-                }
-                if (errorWhileReading)
-                {
-                    cancelDeadlineTimer();
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    checkDestroy();
-                    return;
-                }
-                handle();
-            });
-    }
-
-    void doWrite()
-    {
-        // auto self = this->shared_from_this();
-        isWriting = true;
-        BMCWEB_LOG_DEBUG << "Doing Write";
-        res.preparePayload();
-        serializer.emplace(*res.stringResponse);
-        boost::beast::http::async_write(
-            adaptor, *serializer,
-            [&](const boost::system::error_code& ec,
-                std::size_t bytes_transferred) {
-                isWriting = false;
-                BMCWEB_LOG_DEBUG << this << " Wrote " << bytes_transferred
-                                 << " bytes";
-
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << this << " from write(2)";
-                    checkDestroy();
-                    return;
-                }
-                if (!res.keepAlive())
-                {
-                    close();
-                    BMCWEB_LOG_DEBUG << this << " from write(1)";
-                    checkDestroy();
-                    return;
-                }
-
-                serializer.reset();
-                BMCWEB_LOG_DEBUG << this << " Clearing response";
-                res.clear();
-                parser.emplace(std::piecewise_construct, std::make_tuple());
-                parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                                      // newly created parser
-                buffer.consume(buffer.size());
-
-                req.emplace(parser->get());
-                doReadHeaders();
-            });
-    }
-
-    void checkDestroy()
-    {
-        BMCWEB_LOG_DEBUG << this << " isReading " << isReading << " isWriting "
-                         << isWriting;
-        if (!isReading && !isWriting)
-        {
-            BMCWEB_LOG_DEBUG << this << " delete (idle) ";
-            delete this;
-        }
+        res.keepAlive(req.keepAlive());
     }
 
     void cancelDeadlineTimer()
@@ -611,12 +341,12 @@ class Connection
     {
         cancelDeadlineTimer();
 
-        timerCancelKey = timerQueue.add([this] {
-            if (!isAlive())
+        timerCancelKey = timerQueue.add([self = this->shared_from_this()] {
+            if (!self->adaptor.lowest_layer().is_open())
             {
                 return;
             }
-            close();
+            self->adaptor.lowest_layer().close();
         });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
                          << timerCancelKey;
@@ -638,20 +368,12 @@ class Connection
         boost::beast::http::string_body>>
         serializer;
 
-    std::optional<crow::Request> req;
+    crow::Request req;
     crow::Response res;
-
-    const std::string& serverName;
 
     int timerCancelKey{-1};
 
-    bool isReading{};
-    bool isWriting{};
     bool needToCallAfterHandlers{};
-    bool needToStartReadAfterComplete{};
-
-    std::tuple<Middlewares...>* middlewares;
-    detail::Context<Middlewares...> ctx;
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;

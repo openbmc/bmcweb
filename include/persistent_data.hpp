@@ -1,46 +1,26 @@
 #pragma once
 
-#include <crow/app.h>
-#include <crow/http_request.h>
-#include <crow/http_response.h>
-
-#include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <filesystem>
+#include <fstream>
 #include <nlohmann/json.hpp>
-#include <pam_authenticate.hpp>
 #include <random>
 #include <sessions.hpp>
-#include <webassets.hpp>
 
 namespace crow
 {
 
-namespace persistent_data
+class PersistentData
 {
-
-namespace fs = std::filesystem;
-
-class Middleware
-{
-    int jsonRevision = 1;
-
   public:
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
-
-    struct Context
-    {
-    };
-
-    Middleware()
+    PersistentData()
     {
         readData();
     }
 
-    ~Middleware()
+    ~PersistentData()
     {
         if (persistent_data::SessionStore::getInstance().needsWrite())
         {
@@ -48,13 +28,8 @@ class Middleware
         }
     }
 
-    void beforeHandle(crow::Request& req, Response& res, Context& ctx)
-    {
-    }
-
-    void afterHandle(Request& req, Response& res, Context& ctx)
-    {
-    }
+    const char* filename = "bmcweb_persistent_data.json";
+    const int jsonRevision = 1;
 
     // TODO(ed) this should really use protobuf, or some other serialization
     // library, but adding another dependency is somewhat outside the scope of
@@ -104,8 +79,10 @@ class Middleware
                     {
                         for (const auto& elem : item.value())
                         {
-                            std::shared_ptr<UserSession> newSession =
-                                UserSession::fromJson(elem);
+                            std::shared_ptr<persistent_data::UserSession>
+                                newSession =
+                                    persistent_data::UserSession::fromJson(
+                                        elem);
 
                             if (newSession == nullptr)
                             {
@@ -118,8 +95,9 @@ class Middleware
                                 << "Restored session: " << newSession->csrfToken
                                 << " " << newSession->uniqueId << " "
                                 << newSession->sessionToken;
-                            SessionStore::getInstance().authTokens.emplace(
-                                newSession->sessionToken, newSession);
+                            persistent_data::SessionStore::getInstance()
+                                .authTokens.emplace(newSession->sessionToken,
+                                                    newSession);
                         }
                     }
                     else
@@ -157,12 +135,13 @@ class Middleware
         std::ofstream persistentFile(filename);
 
         // set the permission of the file to 640
-        fs::perms permission = fs::perms::owner_read | fs::perms::owner_write |
-                               fs::perms::group_read;
-        fs::permissions(filename, permission);
+        std::filesystem::perms permission = std::filesystem::perms::owner_read | std::filesystem::perms::owner_write |
+                               std::filesystem::perms::group_read;
+        std::filesystem::permissions(filename, permission);
 
         nlohmann::json data{
-            {"sessions", SessionStore::getInstance().authTokens},
+            {"sessions",
+             persistent_data::SessionStore::getInstance().authTokens},
             {"system_uuid", systemUuid},
             {"revision", jsonRevision}};
         persistentFile << data;
@@ -171,5 +150,4 @@ class Middleware
     std::string systemUuid{""};
 };
 
-} // namespace persistent_data
 } // namespace crow

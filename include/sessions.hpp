@@ -1,5 +1,7 @@
 #pragma once
 
+#include <crow/logging.h>
+
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -342,8 +344,6 @@ struct UserSession
     }
 };
 
-class Middleware;
-
 class SessionStore
 {
   public:
@@ -462,10 +462,6 @@ class SessionStore
         return std::chrono::seconds(timeoutInMinutes).count();
     };
 
-    // Persistent data middleware needs to be able to serialize our authTokens
-    // structure, which is private
-    friend Middleware;
-
     static SessionStore& getInstance()
     {
         static SessionStore sessionStore;
@@ -474,6 +470,9 @@ class SessionStore
 
     SessionStore(const SessionStore&) = delete;
     SessionStore& operator=(const SessionStore&) = delete;
+
+    boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
+        authTokens;
 
   private:
     SessionStore() : timeoutInMinutes(60)
@@ -504,8 +503,6 @@ class SessionStore
     }
 
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
-    boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
-        authTokens;
     std::random_device rd;
     bool needWrite{false};
     std::chrono::minutes timeoutInMinutes;

@@ -125,6 +125,7 @@ if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
     )
 
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
+    set (BOOST_ROOT ${CMAKE_BINARY_DIR}/prefix)
 endif ()
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
@@ -139,7 +140,7 @@ add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
 add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 
-find_package (Boost 1.66 REQUIRED)
+find_package (Boost 1.68 REQUIRED COMPONENTS context coroutine)
 include_directories (${BOOST_SRC_DIR})
 
 # sdbusplus
@@ -155,11 +156,11 @@ message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
 # bmcweb
 message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
-if (CMAKE_BUILD_TYPE MATCHES Debug)
+if (CMAKE_BUILD_TYPE MATCHES Debug AND FALSE)
     message ("Logging disabled")
     add_definitions (-DBMCWEB_ENABLE_LOGGING)
     add_definitions (-DBMCWEB_ENABLE_DEBUG)
-endif (CMAKE_BUILD_TYPE MATCHES Debug)
+endif (CMAKE_BUILD_TYPE MATCHES Debug AND FALSE)
 
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
     add_definitions (-DBMCWEB_ENABLE_SSL)
@@ -253,6 +254,7 @@ install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 add_executable (bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries (bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries (bmcweb ${ZLIB_LIBRARIES})
+target_link_libraries (bmcweb ${Boost_LIBRARIES})
 target_link_libraries (bmcweb pam)
 target_link_libraries (bmcweb -latomic)
 target_link_libraries (bmcweb -lsystemd)

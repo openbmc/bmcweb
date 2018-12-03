@@ -4,6 +4,21 @@ include (ExternalProject)
 
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix)
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix/include)
+file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/prefix/lib)
+
+
+externalproject_add (
+    Boost URL
+    https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz
+    URL_MD5 b50944c0c13f81ce2c006802a1186f5a SOURCE_DIR
+    "${CMAKE_BINARY_DIR}/boost-src"
+    BINARY_DIR "${CMAKE_BINARY_DIR}/boost-build"
+    CONFIGURE_COMMAND cd "${CMAKE_BINARY_DIR}/boost-src" && ./bootstrap.sh
+    BUILD_COMMAND cd "${CMAKE_BINARY_DIR}/boost-src" && ./b2 --with-coroutine
+    --define=BOOST_SYSTEM_NO_DEPRECATED link=static--prefix=${CMAKE_BINARY_DIR}/prefix/
+    INSTALL_COMMAND cd "${CMAKE_BINARY_DIR}/boost-src" && ./b2 install --with-coroutine
+    link=static --define=BOOST_SYSTEM_NO_DEPRECATED --prefix=${CMAKE_BINARY_DIR}/prefix/
+)
 
 # requires apt install autoconf-archive and autoconf
 externalproject_add (
@@ -32,16 +47,6 @@ externalproject_add (
     "${CMAKE_BINARY_DIR}/googletest-src" BINARY_DIR
     "${CMAKE_BINARY_DIR}/googletest-build" CMAKE_ARGS
     -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/prefix
-)
-
-externalproject_add (
-    Boost URL
-    https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz
-    URL_MD5 b50944c0c13f81ce2c006802a1186f5a SOURCE_DIR
-    "${CMAKE_BINARY_DIR}/boost-src" BINARY_DIR "${CMAKE_BINARY_DIR}/boost-build"
-    CONFIGURE_COMMAND "" BUILD_COMMAND "" INSTALL_COMMAND mkdir -p
-    "${CMAKE_BINARY_DIR}/prefix/include/" && cp -R
-    ${CMAKE_BINARY_DIR}/boost-src/boost ${CMAKE_BINARY_DIR}/prefix/include
 )
 
 externalproject_add (

@@ -25,6 +25,7 @@
 #include <fstream>
 #include <regex>
 #include <sdbusplus/message/types.hpp>
+#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -2062,7 +2063,7 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
     res.end();
 }
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
+void requestRoutes(CrowApp &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
         .requires({"Login"})

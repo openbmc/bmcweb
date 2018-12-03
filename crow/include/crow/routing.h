@@ -6,6 +6,10 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/lexical_cast.hpp>
+#ifdef BMCWEB_ENABLE_SSL
+#include <boost/beast/experimental/core/ssl_stream.hpp>
+#endif
+
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
@@ -613,8 +617,6 @@ class TaggedRule : public BaseRule,
     std::function<void(const crow::Request&, crow::Response&, Args...)> handler;
 };
 
-const int ruleSpecialRedirectSlash = 1;
-
 class Trie
 {
   public:
@@ -1094,30 +1096,6 @@ class Router
         if (ruleIndex >= rules.size())
             throw std::runtime_error("Trie internal structure corrupted!");
 
-        if (ruleIndex == ruleSpecialRedirectSlash)
-        {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
-            res.result(boost::beast::http::status::moved_permanently);
-
-            // TODO absolute url building
-            if (req.getHeaderValue("Host").empty())
-            {
-                res.addHeader("Location", std::string(req.url) + "/");
-            }
-            else
-            {
-                res.addHeader(
-                    "Location",
-                    req.isSecure
-                        ? "https://"
-                        : "http://" + std::string(req.getHeaderValue("Host")) +
-                              std::string(req.url) + "/");
-            }
-            res.end();
-            return;
-        }
-
         if ((rules[ruleIndex]->getMethods() & (1 << (uint32_t)req.method())) ==
             0)
         {
@@ -1191,28 +1169,6 @@ class Router
 
         if (ruleIndex >= rules.size())
             throw std::runtime_error("Trie internal structure corrupted!");
-
-        if (ruleIndex == ruleSpecialRedirectSlash)
-        {
-            BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
-                            << req.url;
-            res.result(boost::beast::http::status::moved_permanently);
-
-            // TODO absolute url building
-            if (req.getHeaderValue("Host").empty())
-            {
-                res.addHeader("Location", std::string(req.url) + "/");
-            }
-            else
-            {
-                res.addHeader("Location",
-                              (req.isSecure ? "https://" : "http://") +
-                                  std::string(req.getHeaderValue("Host")) +
-                                  std::string(req.url) + "/");
-            }
-            res.end();
-            return;
-        }
 
         if ((rules[ruleIndex]->getMethods() & (1 << (uint32_t)req.method())) ==
             0)

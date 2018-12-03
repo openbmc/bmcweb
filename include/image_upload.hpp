@@ -9,6 +9,7 @@
 #include <dbus_singleton.hpp>
 #include <fstream>
 #include <memory>
+#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -36,7 +37,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
 
     auto timeoutHandler = [&res](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
-        if (ec == asio::error::operation_aborted)
+        if (ec == boost::asio::error::operation_aborted)
         {
             // expected, we were canceled before the timer completed.
             return;
@@ -113,7 +114,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
     timeout.async_wait(timeoutHandler);
 }
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
         .methods("POST"_method,
