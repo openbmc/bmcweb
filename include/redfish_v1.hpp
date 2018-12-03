@@ -1,19 +1,17 @@
 #pragma once
 
-#include <crow/app.h>
-
 #include <boost/algorithm/string.hpp>
 #include <dbus_singleton.hpp>
 #include <fstream>
-#include <persistent_data_middleware.hpp>
 #include <streambuf>
 #include <string>
-#include <token_authorization_middleware.hpp>
+#include <webserver_common.hpp>
+
 namespace crow
 {
 namespace redfish
 {
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
         .methods("GET"_method)(
