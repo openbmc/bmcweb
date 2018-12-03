@@ -4,6 +4,7 @@
 #include <ast_video_puller.hpp>
 #include <boost/endian/arithmetic.hpp>
 #include <string>
+#include <webserver_common.hpp>
 
 namespace crow
 {
@@ -204,7 +205,7 @@ meta_list connectionStates(10);
 
 ConnectionMetadata meta;
 
-template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
+void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/kvmws")
         .websocket()
