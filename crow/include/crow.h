@@ -8,7 +8,6 @@
 #include "crow/http_response.h"
 #include "crow/http_server.h"
 #include "crow/logging.h"
-#include "crow/middleware_context.h"
 #include "crow/query_string.h"
 #include "crow/routing.h"
 #include "crow/timer_queue.h"

@@ -15,10 +15,6 @@
 */
 #pragma once
 
-#include "security_headers_middleware.hpp"
-#include "token_authorization_middleware.hpp"
-#include "webserver_common.hpp"
+#include <crow/app.h>
 
-using CrowApp = crow::App<crow::SecurityHeadersMiddleware,
-                          crow::persistent_data::Middleware,
-                          crow::token_authorization::Middleware>;
+using CrowApp = crow::App;

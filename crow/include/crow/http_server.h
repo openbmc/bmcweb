@@ -2,7 +2,7 @@
 
 #include <atomic>
 #include <boost/asio.hpp>
-#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/asio/spawn.hpp>
 #include <chrono>
 #include <cstdint>
 #include <future>
@@ -19,70 +19,42 @@
 
 namespace crow
 {
-using namespace boost;
-using tcp = asio::ip::tcp;
 
-template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket,
-          typename... Middlewares>
-class Server
+template <typename Handler, typename Adaptor> class Server
 {
+
   public:
-    Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
-           std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
-        ioService(std::move(io)),
-        acceptor(std::move(acceptor)), signals(*ioService, SIGINT, SIGTERM),
-        tickTimer(*ioService), handler(handler), middlewares(middlewares),
+    Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+           boost::asio::ssl::context* adaptor_ctx,
+           boost::asio::io_service& io) :
+        acceptor(io,
+                 boost::asio::ip::tcp::endpoint(
+                     boost::asio::ip::address::from_string(bindaddr), port)),
+        signals(io, SIGINT, SIGTERM), tickTimer(io), handler(handler),
         adaptorCtx(adaptor_ctx)
     {
     }
 
-    Server(Handler* handler, const std::string& bindaddr, uint16_t port,
-           std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
-        Server(handler,
-               std::make_unique<tcp::acceptor>(
-                   *io,
-                   tcp::endpoint(
-                       boost::asio::ip::address::from_string(bindaddr), port)),
-               middlewares, adaptor_ctx, io)
-    {
-    }
-
     Server(Handler* handler, int existing_socket,
-           std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
-        Server(handler,
-               std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
-                                               existing_socket),
-               middlewares, adaptor_ctx, io)
+           boost::asio::ssl::context* adaptor_ctx,
+           boost::asio::io_service& io) :
+        acceptor(io, boost::asio::ip::tcp::v6(), existing_socket),
+        signals(io, SIGINT, SIGTERM), tickTimer(io), handler(handler),
+        adaptorCtx(adaptor_ctx)
     {
     }
 
-    void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
+  public:
+    void onTick(boost::system::error_code ec)
     {
-        tickInterval = d;
-        tickFunction = f;
-    }
-
-    void onTick()
-    {
-        tickFunction();
-        tickTimer.expires_from_now(
-            boost::posix_time::milliseconds(tickInterval.count()));
-        tickTimer.async_wait([this](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                return;
-            }
-            onTick();
-        });
+        if (ec)
+        {
+            return;
+        }
+        timerQueue.process();
+        tickTimer.expires_after(std::chrono::seconds(1));
+        tickTimer.async_wait(
+            [this](const boost::system::error_code& ec) { onTick(ec); });
     }
 
     void updateDateStr()
@@ -117,103 +89,82 @@ class Server
             return this->dateStr;
         };
 
-        boost::asio::deadline_timer timer(*ioService);
-        timer.expires_from_now(boost::posix_time::seconds(1));
+        tickTimer.expires_after(std::chrono::seconds(1));
+        tickTimer.async_wait(
+            [this](const boost::system::error_code& ec) { onTick(ec); });
 
-        std::function<void(const boost::system::error_code& ec)> handler;
-        handler = [&](const boost::system::error_code& ec) {
-            if (ec)
-            {
-                return;
-            }
-            timerQueue.process();
-            timer.expires_from_now(boost::posix_time::seconds(1));
-            timer.async_wait(handler);
-        };
-        timer.async_wait(handler);
+        BMCWEB_LOG_INFO << "server is running, local endpoint "
+                        << acceptor.local_endpoint();
 
-        if (tickFunction && tickInterval.count() > 0)
-        {
-            tickTimer.expires_from_now(
-                boost::posix_time::milliseconds(tickInterval.count()));
-            tickTimer.async_wait([this](const boost::system::error_code& ec) {
+        signals.async_wait(
+            [this](const boost::system::error_code& ec, int /*sig_num*/) {
                 if (ec)
                 {
                     return;
                 }
-                onTick();
+                stop();
             });
-        }
 
-        BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
-                        << acceptor->local_endpoint();
-
-        signals.async_wait([&](const boost::system::error_code& /*error*/,
-                               int /*signal_number*/) { stop(); });
-
-        doAccept();
+        boost::asio::spawn(
+            acceptor.get_executor().context(),
+            [this](boost::asio::yield_context yield) { doAccept(yield); });
     }
 
     void stop()
     {
-        ioService->stop();
+        acceptor.get_executor().context().stop();
     }
 
-    void doAccept()
+    void doAccept(boost::asio::yield_context yield)
     {
-        std::optional<Adaptor> s;
-        if constexpr (std::is_same<Adaptor,
-                                   boost::beast::ssl_stream<
-                                       boost::asio::ip::tcp::socket>>::value)
-        {
-            s = Adaptor(*ioService, *adaptorCtx);
-        }
-        else
-        {
-            s = Adaptor(*ioService);
-        }
+        boost::system::error_code ec;
 
-        Connection<Adaptor, Handler, Middlewares...>* p =
-            new Connection<Adaptor, Handler, Middlewares...>(
-                *ioService, handler, serverName, middlewares, getCachedDateStr,
-                timerQueue, std::move(s.value()));
+        for (;;)
+        {
+            std::shared_ptr<Connection<Adaptor, Handler>> p;
+            if constexpr (std::is_same<
+                              Adaptor,
+                              boost::beast::ssl_stream<
+                                  boost::asio::ip::tcp::socket>>::value)
+            {
+                p = std::make_shared<Connection<Adaptor, Handler>>(
+                    acceptor.get_executor().context(), handler,
+                    getCachedDateStr, timerQueue,
+                    Adaptor(acceptor.get_executor().context(), *adaptorCtx));
+            }
+            else
+            {
+                p = std::make_shared<Connection<Adaptor, Handler>>(
+                    acceptor.get_executor().context(), handler,
+                    getCachedDateStr, timerQueue,
+                    Adaptor(acceptor.get_executor().context()));
+            }
 
-        acceptor->async_accept(p->socket().lowest_layer(),
-                               [this, p](boost::system::error_code ec) {
-                                   if (!ec)
-                                   {
-                                       this->ioService->post(
-                                           [p] { p->start(); });
-                                   }
-                                   else
-                                   {
-                                       delete p;
-                                   }
-                                   doAccept();
-                               });
+            acceptor.async_accept(p->socket().lowest_layer(), yield[ec]);
+            if (ec)
+            {
+                continue;
+            }
+
+            boost::asio::spawn(
+                acceptor.get_executor().context(),
+                [p = std::move(p)](boost::asio::yield_context yield) {
+                    p->start(yield);
+                });
+        }
     }
 
   private:
-    std::shared_ptr<asio::io_service> ioService;
     detail::TimerQueue timerQueue;
     std::function<std::string()> getCachedDateStr;
-    std::unique_ptr<tcp::acceptor> acceptor;
+    boost::asio::ip::tcp::acceptor acceptor;
     boost::asio::signal_set signals;
-    boost::asio::deadline_timer tickTimer;
+    boost::asio::steady_timer tickTimer;
 
     std::string dateStr;
 
     Handler* handler;
-    std::string serverName = "iBMC";
 
-    std::chrono::milliseconds tickInterval{};
-    std::function<void()> tickFunction;
-
-    std::tuple<Middlewares...>* middlewares;
-
-#ifdef BMCWEB_ENABLE_SSL
-    bool useSsl{false};
-#endif
     boost::asio::ssl::context* adaptorCtx;
-}; // namespace crow
+};
 } // namespace crow
