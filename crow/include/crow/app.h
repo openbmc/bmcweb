@@ -11,9 +11,9 @@
 #include <utility>
 
 #include "crow/http_request.h"
+#include "crow/http_response.h"
 #include "crow/http_server.h"
 #include "crow/logging.h"
-#include "crow/middleware_context.h"
 #include "crow/routing.h"
 #include "crow/utility.h"
 
@@ -25,21 +25,19 @@ namespace crow
 #ifdef BMCWEB_ENABLE_SSL
 using ssl_context_t = boost::asio::ssl::context;
 #endif
-template <typename... Middlewares> class Crow
+class Crow
 {
   public:
     using self_t = Crow;
 
 #ifdef BMCWEB_ENABLE_SSL
     using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
-    using ssl_server_t = Server<Crow, ssl_socket_t, Middlewares...>;
+    using ssl_server_t = Server<Crow, ssl_socket_t>;
 #else
     using socket_t = boost::asio::ip::tcp::socket;
-    using server_t = Server<Crow, socket_t, Middlewares...>;
+    using server_t = Server<Crow, socket_t>;
 #endif
-
-    explicit Crow(std::shared_ptr<boost::asio::io_service> io =
-                      std::make_shared<boost::asio::io_service>()) :
+    explicit Crow(std::shared_ptr<boost::asio::io_service> io) :
         io(std::move(io))
     {
     }
@@ -98,30 +96,26 @@ template <typename... Middlewares> class Crow
 #ifdef BMCWEB_ENABLE_SSL
         if (-1 == socketFd)
         {
-            sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, bindaddrStr, portUint, &middlewares, &sslContext, io));
+            sslServer = std::make_unique<ssl_server_t>(
+                this, bindaddrStr, portUint, &sslContext, *io);
         }
         else
         {
-            sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, socketFd, &middlewares, &sslContext, io));
+            sslServer = std::make_unique<ssl_server_t>(this, socketFd,
+                                                       &sslContext, *io);
         }
-        sslServer->setTickFunction(tickInterval, tickFunction);
+
         sslServer->run();
-
 #else
-
         if (-1 == socketFd)
         {
-            server = std::move(std::make_unique<server_t>(
-                this, bindaddrStr, portUint, &middlewares, nullptr, io));
+            server = std::make_unique<server_t>(this, bindaddrStr, portUint,
+                                                nullptr, *io);
         }
         else
         {
-            server = std::move(std::make_unique<server_t>(
-                this, socketFd, &middlewares, nullptr, io));
+            server = std::make_unique<server_t>(this, socketFd, nullptr, *io);
         }
-        server->setTickFunction(tickInterval, tickFunction);
         server->run();
 
 #endif
@@ -129,7 +123,6 @@ template <typename... Middlewares> class Crow
 
     void stop()
     {
-        io->stop();
     }
 
     void debugPrint()
@@ -204,30 +197,8 @@ template <typename... Middlewares> class Crow
     }
 #endif
 
-    // middleware
-    using context_t = detail::Context<Middlewares...>;
-    template <typename T> typename T::Context& getContext(const Request& req)
-    {
-        static_assert(black_magic::Contains<T, Middlewares...>::value,
-                      "App doesn't have the specified middleware type.");
-        auto& ctx = *reinterpret_cast<context_t*>(req.middlewareContext);
-        return ctx.template get<T>();
-    }
-
-    template <typename T> T& getMiddleware()
-    {
-        return utility::getElementByType<T, Middlewares...>(middlewares);
-    }
-
-    template <typename Duration, typename Func> self_t& tick(Duration d, Func f)
-    {
-        tickInterval = std::chrono::duration_cast<std::chrono::milliseconds>(d);
-        tickFunction = f;
-        return *this;
-    }
-
   private:
-    std::shared_ptr<asio::io_service> io;
+    std::shared_ptr<boost::asio::io_service> io;
 #ifdef BMCWEB_ENABLE_SSL
     uint16_t portUint = 443;
 #else
@@ -240,14 +211,11 @@ template <typename... Middlewares> class Crow
     std::chrono::milliseconds tickInterval{};
     std::function<void()> tickFunction;
 
-    std::tuple<Middlewares...> middlewares;
-
 #ifdef BMCWEB_ENABLE_SSL
     std::unique_ptr<ssl_server_t> sslServer;
 #else
     std::unique_ptr<server_t> server;
 #endif
-};
-template <typename... Middlewares> using App = Crow<Middlewares...>;
-using SimpleApp = Crow<>;
+}; // namespace crow
+using App = Crow;
 } // namespace crow
