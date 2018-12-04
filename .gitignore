@@ -4,6 +4,7 @@
 *.key
 
 bmcweb
+getvideo
 
 # Produced by cmake
 **/CMakeFiles/*
