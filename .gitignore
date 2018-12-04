@@ -3,6 +3,8 @@
 *.crt
 *.key
 
+bmcweb
+
 **/CMakeFiles/*
 
 
