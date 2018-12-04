@@ -5,9 +5,15 @@
 
 bmcweb
 
+# Produced by cmake
 **/CMakeFiles/*
-
-
+CMakeCache.txt
+CTestTestfile.cmake
+DartConfiguration.tcl
+Makefile
+cmake_install.cmake
+compile_commands.json
+test_resources/
 
 # Created by https://www.gitignore.io/api/osx,linux,windows,pycharm,intellij,visualstudio,visualstudiocode
 
