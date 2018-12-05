@@ -96,6 +96,79 @@ void introspectObjects(const std::string &processName,
         "Introspect");
 }
 
+void getPropertiesForEnumerate(const std::string &objectPath,
+                               const std::string &service,
+                               const std::string &interface,
+                               std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+{
+    BMCWEB_LOG_DEBUG << "getPropertiesForEnumerate " << objectPath << " "
+                     << service << " " << interface;
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, objectPath, service,
+         interface](const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string, dbus::utility::DbusVariantType>>
+                        &propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "GetAll on path " << objectPath << " iface "
+                                 << interface << " service " << service
+                                 << " failed with code " << ec;
+                return;
+            }
+
+            nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+            nlohmann::json &objectJson = dataJson[objectPath];
+            if (objectJson.is_null())
+            {
+                objectJson = nlohmann::json::object();
+            }
+
+            for (const auto &[name, value] : propertiesList)
+            {
+                nlohmann::json &propertyJson = objectJson[name];
+                sdbusplus::message::variant_ns::visit(
+                    [&propertyJson](auto &&val) { propertyJson = val; }, value);
+            }
+        },
+        service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
+        interface);
+}
+
+// Find any results that weren't picked up by ObjectManagers, to be
+// called after all ObjectManagers are searched for and called.
+void findRemainingObjectsForEnumerate(
+    const std::string &objectPath, std::shared_ptr<GetSubTreeType> subtree,
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+{
+    BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
+    const nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+
+    for (const auto &[path, interface_map] : *subtree)
+    {
+        if (path == objectPath)
+        {
+            // An enumerate does not return the target path's properties
+            continue;
+        }
+        if (dataJson.find(path) == dataJson.end())
+        {
+            for (const auto &[service, interfaces] : interface_map)
+            {
+                for (const auto &interface : interfaces)
+                {
+                    if (!boost::starts_with(interface, "org.freedesktop.DBus"))
+                    {
+                        getPropertiesForEnumerate(path, service, interface,
+                                                  asyncResp);
+                    }
+                }
+            }
+        }
+    }
+}
+
 struct InProgressEnumerateData
 {
     InProgressEnumerateData(const std::string &objectPath,
@@ -107,7 +180,7 @@ struct InProgressEnumerateData
 
     ~InProgressEnumerateData()
     {
-        // TODO
+        findRemainingObjectsForEnumerate(objectPath, subtree, asyncResp);
     }
 
     const std::string objectPath;
