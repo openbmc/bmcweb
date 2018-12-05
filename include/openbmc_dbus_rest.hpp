@@ -96,21 +96,93 @@ void introspectObjects(const std::string &processName,
         "Introspect");
 }
 
+void getPropertiesForEnumerate(const std::string &objectPath,
+                               const std::string &service,
+                               const std::string &interface,
+                               std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, objectPath, service,
+         interface](const boost::system::error_code ec,
+                    const std::vector<
+                        std::pair<std::string, dbus::utility::DbusVariantType>>
+                        &propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "GetAll on path " << objectPath << " iface "
+                                 << interface << " service " << service
+                                 << " failed with code " << ec;
+                return;
+            }
+
+            nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+            nlohmann::json &objectJson = dataJson[objectPath];
+            if (objectJson.is_null())
+            {
+                objectJson = nlohmann::json::object();
+            }
+
+            for (const auto &[name, value] : propertiesList)
+            {
+                nlohmann::json &propertyJson = objectJson[name];
+                sdbusplus::message::variant_ns::visit(
+                    [&propertyJson](auto &&val) { propertyJson = val; }, value);
+            }
+        },
+        service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
+        interface);
+}
+
+// Find any results that weren't picked up by ObjectManagers, to be
+// called after all ObjectManagers are searched for and called.
+void findRemainingObjectsForEnumerate(
+    const std::string &objectPath, std::shared_ptr<GetSubTreeType> subtree,
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+{
+    BMCWEB_LOG_DEBUG << "findRemainingObjectsForEnumerate";
+    const nlohmann::json &dataJson = asyncResp->res.jsonValue["data"];
+
+    for (const auto &[path, interface_map] : *subtree)
+    {
+        if (path == objectPath)
+        {
+            // An enumerate does not return the target path's properties
+            continue;
+        }
+        if (dataJson.find(path) == dataJson.end())
+        {
+            for (const auto &[service, interfaces] : interface_map)
+            {
+                for (const auto &interface : interfaces)
+                {
+                    if (!boost::starts_with(interface, "org.freedesktop.DBus"))
+                    {
+                        getPropertiesForEnumerate(path, service, interface,
+                                                  asyncResp);
+                    }
+                }
+            }
+        }
+    }
+}
+
 void getManagedObjectsForEnumerate(const std::string &object_name,
                                    const std::string &object_manager_path,
                                    const std::string &connection_name,
-                                   std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+                                   std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+                                   std::shared_ptr<GetSubTreeType> subtree)
 {
     BMCWEB_LOG_DEBUG << "getManagedObjectsForEnumerate " << object_name
                      << " object_manager_path " << object_manager_path
                      << " connection_name " << connection_name;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, object_name,
-         connection_name](const boost::system::error_code ec,
-                          const dbus::utility::ManagedObjectType &objects) {
+        [asyncResp, object_name, connection_name,
+         subtree](const boost::system::error_code ec,
+                  const dbus::utility::ManagedObjectType &objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetManagedObjects on path " << object_name
+                                 << " on connection " << connection_name
                                  << " failed with code " << ec;
                 return;
             }
@@ -148,9 +220,17 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
                     {
                         getManagedObjectsForEnumerate(
                             objectPath.first.str, objectPath.first.str,
-                            connection_name, asyncResp);
+                            connection_name, asyncResp, subtree);
                     }
                 }
+            }
+            BMCWEB_LOG_DEBUG
+                << "getManagedObjectsForEnumerate subtree count is "
+                << subtree.use_count();
+            if (subtree.use_count() == 1)
+            {
+                findRemainingObjectsForEnumerate(object_name, subtree,
+                                                 asyncResp);
             }
         },
         connection_name, object_manager_path,
@@ -191,17 +271,18 @@ void addSubTreeEntry(const std::string &objectPath, GetSubTreeType &subtree)
 
 void findObjectManagerPathForEnumerate(
     const std::string &object_name, const std::string &connection_name,
-    std::shared_ptr<bmcweb::AsyncResp> asyncResp)
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp,
+    std::shared_ptr<GetSubTreeType> subtree)
 {
     BMCWEB_LOG_DEBUG << "Finding objectmanager for path " << object_name
                      << " on connection:" << connection_name;
     crow::connections::systemBus->async_method_call(
-        [asyncResp, object_name, connection_name](
-            const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>
-                &objects) {
+        [asyncResp, object_name, connection_name,
+         subtree](const boost::system::error_code ec,
+                  const boost::container::flat_map<
+                      std::string, boost::container::flat_map<
+                                       std::string, std::vector<std::string>>>
+                      &objects) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetAncestors on path " << object_name
@@ -218,10 +299,19 @@ void findObjectManagerPathForEnumerate(
                         // Found the object manager path for this resource.
                         getManagedObjectsForEnumerate(
                             object_name, pathGroup.first, connection_name,
-                            asyncResp);
+                            asyncResp, subtree);
                         return;
                     }
                 }
+            }
+
+            BMCWEB_LOG_DEBUG
+                << "findObjectManagerPathForEnumerate subtree use count = "
+                << subtree.use_count();
+            if (subtree.use_count() == 1)
+            {
+                findRemainingObjectsForEnumerate(object_name, subtree,
+                                                 asyncResp);
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -808,15 +898,18 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                 return;
             }
 
-            // Add the data for the target path in to the results
+            auto subtree =
+                std::make_shared<GetSubTreeType>(std::move(object_names));
+
+            // Add the data for the path passed in to the results
             // as if GetSubTree returned it.
-            addSubTreeEntry(objectPath, object_names);
+            addSubTreeEntry(objectPath, *subtree);
 
             // Map indicating connection name, and the path where the object
             // manager exists
             boost::container::flat_map<std::string, std::string> connections;
 
-            for (const auto &object : object_names)
+            for (const auto &object : *subtree)
             {
                 for (const auto &connection : object.second)
                 {
@@ -843,15 +936,23 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                 if (!connection.second.empty())
                 {
                     getManagedObjectsForEnumerate(objectPath, connection.second,
-                                                  connection.first, asyncResp);
+                                                  connection.first, asyncResp,
+                                                  subtree);
                 }
                 else
                 {
                     // otherwise we need to find the object manager path before
                     // we can continue
                     findObjectManagerPathForEnumerate(
-                        objectPath, connection.first, asyncResp);
+                        objectPath, connection.first, asyncResp, subtree);
                 }
+            }
+
+            BMCWEB_LOG_DEBUG << "subtree use count is " << subtree.use_count();
+            if (subtree.use_count() == 1)
+            {
+                findRemainingObjectsForEnumerate(objectPath, subtree,
+                                                 asyncResp);
             }
         },
         "xyz.openbmc_project.ObjectMapper",
