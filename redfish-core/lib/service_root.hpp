@@ -64,6 +64,8 @@ class ServiceRoot : public Node
             {"@odata.id", "/redfish/v1/UpdateService"}};
 
         res.jsonValue["UUID"] = getUuid();
+        res.jsonValue["VirtualMedia"] = {
+            {"@odata.id", "/redfish/v1/VirtualMedia"}};
         res.end();
     }
 
