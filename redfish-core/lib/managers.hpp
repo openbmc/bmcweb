@@ -704,6 +704,9 @@ class Manager : public Node
 
         res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+
+        res.jsonValue["VirtualMedia"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
         // default oem data
         nlohmann::json& oem = res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
