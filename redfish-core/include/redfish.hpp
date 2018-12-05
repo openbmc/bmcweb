@@ -29,6 +29,7 @@
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
+#include "../lib/virtual_media.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -72,6 +73,7 @@ class RedfishService
         nodes.emplace_back(
             std::make_unique<VlanNetworkInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
+        nodes.emplace_back(std::make_unique<VirtualMedia>(app));
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));
