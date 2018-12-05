@@ -30,6 +30,10 @@ namespace crow
 namespace openbmc_mapper
 {
 
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
 void introspectObjects(const std::string &processName,
                        const std::string &objectPath,
                        std::shared_ptr<bmcweb::AsyncResp> transaction)
@@ -153,6 +157,38 @@ void getManagedObjectsForEnumerate(const std::string &object_name,
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
+// Used to add the object info about the target /enumerate path to the
+// results of GetSubTree, as GetSubTree will not return info for the
+// target path.
+// The GetObject call needs to be synchronous so that the subtree structure
+// has been updated before the remaining logic in handleEnumerate runs.
+void addSubTreeEntry(const std::string &objectPath, GetSubTreeType &subtree)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    auto bus = sdbusplus::bus::new_default();
+
+    try
+    {
+        auto method = bus.new_method_call("xyz.openbmc_project.ObjectMapper",
+                                          "/xyz/openbmc_project/object_mapper",
+                                          "xyz.openbmc_project.ObjectMapper",
+                                          "GetObject");
+        method.append(objectPath, std::vector<std::string>{});
+        auto result = bus.call(method);
+
+        GetObjectType objectData;
+        result.read(objectData);
+        subtree.emplace_back(objectPath, objectData);
+    }
+    catch (sdbusplus::exception::SdBusError &e)
+    {
+        BMCWEB_LOG_ERROR << "GetObject " << objectPath << " failed with "
+                         << e.what();
+    }
+}
+
 void findObjectManagerPathForEnumerate(
     const std::string &object_name, const std::string &connection_name,
     std::shared_ptr<bmcweb::AsyncResp> asyncResp)
@@ -193,10 +229,6 @@ void findObjectManagerPathForEnumerate(
         "xyz.openbmc_project.ObjectMapper", "GetAncestors", object_name,
         std::array<const char *, 1>{"org.freedesktop.DBus.ObjectManager"});
 }
-
-using GetSubTreeType = std::vector<
-    std::pair<std::string,
-              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 // Structure for storing data on an in progress action
 struct InProgressActionData
@@ -770,11 +802,16 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
 
     crow::connections::systemBus->async_method_call(
         [asyncResp, objectPath](const boost::system::error_code ec,
-                                const GetSubTreeType &object_names) {
+                                GetSubTreeType &object_names) {
             if (ec)
             {
                 return;
             }
+
+            // Add the data for the target path in to the results
+            // as if GetSubTree returned it.
+            addSubTreeEntry(objectPath, object_names);
+
             // Map indicating connection name, and the path where the object
             // manager exists
             boost::container::flat_map<std::string, std::string> connections;
