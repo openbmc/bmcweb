@@ -64,8 +64,7 @@ class ChassisCollection : public Node
         const std::array<const char *, 4> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply",
-            "xyz.openbmc_project.Inventory.Item.System",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply"
         };
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
