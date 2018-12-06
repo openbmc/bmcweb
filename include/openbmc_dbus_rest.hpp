@@ -870,7 +870,10 @@ void handleList(crow::Response &res, const std::string &objectPath,
                std::vector<std::string> &objectPaths) {
             if (ec)
             {
-                res.result(boost::beast::http::status::internal_server_error);
+                res.result(boost::beast::http::status::not_found);
+                res.jsonValue = {{"data", {{"description", notFoundDesc}}},
+                                 {"message", notFoundMsg},
+                                 {"status", "error"}};
             }
             else
             {
