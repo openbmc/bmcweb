@@ -145,8 +145,6 @@ class SessionCollection : public Node
             "/redfish/v1/$metadata#SessionCollection.SessionCollection";
         res.jsonValue["Name"] = "Session Collection";
         res.jsonValue["Description"] = "Session Collection";
-        res.jsonValue["Members@odata.count"] = 0;
-        res.jsonValue["Members"] = nlohmann::json::array();
         res.end();
     }
 
