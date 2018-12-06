@@ -37,6 +37,7 @@ using GetSubTreeType = std::vector<
 constexpr auto notFoundMsg = "404 Not Found";
 constexpr auto notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
+constexpr auto propNotFoundDesc = "The specified property cannot be found";
 
 void introspectObjects(const std::string &processName,
                        const std::string &objectPath,
@@ -989,6 +990,9 @@ void handleGet(crow::Response &res, std::string &objectPath,
             if (ec || object_names.size() <= 0)
             {
                 res.result(boost::beast::http::status::not_found);
+                res.jsonValue = {{"data", {{"description", notFoundDesc}}},
+                                 {"message", notFoundMsg},
+                                 {"status", "error"}};
                 res.end();
                 return;
             }
@@ -1005,6 +1009,9 @@ void handleGet(crow::Response &res, std::string &objectPath,
                 if (interfaceNames.size() <= 0)
                 {
                     res.result(boost::beast::http::status::not_found);
+                    res.jsonValue = {{"data", {{"description", notFoundDesc}}},
+                                     {"message", notFoundMsg},
+                                     {"status", "error"}};
                     res.end();
                     return;
                 }
@@ -1053,10 +1060,22 @@ void handleGet(crow::Response &res, std::string &objectPath,
                             }
                             if (response.use_count() == 1)
                             {
-                                res.jsonValue = {{"status", "ok"},
-                                                 {"message", "200 OK"},
-                                                 {"data", *response}};
-
+                                if (!propertyName->empty() && response->empty())
+                                {
+                                    res.result(
+                                        boost::beast::http::status::not_found);
+                                    res.jsonValue = {
+                                        {"data",
+                                         {{"description", propNotFoundDesc}}},
+                                        {"message", notFoundMsg},
+                                        {"status", "error"}};
+                                }
+                                else
+                                {
+                                    res.jsonValue = {{"status", "ok"},
+                                                     {"message", "200 OK"},
+                                                     {"data", *response}};
+                                }
                                 res.end();
                             }
                         },
