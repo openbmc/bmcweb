@@ -61,12 +61,6 @@ class ChassisCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        const std::array<const char *, 4> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply",
-            "xyz.openbmc_project.Inventory.Item.System",
-        };
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         res.jsonValue["@odata.context"] =
@@ -104,7 +98,9 @@ class ChassisCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(3), interfaces);
+            "/xyz/openbmc_project/inventory", int32_t(3),
+            std::array<const char *, 1>{
+                "xyz.openbmc_project.Inventory.Item.Chassis"});
     }
 };
 
