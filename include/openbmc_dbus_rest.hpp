@@ -34,6 +34,10 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
+constexpr auto notFoundMsg = "404 Not Found";
+constexpr auto notFoundDesc =
+    "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
+
 void introspectObjects(const std::string &processName,
                        const std::string &objectPath,
                        std::shared_ptr<bmcweb::AsyncResp> transaction)
@@ -895,6 +899,12 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
                                 GetSubTreeType &object_names) {
             if (ec)
             {
+                BMCWEB_LOG_ERROR << "GetSubTree failed on " << objectPath;
+                asyncResp->res.result(boost::beast::http::status::not_found);
+                asyncResp->res.jsonValue = {
+                    {"data", {{"description", notFoundDesc}}},
+                    {"message", notFoundMsg},
+                    {"status", "error"}};
                 return;
             }
 
