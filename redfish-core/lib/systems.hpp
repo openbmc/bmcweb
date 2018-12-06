@@ -499,7 +499,7 @@ class SystemsCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        BMCWEB_LOG_DEBUG << "Get list of available boards.";
+        BMCWEB_LOG_DEBUG << "Get list of available systems.";
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
@@ -516,12 +516,12 @@ class SystemsCollection : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
+                BMCWEB_LOG_DEBUG << "Got " << resp.size() << " systems.";
 
                 // ... prepare json array with appropriate @odata.id links
-                nlohmann::json &boardArray =
+                nlohmann::json &systemArray =
                     asyncResp->res.jsonValue["Members"];
-                boardArray = nlohmann::json::array();
+                systemArray = nlohmann::json::array();
 
                 // Iterate over all retrieved ObjectPaths.
                 for (const std::string &objpath : resp)
@@ -529,21 +529,21 @@ class SystemsCollection : public Node
                     std::size_t lastPos = objpath.rfind("/");
                     if (lastPos != std::string::npos)
                     {
-                        boardArray.push_back(
+                        systemArray.push_back(
                             {{"@odata.id", "/redfish/v1/Systems/" +
                                                objpath.substr(lastPos + 1)}});
                     }
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] =
-                    boardArray.size();
+                    systemArray.size();
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", int32_t(0),
             std::array<const char *, 1>{
-                "xyz.openbmc_project.Inventory.Item.Board"});
+                "xyz.openbmc_project.Inventory.Item.System"});
     }
 };
 
