@@ -37,6 +37,7 @@ using GetSubTreeType = std::vector<
 const std::string notFoundMsg = "404 Not Found";
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
+const std::string propNotFoundDesc = "The specified property cannot be found";
 
 void setErrorResponse(crow::Response &res, boost::beast::http::status result,
                       const std::string &desc, const std::string &msg)
@@ -999,7 +1000,8 @@ void handleGet(crow::Response &res, std::string &objectPath,
                                    const GetObjectType &object_names) {
             if (ec || object_names.size() <= 0)
             {
-                res.result(boost::beast::http::status::not_found);
+                setErrorResponse(res, boost::beast::http::status::not_found,
+                                 notFoundDesc, notFoundMsg);
                 res.end();
                 return;
             }
@@ -1015,7 +1017,8 @@ void handleGet(crow::Response &res, std::string &objectPath,
 
                 if (interfaceNames.size() <= 0)
                 {
-                    res.result(boost::beast::http::status::not_found);
+                    setErrorResponse(res, boost::beast::http::status::not_found,
+                                     notFoundDesc, notFoundMsg);
                     res.end();
                     return;
                 }
@@ -1064,10 +1067,19 @@ void handleGet(crow::Response &res, std::string &objectPath,
                             }
                             if (response.use_count() == 1)
                             {
-                                res.jsonValue = {{"status", "ok"},
-                                                 {"message", "200 OK"},
-                                                 {"data", *response}};
-
+                                if (!propertyName->empty() && response->empty())
+                                {
+                                    setErrorResponse(
+                                        res,
+                                        boost::beast::http::status::not_found,
+                                        propNotFoundDesc, notFoundMsg);
+                                }
+                                else
+                                {
+                                    res.jsonValue = {{"status", "ok"},
+                                                     {"message", "200 OK"},
+                                                     {"data", *response}};
+                                }
                                 res.end();
                             }
                         },
