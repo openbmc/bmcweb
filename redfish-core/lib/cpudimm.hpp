@@ -86,31 +86,28 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Name"] = "Processor";
             const auto coresCountProperty =
                 properties.find("ProcessorCoreCount");
-            if (coresCountProperty == properties.end())
+            if (coresCountProperty != properties.end())
             {
-                // Important property not in result
-                messages::internalError(aResp->res);
-                return;
-            }
-            const uint16_t *coresCount =
-                sdbusplus::message::variant_ns::get_if<uint16_t>(
-                    &coresCountProperty->second);
-            if (coresCount == nullptr)
-            {
-                // Important property not in desired type
-                messages::internalError(aResp->res);
-                return;
-            }
-            if (*coresCount == 0)
-            {
-                // Slot is not populated, set status end return
-                aResp->res.jsonValue["Status"]["State"] = "Absent";
-                aResp->res.jsonValue["Status"]["Health"] = "OK";
-                // HTTP Code will be set up automatically, just return
-                return;
+                const uint16_t *coresCount =
+                    mapbox::getPtr<const uint16_t>(coresCountProperty->second);
+                if (coresCount == nullptr)
+                {
+                    // Important property not in desired type
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                if (*coresCount == 0)
+                {
+                    // Slot is not populated, set status end return
+                    aResp->res.jsonValue["Status"]["State"] = "Absent";
+                    aResp->res.jsonValue["Status"]["Health"] = "OK";
+                    // HTTP Code will be set up automatically, just return
+                    return;
+                }
+
+                aResp->res.jsonValue["TotalCores"] = *coresCount;
             }
 
-            aResp->res.jsonValue["TotalCores"] = *coresCount;
             aResp->res.jsonValue["Status"]["State"] = "Enabled";
             aResp->res.jsonValue["Status"]["Health"] = "OK";
 
