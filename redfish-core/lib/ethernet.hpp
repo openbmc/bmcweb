@@ -581,25 +581,6 @@ inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
 }
 
 /**
- * @brief Sets given HostName of the machine through D-Bus
- *
- * @param[in] newHostname   New name that HostName will be changed to
- * @param[in] callback      Function that will be called after the operation
- *
- * @return None.
- */
-template <typename CallbackFunc>
-void setHostName(const std::string &newHostname, CallbackFunc &&callback)
-{
-    crow::connections::systemBus->async_method_call(
-        callback, "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/config",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-        sdbusplus::message::variant<std::string>(newHostname));
-}
-
-/**
  * @brief Deletes given IPv4
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
@@ -905,30 +886,22 @@ class EthernetInterface : public Node
     }
 
   private:
-    void handleHostnamePatch(const nlohmann::json &input,
+    void handleHostnamePatch(const std::string &hostname,
                              const std::shared_ptr<AsyncResp> asyncResp)
     {
-        const std::string *newHostname = input.get_ptr<const std::string *>();
-        if (newHostname == nullptr)
-        {
-            messages::propertyValueTypeError(asyncResp->res, input.dump(),
-                                             "HostName");
-            return;
-        }
-
-        // Change hostname
-        setHostName(*newHostname,
-                    [asyncResp, newHostname{std::string(*newHostname)}](
-                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        else
-                        {
-                            asyncResp->res.jsonValue["HostName"] = newHostname;
-                        }
-                    });
+        asyncResp->res.jsonValue["HostName"] = hostname;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/config",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            sdbusplus::message::variant<std::string>(hostname));
     }
 
     void handleIPv4Patch(
@@ -1298,7 +1271,7 @@ class EthernetInterface : public Node
         const std::string &iface_id = params[0];
 
         boost::optional<nlohmann::json> vlan;
-        boost::optional<nlohmann::json> hostname;
+        boost::optional<std::string> hostname;
         boost::optional<nlohmann::json> ipv4Addresses;
         boost::optional<nlohmann::json> ipv6Addresses;
 
