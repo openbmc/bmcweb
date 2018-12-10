@@ -590,19 +590,19 @@ class Connection
     Adaptor adaptor;
     Handler* handler;
 
-    // Making this a boost::optional allows it to be efficiently destroyed and
+    // Making this a std::optional allows it to be efficiently destroyed and
     // re-created on Connection reset
-    boost::optional<
+    std::optional<
         boost::beast::http::request_parser<boost::beast::http::string_body>>
         parser;
 
     boost::beast::flat_static_buffer<8192> buffer;
 
-    boost::optional<boost::beast::http::response_serializer<
+    std::optional<boost::beast::http::response_serializer<
         boost::beast::http::string_body>>
         serializer;
 
-    boost::optional<crow::Request> req;
+    std::optional<crow::Request> req;
     crow::Response res;
 
     const std::string& serverName;
