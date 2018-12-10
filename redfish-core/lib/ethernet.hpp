@@ -905,139 +905,74 @@ class EthernetInterface : public Node
     }
 
     void handleIPv4Patch(
-        const std::string &ifaceId, const nlohmann::json &input,
+        const std::string &ifaceId, std::vector<nlohmann::json> &input,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data,
         const std::shared_ptr<AsyncResp> asyncResp)
     {
-        if (!input.is_array())
-        {
-            messages::propertyValueTypeError(asyncResp->res, input.dump(),
-                                             "IPv4Addresses");
-            return;
-        }
-
-        // According to Redfish PATCH definition, size must be at least equal
-        if (input.size() < ipv4Data.size())
-        {
-            messages::propertyValueFormatError(asyncResp->res, input.dump(),
-                                               "IPv4Addresses");
-            return;
-        }
-
         int entryIdx = 0;
         boost::container::flat_set<IPv4AddressData>::const_iterator thisData =
             ipv4Data.begin();
-        for (const nlohmann::json &thisJson : input)
+        for (nlohmann::json &thisJson : input)
         {
             std::string pathString =
                 "IPv4Addresses/" + std::to_string(entryIdx);
-            // Check that entry is not of some unexpected type
-            if (!thisJson.is_object() && !thisJson.is_null())
-            {
-                messages::propertyValueTypeError(asyncResp->res,
-                                                 thisJson.dump(),
-                                                 pathString + "/IPv4Address");
 
-                continue;
+            boost::optional<std::string> address;
+            boost::optional<std::string> addressOrigin;
+            boost::optional<std::string> subnetMask;
+            boost::optional<std::string> gateway;
+
+            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
+                                     address, "AddressOrigin", addressOrigin,
+                                     "SubnetMask", subnetMask, "Gateway",
+                                     gateway))
+            {
+                return;
             }
 
-            nlohmann::json::const_iterator addressFieldIt =
-                thisJson.find("Address");
-            const std::string *addressField = nullptr;
-            if (addressFieldIt != thisJson.end())
+            if (address)
             {
-                addressField = addressFieldIt->get_ptr<const std::string *>();
-                if (addressField == nullptr)
+                if (!ipv4VerifyIpAndGetBitcount(*address))
                 {
-                    messages::propertyValueFormatError(asyncResp->res,
-                                                       addressFieldIt->dump(),
+                    messages::propertyValueFormatError(asyncResp->res, *address,
                                                        pathString + "/Address");
-                    continue;
-                }
-                else
-                {
-                    if (!ipv4VerifyIpAndGetBitcount(*addressField))
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, *addressField,
-                            pathString + "/Address");
-                        continue;
-                    }
+                    return;
                 }
             }
 
-            boost::optional<uint8_t> prefixLength;
-            const std::string *subnetField = nullptr;
-            nlohmann::json::const_iterator subnetFieldIt =
-                thisJson.find("SubnetMask");
-            if (subnetFieldIt != thisJson.end())
+            uint8_t prefixLength = 0;
+            if (subnetMask)
             {
-                subnetField = subnetFieldIt->get_ptr<const std::string *>();
-                if (subnetField == nullptr)
+                if (!ipv4VerifyIpAndGetBitcount(*subnetMask, &prefixLength))
                 {
                     messages::propertyValueFormatError(
-                        asyncResp->res, *subnetField,
+                        asyncResp->res, *subnetMask,
                         pathString + "/SubnetMask");
-                    continue;
-                }
-                else
-                {
-                    prefixLength = 0;
-                    if (!ipv4VerifyIpAndGetBitcount(*subnetField,
-                                                    &*prefixLength))
-                    {
-                        messages::propertyValueFormatError(
-                            asyncResp->res, *subnetField,
-                            pathString + "/SubnetMask");
-                        continue;
-                    }
+                    return;
                 }
             }
-
             std::string addressOriginInDBusFormat;
-            const std::string *addressOriginField = nullptr;
-            nlohmann::json::const_iterator addressOriginFieldIt =
-                thisJson.find("AddressOrigin");
-            if (addressOriginFieldIt != thisJson.end())
+            if (addressOrigin)
             {
-                const std::string *addressOriginField =
-                    addressOriginFieldIt->get_ptr<const std::string *>();
-                if (addressOriginField == nullptr)
+                // Get Address origin in proper format
+                addressOriginInDBusFormat =
+                    translateAddressOriginRedfishToDbus(*addressOrigin);
+                if (addressOriginInDBusFormat.empty())
                 {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, *addressOriginField,
+                    messages::propertyValueNotInList(
+                        asyncResp->res, *addressOrigin,
                         pathString + "/AddressOrigin");
-                    continue;
-                }
-                else
-                {
-                    // Get Address origin in proper format
-                    addressOriginInDBusFormat =
-                        translateAddressOriginRedfishToDbus(
-                            *addressOriginField);
-                    if (addressOriginInDBusFormat.empty())
-                    {
-                        messages::propertyValueNotInList(
-                            asyncResp->res, *addressOriginField,
-                            pathString + "/AddressOrigin");
-                        continue;
-                    }
+                    return;
                 }
             }
 
-            nlohmann::json::const_iterator gatewayFieldIt =
-                thisJson.find("Gateway");
-            const std::string *gatewayField = nullptr;
-            if (gatewayFieldIt != thisJson.end())
+            if (gateway)
             {
-                const std::string *gatewayField =
-                    gatewayFieldIt->get_ptr<const std::string *>();
-                if (gatewayField == nullptr ||
-                    !ipv4VerifyIpAndGetBitcount(*gatewayField))
+                if (!ipv4VerifyIpAndGetBitcount(*gateway))
                 {
-                    messages::propertyValueFormatError(
-                        asyncResp->res, *gatewayField, pathString + "/Gateway");
-                    continue;
+                    messages::propertyValueFormatError(asyncResp->res, *gateway,
+                                                       pathString + "/Gateway");
+                    return;
                 }
             }
 
@@ -1068,11 +1003,10 @@ class EthernetInterface : public Node
                 else if (thisJson.is_object())
                 {
                     // Apply changes
-                    if (addressField != nullptr)
+                    if (address)
                     {
                         auto callback =
-                            [asyncResp, entryIdx,
-                             addressField{std::string(*addressField)}](
+                            [asyncResp, entryIdx, address = *address](
                                 const boost::system::error_code ec) {
                                 if (ec)
                                 {
@@ -1081,7 +1015,7 @@ class EthernetInterface : public Node
                                 }
                                 asyncResp->res
                                     .jsonValue["IPv4Addresses"][std::to_string(
-                                        entryIdx)]["Address"] = addressField;
+                                        entryIdx)]["Address"] = address;
                             };
 
                         crow::connections::systemBus->async_method_call(
@@ -1090,30 +1024,28 @@ class EthernetInterface : public Node
                                 "/ipv4/" + thisData->id,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Network.IP", "Address",
-                            sdbusplus::message::variant<std::string>(
-                                *addressField));
+                            sdbusplus::message::variant<std::string>(*address));
                     }
 
-                    if (prefixLength && subnetField != nullptr)
+                    if (subnetMask)
                     {
                         changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
-                                                     thisData->id, *subnetField,
-                                                     *prefixLength, asyncResp);
+                                                     thisData->id, *subnetMask,
+                                                     prefixLength, asyncResp);
                     }
 
-                    if (!addressOriginInDBusFormat.empty() &&
-                        addressOriginField != nullptr)
+                    if (addressOrigin)
                     {
                         changeIPv4Origin(ifaceId, entryIdx, thisData->id,
-                                         *addressOriginField,
+                                         *addressOrigin,
                                          addressOriginInDBusFormat, asyncResp);
                     }
 
-                    if (gatewayField != nullptr)
+                    if (gateway)
                     {
                         auto callback =
                             [asyncResp, entryIdx,
-                             gatewayField{std::string(*gatewayField)}](
+                             gateway{std::string(*gateway)}](
                                 const boost::system::error_code ec) {
                                 if (ec)
                                 {
@@ -1123,7 +1055,7 @@ class EthernetInterface : public Node
                                 asyncResp->res
                                     .jsonValue["IPv4Addresses"][std::to_string(
                                         entryIdx)]["Gateway"] =
-                                    std::move(gatewayField);
+                                    std::move(gateway);
                             };
 
                         crow::connections::systemBus->async_method_call(
@@ -1132,8 +1064,7 @@ class EthernetInterface : public Node
                                 "/ipv4/" + thisData->id,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Network.IP", "Gateway",
-                            sdbusplus::message::variant<std::string>(
-                                *gatewayField));
+                            sdbusplus::message::variant<std::string>(*gateway));
                     }
                 }
                 thisData++;
@@ -1141,29 +1072,29 @@ class EthernetInterface : public Node
             else
             {
                 // Create IPv4 with provided data
-                if (gatewayField == nullptr)
+                if (!gateway)
                 {
                     messages::propertyMissing(asyncResp->res,
                                               pathString + "/Gateway");
                     continue;
                 }
 
-                if (addressField == nullptr)
+                if (!address)
                 {
                     messages::propertyMissing(asyncResp->res,
                                               pathString + "/Address");
                     continue;
                 }
 
-                if (!prefixLength)
+                if (!subnetMask)
                 {
                     messages::propertyMissing(asyncResp->res,
                                               pathString + "/SubnetMask");
                     continue;
                 }
 
-                createIPv4(ifaceId, entryIdx, *prefixLength, *gatewayField,
-                           *addressField, asyncResp);
+                createIPv4(ifaceId, entryIdx, prefixLength, *gateway, *address,
+                           asyncResp);
                 asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] = thisJson;
             }
             entryIdx++;
@@ -1272,8 +1203,8 @@ class EthernetInterface : public Node
 
         boost::optional<nlohmann::json> vlan;
         boost::optional<std::string> hostname;
-        boost::optional<nlohmann::json> ipv4Addresses;
-        boost::optional<nlohmann::json> ipv6Addresses;
+        boost::optional<std::vector<nlohmann::json>> ipv4Addresses;
+        boost::optional<std::vector<nlohmann::json>> ipv6Addresses;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
@@ -1342,8 +1273,15 @@ class EthernetInterface : public Node
 
                 if (ipv4Addresses)
                 {
-                    handleIPv4Patch(iface_id, *ipv4Addresses, ipv4Data,
-                                    asyncResp);
+                    // TODO(ed) for some reason the capture of ipv4Addresses
+                    // above is returning a const value, not a non-const value.
+                    // This doesn't really work for us, as we need to be able to
+                    // efficiently move out the intermedia nlohmann::json
+                    // objects. This makes a copy of the structure, and operates
+                    // on that, but could be done more efficiently
+                    std::vector<nlohmann::json> ipv4 =
+                        std::move(*ipv4Addresses);
+                    handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
                 }
 
                 if (ipv6Addresses)
