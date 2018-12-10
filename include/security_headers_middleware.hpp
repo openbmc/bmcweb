@@ -47,7 +47,8 @@ struct SecurityHeadersMiddleware
         res.addHeader(bf::access_control_allow_methods, "GET, "
                                                         "POST, "
                                                         "PUT, "
-                                                        "PATCH");
+                                                        "PATCH, "
+                                                        "DELETE");
         res.addHeader(bf::access_control_allow_credentials, "true");
         res.addHeader(bf::access_control_allow_headers, "Origin, "
                                                         "Content-Type, "
