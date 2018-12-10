@@ -17,10 +17,10 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
-#include <boost/optional.hpp>
 #include <dbus_singleton.hpp>
 #include <error_messages.hpp>
 #include <node.hpp>
+#include <optional>
 #include <utils/json_utils.hpp>
 
 namespace redfish
@@ -80,7 +80,7 @@ struct EthernetInterfaceData
     std::string hostname;
     std::string default_gateway;
     std::string mac_address;
-    boost::optional<uint32_t> vlan_id;
+    std::optional<uint32_t> vlan_id;
 };
 
 // Helper function that changes bits netmask notation (i.e. /24)
@@ -1028,7 +1028,7 @@ class EthernetInterface : public Node
                 }
             }
 
-            boost::optional<uint8_t> prefixLength;
+            std::optional<uint8_t> prefixLength;
             const std::string *subnetField = nullptr;
             nlohmann::json::const_iterator subnetFieldIt =
                 thisJson.find("SubnetMask");

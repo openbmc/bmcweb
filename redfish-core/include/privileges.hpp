@@ -17,7 +17,6 @@
 
 #include <bitset>
 #include <boost/container/flat_map.hpp>
-#include <boost/optional.hpp>
 #include <cstdint>
 #include <vector>
 

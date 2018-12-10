@@ -48,7 +48,7 @@ template <typename Type> struct is_optional : std::false_type
 };
 
 template <typename Type>
-struct is_optional<boost::optional<Type>> : std::true_type
+struct is_optional<std::optional<Type>> : std::true_type
 {
 };
 
