@@ -39,6 +39,7 @@ struct SecurityHeadersMiddleware
         res.addHeader("X-Content-Security-Policy", "default-src 'self'");
         res.addHeader("X-XSS-Protection", "1; "
                                           "mode=block");
+        res.addHeader("X-Content-Type-Options", "nosniff");
         res.addHeader("X-UA-Compatible", "IE=11");
 
 #ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
