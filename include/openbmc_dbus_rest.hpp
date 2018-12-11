@@ -417,6 +417,7 @@ struct InProgressActionData
     crow::Response &res;
     std::string path;
     std::string methodName;
+    std::string interfaceName;
     nlohmann::json arguments;
 };
 
@@ -783,6 +784,14 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                         interfaceNode->Attribute("name");
                     if (thisInterfaceName != nullptr)
                     {
+                        if (!transaction->interfaceName.empty() &&
+                            (transaction->interfaceName != thisInterfaceName))
+                        {
+                            interfaceNode =
+                                interfaceNode->NextSiblingElement("interface");
+                            continue;
+                        }
+
                         tinyxml2::XMLElement *methodNode =
                             interfaceNode->FirstChildElement("method");
                         while (methodNode != nullptr)
@@ -937,6 +946,42 @@ void handleAction(const crow::Request &req, crow::Response &res,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetObject", objectPath,
         std::array<std::string, 0>());
+}
+
+void handleDelete(const crow::Request &req, crow::Response &res,
+                  const std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "handleDelete on path: " << objectPath;
+
+    crow::connections::systemBus->async_method_call(
+        [&res, objectPath](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<std::string, std::vector<std::string>>>
+                &interfaceNames) {
+            if (ec || interfaceNames.size() <= 0)
+            {
+                BMCWEB_LOG_ERROR << "Can't find object";
+                setErrorResponse(res, boost::beast::http::status::not_found,
+                                 notFoundDesc, notFoundMsg);
+                res.end();
+                return;
+            }
+
+            auto transaction = std::make_shared<InProgressActionData>(res);
+            transaction->path = objectPath;
+            transaction->methodName = "Delete";
+            transaction->interfaceName = "xyz.openbmc_project.Object.Delete";
+
+            for (const std::pair<std::string, std::vector<std::string>>
+                     &object : interfaceNames)
+            {
+                findActionOnInterface(transaction, object.first);
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", objectPath,
+        std::array<const char *, 0>());
 }
 
 void handleList(crow::Response &res, const std::string &objectPath,
@@ -1393,6 +1438,11 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
         handlePut(req, res, objectPath, destProperty);
         return;
     }
+    else if (req.method() == "DELETE"_method)
+    {
+        handleDelete(req, res, objectPath);
+        return;
+    }
 
     setErrorResponse(res, boost::beast::http::status::method_not_allowed,
                      methodNotAllowedDesc, methodNotAllowedMsg);
@@ -1444,7 +1494,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
-        .methods("GET"_method, "PUT"_method, "POST"_method)(
+        .methods("GET"_method, "PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
                 std::string objectPath = "/xyz/" + path;
@@ -1452,7 +1502,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
 
     BMCWEB_ROUTE(app, "/org/<path>")
-        .methods("GET"_method, "PUT"_method, "POST"_method)(
+        .methods("GET"_method, "PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
                 std::string objectPath = "/org/" + path;
