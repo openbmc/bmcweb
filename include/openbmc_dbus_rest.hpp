@@ -37,6 +37,7 @@ using GetSubTreeType = std::vector<
 const std::string notFoundMsg = "404 Not Found";
 const std::string badReqMsg = "400 Bad Request";
 const std::string methodNotAllowedMsg = "405 Method Not Allowed";
+const std::string forbiddenMsg = "403 Forbidden";
 
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
@@ -44,6 +45,9 @@ const std::string propNotFoundDesc = "The specified property cannot be found";
 const std::string noJsonDesc = "No JSON object could be decoded";
 const std::string methodNotFoundDesc = "The specified method cannot be found";
 const std::string methodNotAllowedDesc = "Method not allowed";
+const std::string forbiddenPropDesc =
+    "The specified property cannot be created";
+const std::string forbiddenResDesc = "The specified resource cannot be created";
 
 void setErrorResponse(crow::Response &res, boost::beast::http::status result,
                       const std::string &desc, const std::string &msg)
@@ -1113,36 +1117,22 @@ struct AsyncPutRequest
 {
     AsyncPutRequest(crow::Response &res) : res(res)
     {
-        res.jsonValue = {
-            {"status", "ok"}, {"message", "200 OK"}, {"data", nullptr}};
     }
     ~AsyncPutRequest()
     {
-        if (res.result() == boost::beast::http::status::internal_server_error)
-        {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            res.jsonValue = nlohmann::json::object();
-        }
-
         if (res.jsonValue.empty())
         {
-            res.result(boost::beast::http::status::forbidden);
-            res.jsonValue = {
-                {"status", "error"},
-                {"message", "403 Forbidden"},
-                {"data",
-                 {{"message", "The specified property cannot be created: " +
-                                  propertyName}}}};
+            setErrorResponse(res, boost::beast::http::status::forbidden,
+                             forbiddenMsg, forbiddenPropDesc);
         }
 
         res.end();
     }
 
-    void setErrorStatus()
+    void setErrorStatus(const std::string &desc)
     {
-        res.result(boost::beast::http::status::internal_server_error);
+        setErrorResponse(res, boost::beast::http::status::internal_server_error,
+                         desc, badReqMsg);
     }
 
     crow::Response &res;
@@ -1154,12 +1144,21 @@ struct AsyncPutRequest
 void handlePut(const crow::Request &req, crow::Response &res,
                const std::string &objectPath, const std::string &destProperty)
 {
+    if (destProperty.empty())
+    {
+        setErrorResponse(res, boost::beast::http::status::forbidden,
+                         forbiddenResDesc, forbiddenMsg);
+        res.end();
+        return;
+    }
+
     nlohmann::json requestDbusData =
         nlohmann::json::parse(req.body, nullptr, false);
 
     if (requestDbusData.is_discarded())
     {
-        res.result(boost::beast::http::status::bad_request);
+        setErrorResponse(res, boost::beast::http::status::bad_request,
+                         noJsonDesc, badReqMsg);
         res.end();
         return;
     }
@@ -1167,7 +1166,8 @@ void handlePut(const crow::Request &req, crow::Response &res,
     nlohmann::json::const_iterator propertyIt = requestDbusData.find("data");
     if (propertyIt == requestDbusData.end())
     {
-        res.result(boost::beast::http::status::bad_request);
+        setErrorResponse(res, boost::beast::http::status::bad_request,
+                         noJsonDesc, badReqMsg);
         res.end();
         return;
     }
@@ -1185,7 +1185,9 @@ void handlePut(const crow::Request &req, crow::Response &res,
                       const GetObjectType &object_names) {
             if (!ec && object_names.size() <= 0)
             {
-                transaction->res.result(boost::beast::http::status::not_found);
+                setErrorResponse(transaction->res,
+                                 boost::beast::http::status::not_found,
+                                 propNotFoundDesc, notFoundMsg);
                 return;
             }
 
@@ -1204,7 +1206,7 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                 << "Introspect call failed with error: "
                                 << ec.message()
                                 << " on process: " << connectionName;
-                            transaction->setErrorStatus();
+                            transaction->setErrorStatus("Unexpected Error");
                             return;
                         }
                         tinyxml2::XMLDocument doc;
@@ -1216,7 +1218,7 @@ void handlePut(const crow::Request &req, crow::Response &res,
                         {
                             BMCWEB_LOG_ERROR << "XML document failed to parse: "
                                              << introspectXml;
-                            transaction->setErrorStatus();
+                            transaction->setErrorStatus("Unexpected Error");
                             return;
                         }
                         tinyxml2::XMLElement *ifaceNode =
@@ -1257,7 +1259,8 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                             argType);
                                         if (r < 0)
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Unexpected Error");
                                             return;
                                         }
                                         r = convertJsonToDbus(
@@ -1265,14 +1268,16 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                             transaction->propertyValue);
                                         if (r < 0)
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Invalid arg type");
                                             return;
                                         }
                                         r = sd_bus_message_close_container(
                                             m.get());
                                         if (r < 0)
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Unexpected Error");
                                             return;
                                         }
 
@@ -1287,14 +1292,22 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                                     BMCWEB_LOG_DEBUG << "sent";
                                                     if (ec)
                                                     {
+                                                        setErrorResponse(
+                                                            transaction->res,
+                                                            boost::beast::http::
+                                                                status::
+                                                                    forbidden,
+                                                            forbiddenPropDesc,
+                                                            ec.message());
+                                                    }
+                                                    else
+                                                    {
                                                         transaction->res
-                                                            .jsonValue
-                                                                ["status"] =
-                                                            "error";
-                                                        transaction->res
-                                                            .jsonValue
-                                                                ["message"] =
-                                                            ec.message();
+                                                            .jsonValue = {
+                                                            {"status", "ok"},
+                                                            {"message",
+                                                             "200 OK"},
+                                                            {"data", nullptr}};
                                                     }
                                                 });
                                     }
