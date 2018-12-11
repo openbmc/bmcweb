@@ -29,10 +29,10 @@ template <typename... Middlewares> class Crow
     using self_t = Crow;
 
 #ifdef BMCWEB_ENABLE_SSL
-    using ssl_socket_t = SocketAdaptor;
+    using ssl_socket_t = SSLAdaptor;
     using ssl_server_t = Server<Crow, ssl_socket_t, Middlewares...>;
 #else
-    using socket_t = SSLAdaptor;
+    using socket_t = SocketAdaptor;
     using server_t = Server<Crow, socket_t, Middlewares...>;
 
 #endif
