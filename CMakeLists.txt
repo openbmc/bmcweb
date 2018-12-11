@@ -10,6 +10,8 @@ option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
 
 option (BMCWEB_ENABLE_KVM "Enable the KVM host video WebSocket.  Path is
        '/kvmws'.  Video is from the BMC's '/dev/video' device." ON)
+option (BMCWEB_ENABLE_VM_WEBSOCKET "Enable the Virtual Media WebSocket. Path is
+        '/vmws'. See https://github.com/openbmc/jsnbd/blob/master/README." ON)
 option (BMCWEB_ENABLE_DBUS_REST "Enable Phosphor REST (D-Bus) APIs.  Paths
        directly map Phosphor D-Bus object paths, for example,
        '/xyz/openbmc_project/logging/entry/enumerate'.  See
@@ -254,6 +256,7 @@ target_link_libraries (getvideo pthread)
 target_compile_definitions (
     bmcweb PRIVATE
     $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
+    $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
     $<$<BOOL:${BMCWEB_ENABLE_STATIC_HOSTING}>: -DBMCWEB_ENABLE_STATIC_HOSTING>
