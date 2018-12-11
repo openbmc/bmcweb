@@ -36,12 +36,14 @@ using GetSubTreeType = std::vector<
 
 const std::string notFoundMsg = "404 Not Found";
 const std::string badReqMsg = "400 Bad Request";
+const std::string methodNotAllowedMsg = "405 Method Not Allowed";
 
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
 const std::string propNotFoundDesc = "The specified property cannot be found";
 const std::string noJsonDesc = "No JSON object could be decoded";
 const std::string methodNotFoundDesc = "The specified method cannot be found";
+const std::string methodNotAllowedDesc = "Method not allowed";
 
 void setErrorResponse(crow::Response &res, boost::beast::http::status result,
                       const std::string &desc, const std::string &msg)
@@ -1379,7 +1381,8 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
         return;
     }
 
-    res.result(boost::beast::http::status::method_not_allowed);
+    setErrorResponse(res, boost::beast::http::status::method_not_allowed,
+                     methodNotAllowedDesc, methodNotAllowedMsg);
     res.end();
 }
 
