@@ -35,9 +35,13 @@ using GetSubTreeType = std::vector<
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
 const std::string notFoundMsg = "404 Not Found";
+const std::string badReqMsg = "400 Bad Request";
+
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
 const std::string propNotFoundDesc = "The specified property cannot be found";
+const std::string noJsonDesc = "No JSON object could be decoded";
+const std::string methodNotFoundDesc = "The specified method cannot be found";
 
 void setErrorResponse(crow::Response &res, boost::beast::http::status result,
                       const std::string &desc, const std::string &msg)
@@ -390,19 +394,19 @@ struct InProgressActionData
     InProgressActionData(crow::Response &res) : res(res){};
     ~InProgressActionData()
     {
-        if (res.result() == boost::beast::http::status::internal_server_error)
+        // If still no JSON filled in, then we never found the method.
+        if (res.jsonValue.is_null())
         {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            res.jsonValue = nlohmann::json::object();
+            setErrorResponse(res, boost::beast::http::status::not_found,
+                             methodNotFoundDesc, notFoundMsg);
         }
         res.end();
     }
 
-    void setErrorStatus()
+    void setErrorStatus(const std::string &desc)
     {
-        res.result(boost::beast::http::status::internal_server_error);
+        setErrorResponse(res, boost::beast::http::status::internal_server_error,
+                         desc, badReqMsg);
     }
     crow::Response &res;
     std::string path;
@@ -815,14 +819,16 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         if (argIt ==
                                             transaction->arguments.end())
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Invalid method args");
                                             return;
                                         }
                                         if (convertJsonToDbus(
                                                 m.get(), std::string(argType),
                                                 *argIt) < 0)
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Invalid method arg type");
                                             return;
                                         }
 
@@ -838,7 +844,8 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                            sdbusplus::message::message &m) {
                                         if (ec)
                                         {
-                                            transaction->setErrorStatus();
+                                            transaction->setErrorStatus(
+                                                "Method call failed");
                                             return;
                                         }
                                         transaction->res.jsonValue = {
@@ -871,21 +878,24 @@ void handleAction(const crow::Request &req, crow::Response &res,
 
     if (requestDbusData.is_discarded())
     {
-        res.result(boost::beast::http::status::bad_request);
+        setErrorResponse(res, boost::beast::http::status::bad_request,
+                         noJsonDesc, badReqMsg);
         res.end();
         return;
     }
     nlohmann::json::iterator data = requestDbusData.find("data");
     if (data == requestDbusData.end())
     {
-        res.result(boost::beast::http::status::bad_request);
+        setErrorResponse(res, boost::beast::http::status::bad_request,
+                         noJsonDesc, badReqMsg);
         res.end();
         return;
     }
 
     if (!data->is_array())
     {
-        res.result(boost::beast::http::status::bad_request);
+        setErrorResponse(res, boost::beast::http::status::bad_request,
+                         noJsonDesc, badReqMsg);
         res.end();
         return;
     }
@@ -902,7 +912,9 @@ void handleAction(const crow::Request &req, crow::Response &res,
             if (ec || interfaceNames.size() <= 0)
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
-                transaction->setErrorStatus();
+                setErrorResponse(transaction->res,
+                                 boost::beast::http::status::not_found,
+                                 notFoundDesc, notFoundMsg);
                 return;
             }
 
