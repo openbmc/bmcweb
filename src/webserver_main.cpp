@@ -18,6 +18,7 @@
 #include <ssl_key_handler.hpp>
 #include <string>
 #include <token_authorization_middleware.hpp>
+#include <vm_websocket.hpp>
 #include <web_kvm.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
@@ -92,6 +93,10 @@ int main(int argc, char** argv)
 
 #ifdef BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
     crow::obmc_console::requestRoutes(app);
+#endif
+
+#ifdef BMCWEB_ENABLE_VM_WEBSOCKET
+    crow::obmc_vm::requestRoutes(app);
 #endif
 
     crow::token_authorization::requestRoutes(app);
