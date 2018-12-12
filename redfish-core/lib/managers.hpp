@@ -475,6 +475,47 @@ enum class CreatePIDRet
     patch
 };
 
+static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
+                                const nlohmann::json& config,
+                                std::vector<std::string>& zones)
+{
+    if (!config.is_object())
+    {
+        BMCWEB_LOG_ERROR << "Illegal Type Zones";
+        messages::propertyValueFormatError(response->res, config.dump(),
+                                           "Zones");
+        return false;
+    }
+
+    for (const auto& odata : config.items())
+    {
+        for (const auto& value : odata.value().items())
+        {
+            const std::string* path =
+                value.value().get_ptr<const std::string*>();
+            if (path == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal Type Zones";
+                messages::propertyValueFormatError(response->res, config.dump(),
+                                                   "Zones");
+                return false;
+            }
+            std::string input;
+            if (!dbus::utility::getNthStringFromPath(*path, 4, input))
+            {
+                BMCWEB_LOG_ERROR << "Got invalid path " << *path;
+                BMCWEB_LOG_ERROR << "Illegal Type Zones";
+                messages::propertyValueFormatError(response->res, config.dump(),
+                                                   "Zones");
+                return false;
+            }
+            boost::replace_all(input, "_", " ");
+            zones.emplace_back(std::move(input));
+        }
+    }
+    return true;
+}
+
 static CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
     const nlohmann::json& record, const std::string& path,
@@ -484,6 +525,42 @@ static CreatePIDRet createPidInterface(
     std::string& chassis)
 {
 
+    // common deleter
+    if (record == nullptr)
+    {
+        std::string iface;
+        if (type == "PidControllers" || type == "FanControllers")
+        {
+            iface = pidConfigurationIface;
+        }
+        else if (type == "FanZones")
+        {
+            iface = pidZoneConfigurationIface;
+        }
+        else if (type == "StepwiseControllers")
+        {
+            iface = stepwiseConfigurationIface;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                             << type;
+            messages::propertyUnknown(response->res, type);
+            return CreatePIDRet::fail;
+        }
+        // delete interface
+        crow::connections::systemBus->async_method_call(
+            [response, path](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error patching " << path << ": " << ec;
+                    messages::internalError(response->res);
+                }
+            },
+            "xyz.openbmc_project.EntityManager", path, iface, "Delete");
+        return CreatePIDRet::del;
+    }
+
     if (type == "PidControllers" || type == "FanControllers")
     {
         if (createNewObject)
@@ -492,71 +569,24 @@ static CreatePIDRet createPidInterface(
                                                        : std::string("fan");
             output["Type"] = std::string("Pid");
         }
-        else if (record == nullptr)
-        {
-            // delete interface
-            crow::connections::systemBus->async_method_call(
-                [response,
-                 path{std::string(path)}](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "Error patching " << path << ": "
-                                         << ec;
-                        messages::internalError(response->res);
-                    }
-                },
-                "xyz.openbmc_project.EntityManager", path,
-                pidConfigurationIface, "Delete");
-            return CreatePIDRet::del;
-        }
 
         for (auto& field : record.items())
         {
             if (field.key() == "Zones")
             {
-                if (!field.value().is_array())
+                std::vector<std::string> zones;
+                if (!getZonesFromJsonReq(response, field.value(), zones))
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::propertyValueFormatError(
-                        response->res, field.value(), field.key());
                     return CreatePIDRet::fail;
                 }
-                std::vector<std::string> inputs;
-                for (const auto& odata : field.value().items())
-                {
-                    for (const auto& value : odata.value().items())
-                    {
-                        const std::string* path =
-                            value.value().get_ptr<const std::string*>();
-                        if (path == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                            messages::propertyValueFormatError(
-                                response->res, field.value().dump(),
-                                field.key());
-                            return CreatePIDRet::fail;
-                        }
-                        std::string input;
-                        if (!dbus::utility::getNthStringFromPath(*path, 4,
-                                                                 input))
-                        {
-                            BMCWEB_LOG_ERROR << "Got invalid path " << *path;
-                            messages::propertyValueFormatError(
-                                response->res, field.value().dump(),
-                                field.key());
-                            return CreatePIDRet::fail;
-                        }
-                        boost::replace_all(input, "_", " ");
-                        inputs.emplace_back(std::move(input));
-                    }
-                }
-                output["Zones"] = std::move(inputs);
+                output["Zones"] = std::move(zones);
             }
             else if (field.key() == "Inputs" || field.key() == "Outputs")
             {
                 if (!field.value().is_array())
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
                     messages::propertyValueFormatError(
                         response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
@@ -569,7 +599,8 @@ static CreatePIDRet createPidInterface(
 
                     if (sensor == nullptr)
                     {
-                        BMCWEB_LOG_ERROR << "Illegal Type "
+                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                         << ", Illegal Type "
                                          << field.value().dump();
                         messages::propertyValueFormatError(
                             response->res, field.value().dump(), field.key());
@@ -613,7 +644,8 @@ static CreatePIDRet createPidInterface(
                 const double* ptr = field.value().get_ptr<const double*>();
                 if (ptr == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
                     messages::propertyValueFormatError(
                         response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
@@ -623,7 +655,8 @@ static CreatePIDRet createPidInterface(
 
             else
             {
-                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                 << field.key();
                 messages::propertyUnknown(response->res, field.key());
                 return CreatePIDRet::fail;
             }
@@ -631,23 +664,6 @@ static CreatePIDRet createPidInterface(
     }
     else if (type == "FanZones")
     {
-        if (!createNewObject && record == nullptr)
-        {
-            // delete interface
-            crow::connections::systemBus->async_method_call(
-                [response,
-                 path{std::string(path)}](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "Error patching " << path << ": "
-                                         << ec;
-                        messages::internalError(response->res);
-                    }
-                },
-                "xyz.openbmc_project.EntityManager", path,
-                pidZoneConfigurationIface, "Delete");
-            return CreatePIDRet::del;
-        }
         output["Type"] = std::string("Pid.Zone");
 
         for (auto& field : record.items())
@@ -659,7 +675,8 @@ static CreatePIDRet createPidInterface(
                 {
                     if (id.key() != "@odata.id")
                     {
-                        BMCWEB_LOG_ERROR << "Illegal Type " << id.key();
+                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                         << ", Illegal Type " << id.key();
                         messages::propertyUnknown(response->res, field.key());
                         return CreatePIDRet::fail;
                     }
@@ -687,7 +704,8 @@ static CreatePIDRet createPidInterface(
                 const double* ptr = field.value().get_ptr<const double*>();
                 if (ptr == nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
                     messages::propertyValueFormatError(
                         response->res, field.value().dump(), field.key());
                     return CreatePIDRet::fail;
@@ -696,7 +714,112 @@ static CreatePIDRet createPidInterface(
             }
             else
             {
-                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
+                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                 << field.key();
+                messages::propertyUnknown(response->res, field.key());
+                return CreatePIDRet::fail;
+            }
+        }
+    }
+    else if (type == "StepwiseControllers")
+    {
+        output["Type"] = std::string("Stepwise");
+        for (auto& field : record.items())
+        {
+            if (field.key() == "Zones")
+            {
+                std::vector<std::string> zones;
+                if (!getZonesFromJsonReq(response, field.value(), zones))
+                {
+                    return CreatePIDRet::fail;
+                }
+                output["Zones"] = std::move(zones);
+            }
+            else if (field.key() == "Steps")
+            {
+                if (!field.value().is_object())
+                {
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
+                    return CreatePIDRet::fail;
+                }
+                std::vector<double> readings;
+                std::vector<double> outputs;
+                for (const auto& steps : field.value().items())
+                {
+                    double key = std::strtod(steps.key().c_str(), NULL);
+
+                    // on fail stdtod returns 0.0, do a check to make sure the
+                    // string starts with 0 to be sure
+                    if (!key && !boost::starts_with(field.key(), "0"))
+                    {
+                        BMCWEB_LOG_ERROR << "Illegal Key " << field.key();
+                        messages::propertyUnknown(response->res, field.key());
+                        return CreatePIDRet::fail;
+                    }
+                    const double* value =
+                        steps.value().get_ptr<const double*>();
+                    if (value == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                         << ", Illegal Type " << field.key();
+                        messages::propertyValueFormatError(
+                            response->res, field.value().dump(), field.key());
+                        return CreatePIDRet::fail;
+                    }
+                    readings.emplace_back(key);
+                    outputs.emplace_back(*value);
+                }
+                output["Reading"] = std::move(readings);
+                output["Output"] = std::move(outputs);
+            }
+            else if (field.key() == "Inputs")
+            {
+                if (!field.value().is_array())
+                {
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
+                    return CreatePIDRet::fail;
+                }
+                std::vector<std::string> value;
+                for (const auto& str : field.value())
+                {
+                    const std::string* ptr = str.get_ptr<const std::string*>();
+                    if (str == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                         << ", Illegal Type " << field.key();
+                        messages::propertyValueFormatError(
+                            response->res, field.value().dump(), field.key());
+                        return CreatePIDRet::fail;
+                    }
+                    value.emplace_back(*ptr);
+                }
+                output["Inputs"] = std::move(value);
+            }
+            else if (field.key() == "NegativeHysteresis" ||
+                     field.key() == "PositiveHysteresis")
+            {
+                const double* ptr = field.value().get_ptr<const double*>();
+                if (ptr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                     << field.key();
+                    messages::propertyValueFormatError(
+                        response->res, field.value().dump(), field.key());
+                    return CreatePIDRet::fail;
+                }
+                output[field.key()] = *ptr;
+            }
+
+            else
+            {
+                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type "
+                                 << field.key();
                 messages::propertyUnknown(response->res, field.key());
                 return CreatePIDRet::fail;
             }
@@ -704,7 +827,7 @@ static CreatePIDRet createPidInterface(
     }
     else
     {
-        BMCWEB_LOG_ERROR << "Illegal Type " << type;
+        BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Type " << type;
         messages::propertyUnknown(response->res, type);
         return CreatePIDRet::fail;
     }
@@ -905,7 +1028,8 @@ class Manager : public Node
                 {
                     if (!type.value().is_object())
                     {
-                        BMCWEB_LOG_ERROR << "Illegal Type " << type.key();
+                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
+                                         << ", Illegal Type " << type.key();
                         messages::propertyValueFormatError(
                             response->res, type.value(), type.key());
                         return;
@@ -928,9 +1052,11 @@ class Manager : public Node
                         // determines if we're patching entity-manager or
                         // creating a new object
                         bool createNewObject = (pathItr == managedObj.end());
+                        std::string iface;
                         if (type.key() == "PidControllers" ||
                             type.key() == "FanControllers")
                         {
+                            iface = pidConfigurationIface;
                             if (!createNewObject &&
                                 pathItr->second.find(pidConfigurationIface) ==
                                     pathItr->second.end())
@@ -938,12 +1064,28 @@ class Manager : public Node
                                 createNewObject = true;
                             }
                         }
-                        else if (!createNewObject &&
-                                 pathItr->second.find(
-                                     pidZoneConfigurationIface) ==
-                                     pathItr->second.end())
+                        else if (type.key() == "FanZones")
                         {
-                            createNewObject = true;
+                            iface = pidZoneConfigurationIface;
+                            if (!createNewObject &&
+                                pathItr->second.find(
+                                    pidZoneConfigurationIface) ==
+                                    pathItr->second.end())
+                            {
+
+                                createNewObject = true;
+                            }
+                        }
+                        else if (type.key() == "StepwiseControllers")
+                        {
+                            iface = stepwiseConfigurationIface;
+                            if (!createNewObject &&
+                                pathItr->second.find(
+                                    stepwiseConfigurationIface) ==
+                                    pathItr->second.end())
+                            {
+                                createNewObject = true;
+                            }
                         }
                         output["Name"] =
                             boost::replace_all_copy(name, "_", " ");
@@ -966,10 +1108,6 @@ class Manager : public Node
                         {
                             for (const auto& property : output)
                             {
-                                const char* iface =
-                                    type.key() == "FanZones"
-                                        ? pidZoneConfigurationIface
-                                        : pidConfigurationIface;
                                 crow::connections::systemBus->async_method_call(
                                     [response,
                                      propertyName{std::string(property.first)}](
@@ -986,8 +1124,7 @@ class Manager : public Node
                                     "xyz.openbmc_project.EntityManager",
                                     pathItr->first.str,
                                     "org.freedesktop.DBus.Properties", "Set",
-                                    std::string(iface), property.first,
-                                    property.second);
+                                    iface, property.first, property.second);
                             }
                         }
                         else
