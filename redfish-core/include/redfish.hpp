@@ -29,6 +29,7 @@
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
+#include "../lib/bios.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -103,6 +104,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+        nodes.emplace_back(std::make_unique<Bios>(app));
     }
 
   private:
