@@ -23,6 +23,15 @@
 namespace redfish
 {
 
+struct LDAPConfigData
+{
+    std::string uri;
+    std::string bindDN;
+    std::string baseDN;
+    std::string searchScope;
+    std::string serverType;
+};
+
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
@@ -71,6 +80,113 @@ inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
     return "";
 }
 
+using GetAllPropertiesType =
+    boost::container::flat_map<std::string,
+                               sdbusplus::message::variant<std::string>>;
+
+void parseLDAPConfigData(nlohmann::json& json_response,
+                         const LDAPConfigData& confData)
+{
+    std::string serverType;
+    std::string service;
+    if (confData.serverType ==
+        "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory")
+    {
+        serverType = "ActiveDirectory";
+        service = "ActivceDirectoryService";
+    }
+    else if (confData.serverType ==
+             "xyz.openbmc_project.User.Ldap.Config.Type.OpenLDAP")
+    {
+        serverType = "LDAP";
+        service = "LDAPService";
+    }
+
+    auto serverTypeJson = json_response[serverType];
+    serverTypeJson["AccountProviderType"] = service;
+    serverTypeJson["ServiceEnabled"] = "true";
+
+    nlohmann::json& uri_array = serverTypeJson["ServiceAddress"];
+    uri_array = nlohmann::json::array();
+    uri_array.push_back(confData.uri);
+
+    serverTypeJson["Authentication"]["AuthenticationType"] =
+        "UsernameAndPassword";
+    serverTypeJson["Authentication"]["Username"] = confData.bindDN;
+    serverTypeJson["Authentication"]["Password"] = nullptr;
+
+    nlohmann::json& base_array =
+        serverTypeJson[service]["SearchSettings"]["BaseDistinguishedNames"];
+    base_array = nlohmann::json::array();
+    base_array.push_back(confData.baseDN);
+
+    serverTypeJson[service]["SearchSettings"]["UsernameAttribute"] = nullptr;
+    serverTypeJson[service]["SearchSettings"]["GroupsAttribute"] = nullptr;
+}
+
+/**
+ * Function that retrieves all properties for LDAP config object
+ * into JSON
+ */
+inline void getLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp)
+{
+    auto getConfig = [asyncResp](const boost::system::error_code error_code,
+                                 const GetAllPropertiesType& dbus_data) {
+        LDAPConfigData confData{};
+        if (error_code)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus responses error: " << error_code;
+            return;
+        }
+        for (const auto& property : dbus_data)
+        {
+            auto value = sdbusplus::message::variant_ns::get_if<std::string>(
+                &property.second);
+            if (property.first == "LDAPServerURI")
+            {
+                if (value != nullptr)
+                {
+                    confData.uri = *value;
+                }
+            }
+            else if (property.first == "LDAPBindDN")
+            {
+                if (value != nullptr)
+                {
+                    confData.bindDN = *value;
+                }
+            }
+            else if (property.first == "LDAPBaseDN")
+            {
+                if (value != nullptr)
+                {
+                    confData.baseDN = *value;
+                }
+            }
+            else if (property.first == "LDAPSearchScope")
+            {
+                if (value != nullptr)
+                {
+                    confData.searchScope = *value;
+                }
+            }
+            else if (property.first == "LDAPType")
+            {
+                if (value != nullptr)
+                {
+                    confData.serverType = *value;
+                }
+            }
+        }
+        parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getConfig), "xyz.openbmc_project.Ldap.Config",
+        "/xyz/openbmc_project/user/ldap/config",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.User.Ldap.Config");
+}
+
 class AccountService : public Node
 {
   public:
@@ -96,7 +212,7 @@ class AccountService : public Node
                                "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_1_0.AccountService"},
+                            "v1_3_1.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
@@ -163,7 +279,10 @@ class AccountService : public Node
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.User.AccountPolicy");
+
+        getLDAPConfigData(asyncResp);
     }
+
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
@@ -211,6 +330,7 @@ class AccountService : public Node
         }
     }
 };
+
 class AccountsCollection : public Node
 {
   public:
