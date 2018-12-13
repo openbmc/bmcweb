@@ -66,6 +66,16 @@ template <typename Type> struct is_vector<std::vector<Type>> : std::true_type
 
 template <typename Type> constexpr bool is_vector_v = is_vector<Type>::value;
 
+template <typename Type> struct is_array : std::is_array<Type>
+{
+};
+template <typename Type, std::size_t size>
+struct is_array<std::array<Type, size>> : std::true_type
+{
+};
+
+template <typename Type> constexpr bool is_array_v = is_array<Type>::value;
+
 template <typename Type>
 void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
@@ -116,6 +126,25 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         }
 
         value = std::move(jsonValue);
+    }
+    else if constexpr (is_array_v<Type>)
+    {
+        if (!jsonValue.is_array())
+        {
+            messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
+            return;
+        }
+        if (jsonValue.size() != value.size())
+        {
+            messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
+            return;
+        }
+        size_t index = 0;
+        for (const auto& val : jsonValue.items())
+        {
+            unpackValue<typename Type::value_type>(val.value(), key, res,
+                                                   value[index++]);
+        }
     }
     else if constexpr (is_vector_v<Type>)
     {
