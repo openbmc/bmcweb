@@ -25,11 +25,37 @@
 namespace redfish
 {
 
+constexpr char ldapConfigObject[] = "/xyz/openbmc_project/user/ldap/config";
+constexpr char ldapRootObject[] = "/xyz/openbmc_project/user/ldap";
+constexpr char ldapDbusService[] = "xyz.openbmc_project.Ldap.Config";
+constexpr char ldapConfigInterface[] = "xyz.openbmc_project.User.Ldap.Config";
+constexpr char ldapCreateInterface[] = "xyz.openbmc_project.User.Ldap.Create";
+constexpr char ldapEnableInterface[] = "xyz.openbmc_project.Object.Enable";
+constexpr char dbusObjManagerIntf[] = "org.freedesktop.DBus.ObjectManager";
+constexpr char propertyInterface[] = "org.freedesktop.DBus.Properties";
+constexpr char mapperBusName[] = "xyz.openbmc_project.ObjectMapper";
+constexpr char mapperObjectPath[] = "/xyz/openbmc_project/object_mapper";
+constexpr char mapperIntf[] = "xyz.openbmc_project.ObjectMapper";
+
+struct LDAPConfigData
+{
+    std::string uri{};
+    std::string bindDN{};
+    std::string baseDN{};
+    std::string searchScope{};
+    std::string serverType{};
+    bool serviceEnabled = false;
+    std::string userNameAttribute{};
+    std::string groupAttribute{};
+};
+
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
         std::string, boost::container::flat_map<
                          std::string, std::variant<bool, std::string>>>>>;
+using GetObjectType =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
 
 inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
 {
@@ -72,6 +98,157 @@ inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
     return "";
 }
 
+void parseLDAPConfigData(nlohmann::json& json_response,
+                         const LDAPConfigData& confData)
+{
+    std::string serverType;
+    std::string service = "LDAPService"; // default value;
+    if (confData.serverType ==
+        "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory")
+    {
+        service = "ActivceDirectoryService";
+    }
+    else if (confData.serverType ==
+             "xyz.openbmc_project.User.Ldap.Config.Type.OpenLdap")
+    {
+        service = "LDAPService";
+    }
+
+    nlohmann::json& serverTypeJson = json_response["LDAP"];
+    serverTypeJson["AccountProviderType"] = service;
+    serverTypeJson["AccountProviderType@Redfish.AllowableValues"] = {
+        "LDAPService"};
+    serverTypeJson["ServiceEnabled"] = confData.serviceEnabled;
+
+    nlohmann::json& serviceAddressJson = serverTypeJson["ServiceAddresses"];
+    nlohmann::json uri_array = nlohmann::json::array();
+    uri_array.push_back(confData.uri);
+    serviceAddressJson = std::move(uri_array);
+
+    nlohmann::json& authJson = serverTypeJson["Authentication"];
+    authJson["AuthenticationType"] = "UsernameAndPassword";
+    authJson["AuthenticationType@Redfish.AllowableValues"] = {
+        "UsernameAndPassword"};
+    authJson["Username"] = confData.bindDN;
+    authJson["Password"] = nullptr;
+
+    nlohmann::json& searchSettingsJson =
+        serverTypeJson[service]["SearchSettings"];
+    nlohmann::json& baseDNJson = searchSettingsJson["BaseDistinguishedNames"];
+    nlohmann::json base_array = nlohmann::json::array();
+    base_array.push_back(confData.baseDN);
+    baseDNJson = std::move(base_array);
+
+    searchSettingsJson["UsernameAttribute"] = confData.userNameAttribute;
+    searchSettingsJson["GroupsAttribute"] = confData.groupAttribute;
+}
+
+/**
+ * Function that retrieves all properties for LDAP config object
+ * into JSON
+ */
+template <typename CallbackFunc>
+inline void getLDAPConfigData(CallbackFunc&& callback)
+{
+    auto getConfig = [callback](const boost::system::error_code error_code,
+                                const ManagedObjectType& ldapObjects) {
+        LDAPConfigData confData{};
+        if (error_code)
+        {
+            callback(false, confData);
+            BMCWEB_LOG_ERROR << "D-Bus responses error: " << error_code;
+            return;
+        }
+        for (const auto& object : ldapObjects)
+        {
+            if (object.first == std::string(ldapConfigObject))
+            {
+                for (const auto& interface : object.second)
+                {
+                    if (interface.first == std::string(ldapEnableInterface) ||
+                        interface.first == std::string(ldapConfigInterface))
+                    {
+                        // rest of the properties are string.
+                        for (const auto& property : interface.second)
+                        {
+                            if (property.first == "Enabled")
+                            {
+                                auto value =
+                                    std::get_if<bool>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                confData.serviceEnabled = *value;
+                            }
+                            else
+                            {
+
+                                auto value =
+                                    std::get_if<std::string>(&property.second);
+                                if (value == nullptr)
+                                {
+                                    continue;
+                                }
+                                if (property.first == "LDAPServerURI")
+                                {
+                                    confData.uri = *value;
+                                }
+                                else if (property.first == "LDAPBindDN")
+                                {
+                                    confData.bindDN = *value;
+                                }
+                                else if (property.first == "LDAPBaseDN")
+                                {
+                                    confData.baseDN = *value;
+                                }
+                                else if (property.first == "LDAPSearchScope")
+                                {
+                                    confData.searchScope = *value;
+                                }
+                                else if (property.first == "LDAPType")
+                                {
+                                    confData.serverType = *value;
+                                }
+                                else if (property.first == "GroupNameAttribute")
+                                {
+                                    confData.groupAttribute = *value;
+                                }
+                                else if (property.first == "UserNameAttribute")
+                                {
+                                    confData.userNameAttribute = *value;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                callback(true, confData);
+                break;
+            }
+        }
+    };
+    auto getServiceName = [callback, getConfig(std::move(getConfig))](
+                              const boost::system::error_code ec,
+                              const GetObjectType& resp) {
+        LDAPConfigData confData{};
+        if (ec || resp.empty())
+        {
+            BMCWEB_LOG_ERROR
+                << "DBUS response error during getting of service name: " << ec;
+            callback(false, confData);
+            return;
+        }
+        std::string service = resp.begin()->first;
+        crow::connections::systemBus->async_method_call(
+            std::move(getConfig), service, ldapRootObject, dbusObjManagerIntf,
+            "GetManagedObjects");
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
+        "GetObject", ldapConfigObject, std::array<std::string, 0>());
+}
+
 class AccountService : public Node
 {
   public:
@@ -97,11 +274,10 @@ class AccountService : public Node
                                "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_1_0.AccountService"},
+                            "v1_3_1.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
-            {"ServiceEnabled", true},
             {"MaxPasswordLength", 31},
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
@@ -159,7 +335,12 @@ class AccountService : public Node
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.User.AccountPolicy");
+
+        getLDAPConfigData([asyncResp](bool success, LDAPConfigData confData) {
+            parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+        });
     }
+
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
@@ -224,6 +405,7 @@ class AccountService : public Node
         }
     }
 };
+
 class AccountsCollection : public Node
 {
   public:
