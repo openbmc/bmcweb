@@ -23,6 +23,15 @@
 namespace redfish
 {
 
+struct LDAPConfigData
+{
+    std::string uri;
+    std::string bindDN;
+    std::string baseDN;
+    std::string searchScope;
+    std::string serverType;
+};
+
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
@@ -71,6 +80,93 @@ inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
     return "";
 }
 
+using GetAllPropertiesType =
+    boost::container::flat_map<std::string,
+                               sdbusplus::message::variant<std::string>>;
+
+/**
+ * Function that retrieves all properties for LDAP config object
+ * @param callback a function that shall be called to convert Dbus output
+ * into JSON
+ */
+
+template <typename CallbackFunc> void getLDAPConfigData(CallbackFunc&& callback)
+{
+    LDAPConfigData confData{};
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](
+            const boost::system::error_code error_code,
+            const GetAllPropertiesType& dbus_data) {
+            LDAPConfigData confData{};
+            if (error_code)
+            {
+                callback(false, confData);
+                return;
+            }
+            for (const auto& property : dbus_data)
+            {
+                if (property.first == "LDAPServerURI")
+                {
+                    confData.uri = property.second.get<std::string>();
+                }
+                else if (property.first == "LDAPBindDN")
+                {
+                    confData.bindDN = property.second.get<std::string>();
+                }
+                else if (property.first == "LDAPBaseDN")
+                {
+                    confData.baseDN = property.second.get<std::string>();
+                }
+                else if (property.first == "LDAPSearchScope")
+                {
+                    confData.searchScope = property.second.get<std::string>();
+                }
+                else if (property.first == "LDAPType")
+                {
+                    confData.serverType = property.second.get<std::string>();
+                }
+            }
+
+            // Finally make a callback with config data
+            callback(true, confData);
+        },
+
+        "xyz.openbmc_project.Ldap.Config",
+        "/xyz/openbmc_project/user/ldap/config",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.User.Ldap.Config");
+}
+
+void parseLDAPConfigData(nlohmann::json& json_response,
+                         const LDAPConfigData& confData)
+{
+    json_response["LDAP"]["AccountProviderType"] = "LDAPService";
+    json_response["LDAP"]["ServiceEnabled"] = "true";
+
+    nlohmann::json& uri_array = json_response["LDAP"]["ServiceAddress"];
+    uri_array = nlohmann::json::array();
+    uri_array.push_back(confData.uri);
+
+    json_response["LDAP"]["Authentication"]["AuthenticationType"] =
+        "UsernameAndPassword";
+    json_response["LDAP"]["Authentication"]["Username"] = confData.bindDN;
+    json_response["LDAP"]["Authentication"]["Password"] = "";
+
+    nlohmann::json& base_array =
+        json_response["LDAP"]["LDAPService"]["SearchSettings"]
+                     ["BaseDistinguishedNames"];
+    base_array = nlohmann::json::array();
+    base_array.push_back(confData.baseDN);
+
+    json_response["LDAP"]["LDAPService"]["SearchSettings"]
+                 ["UsernameAttribute"] = "";
+    json_response["LDAP"]["LDAPService"]["SearchSettings"]["GroupsAttribute"] =
+        "";
+
+    nlohmann::json& role_array = json_response["LDAP"]["RemoteRoleMapping"];
+    role_array = nlohmann::json::array();
+}
+
 class AccountService : public Node
 {
   public:
@@ -90,24 +186,37 @@ class AccountService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.id"] = "/redfish/v1/AccountService";
-        res.jsonValue["@odata.type"] = "#AccountService.v1_1_0.AccountService";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#AccountService.AccountService";
-        res.jsonValue["Id"] = "AccountService";
-        res.jsonValue["Description"] = "BMC User Accounts";
-        res.jsonValue["Name"] = "Account Service";
-        res.jsonValue["ServiceEnabled"] = true;
-        res.jsonValue["MinPasswordLength"] = 1;
-        res.jsonValue["MaxPasswordLength"] = 20;
-        res.jsonValue["Accounts"]["@odata.id"] =
-            "/redfish/v1/AccountService/Accounts";
-        res.jsonValue["Roles"]["@odata.id"] =
-            "/redfish/v1/AccountService/Roles";
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        res.end();
+        getLDAPConfigData([this, asyncResp](const bool& success,
+                                            const LDAPConfigData& confData) {
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["@odata.id"] =
+                "/redfish/v1/AccountService";
+            asyncResp->res.jsonValue["@odata.type"] =
+                "#AccountService.v1_1_0.AccountService";
+            asyncResp->res.jsonValue["@odata.context"] =
+                "/redfish/v1/$metadata#AccountService.AccountService";
+            asyncResp->res.jsonValue["Id"] = "AccountService";
+            asyncResp->res.jsonValue["Description"] = "BMC User Accounts";
+            asyncResp->res.jsonValue["Name"] = "Account Service";
+            asyncResp->res.jsonValue["ServiceEnabled"] = true;
+            asyncResp->res.jsonValue["MinPasswordLength"] = 1;
+            asyncResp->res.jsonValue["MaxPasswordLength"] = 20;
+            asyncResp->res.jsonValue["Accounts"]["@odata.id"] =
+                "/redfish/v1/AccountService/Accounts";
+            asyncResp->res.jsonValue["Roles"]["@odata.id"] =
+                "/redfish/v1/AccountService/Roles";
+
+            parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+        });
     }
 };
+
 class AccountsCollection : public Node
 {
   public:
