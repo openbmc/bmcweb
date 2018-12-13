@@ -41,6 +41,7 @@
                 <Annotation Term="OData.AutoExpand"/>
                 <NavigationProperty Name="FanControllers" Type="OemManager.FanControllers"/>
                 <NavigationProperty Name="PidControllers" Type="OemManager.PidControllers"/>
+                <NavigationProperty Name="StepwiseControllers" Type="OemManager.StepwiseControllers"/>
                 <NavigationProperty Name="FanZones" Type="OemManager.FanZones"/>
             </EntityType>
 
@@ -71,6 +72,22 @@
                             <Annotation Term="OData.AutoExpand"/>
                             <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
                             <PropertyValue Property="Type" String="OemManager.PidController" />
+                        </NavigationProperty>
+                    </Collection>
+                </Annotation>
+            </EntityType>
+
+            <EntityType Name="StepwiseControllers" BaseType="Resource.OemObject" ContainsTarget="true">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OpenBmc StepwiseControllers." />
+                <Annotation Term="OData.LongDescription" String="Container for OpenBmc Stepwise controllers." />
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Annotation Term="OData.AutoExpand"/>
+                    <Collection ContainsTarget="true">
+                        <NavigationProperty>
+                            <Annotation Term="OData.AutoExpand"/>
+                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
+                            <PropertyValue Property="Type" String="OemManager.StepwiseController" />
                         </NavigationProperty>
                     </Collection>
                 </Annotation>
@@ -227,6 +244,44 @@
                     <Annotation Term="OData.AutoExpandReferences"/>
                 </NavigationProperty>
             </ComplexType>
-        </Schema>
+
+            <ComplexType Name="StepwiseController" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false" />
+                <Annotation Term="OData.Description" String="Configuration data for Stepwise Controllers." />
+                <Property Name="Inputs" Type="Collection(Edm.String)">
+                    <Annotation Term="OData.Description" String="Input sensors to the Stepwise controller."/>
+                    <Annotation Term="OData.LongDescription" String="Input sensors to the Stepwise controller."/>
+                </Property>
+                <Property Name="NegativeHysteresis" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Negative Hysteresis for the stepwise controller." />
+                    <Annotation Term="OData.LongDescription" String="Negative Hysteresis for the stepwise controller." />
+                </Property>
+                <Property Name="PositiveHysteresis" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Positive Hysteresis for the stepwise controller." />
+                    <Annotation Term="OData.LongDescription" String="Positive Hysteresis for the stepwise controller." />
+                </Property>
+                <Property Name="Steps" Type="Collection(OemManager.StepwiseSteps)">
+                <Annotation Term="OData.Description" String="Temperature vs RPM steps for the stepwise controller." />
+                    <Annotation Term="OData.LongDescription" String="Temperature vs RPM steps for the stepwise controller." />
+		    <Annotation Term="OData.AutoExpand"/>
+		</Property>
+                <NavigationProperty Name="Zones" Type="Collection(OemManager.FanZone)" ContainsTarget="true">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
+                    <Annotation Term="OData.Description" String="Contains the Zones that this controller contributes to." />
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
+	    </ComplexType>
+
+            <ComplexType Name="StepwiseSteps" BaseType="Resource.OemObject">
+	        <Property Name="Target" Type="Edm.Decimal" Nullable="false">
+                    <Annotation Term="OData.Description" String="Input sensor reading for step."/>
+                    <Annotation Term="OData.LongDescription" String="Input sensor reading for step."/>
+                </Property>
+                <Property Name="Output" Type="Edm.Decimal" Nullable="false">
+		    <Annotation Term="OData.Description" String="Fan speed setting for step."/>
+                    <Annotation Term="OData.LongDescription" String="Fan speed setting for step."/>
+                </Property>
+	    </ComplexType>
+	</Schema>
     </edmx:DataServices>
 </edmx:Edmx>
