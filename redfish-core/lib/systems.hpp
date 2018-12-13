@@ -647,6 +647,9 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+        res.jsonValue["Bios"] = {
+            {"@odata.id", "/redfish/v1/Systems/" + name + "/BIOS"}};
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getLedGroupIdentify(
