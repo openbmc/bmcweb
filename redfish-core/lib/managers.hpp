@@ -695,9 +695,8 @@ class Manager : public Node
         res.jsonValue["Description"] = "Baseboard Management Controller";
         res.jsonValue["PowerState"] = "On";
         res.jsonValue["ManagerType"] = "BMC";
-        res.jsonValue["UUID"] =
-
-            res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        res.jsonValue["UUID"] = uuid;
+        res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
