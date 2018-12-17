@@ -72,8 +72,9 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
 {
     if constexpr (std::is_arithmetic_v<Type>)
     {
-        using NumType =
-            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>;
+        using NumType = std::conditional_t<
+            std::is_floating_point_v<Type>, double,
+            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>>;
 
         NumType* jsonPtr = jsonValue.get_ptr<NumType*>();
         if (jsonPtr == nullptr)
