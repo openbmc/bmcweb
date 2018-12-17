@@ -72,10 +72,18 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
 {
     if constexpr (std::is_arithmetic_v<Type>)
     {
-        using NumType =
-            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>;
+        using NumType = std::conditional_t<
+            std::is_floating_point_v<Type>, double,
+            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>>;
 
         NumType* jsonPtr = jsonValue.get_ptr<NumType*>();
+        if constexpr (std::is_floating_point_v<Type>)
+        {
+            if (jsonPtr == nullptr)
+            {
+                jsonPtr = static_cast<Type*>(jsonValue.get_ptr<int64_t*>());
+            }
+        }
         if (jsonPtr == nullptr)
         {
             BMCWEB_LOG_DEBUG
@@ -91,12 +99,21 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
             messages::propertyValueNotInList(res, jsonValue.dump(), key);
             return;
         }
-        if (*jsonPtr < std::numeric_limits<Type>::min())
+        if (*jsonPtr < std::numeric_limits<Type>::lowest())
         {
             BMCWEB_LOG_DEBUG << "Value for key " << key
                              << " was out of range: " << jsonValue.type_name();
             messages::propertyValueNotInList(res, jsonValue.dump(), key);
             return;
+        }
+        if constexpr (std::is_floating_point_v<Type>)
+        {
+            if (std::isnan(*jsonPtr))
+            {
+                BMCWEB_LOG_DEBUG << "Value for key " << key << " was NAN";
+                messages::propertyValueNotInList(res, jsonValue.dump(), key);
+                return;
+            }
         }
         value = static_cast<Type>(*jsonPtr);
     }
