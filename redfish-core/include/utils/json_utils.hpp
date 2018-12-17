@@ -78,40 +78,90 @@ struct is_std_array<std::array<Type, size>> : std::true_type
 template <typename Type>
 constexpr bool is_std_array_v = is_std_array<Type>::value;
 
+template <typename ToType, typename FromType>
+bool checkRange(const FromType* from, const std::string& key,
+                nlohmann::json& jsonValue, crow::Response& res)
+{
+    if (from == nullptr)
+    {
+        BMCWEB_LOG_DEBUG << "Value for key " << key
+                         << " was incorrect type: " << __PRETTY_FUNCTION__;
+        messages::propertyValueTypeError(res, jsonValue.dump(), key);
+        return false;
+    }
+
+    if (*from > std::numeric_limits<ToType>::max())
+    {
+        BMCWEB_LOG_DEBUG << "Value for key " << key
+                         << " was greater than max: " << __PRETTY_FUNCTION__;
+        messages::propertyValueNotInList(res, jsonValue.dump(), key);
+        return false;
+    }
+    if (*from < std::numeric_limits<ToType>::lowest())
+    {
+        BMCWEB_LOG_DEBUG << "Value for key " << key
+                         << " was less than min: " << __PRETTY_FUNCTION__;
+        messages::propertyValueNotInList(res, jsonValue.dump(), key);
+        return false;
+    }
+    if constexpr (std::is_floating_point_v<ToType>)
+    {
+        if (std::isnan(*from))
+        {
+            BMCWEB_LOG_DEBUG << "Value for key " << key << " was NAN";
+            messages::propertyValueNotInList(res, jsonValue.dump(), key);
+            return false;
+        }
+    }
+
+    return true;
+}
+
 template <typename Type>
 void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
 {
-    if constexpr (std::is_arithmetic_v<Type>)
+    if constexpr (std::is_floating_point_v<Type>)
     {
-        using NumType =
-            std::conditional_t<std::is_signed_v<Type>, int64_t, uint64_t>;
+        double helper = 0;
+        double* jsonPtr = jsonValue.get_ptr<double*>();
 
-        NumType* jsonPtr = jsonValue.get_ptr<NumType*>();
         if (jsonPtr == nullptr)
         {
-            BMCWEB_LOG_DEBUG
-                << "Value for key " << key
-                << " was incorrect type: " << jsonValue.type_name();
-            messages::propertyValueTypeError(res, jsonValue.dump(), key);
-            return;
+            int64_t* intPtr = jsonValue.get_ptr<int64_t*>();
+            if (intPtr != nullptr)
+            {
+                helper = static_cast<double>(*intPtr);
+                jsonPtr = &helper;
+            }
         }
-        if (*jsonPtr > std::numeric_limits<Type>::max())
+        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
         {
-            BMCWEB_LOG_DEBUG << "Value for key " << key
-                             << " was out of range: " << jsonValue.type_name();
-            messages::propertyValueNotInList(res, jsonValue.dump(), key);
-            return;
-        }
-        if (*jsonPtr < std::numeric_limits<Type>::min())
-        {
-            BMCWEB_LOG_DEBUG << "Value for key " << key
-                             << " was out of range: " << jsonValue.type_name();
-            messages::propertyValueNotInList(res, jsonValue.dump(), key);
             return;
         }
         value = static_cast<Type>(*jsonPtr);
     }
+
+    else if constexpr (std::is_signed_v<Type>)
+    {
+        int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
+        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        {
+            return;
+        }
+        value = static_cast<Type>(*jsonPtr);
+    }
+
+    else if constexpr (std::is_unsigned_v<Type>)
+    {
+        uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        {
+            return;
+        }
+        value = static_cast<Type>(*jsonPtr);
+    }
+
     else if constexpr (is_optional_v<Type>)
     {
         value.emplace();
