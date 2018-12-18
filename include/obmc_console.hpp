@@ -114,23 +114,6 @@ void requestRoutes(CrowApp& app)
                 const std::string consoleName("\0obmc-console", 13);
                 boost::asio::local::stream_protocol::endpoint ep(consoleName);
 
-                // This is a hack.  For whatever reason boost local endpoint has
-                // a check to see if a string is null terminated, and if it is,
-                // it drops the path character count by 1.  For abstract
-                // sockets, we need the count to be the full sizeof(s->sun_path)
-                // (ie 108), even though our path _looks_ like it's null
-                // terminated.  This is likely a bug in asio that needs to be
-                // submitted Todo(ed).  so the cheat here is to break the
-                // abstraction for a minute, write a 1 to the last byte, this
-                // causes the check at the end of resize here:
-                // https://www.boost.org/doc/libs/1_68_0/boost/asio/local/detail/impl/endpoint.ipp
-                // to not decrement us unesssesarily.
-                struct sockaddr_un* s =
-                    reinterpret_cast<sockaddr_un*>(ep.data());
-                s->sun_path[sizeof(s->sun_path) - 1] = 1;
-                ep.resize(sizeof(sockaddr_un));
-                s->sun_path[sizeof(s->sun_path) - 1] = 0;
-
                 host_socket = std::make_unique<
                     boost::asio::local::stream_protocol::socket>(
                     conn.getIoService());
