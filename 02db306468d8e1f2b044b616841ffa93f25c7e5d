@@ -1,0 +1,9 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Joseph Reynolds <jrey@us.ibm.com>
+Code-Review+2: Ed Tanous <ed.tanous@intel.com>
+Submitted-by: Ed Tanous <ed.tanous@intel.com>
+Submitted-at: Tue, 18 Dec 2018 21:10:32 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/16593
+Project: openbmc/bmcweb
+Branch: refs/heads/master
