@@ -87,15 +87,17 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         }
         if (*jsonPtr > std::numeric_limits<Type>::max())
         {
-            BMCWEB_LOG_DEBUG << "Value for key " << key
-                             << " was out of range: " << jsonValue.type_name();
+            BMCWEB_LOG_DEBUG
+                << "Value for key " << key << " (" << *jsonPtr << ") "
+                << " was greater than max: " << __PRETTY_FUNCTION__;
             messages::propertyValueNotInList(res, jsonValue.dump(), key);
             return;
         }
         if (*jsonPtr < std::numeric_limits<Type>::lowest())
         {
-            BMCWEB_LOG_DEBUG << "Value for key " << key
-                             << " was out of range: " << jsonValue.type_name();
+            BMCWEB_LOG_DEBUG << "Value for key " << key << " (" << *jsonPtr
+                             << ") "
+                             << " was less than min: " << __PRETTY_FUNCTION__;
             messages::propertyValueNotInList(res, jsonValue.dump(), key);
             return;
         }
