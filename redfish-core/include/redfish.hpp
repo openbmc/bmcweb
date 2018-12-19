@@ -22,6 +22,7 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
+#include "../lib/pcie.hpp"
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
@@ -106,6 +107,9 @@ class RedfishService
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
 #endif
+
+        nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
+        nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
 
         for (const auto& node : nodes)
         {
