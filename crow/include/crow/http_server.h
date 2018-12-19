@@ -30,10 +30,9 @@ template <typename Handler, typename Adaptor> class Server
   public:
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
            boost::asio::ssl::context* adaptor_ctx,
-           boost::asio::io_service& io) :
-        acceptor(io,
-                 boost::asio::ip::tcp::endpoint(
-                     boost::asio::ip::address::from_string(bindaddr), port)),
+           boost::asio::io_context& io) :
+        acceptor(io, boost::asio::ip::tcp::endpoint(
+                         boost::asio::ip::make_address(bindaddr), port)),
         signals(io, SIGINT, SIGTERM), tickTimer(io), handler(handler),
         adaptorCtx(adaptor_ctx)
     {
@@ -41,7 +40,7 @@ template <typename Handler, typename Adaptor> class Server
 
     Server(Handler* handler, int existing_socket,
            boost::asio::ssl::context* adaptor_ctx,
-           boost::asio::io_service& io) :
+           boost::asio::io_context& io) :
         acceptor(io, boost::asio::ip::tcp::v6(), existing_socket),
         signals(io, SIGINT, SIGTERM), tickTimer(io), handler(handler),
         adaptorCtx(adaptor_ctx)
@@ -123,9 +122,13 @@ template <typename Handler, typename Adaptor> class Server
     {
         boost::system::error_code ec;
 
-        for (;;)
+        while (true)
         {
             std::shared_ptr<Connection<Adaptor, Handler>> p;
+            boost::asio::ip::tcp::socket s(acceptor.get_executor().context());
+
+            acceptor.async_accept(s, yield[ec]);
+
             if constexpr (std::is_same<
                               Adaptor,
                               boost::beast::ssl_stream<
@@ -134,17 +137,14 @@ template <typename Handler, typename Adaptor> class Server
                 p = std::make_shared<Connection<Adaptor, Handler>>(
                     acceptor.get_executor().context(), handler,
                     getCachedDateStr, timerQueue,
-                    Adaptor(acceptor.get_executor().context(), *adaptorCtx));
+                    Adaptor(std::move(s), *adaptorCtx));
             }
             else
             {
                 p = std::make_shared<Connection<Adaptor, Handler>>(
                     acceptor.get_executor().context(), handler,
-                    getCachedDateStr, timerQueue,
-                    Adaptor(acceptor.get_executor().context()));
+                    getCachedDateStr, timerQueue, std::move(s));
             }
-
-            acceptor.async_accept(p->socket().lowest_layer(), yield[ec]);
             if (ec)
             {
                 continue;
@@ -152,9 +152,7 @@ template <typename Handler, typename Adaptor> class Server
 
             boost::asio::spawn(
                 acceptor.get_executor().context(),
-                [p = std::move(p)](boost::asio::yield_context yield) {
-                    p->start(yield);
-                });
+                [p](boost::asio::yield_context yield) { p->start(yield); });
         }
     }
 

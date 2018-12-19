@@ -19,7 +19,7 @@ inline void addSecurityHeaders(crow::Response& res)
 
     res.addHeader(bf::pragma, "no-cache");
     res.addHeader(bf::cache_control, "no-Store,no-Cache");
-    res.addHeader("Content-Security-Policy", "script-src 'self'; "
+    res.addHeader("X-Content-Security-Policy", "script-src 'self'; "
                                              "object-src 'self'");
     res.addHeader("X-XSS-Protection", "1; "
                                       "mode=block");

@@ -16,7 +16,7 @@ TEST(SecurityHeaders, TestHeadersExist)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(launch::async, [&] { app.run(); });
 
-    asio::io_service is;
+    asio::io_context is;
     std::array<char, 2048> buf;
     std::string sendmsg;
 

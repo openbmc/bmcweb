@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <sessions.hpp>
@@ -19,7 +19,7 @@ struct Request
 
     const std::string& body;
 
-    boost::asio::io_service* ioService{};
+    boost::asio::io_context* ioService{};
 
     std::shared_ptr<crow::persistent_data::UserSession> session;
 

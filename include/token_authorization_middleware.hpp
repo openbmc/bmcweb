@@ -6,6 +6,7 @@
 #include <boost/container/flat_set.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
+#include <webassets_routes.hpp>
 
 namespace crow
 {
@@ -145,13 +146,12 @@ inline bool isOnWhitelist(const crow::Request& req)
         {
             return true;
         }
-        /*
-     * else if (crow::webassets::routes.find(std::string(req.url)) !=
+
+        if (crow::webassets::routes.find(std::string(req.url)) !=
                  crow::webassets::routes.end())
         {
             return true;
         }
-    */
     }
 
     // it's allowed to POST on session collection & login without
