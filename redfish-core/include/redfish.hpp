@@ -24,6 +24,7 @@
 #include "../lib/managers.hpp"
 #include "../lib/message_registries.hpp"
 #include "../lib/network_protocol.hpp"
+#include "../lib/pcie.hpp"
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
@@ -126,6 +127,10 @@ class RedfishService
         nodes.emplace_back(std::make_unique<CertificateLocations>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
+
+        nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
+        nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
+
         for (const auto& node : nodes)
         {
             node->initPrivileges();
