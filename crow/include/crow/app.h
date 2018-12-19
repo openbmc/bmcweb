@@ -36,8 +36,8 @@ template <typename... Middlewares> class Crow
     using server_t = Server<Crow, socket_t, Middlewares...>;
 
 #endif
-    explicit Crow(std::shared_ptr<boost::asio::io_service> io =
-                      std::make_shared<boost::asio::io_service>()) :
+    explicit Crow(std::shared_ptr<boost::asio::io_context> io =
+                      std::make_shared<boost::asio::io_context>()) :
         io(std::move(io))
     {
     }
@@ -225,7 +225,7 @@ template <typename... Middlewares> class Crow
     }
 
   private:
-    std::shared_ptr<asio::io_service> io;
+    std::shared_ptr<asio::io_context> io;
 #ifdef BMCWEB_ENABLE_SSL
     uint16_t portUint = 443;
 #else

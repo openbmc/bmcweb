@@ -4,7 +4,7 @@
 #include <atomic>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http.hpp>
@@ -247,7 +247,7 @@ template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection
 {
   public:
-    Connection(boost::asio::io_service& ioService, Handler* handler,
+    Connection(boost::asio::io_context& ioService, Handler* handler,
                const std::string& server_name,
                std::tuple<Middlewares...>* middlewares,
                std::function<std::string()>& get_cached_date_str_f,

@@ -398,7 +398,7 @@ TEST(Crow, server_handling_error_request)
     Server<SimpleApp> server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
     std::string sendmsg = "POX";
-    asio::io_service is;
+    asio::io_context is;
     {
         asio::ip::tcp::socket c(is);
         c.connect(asio::ip::tcp::endpoint(
@@ -436,7 +436,7 @@ TEST(Crow, multi_server)
 
     std::string sendmsg =
         "POST /\r\nContent-Length:3\r\nX-HeaderTest: 123\r\n\r\nA=b\r\n";
-    asio::io_service is;
+    asio::io_context is;
     {
         asio::ip::tcp::socket c(is);
         c.connect(asio::ip::tcp::endpoint(
@@ -645,7 +645,7 @@ TEST(Crow, middlewareContext)
     decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
     std::string sendmsg = "GET /\r\n\r\n";
-    asio::io_service is;
+    asio::io_context is;
     {
         asio::ip::tcp::socket c(is);
         c.connect(asio::ip::tcp::endpoint(
@@ -701,7 +701,7 @@ TEST(Crow, bug_quick_repeated_request)
     decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
     std::string sendmsg = "GET / HTTP/1.1\r\nHost: localhost\r\n\r\n";
-    asio::io_service is;
+    asio::io_context is;
     {
         std::vector<std::future<void>> v;
         for (int i = 0; i < 5; i++)
@@ -744,7 +744,7 @@ TEST(Crow, simple_url_params)
 
     decltype(app)::server_t server(&app, LOCALHOST_ADDRESS, 45451);
     auto _ = async(launch::async, [&] { server.run(); });
-    asio::io_service is;
+    asio::io_context is;
     std::string sendmsg;
 
     // check empty params

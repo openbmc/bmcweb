@@ -17,14 +17,14 @@ struct SocketAdaptor
     using streamType = tcp::socket;
     using secure = std::false_type;
     using context = void;
-    SocketAdaptor(boost::asio::io_service& ioService, context* /*unused*/) :
+    SocketAdaptor(boost::asio::io_context& ioService, context* /*unused*/) :
         socketCls(ioService)
     {
     }
 
-    boost::asio::io_service& getIoService()
+    boost::asio::io_context& getIoService()
     {
-        return socketCls.get_io_service();
+        return socketCls.get_io_context();
     }
 
     tcp::socket& rawSocket()
@@ -71,14 +71,14 @@ struct TestSocketAdaptor
 {
     using secure = std::false_type;
     using context = void;
-    TestSocketAdaptor(boost::asio::io_service& ioService, context* /*unused*/) :
+    TestSocketAdaptor(boost::asio::io_context& ioService, context* /*unused*/) :
         socketCls(ioService)
     {
     }
 
-    boost::asio::io_service& getIoService()
+    boost::asio::io_context& getIoService()
     {
-        return socketCls.get_io_service();
+        return socketCls.get_io_context();
     }
 
     tcp::socket& rawSocket()
@@ -121,7 +121,7 @@ struct SSLAdaptor
     using secure = std::true_type;
     using context = boost::asio::ssl::context;
     using ssl_socket_t = boost::asio::ssl::stream<tcp::socket>;
-    SSLAdaptor(boost::asio::io_service& ioService, context* ctx) :
+    SSLAdaptor(boost::asio::io_context& ioService, context* ctx) :
         sslSocket(new ssl_socket_t(ioService, *ctx))
     {
     }
@@ -182,9 +182,9 @@ struct SSLAdaptor
         this->sslSocket->lowest_layer().close();
     }
 
-    boost::asio::io_service& getIoService()
+    boost::asio::io_context& getIoService()
     {
-        return rawSocket().get_io_service();
+        return rawSocket().get_io_context();
     }
 
     template <typename F> void start(F f)
