@@ -18,6 +18,7 @@
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
+#include "pcie.hpp"
 
 namespace redfish
 {
@@ -745,6 +746,7 @@ class Systems : public Node
             });
         getComputerSystem(asyncResp, name);
         getHostState(asyncResp);
+        getPCIeDeviceList(asyncResp, name);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -795,6 +797,7 @@ class Systems : public Node
 
             getHostState(asyncResp);
             getComputerSystem(asyncResp, name);
+            getPCIeDeviceList(asyncResp, name);
 
             // Update led group
             BMCWEB_LOG_DEBUG << "Update led group.";
