@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "pcie.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
@@ -1175,6 +1177,7 @@ class Systems : public Node
         getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getPCIeDeviceList(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
