@@ -46,7 +46,7 @@ The crow project has had a number of additions to make it more useful for use in
 + Move most uses of std::unordered_map to boost::flat_map to lower memory consumption, and (in some cases) to improve memory locality.
 + Adjust the addHeaders mechanism to use a fixed string instead of a full map implementation to avoid unnecessary mallocs and reduce the number of scatter gather buffers on an http response.
 + Change server name header from Crow/0.1 to iBMC
-+ Starts the http server io_service inside the main thread, instead of creating a new thread.
++ Starts the http server io_context inside the main thread, instead of creating a new thread.
 + Removes all BMCWEB_MSVC_WORKAROUND flags.
 + Removes the behavior that causes a 301 redirect for paths that end in "/", and simply returns the endpoint requested.  This was done for redfish compatibility.
 + Removes the built in crow/json.hpp package and adds nlohmann json package as the first class json package for crow.

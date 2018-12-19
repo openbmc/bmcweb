@@ -32,8 +32,8 @@ class Server
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
            std::tuple<Middlewares...>* middlewares = nullptr,
            typename Adaptor::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
+           std::shared_ptr<boost::asio::io_context> io =
+               std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptor)), signals(*ioService, SIGINT, SIGTERM),
         tickTimer(*ioService), handler(handler), middlewares(middlewares),
@@ -44,8 +44,8 @@ class Server
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
            std::tuple<Middlewares...>* middlewares = nullptr,
            typename Adaptor::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
+           std::shared_ptr<boost::asio::io_context> io =
+               std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
                    *io,
@@ -58,8 +58,8 @@ class Server
     Server(Handler* handler, int existing_socket,
            std::tuple<Middlewares...>* middlewares = nullptr,
            typename Adaptor::context* adaptor_ctx = nullptr,
-           std::shared_ptr<boost::asio::io_service> io =
-               std::make_shared<boost::asio::io_service>()) :
+           std::shared_ptr<boost::asio::io_context> io =
+               std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
@@ -181,7 +181,7 @@ class Server
     }
 
   private:
-    std::shared_ptr<asio::io_service> ioService;
+    std::shared_ptr<asio::io_context> ioService;
     detail::TimerQueue timerQueue;
     std::function<std::string()> getCachedDateStr;
     std::unique_ptr<tcp::acceptor> acceptor;

@@ -15,14 +15,14 @@ class TokenAuth : public ::testing::Test
   public:
     TokenAuth() :
         lk(std::unique_lock<std::mutex>(m)),
-        io(std::make_shared<boost::asio::io_service>())
+        io(std::make_shared<boost::asio::io_context>())
     {
     }
 
     std::mutex m;
     std::condition_variable cv;
     std::unique_lock<std::mutex> lk;
-    std::shared_ptr<boost::asio::io_service> io;
+    std::shared_ptr<boost::asio::io_context> io;
     int testPort = 45451;
 };
 
@@ -38,7 +38,7 @@ TEST_F(TokenAuth, SpecialResourcesAreAcceptedWithoutAuth)
         io->run();
     });
 
-    asio::io_service is;
+    asio::io_context is;
     std::string sendmsg;
 
     static char buf[2048];
@@ -80,7 +80,7 @@ TEST(TokenAuthentication, TestRejectedResource)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
-    asio::io_service is;
+    asio::io_context is;
     static char buf[2048];
 
     // Other resources should not be passed
@@ -116,7 +116,7 @@ TEST(TokenAuthentication, TestGetLoginUrl)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
-    asio::io_service is;
+    asio::io_context is;
     static char buf[2048];
 
     // Other resources should not be passed
@@ -152,7 +152,7 @@ TEST(TokenAuthentication, TestPostBadLoginUrl)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
-    asio::io_service is;
+    asio::io_context is;
     std::array<char, 2048> buf;
     std::string sendmsg;
 
@@ -244,7 +244,7 @@ TEST(TokenAuthentication, TestSuccessfulLogin)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
 
-    asio::io_service is;
+    asio::io_context is;
     std::array<char, 2048> buf;
     std::string sendmsg;
 
