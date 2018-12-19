@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "pcie.hpp"
 #include "redfish_util.hpp"
 
 #include <boost/container/flat_map.hpp>
@@ -1241,6 +1242,7 @@ class Systems : public Node
         getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getPCIeDeviceList(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
