@@ -1,7 +1,7 @@
 #include <crow/app.h>
 #include <systemd/sd-daemon.h>
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
 {
     crow::logger::setLogLevel(crow::LogLevel::DEBUG);
 
-    auto io = std::make_shared<boost::asio::io_service>();
+    auto io = std::make_shared<boost::asio::io_context>();
     CrowApp app(io);
 
 #ifdef BMCWEB_ENABLE_SSL

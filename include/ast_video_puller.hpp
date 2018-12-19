@@ -141,7 +141,7 @@ class AsyncVideoPuller
   public:
     using video_callback = std::function<void(RawVideoBuffer &)>;
 
-    explicit AsyncVideoPuller(boost::asio::io_service &ioService) :
+    explicit AsyncVideoPuller(boost::asio::io_context &ioService) :
         imageInfo(), devVideo(ioService, open("/dev/video", O_RDWR))
     {
         videobuf = std::make_shared<RawVideoBuffer>();
