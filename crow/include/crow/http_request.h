@@ -1,6 +1,6 @@
 #pragma once
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 
@@ -19,7 +19,7 @@ struct Request
     const std::string& body;
 
     void* middlewareContext{};
-    boost::asio::io_service* ioService{};
+    boost::asio::io_context* ioService{};
 
     Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
         req(req), body(req.body())

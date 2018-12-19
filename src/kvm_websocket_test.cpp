@@ -24,7 +24,7 @@ TEST(Kvm, BasicRfb)
     BMCWEB_ROUTE(app, "/")([]() { return boost::beast::http::status::ok; });
     auto _ = async(std::launch::async, [&] { app.run(); });
     auto routes = app.getRoutes();
-    asio::io_service is;
+    asio::io_context is;
 
     {
         // Retry a couple of times waiting for the server to come up

@@ -25,7 +25,7 @@ TEST(Webassets, StaticFilesFixedRoutes)
     // get the homepage
     std::string sendmsg = "GET /\r\n\r\n";
 
-    asio::io_service is;
+    asio::io_context is;
 
     asio::ip::tcp::socket c(is);
     c.connect(asio::ip::tcp::endpoint(
@@ -100,7 +100,7 @@ TEST(Webassets, EtagIsSane)
     // get the homepage
     std::string sendmsg = "GET /\r\n\r\n";
 
-    asio::io_service is;
+    asio::io_context is;
 
     asio::ip::tcp::socket c(is);
     c.connect(asio::ip::tcp::endpoint(
