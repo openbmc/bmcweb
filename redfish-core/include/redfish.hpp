@@ -22,6 +22,7 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/network_protocol.hpp"
+#include "../lib/pcie.hpp"
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
@@ -103,6 +104,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+
+        nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
+        nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
     }
 
   private:
