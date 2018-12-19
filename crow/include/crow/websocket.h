@@ -26,7 +26,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     virtual void sendText(const boost::beast::string_view msg) = 0;
     virtual void sendText(std::string&& msg) = 0;
     virtual void close(const boost::beast::string_view msg = "quit") = 0;
-    virtual boost::asio::io_service& get_io_service() = 0;
+    virtual boost::asio::io_context& get_io_context() = 0;
     virtual ~Connection() = default;
 
     void userdata(void* u)
@@ -64,7 +64,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
 
-    boost::asio::io_service& get_io_service() override
+    boost::asio::io_context& get_io_context() override
     {
         return ws.get_executor().context();
     }

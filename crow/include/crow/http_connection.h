@@ -7,7 +7,7 @@
 #include <atomic>
 #include <boost/algorithm/string.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/beast/http.hpp>
@@ -62,10 +62,11 @@ static std::atomic<int> connectionCount;
 #endif
 
 template <typename Adaptor, typename Handler>
-class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
+class Connection
+    : public std::enable_shared_from_this<Connection<Adaptor, Handler>>
 {
   public:
-    Connection(boost::asio::io_service& ioService, Handler* handler,
+    Connection(boost::asio::io_context& ioService, Handler* handler,
                std::function<std::string()>& get_cached_date_str_f,
                detail::TimerQueue& timerQueue, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
@@ -99,7 +100,8 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
 
     void start(boost::asio::yield_context yield)
     {
-        std::shared_ptr<Connection> self = this->shared_from_this();
+        std::shared_ptr<Connection<Adaptor, Handler>> self =
+            this->shared_from_this();
         boost::system::error_code ec;
         while (true)
         {
@@ -110,11 +112,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
             {
                 adaptor.async_handshake(boost::asio::ssl::stream_base::server,
                                         yield[ec]);
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << this << " Handshake failed";
-                    break;
-                }
             }
             BMCWEB_LOG_DEBUG << this << " async_read_header";
 
@@ -130,6 +127,7 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
                 break;
             }
 
+            req.url = req.target();
             // After we have the headers, there should be enough information
             // to authenticate the request.  We do this before the payload
             // so we can modify the payload sizes.  Authenticated users can
@@ -146,7 +144,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
                 parser->body_limit(16 * 1024);
             }
             // Compute the url parameters for the request
-            req.url = req.target();
             std::size_t index = req.url.find("?");
             if (index != boost::string_view::npos)
             {
@@ -164,6 +161,10 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
                 break;
             }
             handle(yield);
+            if (req.isUpgrade())
+            {
+                break;
+            }
             completeRequest();
             res.preparePayload();
             serializer.emplace(*res.stringResponse);
@@ -180,10 +181,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
                 adaptor.lowest_layer().close();
                 BMCWEB_LOG_DEBUG << this
                                  << " closing after keepAlive() == false";
-                break;
-            }
-            if (req.isUpgrade())
-            {
                 break;
             }
 
@@ -228,8 +225,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
                         << req.version() / 10 << "." << req.version() % 10
                         << ' ' << req.methodString() << " " << req.target();
 
-        needToCallAfterHandlers = false;
-
         res.completeRequestHandler = [] {};
 
         req.ioService = &adaptor.get_executor().context();
@@ -245,7 +240,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
             return;
         }
         res.completeRequestHandler = [this] { this->completeRequest(); };
-        needToCallAfterHandlers = true;
         handler->handle(req, res);
         if (req.keepAlive())
         {
@@ -258,12 +252,6 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req.url << ' '
                         << res.resultInt() << " keepalive=" << req.keepAlive();
-
-        if (needToCallAfterHandlers)
-        {
-            needToCallAfterHandlers = false;
-        }
-        res.completeRequestHandler = nullptr;
 
         if (res.body().empty() && !res.jsonValue.empty())
         {
@@ -290,9 +278,13 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
 
     void cancelDeadlineTimer()
     {
-        BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue << ' '
-                         << timerCancelKey;
-        timerQueue.cancel(timerCancelKey);
+        if (timerCancelKey)
+        {
+            BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue
+                             << ' ' << *timerCancelKey;
+            timerQueue.cancel(*timerCancelKey);
+            timerCancelKey.reset();
+        }
     }
 
     void startDeadline()
@@ -307,7 +299,7 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
             self->adaptor.lowest_layer().close();
         });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
-                         << timerCancelKey;
+                         << *timerCancelKey;
     }
 
   private:
@@ -329,9 +321,7 @@ class Connection : std::enable_shared_from_this<Connection<Adaptor, Handler>>
     crow::Request req;
     crow::Response res;
 
-    int timerCancelKey{-1};
-
-    bool needToCallAfterHandlers{};
+    std::optional<int> timerCancelKey;
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;

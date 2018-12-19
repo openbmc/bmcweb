@@ -10,7 +10,7 @@
 #include <fstream>
 #include <string>
 #include <webserver_common.hpp>
-
+#include <webassets_routes.hpp>
 namespace crow
 {
 namespace webassets
@@ -25,8 +25,6 @@ struct CmpStr
         return std::strcmp(a, b) < 0;
     }
 };
-
-static boost::container::flat_set<std::string> routes;
 
 void requestRoutes(CrowApp& app)
 {

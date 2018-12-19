@@ -133,7 +133,7 @@ void requestRoutes(CrowApp& app)
 
                 host_socket = std::make_unique<
                     boost::asio::local::stream_protocol::socket>(
-                    conn.get_io_service());
+                    conn.get_io_context());
                 host_socket->async_connect(ep, connectHandler);
             }
         })

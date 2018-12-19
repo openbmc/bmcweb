@@ -32,12 +32,12 @@ class Crow
 
 #ifdef BMCWEB_ENABLE_SSL
     using ssl_socket_t = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
-    using ssl_server_t = Server<Crow, ssl_socket_t>; 
+    using ssl_server_t = Server<Crow, ssl_socket_t>;
 #else
     using socket_t = boost::asio::ip::tcp::socket;
     using server_t = Server<Crow, socket_t>;
 #endif
-    explicit Crow(std::shared_ptr<boost::asio::io_service> io) :
+    explicit Crow(std::shared_ptr<boost::asio::io_context> io) :
         io(std::move(io))
     {
     }
@@ -101,8 +101,8 @@ class Crow
         }
         else
         {
-            sslServer =
-                std::make_unique<ssl_server_t>(this, socketFd, &sslContext, *io);
+            sslServer = std::make_unique<ssl_server_t>(this, socketFd,
+                                                       &sslContext, *io);
         }
 
         sslServer->run();
@@ -198,7 +198,7 @@ class Crow
 #endif
 
   private:
-    std::shared_ptr<boost::asio::io_service> io;
+    std::shared_ptr<boost::asio::io_context> io;
 #ifdef BMCWEB_ENABLE_SSL
     uint16_t portUint = 443;
 #else
