@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "pcie.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -1179,6 +1181,7 @@ class Systems : public Node
         getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getPCIeDeviceList(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -1233,6 +1236,7 @@ class Systems : public Node
 
             getHostState(asyncResp);
             getComputerSystem(asyncResp);
+            getPCIeDeviceList(asyncResp);
 
             // Update led group
             BMCWEB_LOG_DEBUG << "Update led group.";
