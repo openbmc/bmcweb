@@ -9,7 +9,7 @@ option (BUILD_STATIC_LIBS "Built static libraries" ON)
 option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
 
 option (BMCWEB_ENABLE_KVM "Enable the KVM host video WebSocket.  Path is
-       '/kvmws'.  Video is from the BMC's '/dev/video' device." ON)
+       '/kvm/0'.  Video is from the BMC's '/dev/video' device." ON)
 option (BMCWEB_ENABLE_DBUS_REST "Enable Phosphor REST (D-Bus) APIs.  Paths
        directly map Phosphor D-Bus object paths, for example,
        '/xyz/openbmc_project/logging/entry/enumerate'.  See
@@ -247,9 +247,6 @@ target_link_libraries (bmcweb -lstdc++fs)
 target_link_libraries (bmcweb sdbusplus)
 target_link_libraries (bmcweb tinyxml2)
 install (TARGETS bmcweb DESTINATION bin)
-
-add_executable (getvideo src/getvideo_main.cpp)
-target_link_libraries (getvideo pthread)
 
 target_compile_definitions (
     bmcweb PRIVATE
