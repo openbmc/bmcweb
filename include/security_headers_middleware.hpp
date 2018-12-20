@@ -36,7 +36,7 @@ struct SecurityHeadersMiddleware
 
         res.addHeader(bf::pragma, "no-cache");
         res.addHeader(bf::cache_control, "no-Store,no-Cache");
-        res.addHeader("X-Content-Security-Policy", "default-src 'self'");
+        res.addHeader("Content-Security-Policy", "default-src 'self'");
         res.addHeader("X-XSS-Protection", "1; "
                                           "mode=block");
         res.addHeader("X-Content-Type-Options", "nosniff");
