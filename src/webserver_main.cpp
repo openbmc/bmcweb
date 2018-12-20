@@ -18,7 +18,7 @@
 #include <ssl_key_handler.hpp>
 #include <string>
 #include <token_authorization_middleware.hpp>
-#include <web_kvm.hpp>
+#include <kvm_websocket.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
 
@@ -77,7 +77,7 @@ int main(int argc, char** argv)
 #endif
 
 #ifdef BMCWEB_ENABLE_KVM
-    crow::kvm::requestRoutes(app);
+    crow::obmc_kvm::requestRoutes(app);
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH

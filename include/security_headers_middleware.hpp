@@ -36,7 +36,11 @@ struct SecurityHeadersMiddleware
 
         res.addHeader(bf::pragma, "no-cache");
         res.addHeader(bf::cache_control, "no-Store,no-Cache");
-        res.addHeader("Content-Security-Policy", "default-src 'self'");
+
+	// The KVM currently needs to load images from base64 encoded strings.  img-src 'self' data: 
+	// is used to allow that.
+	// https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
+        res.addHeader("Content-Security-Policy", "default-src 'self'; img-src 'self' data:");
         res.addHeader("X-XSS-Protection", "1; "
                                           "mode=block");
         res.addHeader("X-Content-Type-Options", "nosniff");

@@ -248,9 +248,6 @@ target_link_libraries (bmcweb sdbusplus)
 target_link_libraries (bmcweb tinyxml2)
 install (TARGETS bmcweb DESTINATION bin)
 
-add_executable (getvideo src/getvideo_main.cpp)
-target_link_libraries (getvideo pthread)
-
 target_compile_definitions (
     bmcweb PRIVATE
     $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
