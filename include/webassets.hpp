@@ -34,7 +34,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
         contentTypes{
             {{".css", "text/css;charset=UTF-8"},
              {".html", "text/html;charset=UTF-8"},
-             {".js", "text/html;charset=UTF-8"},
+             {".js", "application/javascript;charset=UTF-8"},
              {".png", "image/png;charset=UTF-8"},
              {".woff", "application/x-font-woff"},
              {".woff2", "application/x-font-woff2"},
