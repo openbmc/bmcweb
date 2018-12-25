@@ -90,22 +90,125 @@ class AccountService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.id"] = "/redfish/v1/AccountService";
-        res.jsonValue["@odata.type"] = "#AccountService.v1_1_0.AccountService";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#AccountService.AccountService";
-        res.jsonValue["Id"] = "AccountService";
-        res.jsonValue["Description"] = "BMC User Accounts";
-        res.jsonValue["Name"] = "Account Service";
-        res.jsonValue["ServiceEnabled"] = true;
-        res.jsonValue["MinPasswordLength"] = 1;
-        res.jsonValue["MaxPasswordLength"] = 20;
-        res.jsonValue["Accounts"]["@odata.id"] =
-            "/redfish/v1/AccountService/Accounts";
-        res.jsonValue["Roles"]["@odata.id"] =
-            "/redfish/v1/AccountService/Roles";
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        res.jsonValue = {
+            {"@odata.context", "/redfish/v1/"
+                               "$metadata#AccountService.AccountService"},
+            {"@odata.id", "/redfish/v1/AccountService"},
+            {"@odata.type", "#AccountService."
+                            "v1_1_0.AccountService"},
+            {"Id", "AccountService"},
+            {"Name", "Account Service"},
+            {"Description", "Account Service"},
+            {"ServiceEnabled", true},
+            {"MaxPasswordLength", 31},
+            {"Accounts",
+             {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
+            {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
 
-        res.end();
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](
+                const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string,
+                    sdbusplus::message::variant<uint32_t, uint16_t, uint8_t>>>&
+                    propertiesList) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
+                                 << "properties for AccountService";
+                for (const std::pair<std::string,
+                                     sdbusplus::message::variant<
+                                         uint32_t, uint16_t, uint8_t>>&
+                         property : propertiesList)
+                {
+                    if (property.first == "MinPasswordLength")
+                    {
+                        const uint8_t* value =
+                            sdbusplus::message::variant_ns::get_if<uint8_t>(
+                                &property.second);
+                        if (value != nullptr)
+                        {
+                            asyncResp->res.jsonValue["MinPasswordLength"] =
+                                *value;
+                        }
+                    }
+                    if (property.first == "AccountUnlockTimeout")
+                    {
+                        const uint32_t* value =
+                            sdbusplus::message::variant_ns::get_if<uint32_t>(
+                                &property.second);
+                        if (value != nullptr)
+                        {
+                            asyncResp->res.jsonValue["AccountLockoutDuration"] =
+                                *value;
+                        }
+                    }
+                    if (property.first == "MaxLoginAttemptBeforeLockout")
+                    {
+                        const uint16_t* value =
+                            sdbusplus::message::variant_ns::get_if<uint16_t>(
+                                &property.second);
+                        if (value != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["AccountLockoutThreshold"] = *value;
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.Properties", "GetAll",
+            "xyz.openbmc_project.User.AccountPolicy");
+    }
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::optional<uint32_t> unlockTimeout;
+        std::optional<uint16_t> lockoutThreshold;
+        if (!json_util::readJson(req, res, "AccountLockoutDuration",
+                                 unlockTimeout, "AccountLockoutThreshold",
+                                 lockoutThreshold))
+        {
+            return;
+        }
+        if (unlockTimeout)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.User.AccountPolicy",
+                "AccountUnlockTimeout",
+                sdbusplus::message::variant<uint32_t>(*unlockTimeout));
+        }
+        if (lockoutThreshold)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.User.AccountPolicy",
+                "MaxLoginAttemptBeforeLockout",
+                sdbusplus::message::variant<uint16_t>(*lockoutThreshold));
+        }
     }
 };
 class AccountsCollection : public Node
