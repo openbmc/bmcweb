@@ -652,8 +652,6 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
                 {
                     return r;
                 }
-
-                it++;
             }
             sd_bus_message_close_container(m);
         }
@@ -830,7 +828,6 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         argType != nullptr &&
                                         std::string(argDirection) == "in")
                                     {
-
                                         if (argIt ==
                                             transaction->arguments.end())
                                         {
@@ -850,7 +847,7 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         argIt++;
                                     }
                                     argumentNode =
-                                        methodNode->NextSiblingElement("arg");
+                                        argumentNode->NextSiblingElement("arg");
                                 }
 
                                 crow::connections::systemBus->async_send(
