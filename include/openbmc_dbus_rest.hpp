@@ -830,7 +830,6 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         argType != nullptr &&
                                         std::string(argDirection) == "in")
                                     {
-
                                         if (argIt ==
                                             transaction->arguments.end())
                                         {
@@ -850,7 +849,7 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                         argIt++;
                                     }
                                     argumentNode =
-                                        methodNode->NextSiblingElement("arg");
+                                        argumentNode->NextSiblingElement("arg");
                                 }
 
                                 crow::connections::systemBus->async_send(
