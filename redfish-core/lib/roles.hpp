@@ -20,11 +20,59 @@
 namespace redfish
 {
 
+inline std::string getRoleFromPrivileges(boost::beast::string_view priv)
+{
+    if (priv == "priv-admin")
+    {
+        return "Administrator";
+    }
+    else if (priv == "priv-callback")
+    {
+        return "Callback";
+    }
+    else if (priv == "priv-user")
+    {
+        return "User";
+    }
+    else if (priv == "priv-operator")
+    {
+        return "Operator";
+    }
+    return "";
+}
+
+inline int getAssignedPrivFromRole(boost::beast::string_view role,
+                                   nlohmann::json& privArray)
+{
+    if (role == "Administrator")
+    {
+        privArray = {"Login", "ConfigureManager", "ConfigureUsers",
+                     "ConfigureSelf", "ConfigureComponents"};
+    }
+    else if (role == "Operator")
+    {
+        privArray = {"Login", "ConfigureSelf", "ConfigureComponents"};
+    }
+    else if (role == "User")
+    {
+        privArray = {"Login", "ConfigureSelf"};
+    }
+    else if (role == "Callback")
+    {
+        privArray = {"Login"};
+    }
+    else
+    {
+        return -1;
+    }
+    return 0;
+}
+
 class Roles : public Node
 {
   public:
     Roles(CrowApp& app) :
-        Node(app, "/redfish/v1/AccountService/Roles/Administrator/")
+        Node(app, "/redfish/v1/AccountService/Roles/<str>/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -39,18 +87,31 @@ class Roles : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/AccountService/Roles/Administrator";
-        res.jsonValue["@odata.type"] = "#Role.v1_0_2.Role";
-        res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Role.Role";
-        res.jsonValue["Id"] = "Administrator";
-        res.jsonValue["Name"] = "User Role";
-        res.jsonValue["Description"] = "Administrator User Role";
-        res.jsonValue["IsPredefined"] = true;
-        res.jsonValue["AssignedPrivileges"] = {
-            "Login", "ConfigureManager", "ConfigureUsers", "ConfigureSelf",
-            "ConfigureComponents"};
-        res.jsonValue["OemPrivileges"] = nlohmann::json::array();
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+        std::string roleId(params[0]);
+        nlohmann::json privArray = nlohmann::json::array();
+        if (0 != getAssignedPrivFromRole(roleId, privArray))
+        {
+            messages::resourceNotFound(res, "Role", roleId);
+            res.end();
+            return;
+        }
+
+        res.jsonValue = {
+            {"@odata.type", "#Role.v1_0_2.Role"},
+            {"@odata.context", "/redfish/v1/$metadata#Role.Role"},
+            {"Name", "User Role"},
+            {"Description", "Administrator User Role"},
+            {"OemPrivileges", nlohmann::json::array()},
+            {"IsPredefined", true},
+            {"Id", roleId},
+            {"@odata.id", "/redfish/v1/AccountService/Roles/" + roleId},
+            {"AssignedPrivileges", privArray}};
         res.end();
     }
 };
@@ -74,16 +135,47 @@ class RoleCollection : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.id"] = "/redfish/v1/AccountService/Roles";
-        res.jsonValue["@odata.type"] = "#RoleCollection.RoleCollection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#RoleCollection.RoleCollection";
-        res.jsonValue["Name"] = "Roles Collection";
-        res.jsonValue["Description"] = "BMC User Roles";
-        res.jsonValue["Members@odata.count"] = 1;
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/AccountService/Roles/Administrator"}}};
-        res.end();
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        res.jsonValue = {{"@odata.context",
+                          "/redfish/v1/"
+                          "$metadata#RoleCollection.RoleCollection"},
+                         {"@odata.id", "/redfish/v1/AccountService/Roles"},
+                         {"@odata.type", "#RoleCollection.RoleCollection"},
+                         {"Name", "Roles Collection"},
+                         {"Description", "BMC User Roles"}};
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](
+                const boost::system::error_code ec,
+                const sdbusplus::message::variant<std::vector<std::string>>&
+                    resp) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json& memberArray =
+                    asyncResp->res.jsonValue["Members"];
+                memberArray = nlohmann::json::array();
+                const std::vector<std::string>* privList =
+                    sdbusplus::message::variant_ns::get_if<
+                        std::vector<std::string>>(&resp);
+                for (auto& priv : *privList)
+                {
+                    std::string role = getRoleFromPrivileges(priv);
+                    if (!role.empty())
+                    {
+                        memberArray.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/AccountService/Roles/" + role}});
+                    }
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    memberArray.size();
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.User.Manager", "AllPrivileges");
     }
 };
 
