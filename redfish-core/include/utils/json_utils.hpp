@@ -152,7 +152,8 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         value = static_cast<Type>(*jsonPtr);
     }
 
-    else if constexpr (std::is_unsigned_v<Type>)
+    else if constexpr ((std::is_unsigned_v<Type>)&&(
+                           !std::is_same_v<bool, Type>))
     {
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
