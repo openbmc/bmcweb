@@ -154,12 +154,28 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
 
     else if constexpr (std::is_unsigned_v<Type>)
     {
-        uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
-        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        if (jsonValue.is_boolean())
         {
-            return;
+            bool* jsonPtr = jsonValue.get_ptr<bool*>();
+            if (jsonPtr == nullptr)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Value for key " << key
+                    << " was incorrect type: " << jsonValue.type_name();
+                messages::propertyValueTypeError(res, jsonValue.dump(), key);
+                return;
+            }
+            value = static_cast<Type>(*jsonPtr);
         }
-        value = static_cast<Type>(*jsonPtr);
+        else
+        {
+            uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+            if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+            {
+                return;
+            }
+            value = static_cast<Type>(*jsonPtr);
+        }
     }
 
     else if constexpr (is_optional_v<Type>)
