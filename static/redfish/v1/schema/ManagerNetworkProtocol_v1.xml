@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol  v1.2.0-->
+<!--# Redfish Schema:  ManagerNetworkProtocol  v1.3.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -52,6 +52,11 @@
           <Record>
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}/NetworkProtocol</String>
+          </Collection>
         </Annotation>
       </EntityType>
 
@@ -107,7 +112,10 @@
           <Annotation Term="OData.Description" String="Settings for this Manager's KVM-IP protocol support."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain information for the KVM-IP (Keyboard, Video, Mouse) protocol settings for the manager."/>
         </Property>
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
       </EntityType>
 
       <ComplexType Name="Protocol">
@@ -181,12 +189,18 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_3.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_4.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_3.ManagerNetworkProtocol">
         <Property Name="DHCP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's DHCP protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the DHCP protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv4 protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information for the DHCPv4 protocol settings for the manager."/>
         </Property>
       </EntityType>
     </Schema>
@@ -195,6 +209,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify that the DHCP property is for DHCPv4."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_1.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_0">
@@ -223,7 +243,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="ManagerNetworkProtocol.v1_2_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="ManagerNetworkProtocol.v1_2_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -231,6 +254,30 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify that the DHCP property is for DHCPv4."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_1.ManagerNetworkProtocol">
+        <Property Name="DHCPv6" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv6 protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information for the DHCPv6 protocol settings for the manager."/>
+        </Property>
+        <Property Name="RDP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="Settings for this Manager's Remote Desktop Protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Remote Desktop Protocol settings for the manager."/>
+        </Property>
+        <Property Name="RFB" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+          <Annotation Term="OData.Description" String="Settings for this Manager's Remote Frame Buffer protocol support, which can be used to support VNC."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Remote Frame Buffer protocol settings for the manager."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

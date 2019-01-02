@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination  v1.3.0-->
+<!--# Redfish Schema:  EventDestination  v1.4.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,6 +35,7 @@
 
       <EntityType Name="EventDestination" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="An Event Destination desribes the target of an event subscription, including the types of events subscribed and context to provide to the target in the Event payload."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the target of an event subscription, including the types of events subscribed and context to provide to the target in the Event payload."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -51,7 +52,21 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/EventService/Subscriptions/{EventDestinationId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
+
+      <EnumType Name="EventFormatType">
+        <Member Name="Event">
+          <Annotation Term="OData.Description" String="The subscription destination will receive JSON Bodies of the Resource Type Event."/>
+        </Member>
+        <Member Name="MetricReport">
+          <Annotation Term="OData.Description" String="The subscription destination will receive JSON Bodies of the Resource Type MetricReport."/>
+        </Member>
+      </EnumType>
 
     </Schema>
 
@@ -69,7 +84,8 @@
         <Property Name="EventTypes" Type="Collection(Event.EventType)" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property shall contain the types of events that shall be sent to the desination."/>
+          <Annotation Term="OData.Description" String="This property contains the types of events that will be sent to the desination."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be an array that contains the types of events that shall be sent to the destination."/>
         </Property>
         <Property Name="Context" Type="Edm.String">
           <Annotation Term="Redfish.Required"/>
@@ -135,6 +151,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_4.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_5.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_0_2.EventDestination">
@@ -175,6 +197,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_3.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_4.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_1_2.EventDestination">
@@ -188,7 +216,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="EventDestination.v1_2_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="EventDestination.v1_2_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -210,6 +241,12 @@
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_1.EventDestination"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_2.EventDestination"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_2_2.EventDestination">
@@ -229,6 +266,39 @@
           <Annotation Term="OData.Description" String="The subscription follows the HTML5 Server-Sent Event definition for event notifications."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_0.EventDestination"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the RegistryPrefix, ResourceType and SubordinateResources method of eventing."/>
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_3_0.EventDestination">
+        <Property Name="RegistryPrefixes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A list of the Prefixes for the Message Registries that contain the MessageIds that will be sent to this event destination."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property is the array of the Prefixes of the Message Registries that contain the MessageIds in the Events that shall be sent to the EventDestination.  If this property is absent or the array is empty, the service shall send Events with MessageIds from any Message Registry."/>
+        </Property>
+        <Property Name="ResourceTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A list of Resource Type values (Schema names) that correspond to the OriginOfCondition.  The version and full namespace should not be specified."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall specify an array of Resource Type values.  When an event is generated, if the OriginOfCondition's Resource Type matches a value in this array, the event shall be sent to the event destination (unless it would be filtered by other property conditions such as RegistryPrefix).  If this property is absent or the array is empty, the service shall send Events from any Resource Type to the subscriber.  The value of this property shall be only the general namespace for the type and not the versioned value.  For example, it shall not be Task.v1_2_0.Task and instead shall just be Task."/>
+        </Property>
+        <Property Name="SubordinateResources" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="By setting this to true and specifying OriginResources, this indicates the subscription will be for events from the OriginsResources specified and also all subordinate resources.  Note that resources associated via the Links section are not considered subordinate."/>
+          <Annotation Term="OData.LongDescription" String="When set to true and OriginResources is specifed, indicates the subscription shall be for events from the OriginsResources specified and all subordinate resources.  When set to false and OriginResources is specified, indicates subscription shall be for events only from the OriginResources.  If OriginResources is not specified, it has no relevenace."/>
+        </Property>
+        <Property Name="EventFormatType" Type="EventDestination.EventFormatType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the content types of the message that will be sent to the EventDestination."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the the content types of the message that this service will send to the EventDestination.  If this property is not present, the EventFormatType shall be assumed to be Event."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

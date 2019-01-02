@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory  v1.5.0-->
+<!--# Redfish Schema:  Memory  v1.6.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -13,6 +13,9 @@
 
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
@@ -24,9 +27,6 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
-    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryMetrics_v1.xml">
     <edmx:Include Namespace="MemoryMetrics"/>
@@ -62,6 +62,13 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
       <Action Name="UnlockUnit" IsBound="true">
@@ -79,8 +86,22 @@
       </Action>
 
       <Action Name="SecureEraseUnit" IsBound="true">
-        <Annotation Term="OData.Description" String="This defines the action for securely erasing given regions."/>
-        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region."/>
+        <Annotation Term="OData.Description" String="This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase."/>
+        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase. Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite."/>
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+        </Parameter>
+        <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this action."/>
+        </Parameter>
+      </Action>
+
+      <Action Name="OverwriteUnit" IsBound="true">
+        <Annotation Term="OData.Description" String="This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Overwrite."/>
+        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Overwrite. Use the SecureEraseUnit method to perform NIST SP800-88 Purge: Cryptographic Erase."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
@@ -183,6 +204,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Speed bins supported by this Memory."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the speed supported by this Memory."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="FirmwareRevision" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -228,6 +250,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Maximum TDPs in milli Watts."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum power budgets supported by the Memory in milli Watts."/>
+          <Annotation Term="Measures.Unit" String="mW"/>
         </Property>
         <Property Name="SecurityCapabilities" Type="Memory.v1_0_0.SecurityCapabilities" Nullable="false">
           <Annotation Term="OData.Description" String="This object contains security capabilities of the Memory."/>
@@ -261,16 +284,19 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Operating speed of Memory in MHz or MT/s as appropriate."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the operating speed of Memory in MHz or MT/s (mega-transfers per second) as reported by the memory device. Memory devices which operate at their bus speed shall report the operating speed in MHz (bus speed), while memory device which transfer data faster than their bus speed (e.g. DDR memory) shall report the operating speed in MT/s (mega-transfers/second). In any case, the reported value shall match the conventionally reported values for the technology utilized by the memory device."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="VolatileRegionSizeLimitMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of volatile regions in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of volatile regions in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="PersistentRegionSizeLimitMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of persistent regions in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of persistent regions in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Regions" Type="Collection(Memory.v1_0_0.RegionSet)" Nullable="false">
           <Annotation Term="OData.Description" String="Memory regions information within the Memory."/>
@@ -323,6 +349,10 @@
         <Member Name="NVDIMM_P">
           <Annotation Term="OData.Description" String="The memory module is composed of a combination of non-volatile and volatile memory."/>
           <Annotation Term="OData.LongDescription" String="This memory type shall represent NVDIMM_P as defined by JEDEC."/>
+        </Member>
+        <Member Name="IntelOptane">
+          <Annotation Term="OData.Description" String="The memory module is Intel Optane DC Persistent Memory and composed of a combination of non-volatile and volatile memory."/>
+          <Annotation Term="OData.LongDescription" String="This memory type shall represent Intel Optane DC Persistent Memory."/>
         </Member>
       </EnumType>
 
@@ -608,7 +638,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="Memory.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="Memory.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -637,10 +670,19 @@
       <EntityType Name="Memory" BaseType="Memory.v1_0_2.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_3.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_1.Memory">
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
       </EntityType>
     </Schema>
 
@@ -654,6 +696,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_1.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_2.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_0">
@@ -673,21 +721,25 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Maximum size of a single volatile region in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum size of a single volatile regions in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="PersistentRegionSizeMaxMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Maximum size of a single persistent region in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum size of a single persistent regions in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AllocationIncrementMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The size of the smallest unit of allocation for a memory region in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the allocation increment for regions, measured in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AllocationAlignmentMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The boundary which memory regions are allocated on, measured in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be thealignment boundary on which memory regions are allocated, measured in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Links" Type="Memory.v1_2_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
@@ -711,6 +763,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_0">
@@ -749,6 +807,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_3_0.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_1.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_1.Memory">
@@ -776,7 +840,10 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of the logical memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
-        <Property Name="Location" Type="Resource.Location" Nullable="false"/>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The Location of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated memory."/>
+        </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A reference to the Assembly resource associated with this memory."/>
@@ -792,6 +859,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_4_0.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_1.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Memory" BaseType="Memory.v1_4_1.Memory"/>
@@ -803,6 +876,18 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating if the passphrase is enabled for this region."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to change the LongDescription of SecureEraseUnit.  It was also created to define a new OverwriteUnit action.  It also adds IntelOptane to the MemoryType list."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_1.Memory"/>
     </Schema>
 
   </edmx:DataServices>

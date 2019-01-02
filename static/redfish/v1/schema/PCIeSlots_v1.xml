@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  PCIeSlots  v1.0.0-->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeDevice_v1.xml">
+    <edmx:Include Namespace="PCIeDevice"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeSlots">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="PCIeSlots" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="This is the schema definition for the PCIe Slot properties."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an set of PCIe slot  information for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeSlots</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeSlots.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="PCIeSlots" BaseType="PCIeSlots.PCIeSlots">
+        <Property Name="Slots" Type="Collection(PCIeSlots.v1_0_0.PCIeSlot)">
+          <Annotation Term="OData.Description" String="An array of PCI Slot information."/>
+          <Annotation Term="OData.LongDescription" String="This array shall contain an entry for each PCIe slot, including empty slots (with no device or card installed)."/>
+        </Property>
+        <Property Name="Actions" Type="PCIeSlots.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="PCIeSlot">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="This is the definition for a PCI slot information object."/>
+        <Annotation Term="OData.LongDescription" String="These properties shall be the definition for a PCIe Slot for a Redfish implementation."/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
+        <Property Name="PCIeType" Type="PCIeDevice.PCIeTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the PCIe specification supported by this slot."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum PCIe specification that this slot supports."/>
+        </Property>
+        <Property Name="SlotType" Type="PCIeSlots.v1_0_0.SlotTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the PCIe slot type for this slot."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the slot type as specified by the PCIe specification."/>
+        </Property>
+        <Property Name="Lanes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the number of PCIe lanes supported by this slot."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum number of PCIe lanes supported by the slot."/>
+          <Annotation Term="Validation.Maximum" Int="32"/>
+        </Property>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+        <Property Name="Location" Type="Resource.Location" Nullable="false">
+          <Annotation Term="OData.Description" String="The Location of the PCIe slot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain part location information, including a ServiceLable of the associated PCIe Slot."/>
+        </Property>
+        <Property Name="Links" Type="PCIeSlots.v1_0_0.PCIeLinks">
+          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PCIeLinks" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <NavigationProperty Name="PCIeDevice" Type="Collection(PCIeDevice.PCIeDevice)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of references to the PCIe Devices contained in this slot."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of references to the resources that this physical slot is associated with and shall reference resources of type PCIeDevice. If the Status.State of this slot has a value of Absent, this property shall not appear in the resource."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <EnumType Name="SlotTypes">
+        <Member Name="FullLength">
+          <Annotation Term="OData.Description" String="Full-Length PCIe slot."/>
+        </Member>
+        <Member Name="HalfLength">
+          <Annotation Term="OData.Description" String="Half-Length PCIe slot."/>
+        </Member>
+        <Member Name="LowProfile">
+          <Annotation Term="OData.Description" String="Low-Profile or Slim PCIe slot."/>
+        </Member>
+        <Member Name="Mini">
+          <Annotation Term="OData.Description" String="Mini PCIe slot."/>
+        </Member>
+        <Member Name="M2">
+          <Annotation Term="OData.Description" String="PCIe M.2 slot."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="And OEM-specific slot."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="PCIeSlots.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

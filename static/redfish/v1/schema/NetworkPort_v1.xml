@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkPort  v1.1.0-->
+<!--# Redfish Schema:  NetworkPort  v1.2.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -51,6 +55,11 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/NetworkPorts/{NetworkPortId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -61,7 +70,10 @@
       <EntityType Name="NetworkPort" BaseType="NetworkPort.NetworkPort">
         <Annotation Term="OData.Description" String="A Network Port represents a discrete physical port capable of connecting to a network."/>
         <Annotation Term="OData.LongDescription" String="A Network Port represents a discrete physical port capable of connecting to a network."/>
-        <Property Name="Status" Type="Resource.Status"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
         <Property Name="PhysicalPortNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The physical port number label for this port."/>
@@ -143,6 +155,8 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The speed of the link in Mbps when this link network technology is active."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the speed of the link in megabits per second (Mbps) for this port when this link network technology is active."/>
+          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of the CapableLinkSpeedMbps collection found in NetworkPort.v1_2_0."/>
+          <Annotation Term="Measures.Unit" String="Mbit/s"/>
         </Property>
       </ComplexType>
 
@@ -151,13 +165,15 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe a minimum bandwidth percentage allocation for a network device function associated with a port."/>
         <NavigationProperty Name="NetworkDeviceFunction" Type="NetworkDeviceFunction.NetworkDeviceFunction" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Contains the members of this collection."/>
+          <Annotation Term="OData.Description" String="A reference to the NetworkDeviceFunction associated with this bandwidth setting of this Network Port."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference of type NetworkDeviceFunction that represents the Network Device Function associated with this bandwidth setting of this Network Port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="MinBWAllocPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The minimum bandwidth allocation percentage allocated to the corresponding network device function instance."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the minimum bandwidth percentage allocation for the associated network device function.  The sum total of all minimum percentages shall not exceed 100."/>
+          <Annotation Term="Measures.Unit" String="%"/>
         </Property>
       </ComplexType>
 
@@ -166,13 +182,15 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe a maximum bandwidth percentage allocation for a network device function associated with a port."/>
         <NavigationProperty Name="NetworkDeviceFunction" Type="NetworkDeviceFunction.NetworkDeviceFunction" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Contains the members of this collection."/>
+          <Annotation Term="OData.Description" String="A reference to the NetworkDeviceFunction associated with this bandwidth setting of this Network Port."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference of type NetworkDeviceFunction that represents the Network Device Function associated with this bandwidth setting of this Network Port."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="MaxBWAllocPercent" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The maximum bandwidth allocation percentage allocated to the corresponding network device function instance."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum bandwidth percentage allocation for the associated network device function."/>
+          <Annotation Term="Measures.Unit" String="%"/>
         </Property>
       </ComplexType>
 
@@ -229,26 +247,118 @@
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_0.NetworkPort"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on the LinkSpeedMbps property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to add missing percent units onto existing properties."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_1.NetworkPort"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_0_1.NetworkPort">
         <Property Name="Actions" Type="NetworkPort.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
           <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
-        </Property> 
+        </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="NetworkPort.v1_1_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="NetworkPort.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on the LinkSpeedMbps property.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to add missing percent units onto existing properties."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_0.NetworkPort"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkPort.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add FibreChannel properties."/>
+      <EntityType Name="NetworkPort" BaseType="NetworkPort.v1_1_1.NetworkPort">
+        <Property Name="FCPortConnectionType" Type="NetworkPort.v1_2_0.PortConnectionType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is the connection type of this port."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the connection type for this port."/>
+        </Property>
+        <Property Name="NumberDiscoveredRemotePorts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of ports not on this adapter that this port has discovered."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the number of ports not on this adapter that this port has discovered."/>
+        </Property>
+        <Property Name="MaxFrameSize" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum frame size supported by the port."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum frame size supported by the port."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="VendorId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Vendor Identification for this port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the Vendor Identification string information as provided by the manufacturer of this port."/>
+        </Property>
+        <Property Name="FCFabricName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The FC Fabric Name provided by the switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the FC Fabric Name provided by the switch."/>
+        </Property>
+        <Property Name="CurrentLinkSpeedMbps" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Network Port Current Link Speed."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the current configured link speed of this port."/>
+          <Annotation Term="Measures.Unit" String="Mbit/s"/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="PortConnectionType">
+        <Member Name="NotConnected">
+          <Annotation Term="OData.Description" String="This port is not connected."/>
+        </Member>
+        <Member Name="NPort">
+          <Annotation Term="OData.Description" String="This port connects via an N-Port to a switch."/>
+        </Member>
+        <Member Name="PointToPoint">
+          <Annotation Term="OData.Description" String="This port connects in a Point-to-point configuration."/>
+        </Member>
+        <Member Name="PrivateLoop">
+          <Annotation Term="OData.Description" String="This port connects in a private loop configuration."/>
+        </Member>
+        <Member Name="PublicLoop">
+          <Annotation Term="OData.Description" String="This port connects in a public configuration."/>
+        </Member>
+        <Member Name="Generic">
+          <Annotation Term="OData.Description" String="This port connection type is a generic fabric port."/>
+        </Member>
+        <Member Name="ExtenderFabric">
+          <Annotation Term="OData.Description" String="This port connection type is an extender fabric port."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="SupportedLinkCapabilities" BaseType="NetworkPort.v1_0_0.SupportedLinkCapabilities">
+        <Annotation Term="OData.Description" String="The self-described link capabilities of an associated port."/>
+        <Property Name="CapableLinkSpeedMbps" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The self-described link network speed capabilities of this port. Note: Should this be a new enumerated type of link speeds?."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be all of the possible network link speed capabilities of this port."/>
+        </Property>
+        <Property Name="AutoSpeedNegotiation" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates whether the port has the capability to auto negotiate speed."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be indicate whether the port is capable of auto-negotiating speed."/>
+        </Property>
       </ComplexType>
     </Schema>
 

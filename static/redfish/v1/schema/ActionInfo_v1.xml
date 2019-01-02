@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo  v1.0.3-->
+<!--# Redfish Schema:  ActionInfo  v1.1.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -133,8 +133,33 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to perform editoral updates of descriptions defined in this schema."/>
+      <Annotation Term="OData.Description" String="This version was created to perform editorial updates of descriptions defined in this schema."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_2.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_3.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add properties to specify parameter minimum and maximum values."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_4.ActionInfo"/>
+
+      <ComplexType Name="Parameters" BaseType="ActionInfo.v1_0_0.Parameters">
+        <Property Name="MinimumValue" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The minimum supported value for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the minimum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number."/>
+        </Property>
+        <Property Name="MaximumValue" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum supported value of this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

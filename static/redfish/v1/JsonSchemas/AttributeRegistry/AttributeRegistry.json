@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/AttributeRegistry",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,7 +23,9 @@
             },
             "properties": {
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -37,6 +40,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -46,16 +50,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -122,6 +126,8 @@
                 "Language",
                 "RegistryVersion",
                 "OwningEntity",
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -154,6 +160,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -174,7 +181,6 @@
                 "ValueName": {
                     "description": "The value name of the attribute.",
                     "longDescription": "The value of this property shall be a string representing the value name of the attribute. ValueName is a unique string within the list of possible values in the 'Value' array of a given attribute.",
-                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -194,6 +200,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -245,13 +252,13 @@
                     "longDescription": "The value of this property shall be a number the describes the ascending order in which this attribute is displayed, relative to other attributes.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
                 "GrayOut": {
                     "description": "The gray-out state of this attribute.",
-                    "longDescription": "The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
+                    "longDescription": "The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -299,7 +306,7 @@
                     "longDescription": "The value of this property shall be a number indicating the lower limit of the value of an attribute of type 'Integer'.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -308,14 +315,14 @@
                     "longDescription": "The value of this property shall be a number indicating the maximum character length of the value of an attribute of type 'String'.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
                 "MenuPath": {
                     "description": "A path that describes the menu hierarchy of this attribute.",
-                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names.",
-                    "pattern": "^[.]?[A-Za-z0-9_//]+$",
+                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal.",
+                    "pattern": "^\\.\\/([^/]+(\\/[^/]+)*)?$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -327,7 +334,7 @@
                     "longDescription": "The value of this property shall be a number indicating the minimum character length of the value of an attribute of type 'String'.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -354,7 +361,7 @@
                     "longDescription": "The value of this property shall be a number indicating the amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change. A ScalarIncrement value of 0 indicates a free-form numeric user input.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -390,7 +397,7 @@
                     "longDescription": "The value of this property shall be a number indicating the upper limit of the value of an attribute of type 'Integer'.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -442,6 +449,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -481,6 +489,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -543,6 +552,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -700,6 +710,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -722,7 +733,7 @@
                     "longDescription": "The value of this property shall be a number the describes the ascending order in which this menu is displayed, relative to other menus.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -738,14 +749,14 @@
                 "MenuName": {
                     "description": "The unique name string of this menu.",
                     "longDescription": "The value of this property shall be the name of this menu that is unique in this registry.",
-                    "pattern": "^[A-Za-z][A-Za-z0-9_]+$",
+                    "pattern": "^[^/]+$",
                     "readonly": true,
                     "type": "string"
                 },
                 "MenuPath": {
                     "description": "A path that describes this menu hierarchy relative to other menus.",
-                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names.",
-                    "pattern": "^[.]?[A-Za-z0-9_//]+$",
+                    "longDescription": "The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal.",
+                    "pattern": "^\\.\\/([^/]+(\\/[^/]+)*)?$",
                     "readonly": true,
                     "type": [
                         "string",
@@ -774,6 +785,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -794,6 +806,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -839,6 +852,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -880,5 +894,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#AttributeRegistry.v1_2_0.AttributeRegistry"
+    "title": "#AttributeRegistry.v1_2_1.AttributeRegistry"
 }

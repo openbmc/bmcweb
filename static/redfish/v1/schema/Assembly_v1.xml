@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Assembly  v1.1.0-->
+<!--# Redfish Schema:  Assembly  v1.2.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
@@ -22,6 +23,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
+    <edmx:Include Namespace="PhysicalContext"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -47,6 +51,32 @@
           <Record>
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Chassis/{ChassisId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Drives/{DriveId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Drives/{DriveId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Drives/{DriveId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/NetworkAdapters/{NetworkAdapterId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Power/PowerSupplies/{PowerSupplyId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Processors/{ProcessorId}/SubProcessors/{ProcessorId2}/Assembly</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Assembly</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Thermal/Fans/{FanId}/Thermal</String>
+          </Collection>
         </Annotation>
       </EntityType>
 
@@ -107,7 +137,7 @@
         <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Production date of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the date of production or manufacture for this assembly."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the date of production or manufacture for this assembly.  The time of day portion of the property shall be '00:00:00Z' if the time of day is unknown."/>
         </Property>
         <Property Name="Producer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -140,7 +170,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="Assembly.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="Assembly.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -153,7 +186,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="Assembly.v1_0_0.AssemblyDataOemActions" Nullable="false"/>
+        <Property Name="Oem" Type="Assembly.v1_0_0.AssemblyDataOemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="AssemblyDataOemActions">
@@ -164,12 +200,46 @@
 
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
 
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData">
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_0.Assembly"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add SerialNumber and PhysicalContext properties."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
+
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_0.AssemblyData">
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of this assembly."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a manufacturer-allocated number used to identify the assembly."/>
+        </Property>
+        <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Describes the area or device to which this assembly data applies."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a description of the physical context for this assembly data."/>
+        </Property>
       </EntityType>
     </Schema>
 

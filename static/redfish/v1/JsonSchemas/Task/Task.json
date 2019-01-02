@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/Task",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,7 +23,9 @@
             },
             "properties": {
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -37,6 +40,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -45,6 +49,56 @@
                 }
             },
             "properties": {},
+            "type": "object"
+        },
+        "Payload": {
+            "additionalProperties": false,
+            "description": "The HTTP and JSON payload details for this Task.",
+            "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this Task.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "HttpHeaders": {
+                    "description": "This represents the HTTP headers used in the operation of this Task.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "longDescription": "The value of this property shall be an array of HTTP headers used in the execution of this Task.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "HttpOperation": {
+                    "description": "The HTTP operation to perform to execute this Task.",
+                    "longDescription": "This property shall contain the HTTP operation to execute for this Task.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "JsonBody": {
+                    "description": "This property contains the JSON payload to use in the execution of this Task.",
+                    "longDescription": "The value of this property shall be JSON formatted payload used for this Task.",
+                    "readonly": true,
+                    "type": "string"
+                },
+                "TargetUri": {
+                    "description": "The URI of the target for this task.",
+                    "format": "uri",
+                    "longDescription": "This property shall contain a URI referencing a location to be used as the target for an HTTP operation.",
+                    "readonly": true,
+                    "type": "string"
+                }
+            },
             "type": "object"
         },
         "Task": {
@@ -57,6 +111,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -66,16 +121,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -100,6 +155,12 @@
                     "readonly": true,
                     "type": "string"
                 },
+                "HidePayload": {
+                    "description": "Indicates that the contents of the Payload should be hidden from view after the Task has been created.  When set to True, the Payload object will not be returned on GET.",
+                    "longDescription": "This property shall be set to True if the Payload object shall not be returned on GET operations, and set to False if the contents can be returned normally. If this property is not specified when the Task is created, the default value shall be False.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -120,6 +181,11 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Payload": {
+                    "$ref": "#/definitions/Payload",
+                    "description": "The HTTP and JSON payload details for this task.",
+                    "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task. This object shall not be included in the response if the HidePayload property is set to True."
                 },
                 "StartTime": {
                     "description": "The date-time stamp that the task was last started.",
@@ -149,6 +215,8 @@
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -207,5 +275,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Task.v1_2_0.Task"
+    "title": "#Task.v1_3_0.Task"
 }

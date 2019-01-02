@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MessageRegistry  v1.1.0-->
+<!--# Redfish Schema:  MessageRegistry  v1.2.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -183,6 +183,12 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_4.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_5.MessageRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_0_4.MessageRegistry">
@@ -196,7 +202,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="MessageRegistry.v1_1_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="MessageRegistry.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -212,5 +221,53 @@
       <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_0.MessageRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_1.MessageRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MessageRegistry.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add ClearingLogic to a MessageRegistry."/>
+
+      <EntityType Name="MessageRegistry" BaseType="MessageRegistry.v1_1_2.MessageRegistry"/>
+
+      <ComplexType Name="Message" BaseType="MessageRegistry.v1_0_0.Message">
+        <Property Name="ClearingLogic" Type="MessageRegistry.v1_2_0.ClearingLogic">
+          <Annotation Term="OData.Description" String="The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="ClearingLogic">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The clearing logic associated with this message.  The properties within indicate that what messages are cleared by this message as well as under what conditions."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="ClearsIf" Type="MessageRegistry.v1_2_0.ClearingType" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+        <Property Name="ClearsMessage" Type="Collection(Edm.String)" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property contains the array of Message Ids that are cleared by this message, provided the other conditions are met."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Message Ids that are cleared by this message, provided the other conditions are met.  The Message Ids shall not include the Registry name or version and shall just be the Message Id portion.  Message Ids shall not reference other Message Registries."/>
+        </Property>
+        <Property Name="ClearsAll" Type="Edm.Boolean" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property indicates that all prior conditions and messages are cleared provided the ClearsIf condition is met."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate that all prior conditions and messages are cleared provided the ClearsIf condition is met."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="ClearingType">
+        <Annotation Term="OData.Description" String="The enumerations of ClearingType specify the choice of conditions on when an event is cleared."/>
+        <Member Name="SameOriginOfCondition">
+          <Annotation Term="OData.Description" String="Indicates the message is cleared by the other message(s) listed in the ClearingLogic object, provided the OriginOfCondition for both Events are the same."/>
+        </Member>
+      </EnumType>
+
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>

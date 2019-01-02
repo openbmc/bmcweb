@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  MetricDefinition  v1.0.0-->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PhysicalContext_v1.xml">
+    <edmx:Include Namespace="PhysicalContext"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="MetricDefinition" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The metadata information about a metric."/>
+        <Annotation Term="OData.LongDescription" String="Shall define the metadata information about a metric."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/TelemetryService/MetricDefinitions/{MetricDefinitionId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricDefinition.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EnumType Name="MetricType">
+        <Annotation Term="OData.Description" String="Specifies the type of metric provided.  The property provides information to the client on how the metric can be handled."/>
+        <Annotation Term="OData.LongDescription" String="The value of this property shall specify the type of metric."/>
+        <Member Name="Numeric">
+          <Annotation Term="OData.Description" String="The metric is a numeric metric.  The metric value is any real number."/>
+        </Member>
+        <Member Name="Discrete">
+          <Annotation Term="OData.Description" String="The metric is a discrete metric.  The metric value is discrete.  The possible values are listed in the DiscreteValues property."/>
+          <Annotation Term="OData.LongDescription" String="The metric values shall indicate discrete states."/>
+        </Member>
+        <Member Name="Gauge">
+          <Annotation Term="OData.Description" String="The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauges extrema, it stays at that value, until the reading falls within the extrema."/>
+        </Member>
+        <Member Name="Counter">
+          <Annotation Term="OData.Description" String="The metric is a counter metric.  The metric reading is a non-negative integer which increases monotonically.  When a counter reaches its maximum, the value resets to 0 and resumes counting."/>
+        </Member>
+        <Member Name="Countdown">
+          <Annotation Term="OData.Description" String="The metric is a countdown metric.  The metric reading is a non-negative integer which decreases monotonically.  When a counter reaches its minimum, the value resets to preset value and resumes counting down."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="ImplementationType">
+        <Member Name="PhysicalSensor">
+          <Annotation Term="OData.Description" String="The metric is implemented as a physical sensor."/>
+        </Member>
+        <Member Name="Calculated">
+          <Annotation Term="OData.Description" String="The metric is implemented by applying a calculation on another metric property.  The calculation is specified in the CalculationAlgorithm property."/>
+        </Member>
+        <Member Name="Synthesized">
+          <Annotation Term="OData.Description" String="The metric is implemented by applying a calculation on one or more metric properties.  (The calculation is not specified.  For expressing generalized formula, see MathSON)."/>
+        </Member>
+        <Member Name="DigitalMeter">
+          <Annotation Term="OData.Description" String="The metric is implemented as digital meter."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="MetricDataType">
+        <Annotation Term="OData.Description" String="The data type of the related metric values.  The property provides information to the client on the nature of the metric reading."/>
+        <Annotation Term="OData.LongDescription" String="The value shall be the data type of the related metric values as defined by JSON data types."/>
+        <Member Name="Boolean">
+          <Annotation Term="OData.Description" String="The data type follows the JSON Boolean definition."/>
+        </Member>
+        <Member Name="DateTime">
+          <Annotation Term="OData.Description" String="The data type follows the JSON String definition with the Date-Time format applied."/>
+        </Member>
+        <Member Name="Decimal">
+          <Annotation Term="OData.Description" String="The data type follows the JSON Decimal definition."/>
+        </Member>
+        <Member Name="Integer">
+          <Annotation Term="OData.Description" String="The data type follows the JSON Integer definition."/>
+        </Member>
+        <Member Name="String">
+          <Annotation Term="OData.Description" String="The data type follows the JSON String definition."/>
+        </Member>
+        <Member Name="Enumeration">
+          <Annotation Term="OData.Description" String="The data type follows the JSON String definition with a set of enumerations defined."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="Calculable">
+        <Annotation Term="OData.Description" String="The types of calculations which can be applied to the metric reading.  This property provides information to the client on the suitability of calculatiion using the metric reading."/>
+        <Annotation Term="OData.LongDescription" String="The value shall indicate the types of calculations which can applied to the metric reading."/>
+        <Member Name="NonCalculatable">
+          <Annotation Term="OData.Description" String="No calculations should be performed on the metric reading."/>
+         </Member>
+        <Member Name="Summable">
+          <Annotation Term="OData.Description" String="The sum of the metric reading across multiple instances is meaningful."/>
+        </Member>
+        <Member Name="NonSummable">
+          <Annotation Term="OData.Description" String="The sum of the metric reading across multiple instances is not meaningful."/>
+        </Member>
+      </EnumType>
+
+      <EntityType Name="MetricDefinition" BaseType="MetricDefinition.MetricDefinition">
+        <Annotation Term="OData.Description" String="The metadata information about a metric."/>
+        <Annotation Term="OData.LongDescription" String="Shall define the metadata information about a metric."/>
+
+        <Property Name="MetricType" Type="MetricDefinition.v1_0_0.MetricType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The type of metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the type of metric."/>
+        </Property>
+        <Property Name="MetricDataType" Type="MetricDefinition.v1_0_0.MetricDataType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The data type of the metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the data-type of the metric."/>
+        </Property>
+        <Property Name="Units" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The units of measure for this metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the units of the metric. shall be consistent with the case sensitive Unified Code for Units of Measure as defined at http://unitsofmeasure.org/ucum.html.  Note: the units of measure is not covered in UCUM."/>
+        </Property>
+        <Property Name="Implementation" Type="MetricDefinition.v1_0_0.ImplementationType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The implementation of the metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the implementation of the metric."/>
+        </Property>
+        <Property Name="Calculable" Type="MetricDefinition.v1_0_0.Calculable">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the  metric can be used in a calculation."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify whether the metric can be used in a calculation."/>
+        </Property>
+        <Property Name="IsLinear" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether the metric values are linear (vs non-linear)."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify that the corresponding metric values shall be linear or non-linear.  Linear metrics may be compared using a greater than relation.  An example of linear metrics include performance metrics.  Examples of non-linear metrics include error codes."/>
+        </Property>
+        <Property Name="Wildcards" Type="Collection(MetricDefinition.v1_0_0.Wildcard)">
+          <Annotation Term="OData.Description" String="Wildcards used to replace values in AppliesTo and Calculates metric property arrays."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain an array of wildcards and their replacements strings, which are to appliced to the AppliesTo or Caculates array."/>
+        </Property>
+        <Property Name="MetricProperties" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="A collection of URI for the properties on which this metric definition is defined."/>
+          <Annotation Term="OData.LongDescription" String="Each value may contain one or more Wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same Wildcard index is used for each in one substitution pass.  After substituting the WildCard values entries, each value shall be a URI for a property in a resource that matches a property declaration in the corresponding MetricDefinition."/>
+          <Annotation Term="OData.IsURL" String="After processing Wildcard replacement values, each value shall resolve to an OData conformant URI to a property in an entity."/>
+        </Property>
+
+        <Property Name="CalculationParameters" Type="Collection(MetricDefinition.v1_0_0.CalculationParamsType)">
+          <Annotation Term="OData.Description" String="Specifies the metric properties which are part of the synthesis calculation.  This property is present when the MetricType property has the value 'Synthesized'."/>
+          <Annotation Term="OData.LongDescription" String="Shall list the metric properties which are part of the synthesis calculation.  When MetricType=Synthesis, this property may be present."/>
+        </Property>
+
+        <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Specifies the physical context of the metric."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall specify the physical context of the metric."/>
+        </Property>
+        <Property Name="SensingInterval" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time interval between when a metric is updated."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the time interval between when a metric is updated.  The format of the value shall conform to the Duration format."/>
+        </Property>
+        <Property Name="DiscreteValues" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="This array property specifies possible values of a discrete metric."/>
+          <Annotation Term="OData.LongDescription" String="The values of the property shall specify the possible values of the discrete metic.  This property shall have values when the MetricType property has the value 'Discrete'."/>
+        </Property>
+
+        <Property Name="Precision" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Number of significant digits in the metric reading."/>
+          <Annotation Term="OData.LongDescription" String="The value of the property shall specify the number of significant digits in the metric reading.  The property is not meaningful, when the MetricType property has the value 'Discrete'."/>
+        </Property>
+        <Property Name="Accuracy" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Estimated percent error of measured vs. actual values."/>
+          <Annotation Term="OData.LongDescription" String="The value of the property shall be the percent error +/- of the measured vs. actual values.  The property is not meaningful, when the MetricType property has the value 'Discrete'."/>
+        </Property>
+        <Property Name="Calibration" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Specifies the calibration offset added to the metric reading."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the calibration offset added to the metric reading.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'."/>
+        </Property>
+        <Property Name="TimestampAccuracy" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Accuracy of the timestamp."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the expected + or - variability of the timestamp.  The format of the value shall conform to the Duration format."/>
+        </Property>
+        <Property Name="MinReadingRange" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Minimum value for metric reading."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the lowest possible value for the metric reading.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'."/>
+        </Property>
+        <Property Name="MaxReadingRange" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Maximum value for metric reading."/>
+          <Annotation Term="OData.LongDescription" String="The value shall indicate the highest possible value for a related MetricValue.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'."/>
+        </Property>
+        <Property Name="CalculationAlgorithm" Type="MetricDefinition.v1_0_0.CalculationAlgorithmEnum">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The calculation which is performed on a source metric to obtain the metric being defined."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall specify the calculation performed to obtain the metric."/>
+        </Property>
+        <Property Name="CalculationTimeInterval" Type="Edm.Duration">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The time interval over which the metric calculation is performed."/>
+          <Annotation Term="OData.LongDescription" String="The value shall specify the time interval over the metric calculation is performed.  The format of the value shall conform to the Duration format."/>
+        </Property>
+        <Property Name="Actions" Type="MetricDefinition.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="CalculationParamsType">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Specifies the usage of the parameter in the calculation."/>
+        <Annotation Term="OData.LongDescription" String="The value of the list element shall be the usage of the parameter in the calculation.  This property is present when the MetricType property has the value 'Synthesized'."/>
+        <Property Name="SourceMetric" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The metric property used as the input into the calculation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a reference to a metric property used in a calcuation."/>
+        </Property>
+        <Property Name="ResultMetric" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The metric property used to store the results of the calculation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a reference to a metric property wsed to place the result of the calcuation."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Wildcard">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Contains a list of wildcards and their substitution values."/>
+        <Annotation Term="OData.LongDescription" String="Each wildcard shall have a corresponding entry in this list element.  Each entry shall specified the wildcard and its substitution values."/>
+        <Property Name="Name" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The name of Wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string used as a Wildcard."/>
+        </Property>
+        <Property Name="Values" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of values to substituted for the wildcard."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="CalculationAlgorithmEnum">
+        <Member Name="Average">
+          <Annotation Term="OData.Description" String="The metric is calculated as the average of a metric reading over a sliding time interval."/>
+          <Annotation Term="OData.LongDescription" String="The metric shall be calculated as the average of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property."/>
+        </Member>
+        <Member Name="Maximum">
+          <Annotation Term="OData.Description" String="The metric is calculated as the maximum value of a metric reading over during a time interval."/>
+          <Annotation Term="OData.LongDescription" String="The metric shall be calculated as the maximum of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property."/>
+        </Member>
+        <Member Name="Minimum">
+          <Annotation Term="OData.Description" String="The metric is calculated as the minimum value of a metric reading over a sliding time interval."/>
+          <Annotation Term="OData.LongDescription" String="The metric shall be calculated as the minimum of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property."/>
+        </Member>
+      </EnumType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="MetricDefinition.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

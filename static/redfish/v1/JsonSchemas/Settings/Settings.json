@@ -1,6 +1,6 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ApplyTime": {
             "enum": [
@@ -33,6 +33,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -46,7 +47,7 @@
                     "longDescription": "The value of this property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.",
                     "minimum": 0,
                     "readonly": false,
-                    "type": "number",
+                    "type": "integer",
                     "units": "s"
                 },
                 "MaintenanceWindowStartTime": {
@@ -94,6 +95,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -107,11 +109,11 @@
                     "longDescription": "The value of this property shall be the same as the MaintenanceWindowDurationInSeconds property found in the MaintenanceWindow structure on the MaintenanceWindowResource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number",
+                    "type": "integer",
                     "units": "s"
                 },
                 "MaintenanceWindowResource": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
                     "description": "The value of this property is used to indicate the location of the maintenance window settings.",
                     "longDescription": "The value of this property shall be a reference to a resource that contains the @Redfish.MaintenanceWindow property which governs this resource.  This property shall be required if the SupportedValues property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
                     "readonly": true
@@ -148,6 +150,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -167,7 +170,7 @@
                     "longDescription": "The value of this property shall indicate the end of the maintenance window as the number of seconds after the time specified by the MaintenanceWindowStartTime property.  This property shall be required if the ApplyTime property is specified as AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
                     "minimum": 0,
                     "readonly": false,
-                    "type": "number",
+                    "type": "integer",
                     "units": "s"
                 },
                 "MaintenanceWindowStartTime": {
@@ -190,6 +193,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -208,7 +212,7 @@
                     ]
                 },
                 "MaintenanceWindowResource": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
                     "description": "The value of this property is used to indicate the location of the maintenance window settings.",
                     "longDescription": "The value of this property shall be a reference to a resource that contains the @Redfish.MaintenanceWindow property which governs this resource.  This property should be supported if the SupportedApplyTimes property contains AtMaintenanceWindowStart or InMaintenanceWindowOnReset.",
                     "readonly": true
@@ -222,7 +226,7 @@
                     "type": "array"
                 },
                 "SettingsObject": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
                     "description": "Reference to the resource the client may PUT/PATCH to in order to change this resource.",
                     "longDescription": "The value of this property shall be the URI of the resource to which a client must do a PUT or PATCH in order to modify this resource.",
                     "readonly": true
@@ -251,5 +255,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Settings.v1_2_0"
+    "title": "#Settings.v1_2_1"
 }

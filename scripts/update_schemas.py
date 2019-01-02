@@ -19,7 +19,7 @@ proxies = {
 }
 
 r = requests.get('https://www.dmtf.org/sites/default/files/standards/documents/'
-                 'DSP8010_2018.1.zip', proxies=proxies)
+                 'DSP8010_2018.2.zip', proxies=proxies)
 
 r.raise_for_status()
 
@@ -59,7 +59,7 @@ with open(metadata_index_path, 'w') as metadata_index:
         "<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\" Version=\"4.0\">\n")
 
     for zip_filepath in zip_ref.namelist():
-        if zip_filepath.startswith('metadata/'):
+        if zip_filepath.startswith('csdl/') & (zip_filepath != "csdl/"):
             filename = os.path.basename(zip_filepath)
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
 

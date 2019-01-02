@@ -1,6 +1,6 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_3_0.json",
-    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "AddressState": {
             "enum": [
@@ -22,11 +22,12 @@
             "description": "This type describes an IPv4 Address.",
             "longDescription": "This type shall describe an IPv4 address assigned to an interface.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -69,7 +70,9 @@
                     ]
                 },
                 "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
                 },
                 "SubnetMask": {
                     "anyOf": [
@@ -107,11 +110,12 @@
             "description": "This type describes an IPv6 Address.",
             "longDescription": "This type shall describe an IPv6 address assigned to an interface.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -156,7 +160,9 @@
                     "readonly": true
                 },
                 "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
                 },
                 "PrefixLength": {
                     "anyOf": [
@@ -189,16 +195,17 @@
             },
             "type": "string"
         },
-        "IPv6StaticAddress": {
+        "IPv6GatewayStaticAddress": {
             "additionalProperties": false,
             "description": "This object represents a single IPv6 static address to be assigned on a network interface.",
             "longDescription": "This type shall represent a single IPv6 static address to be assigned on a network interface.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -217,7 +224,61 @@
                     ]
                 },
                 "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "PrefixLength": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/PrefixLength"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Prefix Length of this IPv6 address.",
+                    "longDescription": "Provides the IPv6 network prefix length in bits for this address.",
+                    "readonly": false
+                }
+            },
+            "required": [
+                "Address"
+            ],
+            "type": "object"
+        },
+        "IPv6StaticAddress": {
+            "additionalProperties": false,
+            "description": "This object represents a single IPv6 static address to be assigned on a network interface.",
+            "longDescription": "This type shall represent a single IPv6 static address to be assigned on a network interface.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Address": {
+                    "description": "A valid IPv6 address.",
+                    "longDescription": "This property provides access to a static IPv6 address that is currently assigned on a network interface.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
                 },
                 "PrefixLength": {
                     "anyOf": [
@@ -242,12 +303,13 @@
         "PrefixLength": {
             "maximum": 128,
             "minimum": 1,
-            "type": "number"
+            "type": "integer"
         },
         "SubnetMask": {
             "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}$",
             "type": "string"
         }
     },
-    "title": "#IPAddresses.v1_0_6"
+    "owningEntity": "DMTF",
+    "title": "#IPAddresses.v1_1_0"
 }

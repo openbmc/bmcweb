@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 69,
+  "Members@odata.count": 79,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccountService/"
@@ -67,6 +67,12 @@
       "@odata.id": "/redfish/v1/JsonSchemas/IPAddresses/"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/Job/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/JobService/"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/JsonSchemaFile/"
     },
     {
@@ -106,6 +112,15 @@
       "@odata.id": "/redfish/v1/JsonSchemas/MessageRegistryFile/"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricDefinition/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricReport/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricReportDefinition/"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/NetworkAdapter/"
     },
     {
@@ -122,6 +137,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/PCIeFunction/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PCIeSlots/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext/"
@@ -152,6 +170,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Role/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Schedule/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot/"
@@ -190,7 +211,13 @@
       "@odata.id": "/redfish/v1/JsonSchemas/TaskService/"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/TelemetryService/"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/Thermal/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Triggers/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/UpdateService/"
@@ -209,6 +236,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/odata/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/redfish-payload-annotations/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/redfish-schema/"

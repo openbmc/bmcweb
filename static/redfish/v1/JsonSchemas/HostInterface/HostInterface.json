@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/HostInterface",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,7 +23,9 @@
             },
             "properties": {
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -52,6 +55,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -61,21 +65,27 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
                     "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "AuthNoneRoleId": {
+                    "description": "The Role used when no authentication on this interface is used.",
+                    "longDescription": "The value of this property shall be the ID of the Role resource that is used when no authentication on this interface is performed.  This property shall be absent if AuthNone is not supported by the service for the AuthenticationModes property.",
+                    "readonly": false,
+                    "type": "string"
                 },
                 "AuthenticationModes": {
                     "description": "Indicates the authentication modes available on this interface.",
@@ -195,17 +205,14 @@
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
                 },
                 "Status": {
-                    "anyOf": [
-                        {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -230,6 +237,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -238,6 +246,12 @@
                 }
             },
             "properties": {
+                "AuthNoneRole": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
+                    "description": "A reference to the Role that contains the privileges on this Host Interface when no authentication is performed.",
+                    "longDescription": "The value of this property shall be a link to a Role object instance, and should reference the object identified by property AuthNoneRoleId.  This property shall be absent if AuthNone is not supported by the service for the AuthenticationModes property.",
+                    "readonly": true
+                },
                 "ComputerSystems": {
                     "description": "An array of references to the Computer Systems connected to this Host Interface.",
                     "items": {
@@ -248,7 +262,7 @@
                     "type": "array"
                 },
                 "ComputerSystems@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "FirmwareAuthRole": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Role.json#/definitions/Role",
@@ -280,6 +294,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -292,5 +307,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#HostInterface.v1_1_2.HostInterface"
+    "title": "#HostInterface.v1_2_0.HostInterface"
 }

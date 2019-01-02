@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  MetricReport  v1.0.0-->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MetricReportDefinition_v1.xml">
+    <edmx:Include Namespace="MetricReportDefinition"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MetricDefinition_v1.xml">
+    <edmx:Include Namespace="MetricDefinition"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="MetricReport" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The metric definitions used to create a metric report."/>
+        <Annotation Term="OData.LongDescription" String="The value shall be reference to the definition for this metric report."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/TelemetryService/MetricReports/{MetricReportId}</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="MetricReport" BaseType="MetricReport.MetricReport">
+        <NavigationProperty Name="MetricReportDefinition" Type="MetricReportDefinition.MetricReportDefinition" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The metric definitions used to create a metric report."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be reference to the definition for this metric report."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <Property Name="ReportSequence" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The current sequence identifier for this metric report."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the current sequence identifier for this metric report."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="MetricValues" Type="Collection(MetricReport.v1_0_0.MetricValue)">
+          <Annotation Term="OData.Description" String="An array of metric values for the metered items of this Metric."/>
+          <Annotation Term="OData.LongDescription" String="The values shall be metric values for this MetricReport."/>
+        </Property>
+        <Property Name="Actions" Type="MetricReport.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="MetricValue">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A metric Value."/>
+        <Annotation Term="OData.LongDescription" String="A metric value in the context of a Metric."/>
+        <Property Name="MetricId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The metric definitions identifier for this metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the same as the Id property of the source metric within the associated MetricDefinition."/>
+        </Property>
+        <Property Name="MetricValue" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The value identifies this resource."/>
+          <Annotation Term="OData.LongDescription" String="The value of the metric represented as a string."/>
+        </Property>
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time when the value of the metric is obtained."/>
+          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.  If Volatile is true for a given metric value instance, the Timestamp changes whenever a new measurement snapshot is taken.  A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp."/>
+        </Property>
+        <Property Name="MetricProperty" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI for the property from which this metric is derived."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be URI to the a property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <NavigationProperty Name="MetricDefinition" Type="MetricDefinition.MetricDefinition" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the Metric Definition."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be reference to the Metric Definition resource that describes what this Metric Report is capturing."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Property Name="Oem" Type="MetricReport.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

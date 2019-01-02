@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryChunks  v1.2.1-->
+<!--# Redfish Schema:  MemoryChunks  v1.2.2-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -13,6 +13,12 @@
 
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -31,6 +37,27 @@
         <Annotation Term="OData.Description" String="This is the schema definition of a Memory Chunk and its configuration."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent Memory Chunks and Interleave Sets in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="true"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/MemoryDomains/{MemoryDomainId}/MemoryChunks/{MemoryChunksId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemoryDomains/{MemoryDomainId}/MemoryChunks/{MemoryChunksId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -43,6 +70,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of the memory chunk measured in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the size of the memory chunk in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AddressRangeType" Type="MemoryChunks.v1_0_0.AddressRangeType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -84,11 +112,13 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Offset within the DIMM that corresponds to the start of this memory region, measured in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset within the DIMM that corresponds to the start of this memory region, with units in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="SizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of this memory region measured in mebibytes (MiB)."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the size of this memory region, with units in MiB."/>
+          <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="MemoryLevel" Type="Edm.Int64" DefaultValue="1">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -123,6 +153,12 @@
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_1.MemoryChunks"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_2.MemoryChunks"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_2.MemoryChunks">
@@ -136,7 +172,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="MemoryChunks.v1_1_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="MemoryChunks.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -146,10 +185,19 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_0.MemoryChunks"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_0.MemoryChunks">
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
       </EntityType>
     </Schema>
 
@@ -157,6 +205,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions to match the editorial style used in other Redfish schemas."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_2_0.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_2_1.MemoryChunks"/>
     </Schema>
 
   </edmx:DataServices>

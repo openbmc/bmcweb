@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/Drive",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -25,7 +26,9 @@
                     "$ref": "#/definitions/SecureErase"
                 },
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -40,6 +43,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -49,16 +53,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -85,7 +89,7 @@
                     "longDescription": "This property shall contain size of the smallest addressible unit of the associated drive.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "By"
@@ -105,7 +109,7 @@
                     "longDescription": "This property shall contain the raw size in bytes of the associated drive.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "By"
@@ -155,6 +159,19 @@
                         "boolean",
                         "null"
                     ]
+                },
+                "HotspareReplacementMode": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/HotspareReplacementModeType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The replacement mode for the hotspare drive.",
+                    "longDescription": "This property shall specify if a commissioned hotspare will continue to serve as a hotspare once the failed drive is replaced.",
+                    "readonly": false
                 },
                 "HotspareType": {
                     "anyOf": [
@@ -287,7 +304,8 @@
                     "type": [
                         "number",
                         "null"
-                    ]
+                    ],
+                    "units": "%"
                 },
                 "Protocol": {
                     "anyOf": [
@@ -340,7 +358,9 @@
                     ]
                 },
                 "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "StatusIndicator": {
                     "anyOf": [
@@ -357,6 +377,8 @@
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -395,6 +417,17 @@
             },
             "type": "string"
         },
+        "HotspareReplacementModeType": {
+            "enum": [
+                "Revertible",
+                "NonRevertible"
+            ],
+            "enumDescriptions": {
+                "NonRevertible": "A hotspare drive that is commissioned due to a drive failure will remain as a data drive and will not revert to a hotspare if the failed drive is replaced.",
+                "Revertible": "A hotspare drive that is commissioned due to a drive failure will revert to being a hotspare once the failed drive is replaced and rebuilt."
+            },
+            "type": "string"
+        },
         "HotspareType": {
             "enum": [
                 "None",
@@ -420,6 +453,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -444,7 +478,7 @@
                     "type": "array"
                 },
                 "Endpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -461,7 +495,7 @@
                     "type": "array"
                 },
                 "Volumes@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -489,6 +523,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -509,6 +544,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -520,10 +556,12 @@
                 "AssociatedTask": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Task.json#/definitions/Task",
                     "description": "A reference to the task associated with the operation if any.",
+                    "longDescription": "The value of this property shall be a reference to a resource of type Task that represents the task associated with the operation.",
                     "readonly": true
                 },
                 "OperationName": {
                     "description": "The name of the operation.",
+                    "longDescription": "This property shall be a string of the name of the operation.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -532,11 +570,13 @@
                 },
                 "PercentageComplete": {
                     "description": "The percentage of the operation that has been completed.",
+                    "longDescription": "This property shall be an interger of the percentage of the operation that has been completed.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "%"
                 }
             },
             "type": "object"
@@ -552,6 +592,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -595,5 +636,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Drive.v1_4_0.Drive"
+    "title": "#Drive.v1_5_0.Drive"
 }

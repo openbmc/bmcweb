@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SimpleStorage  v1.2.0-->
+<!--# Redfish Schema:  SimpleStorage  v1.2.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,6 +39,7 @@
 
       <EntityType Name="SimpleStorage" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="This is the schema definition for the Simple Storage resource.  It represents the properties of a storage controller and its directly-attached devices."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a storage controller and its directly-attached devices."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -54,6 +55,13 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/SimpleStorage/{SimpleStorageId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -63,6 +71,7 @@
 
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.SimpleStorage">
         <Annotation Term="OData.Description" String="This is the schema definition for the Simple Storage resource.  It represents the properties of a storage controller and its directly-attached devices."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a storage controller and its directly-attached devices."/>
         <Property Name="UefiDevicePath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UEFI device path used to access this storage controller."/>
@@ -72,21 +81,30 @@
           <Annotation Term="OData.Description" String="The storage devices associated with this resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a list of storage devices associated with this resource."/>
         </Property>
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
       </EntityType>
 
       <ComplexType Name="Device">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="A storage device such as a disk drive or optical media device."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a storage device visible to SimpleStorage."/>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description"  String="The name of the resource or array element."/>
           <Annotation Term="OData.LongDescription" String="This object represents the Name property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification. The value of this string shall be of the format for the reserved word *Name*."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the manufacturer of this device."/>
@@ -119,6 +137,12 @@
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_3.SimpleStorage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_4.SimpleStorage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
@@ -146,6 +170,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_1.SimpleStorage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_2.SimpleStorage"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_2_0">
@@ -176,7 +206,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="SimpleStorage.v1_2_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="SimpleStorage.v1_2_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -184,6 +217,12 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_2_0.SimpleStorage"/>
     </Schema>
 
   </edmx:DataServices>

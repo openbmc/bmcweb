@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -26,8 +26,8 @@
       <Annotation Term="OData.Description" String="This enum describes all Protocols supported by devices in the Storage and Fabric models."/>
       <EnumType Name="Protocol">
         <Member Name="PCIe">
-          <Annotation Term="OData.Description" String="PCI Express (Vendor Proprietary)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the PCI-SIG PCI Express Base Specification only beyond that is uses some vendor proprietary mechanism to communicate."/>
+          <Annotation Term="OData.Description" String="PCI Express."/>
+          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the PCI-SIG PCI Express Base Specification."/>
         </Member>
         <Member Name="AHCI">
           <Annotation Term="OData.Description" String="Advanced Host Controller Interface."/>
@@ -116,6 +116,10 @@
         <Member Name="RoCEv2">
           <Annotation Term="OData.Description" String="RDMA over Converged Ethernet Protocol Version 2."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the RDMA over Converged Ethernet version 2 protocol as defined by the Infiniband Architecture Specification."/>
+        </Member>
+        <Member Name="I2C">
+          <Annotation Term="OData.Description" String="Inter-Integrated Circuit Bus."/>
+          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the NXP Semiconductors I2C-bus Specification."/>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM specific."/>

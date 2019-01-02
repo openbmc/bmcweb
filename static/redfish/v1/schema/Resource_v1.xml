@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource  v1.6.0-->
+<!--# Redfish Schema:  Resource  v1.7.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -118,7 +118,10 @@
           <Annotation Term="OData.Description" String="This represents the health state of this resource in the absence of its dependent resources."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the HealthState of the resource without considering its dependent resources. The values shall conform to those defined in the Redfish specification."/>
         </Property>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <!--This indicates the known state of the resource, such as if it is enabled.-->
@@ -260,6 +263,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This is the identifier for the member within the collection."/>
           <Annotation Term="OData.LongDescription" String="The value of this string shall uniquely identify the member within the collection."/>
+          <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
 
@@ -292,6 +296,7 @@
         </Property>
         <Property Name="Name" Type="Resource.Name" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections."/>
@@ -314,6 +319,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
@@ -345,7 +355,10 @@
           <Annotation Term="OData.Description" String="This represents the format of the Info property."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the format of the Info property."/>
         </Property>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <EnumType Name="DurableNameFormat">
@@ -422,6 +435,11 @@
       <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and to deprecate the versioned definition of IndicatorLED to use an unversioned definition."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
@@ -461,6 +479,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and to deprecate the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
@@ -551,6 +574,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Room designation or other additional info."/>
           <Annotation Term="OData.LongDescription" String="The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information."/>
+          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of the property AdditionalInfo found in the 1.7.0 definition of PostalAddress."/>
         </Property>
         <Property Name="Floor" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -700,6 +724,11 @@
       <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and to deprecate the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add PowerCycle enumeration to ResetType."/>
@@ -713,6 +742,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and to deprecate the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
@@ -834,8 +868,8 @@
 
       <ComplexType Name="Location" BaseType="Resource.v1_3_0.Location">
         <Property Name="PartLocation" Type="Resource.v1_5_0.PartLocation">
-          <Annotation Term="OData.Description" String="Postal address of the addressed resource."/>
-          <Annotation Term="OData.LongDescription" String="The value shall be a postal address of the resource."/>
+          <Annotation Term="OData.Description" String="The part location within the placement."/>
+          <Annotation Term="OData.LongDescription" String="The value shall describe a location within a resource.  This representation shall be used to indicate the location within the Placement."/>
         </Property>
       </ComplexType>
 
@@ -846,28 +880,86 @@
       <Annotation Term="OData.Description" String="This version was created to add an abstract base type for Identifier and Location, and to deprecate the versioned definition of IndicatorLED and PowerState to use an unversioned definition."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add GPS Coordinated to Location and enumerations for DurableNameFormat for NVMe fabric extension."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_5_0.Location">
         <Property Name="Longitude" Type="Edm.Decimal" DefaultValue="0">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The longitude resource in degrees."/>
           <Annotation Term="OData.LongDescription" String="The value shall be the longitude of the resource specified in degrees using a decimal format and not minutes or seconds."/>
           <Annotation Term="Measures.Unit" String="deg"/>
         </Property>
         <Property Name="Latitude" Type="Edm.Decimal" DefaultValue="0">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The latitude resource."/>
           <Annotation Term="OData.LongDescription" String="The value shall be the latitude of the resource specified in degrees using a decimal format and not minutes or seconds."/>
           <Annotation Term="Measures.Unit" String="deg"/>
         </Property>
         <Property Name="AltitudeMeters" Type="Edm.Decimal" DefaultValue="0">
-          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The altitude of the resource in meters."/>
           <Annotation Term="OData.LongDescription" String="The altitude of the resource in meters."/>
           <Annotation Term="Measures.Unit" String="m"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the permissions for Longitude, Latitude, and AltitudeMeters inside the Location object.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add an array of Contact Information entries to Location, and to deprecate Location within PostalAddress in favor of AdditionalInfo."/>
+
+      <ComplexType Name="Location" BaseType="Resource.v1_6_0.Location">
+        <Property Name="Contacts" Type="Collection(Resource.v1_7_0.ContactInfo)">
+          <Annotation Term="OData.Description" String="Array of contact information."/>
+          <Annotation Term="OData.LongDescription" String="The value shall contain contact information used to obtain more information from an individual or organization responsible for this resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="PostalAddress" BaseType="Resource.v1_3_0.PostalAddress">
+        <Property Name="AdditionalInfo" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Room designation or other additional info."/>
+          <Annotation Term="OData.LongDescription" String="The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Placement" BaseType="Resource.v1_3_0.Placement">
+        <Property Name="AdditionalInfo" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Area designation or other additional info."/>
+          <Annotation Term="OData.LongDescription" String="The value shall contain additional information, such as Tile, Column (Post), Wall, or other designation used to describe a location that cannot be conveyed with other properties defined for the Placement object."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="ContactInfo">
+        <Annotation Term="OData.Description" String="Contact information for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain contact information used to obtain more information from an individual or organization responsible for this resource."/>
+        <Property Name="ContactName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Name of this contact."/>
+          <Annotation Term="OData.LongDescription" String="The value shall contain the name of a person or organization to contact for information about this resource."/>
+        </Property>
+        <Property Name="PhoneNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Phone number for this contact."/>
+          <Annotation Term="OData.LongDescription" String="The value shall contain the phone number for a person or organization to contact for information about this resource."/>
+        </Property>
+        <Property Name="EmailAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Email address for this contact."/>
+          <Annotation Term="OData.LongDescription" String="The value shall contain the email address for a person or organization to contact for information about this resource."/>
         </Property>
       </ComplexType>
     </Schema>
