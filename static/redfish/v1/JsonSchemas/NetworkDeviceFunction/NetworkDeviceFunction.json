@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/NetworkDeviceFunction",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,7 +23,9 @@
             },
             "properties": {
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -67,6 +70,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -80,7 +84,7 @@
                     "longDescription": "The value of this property shall be the relative priority for this entry in the boot targets array.  Lower numbers shall represent higher priority, with zero being the highest priority.  The BootPriority shall be unique for all entries of the BootTargets array.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -115,6 +119,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -137,7 +142,7 @@
                     "longDescription": "The Maximum Transmission Unit (MTU) configured for this Network Device Function.  This value serves as a default for the OS driver when booting.  The value only takes-effect on boot.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -149,6 +154,24 @@
                         "string",
                         "null"
                     ]
+                },
+                "VLAN": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json#/definitions/VLAN"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "If this Network Interface supports more than one VLAN, this property is not present. VLANs collections appear in the Link section of this resource.",
+                    "longDescription": "The value of this property shall be the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall not be present and the VLANS collection link shall be present instead."
+                },
+                "VLANs": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection.json#/definitions/VLanNetworkInterfaceCollection",
+                    "description": "This is a reference to a collection of VLANs and is only used if the interface supports more than one VLANs.",
+                    "longDescription": "The value of this property shall reference a collection of VLAN resources. If this property is used, the VLANEnabled and VLANId property shall not be used.",
+                    "readonly": true
                 }
             },
             "type": "object"
@@ -163,6 +186,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -202,7 +226,7 @@
                     "minimum": 0,
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -213,7 +237,16 @@
                     "minimum": 0,
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
+                        "null"
+                    ]
+                },
+                "FibreChannelId": {
+                    "description": "The Fibre Channel Id assigned by the switch for this interface.",
+                    "longDescription": "This property shall indicate the Fibre Channel Id assigned by the switch for this interface.",
+                    "readonly": true,
+                    "type": [
+                        "string",
                         "null"
                     ]
                 },
@@ -290,6 +323,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -308,12 +342,18 @@
                     "type": "array"
                 },
                 "Endpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "PCIeFunction": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction",
-                    "description": "Contains the members of this collection.",
+                    "description": "A reference to the PCIeFunction associated with this Network Device Function.",
+                    "longDescription": "The value of this property shall be a references of type PCIeFunction that represents the PCI-e Function associated with this Network Device Function.",
                     "readonly": true
+                },
+                "PhysicalPortAssignment": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort",
+                    "description": "The physical port that this network device function is currently assigned to.",
+                    "longDescription": "The value of this property shall be the physical port that this network device function is currently assigned to. This value shall be one of the AssignablePhysicalPorts array members."
                 }
             },
             "type": "object"
@@ -328,6 +368,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -337,16 +378,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -363,7 +404,7 @@
                     "type": "array"
                 },
                 "AssignablePhysicalPorts@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "BootMode": {
                     "anyOf": [
@@ -436,7 +477,7 @@
                     "longDescription": "The value of this property shall be the number of virtual functions (VFs) that are available for this Network Device Function.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -480,19 +521,15 @@
                 },
                 "PhysicalPortAssignment": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkPort.json#/definitions/NetworkPort",
+                    "deprecated": "This property has been deprecated and moved to the Links section to avoid loops on expand.",
                     "description": "The physical port that this network device function is currently assigned to.",
                     "longDescription": "The value of this property shall be the physical port that this network device function is currently assigned to. This value shall be one of the AssignablePhysicalPorts array members.",
                     "readonly": true
                 },
                 "Status": {
-                    "anyOf": [
-                        {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ]
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "VirtualFunctionsEnabled": {
                     "description": "Whether Single Root I/O Virtualization (SR-IOV) Virual Functions (VFs) are enabled for this Network Device Function.",
@@ -517,6 +554,8 @@
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -549,6 +588,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -580,6 +620,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -709,7 +750,7 @@
                     "longDescription": "The value of this property shall be the logical unit number (LUN) for the primary iSCSI boot target.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -736,7 +777,7 @@
                     "longDescription": "The value of this property shall be the TCP port for the primary iSCSI boot target.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -756,7 +797,7 @@
                     "minimum": 0,
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -783,7 +824,7 @@
                     "longDescription": "The value of this property shall be the logical unit number (LUN) for the secondary iSCSI boot target.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -810,7 +851,7 @@
                     "longDescription": "The value of this property shall be the TCP port for the secondary iSCSI boot target.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -830,7 +871,7 @@
                     "minimum": 0,
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -848,5 +889,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#NetworkDeviceFunction.v1_2_1.NetworkDeviceFunction"
+    "title": "#NetworkDeviceFunction.v1_3_0.NetworkDeviceFunction"
 }

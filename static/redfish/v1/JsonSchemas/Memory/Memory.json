@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/Memory",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -24,6 +25,9 @@
                 "#Memory.DisablePassphrase": {
                     "$ref": "#/definitions/DisablePassphrase"
                 },
+                "#Memory.OverwriteUnit": {
+                    "$ref": "#/definitions/OverwriteUnit"
+                },
                 "#Memory.SecureEraseUnit": {
                     "$ref": "#/definitions/SecureEraseUnit"
                 },
@@ -34,7 +38,9 @@
                     "$ref": "#/definitions/UnlockUnit"
                 },
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -90,6 +96,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -135,6 +142,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -167,6 +175,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -176,16 +185,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -197,27 +206,30 @@
                     "longDescription": "The value of this property shall be thealignment boundary on which memory regions are allocated, measured in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "AllocationIncrementMiB": {
                     "description": "The size of the smallest unit of allocation for a memory region in mebibytes (MiB).",
                     "longDescription": "The value of this property shall be the allocation increment for regions, measured in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "AllowedSpeedsMHz": {
                     "description": "Speed bins supported by this Memory.",
                     "items": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "longDescription": "The value of this property shall be the speed supported by this Memory.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "units": "MHz"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
@@ -243,7 +255,7 @@
                     "longDescription": "The value of this property shall be the bus width in bits.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -252,7 +264,7 @@
                     "longDescription": "The value of this property shall be the total size of the cache portion memory in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -262,7 +274,7 @@
                     "longDescription": "The value of this property shall be the Memory capacity in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -272,7 +284,7 @@
                     "longDescription": "The value of this property shall be the data width in bits.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -375,14 +387,16 @@
                     "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
                 },
                 "Location": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The Location of the memory.",
+                    "longDescription": "This property shall contain location information of the associated memory."
                 },
                 "LogicalSizeMiB": {
                     "description": "Total size of the logical memory in MiB.",
                     "longDescription": "The value of this property shall be the total size of the logical memory in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -399,11 +413,12 @@
                 "MaxTDPMilliWatts": {
                     "description": "Maximum TDPs in milli Watts.",
                     "items": {
-                        "type": "number"
+                        "type": "integer"
                     },
                     "longDescription": "The value of this property shall be the maximum power budgets supported by the Memory in milli Watts.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "units": "mW"
                 },
                 "MemoryDeviceType": {
                     "anyOf": [
@@ -500,7 +515,7 @@
                     "longDescription": "The value of this property shall be the total size of the non-volatile portion memory in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -524,9 +539,10 @@
                     "longDescription": "The value of this property shall be the operating speed of Memory in MHz or MT/s (mega-transfers per second) as reported by the memory device. Memory devices which operate at their bus speed shall report the operating speed in MHz (bus speed), while memory device which transfer data faster than their bus speed (e.g. DDR memory) shall report the operating speed in MT/s (mega-transfers/second). In any case, the reported value shall match the conventionally reported values for the technology utilized by the memory device.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MHz"
                 },
                 "PartNumber": {
                     "description": "The product part number of this device.",
@@ -542,7 +558,7 @@
                     "longDescription": "The value of this property shall be the total number of persistent regions this Memory can support.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -551,18 +567,20 @@
                     "longDescription": "The value of this property shall be the total size of persistent regions in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "PersistentRegionSizeMaxMiB": {
                     "description": "Maximum size of a single persistent region in mebibytes (MiB).",
                     "longDescription": "The value of this property shall be the maximum size of a single persistent regions in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "PowerManagementPolicy": {
                     "$ref": "#/definitions/PowerManagementPolicy",
@@ -574,7 +592,7 @@
                     "longDescription": "The value of this property shall be number of ranks available in the Memory. The ranks could be used for spare or interleave.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -605,12 +623,14 @@
                     "longDescription": "The value of this property shall be the number of unused spare devices available in the Memory. If memory devices fails, the spare device could be used.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
                 "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SubsystemDeviceID": {
                     "deprecated": "This property has been Deprecated in favor of Memory.v1_3_0.MemorySubsystemControllerProductID",
@@ -647,7 +667,7 @@
                     "longDescription": "The value of this property shall be the total number of volatile regions this Memory can support.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -656,31 +676,35 @@
                     "longDescription": "The value of this property shall be the total size of volatile regions in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "VolatileRegionSizeMaxMiB": {
                     "description": "Maximum size of a single volatile region in mebibytes (MiB).",
                     "longDescription": "The value of this property shall be the maximum size of a single volatile regions in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "VolatileSizeMiB": {
                     "description": "Total size of the volitile portion memory in MiB.",
                     "longDescription": "The value of this property shall be the total size of the volatile portion memory in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -756,6 +780,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -769,7 +794,7 @@
                     "longDescription": "Channel number in which Memory is connected.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -778,7 +803,7 @@
                     "longDescription": "Memory controller number in which Memory is connected.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -787,7 +812,7 @@
                     "longDescription": "Slot number in which Memory is connected.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -796,7 +821,7 @@
                     "longDescription": "Socket number in which Memory is connected.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 }
@@ -821,16 +846,19 @@
                 "DRAM",
                 "NVDIMM_N",
                 "NVDIMM_F",
-                "NVDIMM_P"
+                "NVDIMM_P",
+                "IntelOptane"
             ],
             "enumDescriptions": {
                 "DRAM": "The memory module is composed of volatile memory.",
+                "IntelOptane": "The memory module is Intel Optane DC Persistent Memory and composed of a combination of non-volatile and volatile memory.",
                 "NVDIMM_F": "The memory module is composed of non-volatile memory.",
                 "NVDIMM_N": "The memory module is composed of volatile memory backed by non-volatile memory.",
                 "NVDIMM_P": "The memory module is composed of a combination of non-volatile and volatile memory."
             },
             "enumLongDescriptions": {
                 "DRAM": "This memory type shall represent volatile DRAM.",
+                "IntelOptane": "This memory type shall represent Intel Optane DC Persistent Memory.",
                 "NVDIMM_F": "This memory type shall represent NVDIMM_F as defined by JEDEC.",
                 "NVDIMM_N": "This memory type shall represent NVDIMM_N as defined by JEDEC.",
                 "NVDIMM_P": "This memory type shall represent NVDIMM_P as defined by JEDEC."
@@ -847,6 +875,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -870,6 +899,51 @@
             },
             "type": "string"
         },
+        "OverwriteUnit": {
+            "additionalProperties": false,
+            "description": "This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Overwrite.",
+            "longDescription": "This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Overwrite. Use the SecureEraseUnit method to perform NIST SP800-88 Purge: Cryptographic Erase.",
+            "parameters": {
+                "Passphrase": {
+                    "description": "Passphrase for doing the operation.",
+                    "longDescription": "The value of this property shall be the passphrase used in this action.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "RegionId": {
+                    "description": "Memory region ID for which this action to be applied.",
+                    "longDescription": "The value of this property shall be the Memory region ID for which this action to be applied.",
+                    "requiredParameter": true,
+                    "type": "string"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "PowerManagementPolicy": {
             "additionalProperties": false,
             "description": "Power management policy information.",
@@ -880,6 +954,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -893,7 +968,7 @@
                     "longDescription": "Average power budget in milli watts.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "mW"
@@ -903,7 +978,7 @@
                     "longDescription": "Maximum TDP in milli watts.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "mW"
@@ -913,7 +988,7 @@
                     "longDescription": "Peak power budget in milli watts.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "mW"
@@ -940,6 +1015,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -966,7 +1042,7 @@
                     "longDescription": "Offset with in the Memory that corresponds to the starting of this memory region in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -1004,7 +1080,7 @@
                     "longDescription": "Size of this memory region in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ],
                     "units": "MiBy"
@@ -1014,8 +1090,8 @@
         },
         "SecureEraseUnit": {
             "additionalProperties": false,
-            "description": "This defines the action for securely erasing given regions.",
-            "longDescription": "This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region.",
+            "description": "This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase.",
+            "longDescription": "This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase. Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite.",
             "parameters": {
                 "Passphrase": {
                     "description": "Passphrase for doing the operation.",
@@ -1036,6 +1112,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -1066,6 +1143,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -1079,7 +1157,7 @@
                     "longDescription": "Maximum number of passphrases supported for this Memory.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -1147,6 +1225,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -1191,6 +1270,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -1213,5 +1293,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Memory.v1_5_0.Memory"
+    "title": "#Memory.v1_6_0.Memory"
 }

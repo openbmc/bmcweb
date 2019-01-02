@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  JSONSchemaFile  v1.1.0-->
+<!--# Redfish Schema:  JSONSchemaFile  v1.1.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -47,6 +47,11 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/JsonSchemas/{JsonSchemaFileId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -71,6 +76,7 @@
         </Property>
         <Property Name="Location" Type="Collection(JsonSchemaFile.v1_0_0.Location)" Nullable="false">
           <Annotation Term="OData.Description" String="Location information for this schema file."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the location information for this schema file."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </EntityType>
@@ -129,6 +135,12 @@
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_3.JsonSchemaFile"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_4.JsonSchemaFile"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_4.JsonSchemaFile">
@@ -142,7 +154,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="JsonSchemaFile.v1_1_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="JsonSchemaFile.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -150,6 +165,12 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_0.JsonSchemaFile"/>
     </Schema>
 
   </edmx:DataServices>

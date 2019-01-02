@@ -1,18 +1,19 @@
 {
     "$ref": "#/definitions/ActionInfo",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_3_0.json",
-    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ActionInfo": {
             "additionalProperties": false,
             "description": "The ActionInfo schema describes the parameters and other information necessary to perform a Redfish Action on a particular Action target. Parameter support can differ between vendors and even between instances of a resource. This data can be used to ensure Action requests from applications contain supported parameters.",
             "longDescription": "This resource shall be used to represent information about the supported parameters for an Action within a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,13 +23,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Description": {
                     "anyOf": [
@@ -64,6 +68,8 @@
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -95,11 +101,12 @@
             "description": "A parameter associated with the specified Redfish Action.",
             "longDescription": "This property shall contain information about a specific parameter associated with a Redfish Action associated with this resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -133,6 +140,24 @@
                     "longDescription": "This property shall indicate the JSON property type of the parameter.",
                     "readonly": true
                 },
+                "MaximumValue": {
+                    "description": "The maximum supported value of this parameter.",
+                    "longDescription": "This property shall indicate the maximum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "MinimumValue": {
+                    "description": "The minimum supported value for this parameter.",
+                    "longDescription": "This property shall indicate the minimum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
                 "Name": {
                     "description": "The name of the parameter for this Action.",
                     "longDescription": "This property shall contain the name of the parameter used by the associated Redfish Action.",
@@ -161,5 +186,6 @@
             "type": "object"
         }
     },
-    "title": "#ActionInfo.v1_0_3.ActionInfo"
+    "owningEntity": "DMTF",
+    "title": "#ActionInfo.v1_1_0.ActionInfo"
 }

@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/ServiceRoot",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Expand": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,34 +23,34 @@
             },
             "properties": {
                 "ExpandAll": {
-                    "description": "This indicates whether the expand support of asterisk (expand all entries) is supported.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of asterisk (expand all entries) as a value for the expand query parameter as described by the specification.",
+                    "description": "This indicates whether the $expand support of asterisk (expand all entries) is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of asterisk (expand all entries) as a value for the $expand query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 },
                 "Levels": {
                     "description": "This indicates whether the expand support of the $levels qualifier is supported by the service.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of $levels as a value for the expand query parameter as described by the specification.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of $levels as a value for the $expand query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 },
                 "Links": {
-                    "description": "This indicates whether the expand support of tilde (expand only entries in the Links section) is supported.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of tilde (expand only entries in the Links section) as a value for the expand query parameter as described by the specification.",
+                    "description": "This indicates whether the $expand support of tilde (expand only entries in the Links section) is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of tilde (expand only entries in the Links section) as a value for the $expand query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 },
                 "MaxLevels": {
-                    "description": "This indicates the maximum number value of the $levels qualifier in expand operations.",
+                    "description": "This indicates the maximum number value of the $levels qualifier in $expand operations.",
                     "longDescription": "The value of this property shall be the maximum value of the $levels qualifier supported by the service and shall only be included if the value of the Levels property is true.",
                     "maximum": 6,
                     "minimum": 1,
                     "readonly": true,
-                    "type": "number"
+                    "type": "integer"
                 },
                 "NoLinks": {
-                    "description": "This indicates whether the expand support of period (expand only entries not in the Links section) is supported.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of period (expand only entries not in the Links section) as a value for the expand query parameter as described by the specification.",
+                    "description": "This indicates whether the $expand support of period (expand only entries not in the Links section) is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of period (expand only entries not in the Links section) as a value for the $expand query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 }
@@ -66,6 +67,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -101,6 +103,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -109,20 +112,32 @@
                 }
             },
             "properties": {
+                "ExcerptQuery": {
+                    "description": "This indicates whether the 'excerpt' query parameter is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of the 'excerpt' query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
                 "ExpandQuery": {
                     "$ref": "#/definitions/Expand",
                     "description": "Contains information about the use of $expand in the service.",
                     "longDescription": "This type, as described by the Redfish Specification, shall contain information about the support of the $expand query parameter by the service."
                 },
                 "FilterQuery": {
-                    "description": "This indicates whether the filter query parameter is supported.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of th filter query parameter as described by the specification.",
+                    "description": "This indicates whether the $filter query parameter is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of the $filter query parameter as described by the specification.",
+                    "readonly": true,
+                    "type": "boolean"
+                },
+                "OnlyMemberQuery": {
+                    "description": "This indicates whether the 'only' query parameter is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of the 'only' query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 },
                 "SelectQuery": {
-                    "description": "This indicates whether the select query parameter is supported.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of th select query parameter as described by the specification.",
+                    "description": "This indicates whether the $select query parameter is supported.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether this service supports the use of the $select query parameter as described by the specification.",
                     "readonly": true,
                     "type": "boolean"
                 }
@@ -139,6 +154,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -148,16 +164,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "AccountService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
@@ -202,6 +218,12 @@
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "JobService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/JobService.json#/definitions/JobService",
+                    "description": "This is a link to the JobService.",
+                    "longDescription": "The classes structure shall only contain a reference to a resource that conforms to the JobService schema.",
                     "readonly": true
                 },
                 "JsonSchemas": {
@@ -284,6 +306,12 @@
                     "longDescription": "The classes structure shall only contain a reference to a resource that complies to the TaskService schema.",
                     "readonly": true
                 },
+                "TelemetryService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/TelemetryService.json#/definitions/TelemetryService",
+                    "description": "This is a link to the TelemetryService.",
+                    "longDescription": "The value shall be a link to the TelemetryService.",
+                    "readonly": true
+                },
                 "UUID": {
                     "anyOf": [
                         {
@@ -306,6 +334,8 @@
             },
             "required": [
                 "Links",
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -313,5 +343,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#ServiceRoot.v1_3_1.ServiceRoot"
+    "title": "#ServiceRoot.v1_4_0.ServiceRoot"
 }

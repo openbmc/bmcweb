@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/Chassis",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -25,7 +26,9 @@
                     "$ref": "#/definitions/Reset"
                 },
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -40,6 +43,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -49,16 +53,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -142,7 +146,9 @@
                     "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
                 },
                 "Location": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
+                    "description": "The Location of the chassis.",
+                    "longDescription": "This property shall contain location information of the associated chassis."
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
@@ -182,6 +188,12 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "PCIeSlots": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json#/definitions/PCIeSlots",
+                    "description": "A reference to the PCIe Slot properties of this chassis.",
+                    "longDescription": "The value of this property shall be a reference to the resource that represents the PCIe Slot information for this chassis and shall be of type PCIeSlot.",
+                    "readonly": true
                 },
                 "PartNumber": {
                     "description": "The part number of the chassis.",
@@ -235,7 +247,9 @@
                     ]
                 },
                 "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "Thermal": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Thermal.json#/definitions/Thermal",
@@ -281,6 +295,8 @@
             },
             "required": [
                 "ChassisType",
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -393,6 +409,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -411,7 +428,7 @@
                     "type": "array"
                 },
                 "ComputerSystems@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ContainedBy": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
@@ -429,19 +446,19 @@
                     "type": "array"
                 },
                 "Contains@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "CooledBy": {
                     "description": "An array of ID[s] of resources that cool this chassis. Normally the ID will be a chassis or a specific set of fans.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef"
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
                     },
                     "longDescription": "The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that cools this chassis.",
                     "readonly": true,
                     "type": "array"
                 },
                 "CooledBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "Drives": {
                     "description": "An array of references to the disk drives located in this Chassis.",
@@ -453,7 +470,7 @@
                     "type": "array"
                 },
                 "Drives@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ManagedBy": {
                     "description": "An array of references to the Managers responsible for managing this chassis.",
@@ -465,7 +482,7 @@
                     "type": "array"
                 },
                 "ManagedBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ManagersInChassis": {
                     "description": "An array of references to the managers located in this Chassis.",
@@ -477,7 +494,7 @@
                     "type": "array"
                 },
                 "ManagersInChassis@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -494,19 +511,19 @@
                     "type": "array"
                 },
                 "PCIeDevices@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "PoweredBy": {
                     "description": "An array of ID[s] of resources that power this chassis. Normally the ID will be a chassis or a specific set of Power Supplies.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef"
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
                     },
                     "longDescription": "The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that powers this chassis.",
                     "readonly": true,
                     "type": "array"
                 },
                 "PoweredBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ResourceBlocks": {
                     "description": "An array of references to the Resource Blocks located in this Chassis.",
@@ -518,7 +535,7 @@
                     "type": "array"
                 },
                 "ResourceBlocks@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "Storage": {
                     "description": "An array of references to the storage subsystems connected to or inside this Chassis.",
@@ -530,7 +547,7 @@
                     "type": "array"
                 },
                 "Storage@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "Switches": {
                     "description": "An array of references to the Switches located in this Chassis.",
@@ -542,7 +559,7 @@
                     "type": "array"
                 },
                 "Switches@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -557,6 +574,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -577,6 +595,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -603,7 +622,7 @@
                     "longDescription": "The value of this property shall be a numerical identifier for this physical security sensor that is unique within this resource.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -655,6 +674,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -677,5 +697,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Chassis.v1_7_0.Chassis"
+    "title": "#Chassis.v1_8_0.Chassis"
 }

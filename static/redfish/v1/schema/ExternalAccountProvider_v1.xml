@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ExternalAccountProvider  v1.0.0-->
+<!--# Redfish Schema:  ExternalAccountProvider  v1.0.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -49,6 +49,12 @@
             <PropertyValue Property="Deletable" Bool="true"/>
             <Annotation Term="OData.Description" String="External Account Providers are removed with a Delete operation."/>
           </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/AccountService/ExternalAccountProviders/{ExternalAccountProviderId}</String>
+            <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ExternalAccountProviders/{ExternalAccountProviderId}</String>
+          </Collection>
         </Annotation>
       </EntityType>
 
@@ -142,7 +148,10 @@
           <Annotation Term="OData.Description" String="This property is used with a PATCH or PUT to write a base64 encoded version of the kerberos keytab for the account.  This property is null on a GET."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a base64 encoded version of the kerberos keytab for this account service.  The value shall be null for GET requests."/>
         </Property>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <EnumType Name="AuthenticationTypes">
@@ -167,7 +176,10 @@
           <Annotation Term="OData.Description" String="This property contains the settings needed to search an external LDAP service."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain the settings needed to search an external LDAP service."/>
         </Property>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="LDAPSearchSettings">
@@ -213,7 +225,10 @@
           <Annotation Term="OData.Description" String="The name of the local role in which to map the remote user or group."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain the value of the RoleId property within a Role resource on this Redfish service in which to map the remote user or group."/>
         </Property>
-        <Property Name="Oem" Type="Resource.Oem" Nullable="false"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
@@ -225,7 +240,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="ExternalAccountProvider.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="ExternalAccountProvider.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -233,6 +251,12 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_0.ExternalAccountProvider"/>
     </Schema>
 
   </edmx:DataServices>

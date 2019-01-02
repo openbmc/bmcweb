@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -93,7 +93,37 @@
       </Term>
       <Term Name="OwningEntity" Type="Edm.String">
         <Annotation Term="OData.Description" String="Indicates the name of the entity responsible for development, publication and maintenance of a given schema.  Possible values include DMTF, SNIA or an OEM label such as is used in a Redfish OEM extension section."/>
-      </Term>      
+      </Term>
+      <Term Name="Uris" Type="Collection(Edm.String)">
+        <Annotation Term="OData.Description" String="The term specifies the URIs a service is allowed to use for the given resource."/>
+      </Term>
+      <Term Name="RequestedCount" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term is used by a client in order to specify a request for a quantity of items."/>
+      </Term>
+      <Term Name="RequestedCountRequired" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term specifies that a client is required to provide the @Redfish.RequestedCount term as part of the payload in order to specify a quantity of items."/>
+      </Term>
+      <Term Name="AllowOverprovisioning" Type="Edm.Boolean" DefaultValue="false">
+        <Annotation Term="OData.Description" String="The term specifies that a client is allowing the service to provide more resources than what was requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify that a client is allowing the service to provide more resources than what was requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, then the service shall treat this as false."/>
+      </Term>
+      <Term Name="ZoneAffinity" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies that a client is requesting the service fulfills a request using resources available within a specific Zone resource.  The value of the term is the Id property of the given Zone resource."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify that a client is requesting the service fulfills a request using resources available within a specific Zone resource.  The value of the term shall be the Id property of the given Zone resource.  This term shall only be at the root level of the request payload."/>
+      </Term>
+      <Term Name="Filter" Type="Edm.String">
+        <Annotation Term="OData.Description" String="Indicates a filter to apply to an array of objects when the values are copies of data elsewhere in the data model."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify a Filter to apply to a set of objects used as the data source for an array. The value of the term shall follow the Filter query parameter format as specified in the Redfish Specification. Items matching the filter shall be included in the resulting array, while items that do not match the filter shall be excluded from the results."/>
+      </Term>
+      <Term Name="Excerpt" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies that the property is a Excerpt data element that shall appear in objects marked as a Excerpt Copy when the value of the term matches the type specified by the ExcerptCopy term. The value shall be a property name to use as a key, and the value of that key property, and only one key property can be defined per resource. If the value of the term is unspecified, the property shall appear in all ExcerptCopy instances."/>
+      </Term>
+      <Term Name="ExcerptCopy" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as Excerpt in that referenced definition shall be included. The value of the term shall contain the name and value of a key property used to construct the Excerpt subset of properties from the referenced definition. If the value of the term is not defined, then all Excerpt properties shall be copied from the referenced definition."/>
+      </Term>
+      <Term Name="ExcerptCopyOnly" Type="Edm.Boolean" DefaultValue="true">
+        <Annotation Term="OData.Description" String="The term specifies that the property is a data element that shall appear only when the resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data resource."/>
+      </Term>
 
       <EnumType Name="ReleaseStatusType">
         <Member Name="Standard">
@@ -115,9 +145,11 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe the pattern to which a dynamic property name must adhere."/>
         <Property Name="Pattern" Type="Edm.String">
           <Annotation Term="OData.Description" String="The pattern that the property name shall match."/>
+          <Annotation Term="OData.LongDescription" String="This shall be the pattern that the property name shall match."/>
         </Property>
         <Property Name="Type" Type="Edm.String">
           <Annotation Term="OData.Description" String="The type that the name shall have."/>
+          <Annotation Term="OData.LongDescription" String="This shall be the type that the name shall have."/>
         </Property>
       </ComplexType>
 
@@ -130,6 +162,7 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe a member of an enumeration which contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules."/>
         <Property Name="Member" Type="Edm.String">
           <Annotation Term="OData.Description" String="An allowable string member."/>
+          <Annotation Term="OData.LongDescription" String="This shall be an allowable string member for the enumeration."/>
         </Property>
       </ComplexType>
 

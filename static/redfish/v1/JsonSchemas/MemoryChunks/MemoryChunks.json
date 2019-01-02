@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/MemoryChunks",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -22,7 +23,9 @@
             },
             "properties": {
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -50,6 +53,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -59,7 +63,7 @@
             },
             "properties": {
                 "Memory": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/idRef",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
                     "description": "Describes a memory device of the interleave set.",
                     "longDescription": "The value of this property shall be the memory device to which these settings apply.",
                     "readonly": true
@@ -69,7 +73,7 @@
                     "longDescription": "The value of this property shall be the level of this interleave set for multi-level tiered memory.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -78,9 +82,10 @@
                     "longDescription": "The value of this property shall be the offset within the DIMM that corresponds to the start of this memory region, with units in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "RegionId": {
                     "description": "DIMM region identifier.",
@@ -96,9 +101,10 @@
                     "longDescription": "The value of this property shall be the size of this memory region, with units in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 }
             },
             "type": "object"
@@ -113,6 +119,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -122,16 +129,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -204,9 +211,10 @@
                     "longDescription": "The value of this property shall be the size of the memory chunk in MiB.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "MiBy"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -218,10 +226,14 @@
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
                 },
                 "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -237,6 +249,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -249,5 +262,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#MemoryChunks.v1_2_1.MemoryChunks"
+    "title": "#MemoryChunks.v1_2_2.MemoryChunks"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ResourceBlock  v1.1.0-->
+<!--# Redfish Schema:  ResourceBlock  v1.2.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -77,6 +77,11 @@
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -87,7 +92,10 @@
       <EntityType Name="ResourceBlock" BaseType="ResourceBlock.ResourceBlock">
         <Annotation Term="OData.Description" String="This schema defines a Resource Block resource."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a Resource Block for a Redfish implementation."/>
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
         <Property Name="CompositionStatus" Type="ResourceBlock.v1_0_0.CompositionStatus" Nullable="false">
           <Annotation Term="OData.Description" String="This property describes the composition status details for this Resource Block."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall contain composition status information about this Resource Block."/>
@@ -178,7 +186,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="ResourceBlock.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="ResourceBlock.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -205,6 +216,9 @@
         </Member>
         <Member Name="ComputerSystem">
           <Annotation Term="OData.Description" String="This Resource Block contains ComputerSystem resources."/>
+        </Member>
+        <Member Name="Expansion">
+          <Annotation Term="OData.Description" String="This Resource Block is capable of changing over time based on its configuration.  Different types of devices within this Resource Block can be added and removed over time."/>
         </Member>
       </EnumType>
 
@@ -240,8 +254,17 @@
         <Member Name="Failed">
           <Annotation Term="OData.Description" String="The final composition resulted in failure and manual intervention may be required to fix it."/>
         </Member>
+        <Member Name="Unavailable">
+          <Annotation Term="OData.Description" String="Indicates the Resource Block has been made unavailable by the service, such as due to maintenance being performed on the Resource Block."/>
+        </Member>
       </EnumType>
 
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_0_0.ResourceBlock"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_0">
@@ -274,6 +297,18 @@
         </Property>
       </ComplexType>
 
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_0.ResourceBlock"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ResourceBlock.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add Expansion to the ResourceBlockType enum.  It was also created to add Unavailable to the CompositionState enum."/>
+      <EntityType Name="ResourceBlock" BaseType="ResourceBlock.v1_1_1.ResourceBlock"/>
     </Schema>
 
   </edmx:DataServices>

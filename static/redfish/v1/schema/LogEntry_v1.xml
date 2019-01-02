@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry  v1.3.0-->
+<!--# Redfish Schema:  LogEntry  v1.4.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -52,6 +52,13 @@
             <Annotation Term="OData.Description" String="Some implementations may allow the deletion of individual Log Entries."/>
           </Record>
         </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -73,39 +80,39 @@
         <Property Name="EntryType" Type="LogEntry.v1_0_0.LogEntryType" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="his is the type of log entry."/>
+          <Annotation Term="OData.Description" String="This is the type of log entry."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the type of LogEntry.  If the resource represents an IPMI SEL log entry, the value shall be SEL.  If the resource represents an Event log, the value shall be Event.  If the resource represents an OEM log format, the value shall be Oem."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OemRecordFormat" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="If the entry type is Oem, this will contain more information about the record format from the Oem."/>
+          <Annotation Term="OData.Description" String="If the EntryType is Oem, this will contain more information about the record format from the Oem."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall represent the OEM specific format of the Entry.  This property shall be required if the value of EntryType is Oem."/>
         </Property>
         <Property Name="EntryCode" Type="LogEntry.v1_0_0.LogEntryCode">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the EntryType is SEL, this will have the entry code for the log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be present if the EntryType value is SEL.  These enumerations are the values from table 42-1 and 42-2 of the IPMI specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be present if the EntryType value is SEL.  These enumerations are the values from tables 42-1 and 42-2 of the IPMI specification."/>
         </Property>
         <Property Name="SensorType" Type="LogEntry.v1_0_0.SensorType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the EntryType is SEL, this will have the sensor type that the log entry pertains to."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be present if the EntryType value is SEL."/>
+          <Annotation Term="OData.LongDescription" String="This property shall be present if the EntryType value is SEL.  These enumerations are the values from table 42-3 of the IPMI specification."/>
         </Property>
         <Property Name="SensorNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property decodes from EntryType:  If it is SEL, it is the sensor number; if Event then the count of events.  Otherwise, it is Oem specific."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the EntityInstance from IPMI spec if EntryType is SEL, the count of events if EntryType is Event and OEM Specific if the EntryType is OEM."/>
+          <Annotation Term="OData.Description" String="This property decodes from EntryType.  If the EntryType is SEL, it is the sensor number.  If the EntryType is Event, then the count of events.  Otherwise, it is OEM specific."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the IPMI sensor number if the EntryType is SEL, the count of events if the EntryType is Event, and OEM Specific if EntryType is Oem."/>
         </Property>
         <Property Name="Message" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property decodes from EntryType:  If it is Event then it is a message string.  Otherwise, it is SEL or Oem specific.  In most cases, this will be the actual Log Entry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Message property of the event if the EntryType is Event, the Description if EntryType is SEL and OEM Specific if the EntryType is OEM."/>
+          <Annotation Term="OData.Description" String="This property decodes from EntryType.  If the EntryType is Event, then it is a message string.  Otherwise, it is SEL or OEM specific.  In most cases, this will be the actual Log Entry."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Message property of the event if the EntryType is Event, the Description if the EntryType is SEL, and OEM Specific if the EntryType is Oem."/>
         </Property>
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property decodes from EntryType:  If it is Event then it is a message id.  Otherwise, it is SEL or Oem specific.  This value is only used for registries - for more information, see the specification."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall the MessageId property of the event if the EntryType is Event, the EventData if EntryType is SEL and OEM Specific if the EntryType is OEM.  The format of this property shall be as defined in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="This property decodes from EntryType.  If the EntryType is Event, then it is a message id.  If the EntryType is SEL, then it contains the Event Data.  Otherwise, it is OEM specific.  This value is only used for registries - for more information, see the specification."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall the MessageId property of the event if the EntryType is Event, the three IPMI Event Data bytes if the EntryType is SEL, and OEM Specific if the EntryType is Oem.  The format of this property shall be as defined in the Redfish specification.  If representing the three IPMI Event Data bytes, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){3}$', where Event Data 1 is the first byte in the string, Event Data 2 is the second byte in the string, and Event Data 3 is the third byte in the string."/>
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -609,10 +616,17 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_4.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the Description for EntryType.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the descriptions for many properties."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_5.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_2.LogEntry">
         <Property Name="EventType" Type="Event.EventType" Nullable="false">
+          <Annotation Term="Redfish.Deprecated" String="This property has been deprecated.  Starting Redfish Spec 1.6 (Event 1.3), subscriptions are based on RegistryId and ResourceType and not EventType."/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="This indicates the type of an event recorded in this log."/>
           <Annotation Term="OData.LongDescription" String="If present, this LogEntry records an Event and the value shall indicate the type of event."/>
@@ -648,6 +662,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_2.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the Description for EntryType.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the descriptions for many properties."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_3.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_2.LogEntry">
@@ -661,7 +681,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="LogEntry.v1_2_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="LogEntry.v1_2_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -677,6 +700,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_0.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the Description for EntryType.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the descriptions for many properties."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_1.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add OEM enumerations for legacy IPMI log implementations."/>
@@ -690,6 +719,24 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the Sensor Type is OEM, this will contain the OEM-specific sensor type."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall represent the OEM specific sensor type of the Entry.  This property shall only be used if the value of EntryType is SEL and the value of SensorType is OEM."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the Description for EntryType.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the descriptions for many properties."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate EventType and to add EventGroupId in the case the log is used for Events."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_1.LogEntry">
+        <Property Name="EventGroupId" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This value is the identifier used to correlate events that came from the same cause."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate that events are related and shall have the same value in the case where multiple Event messages are produced by the same root cause.  Implementations shall use separate values for events with separate root cause.  There shall not be ordering of events implied by the value of this property."/>
         </Property>
       </EntityType>
     </Schema>

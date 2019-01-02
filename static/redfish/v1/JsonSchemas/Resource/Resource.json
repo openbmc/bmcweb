@@ -1,7 +1,56 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_3_0.json",
-    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
+        "ContactInfo": {
+            "additionalProperties": false,
+            "description": "Contact information for this resource.",
+            "longDescription": "This object shall contain contact information used to obtain more information from an individual or organization responsible for this resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ContactName": {
+                    "description": "Name of this contact.",
+                    "longDescription": "The value shall contain the name of a person or organization to contact for information about this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "EmailAddress": {
+                    "description": "Email address for this contact.",
+                    "longDescription": "The value shall contain the email address for a person or organization to contact for information about this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "PhoneNumber": {
+                    "description": "Phone number for this contact.",
+                    "longDescription": "The value shall contain the phone number for a person or organization to contact for information about this resource.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "type": "object"
+        },
         "DurableNameFormat": {
             "enum": [
                 "NAA",
@@ -32,16 +81,30 @@
             },
             "type": "string"
         },
+        "Health": {
+            "enum": [
+                "OK",
+                "Warning",
+                "Critical"
+            ],
+            "enumDescriptions": {
+                "Critical": "A critical condition exists that requires immediate attention.",
+                "OK": "Normal.",
+                "Warning": "A condition exists that requires attention."
+            },
+            "type": "string"
+        },
         "Identifier": {
             "additionalProperties": false,
             "description": "This type describes any additional identifiers for a resource.",
             "longDescription": "This type shall contain any additional identifiers of a resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -99,11 +162,12 @@
             "description": "This type describes the location of a resource.",
             "longDescription": "This type shall describe the location of a resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -115,12 +179,27 @@
                 "AltitudeMeters": {
                     "description": "The altitude of the resource in meters.",
                     "longDescription": "The altitude of the resource in meters.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": [
                         "number",
                         "null"
                     ],
                     "units": "m"
+                },
+                "Contacts": {
+                    "description": "Array of contact information.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/definitions/ContactInfo"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "The value shall contain contact information used to obtain more information from an individual or organization responsible for this resource.",
+                    "type": "array"
                 },
                 "Info": {
                     "deprecated": "This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location.",
@@ -145,7 +224,7 @@
                 "Latitude": {
                     "description": "The latitude resource.",
                     "longDescription": "The value shall be the latitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": [
                         "number",
                         "null"
@@ -155,7 +234,7 @@
                 "Longitude": {
                     "description": "The longitude resource in degrees.",
                     "longDescription": "The value shall be the longitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
-                    "readonly": true,
+                    "readonly": false,
                     "type": [
                         "number",
                         "null"
@@ -163,7 +242,9 @@
                     "units": "deg"
                 },
                 "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
                 },
                 "PartLocation": {
                     "anyOf": [
@@ -174,8 +255,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Postal address of the addressed resource.",
-                    "longDescription": "The value shall be a postal address of the resource."
+                    "description": "The part location within the placement.",
+                    "longDescription": "The value shall describe a location within a resource.  This representation shall be used to indicate the location within the Placement."
                 },
                 "Placement": {
                     "anyOf": [
@@ -261,11 +342,12 @@
             "description": "The part location within the placement.",
             "longDescription": "The value shall describe a location within a resource.  This representation shall be used to indicate the location within the Placement.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -279,7 +361,7 @@
                     "longDescription": "The value shall be the number that represents the location of the part based on the LocationType.  LocationOrdinalValue shall be measured based on the Orientation value starting with 0.",
                     "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -339,11 +421,12 @@
             "description": "The placement within the addressed location.",
             "longDescription": "The value shall describe a location within a resource.  Examples include a shelf in a rack.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -352,6 +435,15 @@
                 }
             },
             "properties": {
+                "AdditionalInfo": {
+                    "description": "Area designation or other additional info.",
+                    "longDescription": "The value shall contain additional information, such as Tile, Column (Post), Wall, or other designation used to describe a location that cannot be conveyed with other properties defined for the Placement object.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "Rack": {
                     "description": "Name of a rack location within a row.",
                     "longDescription": "The value shall be the name of the rack within a row.",
@@ -366,7 +458,7 @@
                     "longDescription": "Vertical location of the item in the rack. Rack offset units shall be measured from bottom to top starting with 0.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -400,11 +492,12 @@
             "description": "The PostalAddress for a resource.",
             "longDescription": "Instances shall describe a postal address for a resource. For more information see RFC5139. Depending on use, the instance may represent a past, current, or future location.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -416,6 +509,15 @@
                 "AdditionalCode": {
                     "description": "Additional code.",
                     "longDescription": "The value shall conform the requirements of the ADDCODE field as defined in RFC5139.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "AdditionalInfo": {
+                    "description": "Room designation or other additional info.",
+                    "longDescription": "The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -500,7 +602,7 @@
                     "longDescription": "The value shall conform the requirements of the HNO field as defined in RFC5139.  It is the numeric portion of the house number.",
                     "readonly": false,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
                     ]
                 },
@@ -532,6 +634,7 @@
                     ]
                 },
                 "Location": {
+                    "deprecated": "This property has been Deprecated in favor of the property AdditionalInfo found in the 1.7.0 definition of PostalAddress.",
                     "description": "Room designation or other additional info.",
                     "longDescription": "The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information.",
                     "readonly": false,
@@ -775,11 +878,12 @@
             "description": "This is the base type for addressable members of an array.",
             "longDescription": "Array members can be referenced using the value returned in the @odata.id property which may or may not be a dereferenceable URL. The @odata.id of this entity shall be the location of this element within an Item.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -788,6 +892,9 @@
                 }
             },
             "properties": {
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
                 "MemberId": {
                     "description": "This is the identifier for the member within the collection.",
                     "longDescription": "The value of this string shall uniquely identify the member within the collection.",
@@ -800,17 +907,47 @@
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
                 }
             },
+            "required": [
+                "MemberId",
+                "@odata.id"
+            ],
             "type": "object"
+        },
+        "ResetType": {
+            "enum": [
+                "On",
+                "ForceOff",
+                "GracefulShutdown",
+                "GracefulRestart",
+                "ForceRestart",
+                "Nmi",
+                "ForceOn",
+                "PushPowerButton",
+                "PowerCycle"
+            ],
+            "enumDescriptions": {
+                "ForceOff": "Turn the unit off immediately (non-graceful shutdown).",
+                "ForceOn": "Turn the unit on immediately.",
+                "ForceRestart": "Perform an immediate (non-graceful) shutdown, followed by a restart.",
+                "GracefulRestart": "Perform a graceful shutdown followed by a restart of the system.",
+                "GracefulShutdown": "Perform a graceful shutdown and power off.",
+                "Nmi": "Generate a Diagnostic Interrupt (usually an NMI on x86 systems) to cease normal operations, perform diagnostic actions and typically halt the system.",
+                "On": "Turn the unit on.",
+                "PowerCycle": "Perform a power cycle of the unit.",
+                "PushPowerButton": "Simulate the pressing of the physical power button on this unit."
+            },
+            "type": "string"
         },
         "Resource": {
             "additionalProperties": false,
             "description": "This is the base type for resources and referenceable members.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -820,13 +957,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Description": {
                     "anyOf": [
@@ -855,18 +995,21 @@
             },
             "required": [
                 "Id",
-                "Name"
+                "Name",
+                "@odata.id",
+                "@odata.type"
             ],
             "type": "object"
         },
         "ResourceCollection": {
             "additionalProperties": false,
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -876,13 +1019,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_1.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Description": {
                     "anyOf": [
@@ -905,8 +1051,43 @@
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
                 }
             },
+            "required": [
+                "Name",
+                "@odata.id",
+                "@odata.type"
+            ],
             "type": "object"
+        },
+        "State": {
+            "enum": [
+                "Enabled",
+                "Disabled",
+                "StandbyOffline",
+                "StandbySpare",
+                "InTest",
+                "Starting",
+                "Absent",
+                "UnavailableOffline",
+                "Deferring",
+                "Quiesced",
+                "Updating"
+            ],
+            "enumDescriptions": {
+                "Absent": "This function or resource is not present or not detected.",
+                "Deferring": "The element will not process any commands but will queue new requests.",
+                "Disabled": "This function or resource has been disabled.",
+                "Enabled": "This function or resource has been enabled.",
+                "InTest": "This function or resource is undergoing testing.",
+                "Quiesced": "The element is enabled but only processes a restricted set of commands.",
+                "StandbyOffline": "This function or resource is enabled, but awaiting an external action to activate it.",
+                "StandbySpare": "This function or resource is part of a redundancy set and is awaiting a failover or other external action to activate it.",
+                "Starting": "This function or resource is starting.",
+                "UnavailableOffline": "This function or resource is present but cannot be used.",
+                "Updating": "The element is updating and may be unavailable or degraded."
+            },
+            "type": "string"
         }
     },
-    "title": "#Resource.v1_6_0"
+    "owningEntity": "DMTF",
+    "title": "#Resource.v1_7_0"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  BootOption  v1.0.0-->
+<!--# Redfish Schema:  BootOption  v1.0.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -35,6 +35,7 @@
 
       <EntityType Name="BootOption" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The BootOption resource reports information about a single BootOption contained within a system."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a single boot option contained within a system."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -49,8 +50,14 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Some implementations may allow the deletion of individual Boot Option Entries."/>                           
+            <Annotation Term="OData.Description" String="Some implementations may allow the deletion of individual Boot Option Entries."/>
           </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/BootOptions/{BootOptionId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/BootOptions/{BootOptionId}</String>
+          </Collection>
         </Annotation>
       </EntityType>
 
@@ -61,6 +68,7 @@
 
       <EntityType Name="BootOption" BaseType="BootOption.BootOption">
         <Annotation Term="OData.Description" String="This is the schema definition for the BootOption resource. It represents the properties of a bootable device available in the System."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a single boot option contained within a system."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="BootOptionReference" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -85,8 +93,8 @@
         </Property>
         <Property Name="Alias" Type="ComputerSystem.BootSource">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The alias of this Boot Source when described in the BootSourceOverrideTarget property in the Computersystem resource."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain an alias to the Boot Source that describes this Boot Option in the BootSourceOverrideTarget property in the ComputerSystem resource. The possible values of this property are specified through the Redfish.AllowableValues annotation on BootSourceOverrideTarget in the ComputerSystem resource."/>
+          <Annotation Term="OData.Description" String="The alias of this Boot Source."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the string alias of this Boot Source that describes the type of boot that will be performed."/>
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -97,14 +105,17 @@
         <Property Name="Actions" Type="BootOption.v1_0_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
           <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
-        </Property>        
+        </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="BootOption.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="BootOption.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -113,6 +124,12 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
       
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BootOption.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="BootOption" BaseType="BootOption.v1_0_0.BootOption"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Endpoint  v1.1.0-->
+<!--# Redfish Schema:  Endpoint  v1.2.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -13,6 +13,9 @@
 
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
     <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
@@ -51,6 +54,26 @@
       <EntityType Name="Endpoint" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The Endpoint schema defines the properties of an Endpoint resource.  It represents the properties of an entity that sends or receives protocol defined messages over a transport."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a fabric endpoint for a Redfish implementation."/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Fabrics/{FabricId}/Endpoints/{EndpointId}</String>
+          </Collection>
+        </Annotation>
       </EntityType>
 
     </Schema>
@@ -61,7 +84,10 @@
       <EntityType Name="Endpoint" BaseType="Endpoint.Endpoint">
         <Annotation Term="OData.Description" String="This is the schema definition for the Endpoint resource. It represents the properties of an entity that sends or receives protocol defined messages over a transport."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a fabric endpoint for a Redfish implementation."/>
-        <Property Name="Status" Type="Resource.Status"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
         <Property Name="EndpointProtocol" Type="Protocol.Protocol">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The protocol supported by this endpoint."/>
@@ -82,6 +108,7 @@
         </Property>
         <NavigationProperty Name="Redundancy" Type="Collection(Redundancy.Redundancy)" ContainsTarget="true">
           <Annotation Term="OData.Description" String="Redundancy information for the lower level endpoints supporting this endpoint."/>
+          <Annotation Term="OData.LongDescription" String="The values of the properties in this array shall be used to show how this endpoint is grouped with other endpoints for form redundancy sets."/>
           <Annotation Term="OData.AutoExpand"/>
         </NavigationProperty>
         <Property Name="HostReservationMemoryBytes" Type="Edm.Int64">
@@ -93,9 +120,11 @@
 
         <Property Name="Links" Type="Endpoint.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links object contains the links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
         </Property>
         <Property Name="Actions" Type="Endpoint.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The Actions object contains the available custom actions on this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -120,7 +149,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="Endpoint.v1_0_0.OemActions"/>
+        <Property Name="Oem" Type="Endpoint.v1_0_0.OemActions">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -151,12 +183,14 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The PCI ID of the connected entity."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the PCI Function Number of the connected PCIe entity."/>
+          <Annotation Term="Redfish.Deprecated" String="This property has been deprecated in favor of the FunctionNumber property inside the EntityPciId object."/>
         </Property>
         <Property Name="PciClassCode" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The Class Code, Subclass code, and Programming Interface code of this PCIe function."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the PCI Class Code, Subclass code, and Programming Interface code of the PCIe device function."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){3}$"/>
+          <Annotation Term="Redfish.Deprecated" String="This property has been deprecated in favor of the ClassCode property inside the EntityPciId object."/>
         </Property>
         <Property Name="Identifiers" Type="Collection(Resource.Identifier)">
           <Annotation Term="OData.Description" String="Identifiers for the remote entity."/>
@@ -168,7 +202,10 @@
           <Annotation Term="OData.LongDescription" String="This property shall be a reference to an entity of the type specified by the description of the value of the EntityType property."/>
         </NavigationProperty>
 
-        <Property Name="Oem" Type="Resource.Oem"/>
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="Oem extension object."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+        </Property>
       </ComplexType>
 
       <EnumType Name="EntityType">
@@ -263,6 +300,12 @@
       <EntityType Name="Endpoint" BaseType="Endpoint.v1_0_2.Endpoint"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Endpoint.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Endpoint" BaseType="Endpoint.v1_0_3.Endpoint"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Endpoint.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Endpoint" BaseType="Endpoint.v1_0_3.Endpoint">
@@ -305,6 +348,31 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be an specify UDP or TCP port number used for communication with the Endpoint."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Validation.Maximum" Int="65535"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Endpoint.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Endpoint" BaseType="Endpoint.v1_1_0.Endpoint"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Endpoint.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="Endpoint" BaseType="Endpoint.v1_1_1.Endpoint"/>
+
+      <ComplexType Name="PciId" BaseType="Endpoint.v1_0_0.PciId">
+        <Property Name="FunctionNumber" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The PCI ID of the connected entity."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the PCI Function Number of the connected PCIe entity."/>
+        </Property>
+        <Property Name="ClassCode" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The Class Code, Subclass code, and Programming Interface code of this PCIe function."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the PCI Class Code, Subclass code, and Programming Interface code of the PCIe device function."/>
+          <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){3}$"/>
         </Property>
       </ComplexType>
     </Schema>

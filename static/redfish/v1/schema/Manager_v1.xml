@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager  v1.4.0-->
+<!--# Redfish Schema:  Manager  v1.5.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -55,6 +55,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Switch_v1.xml">
     <edmx:Include Namespace="Switch"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/AccountService_v1.xml">
+    <edmx:Include Namespace="AccountService"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -79,6 +82,11 @@
           <Record>
             <PropertyValue Property="Deletable" Bool="false"/>
           </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Managers/{ManagerId}</String>
+          </Collection>
         </Annotation>
       </EntityType>
 
@@ -210,9 +218,13 @@
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
           <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
         </Property>
-        <Property Name="Status" Type="Resource.Status" Nullable="false"/>
+        <Property Name="Status" Type="Resource.Status" Nullable="false">
+          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+        </Property>
         <NavigationProperty Name="Redundancy" Type="Collection(Redundancy.Redundancy)" ContainsTarget="true">
           <Annotation Term="OData.Description" String="Redundancy information for the managers of this system."/>
+          <Annotation Term="OData.LongDescription" String="The values of the properties in this array shall be used to show how this manager is grouped with other managers for form redundancy sets."/>
           <Annotation Term="OData.AutoExpand"/>
         </NavigationProperty>
       </EntityType>
@@ -221,7 +233,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="Manager.v1_0_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="Manager.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -394,6 +409,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_0_5.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_0_6.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Manager" BaseType="Manager.v1_0_2.Manager"/>
@@ -431,6 +452,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_1_3.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_1_4.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Manager" BaseType="Manager.v1_1_0.Manager">
@@ -466,6 +493,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_2_3.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_2_4.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Manager" BaseType="Manager.v1_2_1.Manager">
@@ -496,6 +529,12 @@
       <EntityType Name="Manager" BaseType="Manager.v1_3_2.Manager"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_3_3.Manager"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="Manager" BaseType="Manager.v1_3_3.Manager">
@@ -513,7 +552,31 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of references to Switch resources of which this Manager instance has control."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-       </ComplexType>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_0.Manager"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <EntityType Name="Manager" BaseType="Manager.v1_4_1.Manager">
+        <Property Name="RemoteRedfishServiceUri" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property contains the URI of the Redfish Service Root for the remote Manager represented by this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Redfish Service Root for the remote Manager represented by this resource.  This property shall only be present when providing aggregation of Redfish services."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <NavigationProperty Name="RemoteAccountService" Type="AccountService.AccountService" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This property contains a reference to the AccountService resource for the remote Manager represented by this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a reference to the AccountService resource for the remote Manager represented by this resource.  This property shall only be present when providing aggregation of Redfish services."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

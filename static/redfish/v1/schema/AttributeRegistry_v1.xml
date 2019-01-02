@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry  v1.2.0-->
+<!--# Redfish Schema:  AttributeRegistry  v1.2.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -168,8 +168,8 @@
         <Property Name="MenuPath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A path that describes the menu hierarchy of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names."/>
-          <Annotation Term="Validation.Pattern" String="^[.]?[A-Za-z0-9_//]+$"/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal."/>
+          <Annotation Term="Validation.Pattern" String="^\.\/([^/]+(\/[^/]+)*)?$"/>
         </Property>
         <Property Name="ReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -184,7 +184,7 @@
         <Property Name="GrayOut" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The gray-out state of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
         </Property>
         <Property Name="Hidden" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -240,7 +240,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The unique name string of this menu."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of this menu that is unique in this registry."/>
-          <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
+          <Annotation Term="Validation.Pattern" String="^[^/]+$"/>
         </Property>
         <Property Name="DisplayName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -265,8 +265,8 @@
         <Property Name="MenuPath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A path that describes this menu hierarchy relative to other menus."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names."/>
-          <Annotation Term="Validation.Pattern" String="^[.]?[A-Za-z0-9_//]+$"/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal."/>
+          <Annotation Term="Validation.Pattern" String="^\.\/([^/]+(\/[^/]+)*)?$"/>
         </Property>
       </ComplexType>
 
@@ -297,7 +297,6 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The value name of the attribute."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the value name of the attribute. ValueName is a unique string within the list of possible values in the 'Value' array of a given attribute."/>
-          <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
         </Property>
         <Property Name="ValueDisplayName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -526,6 +525,12 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_2.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographical errors in descriptions.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to update regex patterns used on several properties."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_3.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_2.AttributeRegistry">
@@ -539,7 +544,10 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The available actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="AttributeRegistry.v1_1_0.OemActions" Nullable="false"/>
+        <Property Name="Oem" Type="AttributeRegistry.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
@@ -567,6 +575,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct regex patterns for different attribute properties."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_1.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographical errors in descriptions.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to update regex patterns used on several properties."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_2.AttributeRegistry"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
@@ -597,6 +611,12 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the configuration NamespaceId of this attribute, as defined in the UEFI Specification."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct typographical errors in descriptions.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to update regex patterns used on several properties."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_0.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

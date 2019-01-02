@@ -1,7 +1,7 @@
 {
     "$ref": "#/definitions/Manager",
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -13,6 +13,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -31,7 +32,9 @@
                     "$ref": "#/definitions/Reset"
                 },
                 "Oem": {
-                    "$ref": "#/definitions/OemActions"
+                    "$ref": "#/definitions/OemActions",
+                    "description": "This property contains the available OEM specific actions for this resource.",
+                    "longDescription": "This property shall contain any additional OEM actions for this resource."
                 }
             },
             "type": "object"
@@ -61,6 +64,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -83,7 +87,7 @@
                     "longDescription": "The value of this property shall contain the maximum number of concurrent service sessions supported by the implementation.",
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number"
+                    "type": "integer"
                 },
                 "ServiceEnabled": {
                     "description": "Indicates if the service is enabled for this manager.",
@@ -112,6 +116,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -153,6 +158,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -175,7 +181,7 @@
                     "longDescription": "The value of this property shall contain the maximum number of concurrent service sessions supported by the implementation.",
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number"
+                    "type": "integer"
                 },
                 "ServiceEnabled": {
                     "description": "Indicates if the service is enabled for this manager.",
@@ -196,6 +202,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -214,7 +221,7 @@
                     "type": "array"
                 },
                 "ManagerForChassis@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ManagerForServers": {
                     "description": "This property is an array of references to the systems that this manager has control over.",
@@ -226,7 +233,7 @@
                     "type": "array"
                 },
                 "ManagerForServers@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ManagerForSwitches": {
                     "description": "This property is an array of references to the switches that this manager has control over.",
@@ -238,7 +245,7 @@
                     "type": "array"
                 },
                 "ManagerForSwitches@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
                 "ManagerInChassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
@@ -264,6 +271,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -273,16 +281,16 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
@@ -416,14 +424,32 @@
                     "readonly": true
                 },
                 "Redundancy": {
+                    "autoExpand": true,
                     "description": "Redundancy information for the managers of this system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy"
                     },
+                    "longDescription": "The values of the properties in this array shall be used to show how this manager is grouped with other managers for form redundancy sets.",
                     "type": "array"
                 },
                 "Redundancy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_2.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "RemoteAccountService": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
+                    "description": "This property contains a reference to the AccountService resource for the remote Manager represented by this resource.",
+                    "longDescription": "This property shall contain a reference to the AccountService resource for the remote Manager represented by this resource.  This property shall only be present when providing aggregation of Redfish services.",
+                    "readonly": true
+                },
+                "RemoteRedfishServiceUri": {
+                    "description": "This property contains the URI of the Redfish Service Root for the remote Manager represented by this resource.",
+                    "format": "uri",
+                    "longDescription": "This property shall contain the URI of the Redfish Service Root for the remote Manager represented by this resource.  This property shall only be present when providing aggregation of Redfish services.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
                 },
                 "SerialConsole": {
                     "$ref": "#/definitions/SerialConsole",
@@ -450,7 +476,9 @@
                     "readonly": true
                 },
                 "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
+                    "description": "This property describes the status and health of the resource and its children.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UUID": {
                     "anyOf": [
@@ -473,6 +501,8 @@
                 }
             },
             "required": [
+                "@odata.id",
+                "@odata.type",
                 "Id",
                 "Name"
             ],
@@ -487,6 +517,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -500,7 +531,7 @@
                     "longDescription": "The value of this property shall contain the maximum number of concurrent service sessions supported by the implementation.",
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number"
+                    "type": "integer"
                 },
                 "ServiceEnabled": {
                     "description": "Indicates if the service is enabled for this manager.",
@@ -558,6 +589,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -588,6 +620,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -615,6 +648,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -660,6 +694,7 @@
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
@@ -682,7 +717,7 @@
                     "longDescription": "The value of this property shall contain the maximum number of concurrent service sessions supported by the implementation.",
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number"
+                    "type": "integer"
                 },
                 "ServiceEnabled": {
                     "description": "Indicates if the service is enabled for this manager.",
@@ -695,5 +730,5 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Manager.v1_4_0.Manager"
+    "title": "#Manager.v1_5_0.Manager"
 }

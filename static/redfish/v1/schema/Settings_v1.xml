@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings  v1.2.0-->
+<!--# Redfish Schema:  Settings  v1.2.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF).                  -->
+<!--# Copyright 2014-2018 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -106,6 +106,12 @@
       <ComplexType Name="Settings" BaseType="Settings.v1_0_3.Settings"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_0_4.Settings"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <ComplexType Name="Settings" BaseType="Settings.v1_0_4.Settings">
@@ -156,6 +162,13 @@
           <Annotation Term="OData.LongDescription" String="This ApplyTime value shall be used to indicate the values within the Settings resource are applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_1_0.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_1_0.PreferredApplyTime"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_0">
@@ -216,6 +229,15 @@
           <Annotation Term="Redfish.Required"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_0.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_0.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_0.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_0.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>
