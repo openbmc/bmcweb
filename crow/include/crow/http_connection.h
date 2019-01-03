@@ -53,6 +53,7 @@ inline void prettyPrintJson(crow::Response& res)
                  "</div>\n"
                  "</body>\n"
                  "</html>\n";
+    res.addHeader("Content-Type", "text/html;charset=UTF-8");
 }
 
 using namespace boost;
