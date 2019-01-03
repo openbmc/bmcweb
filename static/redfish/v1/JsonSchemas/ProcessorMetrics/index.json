@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/ProcessorMetrics",
+    "@odata.id": "/redfish/v1/JsonSchemas/ProcessorMetrics",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "ProcessorMetrics Schema File",
     "Schema": "#ProcessorMetrics.ProcessorMetrics",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.json",
-            "Uri": "/redfish/v1/JSONSchemas/ProcessorMetrics/ProcessorMetrics.json"
+            "Uri": "/redfish/v1/JsonSchemas/ProcessorMetrics/ProcessorMetrics.json"
         }
     ],
     "Location@odata.count": 1

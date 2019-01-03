@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/AccelerationFunction",
+    "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "AccelerationFunction Schema File",
     "Schema": "#AccelerationFunction.AccelerationFunction",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/AccelerationFunction.json",
-            "Uri": "/redfish/v1/JSONSchemas/AccelerationFunction/AccelerationFunction.json"
+            "Uri": "/redfish/v1/JsonSchemas/AccelerationFunction/AccelerationFunction.json"
         }
     ],
     "Location@odata.count": 1

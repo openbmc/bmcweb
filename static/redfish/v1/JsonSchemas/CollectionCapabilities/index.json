@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/CollectionCapabilities",
+    "@odata.id": "/redfish/v1/JsonSchemas/CollectionCapabilities",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "CollectionCapabilities Schema File",
     "Schema": "#CollectionCapabilities.CollectionCapabilities",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json",
-            "Uri": "/redfish/v1/JSONSchemas/CollectionCapabilities/CollectionCapabilities.json"
+            "Uri": "/redfish/v1/JsonSchemas/CollectionCapabilities/CollectionCapabilities.json"
         }
     ],
     "Location@odata.count": 1

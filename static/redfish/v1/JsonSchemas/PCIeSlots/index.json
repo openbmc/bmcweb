@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/PCIeSlots",
+    "@odata.id": "/redfish/v1/JsonSchemas/PCIeSlots",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "PCIeSlots Schema File",
     "Schema": "#PCIeSlots.PCIeSlots",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json",
-            "Uri": "/redfish/v1/JSONSchemas/PCIeSlots/PCIeSlots.json"
+            "Uri": "/redfish/v1/JsonSchemas/PCIeSlots/PCIeSlots.json"
         }
     ],
     "Location@odata.count": 1

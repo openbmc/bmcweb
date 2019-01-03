@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Zone",
+    "@odata.id": "/redfish/v1/JsonSchemas/Zone",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Zone Schema File",
     "Schema": "#Zone.Zone",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Zone.json",
-            "Uri": "/redfish/v1/JSONSchemas/Zone/Zone.json"
+            "Uri": "/redfish/v1/JsonSchemas/Zone/Zone.json"
         }
     ],
     "Location@odata.count": 1

@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/MetricDefinition",
+    "@odata.id": "/redfish/v1/JsonSchemas/MetricDefinition",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "MetricDefinition Schema File",
     "Schema": "#MetricDefinition.MetricDefinition",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json",
-            "Uri": "/redfish/v1/JSONSchemas/MetricDefinition/MetricDefinition.json"
+            "Uri": "/redfish/v1/JsonSchemas/MetricDefinition/MetricDefinition.json"
         }
     ],
     "Location@odata.count": 1

@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/JobService",
+    "@odata.id": "/redfish/v1/JsonSchemas/JobService",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "JobService Schema File",
     "Schema": "#JobService.JobService",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/JobService.json",
-            "Uri": "/redfish/v1/JSONSchemas/JobService/JobService.json"
+            "Uri": "/redfish/v1/JsonSchemas/JobService/JobService.json"
         }
     ],
     "Location@odata.count": 1

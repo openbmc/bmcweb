@@ -126,11 +126,11 @@ for schema, version in schema_files.items():
     location_json["PublicationUri"] = (
         "http://redfish.dmtf.org/schemas/v1/" + schema + ".json")
     location_json["Uri"] = (
-        "/redfish/v1/JSONSchemas/" + schema + "/" + schema + ".json")
+        "/redfish/v1/JsonSchemas/" + schema + "/" + schema + ".json")
 
     index_json = OrderedDict()
     index_json["@odata.context"] = "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
-    index_json["@odata.id"] = "/redfish/v1/JSONSchemas/" + schema
+    index_json["@odata.id"] = "/redfish/v1/JsonSchemas/" + schema
     index_json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile"
     index_json["Name"] = schema + " Schema File"
     index_json["Schema"] = "#" + schema + "." + schema

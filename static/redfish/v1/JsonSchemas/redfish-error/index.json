@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/redfish-error",
+    "@odata.id": "/redfish/v1/JsonSchemas/redfish-error",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "redfish-error Schema File",
     "Schema": "#redfish-error.redfish-error",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/redfish-error.json",
-            "Uri": "/redfish/v1/JSONSchemas/redfish-error/redfish-error.json"
+            "Uri": "/redfish/v1/JsonSchemas/redfish-error/redfish-error.json"
         }
     ],
     "Location@odata.count": 1

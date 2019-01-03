@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Endpoint",
+    "@odata.id": "/redfish/v1/JsonSchemas/Endpoint",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Endpoint Schema File",
     "Schema": "#Endpoint.Endpoint",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Endpoint.json",
-            "Uri": "/redfish/v1/JSONSchemas/Endpoint/Endpoint.json"
+            "Uri": "/redfish/v1/JsonSchemas/Endpoint/Endpoint.json"
         }
     ],
     "Location@odata.count": 1
