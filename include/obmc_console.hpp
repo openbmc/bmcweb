@@ -79,7 +79,7 @@ void doRead()
             boost::beast::string_view payload(outputBuffer.data(), bytesRead);
             for (auto session : sessions)
             {
-                session->sendText(payload);
+                session->sendBinary(payload);
             }
             doRead();
         });
