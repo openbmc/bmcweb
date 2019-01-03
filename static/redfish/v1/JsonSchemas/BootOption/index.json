@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/BootOption",
+    "@odata.id": "/redfish/v1/JsonSchemas/BootOption",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "BootOption Schema File",
     "Schema": "#BootOption.BootOption",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/BootOption.json",
-            "Uri": "/redfish/v1/JSONSchemas/BootOption/BootOption.json"
+            "Uri": "/redfish/v1/JsonSchemas/BootOption/BootOption.json"
         }
     ],
     "Location@odata.count": 1

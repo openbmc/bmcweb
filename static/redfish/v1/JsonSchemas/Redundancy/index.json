@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Redundancy",
+    "@odata.id": "/redfish/v1/JsonSchemas/Redundancy",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Redundancy Schema File",
     "Schema": "#Redundancy.Redundancy",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Redundancy.json",
-            "Uri": "/redfish/v1/JSONSchemas/Redundancy/Redundancy.json"
+            "Uri": "/redfish/v1/JsonSchemas/Redundancy/Redundancy.json"
         }
     ],
     "Location@odata.count": 1

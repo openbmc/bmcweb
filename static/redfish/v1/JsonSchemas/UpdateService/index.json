@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/UpdateService",
+    "@odata.id": "/redfish/v1/JsonSchemas/UpdateService",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "UpdateService Schema File",
     "Schema": "#UpdateService.UpdateService",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/UpdateService.json",
-            "Uri": "/redfish/v1/JSONSchemas/UpdateService/UpdateService.json"
+            "Uri": "/redfish/v1/JsonSchemas/UpdateService/UpdateService.json"
         }
     ],
     "Location@odata.count": 1

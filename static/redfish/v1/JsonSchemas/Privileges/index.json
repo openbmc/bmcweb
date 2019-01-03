@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Privileges",
+    "@odata.id": "/redfish/v1/JsonSchemas/Privileges",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Privileges Schema File",
     "Schema": "#Privileges.Privileges",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Privileges.json",
-            "Uri": "/redfish/v1/JSONSchemas/Privileges/Privileges.json"
+            "Uri": "/redfish/v1/JsonSchemas/Privileges/Privileges.json"
         }
     ],
     "Location@odata.count": 1

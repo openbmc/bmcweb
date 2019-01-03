@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Thermal",
+    "@odata.id": "/redfish/v1/JsonSchemas/Thermal",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Thermal Schema File",
     "Schema": "#Thermal.Thermal",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Thermal.json",
-            "Uri": "/redfish/v1/JSONSchemas/Thermal/Thermal.json"
+            "Uri": "/redfish/v1/JsonSchemas/Thermal/Thermal.json"
         }
     ],
     "Location@odata.count": 1

@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/AttributeRegistry",
+    "@odata.id": "/redfish/v1/JsonSchemas/AttributeRegistry",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "AttributeRegistry Schema File",
     "Schema": "#AttributeRegistry.AttributeRegistry",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.json",
-            "Uri": "/redfish/v1/JSONSchemas/AttributeRegistry/AttributeRegistry.json"
+            "Uri": "/redfish/v1/JsonSchemas/AttributeRegistry/AttributeRegistry.json"
         }
     ],
     "Location@odata.count": 1

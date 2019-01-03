@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Processor",
+    "@odata.id": "/redfish/v1/JsonSchemas/Processor",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Processor Schema File",
     "Schema": "#Processor.Processor",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Processor.json",
-            "Uri": "/redfish/v1/JSONSchemas/Processor/Processor.json"
+            "Uri": "/redfish/v1/JsonSchemas/Processor/Processor.json"
         }
     ],
     "Location@odata.count": 1
