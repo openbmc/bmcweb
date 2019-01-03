@@ -117,7 +117,7 @@ for schema, version in schema_files.items():
 
     index_json = {
         "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-        "@odata.id": "/redfish/v1/JSONSchemas/" + schema,
+        "@odata.id": "/redfish/v1/JsonSchemas/" + schema,
         "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
         "Name": schema + " Schema File",
         "Schema": "#" + schema + "." + schema,
@@ -131,7 +131,7 @@ for schema, version in schema_files.items():
             {
                 "Language": "en",
                 "PublicationUri": "http://redfish.dmtf.org/schemas/v1/" + schema + ".json",
-                "Uri": "/redfish/v1/JSONSchemas/" + schema + "/" + schema + ".json"
+                "Uri": "/redfish/v1/JsonSchemas/" + schema + "/" + schema + ".json"
             }
         ],
         "Location@odata.count": 1,

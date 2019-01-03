@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/VLanNetworkInterface",
+    "@odata.id": "/redfish/v1/JsonSchemas/VLanNetworkInterface",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "VLanNetworkInterface Schema File",
     "Schema": "#VLanNetworkInterface.VLanNetworkInterface",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json",
-            "Uri": "/redfish/v1/JSONSchemas/VLanNetworkInterface/VLanNetworkInterface.json"
+            "Uri": "/redfish/v1/JsonSchemas/VLanNetworkInterface/VLanNetworkInterface.json"
         }
     ],
     "Location@odata.count": 1

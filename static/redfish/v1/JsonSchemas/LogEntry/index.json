@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/LogEntry",
+    "@odata.id": "/redfish/v1/JsonSchemas/LogEntry",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "LogEntry Schema File",
     "Schema": "#LogEntry.LogEntry",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/LogEntry.json",
-            "Uri": "/redfish/v1/JSONSchemas/LogEntry/LogEntry.json"
+            "Uri": "/redfish/v1/JsonSchemas/LogEntry/LogEntry.json"
         }
     ],
     "Location@odata.count": 1

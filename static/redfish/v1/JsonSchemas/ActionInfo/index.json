@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/ActionInfo",
+    "@odata.id": "/redfish/v1/JsonSchemas/ActionInfo",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "ActionInfo Schema File",
     "Schema": "#ActionInfo.ActionInfo",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/ActionInfo.json",
-            "Uri": "/redfish/v1/JSONSchemas/ActionInfo/ActionInfo.json"
+            "Uri": "/redfish/v1/JsonSchemas/ActionInfo/ActionInfo.json"
         }
     ],
     "Location@odata.count": 1

@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/EventDestination",
+    "@odata.id": "/redfish/v1/JsonSchemas/EventDestination",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "EventDestination Schema File",
     "Schema": "#EventDestination.EventDestination",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/EventDestination.json",
-            "Uri": "/redfish/v1/JSONSchemas/EventDestination/EventDestination.json"
+            "Uri": "/redfish/v1/JsonSchemas/EventDestination/EventDestination.json"
         }
     ],
     "Location@odata.count": 1

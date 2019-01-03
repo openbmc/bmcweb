@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Manager",
+    "@odata.id": "/redfish/v1/JsonSchemas/Manager",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Manager Schema File",
     "Schema": "#Manager.Manager",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Manager.json",
-            "Uri": "/redfish/v1/JSONSchemas/Manager/Manager.json"
+            "Uri": "/redfish/v1/JsonSchemas/Manager/Manager.json"
         }
     ],
     "Location@odata.count": 1

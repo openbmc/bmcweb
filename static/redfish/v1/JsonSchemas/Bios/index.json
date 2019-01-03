@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Bios",
+    "@odata.id": "/redfish/v1/JsonSchemas/Bios",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "Bios Schema File",
     "Schema": "#Bios.Bios",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Bios.json",
-            "Uri": "/redfish/v1/JSONSchemas/Bios/Bios.json"
+            "Uri": "/redfish/v1/JsonSchemas/Bios/Bios.json"
         }
     ],
     "Location@odata.count": 1

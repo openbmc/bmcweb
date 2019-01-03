@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/MemoryChunks",
+    "@odata.id": "/redfish/v1/JsonSchemas/MemoryChunks",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "MemoryChunks Schema File",
     "Schema": "#MemoryChunks.MemoryChunks",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.json",
-            "Uri": "/redfish/v1/JSONSchemas/MemoryChunks/MemoryChunks.json"
+            "Uri": "/redfish/v1/JsonSchemas/MemoryChunks/MemoryChunks.json"
         }
     ],
     "Location@odata.count": 1

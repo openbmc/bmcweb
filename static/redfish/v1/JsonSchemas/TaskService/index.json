@@ -1,6 +1,6 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/TaskService",
+    "@odata.id": "/redfish/v1/JsonSchemas/TaskService",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
     "Name": "TaskService Schema File",
     "Schema": "#TaskService.TaskService",
@@ -14,7 +14,7 @@
         {
             "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/TaskService.json",
-            "Uri": "/redfish/v1/JSONSchemas/TaskService/TaskService.json"
+            "Uri": "/redfish/v1/JsonSchemas/TaskService/TaskService.json"
         }
     ],
     "Location@odata.count": 1
