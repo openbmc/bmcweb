@@ -15,13 +15,13 @@
 */
 #pragma once
 
+#include "filesystem.hpp"
 #include "node.hpp"
 
 #include <systemd/sd-journal.h>
 
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
-#include <experimental/filesystem>
 
 namespace redfish
 {
@@ -35,7 +35,7 @@ constexpr char const *cpuLogImmediateInterface =
 constexpr char const *cpuLogRawPECIInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
 
-namespace fs = std::experimental::filesystem;
+namespace fs = std::filesystem;
 
 static int getJournalMetadata(sd_journal *journal,
                               const boost::string_view &field,

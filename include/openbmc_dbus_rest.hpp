@@ -13,6 +13,8 @@
 // limitations under the License.
 
 #pragma once
+#include "filesystem.hpp"
+
 #include <crow/app.h>
 #include <tinyxml2.h>
 
@@ -21,7 +23,6 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
-#include <experimental/filesystem>
 #include <fstream>
 #include <sdbusplus/message/types.hpp>
 
@@ -1516,20 +1517,20 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 res.end();
                 return;
             }
-            std::experimental::filesystem::path loc(
+            std::filesystem::path loc(
                 "/var/lib/phosphor-debug-collector/dumps");
 
             loc /= dumpId;
 
-            if (!std::experimental::filesystem::exists(loc) ||
-                !std::experimental::filesystem::is_directory(loc))
+            if (!std::filesystem::exists(loc) ||
+                !std::filesystem::is_directory(loc))
             {
                 BMCWEB_LOG_ERROR << loc << "Not found";
                 res.result(boost::beast::http::status::not_found);
                 res.end();
                 return;
             }
-            std::experimental::filesystem::directory_iterator files(loc);
+            std::filesystem::directory_iterator files(loc);
 
             for (auto &file : files)
             {
