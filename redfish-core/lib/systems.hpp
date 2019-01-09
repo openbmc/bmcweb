@@ -1,4 +1,5 @@
 /*
+ *
 // Copyright (c) 2018 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -460,7 +461,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
             if (s != nullptr)
             {
                 // Verify Host State
-                if (*s == "xyz.openbmc_project.State.Host.Running")
+                if (*s == "xyz.openbmc_project.State.Host.HostState.Running")
                 {
                     aResp->res.jsonValue["PowerState"] = "On";
                     aResp->res.jsonValue["Status"]["State"] = "Enabled";
