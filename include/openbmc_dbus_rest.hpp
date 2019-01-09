@@ -39,6 +39,7 @@ const std::string notFoundMsg = "404 Not Found";
 const std::string badReqMsg = "400 Bad Request";
 const std::string methodNotAllowedMsg = "405 Method Not Allowed";
 const std::string forbiddenMsg = "403 Forbidden";
+const std::string methodFailedMsg = "500 Method Call Failed";
 
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
@@ -412,8 +413,8 @@ struct InProgressActionData
 
     void setErrorStatus(const std::string &desc)
     {
-        setErrorResponse(res, boost::beast::http::status::internal_server_error,
-                         desc, badReqMsg);
+        setErrorResponse(res, boost::beast::http::status::bad_request, desc,
+                         badReqMsg);
     }
     crow::Response &res;
     std::string path;
@@ -857,8 +858,12 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                            sdbusplus::message::message &m) {
                                         if (ec)
                                         {
-                                            transaction->setErrorStatus(
-                                                "Method call failed");
+                                            setErrorResponse(
+                                                transaction->res,
+                                                boost::beast::http::status::
+                                                    internal_server_error,
+                                                "Method call failed",
+                                                methodFailedMsg);
                                             return;
                                         }
                                         transaction->res.jsonValue = {
