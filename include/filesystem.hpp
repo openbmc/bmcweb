@@ -1,7 +1,7 @@
 // this file splices filesystem in depending on the implementation
 
 #if __has_include(<filesystem>)
-#include <filesystem.hpp>
+#include <filesystem>
 #elif __has_include(<experimental/filesystem>)
 #include <experimental/filesystem>
 namespace std
