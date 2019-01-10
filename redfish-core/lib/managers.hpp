@@ -366,7 +366,7 @@ enum class CreatePIDRet
 
 static CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
-    const nlohmann::json& record, const std::string& path,
+    nlohmann::json& record, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
         output,
@@ -381,7 +381,7 @@ static CreatePIDRet createPidInterface(
                                                        : std::string("fan");
             output["Type"] = std::string("Pid");
         }
-        else if (record == nullptr)
+        else if (record.is_null())
         {
             // delete interface
             crow::connections::systemBus->async_method_call(
@@ -399,123 +399,143 @@ static CreatePIDRet createPidInterface(
             return CreatePIDRet::del;
         }
 
-        for (auto& field : record.items())
+        std::optional<std::vector<nlohmann::json>> zones;
+        std::optional<std::vector<std::string>> inputs;
+        std::optional<std::vector<std::string>> outputs;
+        std::optional<double> ffGainCoefficient;
+        std::optional<double> iCoefficient;
+        std::optional<double> iLimitMax;
+        std::optional<double> iLimitMin;
+        std::optional<double> outLimitMax;
+        std::optional<double> outLimitMin;
+        std::optional<double> pCoefficient;
+        std::optional<double> setPoint;
+        std::optional<double> slewNeg;
+        std::optional<double> slewPos;
+        if (!json_util::readJson(
+                record, response->res, "Zones", zones, "Inputs", inputs,
+                "Outputs", outputs, "FFGainCoefficient", ffGainCoefficient,
+                "ICoefficient", iCoefficient, "ILimitMax", iLimitMax,
+                "ILimitMin", iLimitMin, "OutLimitMax", outLimitMax,
+                "OutLimitMin", outLimitMin, "PCoefficient", pCoefficient,
+                "SetPoint", setPoint, "SlewNeg", slewNeg, "SlewPos", slewPos))
         {
-            if (field.key() == "Zones")
+            return CreatePIDRet::fail;
+        }
+
+        if (zones)
+        {
+            std::vector<std::string> inputs;
+            for (nlohmann::json& odata : *zones)
             {
-                if (!field.value().is_array())
+                std::string odataId;
+                if (!json_util::readJson(odata, response->res, "@odata.id",
+                                         odataId))
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::propertyValueFormatError(
-                        response->res, field.value(), field.key());
                     return CreatePIDRet::fail;
                 }
-                std::vector<std::string> inputs;
-                for (const auto& odata : field.value().items())
+                inputs.emplace_back(std::move(odataId));
+            }
+            output["Zones"] = std::move(inputs);
+        }
+
+        if (inputs)
+        {
+            for (std::string& input : *inputs)
+            {
+                boost::replace_all(input, "_", " ");
+                // try to find the sensor in the
+                // configuration
+                if (chassis.empty())
                 {
-                    for (const auto& value : odata.value().items())
+                    auto val =
+                        std::find_if(managedObj.begin(), managedObj.end(),
+                                     [&input](const auto& obj) {
+                                         if (boost::algorithm::ends_with(
+                                                 obj.first.str, input))
+                                         {
+                                             return true;
+                                         }
+                                         return false;
+                                     });
+                    if (val != managedObj.end())
                     {
-                        const std::string* path =
-                            value.value().get_ptr<const std::string*>();
-                        if (path == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                            messages::propertyValueFormatError(
-                                response->res, field.value().dump(),
-                                field.key());
-                            return CreatePIDRet::fail;
-                        }
-                        std::string input;
-                        if (!dbus::utility::getNthStringFromPath(*path, 4,
-                                                                 input))
-                        {
-                            BMCWEB_LOG_ERROR << "Got invalid path " << *path;
-                            messages::propertyValueFormatError(
-                                response->res, field.value().dump(),
-                                field.key());
-                            return CreatePIDRet::fail;
-                        }
-                        boost::replace_all(input, "_", " ");
-                        inputs.emplace_back(std::move(input));
+                        dbus::utility::getNthStringFromPath(val->first.str, 5,
+                                                            chassis);
                     }
                 }
-                output["Zones"] = std::move(inputs);
             }
-            else if (field.key() == "Inputs" || field.key() == "Outputs")
+            output["Inputs"] = *inputs;
+        }
+
+        if (outputs)
+        {
+            for (std::string& output : *outputs)
             {
-                if (!field.value().is_array())
+                boost::replace_all(output, "_", " ");
+                // try to find the sensor in the
+                // configuration
+                if (chassis.empty())
                 {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::propertyValueFormatError(
-                        response->res, field.value().dump(), field.key());
-                    return CreatePIDRet::fail;
-                }
-                std::vector<std::string> inputs;
-                for (const auto& value : field.value().items())
-                {
-                    const std::string* sensor =
-                        value.value().get_ptr<const std::string*>();
-
-                    if (sensor == nullptr)
+                    auto val =
+                        std::find_if(managedObj.begin(), managedObj.end(),
+                                     [&output](const auto& obj) {
+                                         if (boost::algorithm::ends_with(
+                                                 obj.first.str, output))
+                                         {
+                                             return true;
+                                         }
+                                         return false;
+                                     });
+                    if (val != managedObj.end())
                     {
-                        BMCWEB_LOG_ERROR << "Illegal Type "
-                                         << field.value().dump();
-                        messages::propertyValueFormatError(
-                            response->res, field.value().dump(), field.key());
-                        return CreatePIDRet::fail;
-                    }
-
-                    std::string input =
-                        boost::replace_all_copy(*sensor, "_", " ");
-                    inputs.push_back(std::move(input));
-                    // try to find the sensor in the
-                    // configuration
-                    if (chassis.empty())
-                    {
-                        std::find_if(
-                            managedObj.begin(), managedObj.end(),
-                            [&chassis, sensor](const auto& obj) {
-                                if (boost::algorithm::ends_with(obj.first.str,
-                                                                *sensor))
-                                {
-                                    return dbus::utility::getNthStringFromPath(
-                                        obj.first.str, 5, chassis);
-                                }
-                                return false;
-                            });
+                        dbus::utility::getNthStringFromPath(val->first.str, 5,
+                                                            chassis);
                     }
                 }
-                output[field.key()] = inputs;
             }
+            output["Outputs"] = *outputs;
+        }
 
-            // doubles
-            else if (field.key() == "FFGainCoefficient" ||
-                     field.key() == "FFOffCoefficient" ||
-                     field.key() == "ICoefficient" ||
-                     field.key() == "ILimitMax" || field.key() == "ILimitMin" ||
-                     field.key() == "OutLimitMax" ||
-                     field.key() == "OutLimitMin" ||
-                     field.key() == "PCoefficient" ||
-                     field.key() == "SetPoint" || field.key() == "SlewNeg" ||
-                     field.key() == "SlewPos")
-            {
-                const double* ptr = field.value().get_ptr<const double*>();
-                if (ptr == nullptr)
-                {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::propertyValueFormatError(
-                        response->res, field.value().dump(), field.key());
-                    return CreatePIDRet::fail;
-                }
-                output[field.key()] = *ptr;
-            }
-
-            else
-            {
-                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                messages::propertyUnknown(response->res, field.key());
-                return CreatePIDRet::fail;
-            }
+        if (ffGainCoefficient)
+        {
+            output["ffGainCoefficient"] = *ffGainCoefficient;
+        }
+        if (iCoefficient)
+        {
+            output["iCoefficient"] = *iCoefficient;
+        }
+        if (iLimitMax)
+        {
+            output["iLimitMax"] = *iLimitMax;
+        }
+        if (iLimitMin)
+        {
+            output["iLimitMin"] = *iLimitMin;
+        }
+        if (outLimitMax)
+        {
+            output["outLimitMax"] = *outLimitMax;
+        }
+        if (outLimitMin)
+        {
+            output["outLimitMin"] = *outLimitMin;
+        }
+        if (pCoefficient)
+        {
+            output["pCoefficient"] = *pCoefficient;
+        }
+        if (setPoint)
+        {
+            output["setPoint"] = *setPoint;
+        }
+        if (slewNeg)
+        {
+            output["slewNeg"] = *slewNeg;
+        }
+        if (slewPos)
+        {
+            output["slewPos"] = *slewPos;
         }
     }
     else if (type == "FanZones")
@@ -539,56 +559,41 @@ static CreatePIDRet createPidInterface(
         }
         output["Type"] = std::string("Pid.Zone");
 
-        for (auto& field : record.items())
-        {
-            if (field.key() == "Chassis")
-            {
-                const std::string* chassisId = nullptr;
-                for (const auto& id : field.value().items())
-                {
-                    if (id.key() != "@odata.id")
-                    {
-                        BMCWEB_LOG_ERROR << "Illegal Type " << id.key();
-                        messages::propertyUnknown(response->res, field.key());
-                        return CreatePIDRet::fail;
-                    }
-                    chassisId = id.value().get_ptr<const std::string*>();
-                    if (chassisId == nullptr)
-                    {
-                        messages::createFailedMissingReqProperties(
-                            response->res, field.key());
-                        return CreatePIDRet::fail;
-                    }
-                }
+        std::optional<nlohmann::json> chassisVal;
+        std::optional<double> failSafePercent;
+        std::optional<double> minThermalRpm;
 
-                // /refish/v1/chassis/chassis_name/
-                if (!dbus::utility::getNthStringFromPath(*chassisId, 3,
-                                                         chassis))
-                {
-                    BMCWEB_LOG_ERROR << "Got invalid path " << *chassisId;
-                    messages::invalidObject(response->res, *chassisId);
-                    return CreatePIDRet::fail;
-                }
-            }
-            else if (field.key() == "FailSafePercent" ||
-                     field.key() == "MinThermalRpm")
+        if (!json_util::readJson(record, response->res, "Chassis", chassisVal,
+                                 "FailSafePercent", failSafePercent,
+                                 "MinThermalRpm", minThermalRpm))
+        {
+            return CreatePIDRet::fail;
+        }
+
+        if (chassisVal)
+        {
+            std::string odataId;
+            if (!json_util::readJson(*chassisVal, response->res, "@odata.id",
+                                     odataId))
             {
-                const double* ptr = field.value().get_ptr<const double*>();
-                if (ptr == nullptr)
-                {
-                    BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                    messages::propertyValueFormatError(
-                        response->res, field.value().dump(), field.key());
-                    return CreatePIDRet::fail;
-                }
-                output[field.key()] = *ptr;
-            }
-            else
-            {
-                BMCWEB_LOG_ERROR << "Illegal Type " << field.key();
-                messages::propertyUnknown(response->res, field.key());
                 return CreatePIDRet::fail;
             }
+
+            // /refish/v1/chassis/chassis_name/
+            if (!dbus::utility::getNthStringFromPath(odataId, 3, chassis))
+            {
+                BMCWEB_LOG_ERROR << "Got invalid path " << odataId;
+                messages::invalidObject(response->res, odataId);
+                return CreatePIDRet::fail;
+            }
+        }
+        if (failSafePercent)
+        {
+            output["FailSafePercent"] = *failSafePercent;
+        }
+        if (minThermalRpm)
+        {
+            output["MinThermalRpm"] = *minThermalRpm;
         }
     }
     else
@@ -773,8 +778,7 @@ class Manager : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         getPidValues(asyncResp);
     }
-    void setPidValues(std::shared_ptr<AsyncResp> response,
-                      const nlohmann::json& data)
+    void setPidValues(std::shared_ptr<AsyncResp> response, nlohmann::json& data)
     {
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
@@ -788,16 +792,27 @@ class Manager : public Node
                     messages::internalError(response->res);
                     return;
                 }
-                for (const auto& type : data.items())
+
+                std::vector<nlohmann::json> dataItems;
+
+                if (!json_util::readJson(data, response->res, "Oem", dataItems))
                 {
-                    if (!type.value().is_object())
+                    return;
+                }
+
+                for (nlohmann::json& type : dataItems)
+                {
+                    std::vector<nlohmann::json> pidControllers;
+                    std::vector<nlohmann::json> fanControllers;
+
+                    if (!json_util::readJson(type, response->res,
+                                             "PidControllers", pidControllers,
+                                             "FanControllers", fanControllers))
                     {
-                        BMCWEB_LOG_ERROR << "Illegal Type " << type.key();
-                        messages::propertyValueFormatError(
-                            response->res, type.value(), type.key());
                         return;
                     }
-                    for (const auto& record : type.value().items())
+
+                    for (auto& record : type.value().items())
                     {
                         const std::string& name = record.key();
                         auto pathItr =
