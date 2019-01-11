@@ -30,6 +30,7 @@ struct LDAPConfigData
     std::string baseDN;
     std::string searchScope;
     std::string serverType;
+    std::string password;
     LDAPConfigData()
     {
         searchScope = "xyz.openbmc_project.User.Ldap.Create.SearchScope.sub";
@@ -215,6 +216,146 @@ class AccountService : public Node
     }
 
   private:
+    /**
+     * @brief Get the required values from the given JSON, validates the
+     *        value and create the LDAP config object.
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param serverType Type of LDAP server(openLDAP/ActiveDirectory)
+     */
+
+    void handleLDAPPatch(const nlohmann::json& input,
+                         const std::shared_ptr<AsyncResp> asyncResp,
+                         const std::string& serverType)
+    {
+        // NOTE: Currently we are expecting the user to provide all the data
+        // under LDAP property as we have backend limitation which starts the
+        // certain processes after each property update.
+        if (!input.is_object())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "LDAP/ActiveDirectory");
+            return;
+        }
+        // Element check
+        nlohmann::json::const_iterator serviceAddress =
+            input.find("ServiceAddresses");
+        if (serviceAddress == input.end())
+        {
+            messages::propertyMissing(asyncResp->res, "ServiceAddresses");
+            return;
+        }
+        nlohmann::json::const_iterator authentication =
+            input.find("Authentication");
+        if (authentication == input.end())
+        {
+            messages::propertyMissing(asyncResp->res, "Authentication");
+            return;
+        }
+
+        auto& authenticationJson = input["Authentication"];
+        nlohmann::json::const_iterator authType =
+            authenticationJson.find("AuthenticationType");
+
+        if (authType == authenticationJson.end())
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      "Authentication.AuthenticationType");
+            return;
+        }
+
+        nlohmann::json::const_iterator userName =
+            authenticationJson.find("Username");
+        if (userName == authenticationJson.end())
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      "Authentication.Username");
+            return;
+        }
+
+        nlohmann::json::const_iterator pass =
+            authenticationJson.find("Password");
+        if (pass == authenticationJson.end())
+        {
+            messages::propertyMissing(asyncResp->res,
+                                      "Authentication.Password");
+            return;
+        }
+
+        nlohmann::json::const_iterator ldapService = input.find("LDAPService");
+        if (ldapService == input.end())
+        {
+            messages::propertyMissing(asyncResp->res, "LDAPService");
+            return;
+        }
+        nlohmann::json::const_iterator baseDN =
+            input["LDAPService"]["SearchSettings"].find(
+                "BaseDistinguishedNames");
+        if (baseDN == input["LDAPService"]["SearchSettings"].end())
+        {
+            messages::propertyMissing(
+                asyncResp->res,
+                "LDAPService.SearchSettings.BaseDistinguishedNames");
+            return;
+        }
+        // Value Type check
+        LDAPConfigData confData{};
+
+        // get_ptr on const iterator doesn't work on the list object so
+        // get the value in the following way.
+
+        // Currently backend supports single URI, we don't have support for
+        // multiURL.
+        confData.uri =
+            serviceAddress.value().get<std::list<std::string>>().front();
+
+        const std::string* userNamePtr =
+            userName->get_ptr<const std::string*>();
+        if (userNamePtr == nullptr)
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "Authentication.Username");
+            return;
+        }
+        confData.bindDN = *userNamePtr;
+        const std::string* passwordPtr = pass->get_ptr<const std::string*>();
+        if (passwordPtr == nullptr)
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "Authentication.Password");
+            return;
+        }
+        confData.password = *passwordPtr;
+
+        confData.baseDN = baseDN.value().get<std::list<std::string>>().front();
+
+        if (serverType == "LDAP")
+        {
+            confData.serverType =
+                "xyz.openbmc_project.User.Ldap.Create.Type.OpenLdap";
+        }
+        else if (serverType == "ActiveDirectory")
+        {
+            confData.serverType =
+                "xyz.openbmc_project.User.Ldap.Create.Type.ActiveDirectory";
+        }
+
+        auto createLDAPConfigHandler =
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            };
+
+        crow::connections::systemBus->async_method_call(
+            std::move(createLDAPConfigHandler),
+            "xyz.openbmc_project.Ldap.Config", "/xyz/openbmc_project/user/ldap",
+            "xyz.openbmc_project.User.Ldap.Create", "CreateConfig",
+            confData.uri, confData.bindDN, confData.baseDN, confData.password,
+            confData.searchScope, confData.serverType);
+    }
+
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -308,43 +449,86 @@ class AccountService : public Node
 
         std::optional<uint32_t> unlockTimeout;
         std::optional<uint16_t> lockoutThreshold;
-        if (!json_util::readJson(req, res, "AccountLockoutDuration",
-                                 unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold))
+        nlohmann::json patchReq;
+        if (!json_util::processJsonFromRequest(res, req, patchReq))
         {
             return;
         }
-        if (unlockTimeout)
+
+        for (auto propertyIt : patchReq.items())
         {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.AccountPolicy",
-                "AccountUnlockTimeout",
-                sdbusplus::message::variant<uint32_t>(*unlockTimeout));
-        }
-        if (lockoutThreshold)
-        {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                },
-                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.AccountPolicy",
-                "MaxLoginAttemptBeforeLockout",
-                sdbusplus::message::variant<uint16_t>(*lockoutThreshold));
+            if (propertyIt.key() == "LDAP" ||
+                propertyIt.key() == "ActiveDirectory")
+            {
+                handleLDAPPatch(propertyIt.value(), asyncResp,
+                                propertyIt.key());
+            }
+
+            if (propertyIt.key() == "AccountLockoutDuration")
+            {
+                // value type check
+                auto unlockTimeoutPtr = reinterpret_cast<const uint32_t*>(
+                    propertyIt.value().get_ptr<const uint64_t*>());
+
+                if (unlockTimeoutPtr == nullptr)
+                {
+                    messages::propertyValueTypeError(asyncResp->res,
+                                                     propertyIt.value().dump(),
+                                                     "AccountLockoutDuration");
+                    return;
+                }
+                unlockTimeout = *unlockTimeoutPtr;
+            }
+            else if (propertyIt.key() == "AccountLockoutThreshold")
+            {
+                // value type check
+                const uint32_t* lockThresholdPtr =
+                    reinterpret_cast<const uint32_t*>(
+                        propertyIt.value().get_ptr<const uint64_t*>());
+                if (lockThresholdPtr == nullptr)
+                {
+                    messages::propertyValueTypeError(asyncResp->res,
+                                                     propertyIt.value().dump(),
+                                                     "AccountLockoutThreshold");
+                    return;
+                }
+                lockoutThreshold = *lockThresholdPtr;
+            }
+
+            if (unlockTimeout)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "AccountUnlockTimeout",
+                    sdbusplus::message::variant<uint32_t>(*unlockTimeout));
+            }
+            if (lockoutThreshold)
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.User.AccountPolicy",
+                    "MaxLoginAttemptBeforeLockout",
+                    sdbusplus::message::variant<uint16_t>(*lockoutThreshold));
+            }
         }
     }
 };
