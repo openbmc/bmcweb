@@ -199,6 +199,125 @@ class AccountService : public Node
     }
 
   private:
+    /**
+     * @brief Get the required values from the given JSON, validates the
+     *        value and create the LDAP config object.
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param serverType Type of LDAP server(openLDAP/ActiveDirectory)
+     */
+
+    void handleLDAPPatch(const nlohmann::json& input,
+                         const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        // NOTE: Currently we are expecting the user to provide all the data
+        // under LDAP property as we have backend limitation which starts the
+        // certain processes after each property update.
+
+        if (!input.is_object())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "LDAP/ActiveDirectory");
+            return;
+        }
+        std::optional<nlohmann::json> authentication;
+        std::optional<nlohmann::json> ldapService;
+        std::optional<nlohmann::json> searchSettings;
+
+        std::optional<std::string> username;
+        std::optional<std::string> password;
+        std::optional<std::string> authType;
+        std::optional<std::string> serverType;
+        std::optional<std::string> accountProviderType;
+        std::optional<std::string> usernameAttribute;
+        std::optional<std::string> groupsAttribute;
+
+        // TODO currently "LDAPService" property is not being used as once we
+        // create the configuration we start the ldap service. start/stop of the
+        // ldap service will be controlled by "LDAPService" property.
+        std::optional<bool> serviceEnabled;
+
+        std::optional<std::vector<std::string>> serviceAddresses;
+        std::optional<std::vector<std::string>> baseDN;
+
+        if (!json_util::readJson(
+                const_cast<nlohmann::json&>(input), asyncResp->res,
+                "Authentication", authentication, "LDAPService", ldapService,
+                "ServiceAddresses", serviceAddresses, "AccountProviderType",
+                accountProviderType, "ServiceEnabled", serviceEnabled))
+        {
+            return;
+        }
+
+        if (authentication)
+        {
+            if (!json_util::readJson(*authentication, asyncResp->res,
+                                     "AuthenticationType", authType, "Username",
+                                     username, "Password", password))
+            {
+                return;
+            }
+            if (*authType != "UsernameAndPassword")
+            {
+                messages::invalidObject(asyncResp->res, *authType);
+            }
+        }
+        if (ldapService)
+        {
+            if (!json_util::readJson(*ldapService, asyncResp->res,
+                                     "SearchSettings", searchSettings))
+            {
+                return;
+            }
+            if (searchSettings)
+            {
+                if (!json_util::readJson(*searchSettings, asyncResp->res,
+                                         "BaseDistinguishedNames", baseDN,
+                                         "UsernameAttribute", usernameAttribute,
+                                         "GroupsAttribute", groupsAttribute))
+                {
+                    return;
+                }
+            }
+        }
+
+        if (*accountProviderType == "LDAPService")
+        {
+            serverType = "xyz.openbmc_project.User.Ldap.Create.Type.OpenLdap";
+        }
+        else if (*accountProviderType == "ActiveDirectoryService")
+        {
+            serverType =
+                "xyz.openbmc_project.User.Ldap.Create.Type.ActiveDirectory";
+        }
+        else if (*accountProviderType == "OEM" ||
+                 *accountProviderType == "RedfishService")
+        {
+            messages::invalidObject(asyncResp->res, *accountProviderType);
+        }
+        else
+        {
+            messages::propertyValueNotInList(
+                asyncResp->res, *accountProviderType, "AccountProviderType");
+        }
+
+        auto createLDAPConfigHandler =
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            };
+
+        crow::connections::systemBus->async_method_call(
+            std::move(createLDAPConfigHandler),
+            "xyz.openbmc_project.Ldap.Config", "/xyz/openbmc_project/user/ldap",
+            "xyz.openbmc_project.User.Ldap.Create", "CreateConfig",
+            (*serviceAddresses).front(), *username, (*baseDN).front(),
+            *password, "xyz.openbmc_project.User.Ldap.Create.SearchScope.sub",
+            *serverType);
+    }
+
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -283,15 +402,29 @@ class AccountService : public Node
                  const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-
         std::optional<uint32_t> unlockTimeout;
         std::optional<uint16_t> lockoutThreshold;
+        std::optional<nlohmann::json> ldapObject;
+        std::optional<nlohmann::json> activeDirectoryObject;
+
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold))
+                                 lockoutThreshold, "LDAP", ldapObject,
+                                 "ActiveDirectory", activeDirectoryObject))
         {
             return;
         }
+
+        if (ldapObject)
+        {
+            handleLDAPPatch(*ldapObject, asyncResp);
+        }
+
+        if (activeDirectoryObject)
+        {
+            handleLDAPPatch(*activeDirectoryObject, asyncResp);
+        }
+
         if (unlockTimeout)
         {
             crow::connections::systemBus->async_method_call(
