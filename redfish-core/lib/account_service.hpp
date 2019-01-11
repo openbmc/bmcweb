@@ -203,6 +203,173 @@ class AccountService : public Node
     }
 
   private:
+    /**
+     * @brief Get the required values from the given JSON, validates the
+     *        value and create the LDAP config object.
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param serverType Type of LDAP server(openLDAP/ActiveDirectory)
+     */
+
+    void handleLDAPPatch(const nlohmann::json& input,
+                         const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        // NOTE: Currently we are expecting the user to provide all the data
+        // under LDAP property as we have backend limitation which starts the
+        // certain processes after each property update.
+
+        std::optional<nlohmann::json> authentication;
+        std::optional<nlohmann::json> ldapService;
+        std::optional<std::string> accountProviderType;
+        std::optional<std::vector<std::string>> serviceAddressList;
+
+        if (!json_util::readJson(const_cast<nlohmann::json&>(input),
+                                 asyncResp->res, "Authentication",
+                                 authentication, "LDAPService", ldapService,
+                                 "ServiceAddresses", serviceAddressList,
+                                 "AccountProviderType", accountProviderType))
+        {
+            return;
+        }
+
+        std::string serviceAddress;
+        if (!authentication)
+        {
+            messages::propertyMissing(asyncResp->res, "Authentication");
+            return;
+        }
+
+        if (!ldapService)
+        {
+            messages::propertyMissing(asyncResp->res, "LDAPService");
+            return;
+        }
+
+        if (!serviceAddressList)
+        {
+            messages::propertyMissing(asyncResp->res, "ServiceAddresses");
+            return;
+        }
+
+        if (!accountProviderType)
+        {
+            messages::propertyMissing(asyncResp->res, "AccountProviderType");
+            return;
+        }
+
+        if (!(*serviceAddressList).empty())
+        {
+            serviceAddress = (*serviceAddressList).front();
+        }
+
+        std::optional<std::string> username;
+        std::optional<std::string> password;
+        std::optional<std::string> authType;
+
+        if (!json_util::readJson(*authentication, asyncResp->res,
+                                 "AuthenticationType", authType, "Username",
+                                 username, "Password", password))
+        {
+            return;
+        }
+
+        if (!authType)
+        {
+            messages::propertyMissing(asyncResp->res, "AccountProviderType");
+            return;
+        }
+
+        if (!username)
+        {
+            messages::propertyMissing(asyncResp->res, "Username");
+            return;
+        }
+
+        if (!password)
+        {
+            messages::propertyMissing(asyncResp->res, "Password");
+            return;
+        }
+
+        if (*authType != "UsernameAndPassword")
+        {
+            messages::propertyValueNotInList(asyncResp->res, *authType,
+                                             "AuthenticationType");
+            return;
+        }
+
+        std::optional<nlohmann::json> searchSettings;
+
+        if (!json_util::readJson(*ldapService, asyncResp->res, "SearchSettings",
+                                 searchSettings))
+        {
+            return;
+        }
+        if (!searchSettings)
+        {
+            messages::propertyMissing(asyncResp->res, "SearchSettings");
+            return;
+        }
+
+        std::optional<std::vector<std::string>> baseDNList;
+        if (!json_util::readJson(*searchSettings, asyncResp->res,
+                                 "BaseDistinguishedNames", baseDNList))
+        {
+            return;
+        }
+        if (!baseDNList)
+        {
+            messages::propertyMissing(asyncResp->res, "BaseDistinguishedNames");
+            return;
+        }
+
+        std::string baseDN;
+        if (!(*baseDNList).empty())
+        {
+            baseDN = (*baseDNList).front();
+        }
+
+        std::string serverType;
+
+        if (*accountProviderType == "LDAPService")
+        {
+            serverType = "xyz.openbmc_project.User.Ldap.Create.Type.OpenLdap";
+        }
+        else if (*accountProviderType == "ActiveDirectoryService")
+        {
+            serverType =
+                "xyz.openbmc_project.User.Ldap.Create.Type.ActiveDirectory";
+        }
+        else
+        {
+            messages::propertyValueNotInList(
+                asyncResp->res, *accountProviderType, "AccountProviderType");
+            return;
+        }
+
+        auto createLDAPConfigHandler = [asyncResp, serviceAddress, baseDN](
+                                           const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            messages::success(asyncResp->res);
+            messages::propertyValueModified(asyncResp->res, "ServiceAddresses",
+                                            serviceAddress);
+            messages::propertyValueModified(asyncResp->res,
+                                            "BaseDistinguishedNames", baseDN);
+        };
+
+        crow::connections::systemBus->async_method_call(
+            std::move(createLDAPConfigHandler),
+            "xyz.openbmc_project.Ldap.Config", "/xyz/openbmc_project/user/ldap",
+            "xyz.openbmc_project.User.Ldap.Create", "CreateConfig",
+            serviceAddress, *username, baseDN, *password,
+            "xyz.openbmc_project.User.Ldap.Create.SearchScope.sub", serverType);
+    }
+
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -282,15 +449,29 @@ class AccountService : public Node
                  const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-
         std::optional<uint32_t> unlockTimeout;
         std::optional<uint16_t> lockoutThreshold;
+        std::optional<nlohmann::json> ldapObject;
+        std::optional<nlohmann::json> activeDirectoryObject;
+
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold))
+                                 lockoutThreshold, "LDAP", ldapObject,
+                                 "ActiveDirectory", activeDirectoryObject))
         {
             return;
         }
+
+        if (ldapObject)
+        {
+            handleLDAPPatch(*ldapObject, asyncResp);
+        }
+
+        if (activeDirectoryObject)
+        {
+            handleLDAPPatch(*activeDirectoryObject, asyncResp);
+        }
+
         if (unlockTimeout)
         {
             crow::connections::systemBus->async_method_call(
