@@ -131,5 +131,34 @@ class HttpsCertificate : public Node
         res.jsonValue["CertificateType"] = "PEM";
         res.end();
     }
+
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string filepath("/tmp/" + boost::uuids::to_string(
+                                           boost::uuids::random_generator()()));
+        std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                        std::ofstream::trunc);
+        out << req.body;
+        out.close();
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, filepath](const boost::system::error_code error_code) {
+                if (error_code)
+                {
+                    BMCWEB_LOG_DEBUG << "error_code = " << error_code;
+                    BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
+                    messages::internalError(asyncResp->res);
+                    std::remove(filepath.c_str());
+                    return;
+                }
+                std::remove(filepath.c_str());
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.Certs.Manager.Server.Https",
+            "/xyz/openbmc_project/certs/server/https",
+            "xyz.openbmc_project.Certs.Install", "Install", filepath);
+    }
 }; // HttpsCertificate
 } // namespace redfish
