@@ -815,6 +815,130 @@ int readMessageItem(const std::string &typeCode, sdbusplus::message::message &m,
 }
 
 int convertDBusToJSON(const std::string &returnType,
+                      sdbusplus::message::message &m, nlohmann::json &response);
+
+int readDictEntryFromMessage(const std::string &typeCode,
+                             sdbusplus::message::message &m,
+                             nlohmann::json &key, nlohmann::json &value)
+{
+    auto containedType = typeCode.substr(1, typeCode.size() - 2);
+
+    auto types = dbusArgSplit(containedType);
+    if (types.size() != 2)
+    {
+        BMCWEB_LOG_ERROR << "wrong number contained types in dictionary: "
+                         << types.size();
+        return -1;
+    }
+
+    auto r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_DICT_ENTRY,
+                                            containedType.c_str());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc " << r;
+        return r;
+    }
+
+    r = convertDBusToJSON(types[0], m, key);
+    if (r < 0)
+    {
+        return r;
+    }
+
+    r = convertDBusToJSON(types[1], m, value);
+    if (r < 0)
+    {
+        return r;
+    }
+
+    r = sd_bus_message_exit_container(m.get());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        return r;
+    }
+
+    return 0;
+}
+
+int readArrayFromMessage(const std::string &typeCode,
+                         sdbusplus::message::message &m, nlohmann::json &data)
+{
+    auto containedType = typeCode.substr(1);
+
+    auto r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_ARRAY,
+                                            containedType.c_str());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
+                         << r;
+        return r;
+    }
+
+    auto dict = boost::starts_with(containedType, "{") &&
+                boost::ends_with(containedType, "}");
+
+    while (true)
+    {
+        r = sd_bus_message_at_end(m.get(), false);
+        if (r < 0)
+        {
+            BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
+            return r;
+        }
+
+        if (r > 0)
+        {
+            break;
+        }
+
+        // Dictionaries are only ever seen in an array
+        if (dict)
+        {
+            nlohmann::json key, value;
+            r = readDictEntryFromMessage(containedType, m, key, value);
+            if (r < 0)
+            {
+                return r;
+            }
+            data.emplace(key, value);
+        }
+        else
+        {
+            nlohmann::json value;
+            r = convertDBusToJSON(containedType, m, value);
+            if (r < 0)
+            {
+                return r;
+            }
+
+            data.push_back(value);
+        }
+    }
+
+    if (data.empty())
+    {
+        if (dict)
+        {
+            data = std::map<int, int>{};
+        }
+        else
+        {
+            data = nlohmann::json::array();
+        }
+    }
+
+    r = sd_bus_message_exit_container(m.get());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        return r;
+    }
+
+    return 0;
+}
+
+int convertDBusToJSON(const std::string &returnType,
                       sdbusplus::message::message &m, nlohmann::json &response)
 {
     const auto returnTypes = dbusArgSplit(returnType);
@@ -926,9 +1050,17 @@ int convertDBusToJSON(const std::string &returnType,
                 return r;
             }
         }
+        else if (boost::starts_with(typeCode, "a"))
+        {
+            r = readArrayFromMessage(typeCode, m, response);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
         else
         {
-            // TODO: add array, dict, variant support
+            // TODO: add struct, variant support
             BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
             return -2;
         }
