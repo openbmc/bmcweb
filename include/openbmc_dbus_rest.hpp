@@ -962,6 +962,41 @@ int readStructFromMessage(const std::string &typeCode,
     return 0;
 }
 
+int readVariantFromMessage(sdbusplus::message::message &m, nlohmann::json &data)
+{
+    const char *containerType;
+    auto r = sd_bus_message_peek_type(m.get(), NULL, &containerType);
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_peek_type failed";
+        return r;
+    }
+
+    r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_VARIANT,
+                                       containerType);
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
+                         << r;
+        return r;
+    }
+
+    r = convertDBusToJSON(containerType, m, data);
+    if (r < 0)
+    {
+        return r;
+    }
+
+    r = sd_bus_message_exit_container(m.get());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed";
+        return r;
+    }
+
+    return 0;
+}
+
 int convertDBusToJSON(const std::string &returnType,
                       sdbusplus::message::message &m, nlohmann::json &response)
 {
@@ -1100,9 +1135,16 @@ int convertDBusToJSON(const std::string &returnType,
                 return r;
             }
         }
+        else if (boost::starts_with(typeCode, "v"))
+        {
+            r = readVariantFromMessage(m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
         else
         {
-            // TODO: add variant support
             BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
             return -2;
         }
