@@ -814,6 +814,147 @@ int readMessageItem(const std::string &typeCode, sdbusplus::message::message &m,
 }
 
 int convertDBusToJSON(const std::string &returnType,
+                      sdbusplus::message::message &m, nlohmann::json &response);
+
+int readDictEntryFromMessage(const std::string &typeCode,
+                             sdbusplus::message::message &m,
+                             nlohmann::json &object)
+{
+    std::vector<std::string> types = dbusArgSplit(typeCode);
+    if (types.size() != 2)
+    {
+        BMCWEB_LOG_ERROR << "wrong number contained types in dictionary: "
+                         << types.size();
+        return -1;
+    }
+
+    int r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_DICT_ENTRY,
+                                           typeCode.c_str());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc " << r;
+        return r;
+    }
+
+    nlohmann::json key;
+    r = convertDBusToJSON(types[0], m, key);
+    if (r < 0)
+    {
+        return r;
+    }
+
+    const std::string *keyPtr = key.get_ptr<const std::string *>();
+    if (keyPtr == nullptr)
+    {
+        // json doesn't support non-string keys.  If we hit this condition,
+        // convert the result to a string so we can proceed
+        key = key.dump();
+        keyPtr = key.get_ptr<const std::string *>();
+        // in theory this can't fail now, but lets be paranoid about it anyway
+        if (keyPtr == nullptr)
+        {
+            return -1;
+        }
+    }
+    nlohmann::json &value = object[*keyPtr];
+
+    r = convertDBusToJSON(types[1], m, value);
+    if (r < 0)
+    {
+        return r;
+    }
+
+    r = sd_bus_message_exit_container(m.get());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        return r;
+    }
+
+    return 0;
+}
+
+int readArrayFromMessage(const std::string &typeCode,
+                         sdbusplus::message::message &m, nlohmann::json &data)
+{
+    if (typeCode.size() < 2)
+    {
+        BMCWEB_LOG_ERROR << "Type code " << typeCode
+                         << " too small for an array";
+        return -1;
+    }
+
+    std::string containedType = typeCode.substr(1);
+
+    int r = sd_bus_message_enter_container(m.get(), SD_BUS_TYPE_ARRAY,
+                                           containedType.c_str());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_enter_container failed with rc "
+                         << r;
+        return r;
+    }
+
+    bool dict = boost::starts_with(containedType, "{") &&
+                boost::ends_with(containedType, "}");
+
+    if (dict)
+    {
+        // Remove the { }
+        containedType = containedType.substr(1, containedType.size() - 2);
+        data = nlohmann::json::object();
+    }
+    else
+    {
+        data = nlohmann::json::array();
+    }
+
+    while (true)
+    {
+        r = sd_bus_message_at_end(m.get(), false);
+        if (r < 0)
+        {
+            BMCWEB_LOG_ERROR << "sd_bus_message_at_end failed";
+            return r;
+        }
+
+        if (r > 0)
+        {
+            break;
+        }
+
+        // Dictionaries are only ever seen in an array
+        if (dict)
+        {
+            r = readDictEntryFromMessage(containedType, m, data);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else
+        {
+            data.push_back(nlohmann::json());
+
+            r = convertDBusToJSON(containedType, m, data.back());
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+    }
+
+    r = sd_bus_message_exit_container(m.get());
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_exit_container failed";
+        return r;
+    }
+
+    return 0;
+}
+
+int convertDBusToJSON(const std::string &returnType,
                       sdbusplus::message::message &m, nlohmann::json &response)
 {
     int r = 0;
@@ -934,9 +1075,17 @@ int convertDBusToJSON(const std::string &returnType,
                 return r;
             }
         }
+        else if (boost::starts_with(typeCode, "a"))
+        {
+            r = readArrayFromMessage(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
         else
         {
-            // TODO: add array, dict, variant support
+            // TODO: add struct, variant support
             BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
             return -2;
         }
