@@ -748,6 +748,8 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             jIt++;
         }
     }
+
+    return r;
 }
 
 void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
