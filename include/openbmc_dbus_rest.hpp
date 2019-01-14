@@ -789,9 +789,151 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
     return r;
 }
 
+template <typename IN, typename OUT>
+int readMessageItem(const std::string &typeCode, sdbusplus::message::message &m,
+                    bool do_pushBack, nlohmann::json &data)
+{
+    IN value;
+
+    auto r = sd_bus_message_read_basic(m.get(), typeCode.front(), &value);
+    if (r < 0)
+    {
+        std::cerr << "sd_bus_message_read_basic on type " << typeCode
+                  << " failed!\n";
+        return r;
+    }
+
+    if (do_pushBack)
+    {
+        data.push_back(static_cast<OUT>(value));
+    }
+    else
+    {
+        data = static_cast<OUT>(value);
+    }
+    return 0;
+}
+
 int convertDBusToJSON(const std::string &returnType,
                       sdbusplus::message::message &m, nlohmann::json &response)
 {
+    const auto returnTypes = dbusArgSplit(returnType);
+
+    for (const auto &typeCode : returnTypes)
+    {
+        int r;
+        if (typeCode == "s")
+        {
+            if ((r = readMessageItem<char *, char *>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "g")
+        {
+            if ((r = readMessageItem<char *, char *>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "o")
+        {
+            if ((r = readMessageItem<char *, char *>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "b")
+        {
+            if ((r = readMessageItem<int, bool>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "u")
+        {
+            if ((r = readMessageItem<uint32_t, uint32_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "i")
+        {
+            if ((r = readMessageItem<int32_t, int32_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "x")
+        {
+            if ((r = readMessageItem<int64_t, int64_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "t")
+        {
+            if ((r = readMessageItem<uint64_t, uint64_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "n")
+        {
+            if ((r = readMessageItem<int16_t, int16_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "q")
+        {
+            if ((r = readMessageItem<uint16_t, uint16_t>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "y")
+        {
+            if ((r = readMessageItem<unsigned char, unsigned char>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "d")
+        {
+            if ((r = readMessageItem<double, double>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "h")
+        {
+            if ((r = readMessageItem<int, int>(
+                     typeCode, m, returnTypes.size() > 1, response)) < 0)
+            {
+                return r;
+            }
+        }
+        else
+        {
+            // TODO: add array, dict, variant support
+            BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
+            return -2;
+        }
+    }
+
     return 0;
 }
 
