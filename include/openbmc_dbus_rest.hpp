@@ -795,9 +795,153 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
     return r;
 }
 
+template <typename T>
+int readMessageItem(const std::string &typeCode, sdbusplus::message::message &m,
+                    nlohmann::json &data)
+{
+    T value;
+
+    int r = sd_bus_message_read_basic(m.get(), typeCode.front(), &value);
+    if (r < 0)
+    {
+        BMCWEB_LOG_ERROR << "sd_bus_message_read_basic on type " << typeCode
+                         << " failed!";
+        return r;
+    }
+
+    data = value;
+    return 0;
+}
+
 int convertDBusToJSON(const std::string &returnType,
                       sdbusplus::message::message &m, nlohmann::json &response)
 {
+    int r = 0;
+    const std::vector<std::string> returnTypes = dbusArgSplit(returnType);
+
+    nlohmann::json &thisElement = response;
+    for (const std::string &typeCode : returnTypes)
+    {
+        if (returnType.size() > 1)
+        {
+            response.push_back(nlohmann::json{});
+            thisElement = response.back();
+        }
+
+        if (typeCode == "s")
+        {
+            r = readMessageItem<char *>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "g")
+        {
+            r = readMessageItem<char *>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "o")
+        {
+            r = readMessageItem<char *>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "b")
+        {
+            r = readMessageItem<int>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+
+            thisElement = static_cast<bool>(thisElement.get<int>());
+        }
+        else if (typeCode == "u")
+        {
+            r = readMessageItem<uint32_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "i")
+        {
+            r = readMessageItem<int32_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "x")
+        {
+            r = readMessageItem<int64_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "t")
+        {
+            r = readMessageItem<uint64_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "n")
+        {
+            r = readMessageItem<int16_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "q")
+        {
+            r = readMessageItem<uint16_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "y")
+        {
+            r = readMessageItem<uint8_t>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "d")
+        {
+            r = readMessageItem<double>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else if (typeCode == "h")
+        {
+            r = readMessageItem<int>(typeCode, m, thisElement);
+            if (r < 0)
+            {
+                return r;
+            }
+        }
+        else
+        {
+            // TODO: add array, dict, variant support
+            BMCWEB_LOG_ERROR << "Invalid D-Bus signature type " << typeCode;
+            return -2;
+        }
+    }
+
     return 0;
 }
 
