@@ -767,123 +767,116 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                 BMCWEB_LOG_ERROR
                     << "Introspect call failed with error: " << ec.message()
                     << " on process: " << connectionName << "\n";
+                return;
             }
-            else
+            tinyxml2::XMLDocument doc;
+
+            doc.Parse(introspect_xml.data(), introspect_xml.size());
+            tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
+            if (pRoot == nullptr)
             {
-                tinyxml2::XMLDocument doc;
-
-                doc.Parse(introspect_xml.data(), introspect_xml.size());
-                tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
-                if (pRoot == nullptr)
+                BMCWEB_LOG_ERROR << "XML document failed to parse "
+                                 << connectionName << "\n";
+                return;
+            }
+            tinyxml2::XMLElement *interfaceNode =
+                pRoot->FirstChildElement("interface");
+            while (interfaceNode != nullptr)
+            {
+                const char *thisInterfaceName =
+                    interfaceNode->Attribute("name");
+                if (thisInterfaceName != nullptr)
                 {
-                    BMCWEB_LOG_ERROR << "XML document failed to parse "
-                                     << connectionName << "\n";
-                    return;
-                }
-                tinyxml2::XMLElement *interfaceNode =
-                    pRoot->FirstChildElement("interface");
-                while (interfaceNode != nullptr)
-                {
-                    const char *thisInterfaceName =
-                        interfaceNode->Attribute("name");
-                    if (thisInterfaceName != nullptr)
+                    if (!transaction->interfaceName.empty() &&
+                        (transaction->interfaceName != thisInterfaceName))
                     {
-                        if (!transaction->interfaceName.empty() &&
-                            (transaction->interfaceName != thisInterfaceName))
-                        {
-                            interfaceNode =
-                                interfaceNode->NextSiblingElement("interface");
-                            continue;
-                        }
-
-                        tinyxml2::XMLElement *methodNode =
-                            interfaceNode->FirstChildElement("method");
-                        while (methodNode != nullptr)
-                        {
-                            const char *thisMethodName =
-                                methodNode->Attribute("name");
-                            BMCWEB_LOG_DEBUG << "Found method: "
-                                             << thisMethodName;
-                            if (thisMethodName != nullptr &&
-                                thisMethodName == transaction->methodName)
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Found method named " << thisMethodName
-                                    << " on interface " << thisInterfaceName;
-                                sdbusplus::message::message m =
-                                    crow::connections::systemBus
-                                        ->new_method_call(
-                                            connectionName.c_str(),
-                                            transaction->path.c_str(),
-                                            thisInterfaceName,
-                                            transaction->methodName.c_str());
-
-                                tinyxml2::XMLElement *argumentNode =
-                                    methodNode->FirstChildElement("arg");
-
-                                nlohmann::json::const_iterator argIt =
-                                    transaction->arguments.begin();
-
-                                while (argumentNode != nullptr)
-                                {
-                                    const char *argDirection =
-                                        argumentNode->Attribute("direction");
-                                    const char *argType =
-                                        argumentNode->Attribute("type");
-                                    if (argDirection != nullptr &&
-                                        argType != nullptr &&
-                                        std::string(argDirection) == "in")
-                                    {
-                                        if (argIt ==
-                                            transaction->arguments.end())
-                                        {
-                                            transaction->setErrorStatus(
-                                                "Invalid method args");
-                                            return;
-                                        }
-                                        if (convertJsonToDbus(
-                                                m.get(), std::string(argType),
-                                                *argIt) < 0)
-                                        {
-                                            transaction->setErrorStatus(
-                                                "Invalid method arg type");
-                                            return;
-                                        }
-
-                                        argIt++;
-                                    }
-                                    argumentNode =
-                                        argumentNode->NextSiblingElement("arg");
-                                }
-
-                                crow::connections::systemBus->async_send(
-                                    m, [transaction](
-                                           boost::system::error_code ec,
-                                           sdbusplus::message::message &m) {
-                                        if (ec)
-                                        {
-                                            setErrorResponse(
-                                                transaction->res,
-                                                boost::beast::http::status::
-                                                    internal_server_error,
-                                                "Method call failed",
-                                                methodFailedMsg);
-                                            return;
-                                        }
-                                        transaction->res.jsonValue = {
-                                            {"status", "ok"},
-                                            {"message", "200 OK"},
-                                            {"data", nullptr}};
-                                    });
-                                break;
-                            }
-                            methodNode =
-                                methodNode->NextSiblingElement("method");
-                        }
+                        interfaceNode =
+                            interfaceNode->NextSiblingElement("interface");
+                        continue;
                     }
-                    interfaceNode =
-                        interfaceNode->NextSiblingElement("interface");
+
+                    tinyxml2::XMLElement *methodNode =
+                        interfaceNode->FirstChildElement("method");
+                    while (methodNode != nullptr)
+                    {
+                        const char *thisMethodName =
+                            methodNode->Attribute("name");
+                        BMCWEB_LOG_DEBUG << "Found method: " << thisMethodName;
+                        if (thisMethodName != nullptr &&
+                            thisMethodName == transaction->methodName)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Found method named " << thisMethodName
+                                << " on interface " << thisInterfaceName;
+                            sdbusplus::message::message m =
+                                crow::connections::systemBus->new_method_call(
+                                    connectionName.c_str(),
+                                    transaction->path.c_str(),
+                                    thisInterfaceName,
+                                    transaction->methodName.c_str());
+
+                            tinyxml2::XMLElement *argumentNode =
+                                methodNode->FirstChildElement("arg");
+
+                            nlohmann::json::const_iterator argIt =
+                                transaction->arguments.begin();
+
+                            while (argumentNode != nullptr)
+                            {
+                                const char *argDirection =
+                                    argumentNode->Attribute("direction");
+                                const char *argType =
+                                    argumentNode->Attribute("type");
+                                if (argDirection != nullptr &&
+                                    argType != nullptr &&
+                                    std::string(argDirection) == "in")
+                                {
+                                    if (argIt == transaction->arguments.end())
+                                    {
+                                        transaction->setErrorStatus(
+                                            "Invalid method args");
+                                        return;
+                                    }
+                                    if (convertJsonToDbus(m.get(),
+                                                          std::string(argType),
+                                                          *argIt) < 0)
+                                    {
+                                        transaction->setErrorStatus(
+                                            "Invalid method arg type");
+                                        return;
+                                    }
+
+                                    argIt++;
+                                }
+                                argumentNode =
+                                    argumentNode->NextSiblingElement("arg");
+                            }
+
+                            crow::connections::systemBus->async_send(
+                                m,
+                                [transaction](boost::system::error_code ec,
+                                              sdbusplus::message::message &m) {
+                                    if (ec)
+                                    {
+                                        setErrorResponse(
+                                            transaction->res,
+                                            boost::beast::http::status::
+                                                internal_server_error,
+                                            "Method call failed",
+                                            methodFailedMsg);
+                                        return;
+                                    }
+                                    transaction->res.jsonValue = {
+                                        {"status", "ok"},
+                                        {"message", "200 OK"},
+                                        {"data", nullptr}};
+                                });
+                            break;
+                        }
+                        methodNode = methodNode->NextSiblingElement("method");
+                    }
                 }
+                interfaceNode = interfaceNode->NextSiblingElement("interface");
             }
         },
         connectionName, transaction->path,
