@@ -92,6 +92,10 @@
    The OpenBMC webserver shall follow the latest OWASP recommendations for
    authentication, session management, and security.
 
+   TLS uses cipher suites from the "OWASP Cipher String 'B'" to maintain as
+   much compatibility as we can with modern browsers, while still keeping a
+   strong security posture.
+
 7. ### Performance
    The performance priorities for the OpenBMC webserver are (in order):
     1. Code is readable and clear
