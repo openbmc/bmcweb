@@ -457,6 +457,7 @@ struct InProgressActionData
     bool methodPassed = false;
     bool methodFailed = false;
     bool outputFailed = false;
+    bool convertedToArray = false;
     nlohmann::json methodResponse;
     nlohmann::json arguments;
 };
@@ -1157,6 +1158,64 @@ void handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
                           sdbusplus::message::message &m,
                           const std::string &returnType)
 {
+    nlohmann::json data;
+
+    int r = convertDBusToJSON(returnType, m, data);
+    if (r < 0)
+    {
+        transaction->outputFailed = true;
+        return;
+    }
+
+    if (data.is_null())
+    {
+        return;
+    }
+
+    if (transaction->methodResponse.is_null())
+    {
+        transaction->methodResponse = std::move(data);
+        return;
+    }
+
+    // If they're both dictionaries or arrays, merge into one.
+    // Otherwise, make the results an array with every result
+    // an entry.  Could also just fail in that case, but it
+    // seems better to get the data back somehow.
+
+    if (transaction->methodResponse.is_object() && data.is_object())
+    {
+        for (const auto &obj : data.items())
+        {
+            // Note: Will overwrite the data for a duplicate key
+            transaction->methodResponse.emplace(obj.key(),
+                                                std::move(obj.value()));
+        }
+        return;
+    }
+
+    if (transaction->methodResponse.is_array() && data.is_array())
+    {
+        for (auto &obj : data)
+        {
+            transaction->methodResponse.push_back(std::move(obj));
+        }
+        return;
+    }
+
+    if (!transaction->convertedToArray)
+    {
+        // They are different types. May as well turn them into an array
+        nlohmann::json j = std::move(transaction->methodResponse);
+        transaction->methodResponse = nlohmann::json::array();
+        transaction->methodResponse.push_back(std::move(j));
+        transaction->methodResponse.push_back(std::move(data));
+        transaction->convertedToArray = true;
+    }
+    else
+    {
+        transaction->methodResponse.push_back(std::move(data));
+    }
 }
 
 void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
