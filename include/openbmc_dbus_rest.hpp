@@ -40,6 +40,7 @@ const std::string badReqMsg = "400 Bad Request";
 const std::string methodNotAllowedMsg = "405 Method Not Allowed";
 const std::string forbiddenMsg = "403 Forbidden";
 const std::string methodFailedMsg = "500 Method Call Failed";
+const std::string methodOutputFailedMsg = "500 Method Output Error";
 
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
@@ -402,12 +403,50 @@ struct InProgressActionData
     InProgressActionData(crow::Response &res) : res(res){};
     ~InProgressActionData()
     {
-        // If still no JSON filled in, then we never found the method.
-        if (res.jsonValue.is_null())
+        // Methods could have been called across different owners
+        // and interfaces, where some calls failed and some passed.
+        //
+        // The rules for this are:
+        // * if no method was called - error
+        // * if a method failed and none passed - error
+        //   (converse: if at least one method passed - OK)
+        // * for the method output:
+        //   * if output processing didn't fail, return the data
+
+        // Only deal with method returns if nothing failed earlier
+        if (res.result() == boost::beast::http::status::ok)
         {
-            setErrorResponse(res, boost::beast::http::status::not_found,
-                             methodNotFoundDesc, notFoundMsg);
+            if (!methodPassed)
+            {
+                if (methodFailed)
+                {
+                    setErrorResponse(res,
+                                     boost::beast::http::status::bad_request,
+                                     "Method call failed", methodFailedMsg);
+                }
+                else
+                {
+                    setErrorResponse(res, boost::beast::http::status::not_found,
+                                     methodNotFoundDesc, notFoundMsg);
+                }
+            }
+            else
+            {
+                if (outputFailed)
+                {
+                    setErrorResponse(
+                        res, boost::beast::http::status::internal_server_error,
+                        "Method output failure", methodOutputFailedMsg);
+                }
+                else
+                {
+                    res.jsonValue = {{"status", "ok"},
+                                     {"message", "200 OK"},
+                                     {"data", methodResponse}};
+                }
+            }
         }
+
         res.end();
     }
 
@@ -420,6 +459,10 @@ struct InProgressActionData
     std::string path;
     std::string methodName;
     std::string interfaceName;
+    bool methodPassed = false;
+    bool methodFailed = false;
+    bool outputFailed = false;
+    nlohmann::json methodResponse;
     nlohmann::json arguments;
 };
 
@@ -752,6 +795,18 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
     return r;
 }
 
+int convertDBusToJSON(const std::string &returnType,
+                      sdbusplus::message::message &m, nlohmann::json &response)
+{
+    return 0;
+}
+
+void handleMethodResponse(std::shared_ptr<InProgressActionData> transaction,
+                          sdbusplus::message::message &m,
+                          const std::string &returnType)
+{
+}
+
 void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                            const std::string &connectionName)
 {
@@ -818,8 +873,30 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                             tinyxml2::XMLElement *argumentNode =
                                 methodNode->FirstChildElement("arg");
 
+                            std::string returnType;
+
+                            // Find the output type
+                            while (argumentNode != nullptr)
+                            {
+                                const char *argDirection =
+                                    argumentNode->Attribute("direction");
+                                const char *argType =
+                                    argumentNode->Attribute("type");
+                                if (argDirection != nullptr &&
+                                    argType != nullptr &&
+                                    std::string(argDirection) == "out")
+                                {
+                                    returnType = argType;
+                                    break;
+                                }
+                                argumentNode =
+                                    argumentNode->NextSiblingElement("arg");
+                            }
+
                             nlohmann::json::const_iterator argIt =
                                 transaction->arguments.begin();
+
+                            argumentNode = methodNode->FirstChildElement("arg");
 
                             while (argumentNode != nullptr)
                             {
@@ -853,23 +930,21 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                             }
 
                             crow::connections::systemBus->async_send(
-                                m,
-                                [transaction](boost::system::error_code ec,
-                                              sdbusplus::message::message &m) {
+                                m, [transaction, returnType](
+                                       boost::system::error_code ec,
+                                       sdbusplus::message::message &m) {
                                     if (ec)
                                     {
-                                        setErrorResponse(
-                                            transaction->res,
-                                            boost::beast::http::status::
-                                                internal_server_error,
-                                            "Method call failed",
-                                            methodFailedMsg);
+                                        transaction->methodFailed = true;
                                         return;
                                     }
-                                    transaction->res.jsonValue = {
-                                        {"status", "ok"},
-                                        {"message", "200 OK"},
-                                        {"data", nullptr}};
+                                    else
+                                    {
+                                        transaction->methodPassed = true;
+                                    }
+
+                                    handleMethodResponse(transaction, m,
+                                                         returnType);
                                 });
                             break;
                         }
