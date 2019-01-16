@@ -8,6 +8,7 @@
 #include <cstdlib>
 #include <limits>
 #include <memory>
+#include <openbmc_rest_error.hpp>
 #include <tuple>
 #include <utility>
 #include <vector>
@@ -1019,7 +1020,17 @@ class Router
         if (!ruleIndex)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res = Response(boost::beast::http::status::not_found);
+            if (boost::starts_with(req.url, "/xyz/") ||
+                boost::starts_with(req.url, "/org/"))
+            {
+                // Dbus backed path so send back appropriate response
+                setErrorResponse(res, boost::beast::http::status::not_found,
+                                 notFoundDesc, notFoundMsg);
+            }
+            else
+            {
+                res = Response(boost::beast::http::status::not_found);
+            }
             res.end();
             return;
         }
@@ -1099,7 +1110,17 @@ class Router
         if (!ruleIndex)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res.result(boost::beast::http::status::not_found);
+            if (boost::starts_with(req.url, "/xyz/") ||
+                boost::starts_with(req.url, "/org/"))
+            {
+                // Dbus backed path so send back appropriate response
+                setErrorResponse(res, boost::beast::http::status::not_found,
+                                 notFoundDesc, notFoundMsg);
+            }
+            else
+            {
+                res.result(boost::beast::http::status::not_found);
+            }
             res.end();
             return;
         }
