@@ -19,6 +19,8 @@
 #include "crow/utility.h"
 #include "crow/websocket.h"
 
+#include <openbmc_rest_error.hpp>
+
 namespace crow
 {
 class BaseRule
@@ -1019,7 +1021,9 @@ class Router
         if (!ruleIndex)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res = Response(boost::beast::http::status::not_found);
+            setErrorResponse(res,
+                             boost::beast::http::status::not_found,
+                             notFoundDesc, notFoundMsg);
             res.end();
             return;
         }
@@ -1099,7 +1103,9 @@ class Router
         if (!ruleIndex)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res.result(boost::beast::http::status::not_found);
+            setErrorResponse(res,
+                             boost::beast::http::status::not_found,
+                             notFoundDesc, notFoundMsg);
             res.end();
             return;
         }
