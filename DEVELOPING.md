@@ -113,7 +113,91 @@
    the required flows to host the application.  In general, all access methods
    should be available to the webui.
 
-12. ### Redfish
+12. ### Developing and Testing
+  There are a variety of ways to develop and test bmcweb software changes.
+  Here are the steps for using the SDK and QEMU.
+
+  - Follow all [development environment setup](https://github.com/openbmc/docs/blob/master/development/dev-environment.md)
+  directions in the development environment setup document. This will get
+  QEMU started up and you in the SDK environment.
+  - Follow all of the [gerrit setup](https://github.com/openbmc/docs/blob/master/development/gerrit-setup.md)
+  directions in the gerrit setup document.
+  - Clone bmcweb from gerrit
+  ```
+  git clone ssh://openbmc.gerrit/bmcweb/
+  ```
+
+  - Ensure it compiles
+  ```
+  cmake ./ && make
+  ```
+  **Note:** If you'd like to enable debug traces in bmcweb, use the
+  following command for cmake
+  ```
+  cmake ./ -DCMAKE_BUILD_TYPE:type=Debug
+  ```
+
+  - Make your changes as needed, rebuild with `make`
+
+  - Reduce binary size by stripping it when ready for testing
+  ```
+  arm-openbmc-linux-gnueabi-strip bmcweb
+  ```
+  **Note:** Stripping is not required and having the debug symbols could be
+  useful depending on your testing. Leaving them will drastically increase
+  your transfer time to the BMC.
+
+  - Copy your bmcweb you want to test to /tmp/ in QEMU
+  ```
+  scp -P 2222 bmcweb root@127.0.0.1:/tmp/
+  ```
+  **Special Notes:**
+  The address and port shown here (127.0.0.1 and 2222) reaches the QEMU session
+  you set up in your development environment as described above.
+
+  - Stop bmcweb service within your QEMU session
+  ```
+  systemctl stop bmcweb
+  ```
+  **Note:** bmcweb supports being started directly in parallel with the bmcweb
+  running as a service. The standalone bmcweb will be available on port 18080.
+  An advantage of this is you can compare between the two easily for testing.
+  In QEMU you would need to open up port 18080 when starting QEMU. Your curl
+  commands would need to use 18080 to communicate.
+
+  - If running within a system that has read-only /usr/ filesystem, issue
+  the following commands one time per QEMU boot to make the filesystem
+  writeable
+  ```
+  mkdir -p /var/persist/usr
+  mkdir -p /var/persist/work/usr
+  mount -t overlay -o lowerdir=/usr,upperdir=/var/persist/usr,workdir=/var/persist/work/usr overlay /usr
+  ```
+
+  - Remove the existing bmcweb from the filesystem in QEMU
+  ```
+  rm /usr/bin/bmcweb
+  ```
+
+  - Link to your new bmcweb in /tmp/
+  ```
+  ln -sf /tmp/bmcweb /usr/bin/bmcweb
+  ```
+
+  - Test your changes. bmcweb will be started automatically upon your
+  first REST or Redfish command
+  ```
+  curl -c cjar -b cjar -k -X POST https://127.0.0.1:2443/login -d "{\"data\": [ \"root\", \"0penBmc\" ] }"
+  curl -c cjar -b cjar -k -X GET https://127.0.0.1:2443/xyz/openbmc_project/state/bmc0
+  ```
+
+  - Stop the bmcweb service and scp new file over to /tmp/ each time you
+  want to retest a change.
+
+  See the [REST](https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md)
+  and [Redfish](https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md) cheatsheets for valid commands.
+
+13. ### Redfish
 
   The redfish implementation shall pass the [Redfish Service
   Validator](https://github.com/DMTF/Redfish-Service-Validator "Validator") with
