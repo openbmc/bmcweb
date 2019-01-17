@@ -206,6 +206,8 @@
   The following redfish schemas and fields are targeted for OpenBMC.  This is a
   living document, and these schemas are subject to change.
 
+  The latest Redfish schemas can be found [here](https://redfish.dmtf.org/schemas/)
+
   Fields common to all schemas
 
   - @odata.context
