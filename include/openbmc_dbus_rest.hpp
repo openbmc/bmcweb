@@ -601,7 +601,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             }
             else if (b != nullptr)
             {
-                boolInt = b ? 1 : 0;
+                boolInt = *b ? 1 : 0;
             }
             else if (stringValue != nullptr)
             {
