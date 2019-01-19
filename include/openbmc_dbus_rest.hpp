@@ -818,7 +818,7 @@ int convertDBusToJSON(const std::string &returnType,
 
 int readDictEntryFromMessage(const std::string &typeCode,
                              sdbusplus::message::message &m,
-                             nlohmann::json &key, nlohmann::json &value)
+                             nlohmann::json &object)
 {
     std::vector<std::string> types = dbusArgSplit(typeCode);
     if (types.size() != 2)
@@ -835,12 +835,26 @@ int readDictEntryFromMessage(const std::string &typeCode,
         BMCWEB_LOG_ERROR << "sd_bus_message_enter_container with rc " << r;
         return r;
     }
-
+    nlohmann::json key;
     r = convertDBusToJSON(types[0], m, key);
     if (r < 0)
     {
         return r;
     }
+    const std::string *keyPtr = key.get_ptr<const std::string *>();
+    if (keyPtr == nullptr)
+    {
+        // json doesn't support non-string keys.  If we hit this condition,
+        // convert the result to a string so we can proceed
+        key = key.dump();
+        keyPtr = key.get_ptr<const std::string *>();
+        // in theory this can't fail now, but lets be paranoid about it anyway
+        if (keyPtr == nullptr)
+        {
+            return -1;
+        }
+    }
+    nlohmann::json &value = object[*keyPtr];
 
     r = convertDBusToJSON(types[1], m, value);
     if (r < 0)
@@ -903,13 +917,12 @@ int readArrayFromMessage(const std::string &typeCode,
         // Dictionaries are only ever seen in an array
         if (dict)
         {
-            nlohmann::json key, value;
-            r = readDictEntryFromMessage(containedType, m, key, value);
+
+            r = readDictEntryFromMessage(containedType, m, data);
             if (r < 0)
             {
                 return r;
             }
-            data.emplace(std::move(key), std::move(value));
         }
         else
         {
