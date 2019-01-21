@@ -55,6 +55,7 @@
             <String>/redfish/v1/Managers/{ManagerId}/LogServices</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/LogServices</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(LogService.LogService)">

@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Storage",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "Storage Schema File",
     "Schema": "#Storage.Storage",
-    "Description": "Storage Schema File Location",
     "Id": "Storage",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "Storage Schema File",
+    "Description": "Storage Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/Storage/Storage.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Storage.json",
-            "Uri": "/redfish/v1/JSONSchemas/Storage/Storage.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/Storage",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

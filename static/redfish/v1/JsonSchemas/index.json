@@ -4,8 +4,11 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 79,
+  "Members@odata.count": 86,
   "Members": [
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction/"
+    },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccountService/"
     },
@@ -23,6 +26,15 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/BootOption/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Certificate/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/CertificateLocations/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/CertificateService/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Chassis/"
@@ -160,6 +172,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Processor/"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/ProcessorMetrics/"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/Redundancy/"
     },
     {
@@ -176,6 +191,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Sensor/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/SerialInterface/"
@@ -236,6 +254,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/odata/"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/redfish-error/"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/redfish-payload-annotations/"

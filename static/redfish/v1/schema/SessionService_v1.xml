@@ -67,6 +67,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="SessionService" BaseType="SessionService.SessionService">
         <Annotation Term="OData.Description" String="This is the schema definition for the Session Service.  It represents the properties for the service itself and has links to the actual list of sessions."/>
@@ -123,6 +124,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_2.SessionService">
         <Property Name="Actions" Type="SessionService.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>

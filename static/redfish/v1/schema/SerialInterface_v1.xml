@@ -59,6 +59,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="SerialInterface" BaseType="SerialInterface.SerialInterface">
         <Annotation Term="OData.Description" String="This schema defines an asynchronous serial interface resource."/>
@@ -319,6 +320,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_3.SerialInterface">
         <Property Name="Actions" Type="SerialInterface.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>

@@ -63,6 +63,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="TaskService" BaseType="TaskService.TaskService">
         <Annotation Term="OData.Description" String="This is the schema definition for the Task Service.  It represents the properties for the service itself and has links to the actual list of tasks."/>
@@ -136,6 +137,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TaskService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="TaskService" BaseType="TaskService.v1_0_3.TaskService">
         <Property Name="Actions" Type="TaskService.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>

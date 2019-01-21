@@ -19,7 +19,7 @@ proxies = {
 }
 
 r = requests.get('https://www.dmtf.org/sites/default/files/standards/documents/'
-                 'DSP8010_2018.2.zip', proxies=proxies)
+                 'DSP8010_2018.3.zip', proxies=proxies)
 
 r.raise_for_status()
 
@@ -59,7 +59,7 @@ with open(metadata_index_path, 'w') as metadata_index:
         "<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\" Version=\"4.0\">\n")
 
     for zip_filepath in zip_ref.namelist():
-        if zip_filepath.startswith('csdl/') & (zip_filepath != "csdl/"):
+        if zip_filepath.startswith('DSP8010_2018.3/csdl/') & (zip_filepath != "DSP8010_2018.3/csdl/"):
             filename = os.path.basename(zip_filepath)
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
 
@@ -95,7 +95,7 @@ with open(metadata_index_path, 'w') as metadata_index:
 
 schema_files = {}
 for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith('json-schema/'):
+    if zip_filepath.startswith('DSP8010_2018.3/json-schema/'):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
         if len(filenamesplit) == 3:
@@ -111,7 +111,7 @@ for zip_filepath in zip_ref.namelist():
 
 for schema, version in schema_files.items():
     basename = schema + "." + version + ".json"
-    zip_filepath = os.path.join("json-schema", basename)
+    zip_filepath = os.path.join("DSP8010_2018.3/json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
 

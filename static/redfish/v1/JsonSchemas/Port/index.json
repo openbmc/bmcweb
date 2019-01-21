@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Port",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "Port Schema File",
     "Schema": "#Port.Port",
-    "Description": "Port Schema File Location",
     "Id": "Port",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "Port Schema File",
+    "Description": "Port Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/Port/Port.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Port.json",
-            "Uri": "/redfish/v1/JSONSchemas/Port/Port.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/Port",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

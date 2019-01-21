@@ -56,6 +56,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <ComplexType Name="IPv4Address" BaseType="IPAddresses.IPv4Address">
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -221,6 +222,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
 
       <ComplexType Name="IPv6GatewayStaticAddress" BaseType="IPAddresses.IPv6GatewayStaticAddress">
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">

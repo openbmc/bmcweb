@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_5_1.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -242,7 +243,8 @@
                     },
                     "longDescription": "This property shall contain an array of references to Switch resources of which this Manager instance has control.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
                 },
                 "ManagerForSwitches@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -251,7 +253,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "This property is a reference to the chassis that this manager is located in.",
                     "longDescription": "This property shall contain a reference to the chassis that this manager is located in.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -301,7 +304,8 @@
                     "description": "Indicates whether the manager is configured for automatic DST adjustment.",
                     "longDescription": "The value of this property shall contain the enabled status of the automatic Daylight Saving Time (DST) adjustment of the manager's DateTime.  It shall be true if Automatic DST adjustment is enabled and false if disabled.",
                     "readonly": false,
-                    "type": "boolean"
+                    "type": "boolean",
+                    "versionAdded": "v1_4_0"
                 },
                 "CommandShell": {
                     "$ref": "#/definitions/CommandShell",
@@ -363,7 +367,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/HostInterfaceCollection.json#/definitions/HostInterfaceCollection",
                     "description": "This is a reference to a collection of Host Interfaces that this manager uses for local host communication.  It is here that clients will find Host Interface configuration options and settings.",
                     "longDescription": "The value of this property shall be a link to a collection of type HostInterfaceCollection.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -421,7 +426,8 @@
                     ],
                     "description": "This is the current power state of the Manager.",
                     "longDescription": "The value of this property shall contain the power state of the Manager.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
                 },
                 "Redundancy": {
                     "autoExpand": true,
@@ -439,7 +445,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
                     "description": "This property contains a reference to the AccountService resource for the remote Manager represented by this resource.",
                     "longDescription": "This property shall contain a reference to the AccountService resource for the remote Manager represented by this resource.  This property shall only be present when providing aggregation of Redfish services.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "RemoteRedfishServiceUri": {
                     "description": "This property contains the URI of the Redfish Service Root for the remote Manager represented by this resource.",
@@ -449,7 +456,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "SerialConsole": {
                     "$ref": "#/definitions/SerialConsole",
@@ -558,6 +566,9 @@
                 "ManagementController": "A controller used primarily to monitor or manage the operation of a device or system.",
                 "RackManager": "A controller which provides management functions for a whole or part of a rack.",
                 "Service": "A software-based service which provides management functions."
+            },
+            "enumVersionAdded": {
+                "Service": "v1_4_0"
             },
             "type": "string"
         },
@@ -730,5 +741,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Manager.v1_5_0.Manager"
+    "release": "2018.2",
+    "title": "#Manager.v1_5_1.Manager"
 }

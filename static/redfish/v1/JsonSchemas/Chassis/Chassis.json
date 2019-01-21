@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_9_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -73,7 +74,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "A reference to the Assembly resource associated with this chassis.",
                     "longDescription": "The value of this property shall be a link to a resource of type Assembly.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
                 },
                 "AssetTag": {
                     "description": "The user assigned asset tag of this chassis.",
@@ -99,7 +101,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "mm"
+                    "units": "mm",
+                    "versionAdded": "v1_4_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -112,6 +115,20 @@
                     ],
                     "readonly": true
                 },
+                "EnvironmentalClass": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EnvironmentalClass"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The ASHRAE Environmental Class for this Chassis.",
+                    "longDescription": "The value of this property shall be the ASHRAE Environmental Specification Class for this Chassis, as defined by ASHRAE Thermal Guidelines for Data Processing Environments. These classes define respective environmental limits which include temperature, relative humidity, dew point, and maximum allowable elevation.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
+                },
                 "HeightMm": {
                     "description": "The height of the chassis.",
                     "longDescription": "The value of this property shall represent the height of the chassis (in millimeters) as specified by the manufacturer.",
@@ -121,7 +138,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "mm"
+                    "units": "mm",
+                    "versionAdded": "v1_4_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -148,7 +166,8 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The Location of the chassis.",
-                    "longDescription": "This property shall contain location information of the associated chassis."
+                    "longDescription": "This property shall contain location information of the associated chassis.",
+                    "versionAdded": "v1_2_0"
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
@@ -182,7 +201,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkAdapterCollection.json#/definitions/NetworkAdapterCollection",
                     "description": "A reference to the collection of Network Adapters associated with this chassis.",
                     "longDescription": "The value of this property shall be a link to a collection of type NetworkAdapterCollection.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -193,7 +213,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json#/definitions/PCIeSlots",
                     "description": "A reference to the PCIe Slot properties of this chassis.",
                     "longDescription": "The value of this property shall be a reference to the resource that represents the PCIe Slot information for this chassis and shall be of type PCIeSlot.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
                 },
                 "PartNumber": {
                     "description": "The part number of the chassis.",
@@ -207,7 +228,8 @@
                 "PhysicalSecurity": {
                     "$ref": "#/definitions/PhysicalSecurity",
                     "description": "The state of the physical security sensor.",
-                    "longDescription": "This value of this property shall contain the sensor state of the physical security."
+                    "longDescription": "This value of this property shall contain the sensor state of the physical security.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Power": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Power.json#/definitions/Power",
@@ -226,7 +248,8 @@
                     ],
                     "description": "The current power state of the chassis.",
                     "longDescription": "The value of this property shall contain the power state of the chassis.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_0_1"
                 },
                 "SKU": {
                     "description": "The SKU of the chassis.",
@@ -236,6 +259,13 @@
                         "string",
                         "null"
                     ]
+                },
+                "Sensors": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SensorCollection.json#/definitions/SensorCollection",
+                    "description": "The naivgation pointer to the collection of sensors located in the equipment and sub-components.",
+                    "longDescription": "This property shall be a reference to a resource of type SensorCollection that contains the sensors located in the Chassis and sub-components.",
+                    "readonly": true,
+                    "versionAdded": "v1_9_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number of the chassis.",
@@ -268,7 +298,8 @@
                     ],
                     "description": "The Universal Unique Identifier (UUID) for this Chassis.",
                     "longDescription": "The value of this property shall contain the universal unique identifier number for the chassis.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
                 },
                 "WeightKg": {
                     "description": "The weight of the chassis.",
@@ -279,7 +310,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "kg"
+                    "units": "kg",
+                    "versionAdded": "v1_4_0"
                 },
                 "WidthMm": {
                     "description": "The width of the chassis.",
@@ -290,7 +322,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "mm"
+                    "units": "mm",
+                    "versionAdded": "v1_4_0"
                 }
             },
             "required": [
@@ -349,6 +382,26 @@
                 "StorageEnclosure": "A chassis which encloses storage.",
                 "Zone": "A logical division or portion of a physical chassis that contains multiple devices or systems that cannot be physically separated."
             },
+            "enumVersionAdded": {
+                "IPBasedDrive": "v1_3_0",
+                "RackGroup": "v1_4_0",
+                "StorageEnclosure": "v1_6_0"
+            },
+            "type": "string"
+        },
+        "EnvironmentalClass": {
+            "enum": [
+                "A1",
+                "A2",
+                "A3",
+                "A4"
+            ],
+            "enumDescriptions": {
+                "A1": "ASHRAE Environmental Specification Class 'A1'.",
+                "A2": "ASHRAE Environmental Specification Class 'A2'.",
+                "A3": "ASHRAE Environmental Specification Class 'A3'.",
+                "A4": "ASHRAE Environmental Specification Class 'A4'."
+            },
             "type": "string"
         },
         "IndicatorLED": {
@@ -372,6 +425,9 @@
                 "Lit": "This value shall represent the Indicator LED is in a solid on state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
                 "Off": "This value shall represent the Indicator LED is in a solid off state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
                 "Unknown": "This value shall represent the Indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."
+            },
+            "enumVersionDeprecated": {
+                "Unknown": "v1_2_0"
             },
             "type": "string"
         },
@@ -467,7 +523,8 @@
                     },
                     "longDescription": "The value of this property shall reference one or more resources of type Drive that are in this Chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
                 },
                 "Drives@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -491,7 +548,8 @@
                     },
                     "longDescription": "The value of this property shall reference one or more resources of type Manager that are in this Chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
                 },
                 "ManagersInChassis@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -508,7 +566,8 @@
                     },
                     "longDescription": "The value of this property shall reference one or more resources of type PCIeDevices.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
                 },
                 "PCIeDevices@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -525,6 +584,19 @@
                 "PoweredBy@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
                 },
+                "Processors": {
+                    "description": "An array of references to the Processors located in this Chassis.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Processor.json#/definitions/Processor"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Processor that are contained in this Chassis.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_9_0"
+                },
+                "Processors@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
                 "ResourceBlocks": {
                     "description": "An array of references to the Resource Blocks located in this Chassis.",
                     "items": {
@@ -532,7 +604,8 @@
                     },
                     "longDescription": "The value of this property shall be an array of references of type ResourceBlock that are contained in this Chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_5_0"
                 },
                 "ResourceBlocks@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -544,7 +617,8 @@
                     },
                     "longDescription": "The value of this property shall reference one or more resources of type Storage that are connected to or contained inside this Chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
                 },
                 "Storage@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -556,7 +630,8 @@
                     },
                     "longDescription": "The value of this property shall be an array of references of type Switch that are contained in this Chassis.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
                 },
                 "Switches@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -615,7 +690,8 @@
                     ],
                     "description": "This indicates the known state of the physical security sensor, such as if it is hardware intrusion detected.",
                     "longDescription": "This property shall represent the state of this physical security sensor.  Hardware intrusion indicates the internal hardware is detected as being accessed in an insecure state. Tampering detected indicates the physical tampering of the monitored entity is detected.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
                 },
                 "IntrusionSensorNumber": {
                     "description": "A numerical identifier to represent the physical security sensor.",
@@ -624,7 +700,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "IntrusionSensorReArm": {
                     "anyOf": [
@@ -637,7 +714,8 @@
                     ],
                     "description": "This indicates how the Normal state to be restored.",
                     "longDescription": "This property shall represent the method to set back to the Normal statue of this physical security sensor.  Manual indicates manual re-arm is needed.  Automatic indicates the state is restored automatically as no abnormal physical security conditions are detected.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -697,5 +775,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Chassis.v1_8_0.Chassis"
+    "release": "2018.3",
+    "title": "#Chassis.v1_9_0.Chassis"
 }

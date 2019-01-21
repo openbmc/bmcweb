@@ -60,6 +60,8 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/SimpleStorage/{SimpleStorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/SimpleStorage/{SimpleStorageId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SimpleStorage/{SimpleStorageId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -68,6 +70,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.SimpleStorage">
         <Annotation Term="OData.Description" String="This is the schema definition for the Simple Storage resource.  It represents the properties of a storage controller and its directly-attached devices."/>
@@ -145,7 +148,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
+      <Annotation Term="Redfish.Release" String="2016.1"/>
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_0_2.SimpleStorage"/>
 
       <ComplexType Name="Device" BaseType="SimpleStorage.v1_0_0.Device">
@@ -180,6 +183,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SimpleStorage.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="SimpleStorage" BaseType="SimpleStorage.v1_1_2.SimpleStorage">
         <Property Name="Links" Type="SimpleStorage.v1_2_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>

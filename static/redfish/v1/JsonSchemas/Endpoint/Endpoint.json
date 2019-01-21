@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_3_0.json",
     "$ref": "#/definitions/Endpoint",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -128,7 +129,6 @@
                     "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
                 },
                 "PciClassCode": {
-                    "deprecated": "This property has been deprecated in favor of the ClassCode property inside the EntityPciId object.",
                     "description": "The Class Code, Subclass code, and Programming Interface code of this PCIe function.",
                     "longDescription": "The value of this property shall be the PCI Class Code, Subclass code, and Programming Interface code of the PCIe device function.",
                     "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){3}$",
@@ -139,7 +139,6 @@
                     ]
                 },
                 "PciFunctionNumber": {
-                    "deprecated": "This property has been deprecated in favor of the FunctionNumber property inside the EntityPciId object.",
                     "description": "The PCI ID of the connected entity.",
                     "longDescription": "The value of this property shall be the PCI Function Number of the connected PCIe entity.",
                     "readonly": true,
@@ -249,7 +248,8 @@
                         ]
                     },
                     "longDescription": "This array shall contain the details for each IP transport supported by this endpoint.",
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -345,9 +345,11 @@
                 "DisplayController",
                 "Bridge",
                 "Processor",
-                "Volume"
+                "Volume",
+                "AccelerationFunction"
             ],
             "enumDescriptions": {
+                "AccelerationFunction": "The entity is an acceleration function realized through a device, such as an FPGA. The EntityLink property (if present) should be a AccelerationFunction.AccelerationFunction entity.",
                 "Bridge": "The entity is a PCI(e) bridge.",
                 "DisplayController": "The entity is a display controller.",
                 "Drive": "The entity is a disk drive. The EntityLink property (if present) should be a Drive.Drive entity.",
@@ -357,6 +359,10 @@
                 "StorageExpander": "The entity is a storage expander. The EntityLink property (if present) should be a Chassis.Chassis entity.",
                 "StorageInitiator": "The entity is a storage initator. The EntityLink property (if present) should be a Storage.StorageController entity.",
                 "Volume": "The entity is a volume. The EntityLink property (if present) should be a Volume.Volume entity."
+            },
+            "enumVersionAdded": {
+                "AccelerationFunction": "v1_3_0",
+                "Volume": "v1_1_0"
             },
             "type": "string"
         },
@@ -382,12 +388,14 @@
                 "IPv4Address": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address",
                     "description": "The IPv4 addresses assigned to the Endpoint.",
-                    "longDescription": "The value of this property shall specify the IPv4Address."
+                    "longDescription": "The value of this property shall specify the IPv4Address.",
+                    "versionAdded": "v1_1_0"
                 },
                 "IPv6Address": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv6Address",
                     "description": "The IPv6 addresses assigned to the Endpoint.",
-                    "longDescription": "The value of this property shall specify the IPv6Address."
+                    "longDescription": "The value of this property shall specify the IPv6Address.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Port": {
                     "description": "The UDP or TCP port number used by the Endpoint.",
@@ -395,13 +403,15 @@
                     "maximum": 65535,
                     "minimum": 0,
                     "readonly": true,
-                    "type": "number"
+                    "type": "number",
+                    "versionAdded": "v1_1_0"
                 },
                 "TransportProtocol": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol",
                     "description": "The protocol used by the connection entity.",
                     "longDescription": "The value shall be the protocol used by the connection entity.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -444,7 +454,8 @@
                     },
                     "longDescription": "The value of this property shall be a reference to a NetworkDeviceFunction resource, with which this endpoint is associated.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 },
                 "NetworkDeviceFunction@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -517,7 +528,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "DeviceId": {
                     "description": "The Device ID of this PCIe function.",
@@ -536,7 +548,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "SubsystemId": {
                     "description": "The Subsystem ID of this PCIe function.",
@@ -573,5 +586,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Endpoint.v1_2_0.Endpoint"
+    "release": "2018.3",
+    "title": "#Endpoint.v1_3_0.Endpoint"
 }

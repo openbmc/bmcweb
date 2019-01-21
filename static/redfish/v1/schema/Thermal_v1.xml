@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Thermal  v1.5.0-->
+<!--# Redfish Schema:  Thermal  v1.5.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -71,6 +71,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="Thermal" BaseType="Thermal.Thermal">
         <NavigationProperty Name="Temperatures" Type="Collection(Thermal.v1_0_0.Temperature)" ContainsTarget="true">
@@ -180,10 +181,18 @@
 
       <EntityType Name="Fan" BaseType="Resource.v1_0_0.ReferenceableMember">
         <Property Name="FanName" Type="Edm.String">
-          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of Thermal.v1_1_0.Thermal.Fan.Name"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Name of the fan."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the fan."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of the property Name."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -312,8 +321,15 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_0_6.Thermal"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_0_7.Thermal"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_0_2.Thermal"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_0_1.Fan">
         <Property Name="Name" Type="Edm.String">
@@ -354,8 +370,15 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_1_4.Thermal"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_1_5.Thermal"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_1_1.Thermal"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_1_0.Fan">
         <Property Name="Manufacturer" Type="Edm.String">
@@ -415,8 +438,15 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_2_3.Thermal"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_2_4.Thermal"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_2_1.Thermal">
         <Property Name="Actions" Type="Thermal.v1_3_0.ThermalActions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -506,8 +536,15 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_3_2.Thermal"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_3_3.Thermal"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_3_2.Thermal"/>
 
       <EntityType Name="Temperature" BaseType="Thermal.v1_3_0.Temperature">
@@ -573,8 +610,15 @@
       <EntityType Name="Thermal" BaseType="Thermal.v1_4_0.Thermal"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_4_1.Thermal"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_4_1.Thermal"/>
       <EntityType Name="Fan" BaseType="Thermal.v1_4_0.Fan">
         <Property Name="SensorNumber" Type="Edm.Int64">
@@ -583,6 +627,12 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a numerical identifier for this fan speed sensor that is unique within this resource."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="Thermal" BaseType="Thermal.v1_5_0.Thermal"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_2_1.json",
     "$ref": "#/definitions/NetworkPort",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -179,7 +181,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "ActiveLinkTechnology": {
                     "anyOf": [
@@ -214,7 +217,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "Mbit/s"
+                    "units": "Mbit/s",
+                    "versionAdded": "v1_2_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -243,7 +247,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "FCPortConnectionType": {
                     "anyOf": [
@@ -256,7 +261,8 @@
                     ],
                     "description": "This is the connection type of this port.",
                     "longDescription": "The value of this property shall be the connection type for this port.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
                 },
                 "FlowControlConfiguration": {
                     "anyOf": [
@@ -309,7 +315,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "By"
+                    "units": "By",
+                    "versionAdded": "v1_2_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -352,7 +359,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -429,7 +437,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "WakeOnLANEnabled": {
                     "description": "Whether Wake on LAN (WoL) is enabled for this network port.",
@@ -528,7 +537,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "CapableLinkSpeedMbps": {
                     "description": "The self-described link network speed capabilities of this port. Note: Should this be a new enumerated type of link speeds?.",
@@ -540,7 +550,8 @@
                     },
                     "longDescription": "The value of this property shall be all of the possible network link speed capabilities of this port.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_2_0"
                 },
                 "LinkNetworkTechnology": {
                     "anyOf": [
@@ -556,7 +567,6 @@
                     "readonly": true
                 },
                 "LinkSpeedMbps": {
-                    "deprecated": "This property has been Deprecated in favor of the CapableLinkSpeedMbps collection found in NetworkPort.v1_2_0.",
                     "description": "The speed of the link in Mbps when this link network technology is active.",
                     "longDescription": "The value of this property shall be the speed of the link in megabits per second (Mbps) for this port when this link network technology is active.",
                     "readonly": true,
@@ -571,5 +581,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#NetworkPort.v1_2_0.NetworkPort"
+    "release": "2018.2",
+    "title": "#NetworkPort.v1_2_1.NetworkPort"
 }

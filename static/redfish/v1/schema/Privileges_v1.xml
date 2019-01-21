@@ -45,25 +45,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
-      <EnumType Name="PrivilegeType">
-        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
-        <Member Name="Login">
-          <Annotation Term="OData.Description" String="Able to log into the service and read resources."/>
-        </Member>
-        <Member Name="ConfigureManager">
-          <Annotation Term="OData.Description" String="Able to configure Manager resources."/>
-        </Member>
-        <Member Name="ConfigureUsers">
-          <Annotation Term="OData.Description" String="Able to configure Users and their Accounts."/>
-        </Member>
-        <Member Name="ConfigureSelf">
-          <Annotation Term="OData.Description" String="Able to change the password for the current user Account."/>
-        </Member>
-        <Member Name="ConfigureComponents">
-          <Annotation Term="OData.Description" String="Able to configure components managed by this service."/>
-        </Member>
-      </EnumType>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <Term Name="OemGetPrivileges" Type="Collection(Edm.String)" Nullable="false">
         <Annotation Term="OData.Description" String="OEM Get operations privileges may be defined on a Link element to provide read privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
