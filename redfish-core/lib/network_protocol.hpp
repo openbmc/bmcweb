@@ -153,7 +153,6 @@ class NetworkProtocol : public Node
                         asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
                             std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
                             "running";
-
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, service{std::string(service)}](
                                 const boost::system::error_code ec,
