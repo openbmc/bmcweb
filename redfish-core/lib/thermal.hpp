@@ -25,7 +25,12 @@ class Thermal : public Node
 {
   public:
     Thermal(CrowApp& app) :
-        Node((app), "/redfish/v1/Chassis/<str>/Thermal/", std::string())
+        Node((app),
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+             "/redfish/v1/Chassis/chassis/Thermal/")
+#else
+             "/redfish/v1/Chassis/<str>/Thermal/", std::string())
+#endif
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -40,6 +45,10 @@ class Thermal : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        const std::string chassisName = "chassis";
+#else
         if (params.size() != 1)
         {
             messages::internalError(res);
@@ -47,6 +56,7 @@ class Thermal : public Node
             return;
         }
         const std::string& chassisName = params[0];
+#endif
 
         res.jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
         res.jsonValue["@odata.context"] =
@@ -56,7 +66,10 @@ class Thermal : public Node
 
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
-
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        // TODO: Get all sensors
+        res.end();
+#else
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName,
             std::initializer_list<const char*>{
@@ -67,6 +80,7 @@ class Thermal : public Node
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
+#endif
     }
 };
 

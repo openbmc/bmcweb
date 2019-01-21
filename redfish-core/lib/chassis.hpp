@@ -61,15 +61,26 @@ class ChassisCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        const std::array<const char *, 3> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ChassisCollection.ChassisCollection";
         res.jsonValue["Name"] = "Chassis Collection";
+
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        // Assume one Chassis named "chassis"
+        res.jsonValue["Members@odata.count"] = 1;
+        res.jsonValue["Members"] = {
+            { { "@odata.id",
+                "/redfish/v1/Chassis/chassis" } }};
+        res.end();
+#else
+        const std::array<const char *, 3> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply",
+            "xyz.openbmc_project.Inventory.Item.System",
+        };
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
@@ -103,6 +114,7 @@ class ChassisCollection : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", int32_t(3), interfaces);
+#endif
     }
 };
 
@@ -113,7 +125,12 @@ class Chassis : public Node
 {
   public:
     Chassis(CrowApp &app) :
-        Node(app, "/redfish/v1/Chassis/<str>/", std::string())
+        Node(app,
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+             "/redfish/v1/Chassis/chassis/")
+#else
+             "/redfish/v1/Chassis/<str>/", std::string())
+#endif
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -136,6 +153,10 @@ class Chassis : public Node
             "xyz.openbmc_project.Inventory.Item.Chassis",
             "xyz.openbmc_project.Inventory.Item.PowerSupply"};
 
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        // If there is only one chassis, show it as "chassis"
+        const std::string chassisId = "chassis";
+#else
         // Check if there is required param, truly entering this shall be
         // impossible.
         if (params.size() != 1)
@@ -144,6 +165,8 @@ class Chassis : public Node
             res.end();
             return;
         }
+        const std::string &chassisId = params[0];
+#endif
 
         res.jsonValue["@odata.type"] = "#Chassis.v1_4_0.Chassis";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
@@ -152,8 +175,6 @@ class Chassis : public Node
         res.jsonValue["Name"] = "Chassis Collection";
         res.jsonValue["ChassisType"] = "RackMount";
         res.jsonValue["PowerState"] = "On";
-
-        const std::string &chassisId = params[0];
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
@@ -179,10 +200,13 @@ class Chassis : public Node
                         std::pair<std::string, std::vector<std::string>>>
                         &connectionNames = object.second;
 
+// If only one chassis, just select the first one
+#ifndef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
                     if (!boost::ends_with(path, chassisId))
                     {
                         continue;
                     }
+#endif
                     if (connectionNames.size() < 1)
                     {
                         BMCWEB_LOG_ERROR << "Only got "
