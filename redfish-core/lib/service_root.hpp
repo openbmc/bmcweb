@@ -40,7 +40,7 @@ class ServiceRoot : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.type"] = "#ServiceRoot.v1_1_1.ServiceRoot";
+        res.jsonValue["@odata.type"] = "#ServiceRoot.v1_5_0.ServiceRoot";
         res.jsonValue["@odata.id"] = "/redfish/v1";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
@@ -63,7 +63,8 @@ class ServiceRoot : public Node
 
         res.jsonValue["UpdateService"] = {
             {"@odata.id", "/redfish/v1/UpdateService"}};
-
+        res.jsonValue["CertificateService"] = {
+            {"@odata.id", "/redfish/v1/CertificateService"}};
         res.jsonValue["UUID"] = getUuid();
         res.end();
     }

@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
@@ -111,6 +112,8 @@ class RedfishService
         {
             node->initPrivileges();
         }
+        nodes.emplace_back(std::make_unique<CertificateService>(app));
+        nodes.emplace_back(std::make_unique<CertificateLocations>(app));
     }
 
   private:
