@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/IPAddresses",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "IPAddresses Schema File",
     "Schema": "#IPAddresses.IPAddresses",
-    "Description": "IPAddresses Schema File Location",
     "Id": "IPAddresses",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "IPAddresses Schema File",
+    "Description": "IPAddresses Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/IPAddresses/IPAddresses.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json",
-            "Uri": "/redfish/v1/JSONSchemas/IPAddresses/IPAddresses.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/IPAddresses",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReport  v1.0.0-->
+<!--# Redfish Schema:  MetricReport  v1.1.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -63,6 +63,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
 
       <EntityType Name="MetricReport" BaseType="MetricReport.MetricReport">
         <NavigationProperty Name="MetricReportDefinition" Type="MetricReportDefinition.MetricReportDefinition" Nullable="false">
@@ -103,8 +104,8 @@
         </Property>
         <Property Name="Timestamp" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The time when the value of the metric is obtained."/>
-          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.  If Volatile is true for a given metric value instance, the Timestamp changes whenever a new measurement snapshot is taken.  A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp."/>
+          <Annotation Term="OData.Description" String="The time when the value of the metric is obtained. A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp."/>
+          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created."/>
         </Property>
         <Property Name="MetricProperty" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -135,6 +136,25 @@
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify descriptions of several properties."/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_0.MetricReport"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReport.v1_1_0">
+      <Annotation Term="OData.Description" String="This version was created to add a TimeStamp property for the metric report in its entirety."/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="MetricReport" BaseType="MetricReport.v1_0_1.MetricReport">
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time associated with the metric report in its entirety.  The time of the metric report may be relevant when the time of individual metrics are minimally different."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the time when the metric report was generated."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

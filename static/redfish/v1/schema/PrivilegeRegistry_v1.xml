@@ -57,6 +57,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
 
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.PrivilegeRegistry">
         <Annotation Term="OData.Description" String="This is the schema definition for Operation to Privilege mapping."/>
@@ -179,6 +180,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_1.PrivilegeRegistry">
         <Property Name="Actions" Type="PrivilegeRegistry.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>

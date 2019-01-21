@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/NetworkAdapter",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "NetworkAdapter Schema File",
     "Schema": "#NetworkAdapter.NetworkAdapter",
-    "Description": "NetworkAdapter Schema File Location",
     "Id": "NetworkAdapter",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "NetworkAdapter Schema File",
+    "Description": "NetworkAdapter Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/NetworkAdapter/NetworkAdapter.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/NetworkAdapter.json",
-            "Uri": "/redfish/v1/JSONSchemas/NetworkAdapter/NetworkAdapter.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/NetworkAdapter",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

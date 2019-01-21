@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource  v1.7.0-->
+<!--# Redfish Schema:  Resource  v1.8.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -149,15 +149,47 @@
         </Member>
         <Member Name="UnavailableOffline">
           <Annotation Term="OData.Description" String="This function or resource is present but cannot be used."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Deferring">
           <Annotation Term="OData.Description" String="The element will not process any commands but will queue new requests."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Quiesced">
           <Annotation Term="OData.Description" String="The element is enabled but only processes a restricted set of commands."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Updating">
           <Annotation Term="OData.Description" String="The element is updating and may be unavailable or degraded."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -202,6 +234,14 @@
         </Member>
         <Member Name="PowerCycle">
           <Annotation Term="OData.Description" String="Perform a power cycle of the unit."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -251,6 +291,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <!--Base entity type for array members-->
       <EntityType Name="ReferenceableMember" BaseType="Resource.ReferenceableMember" Abstract="true">
@@ -282,6 +323,7 @@
         <Property Name="Name" Type="Resource.Name" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="Redfish.Required"/>
+          <Annotation Term="Redfish.Excerpt"/>
         </Property>
       </EntityType>
 
@@ -326,8 +368,14 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <ComplexType Name="Identifier" BaseType="Resource.Identifier">
         <Property Name="DurableName" Type="Edm.String">
@@ -345,15 +393,31 @@
       <ComplexType Name="Location" BaseType="Resource.Location">
         <Property Name="Info" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location."/>
           <Annotation Term="OData.Description" String="This indicates the location of the resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the location of the resource."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of the PostalAddress, Placement, and PartLocation."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="InfoFormat" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location."/>
           <Annotation Term="OData.Description" String="This represents the format of the Info property."/>
           <Annotation Term="OData.LongDescription" String="This property shall represent the format of the Info property."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of the PostalAddress, Placement, and PartLocation."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="Oem extension object."/>
@@ -385,29 +449,28 @@
         <Member Name="NQN">
           <Annotation Term="OData.Description" String="NVMe Qualified Name."/>
           <Annotation Term="OData.LongDescription" String="This durable name shall be in the NVMe Qualified Name format as defined in the NVN Express over Fabric Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="NSID">
           <Annotation Term="OData.Description" String="NVM Namespace Identifier."/>
           <Annotation Term="OData.LongDescription" String="This durable name shall be in the NVM Namespace Identifier format as defined in the NVN Express Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
-
-      <EnumType Name="IndicatorLED">
-        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
-        <Member Name="Lit">
-          <Annotation Term="OData.Description" String="The Indicator LED is lit."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the Indicator LED is in a solid on state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."/>
-        </Member>
-        <Member Name="Blinking">
-          <Annotation Term="OData.Description" String="The Indicator LED is blinking."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the Indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."/>
-        </Member>
-        <Member Name="Off">
-          <Annotation Term="OData.Description" String="The Indicator LED is off."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the Indicator LED is in a solid off state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."/>
-        </Member>
-      </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_1">
@@ -440,25 +503,15 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
-      <EnumType Name="PowerState">
-        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
-        <Member Name="On">
-          <Annotation Term="OData.Description" String="The state is powered On."/>
-        </Member>
-        <Member Name="Off">
-          <Annotation Term="OData.Description" String="The state is powered Off."/>
-        </Member>
-        <Member Name="PoweringOn">
-          <Annotation Term="OData.Description" String="A temporary state between Off and On."/>
-        </Member>
-        <Member Name="PoweringOff">
-          <Annotation Term="OData.Description" String="A temporary state between On and Off."/>
-        </Member>
-      </EnumType>
-
+      <Annotation Term="Redfish.Release" String="2016.2"/>
+      <Annotation Term="OData.Description" String="This version contained the former definition of PowerState, which has since been moved to the unversioned namespace."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_1">
@@ -486,9 +539,14 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EnumType Name="RackUnits">
         <Annotation Term="OData.Description" String="Defines a rack unit."/>
         <Annotation Term="OData.LongDescription" String="Enumeration literals shall name the type of rack units in use."/>
@@ -574,7 +632,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Room designation or other additional info."/>
           <Annotation Term="OData.LongDescription" String="The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information."/>
-          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of the property AdditionalInfo found in the 1.7.0 definition of PostalAddress."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of the property AdditionalInfo."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Floor" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -662,10 +728,18 @@
           <Annotation Term="OData.LongDescription" String="The value shall conform the requirements of the POM field as defined in RFC5139.  (Extended)."/>
         </Property>
         <Property Name="GPSCoords" Type="Edm.String">
-          <Annotation Term="Redfish.Deprecated" String="This property has been Deprecated in favor of Location.v1_6_0.Longitude and Location.v1_6_0.Latitude"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The GPS coordinates of the part."/>
           <Annotation Term="OData.LongDescription" String="The value shall conform the requirements of the ADDCODE field as defined in RFC5139. The value shall be the GPS coordinates of the location. If furnished, this shall be expressed in the format '[-][nn]n.nnnnnn, [-][nn]n.nnnnn', i.e. two numbers, either positive or negative, with six decimal places of precision, comma-separated."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_6_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of properties Longitude and Latitude."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -729,8 +803,14 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <Annotation Term="OData.Description" String="This version was created to add PowerCycle enumeration to ResetType."/>
     </Schema>
 
@@ -749,8 +829,14 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.2"/>
       <Annotation Term="OData.Description" String="This version was created to add PartLocation to Location."/>
 
       <EnumType Name="LocationType">
@@ -885,8 +971,14 @@
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <Annotation Term="OData.Description" String="This version was created to add GPS Coordinated to Location and enumerations for DurableNameFormat for NVMe fabric extension."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_5_0.Location">
@@ -916,8 +1008,14 @@
       <Annotation Term="OData.Description" String="This version was created to correct the permissions for Longitude, Latitude, and AltitudeMeters inside the Location object.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
       <Annotation Term="OData.Description" String="This version was created to add an array of Contact Information entries to Location, and to deprecate Location within PostalAddress in favor of AdditionalInfo."/>
 
       <ComplexType Name="Location" BaseType="Resource.v1_6_0.Location">
@@ -962,6 +1060,17 @@
           <Annotation Term="OData.LongDescription" String="The value shall contain the email address for a person or organization to contact for information about this resource."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <Annotation Term="OData.Description" String="This version was created to to add the Redfish Excerpt annotation to the Name property."/>
     </Schema>
 
   </edmx:DataServices>

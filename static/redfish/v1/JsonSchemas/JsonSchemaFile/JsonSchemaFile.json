@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.v1_1_2.json",
     "$ref": "#/definitions/JsonSchemaFile",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -64,7 +66,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -146,7 +149,7 @@
             "properties": {
                 "ArchiveFile": {
                     "description": "If the schema is hosted on the service in an archive file, this is the name of the file within the archive.",
-                    "longDescription": "The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property.  The file name shall conform to the format [SchemaType].[MajorVersion].[MinorVersion].json and be in conformance with the Redfish specification.",
+                    "longDescription": "The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property.  The file name shall conform to the format specified in the Redfish specification.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -173,7 +176,7 @@
                 "Uri": {
                     "description": "Link to locally available URI for schema.",
                     "format": "uri",
-                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the format [SchemaType].[MajorVersion].[MinorVersion].json and be in conformance with the Redfish specification.",
+                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish specification.",
                     "readonly": true,
                     "type": "string"
                 }
@@ -203,5 +206,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#JsonSchemaFile.v1_1_1.JsonSchemaFile"
+    "release": "2017.1",
+    "title": "#JsonSchemaFile.v1_1_2.JsonSchemaFile"
 }

@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_5_1.json",
     "$ref": "#/definitions/Thermal",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -26,16 +27,17 @@
                 "Actions": {
                     "$ref": "#/definitions/FanActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "A reference to the Assembly resource associated with this fan.",
                     "longDescription": "The value of this property shall be a link to a resource of type Assembly.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "FanName": {
-                    "deprecated": "This property has been Deprecated in favor of Thermal.v1_1_0.Thermal.Fan.Name",
                     "description": "Name of the fan.",
                     "longDescription": "The value of this property shall be the name of the fan.",
                     "readonly": true,
@@ -51,7 +53,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_4_0"
                 },
                 "IndicatorLED": {
                     "anyOf": [
@@ -64,12 +67,14 @@
                     ],
                     "description": "The state of the indicator LED, used to identify this Fan.",
                     "longDescription": "The value of this property shall contain the indicator light state for the indicator light associated with this fan.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionAdded": "v1_2_0"
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The Location of the fan.",
-                    "longDescription": "This property shall contain location information of the associated fan."
+                    "longDescription": "This property shall contain location information of the associated fan.",
+                    "versionAdded": "v1_4_0"
                 },
                 "LowerThresholdCritical": {
                     "description": "Below normal range but not yet fatal.",
@@ -105,7 +110,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "MaxReadingRange": {
                     "description": "Maximum value for Reading.",
@@ -138,7 +144,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "Name": {
                     "description": "Name of the fan.",
@@ -147,7 +154,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -161,7 +169,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "PhysicalContext": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
@@ -189,7 +198,8 @@
                     ],
                     "description": "Units in which the reading and thresholds are measured.",
                     "longDescription": "The value of this property shall be the units in which the fan's reading and thresholds are measured.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_0_1"
                 },
                 "Redundancy": {
                     "description": "This structure is used to show redundancy for fans.  The Component ids will reference the members of the redundancy groups.",
@@ -221,7 +231,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number for this Fan.",
@@ -230,7 +241,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "SparePartNumber": {
                     "description": "The spare part number for this Fan.",
@@ -239,7 +251,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
@@ -302,7 +315,8 @@
                 "Oem": {
                     "$ref": "#/definitions/FanOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -362,7 +376,8 @@
                 "Actions": {
                     "$ref": "#/definitions/TemperatureActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "AdjustedMaxAllowableOperatingValue": {
                     "description": "Adjusted maximum allowable operating temperature for this equipment based on the current environmental conditions present.",
@@ -372,7 +387,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionAdded": "v1_4_0"
                 },
                 "AdjustedMinAllowableOperatingValue": {
                     "description": "Adjusted minimum allowable operating temperature for this equipment based on the current environmental conditions present.",
@@ -382,13 +398,15 @@
                         "integer",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionAdded": "v1_4_0"
                 },
                 "DeltaPhysicalContext": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
                     "description": "Describes the area or device to which the DeltaReadingCelsius temperature measurement applies, relative to PhysicalContext.",
                     "longDescription": "The value of this property shall be a description of the affected device or region within the chassis to which the DeltaReadingCelsius temperature measurement applies, relative to PhysicalContext.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "DeltaReadingCelsius": {
                     "description": "Delta Temperature reading.",
@@ -398,7 +416,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionAdded": "v1_4_0"
                 },
                 "LowerThresholdCritical": {
                     "description": "Below normal range but not yet fatal.",
@@ -438,7 +457,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionAdded": "v1_4_0"
                 },
                 "MaxReadingRangeTemp": {
                     "description": "Maximum value for ReadingCelsius.",
@@ -464,7 +484,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "Cel"
+                    "units": "Cel",
+                    "versionAdded": "v1_4_0"
                 },
                 "MinReadingRangeTemp": {
                     "description": "Minimum value for ReadingCelsius.",
@@ -591,7 +612,8 @@
                 "Oem": {
                     "$ref": "#/definitions/TemperatureOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -651,7 +673,8 @@
                 "Actions": {
                     "$ref": "#/definitions/ThermalActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -751,7 +774,8 @@
                 "Oem": {
                     "$ref": "#/definitions/ThermalOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -779,5 +803,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Thermal.v1_5_0.Thermal"
+    "release": "2018.2",
+    "title": "#Thermal.v1_5_1.Thermal"
 }

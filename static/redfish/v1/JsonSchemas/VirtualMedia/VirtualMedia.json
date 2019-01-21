@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/VirtualMedia.v1_3_0.json",
     "$ref": "#/definitions/VirtualMedia",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -31,7 +32,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -81,7 +83,8 @@
                     "type": "string"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "versionAdded": "v1_2_0"
         },
         "InsertMedia": {
             "additionalProperties": false,
@@ -98,6 +101,30 @@
                     "description": "Indicates if the image is to be treated as inserted upon completion of the action.",
                     "longDescription": "This value shall specify if the image is to be treated as inserted upon completion of the action.  If this parameter is not provided by the client, the service shall default this value to be true.",
                     "type": "boolean"
+                },
+                "Password": {
+                    "description": "The password to be used when accessing the URI specified by the Image parameter.",
+                    "longDescription": "This parameter shall contain a string representing the password to be used when accessing the URI specified by the Image parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferMethod": {
+                    "$ref": "#/definitions/TransferMethod",
+                    "description": "Transfer method to use with the given Image.",
+                    "longDescription": "This parameter shall contain a value describing how the image transfer is done.",
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferProtocolType": {
+                    "$ref": "#/definitions/TransferProtocolType",
+                    "description": "Network protocol to use with the image.",
+                    "longDescription": "This parameter shall contain a value representing the network protocol to use with the specified image URI.",
+                    "versionAdded": "v1_3_0"
+                },
+                "UserName": {
+                    "description": "The username to be used when accessing the URI specified by the Image parameter.",
+                    "longDescription": "This parameter shall contain a string representing the username to be used when accessing the URI specified by the Image parameter.",
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
                 },
                 "WriteProtected": {
                     "description": "Indicates if the remote media is supposed to be treated as write protected.",
@@ -130,7 +157,8 @@
                     "type": "string"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "versionAdded": "v1_2_0"
         },
         "MediaType": {
             "enum": [
@@ -168,6 +196,42 @@
             "properties": {},
             "type": "object"
         },
+        "TransferMethod": {
+            "enum": [
+                "Stream",
+                "Upload"
+            ],
+            "enumDescriptions": {
+                "Stream": "Stream image file data from the source URI.",
+                "Upload": "Upload the entire image file from the source URI to the service."
+            },
+            "type": "string"
+        },
+        "TransferProtocolType": {
+            "enum": [
+                "CIFS",
+                "FTP",
+                "SFTP",
+                "HTTP",
+                "HTTPS",
+                "NFS",
+                "SCP",
+                "TFTP",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "CIFS": "Common Internet File System protocol.",
+                "FTP": "File Transfer Protocol.",
+                "HTTP": "Hypertext Transfer Protocol.",
+                "HTTPS": "HTTP Secure protocol.",
+                "NFS": "Network File System protocol.",
+                "OEM": "A protocol defined by the manufacturer.",
+                "SCP": "Secure File Copy protocol.",
+                "SFTP": "Secure File Transfer Protocol.",
+                "TFTP": "Trivial File Transfer Protocol."
+            },
+            "type": "string"
+        },
         "VirtualMedia": {
             "additionalProperties": false,
             "description": "The VirtualMedia schema contains properties related to monitoring and control of an instance of virtual media such as a remote CD, DVD, or USB device. Virtual media functionality is provided by a Manager for a system or device.",
@@ -202,7 +266,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "ConnectedVia": {
                     "anyOf": [
@@ -278,6 +343,54 @@
                     "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
                     "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
                 },
+                "Password": {
+                    "description": "The password to be used when accessing the URI specified by the Image parameter. This property is null on a GET.",
+                    "longDescription": "This parameter shall contain a string representing the password to be used when accessing the URI specified by the Image parameter. The value shall be null for GET requests.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferMethod": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TransferMethod"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Transfer method to use with the given Image.",
+                    "longDescription": "This parameter shall contain a value describing how the image transfer is done.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "TransferProtocolType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/TransferProtocolType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Network protocol to use with the image.",
+                    "longDescription": "This parameter shall contain a value representing the network protocol to use with the specified image URI.",
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
+                },
+                "UserName": {
+                    "description": "The username to be used when accessing the URI specified by the Image parameter.",
+                    "longDescription": "This parameter shall contain a string representing the username to be used when accessing the URI specified by the Image parameter.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
                 "WriteProtected": {
                     "description": "Indicates the media is write protected.",
                     "longDescription": "The value of this property shall be used to indicate if the remote device media prevents writing to that media.",
@@ -298,5 +411,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#VirtualMedia.v1_2_1.VirtualMedia"
+    "release": "2018.3",
+    "title": "#VirtualMedia.v1_3_0.VirtualMedia"
 }
