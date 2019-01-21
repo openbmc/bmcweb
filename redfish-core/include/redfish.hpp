@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
@@ -106,7 +107,8 @@ class RedfishService
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
 #endif
-
+        nodes.emplace_back(std::make_unique<CertificateService>(app));
+        nodes.emplace_back(std::make_unique<CertificateLocations>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
