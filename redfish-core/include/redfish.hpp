@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
@@ -67,6 +68,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
+        nodes.emplace_back(std::make_unique<CertificateService>(app));
+        nodes.emplace_back(std::make_unique<CertificateCollection>(app));
+        nodes.emplace_back(std::make_unique<CertificateLocations>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
