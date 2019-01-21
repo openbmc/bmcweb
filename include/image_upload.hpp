@@ -32,7 +32,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
     static boost::asio::deadline_timer timeout(*req.ioService,
                                                boost::posix_time::seconds(5));
 
-    timeout.expires_from_now(boost::posix_time::seconds(5));
+    timeout.expires_from_now(boost::posix_time::seconds(10));
 
     timeout.async_wait([&res](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
@@ -41,7 +41,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
             // expected, we were canceled before the timer completed.
             return;
         }
-        BMCWEB_LOG_ERROR << "Timed out waiting for log event";
+        BMCWEB_LOG_ERROR << "Timed out waiting for Version interface";
 
         if (ec)
         {
@@ -49,39 +49,58 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
             return;
         }
 
-        res.result(boost::beast::http::status::internal_server_error);
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue = {
+            {"data",
+             {{"description",
+               "Version already exists or failed to be extracted"}}},
+            {"message", "400 Bad Request"},
+            {"status", "error"}};
         res.end();
     });
 
     std::function<void(sdbusplus::message::message&)> callback =
         [&res](sdbusplus::message::message& m) {
             BMCWEB_LOG_DEBUG << "Match fired";
-            boost::system::error_code ec;
-            timeout.cancel(ec);
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "error canceling timer " << ec;
-            }
-            std::string versionInfo;
-            m.read(
-                versionInfo); // Read in the object path that was just created
 
-            std::size_t index = versionInfo.rfind('/');
-            if (index != std::string::npos)
+            sdbusplus::message::object_path path;
+            std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<
+                    std::string, sdbusplus::message::variant<std::string>>>>>
+                interfaces;
+            m.read(path, interfaces);
+
+            if (std::find_if(interfaces.begin(), interfaces.end(),
+                             [](const auto& i) {
+                                 return i.first ==
+                                        "xyz.openbmc_project.Software.Version";
+                             }) != interfaces.end())
             {
-                versionInfo.erase(0, index);
+                boost::system::error_code ec;
+                timeout.cancel(ec);
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "error canceling timer " << ec;
+                }
+
+                std::size_t index = path.str.rfind('/');
+                if (index != std::string::npos)
+                {
+                    path.str.erase(0, index + 1);
+                }
+                res.jsonValue = {{"data", std::move(path.str)},
+                                 {"message", "200 OK"},
+                                 {"status", "ok"}};
+                BMCWEB_LOG_DEBUG << "ending response";
+                res.end();
+                fwUpdateMatcher = nullptr;
             }
-            res.jsonValue = {{"data", std::move(versionInfo)},
-                             {"message", "200 OK"},
-                             {"status", "ok"}};
-            BMCWEB_LOG_DEBUG << "ending response";
-            res.end();
-            fwUpdateMatcher = nullptr;
         };
     fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
         *crow::connections::systemBus,
         "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
-        "member='InterfacesAdded',path='/xyz/openbmc_project/logging'",
+        "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 
     std::string filepath(
