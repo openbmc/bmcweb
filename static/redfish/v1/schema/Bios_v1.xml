@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Bios  v1.0.4 -->
+<!--# Redfish Schema:  Bios  v1.0.5 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -53,6 +53,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Bios</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Bios</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Bios</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -85,6 +86,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="Bios" BaseType="Bios.Bios">
         <Property Name="AttributeRegistry" Type="Edm.String">
@@ -120,8 +122,8 @@
 
       <ComplexType Name="Attributes">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The manufacturer/provider-specific list of BIOS attributes."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe BIOS Attribute settings as additional properties in this object, and can be looked up in the Attribute Registry by their AttributeName."/>
+        <Annotation Term="OData.Description" String="The manufacturer/provider-specific list of BIOS attributes and their values."/>
+        <Annotation Term="OData.LongDescription" String="BIOS Attribute settings shall be described as additional properties in this object. If a BIOS AttributeRegistry is specified, Attributes shall be looked up in that registry by their AttributeName. Attributes in the registry with AttributeType of Enumeration shall use valid ValueName as values in this object, as listed in that registry."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
@@ -156,6 +158,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  This version was also created to clarify some behavioral aspects for the ResetBios action, and to add text about the presence of the @Redfish.Settings term."/>
       <EntityType Name="Bios" BaseType="Bios.v1_0_3.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the LongDescriptions of the Attributes type to clarify how BIOS attributes and their values are referenced in the Attribute Registry."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_0_4.Bios"/>
     </Schema>
 
   </edmx:DataServices>

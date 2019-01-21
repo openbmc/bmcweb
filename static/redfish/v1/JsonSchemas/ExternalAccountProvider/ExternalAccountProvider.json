@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/ExternalAccountProvider.v1_1_0.json",
     "$ref": "#/definitions/ExternalAccountProvider",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -198,6 +199,13 @@
                     ],
                     "description": "This property contains the authentication information for the external account provider.",
                     "longDescription": "The value of this property shall contain the authentication information for the external account provider."
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "This is a reference to a collection of certificates used for the external account provider.",
+                    "longDescription": "The value of this property shall be a link to a collection of type CertificateCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -492,5 +500,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#ExternalAccountProvider.v1_0_1.ExternalAccountProvider"
+    "release": "2018.3",
+    "title": "#ExternalAccountProvider.v1_1_0.ExternalAccountProvider"
 }

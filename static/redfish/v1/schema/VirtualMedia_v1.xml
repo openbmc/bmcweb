@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VirtualMedia  v1.2.1-->
+<!--# Redfish Schema:  VirtualMedia  v1.3.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -58,6 +58,14 @@
       <Action Name="InsertMedia" IsBound="true">
         <Annotation Term="OData.Description" String="This action is used to attach remote media to virtual media."/>
         <Annotation Term="OData.LongDescription" String="This action shall attach remote media to virtual media."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
         <Parameter Name="VirtualMedia" Type="VirtualMedia.v1_1_0.Actions"/>
         <Parameter Name="Image" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The URI of the remote media to attach to the virtual media."/>
@@ -71,11 +79,67 @@
           <Annotation Term="OData.Description" String="Indicates if the remote media is supposed to be treated as write protected."/>
           <Annotation Term="OData.LongDescription" String="This value shall specify if the remote media is supposed to be treated as write protected.  If this parameter is not provided by the client, the service shall default this value to be true."/>
         </Parameter>
+        <Parameter Name="UserName" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The username to be used when accessing the URI specified by the Image parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the username to be used when accessing the URI specified by the Image parameter."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The password to be used when accessing the URI specified by the Image parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the password to be used when accessing the URI specified by the Image parameter."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="TransferProtocolType" Type="VirtualMedia.v1_3_0.TransferProtocolType">
+          <Annotation Term="OData.Description" String="Network protocol to use with the image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a value representing the network protocol to use with the specified image URI."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="TransferMethod" Type="VirtualMedia.v1_3_0.TransferMethod">
+          <Annotation Term="OData.Description" String="Transfer method to use with the given Image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a value describing how the image transfer is done."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
       </Action>
 
       <Action Name="EjectMedia" IsBound="true">
         <Annotation Term="OData.Description" String="This action is used to detach remote media from virtual media."/>
         <Annotation Term="OData.LongDescription" String="This action shall detach the remote media from the virtual media.  At the completion of the operation, inserted shall be set to false and the image name shall be cleared."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_2_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
         <Parameter Name="VirtualMedia" Type="VirtualMedia.v1_1_0.Actions"/>
       </Action>
 
@@ -83,6 +147,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.VirtualMedia">
         <Property Name="ImageName" Type="Edm.String">
@@ -168,8 +233,15 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_3.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_4.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_0_3.VirtualMedia">
         <Property Name="Actions" Type="VirtualMedia.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -206,8 +278,15 @@
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_1.VirtualMedia"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_2.VirtualMedia"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <Annotation Term="OData.Description" String="This version was created to change the permissions of Image, Inserted, and WriteProtected and to add the InsertMedia and InjectMedia actions."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_1_1.VirtualMedia"/>
     </Schema>
@@ -216,6 +295,80 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_0.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_1.VirtualMedia"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="VirtualMedia.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add new parameters for the InsertMedia action. It was also created to add new properties to define the image transfer protocol configuration."/>
+
+      <EntityType Name="VirtualMedia" BaseType="VirtualMedia.v1_2_2.VirtualMedia">
+        <Property Name="UserName" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The username to be used when accessing the URI specified by the Image parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the username to be used when accessing the URI specified by the Image parameter."/>
+        </Property>
+        <Property Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The password to be used when accessing the URI specified by the Image parameter. This property is null on a GET."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the password to be used when accessing the URI specified by the Image parameter. The value shall be null for GET requests."/>        
+        </Property>
+        <Property Name="TransferProtocolType" Type="VirtualMedia.v1_3_0.TransferProtocolType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Network protocol to use with the image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a value representing the network protocol to use with the specified image URI."/>
+        </Property>
+        <Property Name="TransferMethod" Type="VirtualMedia.v1_3_0.TransferMethod">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Transfer method to use with the given Image."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a value describing how the image transfer is done."/>
+        </Property>
+      </EntityType>
+
+      <EnumType Name="TransferProtocolType">
+        <Member Name="CIFS">
+          <Annotation Term="OData.Description" String="Common Internet File System protocol."/>
+        </Member>
+        <Member Name="FTP">
+          <Annotation Term="OData.Description" String="File Transfer Protocol."/>
+        </Member>
+        <Member Name="SFTP">
+          <Annotation Term="OData.Description" String="Secure File Transfer Protocol."/>
+        </Member>
+        <Member Name="HTTP">
+          <Annotation Term="OData.Description" String="Hypertext Transfer Protocol."/>
+        </Member>
+        <Member Name="HTTPS">
+          <Annotation Term="OData.Description" String="HTTP Secure protocol."/>
+        </Member>
+        <Member Name="NFS">
+          <Annotation Term="OData.Description" String="Network File System protocol."/>
+        </Member>
+        <Member Name="SCP">
+          <Annotation Term="OData.Description" String="Secure File Copy protocol."/>
+        </Member>
+        <Member Name="TFTP">
+          <Annotation Term="OData.Description" String="Trivial File Transfer Protocol."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="A protocol defined by the manufacturer."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="TransferMethod">
+        <Member Name="Stream">
+          <Annotation Term="OData.Description" String="Stream image file data from the source URI."/>
+        </Member>
+        <Member Name="Upload">
+          <Annotation Term="OData.Description" String="Upload the entire image file from the source URI to the service."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

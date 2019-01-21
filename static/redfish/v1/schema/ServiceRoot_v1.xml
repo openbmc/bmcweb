@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ServiceRoot  v1.4.0-->
+<!--# Redfish Schema:  ServiceRoot  v1.5.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -76,6 +76,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/TelemetryService_v1.xml">
     <edmx:Include Namespace="TelemetryService"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateService_v1.xml">
+    <edmx:Include Namespace="CertificateService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection_v1.xml">
+    <edmx:Include Namespace="ResourceBlockCollection"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -111,6 +117,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityContainer Name="ServiceContainer">
         <Singleton Name="Service" Type="ServiceRoot.ServiceRoot"/>
@@ -253,6 +260,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_0_2.ServiceRoot">
         <NavigationProperty Name="StorageSystems" Type="StorageSystemCollection.StorageSystemCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -312,6 +320,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
 
       <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_1_1.ServiceContainer">
         <Singleton Name="CompositionService" Type="CompositionService.CompositionService"/>
@@ -342,9 +351,10 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
 
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_2_0.ServiceRoot">
-        <Property Name="Product" Type="Edm.String" Nullable="false">
+        <Property Name="Product" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product associated with this Redfish service."/>
           <Annotation Term="OData.LongDescription" String="The value of this string shall include the name of the product represented by this Redfish service."/>
@@ -420,9 +430,15 @@
       <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_1.ServiceRoot"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that the Product property can be marked as a nullable property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_3_2.ServiceRoot"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
+      <Annotation Term="Redfish.Release" String="2018.2"/>
       <Annotation Term="OData.Description" String="This version was created to add support of the 'excerpt' and 'only' query parameters to ProtocolFeaturesSupported.  It was also created to add the JobService and Telemetry properties."/>
 
       <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_2_0.ServiceContainer">
@@ -457,6 +473,41 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service supports the use of the 'only' query parameter as described by the specification."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that the Product property can be marked as a nullable property."/>
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_0.ServiceRoot"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ServiceRoot.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+
+      <EntityContainer Name="ServiceContainer" Extends="ServiceRoot.v1_4_0.ServiceContainer">
+        <Singleton Name="CertificateService" Type="CertificateService.CertificateService"/>
+        <Singleton Name="ResourceBlocks" Type="ResourceBlockCollection.ResourceBlockCollection"/>
+      </EntityContainer>
+
+      <EntityType Name="ServiceRoot" BaseType="ServiceRoot.v1_4_1.ServiceRoot">
+        <Property Name="Vendor" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The vendor or manufacturer associated with this Redfish service."/>
+          <Annotation Term="OData.LongDescription" String="The value of this string shall include the name of the manufacturer or vendor represented by this Redfish service. If this property is supported, the vendor name shall not be included in the value of the Product property."/>
+        </Property>
+        <NavigationProperty Name="CertificateService" Type="CertificateService.CertificateService" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is a link to the CertificateService."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be a link to the CertificateService."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ResourceBlocks" Type="ResourceBlockCollection.ResourceBlockCollection" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to a collection of all resource block entities.  This collection is intended for implementations that do not contain a Composition Service, but will expose resources to an orchestrator that implements a Composition Service."/>
+          <Annotation Term="OData.LongDescription" String="The referenced collection shall contain references to all Resource Block instances."/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

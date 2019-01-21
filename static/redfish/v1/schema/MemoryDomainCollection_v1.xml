@@ -53,6 +53,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/MemoryDomains</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemoryDomains</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/MemoryDomains</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(MemoryDomain.MemoryDomain)">

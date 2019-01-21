@@ -44,7 +44,7 @@
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
-            <PropertyValue Property="Updatable" Bool="false"/>
+            <PropertyValue Property="Updatable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -57,6 +57,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/BootOptions/{BootOptionId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/BootOptions/{BootOptionId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/BootOptions/{BootOptionId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -65,6 +66,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="BootOption.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
 
       <EntityType Name="BootOption" BaseType="BootOption.BootOption">
         <Annotation Term="OData.Description" String="This is the schema definition for the BootOption resource. It represents the properties of a bootable device available in the System."/>

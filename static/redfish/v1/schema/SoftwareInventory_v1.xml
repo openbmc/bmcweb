@@ -60,6 +60,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.SoftwareInventory">
         <Annotation Term="OData.Description" String="This schema defines an inventory of software components."/>
@@ -122,6 +123,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_1.SoftwareInventory">
         <Property Name="SoftwareId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -161,6 +163,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.1"/>
       <Annotation Term="OData.Description" String="This version was created to add Manufacturer and ReleaseDate properties."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_1.SoftwareInventory">
         <Property Name="Manufacturer" Type="Edm.String">

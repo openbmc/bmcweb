@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Power  v1.5.1-->
+<!--# Redfish Schema:  Power  v1.5.2-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -73,6 +73,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="Power" BaseType="Power.Power">
         <NavigationProperty Name="PowerControl" Type="Collection(Power.v1_0_0.PowerControl)" ContainsTarget="true">
@@ -140,7 +141,7 @@
         </Property>
         <Property Name="PowerMetrics" Type="Power.v1_0_0.PowerMetric" Nullable="false">
           <Annotation Term="OData.Description" String="Power readings for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain power metrics for power readings (interval, min/max/ave power consumption) for the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain power metrics for power readings (interval, minimum/maximum/average power consumption) for the chassis."/>
         </Property>
         <Property Name="PowerLimit" Type="Power.v1_0_0.PowerLimit" Nullable="false">
           <Annotation Term="OData.Description" String="Power limit status and configuration information for this chassis."/>
@@ -160,7 +161,7 @@
 
       <ComplexType Name="PowerMetric">
         <Annotation Term="OData.Description" String="This type describe the power metrics for a resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain power metrics for power readings (interval, min/max/ave power consumption) for a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain power metrics for power readings (interval, minimum/maximum/average power consumption) for a resource."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="IntervalInMin" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -412,15 +413,39 @@
         </Member>
         <Member Name="ACLowLine">
           <Annotation Term="OData.Description" String="100-127V AC input."/>
-          <Annotation Term="Redfish.Deprecated" String="This value has been Deprecated in favor of AC120V."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This value has been Deprecated in favor of AC120V."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="ACMidLine">
           <Annotation Term="OData.Description" String="200-240V AC input."/>
-          <Annotation Term="Redfish.Deprecated" String="This value has been Deprecated in favor of AC240V."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This value has been Deprecated in favor of AC240V."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="ACHighLine">
           <Annotation Term="OData.Description" String="277V AC input."/>
-          <Annotation Term="Redfish.Deprecated" String="This value has been Deprecated in favor of AC277V."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This value has been Deprecated in favor of AC277V."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DCNeg48V">
           <Annotation Term="OData.Description" String="-48V DC input."/>
@@ -430,21 +455,69 @@
         </Member>
         <Member Name="AC120V">
           <Annotation Term="OData.Description" String="AC 120V nominal input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="AC240V">
           <Annotation Term="OData.Description" String="AC 240V nominal input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="AC277V">
           <Annotation Term="OData.Description" String="AC 277V nominal input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="ACandDCWideRange">
           <Annotation Term="OData.Description" String="Wide range AC or DC input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="ACWideRange">
           <Annotation Term="OData.Description" String="Wide range AC input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="DC240V">
           <Annotation Term="OData.Description" String="DC 240V nominal input."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -492,8 +565,15 @@
       <EntityType Name="Power" BaseType="Power.v1_0_6.Power"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_0_7.Power"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="Power" BaseType="Power.v1_0_2.Power"/>
       <EntityType Name="PowerSupply" BaseType="Power.v1_0_0.PowerSupply">
@@ -597,9 +677,15 @@
       <EntityType Name="Power" BaseType="Power.v1_1_4.Power"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_1_5.Power"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="Power" BaseType="Power.v1_1_0.Power"/>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_1_0.PowerSupply">
@@ -642,8 +728,15 @@
       <EntityType Name="Power" BaseType="Power.v1_2_4.Power"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_2_5.Power"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Power" BaseType="Power.v1_2_2.Power">
         <Property Name="Actions" Type="Power.v1_3_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -755,8 +848,15 @@
       <EntityType Name="Power" BaseType="Power.v1_3_2.Power"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_3_3.Power"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.2"/>
       <EntityType Name="Power" BaseType="Power.v1_3_1.Power"/>
 
       <EntityType Name="PowerControl" BaseType="Power.v1_3_0.PowerControl">
@@ -780,8 +880,15 @@
       <EntityType Name="Power" BaseType="Power.v1_4_1.Power"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_4_2.Power"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="Power" BaseType="Power.v1_4_1.Power"/>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_3_0.PowerSupply">
@@ -829,6 +936,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_5_0.Power"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
+      <EntityType Name="Power" BaseType="Power.v1_5_1.Power"/>
     </Schema>
 
   </edmx:DataServices>

@@ -58,6 +58,7 @@
             <String>/redfish/v1/Managers/{ManagerId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -72,6 +73,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="LogService" BaseType="LogService.LogService">
         <Annotation Term="OData.Description" String="This resource represents the log service for the resource or service to which it is associated."/>
@@ -181,6 +183,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <Annotation Term="OData.Description" String="This version was created to add LogPurpose and EntryType properties."/>
       <EntityType Name="LogService" BaseType="LogService.v1_0_5.LogService">
         <Property Name="LogEntryType" Type="LogService.v1_1_0.LogEntryTypes">

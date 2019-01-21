@@ -52,6 +52,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/SecureBoot</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/SecureBoot</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -70,6 +71,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SecureBoot.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="SecureBoot" BaseType="SecureBoot.SecureBoot">
         <Property Name="SecureBootEnable" Type="Edm.Boolean">

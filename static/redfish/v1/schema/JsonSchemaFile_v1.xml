@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  JSONSchemaFile  v1.1.1-->
+<!--# Redfish Schema:  JSONSchemaFile  v1.1.2-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -58,6 +58,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.JsonSchemaFile">
         <Annotation Term="OData.Description" String="This is the schema definition for the Schema File locator resource."/>
@@ -93,7 +94,7 @@
         <Property Name="Uri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Link to locally available URI for schema."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the format [SchemaType].[MajorVersion].[MinorVersion].json and be in conformance with the Redfish specification."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish specification."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="ArchiveUri" Type="Edm.String" Nullable="false">
@@ -111,7 +112,7 @@
         <Property Name="ArchiveFile" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="If the schema is hosted on the service in an archive file, this is the name of the file within the archive."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property.  The file name shall conform to the format [SchemaType].[MajorVersion].[MinorVersion].json and be in conformance with the Redfish specification."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property.  The file name shall conform to the format specified in the Redfish specification."/>
         </Property>
       </ComplexType>
 
@@ -141,8 +142,15 @@
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_4.JsonSchemaFile"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the Uri and ArchiveFile properties."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_5.JsonSchemaFile"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_0_4.JsonSchemaFile">
         <Property Name="Actions" Type="JsonSchemaFile.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -171,6 +179,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_0.JsonSchemaFile"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JsonSchemaFile.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description of the Uri and ArchiveFile properties."/>
+      <EntityType Name="JsonSchemaFile" BaseType="JsonSchemaFile.v1_1_1.JsonSchemaFile"/>
     </Schema>
 
   </edmx:DataServices>

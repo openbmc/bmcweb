@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Storage  v1.5.0-->
+<!--# Redfish Schema:  Storage  v1.5.1-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -37,7 +37,7 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Drive_v1.xml">
     <edmx:Include Namespace="Drive"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VolumeCollection_v1.xml">
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/VolumeCollection_v1.xml">
     <edmx:Include Namespace="VolumeCollection"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
@@ -54,6 +54,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageService_v1.xml">
     <edmx:Include Namespace="StorageService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Volume_v1.xml">
+    <edmx:Include Namespace="Volume"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -85,6 +88,8 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -108,6 +113,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="Storage" BaseType="Storage.Storage">
         <Annotation Term="OData.Description" String="This schema defines a storage subsystem and its respective properties.  A storage subsystem represents a set of storage controllers (physical or virtual) and the resources such as volumes that can be accessed from that subsystem."/>
@@ -238,90 +244,6 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated storage controller."/>
         </Property>
       </EntityType>
-
-      <EnumType Name="Protocol">
-        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
-        <Member Name="PCIe">
-          <Annotation Term="OData.Description" String="PCI Express (Vendor Proprietary)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the PCI-SIG PCI Express Base Specification only beyond that is uses some vendor proprietary mechanism to communicate."/>
-        </Member>
-        <Member Name="AHCI">
-          <Annotation Term="OData.Description" String="Advanced Host Controller Interface."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Intel Advanced Host Controller Interface Specification."/>
-        </Member>
-        <Member Name="UHCI">
-          <Annotation Term="OData.Description" String="Universal Host Controller Interface."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Intel Universal Host Controller Interface Specification, Enhanced Host Controller Interface Specification, or the Extensible Host Controller Interface specification."/>
-        </Member>
-        <Member Name="SAS">
-          <Annotation Term="OData.Description" String="Serial Attached SCSI."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the T10 SAS Protocol Layer Specification."/>
-        </Member>
-        <Member Name="SATA">
-          <Annotation Term="OData.Description" String="Serial AT Attachment."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Serial ATA International Organization Serial ATA Specification."/>
-        </Member>
-        <Member Name="USB">
-          <Annotation Term="OData.Description" String="Universal Serial Bus."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the USB Implementers Forum Universal Serial Bus Specification."/>
-        </Member>
-        <Member Name="NVMe">
-          <Annotation Term="OData.Description" String="Non-Volatile Memory Express."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Non-Volatile Memory Host Controller Interface Specification Specification."/>
-        </Member>
-        <Member Name="FC">
-          <Annotation Term="OData.Description" String="Fibre Channel."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the T11 Fibre Channel Physical and Signaling Interface Specification."/>
-        </Member>
-        <Member Name="iSCSI">
-          <Annotation Term="OData.Description" String="Internet SCSI."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the IETF Internet Small Computer Systems Interface (iSCSI) Specification."/>
-        </Member>
-        <Member Name="FCoE">
-          <Annotation Term="OData.Description" String="Fibre Channel over Ethernet."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the T11 FC-BB-5 Specification."/>
-        </Member>
-        <Member Name="FCP">
-          <Annotation Term="OData.Description" String="Fibre Channel Protocol for SCSI."/>
-          <Annotation Term="OData.LongDescription" String="This enumeration literal shall indicate the INCITS 481: Information technology - Fibre Channel Protocol for SCSI.  The Fibre Channel SCSI Protocol."/>
-        </Member>
-        <Member Name="FICON">
-          <Annotation Term="OData.Description" String="FIbre CONnection (FICON)."/>
-          <Annotation Term="OData.LongDescription" String="This enumeration literal shall indicate the (ANSI FC-SB-3 Single-Byte Command Code Sets-3 Mapping Protocol for the Fibre Channel(FC) protocol.  FICON (FIbre CONnection) is the IBM proprietary name for this protocol."/>
-        </Member>
-        <Member Name="NVMeOverFabrics">
-          <Annotation Term="OData.Description" String="NVMe over Fabrics."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the NVM Express over Fabrics Specification."/>
-        </Member>
-        <Member Name="SMB">
-          <Annotation Term="OData.Description" String="Server Message Block (aka CIFS Common Internet File System)."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Microsoft Server Message Block Protocol."/>
-        </Member>
-        <Member Name="NFSv3">
-          <Annotation Term="OData.Description" String="Network File System version 3."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Network File System protocol as defined by RFC 1813."/>
-        </Member>
-        <Member Name="NFSv4">
-          <Annotation Term="OData.Description" String="Network File System version 4."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Network File System protocol as defined by RFC 3010 or RFC 5661."/>
-        </Member>
-        <Member Name="HTTP">
-          <Annotation Term="OData.Description" String="Hypertext Transport Protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Hypertext Transfer protocol as defined by RFC 2068 or RFC 2616."/>
-        </Member>
-        <Member Name="HTTPS">
-          <Annotation Term="OData.Description" String="Secure Hypertext Transport Protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the Hypertext Transfer protocol as defined by RFC 2068 or RFC 2616 utilizing Transport Layer Security as specified by RFC 5246 or RFC 6176."/>
-        </Member>
-        <Member Name="FTP">
-          <Annotation Term="OData.Description" String="File Transfer Protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the File Transfer protocol as defined by RFC 114."/>
-        </Member>
-        <Member Name="SFTP">
-          <Annotation Term="OData.Description" String="Secure File Transfer Protocol."/>
-          <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the File Transfer protocol as defined by RFC 114 utilizing Transport Layer Security as specified by RFC 5246 or RFC 6176."/>
-        </Member>
-      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_1">
@@ -354,8 +276,15 @@
       <EntityType Name="Storage" BaseType="Storage.v1_0_4.Storage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_0_5.Storage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="Storage" BaseType="Storage.v1_0_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_0_0.StorageController">
         <Property Name="Links" Type="Storage.v1_1_0.StorageControllerLinks" Nullable="false">
@@ -399,8 +328,15 @@
       <EntityType Name="Storage" BaseType="Storage.v1_1_3.Storage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_1_4.Storage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Storage" BaseType="Storage.v1_1_2.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_1_0.StorageController">
         <Property Name="Actions" Type="Storage.v1_2_0.StorageControllerActions" Nullable="false">
@@ -438,8 +374,15 @@
       <EntityType Name="Storage" BaseType="Storage.v1_2_1.Storage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_2_2.Storage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.2"/>
       <EntityType Name="Storage" BaseType="Storage.v1_2_0.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_2_0.StorageController">
         <Property Name="Name" Type="Edm.String">
@@ -462,8 +405,15 @@
       <EntityType Name="Storage" BaseType="Storage.v1_3_1.Storage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_3_2.Storage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="Storage" BaseType="Storage.v1_3_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_3_0.StorageController">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
@@ -493,8 +443,15 @@
       <EntityType Name="Storage" BaseType="Storage.v1_4_0.Storage"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_4_1.Storage"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="Storage" BaseType="Storage.v1_4_1.Storage"/>
       <EntityType Name="StorageController" BaseType="Storage.v1_4_0.StorageController">
         <Property Name="CacheSummary" Type="Storage.v1_5_0.CacheSummary" Nullable="false">
@@ -531,6 +488,26 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to change the VolumeCollection reference to Swordfish."/>
+      <EntityType Name="Storage" BaseType="Storage.v1_5_0.Storage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="Storage" BaseType="Storage.v1_4_1.Storage"/>
+      <EntityType Name="StorageController" BaseType="Storage.v1_5_0.StorageController">
+        <Property Name="SupportedRAIDTypes" Type="Collection(Volume.RAIDType)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This object describes the RAID Types supported by the storage controller."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain all the RAIDType values supported by the current resource."/>
+        </Property>
+      </EntityType>
 
     </Schema>
 

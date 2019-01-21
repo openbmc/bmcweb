@@ -77,6 +77,8 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/EthernetInterfaces/{EthernetInterfaceId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/EthernetInterfaces/{EthernetInterfaceId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -85,6 +87,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.EthernetInterface">
         <Annotation Term="OData.Description" String="The EthernetInterface schema represents a single, logical ethernet interface or network interface controller (NIC)."/>
@@ -251,6 +254,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_2.EthernetInterface">
         <Property Name="LinkStatus" Type="EthernetInterface.v1_1_0.LinkStatus">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -313,6 +317,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_1.EthernetInterface"/>
 
       <ComplexType Name="Links" BaseType="EthernetInterface.v1_1_0.Links">
@@ -345,6 +350,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_1.EthernetInterface">
         <Property Name="Actions" Type="EthernetInterface.v1_3_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -392,6 +398,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_1.EthernetInterface">
         <Property Name="DHCPv4" Type="EthernetInterface.v1_4_0.DHCPv4Configuration">
           <Annotation Term="OData.Description" String="DHCPv4 configuration for this interface."/>

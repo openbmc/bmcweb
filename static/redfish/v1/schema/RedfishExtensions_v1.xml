@@ -20,6 +20,12 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CollectionCapabilities_v1.xml">
     <edmx:Include Namespace="CollectionCapabilities"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Certificate_v1.xml">
+    <edmx:Include Namespace="Certificate"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ResourceBlock_v1.xml">
+    <edmx:Include Namespace="ResourceBlock"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
@@ -76,6 +82,9 @@
       <Term Name="Confidential" Type="Edm.String">
         <Annotation Term="OData.Description" String="The term specifies that a schema or property is un-released and is therefore confidential material not for public disclosure."/>
       </Term>
+      <Term Name="Release" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies the version of the release bundle that this schema or versioned namespace was first released."/>
+      </Term>
       <Term Name="ReleaseStatus" Type="RedfishExtensions.v1_0_0.ReleaseStatusType">
         <Annotation Term="OData.Description" String="The term specifies the public release status of a property or schema."/>
       </Term>
@@ -124,6 +133,15 @@
       <Term Name="ExcerptCopyOnly" Type="Edm.Boolean" DefaultValue="true">
         <Annotation Term="OData.Description" String="The term specifies that the property is a data element that shall appear only when the resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data resource."/>
       </Term>
+      <Term Name="SupportedCertificates" Type="Collection(Certificate.CertificateType)">
+        <Annotation Term="OData.Description" String="The term specifies the supported certificate formats for a given certificate collection."/>
+      </Term>
+      <Term Name="ResourceBlockLimits" Type="ResourceBlock.ResourceBlockLimits">
+        <Annotation Term="OData.Description" String="The term specifies the allowable quantities of types of Resource Blocks for a given composition request."/>
+      </Term>
+      <Term Name="License" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term is applied to Redfish schema or registry in order to specify licensing information."/>
+      </Term>
 
       <EnumType Name="ReleaseStatusType">
         <Member Name="Standard">
@@ -152,6 +170,39 @@
           <Annotation Term="OData.LongDescription" String="This shall be the type that the name shall have."/>
         </Property>
       </ComplexType>
+
+      <Term Name="Revisions" Type="Collection(RedfishExtensions.v1_0_0.RevisionType)" Nullable="false">
+        <Annotation Term="OData.Description" String="List of revisions of a model element."/>
+      </Term>
+
+      <ComplexType Name="RevisionType">
+        <Annotation Term="OData.Description" String="A structure containing revision information."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain revision information."/>
+        <Property Name="Version" Type="Edm.String" Nullable="true">
+          <Annotation Term="OData.Description" String="The schema version with which this revision was first published."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the schema version with which this revision was first published."/>
+        </Property>
+        <Property Name="Kind" Type="RedfishExtensions.v1_0_0.RevisionKind" Nullable="false">
+          <Annotation Term="OData.Description" String="The kind of revision."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the type of change made."/>
+        </Property>
+        <Property Name="Description" Type="Edm.String">
+          <Annotation Term="OData.Description" String="Text describing the reason for the revision."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the change made."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="RevisionKind">
+        <Member Name="Added">
+          <Annotation Term="OData.Description" String="Model element was added."/>
+        </Member>
+        <Member Name="Modified">
+          <Annotation Term="OData.Description" String="Model element was modified."/>
+        </Member>
+        <Member Name="Deprecated">
+          <Annotation Term="OData.Description" String="Model element was deprecated."/>
+        </Member>
+      </EnumType>
 
       <Term Name="Enumeration" Type="Collection(RedfishExtensions.v1_0_0.EnumerationMember)" Nullable="false">
         <Annotation Term="OData.Description" String="The term enumerates the allowable set of legacy, non-standard string values where a standard enumeration cannot be used.  This annotation should not be used for any new values."/>

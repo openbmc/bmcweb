@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/AttributeRegistry.v1_3_0.json",
     "$ref": "#/definitions/AttributeRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -64,7 +66,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -179,15 +182,15 @@
                     ]
                 },
                 "ValueName": {
-                    "description": "The value name of the attribute.",
+                    "description": "The unique value name of the attribute.",
                     "longDescription": "The value of this property shall be a string representing the value name of the attribute. ValueName is a unique string within the list of possible values in the 'Value' array of a given attribute.",
                     "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ]
+                    "type": "string"
                 }
             },
+            "required": [
+                "ValueName"
+            ],
             "type": "object"
         },
         "Attributes": {
@@ -338,6 +341,12 @@
                         "null"
                     ]
                 },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
+                },
                 "ReadOnly": {
                     "description": "The read-only state of this attribute.",
                     "longDescription": "The value of this property shall be a boolean describing the read-only state of attribute. A read-only attribute cannot be modified, and should be grayed out in user interfaces. The read-only state of an attribute might be affected by the results of evaluating the 'Dependencies' array.",
@@ -354,7 +363,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "ScalarIncrement": {
                     "description": "The amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change.",
@@ -378,19 +388,22 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "UefiKeywordName": {
                     "description": "The UEFI KeywordString of the attribute.",
                     "longDescription": "The value of this property shall be the configuration KeywordString of this attribute, as defined in the UEFI Specification.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
                 },
                 "UefiNamespaceId": {
                     "description": "The UEFI NamespaceId of the attribute.",
                     "longDescription": "The value of this property shall be the configuration NamespaceId of this attribute, as defined in the UEFI Specification.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
                 },
                 "UpperBound": {
                     "description": "The upper limit of the value of an attribute of type 'Integer'.",
@@ -437,6 +450,9 @@
                     ]
                 }
             },
+            "required": [
+                "AttributeName"
+            ],
             "type": "object"
         },
         "Dependencies": {
@@ -746,6 +762,16 @@
                         "null"
                     ]
                 },
+                "Hidden": {
+                    "description": "The hidden state of this menu.",
+                    "longDescription": "The value of this property shall be a boolean describing the visibility state of this menu. When set to true, a hidden menu should be hidden in user interfaces. The hidden state of a menu might be affected by the results of evaluating the 'Dependencies' array.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
                 "MenuName": {
                     "description": "The unique name string of this menu.",
                     "longDescription": "The value of this property shall be the name of this menu that is unique in this registry.",
@@ -762,6 +788,12 @@
                         "string",
                         "null"
                     ]
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_3_0"
                 },
                 "ReadOnly": {
                     "description": "The read-only state of this menu.",
@@ -868,7 +900,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "ProductName": {
                     "description": "The product name of the system.",
@@ -894,5 +927,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#AttributeRegistry.v1_2_1.AttributeRegistry"
+    "release": "2018.3",
+    "title": "#AttributeRegistry.v1_3_0.AttributeRegistry"
 }

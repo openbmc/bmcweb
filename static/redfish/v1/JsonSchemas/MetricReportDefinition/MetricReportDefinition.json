@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReportDefinition.v1_1_0.json",
     "$ref": "#/definitions/MetricReportDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -207,7 +208,7 @@
                     "readonly": true
                 },
                 "MetricProperties": {
-                    "description": "Specifies a list of metric properties to include in the metric report.",
+                    "description": "A list of URIs with wildcards and property identifiers to include in the metric report. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
                     "format": "uri",
                     "items": {
                         "type": [
@@ -215,7 +216,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall specify the metric properties to include in the metric report.  Each entry shall be a URI, and may contain wildcards.  The wildcards shall be enclosed by curly braces.  The list of metric properties to include shall be constructed by replacing wildcards with the value in the Wildcard property.  Property identifiers in the URI shall follow JSON fragment notation rules defined by RFC6901.",
+                    "longDescription": "This array property shall contain a list of URIs with wildcards and property identifiers to include in the metric report. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property to include in the metric report. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -288,7 +289,7 @@
                     "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "Wildcards": {
-                    "description": "Specifies the strings used to replace wildcards in the paths in MetricProperties array property.",
+                    "description": "A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property.",
                     "items": {
                         "anyOf": [
                             {
@@ -299,7 +300,7 @@
                             }
                         ]
                     },
-                    "longDescription": "The property shall specify an array of strings used to replace wildcards in the paths in the MetricProperties array property.",
+                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property.",
                     "type": "array"
                 }
             },
@@ -383,8 +384,8 @@
         },
         "Wildcard": {
             "additionalProperties": false,
-            "description": "Contains a list of wildcards and their substitution values.",
-            "longDescription": "Each wildcard shall have a corresponding entry in this list element.  Each entry shall specified the wildcard and its substitution values.",
+            "description": "Contains a wildcard and its substitution values.",
+            "longDescription": "This property shall contain a wildcard and its substitution values.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -401,30 +402,44 @@
             },
             "properties": {
                 "Keys": {
-                    "description": "An array of Key values to substitute for the wildcard.",
+                    "description": "An array of values to substitute for the wildcard.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "If the value is an empty string, then the server shall substitute every current key.  Each not empty key value shall be substituted for the wildcard.",
+                    "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Name": {
-                    "description": "The name of Wildcard.",
-                    "longDescription": "This property shall contain a name for a Wildcard for a key.",
+                    "description": "The string used as a wildcard.",
+                    "longDescription": "This property shall contain the string used as a wildcard.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
                     ]
+                },
+                "Values": {
+                    "description": "An array of values to substitute for the wildcard.",
+                    "items": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "This property shall contain the list of values to substitute for the wildcard.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#MetricReportDefinition.v1_0_0.MetricReportDefinition"
+    "release": "2018.3",
+    "title": "#MetricReportDefinition.v1_1_0.MetricReportDefinition"
 }

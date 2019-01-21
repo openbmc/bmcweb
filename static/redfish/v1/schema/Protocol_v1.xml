@@ -22,6 +22,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Protocol">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
 
       <Annotation Term="OData.Description" String="This enum describes all Protocols supported by devices in the Storage and Fabric models."/>
       <EnumType Name="Protocol">
@@ -68,10 +69,26 @@
         <Member Name="FCP">
           <Annotation Term="OData.Description" String="Fibre Channel Protocol for SCSI."/>
           <Annotation Term="OData.LongDescription" String="This enumeration literal shall indicate the INCITS 481: Information technology - Fibre Channel Protocol for SCSI.  The Fibre Channel SCSI Protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="FICON">
           <Annotation Term="OData.Description" String="FIbre CONnection (FICON)."/>
           <Annotation Term="OData.LongDescription" String="This enumeration literal shall indicate the (ANSI FC-SB-3 Single-Byte Command Code Sets-3 Mapping Protocol for the Fibre Channel(FC) protocol.  FICON (FIbre CONnection) is the IBM proprietary name for this protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="NVMeOverFabrics">
           <Annotation Term="OData.Description" String="NVMe over Fabrics."/>
@@ -108,22 +125,62 @@
         <Member Name="iWARP">
           <Annotation Term="OData.Description" String="Internet Wide Area Remote Direct Memory Access Protocol."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the iWARP protocol as defined by RFC 5042 utilizing Transport Layer mechanisms as specified by RFC 5043 or RFC 5044."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="RoCE">
           <Annotation Term="OData.Description" String="RDMA over Converged Ethernet Protocol."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the RDMA over Converged Ethernet protocol as defined by the Infiniband Architecture Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="RoCEv2">
           <Annotation Term="OData.Description" String="RDMA over Converged Ethernet Protocol Version 2."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the RDMA over Converged Ethernet version 2 protocol as defined by the Infiniband Architecture Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2017.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="I2C">
           <Annotation Term="OData.Description" String="Inter-Integrated Circuit Bus."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to the NXP Semiconductors I2C-bus Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2018.2"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM specific."/>
           <Annotation Term="OData.LongDescription" String="This value shall mean that this device conforms to an OEM specific architecture and additional information may be included in the OEM section."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2018.1"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>

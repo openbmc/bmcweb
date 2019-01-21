@@ -88,6 +88,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="Switch" BaseType="Switch.Switch">
         <Property Name="SwitchType" Type="Protocol.Protocol">
@@ -242,6 +243,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="Switch" BaseType="Switch.v1_0_3.Switch">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The Location of the switch."/>
