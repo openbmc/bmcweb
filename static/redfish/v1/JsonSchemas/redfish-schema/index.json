@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/redfish-schema",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "redfish-schema Schema File",
     "Schema": "#redfish-schema.redfish-schema",
-    "Description": "redfish-schema Schema File Location",
     "Id": "redfish-schema",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "redfish-schema Schema File",
+    "Description": "redfish-schema Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/redfish-schema/redfish-schema.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/redfish-schema.json",
-            "Uri": "/redfish/v1/JSONSchemas/redfish-schema/redfish-schema.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/redfish-schema",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

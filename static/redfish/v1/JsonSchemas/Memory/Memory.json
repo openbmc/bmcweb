@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_7_0.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -56,9 +57,11 @@
                 "SO_RDIMM_72b",
                 "SO_UDIMM_72b",
                 "SO_DIMM_16b",
-                "SO_DIMM_32b"
+                "SO_DIMM_32b",
+                "Die"
             ],
             "enumDescriptions": {
+                "Die": "A die within a package.",
                 "LRDIMM": "Load Reduced.",
                 "Mini_RDIMM": "Mini_RDIMM.",
                 "Mini_UDIMM": "Mini_UDIMM.",
@@ -69,6 +72,9 @@
                 "SO_RDIMM_72b": "SO_RDIMM_72b.",
                 "SO_UDIMM_72b": "SO_UDIMM_72b.",
                 "UDIMM": "UDIMM."
+            },
+            "enumVersionAdded": {
+                "Die": "v1_7_0"
             },
             "type": "string"
         },
@@ -155,7 +161,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "A reference to the Chassis which contains this Memory.",
                     "longDescription": "The value of this property shall be a reference to a resource of type Chassis that represent the physical container associated with this Memory.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -209,7 +216,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_2_0"
                 },
                 "AllocationIncrementMiB": {
                     "description": "The size of the smallest unit of allocation for a memory region in mebibytes (MiB).",
@@ -219,7 +227,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_2_0"
                 },
                 "AllowedSpeedsMHz": {
                     "description": "Speed bins supported by this Memory.",
@@ -235,7 +244,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "A reference to the Assembly resource associated with this memory.",
                     "longDescription": "The value of this property shall be a link to a resource of type Assembly.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "BaseModuleType": {
                     "anyOf": [
@@ -267,7 +277,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_4_0"
                 },
                 "CapacityMiB": {
                     "description": "Memory Capacity in mebibytes (MiB).",
@@ -278,6 +289,16 @@
                         "null"
                     ],
                     "units": "MiBy"
+                },
+                "ConfigurationLocked": {
+                    "description": "Indicates that the configuration of this memory has been locked.",
+                    "longDescription": "The value of this property shall be the current configuration lock state of this memory. True shall indicate that the configuration is locked and cannot be altered. False shall indicate that the configuration is not locked and may be altered.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "DataWidthBits": {
                     "description": "Data Width in bits.",
@@ -300,7 +321,6 @@
                     "readonly": true
                 },
                 "DeviceID": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_3_0.ModuleProductID",
                     "description": "Device ID.",
                     "longDescription": "The value of this property shall be the device ID of the Memory.",
                     "readonly": true,
@@ -350,7 +370,6 @@
                     ]
                 },
                 "FunctionClasses": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_0_0.Memory.OperatingMemoryModes or Memory.v1_0_0.Memory.RegionSet.MemoryClassification.",
                     "description": "Function Classes by the Memory.",
                     "items": {
                         "type": "string"
@@ -384,12 +403,14 @@
                 "Links": {
                     "$ref": "#/definitions/Links",
                     "description": "Contains references to other resources that are related to this resource.",
-                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+                    "versionAdded": "v1_2_0"
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The Location of the memory.",
-                    "longDescription": "This property shall contain location information of the associated memory."
+                    "longDescription": "This property shall contain location information of the associated memory.",
+                    "versionAdded": "v1_4_0"
                 },
                 "LogicalSizeMiB": {
                     "description": "Total size of the logical memory in MiB.",
@@ -399,7 +420,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_4_0"
                 },
                 "Manufacturer": {
                     "description": "The Memory manufacturer.",
@@ -455,7 +477,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "MemorySubsystemControllerProductID": {
                     "description": "The product ID of the memory subsystem controller of this memory module.",
@@ -465,7 +488,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "MemoryType": {
                     "anyOf": [
@@ -494,7 +518,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "ModuleProductID": {
                     "description": "The product ID of this memory module.",
@@ -504,7 +529,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -518,7 +544,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_4_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -560,7 +587,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "PersistentRegionSizeLimitMiB": {
                     "description": "Total size of persistent regions in mebibytes (MiB).",
@@ -580,7 +608,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_2_0"
                 },
                 "PowerManagementPolicy": {
                     "$ref": "#/definitions/PowerManagementPolicy",
@@ -609,6 +638,20 @@
                     "description": "This object contains security capabilities of the Memory.",
                     "longDescription": "This object shall contain properties which describe the security capabilities of the Memory."
                 },
+                "SecurityState": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SecurityStates"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The current security state of this Memory.",
+                    "longDescription": "The value of this property shall be the current security state of this memory.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
                 "SerialNumber": {
                     "description": "The product serial number of this device.",
                     "longDescription": "This property shall indicate the serial number as provided by the manufacturer of this Memory.",
@@ -630,10 +673,10 @@
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "SubsystemDeviceID": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_3_0.MemorySubsystemControllerProductID",
                     "description": "Subsystem Device ID.",
                     "longDescription": "The value of this property shall be the subsystem Device ID of the Memory.",
                     "readonly": true,
@@ -643,7 +686,6 @@
                     ]
                 },
                 "SubsystemVendorID": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_3_0.MemorySubsystemControllerManufacturerID",
                     "description": "SubSystem Vendor ID.",
                     "longDescription": "The value of this property shall be the subsystem Vendor ID of the Memory.",
                     "readonly": true,
@@ -653,7 +695,6 @@
                     ]
                 },
                 "VendorID": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_3_0.ModuleManufacturerID",
                     "description": "Vendor ID.",
                     "longDescription": "The value of this property shall be the vendor ID of the Memory.",
                     "readonly": true,
@@ -669,7 +710,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "VolatileRegionSizeLimitMiB": {
                     "description": "Total size of volatile regions in mebibytes (MiB).",
@@ -689,7 +731,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_2_0"
                 },
                 "VolatileSizeMiB": {
                     "description": "Total size of the volitile portion memory in MiB.",
@@ -699,7 +742,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "MiBy"
+                    "units": "MiBy",
+                    "versionAdded": "v1_4_0"
                 }
             },
             "required": [
@@ -744,7 +788,9 @@
                 "EDO",
                 "FastPageMode",
                 "PipelinedNibble",
-                "Logical"
+                "Logical",
+                "HBM",
+                "HBM2"
             ],
             "enumDescriptions": {
                 "DDR": "DDR.",
@@ -761,12 +807,19 @@
                 "DDR_SGRAM": "DDR SGRAM.",
                 "EDO": "EDO.",
                 "FastPageMode": "Fast Page Mode.",
+                "HBM": "High Bandwidth Memory.",
+                "HBM2": "High Bandwidth Memory 2.",
                 "LPDDR3_SDRAM": "LPDDR3 SDRAM.",
                 "LPDDR4_SDRAM": "LPDDR4 SDRAM.",
                 "Logical": "Logical Non-volatile device.",
                 "PipelinedNibble": "Pipelined Nibble.",
                 "ROM": "ROM.",
                 "SDRAM": "SDRAM."
+            },
+            "enumVersionAdded": {
+                "HBM": "v1_7_0",
+                "HBM2": "v1_7_0",
+                "Logical": "v1_4_0"
             },
             "type": "string"
         },
@@ -832,12 +885,17 @@
             "enum": [
                 "DRAM",
                 "NAND",
+                "Intel3DXPoint",
                 "Proprietary"
             ],
             "enumDescriptions": {
                 "DRAM": "DRAM media.",
+                "Intel3DXPoint": "Intel 3D XPoint media.",
                 "NAND": "NAND media.",
                 "Proprietary": "Proprietary media."
+            },
+            "enumVersionAdded": {
+                "Intel3DXPoint": "v1_7_0"
             },
             "type": "string"
         },
@@ -862,6 +920,9 @@
                 "NVDIMM_F": "This memory type shall represent NVDIMM_F as defined by JEDEC.",
                 "NVDIMM_N": "This memory type shall represent NVDIMM_N as defined by JEDEC.",
                 "NVDIMM_P": "This memory type shall represent NVDIMM_P as defined by JEDEC."
+            },
+            "enumVersionAdded": {
+                "IntelOptane": "v1_6_0"
             },
             "type": "string"
         },
@@ -942,7 +1003,8 @@
                     "type": "string"
                 }
             },
-            "type": "object"
+            "type": "object",
+            "versionAdded": "v1_6_0"
         },
         "PowerManagementPolicy": {
             "additionalProperties": false,
@@ -1054,10 +1116,10 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "PassphraseState": {
-                    "deprecated": "This property has been Deprecated in favor of Memory.v1_5_0.Memory.RegionSet.PassphraseEnabled.",
                     "description": "State of the passphrase for this region.",
                     "longDescription": "State of the passphrase for this region.",
                     "readonly": true,
@@ -1152,6 +1214,26 @@
                 }
             },
             "properties": {
+                "ConfigurationLockCapable": {
+                    "description": "Support for locking the configuration.",
+                    "longDescription": "The value of this property shall indicate whether this memory supports the locking (freezing) of the configuration.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "DataLockCapable": {
+                    "description": "Support for data locking.",
+                    "longDescription": "The value of this property shall indicate whether this memory supports the locking of data access.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "MaxPassphraseCount": {
                     "description": "Maximum number of passphrases supported for this Memory.",
                     "longDescription": "Maximum number of passphrases supported for this Memory.",
@@ -1169,6 +1251,16 @@
                         "boolean",
                         "null"
                     ]
+                },
+                "PassphraseLockLimit": {
+                    "description": "Maximum number of incorrect passphrase attempts allowed before memory is locked.",
+                    "longDescription": "The value of this property shall be the maximum number of incorrect passphase access attempts allowed before access to data is locked. A value of zero shall indicate that there is no limit to the number of attempts.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "SecurityStates": {
                     "description": "Security states supported by the Memory.",
@@ -1191,13 +1283,21 @@
                 "Frozen",
                 "Passphraselimit"
             ],
+            "enumDeprecated": {
+                "Frozen": "This value has been deprecated in favor of using the ConfigurationLocked to indicate that the configuration has been frozen.",
+                "Unlocked": "This value has been deprecated in favor of 'Enabled' to indicate normal security operation."
+            },
             "enumDescriptions": {
                 "Disabled": "Secure mode is disabled.",
-                "Enabled": "Secure mode is enabled.",
+                "Enabled": "Secure mode is enabled and access to the data is allowed.",
                 "Frozen": "Secure state is frozen and can not be modified until reset.",
                 "Locked": "Secure mode is enabled and access to the data is locked.",
                 "Passphraselimit": "Number of attempts to unlock the Memory exceeded limit.",
                 "Unlocked": "Secure mode is enabled and access to the data is unlocked."
+            },
+            "enumVersionDeprecated": {
+                "Frozen": "v1_7_0",
+                "Unlocked": "v1_7_0"
             },
             "type": "string"
         },
@@ -1293,5 +1393,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Memory.v1_6_0.Memory"
+    "release": "2018.3",
+    "title": "#Memory.v1_7_0.Memory"
 }

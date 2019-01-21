@@ -1,7 +1,7 @@
 {
-    "id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_5_0",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_6_0",
     "type": "object",
-    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Redfish Schema Extension",
     "description": "The properties defined in this schema shall adhere to the requirements of the Redfish Specification and the semantics of the descriptions in this file.",
     "definitions": {
@@ -32,6 +32,14 @@
             "type": "string",
             "description": "The term shall be applied to a property in order to specify that the property is deprecated.  The value of the string should explain the deprecation, including new property or properties to be used. The property can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties are likely to be removed in a future major version of the schema."
         },
+        "versionDeprecated": {
+            "type": "string",
+            "description": "The term shall be applied to a property in order to specify when the property was deprecated.  The value of the string should contain the resource version where the property was deprecated."
+        },
+        "versionAdded": {
+            "type": "string",
+            "description": "The term shall be applied to a property in order to specify when the property was added.  The value of the string should contain the resource version where the property was added."
+        },
         "enumDescriptions": {
             "type": "object",
             "description": "This attribute shall contain informative language related to the enumeration values of the property."
@@ -43,6 +51,14 @@
         "enumDeprecated": {
             "type": "object",
             "description": "The term shall be applied to a value in order to specify that the value is deprecated.  The value of the string should explain the deprecation, including new value to be used.  The value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated values are likely to be removed in a future major version of the schema."
+        },
+        "enumVersionDeprecated": {
+            "type": "object",
+            "description": "The term shall be applied to a value in order to specify when the value was deprecated.  The value of the string should contain the resource version where the value was deprecated."
+        },
+        "enumVersionAdded": {
+            "type": "object",
+            "description": "The term shall be applied to a value in order to specify when the value was added.  The value of the string should contain the resource version where the value was added."
         },
         "units": {
             "type": "string",
@@ -61,7 +77,7 @@
             "description": "The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as Excerpt in that referenced definition shall be included. The value of the term shall contain the name and value of a key property used to construct the Excerpt subset of properties from the referenced definition. If the value of the term is not defined, then all Excerpt properties shall be copied from the referenced definition."
         },
         "excerptCopyOnly": {
-            "type": "string",
+            "type": "boolean",
             "description": "The term specifies that the property is a data element that shall appear only when the resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data resource."
         },
         "insertable": {
@@ -86,6 +102,22 @@
         "autoExpand": {
             "type": "boolean",
             "description": "The term specifies if the resource referenced by the hyperlink shall be expanded in the response body as specified in the 'Expanded resources' clause of the Redfish Specification."
+        },
+        "release": {
+            "type": "string",
+            "description": "The term specifies the version of the release bundle that this schema or versioned namespace was first released."
+        },
+        "filter": {
+            "type": "string",
+            "description": "Indicates a filter to apply to an array of objects when the values are copies of data elsewhere in the data model."
+        },
+        "actionResponse": {
+            "type": "object",
+            "description": "Contains the definition of the response body for a given action if it does not follow the Redfish Error format."
+        },
+        "license": {
+            "type": "string",
+            "description": "The term is applied to Redfish schema or registry in order to specify licensing information."
         }
     },
     "properties": {
@@ -107,6 +139,12 @@
         "deprecated": {
             "$ref": "#/definitions/deprecated"
         },
+        "versionDeprecated": {
+            "$ref": "#/definitions/versionDeprecated"
+        },
+        "versionAdded": {
+            "$ref": "#/definitions/versionAdded"
+        },
         "enumDescriptions": {
             "$ref": "#/definitions/enumDescriptions"
         },
@@ -115,6 +153,12 @@
         },
         "enumDeprecated": {
             "$ref": "#/definitions/enumDeprecated"
+        },
+        "enumVersionDeprecated": {
+            "$ref": "#/definitions/enumVersionDeprecated"
+        },
+        "enumVersionAdded": {
+            "$ref": "#/definitions/enumVersionAdded"
         },
         "units": {
             "$ref": "#/definitions/units"
@@ -150,6 +194,18 @@
         },
         "autoExpand": {
             "$ref": "#/definitions/autoExpand"
+        },
+        "release": {
+            "$ref": "#/definitions/release"
+        },
+        "filter": {
+            "$ref": "#/definitions/filter"
+        },
+        "actionResponse": {
+            "$ref": "#/definitions/actionResponse"
+        },
+        "license": {
+            "$ref": "#/definitions/license"
         }
     }
 }

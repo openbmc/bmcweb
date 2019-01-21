@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_4_0.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -77,26 +79,30 @@
                     },
                     "longDescription": "The value of this property shall be an array of HTTP headers used in the execution of this Task.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
                 },
                 "HttpOperation": {
                     "description": "The HTTP operation to perform to execute this Task.",
                     "longDescription": "This property shall contain the HTTP operation to execute for this Task.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
                 },
                 "JsonBody": {
                     "description": "This property contains the JSON payload to use in the execution of this Task.",
                     "longDescription": "The value of this property shall be JSON formatted payload used for this Task.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
                 },
                 "TargetUri": {
                     "description": "The URI of the target for this task.",
                     "format": "uri",
                     "longDescription": "This property shall contain a URI referencing a location to be used as the target for an HTTP operation.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -135,7 +141,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -159,7 +166,8 @@
                     "description": "Indicates that the contents of the Payload should be hidden from view after the Task has been created.  When set to True, the Payload object will not be returned on GET.",
                     "longDescription": "This property shall be set to True if the Payload object shall not be returned on GET operations, and set to False if the contents can be returned normally. If this property is not specified when the Task is created, the default value shall be False.",
                     "readonly": true,
-                    "type": "boolean"
+                    "type": "boolean",
+                    "versionAdded": "v1_3_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -185,7 +193,19 @@
                 "Payload": {
                     "$ref": "#/definitions/Payload",
                     "description": "The HTTP and JSON payload details for this task.",
-                    "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task. This object shall not be included in the response if the HidePayload property is set to True."
+                    "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task. This object shall not be included in the response if the HidePayload property is set to True.",
+                    "versionAdded": "v1_3_0"
+                },
+                "PercentComplete": {
+                    "description": "The completion percentage of this Task.",
+                    "longDescription": "The value of this property shall indicate the completion progress of the task, reported in percent of completion. If the task has not been started, the value shall be zero.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "%",
+                    "versionAdded": "v1_4_0"
                 },
                 "StartTime": {
                     "description": "The date-time stamp that the task was last started.",
@@ -199,7 +219,8 @@
                     "format": "uri",
                     "longDescription": "This property shall contain a URI to Task Monitor as defined in the Redfish Specification.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_2_0"
                 },
                 "TaskState": {
                     "$ref": "#/definitions/TaskState",
@@ -271,9 +292,17 @@
                 "Stopping": "This value shall represent that the operation is stopping but is not yet complete.",
                 "Suspended": "This value shall represent that the operation has been suspended but is expected to restart and is therefore not complete."
             },
+            "enumVersionAdded": {
+                "Cancelled": "v1_2_0",
+                "Cancelling": "v1_2_0"
+            },
+            "enumVersionDeprecated": {
+                "Killed": "v1_2_0"
+            },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Task.v1_3_0.Task"
+    "release": "2018.3",
+    "title": "#Task.v1_4_0.Task"
 }

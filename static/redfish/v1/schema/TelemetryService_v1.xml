@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TelemetryService  v1.0.0-->
+<!--# Redfish Schema:  TelemetryService  v1.1.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -38,6 +38,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogService_v1.xml">
     <edmx:Include Namespace="LogService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MetricDefinition_v1.xml">
+    <edmx:Include Namespace="MetricDefinition"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -79,15 +82,38 @@
           <Annotation Term="OData.Description" String="The Name property of the metric report in generated metric report."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall be the value of the Name property in the generated metric report."/>
         </Parameter>
-        <Parameter Name="MetricReportValues" Type="Edm.String" Nullable="false">
+        <Parameter Name="MetricReportValues" Type="Edm.String">
           <Annotation Term="OData.Description" String="The content of MetricReportValues array in generated metric report."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the contents of the MetricReportValues array property in the generated metric report."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of using the property 'GeneratedMetricReportValues'."/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Parameter>
+        <Parameter Name="GeneratedMetricReportValues" Type="Collection(TelemetryService.v1_1_0.MetricValue)" Nullable="false">
+          <Annotation Term="OData.Description" String="The content of the MetricReportValues in the generated metric report."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the contents of the MetricReportValues array property in the generated metric report."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of using the property 'GeneratedMetricReportValues'."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Parameter>
       </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
 
       <EntityType Name="TelemetryService" BaseType="TelemetryService.TelemetryService">
         <Annotation Term="OData.Description" String="This is the schema definition for the Metrics Service.  It represents the properties for the service itself and has links to collections of metric definitions and metric report definitions."/>
@@ -179,6 +205,46 @@
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_1_0">
+      <Annotation Term="OData.Description" String="This version was created to add the GeneratedMetricReportValues property to the SubmittestMetricReport action."/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_0_0.TelemetryService"/>
+
+      <ComplexType Name="MetricValue">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="A metric value."/>
+        <Annotation Term="OData.LongDescription" String="A metric value in the context of a Metric."/>
+        <Property Name="MetricId" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The metric definitions identifier for this metric."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be the same as the Id property of the source metric within the associated MetricDefinition."/>
+        </Property>
+        <Property Name="MetricValue" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The value identifies this resource."/>
+          <Annotation Term="OData.LongDescription" String="The value of the metric represented as a string."/>
+        </Property>
+        <Property Name="Timestamp" Type="Edm.DateTimeOffset">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The time when the value of the metric is obtained. A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp."/>
+          <Annotation Term="OData.LongDescription" String="The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created."/>
+        </Property>
+        <Property Name="MetricProperty" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI for the property from which this metric is derived."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be URI to the a property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+        <NavigationProperty Name="MetricDefinition" Type="MetricDefinition.MetricDefinition" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="A link to the Metric Definition."/>
+          <Annotation Term="OData.LongDescription" String="The value shall be reference to the Metric Definition resource that describes what this Metric Report is capturing."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
       </ComplexType>
     </Schema>
 

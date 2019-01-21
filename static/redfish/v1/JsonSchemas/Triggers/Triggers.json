@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Triggers.v1_0_1.json",
     "$ref": "#/definitions/Triggers",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -303,7 +304,7 @@
             ],
             "enumDescriptions": {
                 "LogToLogService": "Upon a trigger, record in a log.",
-                "RedfishEvent": "Upon a trigger, send a Redfish Event message of type MetricReport."
+                "RedfishEvent": "Upon a trigger, send a Redfish Event message of type Event."
             },
             "enumLongDescriptions": {
                 "LogToLogService": "When a trigger condition is met, the service shall log the occurrence of the condition to the log indicated by the LogService property in the TelemetryService resource.",
@@ -385,7 +386,7 @@
                     "readonly": true
                 },
                 "MetricProperties": {
-                    "description": "A collection of URI for the properties on which this metric definition is defined.",
+                    "description": "A list of URIs with wildcards and property identifiers for which this trigger is defined. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
                     "format": "uri",
                     "items": {
                         "type": [
@@ -393,7 +394,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "Each value may contain one or more Wildcard names enclosed in curly braces.  Wildcard value entries shall be substituted for each Wildcard name found.  If two or more wild names are found, the same Wildcard index is used for each in one substitution pass.  After substituting the WildCard values entries, each value shall be a URI for a property in a resource that matches a property declaration in the corresponding MetricDefinition.  Property identifiers in the URI shall follow JSON fragment notation rules defined by RFC6901.",
+                    "longDescription": "This array property shall contain a list of URIs with wildcards and property identifiers for which this trigger is defined. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property for which the metric definition applies. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -446,7 +447,7 @@
                     "type": "array"
                 },
                 "Wildcards": {
-                    "description": "Wildcards used to replace values in MetricProperties array property.",
+                    "description": "A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property.",
                     "items": {
                         "anyOf": [
                             {
@@ -457,7 +458,7 @@
                             }
                         ]
                     },
-                    "longDescription": "The property shall contain an array of wildcards and their replacements strings, which are to appliced to the MetricProperties array.",
+                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property.",
                     "type": "array"
                 }
             },
@@ -471,8 +472,8 @@
         },
         "Wildcard": {
             "additionalProperties": false,
-            "description": "Contains a list of wildcards and their substitution values.",
-            "longDescription": "Each wildcard shall have a corresponding entry in this list element.  Each entry shall specified the wildcard and its substitution values.",
+            "description": "Contains a wildcard and its substitution values.",
+            "longDescription": "This property shall contain a wildcard and its substitution values.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -489,8 +490,8 @@
             },
             "properties": {
                 "Name": {
-                    "description": "The name of Wildcard.",
-                    "longDescription": "This property shall contain a name for a Wildcard.",
+                    "description": "The string used as a wildcard.",
+                    "longDescription": "This property shall contain the string used as a wildcard.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -505,7 +506,7 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain  then the server shall substitute.  Each not empty value shall be substituted for the wildcard.",
+                    "longDescription": "This property shall contain the list of values to susubstitute for the wildcard.",
                     "readonly": true,
                     "type": "array"
                 }
@@ -514,5 +515,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Triggers.v1_0_0.Triggers"
+    "release": "2018.2",
+    "title": "#Triggers.v1_0_1.Triggers"
 }

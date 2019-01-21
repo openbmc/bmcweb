@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricReport.v1_1_0.json",
     "$ref": "#/definitions/MetricReport",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -116,6 +117,17 @@
                     "longDescription": "The value shall be the current sequence identifier for this metric report.",
                     "readonly": true,
                     "type": "string"
+                },
+                "Timestamp": {
+                    "description": "The time associated with the metric report in its entirety.  The time of the metric report may be relevant when the time of individual metrics are minimally different.",
+                    "format": "date-time",
+                    "longDescription": "The value shall be the time when the metric report was generated.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 }
             },
             "required": [
@@ -181,9 +193,9 @@
                     ]
                 },
                 "Timestamp": {
-                    "description": "The time when the value of the metric is obtained.",
+                    "description": "The time when the value of the metric is obtained. A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
                     "format": "date-time",
-                    "longDescription": "The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.  If Volatile is true for a given metric value instance, the Timestamp changes whenever a new measurement snapshot is taken.  A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -216,5 +228,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#MetricReport.v1_0_0.MetricReport"
+    "release": "2018.3",
+    "title": "#MetricReport.v1_1_0.MetricReport"
 }

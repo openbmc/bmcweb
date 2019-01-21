@@ -79,6 +79,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.PCIeFunction">
         <Annotation Term="OData.Description" String="This is the schema definition for the PCIeFunction resource.  It represents the properties of a PCIeFunction attached to a System."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a PCIeFunction attached to a System."/>
@@ -285,6 +286,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_0_2.PCIeFunction">
         <Property Name="Actions" Type="PCIeFunction.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -323,6 +325,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunction.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.1"/>
       <Annotation Term="OData.Description" String="This version was created to add NetworkDeviceFunctions to the Links section."/>
       <EntityType Name="PCIeFunction" BaseType="PCIeFunction.v1_1_1.PCIeFunction"/>
       <ComplexType Name="Links" BaseType="PCIeFunction.v1_0_0.Links">

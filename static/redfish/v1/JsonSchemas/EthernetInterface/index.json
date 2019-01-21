@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/EthernetInterface",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "EthernetInterface Schema File",
     "Schema": "#EthernetInterface.EthernetInterface",
-    "Description": "EthernetInterface Schema File Location",
     "Id": "EthernetInterface",
     "Languages": [
         "en"
     ],
-    "Languages@odata.count": 1,
+    "Location@odata.count": 1,
+    "Name": "EthernetInterface Schema File",
+    "Description": "EthernetInterface Schema File Location",
     "Location": [
         {
-            "Language": "en",
+            "Uri": "/redfish/v1/JSONSchemas/EthernetInterface/EthernetInterface.json",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json",
-            "Uri": "/redfish/v1/JSONSchemas/EthernetInterface/EthernetInterface.json"
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.id": "/redfish/v1/JSONSchemas/EthernetInterface",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Languages@odata.count": 1,
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }
