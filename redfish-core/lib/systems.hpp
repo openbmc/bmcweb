@@ -647,6 +647,11 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        res.jsonValue["Links"]["Chassis"] = {
+            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
+#endif
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getLedGroupIdentify(

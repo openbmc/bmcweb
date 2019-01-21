@@ -47,6 +47,16 @@ class Thermal : public Node
             return;
         }
         const std::string& chassisName = params[0];
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        // In a one chassis system the only supported name is "chassis"
+        if (chassisName != "chassis")
+        {
+            messages::resourceNotFound(res, "#Chassis.v1_4_0.Chassis",
+                                       chassisName);
+            res.end();
+            return;
+        }
+#endif
 
         res.jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
         res.jsonValue["@odata.context"] =
@@ -56,7 +66,10 @@ class Thermal : public Node
 
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
-
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        res.end();
+        return;
+#endif
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName,
             std::initializer_list<const char*>{
