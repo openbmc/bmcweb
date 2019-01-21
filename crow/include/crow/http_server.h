@@ -15,8 +15,10 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
+#include <filesystem>
 #include <future>
 #include <memory>
+#include <ssl_key_handler.hpp>
 #include <utility>
 #include <vector>
 
@@ -35,39 +37,39 @@ class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptor)), signals(*ioService, SIGINT, SIGTERM),
-        tickTimer(*ioService), handler(handler), middlewares(middlewares),
-        adaptorCtx(adaptor_ctx)
+        acceptor(std::move(acceptor)),
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
+        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
     {
     }
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
     }
 
     Server(Handler* handler, int existing_socket,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
     }
 
@@ -109,6 +111,7 @@ class Server
 
     void run()
     {
+        loadCertificate();
         updateDateStr();
 
         getCachedDateStr = [this]() -> std::string {
@@ -153,11 +156,61 @@ class Server
 
         BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
                         << acceptor->local_endpoint();
-
-        signals.async_wait([&](const boost::system::error_code& /*error*/,
-                               int /*signal_number*/) { stop(); });
-
+        startAsyncWaitForSignal();
         doAccept();
+    }
+
+    void loadCertificate()
+    {
+#ifdef BMCWEB_ENABLE_SSL
+        namespace fs = std::filesystem;
+        // Cleanup older certificate file existing in the system
+        fs::path oldCert = "/home/root/server.pem";
+        if (fs::exists(oldCert))
+        {
+            fs::remove("/home/root/server.pem");
+        }
+        fs::path certPath = "/etc/ssl/certs/https/";
+        // if path does not exist create the path so that
+        // self signed certificate can be created in the
+        // path
+        if (!fs::exists(certPath))
+        {
+            fs::create_directories(certPath);
+        }
+        fs::path certFile = certPath / "server.pem";
+        BMCWEB_LOG_INFO << "Building SSL Context file=" << certFile;
+        std::string sslPemFile(certFile);
+        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+        std::shared_ptr<boost::asio::ssl::context> sslContext =
+            ensuressl::getSslContext(sslPemFile);
+        adaptorCtx = sslContext;
+        handler->ssl(std::move(sslContext));
+#endif
+    }
+
+    void startAsyncWaitForSignal()
+    {
+        signals.async_wait([this](const boost::system::error_code& ec,
+                                  int signalNo) {
+            if (ec)
+            {
+                BMCWEB_LOG_INFO << "Error in signal handler" << ec.message();
+            }
+            else
+            {
+                if (signalNo == SIGHUP)
+                {
+                    BMCWEB_LOG_INFO << "Receivied reload signal";
+                    loadCertificate();
+                    this->startAsyncWaitForSignal();
+                }
+                else
+                {
+                    stop();
+                }
+            }
+        });
     }
 
     void stop()
@@ -240,6 +293,6 @@ class Server
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
 #endif
-    boost::asio::ssl::context* adaptorCtx;
+    std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
 }; // namespace crow
 } // namespace crow

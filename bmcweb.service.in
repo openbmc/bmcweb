@@ -5,6 +5,7 @@ Wants=network.target
 After=network.target
 
 [Service]
+ExecReload=kill -s HUP $MAINPID
 ExecStart=@CMAKE_INSTALL_PREFIX@/bin/bmcweb
 Type=simple
 WorkingDirectory=/home/root
