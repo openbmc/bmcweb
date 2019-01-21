@@ -234,6 +234,9 @@ class NetworkProtocol : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                asyncResp->res.jsonValue["HTTPS"]["Certificates"] = {
+                    {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
+                                  "HTTPS/Certificates/"}};
 
                 for (auto& unit : resp)
                 {
@@ -252,7 +255,6 @@ class NetworkProtocol : public Node
                              "running") ||
                             (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
                              "listening");
-
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, service{std::string(service)}](
                                 const boost::system::error_code ec,
