@@ -42,7 +42,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                 std::cout << "Found an RSA key\n";
                 if (RSA_check_key(rsa) == 1)
                 {
-                    // private_key_valid = true;
+                    privateKeyValid = true;
                 }
                 else
                 {
@@ -279,28 +279,30 @@ inline void ensureOpensslKeyPresentAndValid(const std::string &filepath)
     }
 }
 
-inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
+inline std::shared_ptr<boost::asio::ssl::context>
+    getSslContext(const std::string &ssl_pem_file)
 {
-    boost::asio::ssl::context mSslContext{
-        boost::asio::ssl::context::tls_server};
-    mSslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                            boost::asio::ssl::context::no_sslv2 |
-                            boost::asio::ssl::context::no_sslv3 |
-                            boost::asio::ssl::context::single_dh_use |
-                            boost::asio::ssl::context::no_tlsv1 |
-                            boost::asio::ssl::context::no_tlsv1_1);
+    std::shared_ptr<boost::asio::ssl::context> mSslContext =
+        std::make_shared<boost::asio::ssl::context>(
+            boost::asio::ssl::context::tls_server);
+    mSslContext->set_options(boost::asio::ssl::context::default_workarounds |
+                             boost::asio::ssl::context::no_sslv2 |
+                             boost::asio::ssl::context::no_sslv3 |
+                             boost::asio::ssl::context::single_dh_use |
+                             boost::asio::ssl::context::no_tlsv1 |
+                             boost::asio::ssl::context::no_tlsv1_1);
 
     // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
-    mSslContext.use_certificate_file(ssl_pem_file,
-                                     boost::asio::ssl::context::pem);
-    mSslContext.use_private_key_file(ssl_pem_file,
-                                     boost::asio::ssl::context::pem);
+    mSslContext->use_certificate_file(ssl_pem_file,
+                                      boost::asio::ssl::context::pem);
+    mSslContext->use_private_key_file(ssl_pem_file,
+                                      boost::asio::ssl::context::pem);
 
     // Set up EC curves to auto (boost asio doesn't have a method for this)
     // There is a pull request to add this.  Once this is included in an asio
     // drop, use the right way
     // http://stackoverflow.com/questions/18929049/boost-asio-with-ecdsa-certificate-issue
-    if (SSL_CTX_set_ecdh_auto(mSslContext.native_handle(), 1) != 1)
+    if (SSL_CTX_set_ecdh_auto(mSslContext->native_handle(), 1) != 1)
     {
         BMCWEB_LOG_ERROR << "Error setting tmp ecdh list\n";
     }
@@ -316,7 +318,7 @@ inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
                                 "ECDHE-ECDSA-AES128-SHA256:"
                                 "ECDHE-RSA-AES128-SHA256";
 
-    if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
+    if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
                                 mozillaModern.c_str()) != 1)
     {
         BMCWEB_LOG_ERROR << "Error setting cipher list\n";
