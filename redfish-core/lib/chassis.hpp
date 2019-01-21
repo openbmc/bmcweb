@@ -102,7 +102,7 @@ class ChassisCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(3), interfaces);
+            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
     }
 };
 
@@ -131,6 +131,11 @@ class Chassis : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
+        const std::array<const char *, 3> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+
         // Check if there is required param, truly entering this shall be
         // impossible.
         if (params.size() != 1)
@@ -239,9 +244,7 @@ class Chassis : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Inventory.Decorator.Asset"});
+            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
     }
 };
 } // namespace redfish
