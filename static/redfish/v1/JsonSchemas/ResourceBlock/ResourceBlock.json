@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.v1_3_0.json",
     "$ref": "#/definitions/ResourceBlock",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -47,6 +48,10 @@
                 "Unavailable": "Indicates the Resource Block has been made unavailable by the service, such as due to maintenance being performed on the Resource Block.",
                 "Unused": "Indicates the Resource Block is free and can participate in composition."
             },
+            "enumVersionAdded": {
+                "ComposedAndAvailable": "v1_1_0",
+                "Unavailable": "v1_2_0"
+            },
             "type": "string"
         },
         "CompositionStatus": {
@@ -89,7 +94,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "NumberOfCompositions": {
                     "description": "The number of compositions in which this Resource Block is currently participating.",
@@ -99,7 +105,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Reserved": {
                     "description": "This represents if the Resource Block is reserved by any client.",
@@ -117,7 +124,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "SharingEnabled": {
                     "description": "Indicates if this Resource Block is allowed to participate in multiple compositions simultaneously.",
@@ -126,7 +134,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 }
             },
             "required": [
@@ -282,6 +291,19 @@
                     ],
                     "readonly": true
                 },
+                "Drives": {
+                    "description": "An array of references to the Drives available in this Resource Block.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "The value of this property shall be an array of references of type Drive that are in this Resource Block.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Drives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
                 "EthernetInterfaces": {
                     "description": "An array of references to the Ethernet Interfaces available in this Resource Block.",
                     "items": {
@@ -397,6 +419,182 @@
             ],
             "type": "object"
         },
+        "ResourceBlockLimits": {
+            "additionalProperties": false,
+            "description": "This object specifies the allowable quantities of types of Resource Blocks for a given composition request.",
+            "longDescription": "This object shall specify the allowable quantities of types of Resource Blocks for a given composition request.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MaxCompute": {
+                    "description": "The minimum number of Resource Blocks of type Compute required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Compute required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxComputerSystem": {
+                    "description": "The minimum number of Resource Blocks of type ComputerSystem required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Network required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxExpansion": {
+                    "description": "The minimum number of Resource Blocks of type Expansion required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Expansion required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxMemory": {
+                    "description": "The minimum number of Resource Blocks of type Memory required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Memory required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxNetwork": {
+                    "description": "The minimum number of Resource Blocks of type Network required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Network required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxProcessor": {
+                    "description": "The minimum number of Resource Blocks of type Processor required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Processor required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MaxStorage": {
+                    "description": "The minimum number of Resource Blocks of type Storage required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Storage required for the composition request.",
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinCompute": {
+                    "description": "The minimum number of Resource Blocks of type Compute required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Compute required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinComputerSystem": {
+                    "description": "The minimum number of Resource Blocks of type ComputerSystem required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Network required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinExpansion": {
+                    "description": "The minimum number of Resource Blocks of type Expansion required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Expansion required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinMemory": {
+                    "description": "The minimum number of Resource Blocks of type Memory required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Memory required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinNetwork": {
+                    "description": "The minimum number of Resource Blocks of type Network required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Network required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinProcessor": {
+                    "description": "The minimum number of Resource Blocks of type Processor required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Processor required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                },
+                "MinStorage": {
+                    "description": "The minimum number of Resource Blocks of type Storage required for the composition request.",
+                    "longDescription": "The value of this property shall be an integer that specifies the minimum number of Resource Blocks of type Storage required for the composition request.",
+                    "minimum": 0,
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_3_0"
+                }
+            },
+            "type": "object"
+        },
         "ResourceBlockType": {
             "enum": [
                 "Compute",
@@ -416,9 +614,13 @@
                 "Processor": "This Resource Block contains Processor resources.",
                 "Storage": "This Resource Block contains Storage resources, such as Storage and Simple Storage."
             },
+            "enumVersionAdded": {
+                "Expansion": "v1_2_0"
+            },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#ResourceBlock.v1_2_0.ResourceBlock"
+    "release": "2018.3",
+    "title": "#ResourceBlock.v1_3_0.ResourceBlock"
 }

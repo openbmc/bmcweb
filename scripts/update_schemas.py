@@ -19,7 +19,7 @@ proxies = {
 }
 
 r = requests.get('https://www.dmtf.org/sites/default/files/standards/documents/'
-                 'DSP8010_2018.2.zip', proxies=proxies)
+                 'DSP8010_2018.3.zip', proxies=proxies)
 
 r.raise_for_status()
 
@@ -59,7 +59,7 @@ with open(metadata_index_path, 'w') as metadata_index:
         "<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\" Version=\"4.0\">\n")
 
     for zip_filepath in zip_ref.namelist():
-        if zip_filepath.startswith('csdl/') & (zip_filepath != "csdl/"):
+        if zip_filepath.startswith('DSP8010_2018.3/csdl/') & (zip_filepath != "DSP8010_2018.3/csdl/"):
             filename = os.path.basename(zip_filepath)
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
 
@@ -91,11 +91,18 @@ with open(metadata_index_path, 'w') as metadata_index:
         </Schema>
     </edmx:DataServices>
 """)
+    #TODO:Issue#32 There's a bug in the script that currently deletes this
+    #schema (because it's an OEM schema). Because it's the only one, and we
+    #don't update schemas very often, we just manually fix it. Need a
+    #permanent fix to the script.
+    metadata_index.write("    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\"/>\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemManager\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
     metadata_index.write("</edmx:Edmx>\n")
 
 schema_files = {}
 for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith('json-schema/'):
+    if zip_filepath.startswith('DSP8010_2018.3/json-schema/'):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
         if len(filenamesplit) == 3:
@@ -111,31 +118,28 @@ for zip_filepath in zip_ref.namelist():
 
 for schema, version in schema_files.items():
     basename = schema + "." + version + ".json"
-    zip_filepath = os.path.join("json-schema", basename)
+    zip_filepath = os.path.join("DSP8010_2018.3/json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
+    location_json = OrderedDict()
+    location_json["Language"] = "en"
+    location_json["PublicationUri"] = (
+        "http://redfish.dmtf.org/schemas/v1/" + schema + ".json")
+    location_json["Uri"] = (
+        "/redfish/v1/JSONSchemas/" + schema + "/" + schema + ".json")
 
-    index_json = {
-        "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-        "@odata.id": "/redfish/v1/JSONSchemas/" + schema,
-        "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-        "Name": schema + " Schema File",
-        "Schema": "#" + schema + "." + schema,
-        "Description": schema + " Schema File Location",
-        "Id": schema,
-        "Languages": [
-            "en"
-        ],
-        "Languages@odata.count": 1,
-        "Location": [
-            {
-                "Language": "en",
-                "PublicationUri": "http://redfish.dmtf.org/schemas/v1/" + schema + ".json",
-                "Uri": "/redfish/v1/JSONSchemas/" + schema + "/" + schema + ".json"
-            }
-        ],
-        "Location@odata.count": 1,
-    }
+    index_json = OrderedDict()
+    index_json["@odata.context"] = "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
+    index_json["@odata.id"] = "/redfish/v1/JSONSchemas/" + schema
+    index_json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile"
+    index_json["Name"] = schema + " Schema File"
+    index_json["Schema"] = "#" + schema + "." + schema
+    index_json["Description"] =  schema + " Schema File Location"
+    index_json["Id"] = schema
+    index_json["Languages"] = [ "en" ]
+    index_json["Languages@odata.count"] = 1
+    index_json["Location"] = [ location_json ]
+    index_json["Location@odata.count"] = 1
 
     with open(os.path.join(schemadir, "index.json"), 'w') as schema_file:
         json.dump(index_json, schema_file, indent=4)

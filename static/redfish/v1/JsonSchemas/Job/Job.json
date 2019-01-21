@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Job.v1_0_1.json",
     "$ref": "#/definitions/Job",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -153,7 +154,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "units": "%"
                 },
                 "Schedule": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Schedule.json#/definitions/Schedule",
@@ -312,5 +314,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Job.v1_0_0.Job"
+    "release": "2018.2",
+    "title": "#Job.v1_0_1.Job"
 }

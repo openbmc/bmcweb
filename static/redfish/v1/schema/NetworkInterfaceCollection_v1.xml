@@ -54,6 +54,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/NetworkInterfaces</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/NetworkInterfaces</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(NetworkInterface.NetworkInterface)">

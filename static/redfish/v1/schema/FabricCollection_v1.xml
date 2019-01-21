@@ -51,7 +51,7 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
-            <String>/redfish/v1/Fabrics/{FabricId}</String>
+            <String>/redfish/v1/Fabrics</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Fabric.Fabric)">

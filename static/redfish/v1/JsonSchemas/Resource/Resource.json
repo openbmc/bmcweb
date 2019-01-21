@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_8_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -28,7 +29,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "EmailAddress": {
                     "description": "Email address for this contact.",
@@ -37,7 +39,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "PhoneNumber": {
                     "description": "Phone number for this contact.",
@@ -46,7 +49,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_7_0"
                 }
             },
             "type": "object"
@@ -79,18 +83,9 @@
                 "UUID": "This durable name shall be the hexadecimal representation of the Universal Unique Identifier as defined in the Internation Telecom Union's OSI networking and system aspects - Naming, Addressing and Registration Specification.",
                 "iQN": "This durable name shall be in the iSCSI Qualified Name format as defined in RFC 3720 and RFC 3721."
             },
-            "type": "string"
-        },
-        "Health": {
-            "enum": [
-                "OK",
-                "Warning",
-                "Critical"
-            ],
-            "enumDescriptions": {
-                "Critical": "A critical condition exists that requires immediate attention.",
-                "OK": "Normal.",
-                "Warning": "A condition exists that requires attention."
+            "enumVersionAdded": {
+                "NQN": "v1_6_0",
+                "NSID": "v1_6_0"
             },
             "type": "string"
         },
@@ -120,7 +115,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "DurableNameFormat": {
                     "anyOf": [
@@ -133,29 +129,11 @@
                     ],
                     "description": "This represents the format of the DurableName property.",
                     "longDescription": "This property shall represent the format of the DurableName property.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
-        },
-        "IndicatorLED": {
-            "deprecated": "This definition has been moved to the unversioned namespace so that external references can pick up changes over time.",
-            "enum": [
-                "Lit",
-                "Blinking",
-                "Off"
-            ],
-            "enumDescriptions": {
-                "Blinking": "The Indicator LED is blinking.",
-                "Lit": "The Indicator LED is lit.",
-                "Off": "The Indicator LED is off."
-            },
-            "enumLongDescriptions": {
-                "Blinking": "This value shall represent the Indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
-                "Lit": "This value shall represent the Indicator LED is in a solid on state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
-                "Off": "This value shall represent the Indicator LED is in a solid off state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."
-            },
-            "type": "string"
         },
         "Location": {
             "additionalProperties": false,
@@ -184,7 +162,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "m"
+                    "units": "m",
+                    "versionAdded": "v1_6_0"
                 },
                 "Contacts": {
                     "description": "Array of contact information.",
@@ -199,27 +178,28 @@
                         ]
                     },
                     "longDescription": "The value shall contain contact information used to obtain more information from an individual or organization responsible for this resource.",
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_7_0"
                 },
                 "Info": {
-                    "deprecated": "This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location.",
                     "description": "This indicates the location of the resource.",
                     "longDescription": "This property shall represent the location of the resource.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "InfoFormat": {
-                    "deprecated": "This property has been Deprecated in favor of new properties defined in Resource.v1_3_0.Location and Resource.v1_5_0.Location.",
                     "description": "This represents the format of the Info property.",
                     "longDescription": "This property shall represent the format of the Info property.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Latitude": {
                     "description": "The latitude resource.",
@@ -229,7 +209,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "deg"
+                    "units": "deg",
+                    "versionAdded": "v1_6_0"
                 },
                 "Longitude": {
                     "description": "The longitude resource in degrees.",
@@ -239,12 +220,14 @@
                         "number",
                         "null"
                     ],
-                    "units": "deg"
+                    "units": "deg",
+                    "versionAdded": "v1_6_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_1_0"
                 },
                 "PartLocation": {
                     "anyOf": [
@@ -256,7 +239,8 @@
                         }
                     ],
                     "description": "The part location within the placement.",
-                    "longDescription": "The value shall describe a location within a resource.  This representation shall be used to indicate the location within the Placement."
+                    "longDescription": "The value shall describe a location within a resource.  This representation shall be used to indicate the location within the Placement.",
+                    "versionAdded": "v1_5_0"
                 },
                 "Placement": {
                     "anyOf": [
@@ -268,7 +252,8 @@
                         }
                     ],
                     "description": "A place within the addressed location.",
-                    "longDescription": "The value shall be a place within the addressed location."
+                    "longDescription": "The value shall be a place within the addressed location.",
+                    "versionAdded": "v1_3_0"
                 },
                 "PostalAddress": {
                     "anyOf": [
@@ -280,7 +265,8 @@
                         }
                     ],
                     "description": "Postal address of the addressed resource.",
-                    "longDescription": "The value shall be a postal address of the resource."
+                    "longDescription": "The value shall be a postal address of the resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -363,7 +349,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "LocationType": {
                     "anyOf": [
@@ -376,7 +363,8 @@
                     ],
                     "description": "The type of location of the part, such as slot, bay, socket and slot.",
                     "longDescription": "The value shall be a LocationType enumeration literal indicating the type of rack units in use.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "Orientation": {
                     "anyOf": [
@@ -389,7 +377,8 @@
                     ],
                     "description": "The orientation for the ordering of the slot enumeration used by the LocationOrdinalValue property.",
                     "longDescription": "The value shall be a Orientation enumeration literal indicating the orientation for the ordering used by the LocationOrdinalValue property.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "Reference": {
                     "anyOf": [
@@ -402,7 +391,8 @@
                     ],
                     "description": "The reference point for the part location.  This is used to give guidance as to the general location of the part.",
                     "longDescription": "The value shall be a Reference enumeration literal indicating the general location within the unit of the part.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "ServiceLabel": {
                     "description": "This is the label of the part location, such as a silk screened name or a printed label.",
@@ -411,7 +401,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 }
             },
             "type": "object"
@@ -442,7 +433,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "Rack": {
                     "description": "Name of a rack location within a row.",
@@ -451,7 +443,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RackOffset": {
                     "description": "Vertical location of the item in terms of RackOffsetUnits.",
@@ -460,7 +453,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RackOffsetUnits": {
                     "anyOf": [
@@ -473,7 +467,8 @@
                     ],
                     "description": "The type of Rack Units in use.",
                     "longDescription": "The value shall be a RackUnit enumeration literal indicating the type of rack units in use.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionAdded": "v1_3_0"
                 },
                 "Row": {
                     "description": "Name of row.",
@@ -482,7 +477,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -513,7 +509,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "AdditionalInfo": {
                     "description": "Room designation or other additional info.",
@@ -522,7 +519,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "Building": {
                     "description": "Name of the building.",
@@ -531,7 +529,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "City": {
                     "description": "City, township, or shi (JP).",
@@ -540,7 +539,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Community": {
                     "description": "Postal community name.",
@@ -549,7 +549,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Country": {
                     "description": "Country.",
@@ -558,7 +559,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "District": {
                     "description": "A county, parish, gun (JP), or  district (IN).",
@@ -567,7 +569,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Division": {
                     "description": "City division, borough, dity district, ward, chou (JP).",
@@ -576,7 +579,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Floor": {
                     "description": "Floor.",
@@ -585,17 +589,18 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "GPSCoords": {
-                    "deprecated": "This property has been Deprecated in favor of Location.v1_6_0.Longitude and Location.v1_6_0.Latitude",
                     "description": "The GPS coordinates of the part.",
                     "longDescription": "The value shall conform the requirements of the ADDCODE field as defined in RFC5139. The value shall be the GPS coordinates of the location. If furnished, this shall be expressed in the format '[-][nn]n.nnnnnn, [-][nn]n.nnnnn', i.e. two numbers, either positive or negative, with six decimal places of precision, comma-separated.",
                     "readonly": false,
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "HouseNumber": {
                     "description": "Numeric portion of house number.",
@@ -604,7 +609,8 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "HouseNumberSuffix": {
                     "description": "House number suffix.",
@@ -613,7 +619,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Landmark": {
                     "description": "Landmark.",
@@ -622,7 +629,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "LeadingStreetDirection": {
                     "description": "A leading street direction.",
@@ -631,17 +639,18 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Location": {
-                    "deprecated": "This property has been Deprecated in favor of the property AdditionalInfo found in the 1.7.0 definition of PostalAddress.",
                     "description": "Room designation or other additional info.",
                     "longDescription": "The value shall conform the requirements of the LOC field as defined in RFC5139.  It is used to provide additional information.",
                     "readonly": false,
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Name": {
                     "description": "Name.",
@@ -650,7 +659,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Neighborhood": {
                     "description": "Neighborhood or block.",
@@ -659,7 +669,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "POBox": {
                     "description": "Post office box (P.O. box).",
@@ -668,7 +679,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "PlaceType": {
                     "description": "A description of the type of place that is addressed.",
@@ -677,7 +689,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "PostalCode": {
                     "description": "Postal code (or zip code).",
@@ -686,7 +699,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Road": {
                     "description": "A primary road or street.",
@@ -695,7 +709,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RoadBranch": {
                     "description": "Road branch.",
@@ -704,7 +719,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RoadPostModifier": {
                     "description": "Road post-modifier.",
@@ -713,7 +729,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RoadPreModifier": {
                     "description": "Road pre-modifier.",
@@ -722,7 +739,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RoadSection": {
                     "description": "Road Section.",
@@ -731,7 +749,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "RoadSubBranch": {
                     "description": "Road sub branch.",
@@ -740,7 +759,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Room": {
                     "description": "Name or number of the room.",
@@ -749,7 +769,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Seat": {
                     "description": "Seat (desk, cubicle, workstation).",
@@ -758,7 +779,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Street": {
                     "description": "Street name.",
@@ -767,7 +789,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "StreetSuffix": {
                     "description": "Avenue, Platz, Street, Circle.",
@@ -776,7 +799,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Territory": {
                     "description": "A top-level subdivision within a country.",
@@ -785,7 +809,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "TrailingStreetSuffix": {
                     "description": "A trailing street suffix.",
@@ -794,7 +819,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "Unit": {
                     "description": "Name or number of the unit (apartment, suite).",
@@ -803,26 +829,11 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
-        },
-        "PowerState": {
-            "deprecated": "This definition has been moved to the unversioned namespace so that external references can pick up changes over time.",
-            "enum": [
-                "On",
-                "Off",
-                "PoweringOn",
-                "PoweringOff"
-            ],
-            "enumDescriptions": {
-                "Off": "The state is powered Off.",
-                "On": "The state is powered On.",
-                "PoweringOff": "A temporary state between On and Off.",
-                "PoweringOn": "A temporary state between Off and On."
-            },
-            "type": "string"
         },
         "RackUnits": {
             "description": "Defines a rack unit.",
@@ -912,31 +923,6 @@
                 "@odata.id"
             ],
             "type": "object"
-        },
-        "ResetType": {
-            "enum": [
-                "On",
-                "ForceOff",
-                "GracefulShutdown",
-                "GracefulRestart",
-                "ForceRestart",
-                "Nmi",
-                "ForceOn",
-                "PushPowerButton",
-                "PowerCycle"
-            ],
-            "enumDescriptions": {
-                "ForceOff": "Turn the unit off immediately (non-graceful shutdown).",
-                "ForceOn": "Turn the unit on immediately.",
-                "ForceRestart": "Perform an immediate (non-graceful) shutdown, followed by a restart.",
-                "GracefulRestart": "Perform a graceful shutdown followed by a restart of the system.",
-                "GracefulShutdown": "Perform a graceful shutdown and power off.",
-                "Nmi": "Generate a Diagnostic Interrupt (usually an NMI on x86 systems) to cease normal operations, perform diagnostic actions and typically halt the system.",
-                "On": "Turn the unit on.",
-                "PowerCycle": "Perform a power cycle of the unit.",
-                "PushPowerButton": "Simulate the pressing of the physical power button on this unit."
-            },
-            "type": "string"
         },
         "Resource": {
             "additionalProperties": false,
@@ -1057,37 +1043,9 @@
                 "@odata.type"
             ],
             "type": "object"
-        },
-        "State": {
-            "enum": [
-                "Enabled",
-                "Disabled",
-                "StandbyOffline",
-                "StandbySpare",
-                "InTest",
-                "Starting",
-                "Absent",
-                "UnavailableOffline",
-                "Deferring",
-                "Quiesced",
-                "Updating"
-            ],
-            "enumDescriptions": {
-                "Absent": "This function or resource is not present or not detected.",
-                "Deferring": "The element will not process any commands but will queue new requests.",
-                "Disabled": "This function or resource has been disabled.",
-                "Enabled": "This function or resource has been enabled.",
-                "InTest": "This function or resource is undergoing testing.",
-                "Quiesced": "The element is enabled but only processes a restricted set of commands.",
-                "StandbyOffline": "This function or resource is enabled, but awaiting an external action to activate it.",
-                "StandbySpare": "This function or resource is part of a redundancy set and is awaiting a failover or other external action to activate it.",
-                "Starting": "This function or resource is starting.",
-                "UnavailableOffline": "This function or resource is present but cannot be used.",
-                "Updating": "The element is updating and may be unavailable or degraded."
-            },
-            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Resource.v1_7_0"
+    "release": "2018.3",
+    "title": "#Resource.v1_8_0"
 }

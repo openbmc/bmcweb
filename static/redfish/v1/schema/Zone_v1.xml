@@ -69,6 +69,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="Zone" BaseType="Zone.Zone">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
@@ -119,6 +120,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Zone" BaseType="Zone.v1_0_2.Zone">
         <Property Name="Actions" Type="Zone.v1_1_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this resource."/>
@@ -166,6 +168,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Zone.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="Zone" BaseType="Zone.v1_1_1.Zone">
         <Property Name="Identifiers" Type="Collection(Resource.Identifier)">
           <Annotation Term="OData.Description" String="Identifiers for this zone."/>

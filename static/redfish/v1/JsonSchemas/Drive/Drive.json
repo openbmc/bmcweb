@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_5_1.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -73,7 +74,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "A reference to the Assembly resource associated with this drive.",
                     "longDescription": "The value of this property shall be a link to a resource of type Assembly.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
                 },
                 "AssetTag": {
                     "description": "The user assigned asset tag for this drive.",
@@ -171,7 +173,8 @@
                     ],
                     "description": "The replacement mode for the hotspare drive.",
                     "longDescription": "This property shall specify if a commissioned hotspare will continue to serve as a hotspare once the failed drive is replaced.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
                 },
                 "HotspareType": {
                     "anyOf": [
@@ -217,7 +220,6 @@
                     "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
                 },
                 "Location": {
-                    "deprecated": "This property has been Deprecated in favor of the singular property PhysicalLocation found in Drive.v1_4_0.",
                     "description": "The Location of the drive.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location"
@@ -281,7 +283,8 @@
                         "$ref": "#/definitions/Operations"
                     },
                     "longDescription": "This property shall contain a list of all operations currently running on the Drive.",
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 },
                 "PartNumber": {
                     "description": "The part number for this drive.",
@@ -295,7 +298,8 @@
                 "PhysicalLocation": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The Location of the drive.",
-                    "longDescription": "This property shall contain location information of the associated drive."
+                    "longDescription": "This property shall contain location information of the associated drive.",
+                    "versionAdded": "v1_4_0"
                 },
                 "PredictedMediaLifeLeftPercent": {
                     "description": "The percentage of reads and writes that are predicted to still be available for the media.",
@@ -415,6 +419,12 @@
                 "Unencrypted": "The drive is not currently encrypted.",
                 "Unlocked": "The drive is currently encrypted but the data is accessible to the user unencrypted."
             },
+            "enumVersionAdded": {
+                "Unencrypted": "v1_1_0"
+            },
+            "enumVersionDeprecated": {
+                "Unecrypted": "v1_1_0"
+            },
             "type": "string"
         },
         "HotspareReplacementModeType": {
@@ -466,7 +476,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "A reference to the Chassis which contains this Drive.",
                     "longDescription": "The value of this property shall be a reference to a resource of type Chassis that represent the physical container associated with this Drive.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
                 },
                 "Endpoints": {
                     "description": "An array of references to the endpoints that connect to this drive.",
@@ -475,7 +486,8 @@
                     },
                     "longDescription": "The value of this property shall be a reference to the resources that this drive is associated with and shall reference a resource of type Endpoint.",
                     "readonly": true,
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 },
                 "Endpoints@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
@@ -488,7 +500,7 @@
                 "Volumes": {
                     "description": "An array of references to the volumes contained in this drive. This will reference Volumes that are either wholly or only partly contained by this drive.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/Volume.json#/definitions/Volume"
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/Volume"
                     },
                     "longDescription": "The value of this property shall be a reference to the resources that this drive is associated with and shall reference a resource of type Volume. This shall include all Volume resources of which this Drive is a member and all Volumes for which this Drive is acting as a spare if the HotspareType is Dedicated.",
                     "readonly": true,
@@ -557,7 +569,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Task.json#/definitions/Task",
                     "description": "A reference to the task associated with the operation if any.",
                     "longDescription": "The value of this property shall be a reference to a resource of type Task that represents the task associated with the operation.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "OperationName": {
                     "description": "The name of the operation.",
@@ -566,7 +579,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "PercentageComplete": {
                     "description": "The percentage of the operation that has been completed.",
@@ -576,7 +590,8 @@
                         "integer",
                         "null"
                     ],
-                    "units": "%"
+                    "units": "%",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -636,5 +651,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Drive.v1_5_0.Drive"
+    "release": "2018.2",
+    "title": "#Drive.v1_5_1.Drive"
 }

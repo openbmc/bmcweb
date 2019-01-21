@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_1_0.json",
     "$ref": "#/definitions/TelemetryService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -50,6 +51,77 @@
             "longDescription": "If present, the metric value shall be computed according to this function.",
             "type": "string"
         },
+        "MetricValue": {
+            "additionalProperties": false,
+            "description": "A metric value.",
+            "longDescription": "A metric value in the context of a Metric.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "MetricDefinition": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.json#/definitions/MetricDefinition",
+                    "description": "A link to the Metric Definition.",
+                    "longDescription": "The value shall be reference to the Metric Definition resource that describes what this Metric Report is capturing.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricId": {
+                    "description": "The metric definitions identifier for this metric.",
+                    "longDescription": "The value shall be the same as the Id property of the source metric within the associated MetricDefinition.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricProperty": {
+                    "description": "The URI for the property from which this metric is derived.",
+                    "format": "uri",
+                    "longDescription": "The value shall be URI to the a property following the JSON fragment notation, as defined by RFC6901, to identify an individual property in a Redfish resource.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "MetricValue": {
+                    "description": "The value identifies this resource.",
+                    "longDescription": "The value of the metric represented as a string.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Timestamp": {
+                    "description": "The time when the value of the metric is obtained. A management application may establish a time series of metric data by retrieving the instances of metric value and sorting them according to their Timestamp.",
+                    "format": "date-time",
+                    "longDescription": "The value shall time when the metric value was obtained.  Note that this may be different from the time when this instance is created.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                }
+            },
+            "type": "object"
+        },
         "OemActions": {
             "additionalProperties": true,
             "description": "The available OEM specific actions for this resource.",
@@ -76,6 +148,16 @@
             "description": "This action is used to generate a metric report.",
             "longDescription": "This action shall cause the event service to immediately generate the metric report, as an Alert Event. This message should then be sent to any appropriate ListenerDestination targets.",
             "parameters": {
+                "GeneratedMetricReportValues": {
+                    "description": "The content of the MetricReportValues in the generated metric report.",
+                    "items": {
+                        "$ref": "#/definitions/MetricValue"
+                    },
+                    "longDescription": "This parameter shall contain the contents of the MetricReportValues array property in the generated metric report.",
+                    "requiredParameter": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
                 "MetricReportName": {
                     "description": "The Name property of the metric report in generated metric report.",
                     "longDescription": "This parameter shall be the value of the Name property in the generated metric report.",
@@ -83,10 +165,11 @@
                     "type": "string"
                 },
                 "MetricReportValues": {
+                    "deprecated": "This property has been Deprecated in favor of using the property 'GeneratedMetricReportValues'.",
                     "description": "The content of MetricReportValues array in generated metric report.",
                     "longDescription": "This parameter shall contain the contents of the MetricReportValues array property in the generated metric report.",
-                    "requiredParameter": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionDeprecated": "v1_1_0"
                 }
             },
             "patternProperties": {
@@ -257,5 +340,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#TelemetryService.v1_0_0.TelemetryService"
+    "release": "2018.3",
+    "title": "#TelemetryService.v1_1_0.TelemetryService"
 }
