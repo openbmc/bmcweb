@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MetricReportDefinition  v1.0.0-->
+<!--# Redfish Schema:  MetricReportDefinition  v1.1.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -65,6 +65,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
 
       <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.MetricReportDefinition">
         <Property Name="MetricReportDefinitionType" Type="MetricReportDefinition.v1_0_0.MetricReportDefinitionType">
@@ -97,13 +98,13 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <Property Name="Wildcards" Type="Collection(MetricReportDefinition.v1_0_0.Wildcard)">
-          <Annotation Term="OData.Description" String="Specifies the strings used to replace wildcards in the paths in MetricProperties array property."/>
-          <Annotation Term="OData.LongDescription" String="The property shall specify an array of strings used to replace wildcards in the paths in the MetricProperties array property."/>
+          <Annotation Term="OData.Description" String="A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property."/>
         </Property>
         <Property Name="MetricProperties" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Specifies a list of metric properties to include in the metric report."/>
-          <Annotation Term="OData.LongDescription" String="This property shall specify the metric properties to include in the metric report.  Each entry shall be a URI, and may contain wildcards.  The wildcards shall be enclosed by curly braces.  The list of metric properties to include shall be constructed by replacing wildcards with the value in the Wildcard property.  Property identifiers in the URI shall follow JSON fragment notation rules defined by RFC6901."/>
+          <Annotation Term="OData.Description" String="A list of URIs with wildcards and property identifiers to include in the metric report. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property."/>
+          <Annotation Term="OData.LongDescription" String="This array property shall contain a list of URIs with wildcards and property identifiers to include in the metric report. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property to include in the metric report. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Metrics" Type="Collection(MetricReportDefinition.v1_0_0.Metric)">
@@ -125,17 +126,26 @@
 
       <ComplexType Name="Wildcard">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Contains a list of wildcards and their substitution values."/>
-        <Annotation Term="OData.LongDescription" String="Each wildcard shall have a corresponding entry in this list element.  Each entry shall specified the wildcard and its substitution values."/>
+        <Annotation Term="OData.Description" String="Contains a wildcard and its substitution values."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain a wildcard and its substitution values."/>
         <Property Name="Name" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The name of Wildcard."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a name for a Wildcard for a key."/>
+          <Annotation Term="OData.Description" String="The string used as a wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the string used as a wildcard."/>
         </Property>
         <Property Name="Keys" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of Key values to substitute for the wildcard."/>
-          <Annotation Term="OData.LongDescription" String="If the value is an empty string, then the server shall substitute every current key.  Each not empty key value shall be substituted for the wildcard."/>
+          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of values to substitute for the wildcard."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been Deprecated in favor of using the property 'Values'."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
       </ComplexType>
 
@@ -265,6 +275,26 @@
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify descriptions of several properties."/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_0.MetricReportDefinition"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MetricReportDefinition.v1_1_0">
+      <Annotation Term="OData.Description" String="This version was created to add the Values property to the Wildcard property."/>
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="MetricReportDefinition" BaseType="MetricReportDefinition.v1_0_1.MetricReportDefinition"/>
+      <ComplexType Name="Wildcard" BaseType="MetricReportDefinition.v1_0_0.Wildcard">
+        <Property Name="Values" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of values to substitute for the wildcard."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of values to substitute for the wildcard."/>
+        </Property>
       </ComplexType>
     </Schema>
 

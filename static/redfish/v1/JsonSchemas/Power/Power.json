@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Power.v1_5_2.json",
     "$ref": "#/definitions/Power",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -60,7 +62,8 @@
                     ],
                     "description": "The Input type (AC or DC).",
                     "longDescription": "This property shall contain the input type (AC or DC) of the associated range.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "MaximumFrequencyHz": {
                     "description": "The maximum line input frequency at which this power supply input range is effective.",
@@ -71,7 +74,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "Hz"
+                    "units": "Hz",
+                    "versionAdded": "v1_1_0"
                 },
                 "MaximumVoltage": {
                     "description": "The maximum line input voltage at which this power supply input range is effective.",
@@ -81,7 +85,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "V"
+                    "units": "V",
+                    "versionAdded": "v1_1_0"
                 },
                 "MinimumFrequencyHz": {
                     "description": "The minimum line input frequency at which this power supply input range is effective.",
@@ -92,7 +97,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "Hz"
+                    "units": "Hz",
+                    "versionAdded": "v1_1_0"
                 },
                 "MinimumVoltage": {
                     "description": "The minimum line input voltage at which this power supply input range is effective.",
@@ -102,12 +108,14 @@
                         "number",
                         "null"
                     ],
-                    "units": "V"
+                    "units": "V",
+                    "versionAdded": "v1_1_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "versionAdded": "v1_1_0"
                 },
                 "OutputWattage": {
                     "description": "The maximum capacity of this Power Supply when operating in this input range.",
@@ -118,7 +126,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "W"
+                    "units": "W",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -167,6 +176,19 @@
                 "DC380V": "High Voltage DC input (380V).",
                 "DCNeg48V": "-48V DC input.",
                 "Unknown": "The power supply line input voltage type cannot be determined."
+            },
+            "enumVersionAdded": {
+                "AC120V": "v1_1_0",
+                "AC240V": "v1_1_0",
+                "AC277V": "v1_1_0",
+                "ACWideRange": "v1_1_0",
+                "ACandDCWideRange": "v1_1_0",
+                "DC240V": "v1_1_0"
+            },
+            "enumVersionDeprecated": {
+                "ACHighLine": "v1_1_0",
+                "ACLowLine": "v1_1_0",
+                "ACMidLine": "v1_1_0"
             },
             "type": "string"
         },
@@ -225,7 +247,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -331,7 +354,8 @@
                 "Actions": {
                     "$ref": "#/definitions/PowerControlActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "MemberId": {
                     "description": "This is the identifier for the member within the collection.",
@@ -357,7 +381,8 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PhysicalContext.json#/definitions/PhysicalContext",
                     "description": "Describes the area, device, or set of devices to which this power control applies.",
                     "longDescription": "The value of this property shall be a description of the affected device(s) or region within the chassis to which this power control applies.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
                 },
                 "PowerAllocatedWatts": {
                     "description": "The total amount of power that has been allocated (or budegeted)to  chassis resources.",
@@ -411,7 +436,7 @@
                 "PowerMetrics": {
                     "$ref": "#/definitions/PowerMetric",
                     "description": "Power readings for this chassis.",
-                    "longDescription": "This object shall contain power metrics for power readings (interval, min/max/ave power consumption) for the chassis."
+                    "longDescription": "This object shall contain power metrics for power readings (interval, minimum/maximum/average power consumption) for the chassis."
                 },
                 "PowerRequestedWatts": {
                     "description": "The potential power that the chassis resources are requesting which may be higher than the current level being consumed since requested power includes budget that the chassis resource wants for future use.",
@@ -470,7 +495,8 @@
                 "Oem": {
                     "$ref": "#/definitions/PowerControlOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -570,7 +596,7 @@
         "PowerMetric": {
             "additionalProperties": false,
             "description": "This type describe the power metrics for a resource.",
-            "longDescription": "This type shall contain power metrics for power readings (interval, min/max/ave power consumption) for a resource.",
+            "longDescription": "This type shall contain power metrics for power readings (interval, minimum/maximum/average power consumption) for a resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -657,13 +683,15 @@
                 "Actions": {
                     "$ref": "#/definitions/PowerSupplyActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "A reference to the Assembly resource associated with this power supply.",
                     "longDescription": "The value of this property shall be a link to a resource of type Assembly.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_5_0"
                 },
                 "EfficiencyPercent": {
                     "description": "The measured efficiency of this Power Supply as a percentage.",
@@ -675,7 +703,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "%"
+                    "units": "%",
+                    "versionAdded": "v1_5_0"
                 },
                 "FirmwareVersion": {
                     "description": "The firmware version for this Power Supply.",
@@ -693,7 +722,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_5_0"
                 },
                 "IndicatorLED": {
                     "anyOf": [
@@ -706,7 +736,8 @@
                     ],
                     "description": "The state of the indicator LED, used to identify the power supply.",
                     "longDescription": "The value of this property shall contain the indicator light state for the indicator light associated with this power supply.",
-                    "readonly": false
+                    "readonly": false,
+                    "versionAdded": "v1_2_0"
                 },
                 "InputRanges": {
                     "description": "This is the input ranges that the power supply can use.",
@@ -714,7 +745,8 @@
                         "$ref": "#/definitions/InputRange"
                     },
                     "longDescription": "The value of this property shall be a collection of ranges usable by the power supply unit.",
-                    "type": "array"
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
                 },
                 "LastPowerOutputWatts": {
                     "description": "The average power output of this Power Supply.",
@@ -753,7 +785,8 @@
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
                     "description": "The Location of the power supply.",
-                    "longDescription": "This property shall contain location information of the associated power supply."
+                    "longDescription": "This property shall contain location information of the associated power supply.",
+                    "versionAdded": "v1_5_0"
                 },
                 "Manufacturer": {
                     "description": "This is the manufacturer of this power supply.",
@@ -762,7 +795,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "MemberId": {
                     "description": "This is the identifier for the member within the collection.",
@@ -822,7 +856,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "W"
+                    "units": "W",
+                    "versionAdded": "v1_5_0"
                 },
                 "PowerOutputWatts": {
                     "description": "The measured output power of this Power Supply.",
@@ -833,7 +868,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "W"
+                    "units": "W",
+                    "versionAdded": "v1_5_0"
                 },
                 "PowerSupplyType": {
                     "anyOf": [
@@ -922,7 +958,8 @@
                 "Oem": {
                     "$ref": "#/definitions/PowerSupplyOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -986,7 +1023,8 @@
                 "Actions": {
                     "$ref": "#/definitions/VoltageActions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "LowerThresholdCritical": {
                     "description": "Below normal range but not yet fatal.",
@@ -1159,7 +1197,8 @@
                 "Oem": {
                     "$ref": "#/definitions/VoltageOemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "type": "object"
@@ -1187,5 +1226,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Power.v1_5_1.Power"
+    "release": "2017.3",
+    "title": "#Power.v1_5_2.Power"
 }

@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_4_1.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_2_0"
                 }
             },
             "type": "object"
@@ -110,7 +112,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
                 },
                 "Created": {
                     "description": "The time the log entry was created.",
@@ -156,27 +159,30 @@
                     "type": [
                         "integer",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_4_0"
                 },
                 "EventId": {
                     "description": "This is a unique instance identifier of an event.",
                     "longDescription": "If present, this LogEntry records an Event and the value shall indicate a unique identifier for the event, the format of which is implementation dependent.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
                 },
                 "EventTimestamp": {
                     "description": "This is time the event occurred.",
                     "format": "date-time",
                     "longDescription": "If present, this LogEntry records an Event and the value shall be the time the event occurred.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionAdded": "v1_1_0"
                 },
                 "EventType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
-                    "deprecated": "This property has been deprecated.  Starting Redfish Spec 1.6 (Event 1.3), subscriptions are based on RegistryId and ResourceType and not EventType.",
                     "description": "This indicates the type of an event recorded in this log.",
                     "longDescription": "If present, this LogEntry records an Event and the value shall indicate the type of event.",
-                    "readonly": true
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -227,7 +233,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "OemRecordFormat": {
                     "description": "If the EntryType is Oem, this will contain more information about the record format from the Oem.",
@@ -245,7 +252,8 @@
                     "type": [
                         "string",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_3_0"
                 },
                 "SensorNumber": {
                     "description": "This property decodes from EntryType.  If the EntryType is SEL, it is the sensor number.  If the EntryType is Event, then the count of events.  Otherwise, it is OEM specific.",
@@ -420,6 +428,9 @@
                 "Upper Non-recoverable - going high": "The reading crossed the Upper Non-recoverable threshold while going high.",
                 "Upper Non-recoverable - going low": "The reading crossed the Upper Non-recoverable threshold while going low."
             },
+            "enumVersionAdded": {
+                "OEM": "v1_3_0"
+            },
             "type": "string"
         },
         "LogEntryType": {
@@ -549,9 +560,13 @@
                 "Voltage": "A voltage sensor.",
                 "Watchdog": "A sensor for a watchdog event."
             },
+            "enumVersionAdded": {
+                "OEM": "v1_3_0"
+            },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#LogEntry.v1_4_0.LogEntry"
+    "release": "2018.2",
+    "title": "#LogEntry.v1_4_1.LogEntry"
 }

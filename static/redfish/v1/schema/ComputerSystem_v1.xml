@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem  v1.5.1-->
+<!--# Redfish Schema:  ComputerSystem  v1.6.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -116,6 +116,7 @@
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -134,6 +135,66 @@
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Annotation Term="OData.Description" String="This action is used to set the Boot Order to the default settings."/>
         <Annotation Term="OData.LongDescription" String="This action shall perform a set the BootOrder to the default values."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_5_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="AddResourceBlock" IsBound="true">
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
+          <Annotation Term="OData.Description" String="The Resource Block to add to the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a link to the specified Resource Block to add to the system."/>
+        </Parameter>
+        <Parameter Name="ResourceBlockETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the Resource Block to add to the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a the current ETag of the Resource Block to add to the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the Resource Block specified by the ResourceBlock parameter."/>
+        </Parameter>
+        <Parameter Name="ComputerSystemETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a the current ETag of the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the system."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="This action is used to add a Resource Block to a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall be used to add a Resource Block to a system."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="RemoveResourceBlock" IsBound="true">
+        <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
+        <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
+          <Annotation Term="OData.Description" String="The Resource Block to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a link to the specified Resource Block to remove from the system."/>
+        </Parameter>
+        <Parameter Name="ResourceBlockETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the Resource Block to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a the current ETag of the Resource Block to remove from the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the Resource Block specified by the ResourceBlock parameter."/>
+        </Parameter>
+        <Parameter Name="ComputerSystemETag" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The current ETag of the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall be a the current ETag of the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the system."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="This action is used to remove a Resource Block from a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall be used to remove a Resource Block from a system."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <EnumType Name="BootSource">
@@ -172,15 +233,47 @@
         </Member>
         <Member Name="SDCard">
           <Annotation Term="OData.Description" String="Boot from an SD Card."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="UefiHttp">
           <Annotation Term="OData.Description" String="Boot from a UEFI HTTP network location."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="RemoteDrive">
           <Annotation Term="OData.Description" String="Boot from a remote drive (e.g. iSCSI)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="UefiBootNext">
           <Annotation Term="OData.Description" String="Boot to the UEFI Device specified in the BootNext property."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_5_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -188,6 +281,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.ComputerSystem">
         <Annotation Term="OData.Description" String="This schema defines a computer system and its respective properties.  A computer system represents a machine (physical or virtual) and the local resources such as memory, cpu and other devices that can be accessed from that machine."/>
@@ -371,6 +465,14 @@
         <Member Name="Composed">
           <Annotation Term="OData.Description" String="A computer system that has been created by binding resource blocks together."/>
           <Annotation Term="OData.LongDescription" String="A SystemType of Composed is typically used when representating a single system constructed from disaggregated resource via the Redfish Composition service."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
 
@@ -378,8 +480,16 @@
       <EnumType Name="IndicatorLED">
         <Member Name="Unknown">
           <Annotation Term="OData.Description" String="The state of the Indicator LED cannot be determined."/>
-          <Annotation Term="Redfish.Deprecated" String="This value has been Deprecated in favor of returning null if the state is unknown."/>
           <Annotation Term="OData.LongDescription" String="This value shall represent the Indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This value has been Deprecated in favor of returning null if the state is unknown."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
         <Member Name="Lit">
           <Annotation Term="OData.Description" String="The Indicator LED is lit."/>
@@ -430,55 +540,6 @@
           <Annotation Term="OData.LongDescription" String="The value of this property shall be the UEFI device path of the override boot target. The valid values for this property are specified through the Redfish.AllowableValues annotation. BootSourceOverrideEnabled = Continuous is not supported for UEFI Boot Source Override as this setting is defined in UEFI as a one time boot only. Changes to this property do not alter the BIOS persistent boot order configuration."/>
         </Property>
       </ComplexType>
-
-      <EnumType Name="BootSource">
-        <Annotation Term="Redfish.Deprecated" String="This definition has been moved to the unversioned namespace so that external references can pick up changes over time."/>
-        <Member Name="None">
-          <Annotation Term="OData.Description" String="Boot from the normal boot device."/>
-        </Member>
-        <Member Name="Pxe">
-          <Annotation Term="OData.Description" String="Boot from the Pre-Boot EXecution (PXE) environment."/>
-        </Member>
-        <Member Name="Floppy">
-          <Annotation Term="OData.Description" String="Boot from the floppy disk drive."/>
-        </Member>
-        <Member Name="Cd">
-          <Annotation Term="OData.Description" String="Boot from the CD/DVD disc."/>
-        </Member>
-        <Member Name="Usb">
-          <Annotation Term="OData.Description" String="Boot from a USB device as specified by the system BIOS."/>
-        </Member>
-        <Member Name="Hdd">
-          <Annotation Term="OData.Description" String="Boot from a hard drive."/>
-        </Member>
-        <Member Name="BiosSetup">
-          <Annotation Term="OData.Description" String="Boot to the BIOS Setup Utility."/>
-        </Member>
-        <Member Name="Utilities">
-          <Annotation Term="OData.Description" String="Boot the manufacturer's Utilities program(s)."/>
-        </Member>
-        <Member Name="Diags">
-          <Annotation Term="OData.Description" String="Boot the manufacturer's Diagnostics program."/>
-        </Member>
-        <Member Name="UefiShell">
-          <Annotation Term="OData.Description" String="Boot to the UEFI Shell."/>
-        </Member>
-        <Member Name="UefiTarget">
-          <Annotation Term="OData.Description" String="Boot to the UEFI Device specified in the UefiTargetBootSourceOverride property."/>
-        </Member>
-        <Member Name="SDCard">
-          <Annotation Term="OData.Description" String="Boot from an SD Card."/>
-        </Member>
-        <Member Name="UefiHttp">
-          <Annotation Term="OData.Description" String="Boot from a UEFI HTTP network location."/>
-        </Member>
-        <Member Name="RemoteDrive">
-          <Annotation Term="OData.Description" String="Boot from a remote drive (e.g. iSCSI)."/>
-        </Member>
-        <Member Name="UefiBootNext">
-          <Annotation Term="OData.Description" String="Boot to the UEFI Device specified in the BootNext property."/>
-        </Member>
-      </EnumType>
 
       <EnumType Name="BootSourceOverrideEnabled">
         <Member Name="Disabled">
@@ -580,8 +641,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_2.ComputerSystem">
         <Property Name="TrustedModules" Type="Collection(ComputerSystem.v1_1_0.TrustedModules)" Nullable="false">
@@ -728,8 +796,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_5.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_6.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_1.ComputerSystem">
         <Property Name="HostingRoles" Type="Collection(ComputerSystem.v1_2_0.HostingRole)" Nullable="false">
@@ -830,8 +905,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_4.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_5.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_1.ComputerSystem">
         <NavigationProperty Name="NetworkInterfaces" Type="NetworkInterfaceCollection.NetworkInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -896,8 +978,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_1.ComputerSystem"/>
 
       <ComplexType Name="MemorySummary" BaseType="ComputerSystem.v1_1_0.MemorySummary">
@@ -938,8 +1027,15 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_2.ComputerSystem">
         <NavigationProperty Name="Redundancy" Type="Collection(Redundancy.Redundancy)" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1078,6 +1174,60 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add Units annotations on Memory Summary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number. Additionally, it was created to update the longDescription of several Boot Override properties."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_1.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_2.ComputerSystem">
+        <Property Name="PowerRestorePolicy" Type="ComputerSystem.v1_6_0.PowerRestorePolicyTypes" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The desired power state of the system when power is restored after a power loss."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the desired PowerState of the system when power is applied to the system.  A value of 'LastState' shall return the system to the PowerState it was in when power was lost."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Boot" BaseType="ComputerSystem.v1_5_0.Boot">
+        <Property Name="AliasBootOrder" Type="Collection(ComputerSystem.BootSource)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Ordered array of boot source aliases representing the persistent Boot Order associated with this computer system."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be an ordered array of boot source aliases (of type BootSource) representing the persistent Boot Order of this computer system."/>
+        </Property>
+        <Property Name="BootOrderPropertySelection" Type="ComputerSystem.v1_6_0.BootOrderTypes">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Choice of which boot order property to use when specifying the boot order."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate which boot order property the system uses when specifying the persistent boot order."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="PowerRestorePolicyTypes">
+        <Annotation Term="OData.Description" String="The enumerations of PowerRestorePolicyTypes specify the choice of power state for the system when power is applied."/>
+        <Member Name="AlwaysOn">
+          <Annotation Term="OData.Description" String="The system will always power on when power is applied."/>
+        </Member>
+        <Member Name="AlwaysOff">
+          <Annotation Term="OData.Description" String="The system will always remain powered off when power is applied."/>
+        </Member>
+        <Member Name="LastState">
+          <Annotation Term="OData.Description" String="The system will return to its last power state (on or off) when power is applied."/>
+        </Member>
+      </EnumType>
+	  
+      <EnumType Name="BootOrderTypes">
+        <Annotation Term="OData.Description" String="The enumerations of BootOrderTypes specify the choice of boot order property to use when controller the persistent boot order for this computer system."/>
+        <Member Name="BootOrder">
+          <Annotation Term="OData.Description" String="The system uses the BootOrder property for specifying persistent boot order."/>
+        </Member>
+        <Member Name="AliasBootOrder">
+          <Annotation Term="OData.Description" String="The system uses the AliasBootOrder property for specifying persistent boot order."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

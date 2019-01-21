@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_2_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,7 +26,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -97,7 +99,15 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_1_0"
+                },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "This is a reference to a collection of certificates used for this account.",
+                    "longDescription": "The value of this property shall be a link to a collection of type CertificateCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -198,5 +208,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#ManagerAccount.v1_1_3.ManagerAccount"
+    "release": "2018.3",
+    "title": "#ManagerAccount.v1_2_0.ManagerAccount"
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol  v1.3.0-->
+<!--# Redfish Schema:  ManagerNetworkProtocol  v1.4.0-->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -27,6 +27,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+    <edmx:Include Namespace="CertificateCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -64,6 +67,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.ManagerNetworkProtocol">
         <Property Name="HostName" Type="Edm.String">
@@ -80,7 +84,7 @@
           <Annotation Term="OData.Description" String="Settings for this Manager's HTTP protocol support."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain information for the HTTP protocol settings for the manager. The default value of the Port property should be 80 for compatibility with established client implementations."/>
         </Property>
-        <Property Name="HTTPS" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
+        <Property Name="HTTPS" Type="ManagerNetworkProtocol.v1_0_0.HTTPSProtocol" Nullable="false">
           <Annotation Term="OData.Description" String="Settings for this Manager's HTTPS protocol support."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain information for the HTTPS/SSL protocol settings for this manager. The default value of the Port property should be 443 for compatibility with established client implementations."/>
         </Property>
@@ -157,6 +161,8 @@
         </Property>
       </ComplexType>
 
+      <ComplexType Name="HTTPSProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.Protocol"/>
+
       <EnumType Name="NotifyIPv6Scope">
         <Member Name="Link">
           <Annotation Term="OData.Description" String="SSDP Notify messages are sent to addresses in the IPv6 Local Link scope."/>
@@ -197,6 +203,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_3.ManagerNetworkProtocol">
         <Property Name="DHCP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
           <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv4 protocol support."/>
@@ -219,6 +226,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_1.ManagerNetworkProtocol">
         <Property Name="NTP" Type="ManagerNetworkProtocol.v1_2_0.NTPProtocol" Nullable="false">
           <Annotation Term="OData.Description" String="Settings for this Manager's NTP protocol support."/>
@@ -264,6 +272,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_1.ManagerNetworkProtocol">
         <Property Name="DHCPv6" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
           <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv6 protocol support."/>
@@ -278,6 +287,21 @@
           <Annotation Term="OData.LongDescription" String="This object shall contain information for the Remote Frame Buffer protocol settings for the manager."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2018.3"/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_0.ManagerNetworkProtocol"/>
+
+      <ComplexType Name="HTTPSProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.HTTPSProtocol">
+        <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="This is a reference to a collection of certificates used for HTTPS by this manager."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type CertificateCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

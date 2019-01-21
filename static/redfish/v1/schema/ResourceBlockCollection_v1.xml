@@ -53,6 +53,7 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/CompositionService/ResourceBlocks</String>
+            <String>/redfish/v1/ResourceBlocks</String>
           </Collection>
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(ResourceBlock.ResourceBlock)">

@@ -1,4 +1,5 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_3_2.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -24,7 +25,8 @@
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "versionAdded": "v1_2_0"
                 }
             },
             "type": "object"
@@ -75,7 +77,8 @@
                 "Actions": {
                     "$ref": "#/definitions/Actions",
                     "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "versionAdded": "v1_2_0"
                 },
                 "MaxNumSupported": {
                     "description": "This is the maximum number of members allowable for this particular redundancy group.",
@@ -132,7 +135,8 @@
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "RedundancySet": {
                     "description": "Contains any ids that represent components of this redundancy set.",
@@ -155,7 +159,6 @@
             "required": [
                 "Name",
                 "Mode",
-                "MaxNumSupported",
                 "MinNumNeeded",
                 "Status",
                 "RedundancySet",
@@ -179,9 +182,13 @@
                 "Sharing": "Multiple units contribute or share such that operation will continue, but at a reduced capacity, if one or more units fail.",
                 "Sparing": "One or more spare units are available to take over the function of a failed unit, but takeover is not automatic."
             },
+            "enumVersionAdded": {
+                "NotRedundant": "v1_3_0"
+            },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Redundancy.v1_3_1"
+    "release": "2017.3",
+    "title": "#Redundancy.v1_3_2"
 }
