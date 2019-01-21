@@ -26,7 +26,12 @@ class Power : public Node
 {
   public:
     Power(CrowApp& app) :
-        Node((app), "/redfish/v1/Chassis/<str>/Power/", std::string())
+        Node((app),
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+             "/redfish/v1/Chassis/chassis/Power/")
+#else
+             "/redfish/v1/Chassis/<str>/Power/", std::string())
+#endif
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -41,6 +46,10 @@ class Power : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        const std::string chassis_name = "chassis";
+#else
         if (params.size() != 1)
         {
             res.result(boost::beast::http::status::internal_server_error);
@@ -48,6 +57,7 @@ class Power : public Node
             return;
         }
         const std::string& chassis_name = params[0];
+#endif
 
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassis_name + "/Power";
@@ -55,6 +65,10 @@ class Power : public Node
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        // TODO: Get all sensors
+        res.end();
+#else
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name,
             std::initializer_list<const char*>{
@@ -63,6 +77,7 @@ class Power : public Node
             "Power");
         // TODO Need to retrieve Power Control information.
         getChassisData(sensorAsyncResp);
+#endif
     }
 };
 
