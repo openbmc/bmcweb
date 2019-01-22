@@ -1480,8 +1480,9 @@ void handleDelete(const crow::Request &req, crow::Response &res,
             if (ec || interfaceNames.size() <= 0)
             {
                 BMCWEB_LOG_ERROR << "Can't find object";
-                setErrorResponse(res, boost::beast::http::status::not_found,
-                                 notFoundDesc, notFoundMsg);
+                setErrorResponse(res,
+                                 boost::beast::http::status::method_not_allowed,
+                                 methodNotAllowedDesc, methodNotAllowedMsg);
                 res.end();
                 return;
             }
