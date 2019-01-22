@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/Chassis",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "Chassis Schema File",
-    "Schema": "#Chassis.Chassis",
-    "Description": "Chassis Schema File Location",
-    "Id": "Chassis",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/Chassis",
+    "Id": "Chassis",
+    "Description": "Chassis Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Chassis.json",
-            "Uri": "/redfish/v1/JSONSchemas/Chassis/Chassis.json"
+            "Uri": "/redfish/v1/JSONSchemas/Chassis/Chassis.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#Chassis.Chassis",
+    "Name": "Chassis Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/PCIeDevice",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "PCIeDevice Schema File",
-    "Schema": "#PCIeDevice.PCIeDevice",
-    "Description": "PCIeDevice Schema File Location",
-    "Id": "PCIeDevice",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/PCIeDevice",
+    "Id": "PCIeDevice",
+    "Description": "PCIeDevice Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json",
-            "Uri": "/redfish/v1/JSONSchemas/PCIeDevice/PCIeDevice.json"
+            "Uri": "/redfish/v1/JSONSchemas/PCIeDevice/PCIeDevice.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#PCIeDevice.PCIeDevice",
+    "Name": "PCIeDevice Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

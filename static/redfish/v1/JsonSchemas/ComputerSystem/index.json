@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/ComputerSystem",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "ComputerSystem Schema File",
-    "Schema": "#ComputerSystem.ComputerSystem",
-    "Description": "ComputerSystem Schema File Location",
-    "Id": "ComputerSystem",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/ComputerSystem",
+    "Id": "ComputerSystem",
+    "Description": "ComputerSystem Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json",
-            "Uri": "/redfish/v1/JSONSchemas/ComputerSystem/ComputerSystem.json"
+            "Uri": "/redfish/v1/JSONSchemas/ComputerSystem/ComputerSystem.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#ComputerSystem.ComputerSystem",
+    "Name": "ComputerSystem Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/PCIeSlots",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "PCIeSlots Schema File",
-    "Schema": "#PCIeSlots.PCIeSlots",
-    "Description": "PCIeSlots Schema File Location",
-    "Id": "PCIeSlots",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/PCIeSlots",
+    "Id": "PCIeSlots",
+    "Description": "PCIeSlots Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/PCIeSlots.json",
-            "Uri": "/redfish/v1/JSONSchemas/PCIeSlots/PCIeSlots.json"
+            "Uri": "/redfish/v1/JSONSchemas/PCIeSlots/PCIeSlots.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#PCIeSlots.PCIeSlots",
+    "Name": "PCIeSlots Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

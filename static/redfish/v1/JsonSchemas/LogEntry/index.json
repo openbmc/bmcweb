@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/LogEntry",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "LogEntry Schema File",
-    "Schema": "#LogEntry.LogEntry",
-    "Description": "LogEntry Schema File Location",
-    "Id": "LogEntry",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/LogEntry",
+    "Id": "LogEntry",
+    "Description": "LogEntry Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/LogEntry.json",
-            "Uri": "/redfish/v1/JSONSchemas/LogEntry/LogEntry.json"
+            "Uri": "/redfish/v1/JSONSchemas/LogEntry/LogEntry.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#LogEntry.LogEntry",
+    "Name": "LogEntry Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/CompositionService",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "CompositionService Schema File",
-    "Schema": "#CompositionService.CompositionService",
-    "Description": "CompositionService Schema File Location",
-    "Id": "CompositionService",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/CompositionService",
+    "Id": "CompositionService",
+    "Description": "CompositionService Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/CompositionService.json",
-            "Uri": "/redfish/v1/JSONSchemas/CompositionService/CompositionService.json"
+            "Uri": "/redfish/v1/JSONSchemas/CompositionService/CompositionService.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#CompositionService.CompositionService",
+    "Name": "CompositionService Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }

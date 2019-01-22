@@ -1,21 +1,21 @@
 {
-    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JSONSchemas/ResourceBlock",
-    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "ResourceBlock Schema File",
-    "Schema": "#ResourceBlock.ResourceBlock",
-    "Description": "ResourceBlock Schema File Location",
-    "Id": "ResourceBlock",
     "Languages": [
         "en"
     ],
     "Languages@odata.count": 1,
+    "@odata.id": "/redfish/v1/JSONSchemas/ResourceBlock",
+    "Id": "ResourceBlock",
+    "Description": "ResourceBlock Schema File Location",
     "Location": [
         {
-            "Language": "en",
             "PublicationUri": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json",
-            "Uri": "/redfish/v1/JSONSchemas/ResourceBlock/ResourceBlock.json"
+            "Uri": "/redfish/v1/JSONSchemas/ResourceBlock/ResourceBlock.json",
+            "Language": "en"
         }
     ],
-    "Location@odata.count": 1
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Location@odata.count": 1,
+    "Schema": "#ResourceBlock.ResourceBlock",
+    "Name": "ResourceBlock Schema File",
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile"
 }
