@@ -22,6 +22,7 @@
 #include <node.hpp>
 #include <optional>
 #include <utils/json_utils.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -171,8 +172,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "MACAddress")
                         {
                             const std::string *mac =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (mac != nullptr)
                             {
                                 ethData.mac_address = *mac;
@@ -187,8 +187,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "Id")
                         {
                             const uint32_t *id =
-                                sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&propertyPair.second);
+                                std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
                                 ethData.vlan_id = *id;
@@ -204,8 +203,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "AutoNeg")
                         {
                             const bool *auto_neg =
-                                sdbusplus::message::variant_ns::get_if<bool>(
-                                    &propertyPair.second);
+                                std::get_if<bool>(&propertyPair.second);
                             if (auto_neg != nullptr)
                             {
                                 ethData.auto_neg = *auto_neg;
@@ -214,8 +212,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "Speed")
                         {
                             const uint32_t *speed =
-                                sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&propertyPair.second);
+                                std::get_if<uint32_t>(&propertyPair.second);
                             if (speed != nullptr)
                             {
                                 ethData.speed = *speed;
@@ -231,8 +228,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "HostName")
                         {
                             const std::string *hostname =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (hostname != nullptr)
                             {
                                 ethData.hostname = *hostname;
@@ -241,8 +237,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "DefaultGateway")
                         {
                             const std::string *defaultGateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
                                 ethData.default_gateway = *defaultGateway;
@@ -288,8 +283,7 @@ inline void
                         if (property.first == "Address")
                         {
                             const std::string *address =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (address != nullptr)
                             {
                                 ipv4_address.address = *address;
@@ -298,8 +292,7 @@ inline void
                         else if (property.first == "Gateway")
                         {
                             const std::string *gateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (gateway != nullptr)
                             {
                                 ipv4_address.gateway = *gateway;
@@ -308,8 +301,7 @@ inline void
                         else if (property.first == "Origin")
                         {
                             const std::string *origin =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (origin != nullptr)
                             {
                                 ipv4_address.origin =
@@ -320,8 +312,7 @@ inline void
                         else if (property.first == "PrefixLength")
                         {
                             const uint8_t *mask =
-                                sdbusplus::message::variant_ns::get_if<uint8_t>(
-                                    &property.second);
+                                std::get_if<uint8_t>(&property.second);
                             if (mask != nullptr)
                             {
                                 // convert it to the string

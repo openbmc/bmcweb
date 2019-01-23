@@ -19,6 +19,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <utils/json_utils.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -128,8 +129,7 @@ class AccountService : public Node
                     if (property.first == "MinPasswordLength")
                     {
                         const uint8_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint8_t>(
-                                &property.second);
+                            std::get_if<uint8_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res.jsonValue["MinPasswordLength"] =
@@ -139,8 +139,7 @@ class AccountService : public Node
                     if (property.first == "AccountUnlockTimeout")
                     {
                         const uint32_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint32_t>(
-                                &property.second);
+                            std::get_if<uint32_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res.jsonValue["AccountLockoutDuration"] =
@@ -150,8 +149,7 @@ class AccountService : public Node
                     if (property.first == "MaxLoginAttemptBeforeLockout")
                     {
                         const uint16_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint16_t>(
-                                &property.second);
+                            std::get_if<uint16_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res
@@ -435,8 +433,7 @@ class ManagerAccount : public Node
                             if (property.first == "UserEnabled")
                             {
                                 const bool* userEnabled =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        bool>(&property.second);
+                                    std::get_if<bool>(&property.second);
                                 if (userEnabled == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
@@ -451,8 +448,7 @@ class ManagerAccount : public Node
                                      "UserLockedForFailedAttempt")
                             {
                                 const bool* userLocked =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        bool>(&property.second);
+                                    std::get_if<bool>(&property.second);
                                 if (userLocked == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "UserLockedForF"
@@ -467,8 +463,7 @@ class ManagerAccount : public Node
                             else if (property.first == "UserPrivilege")
                             {
                                 const std::string* userRolePtr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (userRolePtr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR

@@ -22,6 +22,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
 #include <dbus_singleton.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -272,8 +273,7 @@ void objectInterfacesToJson(
     // If a scale exists, pull value as int64, and use the scaling.
     if (scaleIt != valueIt->second.end())
     {
-        const int64_t* int64Value =
-            sdbusplus::message::variant_ns::get_if<int64_t>(&scaleIt->second);
+        const int64_t* int64Value = std::get_if<int64_t>(&scaleIt->second);
         if (int64Value != nullptr)
         {
             scaleMultiplier = *int64Value;
@@ -369,13 +369,9 @@ void objectInterfacesToJson(
                 const SensorVariant& valueVariant = valueIt->second;
                 nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
                 // Attempt to pull the int64 directly
-                const int64_t* int64Value =
-                    sdbusplus::message::variant_ns::get_if<int64_t>(
-                        &valueVariant);
+                const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
 
-                const double* doubleValue =
-                    sdbusplus::message::variant_ns::get_if<double>(
-                        &valueVariant);
+                const double* doubleValue = std::get_if<double>(&valueVariant);
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
