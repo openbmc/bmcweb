@@ -89,8 +89,7 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
             if (coresCountProperty != properties.end())
             {
                 const uint16_t *coresCount =
-                    sdbusplus::message::variant_ns::get_if<uint16_t>(
-                        &coresCountProperty->second);
+                    std::get_if<uint16_t>(&coresCountProperty->second);
                 if (coresCount == nullptr)
                 {
                     // Important property not in desired type
@@ -122,8 +121,7 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                 {
                     aResp->res.jsonValue["Manufacturer"] = property.second;
                     const std::string *value =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &property.second);
+                        std::get_if<std::string>(&property.second);
                     if (value != nullptr)
                     {
                         // Otherwise would be unexpected.
@@ -219,8 +217,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
             if (memorySizeProperty != properties.end())
             {
                 const uint32_t *memorySize =
-                    sdbusplus::message::variant_ns::get_if<uint32_t>(
-                        &memorySizeProperty->second);
+                    std::get_if<uint32_t>(&memorySizeProperty->second);
                 if (memorySize == nullptr)
                 {
                     // Important property not in desired type
@@ -250,8 +247,7 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 else if (property.first == "MemoryType")
                 {
                     const auto *value =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &property.second);
+                        std::get_if<std::string>(&property.second);
                     if (value != nullptr)
                     {
                         aResp->res.jsonValue["MemoryDeviceType"] = *value;

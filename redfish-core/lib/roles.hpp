@@ -158,8 +158,7 @@ class RoleCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 memberArray = nlohmann::json::array();
                 const std::vector<std::string>* privList =
-                    sdbusplus::message::variant_ns::get_if<
-                        std::vector<std::string>>(&resp);
+                    std::get_if<std::vector<std::string>>(&resp);
                 for (const std::string& priv : *privList)
                 {
                     std::string role = getRoleFromPrivileges(priv);

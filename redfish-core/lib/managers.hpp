@@ -184,8 +184,7 @@ static void asyncPopulatePid(const std::string& connection,
                         return;
                     }
                     const std::string* namePtr =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &findName->second);
+                        std::get_if<std::string>(&findName->second);
                     if (namePtr == nullptr)
                     {
                         BMCWEB_LOG_ERROR << "Pid Name Field illegal";
@@ -240,8 +239,8 @@ static void asyncPopulatePid(const std::string& connection,
                         auto findClass = intfPair.second.find("Class");
                         if (findClass != intfPair.second.end())
                         {
-                            classPtr = sdbusplus::message::variant_ns::get_if<
-                                std::string>(&findClass->second);
+                            classPtr =
+                                std::get_if<std::string>(&findClass->second);
                         }
                         if (classPtr == nullptr)
                         {
@@ -303,8 +302,7 @@ static void asyncPopulatePid(const std::string& connection,
                         if (intfPair.first == pidZoneConfigurationIface)
                         {
                             const double* ptr =
-                                sdbusplus::message::variant_ns::get_if<double>(
-                                    &propertyPair.second);
+                                std::get_if<double>(&propertyPair.second);
                             if (ptr == nullptr)
                             {
                                 BMCWEB_LOG_ERROR << "Field Illegal "
@@ -321,8 +319,7 @@ static void asyncPopulatePid(const std::string& connection,
                                 propertyPair.first == "Output")
                             {
                                 const std::vector<double>* ptr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::vector<double>>(
+                                    std::get_if<std::vector<double>>(
                                         &propertyPair.second);
 
                                 if (ptr == nullptr)
@@ -365,8 +362,7 @@ static void asyncPopulatePid(const std::string& connection,
                                 propertyPair.first == "PositiveHysteresis")
                             {
                                 const double* ptr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        double>(&propertyPair.second);
+                                    std::get_if<double>(&propertyPair.second);
                                 if (ptr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
@@ -386,8 +382,7 @@ static void asyncPopulatePid(const std::string& connection,
                             if (propertyPair.first == "Zones")
                             {
                                 const std::vector<std::string>* inputs =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::vector<std::string>>(
+                                    std::get_if<std::vector<std::string>>(
                                         &propertyPair.second);
 
                                 if (inputs == nullptr)
@@ -421,8 +416,7 @@ static void asyncPopulatePid(const std::string& connection,
                             {
                                 auto& data = (*config)[propertyPair.first];
                                 const std::vector<std::string>* inputs =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::vector<std::string>>(
+                                    std::get_if<std::vector<std::string>>(
                                         &propertyPair.second);
 
                                 if (inputs == nullptr)
@@ -447,8 +441,7 @@ static void asyncPopulatePid(const std::string& connection,
                                      propertyPair.first == "SlewPos")
                             {
                                 const double* ptr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        double>(&propertyPair.second);
+                                    std::get_if<double>(&propertyPair.second);
                                 if (ptr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
@@ -944,8 +937,8 @@ class Manager : public Node
                                 if (property.first == "Version")
                                 {
                                     const std::string* value =
-                                        sdbusplus::message::variant_ns::get_if<
-                                            std::string>(&property.second);
+                                        std::get_if<std::string>(
+                                            &property.second);
                                     if (value == nullptr)
                                     {
                                         continue;

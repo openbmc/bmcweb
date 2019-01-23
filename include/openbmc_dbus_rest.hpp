@@ -155,8 +155,8 @@ void getPropertiesForEnumerate(const std::string &objectPath,
             for (const auto &[name, value] : propertiesList)
             {
                 nlohmann::json &propertyJson = objectJson[name];
-                sdbusplus::message::variant_ns::visit(
-                    [&propertyJson](auto &&val) { propertyJson = val; }, value);
+                std::visit([&propertyJson](auto &&val) { propertyJson = val; },
+                           value);
             }
         },
         service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
@@ -255,11 +255,9 @@ void getManagedObjectsForEnumerate(
                         {
                             nlohmann::json &propertyJson =
                                 objectJson[property.first];
-                            sdbusplus::message::variant_ns::visit(
-                                [&propertyJson](auto &&val) {
-                                    propertyJson = val;
-                                },
-                                property.second);
+                            std::visit([&propertyJson](
+                                           auto &&val) { propertyJson = val; },
+                                       property.second);
                         }
                     }
                 }
@@ -1631,7 +1629,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
 
                                     if (propertyName->empty())
                                     {
-                                        sdbusplus::message::variant_ns::visit(
+                                        std::visit(
                                             [&response, &property](auto &&val) {
                                                 (*response)[property.first] =
                                                     val;
@@ -1640,7 +1638,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
                                     }
                                     else if (property.first == *propertyName)
                                     {
-                                        sdbusplus::message::variant_ns::visit(
+                                        std::visit(
                                             [&response](auto &&val) {
                                                 (*response) = val;
                                             },
