@@ -1,0 +1,9 @@
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+2: Ed Tanous <ed.tanous@intel.com>
+Submitted-by: Ed Tanous <ed.tanous@intel.com>
+Submitted-at: Wed, 23 Jan 2019 03:54:41 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/17501
+Project: openbmc/bmcweb
+Branch: refs/heads/master
