@@ -87,8 +87,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                      &property : propertiesList)
                             {
                                 const std::string *value =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (value != nullptr)
                                 {
                                     aResp->res.jsonValue[property.first] =
@@ -355,8 +354,7 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                                 if (property.first == "Asserted")
                                 {
                                     const bool *asserted =
-                                        sdbusplus::message::variant_ns::get_if<
-                                            bool>(&property.second);
+                                        std::get_if<bool>(&property.second);
                                     if (nullptr != asserted)
                                     {
                                         callback(*asserted, aResp);
@@ -399,8 +397,7 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                 if (property.first == "State")
                 {
                     const std::string *s =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &property.second);
+                        std::get_if<std::string>(&property.second);
                     if (nullptr != s)
                     {
                         BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
@@ -454,8 +451,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const std::string *s =
-                sdbusplus::message::variant_ns::get_if<std::string>(&hostState);
+            const std::string *s = std::get_if<std::string>(&hostState);
             BMCWEB_LOG_DEBUG << "Host state: " << *s;
             if (s != nullptr)
             {

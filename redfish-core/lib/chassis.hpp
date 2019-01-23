@@ -196,8 +196,7 @@ class Chassis : public Node
                                      &property : propertiesList)
                             {
                                 const std::string *value =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (value != nullptr)
                                 {
                                     asyncResp->res.jsonValue[property.first] =
