@@ -65,16 +65,65 @@ class Power : public Node
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        // TODO: Get all sensors
-        res.end();
-#else
+
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name,
             std::initializer_list<const char*>{
                 "/xyz/openbmc_project/sensors/voltage",
                 "/xyz/openbmc_project/sensors/power"},
             "Power");
+
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        const std::string path = "/xyz/openbmc_project/sensors";
+        const std::array<std::string, 1> interfaces = { "xyz.openbmc_project.Sensor.Value" };
+
+        // Response handler for parsing objects subtree
+        auto respHandler = [sensorAsyncResp](const boost::system::error_code ec, const GetSubTreeType& subtree) {
+            if (ec)
+            {
+                messages::internalError(sensorAsyncResp->res);
+                BMCWEB_LOG_ERROR << "getSubTree respHandler: Dbus error "
+                                 << ec;
+                return;
+            }
+
+            for (const std::pair<std::string, std::vector<std::pair<std::string, std::vector<std::string>>>>& object : subtree)
+            {
+                if (object.second.empty())
+                {
+                    continue;
+                }
+
+                BMCWEB_LOG_DEBUG << "sensor: " << object.first << " interface: " << object.second.front().first;
+
+                auto valueHandler = [sensorAsyncResp](const boost::system::error_code ec, const SensorVariant& value) {
+                    if (ec)
+                    {
+                        messages::internalError(sensorAsyncResp->res);
+                        BMCWEB_LOG_ERROR << "get valueHandler: Dbus error " << ec;
+                        return;
+                    }
+
+                    const int64_t *i = sdbusplus::message::variant_ns::get_if<int64_t>(&value);
+                    const double *d = sdbusplus::message::variant_ns::get_if<double>(&value);
+
+                    BMCWEB_LOG_DEBUG << "val: " << (i ? *i : (d ? *d : 0.0));
+                };
+
+		crow::connections::systemBus->async_method_call(
+                    std::move(valueHandler), object.second.front().first,
+                    object.first, "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Sensor.Value", "int");
+            }
+        };
+
+        // Make call to ObjectMapper to find all sensors objects
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 2,
+            interfaces);
+#else
         // TODO Need to retrieve Power Control information.
         getChassisData(sensorAsyncResp);
 #endif
