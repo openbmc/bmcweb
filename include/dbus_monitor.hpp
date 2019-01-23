@@ -8,6 +8,7 @@
 #include <openbmc_dbus_rest.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
+#include <variant>
 
 namespace nlohmann
 {
@@ -16,7 +17,7 @@ struct adl_serializer<sdbusplus::message::variant<Args...>>
 {
     static void to_json(json& j, const sdbusplus::message::variant<Args...>& v)
     {
-        sdbusplus::message::variant_ns::visit([&](auto&& val) { j = val; }, v);
+        std::visit([&](auto&& val) { j = val; }, v);
     }
 };
 } // namespace nlohmann

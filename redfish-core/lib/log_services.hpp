@@ -22,6 +22,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -1101,8 +1102,7 @@ class CPULogEntry : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                const std::string *log =
-                    sdbusplus::message::variant_ns::get_if<std::string>(&resp);
+                const std::string *log = std::get_if<std::string>(&resp);
                 if (log == nullptr)
                 {
                     messages::internalError(asyncResp->res);
@@ -1204,9 +1204,8 @@ class ImmediateCPULog : public Node
                     std::string, sdbusplus::message::variant<std::string>>>
                 interfacesAdded;
             m.read(objPath, interfacesAdded);
-            const std::string *log =
-                sdbusplus::message::variant_ns::get_if<std::string>(
-                    &interfacesAdded[cpuLogInterface]["Log"]);
+            const std::string *log = std::get_if<std::string>(
+                &interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
                 messages::internalError(asyncResp->res);

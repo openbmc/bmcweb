@@ -18,6 +18,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -260,8 +261,7 @@ class SoftwareInventoryCollection : public Node
                                 }
 
                                 const std::string *swActivationStatus =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&activation);
+                                    std::get_if<std::string>(&activation);
                                 if (swActivationStatus == nullptr)
                                 {
                                     messages::internalError(asyncResp->res);
@@ -401,8 +401,7 @@ class SoftwareInventory : public Node
                                 return;
                             }
                             const std::string *swInvPurpose =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&it->second);
+                                std::get_if<std::string>(&it->second);
                             if (swInvPurpose == nullptr)
                             {
                                 BMCWEB_LOG_DEBUG
@@ -427,8 +426,7 @@ class SoftwareInventory : public Node
                             BMCWEB_LOG_DEBUG << "Version found!";
 
                             const std::string *version =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&it->second);
+                                std::get_if<std::string>(&it->second);
 
                             if (version == nullptr)
                             {
