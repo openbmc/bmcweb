@@ -22,6 +22,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -1090,45 +1091,41 @@ class CPULogEntry : public Node
             return;
         }
         const uint8_t logId = std::atoi(params[0].c_str());
-        auto getStoredLogCallback =
-            [asyncResp,
-             logId](const boost::system::error_code ec,
-                    const sdbusplus::message::variant<std::string> &resp) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "failed to get log ec: "
-                                     << ec.message();
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                const std::string *log =
-                    sdbusplus::message::variant_ns::get_if<std::string>(&resp);
-                if (log == nullptr)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
-                if (j.is_discarded())
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                std::string t = getLogCreatedTime(j);
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
-                    {"@odata.context",
-                     "/redfish/v1/$metadata#LogEntry.LogEntry"},
-                    {"@odata.id",
-                     "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/" +
-                         std::to_string(logId)},
-                    {"Name", "CPU Debug Log"},
-                    {"Id", logId},
-                    {"EntryType", "Oem"},
-                    {"OemRecordFormat", "Intel CPU Log"},
-                    {"Oem", {{"Intel", std::move(j)}}},
-                    {"Created", std::move(t)}};
-            };
+        auto getStoredLogCallback = [asyncResp, logId](
+                                        const boost::system::error_code ec,
+                                        const std::variant<std::string> &resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            const std::string *log = std::get_if<std::string>(&resp);
+            if (log == nullptr)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
+            if (j.is_discarded())
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::string t = getLogCreatedTime(j);
+            asyncResp->res.jsonValue = {
+                {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
+                {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
+                {"@odata.id",
+                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/" +
+                     std::to_string(logId)},
+                {"Name", "CPU Debug Log"},
+                {"Id", logId},
+                {"EntryType", "Oem"},
+                {"OemRecordFormat", "Intel CPU Log"},
+                {"Oem", {{"Intel", std::move(j)}}},
+                {"Created", std::move(t)}};
+        };
         crow::connections::systemBus->async_method_call(
             std::move(getStoredLogCallback), cpuLogObject,
             cpuLogPath + std::string("/") + std::to_string(logId),
@@ -1199,14 +1196,12 @@ class ImmediateCPULog : public Node
             }
             sdbusplus::message::object_path objPath;
             boost::container::flat_map<
-                std::string,
-                boost::container::flat_map<
-                    std::string, sdbusplus::message::variant<std::string>>>
+                std::string, boost::container::flat_map<
+                                 std::string, std::variant<std::string>>>
                 interfacesAdded;
             m.read(objPath, interfacesAdded);
-            const std::string *log =
-                sdbusplus::message::variant_ns::get_if<std::string>(
-                    &interfacesAdded[cpuLogInterface]["Log"]);
+            const std::string *log = std::get_if<std::string>(
+                &interfacesAdded[cpuLogInterface]["Log"]);
             if (log == nullptr)
             {
                 messages::internalError(asyncResp->res);

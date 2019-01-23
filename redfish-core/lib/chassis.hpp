@@ -18,6 +18,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -29,7 +30,7 @@ namespace redfish
 // Note, this is not a very useful Variant, but because it isn't used to get
 // values, it should be as simple as possible
 // TODO(ed) invent a nullvariant type
-using VariantType = sdbusplus::message::variant<bool, std::string, uint64_t>;
+using VariantType = std::variant<bool, std::string, uint64_t>;
 using ManagedObjectsType = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<std::string,
@@ -201,8 +202,7 @@ class Chassis : public Node
                                      &property : propertiesList)
                             {
                                 const std::string *value =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (value != nullptr)
                                 {
                                     asyncResp->res.jsonValue[property.first] =

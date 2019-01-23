@@ -66,8 +66,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
             sdbusplus::message::object_path path;
             std::vector<std::pair<
                 std::string,
-                std::vector<std::pair<
-                    std::string, sdbusplus::message::variant<std::string>>>>>
+                std::vector<std::pair<std::string, std::variant<std::string>>>>>
                 interfaces;
             m.read(path, interfaces);
 
