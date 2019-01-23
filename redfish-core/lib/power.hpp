@@ -22,6 +22,10 @@
 namespace redfish
 {
 
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
 class Power : public Node
 {
   public:
@@ -67,6 +71,23 @@ class Power : public Node
         res.jsonValue["Name"] = "Power";
 #ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
         // TODO: Get all sensors
+        crow::connections::systemBus->async_method_call(
+            [](boost::system::error_code ec, GetSubTreeType& subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "error with async_method_call\n";
+                    return;
+                }
+                for (auto& item : subtree)
+                {
+                    BMCWEB_LOG_DEBUG << item.first << "\n";
+                }
+             },
+             "xyz.openbmc_project.ObjectMapper",
+             "/xyz/openbmc_project/object_mapper",
+             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+             "/org/openbmc/sensors/", 2, std::vector<std::string>());
+
         res.end();
 #else
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
