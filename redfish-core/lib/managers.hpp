@@ -443,6 +443,7 @@ static void asyncPopulatePid(const std::string& connection,
                                      propertyPair.first == "OutLimitMax" ||
                                      propertyPair.first == "OutLimitMin" ||
                                      propertyPair.first == "PCoefficient" ||
+                                     propertyPair.first == "SetPoint" ||
                                      propertyPair.first == "SlewNeg" ||
                                      propertyPair.first == "SlewPos")
                             {
