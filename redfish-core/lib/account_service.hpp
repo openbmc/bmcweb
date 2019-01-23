@@ -19,6 +19,7 @@
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <utils/json_utils.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -26,9 +27,8 @@ namespace redfish
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
-        std::string,
-        boost::container::flat_map<
-            std::string, sdbusplus::message::variant<bool, std::string>>>>>;
+        std::string, boost::container::flat_map<
+                         std::string, std::variant<bool, std::string>>>>>;
 
 inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
 {
@@ -110,8 +110,7 @@ class AccountService : public Node
             [asyncResp](
                 const boost::system::error_code ec,
                 const std::vector<std::pair<
-                    std::string,
-                    sdbusplus::message::variant<uint32_t, uint16_t, uint8_t>>>&
+                    std::string, std::variant<uint32_t, uint16_t, uint8_t>>>&
                     propertiesList) {
                 if (ec)
                 {
@@ -121,15 +120,13 @@ class AccountService : public Node
                 BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
                                  << "properties for AccountService";
                 for (const std::pair<std::string,
-                                     sdbusplus::message::variant<
-                                         uint32_t, uint16_t, uint8_t>>&
+                                     std::variant<uint32_t, uint16_t, uint8_t>>&
                          property : propertiesList)
                 {
                     if (property.first == "MinPasswordLength")
                     {
                         const uint8_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint8_t>(
-                                &property.second);
+                            std::get_if<uint8_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res.jsonValue["MinPasswordLength"] =
@@ -139,8 +136,7 @@ class AccountService : public Node
                     if (property.first == "AccountUnlockTimeout")
                     {
                         const uint32_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint32_t>(
-                                &property.second);
+                            std::get_if<uint32_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res.jsonValue["AccountLockoutDuration"] =
@@ -150,8 +146,7 @@ class AccountService : public Node
                     if (property.first == "MaxLoginAttemptBeforeLockout")
                     {
                         const uint16_t* value =
-                            sdbusplus::message::variant_ns::get_if<uint16_t>(
-                                &property.second);
+                            std::get_if<uint16_t>(&property.second);
                         if (value != nullptr)
                         {
                             asyncResp->res
@@ -190,8 +185,7 @@ class AccountService : public Node
                 "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.AccountPolicy",
-                "AccountUnlockTimeout",
-                sdbusplus::message::variant<uint32_t>(*unlockTimeout));
+                "AccountUnlockTimeout", std::variant<uint32_t>(*unlockTimeout));
         }
         if (lockoutThreshold)
         {
@@ -207,7 +201,7 @@ class AccountService : public Node
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.AccountPolicy",
                 "MaxLoginAttemptBeforeLockout",
-                sdbusplus::message::variant<uint16_t>(*lockoutThreshold));
+                std::variant<uint16_t>(*lockoutThreshold));
         }
     }
 };
@@ -435,8 +429,7 @@ class ManagerAccount : public Node
                             if (property.first == "UserEnabled")
                             {
                                 const bool* userEnabled =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        bool>(&property.second);
+                                    std::get_if<bool>(&property.second);
                                 if (userEnabled == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
@@ -451,8 +444,7 @@ class ManagerAccount : public Node
                                      "UserLockedForFailedAttempt")
                             {
                                 const bool* userLocked =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        bool>(&property.second);
+                                    std::get_if<bool>(&property.second);
                                 if (userLocked == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "UserLockedForF"
@@ -467,8 +459,7 @@ class ManagerAccount : public Node
                             else if (property.first == "UserPrivilege")
                             {
                                 const std::string* userRolePtr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (userRolePtr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
@@ -594,7 +585,7 @@ class ManagerAccount : public Node
                 "/xyz/openbmc_project/user/" + username,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                sdbusplus::message::variant<bool>{*enabled});
+                std::variant<bool>{*enabled});
         }
 
         if (roleId)
@@ -621,7 +612,7 @@ class ManagerAccount : public Node
                 "/xyz/openbmc_project/user/" + username,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.User.Attributes", "UserPrivilege",
-                sdbusplus::message::variant<std::string>{priv});
+                std::variant<std::string>{priv});
         }
     }
 

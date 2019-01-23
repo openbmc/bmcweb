@@ -22,6 +22,7 @@
 #include <node.hpp>
 #include <optional>
 #include <utils/json_utils.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -31,18 +32,17 @@ namespace redfish
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
 using PropertiesMapType = boost::container::flat_map<
-    std::string,
-    sdbusplus::message::variant<std::string, bool, uint8_t, int16_t, uint16_t,
-                                int32_t, uint32_t, int64_t, uint64_t, double>>;
+    std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
+                              int32_t, uint32_t, int64_t, uint64_t, double>>;
 
 using GetManagedObjects = std::vector<std::pair<
     sdbusplus::message::object_path,
     std::vector<std::pair<
         std::string,
         boost::container::flat_map<
-            std::string, sdbusplus::message::variant<
-                             std::string, bool, uint8_t, int16_t, uint16_t,
-                             int32_t, uint32_t, int64_t, uint64_t, double>>>>>>;
+            std::string,
+            std::variant<std::string, bool, uint8_t, int16_t, uint16_t, int32_t,
+                         uint32_t, int64_t, uint64_t, double>>>>>>;
 
 enum class LinkType
 {
@@ -171,8 +171,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "MACAddress")
                         {
                             const std::string *mac =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (mac != nullptr)
                             {
                                 ethData.mac_address = *mac;
@@ -187,8 +186,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "Id")
                         {
                             const uint32_t *id =
-                                sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&propertyPair.second);
+                                std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
                                 ethData.vlan_id = *id;
@@ -204,8 +202,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "AutoNeg")
                         {
                             const bool *auto_neg =
-                                sdbusplus::message::variant_ns::get_if<bool>(
-                                    &propertyPair.second);
+                                std::get_if<bool>(&propertyPair.second);
                             if (auto_neg != nullptr)
                             {
                                 ethData.auto_neg = *auto_neg;
@@ -214,8 +211,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "Speed")
                         {
                             const uint32_t *speed =
-                                sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&propertyPair.second);
+                                std::get_if<uint32_t>(&propertyPair.second);
                             if (speed != nullptr)
                             {
                                 ethData.speed = *speed;
@@ -231,8 +227,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (propertyPair.first == "HostName")
                         {
                             const std::string *hostname =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (hostname != nullptr)
                             {
                                 ethData.hostname = *hostname;
@@ -241,8 +236,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "DefaultGateway")
                         {
                             const std::string *defaultGateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
                                 ethData.default_gateway = *defaultGateway;
@@ -288,8 +282,7 @@ inline void
                         if (property.first == "Address")
                         {
                             const std::string *address =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (address != nullptr)
                             {
                                 ipv4_address.address = *address;
@@ -298,8 +291,7 @@ inline void
                         else if (property.first == "Gateway")
                         {
                             const std::string *gateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (gateway != nullptr)
                             {
                                 ipv4_address.gateway = *gateway;
@@ -308,8 +300,7 @@ inline void
                         else if (property.first == "Origin")
                         {
                             const std::string *origin =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&property.second);
+                                std::get_if<std::string>(&property.second);
                             if (origin != nullptr)
                             {
                                 ipv4_address.origin =
@@ -320,8 +311,7 @@ inline void
                         else if (property.first == "PrefixLength")
                         {
                             const uint8_t *mask =
-                                sdbusplus::message::variant_ns::get_if<uint8_t>(
-                                    &property.second);
+                                std::get_if<uint8_t>(&property.second);
                             if (mask != nullptr)
                             {
                                 // convert it to the string
@@ -364,7 +354,7 @@ void changeVlanId(const std::string &ifaceId, const uint32_t &inputVlanId,
         std::string("/xyz/openbmc_project/network/") + ifaceId,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.VLAN", "Id",
-        sdbusplus::message::variant<uint32_t>(inputVlanId));
+        std::variant<uint32_t>(inputVlanId));
 }
 
 /**
@@ -496,7 +486,7 @@ inline void changeIPv4AddressProperty(
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", name,
-        sdbusplus::message::variant<std::string>(newValue));
+        std::variant<std::string>(newValue));
 }
 
 /**
@@ -537,7 +527,7 @@ inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "Origin",
-        sdbusplus::message::variant<std::string>(newValueDbus));
+        std::variant<std::string>(newValueDbus));
 }
 
 /**
@@ -577,7 +567,7 @@ inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", "PrefixLength",
-        sdbusplus::message::variant<uint8_t>(newValue));
+        std::variant<uint8_t>(newValue));
 }
 
 /**
@@ -865,7 +855,7 @@ class EthernetInterface : public Node
                 "/xyz/openbmc_project/network/" + ifaceId,
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Network.VLAN", "Id",
-                sdbusplus::message::variant<uint32_t>(vlanId));
+                std::variant<uint32_t>(vlanId));
         }
         else
         {
@@ -901,7 +891,7 @@ class EthernetInterface : public Node
             "/xyz/openbmc_project/network/config",
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
-            sdbusplus::message::variant<std::string>(hostname));
+            std::variant<std::string>(hostname));
     }
 
     void handleIPv4Patch(
@@ -1090,8 +1080,7 @@ class EthernetInterface : public Node
                                 "/ipv4/" + thisData->id,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Network.IP", "Address",
-                            sdbusplus::message::variant<std::string>(
-                                *addressField));
+                            std::variant<std::string>(*addressField));
                     }
 
                     if (prefixLength && subnetField != nullptr)
@@ -1132,8 +1121,7 @@ class EthernetInterface : public Node
                                 "/ipv4/" + thisData->id,
                             "org.freedesktop.DBus.Properties", "Set",
                             "xyz.openbmc_project.Network.IP", "Gateway",
-                            sdbusplus::message::variant<std::string>(
-                                *gatewayField));
+                            std::variant<std::string>(*gatewayField));
                     }
                 }
                 thisData++;

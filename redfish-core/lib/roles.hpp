@@ -17,6 +17,8 @@
 
 #include "node.hpp"
 
+#include <variant>
+
 namespace redfish
 {
 
@@ -145,10 +147,8 @@ class RoleCollection : public Node
                          {"Description", "BMC User Roles"}};
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](
-                const boost::system::error_code ec,
-                const sdbusplus::message::variant<std::vector<std::string>>&
-                    resp) {
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::vector<std::string>>& resp) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -158,8 +158,7 @@ class RoleCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 memberArray = nlohmann::json::array();
                 const std::vector<std::string>* privList =
-                    sdbusplus::message::variant_ns::get_if<
-                        std::vector<std::string>>(&resp);
+                    std::get_if<std::vector<std::string>>(&resp);
                 for (const std::string& priv : *privList)
                 {
                     std::string role = getRoleFromPrivileges(priv);

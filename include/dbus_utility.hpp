@@ -24,10 +24,11 @@ namespace dbus
 namespace utility
 {
 
-using DbusVariantType = sdbusplus::message::variant<
-    std::vector<std::tuple<std::string, std::string, std::string>>,
-    std::vector<std::string>, std::vector<double>, std::string, int64_t,
-    uint64_t, double, int32_t, uint32_t, int16_t, uint16_t, uint8_t, bool>;
+using DbusVariantType =
+    std::variant<std::vector<std::tuple<std::string, std::string, std::string>>,
+                 std::vector<std::string>, std::vector<double>, std::string,
+                 int64_t, uint64_t, double, int32_t, uint32_t, int16_t,
+                 uint16_t, uint8_t, bool>;
 
 using ManagedObjectType = std::vector<
     std::pair<sdbusplus::message::object_path,

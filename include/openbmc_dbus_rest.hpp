@@ -155,8 +155,8 @@ void getPropertiesForEnumerate(const std::string &objectPath,
             for (const auto &[name, value] : propertiesList)
             {
                 nlohmann::json &propertyJson = objectJson[name];
-                sdbusplus::message::variant_ns::visit(
-                    [&propertyJson](auto &&val) { propertyJson = val; }, value);
+                std::visit([&propertyJson](auto &&val) { propertyJson = val; },
+                           value);
             }
         },
         service, objectPath, "org.freedesktop.DBus.Properties", "GetAll",
@@ -255,11 +255,9 @@ void getManagedObjectsForEnumerate(
                         {
                             nlohmann::json &propertyJson =
                                 objectJson[property.first];
-                            sdbusplus::message::variant_ns::visit(
-                                [&propertyJson](auto &&val) {
-                                    propertyJson = val;
-                                },
-                                property.second);
+                            std::visit([&propertyJson](
+                                           auto &&val) { propertyJson = val; },
+                                       property.second);
                         }
                     }
                 }

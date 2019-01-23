@@ -18,6 +18,7 @@
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
+#include <variant>
 
 namespace redfish
 {
@@ -87,8 +88,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                      &property : propertiesList)
                             {
                                 const std::string *value =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::string>(&property.second);
+                                    std::get_if<std::string>(&property.second);
                                 if (value != nullptr)
                                 {
                                     aResp->res.jsonValue[property.first] =
@@ -355,8 +355,7 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                                 if (property.first == "Asserted")
                                 {
                                     const bool *asserted =
-                                        sdbusplus::message::variant_ns::get_if<
-                                            bool>(&property.second);
+                                        std::get_if<bool>(&property.second);
                                     if (nullptr != asserted)
                                     {
                                         callback(*asserted, aResp);
@@ -399,8 +398,7 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                 if (property.first == "State")
                 {
                     const std::string *s =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &property.second);
+                        std::get_if<std::string>(&property.second);
                     if (nullptr != s)
                     {
                         BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
@@ -444,9 +442,8 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const sdbusplus::message::variant<std::string> &hostState) {
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::variant<std::string> &hostState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -454,8 +451,7 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
                 return;
             }
 
-            const std::string *s =
-                sdbusplus::message::variant_ns::get_if<std::string>(&hostState);
+            const std::string *s = std::get_if<std::string>(&hostState);
             BMCWEB_LOG_DEBUG << "Host state: " << *s;
             if (s != nullptr)
             {
@@ -598,7 +594,7 @@ class SystemActionsReset : public Node
                 "/xyz/openbmc_project/state/chassis0",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-                sdbusplus::message::variant<std::string>{
+                std::variant<std::string>{
                     "xyz.openbmc_project.State.Chassis.Transition.Off"});
             return;
         }
@@ -640,7 +636,7 @@ class SystemActionsReset : public Node
             "/xyz/openbmc_project/state/host0",
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            sdbusplus::message::variant<std::string>{command});
+            std::variant<std::string>{command});
     }
 };
 
@@ -813,7 +809,7 @@ class Systems : public Node
                 "/xyz/openbmc_project/led/groups/enclosure_identify",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
-                sdbusplus::message::variant<bool>(
+                std::variant<bool>(
                     (dbusLedState ==
                              "xyz.openbmc_project.Led.Physical.Action.Off"
                          ? false
@@ -836,7 +832,7 @@ class Systems : public Node
                 "/xyz/openbmc_project/led/physical/identify",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Physical", "State",
-                sdbusplus::message::variant<std::string>(dbusLedState));
+                std::variant<std::string>(dbusLedState));
         }
     }
 };

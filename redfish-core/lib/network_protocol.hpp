@@ -18,6 +18,8 @@
 #include "error_messages.hpp"
 #include "node.hpp"
 
+#include <variant>
+
 namespace redfish
 {
 
@@ -156,19 +158,17 @@ class NetworkProtocol : public Node
                             [asyncResp, service{std::string(service)},
                              socketPath](
                                 const boost::system::error_code ec,
-                                const sdbusplus::message::variant<std::vector<
-                                    std::tuple<std::string, std::string>>>&
-                                    resp) {
+                                const std::variant<std::vector<std::tuple<
+                                    std::string, std::string>>>& resp) {
                                 if (ec)
                                 {
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                const std::vector<std::tuple<
-                                    std::string, std::string>>* responsePtr =
-                                    sdbusplus::message::variant_ns::get_if<
-                                        std::vector<std::tuple<std::string,
-                                                               std::string>>>(
+                                const std::vector<
+                                    std::tuple<std::string, std::string>>*
+                                    responsePtr = std::get_if<std::vector<
+                                        std::tuple<std::string, std::string>>>(
                                         &resp);
                                 if (responsePtr == nullptr ||
                                     responsePtr->size() < 1)
