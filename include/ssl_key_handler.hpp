@@ -352,23 +352,8 @@ inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
 
     std::string aesOnlyCiphers = "AES128+EECDH:AES128+EDH:!aNULL:!eNULL";
 
-    // OWASP Cipher String 'B' (Broad compatibility to browsers)
-    // https://www.owasp.org/index.php/TLS_Cipher_String_Cheat_Sheet
-    std::string owaspBroadCompatibility = "DHE-RSA-AES256-GCM-SHA384:"
-                                          "DHE-RSA-AES128-GCM-SHA256:"
-                                          "ECDHE-RSA-AES256-GCM-SHA384:"
-                                          "ECDHE-RSA-AES128-GCM-SHA256:"
-                                          "DHE-RSA-AES256-SHA256:"
-                                          "DHE-RSA-AES128-SHA256:"
-                                          "ECDHE-RSA-AES256-SHA384:"
-                                          "ECDHE-RSA-AES128-SHA256:"
-                                          "ECDHE-RSA-AES256-SHA:"
-                                          "ECDHE-RSA-AES128-SHA:"
-                                          "DHE-RSA-AES256-SHA:"
-                                          "DHE-RSA-AES128-SHA";
-
     if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
-                                owaspBroadCompatibility.c_str()) != 1)
+                                mozillaCompatibilityCiphers.c_str()) != 1)
     {
         BMCWEB_LOG_ERROR << "Error setting cipher list\n";
     }
