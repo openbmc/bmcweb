@@ -61,10 +61,9 @@ class ChassisCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        const std::array<const char *, 3> interfaces = {
+        const std::array<const char *, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+            "xyz.openbmc_project.Inventory.Item.Chassis"};
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
         res.jsonValue["@odata.context"] =
@@ -131,10 +130,9 @@ class Chassis : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        const std::array<const char *, 3> interfaces = {
+        const std::array<const char *, 2> interfaces = {
             "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+            "xyz.openbmc_project.Inventory.Item.Chassis"};
 
         // Check if there is required param, truly entering this shall be
         // impossible.
