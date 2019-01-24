@@ -92,10 +92,6 @@
    authentication, session management, and security.
 
 9. ### Performance
-   TLS uses cipher suites from the "OWASP Cipher String 'B'" to maintain as
-   much compatibility as we can with modern browsers, while still keeping a
-   strong security posture.
-
    The performance priorities for the OpenBMC webserver are (in order):
     1. Code is readable and clear
     2. Code follows secure guidelines
