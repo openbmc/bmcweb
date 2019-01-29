@@ -6,6 +6,7 @@
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
 #include <memory>
+#include <nbd_proxy.hpp>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <persistent_data_middleware.hpp>
@@ -83,6 +84,8 @@ int main(int argc, char** argv)
 #ifdef BMCWEB_ENABLE_REDFISH
     crow::redfish::requestRoutes(app);
 #endif
+
+    crow::nbd_proxy::requestRoutes(app);
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
     crow::dbus_monitor::requestRoutes(app);
