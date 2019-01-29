@@ -56,7 +56,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
         adaptor(std::move(adaptorIn)),
-        inString(), inBuffer(inString, 4096), ws(adaptor.socket()),
+        inString(), inBuffer(inString, 0x20000), ws(adaptor.socket()),
         Connection(req), openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),

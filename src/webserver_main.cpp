@@ -4,6 +4,7 @@
 #include <boost/asio/io_context.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <nbd_proxy.hpp>
 #include <image_upload.hpp>
 #include <memory>
 #include <obmc_console.hpp>
@@ -83,6 +84,8 @@ int main(int argc, char** argv)
 #ifdef BMCWEB_ENABLE_REDFISH
     crow::redfish::requestRoutes(app);
 #endif
+
+    crow::nbd_proxy::requestRoutes(app);
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
     crow::dbus_monitor::requestRoutes(app);
