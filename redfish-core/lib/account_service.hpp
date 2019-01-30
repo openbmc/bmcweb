@@ -33,11 +33,20 @@ struct LDAPConfigData
     std::string serverType;
 };
 
+struct LDAProleMapData
+{
+    std::string groupName;
+    std::string privilege;
+};
+
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
         std::string, boost::container::flat_map<
                          std::string, std::variant<bool, std::string>>>>>;
+
+using ObjectPath = std::string;
+using LDAPObjectInfo = std::map<ObjectPath, LDAProleMapData>;
 
 inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
 {
@@ -84,11 +93,94 @@ using GetAllPropertiesType =
     boost::container::flat_map<std::string,
                                sdbusplus::message::variant<std::string>>;
 
-void parseLDAPConfigData(nlohmann::json& json_response,
+void parseRoleMappingData(nlohmann::json& json_response,
+                          const LDAPObjectInfo& roleConfData,
+                          std::string serverType)
+{
+    auto& serverTypeJson = json_response[serverType];
+    auto& roleMapJson = serverTypeJson["RemoteRoleMapping"];
+    auto roleMapObject = nlohmann::json::object();
+    auto roleMap_arry = nlohmann::json::array();
+
+    for (auto& objpath : roleConfData)
+    {
+        roleMapObject = {
+            nlohmann::json::array({"RemoteGroup", objpath.second.groupName}),
+            nlohmann::json::array(
+                {"LocalRole",
+                 getPrivilegeFromRoleId(objpath.second.privilege)})};
+        roleMap_arry.push_back(roleMapObject);
+    }
+    roleMapJson = std::move(roleMap_arry);
+}
+
+inline void getRoleMapping(const std::shared_ptr<AsyncResp> asyncResp,
+                           std::string serverType)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, serverType](const boost::system::error_code error_code,
+                                const ManagedObjectType& resp) {
+            if (error_code)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error while getting LDAP PrivilegeMapper Objects";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            LDAPObjectInfo roleConfData{};
+            LDAProleMapData roleMapData{};
+
+            for (auto& objpath : resp)
+            {
+                for (auto& interface : objpath.second)
+                {
+                    // If interface is
+                    // xyz.openbmc_project.User.PrivilegeMapperEntry, this is
+                    // what we're looking for.
+                    if (interface.first ==
+                        "xyz.openbmc_project.User.PrivilegeMapperEntry")
+                    {
+                        for (const auto& property : interface.second)
+                        {
+                            auto value = sdbusplus::message::variant_ns::get_if<
+                                std::string>(&property.second);
+
+                            if (value == nullptr)
+                            {
+                                continue;
+                            }
+
+                            if (property.first == "GroupName")
+                            {
+                                roleMapData.groupName = *value;
+                            }
+                            else if (property.first == "Privilege")
+                            {
+                                roleMapData.privilege = *value;
+                            }
+                        }
+
+                        roleConfData.emplace(objpath.first.str, roleMapData);
+                        roleMapData = {};
+                    }
+                }
+            }
+            parseRoleMappingData(asyncResp->res.jsonValue, roleConfData,
+                                 serverType);
+        },
+        "xyz.openbmc_project.LDAP.PrivilegeMapper",
+        "/xyz/openbmc_project/user/ldap", "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
+}
+
+void parseLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp,
                          const LDAPConfigData& confData)
 {
     std::string serverType;
     std::string service;
+    auto& json_response = asyncResp->res.jsonValue;
+
     if (confData.serverType ==
         "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory")
     {
@@ -132,6 +224,7 @@ void parseLDAPConfigData(nlohmann::json& json_response,
 
     searchSettingsJson["UsernameAttribute"] = nullptr;
     searchSettingsJson["GroupsAttribute"] = nullptr;
+    getRoleMapping(asyncResp, serverType);
 }
 
 /**
@@ -178,7 +271,7 @@ inline void getLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp)
                 confData.serverType = *value;
             }
         }
-        parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+        parseLDAPConfigData(asyncResp, confData);
     };
     crow::connections::systemBus->async_method_call(
         std::move(getConfig), "xyz.openbmc_project.Ldap.Config",
