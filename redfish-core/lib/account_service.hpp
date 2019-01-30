@@ -16,6 +16,7 @@
 #pragma once
 #include "node.hpp"
 
+#include <dbus_utility.hpp>
 #include <error_messages.hpp>
 #include <openbmc_dbus_rest.hpp>
 #include <utils/json_utils.hpp>
@@ -455,6 +456,9 @@ class ManagerAccount : public Node
                                 }
                                 asyncResp->res.jsonValue["Locked"] =
                                     *userLocked;
+                                asyncResp->res.jsonValue
+                                    ["Locked@Redfish.AllowableValues"] = {
+                                    false};
                             }
                             else if (property.first == "UserPrivilege")
                             {
@@ -510,9 +514,10 @@ class ManagerAccount : public Node
         std::optional<std::string> password;
         std::optional<bool> enabled;
         std::optional<std::string> roleId;
+        std::optional<bool> locked;
         if (!json_util::readJson(req, res, "UserName", newUserName, "Password",
-                                 password, "RoleId", roleId, "Enabled",
-                                 enabled))
+                                 password, "RoleId", roleId, "Enabled", enabled,
+                                 "Locked", locked))
         {
             return;
         }
@@ -523,8 +528,8 @@ class ManagerAccount : public Node
         {
             // If the username isn't being updated, we can update the properties
             // directly
-            updateUserProperties(asyncResp, username, password, enabled,
-                                 roleId);
+            updateUserProperties(asyncResp, username, password, enabled, roleId,
+                                 locked);
             return;
         }
         else
@@ -532,7 +537,7 @@ class ManagerAccount : public Node
             crow::connections::systemBus->async_method_call(
                 [this, asyncResp, username, password(std::move(password)),
                  roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{std::string(*newUserName)}](
+                 newUser{std::string(*newUserName)}, locked(std::move(locked))](
                     const boost::system::error_code ec) {
                     if (ec)
                     {
@@ -544,7 +549,7 @@ class ManagerAccount : public Node
                     }
 
                     updateUserProperties(asyncResp, newUser, password, enabled,
-                                         roleId);
+                                         roleId, locked);
                 },
                 "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
                 "xyz.openbmc_project.User.Manager", "RenameUser", username,
@@ -556,7 +561,8 @@ class ManagerAccount : public Node
                               const std::string& username,
                               std::optional<std::string> password,
                               std::optional<bool> enabled,
-                              std::optional<std::string> roleId)
+                              std::optional<std::string> roleId,
+                              std::optional<bool> locked)
     {
         if (password)
         {
@@ -568,52 +574,101 @@ class ManagerAccount : public Node
             }
         }
 
-        if (enabled)
-        {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    messages::success(asyncResp->res);
+        std::string dbusObjectPath = "/xyz/openbmc_project/user/" + username;
+        dbus::utility::escapePathForDbus(dbusObjectPath);
+
+        checkDbusPathExists(
+            dbusObjectPath,
+            [dbusObjectPath(std::move(dbusObjectPath)), username,
+             password(std::move(password)), roleId(std::move(roleId)),
+             enabled(std::move(enabled)), locked(std::move(locked)),
+             asyncResp{std::move(asyncResp)}](int rc) {
+                if (!rc)
+                {
+                    messages::invalidObject(asyncResp->res, username.c_str());
                     return;
-                },
-                "xyz.openbmc_project.User.Manager",
-                "/xyz/openbmc_project/user/" + username,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.Attributes", "UserEnabled",
-                std::variant<bool>{*enabled});
-        }
+                }
+                if (enabled)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                            return;
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        dbusObjectPath.c_str(),
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.Attributes", "UserEnabled",
+                        std::variant<bool>{*enabled});
+                }
 
-        if (roleId)
-        {
-            std::string priv = getRoleIdFromPrivilege(*roleId);
-            if (priv.empty())
-            {
-                messages::propertyValueNotInList(asyncResp->res, *roleId,
-                                                 "RoleId");
-                return;
-            }
-
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
+                if (roleId)
+                {
+                    std::string priv = getRoleIdFromPrivilege(*roleId);
+                    if (priv.empty())
                     {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::internalError(asyncResp->res);
+                        messages::propertyValueNotInList(asyncResp->res,
+                                                         *roleId, "RoleId");
                         return;
                     }
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.User.Manager",
-                "/xyz/openbmc_project/user/" + username,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.User.Attributes", "UserPrivilege",
-                std::variant<std::string>{priv});
-        }
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        dbusObjectPath.c_str(),
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.Attributes", "UserPrivilege",
+                        std::variant<std::string>{priv});
+                }
+
+                if (locked)
+                {
+                    // admin can unlock the account which is locked by
+                    // successive authentication failures but admin should not
+                    // be allowed to lock an account.
+                    if (*locked)
+                    {
+                        messages::propertyValueNotInList(asyncResp->res, "true",
+                                                         "Locked");
+                        return;
+                    }
+
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                            return;
+                        },
+                        "xyz.openbmc_project.User.Manager",
+                        dbusObjectPath.c_str(),
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.User.Attributes",
+                        "UserLockedForFailedAttempt",
+                        sdbusplus::message::variant<bool>{*locked});
+                }
+            });
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,
@@ -645,6 +700,6 @@ class ManagerAccount : public Node
             "xyz.openbmc_project.User.Manager", userPath,
             "xyz.openbmc_project.Object.Delete", "Delete");
     }
-};
+}; // namespace redfish
 
 } // namespace redfish
