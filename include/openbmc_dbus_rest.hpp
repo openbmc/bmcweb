@@ -1037,18 +1037,18 @@ int convertDBusToJSON(const std::string &returnType,
     int r = 0;
     const std::vector<std::string> returnTypes = dbusArgSplit(returnType);
 
-    nlohmann::json &thisElement = response;
     for (const std::string &typeCode : returnTypes)
     {
-        if (returnType.size() > 1)
+        nlohmann::json *thisElement = &response;
+        if (returnTypes.size() > 1)
         {
             response.push_back(nlohmann::json{});
-            thisElement = response.back();
+            thisElement = &response.back();
         }
 
         if (typeCode == "s")
         {
-            r = readMessageItem<char *>(typeCode, m, thisElement);
+            r = readMessageItem<char *>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1056,7 +1056,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "g")
         {
-            r = readMessageItem<char *>(typeCode, m, thisElement);
+            r = readMessageItem<char *>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1064,7 +1064,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "o")
         {
-            r = readMessageItem<char *>(typeCode, m, thisElement);
+            r = readMessageItem<char *>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1072,17 +1072,17 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "b")
         {
-            r = readMessageItem<int>(typeCode, m, thisElement);
+            r = readMessageItem<int>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
             }
 
-            thisElement = static_cast<bool>(thisElement.get<int>());
+            *thisElement = static_cast<bool>(thisElement->get<int>());
         }
         else if (typeCode == "u")
         {
-            r = readMessageItem<uint32_t>(typeCode, m, thisElement);
+            r = readMessageItem<uint32_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1090,7 +1090,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "i")
         {
-            r = readMessageItem<int32_t>(typeCode, m, thisElement);
+            r = readMessageItem<int32_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1098,7 +1098,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "x")
         {
-            r = readMessageItem<int64_t>(typeCode, m, thisElement);
+            r = readMessageItem<int64_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1106,7 +1106,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "t")
         {
-            r = readMessageItem<uint64_t>(typeCode, m, thisElement);
+            r = readMessageItem<uint64_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1114,7 +1114,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "n")
         {
-            r = readMessageItem<int16_t>(typeCode, m, thisElement);
+            r = readMessageItem<int16_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1122,7 +1122,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "q")
         {
-            r = readMessageItem<uint16_t>(typeCode, m, thisElement);
+            r = readMessageItem<uint16_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1130,7 +1130,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "y")
         {
-            r = readMessageItem<uint8_t>(typeCode, m, thisElement);
+            r = readMessageItem<uint8_t>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1138,7 +1138,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "d")
         {
-            r = readMessageItem<double>(typeCode, m, thisElement);
+            r = readMessageItem<double>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1146,7 +1146,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (typeCode == "h")
         {
-            r = readMessageItem<int>(typeCode, m, thisElement);
+            r = readMessageItem<int>(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1154,7 +1154,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (boost::starts_with(typeCode, "a"))
         {
-            r = readArrayFromMessage(typeCode, m, thisElement);
+            r = readArrayFromMessage(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1163,7 +1163,7 @@ int convertDBusToJSON(const std::string &returnType,
         else if (boost::starts_with(typeCode, "(") &&
                  boost::ends_with(typeCode, ")"))
         {
-            r = readStructFromMessage(typeCode, m, thisElement);
+            r = readStructFromMessage(typeCode, m, *thisElement);
             if (r < 0)
             {
                 return r;
@@ -1171,7 +1171,7 @@ int convertDBusToJSON(const std::string &returnType,
         }
         else if (boost::starts_with(typeCode, "v"))
         {
-            r = readVariantFromMessage(m, thisElement);
+            r = readVariantFromMessage(m, *thisElement);
             if (r < 0)
             {
                 return r;
