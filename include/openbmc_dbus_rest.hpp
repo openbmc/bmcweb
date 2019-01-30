@@ -1609,12 +1609,15 @@ void handleGet(crow::Response &res, std::string &objectPath,
 
                 for (const std::string &interface : interfaceNames)
                 {
-                    crow::connections::systemBus->async_method_call(
-                        [&res, response, propertyName](
-                            const boost::system::error_code ec,
-                            const std::vector<std::pair<
-                                std::string, dbus::utility::DbusVariantType>>
-                                &properties) {
+                    sdbusplus::message::message m =
+                        crow::connections::systemBus->new_method_call(
+                            connection.first.c_str(), path->c_str(),
+                            "org.freedesktop.DBus.Properties", "GetAll");
+                    m.append(interface);
+                    crow::connections::systemBus->async_send(
+                        m, [&res, response,
+                            propertyName](const boost::system::error_code ec,
+                                          sdbusplus::message::message &m) {
                             if (ec)
                             {
                                 BMCWEB_LOG_ERROR << "Bad dbus request error: "
@@ -1622,30 +1625,32 @@ void handleGet(crow::Response &res, std::string &objectPath,
                             }
                             else
                             {
-                                for (const std::pair<
-                                         std::string,
-                                         dbus::utility::DbusVariantType>
-                                         &property : properties)
+                                nlohmann::json properties;
+                                int r =
+                                    convertDBusToJSON("a{sv}", m, properties);
+                                if (r < 0)
                                 {
-                                    // if property name is empty, or matches our
-                                    // search query, add it to the response json
+                                    BMCWEB_LOG_ERROR
+                                        << "convertDBusToJSON failed";
+                                }
+                                else
+                                {
+                                    for (auto &prop : properties.items())
+                                    {
+                                        // if property name is empty, or matches
+                                        // our search query, add it to the
+                                        // response json
 
-                                    if (propertyName->empty())
-                                    {
-                                        sdbusplus::message::variant_ns::visit(
-                                            [&response, &property](auto &&val) {
-                                                (*response)[property.first] =
-                                                    val;
-                                            },
-                                            property.second);
-                                    }
-                                    else if (property.first == *propertyName)
-                                    {
-                                        sdbusplus::message::variant_ns::visit(
-                                            [&response](auto &&val) {
-                                                (*response) = val;
-                                            },
-                                            property.second);
+                                        if (propertyName->empty())
+                                        {
+                                            (*response)[std::move(prop.key())] =
+                                                std::move(prop.value());
+                                        }
+                                        else if (prop.key() == *propertyName)
+                                        {
+                                            *(response) =
+                                                std::move(prop.value());
+                                        }
                                     }
                                 }
                             }
@@ -1666,9 +1671,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
                                 }
                                 res.end();
                             }
-                        },
-                        connection.first, *path,
-                        "org.freedesktop.DBus.Properties", "GetAll", interface);
+                        });
                 }
             }
         },
