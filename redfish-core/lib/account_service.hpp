@@ -33,6 +33,12 @@ struct LDAPConfigData
     std::string serverType;
 };
 
+struct LDAPRoleMapData
+{
+    std::string groupName;
+    std::string privilege;
+};
+
 using ManagedObjectType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
@@ -84,11 +90,125 @@ using GetAllPropertiesType =
     boost::container::flat_map<std::string,
                                sdbusplus::message::variant<std::string>>;
 
-void parseLDAPConfigData(nlohmann::json& json_response,
+static void getRoleMapProperties(
+    const std::shared_ptr<AsyncResp>& asyncResp,
+    const std::vector<std::pair<std::string, LDAPRoleMapData>>& roleMapObjData,
+    const std::string& serverType)
+{
+
+    nlohmann::json& roleMapArray =
+        asyncResp->res.jsonValue[serverType]["RemoteRoleMapping"];
+    roleMapArray = nlohmann::json::array();
+
+    for (auto& objpath : roleMapObjData)
+    {
+        roleMapArray.push_back(
+            {nlohmann::json::array({"RemoteUser", objpath.second.groupName}),
+             nlohmann::json::array(
+                 {"LocalRole",
+                  getPrivilegeFromRoleId(objpath.second.privilege)})});
+    }
+}
+
+/**
+ * @brief Retrieves GroupName and Privilege properties for all Objects over
+ * DBUS and forwards the result to a user supplied callback function for
+ * further processing.
+ *
+ * @param[in] asyncResp Shared pointer for completing asynchronous calls.
+ * @param[in] callback Callback for further processing.
+ * @param[in] serverType serverType(ActiveDirectory/OpenLdap).
+ *
+ * @return None.
+ */
+template <typename CallbackFunc>
+static void handleRoleMapProperties(const std::shared_ptr<AsyncResp>& asyncResp,
+                                    CallbackFunc&& callback,
+                                    const std::string& serverType)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    auto roleMapHandler = [asyncResp, callback{std::move(callback)},
+                           serverType](const boost::system::error_code ec,
+                                       ManagedObjectType& resp) {
+        std::vector<std::pair<std::string, LDAPRoleMapData>> roleMapObjData{};
+        LDAPRoleMapData roleMapData{};
+
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        for (auto& objpath : resp)
+        {
+            for (auto& interface : objpath.second)
+            {
+                if (interface.first ==
+                    "xyz.openbmc_project.User.PrivilegeMapperEntry")
+                {
+                    for (const auto& property : interface.second)
+                    {
+                        const std::string* value =
+                            std::get_if<std::string>(&property.second);
+
+                        if (value == nullptr)
+                        {
+                            continue;
+                        }
+
+                        if (property.first == "GroupName")
+                        {
+                            roleMapData.groupName = *value;
+                        }
+                        else if (property.first == "Privilege")
+                        {
+                            roleMapData.privilege = *value;
+                        }
+                    }
+
+                    roleMapObjData.push_back(
+                        std::make_pair(objpath.first.str, roleMapData));
+                    roleMapData = {};
+                }
+            }
+        }
+        // Finally make a callback with useful data
+        callback(asyncResp, roleMapObjData, serverType);
+    };
+
+    auto getServiceNameHandler =
+        [asyncResp, roleMapHandler{std::move(roleMapHandler)}](
+            const boost::system::error_code ec, const GetObjectType& resp) {
+            if (ec || resp.empty())
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::string service = resp.begin()->first;
+            BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+            crow::connections::systemBus->async_method_call(
+                std::move(roleMapHandler), service,
+                "/xyz/openbmc_project/user/ldap",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        };
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceNameHandler), "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject",
+        "/xyz/openbmc_project/user/ldap", std::array<std::string, 0>());
+}
+
+void parseLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp,
                          const LDAPConfigData& confData)
 {
     std::string serverType;
     std::string service;
+    auto& json_response = asyncResp->res.jsonValue;
+
     if (confData.serverType ==
         "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory")
     {
@@ -132,6 +252,7 @@ void parseLDAPConfigData(nlohmann::json& json_response,
 
     searchSettingsJson["UsernameAttribute"] = nullptr;
     searchSettingsJson["GroupsAttribute"] = nullptr;
+    handleRoleMapProperties(asyncResp, getRoleMapProperties, serverType);
 }
 
 /**
@@ -178,7 +299,7 @@ inline void getLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp)
                 confData.serverType = *value;
             }
         }
-        parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+        parseLDAPConfigData(asyncResp, confData);
     };
     crow::connections::systemBus->async_method_call(
         std::move(getConfig), "xyz.openbmc_project.Ldap.Config",
