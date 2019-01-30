@@ -43,6 +43,12 @@ constexpr const char* mapperBusName = "xyz.openbmc_project.ObjectMapper";
 constexpr const char* mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr const char* mapperIntf = "xyz.openbmc_project.ObjectMapper";
 
+struct LDAPRoleMapData
+{
+    std::string groupName;
+    std::string privilege;
+};
+
 struct LDAPConfigData
 {
     std::string uri{};
@@ -53,6 +59,7 @@ struct LDAPConfigData
     bool serviceEnabled = false;
     std::string userNameAttribute{};
     std::string groupAttribute{};
+    std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
 using ManagedObjectType = std::vector<std::pair<
@@ -125,7 +132,20 @@ void parseLDAPConfigData(nlohmann::json& json_response,
             {"UsernameAttribute", confData.userNameAttribute},
             {"GroupsAttribute", confData.groupAttribute}}}}},
     };
+
     json_response[ldapType].update(std::move(ldap));
+
+    nlohmann::json& roleMapArray = json_response[ldapType]["RemoteRoleMapping"];
+    roleMapArray = nlohmann::json::array();
+    for (auto& obj : confData.groupRoleList)
+    {
+        BMCWEB_LOG_DEBUG << "Pushing the data groupName="
+                         << obj.second.groupName << "\n";
+        roleMapArray.push_back(
+            {nlohmann::json::array({"RemoteGroup", obj.second.groupName}),
+             nlohmann::json::array(
+                 {"LocalRole", getPrivilegeFromRoleId(obj.second.privilege)})});
+    }
 }
 
 /**
@@ -136,154 +156,176 @@ template <typename CallbackFunc>
 inline void getLDAPConfigData(const std::string& ldapType,
                               CallbackFunc&& callback)
 {
-    auto getConfig = [callback,
-                      ldapType](const boost::system::error_code error_code,
-                                const ManagedObjectType& ldapObjects) {
-        LDAPConfigData confData{};
-        if (error_code)
-        {
-            callback(false, confData, ldapType);
-            BMCWEB_LOG_ERROR << "D-Bus responses error: " << error_code;
-            return;
-        }
-
-        std::string ldapDbusType;
-        if (ldapType == "LDAP")
-        {
-            ldapDbusType = "xyz.openbmc_project.User.Ldap.Config.Type.OpenLdap";
-        }
-        else if (ldapType == "ActiveDirectory")
-        {
-            ldapDbusType = "xyz.openbmc_project.User.Ldap.Config.Type."
-                           "ActiveDirectory";
-        }
-        else
-        {
-            BMCWEB_LOG_ERROR << "Can't get the DbusType for the given type="
-                             << ldapType;
-            callback(false, confData, ldapType);
-            return;
-        }
-
-        std::string ldapEnableInterfaceStr = ldapEnableInterface;
-        std::string ldapConfigInterfaceStr = ldapConfigInterface;
-
-        for (const auto& object : ldapObjects)
-        {
-            // let's find the object whose ldap type is equal to the given type
-            auto intfit = object.second.find(ldapConfigInterfaceStr);
-            if (intfit == object.second.end())
-            {
-                continue;
-            }
-            auto propit = intfit->second.find("LDAPType");
-            if (propit == intfit->second.end())
-            {
-                continue;
-            }
-
-            const std::string* value =
-                std::get_if<std::string>(&(propit->second));
-            if (value == nullptr || (*value) != ldapDbusType)
-            {
-
-                // this is not the interested configuration,
-                // let's move on to the other configuration.
-                continue;
-            }
-            else
-            {
-                confData.serverType = *value;
-            }
-
-            for (const auto& interface : object.second)
-            {
-                if (interface.first == ldapEnableInterfaceStr)
-                {
-                    // rest of the properties are string.
-                    for (const auto& property : interface.second)
-                    {
-                        if (property.first == "Enabled")
-                        {
-                            const bool* value =
-                                std::get_if<bool>(&property.second);
-                            if (value == nullptr)
-                            {
-                                continue;
-                            }
-                            confData.serviceEnabled = *value;
-                            break;
-                        }
-                    }
-                }
-                else if (interface.first == ldapConfigInterfaceStr)
-                {
-
-                    for (const auto& property : interface.second)
-                    {
-                        const std::string* value =
-                            std::get_if<std::string>(&property.second);
-                        if (value == nullptr)
-                        {
-                            continue;
-                        }
-                        if (property.first == "LDAPServerURI")
-                        {
-                            confData.uri = *value;
-                        }
-                        else if (property.first == "LDAPBindDN")
-                        {
-                            confData.bindDN = *value;
-                        }
-                        else if (property.first == "LDAPBaseDN")
-                        {
-                            confData.baseDN = *value;
-                        }
-                        else if (property.first == "LDAPSearchScope")
-                        {
-                            confData.searchScope = *value;
-                        }
-                        else if (property.first == "GroupNameAttribute")
-                        {
-                            confData.groupAttribute = *value;
-                        }
-                        else if (property.first == "UserNameAttribute")
-                        {
-                            confData.userNameAttribute = *value;
-                        }
-                    }
-                }
-            }
-            if (confData.serverType == ldapDbusType)
-            {
-                callback(true, confData, ldapType);
-                break;
-            }
-        }
-    };
-    auto getServiceName = [callback, ldapType, getConfig(std::move(getConfig))](
-                              const boost::system::error_code ec,
-                              const GetObjectType& resp) {
-        LDAPConfigData confData{};
-        if (ec || resp.empty())
-        {
-            BMCWEB_LOG_ERROR
-                << "DBUS response error during getting of service name: " << ec;
-            callback(false, confData, ldapType);
-            return;
-        }
-        std::string service = resp.begin()->first;
-        crow::connections::systemBus->async_method_call(
-            std::move(getConfig), service, ldapRootObject, dbusObjManagerIntf,
-            "GetManagedObjects");
-    };
 
     const std::array<std::string, 2> interfaces = {ldapEnableInterface,
                                                    ldapConfigInterface};
 
     crow::connections::systemBus->async_method_call(
-        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
-        "GetObject", ldapConfigObject, interfaces);
+        [callback, ldapType](const boost::system::error_code ec,
+                             const GetObjectType& resp) {
+            LDAPConfigData confData{};
+            if (ec || resp.empty())
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error during getting of "
+                                    "service name: "
+                                 << ec;
+                callback(false, confData, ldapType);
+                return;
+            }
+            std::string service = resp.begin()->first;
+            crow::connections::systemBus->async_method_call(
+                [callback, ldapType](const boost::system::error_code error_code,
+                                     const ManagedObjectType& ldapObjects) {
+                    LDAPConfigData confData{};
+                    if (error_code)
+                    {
+                        callback(false, confData, ldapType);
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                         << error_code;
+                        return;
+                    }
+
+                    std::string ldapDbusType;
+                    std::string searchString;
+
+                    if (ldapType == "LDAP")
+                    {
+                        ldapDbusType = "xyz.openbmc_project.User.Ldap.Config."
+                                       "Type.OpenLdap";
+                        searchString = "openldap";
+                    }
+                    else if (ldapType == "ActiveDirectory")
+                    {
+                        ldapDbusType =
+                            "xyz.openbmc_project.User.Ldap.Config.Type."
+                            "ActiveDirectory";
+                        searchString = "active_directory";
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Can't get the DbusType for the given type="
+                            << ldapType;
+                        callback(false, confData, ldapType);
+                        return;
+                    }
+
+                    std::string ldapEnableInterfaceStr = ldapEnableInterface;
+                    std::string ldapConfigInterfaceStr = ldapConfigInterface;
+
+                    for (const auto& object : ldapObjects)
+                    {
+                        // let's find the object whose ldap type is equal to the
+                        // given type
+                        if (object.first.str.find(searchString) ==
+                            std::string::npos)
+                        {
+                            continue;
+                        }
+
+                        for (const auto& interface : object.second)
+                        {
+                            if (interface.first == ldapEnableInterfaceStr)
+                            {
+                                // rest of the properties are string.
+                                for (const auto& property : interface.second)
+                                {
+                                    if (property.first == "Enabled")
+                                    {
+                                        const bool* value =
+                                            std::get_if<bool>(&property.second);
+                                        if (value == nullptr)
+                                        {
+                                            continue;
+                                        }
+                                        confData.serviceEnabled = *value;
+                                        break;
+                                    }
+                                }
+                            }
+                            else if (interface.first == ldapConfigInterfaceStr)
+                            {
+
+                                for (const auto& property : interface.second)
+                                {
+                                    const std::string* value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (value == nullptr)
+                                    {
+                                        continue;
+                                    }
+                                    if (property.first == "LDAPServerURI")
+                                    {
+                                        confData.uri = *value;
+                                    }
+                                    else if (property.first == "LDAPBindDN")
+                                    {
+                                        confData.bindDN = *value;
+                                    }
+                                    else if (property.first == "LDAPBaseDN")
+                                    {
+                                        confData.baseDN = *value;
+                                    }
+                                    else if (property.first ==
+                                             "LDAPSearchScope")
+                                    {
+                                        confData.searchScope = *value;
+                                    }
+                                    else if (property.first ==
+                                             "GroupNameAttribute")
+                                    {
+                                        confData.groupAttribute = *value;
+                                    }
+                                    else if (property.first ==
+                                             "UserNameAttribute")
+                                    {
+                                        confData.userNameAttribute = *value;
+                                    }
+                                    else if (property.first == "LDAPType")
+                                    {
+                                        confData.serverType = *value;
+                                    }
+                                }
+                            }
+                            else if (interface.first ==
+                                     "xyz.openbmc_project.User."
+                                     "PrivilegeMapperEntry")
+                            {
+                                LDAPRoleMapData roleMapData{};
+                                for (const auto& property : interface.second)
+                                {
+                                    const std::string* value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+
+                                    if (value == nullptr)
+                                    {
+                                        continue;
+                                    }
+
+                                    if (property.first == "GroupName")
+                                    {
+                                        roleMapData.groupName = *value;
+                                    }
+                                    else if (property.first == "Privilege")
+                                    {
+                                        roleMapData.privilege = *value;
+                                    }
+                                }
+
+                                confData.groupRoleList.push_back(std::make_pair(
+                                    object.first.str, roleMapData));
+                            }
+                        }
+                    }
+                    callback(true, confData, ldapType);
+                },
+                service, ldapRootObject, dbusObjManagerIntf,
+                "GetManagedObjects");
+        },
+        mapperBusName, mapperObjectPath, mapperIntf, "GetObject",
+        ldapConfigObject, interfaces);
 }
 
 class AccountService : public Node
@@ -1050,9 +1092,9 @@ class AccountsCollection : public Node
 
                 if (!pamUpdatePassword(username, password))
                 {
-                    // At this point we have a user that's been created, but the
-                    // password set failed.  Something is wrong, so delete the
-                    // user that we've already created
+                    // At this point we have a user that's been created, but
+                    // the password set failed.  Something is wrong, so
+                    // delete the user that we've already created
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec) {
                             if (ec)
@@ -1250,8 +1292,8 @@ class ManagerAccount : public Node
 
         if (!newUserName)
         {
-            // If the username isn't being updated, we can update the properties
-            // directly
+            // If the username isn't being updated, we can update the
+            // properties directly
             updateUserProperties(asyncResp, username, password, enabled, roleId,
                                  locked);
             return;
@@ -1364,8 +1406,8 @@ class ManagerAccount : public Node
                 if (locked)
                 {
                     // admin can unlock the account which is locked by
-                    // successive authentication failures but admin should not
-                    // be allowed to lock an account.
+                    // successive authentication failures but admin should
+                    // not be allowed to lock an account.
                     if (*locked)
                     {
                         messages::propertyValueNotInList(asyncResp->res, "true",
