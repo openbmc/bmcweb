@@ -38,6 +38,59 @@ using ManagedObjectsType = std::vector<std::pair<
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
 /**
+ * @brief Retrieves physical security properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getPhysicalSecurity(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get physical security. \n";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const sdbusplus::message::variant<int32_t> &value) {
+            if (ec)
+            {
+                // do not add err msg in redfish response, becaues this is not
+                //     mandatory property
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+                return;
+            }
+
+            const int32_t *status =
+                sdbusplus::message::variant_ns::get_if<int32_t>(&value);
+            std::string intrusionStatus;
+
+            if (status == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "intrusion status read error \n";
+                return;
+            }
+            else if (*status == 0)
+            {
+                intrusionStatus = "Normal";
+            }
+            else if (*status == 1)
+            {
+                intrusionStatus = "HardwareIntrusion";
+            }
+            else if (*status == 2)
+            {
+                intrusionStatus = "TamperingDetected";
+            }
+
+            aResp->res.jsonValue["PhysicalSecurity"] = {
+                {"IntrusionSensorNumber", 1},
+                {"IntrusionSensor", intrusionStatus}};
+        },
+        "xyz.openbmc_project.IntrusionSensor", "/xyz/openbmc_project/Intrusion",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Intrusion", "ChassisIntrusionStatus");
+}
+
+/**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  */
 class ChassisCollection : public Node
@@ -242,6 +295,8 @@ class Chassis : public Node
             "/xyz/openbmc_project/inventory", int32_t(0),
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Inventory.Decorator.Asset"});
+
+        getPhysicalSecurity(asyncResp);
     }
 };
 } // namespace redfish
