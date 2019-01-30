@@ -5,6 +5,7 @@
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
+#include <openbmc_dbus_rest.hpp>
 #include <sdbusplus/bus/match.hpp>
 #include <sdbusplus/message/types.hpp>
 
@@ -52,34 +53,50 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
         return 0;
     }
     sdbusplus::message::message message(m);
-    using VariantType = sdbusplus::message::variant<std::string, bool, int64_t,
-                                                    uint64_t, double>;
     nlohmann::json j{{"event", message.get_member()},
                      {"path", message.get_path()}};
     if (strcmp(message.get_member(), "PropertiesChanged") == 0)
     {
-        std::string interface_name;
-        boost::container::flat_map<std::string, VariantType> values;
-        message.read(interface_name, values);
-        j["properties"] = values;
-        j["interface"] = std::move(interface_name);
+        nlohmann::json data;
+        int r = openbmc_mapper::convertDBusToJSON("sa{sv}as", message, data);
+        if (r < 0)
+        {
+            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+            return 0;
+        }
+        if (!data.is_array())
+        {
+            BMCWEB_LOG_ERROR << "No data in PropertiesChanged signal";
+            return 0;
+        }
+
+        // data is type sa{sv}as and is an array[3] of string, object, array
+        j["interface"] = data[0];
+        j["properties"] = data[1];
     }
     else if (strcmp(message.get_member(), "InterfacesAdded") == 0)
     {
-        std::string object_name;
-        boost::container::flat_map<
-            std::string, boost::container::flat_map<std::string, VariantType>>
-            values;
-        message.read(object_name, values);
-        for (const std::pair<
-                 std::string,
-                 boost::container::flat_map<std::string, VariantType>>& paths :
-             values)
+        nlohmann::json data;
+        int r = openbmc_mapper::convertDBusToJSON("oa{sa{sv}}", message, data);
+        if (r < 0)
         {
-            auto it = thisSession->second.interfaces.find(paths.first);
+            BMCWEB_LOG_ERROR << "convertDBusToJSON failed with " << r;
+            return 0;
+        }
+
+        if (!data.is_array())
+        {
+            BMCWEB_LOG_ERROR << "No data in InterfacesAdded signal";
+            return 0;
+        }
+
+        // data is type oa{sa{sv}} which is an array[2] of string, object
+        for (auto& entry : data[1].items())
+        {
+            auto it = thisSession->second.interfaces.find(entry.key());
             if (it != thisSession->second.interfaces.end())
             {
-                j["interfaces"][paths.first] = paths.second;
+                j["interfaces"][entry.key()] = entry.value();
             }
         }
     }
