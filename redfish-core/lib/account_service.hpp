@@ -411,6 +411,39 @@ class AccountService : public Node
             *serverType);
     }
 
+    void handleRemoteRoleMapObject(std::vector<nlohmann::json> input,
+                                   const std::shared_ptr<AsyncResp> asyncResp)
+    {
+
+        for (auto& odata : input)
+
+        {
+            std::optional<std::string> remoteUser;
+            std::optional<std::string> localRole;
+
+            if (!json_util::readJson(odata, asyncResp->res, "LocalRole",
+                                     localRole, "RemoteUser", remoteUser))
+            {
+                return;
+            }
+
+            auto createHandler =
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                    }
+                };
+
+            crow::connections::systemBus->async_method_call(
+                std::move(createHandler),
+                "xyz.openbmc_project.LDAP.PrivilegeMapper",
+                "/xyz/openbmc_project/user/ldap",
+                "xyz.openbmc_project.User.PrivilegeMapper", "Create",
+                *remoteUser, getRoleIdFromPrivilege(*localRole));
+        }
+    }
+
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -499,11 +532,13 @@ class AccountService : public Node
         std::optional<uint16_t> lockoutThreshold;
         std::optional<nlohmann::json> ldapObject;
         std::optional<nlohmann::json> activeDirectoryObject;
+        std::optional<nlohmann::json> remoteRoleMapObject;
 
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
                                  lockoutThreshold, "LDAP", ldapObject,
-                                 "ActiveDirectory", activeDirectoryObject))
+                                 "ActiveDirectory", activeDirectoryObject,
+                                 "RemoteRoleMapping", remoteRoleMapObject))
         {
             return;
         }
@@ -518,6 +553,10 @@ class AccountService : public Node
             handleLDAPPatch(*activeDirectoryObject, asyncResp);
         }
 
+        if (remoteRoleMapObject)
+        {
+            handleRemoteRoleMapObject(*remoteRoleMapObject, asyncResp);
+        }
         if (unlockTimeout)
         {
             crow::connections::systemBus->async_method_call(
