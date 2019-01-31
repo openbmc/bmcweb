@@ -28,6 +28,15 @@ static const char* dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 static const char* mapperBusName = "xyz.openbmc_project.ObjectMapper";
 static const char* mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 static const char* mapperIntf = "xyz.openbmc_project.ObjectMapper";
+static const char* privilegeMapperBusName =
+    "xyz.openbmc_project.LDAP.PrivilegeMapper";
+static const char* deleteIntf = "xyz.openbmc_project.Object.Delete";
+static const char* privilegeMapperEntryIntf =
+    "xyz.openbmc_project.User.PrivilegeMapperEntry";
+static const char* privilegeMapperIntf =
+    "xyz.openbmc_project.User.PrivilegeMapper";
+static const char* propIntf = "org.freedesktop.DBus.Properties";
+static const char* ldapObjectPath = "/xyz/openbmc_project/user/ldap";
 
 struct LDAPConfigData
 {
@@ -97,6 +106,244 @@ inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
 using GetAllPropertiesType =
     boost::container::flat_map<std::string,
                                sdbusplus::message::variant<std::string>>;
+
+void deleteRoleMapProperty(std::shared_ptr<AsyncResp> asyncResp,
+                           std::string objPath)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    BMCWEB_LOG_DEBUG << "Deleteing RoleMapping Object. objPath ="
+                     << objPath.c_str();
+
+    auto deleteHandler = [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+        }
+    };
+
+    auto getServiceNameHandler = [asyncResp, deleteHandler,
+                                  objPath](const boost::system::error_code ec,
+                                           const GetObjectType& resp) {
+        if (ec || resp.empty())
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string service = resp.begin()->first;
+        BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+
+        crow::connections::systemBus->async_method_call(
+            std::move(deleteHandler), service, objPath.c_str(), deleteIntf,
+            "Delete");
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceNameHandler), mapperBusName, mapperObjectPath,
+        mapperIntf, "GetObject", ldapObjectPath, std::array<std::string, 0>());
+}
+
+void setRoleMapProperty(std::shared_ptr<AsyncResp> asyncResp,
+                        std::string objPath, std::string property,
+                        std::string value)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    BMCWEB_LOG_DEBUG << "Setting RoleMapping Property. objPath = "
+                     << objPath.c_str() << "value =" << value.c_str();
+    auto setHandler = [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+        }
+    };
+
+    auto getServiceNameHandler = [asyncResp, setHandler, property, value,
+                                  objPath](const boost::system::error_code ec,
+                                           const GetObjectType& resp) {
+        if (ec || resp.empty())
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string service = resp.begin()->first;
+        BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+
+        crow::connections::systemBus->async_method_call(
+            std::move(setHandler), service, objPath.c_str(), propIntf, "Set",
+            privilegeMapperEntryIntf, property.c_str(),
+            std::variant<std::string>(value.c_str()));
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceNameHandler), mapperBusName, mapperObjectPath,
+        mapperIntf, "GetObject", ldapObjectPath, std::array<std::string, 0>());
+}
+
+static void
+    setRoleMapProperties(std::shared_ptr<AsyncResp> asyncResp,
+                         std::vector<LDAPRoleMapObjectInfo> roleMapObjData,
+                         std::string /*unused*/, nlohmann::json input)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    BMCWEB_LOG_DEBUG << "Setting RoleMapping properties. input size"
+                     << input.size();
+
+    for (auto i = 0; i != input.size(); i++)
+    {
+        auto odata = input[i];
+
+        if (odata.is_null())
+        {
+            if (roleMapObjData.size() == input.size())
+            {
+                deleteRoleMapProperty(asyncResp, roleMapObjData.at(i).first);
+            }
+            continue;
+        }
+
+        if (odata.empty())
+        {
+            continue;
+        }
+
+        std::optional<std::string> remoteUser;
+        std::optional<std::string> localRole;
+
+        if (!json_util::readJson(odata, asyncResp->res, "LocalRole", localRole,
+                                 "RemoteUser", remoteUser))
+        {
+            return;
+        }
+        if (remoteUser && localRole)
+        {
+
+            auto createHandler =
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        messages::internalError(asyncResp->res);
+                    }
+                };
+
+            auto getServiceNameHandler =
+                [asyncResp, createHandler, localRole,
+                 remoteUser](const boost::system::error_code ec,
+                             const GetObjectType& resp) {
+                    if (ec || resp.empty())
+                    {
+                        BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    std::string service = resp.begin()->first;
+                    BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+
+                    crow::connections::systemBus->async_method_call(
+                        std::move(createHandler), service, ldapObjectPath,
+                        privilegeMapperIntf, "Create", *remoteUser,
+                        getRoleIdFromPrivilege(*localRole));
+                };
+            crow::connections::systemBus->async_method_call(
+                std::move(getServiceNameHandler), mapperBusName,
+                mapperObjectPath, mapperIntf, "GetObject", ldapObjectPath,
+                std::array<std::string, 0>());
+        }
+    }
+
+    messages::success(asyncResp->res);
+}
+
+void handleRemoteUserPatch(std::shared_ptr<AsyncResp> asyncResp,
+                           std::vector<LDAPRoleMapObjectInfo> roleMapObjData,
+                           std::string /*unused*/, nlohmann::json input)
+{
+    if (roleMapObjData.size() == input.size())
+    {
+        BMCWEB_LOG_ERROR
+            << "Input data size is not equal to RemoteRoleMapping array size!!";
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (auto i = 0; i != input.size(); i++)
+    {
+        auto odata = input[i];
+        if (odata.is_null())
+        {
+            deleteRoleMapProperty(asyncResp, roleMapObjData.at(i).first);
+            continue;
+        }
+
+        if (odata.empty())
+        {
+            continue;
+        }
+
+        if (odata.is_string())
+        {
+            auto remoteUser = odata.get<std::string>();
+
+            if (remoteUser.compare(roleMapObjData.at(i).second.groupName) != 0)
+            {
+                setRoleMapProperty(asyncResp, roleMapObjData.at(i).first,
+                                   "GroupName", remoteUser);
+            }
+
+            continue;
+        }
+    }
+    messages::success(asyncResp->res);
+}
+
+void handleLocalRolePatch(std::shared_ptr<AsyncResp> asyncResp,
+                          std::vector<LDAPRoleMapObjectInfo> roleMapObjData,
+                          std::string /*unused*/, nlohmann::json input)
+{
+    if (roleMapObjData.size() == input.size())
+    {
+        BMCWEB_LOG_ERROR
+            << "Input data size is not equal to RemoteRoleMapping array size!!";
+        messages::internalError(asyncResp->res);
+        return;
+    }
+
+    for (auto i = 0; i != input.size(); i++)
+    {
+        auto odata = input[i];
+
+        if (odata.is_null())
+        {
+            deleteRoleMapProperty(asyncResp, roleMapObjData.at(i).first);
+            continue;
+        }
+
+        if (odata.empty())
+        {
+            continue;
+        }
+
+        if (odata.is_string())
+        {
+            auto localRole = odata.get<std::string>();
+            if (localRole.compare(getPrivilegeFromRoleId(
+                    roleMapObjData.at(i).second.privilege)) != 0)
+            {
+                setRoleMapProperty(asyncResp, roleMapObjData.at(i).first,
+                                   "Privilege",
+                                   getRoleIdFromPrivilege(localRole));
+            }
+        }
+    }
+    messages::success(asyncResp->res);
+}
 /*
  *  @brief
  */
@@ -141,7 +388,7 @@ template <typename CallbackFunc>
 static void handleRoleMapProperties(const std::shared_ptr<AsyncResp> asyncResp,
                                     CallbackFunc&& callback,
                                     const std::string serverType,
-                                    const nlohmann::json roleMapProps)
+                                    nlohmann::json roleMapProps)
 {
     using GetObjectType =
         std::vector<std::pair<std::string, std::vector<std::string>>>;
@@ -164,8 +411,7 @@ static void handleRoleMapProperties(const std::shared_ptr<AsyncResp> asyncResp,
         {
             for (auto& interface : objpath.second)
             {
-                if (interface.first ==
-                    "xyz.openbmc_project.User.PrivilegeMapperEntry")
+                if (interface.first == privilegeMapperEntryIntf)
                 {
                     for (const auto& property : interface.second)
                     {
@@ -208,14 +454,12 @@ static void handleRoleMapProperties(const std::shared_ptr<AsyncResp> asyncResp,
             std::string service = resp.begin()->first;
             BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
             crow::connections::systemBus->async_method_call(
-                std::move(roleMapHandler), service,
-                "/xyz/openbmc_project/user/ldap", dbusObjManagerIntf,
-                "GetManagedObjects");
+                std::move(roleMapHandler), service, ldapObjectPath,
+                dbusObjManagerIntf, "GetManagedObjects");
         };
     crow::connections::systemBus->async_method_call(
         std::move(getServiceNameHandler), mapperBusName, mapperObjectPath,
-        mapperIntf, "GetObject", "/xyz/openbmc_project/user/ldap",
-        std::array<std::string, 0>());
+        mapperIntf, "GetObject", ldapObjectPath, std::array<std::string, 0>());
 }
 
 void parseLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp,
@@ -268,8 +512,7 @@ void parseLDAPConfigData(const std::shared_ptr<AsyncResp> asyncResp,
 
     searchSettingsJson["UsernameAttribute"] = nullptr;
     searchSettingsJson["GroupsAttribute"] = nullptr;
-    handleRoleMapProperties(asyncResp, getRoleMapProperties, serverType,
-                            nlohmann::json({}));
+    handleRoleMapProperties(asyncResp, getRoleMapProperties, serverType, {});
 }
 
 /**
@@ -508,6 +751,37 @@ class AccountService : public Node
             "xyz.openbmc_project.User.Ldap.Create.SearchScope.sub", serverType);
     }
 
+    void handleRemoteRoleMapObject(std::vector<nlohmann::json> input,
+                                   const std::shared_ptr<AsyncResp> asyncResp)
+    {
+
+        for (auto& odata : input)
+
+        {
+            std::optional<std::string> remoteUser;
+            std::optional<std::string> localRole;
+
+            if (!json_util::readJson(odata, asyncResp->res, "LocalRole",
+                                     localRole, "RemoteUser", remoteUser))
+            {
+                return;
+            }
+
+            auto createHandler =
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        messages::internalError(asyncResp->res);
+                    }
+                };
+
+            crow::connections::systemBus->async_method_call(
+                std::move(createHandler), privilegeMapperBusName,
+                ldapObjectPath, privilegeMapperEntryIntf, "Create", *remoteUser,
+                getRoleIdFromPrivilege(*localRole));
+        }
+    }
+
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -591,11 +865,16 @@ class AccountService : public Node
         std::optional<uint16_t> lockoutThreshold;
         std::optional<nlohmann::json> ldapObject;
         std::optional<nlohmann::json> activeDirectoryObject;
+        std::optional<nlohmann::json> remoteRoleMapObject;
+        std::optional<nlohmann::json> localRoleObject;
+        std::optional<nlohmann::json> remoteUserObject;
 
-        if (!json_util::readJson(req, res, "AccountLockoutDuration",
-                                 unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold, "LDAP", ldapObject,
-                                 "ActiveDirectory", activeDirectoryObject))
+        if (!json_util::readJson(
+                req, res, "AccountLockoutDuration", unlockTimeout,
+                "AccountLockoutThreshold", lockoutThreshold, "LDAP", ldapObject,
+                "ActiveDirectory", activeDirectoryObject, "RemoteRoleMapping",
+                remoteRoleMapObject, "LocalRole", localRoleObject, "RemoteUser",
+                remoteUserObject))
         {
             return;
         }
@@ -610,6 +889,22 @@ class AccountService : public Node
             handleLDAPPatch(*activeDirectoryObject, asyncResp);
         }
 
+        if (remoteRoleMapObject)
+        {
+            handleRoleMapProperties(asyncResp, setRoleMapProperties, "",
+                                    *remoteRoleMapObject);
+        }
+        if (localRoleObject)
+        {
+            handleRoleMapProperties(asyncResp, handleLocalRolePatch, "",
+                                    *localRoleObject);
+        }
+        if (remoteUserObject)
+        {
+
+            handleRoleMapProperties(asyncResp, handleRemoteUserPatch, "",
+                                    *remoteUserObject);
+        }
         if (unlockTimeout)
         {
             crow::connections::systemBus->async_method_call(
