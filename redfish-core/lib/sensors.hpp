@@ -53,7 +53,7 @@ class SensorsAsyncResp
         res(response), types(types), chassisSubNode(subNode)
     {
         res.jsonValue["@odata.id"] =
-            "/redfish/v1/Chassis/" + chassisId + "/Thermal";
+            "/redfish/v1/Chassis/" + chassisId + "/" + subNode;
     }
 
     ~SensorsAsyncResp()
@@ -544,5 +544,138 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
 };
+
+/**
+ * @brief Entry point for overriding sensor values of given sensor
+ *
+ * @param res   response object
+ * @param req   request object
+ * @param params   parameter passed for CRUD
+ * @param SensorsAsyncResp   Pointer to object holding response data
+ */
+void setSensorOverride(crow::Response& res, const crow::Request& req,
+                       const std::vector<std::string>& params,
+                       std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
+{
+    // TODO: Need to figure out dynamic way to restrict this path based on
+    // another d-bus announcement to be more generic.
+    if (params.size() != 1)
+    {
+        messages::internalError(SensorsAsyncResp->res);
+        SensorsAsyncResp->res.end();
+        return;
+    }
+    std::string memberId;
+    double value;
+    if (!json_util::readJson(req, res, "MemberId", memberId, "Value", value))
+    {
+        return;
+    }
+    BMCWEB_LOG_INFO << "setSensorOverride for " << memberId
+                    << "with value: " << value << "\n";
+    // first check for valid chassis id & sensor in that chassis exists.
+    auto getChassisSensorListCb = [&, SensorsAsyncResp, memberId, value](
+                                      boost::container::flat_set<std::string>&
+                                          sensorLists) {
+        if (sensorLists.find(memberId) == sensorLists.end())
+        {
+            BMCWEB_LOG_INFO << "Unable to find memberId " << memberId;
+            messages::propertyUnknown(SensorsAsyncResp->res, memberId);
+            return;
+        }
+        boost::container::flat_set<std::string> sensorNames;
+        sensorNames.emplace(memberId);
+        // Get the connection to which the memberId belongs
+        auto getConnectionCb = [&, SensorsAsyncResp, memberId,
+                                value](const boost::container::flat_set<
+                                       std::string>& connections) {
+            if (connections.size() != 1)
+            {
+                BMCWEB_LOG_INFO << "Unable to find proper connection "
+                                << connections.size();
+                messages::propertyUnknown(SensorsAsyncResp->res, memberId);
+                return;
+            }
+            // Get all the managed objects for the connection
+            auto getManagedObjectsCb = [&, SensorsAsyncResp, memberId, value,
+                                        connections](
+                                           const boost::system::error_code ec,
+                                           ManagedObjectsVectorType& resp) {
+                if (ec)
+                {
+                    std::cerr << "getManagedObjectsCb DBUS error: " << ec
+                              << "\n";
+                    messages::internalError(SensorsAsyncResp->res);
+                    return;
+                }
+                // Search memberId in the list
+                for (const auto& objDictEntry : resp)
+                {
+                    const std::string& objPath =
+                        static_cast<const std::string&>(objDictEntry.first);
+                    auto position = objPath.find_last_of('/');
+                    if (position == std::string::npos)
+                    {
+                        continue;
+                    }
+                    auto objName = objPath.substr(position + 1);
+                    if (objName == memberId)
+                    {
+                        const auto& interfacesDict = objDictEntry.second;
+                        // Check for Sensor.Value interface and bail out, if
+                        // object doesn't support it.
+                        auto valueIt = interfacesDict.find(
+                            "xyz.openbmc_project.Sensor.Value");
+                        if (valueIt == interfacesDict.end())
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Sensor doesn't have a value interface";
+                            messages::internalError(SensorsAsyncResp->res);
+                            return;
+                        }
+                        // Do Set-property for Sensor.Value - Value property
+                        auto getOverrideValueStatus =
+                            [&, SensorsAsyncResp](
+                                const boost::system::error_code ec) {
+                                if (ec)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "getOverrideValueStatus DBUS error: "
+                                        << ec;
+                                    messages::internalError(
+                                        SensorsAsyncResp->res);
+                                    return;
+                                }
+                            };
+                        crow::connections::systemBus->async_method_call(
+                            std::move(getOverrideValueStatus),
+                            *connections.nth(0), objPath,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Sensor.Value", "Value",
+                            sdbusplus::message::variant<double>(value));
+
+                        SensorsAsyncResp->res.jsonValue["MemberId"] = memberId;
+                        SensorsAsyncResp->res.jsonValue["OverriddenStatus"] =
+                            "Successs";
+                        SensorsAsyncResp->res.jsonValue["OverriddenValue"] =
+                            value;
+                        return;
+                    }
+                }
+                BMCWEB_LOG_INFO << "Unable to find memberId " << memberId;
+                messages::propertyUnknown(SensorsAsyncResp->res, memberId);
+                return;
+            };
+            crow::connections::systemBus->async_method_call(
+                getManagedObjectsCb, *connections.nth(0), "/",
+                "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        };
+        // Get the connections for the sensor name
+        getConnections(SensorsAsyncResp, sensorNames,
+                       std::move(getConnectionCb));
+    };
+    // get full sensor list for the given chassisId
+    getChassis(SensorsAsyncResp, std::move(getChassisSensorListCb));
+}
 
 } // namespace redfish

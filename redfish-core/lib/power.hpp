@@ -31,13 +31,16 @@ class Power : public Node
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
+    std::initializer_list<const char*> typeList = {
+        "/xyz/openbmc_project/sensors/voltage",
+        "/xyz/openbmc_project/sensors/power"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -56,13 +59,17 @@ class Power : public Node
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassis_name,
-            std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/voltage",
-                "/xyz/openbmc_project/sensors/power"},
-            "Power");
+            res, chassis_name, typeList, "Power");
         // TODO Need to retrieve Power Control information.
         getChassisData(sensorAsyncResp);
+    }
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        const std::string& chassisName = params[0];
+        auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+            res, chassisName, typeList, "Power");
+        setSensorOverride(res, req, params, sensorAsyncResp);
     }
 };
 

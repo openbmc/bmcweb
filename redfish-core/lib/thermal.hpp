@@ -30,13 +30,17 @@ class Thermal : public Node
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
+    std::initializer_list<const char*> typeList = {
+        "/xyz/openbmc_project/sensors/fan",
+        "/xyz/openbmc_project/sensors/temperature",
+        "/xyz/openbmc_project/sensors/fan_pwm"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -58,15 +62,19 @@ class Thermal : public Node
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName,
-            std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/fan",
-                "/xyz/openbmc_project/sensors/temperature",
-                "/xyz/openbmc_project/sensors/fan_pwm"},
-            "Thermal");
+            res, chassisName, typeList, "Thermal");
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
+    }
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        const std::string& chassisName = params[0];
+        auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+            res, chassisName, typeList, "Thermal");
+
+        setSensorOverride(res, req, params, sensorAsyncResp);
     }
 };
 
