@@ -133,6 +133,12 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                                 "x86";
                             aResp->res.jsonValue["InstructionSet"] = "x86-64";
                         }
+                        else if (value->find("IBM") != std::string::npos)
+                        {
+                            aResp->res.jsonValue["ProcessorArchitecture"] =
+                                "Power";
+                            aResp->res.jsonValue["InstructionSet"] = "PowerISA";
+                        }
                     }
                 }
                 else if (property.first == "ProcessorMaxSpeed")
