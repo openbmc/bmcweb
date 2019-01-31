@@ -38,6 +38,9 @@ class Power : public Node
     }
 
   private:
+    std::initializer_list<const char*> typeList = {
+        "/xyz/openbmc_project/sensors/voltage",
+        "/xyz/openbmc_project/sensors/power"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -56,13 +59,14 @@ class Power : public Node
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassis_name,
-            std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/voltage",
-                "/xyz/openbmc_project/sensors/power"},
-            "Power");
+            res, chassis_name, typeList, "Power");
         // TODO Need to retrieve Power Control information.
         getChassisData(sensorAsyncResp);
+    }
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        setSensorOverride(res, req, params, typeList, "Power");
     }
 };
 
