@@ -37,6 +37,10 @@ class Thermal : public Node
     }
 
   private:
+    std::initializer_list<const char*> typeList = {
+        "/xyz/openbmc_project/sensors/fan",
+        "/xyz/openbmc_project/sensors/temperature",
+        "/xyz/openbmc_project/sensors/fan_pwm"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -58,15 +62,15 @@ class Thermal : public Node
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName,
-            std::initializer_list<const char*>{
-                "/xyz/openbmc_project/sensors/fan",
-                "/xyz/openbmc_project/sensors/temperature",
-                "/xyz/openbmc_project/sensors/fan_pwm"},
-            "Thermal");
+            res, chassisName, typeList, "Thermal");
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
+    }
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        setSensorOverride(res, req, params, typeList, "Thermal");
     }
 };
 
