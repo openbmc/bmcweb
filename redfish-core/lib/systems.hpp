@@ -31,12 +31,11 @@ namespace redfish
  *
  * @return None.
  */
-void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
-                       const std::string &name)
+void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [name, aResp{std::move(aResp)}](
+        [aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -48,7 +47,6 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            bool foundName = false;
             // Iterate over all retrieved ObjectPaths.
             for (const std::pair<std::string,
                                  std::vector<std::pair<
@@ -64,244 +62,222 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                 {
                     continue;
                 }
-                // Check if computer system exist
-                if (boost::ends_with(path, name))
+
+                // This is not system, so check if it's cpu, dimm, UUID or
+                // BiosVer
+                for (const auto &connection : connectionNames)
                 {
-                    foundName = true;
-                    BMCWEB_LOG_DEBUG << "Found name: " << name;
-                    const std::string connectionName = connectionNames[0].first;
-                    crow::connections::systemBus->async_method_call(
-                        [aResp, name(std::string(name))](
-                            const boost::system::error_code ec,
-                            const std::vector<std::pair<
-                                std::string, VariantType>> &propertiesList) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR << "DBUS response error: "
-                                                 << ec;
-                                messages::internalError(aResp->res);
-                                return;
-                            }
-                            BMCWEB_LOG_DEBUG << "Got " << propertiesList.size()
-                                             << "properties for system";
-                            for (const std::pair<std::string, VariantType>
-                                     &property : propertiesList)
-                            {
-                                const std::string *value =
-                                    std::get_if<std::string>(&property.second);
-                                if (value != nullptr)
-                                {
-                                    aResp->res.jsonValue[property.first] =
-                                        *value;
-                                }
-                            }
-                            aResp->res.jsonValue["Name"] = name;
-                            aResp->res.jsonValue["Id"] =
-                                aResp->res.jsonValue["SerialNumber"];
-                        },
-                        connectionName, path, "org.freedesktop.DBus.Properties",
-                        "GetAll",
-                        "xyz.openbmc_project.Inventory.Decorator.Asset");
-                }
-                else
-                {
-                    // This is not system, so check if it's cpu, dimm, UUID or
-                    // BiosVer
-                    for (const auto &connection : connectionNames)
+                    for (const auto &interfaceName : connection.second)
                     {
-                        for (const auto &interfaceName : connection.second)
+                        if (interfaceName ==
+                            "xyz.openbmc_project.Inventory.Item.Dimm")
                         {
-                            if (interfaceName ==
-                                "xyz.openbmc_project.Inventory.Item.Dimm")
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Found Dimm, now get its properties.";
-                                crow::connections::systemBus->async_method_call(
-                                    [aResp](
-                                        const boost::system::error_code ec,
+                            BMCWEB_LOG_DEBUG
+                                << "Found Dimm, now get its properties.";
+                            crow::connections::systemBus->async_method_call(
+                                [aResp](const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                        if (ec)
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec;
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Got "
+                                                     << properties.size()
+                                                     << "Dimm properties.";
+                                    for (const std::pair<std::string,
+                                                         VariantType>
+                                             &property : properties)
+                                    {
+                                        if (property.first == "MemorySizeInKb")
                                         {
-                                            BMCWEB_LOG_ERROR
-                                                << "DBUS response error " << ec;
-                                            messages::internalError(aResp->res);
-                                            return;
-                                        }
-                                        BMCWEB_LOG_DEBUG << "Got "
-                                                         << properties.size()
-                                                         << "Dimm properties.";
-                                        for (const std::pair<std::string,
-                                                             VariantType>
-                                                 &property : properties)
-                                        {
-                                            if (property.first ==
-                                                "MemorySizeInKb")
+                                            const uint64_t *value =
+                                                sdbusplus::message::variant_ns::
+                                                    get_if<uint64_t>(
+                                                        &property.second);
+                                            if (value != nullptr)
                                             {
-                                                const uint64_t *value =
-                                                    sdbusplus::message::
-                                                        variant_ns::get_if<
-                                                            uint64_t>(
-                                                            &property.second);
-                                                if (value != nullptr)
-                                                {
-                                                    aResp->res.jsonValue
-                                                        ["TotalSystemMemoryGi"
-                                                         "B"] +=
-                                                        *value / (1024 * 1024);
-                                                    aResp->res.jsonValue
-                                                        ["MemorySummary"]
-                                                        ["Status"]["State"] =
-                                                        "Enabled";
-                                                }
+                                                aResp->res.jsonValue
+                                                    ["TotalSystemMemoryGi"
+                                                     "B"] +=
+                                                    *value / (1024 * 1024);
+                                                aResp->res
+                                                    .jsonValue["MemorySummary"]
+                                                              ["Status"]
+                                                              ["State"] =
+                                                    "Enabled";
                                             }
                                         }
-                                    },
-                                    connection.first, path,
-                                    "org.freedesktop.DBus.Properties", "GetAll",
-                                    "xyz.openbmc_project.Inventory.Item.Dimm");
-                            }
-                            else if (interfaceName ==
-                                     "xyz.openbmc_project.Inventory.Item.Cpu")
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Found Cpu, now get its properties.";
-                                crow::connections::systemBus->async_method_call(
-                                    [aResp](
-                                        const boost::system::error_code ec,
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                "xyz.openbmc_project.Inventory.Item.Dimm");
+                        }
+                        else if (interfaceName ==
+                                 "xyz.openbmc_project.Inventory.Item.Cpu")
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Found Cpu, now get its properties.";
+                            crow::connections::systemBus->async_method_call(
+                                [aResp](const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                        if (ec)
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec;
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Got "
+                                                     << properties.size()
+                                                     << "Cpu properties.";
+                                    for (const auto &property : properties)
+                                    {
+                                        if (property.first == "ProcessorFamily")
                                         {
-                                            BMCWEB_LOG_ERROR
-                                                << "DBUS response error " << ec;
-                                            messages::internalError(aResp->res);
-                                            return;
-                                        }
-                                        BMCWEB_LOG_DEBUG << "Got "
-                                                         << properties.size()
-                                                         << "Cpu properties.";
-                                        for (const auto &property : properties)
-                                        {
-                                            if (property.first ==
-                                                "ProcessorFamily")
+                                            const std::string *value =
+                                                sdbusplus::message::variant_ns::
+                                                    get_if<std::string>(
+                                                        &property.second);
+                                            if (value != nullptr)
                                             {
-                                                const std::string *value =
-                                                    sdbusplus::message::
-                                                        variant_ns::get_if<
-                                                            std::string>(
-                                                            &property.second);
-                                                if (value != nullptr)
-                                                {
-                                                    nlohmann::json
-                                                        &procSummary =
-                                                            aResp->res.jsonValue
-                                                                ["ProcessorSumm"
-                                                                 "ary"];
-                                                    nlohmann::json &procCount =
-                                                        procSummary["Count"];
+                                                nlohmann::json &procSummary =
+                                                    aResp->res.jsonValue
+                                                        ["ProcessorSumm"
+                                                         "ary"];
+                                                nlohmann::json &procCount =
+                                                    procSummary["Count"];
 
-                                                    procCount =
-                                                        procCount.get<int>() +
-                                                        1;
-                                                    procSummary["Status"]
-                                                               ["State"] =
-                                                                   "Enabled";
-                                                    procSummary["Model"] =
-                                                        *value;
-                                                }
+                                                procCount =
+                                                    procCount.get<int>() + 1;
+                                                procSummary["Status"]["State"] =
+                                                    "Enabled";
+                                                procSummary["Model"] = *value;
                                             }
                                         }
-                                    },
-                                    connection.first, path,
-                                    "org.freedesktop.DBus.Properties", "GetAll",
-                                    "xyz.openbmc_project.Inventory.Item.Cpu");
-                            }
-                            else if (interfaceName ==
-                                     "xyz.openbmc_project.Common.UUID")
-                            {
-                                BMCWEB_LOG_DEBUG
-                                    << "Found UUID, now get its properties.";
-                                crow::connections::systemBus->async_method_call(
-                                    [aResp](
-                                        const boost::system::error_code ec,
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                "xyz.openbmc_project.Inventory.Item.Cpu");
+                        }
+                        else if (interfaceName ==
+                                 "xyz.openbmc_project.Common.UUID")
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Found UUID, now get its properties.";
+                            crow::connections::systemBus->async_method_call(
+                                [aResp](const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                        if (ec)
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_DEBUG
+                                            << "DBUS response error " << ec;
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Got "
+                                                     << properties.size()
+                                                     << "UUID properties.";
+                                    for (const std::pair<std::string,
+                                                         VariantType>
+                                             &property : properties)
+                                    {
+                                        if (property.first == "BIOSVer")
                                         {
-                                            BMCWEB_LOG_DEBUG
-                                                << "DBUS response error " << ec;
-                                            messages::internalError(aResp->res);
-                                            return;
-                                        }
-                                        BMCWEB_LOG_DEBUG << "Got "
-                                                         << properties.size()
-                                                         << "UUID properties.";
-                                        for (const std::pair<std::string,
-                                                             VariantType>
-                                                 &property : properties)
-                                        {
-                                            if (property.first == "BIOSVer")
+                                            const std::string *value =
+                                                sdbusplus::message::variant_ns::
+                                                    get_if<std::string>(
+                                                        &property.second);
+                                            if (value != nullptr)
                                             {
-                                                const std::string *value =
-                                                    sdbusplus::message::
-                                                        variant_ns::get_if<
-                                                            std::string>(
-                                                            &property.second);
-                                                if (value != nullptr)
-                                                {
-                                                    aResp->res.jsonValue
-                                                        ["BiosVersion"] =
-                                                        *value;
-                                                }
+                                                aResp->res
+                                                    .jsonValue["BiosVersion"] =
+                                                    *value;
                                             }
-                                            if (property.first == "UUID")
-                                            {
-                                                const std::string *value =
-                                                    sdbusplus::message::
-                                                        variant_ns::get_if<
-                                                            std::string>(
-                                                            &property.second);
+                                        }
+                                        if (property.first == "UUID")
+                                        {
+                                            const std::string *value =
+                                                sdbusplus::message::variant_ns::
+                                                    get_if<std::string>(
+                                                        &property.second);
 
-                                                if (value != nullptr)
+                                            if (value != nullptr)
+                                            {
+                                                std::string valueStr = *value;
+                                                if (valueStr.size() == 32)
                                                 {
-                                                    std::string valueStr =
-                                                        *value;
-                                                    if (valueStr.size() == 32)
-                                                    {
-                                                        valueStr.insert(8, 1,
-                                                                        '-');
-                                                        valueStr.insert(13, 1,
-                                                                        '-');
-                                                        valueStr.insert(18, 1,
-                                                                        '-');
-                                                        valueStr.insert(23, 1,
-                                                                        '-');
-                                                    }
-                                                    BMCWEB_LOG_DEBUG
-                                                        << "UUID = "
-                                                        << valueStr;
-                                                    aResp->res
-                                                        .jsonValue["UUID"] =
-                                                        valueStr;
+                                                    valueStr.insert(8, 1, '-');
+                                                    valueStr.insert(13, 1, '-');
+                                                    valueStr.insert(18, 1, '-');
+                                                    valueStr.insert(23, 1, '-');
                                                 }
+                                                BMCWEB_LOG_DEBUG << "UUID = "
+                                                                 << valueStr;
+                                                aResp->res.jsonValue["UUID"] =
+                                                    valueStr;
                                             }
                                         }
-                                    },
-                                    connection.first, path,
-                                    "org.freedesktop.DBus.Properties", "GetAll",
-                                    "xyz.openbmc_project.Common.UUID");
-                            }
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                "xyz.openbmc_project.Common.UUID");
+                        }
+                        else if (interfaceName ==
+                                 "xyz.openbmc_project.Inventory.Item.System")
+                        {
+                            crow::connections::systemBus->async_method_call(
+                                [aResp](const boost::system::error_code ec,
+                                        const std::vector<
+                                            std::pair<std::string, VariantType>>
+                                            &propertiesList) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error: " << ec;
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Got "
+                                                     << propertiesList.size()
+                                                     << "properties for system";
+                                    for (const std::pair<std::string,
+                                                         VariantType>
+                                             &property : propertiesList)
+                                    {
+                                        const std::string *value =
+                                            sdbusplus::message::variant_ns::
+                                                get_if<std::string>(
+                                                    &property.second);
+                                        if (value != nullptr)
+                                        {
+                                            aResp->res
+                                                .jsonValue[property.first] =
+                                                *value;
+                                        }
+                                    }
+                                    aResp->res.jsonValue["Name"] = "system";
+                                    aResp->res.jsonValue["Id"] =
+                                        aResp->res.jsonValue["SerialNumber"];
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "GetAll",
+                                "xyz.openbmc_project.Inventory.Decorator."
+                                "Asset");
                         }
                     }
                 }
-            }
-            if (foundName == false)
-            {
-                messages::internalError(aResp->res);
             }
         },
         "xyz.openbmc_project.ObjectMapper",
@@ -495,8 +471,6 @@ class SystemsCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        BMCWEB_LOG_DEBUG << "Get list of available boards.";
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
@@ -504,42 +478,10 @@ class SystemsCollection : public Node
             "/redfish/v1/"
             "$metadata#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["Name"] = "Computer System Collection";
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string> &resp) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG << "Got " << resp.size() << " boards.";
-
-                // ... prepare json array with appropriate @odata.id links
-                nlohmann::json &boardArray =
-                    asyncResp->res.jsonValue["Members"];
-                boardArray = nlohmann::json::array();
-
-                // Iterate over all retrieved ObjectPaths.
-                for (const std::string &objpath : resp)
-                {
-                    std::size_t lastPos = objpath.rfind("/");
-                    if (lastPos != std::string::npos)
-                    {
-                        boardArray.push_back(
-                            {{"@odata.id", "/redfish/v1/Systems/" +
-                                               objpath.substr(lastPos + 1)}});
-                    }
-                }
-
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    boardArray.size();
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Inventory.Item.Board"});
+        res.jsonValue["Members"] = {
+            {{"@odata.id", "/redfish/v1/Systems/system"}}};
+        res.jsonValue["Members@odata.count"] = 1;
+        res.end();
     }
 };
 
@@ -551,8 +493,7 @@ class SystemActionsReset : public Node
 {
   public:
     SystemActionsReset(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/Actions/ComputerSystem.Reset/",
-             std::string())
+        Node(app, "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
@@ -649,8 +590,7 @@ class Systems : public Node
     /*
      * Default Constructor
      */
-    Systems(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/", std::string())
+    Systems(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -668,20 +608,11 @@ class Systems : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        if (params.size() != 1)
-        {
-            messages::internalError(res);
-            res.end();
-            return;
-        }
-
-        const std::string &name = params[0];
-
         res.jsonValue["@odata.type"] = "#ComputerSystem.v1_5_1.ComputerSystem";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
+        res.jsonValue["Name"] = "Computer System";
+        res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
         res.jsonValue["Description"] = "Computer System";
         res.jsonValue["Boot"]["BootSourceOverrideEnabled"] =
@@ -699,21 +630,22 @@ class Systems : public Node
         res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
         res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
         res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name;
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
         res.jsonValue["Processors"] = {
-            {"@odata.id", "/redfish/v1/Systems/" + name + "/Processors"}};
+            {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
         res.jsonValue["Memory"] = {
-            {"@odata.id", "/redfish/v1/Systems/" + name + "/Memory"}};
+            {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+
         // TODO Need to support ForceRestart.
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
-             "/redfish/v1/Systems/" + name + "/Actions/ComputerSystem.Reset"},
+             "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"ResetType@Redfish.AllowableValues",
              {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
 
         res.jsonValue["LogServices"] = {
-            {"@odata.id", "/redfish/v1/Systems/" + name + "/LogServices"}};
+            {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -739,33 +671,21 @@ class Systems : public Node
                     aResp->res.jsonValue["IndicatorLED"] = "Off";
                 }
             });
-        getComputerSystem(asyncResp, name);
+        getComputerSystem(asyncResp);
         getHostState(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
                  const std::vector<std::string> &params) override
     {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        if (params.size() != 1)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        const std::string &name = params[0];
-
-        messages::success(asyncResp->res);
-
         std::string indicatorLedTemp;
         std::optional<std::string> indicatorLed = indicatorLedTemp;
         if (!json_util::readJson(req, res, "IndicatorLed", indicatorLed))
         {
             return;
         }
-
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        messages::success(asyncResp->res);
         if (indicatorLed)
         {
             std::string dbusLedState;
@@ -790,7 +710,7 @@ class Systems : public Node
             }
 
             getHostState(asyncResp);
-            getComputerSystem(asyncResp, name);
+            getComputerSystem(asyncResp);
 
             // Update led group
             BMCWEB_LOG_DEBUG << "Update led group.";
