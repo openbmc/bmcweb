@@ -218,18 +218,16 @@ class Chassis : public Node
                             asyncResp->res.jsonValue["Power"] = {
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/Power"}};
+                            asyncResp->res.jsonValue["Status"] = {
+                                {"Health", "OK"},
+                                {"State", "Enabled"},
+                            };
 
-                            // TODO: An array of references to computer systems
-                            // contained in this chassis.
-                            // res.jsonValue["Links"]["ComputerSystems"]
-                            // =
-                            //                          {{{"@odata.id",
-                            //                          "/redfish/v1/Systems/1"}}};
-                            // An array of references to the Managers
-                            // responsible for managing this chassis.
-                            // res.jsonValue["Links"]["ManagedBy"] =
-                            //                        {{{"@odata.id",
-                            //                        "/redfish/v1/Managers/1"}}};
+                            asyncResp->res
+                                .jsonValue["Links"]["ComputerSystems"] = {
+                                {{"@odata.id", "/redfish/v1/Systems/system"}}};
+                            asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                                {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
