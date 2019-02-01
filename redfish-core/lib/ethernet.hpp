@@ -42,7 +42,8 @@ using GetManagedObjects = std::vector<std::pair<
         boost::container::flat_map<
             std::string, sdbusplus::message::variant<
                              std::string, bool, uint8_t, int16_t, uint16_t,
-                             int32_t, uint32_t, int64_t, uint64_t, double>>>>>>;
+                             int32_t, uint32_t, int64_t, uint64_t, double,
+                             std::vector<std::string>>>>>>>;
 
 enum class LinkType
 {
@@ -81,6 +82,7 @@ struct EthernetInterfaceData
     std::string default_gateway;
     std::string mac_address;
     std::optional<uint32_t> vlan_id;
+    std::vector<std::string> nameservers;
 };
 
 // Helper function that changes bits netmask notation (i.e. /24)
@@ -160,9 +162,9 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
 {
     for (const auto &objpath : dbus_data)
     {
-        if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
+        for (const auto &ifacePair : objpath.second)
         {
-            for (const auto &ifacePair : objpath.second)
+            if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
             {
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
                 {
@@ -221,32 +223,44 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                                 ethData.speed = *speed;
                             }
                         }
-                    }
-                }
-                else if (ifacePair.first ==
-                         "xyz.openbmc_project.Network.SystemConfiguration")
-                {
-                    for (const auto &propertyPair : ifacePair.second)
-                    {
-                        if (propertyPair.first == "HostName")
+                        else if (propertyPair.first == "NameServers")
                         {
-                            const std::string *hostname =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
-                            if (hostname != nullptr)
+                            const std::vector<std::string> *nameservers =
+                                std::get_if<std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (nameservers != nullptr)
                             {
-                                ethData.hostname = *hostname;
+                                ethData.nameservers = std::move(*nameservers);
                             }
                         }
-                        else if (propertyPair.first == "DefaultGateway")
+                    }
+                }
+            }
+            // System configuration shows up in the global namespace, so no need
+            // to check eth number
+            if (ifacePair.first ==
+                "xyz.openbmc_project.Network.SystemConfiguration")
+            {
+                for (const auto &propertyPair : ifacePair.second)
+                {
+                    if (propertyPair.first == "HostName")
+                    {
+                        const std::string *hostname =
+                            sdbusplus::message::variant_ns::get_if<std::string>(
+                                &propertyPair.second);
+                        if (hostname != nullptr)
                         {
-                            const std::string *defaultGateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
-                            if (defaultGateway != nullptr)
-                            {
-                                ethData.default_gateway = *defaultGateway;
-                            }
+                            ethData.hostname = *hostname;
+                        }
+                    }
+                    else if (propertyPair.first == "DefaultGateway")
+                    {
+                        const std::string *defaultGateway =
+                            sdbusplus::message::variant_ns::get_if<std::string>(
+                                &propertyPair.second);
+                        if (defaultGateway != nullptr)
+                        {
+                            ethData.default_gateway = *defaultGateway;
                         }
                     }
                 }
@@ -1178,7 +1192,23 @@ class EthernetInterface : public Node
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
-
+        json_response["InterfaceEnabled"] = true;
+        if (ethData.speed == 0)
+        {
+            json_response["LinkStatus"] = "NoLink";
+            json_response["Status"] = {
+                {"Health", "OK"},
+                {"State", "Disabled"},
+            };
+        }
+        else
+        {
+            json_response["LinkStatus"] = "LinkUp";
+            json_response["Status"] = {
+                {"Health", "OK"},
+                {"State", "Enabled"},
+            };
+        }
         json_response["SpeedMbps"] = ethData.speed;
         json_response["MACAddress"] = ethData.mac_address;
         if (!ethData.hostname.empty())
@@ -1197,6 +1227,7 @@ class EthernetInterface : public Node
             vlanObj["VLANEnable"] = false;
             vlanObj["VLANId"] = 0;
         }
+        json_response["Nameservers"] = ethData.nameservers;
 
         if (ipv4Data.size() > 0)
         {
@@ -1204,17 +1235,10 @@ class EthernetInterface : public Node
             ipv4_array = nlohmann::json::array();
             for (auto &ipv4_config : ipv4Data)
             {
-                if (!ipv4_config.address.empty())
-                {
-                    ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
-                                          {"SubnetMask", ipv4_config.netmask},
-                                          {"Address", ipv4_config.address}});
-
-                    if (!ipv4_config.gateway.empty())
-                    {
-                        ipv4_array.back()["Gateway"] = ipv4_config.gateway;
-                    }
-                }
+                ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
+                                      {"SubnetMask", ipv4_config.netmask},
+                                      {"Address", ipv4_config.address},
+                                      {"Gateway", ipv4_config.gateway}});
             }
         }
     }
