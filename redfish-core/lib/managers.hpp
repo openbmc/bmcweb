@@ -878,6 +878,7 @@ class Manager : public Node
         res.jsonValue["Name"] = "OpenBmc Manager";
         res.jsonValue["Description"] = "Baseboard Management Controller";
         res.jsonValue["PowerState"] = "On";
+        res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] = uuid;
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
@@ -910,6 +911,11 @@ class Manager : public Node
             "GracefulRestart"};
 
         res.jsonValue["DateTime"] = getDateTime();
+        res.jsonValue["Links"] = {
+            {"ManagerForServers@odata.count", 1},
+            {"ManagerForServers",
+             {{{"@odata.id", "/redfish/v1/Systems/system"}}}},
+            {"ManagerForServers", nlohmann::json::array()}};
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(

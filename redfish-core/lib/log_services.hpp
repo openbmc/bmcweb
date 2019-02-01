@@ -260,7 +260,7 @@ class SystemLogServiceCollection : public Node
   public:
     template <typename CrowApp>
     SystemLogServiceCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/LogServices/", std::string())
+        Node(app, "/redfish/v1/Systems/system/LogServices/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -279,7 +279,6 @@ class SystemLogServiceCollection : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        const std::string &name = params[0];
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
@@ -287,14 +286,14 @@ class SystemLogServiceCollection : public Node
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogServiceCollection.LogServiceCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/LogServices";
+            "/redfish/v1/Systems/system/LogServices";
         asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
         asyncResp->res.jsonValue["Description"] =
             "Collection of LogServices for this Computer System";
         nlohmann::json &logServiceArray = asyncResp->res.jsonValue["Members"];
         logServiceArray = nlohmann::json::array();
-        logServiceArray.push_back({{"@odata.id", "/redfish/v1/Systems/" + name +
-                                                     "/LogServices/EventLog"}});
+        logServiceArray.push_back(
+            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
@@ -305,8 +304,7 @@ class EventLogService : public Node
   public:
     template <typename CrowApp>
     EventLogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/",
-             std::string())
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -325,7 +323,7 @@ class EventLogService : public Node
 
         const std::string &name = params[0];
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/LogServices/EventLog";
+            "/redfish/v1/Systems/system/LogServices/EventLog";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
@@ -336,12 +334,11 @@ class EventLogService : public Node
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
-             "/redfish/v1/Systems/" + name + "/LogServices/EventLog/Entries"}};
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
     }
 };
 
-static int fillEventLogEntryJson(const std::string &systemName,
-                                 const std::string &bmcLogEntryID,
+static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
                                  const boost::string_view &messageID,
                                  sd_journal *journal,
                                  nlohmann::json &bmcLogEntryJson)
@@ -409,8 +406,9 @@ static int fillEventLogEntryJson(const std::string &systemName,
     bmcLogEntryJson = {
         {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
-        {"@odata.id", "/redfish/v1/Systems/" + systemName +
-                          "/LogServices/EventLog/Entries/" + bmcLogEntryID},
+        {"@odata.id",
+         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
+             bmcLogEntryID},
         {"Name", "System Event Log Entry"},
         {"Id", bmcLogEntryID},
         {"Message", msg},
@@ -429,8 +427,7 @@ class EventLogEntryCollection : public Node
   public:
     template <typename CrowApp>
     EventLogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/",
-             std::string())
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -456,7 +453,6 @@ class EventLogEntryCollection : public Node
         {
             return;
         }
-        const std::string &name = params[0];
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
@@ -464,7 +460,7 @@ class EventLogEntryCollection : public Node
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/LogServices/EventLog/Entries";
+            "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
@@ -512,7 +508,7 @@ class EventLogEntryCollection : public Node
 
             logEntryArray.push_back({});
             nlohmann::json &bmcLogEntry = logEntryArray.back();
-            if (fillEventLogEntryJson(name, idStr, messageID, journal.get(),
+            if (fillEventLogEntryJson(idStr, messageID, journal.get(),
                                       bmcLogEntry) != 0)
             {
                 messages::internalError(asyncResp->res);
@@ -534,8 +530,8 @@ class EventLogEntry : public Node
   public:
     EventLogEntry(CrowApp &app) :
         Node(app,
-             "/redfish/v1/Systems/<str>/LogServices/EventLog/Entries/<str>/",
-             std::string(), std::string())
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -551,13 +547,12 @@ class EventLogEntry : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        if (params.size() != 2)
+        if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-        const std::string &name = params[0];
-        const std::string &entryID = params[1];
+        const std::string &entryID = params[0];
         // Convert the unique ID back to a timestamp to find the entry
         uint64_t ts = 0;
         uint16_t index = 0;
@@ -598,11 +593,11 @@ class EventLogEntry : public Node
             getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID", messageID);
         if (ret < 0)
         {
-            messages::resourceNotFound(asyncResp->res, "LogEntry", name);
+            messages::resourceNotFound(asyncResp->res, "LogEntry", "system");
             return;
         }
 
-        if (fillEventLogEntryJson(name, entryID, messageID, journal.get(),
+        if (fillEventLogEntryJson(entryID, messageID, journal.get(),
                                   asyncResp->res.jsonValue) != 0)
         {
             messages::internalError(asyncResp->res);
