@@ -22,13 +22,13 @@
 namespace redfish
 {
 
-void getResourceList(std::shared_ptr<AsyncResp> aResp, const std::string &name,
+void getResourceList(std::shared_ptr<AsyncResp> aResp,
                      const std::string &subclass,
                      const std::string &collectionName)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu/mem resources.";
     crow::connections::systemBus->async_method_call(
-        [name, subclass, aResp{std::move(aResp)}](
+        [subclass, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -49,7 +49,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp, const std::string &name,
                 if ((iter != std::string::npos) && (iter < object.first.size()))
                 {
                     members.push_back(
-                        {{"@odata.id", "/redfish/v1/Systems/" + name + "/" +
+                        {{"@odata.id", "/redfish/v1/Systems/system/" +
                                            subclass + "/" +
                                            object.first.substr(iter + 1)}});
                 }
@@ -64,12 +64,12 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp, const std::string &name,
 }
 
 void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
-                         const std::string &name, const std::string &cpuId,
-                         const std::string &service, const std::string &objPath)
+                         const std::string &cpuId, const std::string &service,
+                         const std::string &objPath)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
     crow::connections::systemBus->async_method_call(
-        [name, cpuId, aResp{std::move(aResp)}](
+        [cpuId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string,
@@ -152,12 +152,11 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
-                const std::string &cpuId)
+void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
     crow::connections::systemBus->async_method_call(
-        [name, cpuId, aResp{std::move(aResp)}](
+        [cpuId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -175,7 +174,7 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
                 {
                     for (const auto &service : object.second)
                     {
-                        getCpuDataByService(aResp, name, cpuId, service.first,
+                        getCpuDataByService(aResp, cpuId, service.first,
                                             object.first);
                         return;
                     }
@@ -193,13 +192,12 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
 };
 
 void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
-                          const std::string &name, const std::string &dimmId,
-                          const std::string &service,
+                          const std::string &dimmId, const std::string &service,
                           const std::string &objPath)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [name, dimmId, aResp{std::move(aResp)}](
+        [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string,
@@ -266,12 +264,11 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
-                 const std::string &dimmId)
+void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
     crow::connections::systemBus->async_method_call(
-        [name, dimmId, aResp{std::move(aResp)}](
+        [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -290,7 +287,7 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
                 {
                     for (const auto &service : object.second)
                     {
-                        getDimmDataByService(aResp, name, dimmId, service.first,
+                        getDimmDataByService(aResp, dimmId, service.first,
                                              object.first);
                         return;
                     }
@@ -314,7 +311,7 @@ class ProcessorCollection : public Node
      * Default Constructor
      */
     ProcessorCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/Processors/", std::string())
+        Node(app, "/redfish/v1/Systems/system/Processors/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -332,27 +329,16 @@ class ProcessorCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        if (params.size() != 1)
-        {
-            messages::internalError(res);
-            res.end();
-            return;
-        }
-        const std::string &name = params[0];
-
         res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
         res.jsonValue["Name"] = "Processor Collection";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
 
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/Processors/";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getResourceList(asyncResp, name, "Processors",
+        getResourceList(asyncResp, "Processors",
                         "xyz.openbmc_project.Inventory.Item.Cpu");
     }
 };
@@ -364,56 +350,7 @@ class Processor : public Node
      * Default Constructor
      */
     Processor(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/Processors/<str>/", std::string(),
-             std::string())
-    {
-        entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
-    }
-
-  private:
-    /**
-     * Functions triggers appropriate requests on DBus
-     */
-    void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
-    {
-        // Check if there is required param, truly entering this shall be
-        // impossible
-        if (params.size() != 2)
-        {
-            messages::internalError(res);
-
-            res.end();
-            return;
-        }
-        const std::string &name = params[0];
-        const std::string &cpuId = params[1];
-        res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Processor.Processor";
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/Processors/" + cpuId;
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-
-        getCpuData(asyncResp, name, cpuId);
-    }
-};
-
-class MemoryCollection : public Node
-{
-  public:
-    /*
-     * Default Constructor
-     */
-    MemoryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/Memory/", std::string())
+        Node(app, "/redfish/v1/Systems/system/Processors/<str>/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -440,16 +377,52 @@ class MemoryCollection : public Node
             res.end();
             return;
         }
-        const std::string &name = params[0];
+        const std::string &cpuId = params[0];
+        res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Processor.Processor";
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/Processors/" + cpuId;
 
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        getCpuData(asyncResp, cpuId);
+    }
+};
+
+class MemoryCollection : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    MemoryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/Memory/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
         res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
         res.jsonValue["Name"] = "Memory Module Collection";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#MemoryCollection.MemoryCollection";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/" + name + "/Memory/";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Memory/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getResourceList(asyncResp, name, "Memory",
+        getResourceList(asyncResp, "Memory",
                         "xyz.openbmc_project.Inventory.Item.Dimm");
     }
 };
@@ -461,8 +434,7 @@ class Memory : public Node
      * Default Constructor
      */
     Memory(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/<str>/Memory/<str>/", std::string(),
-             std::string())
+        Node(app, "/redfish/v1/Systems/system/Memory/<str>/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -482,22 +454,21 @@ class Memory : public Node
     {
         // Check if there is required param, truly entering this shall be
         // impossible
-        if (params.size() != 2)
+        if (params.size() != 1)
         {
             messages::internalError(res);
             res.end();
             return;
         }
-        const std::string &name = params[0];
-        const std::string &dimmId = params[1];
+        const std::string &dimmId = params[0];
 
         res.jsonValue["@odata.type"] = "#Memory.v1_6_0.Memory";
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Memory.Memory";
         res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/" + name + "/Memory/" + dimmId;
+            "/redfish/v1/Systems/system/Memory/" + dimmId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getDimmData(asyncResp, name, dimmId);
+        getDimmData(asyncResp, dimmId);
     }
 };
 
