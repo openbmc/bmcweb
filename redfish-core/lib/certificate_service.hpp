@@ -19,6 +19,9 @@
 
 namespace redfish
 {
+using ErrorCode = boost::system::error_code;
+using Params = std::vector<std::string>;
+
 class CertificateService : public Node
 {
   public:
@@ -118,7 +121,7 @@ class HTTPSCertificateCollection : public Node
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
     void doGet(crow::Response &res, const crow::Request &req,
-               const std::vector<std::string> &params) override
+               const Params &params) override
     {
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates";
@@ -129,21 +132,64 @@ class HTTPSCertificateCollection : public Node
         res.jsonValue["Name"] = "HTTPS Certificates Collection";
         res.jsonValue["Description"] =
             "A Collection of HTTPS certificate instances";
-
         res.jsonValue["Name"] = "Manager Collection";
-        res.jsonValue["Members@odata.count"] = 1;
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/"
-                           "Certificates/1"}}};
-        res.end();
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto getCertificateList = [asyncResp](const ErrorCode ec,
+                                              const ManagedObjectType &certs) {
+            auto &members = asyncResp->res.jsonValue["Members"];
+            for (auto &cert : certs)
+            {
+                const std::string &path =
+                    static_cast<const std::string &>(cert.first);
+                auto lastIndex = path.rfind("/");
+                if (lastIndex == std::string::npos)
+                {
+                    lastIndex = 0;
+                }
+                else
+                {
+                    lastIndex += 1;
+                }
+                members.push_back(
+                    {{"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
+                                   "HTTPS/Certificates/" +
+                                       path.substr(lastIndex)}});
+            }
+            asyncResp->res.jsonValue["Members@odata.count"] = certs.size();
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(getCertificateList),
+            "xyz.openbmc_project.Certs.Manager.Server.Https",
+            "/xyz/openbmc_project/certs/server/https",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 
     void doPost(crow::Response &res, const crow::Request &req,
-                const std::vector<std::string> &params) override
+                const Params &params) override
     {
-        // TODO: need back-end support to create certificate specifying
-        // the properties and certificate string
-        // Will be fixed in the next patch set
+        std::string filepath("/tmp/" + boost::uuids::to_string(
+                                           boost::uuids::random_generator()()));
+        std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                        std::ofstream::trunc);
+        out << req.body;
+        out.close();
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto installCertificate = [asyncResp, filepath](const ErrorCode ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                std::remove(filepath.c_str());
+                return;
+            }
+            std::remove(filepath.c_str());
+            messages::success(asyncResp->res);
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(installCertificate),
+            "xyz.openbmc_project.Certs.Manager.Server.Https",
+            "/xyz/openbmc_project/certs/server/https",
+            "xyz.openbmc_project.Certs.Install", "Install", filepath);
     }
 }; // HTTPSCertificateCollection
 
@@ -178,14 +224,36 @@ class CertificateLocations : public Node
         res.jsonValue["Description"] =
             "Defines a resource that an administrator can use in order to "
             "locate all certificates installed on a given service";
-        // TODO (devenrao) need back-end support to query for certificates
-        // at present assuming one https certifiate is present
-        // Will be fixed in the next patch set
-        res.jsonValue["Links"]["Certificates"] = {
-            {{"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/"
-                           "Certificates/1"}}};
-        res.jsonValue["Links"]["Certificates@odata.count"] = 1;
-        res.end();
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto getCertificateList = [asyncResp](const ErrorCode ec,
+                                              const ManagedObjectType &certs) {
+            auto &members = asyncResp->res.jsonValue["Links"]["Certificates"];
+            for (auto &cert : certs)
+            {
+                const std::string &path =
+                    static_cast<const std::string &>(cert.first);
+                auto lastIndex = path.rfind("/");
+                if (lastIndex == std::string::npos)
+                {
+                    lastIndex = 0;
+                }
+                else
+                {
+                    lastIndex += 1;
+                }
+                members.push_back(
+                    {{"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
+                                   "HTTPS/Certificates/" +
+                                       path.substr(lastIndex)}});
+            }
+            asyncResp->res.jsonValue["Links"]["Certificates@odata.count"] =
+                members.size();
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(getCertificateList),
+            "xyz.openbmc_project.Certs.Manager.Server.Https",
+            "/xyz/openbmc_project/certs/server/https",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 }; // CertificateLocations
 } // namespace redfish
