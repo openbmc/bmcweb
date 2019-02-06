@@ -245,6 +245,7 @@ target_link_libraries (bmcweb -latomic)
 target_link_libraries (bmcweb -lsystemd)
 target_link_libraries (bmcweb -lstdc++fs)
 target_link_libraries (bmcweb sdbusplus)
+target_link_libraries (bmcweb phosphor_dbus)
 target_link_libraries (bmcweb tinyxml2)
 install (TARGETS bmcweb DESTINATION bin)
 
