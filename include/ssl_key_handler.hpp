@@ -282,7 +282,8 @@ inline void ensureOpensslKeyPresentAndValid(const std::string &filepath)
 
 inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
 {
-    boost::asio::ssl::context mSslContext{boost::asio::ssl::context::sslv23};
+    boost::asio::ssl::context mSslContext{
+        boost::asio::ssl::context::tls_server};
     mSslContext.set_options(boost::asio::ssl::context::default_workarounds |
                             boost::asio::ssl::context::no_sslv2 |
                             boost::asio::ssl::context::no_sslv3 |
@@ -305,55 +306,19 @@ inline boost::asio::ssl::context getSslContext(const std::string &ssl_pem_file)
         BMCWEB_LOG_ERROR << "Error setting tmp ecdh list\n";
     }
 
-    // From mozilla "compatibility"
-    std::string mozillaCompatibilityCiphers = "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                              "ECDHE-RSA-CHACHA20-POLY1305:"
-                                              "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                              "ECDHE-RSA-AES128-GCM-SHA256:"
-                                              "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                              "ECDHE-RSA-AES256-GCM-SHA384:"
-                                              "DHE-RSA-AES128-GCM-SHA256:"
-                                              "DHE-RSA-AES256-GCM-SHA384:"
-                                              "ECDHE-ECDSA-AES128-SHA256:"
-                                              "ECDHE-RSA-AES128-SHA256:"
-                                              "ECDHE-ECDSA-AES128-SHA:"
-                                              "ECDHE-RSA-AES256-SHA384:"
-                                              "ECDHE-RSA-AES128-SHA:"
-                                              "ECDHE-ECDSA-AES256-SHA384:"
-                                              "ECDHE-ECDSA-AES256-SHA:"
-                                              "ECDHE-RSA-AES256-SHA:"
-                                              "DHE-RSA-AES128-SHA256:"
-                                              "DHE-RSA-AES128-SHA:"
-                                              "DHE-RSA-AES256-SHA256:"
-                                              "DHE-RSA-AES256-SHA:"
-                                              "ECDHE-ECDSA-DES-CBC3-SHA:"
-                                              "ECDHE-RSA-DES-CBC3-SHA:"
-                                              "EDH-RSA-DES-CBC3-SHA:"
-                                              "AES128-GCM-SHA256:"
-                                              "AES256-GCM-SHA384:"
-                                              "AES128-SHA256:"
-                                              "AES256-SHA256:"
-                                              "AES128-SHA:"
-                                              "AES256-SHA:"
-                                              "DES-CBC3-SHA:"
-                                              "!DSS";
-
-    // From mozilla "modern"
-    std::string mozillaModernCiphers = "ECDHE-ECDSA-AES256-GCM-SHA384:"
-                                       "ECDHE-RSA-AES256-GCM-SHA384:"
-                                       "ECDHE-ECDSA-CHACHA20-POLY1305:"
-                                       "ECDHE-RSA-CHACHA20-POLY1305:"
-                                       "ECDHE-ECDSA-AES128-GCM-SHA256:"
-                                       "ECDHE-RSA-AES128-GCM-SHA256:"
-                                       "ECDHE-ECDSA-AES256-SHA384:"
-                                       "ECDHE-RSA-AES256-SHA384:"
-                                       "ECDHE-ECDSA-AES128-SHA256:"
-                                       "ECDHE-RSA-AES128-SHA256";
-
-    std::string aesOnlyCiphers = "AES128+EECDH:AES128+EDH:!aNULL:!eNULL";
+    std::string mozillaModern = "ECDHE-ECDSA-AES256-GCM-SHA384:"
+                                "ECDHE-RSA-AES256-GCM-SHA384:"
+                                "ECDHE-ECDSA-CHACHA20-POLY1305:"
+                                "ECDHE-RSA-CHACHA20-POLY1305:"
+                                "ECDHE-ECDSA-AES128-GCM-SHA256:"
+                                "ECDHE-RSA-AES128-GCM-SHA256:"
+                                "ECDHE-ECDSA-AES256-SHA384:"
+                                "ECDHE-RSA-AES256-SHA384:"
+                                "ECDHE-ECDSA-AES128-SHA256:"
+                                "ECDHE-RSA-AES128-SHA256";
 
     if (SSL_CTX_set_cipher_list(mSslContext.native_handle(),
-                                mozillaCompatibilityCiphers.c_str()) != 1)
+                                mozillaModern.c_str()) != 1)
     {
         BMCWEB_LOG_ERROR << "Error setting cipher list\n";
     }

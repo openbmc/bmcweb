@@ -156,7 +156,9 @@ template <typename... Middlewares> class Crow
         sslContext.use_private_key_file(key_filename, ssl_context_t::pem);
         sslContext.set_options(boost::asio::ssl::context::default_workarounds |
                                boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3);
+                               boost::asio::ssl::context::no_sslv3 |
+                               boost::asio::ssl::context::no_tlsv1 |
+                               boost::asio::ssl::context::no_tlsv1_1);
         return *this;
     }
 
@@ -166,7 +168,9 @@ template <typename... Middlewares> class Crow
         sslContext.load_verify_file(pem_filename);
         sslContext.set_options(boost::asio::ssl::context::default_workarounds |
                                boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3);
+                               boost::asio::ssl::context::no_sslv3 |
+                               boost::asio::ssl::context::no_tlsv1 |
+                               boost::asio::ssl::context::no_tlsv1_1);
         return *this;
     }
 
@@ -176,7 +180,7 @@ template <typename... Middlewares> class Crow
         return *this;
     }
 
-    ssl_context_t sslContext{boost::asio::ssl::context::sslv23};
+    ssl_context_t sslContext{boost::asio::ssl::context::tls_server};
 
 #else
     template <typename T, typename... Remain> self_t& ssl_file(T&&, Remain&&...)
