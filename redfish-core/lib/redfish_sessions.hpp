@@ -235,6 +235,9 @@ class SessionService : public Node
                 .getTimeoutInSeconds();
         res.jsonValue["ServiceEnabled"] = true;
 
+        res.jsonValue["Sessions"] = {
+            {"@odata.id", "/redfish/v1/SessionService/Sessions"}};
+
         res.end();
     }
 };
