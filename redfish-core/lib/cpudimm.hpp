@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include <alphanumsort.hpp>
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -31,9 +32,10 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp, const std::string &name,
         [name, subclass, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::vector<std::string>>>
-                &subtree) {
+                std::string,
+                boost::container::flat_map<std::string,
+                                           std::vector<std::string>>,
+                doj::alphanum_less> &subtree) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -60,7 +62,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp, const std::string &name,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char *, 1>{collectionName.c_str()});
+        std::array<std::string, 1>{collectionName});
 }
 
 void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
