@@ -106,7 +106,7 @@ class Roles : public Node
             {"@odata.type", "#Role.v1_0_2.Role"},
             {"@odata.context", "/redfish/v1/$metadata#Role.Role"},
             {"Name", "User Role"},
-            {"Description", "Administrator User Role"},
+            {"Description", roleId + " User Role"},
             {"OemPrivileges", nlohmann::json::array()},
             {"IsPredefined", true},
             {"Id", roleId},
