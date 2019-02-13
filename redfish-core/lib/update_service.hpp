@@ -437,6 +437,27 @@ class SoftwareInventory : public Node
                             }
                             asyncResp->res.jsonValue["Version"] = *version;
                             asyncResp->res.jsonValue["Id"] = *swId;
+
+                            // swInvPurpose is of format:
+                            // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
+                            // Translate this to "ABC update"
+                            size_t endDesc = swInvPurpose->rfind(".");
+                            if (endDesc == std::string::npos)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            endDesc++;
+                            if (endDesc >= swInvPurpose->size())
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            std::string_view formatDesc =
+                                swInvPurpose->substr(endDesc);
+                            asyncResp->res.jsonValue["Description"] =
+                                std::string{formatDesc} + " update";
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
