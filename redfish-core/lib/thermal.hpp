@@ -38,7 +38,7 @@ class Thermal : public Node
 
   private:
     std::initializer_list<const char*> typeList = {
-        "/xyz/openbmc_project/sensors/fan",
+        "/xyz/openbmc_project/sensors/fan_tach",
         "/xyz/openbmc_project/sensors/temperature",
         "/xyz/openbmc_project/sensors/fan_pwm"};
     void doGet(crow::Response& res, const crow::Request& req,
