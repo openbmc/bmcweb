@@ -586,8 +586,7 @@ class EventLogEntry : public Node
             return;
         }
 
-        // only use journal entries that contain a REDFISH_MESSAGE_ID
-        // field
+        // only use journal entries that contain a REDFISH_MESSAGE_ID field
         boost::string_view messageID;
         ret =
             getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID", messageID);
@@ -687,6 +686,9 @@ class BMCJournalLogService : public Node
         asyncResp->res.jsonValue["Description"] = "BMC Journal Log Service";
         asyncResp->res.jsonValue["Id"] = "BMC Journal";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/"}};
     }
 };
 
@@ -943,6 +945,9 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["Id"] = "CPU Log";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
              {{"#CpuLog.Immediate",
