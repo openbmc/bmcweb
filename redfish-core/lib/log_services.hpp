@@ -295,6 +295,10 @@ class SystemLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
         logServiceArray.push_back({{"@odata.id", "/redfish/v1/Systems/" + name +
                                                      "/LogServices/EventLog"}});
+#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
+        logServiceArray.push_back({{"@odata.id", "/redfish/v1/Systems/" + name +
+                                                     "/LogServices/CpuLog"}});
+#endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
@@ -652,10 +656,6 @@ class BMCLogServiceCollection : public Node
         logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
 #endif
-#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/CpuLog"}});
-#endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
@@ -917,7 +917,8 @@ class CPULogService : public Node
   public:
     template <typename CrowApp>
     CPULogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/")
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/CpuLog/",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -937,8 +938,9 @@ class CPULogService : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Copy over the static data to include the entries added by SubRoute
+        const std::string &name = params[0];
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/CpuLog";
+            "/redfish/v1/Systems/" + name + "/LogServices/CpuLog";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
@@ -951,14 +953,16 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
              {{"#CpuLog.Immediate",
-               {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/"
-                           "Actions/Oem/CpuLog.Immediate"}}}}}};
+               {{"target", "/redfish/v1/Systems/" + name +
+                               "/LogServices/CpuLog/Actions/Oem/"
+                               "CpuLog.Immediate"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#CpuLog.SendRawPeci",
-             {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/"
-                         "Oem/CpuLog.SendRawPeci"}}});
+             {{"target",
+               "/redfish/v1/Systems/" + name +
+                   "/LogServices/CpuLog/Actions/Oem/CpuLog.SendRawPeci"}}});
 #endif
     }
 };
@@ -968,7 +972,8 @@ class CPULogEntryCollection : public Node
   public:
     template <typename CrowApp>
     CPULogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/")
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/CpuLog/Entries/",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -987,9 +992,10 @@ class CPULogEntryCollection : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        const std::string &name = params[0];
         // Collections don't include the static data added by SubRoute because
         // it has a duplicate entry for members
-        auto getLogEntriesCallback = [asyncResp](
+        auto getLogEntriesCallback = [asyncResp, name](
                                          const boost::system::error_code ec,
                                          const std::vector<std::string> &resp) {
             if (ec)
@@ -1006,11 +1012,12 @@ class CPULogEntryCollection : public Node
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
+                "/redfish/v1/Systems/" + name + "/LogServices/CpuLog/Entries";
             asyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
+                "/redfish/v1/"
+                "$metadata#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
+                "/redfish/v1/Systems/" + name + "/LogServices/CpuLog/Entries";
             asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Entries";
             asyncResp->res.jsonValue["Description"] =
                 "Collection of CPU Log Entries";
@@ -1027,8 +1034,8 @@ class CPULogEntryCollection : public Node
                 if (lastPos != std::string::npos)
                 {
                     logEntryArray.push_back(
-                        {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/"
-                                       "CpuLog/Entries/" +
+                        {{"@odata.id", "/redfish/v1/Systems/" + name +
+                                           "/LogServices/CpuLog/Entries/" +
                                            objpath.substr(lastPos + 1)}});
                 }
             }
@@ -1068,8 +1075,8 @@ class CPULogEntry : public Node
 {
   public:
     CPULogEntry(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/<str>/",
-             std::string())
+        Node(app, "/redfish/v1/Systems/<str>/LogServices/CpuLog/Entries/<str>/",
+             std::string(), std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1085,13 +1092,14 @@ class CPULogEntry : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        if (params.size() != 1)
+        if (params.size() != 2)
         {
             messages::internalError(asyncResp->res);
             return;
         }
-        const uint8_t logId = std::atoi(params[0].c_str());
-        auto getStoredLogCallback = [asyncResp, logId](
+        const std::string &name = params[0];
+        const uint8_t logId = std::atoi(params[1].c_str());
+        auto getStoredLogCallback = [asyncResp, logId, name](
                                         const boost::system::error_code ec,
                                         const std::variant<std::string> &resp) {
             if (ec)
@@ -1116,9 +1124,9 @@ class CPULogEntry : public Node
             asyncResp->res.jsonValue = {
                 {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
-                {"@odata.id",
-                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/" +
-                     std::to_string(logId)},
+                {"@odata.id", "/redfish/v1/Systems/" + name +
+                                  "/LogServices/CpuLog/Entries/" +
+                                  std::to_string(logId)},
                 {"Name", "CPU Debug Log"},
                 {"Id", logId},
                 {"EntryType", "Oem"},
@@ -1137,8 +1145,10 @@ class ImmediateCPULog : public Node
 {
   public:
     ImmediateCPULog(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
-                  "CpuLog.Immediate/")
+        Node(app,
+             "/redfish/v1/Systems/<str>/LogServices/CpuLog/Actions/Oem/"
+             "CpuLog.Immediate/",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1282,8 +1292,10 @@ class SendRawPECI : public Node
 {
   public:
     SendRawPECI(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
-                  "CpuLog.SendRawPeci/")
+        Node(app,
+             "/redfish/v1/Systems/<str>/LogServices/CpuLog/Actions/Oem/"
+             "CpuLog.SendRawPeci/",
+             std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
