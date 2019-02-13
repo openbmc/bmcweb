@@ -29,10 +29,10 @@ namespace redfish
 
 constexpr char const *cpuLogObject = "com.intel.CpuDebugLog";
 constexpr char const *cpuLogPath = "/com/intel/CpuDebugLog";
-constexpr char const *cpuLogImmediatePath = "/com/intel/CpuDebugLog/Immediate";
+constexpr char const *cpuLogOnDemandPath = "/com/intel/CpuDebugLog/OnDemand";
 constexpr char const *cpuLogInterface = "com.intel.CpuDebugLog";
-constexpr char const *cpuLogImmediateInterface =
-    "com.intel.CpuDebugLog.Immediate";
+constexpr char const *cpuLogOnDemandInterface =
+    "com.intel.CpuDebugLog.OnDemand";
 constexpr char const *cpuLogRawPECIInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
 
@@ -1199,9 +1199,9 @@ class CPULogService : public Node
              "/redfish/v1/Systems/system/LogServices/CpuLog/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
-             {{"#CpuLog.Immediate",
+             {{"#CpuLog.OnDemand",
                {{"target", "/redfish/v1/Systems/system/LogServices/CpuLog/"
-                           "Actions/Oem/CpuLog.Immediate"}}}}}};
+                           "Actions/Oem/CpuLog.OnDemand"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
@@ -1267,8 +1267,8 @@ class CPULogEntryCollection : public Node
             logEntryArray = nlohmann::json::array();
             for (const std::string &objpath : resp)
             {
-                // Don't list the immediate log
-                if (objpath.compare(cpuLogImmediatePath) == 0)
+                // Don't list the on-demand log
+                if (objpath.compare(cpuLogOnDemandPath) == 0)
                 {
                     continue;
                 }
@@ -1388,12 +1388,12 @@ class CPULogEntry : public Node
     }
 };
 
-class ImmediateCPULog : public Node
+class OnDemandCPULog : public Node
 {
   public:
-    ImmediateCPULog(CrowApp &app) :
+    OnDemandCPULog(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/"
-                  "CpuLog.Immediate/")
+                  "CpuLog.OnDemand/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1409,11 +1409,10 @@ class ImmediateCPULog : public Node
                 const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        static std::unique_ptr<sdbusplus::bus::match::match>
-            immediateLogMatcher;
+        static std::unique_ptr<sdbusplus::bus::match::match> onDemandLogMatcher;
 
-        // Only allow one Immediate Log request at a time
-        if (immediateLogMatcher != nullptr)
+        // Only allow one OnDemand Log request at a time
+        if (onDemandLogMatcher != nullptr)
         {
             asyncResp->res.addHeader("Retry-After", "30");
             messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
@@ -1424,7 +1423,7 @@ class ImmediateCPULog : public Node
 
         timeout.expires_from_now(boost::posix_time::seconds(30));
         timeout.async_wait([asyncResp](const boost::system::error_code &ec) {
-            immediateLogMatcher = nullptr;
+            onDemandLogMatcher = nullptr;
             if (ec)
             {
                 // operation_aborted is expected if timer is canceled before
@@ -1435,14 +1434,14 @@ class ImmediateCPULog : public Node
                 }
                 return;
             }
-            BMCWEB_LOG_ERROR << "Timed out waiting for immediate log";
+            BMCWEB_LOG_ERROR << "Timed out waiting for on-demand log";
 
             messages::internalError(asyncResp->res);
         });
 
-        auto immediateLogMatcherCallback = [asyncResp](
-                                               sdbusplus::message::message &m) {
-            BMCWEB_LOG_DEBUG << "Immediate log available match fired";
+        auto onDemandLogMatcherCallback = [asyncResp](
+                                              sdbusplus::message::message &m) {
+            BMCWEB_LOG_DEBUG << "OnDemand log available match fired";
             boost::system::error_code ec;
             timeout.cancel(ec);
             if (ec)
@@ -1460,24 +1459,24 @@ class ImmediateCPULog : public Node
             if (log == nullptr)
             {
                 messages::internalError(asyncResp->res);
-                // Careful with immediateLogMatcher.  It is a unique_ptr to the
+                // Careful with onDemandLogMatcher.  It is a unique_ptr to the
                 // match object inside which this lambda is executing.  Once it
                 // is set to nullptr, the match object will be destroyed and the
                 // lambda will lose its context, including res, so it needs to
                 // be the last thing done.
-                immediateLogMatcher = nullptr;
+                onDemandLogMatcher = nullptr;
                 return;
             }
             nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
             if (j.is_discarded())
             {
                 messages::internalError(asyncResp->res);
-                // Careful with immediateLogMatcher.  It is a unique_ptr to the
+                // Careful with onDemandLogMatcher.  It is a unique_ptr to the
                 // match object inside which this lambda is executing.  Once it
                 // is set to nullptr, the match object will be destroyed and the
                 // lambda will lose its context, including res, so it needs to
                 // be the last thing done.
-                immediateLogMatcher = nullptr;
+                onDemandLogMatcher = nullptr;
                 return;
             }
             std::string t = getLogCreatedTime(j);
@@ -1489,20 +1488,20 @@ class ImmediateCPULog : public Node
                 {"OemRecordFormat", "Intel CPU Log"},
                 {"Oem", {{"Intel", std::move(j)}}},
                 {"Created", std::move(t)}};
-            // Careful with immediateLogMatcher.  It is a unique_ptr to the
+            // Careful with onDemandLogMatcher.  It is a unique_ptr to the
             // match object inside which this lambda is executing.  Once it is
             // set to nullptr, the match object will be destroyed and the lambda
             // will lose its context, including res, so it needs to be the last
             // thing done.
-            immediateLogMatcher = nullptr;
+            onDemandLogMatcher = nullptr;
         };
-        immediateLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
+        onDemandLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
             *crow::connections::systemBus,
             sdbusplus::bus::match::rules::interfacesAdded() +
-                sdbusplus::bus::match::rules::argNpath(0, cpuLogImmediatePath),
-            std::move(immediateLogMatcherCallback));
+                sdbusplus::bus::match::rules::argNpath(0, cpuLogOnDemandPath),
+            std::move(onDemandLogMatcherCallback));
 
-        auto generateImmediateLogCallback =
+        auto generateonDemandLogCallback =
             [asyncResp](const boost::system::error_code ec,
                         const std::string &resp) {
                 if (ec)
@@ -1523,13 +1522,13 @@ class ImmediateCPULog : public Node
                         BMCWEB_LOG_ERROR << "error canceling timer "
                                          << timeoutec;
                     }
-                    immediateLogMatcher = nullptr;
+                    onDemandLogMatcher = nullptr;
                     return;
                 }
             };
         crow::connections::systemBus->async_method_call(
-            std::move(generateImmediateLogCallback), cpuLogObject, cpuLogPath,
-            cpuLogImmediateInterface, "GenerateImmediateLog");
+            std::move(generateonDemandLogCallback), cpuLogObject, cpuLogPath,
+            cpuLogOnDemandInterface, "GenerateOnDemandLog");
     }
 };
 
