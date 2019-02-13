@@ -294,6 +294,10 @@ class SystemLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
         logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
+#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
+        logServiceArray.push_back(
+            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/CpuLog"}});
+#endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
@@ -321,7 +325,6 @@ class EventLogService : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        const std::string &name = params[0];
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog";
         asyncResp->res.jsonValue["@odata.type"] =
@@ -646,10 +649,6 @@ class BMCLogServiceCollection : public Node
         logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
 #endif
-#ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/CpuLog"}});
-#endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
     }
@@ -914,7 +913,7 @@ class CPULogService : public Node
   public:
     template <typename CrowApp>
     CPULogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/")
+        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -935,7 +934,7 @@ class CPULogService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Copy over the static data to include the entries added by SubRoute
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/LogServices/CpuLog";
+            "/redfish/v1/Systems/system/LogServices/CpuLog";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
@@ -951,14 +950,14 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
              {{"#CpuLog.Immediate",
-               {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/"
+               {{"target", "/redfish/v1/Systems/system/LogServices/CpuLog/"
                            "Actions/Oem/CpuLog.Immediate"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#CpuLog.SendRawPeci",
-             {{"target", "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/"
-                         "Oem/CpuLog.SendRawPeci"}}});
+             {{"target", "/redfish/v1/Systems/system/LogServices/CpuLog/"
+                         "Actions/Oem/CpuLog.SendRawPeci"}}});
 #endif
     }
 };
@@ -968,7 +967,7 @@ class CPULogEntryCollection : public Node
   public:
     template <typename CrowApp>
     CPULogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/")
+        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1006,11 +1005,10 @@ class CPULogEntryCollection : public Node
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
+                "/redfish/v1/Systems/system/LogServices/CpuLog/Entries";
             asyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
-            asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries";
+                "/redfish/v1/"
+                "$metadata#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Entries";
             asyncResp->res.jsonValue["Description"] =
                 "Collection of CPU Log Entries";
@@ -1027,7 +1025,7 @@ class CPULogEntryCollection : public Node
                 if (lastPos != std::string::npos)
                 {
                     logEntryArray.push_back(
-                        {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/"
+                        {{"@odata.id", "/redfish/v1/Systems/system/LogServices/"
                                        "CpuLog/Entries/" +
                                            objpath.substr(lastPos + 1)}});
                 }
@@ -1073,7 +1071,8 @@ class CPULogEntry : public Node
 {
   public:
     CPULogEntry(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/<str>/",
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -1122,7 +1121,7 @@ class CPULogEntry : public Node
                 {"@odata.type", "#LogEntry.v1_3_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
                 {"@odata.id",
-                 "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries/" +
+                 "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/" +
                      std::to_string(logId)},
                 {"Name", "CPU Debug Log"},
                 {"Id", logId},
@@ -1142,7 +1141,7 @@ class ImmediateCPULog : public Node
 {
   public:
     ImmediateCPULog(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
+        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/"
                   "CpuLog.Immediate/")
     {
         entityPrivileges = {
@@ -1287,7 +1286,7 @@ class SendRawPECI : public Node
 {
   public:
     SendRawPECI(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/LogServices/CpuLog/Actions/Oem/"
+        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/"
                   "CpuLog.SendRawPeci/")
     {
         entityPrivileges = {

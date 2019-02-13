@@ -27,11 +27,11 @@ option (BMCWEB_ENABLE_REDFISH_BMC_JOURNAL "Enable BMC journal access through
        Redfish.  Paths are under
        '/redfish/v1/Managers/bmc/LogServices/Journal'." OFF)
 option (BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through
-       Redfish.  Paths are under '/redfish/v1/Managers/bmc/LogServices/CpuLog/
+       Redfish.  Paths are under '/redfish/v1/Systems/system/LogServices/CpuLog/
        Actions/Oem/CpuLog.SendRawPeci'." OFF)
 option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
        through Redfish.  Paths are under
-       '/redfish/v1/Managers/bmc/LogServices/CpuLog'." OFF)
+       '/redfish/v1/Systems/system/LogServices/CpuLog'." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
