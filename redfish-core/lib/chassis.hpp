@@ -38,6 +38,76 @@ using ManagedObjectsType = std::vector<std::pair<
 
 using PropertiesType = boost::container::flat_map<std::string, VariantType>;
 
+void getIntrusionByService(std::shared_ptr<AsyncResp> aResp,
+                           const std::string &service,
+                           const std::string &objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get intrusion status by service \n";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::variant<std::string> &value) {
+            if (ec)
+            {
+                // do not add err msg in redfish response, becaues this is not
+                //     mandatory property
+                BMCWEB_LOG_ERROR << "DBUS response error " << ec << "\n";
+                return;
+            }
+
+            const std::string *status = std::get_if<std::string>(&value);
+
+            if (status == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "intrusion status read error \n";
+                return;
+            }
+
+            aResp->res.jsonValue["PhysicalSecurity"] = {
+                {"IntrusionSensorNumber", 1},
+                {"IntrusionSensor", *status}};
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Intrusion", "Status");
+}
+
+/**
+ * Retrieves physical security properties over dbus
+ */
+void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::vector<std::pair<
+                std::string,
+                std::vector<std::pair<std::string, std::vector<std::string>>>>>
+                &subtree) {
+            if (ec)
+            {
+                // do not add err msg in redfish response, becaues this is not
+                //     mandatory property
+                BMCWEB_LOG_ERROR << "DBUS error: no matched iface " << ec
+                                 << "\n";
+                return;
+            }
+            // Iterate over all retrieved ObjectPaths.
+            for (const auto &object : subtree)
+            {
+                for (const auto &service : object.second)
+                {
+                    getIntrusionByService(aResp, service.first, object.first);
+                    return;
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/Intrusion", int32_t(1),
+        std::array<const char *, 1>{"xyz.openbmc_project.Intrusion"});
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  */
@@ -245,6 +315,8 @@ class Chassis : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+
+        getPhysicalSecurityData(asyncResp);
     }
 };
 } // namespace redfish
