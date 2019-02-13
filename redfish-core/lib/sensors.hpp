@@ -589,27 +589,54 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
         res.end();
         return;
     }
+
+    std::vector<nlohmann::json> collections;
+    std::optional<std::vector<nlohmann::json>> temperatureCollections;
+    std::optional<std::vector<nlohmann::json>> fanCollections;
     const char* collectionName;
     const char* propertyValueName;
+
     if (chassisSubNode == "Thermal")
     {
-        collectionName = "Temperatures";
-        propertyValueName = "ReadingCelsius";
+        if (!json_util::readJson(req, res, "Temperatures",
+                                 temperatureCollections, "Fans",
+                                 fanCollections))
+        {
+            return;
+        }
+        if (!temperatureCollections && !fanCollections)
+        {
+            messages::resourceNotFound(res, "Thermal",
+                                       "Temperatures / Voltages");
+            res.end();
+            return;
+        }
+        if (temperatureCollections)
+        {
+            collectionName = "Temperatures";
+            propertyValueName = "ReadingCelsius";
+            collections = *std::move(temperatureCollections);
+        }
+        else
+        {
+            collectionName = "Fans";
+            propertyValueName = "Reading";
+            collections = *std::move(fanCollections);
+        }
     }
     else if (chassisSubNode == "Power")
     {
         collectionName = "Voltages";
         propertyValueName = "ReadingVolts";
+        if (!json_util::readJson(req, res, collectionName, collections))
+        {
+            return;
+        }
     }
     else
     {
         res.result(boost::beast::http::status::not_found);
         res.end();
-        return;
-    }
-    std::vector<nlohmann::json> collections;
-    if (!json_util::readJson(req, res, collectionName, collections))
-    {
         return;
     }
     if (collections.size() != 1)
@@ -633,16 +660,12 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                     << "with value: " << value << "\n";
     // first check for valid chassis id & sensor in requested chassis.
     auto getChassisSensorListCb =
-        [sensorAsyncResp, memberId,
+        [sensorAsyncResp, collectionName, memberId,
          value](const boost::container::flat_set<std::string>& sensorLists) {
             if (sensorLists.find(memberId) == sensorLists.end())
             {
                 BMCWEB_LOG_INFO << "Unable to find memberId " << memberId;
-                messages::resourceNotFound(sensorAsyncResp->res,
-                                           sensorAsyncResp->chassisSubNode ==
-                                                   "Thermal"
-                                               ? "Temperatures"
-                                               : "Voltages",
+                messages::resourceNotFound(sensorAsyncResp->res, collectionName,
                                            memberId);
                 return;
             }
@@ -650,7 +673,7 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
             sensorNames.emplace(memberId);
             // Get the connection to which the memberId belongs
             auto getObjectsWithConnectionCb =
-                [sensorAsyncResp, memberId, value](
+                [sensorAsyncResp, collectionName, memberId, value](
                     const boost::container::flat_set<std::string>& connections,
                     const std::set<std::pair<std::string, std::string>>&
                         objectsWithConnection) {
@@ -659,12 +682,8 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                         BMCWEB_LOG_INFO
                             << "Unable to find object with proper connection "
                             << objectsWithConnection.size() << "\n";
-                        messages::resourceNotFound(
-                            sensorAsyncResp->res,
-                            sensorAsyncResp->chassisSubNode == "Thermal"
-                                ? "Temperatures"
-                                : "Voltages",
-                            memberId);
+                        messages::resourceNotFound(sensorAsyncResp->res,
+                                                   collectionName, memberId);
                         return;
                     }
                     crow::connections::systemBus->async_method_call(
