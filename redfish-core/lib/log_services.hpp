@@ -1046,16 +1046,21 @@ class CPULogEntryCollection : public Node
 
 std::string getLogCreatedTime(const nlohmann::json &cpuLog)
 {
-    nlohmann::json::const_iterator metaIt = cpuLog.find("metadata");
-    if (metaIt != cpuLog.end())
+    nlohmann::json::const_iterator cdIt = cpuLog.find("crashlog_data");
+    if (cdIt != cpuLog.end())
     {
-        nlohmann::json::const_iterator tsIt = metaIt->find("timestamp");
-        if (tsIt != metaIt->end())
+        nlohmann::json::const_iterator siIt = cdIt->find("SYSTEM_INFO");
+        if (siIt != cdIt->end())
         {
-            const std::string *logTime = tsIt->get_ptr<const std::string *>();
-            if (logTime != nullptr)
+            nlohmann::json::const_iterator tsIt = siIt->find("timestamp");
+            if (tsIt != siIt->end())
             {
-                return *logTime;
+                const std::string *logTime =
+                    tsIt->get_ptr<const std::string *>();
+                if (logTime != nullptr)
+                {
+                    return *logTime;
+                }
             }
         }
     }
