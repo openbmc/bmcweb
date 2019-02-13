@@ -437,6 +437,25 @@ class SoftwareInventory : public Node
                             }
                             asyncResp->res.jsonValue["Version"] = *version;
                             asyncResp->res.jsonValue["Id"] = *swId;
+
+                            // swInvPurpose is of format:
+                            // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
+                            // Translate this to "ABC update"
+                            std::string formatDesc = *swInvPurpose;
+                            auto endDesc = formatDesc.rfind('.');
+                            if ((endDesc != std::string::npos) &&
+                                (endDesc < formatDesc.size() + 1))
+                            {
+                                formatDesc.erase(0, endDesc + 1);
+                                formatDesc += " update";
+                                asyncResp->res.jsonValue["Description"] =
+                                    formatDesc;
+                            }
+                            else
+                            {
+                                BMCWEB_LOG_ERROR << "Invalid software purpose "
+                                                 << formatDesc;
+                            }
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
