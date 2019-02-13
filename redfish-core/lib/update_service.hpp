@@ -438,6 +438,8 @@ class SoftwareInventory : public Node
                             }
                             asyncResp->res.jsonValue["Version"] = *version;
                             asyncResp->res.jsonValue["Id"] = *swId;
+                            asyncResp->res.jsonValue["Description"] =
+                                *swInvPurpose;
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
