@@ -82,8 +82,8 @@ inline void readDone(const boost::system::error_code& ec, std::size_t bytesRead)
         return;
     }
 
-    boost::beast::string_view payload(static_cast<const char*>(outputBuffer.data().data()),
-                                      bytesRead);
+    boost::beast::string_view payload(
+        static_cast<const char*>(outputBuffer.data().data()), bytesRead);
     BMCWEB_LOG_DEBUG << "Sending payload size " << payload.size();
     session->sendBinary(payload);
     outputBuffer.consume(bytesRead);
@@ -160,7 +160,7 @@ inline void requestRoutes(CrowApp& app)
             BMCWEB_LOG_DEBUG << "Read " << data.size()
                              << " bytes from websocket";
             boost::asio::buffer_copy(inputBuffer.prepare(data.size()),
-                            boost::asio::buffer(data));
+                                     boost::asio::buffer(data));
             BMCWEB_LOG_DEBUG << "commiting " << data.size()
                              << " bytes from websocket";
             inputBuffer.commit(data.size());

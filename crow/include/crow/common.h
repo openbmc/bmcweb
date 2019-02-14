@@ -33,8 +33,9 @@ inline std::string methodName(boost::beast::http::verb method)
             return "TRACE";
         case boost::beast::http::verb::patch:
             return "PATCH";
+        default:
+            return "invalid";
     }
-    return "invalid";
 }
 
 enum class ParamType

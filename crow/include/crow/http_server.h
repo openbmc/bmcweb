@@ -4,6 +4,8 @@
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
+#include <boost/asio/ssl/context.hpp>
+#include <boost/beast/experimental/core/ssl_stream.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
@@ -15,8 +17,6 @@
 #include "crow/http_connection.h"
 #include "crow/logging.h"
 #include "crow/timer_queue.h"
-#include <boost/asio/ssl/context.hpp>
-#include <boost/beast/experimental/core/ssl_stream.hpp>
 
 namespace crow
 {
