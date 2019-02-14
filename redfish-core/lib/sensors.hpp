@@ -363,11 +363,11 @@ void objectInterfacesToJson(
         auto interfaceProperties = interfacesDict.find(std::get<0>(p));
         if (interfaceProperties != interfacesDict.end())
         {
-            auto valueIt = interfaceProperties->second.find(std::get<1>(p));
-            if (valueIt != interfaceProperties->second.end())
+            auto valIt = interfaceProperties->second.find(std::get<1>(p));
+            if (valIt != interfaceProperties->second.end())
             {
-                const SensorVariant& valueVariant = valueIt->second;
-                nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
+                const SensorVariant& valueVariant = valIt->second;
+                nlohmann::json& jValueIt = sensor_json[std::get<2>(p)];
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
 
@@ -390,11 +390,11 @@ void objectInterfacesToJson(
                 temp = temp * std::pow(10, scaleMultiplier);
                 if (forceToInt)
                 {
-                    valueIt = static_cast<int64_t>(temp);
+                    jValueIt = static_cast<int64_t>(temp);
                 }
                 else
                 {
-                    valueIt = temp;
+                    jValueIt = temp;
                 }
             }
         }
