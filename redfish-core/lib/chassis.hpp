@@ -24,6 +24,51 @@ namespace redfish
 {
 
 /**
+ * @brief Retrieves chassis state properties over dbus
+ *
+ * @param[in] aResp - Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getChassisState(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get chassis information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const std::variant<std::string> &chassisState) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string *s = std::get_if<std::string>(&chassisState);
+            BMCWEB_LOG_DEBUG << "Chassis state: " << *s;
+            if (s != nullptr)
+            {
+                // Verify Chassis State
+                if (*s == "xyz.openbmc_project.State.Chassis.PowerState.On")
+                {
+                    aResp->res.jsonValue["PowerState"] = "On";
+                    aResp->res.jsonValue["Status"]["State"] = "Enabled";
+                }
+                else if (*s ==
+                         "xyz.openbmc_project.State.Chassis.PowerState.Off")
+                {
+                    aResp->res.jsonValue["PowerState"] = "Off";
+                    aResp->res.jsonValue["Status"]["State"] = "StandbyOffline";
+                }
+            }
+        },
+        "xyz.openbmc_project.State.Chassis",
+        "/xyz/openbmc_project/state/chassis0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Chassis", "CurrentPowerState");
+}
+
+/**
  * DBus types primitives for several generic DBus interfaces
  * TODO(Pawel) consider move this to separate file into boost::dbus
  */
@@ -152,7 +197,6 @@ class Chassis : public Node
             "/redfish/v1/$metadata#Chassis.Chassis";
         res.jsonValue["Name"] = "Chassis Collection";
         res.jsonValue["ChassisType"] = "RackMount";
-        res.jsonValue["PowerState"] = "On";
 
         const std::string &chassisId = params[0];
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -228,6 +272,7 @@ class Chassis : public Node
                                 {{"@odata.id", "/redfish/v1/Systems/system"}}};
                             asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
                                 {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                            getChassisState(asyncResp);
                         },
                         connectionName, path, "org.freedesktop.DBus.Properties",
                         "GetAll",
