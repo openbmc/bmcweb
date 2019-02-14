@@ -27,27 +27,27 @@ struct Request
     {
     }
 
-    const boost::beast::http::verb method() const
+    boost::beast::http::verb method() const
     {
         return req.method();
     }
 
-    const boost::string_view getHeaderValue(boost::string_view key) const
+    boost::string_view getHeaderValue(boost::string_view key) const
     {
         return req[key];
     }
 
-    const boost::string_view getHeaderValue(boost::beast::http::field key) const
+    boost::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return req[key];
     }
 
-    const boost::string_view methodString() const
+    boost::string_view methodString() const
     {
         return req.method_string();
     }
 
-    const boost::string_view target() const
+    boost::string_view target() const
     {
         return req.target();
     }

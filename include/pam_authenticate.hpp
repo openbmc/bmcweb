@@ -19,7 +19,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     std::strcpy(pass, reinterpret_cast<char*>(appdataPtr));
 
     *resp = reinterpret_cast<pam_response*>(
-        calloc(numMsg, sizeof(struct pam_response)));
+        calloc(static_cast<size_t>(numMsg), sizeof(struct pam_response)));
 
     for (int i = 0; i < numMsg; ++i)
     {

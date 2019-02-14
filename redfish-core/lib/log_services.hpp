@@ -46,7 +46,7 @@ static int getJournalMetadata(sd_journal *journal,
     size_t length = 0;
     int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    ret = sd_journal_get_data(journal, field.data(), (const void **)&data,
+    ret = sd_journal_get_data(journal, field.data(), reinterpret_cast<const void **>(&data),
                               &length);
     if (ret < 0)
     {
@@ -60,7 +60,7 @@ static int getJournalMetadata(sd_journal *journal,
 
 static int getJournalMetadata(sd_journal *journal,
                               const boost::string_view &field, const int &base,
-                              int &contents)
+                              int& contents)
 {
     int ret = 0;
     boost::string_view metadata;
@@ -70,7 +70,7 @@ static int getJournalMetadata(sd_journal *journal,
     {
         return ret;
     }
-    contents = strtol(metadata.data(), nullptr, base);
+    contents = static_cast<int>(strtol(metadata.data(), nullptr, base));
     return ret;
 }
 
@@ -213,8 +213,12 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
         std::size_t pos;
         try
         {
-            index = std::stoul(indexStr.to_string(), &pos);
-        }
+            unsigned long temp = std::stoul(indexStr.to_string(), &pos);
+            if (temp > std::numeric_limits<uint16_t>::max()){
+                messages::internalError(res);
+		return false;
+	    }
+	}
         catch (std::invalid_argument)
         {
             messages::resourceMissingAtURI(res, entryID);
@@ -382,8 +386,8 @@ static int fillEventLogEntryJson(const std::string &systemName,
             {
                 continue;
             }
-            int argNum = std::strtoul(field.data(), nullptr, 10);
-            if (argNum == 0)
+            unsigned long argNum = std::strtoul(field.data(), nullptr, 10);
+            if (argNum == 0 || argNum > std::numeric_limits<size_t>::max())
             {
                 continue;
             }
@@ -392,7 +396,7 @@ static int fillEventLogEntryJson(const std::string &systemName,
             // Make sure we have enough space in messageArgs
             if (argNum > messageArgs.size())
             {
-                messageArgs.resize(argNum);
+                messageArgs.resize(static_cast<size_t>(argNum));
             }
             messageArgs[argNum - 1] = field.to_string();
         }
@@ -483,7 +487,7 @@ class EventLogEntryCollection : public Node
         std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
             journalTmp, sd_journal_close);
         journalTmp = nullptr;
-        uint64_t entryCount = 0;
+        long entryCount = 0;
         SD_JOURNAL_FOREACH(journal.get())
         {
             // Look for only journal entries that contain a REDFISH_MESSAGE_ID
@@ -807,7 +811,7 @@ class BMCJournalLogEntryCollection : public Node
         std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
             journalTmp, sd_journal_close);
         journalTmp = nullptr;
-        uint64_t entryCount = 0;
+        long entryCount = 0;
         SD_JOURNAL_FOREACH(journal.get())
         {
             entryCount++;
@@ -1090,7 +1094,7 @@ class CPULogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        const uint8_t logId = std::atoi(params[0].c_str());
+        const int logId = std::atoi(params[0].c_str());
         auto getStoredLogCallback = [asyncResp, logId](
                                         const boost::system::error_code ec,
                                         const std::variant<std::string> &resp) {

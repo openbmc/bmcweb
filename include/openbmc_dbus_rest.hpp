@@ -571,7 +571,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
                 return -1;
             }
             r = sd_bus_message_append_basic(m, argCode[0],
-                                            (void *)stringValue->c_str());
+                                            reinterpret_cast<const void *>(stringValue->c_str()));
             if (r < 0)
             {
                 return r;
@@ -732,13 +732,13 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_STRUCT,
                                               containedType.c_str());
             nlohmann::json::const_iterator it = j->begin();
-            for (const std::string &argCode : dbusArgSplit(arg_type))
+            for (const std::string &argCode2 : dbusArgSplit(arg_type))
             {
                 if (it == j->end())
                 {
                     return -1;
                 }
-                r = convertJsonToDbus(m, argCode, *it);
+                r = convertJsonToDbus(m, argCode2, *it);
                 if (r < 0)
                 {
                     return r;

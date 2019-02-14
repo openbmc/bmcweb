@@ -725,17 +725,17 @@ static CreatePIDRet createPidInterface(
             for (auto& step : *steps)
             {
                 double target;
-                double output;
+                double out;
 
                 if (!redfish::json_util::readJson(step, response->res, "Target",
-                                                  target, "Output", output))
+                                                  target, "Output", out))
                 {
                     BMCWEB_LOG_ERROR << "Line:" << __LINE__
                                      << ", Illegal Property " << record.dump();
                     return CreatePIDRet::fail;
                 }
                 readings.emplace_back(target);
-                outputs.emplace_back(output);
+                outputs.emplace_back(out);
             }
             output["Reading"] = std::move(readings);
             output["Output"] = std::move(outputs);
