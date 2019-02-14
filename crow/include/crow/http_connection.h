@@ -6,7 +6,9 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/experimental/core/ssl_stream.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
@@ -17,11 +19,6 @@
 #include "crow/middleware_context.h"
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
-
-#ifdef BMCWEB_ENABLE_SSL
-#include <boost/asio/ssl.hpp>
-#include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
 
 namespace crow
 {
