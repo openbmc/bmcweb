@@ -150,7 +150,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
             nlohmann::json::iterator paths = j.find("paths");
             if (paths != j.end())
             {
-                int interfaceCount = thisSession.interfaces.size();
+                size_t interfaceCount = thisSession.interfaces.size();
                 if (interfaceCount == 0)
                 {
                     interfaceCount = 1;
