@@ -312,8 +312,6 @@ class Connection
     {
         cancelDeadlineTimer();
         bool isInvalidRequest = false;
-        const boost::string_view connection =
-            req->getHeaderValue(boost::beast::http::field::connection);
 
         // Check for HTTP version 1.1.
         if (req->version() == 11)

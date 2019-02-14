@@ -166,7 +166,6 @@ static void asyncPopulatePid(const std::string& connection,
             configRoot["@odata.context"] =
                 "/redfish/v1/$metadata#OemManager.Fan";
 
-            bool propertyError = false;
             for (const auto& pathPair : managedObj)
             {
                 for (const auto& intfPair : pathPair.second)
@@ -945,7 +944,6 @@ class Manager : public Node
                             "xyz.openbmc_project.Software.Version")
                         {
                             // Cut out everyting until last "/", ...
-                            const std::string& iface_id = objpath.first;
                             for (auto& property : interface.second)
                             {
                                 if (property.first == "Version")
@@ -1005,7 +1003,7 @@ class Manager : public Node
                     return;
                 }
                 std::array<
-                    std::pair<const char*, std::optional<nlohmann::json>*>, 4>
+                    std::pair<std::string, std::optional<nlohmann::json>*>, 4>
                     sections = {
                         std::make_pair("PidControllers", &pidControllers),
                         std::make_pair("FanControllers", &fanControllers),
@@ -1020,7 +1018,7 @@ class Manager : public Node
                     {
                         continue;
                     }
-                    const char* type = containerPair.first;
+                    std::string& type = containerPair.first;
 
                     for (auto& record : container->items())
                     {
@@ -1180,31 +1178,26 @@ class Manager : public Node
 
         if (oem)
         {
-            for (const auto& oemLevel : oem->items())
+            std::optional<nlohmann::json> openbmc;
+            if (!redfish::json_util::readJson(*oem, res, "OpenBmc", openbmc))
             {
-                std::optional<nlohmann::json> openbmc;
-                if (!redfish::json_util::readJson(*oem, res, "OpenBmc",
-                                                  openbmc))
+                BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
+                                 << oem->dump();
+                return;
+            }
+            if (openbmc)
+            {
+                std::optional<nlohmann::json> fan;
+                if (!redfish::json_util::readJson(*openbmc, res, "Fan", fan))
                 {
                     BMCWEB_LOG_ERROR << "Line:" << __LINE__
-                                     << ", Illegal Property " << oem->dump();
+                                     << ", Illegal Property "
+                                     << openbmc->dump();
                     return;
                 }
-                if (openbmc)
+                if (fan)
                 {
-                    std::optional<nlohmann::json> fan;
-                    if (!redfish::json_util::readJson(*openbmc, res, "Fan",
-                                                      fan))
-                    {
-                        BMCWEB_LOG_ERROR << "Line:" << __LINE__
-                                         << ", Illegal Property "
-                                         << openbmc->dump();
-                        return;
-                    }
-                    if (fan)
-                    {
-                        setPidValues(response, *fan);
-                    }
+                    setPidValues(response, *fan);
                 }
             }
         }

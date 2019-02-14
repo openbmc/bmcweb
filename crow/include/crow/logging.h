@@ -71,24 +71,24 @@ class logger
     }
     ~logger()
     {
-#ifdef BMCWEB_ENABLE_LOGGING
         if (level >= get_current_log_level())
         {
+#ifdef BMCWEB_ENABLE_LOGGING
             stringstream << std::endl;
             getHandlerRef()->log(stringstream.str(), level);
-        }
 #endif
+        }
     }
 
     //
     template <typename T> logger& operator<<(T const& value)
     {
-#ifdef BMCWEB_ENABLE_LOGGING
         if (level >= get_current_log_level())
         {
+#ifdef BMCWEB_ENABLE_LOGGING
             stringstream << value;
-        }
 #endif
+        }
         return *this;
     }
 
