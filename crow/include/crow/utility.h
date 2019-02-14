@@ -523,8 +523,9 @@ struct function_traits<std::function<r(Args...)>>
     using arg = typename std::tuple_element<i, std::tuple<Args...>>::type;
 };
 
+
 inline static std::string base64encode(
-    const char* data, size_t size,
+    const uint8_t* data, size_t size,
     const char* key =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")
 {
@@ -533,36 +534,36 @@ inline static std::string base64encode(
     auto it = ret.begin();
     while (size >= 3)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
-        *it++ = key[h | ((((unsigned char)*data) & 0xF0) >> 4)];
-        h = (((unsigned char)*data++) & 0x0F) << 2;
-        *it++ = key[h | ((((unsigned char)*data) & 0xC0) >> 6)];
-        *it++ = key[((unsigned char)*data++) & 0x3F];
+        *it++ = key[(*data & 0xFC) >> 2];
+        uint8_t h = static_cast<uint8_t>((*data++ & 0x03) << 4);
+        *it++ = key[h | ((*data & 0xF0) >> 4)];
+        h = static_cast<uint8_t>((*data++ & 0x0F) << 2);
+        *it++ = key[h | ((*data & 0xC0) >> 6)];
+        *it++ = key[*data++ & 0x3F];
 
         size -= 3;
     }
     if (size == 1)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
+        *it++ = key[(*data & 0xFC) >> 2];
+        uint8_t h = static_cast<uint8_t>((*data++ & 0x03) << 4);
         *it++ = key[h];
         *it++ = '=';
         *it++ = '=';
     }
     else if (size == 2)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
-        *it++ = key[h | ((((unsigned char)*data) & 0xF0) >> 4)];
-        h = (((unsigned char)*data++) & 0x0F) << 2;
+        *it++ = key[(*data & 0xFC) >> 2];
+        uint8_t h = static_cast<uint8_t>((*data++ & 0x03) << 4);
+        *it++ = key[h | ((*data & 0xF0) >> 4)];
+        h = static_cast<uint8_t>((*data++ & 0x0F) << 2);
         *it++ = key[h];
         *it++ = '=';
     }
     return ret;
 }
 
-inline static std::string base64encodeUrlsafe(const char* data, size_t size)
+inline static std::string base64encodeUrlsafe(const uint8_t* data, size_t size)
 {
     return base64encode(
         data, size,
@@ -669,10 +670,13 @@ inline bool base64Decode(const std::string_view input, std::string& output)
 
 inline void escapeHtml(std::string& data)
 {
+    if (data.empty()){
+	return;
+    }
     std::string buffer;
-    // less than 5% of characters should be larger, so reserve a buffer of the
+    // less than 10% of characters should be larger, so reserve a buffer of the
     // right size
-    buffer.reserve(data.size() * 1.05);
+    buffer.reserve(data.size() * 11 / 10);
     for (size_t pos = 0; pos != data.size(); ++pos)
     {
         switch (data[pos])
