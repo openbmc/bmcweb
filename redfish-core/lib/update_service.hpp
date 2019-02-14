@@ -116,7 +116,6 @@ class UpdateService : public Node
 
         auto callback = [&res](sdbusplus::message::message &m) {
             BMCWEB_LOG_DEBUG << "Match fired";
-            bool flag = false;
 
             if (m.is_method_error())
             {

@@ -12,6 +12,7 @@ namespace crow
 
 struct Request
 {
+    boost::beast::http::request<boost::beast::http::string_body>& req;
     boost::string_view url{};
     QueryString urlParams{};
     bool isSecure{false};
@@ -66,7 +67,6 @@ struct Request
         return req.keep_alive();
     }
 
-    boost::beast::http::request<boost::beast::http::string_body>& req;
 };
 
 } // namespace crow

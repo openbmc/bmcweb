@@ -29,13 +29,13 @@ enum class LogLevel
 class ILogHandler
 {
   public:
-    virtual void log(std::string message, LogLevel level) = 0;
+    virtual void log(std::string message) = 0;
 };
 
 class CerrLogHandler : public ILogHandler
 {
   public:
-    void log(std::string message, LogLevel /*level*/) override
+    void log(std::string message) override
     {
         std::cerr << message;
     }
@@ -63,7 +63,7 @@ class logger
     }
 
   public:
-    logger(const std::string& prefix, LogLevel level) : level(level)
+    logger(const std::string& prefix) 
     {
 #ifdef BMCWEB_ENABLE_LOGGING
         stringstream << "(" << timestamp() << ") [" << prefix << "] ";
@@ -124,22 +124,21 @@ class logger
 
     //
     std::ostringstream stringstream;
-    LogLevel level;
 };
 } // namespace crow
 
 #define BMCWEB_LOG_CRITICAL                                                    \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Critical)     \
-    crow::logger("CRITICAL", crow::LogLevel::Critical)
+    crow::logger("CRITICAL")
 #define BMCWEB_LOG_ERROR                                                       \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Error)        \
-    crow::logger("ERROR   ", crow::LogLevel::Error)
+    crow::logger("ERROR   ")
 #define BMCWEB_LOG_WARNING                                                     \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Warning)      \
-    crow::logger("WARNING ", crow::LogLevel::Warning)
+    crow::logger("WARNING ")
 #define BMCWEB_LOG_INFO                                                        \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Info)         \
-    crow::logger("INFO    ", crow::LogLevel::Info)
+    crow::logger("INFO    ")
 #define BMCWEB_LOG_DEBUG                                                       \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Debug)        \
-    crow::logger("DEBUG   ", crow::LogLevel::Debug)
+    crow::logger("DEBUG   ")

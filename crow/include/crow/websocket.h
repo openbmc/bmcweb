@@ -54,9 +54,9 @@ template <typename Adaptor> class ConnectionImpl : public Connection
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        inString(),
-        inBuffer(inString, 4096), ws(std::move(adaptorIn)), Connection(req),
-        openHandler(std::move(open_handler)),
+     Connection(req),
+   ws(std::move(adaptorIn)), inString(),
+        inBuffer(inString, 4096),         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),
         errorHandler(std::move(error_handler))
@@ -129,7 +129,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     {
         ws.async_close(
             boost::beast::websocket::close_code::normal,
-            [this, self(shared_from_this())](boost::system::error_code ec) {
+            [self(shared_from_this())](boost::system::error_code ec) {
                 if (ec == boost::asio::error::operation_aborted)
                 {
                     return;
