@@ -19,16 +19,16 @@ int qsStrncmp(const char* s, const char* qs, size_t n);
  *  Also decodes the value portion of the k/v pair *in-place*.  In a future
  *  enhancement it will also have a compile-time option of sorting qs_kv
  *  alphabetically by key.  */
-int qsParse(char* qs, char* qs_kv[], int qs_kv_size);
+size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size);
 
 /*  Used by qs_parse to decode the value portion of a k/v pair  */
-int qsDecode(char* qs);
+size_t qsDecode(char* qs);
 
 /*  Looks up the value according to the key on a pre-processed query string
  *  A future enhancement will be a compile-time option to look up the key
  *  in a pre-sorted qs_kv array via a binary search.  */
 // char * qs_k2v(const char * key, char * qs_kv[], int qs_kv_size);
-char* qsK2v(const char* key, char* const* qs_kv, int qs_kv_size, int nth);
+char* qsK2v(const char* key, char* const* qs_kv, size_t qs_kv_size, size_t nth);
 
 /*  Non-destructive lookup of value, based on key.  User provides the
  *  destinaton string and length.  */
@@ -127,9 +127,9 @@ inline int qsStrncmp(const char* s, const char* qs, size_t n)
     }
 }
 
-inline int qsParse(char* qs, char* qs_kv[], int qs_kv_size)
+inline size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size)
 {
-    int i, j;
+    size_t i, j;
     char* substrPtr;
 
     for (i = 0; i < qs_kv_size; i++)
@@ -184,9 +184,9 @@ inline int qsParse(char* qs, char* qs_kv[], int qs_kv_size)
     return i;
 }
 
-inline int qsDecode(char* qs)
+inline size_t qsDecode(char* qs)
 {
-    int i = 0, j = 0;
+    size_t i = 0, j = 0;
 
     while (BMCWEB_QS_ISQSCHR(qs[j]))
     {
@@ -217,10 +217,10 @@ inline int qsDecode(char* qs)
     return i;
 }
 
-inline char* qsK2v(const char* key, char* const* qs_kv, int qs_kv_size,
-                   int nth = 0)
+inline char* qsK2v(const char* key, char* const* qs_kv, size_t qs_kv_size,
+                   size_t nth = 0)
 {
-    int i;
+    size_t i;
     size_t keyLen, skip;
 
     keyLen = strlen(key);
@@ -353,7 +353,8 @@ class QueryString
 
         keyValuePairs.resize(maxKeyValuePairsCount);
 
-        int count = qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
+        size_t count =
+            qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
         keyValuePairs.resize(count);
     }
 
@@ -391,7 +392,7 @@ class QueryString
         std::string plus = name + "[]";
         char* element = nullptr;
 
-        int count = 0;
+        size_t count = 0;
         while (1)
         {
             element = qsK2v(plus.c_str(), keyValuePairs.data(),

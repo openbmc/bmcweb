@@ -27,7 +27,7 @@ struct Request
     {
     }
 
-    const boost::beast::http::verb method() const
+    boost::beast::http::verb method() const
     {
         return req.method();
     }

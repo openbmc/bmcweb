@@ -17,9 +17,7 @@
 namespace ensuressl
 {
 static void initOpenssl();
-static void cleanupOpenssl();
-static EVP_PKEY *createRsaKey();
-static EVP_PKEY *createEcKey();
+static EVP_PKEY *createKey();
 static void handleOpensslError();
 
 inline bool verifyOpensslKeyCert(const std::string &filepath)
@@ -110,7 +108,7 @@ inline void generateSslCertificate(const std::string &filepath)
     // EVP_PKEY *pRsaPrivKey = create_rsa_key();
 
     std::cerr << "Generating EC key\n";
-    EVP_PKEY *pRsaPrivKey = createEcKey();
+    EVP_PKEY *pRsaPrivKey = createKey();
     if (pRsaPrivKey != nullptr)
     {
         std::cerr << "Generating x509 Certificate\n";
@@ -177,9 +175,16 @@ inline void generateSslCertificate(const std::string &filepath)
 
     // cleanup_openssl();
 }
-
-EVP_PKEY *createRsaKey()
+EVP_PKEY *createKey()
 {
+    EVP_PKEY *pKey = NULL;
+    pKey = EVP_PKEY_new();
+    if (pKey == nullptr)
+    {
+        handleOpensslError();
+        return nullptr;
+    }
+#if BMCWEB_RSA_KEY
     RSA *pRSA = NULL;
 #if OPENSSL_VERSION_NUMBER < 0x00908000L
     pRSA = RSA_generate_key(2048, RSA_3, NULL, NULL);
@@ -187,60 +192,54 @@ EVP_PKEY *createRsaKey()
     RSA_generate_key_ex(pRSA, 2048, NULL, NULL);
 #endif
 
-    EVP_PKEY *pKey = EVP_PKEY_new();
-    if ((pRSA != nullptr) && (pKey != nullptr) &&
-        EVP_PKEY_assign_RSA(pKey, pRSA))
-    {
-        /* pKey owns pRSA from now */
-        if (RSA_check_key(pRSA) <= 0)
-        {
-            fprintf(stderr, "RSA_check_key failed.\n");
-            handleOpensslError();
-            EVP_PKEY_free(pKey);
-            pKey = NULL;
-        }
-    }
-    else
+    if ((pRSA != nullptr) || EVP_PKEY_assign_RSA(pKey, pRSA) != 1)
     {
         handleOpensslError();
         if (pRSA != nullptr)
         {
             RSA_free(pRSA);
-            pRSA = NULL;
         }
         if (pKey != nullptr)
         {
             EVP_PKEY_free(pKey);
-            pKey = NULL;
         }
+        return nullptr;
     }
-    return pKey;
-}
 
-EVP_PKEY *createEcKey()
-{
-    EVP_PKEY *pKey = NULL;
-    int eccgrp = 0;
-    eccgrp = OBJ_txt2nid("prime256v1");
-
-    EC_KEY *myecc = EC_KEY_new_by_curve_name(eccgrp);
-    if (myecc != nullptr)
+    /* pKey owns pRSA from now */
+    if (RSA_check_key(pRSA) != 1)
     {
-        EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
-        EC_KEY_generate_key(myecc);
-        pKey = EVP_PKEY_new();
-        if (pKey != nullptr)
-        {
-            if (EVP_PKEY_assign_EC_KEY(pKey, myecc))
-            {
-                /* pKey owns pRSA from now */
-                if (EC_KEY_check_key(myecc) <= 0)
-                {
-                    fprintf(stderr, "EC_check_key failed.\n");
-                }
-            }
-        }
+        fprintf(stderr, "RSA_check_key failed.\n");
+        handleOpensslError();
+        EVP_PKEY_free(pKey);
+        return nullptr;
     }
+
+#else
+    int eccgrp = OBJ_txt2nid("prime256v1");
+    EC_KEY *myecc = EC_KEY_new_by_curve_name(eccgrp);
+    if (myecc == nullptr)
+    {
+        handleOpensslError();
+        return nullptr;
+    }
+
+    EC_KEY_set_asn1_flag(myecc, OPENSSL_EC_NAMED_CURVE);
+    if (EC_KEY_generate_key(myecc) != 1)
+    {
+        handleOpensslError();
+        EC_KEY_free(myecc);
+        return nullptr;
+    }
+
+    if (EVP_PKEY_assign_EC_KEY(pKey, myecc) != 1)
+    {
+        handleOpensslError();
+        EC_KEY_free(myecc);
+        return nullptr;
+    }
+
+#endif
     return pKey;
 }
 
@@ -251,16 +250,6 @@ void initOpenssl()
     OpenSSL_add_all_algorithms();
     RAND_load_file("/dev/urandom", 1024);
 #endif
-}
-
-void cleanupOpenssl()
-{
-    CRYPTO_cleanup_all_ex_data();
-    ERR_free_strings();
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-    ERR_remove_thread_state(0);
-#endif
-    EVP_cleanup();
 }
 
 void handleOpensslError()
