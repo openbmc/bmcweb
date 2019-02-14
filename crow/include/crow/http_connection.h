@@ -6,7 +6,9 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/asio/ip/tcp.hpp>
+#include <boost/asio/ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+#include <boost/beast/experimental/core/ssl_stream.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
@@ -17,9 +19,6 @@
 #include "crow/middleware_context.h"
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
-
-#include <boost/asio/ssl.hpp>
-#include <boost/beast/experimental/core/ssl_stream.hpp>
 
 namespace crow
 {
@@ -313,8 +312,6 @@ class Connection
     {
         cancelDeadlineTimer();
         bool isInvalidRequest = false;
-        const boost::string_view connection =
-            req->getHeaderValue(boost::beast::http::field::connection);
 
         // Check for HTTP version 1.1.
         if (req->version() == 11)
