@@ -34,10 +34,10 @@ constexpr std::array<const char*, 5> basePrivileges{
     "Login", "ConfigureManager", "ConfigureComponents", "ConfigureSelf",
     "ConfigureUsers"};
 
-constexpr const int basePrivilegeCount = basePrivileges.size();
+constexpr const size_t basePrivilegeCount = basePrivileges.size();
 
 /** @brief Max number of privileges per type  */
-constexpr const int maxPrivilegeCount = 32;
+constexpr const size_t maxPrivilegeCount = 32;
 
 /** @brief A vector of all privilege names and their indexes */
 static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
@@ -96,7 +96,7 @@ class Privileges
      */
     bool setSinglePrivilege(const char* privilege)
     {
-        for (int searchIndex = 0; searchIndex < privilegeNames.size();
+        for (size_t searchIndex = 0; searchIndex < privilegeNames.size();
              searchIndex++)
         {
             if (privilege == privilegeNames[searchIndex])
@@ -136,8 +136,8 @@ class Privileges
     {
         std::vector<const std::string*> activePrivileges;
 
-        int searchIndex = 0;
-        int endIndex = basePrivilegeCount;
+        size_t searchIndex = 0;
+        size_t endIndex = basePrivilegeCount;
         if (type == PrivilegeType::OEM)
         {
             searchIndex = basePrivilegeCount - 1;

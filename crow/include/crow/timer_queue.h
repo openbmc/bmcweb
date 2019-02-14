@@ -22,10 +22,11 @@ class TimerQueue
 
     void cancel(int k)
     {
-        unsigned int index = static_cast<unsigned int>(k - step);
-        if (index < dq.size())
+        int index = k - step;
+        
+	if (index < static_cast<int>(dq.size()))
         {
-            dq[index].second = nullptr;
+            dq[static_cast<size_t>(index)].second = nullptr;
         }
     }
 
@@ -33,7 +34,7 @@ class TimerQueue
     {
         dq.push_back(
             std::make_pair(std::chrono::steady_clock::now(), std::move(f)));
-        int ret = step + dq.size() - 1;
+        int ret = step + static_cast<int>(dq.size()) - 1;
 
         BMCWEB_LOG_DEBUG << "timer add inside: " << this << ' ' << ret;
         return ret;
