@@ -18,10 +18,8 @@
 #include "crow/timer_queue.h"
 #include "crow/utility.h"
 
-#ifdef BMCWEB_ENABLE_SSL
 #include <boost/asio/ssl.hpp>
 #include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
 
 namespace crow
 {

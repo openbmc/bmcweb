@@ -15,10 +15,8 @@
 #include "crow/http_connection.h"
 #include "crow/logging.h"
 #include "crow/timer_queue.h"
-#ifdef BMCWEB_ENABLE_SSL
 #include <boost/asio/ssl/context.hpp>
 #include <boost/beast/experimental/core/ssl_stream.hpp>
-#endif
 
 namespace crow
 {
