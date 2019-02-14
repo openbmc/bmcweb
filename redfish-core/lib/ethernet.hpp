@@ -615,7 +615,7 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
                        const std::string &address,
                        std::shared_ptr<AsyncResp> asyncResp)
 {
-    auto createIpHandler = [ipIdx,
+    auto createIpHandler = [
                             asyncResp](const boost::system::error_code ec) {
         if (ec)
         {
@@ -1607,7 +1607,7 @@ class VlanNetworkInterfaceCollection : public Node
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [this, asyncResp,
+            [asyncResp,
              rootInterfaceName{std::string(rootInterfaceName)}](
                 const bool &success,
                 const std::vector<std::string> &iface_list) {

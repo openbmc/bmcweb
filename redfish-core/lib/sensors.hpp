@@ -50,8 +50,8 @@ class SensorsAsyncResp
     SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
                      const std::initializer_list<const char*> types,
                      const std::string& subNode) :
-        chassisId(chassisId),
-        res(response), types(types), chassisSubNode(subNode)
+        res(response), chassisId(chassisId),
+        types(types), chassisSubNode(subNode)
     {
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisId + "/Thermal";

@@ -155,8 +155,8 @@ class NetworkProtocol : public Node
                             "running";
 
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, service{std::string(service)},
-                             socketPath](
+                            [asyncResp, service{std::string(service)}
+                             ](
                                 const boost::system::error_code ec,
                                 const std::variant<std::vector<std::tuple<
                                     std::string, std::string>>>& resp) {
