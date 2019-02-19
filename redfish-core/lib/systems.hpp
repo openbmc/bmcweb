@@ -680,7 +680,7 @@ class Systems : public Node
     {
         std::string indicatorLedTemp;
         std::optional<std::string> indicatorLed = indicatorLedTemp;
-        if (!json_util::readJson(req, res, "IndicatorLed", indicatorLed))
+        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed))
         {
             return;
         }
@@ -715,8 +715,7 @@ class Systems : public Node
             // Update led group
             BMCWEB_LOG_DEBUG << "Update led group.";
             crow::connections::systemBus->async_method_call(
-                [asyncResp{std::move(asyncResp)}](
-                    const boost::system::error_code ec) {
+                [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
