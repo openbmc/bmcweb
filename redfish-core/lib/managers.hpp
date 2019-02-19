@@ -435,6 +435,10 @@ static void asyncPopulatePid(const std::string& connection,
                                      propertyPair.first == "ICoefficient" ||
                                      propertyPair.first == "ILimitMax" ||
                                      propertyPair.first == "ILimitMin" ||
+                                     propertyPair.first ==
+                                         "PositiveHysteresis" ||
+                                     propertyPair.first ==
+                                         "NegativeHysteresis" ||
                                      propertyPair.first == "OutLimitMax" ||
                                      propertyPair.first == "OutLimitMin" ||
                                      propertyPair.first == "PCoefficient" ||
@@ -564,7 +568,9 @@ static CreatePIDRet createPidInterface(
                 doubles["OutLimitMax"], "OutLimitMin", doubles["OutLimitMin"],
                 "PCoefficient", doubles["PCoefficient"], "SetPoint",
                 doubles["SetPoint"], "SlewNeg", doubles["SlewNeg"], "SlewPos",
-                doubles["SlewPos"]))
+                doubles["SlewPos"], "PositiveHysteresis",
+                doubles["PositiveHysteresis"], "NegativeHysteresis",
+                doubles["NegativeHysteresis"]))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
                              << record.dump();
