@@ -153,7 +153,11 @@ class NetworkProtocol : public Node
                         asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
                             std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
                             "running";
-
+                        if (service == "HTTPS")
+                        {
+                            asyncResp->res.jsonValue["service"]["Certificates"] = 
+                                {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"};
+                        }
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, service{std::string(service)},
                              socketPath](
