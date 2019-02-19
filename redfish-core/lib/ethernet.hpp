@@ -71,6 +71,17 @@ struct IPv4AddressData
 };
 
 /**
+ * Structure for keeping DHCPv4 Configuration related information
+ * available from DBus
+ */
+struct DHCPv4ConfigData
+{
+    bool dnsenabled;
+    bool ntpenabled;
+    bool hostnameenabled;
+};
+
+/**
  * Structure for keeping basic single Ethernet Interface information
  * available from DBus
  */
@@ -78,6 +89,7 @@ struct EthernetInterfaceData
 {
     uint32_t speed;
     bool auto_neg;
+    bool DHCPEnabled;
     std::string hostname;
     std::string default_gateway;
     std::string mac_address;
@@ -228,6 +240,15 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (nameservers != nullptr)
                             {
                                 ethData.nameservers = std::move(*nameservers);
+                            }
+                        }
+                        else if (propertyPair.first == "DHCPEnabled")
+                        {
+                            const bool *DHCPEnabled =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (DHCPEnabled != nullptr)
+                            {
+                                ethData.DHCPEnabled = *DHCPEnabled;
                             }
                         }
                     }
@@ -646,6 +667,60 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
         "xyz.openbmc_project.Network.IP.Create", "IP",
         "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, subnetMask,
         gateway);
+}
+using GetAllPropertiesType =
+    boost::container::flat_map<std::string, sdbusplus::message::variant<bool>>;
+
+void parseDHCPConfigData(nlohmann::json &json_response,
+                         const DHCPv4ConfigData &configData)
+{
+    nlohmann::json &DHCPConfigTypeJson = json_response["DHCPv4Configuration"];
+
+    DHCPConfigTypeJson["UseDNSServers"] = configData.dnsenabled;
+    DHCPConfigTypeJson["UseDomainName"] = configData.hostnameenabled;
+    DHCPConfigTypeJson["UseNTPServers"] = configData.ntpenabled;
+}
+
+inline void getDHCPConfigData(const std::shared_ptr<AsyncResp> asyncResp)
+{
+    auto getConfig = [asyncResp](const boost::system::error_code error_code,
+                                 const GetAllPropertiesType &dbus_data) {
+        if (error_code)
+        {
+            BMCWEB_LOG_ERROR << "D-Bus response error: " << error_code;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        DHCPv4ConfigData configData{};
+        for (const auto &property : dbus_data)
+        {
+            auto value =
+                sdbusplus::message::variant_ns::get_if<bool>(&property.second);
+
+            if (value == nullptr)
+            {
+                continue;
+            }
+            if (property.first == "DNSEnabled")
+            {
+                configData.dnsenabled = *value;
+            }
+            else if (property.first == "HostNameEnabled")
+            {
+                configData.hostnameenabled = *value;
+            }
+            else if (property.first == "NTPEnabled")
+            {
+                configData.ntpenabled = *value;
+            }
+        }
+        parseDHCPConfigData(asyncResp->res.jsonValue, configData);
+    };
+    crow::connections::systemBus->async_method_call(
+        std::move(getConfig), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/config/dhcp",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Network.DHCPConfiguration");
 }
 
 /**
@@ -1202,6 +1277,9 @@ class EthernetInterface : public Node
         }
         json_response["SpeedMbps"] = ethData.speed;
         json_response["MACAddress"] = ethData.mac_address;
+        json_response["DHCPv4Configuration"]["DHCPEnabled"] =
+            ethData.DHCPEnabled;
+
         if (!ethData.hostname.empty())
         {
             json_response["HostName"] = ethData.hostname;
@@ -1271,6 +1349,7 @@ class EthernetInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
             });
+        getDHCPConfigData(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
