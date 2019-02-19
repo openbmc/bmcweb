@@ -17,6 +17,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
+#include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <variant>
 
@@ -192,19 +193,6 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                                          VariantType>
                                              &property : properties)
                                     {
-                                        if (property.first == "BIOSVer")
-                                        {
-                                            const std::string *value =
-                                                sdbusplus::message::variant_ns::
-                                                    get_if<std::string>(
-                                                        &property.second);
-                                            if (value != nullptr)
-                                            {
-                                                aResp->res
-                                                    .jsonValue["BiosVersion"] =
-                                                    *value;
-                                            }
-                                        }
                                         if (property.first == "UUID")
                                         {
                                             const std::string *value =
@@ -270,6 +258,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     aResp->res.jsonValue["Name"] = "system";
                                     aResp->res.jsonValue["Id"] =
                                         aResp->res.jsonValue["SerialNumber"];
+                                    // Grab the bios version
+                                    fw_util::getActiveFwVersion(
+                                        aResp, fw_util::biosPurpose,
+                                        "BiosVersion");
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
