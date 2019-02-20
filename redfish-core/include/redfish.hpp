@@ -119,6 +119,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<CertificateLocations>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
+        nodes.emplace_back(std::make_unique<LDAPCertificateCollection>(app));
+        nodes.emplace_back(std::make_unique<LDAPCertificate>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
