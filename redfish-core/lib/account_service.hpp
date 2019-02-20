@@ -110,21 +110,18 @@ void parseLDAPConfigData(nlohmann::json& json_response,
 {
     std::string service =
         (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
-    json_response[ldapType] = {
-        {"AccountProviderType", service},
-        {"ServiceEnabled", confData.serviceEnabled},
-        {"ServiceAddresses", nlohmann::json::array({confData.uri})},
-        {"Authentication",
-         {{"AuthenticationType", "UsernameAndPassword"},
-          {"Username", confData.bindDN},
-          {"Password", nullptr}}},
-        {"LDAPService",
-         {{"SearchSettings",
-           {{"BaseDistinguishedNames",
-             nlohmann::json::array({confData.baseDN})},
-            {"UsernameAttribute", confData.userNameAttribute},
-            {"GroupsAttribute", confData.groupAttribute}}}}},
-    };
+    auto& res = json_response[ldapType];
+    res["AccountProviderType"] = service;
+    res["ServiceEnabled"] = confData.serviceEnabled;
+    res["ServiceAddresses"] = nlohmann::json::array({confData.uri});
+    res["Authentication"] = {{"AuthenticationType", "UsernameAndPassword"},
+                             {"Username", confData.bindDN},
+                             {"Password", nullptr}};
+    res["LDAPService"] = {
+        {"SearchSettings",
+         {{"BaseDistinguishedNames", nlohmann::json::array({confData.baseDN})},
+          {"UsernameAttribute", confData.userNameAttribute},
+          {"GroupsAttribute", confData.groupAttribute}}}};
 }
 
 /**
@@ -792,7 +789,7 @@ class AccountService : public Node
                                "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_3_1.AccountService"},
+                            "v1_4_0.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
@@ -800,8 +797,12 @@ class AccountService : public Node
             {"MaxPasswordLength", 20},
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
-            {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
-
+            {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}},
+            {"LDAP", nlohmann::json::object()},
+            {"ActiveDirectory", nlohmann::json::object()}};
+        auto& ldap = res.jsonValue["LDAP"];
+        ldap["Certificates"] = {
+            {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"}};
         crow::connections::systemBus->async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
