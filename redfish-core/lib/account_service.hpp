@@ -105,6 +105,8 @@ class AccountService : public Node
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
             {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
+        res.jsonValue["LDAP"]["Certificates"] = 
+            {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](
