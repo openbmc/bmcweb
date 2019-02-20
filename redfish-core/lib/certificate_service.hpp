@@ -22,6 +22,7 @@ namespace redfish
 {
 static const char *httpsObjectPath = "/xyz/openbmc_project/certs/server/https";
 static const char *certInstallIntf = "xyz.openbmc_project.Certs.Install";
+static const char *certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
 static const char *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 static const char *dbusPropIntf = "org.freedesktop.DBus.Properties";
 static const char *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
@@ -29,6 +30,11 @@ static const char *mapperBusName = "xyz.openbmc_project.ObjectMapper";
 static const char *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 static const char *mapperIntf = "xyz.openbmc_project.ObjectMapper";
 static const char *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
+
+static void getCertificateProperties(
+    const std::shared_ptr<AsyncResp> &asyncResp, const std::string &objectPath,
+    const std::string &certId, const std::string &certURL,
+    const std::string &name);
 
 /**
  * The Certificate schema defines a Certificate Service which represents the
@@ -69,6 +75,10 @@ class CertificateService : public Node
         res.jsonValue["CertificateLocations"] = {
             {"@odata.id",
              "/redfish/v1/CertificateService/CertificateLocations"}};
+        auto &replaceCert =
+            res.jsonValue["Actions"]["#CertificateService.ReplaceCertificate"];
+        replaceCert["target"] = "/redfish/v1/CertificateService/Actions/"
+                                "CertificateService.ReplaceCertificate";
         res.end();
     }
 }; // CertificateService
@@ -152,6 +162,122 @@ class CertificateFile
 };
 using GetObjectType =
     std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+/**
+ * Action to replace an existing certificate
+ */
+class CertificateActionsReplaceCertificate : public Node
+{
+  public:
+    CertificateActionsReplaceCertificate(CrowApp &app) :
+        Node(app, "/redfish/v1/CertificateService/Actions/"
+                  "CertificateService.ReplaceCertificate/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string certificate;
+        nlohmann::json certificateUri;
+        if (!json_util::readJson(req, res, "CertificateString", certificate,
+                                 "CertificateUri", certificateUri))
+        {
+            BMCWEB_LOG_ERROR << "Required parameters are missing";
+            messages::internalError(res);
+            return;
+        }
+        if (certificate.empty())
+        {
+            messages::actionParameterMissing(res, "ReplaceCertificate", "Certificate");
+            res.end();
+            return;
+        }
+
+        std::string certURI;
+        if (!redfish::json_util::readJson(certificateUri, res, "@odata.id",
+                                          certURI))
+        {
+            messages::actionParameterValueFormatError(
+                res, certificateUri, "@odata.id", "ReplaceCertificate");
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Certificate URI value received is" << certURI;
+        auto id = getIDFromURL(certURI);
+        if (!id)
+        {
+            messages::actionParameterValueFormatError(
+                res, certURI, "CertificateUri", "ReplaceCertificate");
+            return;
+        }
+        std::string certId = std::to_string(id);
+        std::string objectPath;
+        std::string name;
+        if (boost::starts_with(
+                certURI,
+                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
+        {
+            objectPath = std::string(httpsObjectPath) + "/" + certId;
+            name = "HTTPS certificate";
+        }
+        else if (boost::starts_with(
+                     certURI, "/redfish/v1/AccountService/LDAP/Certificates/"))
+        {
+            objectPath = std::string(ldapObjectPath) + "/" + certId;
+            name = "LDAP certificate";
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unsupported certificate URI" << certURI;
+            return;
+        }
+
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(certificate);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto replaceCertificate = [asyncResp, certFile, objectPath, certURI,
+                                   certId,
+                                   name](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            getCertificateProperties(asyncResp, objectPath, certId, certURI,
+                                     name);
+            BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
+                             << certFile->getCertFilePath();
+        };
+        auto getServiceName =
+            [asyncResp, replaceCertificate(std::move(replaceCertificate)),
+             objectPath, certFile](const boost::system::error_code ec,
+                                   const GetObjectType &resp) {
+                if (ec || resp.empty())
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::string service = resp.begin()->first;
+                crow::connections::systemBus->async_method_call(
+                    std::move(replaceCertificate), service, objectPath,
+                    certReplaceIntf, "Replace", certFile->getCertFilePath());
+            };
+        crow::connections::systemBus->async_method_call(
+            std::move(getServiceName), mapperBusName, mapperObjectPath,
+            mapperIntf, "GetObject", objectPath, std::array<std::string, 0>());
+    }
+}; // CertificateActionsReplaceCertificate
 
 /**
  * @brief Converts EPOCH time to redfish time format
@@ -786,7 +912,6 @@ class LDAPCertificateCollection : public Node
             BMCWEB_LOG_DEBUG << "LDAP certificate install file="
                              << certFile->getCertFilePath();
         };
-
         auto getServiceName =
             [asyncResp, installCertificate(std::move(installCertificate)),
              certFile](const boost::system::error_code ec,
