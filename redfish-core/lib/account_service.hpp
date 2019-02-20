@@ -119,6 +119,8 @@ void parseLDAPConfigData(nlohmann::json& json_response,
              nlohmann::json::array({confData.baseDN})},
             {"UsernameAttribute", confData.userNameAttribute},
             {"GroupsAttribute", confData.groupAttribute}}}}},
+        {"Certificates",
+         {{"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"}}},
     };
 }
 
@@ -736,7 +738,7 @@ class AccountService : public Node
                                "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_3_1.AccountService"},
+                            "v1_4_0.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
@@ -745,7 +747,6 @@ class AccountService : public Node
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
             {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
-
         crow::connections::systemBus->async_method_call(
             [asyncResp](
                 const boost::system::error_code ec,
