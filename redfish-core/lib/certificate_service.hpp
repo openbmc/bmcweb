@@ -28,6 +28,7 @@ static const char *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 static const char *mapperBusName = "xyz.openbmc_project.ObjectMapper";
 static const char *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 static const char *mapperIntf = "xyz.openbmc_project.ObjectMapper";
+static const char *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 
 /**
  * The Certificate schema defines a Certificate Service which represents the
@@ -643,6 +644,169 @@ class CertificateLocations : public Node
             asyncResp,
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/",
             httpsObjectPath);
+        getCertificateLocations(asyncResp,
+                                "/redfish/v1/AccountService/LDAP/Certificates/",
+                                ldapObjectPath);
     }
 }; // CertificateLocations
+/**
+ * Collection of LDAP certificates
+ */
+class LDAPCertificateCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    LDAPCertificateCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/AccountService/LDAP/Certificates/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        res.jsonValue = {
+            {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
+            {"@odata.type", "#CertificateCollection.CertificateCollection"},
+            {"@odata.context",
+             "/redfish/v1/"
+             "$metadata#CertificateCollection.CertificateCollection"},
+            {"Name", "LDAP Certificates Collection"},
+            {"Description", "A Collection of LDAP certificate instances"}};
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto getCertificateList = [asyncResp](
+                                      const boost::system::error_code ec,
+                                      const ManagedObjectType &certs) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+            members = nlohmann::json::array();
+            for (const auto &cert : certs)
+            {
+                auto id = getIDFromURL(cert.first.str);
+                if (id)
+                {
+                    members.push_back(
+                        {{"@odata.id",
+                          "/redfish/v1/AccountService/LDAP/Certificates/" +
+                              std::to_string(id)}});
+                }
+            }
+            asyncResp->res.jsonValue["Members@odata.count"] = members.size();
+        };
+        auto getServiceName =
+            [asyncResp, getCertificateList(std::move(getCertificateList))](
+                const boost::system::error_code ec, const GetObjectType &resp) {
+                if (ec || resp.empty())
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::string service = resp.begin()->first;
+                BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+                crow::connections::systemBus->async_method_call(
+                    std::move(getCertificateList), service, ldapObjectPath,
+                    dbusObjManagerIntf, "GetManagedObjects");
+            };
+        crow::connections::systemBus->async_method_call(
+            std::move(getServiceName), mapperBusName, mapperObjectPath,
+            mapperIntf, "GetObject", ldapObjectPath,
+            std::array<std::string, 0>());
+    }
+
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string filePath("/tmp/" + boost::uuids::to_string(
+                                           boost::uuids::random_generator()()));
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(req.body);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto installCertificate =
+            [asyncResp, certFile](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+                BMCWEB_LOG_DEBUG << "LDAP certificate install file="
+                                 << certFile->getCertFilePath();
+            };
+
+        auto getServiceName =
+            [asyncResp, installCertificate(std::move(installCertificate)),
+             certFile](const boost::system::error_code ec,
+                       const GetObjectType &resp) {
+                if (ec || resp.empty())
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::string service = resp.begin()->first;
+                BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+                crow::connections::systemBus->async_method_call(
+                    std::move(installCertificate), service, ldapObjectPath,
+                    certInstallIntf, "Install", certFile->getCertFilePath());
+            };
+        crow::connections::systemBus->async_method_call(
+            std::move(getServiceName), mapperBusName, mapperObjectPath,
+            mapperIntf, "GetObject", ldapObjectPath,
+            std::array<std::string, 0>());
+    }
+}; // LDAPCertificateCollection
+
+/**
+ * Certificate resource describes a certificate used to prove the identity
+ * of a component, account or service.
+ */
+class LDAPCertificate : public Node
+{
+  public:
+    template <typename CrowApp>
+    LDAPCertificate(CrowApp &app) :
+        Node(app, "/redfish/v1/AccountService/LDAP/Certificates/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        const std::string &certId = params[0];
+        BMCWEB_LOG_DEBUG << "LDAP Certificate ID=" << certId;
+        res.jsonValue = {
+            {"@odata.id",
+             "/redfish/v1/AccountService/LDAP/Certificates/" + certId},
+            {"@odata.type", "#Certificate.v1_0_0.Certificate"},
+            {"@odata.context", "/redfish/v1/$metadata#Certificate.Certificate"},
+            {"Id", certId},
+            {"Name", "LDAP Certificate"},
+            {"Description", "LDAP Certificate"},
+            {"CertificateType", "PEM"}};
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string path = std::string(ldapObjectPath) + "/" + certId;
+        getCertificateProperties(asyncResp, path);
+    }
+}; // LDAPCertificate
+
 } // namespace redfish
