@@ -108,6 +108,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
 #endif
         nodes.emplace_back(std::make_unique<CertificateService>(app));
+        nodes.emplace_back(
+            std::make_unique<CertificateActionsReplaceCertificate>(app));
         nodes.emplace_back(std::make_unique<CertificateLocations>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
         nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
