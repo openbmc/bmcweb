@@ -97,7 +97,7 @@ class AccountService : public Node
                                "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_1_0.AccountService"},
+                            "v1_4_0.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
@@ -106,6 +106,9 @@ class AccountService : public Node
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
             {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
+        nlohmann::json& ldap = asyncResp->res.jsonValue["LDAP"];
+        ldap["Certificates"] = {
+            {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"}};
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](
