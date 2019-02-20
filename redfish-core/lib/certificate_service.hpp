@@ -17,13 +17,24 @@
 
 #include "node.hpp"
 
+#include <variant>
 namespace redfish
 {
 static const char *httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
 static const char *httpsObjectPath = "/xyz/openbmc_project/certs/server/https";
+static const char *ldapServiceName =
+    "xyz.openbmc_project.Certs.Manager.Client.Ldap";
+static const char *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 static const char *certInstallIntf = "xyz.openbmc_project.Certs.Install";
+static const char *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
+static const char *dbusPropIntf = "org.freedesktop.DBus.Properties";
 static const char *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
+
+using PropertyType =
+    std::variant<std::string, uint64_t, std::vector<std::string>>;
+using PropertiesMap = boost::container::flat_map<std::string, PropertyType>;
+using CertIssuerMap = std::map<std::string, std::string>;
 
 /**
  * The Certificate schema defines a Certificate Service which represents the
@@ -64,6 +75,279 @@ class CertificateService : public Node
         res.end();
     }
 }; // CertificateService
+
+/**
+ * @brief Converts EPOC time to redfish time format
+ *
+ * @param[in] epocTime     Time value in EPOC format
+ * @return Time value in redfish format
+ */
+static std::string getDateTime(const uint64_t &epocTime)
+{
+    std::array<char, 128> dateTime;
+    std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
+    std::time_t time = static_cast<std::time_t>(epocTime);
+    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
+                      std::localtime(&time)))
+    {
+        // insert the colon required by the ISO 8601 standard
+        redfishDateTime = std::string(dateTime.data());
+        redfishDateTime.insert(redfishDateTime.end() - 2, ':');
+    }
+    return redfishDateTime;
+}
+
+/**
+ * @brief Trim blank spaces at the beginning of the string
+ *
+ * @param[in] str string to trim spaces on the left side
+ * @return None
+ */
+static void ltrim(std::string &str)
+{
+    str.erase(str.begin(), std::find_if(str.begin(), str.end(), [](int ch) {
+                  return !std::isspace(ch);
+              }));
+}
+
+/**
+ * @brief Parse the comma sperated key value pairs and return as a map
+ *
+ * @param[in] str Issuer/Subject string retrieved from the Certificate
+ * @return Map map of Issuer/Subject values
+ */
+static CertIssuerMap parseIssuerSubject(const std::string &str)
+{
+    std::istringstream iss(str);
+    CertIssuerMap issuerMap;
+    std::string token;
+    while (std::getline(iss, token, ','))
+    {
+        size_t pos = token.find('=');
+        std::string first = std::move(token.substr(0, pos));
+        std::string second = std::move(token.substr(pos + 1));
+        ltrim(first);
+        ltrim(second);
+        issuerMap.emplace(std::pair<std::string, std::string>(
+            std::move(first), std::move(second)));
+    }
+    return issuerMap;
+}
+
+/**
+ * @brief Retrieve the certificates properties and append to the response
+ * message
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] service  D-Bus service
+ * @param[in] path  Path of the D-Bus service object
+ * @return None
+ */
+static void getCertificateProperties(std::shared_ptr<AsyncResp> asyncResp,
+                                     const std::string &service,
+                                     const std::string &path)
+{
+    BMCWEB_LOG_DEBUG << "Update certificate properties service=" << service
+                     << " Path=" << path;
+    auto getAllProperties = [asyncResp](const boost::system::error_code ec,
+                                        const PropertiesMap &properties) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        for (const auto &property : properties)
+        {
+            if (property.first == "CertificateString")
+            {
+                asyncResp->res.jsonValue["CertificateString"] = "";
+                auto value = std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["CertificateString"] = *value;
+                }
+            }
+            else if (property.first == "KeyUsage")
+            {
+                auto &keyUsage = asyncResp->res.jsonValue["KeyUsage"];
+                keyUsage = nlohmann::json::array();
+                auto value =
+                    std::get_if<std::vector<std::string>>(&property.second);
+                if (value)
+                {
+                    for (const auto usage : *value)
+                    {
+                        keyUsage.push_back(usage);
+                    }
+                }
+            }
+            else if (property.first == "Issuer")
+            {
+                auto value = std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    CertIssuerMap issuerMap =
+                        std::move(parseIssuerSubject(*value));
+                    auto elem = issuerMap.find("L");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res.jsonValue["Issuer"]["City"] =
+                            std::move(elem->second);
+                    }
+                    elem = issuerMap.find("CN");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res.jsonValue["Issuer"]["CommonName"] =
+                            std::move(elem->second);
+                    }
+                    elem = issuerMap.find("C");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res.jsonValue["Issuer"]["Country"] =
+                            std::move(elem->second);
+                    }
+                    elem = issuerMap.find("O");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res.jsonValue["Issuer"]["Organization"] =
+                            std::move(elem->second);
+                    }
+                    elem = issuerMap.find("OU");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res
+                            .jsonValue["Issuer"]["OrganizationalUnit"] =
+                            std::move(elem->second);
+                    }
+                    elem = issuerMap.find("ST");
+                    if (elem != issuerMap.end())
+                    {
+                        asyncResp->res.jsonValue["Issuer"]["State"] =
+                            std::move(elem->second);
+                    }
+                }
+            }
+            else if (property.first == "Subject")
+            {
+                auto value = std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    std::map<std::string, std::string> subjectMap =
+                        std::move(parseIssuerSubject(*value));
+                    auto elem = subjectMap.find("L");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res.jsonValue["Subject"]["City"] =
+                            std::move(elem->second);
+                    }
+                    elem = subjectMap.find("CN");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res.jsonValue["Subject"]["CommonName"] =
+                            std::move(elem->second);
+                    }
+                    elem = subjectMap.find("C");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res.jsonValue["Subject"]["Country"] =
+                            std::move(elem->second);
+                    }
+                    elem = subjectMap.find("O");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res.jsonValue["Subject"]["Organization"] =
+                            std::move(elem->second);
+                    }
+                    elem = subjectMap.find("OU");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res
+                            .jsonValue["Subject"]["OrganizationalUnit"] =
+                            std::move(elem->second);
+                    }
+                    elem = subjectMap.find("ST");
+                    if (elem != subjectMap.end())
+                    {
+                        asyncResp->res.jsonValue["Subject"]["State"] =
+                            std::move(elem->second);
+                    }
+                }
+            }
+            else if (property.first == "ValidNotAfter")
+            {
+                auto value = std::get_if<uint64_t>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["ValidNotAfter"] =
+                        std::move(getDateTime(*value));
+                }
+            }
+            else if (property.first == "ValidNotBefore")
+            {
+                auto value = std::get_if<uint64_t>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["ValidNotBefore"] =
+                        std::move(getDateTime(*value));
+                }
+            }
+        }
+    };
+    crow::connections::systemBus->async_method_call(std::move(getAllProperties),
+                                                    service, path, dbusPropIntf,
+                                                    "GetAll", certPropIntf);
+}
+
+/**
+ * Certificate resource describes a certificate used to prove the identity
+ * of a component, account or service.
+ */
+class HTTPSCertificate : public Node
+{
+  public:
+    template <typename CrowApp>
+    HTTPSCertificate(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"
+             "<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        auto certId = std::atoi(params[0].c_str());
+        BMCWEB_LOG_DEBUG << "HTTPSCertificate::doGet ID=" << certId;
+        res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc/NetworkProtocol/"
+                                     "HTTPS/Certificates/" +
+                                     std::to_string(certId);
+        res.jsonValue["@odata.type"] = "#Certificate.v1_0_0.Certificate";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Certificate.Certificate";
+        res.jsonValue["Id"] = std::to_string(certId);
+        res.jsonValue["Name"] = "HTTPS Certificate";
+        res.jsonValue["Description"] = "HTTPS Certificate";
+        res.jsonValue["CertificateType"] = "PEM";
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string path =
+            std::string(httpsObjectPath) + "/" + std::to_string(certId);
+        getCertificateProperties(asyncResp, httpsServiceName, path);
+    }
+}; // HTTPSCertificate
 
 /**
  * Collection of HTTPS certificates
