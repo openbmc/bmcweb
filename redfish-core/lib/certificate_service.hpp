@@ -69,6 +69,12 @@ class CertificateService : public Node
             {"Description", "Actions available to manage certificates"},
             {"@odata.id",
              "/redfish/v1/CertificateService/CertificateLocations"}};
+        auto &replaceCert =
+            res.jsonValue["Actions"]["#CertificateService.ReplaceCertificate"];
+        replaceCert["target"] = "/redfish/v1/CertificateService/Actions/"
+                                "CertificateService.ReplaceCertificate";
+        replaceCert["CertificateType@Redfish.AllowableValues"] = {"PEM",
+                                                                  "PKCS7"};
         res.end();
     }
 }; // CertificateService
@@ -88,6 +94,97 @@ int getIDFromURL(const std::string &path)
     }
     return 0;
 }
+
+/**
+ * Action to replace an existing certificate
+ */
+class CertificateActionsReplaceCertificate : public Node
+{
+  public:
+    CertificateActionsReplaceCertificate(CrowApp &app) :
+        Node(app, "/redfish/v1/CertificateService/Actions/"
+                  "CertificateService.ReplaceCertificate/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string certificate;
+        std::string certificateType;
+        std::string certificateUri;
+        if (!json_util::readJson(req, res, "CertificateString", certificate,
+                                 "CertificateType", certificateType,
+                                 "CertificateUri", certificateUri))
+        {
+            BMCWEB_LOG_ERROR << "Required parameters are missing";
+            return;
+        }
+        auto id = getIDFromURL(certificateUri);
+        if (!id)
+        {
+            BMCWEB_LOG_ERROR << "Invalid certificate URI";
+            return;
+        }
+
+        std::string filepath("/tmp/" + boost::uuids::to_string(
+                                           boost::uuids::random_generator()()));
+        std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                        std::ofstream::trunc);
+        out << certificate;
+        out.close();
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        auto replaceCertificate =
+            [asyncResp, filepath](const boost::system::error_code ec) {
+                std::remove(filepath.c_str());
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            };
+        if (boost::starts_with(
+                certificateUri,
+                "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
+        {
+            std::string path =
+                std::string(httpsObjectPath) + "/" + std::to_string(id);
+            BMCWEB_LOG_DEBUG << "Replace certificate for service"
+                             << httpsServiceName;
+            crow::connections::systemBus->async_method_call(
+                std::move(replaceCertificate), httpsServiceName, path,
+                certInstallIntf, "Install", filepath);
+        }
+        else if (boost::starts_with(
+                     certificateUri,
+                     "/redfish/v1/AccountService/LDAP/Certificates/"))
+        {
+            BMCWEB_LOG_DEBUG << "Replace certificate for service"
+                             << ldapServiceName;
+            std::string path =
+                std::string(ldapObjectPath) + "/" + std::to_string(id);
+            crow::connections::systemBus->async_method_call(
+                std::move(replaceCertificate), ldapServiceName, path,
+                certInstallIntf, "Install", filepath);
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unsupported certificate URI" << certificateUri;
+            return;
+        }
+    }
+}; // CertificateActionsReplaceCertificate
 
 /**
  * @brief Converts EPOC time to redfish time format
