@@ -17,10 +17,13 @@
 
 #include "node.hpp"
 
+#include <variant>
 namespace redfish
 {
 static const char *httpsObjectPath = "/xyz/openbmc_project/certs/server/https";
 static const char *certInstallIntf = "xyz.openbmc_project.Certs.Install";
+static const char *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
+static const char *dbusPropIntf = "org.freedesktop.DBus.Properties";
 static const char *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 static const char *mapperBusName = "xyz.openbmc_project.ObjectMapper";
 static const char *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
@@ -133,6 +136,290 @@ class CertificateFile
 };
 using GetObjectType =
     std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+/**
+ * @brief Converts EPOCH time to redfish time format
+ *
+ * @param[in] epochTime Time value in EPOCH format
+ * @return Time value in redfish format
+ */
+static std::string epochToString(uint64_t epochTime)
+{
+    std::array<char, 128> dateTime;
+    std::string redfishDateTime("0000-00-00T00:00:00");
+    std::time_t time = static_cast<std::time_t>(epochTime);
+    if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
+                      std::localtime(&time)))
+    {
+        // insert the colon required by the ISO 8601 standard
+        redfishDateTime = std::string(dateTime.data());
+        redfishDateTime.insert(redfishDateTime.end() - 2, ':');
+    }
+    return redfishDateTime;
+}
+
+using CertPropMap = std::map<std::string, std::string>;
+/**
+ * @brief Parse the comma sperated key value pairs and return as a map
+ *
+ * @param[in] str  comma seperated key value pairs
+ * @return Map map of key value pairs
+ */
+static CertPropMap parseCertProperty(const std::string &str)
+{
+    CertPropMap propMap;
+    using Tokenizer = boost::tokenizer<boost::char_separator<char>>;
+    boost::char_separator<char> commaSep{","};
+    Tokenizer tokenComma{str, commaSep};
+    for (auto &tok : tokenComma)
+    {
+        std::string data = tok;
+        boost::algorithm::trim(data);
+        boost::char_separator<char> equalSep{"="};
+        Tokenizer tokEqual{data, equalSep};
+        auto dist = std::distance(tokEqual.begin(), tokEqual.end());
+        if (dist == 2)
+        {
+            auto it = tokEqual.begin();
+            std::string first = std::move(*it);
+            ++it;
+            std::string second = std::move(*it);
+            propMap.emplace(std::pair<std::string, std::string>(
+                std::move(first), std::move(second)));
+        }
+    }
+    return propMap;
+}
+
+/**
+ * @brief Parse and update Certficate Issue/Subject property
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] str  Issuer/Subject value in key=value pairs
+ * @param[in] type Issuer/Subject
+ * @return None
+ */
+static void updateCertIssuerOrSubject(std::shared_ptr<AsyncResp> asyncResp,
+                                      const std::string *value,
+                                      const std::string &type)
+{
+    CertPropMap propMap = parseCertProperty(*value);
+    auto elem = propMap.find("L");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["City"] = std::move(elem->second);
+    }
+    elem = propMap.find("CN");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["CommonName"] = std::move(elem->second);
+    }
+    elem = propMap.find("C");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["Country"] = std::move(elem->second);
+    }
+    elem = propMap.find("O");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["Organization"] =
+            std::move(elem->second);
+    }
+    elem = propMap.find("OU");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["OrganizationalUnit"] =
+            std::move(elem->second);
+    }
+    elem = propMap.find("ST");
+    if (elem != propMap.end())
+    {
+        asyncResp->res.jsonValue[type]["State"] = std::move(elem->second);
+    }
+}
+
+/**
+ * @brief Check if keyusage retrieved from Certificate is of redfish supported
+ * type
+ *
+ * @param[in] str keyusage value retrieved from certificate
+ * @return true if it is of redfish type else false
+ */
+static bool isKeyUsageFound(const std::string &str)
+{
+    boost::container::flat_set<std::string> usageList = {
+        "DigitalSignature",     "NonRepudiation",       "KeyEncipherment",
+        "DataEncipherment",     "KeyAgreement",         "KeyCertSign",
+        "CRLSigning",           "EncipherOnly",         "DecipherOnly",
+        "ServerAuthentication", "ClientAuthentication", "CodeSigning",
+        "EmailProtection",      "Timestamping",         "OCSPSigning"};
+    auto it = usageList.find(str);
+    if (it != usageList.end())
+    {
+        return true;
+    }
+    return false;
+}
+
+/**
+ * @brief Retrieve the certificates properties and append to the response
+ * message
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] path  Path of the D-Bus service object
+ * @return None
+ */
+static void getCertificateProperties(std::shared_ptr<AsyncResp> &asyncResp,
+                                     const std::string &path)
+{
+    using PropertyType =
+        std::variant<std::string, uint64_t, std::vector<std::string>>;
+    using PropertiesMap = boost::container::flat_map<std::string, PropertyType>;
+
+    BMCWEB_LOG_DEBUG << "Update certificate properties Path=" << path;
+    auto getAllProperties = [asyncResp](const boost::system::error_code ec,
+                                        const PropertiesMap &properties) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        for (const auto &property : properties)
+        {
+            if (property.first == "CertificateString")
+            {
+                asyncResp->res.jsonValue["CertificateString"] = "";
+                const std::string *value =
+                    std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["CertificateString"] = *value;
+                }
+            }
+            else if (property.first == "KeyUsage")
+            {
+                nlohmann::json &keyUsage = asyncResp->res.jsonValue["KeyUsage"];
+                keyUsage = nlohmann::json::array();
+                const std::vector<std::string> *value =
+                    std::get_if<std::vector<std::string>>(&property.second);
+                if (value)
+                {
+                    for (const std::string &usage : *value)
+                    {
+                        if (isKeyUsageFound(usage))
+                        {
+                            keyUsage.push_back(std::move(usage));
+                        }
+                    }
+                }
+            }
+            else if (property.first == "Issuer")
+            {
+                const std::string *value =
+                    std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    updateCertIssuerOrSubject(asyncResp, value, "Issuer");
+                }
+            }
+            else if (property.first == "Subject")
+            {
+                const std::string *value =
+                    std::get_if<std::string>(&property.second);
+                if (value)
+                {
+                    updateCertIssuerOrSubject(asyncResp, value, "Subject");
+                }
+            }
+            else if (property.first == "ValidNotAfter")
+            {
+                const uint64_t *value = std::get_if<uint64_t>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["ValidNotAfter"] =
+                        epochToString(*value);
+                }
+            }
+            else if (property.first == "ValidNotBefore")
+            {
+                const uint64_t *value = std::get_if<uint64_t>(&property.second);
+                if (value)
+                {
+                    asyncResp->res.jsonValue["ValidNotBefore"] =
+                        epochToString(*value);
+                }
+            }
+        }
+    };
+    auto getServiceName =
+        [asyncResp, getAllProperties(std::move(getAllProperties)),
+         path](const boost::system::error_code ec, const GetObjectType &resp) {
+            if (ec || resp.empty())
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            std::string service = resp.begin()->first;
+            BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+            crow::connections::systemBus->async_method_call(
+                std::move(getAllProperties), service, path, dbusPropIntf,
+                "GetAll", certPropIntf);
+        };
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
+        "GetObject", path, std::array<std::string, 0>());
+}
+
+/**
+ * Certificate resource describes a certificate used to prove the identity
+ * of a component, account or service.
+ */
+class HTTPSCertificate : public Node
+{
+  public:
+    template <typename CrowApp>
+    HTTPSCertificate(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"
+             "<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        const std::string &certId = params[0];
+        BMCWEB_LOG_DEBUG << "HTTPSCertificate::doGet ID=" << certId;
+        res.jsonValue = {
+            {"@odata.id",
+             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
+                 certId},
+            {"@odata.type", "#Certificate.v1_0_0.Certificate"},
+            {"@odata.context", "/redfish/v1/$metadata#Certificate.Certificate"},
+            {"Id", certId},
+            {"Name", "HTTPS Certificate"},
+            {"Description", "HTTPS Certificate"},
+            {"CertificateType", "PEM"}};
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string path = std::string(httpsObjectPath) + "/" + certId;
+        getCertificateProperties(asyncResp, path);
+    }
+}; // HTTPSCertificate
 
 /**
  * Collection of HTTPS certificates
