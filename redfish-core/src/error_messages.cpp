@@ -1013,7 +1013,8 @@ void generalError(crow::Response& res)
  */
 void success(crow::Response& res)
 {
-    res.result(boost::beast::http::status::ok);
+    // don't set res.result here because success is the default and any error
+    // should overwrite the default
     addMessageToJsonRoot(
         res.jsonValue,
         nlohmann::json{
