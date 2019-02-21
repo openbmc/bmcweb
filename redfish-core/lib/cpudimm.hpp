@@ -23,6 +23,13 @@
 namespace redfish
 {
 
+using InventoryManagedObjectsType = std::vector<std::pair<
+    sdbusplus::message::object_path,
+    std::vector<std::pair<
+        std::string, boost::container::flat_map<
+                         std::string, sdbusplus::message::variant<
+                                          std::string, bool, uint16_t>>>>>>;
+
 void getResourceList(std::shared_ptr<AsyncResp> aResp,
                      const std::string &subclass,
                      const std::string &collectionName)
@@ -64,32 +71,23 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
         std::array<const char *, 1>{collectionName.c_str()});
 }
 
-void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
-                         const std::string &cpuId, const std::string &service,
-                         const std::string &objPath)
+template <typename InterfaceCollection>
+void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
+                           const InterfaceCollection &cpuInterfaceCollection)
 {
-    BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
-    crow::connections::systemBus->async_method_call(
-        [cpuId, aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t>>
-                &properties) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error";
-                messages::internalError(aResp->res);
+    BMCWEB_LOG_DEBUG << "Get cpu resources by interface.";
 
-                return;
-            }
-            aResp->res.jsonValue["Id"] = cpuId;
-            aResp->res.jsonValue["Name"] = "Processor";
-            const auto coresCountProperty =
-                properties.find("ProcessorCoreCount");
-            if (coresCountProperty != properties.end())
+    const bool *present = NULL;
+    const bool *functional = NULL;
+    for (const auto &interface : cpuInterfaceCollection)
+    {
+        for (const auto &property : interface.second)
+        {
+            if (property.first == "ProcessorCoreCount")
             {
                 const uint16_t *coresCount =
-                    std::get_if<uint16_t>(&coresCountProperty->second);
+                    sdbusplus::message::variant_ns::get_if<uint16_t>(
+                        &property.second);
                 if (coresCount == nullptr)
                 {
                     // Important property not in desired type
@@ -107,17 +105,17 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
 
                 aResp->res.jsonValue["TotalCores"] = *coresCount;
             }
-
-            aResp->res.jsonValue["Status"]["State"] = "Enabled";
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
-
-            for (const auto &property : properties)
+            else if (property.first == "ProcessorType")
             {
-                if (property.first == "ProcessorType")
-                {
-                    aResp->res.jsonValue["Name"] = property.second;
-                }
-                else if (property.first == "ProcessorManufacturer")
+                aResp->res.jsonValue["Name"] = property.second;
+            }
+            else if (property.first == "ProcessorManufacturer")
+            {
+                aResp->res.jsonValue["Manufacturer"] = property.second;
+                const std::string *value =
+                    sdbusplus::message::variant_ns::get_if<std::string>(
+                        &property.second);
+                if (value != nullptr)
                 {
                     aResp->res.jsonValue["Manufacturer"] = property.second;
                     const std::string *value =
@@ -139,21 +137,128 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                         }
                     }
                 }
-                else if (property.first == "ProcessorMaxSpeed")
+            }
+            else if (property.first == "ProcessorMaxSpeed")
+            {
+                aResp->res.jsonValue["MaxSpeedMHz"] = property.second;
+            }
+            else if (property.first == "ProcessorThreadCount")
+            {
+                aResp->res.jsonValue["TotalThreads"] = property.second;
+            }
+            else if (property.first == "ProcessorVersion")
+            {
+                aResp->res.jsonValue["Model"] = property.second;
+            }
+            else if (property.first == "Present")
+            {
+                present = sdbusplus::message::variant_ns::get_if<bool>(
+                    &property.second);
+            }
+            else if (property.first == "Functional")
+            {
+                functional = sdbusplus::message::variant_ns::get_if<bool>(
+                    &property.second);
+            }
+        }
+    }
+    if ((present == nullptr) && (functional == nullptr))
+    {
+        aResp->res.jsonValue["Status"]["State"] = "Enabled";
+        aResp->res.jsonValue["Status"]["Health"] = "OK";
+    }
+    else if ((present != nullptr) && (functional != nullptr))
+    {
+        if (*present == false)
+        {
+            aResp->res.jsonValue["Status"]["State"] = "Absent";
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+        }
+        else
+        {
+            aResp->res.jsonValue["Status"]["State"] = "Enabled";
+            if (*functional == true)
+            {
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
+            }
+            else
+            {
+                aResp->res.jsonValue["Status"]["Health"] = "Critical";
+            }
+        }
+    }
+    else
+    {
+        messages::internalError(aResp->res);
+    }
+    return;
+}
+
+void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
+                         const std::string &cpuId, const std::string &service,
+                         const std::string &objPath)
+{
+    BMCWEB_LOG_DEBUG << "Get available system cpu resources by service.";
+
+    crow::connections::systemBus->async_method_call(
+        [cpuId, service, objPath,
+         aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const InventoryManagedObjectsType &dbusData) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["Id"] = cpuId;
+            aResp->res.jsonValue["Name"] = "Processor";
+
+            const std::string corePath = objPath + "/core";
+            size_t totalCores = 0;
+
+            aResp->res.jsonValue["Id"] = cpuId;
+            aResp->res.jsonValue["Name"] = "Processor";
+            for (const auto &object : dbusData)
+            {
+                if (object.first.str == objPath)
                 {
-                    aResp->res.jsonValue["MaxSpeedMHz"] = property.second;
+                    getCpuDataByInterface(aResp, object.second);
                 }
-                else if (property.first == "ProcessorThreadCount")
+                else if (boost::starts_with(object.first.str, corePath))
                 {
-                    aResp->res.jsonValue["TotalThreads"] = property.second;
-                }
-                else if (property.first == "ProcessorVersion")
-                {
-                    aResp->res.jsonValue["Model"] = property.second;
+                    for (const auto &interface : object.second)
+                    {
+                        if (interface.first ==
+                            "xyz.openbmc_project.Inventory.Item")
+                        {
+                            for (const auto &property : interface.second)
+                            {
+                                if (property.first == "Present")
+                                {
+                                    const bool *present =
+                                        sdbusplus::message::variant_ns::get_if<
+                                            bool>(&property.second);
+                                    if (present != nullptr)
+                                    {
+                                        if (*present == true)
+                                        {
+                                            totalCores++;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
+            if (totalCores > 0)
+            {
+                aResp->res.jsonValue["TotalCores"] = totalCores;
+            }
+            return;
         },
-        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+        service, "/xyz/openbmc_project/inventory",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
 
 void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId)
