@@ -387,7 +387,7 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                                  std::array<
                                      std::pair<const char *, const char *>, 3>{
                                      {{"On", "Lit"},
-                                      {"Blink", "Blinking"},
+                                      {"Blinking", "Blinking"},
                                       {"Off", "Off"}}})
                             {
                                 if (led == p.first)
@@ -692,7 +692,7 @@ class Systems : public Node
             {
                 dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Lit";
             }
-            else if (*indicatorLed == "Blink")
+            else if (*indicatorLed == "Blinking")
             {
                 dbusLedState =
                     "xyz.openbmc_project.Led.Physical.Action.Blinking";
