@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "38202cb6_79339099",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Remove use of auto and replace with nlohmann::json\u0026\n\nAlso, this whole object could be built with brace initialization syntax and imo would make it easier to read, but it\u0027s up to you.",
+      "range": {
+        "startLine": 75,
+        "startChar": 7,
+        "endLine": 75,
+        "endChar": 14
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "838528fd_e09734a2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous\n\n\"Remove use of auto and replace with nlohmann::json\u0026\nAlso, this whole object could be built with brace initialization syntax and imo would make it easier to read, but it\u0027s up to you.\"",
+      "range": {
+        "startLine": 105,
+        "startChar": 9,
+        "endLine": 105,
+        "endChar": 15
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c34299e6_887dacd5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous\n\"Declare each on their own line please.\"",
+      "range": {
+        "startLine": 108,
+        "startChar": 8,
+        "endLine": 108,
+        "endChar": 65
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb069663_e052e5e2",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous,\n\nThis could use a better name.  Possibly \"afterCertificate\"",
+      "range": {
+        "startLine": 125,
+        "startChar": 13,
+        "endLine": 125,
+        "endChar": 31
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51e5581a_ad91de7a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous,\nThis is duplicated in both paths.  Can be moved above if (ec).",
+      "range": {
+        "startLine": 134,
+        "startChar": 16,
+        "endLine": 134,
+        "endChar": 46
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2827dc48_49d8e9f3",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous\nThis needs to be an error condition.",
+      "range": {
+        "startLine": 141,
+        "startChar": 12,
+        "endLine": 141,
+        "endChar": 26
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a37892ff_a4f5d9c8",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-22T06:58:05Z",
+      "side": 1,
+      "message": "Ed Tanous\n\nMissing range check there.  if the string ends with \"/\" this will become UB.",
+      "range": {
+        "startLine": 145,
+        "startChar": 12,
+        "endLine": 145,
+        "endChar": 26
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
