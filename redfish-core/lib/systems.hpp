@@ -1211,10 +1211,9 @@ class Systems : public Node
             {
                 dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Lit";
             }
-            else if (*indicatorLed == "Blink")
+            else if (*indicatorLed == "Blinking")
             {
-                dbusLedState =
-                    "xyz.openbmc_project.Led.Physical.Action.Blinking";
+                dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Blink";
             }
             else if (*indicatorLed == "Off")
             {
