@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "caef35af_2ed88615",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-24T19:14:40Z",
+      "side": 1,
+      "message": "Named this as ReplaceCertificate as it is implementing the action for replacing certificate.",
+      "range": {
+        "startLine": 146,
+        "startChar": 13,
+        "endLine": 146,
+        "endChar": 31
+      },
+      "revId": "87c25f49b121b101384c8713a2bbb4fb19e2114c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
