@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "e83377b4_f007e833",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-02-24T19:12:28Z",
+      "side": 1,
+      "message": "We are implementing the action ReplaceCertificate so named accordingly. Do not see why it should be afterCertificate",
+      "parentUuid": "bb069663_e052e5e2",
+      "range": {
+        "startLine": 125,
+        "startChar": 13,
+        "endLine": 125,
+        "endChar": 31
+      },
+      "revId": "9600e952ff75fd51ca64273481e96d2c5feefc74",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51e5581a_ad91de7a",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 1
