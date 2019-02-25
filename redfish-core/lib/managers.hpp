@@ -690,11 +690,11 @@ static CreatePIDRet createPidInterface(
 
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
-        std::optional<double> minThermalRpm;
+        std::optional<double> minTachPercent;
         if (!redfish::json_util::readJson(it.value(), response->res, "Chassis",
                                           chassisContainer, "FailSafePercent",
-                                          failSafePercent, "MinThermalRpm",
-                                          minThermalRpm))
+                                          failSafePercent, "MinTachPercent",
+                                          minTachPercent))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
                              << it.value().dump();
@@ -721,9 +721,9 @@ static CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
         }
-        if (minThermalRpm)
+        if (minTachPercent)
         {
-            output["MinThermalRpm"] = *minThermalRpm;
+            output["MinTachPercent"] = *minTachPercent;
         }
         if (failSafePercent)
         {
