@@ -22,6 +22,34 @@ static crow::websocket::Connection* session = nullptr;
 
 static bool doingWrite = false;
 
+inline void doWrite();
+
+inline void WriteDone(const boost::system::error_code& ec,
+                      std::size_t bytesWritten)
+{
+    BMCWEB_LOG_DEBUG << "Wrote " << bytesWritten << "bytes";
+    doingWrite = false;
+    inputBuffer.consume(bytesWritten);
+
+    if (session == nullptr)
+    {
+        return;
+    }
+    if (ec == boost::asio::error::eof)
+    {
+        session->close("KVM socket port closed");
+        return;
+    }
+    if (ec)
+    {
+        session->close("Error in reading to host port");
+        BMCWEB_LOG_ERROR << "Error in KVM socket write " << ec;
+        return;
+    }
+
+    doWrite();
+}
+
 inline void doWrite()
 {
     if (doingWrite)
@@ -36,37 +64,13 @@ inline void doWrite()
     }
 
     doingWrite = true;
-    hostSocket->async_write_some(
-        inputBuffer.data(),
-        [](boost::beast::error_code ec, std::size_t bytes_written) {
-            BMCWEB_LOG_DEBUG << "Wrote " << bytes_written << "bytes";
-            doingWrite = false;
-            inputBuffer.consume(bytes_written);
-
-            if (session == nullptr)
-            {
-                return;
-            }
-            if (ec == boost::asio::error::eof)
-            {
-                session->close("KVM socket port closed");
-                return;
-            }
-            if (ec)
-            {
-                session->close("Error in reading to host port");
-                BMCWEB_LOG_ERROR << "Error in KVM socket write " << ec;
-                return;
-            }
-            doWrite();
-        });
+    hostSocket->async_write_some(inputBuffer.data(), WriteDone);
 }
 
 inline void doRead();
 
 inline void readDone(const boost::system::error_code& ec, std::size_t bytesRead)
 {
-    outputBuffer.commit(bytesRead);
     BMCWEB_LOG_DEBUG << "read done.  Read " << bytesRead << " bytes";
     if (ec)
     {
@@ -82,6 +86,7 @@ inline void readDone(const boost::system::error_code& ec, std::size_t bytesRead)
         return;
     }
 
+    outputBuffer.commit(bytesRead);
     boost::beast::string_view payload(
         static_cast<const char*>(outputBuffer.data().data()), bytesRead);
     BMCWEB_LOG_DEBUG << "Sending payload size " << payload.size();
@@ -112,7 +117,6 @@ inline void connectHandler(const boost::system::error_code& ec)
         return;
     }
 
-    doWrite();
     doRead();
 }
 
