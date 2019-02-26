@@ -107,6 +107,7 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<CertificateService>(app));
         nodes.emplace_back(std::make_unique<CertificateLocations>(app));
+        nodes.emplace_back(std::make_unique<HTTPSCertificateCollection>(app));
     }
 
   private:
