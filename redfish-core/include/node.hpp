@@ -20,8 +20,10 @@
 #include "webserver_common.hpp"
 
 #include <error_messages.hpp>
+#include <vector>
 
-#include "crow.h"
+#include "crow/http_request.h"
+#include "crow/http_response.h"
 
 namespace redfish
 {

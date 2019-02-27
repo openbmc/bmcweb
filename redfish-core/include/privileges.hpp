@@ -20,8 +20,6 @@
 #include <cstdint>
 #include <vector>
 
-#include "crow.h"
-
 namespace redfish
 {
 
