@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "31db34b7_1c1e86f8",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-02-27T06:56:24Z",
+      "side": 1,
+      "message": "mk[s/d]temp is a better option I think",
+      "revId": "87c25f49b121b101384c8713a2bbb4fb19e2114c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "caef35af_2ed88615",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 3
