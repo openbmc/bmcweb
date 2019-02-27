@@ -946,7 +946,7 @@ class CPULogService : public Node
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
-             "/redfish/v1/Managers/bmc/LogServices/CpuLog/Entries"}};
+             "/redfish/v1/Systems/system/LogServices/CpuLog/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
              {{"#CpuLog.Immediate",
