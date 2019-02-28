@@ -18,6 +18,7 @@
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <utils/fw_utils.hpp>
 #include <variant>
 
 namespace redfish
@@ -320,6 +321,31 @@ class SoftwareInventory : public Node
     }
 
   private:
+    /* Fill related item links (i.e. bmc, bios) in for inventory */
+    static void getRelatedItems(std::shared_ptr<AsyncResp> aResp,
+                                const std::string &purpose)
+    {
+        if (purpose == fw_util::bmcPurpose)
+        {
+            nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+            members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
+            aResp->res.jsonValue["Members@odata.count"] = members.size();
+        }
+        else if (purpose == fw_util::biosPurpose)
+        {
+            // TODO(geissonator) Need BIOS schema support added for this
+            //                   to be valid
+            // nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+            // members.push_back(
+            //    {{"@odata.id", "/redfish/v1/Systems/system/BIOS"}});
+            // aResp->res.jsonValue["Members@odata.count"] = members.size();
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
+        }
+    }
+
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
@@ -450,6 +476,7 @@ class SoftwareInventory : public Node
                                 formatDesc += " update";
                                 asyncResp->res.jsonValue["Description"] =
                                     formatDesc;
+                                getRelatedItems(asyncResp, *swInvPurpose);
                             }
                             else
                             {
