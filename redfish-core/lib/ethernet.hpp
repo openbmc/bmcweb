@@ -923,6 +923,27 @@ class EthernetInterface : public Node
             std::string pathString =
                 "IPv4Addresses/" + std::to_string(entryIdx);
 
+            if (thisJson.empty())
+            {
+                if (thisData != ipv4Data.end())
+                {
+                    thisData++;
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    return;
+                    // TODO Not sure about the property where value is
+                    // list and if unable to update one of the
+                    // list value then should we proceed further or
+                    // break there, would ask in the redfish forum
+                    // till then we stop processing the next list item.
+                }
+                entryIdx++;
+                continue; // not an error as per the redfish spec.
+            }
+
             std::optional<std::string> address;
             std::optional<std::string> addressOrigin;
             std::optional<std::string> subnetMask;
