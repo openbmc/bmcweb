@@ -195,6 +195,14 @@ static void asyncPopulatePid(const std::string& connection,
                     std::string name = *namePtr;
                     dbus::utility::escapePathForDbus(name);
                     nlohmann::json* config = nullptr;
+
+                    const std::string* classPtr = nullptr;
+                    auto findClass = intfPair.second.find("Class");
+                    if (findClass != intfPair.second.end())
+                    {
+                        classPtr = std::get_if<std::string>(&findClass->second);
+                    }
+
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
                         std::string chassis;
@@ -217,6 +225,13 @@ static void asyncPopulatePid(const std::string& connection,
 
                     else if (intfPair.first == stepwiseConfigurationIface)
                     {
+                        if (classPtr == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "Pid Class Field illegal";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
                         nlohmann::json& controller = stepwise[name];
                         config = &controller;
 
@@ -230,18 +245,13 @@ static void asyncPopulatePid(const std::string& connection,
                         controller["@odata.context"] =
                             "/redfish/v1/"
                             "$metadata#OemManager.StepwiseController";
+                        controller["Direction"] = *classPtr;
                     }
 
                     // pid and fans are off the same configuration
                     else if (intfPair.first == pidConfigurationIface)
                     {
-                        const std::string* classPtr = nullptr;
-                        auto findClass = intfPair.second.find("Class");
-                        if (findClass != intfPair.second.end())
-                        {
-                            classPtr =
-                                std::get_if<std::string>(&findClass->second);
-                        }
+
                         if (classPtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Pid Class Field illegal";
@@ -739,10 +749,12 @@ static CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> inputs;
         std::optional<double> positiveHysteresis;
         std::optional<double> negativeHysteresis;
+        std::optional<std::string> direction; // upper clipping curve vs lower
         if (!redfish::json_util::readJson(
                 it.value(), response->res, "Zones", zones, "Steps", steps,
                 "Inputs", inputs, "PositiveHysteresis", positiveHysteresis,
-                "NegativeHysteresis", negativeHysteresis))
+                "NegativeHysteresis", negativeHysteresis, "Direction",
+                direction))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
                              << it.value().dump();
@@ -804,6 +816,19 @@ static CreatePIDRet createPidInterface(
         if (positiveHysteresis)
         {
             output["PositiveHysteresis"] = *positiveHysteresis;
+        }
+        if (direction)
+        {
+            constexpr const std::array<const char*, 2> allowedDirections = {
+                "Ceiling", "Floor"};
+            if (std::find(allowedDirections.begin(), allowedDirections.end(),
+                          *direction) == allowedDirections.end())
+            {
+                messages::propertyValueTypeError(response->res, "Direction",
+                                                 *direction);
+                return CreatePIDRet::fail;
+            }
+            output["Class"] = *direction;
         }
     }
     else
