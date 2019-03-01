@@ -1228,8 +1228,10 @@ class EthernetInterface : public Node
         {
             return;
         }
-        std::optional<uint64_t> vlanId = 0;
-        std::optional<bool> vlanEnable = false;
+
+        std::optional<uint64_t> vlanId;
+        std::optional<bool> vlanEnable;
+
         if (vlan)
         {
             if (!json_util::readJson(*vlan, res, "VLANEnable", vlanEnable,
