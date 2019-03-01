@@ -928,6 +928,12 @@ class EthernetInterface : public Node
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
+            if (thisJson.empty())
+            {
+                continue; // empty list item
+                thisData++;
+            }
+
             if (!json_util::readJson(thisJson, asyncResp->res, "Address",
                                      address, "AddressOrigin", addressOrigin,
                                      "SubnetMask", subnetMask, "Gateway",
