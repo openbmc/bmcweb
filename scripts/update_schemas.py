@@ -95,7 +95,7 @@ with open(metadata_index_path, 'w') as metadata_index:
     #schema (because it's an OEM schema). Because it's the only one, and we
     #don't update schemas very often, we just manually fix it. Need a
     #permanent fix to the script.
-    metadata_index.write("    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\"/>\n")
+    metadata_index.write("    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\">\n")
     metadata_index.write("        <edmx:Include Namespace=\"OemManager\"/>\n")
     metadata_index.write("    </edmx:Reference>\n")
     metadata_index.write("</edmx:Edmx>\n")
