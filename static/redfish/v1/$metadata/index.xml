@@ -1313,7 +1313,7 @@
             <EntityContainer Name="Service" Extends="ServiceRoot.v1_0_0.ServiceContainer"/>
         </Schema>
     </edmx:DataServices>
-    <edmx:Reference Uri="/redfish/v1/schema/OemManager_v1.xml"/>
+    <edmx:Reference Uri="/redfish/v1/schema/OemManager_v1.xml">
         <edmx:Include Namespace="OemManager"/>
     </edmx:Reference>
 </edmx:Edmx>
