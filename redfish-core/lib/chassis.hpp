@@ -145,16 +145,16 @@ class Chassis : public Node
             res.end();
             return;
         }
+        const std::string &chassisId = params[0];
 
         res.jsonValue["@odata.type"] = "#Chassis.v1_4_0.Chassis";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
+        res.jsonValue["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#Chassis.Chassis";
         res.jsonValue["Name"] = "Chassis Collection";
         res.jsonValue["ChassisType"] = "RackMount";
         res.jsonValue["PowerState"] = "On";
 
-        const std::string &chassisId = params[0];
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
@@ -201,12 +201,23 @@ class Chassis : public Node
                             for (const std::pair<std::string, VariantType>
                                      &property : propertiesList)
                             {
-                                const std::string *value =
-                                    std::get_if<std::string>(&property.second);
-                                if (value != nullptr)
+                                // Store DBus properties that are also Redfish
+                                // properties with same name and a string value
+                                const std::string &propertyName =
+                                    property.first;
+                                if ((propertyName == "PartNumber") ||
+                                    (propertyName == "SerialNumber") ||
+                                    (propertyName == "Manufacturer") ||
+                                    (propertyName == "Model"))
                                 {
-                                    asyncResp->res.jsonValue[property.first] =
-                                        *value;
+                                    const std::string *value =
+                                        std::get_if<std::string>(
+                                            &property.second);
+                                    if (value != nullptr)
+                                    {
+                                        asyncResp->res.jsonValue[propertyName] =
+                                            *value;
+                                    }
                                 }
                             }
                             asyncResp->res.jsonValue["Name"] = chassisId;
