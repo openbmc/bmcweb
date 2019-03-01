@@ -1275,9 +1275,6 @@ class EthernetInterface : public Node
                     return;
                 }
 
-                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
-                                   ipv4Data);
-
                 if (vlanId && vlanEnable)
                 {
                     handleVlanPatch(iface_id, *vlanId, *vlanEnable, ethData,
