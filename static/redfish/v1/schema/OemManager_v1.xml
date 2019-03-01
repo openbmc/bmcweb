@@ -265,6 +265,10 @@
                     <Annotation Term="OData.LongDescription" String="Temperature vs RPM steps for the stepwise controller." />
                     <Annotation Term="OData.AutoExpand"/>
                 </Property>
+                <Property Name="Direction" Type="Edm.String">
+                    <Annotation Term="OData.Description" String="Direction that the stepwise controller applies."/>
+                    <Annotation Term="OData.LongDescription" String="Direction that the stepwise controller applies. Options include Ceiling and Floor."/>
+                </Property>
                 <NavigationProperty Name="Zones" Type="Collection(OemManager.FanZone)" ContainsTarget="true">
                     <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read" />
                     <Annotation Term="OData.Description" String="Contains the Zones that this controller contributes to." />
@@ -281,7 +285,7 @@
                     <Annotation Term="OData.Description" String="Fan speed setting for step."/>
                     <Annotation Term="OData.LongDescription" String="Fan speed setting for step."/>
                 </Property>
-           </ComplexType>
+            </ComplexType>
         </Schema>
     </edmx:DataServices>
 </edmx:Edmx>
