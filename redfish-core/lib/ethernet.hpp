@@ -913,6 +913,20 @@ class EthernetInterface : public Node
             std::string pathString =
                 "IPv4Addresses/" + std::to_string(entryIdx);
 
+            if (thisJson.empty())
+            {
+                if (thisData != ipv4Data.end())
+                {
+                    thisData++;
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                }
+                continue; // not an error as per the redfish spec.
+            }
+
             std::optional<std::string> address;
             std::optional<std::string> addressOrigin;
             std::optional<std::string> subnetMask;
