@@ -532,11 +532,6 @@ inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
         {
             messages::internalError(asyncResp->res);
         }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["AddressOrigin"] =
-                newValue;
-        }
     };
 
     crow::connections::systemBus->async_method_call(
@@ -571,11 +566,6 @@ inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
         if (ec)
         {
             messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["SubnetMask"] =
-                newValueStr;
         }
     };
 
@@ -1019,9 +1009,6 @@ class EthernetInterface : public Node
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                asyncResp->res
-                                    .jsonValue["IPv4Addresses"][std::to_string(
-                                        entryIdx)]["Address"] = address;
                             };
 
                         crow::connections::systemBus->async_method_call(
@@ -1058,10 +1045,6 @@ class EthernetInterface : public Node
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                asyncResp->res
-                                    .jsonValue["IPv4Addresses"][std::to_string(
-                                        entryIdx)]["Gateway"] =
-                                    std::move(gateway);
                             };
 
                         crow::connections::systemBus->async_method_call(
@@ -1101,7 +1084,6 @@ class EthernetInterface : public Node
 
                 createIPv4(ifaceId, entryIdx, prefixLength, *gateway, *address,
                            asyncResp);
-                asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] = thisJson;
             }
             entryIdx++;
         }
@@ -1274,9 +1256,6 @@ class EthernetInterface : public Node
                         asyncResp->res, "VLAN Network Interface", iface_id);
                     return;
                 }
-
-                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
-                                   ipv4Data);
 
                 if (vlanId && vlanEnable)
                 {
