@@ -911,10 +911,17 @@ class EthernetInterface : public Node
     }
 
     void handleIPv4Patch(
-        const std::string &ifaceId, std::vector<nlohmann::json> &input,
+        const std::string &ifaceId, nlohmann::json &input,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data,
         const std::shared_ptr<AsyncResp> asyncResp)
     {
+        if (!input.is_array())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "IPv4Addresses");
+            return;
+        }
+
         int entryIdx = 0;
         boost::container::flat_set<IPv4AddressData>::const_iterator thisData =
             ipv4Data.begin();
@@ -922,6 +929,28 @@ class EthernetInterface : public Node
         {
             std::string pathString =
                 "IPv4Addresses/" + std::to_string(entryIdx);
+
+            if (thisJson.is_null())
+            {
+                if (thisData != ipv4Data.end())
+                {
+                    deleteIPv4(ifaceId, thisData->id, entryIdx, asyncResp);
+                    thisData++;
+                }
+                else
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, input.dump(), pathString);
+                    return;
+                    // TODO(ratagupt) Not sure about the property where value is
+                    // list and if unable to update one of the
+                    // list value then should we proceed further or
+                    // break there, would ask in the redfish forum
+                    // till then we stop processing the next list item.
+                }
+                entryIdx++;
+                continue; // not an error as per the redfish spec.
+            }
 
             if (thisJson.empty())
             {
@@ -934,7 +963,7 @@ class EthernetInterface : public Node
                     messages::propertyMissing(asyncResp->res,
                                               pathString + "/Address");
                     return;
-                    // TODO Not sure about the property where value is
+                    // TODO(ratagupt) Not sure about the property where value is
                     // list and if unable to update one of the
                     // list value then should we proceed further or
                     // break there, would ask in the redfish forum
@@ -1003,96 +1032,72 @@ class EthernetInterface : public Node
                 }
             }
 
-            // if a vlan already exists, modify the existing
+            // if IP address exist then  modify it.
             if (thisData != ipv4Data.end())
             {
-                // Existing object that should be modified/deleted/remain
-                // unchanged
-                if (thisJson.is_null())
+                // Apply changes
+                if (address)
                 {
-                    auto callback = [entryIdx{std::to_string(entryIdx)},
-                                     asyncResp](
+                    auto callback = [asyncResp, entryIdx,
+                                     address{std::string(*address)}](
                                         const boost::system::error_code ec) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] =
-                            nullptr;
+                        asyncResp->res
+                            .jsonValue["IPv4Addresses"][entryIdx]["Address"] =
+                            std::move(address);
                     };
+
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
                         "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" +
                             thisData->id,
-                        "xyz.openbmc_project.Object.Delete", "Delete");
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.IP", "Address",
+                        std::variant<std::string>(*address));
                 }
-                else if (thisJson.is_object())
+
+                if (subnetMask)
                 {
-                    // Apply changes
-                    if (address)
-                    {
-                        auto callback =
-                            [asyncResp, entryIdx, address = *address](
-                                const boost::system::error_code ec) {
-                                if (ec)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["IPv4Addresses"]
-                                                        [entryIdx]["Address"] =
-                                    address;
-                            };
-
-                        crow::connections::systemBus->async_method_call(
-                            std::move(callback), "xyz.openbmc_project.Network",
-                            "/xyz/openbmc_project/network/" + ifaceId +
-                                "/ipv4/" + thisData->id,
-                            "org.freedesktop.DBus.Properties", "Set",
-                            "xyz.openbmc_project.Network.IP", "Address",
-                            std::variant<std::string>(*address));
-                    }
-
-                    if (subnetMask)
-                    {
-                        changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
-                                                     thisData->id, *subnetMask,
-                                                     prefixLength, asyncResp);
-                    }
-
-                    if (addressOrigin)
-                    {
-                        changeIPv4Origin(ifaceId, entryIdx, thisData->id,
-                                         *addressOrigin,
-                                         addressOriginInDBusFormat, asyncResp);
-                    }
-
-                    if (gateway)
-                    {
-                        auto callback =
-                            [asyncResp, entryIdx,
-                             gateway{std::string(*gateway)}](
-                                const boost::system::error_code ec) {
-                                if (ec)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                asyncResp->res.jsonValue["IPv4Addresses"]
-                                                        [entryIdx]["Gateway"] =
-                                    std::move(gateway);
-                            };
-
-                        crow::connections::systemBus->async_method_call(
-                            std::move(callback), "xyz.openbmc_project.Network",
-                            "/xyz/openbmc_project/network/" + ifaceId +
-                                "/ipv4/" + thisData->id,
-                            "org.freedesktop.DBus.Properties", "Set",
-                            "xyz.openbmc_project.Network.IP", "Gateway",
-                            std::variant<std::string>(*gateway));
-                    }
+                    changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
+                                                 thisData->id, *subnetMask,
+                                                 prefixLength, asyncResp);
                 }
+
+                if (addressOrigin)
+                {
+                    changeIPv4Origin(ifaceId, entryIdx, thisData->id,
+                                     *addressOrigin, addressOriginInDBusFormat,
+                                     asyncResp);
+                }
+
+                if (gateway)
+                {
+                    auto callback = [asyncResp, entryIdx,
+                                     gateway{std::string(*gateway)}](
+                                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res
+                            .jsonValue["IPv4Addresses"][entryIdx]["Gateway"] =
+                            std::move(gateway);
+                    };
+
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" +
+                            thisData->id,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.IP", "Gateway",
+                        std::variant<std::string>(*gateway));
+                }
+
                 thisData++;
             }
             else
@@ -1239,8 +1244,8 @@ class EthernetInterface : public Node
 
         std::optional<nlohmann::json> vlan;
         std::optional<std::string> hostname;
-        std::optional<std::vector<nlohmann::json>> ipv4Addresses;
-        std::optional<std::vector<nlohmann::json>> ipv6Addresses;
+        std::optional<nlohmann::json> ipv4Addresses;
+        std::optional<nlohmann::json> ipv6Addresses;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
@@ -1317,8 +1322,7 @@ class EthernetInterface : public Node
                     // efficiently move out the intermedia nlohmann::json
                     // objects. This makes a copy of the structure, and operates
                     // on that, but could be done more efficiently
-                    std::vector<nlohmann::json> ipv4 =
-                        std::move(*ipv4Addresses);
+                    nlohmann::json ipv4 = std::move(*ipv4Addresses);
                     handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
                 }
 
