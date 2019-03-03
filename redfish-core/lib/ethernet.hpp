@@ -964,6 +964,26 @@ class EthernetInterface : public Node
             std::variant<std::string>(hostname));
     }
 
+    void handleMACAddressPatch(const std::string &ifaceId,
+                               const std::string &macAddress,
+                               const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, macAddress](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["MACAddress"] = std::move(macAddress);
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.MACAddress", "MACAddress",
+            std::variant<std::string>(macAddress));
+    }
+
     void handleIPv4Patch(
         const std::string &ifaceId, nlohmann::json &input,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data,
@@ -1302,12 +1322,14 @@ class EthernetInterface : public Node
 
         std::optional<nlohmann::json> vlan;
         std::optional<std::string> hostname;
+        std::optional<std::string> macAddress;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
-                                 "IPv6Addresses", ipv6Addresses))
+                                 "IPv6Addresses", ipv6Addresses, "MACAddress",
+                                 macAddress))
         {
             return;
         }
@@ -1343,7 +1365,7 @@ class EthernetInterface : public Node
         getEthernetIfaceData(
             iface_id,
             [this, asyncResp, iface_id, vlanId, vlanEnable,
-             hostname = std::move(hostname),
+             hostname = std::move(hostname), macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
              ipv6Addresses = std::move(ipv6Addresses)](
                 const bool &success, const EthernetInterfaceData &ethData,
@@ -1370,6 +1392,11 @@ class EthernetInterface : public Node
                 if (hostname)
                 {
                     handleHostnamePatch(*hostname, asyncResp);
+                }
+
+                if (macAddress)
+                {
+                    handleMACAddressPatch(iface_id, *macAddress, asyncResp);
                 }
 
                 if (ipv4Addresses)
