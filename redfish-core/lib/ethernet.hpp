@@ -892,6 +892,121 @@ class EthernetInterface : public Node
     }
 
   private:
+    /**
+     * @brief Traslates DHCP Redfish properties into DBUS properties.
+     *
+     * @param[in] rfpropertyname    The DHCP redfish property
+     *
+     * @return Returns a string, the DHCP property in DBUS terms. If
+     * translation cannot be done, returns an empty string.
+     */
+
+    static std::string RftodbusConfig(const std::string &rfpropertyname)
+    {
+        if (rfpropertyname == "UseDNSServers")
+        {
+            return "DNSEnabled";
+        }
+        else if (rfpropertyname == "UseNTPServers")
+        {
+            return "NTPEnabled";
+        }
+        else if (rfpropertyname == "UseDomainName")
+        {
+            return "HostNameEnabled";
+        }
+        else if (rfpropertyname == "DHCPEnabled")
+        {
+            return "DHCPEnabled";
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    /**
+     * @brief This function sets a DHCP Property
+     *
+     * @param[in] handler    The response handler
+     * @param[in] objectpath The DBUS object path
+     * @param[in] interfacepath The Interface path
+     * @param[in] dbuspropertyname Dbus property name
+     * @param[in] propertyvalue The property value to be set
+     *
+     */
+
+    void setDHCPProperty(auto &handler, const std::string &objectpath,
+                         const std::string &interfacepath,
+                         const std::string &dbuspropertyname,
+                         const std::variant<bool> &propertyvalue)
+    {
+
+        crow::connections::systemBus->async_method_call(
+            std::move(handler), "xyz.openbmc_project.Network", objectpath,
+            "org.freedesktop.DBus.Properties", "Set", interfacepath,
+            dbuspropertyname, propertyvalue);
+    }
+
+    void handleDHCPPatch(const nlohmann::json &input,
+                         const std::string &iface_id,
+                         const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        std::optional<bool> dnsenabled;
+        std::optional<bool> ntpenabled;
+        std::optional<bool> domainnameenabled;
+        std::optional<bool> dhcpenabled;
+
+        if (!json_util::readJson(const_cast<nlohmann::json &>(input),
+                                 asyncResp->res, "UseDNSServers", dnsenabled,
+                                 "UseNTPServers", ntpenabled, "UseDomainName",
+                                 domainnameenabled, "DHCPEnabled", dhcpenabled))
+        {
+            return;
+        }
+
+        auto createDHCPConfigHandler =
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                messages::success(asyncResp->res);
+            };
+
+        if (dnsenabled)
+        {
+            setDHCPProperty(createDHCPConfigHandler,
+                            "/xyz/openbmc_project/network/config/dhcp",
+                            "xyz.openbmc_project.Network.DHCPConfiguration",
+                            RftodbusConfig("UseDNSServers"), *dnsenabled);
+        }
+
+        if (ntpenabled)
+        {
+            setDHCPProperty(createDHCPConfigHandler,
+                            "/xyz/openbmc_project/network/config/dhcp",
+                            "xyz.openbmc_project.Network.DHCPConfiguration",
+                            RftodbusConfig("UseNTPServers"), *ntpenabled);
+        }
+
+        if (domainnameenabled)
+        {
+            setDHCPProperty(createDHCPConfigHandler,
+                            "/xyz/openbmc_project/network/config/dhcp",
+                            "xyz.openbmc_project.Network.DHCPConfiguration",
+                            RftodbusConfig("UseDomainName"),
+                            *domainnameenabled);
+        }
+
+        if (dhcpenabled)
+        {
+            setDHCPProperty(createDHCPConfigHandler,
+                            "/xyz/openbmc_project/network/" + iface_id,
+                            "xyz.openbmc_project.Network.EthernetInterface",
+                            RftodbusConfig("DHCPEnabled"), *dhcpenabled);
+        }
+    }
     void handleHostnamePatch(const std::string &hostname,
                              const std::shared_ptr<AsyncResp> asyncResp)
     {
@@ -1221,10 +1336,12 @@ class EthernetInterface : public Node
         std::optional<std::string> hostname;
         std::optional<std::vector<nlohmann::json>> ipv4Addresses;
         std::optional<std::vector<nlohmann::json>> ipv6Addresses;
+        std::optional<nlohmann::json> dhcpv4configuration;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
-                                 "IPv6Addresses", ipv6Addresses))
+                                 "IPv6Addresses", ipv6Addresses,
+                                 "DHCPv4Configuration", dhcpv4configuration))
         {
             return;
         }
@@ -1251,6 +1368,10 @@ class EthernetInterface : public Node
 
                 return;
             }
+        }
+        if (dhcpv4configuration)
+        {
+            handleDHCPPatch(*dhcpv4configuration, iface_id, asyncResp);
         }
 
         // Get single eth interface data, and call the below callback for JSON
