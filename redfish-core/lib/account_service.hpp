@@ -167,12 +167,28 @@ class AccountService : public Node
 
         std::optional<uint32_t> unlockTimeout;
         std::optional<uint16_t> lockoutThreshold;
+        std::optional<uint16_t> minPasswordLength;
+        std::optional<uint16_t> maxPasswordLength;
+
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold))
+                                 lockoutThreshold, "MaxPasswordLength",
+                                 maxPasswordLength, "MinPasswordLength",
+                                 minPasswordLength))
         {
             return;
         }
+
+        if (minPasswordLength)
+        {
+            messages::propertyNotWritable(asyncResp->res, "MinPasswordLength");
+        }
+
+        if (maxPasswordLength)
+        {
+            messages::propertyNotWritable(asyncResp->res, "MaxPasswordLength");
+        }
+
         if (unlockTimeout)
         {
             crow::connections::systemBus->async_method_call(
