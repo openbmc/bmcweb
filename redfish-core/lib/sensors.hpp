@@ -273,6 +273,9 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#Thermal.v1_4_0.Thermal";
+            sensorsAsyncResp->res.jsonValue["Fans"] = nlohmann::json::array();
+            sensorsAsyncResp->res.jsonValue["Temperatures"] =
+                nlohmann::json::array();
         }
         sensorsAsyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + sensorsAsyncResp->chassisId + "/" +
@@ -1015,6 +1018,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                            std::move(getConnectionCb));
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
+    SensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
 
     // Get set of sensors in chassis
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
