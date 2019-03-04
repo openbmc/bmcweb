@@ -536,6 +536,10 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
         BMCWEB_LOG_DEBUG << "getChassisCb exit";
     };
 
+    SensorsAsyncResp->res.jsonValue["Fans"] = nlohmann::json::array();
+    SensorsAsyncResp->res.jsonValue["Temperatures"] = nlohmann::json::array();
+    SensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
+
     // get chassis information related to sensors
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
