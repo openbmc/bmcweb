@@ -215,6 +215,42 @@ class NetworkProtocol : public Node
             "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", "ListUnits");
     }
+
+    void handleHostnamePatch(const std::string& hostName,
+                             const std::shared_ptr<AsyncResp>& asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/config",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostName));
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        std::optional<std::string> newHostName;
+
+        if (!json_util::readJson(req, res, "HostName", newHostName))
+        {
+            return;
+        }
+        if (newHostName)
+        {
+            handleHostnamePatch(*newHostName, asyncResp);
+            return;
+        }
+    }
 };
 
 } // namespace redfish
