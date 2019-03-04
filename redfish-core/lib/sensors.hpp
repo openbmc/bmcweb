@@ -970,6 +970,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                        std::move(getConnectionCb));
         BMCWEB_LOG_DEBUG << "getChassisCb exit";
     };
+    SensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
 
 #ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
     // Get all sensor names
