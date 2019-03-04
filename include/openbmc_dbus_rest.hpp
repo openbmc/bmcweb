@@ -731,6 +731,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             std::string containedType = argCode.substr(1, argCode.size() - 1);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_STRUCT,
                                               containedType.c_str());
+            if (r < 0)
+            {
+                return r;
+            }
+
             nlohmann::json::const_iterator it = j->begin();
             for (const std::string &argCode : dbusArgSplit(arg_type))
             {
@@ -753,6 +758,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             std::string containedType = argCode.substr(1, argCode.size() - 1);
             r = sd_bus_message_open_container(m, SD_BUS_TYPE_DICT_ENTRY,
                                               containedType.c_str());
+            if (r < 0)
+            {
+                return r;
+            }
+
             std::vector<std::string> codes = dbusArgSplit(containedType);
             if (codes.size() != 2)
             {
@@ -2224,9 +2234,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                             }
                             else
                             {
-                                tinyxml2::XMLElement *node =
-                                    pRoot->FirstChildElement("node");
-
                                 // if we know we're the only call, build the
                                 // json directly
                                 tinyxml2::XMLElement *interface =
