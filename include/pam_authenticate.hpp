@@ -14,9 +14,15 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     {
         return PAM_AUTH_ERR;
     }
-    auto* pass = reinterpret_cast<char*>(
-        malloc(std::strlen(reinterpret_cast<char*>(appdataPtr)) + 1));
-    std::strcpy(pass, reinterpret_cast<char*>(appdataPtr));
+    char* appPass = reinterpret_cast<char*>(appdataPtr);
+    size_t appPassSize = std::strlen(appPass);
+    char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
+    if (!pass)
+    {
+        return PAM_AUTH_ERR;
+    }
+
+    std::strcpy(pass, appPass);
 
     *resp = reinterpret_cast<pam_response*>(
         calloc(numMsg, sizeof(struct pam_response)));
