@@ -51,6 +51,16 @@ class Thermal : public Node
             return;
         }
         const std::string& chassisName = params[0];
+        res.jsonValue["@odata.type"] = "#Thermal.v1_4_0.Thermal";
+        res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#Thermal.Thermal";
+        res.jsonValue["Id"] = "Thermal";
+        res.jsonValue["Name"] = "Thermal";
+
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/Chassis/" + chassisName + "/Thermal";
+        res.jsonValue["Fans"] = nlohmann::json::array();
+        res.jsonValue["Temperatures"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName, typeList, "Thermal");

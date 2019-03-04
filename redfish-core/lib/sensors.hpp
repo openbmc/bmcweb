@@ -1015,6 +1015,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                            std::move(getConnectionCb));
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
+    SensorsAsyncResp->res.jsonValue["Redundancy"] = nlohmann::json::array();
 
     // Get set of sensors in chassis
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
