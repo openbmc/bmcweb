@@ -51,7 +51,6 @@ class Thermal : public Node
             return;
         }
         const std::string& chassisName = params[0];
-
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName, typeList, "Thermal");
 
