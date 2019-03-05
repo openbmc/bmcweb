@@ -127,6 +127,7 @@ class NetworkProtocol : public Node
         }
 
         asyncResp->res.jsonValue["HostName"] = getHostName();
+        asyncResp->res.jsonValue["FQDN"] = asyncResp->res.jsonValue["HostName"];
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -192,7 +193,6 @@ class NetworkProtocol : public Node
                                 // exceptions
                                 long port =
                                     std::strtol(portStr.c_str(), &endPtr, 10);
-
                                 if (*endPtr != '\0' || portStr.empty())
                                 {
                                     // Invalid value
