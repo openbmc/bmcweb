@@ -100,6 +100,7 @@ struct EthernetInterfaceData
     std::string mac_address;
     std::vector<std::uint32_t> vlan_id;
     std::vector<std::string> nameservers;
+    std::vector<std::string> domainnames;
 };
 
 // Helper function that changes bits netmask notation (i.e. /24)
@@ -256,6 +257,17 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (DHCPEnabled != nullptr)
                             {
                                 ethData.DHCPEnabled = *DHCPEnabled;
+                            }
+                        }
+                        else if (propertyPair.first == "DomainName")
+                        {
+                            const std::vector<std::string> *domainNames =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (domainNames != nullptr)
+                            {
+                                ethData.domainnames = std::move(*domainNames);
                             }
                         }
                     }
@@ -1630,6 +1642,11 @@ class EthernetInterface : public Node
         if (!ethData.hostname.empty())
         {
             json_response["HostName"] = ethData.hostname;
+            if (!ethData.domainnames.empty())
+            {
+                json_response["FQDN"] =
+                    ethData.hostname + "." + ethData.domainnames[0];
+            }
         }
 
         json_response["VLANs"] = {

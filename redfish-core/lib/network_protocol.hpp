@@ -71,8 +71,10 @@ const static boost::container::flat_map<const char*, ServiceConfiguration>
          {"phosphor-ipmi-net.socket", "/org/freedesktop/systemd1/unit/"
                                       "phosphor_2dipmi_2dnet_2esocket"}}};
 
-inline void extractNTPServersData(const GetManagedObjects& dbus_data,
-                                  std::vector<std::string>& ntpData)
+inline void
+    extractNTPServersAndDomainNamesData(const GetManagedObjects& dbus_data,
+                                        std::vector<std::string>& ntpData,
+                                        std::vector<std::string>& dnData)
 {
     for (const auto& obj : dbus_data)
     {
@@ -96,6 +98,17 @@ inline void extractNTPServersData(const GetManagedObjects& dbus_data,
                                 ntpData = std::move(*ntpServers);
                             }
                         }
+                        else if (propertyPair.first == "DomainName")
+                        {
+                            const std::vector<std::string>* domainNames =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (domainNames != nullptr)
+                            {
+                                dnData = std::move(*domainNames);
+                            }
+                        }
                     }
                 }
             }
@@ -111,16 +124,18 @@ void getEthernetIfaceData(CallbackFunc&& callback)
             const boost::system::error_code error_code,
             const GetManagedObjects& dbus_data) {
             std::vector<std::string> ntpServers;
+            std::vector<std::string> domainNames;
 
             if (error_code)
             {
-                callback(false, ntpServers);
+                callback(false, ntpServers, domainNames);
                 return;
             }
 
-            extractNTPServersData(dbus_data, ntpServers);
+            extractNTPServersAndDomainNamesData(dbus_data, ntpServers,
+                                                domainNames);
 
-            callback(true, ntpServers);
+            callback(true, ntpServers, domainNames);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -207,23 +222,34 @@ class NetworkProtocol : public Node
             asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
         }
 
-        asyncResp->res.jsonValue["HostName"] = getHostName();
+        std::string hostName = getHostName();
+
+        asyncResp->res.jsonValue["HostName"] = hostName;
 
         getNTPProtocolEnabled(asyncResp);
 
         // TODO Get eth0 interface data, and call the below callback for JSON
         // preparation
-        getEthernetIfaceData(
-            [this, asyncResp](const bool& success,
-                              const std::vector<std::string>& ntpServers) {
-                if (!success)
+        getEthernetIfaceData([this, hostName, asyncResp](
+                                 const bool& success,
+                                 const std::vector<std::string>& ntpServers,
+                                 const std::vector<std::string>& domainNames) {
+            if (!success)
+            {
+                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
+                                           "eth0");
+                return;
+            }
+            asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+            if (hostName.empty() == false)
+            {
+                asyncResp->res.jsonValue["FQDN"] = hostName;
+                if (domainNames.empty() == false)
                 {
-                    messages::resourceNotFound(asyncResp->res,
-                                               "EthernetInterface", "eth0");
-                    return;
+                    asyncResp->res.jsonValue["FQDN"] += "." + domainNames[0];
                 }
-                asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-            });
+            }
+        });
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
@@ -293,7 +319,6 @@ class NetworkProtocol : public Node
                                 // exceptions
                                 long port =
                                     std::strtol(portStr.c_str(), &endPtr, 10);
-
                                 if (*endPtr != '\0' || portStr.empty())
                                 {
                                     // Invalid value
