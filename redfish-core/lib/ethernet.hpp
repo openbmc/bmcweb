@@ -1134,10 +1134,9 @@ class EthernetInterface : public Node
         }
         json_response["SpeedMbps"] = ethData.speed;
         json_response["MACAddress"] = ethData.mac_address;
-        if (!ethData.hostname.empty())
-        {
-            json_response["HostName"] = ethData.hostname;
-        }
+        // OCP profile requires HostName and FQDN present
+        json_response["HostName"] = ethData.hostname;
+        json_response["FQDN"] = ethData.hostname;
 
         nlohmann::json &vlanObj = json_response["VLAN"];
         if (ethData.vlan_id)
@@ -1164,6 +1163,8 @@ class EthernetInterface : public Node
                                       {"Gateway", ipv4_config.gateway}});
             }
         }
+        // For OCP profile compliant
+        json_response["IPv6Addresses"] = nlohmann::json::array();
     }
 
     /**
