@@ -571,7 +571,7 @@ inline static std::string base64encodeUrlsafe(const char* data, size_t size)
 
 // TODO this is temporary and should be deleted once base64 is refactored out of
 // crow
-inline bool base64Decode(const boost::string_view input, std::string& output)
+inline bool base64Decode(const std::string_view input, std::string& output)
 {
     static const char nop = -1;
     // See note on encoding_data[] in above function

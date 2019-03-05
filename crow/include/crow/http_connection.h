@@ -474,7 +474,7 @@ class Connection
                 // Compute the url parameters for the request
                 req->url = req->target();
                 std::size_t index = req->url.find("?");
-                if (index != boost::string_view::npos)
+                if (index != std::string_view::npos)
                 {
                     req->url = req->url.substr(0, index);
                 }

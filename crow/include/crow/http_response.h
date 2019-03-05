@@ -24,12 +24,12 @@ struct Response
 
     nlohmann::json jsonValue;
 
-    void addHeader(const boost::string_view key, const boost::string_view value)
+    void addHeader(const std::string_view key, const std::string_view value)
     {
         stringResponse->set(key, value);
     }
 
-    void addHeader(boost::beast::http::field key, boost::string_view value)
+    void addHeader(boost::beast::http::field key, std::string_view value)
     {
         stringResponse->set(key, value);
     }
@@ -43,13 +43,13 @@ struct Response
     {
     }
 
-    explicit Response(boost::string_view body_) :
+    explicit Response(std::string_view body_) :
         stringResponse(response_type{})
     {
         stringResponse->body() = std::string(body_);
     }
 
-    Response(boost::beast::http::status code, boost::string_view s) :
+    Response(boost::beast::http::status code, std::string_view s) :
         stringResponse(response_type{})
     {
         stringResponse->result(code);
@@ -94,7 +94,7 @@ struct Response
         return stringResponse->result_int();
     }
 
-    boost::string_view reason()
+    std::string_view reason()
     {
         return stringResponse->reason();
     }
@@ -132,7 +132,7 @@ struct Response
         completed = false;
     }
 
-    void write(boost::string_view body_part)
+    void write(std::string_view body_part)
     {
         stringResponse->body() += std::string(body_part);
     }
@@ -153,7 +153,7 @@ struct Response
         }
     }
 
-    void end(boost::string_view body_part)
+    void end(std::string_view body_part)
     {
         write(body_part);
         end();
