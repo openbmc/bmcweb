@@ -256,15 +256,22 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                                          VariantType>
                                              &property : propertiesList)
                                     {
-                                        const std::string *value =
-                                            sdbusplus::message::variant_ns::
-                                                get_if<std::string>(
-                                                    &property.second);
-                                        if (value != nullptr)
+                                        const std::string &propertyName =
+                                            property.first;
+                                        if ((propertyName == "PartNumber") ||
+                                            (propertyName == "SerialNumber") ||
+                                            (propertyName == "Manufacturer") ||
+                                            (propertyName == "Model"))
                                         {
-                                            aResp->res
-                                                .jsonValue[property.first] =
-                                                *value;
+                                            const std::string *value =
+                                                std::get_if<std::string>(
+                                                    &property.second);
+                                            if (value != nullptr)
+                                            {
+                                                aResp->res
+                                                    .jsonValue[propertyName] =
+                                                    *value;
+                                            }
                                         }
                                     }
                                     aResp->res.jsonValue["Name"] = "system";
