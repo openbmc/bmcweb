@@ -39,8 +39,8 @@ constexpr char const *cpuLogRawPECIInterface =
 namespace fs = std::filesystem;
 
 static int getJournalMetadata(sd_journal *journal,
-                              const boost::string_view &field,
-                              boost::string_view &contents)
+                              const std::string_view &field,
+                              std::string_view &contents)
 {
     const char *data = nullptr;
     size_t length = 0;
@@ -52,18 +52,18 @@ static int getJournalMetadata(sd_journal *journal,
     {
         return ret;
     }
-    contents = boost::string_view(data, length);
+    contents = std::string_view(data, length);
     // Only use the content after the "=" character.
     contents.remove_prefix(std::min(contents.find("=") + 1, contents.size()));
     return ret;
 }
 
 static int getJournalMetadata(sd_journal *journal,
-                              const boost::string_view &field, const int &base,
+                              const std::string_view &field, const int &base,
                               int &contents)
 {
     int ret = 0;
-    boost::string_view metadata;
+    std::string_view metadata;
     // Get the metadata from the requested field of the journal entry
     ret = getJournalMetadata(journal, field, metadata);
     if (ret < 0)
@@ -94,14 +94,14 @@ static bool getEntryTimestamp(sd_journal *journal, std::string &entryTimestamp)
         strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
     }
     // Insert the ':' into the timezone
-    boost::string_view t1(entryTime);
-    boost::string_view t2(entryTime);
+    std::string_view t1(entryTime);
+    std::string_view t2(entryTime);
     if (t1.size() > 2 && t2.size() > 2)
     {
         t1.remove_suffix(2);
         t2.remove_prefix(t2.size() - 2);
     }
-    entryTimestamp = t1.to_string() + ":" + t2.to_string();
+    entryTimestamp = std::string(t1) + ":" + std::string(t2);
     return true;
 }
 
@@ -201,19 +201,19 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
         return false;
     }
     // Convert the unique ID back to a timestamp to find the entry
-    boost::string_view tsStr(entryID);
+    std::string_view tsStr(entryID);
 
     auto underscorePos = tsStr.find("_");
     if (underscorePos != tsStr.npos)
     {
         // Timestamp has an index
         tsStr.remove_suffix(tsStr.size() - underscorePos);
-        boost::string_view indexStr(entryID);
+        std::string_view indexStr(entryID);
         indexStr.remove_prefix(underscorePos + 1);
         std::size_t pos;
         try
         {
-            index = std::stoul(indexStr.to_string(), &pos);
+            index = std::stoul(std::string(indexStr), &pos);
         }
         catch (std::invalid_argument)
         {
@@ -235,7 +235,7 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
     std::size_t pos;
     try
     {
-        timestamp = std::stoull(tsStr.to_string(), &pos);
+        timestamp = std::stoull(std::string(tsStr), &pos);
     }
     catch (std::invalid_argument)
     {
@@ -342,14 +342,14 @@ class EventLogService : public Node
 };
 
 static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
-                                 const boost::string_view &messageID,
+                                 const std::string_view &messageID,
                                  sd_journal *journal,
                                  nlohmann::json &bmcLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
 
-    boost::string_view msg;
+    std::string_view msg;
     ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
     {
@@ -373,8 +373,8 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
     std::vector<std::string> messageArgs;
     SD_JOURNAL_FOREACH_DATA(journal, data, length)
     {
-        boost::string_view field(static_cast<const char *>(data), length);
-        if (field.starts_with("REDFISH_MESSAGE_ARG_"))
+        std::string_view field(static_cast<const char *>(data), length);
+        if (boost::starts_with(field, "REDFISH_MESSAGE_ARG_"))
         {
             // Get the Arg number from the field name
             field.remove_prefix(sizeof("REDFISH_MESSAGE_ARG_") - 1);
@@ -394,7 +394,7 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
             {
                 messageArgs.resize(argNum);
             }
-            messageArgs[argNum - 1] = field.to_string();
+            messageArgs[argNum - 1] = std::string(field);
         }
     }
 
@@ -487,7 +487,7 @@ class EventLogEntryCollection : public Node
         {
             // Look for only journal entries that contain a REDFISH_MESSAGE_ID
             // field
-            boost::string_view messageID;
+            std::string_view messageID;
             ret = getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID",
                                      messageID);
             if (ret < 0)
@@ -590,7 +590,7 @@ class EventLogEntry : public Node
         }
 
         // only use journal entries that contain a REDFISH_MESSAGE_ID field
-        boost::string_view messageID;
+        std::string_view messageID;
         ret =
             getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID", messageID);
         if (ret < 0)
@@ -698,7 +698,7 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
     // Get the Log Entry contents
     int ret = 0;
 
-    boost::string_view msg;
+    std::string_view msg;
     ret = getJournalMetadata(journal, "MESSAGE", msg);
     if (ret < 0)
     {

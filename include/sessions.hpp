@@ -102,7 +102,7 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const boost::string_view username,
+        const std::string_view username,
         PersistenceType persistence = PersistenceType::TIMEOUT)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
@@ -148,7 +148,7 @@ class SessionStore
     }
 
     std::shared_ptr<UserSession>
-        loginSessionByToken(const boost::string_view token)
+        loginSessionByToken(const std::string_view token)
     {
         applySessionTimeouts();
         auto sessionIt = authTokens.find(std::string(token));
@@ -161,7 +161,7 @@ class SessionStore
         return userSession;
     }
 
-    std::shared_ptr<UserSession> getSessionByUid(const boost::string_view uid)
+    std::shared_ptr<UserSession> getSessionByUid(const std::string_view uid)
     {
         applySessionTimeouts();
         // TODO(Ed) this is inefficient

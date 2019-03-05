@@ -13,7 +13,7 @@ namespace crow
 struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body>& req;
-    boost::string_view url{};
+    std::string_view url{};
     QueryString urlParams{};
     bool isSecure{false};
 
@@ -32,22 +32,22 @@ struct Request
         return req.method();
     }
 
-    const boost::string_view getHeaderValue(boost::string_view key) const
+    const std::string_view getHeaderValue(std::string_view key) const
     {
         return req[key];
     }
 
-    const boost::string_view getHeaderValue(boost::beast::http::field key) const
+    const std::string_view getHeaderValue(boost::beast::http::field key) const
     {
         return req[key];
     }
 
-    const boost::string_view methodString() const
+    const std::string_view methodString() const
     {
         return req.method_string();
     }
 
-    const boost::string_view target() const
+    const std::string_view target() const
     {
         return req.target();
     }
