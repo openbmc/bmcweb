@@ -689,7 +689,7 @@ class Trie
     }
 
     std::pair<unsigned, RoutingParams>
-        find(const boost::string_view req_url, const Node* node = nullptr,
+        find(const std::string_view req_url, const Node* node = nullptr,
              unsigned pos = 0, RoutingParams* params = nullptr) const
     {
         RoutingParams empty;
