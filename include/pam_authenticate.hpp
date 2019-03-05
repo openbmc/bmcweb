@@ -27,7 +27,7 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     *resp = reinterpret_cast<pam_response*>(
         calloc(numMsg, sizeof(struct pam_response)));
 
-    if (resp == NULL){
+    if (!resp){
         return PAM_AUTH_ERR;
     }
 
@@ -46,8 +46,8 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     return PAM_SUCCESS;
 }
 
-inline bool pamAuthenticateUser(const boost::string_view username,
-                                const boost::string_view password)
+inline bool pamAuthenticateUser(const std::string_view username,
+                                const std::string_view password)
 {
     std::string userStr(username);
     std::string passStr(password);

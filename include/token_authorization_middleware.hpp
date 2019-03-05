@@ -39,7 +39,7 @@ class Middleware
         }
         if (ctx.session == nullptr)
         {
-            boost::string_view authHeader = req.getHeaderValue("Authorization");
+            std::string_view authHeader = req.getHeaderValue("Authorization");
             if (!authHeader.empty())
             {
                 // Reject any kind of auth other than basic or token
@@ -104,12 +104,12 @@ class Middleware
 
   private:
     const std::shared_ptr<crow::persistent_data::UserSession>
-        performBasicAuth(boost::string_view auth_header) const
+        performBasicAuth(std::string_view auth_header) const
     {
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
         std::string authData;
-        boost::string_view param = auth_header.substr(strlen("Basic "));
+        std::string_view param = auth_header.substr(strlen("Basic "));
         if (!crow::utility::base64Decode(param, authData))
         {
             return nullptr;
@@ -146,11 +146,11 @@ class Middleware
     }
 
     const std::shared_ptr<crow::persistent_data::UserSession>
-        performTokenAuth(boost::string_view auth_header) const
+        performTokenAuth(std::string_view auth_header) const
     {
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Token authentication";
 
-        boost::string_view token = auth_header.substr(strlen("Token "));
+        std::string_view token = auth_header.substr(strlen("Token "));
         auto session =
             persistent_data::SessionStore::getInstance().loginSessionByToken(
                 token);
@@ -162,7 +162,7 @@ class Middleware
     {
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] X-Auth-Token authentication";
 
-        boost::string_view token = req.getHeaderValue("X-Auth-Token");
+        std::string_view token = req.getHeaderValue("X-Auth-Token");
         if (token.empty())
         {
             return nullptr;
@@ -178,7 +178,7 @@ class Middleware
     {
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Cookie authentication";
 
-        boost::string_view cookieValue = req.getHeaderValue("Cookie");
+        std::string_view cookieValue = req.getHeaderValue("Cookie");
         if (cookieValue.empty())
         {
             return nullptr;
@@ -195,7 +195,7 @@ class Middleware
         {
             endIndex = cookieValue.size();
         }
-        boost::string_view authKey =
+        std::string_view authKey =
             cookieValue.substr(startIndex, endIndex - startIndex);
 
         const std::shared_ptr<crow::persistent_data::UserSession> session =
@@ -209,7 +209,7 @@ class Middleware
         // RFC7231 defines methods that need csrf protection
         if (req.method() != "GET"_method)
         {
-            boost::string_view csrf = req.getHeaderValue("X-XSRF-TOKEN");
+            std::string_view csrf = req.getHeaderValue("X-XSRF-TOKEN");
             // Make sure both tokens are filled
             if (csrf.empty() || session->csrfToken.empty())
             {
@@ -274,9 +274,9 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
     BMCWEB_ROUTE(app, "/login")
         .methods(
             "POST"_method)([&](const crow::Request& req, crow::Response& res) {
-            boost::string_view contentType = req.getHeaderValue("content-type");
-            boost::string_view username;
-            boost::string_view password;
+            std::string_view contentType = req.getHeaderValue("content-type");
+            std::string_view username;
+            std::string_view password;
 
             bool looksLikeIbm = false;
 

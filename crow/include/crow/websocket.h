@@ -73,7 +73,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     {
         BMCWEB_LOG_DEBUG << "starting connection " << this;
 
-        boost::string_view protocol = req.getHeaderValue(
+        std::string_view protocol = req.getHeaderValue(
             boost::beast::http::field::sec_websocket_protocol);
 
         // Perform the websocket upgrade

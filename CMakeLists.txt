@@ -119,6 +119,7 @@ endif ()
 
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
+add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
 add_definitions (-DBOOST_ALL_NO_LIB)
