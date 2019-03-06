@@ -1297,11 +1297,12 @@ class EthernetInterface : public Node
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
         std::optional<std::vector<std::string>> staticNameServers;
+        std::optional<std::vector<std::string>> nameServers;
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
                 "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
-                "StaticNameServers", staticNameServers))
+                "StaticNameServers", staticNameServers, "NameServers", nameServers)))
         {
             return;
         }
@@ -1314,7 +1315,8 @@ class EthernetInterface : public Node
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
              ipv6Addresses = std::move(ipv6Addresses),
-             staticNameServers = std::move(staticNameServers)](
+             staticNameServers = std::move(staticNameServers),
+             nameServers = std::move(nameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1350,6 +1352,13 @@ class EthernetInterface : public Node
                     // on that, but could be done more efficiently
                     nlohmann::json ipv4 = std::move(*ipv4Addresses);
                     handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
+                }
+
+                if (nameServers)
+                {
+                    // Data.Permissions is read-only
+                    messages::propertyNotWritable(asyncResp->res,
+                                                  "NameServers");
                 }
 
                 if (ipv6Addresses)
