@@ -219,7 +219,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                                 ethData.speed = *speed;
                             }
                         }
-                        else if (propertyPair.first == "NameServers")
+                        else if (propertyPair.first == "Nameservers")
                         {
                             const std::vector<std::string> *nameservers =
                                 sdbusplus::message::variant_ns::get_if<
@@ -1107,6 +1107,30 @@ class EthernetInterface : public Node
         }
     }
 
+    void handleNameServersPatch(
+        const std::string &ifaceId,
+        const std::vector<std::string> &updatedNameServers,
+        const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        BMCWEB_LOG_DEBUG << "Handle NameServers PATCH";
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             updatedNameServers](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["NameServers"] = updatedNameServers;
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "Nameservers",
+            std::variant<std::vector<std::string>>{updatedNameServers});
+    }
+
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &iface_id,
         const EthernetInterfaceData &ethData,
@@ -1221,13 +1245,16 @@ class EthernetInterface : public Node
         std::optional<std::string> hostname;
         std::optional<std::vector<nlohmann::json>> ipv4Addresses;
         std::optional<std::vector<nlohmann::json>> ipv6Addresses;
+        std::optional<std::vector<std::string>> nameServers;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
-                                 "IPv6Addresses", ipv6Addresses))
+                                 "IPv6Addresses", ipv6Addresses, "NameServers",
+                                 nameServers))
         {
             return;
         }
+
         std::optional<uint64_t> vlanId = 0;
         std::optional<bool> vlanEnable = false;
         if (vlan)
@@ -1260,7 +1287,8 @@ class EthernetInterface : public Node
             [this, asyncResp, iface_id, vlanId, vlanEnable,
              hostname = std::move(hostname),
              ipv4Addresses = std::move(ipv4Addresses),
-             ipv6Addresses = std::move(ipv6Addresses)](
+             ipv6Addresses = std::move(ipv6Addresses),
+             nameServers = std::move(nameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1298,6 +1326,11 @@ class EthernetInterface : public Node
                     std::vector<nlohmann::json> ipv4 =
                         std::move(*ipv4Addresses);
                     handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
+                }
+
+                if (nameServers)
+                {
+                    handleNameServersPatch(iface_id, *nameServers, asyncResp);
                 }
 
                 if (ipv6Addresses)
