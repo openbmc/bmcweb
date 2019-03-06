@@ -60,14 +60,15 @@ struct ServiceConfiguration
 const static boost::container::flat_map<const char*, ServiceConfiguration>
     protocolToDBus{
         {"SSH",
-         {"dropbear.service",
+         {"dropbear.socket",
           "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
         {"HTTPS",
-         {"phosphor-gevent.service",
-          "/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
+         {"bmcweb.service",
+          "/org/freedesktop/systemd1/unit/"
+          "bmcweb_2esocket"}}, //"/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
         {"IPMI",
-         {"phosphor-ipmi-net.service",
-          "/org/freedesktop/systemd1/unit/phosphor_2dipmi_2dnet_2esocket"}}};
+         {"phosphor-ipmi-net.socket", "/org/freedesktop/systemd1/unit/"
+                                      "phosphor_2dipmi_2dnet_2esocket"}}};
 
 class NetworkProtocol : public Node
 {
@@ -143,7 +144,7 @@ class NetworkProtocol : public Node
                 {
                     for (auto& kv : protocolToDBus)
                     {
-                        if (kv.second.serviceName ==
+                        if (kv.second.serviceName !=
                             std::get<NET_PROTO_UNIT_NAME>(unit))
                         {
                             continue;
@@ -152,8 +153,10 @@ class NetworkProtocol : public Node
                         const char* socketPath = kv.second.socketPath;
 
                         asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
-                            std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
-                            "running";
+                            (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
+                             "running") ||
+                            (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
+                             "listening");
 
                         crow::connections::systemBus->async_method_call(
                             [asyncResp, service{std::string(service)}](
