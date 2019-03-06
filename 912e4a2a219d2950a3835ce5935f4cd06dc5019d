@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "bfe400d0_9e61187d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-06T09:25:58Z",
+      "side": 1,
+      "message": "good one, will remove the file as part of error conditions too.",
+      "parentUuid": "4942b47c_0a87878c",
+      "revId": "912e4a2a219d2950a3835ce5935f4cd06dc5019d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2667133f_a66bd2f5",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 6
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "915e54c8_6ede83b3",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-06T09:25:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2667133f_a66bd2f5",
+      "range": {
+        "startLine": 158,
+        "startChar": 20,
+        "endLine": 158,
+        "endChar": 29
+      },
+      "revId": "912e4a2a219d2950a3835ce5935f4cd06dc5019d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "35bd3a73_8dccee8c",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 6
@@ -53,6 +95,30 @@
       "writtenOn": "2019-03-05T09:26:32Z",
       "side": 1,
       "message": "This will never be true",
+      "range": {
+        "startLine": 176,
+        "startChar": 8,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "912e4a2a219d2950a3835ce5935f4cd06dc5019d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79c42d7e_aaa54b11",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-06T09:25:58Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "35bd3a73_8dccee8c",
       "range": {
         "startLine": 176,
         "startChar": 8,
