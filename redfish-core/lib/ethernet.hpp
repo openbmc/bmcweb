@@ -220,7 +220,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                                 ethData.speed = *speed;
                             }
                         }
-                        else if (propertyPair.first == "NameServers")
+                        else if (propertyPair.first == "Nameservers")
                         {
                             const std::vector<std::string> *nameservers =
                                 sdbusplus::message::variant_ns::get_if<
@@ -1314,12 +1314,14 @@ class EthernetInterface : public Node
 
         std::optional<std::string> hostname;
         std::optional<std::string> macAddress;
-        std::optional<nlohmann::json> ipv4Addresses;
-        std::optional<nlohmann::json> ipv6Addresses;
+        std::optional<std::vector<nlohmann::json>> ipv4Addresses;
+        std::optional<std::vector<nlohmann::json>> ipv6Addresses;
+        std::optional<std::vector<std::string>> nameServers;
 
-        if (!json_util::readJson(
-                req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
-                "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress))
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4Addresses", ipv4Addresses,
+                                 "IPv6Addresses", ipv6Addresses, "MACAddress",
+                                 macAddress, "NameServers", nameServers))
         {
             return;
         }
@@ -1331,7 +1333,8 @@ class EthernetInterface : public Node
             [this, asyncResp, iface_id, hostname = std::move(hostname),
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
-             ipv6Addresses = std::move(ipv6Addresses)](
+             ipv6Addresses = std::move(ipv6Addresses),
+             nameServers = std::move(nameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1367,6 +1370,13 @@ class EthernetInterface : public Node
                     // on that, but could be done more efficiently
                     nlohmann::json ipv4 = std::move(*ipv4Addresses);
                     handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
+                }
+
+                if (nameServers)
+                {
+                    // Data.Permissions is read-only
+                    messages::propertyNotWritable(asyncResp->res,
+                                                  "NameServers");
                 }
 
                 if (ipv6Addresses)
