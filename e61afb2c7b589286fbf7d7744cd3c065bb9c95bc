@@ -22,6 +22,30 @@
       "revId": "e61afb2c7b589286fbf7d7744cd3c065bb9c95bc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "964783db_bfb34cad",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-07T21:22:10Z",
+      "side": 1,
+      "message": "Changed to use a wrapper class that will hold the file name and it removes the file during destruction.\n\nUsing shared_ptr to create the wrapper file and passing the shared_ptr around this way the file is not deleted in between the async calls",
+      "parentUuid": "cc00d213_6c752485",
+      "range": {
+        "startLine": 175,
+        "startChar": 12,
+        "endLine": 175,
+        "endChar": 19
+      },
+      "revId": "e61afb2c7b589286fbf7d7744cd3c065bb9c95bc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
