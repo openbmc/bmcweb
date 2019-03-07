@@ -1146,7 +1146,12 @@ class EthernetInterface : public Node
 
                 createIPv4(ifaceId, entryIdx, prefixLength, *gateway, *address,
                            asyncResp);
-                asyncResp->res.jsonValue["IPv4Addresses"][entryIdx] = thisJson;
+
+                nlohmann::json &ipv4AddressJson =
+                    asyncResp->res.jsonValue["IPv4Addresses"][entryIdx];
+                ipv4AddressJson["Address"] = *address;
+                ipv4AddressJson["SubnetMask"] = *subnetMask;
+                ipv4AddressJson["Gateway"] = *gateway;
             }
             entryIdx++;
         }
