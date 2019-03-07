@@ -1019,9 +1019,9 @@ class EthernetInterface : public Node
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                asyncResp->res
-                                    .jsonValue["IPv4Addresses"][std::to_string(
-                                        entryIdx)]["Address"] = address;
+                                asyncResp->res.jsonValue["IPv4Addresses"]
+                                                        [entryIdx]["Address"] =
+                                    address;
                             };
 
                         crow::connections::systemBus->async_method_call(
@@ -1058,9 +1058,8 @@ class EthernetInterface : public Node
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-                                asyncResp->res
-                                    .jsonValue["IPv4Addresses"][std::to_string(
-                                        entryIdx)]["Gateway"] =
+                                asyncResp->res.jsonValue["IPv4Addresses"]
+                                                        [entryIdx]["Gateway"] =
                                     std::move(gateway);
                             };
 
