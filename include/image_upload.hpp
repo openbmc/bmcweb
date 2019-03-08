@@ -32,9 +32,9 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
     static boost::asio::deadline_timer timeout(*req.ioService,
                                                boost::posix_time::seconds(5));
 
-    timeout.expires_from_now(boost::posix_time::seconds(10));
+    timeout.expires_from_now(boost::posix_time::seconds(15));
 
-    timeout.async_wait([&res](const boost::system::error_code& ec) {
+    auto timeoutHandler = [&res](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
         if (ec == asio::error::operation_aborted)
         {
@@ -57,7 +57,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
             {"message", "400 Bad Request"},
             {"status", "error"}};
         res.end();
-    });
+    };
 
     std::function<void(sdbusplus::message::message&)> callback =
         [&res](sdbusplus::message::message& m) {
@@ -110,6 +110,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
                                     std::ofstream::trunc);
     out << req.body;
     out.close();
+    timeout.async_wait(timeoutHandler);
 }
 
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
