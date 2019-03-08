@@ -52,6 +52,14 @@ class Power : public Node
         }
         const std::string& chassis_name = params[0];
 
+        res.jsonValue["@odata.id"] =
+            "/redfish/v1/Chassis/" + chassis_name + "/Power";
+        res.jsonValue["@odata.type"] = "#Power.v1_2_1.Power";
+        res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
+        res.jsonValue["Id"] = "Power";
+        res.jsonValue["Name"] = "Power";
+        res.jsonValue["PowerControl"] = nlohmann::json::array();
+
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name, typeList, "Power");
         // TODO Need to retrieve Power Control information.
