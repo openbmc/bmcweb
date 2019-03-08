@@ -66,14 +66,11 @@ class Thermal : public Node
 
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Chassis/" + chassisName + "/Thermal";
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.end();
-        return;
-#endif
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName,
             std::initializer_list<const char*>{
                 "/xyz/openbmc_project/sensors/fan",
+                "/xyz/openbmc_project/sensors/fan_tach",
                 "/xyz/openbmc_project/sensors/temperature",
                 "/xyz/openbmc_project/sensors/fan_pwm"},
             "Thermal");
