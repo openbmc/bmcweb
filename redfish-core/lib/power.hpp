@@ -55,6 +55,8 @@ class Power : public Node
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
+        res.jsonValue["PowerControl"] = nlohmann::json::array();
+
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name,
             std::initializer_list<const char*>{
