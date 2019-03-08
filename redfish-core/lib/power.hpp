@@ -68,10 +68,6 @@ class Power : public Node
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
         res.jsonValue["Id"] = "Power";
         res.jsonValue["Name"] = "Power";
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.end();
-        return;
-#endif
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name, typeList, "Power");
         // TODO Need to retrieve Power Control information.
