@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "redfish_util.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -406,7 +408,6 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Led.Physical");
 }
-
 /**
  * @brief Retrieves host state properties over dbus
  *
@@ -647,8 +648,42 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+        res.jsonValue["Links"]["ManagedBy"] = {
+            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+
+        res.jsonValue["Status"] = {
+            {"Health", "OK"},
+            {"State", "Enabled"},
+        };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const VariantType &biosId) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string *strBiosId =
+                    std::get_if<std::string>(&biosId);
+                if (strBiosId != nullptr)
+                {
+                    BMCWEB_LOG_DEBUG << "bios ver. = " << strBiosId;
+                    asyncResp->res.jsonValue["BiosVersion"] = *strBiosId;
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/bios",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Inventory.Item.Bios", "BiosId");
+
+        getMainChassisId(
+            asyncResp, [](const std::string &chassisId,
+                          const std::shared_ptr<AsyncResp> &aResp) {
+                aResp->res.jsonValue["Links"]["Chassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+            });
         getLedGroupIdentify(
             asyncResp,
             [&](const bool &asserted, const std::shared_ptr<AsyncResp> &aResp) {
