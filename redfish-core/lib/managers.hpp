@@ -16,6 +16,7 @@
 #pragma once
 
 #include "node.hpp"
+#include "redfish_util.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
 #include <dbus_utility.hpp>
@@ -927,7 +928,6 @@ class Manager : public Node
                 pidConfigurationIface, pidZoneConfigurationIface,
                 objectManagerIface, stepwiseConfigurationIface});
     }
-
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -990,8 +990,8 @@ class Manager : public Node
         res.jsonValue["Links"]["ManagerForChassis"] = {
             {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
 #endif
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
+        auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& resp) {
@@ -1036,6 +1036,14 @@ class Manager : public Node
             "/xyz/openbmc_project/software",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         getPidValues(asyncResp);
+
+        getMainChassisId(
+            asyncResp, [asyncResp](const std::string& chassisId) {
+                asyncResp->res.jsonValue["Links"]["ManagerForChassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+                asyncResp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] =
+                    1;
+            });
     }
     void setPidValues(std::shared_ptr<AsyncResp> response, nlohmann::json& data)
     {
