@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "redfish_util.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
@@ -36,7 +38,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
+        [aResp](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -306,7 +308,7 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get led groups";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)},
+        [aResp,
          callback{std::move(callback)}](const boost::system::error_code &ec,
                                         const ManagedObjectsType &resp) {
             if (ec)
@@ -405,7 +407,6 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Led.Physical");
 }
-
 /**
  * @brief Retrieves host state properties over dbus
  *
@@ -417,8 +418,8 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get host information.";
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](const boost::system::error_code ec,
-                                  const std::variant<std::string> &hostState) {
+        [aResp](const boost::system::error_code ec,
+                const std::variant<std::string> &hostState) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -699,9 +700,8 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
     BMCWEB_LOG_DEBUG << "Get boot information.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
-            const boost::system::error_code ec,
-            const sdbusplus::message::variant<bool> &oneTime) {
+        [aResp](const boost::system::error_code ec,
+                const sdbusplus::message::variant<bool> &oneTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1139,33 +1139,65 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.jsonValue["Links"]["Chassis"] = {
-            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
-#endif
+        res.jsonValue["Links"]["ManagedBy"] = {
+            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
+        res.jsonValue["Status"] = {
+            {"Health", "OK"},
+            {"State", "Enabled"},
+        };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const VariantType &biosId) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string *strBiosId =
+                    std::get_if<std::string>(&biosId);
+                if (strBiosId != nullptr)
+                {
+                    BMCWEB_LOG_DEBUG << "bios ver. = " << strBiosId;
+                    asyncResp->res.jsonValue["BiosVersion"] = *strBiosId;
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/bios",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Inventory.Item.Bios", "BiosId");
+
+#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
+        asyncResp->res.jsonValue["Links"]["Chassis"] = {
+            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
+#else
+        getMainChassisId(asyncResp, [](const std::string &chassisId,
+                                       std::shared_ptr<AsyncResp> aRsp) {
+            aRsp->res.jsonValue["Links"]["Chassis"] = {
+                {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+        });
+#endif
         getLedGroupIdentify(
             asyncResp,
-            [&](const bool &asserted, const std::shared_ptr<AsyncResp> &aResp) {
+            [](const bool &asserted, const std::shared_ptr<AsyncResp> aRsp) {
                 if (asserted)
                 {
                     // If led group is asserted, then another call is needed to
                     // get led status
                     getLedIdentify(
-                        aResp, [](const std::string &ledStatus,
-                                  const std::shared_ptr<AsyncResp> &aResp) {
+                        aRsp, [](const std::string &ledStatus,
+                                 const std::shared_ptr<AsyncResp> aRsp) {
                             if (!ledStatus.empty())
                             {
-                                aResp->res.jsonValue["IndicatorLED"] =
-                                    ledStatus;
+                                aRsp->res.jsonValue["IndicatorLED"] = ledStatus;
                             }
                         });
                 }
                 else
                 {
-                    aResp->res.jsonValue["IndicatorLED"] = "Off";
+                    aRsp->res.jsonValue["IndicatorLED"] = "Off";
                 }
             });
         getComputerSystem(asyncResp);
