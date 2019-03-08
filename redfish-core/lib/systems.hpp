@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "redfish_util.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -406,7 +408,6 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Led.Physical");
 }
-
 /**
  * @brief Retrieves host state properties over dbus
  *
@@ -647,8 +648,21 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+        res.jsonValue["Links"]["ManagedBy"] = {
+            {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+
+        res.jsonValue["Status"] = {
+            {"Health", "OK"},
+            {"State", "Enabled"},
+        };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
+        getMainChassisId(
+            asyncResp, [](const std::string &chassisId,
+                          const std::shared_ptr<AsyncResp> &aResp) {
+                aResp->res.jsonValue["Links"]["Chassis"] = {
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+            });
         getLedGroupIdentify(
             asyncResp,
             [&](const bool &asserted, const std::shared_ptr<AsyncResp> &aResp) {
