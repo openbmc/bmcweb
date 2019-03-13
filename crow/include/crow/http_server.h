@@ -2,10 +2,16 @@
 
 #include <atomic>
 #include <boost/asio/deadline_timer.hpp>
+#include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/ssl/context.hpp>
+#if BOOST_VERSION >= 107000
+#include <boost/beast/ssl/ssl_stream.hpp>
+#else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
+#endif
+
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
@@ -47,9 +53,8 @@ class Server
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
-                   *io,
-                   tcp::endpoint(
-                       boost::asio::ip::address::from_string(bindaddr), port)),
+                   *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
+                                      port)),
                middlewares, adaptor_ctx, io)
     {
     }
@@ -168,30 +173,50 @@ class Server
                                        boost::asio::ip::tcp::socket>>::value)
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
+            Connection<Adaptor, Handler, Middlewares...>* p =
+                new Connection<Adaptor, Handler, Middlewares...>(
+                    *ioService, handler, serverName, middlewares,
+                    getCachedDateStr, timerQueue,
+                    std::move(adaptorTemp.value()));
+
+            acceptor->async_accept(p->socket().next_layer(),
+                                   [this, p](boost::system::error_code ec) {
+                                       if (!ec)
+                                       {
+                                           boost::asio::post(
+                                               *this->ioService,
+                                               [p] { p->start(); });
+                                       }
+                                       else
+                                       {
+                                           delete p;
+                                       }
+                                       doAccept();
+                                   });
         }
         else
         {
             adaptorTemp = Adaptor(*ioService);
+            Connection<Adaptor, Handler, Middlewares...>* p =
+                new Connection<Adaptor, Handler, Middlewares...>(
+                    *ioService, handler, serverName, middlewares,
+                    getCachedDateStr, timerQueue,
+                    std::move(adaptorTemp.value()));
+
+            acceptor->async_accept(
+                p->socket(), [this, p](boost::system::error_code ec) {
+                    if (!ec)
+                    {
+                        boost::asio::post(*this->ioService,
+                                          [p] { p->start(); });
+                    }
+                    else
+                    {
+                        delete p;
+                    }
+                    doAccept();
+                });
         }
-
-        Connection<Adaptor, Handler, Middlewares...>* p =
-            new Connection<Adaptor, Handler, Middlewares...>(
-                *ioService, handler, serverName, middlewares, getCachedDateStr,
-                timerQueue, std::move(adaptorTemp.value()));
-
-        acceptor->async_accept(p->socket().lowest_layer(),
-                               [this, p](boost::system::error_code ec) {
-                                   if (!ec)
-                                   {
-                                       this->ioService->post(
-                                           [p] { p->start(); });
-                                   }
-                                   else
-                                   {
-                                       delete p;
-                                   }
-                                   doAccept();
-                               });
     }
 
   private:

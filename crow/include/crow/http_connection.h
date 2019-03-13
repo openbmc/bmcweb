@@ -8,7 +8,11 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/ssl.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
+#if BOOST_VERSION >= 107000
+#include <boost/beast/ssl/ssl_stream.hpp>
+#else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
+#endif
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
@@ -323,30 +327,22 @@ class Connection
             }
         }
 
-        std::string epName;
-        boost::system::error_code ec;
-        tcp::endpoint ep = adaptor.lowest_layer().remote_endpoint(ec);
-        if (!ec)
-        {
-            epName = boost::lexical_cast<std::string>(ep);
-        }
-
-        BMCWEB_LOG_INFO << "Request: " << epName << " " << this << " HTTP/"
-                        << req->version() / 10 << "." << req->version() % 10
-                        << ' ' << req->methodString() << " " << req->target();
+        BMCWEB_LOG_INFO << "Request: "
+                        << " " << this << " HTTP/" << req->version() / 10 << "."
+                        << req->version() % 10 << ' ' << req->methodString()
+                        << " " << req->target();
 
         needToCallAfterHandlers = false;
 
         if (!isInvalidRequest)
         {
             res.completeRequestHandler = [] {};
-            res.isAliveHelper = [this]() -> bool {
-                return adaptor.lowest_layer().is_open();
-            };
+            res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
             ctx = detail::Context<Middlewares...>();
             req->middlewareContext = static_cast<void*>(&ctx);
-            req->ioService = &adaptor.get_executor().context();
+            req->ioService = static_cast<decltype(req->ioService)>(
+                &adaptor.get_executor().context());
             detail::middlewareCallHelper<
                 0, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
@@ -378,6 +374,35 @@ class Connection
         }
     }
 
+    bool isAlive()
+    {
+
+        if constexpr (std::is_same_v<Adaptor,
+                                     boost::beast::ssl_stream<
+                                         boost::asio::ip::tcp::socket>>)
+        {
+            return adaptor.next_layer().is_open();
+        }
+        else
+        {
+            return adaptor.is_open();
+        }
+    }
+    void close()
+    {
+
+        if constexpr (std::is_same_v<Adaptor,
+                                     boost::beast::ssl_stream<
+                                         boost::asio::ip::tcp::socket>>)
+        {
+            adaptor.next_layer().close();
+        }
+        else
+        {
+            adaptor.close();
+        }
+    }
+
     void completeRequest()
     {
         BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
@@ -396,7 +421,7 @@ class Connection
         // auto self = this->shared_from_this();
         res.completeRequestHandler = [] {};
 
-        if (!adaptor.lowest_layer().is_open())
+        if (!isAlive())
         {
             // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
             // isReading
@@ -455,7 +480,7 @@ class Connection
                 {
                     // if the adaptor isn't open anymore, and wasn't handed to a
                     // websocket, treat as an error
-                    if (!adaptor.lowest_layer().is_open() && !req->isUpgrade())
+                    if (!isAlive() && !req->isUpgrade())
                     {
                         errorWhileReading = true;
                     }
@@ -464,7 +489,7 @@ class Connection
                 if (errorWhileReading)
                 {
                     cancelDeadlineTimer();
-                    adaptor.lowest_layer().close();
+                    close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     checkDestroy();
                     return;
@@ -504,7 +529,7 @@ class Connection
                 }
                 else
                 {
-                    if (!adaptor.lowest_layer().is_open())
+                    if (!isAlive())
                     {
                         errorWhileReading = true;
                     }
@@ -512,7 +537,7 @@ class Connection
                 if (errorWhileReading)
                 {
                     cancelDeadlineTimer();
-                    adaptor.lowest_layer().close();
+                    close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     checkDestroy();
                     return;
@@ -544,7 +569,7 @@ class Connection
                 }
                 if (!res.keepAlive())
                 {
-                    adaptor.lowest_layer().close();
+                    close();
                     BMCWEB_LOG_DEBUG << this << " from write(1)";
                     checkDestroy();
                     return;
@@ -586,11 +611,11 @@ class Connection
         cancelDeadlineTimer();
 
         timerCancelKey = timerQueue.add([this] {
-            if (!adaptor.lowest_layer().is_open())
+            if (!isAlive())
             {
                 return;
             }
-            adaptor.lowest_layer().close();
+            close();
         });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
                          << timerCancelKey;
