@@ -588,8 +588,15 @@ static void
             {
                 return; // don't have to have this interface
             }
-            for (const auto& [path, objDict] : resp)
+            for (const std::pair<std::string,
+                                 std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>&
+                     pathPair : resp)
             {
+                const std::string& path = pathPair.first;
+                const std::vector<
+                    std::pair<std::string, std::vector<std::string>>>& objDict =
+                    pathPair.second;
                 if (objDict.empty())
                 {
                     continue; // this should be impossible
