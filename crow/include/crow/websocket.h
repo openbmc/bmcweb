@@ -66,7 +66,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 
     boost::asio::io_context& get_io_context() override
     {
-        return ws.get_executor().context();
+        return (boost::asio::io_context&)ws.get_executor().context();
     }
 
     void start()
