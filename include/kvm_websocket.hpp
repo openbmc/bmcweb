@@ -137,7 +137,7 @@ inline void requestRoutes(CrowApp& app)
             if (hostSocket == nullptr)
             {
                 boost::asio::ip::tcp::endpoint endpoint(
-                    boost::asio::ip::address::from_string("127.0.0.1"), 5900);
+                    boost::asio::ip::make_address("127.0.0.1"), 5900);
 
                 hostSocket = std::make_unique<boost::asio::ip::tcp::socket>(
                     conn.get_io_context());
@@ -148,8 +148,13 @@ inline void requestRoutes(CrowApp& app)
             [](crow::websocket::Connection& conn, const std::string& reason) {
                 session = nullptr;
                 hostSocket = nullptr;
+#if BOOST_VERSION >= 107000
+                inputBuffer.clear();
+                outputBuffer.clear();
+#else
                 inputBuffer.reset();
                 outputBuffer.reset();
+#endif
             })
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool is_binary) {
