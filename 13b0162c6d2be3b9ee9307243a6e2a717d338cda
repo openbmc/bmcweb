@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "53e3d7ac_1052e5d1",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-13T10:56:20Z",
+      "side": 1,
+      "message": "Are we supporting the PKCS7?",
+      "range": {
+        "startLine": 77,
+        "startChar": 65,
+        "endLine": 77,
+        "endChar": 72
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a82b5b4_89151bf6",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-13T10:56:20Z",
+      "side": 1,
+      "message": "where it is getting used?",
+      "range": {
+        "startLine": 174,
+        "startChar": 32,
+        "endLine": 174,
+        "endChar": 68
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4bc2593c_189d8d77",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-13T10:56:20Z",
+      "side": 1,
+      "message": "before moving further should we check the certificate tye?\nIf certificate type is not PEM then throw error message like\n\"propertyValuenotinthelist\".\nOr we can have other option where we can modify this value internally to PEM and send the extended error message says that property value modified.",
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5feea39c_6448ac0f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-13T10:56:20Z",
+      "side": 1,
+      "message": "need to send the modified resource.",
+      "range": {
+        "startLine": 198,
+        "startChar": 7,
+        "endLine": 198,
+        "endChar": 50
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
