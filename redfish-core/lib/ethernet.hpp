@@ -83,6 +83,7 @@ struct EthernetInterfaceData
     std::string mac_address;
     std::optional<uint32_t> vlan_id;
     std::vector<std::string> nameservers;
+    std::vector<std::string> ntpservers;
 };
 
 // Helper function that changes bits netmask notation (i.e. /24)
@@ -228,6 +229,17 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (nameservers != nullptr)
                             {
                                 ethData.nameservers = std::move(*nameservers);
+                            }
+                        }
+                        else if (propertyPair.first == "NTPServers")
+                        {
+                            const std::vector<std::string> *nameservers =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (nameservers != nullptr)
+                            {
+                                ethData.ntpservers = std::move(*nameservers);
                             }
                         }
                     }
@@ -1107,6 +1119,99 @@ class EthernetInterface : public Node
         }
     }
 
+    void handleNTPServersPatch(const std::string &ifaceId,
+                               const nlohmann::json &input,
+                               const std::vector<std::string> &ntpServers,
+                               const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        int inputNTPServersIdx = 0;
+        int existingNTPServersIdx = 0;
+        std::vector<std::string> updatedNTPServers;
+
+        if (input.is_array())
+        {
+            for (auto &thisJson : input)
+            {
+                std::string pathString =
+                    "NTPServers/" + std::to_string(inputNTPServersIdx);
+                if (thisJson.is_null())
+                {
+                    if (existingNTPServersIdx < ntpServers.size())
+                    {
+                        // Delete the server name from the updated list
+                        // Don't copy and increment the pointer
+                        ++existingNTPServersIdx;
+                    }
+                    else
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, input.dump(), pathString);
+                    }
+                }
+                else if (thisJson.empty())
+                {
+                    if (existingNTPServersIdx < ntpServers.size())
+                    {
+                        // Copy the server name to the updated list
+                        // and increment the pointer
+                        updatedNTPServers.emplace_back(
+                            ntpServers[existingNTPServersIdx]);
+                        ++existingNTPServersIdx;
+                    }
+                    else
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, input.dump(), pathString);
+                    }
+                }
+                else if (thisJson.is_string())
+                {
+                    auto ntpServer = thisJson.get<std::string>();
+                    updatedNTPServers.emplace_back(ntpServer);
+
+                    // Replacement of server name
+                    // Replace the server name in the updated list and
+                    // increment the pointer
+                    if (existingNTPServersIdx < ntpServers.size())
+                    {
+                        ++existingNTPServersIdx;
+                    }
+                }
+                else
+                {
+                    messages::propertyValueTypeError(asyncResp->res,
+                                                     input.dump(), pathString);
+                }
+                ++inputNTPServersIdx;
+            }
+        }
+        // Patch has not caused any change to the remaining
+        // list of existing server names. Copy them to the
+        // updated list to update the D-Bus.
+        while (existingNTPServersIdx < ntpServers.size())
+        {
+            // Copy the server name to the updated list
+            // and increment the pointer
+            updatedNTPServers.emplace_back(ntpServers[existingNTPServersIdx]);
+            ++existingNTPServersIdx;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, updatedNTPServers](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["NTPServers"] = updatedNTPServers;
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "NTPServers",
+            std::variant<std::vector<std::string>>{updatedNTPServers});
+    }
+
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &iface_id,
         const EthernetInterfaceData &ethData,
@@ -1150,7 +1255,9 @@ class EthernetInterface : public Node
             vlanObj["VLANEnable"] = false;
             vlanObj["VLANId"] = 0;
         }
+
         json_response["NameServers"] = ethData.nameservers;
+        json_response["NTPServers"] = ethData.ntpservers;
 
         if (ipv4Data.size() > 0)
         {
@@ -1221,10 +1328,12 @@ class EthernetInterface : public Node
         std::optional<std::string> hostname;
         std::optional<std::vector<nlohmann::json>> ipv4Addresses;
         std::optional<std::vector<nlohmann::json>> ipv6Addresses;
+        std::optional<nlohmann::json> ntpServers;
 
         if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
-                                 "IPv6Addresses", ipv6Addresses))
+                                 "IPv6Addresses", ipv6Addresses, "NTPServers",
+                                 ntpServers))
         {
             return;
         }
@@ -1260,7 +1369,8 @@ class EthernetInterface : public Node
             [this, asyncResp, iface_id, vlanId, vlanEnable,
              hostname = std::move(hostname),
              ipv4Addresses = std::move(ipv4Addresses),
-             ipv6Addresses = std::move(ipv6Addresses)](
+             ipv6Addresses = std::move(ipv6Addresses),
+             ntpServers = std::move(ntpServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1298,6 +1408,12 @@ class EthernetInterface : public Node
                     std::vector<nlohmann::json> ipv4 =
                         std::move(*ipv4Addresses);
                     handleIPv4Patch(iface_id, ipv4, ipv4Data, asyncResp);
+                }
+
+                if (ntpServers)
+                {
+                    handleNTPServersPatch(iface_id, *ntpServers,
+                                          ethData.ntpservers, asyncResp);
                 }
 
                 if (ipv6Addresses)
