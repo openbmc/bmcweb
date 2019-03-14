@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c62e0cf_3596b4ec",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-14T09:09:17Z",
+      "side": 1,
+      "message": "removing not supporting type for now",
+      "parentUuid": "53e3d7ac_1052e5d1",
+      "range": {
+        "startLine": 77,
+        "startChar": 65,
+        "endLine": 77,
+        "endChar": 72
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2a82b5b4_89151bf6",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-13T10:56:20Z",
       "side": 1,
       "message": "where it is getting used?",
+      "range": {
+        "startLine": 174,
+        "startChar": 32,
+        "endLine": 174,
+        "endChar": 68
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4085df46_2e6cbff6",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-14T09:09:17Z",
+      "side": 1,
+      "message": "not used for now will remove",
+      "parentUuid": "2a82b5b4_89151bf6",
       "range": {
         "startLine": 174,
         "startChar": 32,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "c192b98a_b5b3c260",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-14T09:09:17Z",
+      "side": 1,
+      "message": "we are not using type for now, so will remove it",
+      "parentUuid": "4bc2593c_189d8d77",
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5feea39c_6448ac0f",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 11
@@ -76,6 +142,30 @@
       "writtenOn": "2019-03-13T10:56:20Z",
       "side": 1,
       "message": "need to send the modified resource.",
+      "range": {
+        "startLine": 198,
+        "startChar": 7,
+        "endLine": 198,
+        "endChar": 50
+      },
+      "revId": "13b0162c6d2be3b9ee9307243a6e2a717d338cda",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe5a74c3_67a0df7b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-14T09:09:17Z",
+      "side": 1,
+      "message": "done",
+      "parentUuid": "5feea39c_6448ac0f",
       "range": {
         "startLine": 198,
         "startChar": 7,
