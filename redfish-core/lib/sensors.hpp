@@ -427,6 +427,202 @@ void objectInterfacesToJson(
     BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
 }
 
+static void
+    populateFanRedundancy(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [sensorsAsyncResp](const boost::system::error_code ec,
+                           const GetSubTreeType& resp) {
+            if (ec)
+            {
+                return; // don't have to have this interface
+            }
+            for (const auto& [path, objDict] : resp)
+            {
+                if (objDict.empty())
+                {
+                    continue; // this should be impossible
+                }
+
+                const std::string& owner = objDict.begin()->first;
+                crow::connections::systemBus->async_method_call(
+                    [path, owner,
+                     sensorsAsyncResp](const boost::system::error_code ec,
+                                       std::variant<std::vector<std::string>>
+                                           variantEndpoints) {
+                        if (ec)
+                        {
+                            return; // if they don't have an association we
+                                    // can't tell what chassis is
+                        }
+                        // verify part of the right chassis
+                        auto endpoints = std::get_if<std::vector<std::string>>(
+                            &variantEndpoints);
+
+                        if (endpoints == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR << "Invalid association interface";
+                            messages::internalError(sensorsAsyncResp->res);
+                            return;
+                        }
+
+                        auto found = std::find_if(
+                            endpoints->begin(), endpoints->end(),
+                            [sensorsAsyncResp](const std::string& entry) {
+                                return entry.find(
+                                           sensorsAsyncResp->chassisId) !=
+                                       std::string::npos;
+                            });
+
+                        if (found == endpoints->end())
+                        {
+                            return;
+                        }
+                        crow::connections::systemBus->async_method_call(
+                            [path, sensorsAsyncResp](
+                                const boost::system::error_code ec,
+                                const boost::container::flat_map<
+                                    std::string,
+                                    std::variant<uint8_t,
+                                                 std::vector<std::string>,
+                                                 std::string>>& ret) {
+                                if (ec)
+                                {
+                                    return; // don't have to have this
+                                            // interface
+                                }
+                                auto findFailures = ret.find("AllowedFailures");
+                                auto findCollection = ret.find("Collection");
+                                auto findStatus = ret.find("Status");
+
+                                if (findFailures == ret.end() ||
+                                    findCollection == ret.end() ||
+                                    findStatus == ret.end())
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Invalid redundancy interface";
+                                    messages::internalError(
+                                        sensorsAsyncResp->res);
+                                    return;
+                                }
+
+                                auto allowedFailures = std::get_if<uint8_t>(
+                                    &(findFailures->second));
+                                auto collection =
+                                    std::get_if<std::vector<std::string>>(
+                                        &(findCollection->second));
+                                auto status = std::get_if<std::string>(
+                                    &(findStatus->second));
+
+                                if (allowedFailures == nullptr ||
+                                    collection == nullptr || status == nullptr)
+                                {
+
+                                    BMCWEB_LOG_ERROR
+                                        << "Invalid redundancy interface "
+                                           "types";
+                                    messages::internalError(
+                                        sensorsAsyncResp->res);
+                                    return;
+                                }
+                                size_t lastSlash = path.rfind("/");
+                                if (lastSlash == std::string::npos)
+                                {
+                                    // this should be impossible
+                                    messages::internalError(
+                                        sensorsAsyncResp->res);
+                                    return;
+                                }
+                                std::string name = path.substr(lastSlash + 1);
+                                std::replace(name.begin(), name.end(), '_',
+                                             ' ');
+
+                                std::string health;
+
+                                if (boost::ends_with(*status, "Full"))
+                                {
+                                    health = "OK";
+                                }
+                                else if (boost::ends_with(*status, "Degraded"))
+                                {
+                                    health = "Warning";
+                                }
+                                else
+                                {
+                                    health = "Critical";
+                                }
+                                std::vector<nlohmann::json> redfishCollection;
+                                const auto& fanRedfish =
+                                    sensorsAsyncResp->res.jsonValue["Fans"];
+                                for (const std::string& item : *collection)
+                                {
+                                    lastSlash = item.rfind("/");
+                                    // make a copy as collection is const
+                                    std::string itemName =
+                                        item.substr(lastSlash + 1);
+                                    /*
+                                    todo(ed): merge patch that fixes the names
+                                    std::replace(itemName.begin(),
+                                                 itemName.end(), '_', ' ');*/
+                                    auto schemaItem = std::find_if(
+                                        fanRedfish.begin(), fanRedfish.end(),
+                                        [itemName](const nlohmann::json& fan) {
+                                            return fan["MemberId"] == itemName;
+                                        });
+                                    if (schemaItem != fanRedfish.end())
+                                    {
+                                        redfishCollection.push_back(
+                                            {{"@odata.id",
+                                              (*schemaItem)["@odata.id"]}});
+                                    }
+                                    else
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "failed to find fan in schema";
+                                        messages::internalError(
+                                            sensorsAsyncResp->res);
+                                        return;
+                                    }
+                                }
+
+                                auto& resp = sensorsAsyncResp->res
+                                                 .jsonValue["Redundancy"];
+                                resp.push_back(
+                                    {{"@odata.id",
+                                      "/refish/v1/Chassis/" +
+                                          sensorsAsyncResp->chassisId + "/" +
+                                          sensorsAsyncResp->chassisSubNode +
+                                          "#/Redundancy/" +
+                                          std::to_string(resp.size())},
+                                     {"@odata.type",
+                                      "#Redundancy.v1_3_2.Redundancy"},
+                                     {"MinNumNeeded",
+                                      collection->size() - *allowedFailures},
+                                     {"MemberId", name},
+                                     {"Mode", "N+m"},
+                                     {"Name", name},
+                                     {"RedundancySet", redfishCollection},
+                                     {"Status",
+                                      {{"Health", health},
+                                       {"State", "Enabled"}}}});
+                            },
+                            owner, path, "org.freedesktop.DBus.Properties",
+                            "GetAll",
+                            "xyz.openbmc_project.Control.FanRedundancy");
+                    },
+                    "xyz.openbmc_project.ObjectMapper", path + "/inventory",
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Association", "endpoints");
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/control", 2,
+        std::array<const char*, 1>{
+            "xyz.openbmc_project.Control.FanRedundancy"});
+}
+
 /**
  * @brief Entry point for retrieving sensors data related to requested
  *        chassis.
@@ -546,6 +742,11 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                                                        objDictEntry.second,
                                                        sensorJson);
                             }
+                            if (SensorsAsyncResp.use_count() == 1 &&
+                                SensorsAsyncResp->chassisSubNode == "Thermal")
+                            {
+                                populateFanRedundancy(SensorsAsyncResp);
+                            }
                             BMCWEB_LOG_DEBUG << "getManagedObjectsCb exit";
                         };
                     crow::connections::systemBus->async_method_call(
@@ -553,6 +754,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                         "org.freedesktop.DBus.ObjectManager",
                         "GetManagedObjects");
                 };
+
                 BMCWEB_LOG_DEBUG << "getConnectionCb exit";
             };
         // get connections and then pass it to get sensors
@@ -560,7 +762,6 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
                        std::move(getConnectionCb));
         BMCWEB_LOG_DEBUG << "getChassisCb exit";
     };
-
     // get chassis information related to sensors
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
