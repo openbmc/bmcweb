@@ -438,6 +438,11 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                     .session;
             if (session != nullptr)
             {
+                res.jsonValue = {
+                    {"data", "User '" + session->username + "' logged out"},
+                    {"message", "200 OK"},
+                    {"status", "ok"}};
+
                 persistent_data::SessionStore::getInstance().removeSession(
                     session);
             }
