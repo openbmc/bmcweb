@@ -273,6 +273,477 @@ class AccountService : public Node
 
   private:
     /**
+     * @brief parses the authentication section under the LDAP
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param userName  userName to be filled from the given JSON.
+     * @param password  password to be filled from the given JSON.
+     */
+    void
+        parseLDAPAuthenticationJson(nlohmann::json input,
+                                    const std::shared_ptr<AsyncResp>& asyncResp,
+                                    std::optional<std::string>& username,
+                                    std::optional<std::string>& password)
+    {
+        std::optional<std::string> authType;
+
+        if (!json_util::readJson(input, asyncResp->res, "AuthenticationType",
+                                 authType, "Username", username, "Password",
+                                 password))
+        {
+            return;
+        }
+        if (!authType)
+        {
+            return;
+        }
+        if (*authType != "UsernameAndPassword")
+        {
+            messages::propertyValueNotInList(asyncResp->res, *authType,
+                                             "AuthenticationType");
+            return;
+        }
+    }
+    /**
+     * @brief parses the LDAPService section under the LDAP
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param baseDNList baseDN to be filled from the given JSON.
+     * @param userNameAttribute  userName to be filled from the given JSON.
+     * @param groupaAttribute  password to be filled from the given JSON.
+     */
+
+    void parseLDAPServiceJson(
+        nlohmann::json input, const std::shared_ptr<AsyncResp>& asyncResp,
+        std::optional<std::vector<std::string>>& baseDNList,
+        std::optional<std::string>& userNameAttribute,
+        std::optional<std::string>& groupsAttribute)
+    {
+        std::optional<nlohmann::json> searchSettings;
+
+        if (!json_util::readJson(input, asyncResp->res, "SearchSettings",
+                                 searchSettings))
+        {
+            return;
+        }
+        if (!searchSettings)
+        {
+            return;
+        }
+        if (!json_util::readJson(*searchSettings, asyncResp->res,
+                                 "BaseDistinguishedNames", baseDNList,
+                                 "UsernameAttribute", userNameAttribute,
+                                 "GroupsAttribute", groupsAttribute))
+        {
+            return;
+        }
+    }
+    /**
+     * @brief updates the LDAP server address and updates the
+              json response with the new value.
+     * @param serviceAddressList address to be updated.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleServiceAddressPatch(
+        const std::vector<std::string>& serviceAddressList,
+        const std::shared_ptr<AsyncResp>& asyncResp,
+        const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, ldapServerElementName,
+             serviceAddressList](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Error Occured in updating the service address";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::vector<std::string> modifiedserviceAddressList = {
+                    serviceAddressList.front()};
+                asyncResp->res
+                    .jsonValue[ldapServerElementName]["ServiceAddresses"] =
+                    modifiedserviceAddressList;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                if ((serviceAddressList).size() > 1)
+                {
+                    messages::propertyValueModified(asyncResp->res,
+                                                    "ServiceAddresses",
+                                                    serviceAddressList.front());
+                }
+                BMCWEB_LOG_DEBUG << "Updated the service address";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "LDAPServerURI",
+            std::variant<std::string>(serviceAddressList.front()));
+    }
+    /**
+     * @brief updates the LDAP Bind DN and updates the
+              json response with the new value.
+     * @param username name of the user which needs to be updated.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleUserNamePatch(const std::string& username,
+                             const std::shared_ptr<AsyncResp>& asyncResp,
+                             const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, username,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Error occured in updating the username";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res
+                    .jsonValue[ldapServerElementName]["AuthenticationType"] =
+                    "UsernameAndPassword";
+                ;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                BMCWEB_LOG_DEBUG << "Updated the username";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "LDAPBindDN",
+            std::variant<std::string>(username));
+    }
+    /**
+     * @brief updates the LDAP BaseDN and updates the
+              json response with the new value.
+     * @param baseDNList baseDN list which needs to be updated.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleBaseDNPatch(const std::vector<std::string>& baseDNList,
+                           const std::shared_ptr<AsyncResp>& asyncResp,
+                           const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, baseDNList,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the base DN";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                auto& serverTypeJson =
+                    asyncResp->res.jsonValue[ldapServerElementName];
+                auto& searchSettingsJson =
+                    serverTypeJson["LDAPService"]["SearchSettings"];
+                std::vector<std::string> modifiedBaseDNList = {
+                    baseDNList.front()};
+                searchSettingsJson["BaseDistinguishedNames"] =
+                    modifiedBaseDNList;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                if (baseDNList.size() > 1)
+                {
+                    messages::propertyValueModified(asyncResp->res,
+                                                    "BaseDistinguishedNames",
+                                                    baseDNList.front());
+                }
+                BMCWEB_LOG_DEBUG << "Updated the base DN";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "LDAPBaseDN",
+            std::variant<std::string>(baseDNList.front()));
+    }
+    /**
+     * @brief updates the LDAP user name attribute and updates the
+              json response with the new value.
+     * @param userNameAttribute attribute to be updated.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleUserNameAttrPatch(const std::string& userNameAttribute,
+                                 const std::shared_ptr<AsyncResp>& asyncResp,
+                                 const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, userNameAttribute,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the "
+                                        "username attribute";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                auto& serverTypeJson =
+                    asyncResp->res.jsonValue[ldapServerElementName];
+                auto& searchSettingsJson =
+                    serverTypeJson["LDAPService"]["SearchSettings"];
+                searchSettingsJson["UsernameAttribute"] = userNameAttribute;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                BMCWEB_LOG_DEBUG << "Updated the user name attr.";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "UserNameAttribute",
+            std::variant<std::string>(userNameAttribute));
+    }
+    /**
+     * @brief updates the LDAP group attribute and updates the
+              json response with the new value.
+     * @param groupsAttribute attribute to be updated.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleGroupNameAttrPatch(const std::string& groupsAttribute,
+                                  const std::shared_ptr<AsyncResp>& asyncResp,
+                                  const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, groupsAttribute,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "Error Occured in Updating the "
+                                        "groupname attribute";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                auto& serverTypeJson =
+                    asyncResp->res.jsonValue[ldapServerElementName];
+                auto& searchSettingsJson =
+                    serverTypeJson["LDAPService"]["SearchSettings"];
+                searchSettingsJson["GroupsAttribute"] = groupsAttribute;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                BMCWEB_LOG_DEBUG << "Updated the groupname attr";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "GroupNameAttribute",
+            std::variant<std::string>(groupsAttribute));
+    }
+    /**
+     * @brief updates the LDAP service type and updates the
+              json response with the new value.
+     * @param accountProviderType LDAP provider type
+     * @param serverType represents the mapped backend accountProviderType
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleAccountProviderTypePatch(
+        const std::string& accountProviderType, const std::string& serverType,
+        const std::shared_ptr<AsyncResp>& asyncResp,
+        const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, accountProviderType, serverType,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Error Occured in Updating the LDAP type";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res
+                    .jsonValue[ldapServerElementName]["AccountProviderType"] =
+                    accountProviderType;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                BMCWEB_LOG_DEBUG << "Updated the server Type";
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapConfigInterface, "LDAPType",
+            std::variant<std::string>(serverType));
+    }
+    /**
+     * @brief updates the LDAP service enable and updates the
+              json response with the new value.
+     * @param input JSON data.
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     server(openLDAP/ActiveDirectory)
+     */
+
+    void handleServiceEnablePatch(bool serviceEnabled,
+                                  const std::shared_ptr<AsyncResp>& asyncResp,
+                                  const std::string& ldapServerElementName)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, serviceEnabled,
+             ldapServerElementName](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "Error Occured in Updating the service enable";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res
+                    .jsonValue[ldapServerElementName]["ServiceEnabled"] =
+                    serviceEnabled;
+                asyncResp->res.result(boost::beast::http::status::ok);
+                BMCWEB_LOG_DEBUG << "Updated Service enable = "
+                                 << serviceEnabled;
+            },
+            ldapDbusService, ldapConfigObject, propertyInterface, "Set",
+            ldapEnableInterface, "Enabled", std::variant<bool>(serviceEnabled));
+    }
+
+    /**
+     * @brief Get the required values from the given JSON, and updates the
+     *        ldap configuration with the given values.
+     * @param input JSON data
+     * @param asyncResp pointer to the JSON response
+     * @param ldapServerElementName Type of LDAP
+     * server(openLDAP/ActiveDirectory)
+     */
+    void handleLDAPProperties(const nlohmann::json& input,
+                              const std::shared_ptr<AsyncResp>& asyncResp,
+                              const std::string& ldapServerElementName)
+    {
+        std::optional<nlohmann::json> authentication;
+        std::optional<nlohmann::json> ldapService;
+        std::optional<std::string> accountProviderType;
+        std::optional<std::vector<std::string>> serviceAddressList;
+        std::optional<bool> serviceEnabled;
+        std::optional<std::vector<std::string>> baseDNList;
+        std::optional<std::string> userNameAttribute;
+        std::optional<std::string> groupsAttribute;
+        std::optional<std::string> userName;
+        std::optional<std::string> password;
+
+        if (!json_util::readJson(
+                const_cast<nlohmann::json&>(input), asyncResp->res,
+                "Authentication", authentication, "LDAPService", ldapService,
+                "ServiceAddresses", serviceAddressList, "AccountProviderType",
+                accountProviderType, "ServiceEnabled", serviceEnabled))
+        {
+            return;
+        }
+
+        if (authentication)
+        {
+            parseLDAPAuthenticationJson(*authentication, asyncResp, userName,
+                                        password);
+        }
+        if (ldapService)
+        {
+            parseLDAPServiceJson(*ldapService, asyncResp, baseDNList,
+                                 userNameAttribute, groupsAttribute);
+        }
+
+        std::string serverType;
+        if (accountProviderType)
+            if (*accountProviderType == "LDAPService")
+            {
+                serverType =
+                    "xyz.openbmc_project.User.Ldap.Config.Type.OpenLdap";
+            }
+            else if (*accountProviderType == "ActiveDirectoryService")
+            {
+                serverType =
+                    "xyz.openbmc_project.User.Ldap.Config.Type.ActiveDirectory";
+            }
+            else
+            {
+                messages::propertyValueNotInList(asyncResp->res,
+                                                 *accountProviderType,
+                                                 "AccountProviderType");
+            }
+        // nothing to update then return
+        if (!userName && !password &&
+            (!serviceAddressList || (*serviceAddressList).size() == 0) &&
+            (!baseDNList || (*baseDNList).size() == 0) &&
+            (serverType.empty()) && (!userNameAttribute && !groupsAttribute) &&
+            (!serviceEnabled))
+        {
+            return;
+        }
+
+        // Get the existing resource first then keep modifying
+        // whenever any property gets updated.
+        getLDAPConfigData(
+            [this, asyncResp, userName, baseDNList, userNameAttribute,
+             groupsAttribute, accountProviderType, serviceAddressList,
+             serviceEnabled, serverType,
+             ldapServerElementName](bool success, LDAPConfigData confData) {
+                if (!success)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+                if (confData.serviceEnabled)
+                {
+                    // Disable the service first and update the rest of the
+                    // properties.
+                    handleServiceEnablePatch(false, asyncResp,
+                                             ldapServerElementName);
+                }
+
+                if (serviceAddressList)
+                {
+                    handleServiceAddressPatch(*serviceAddressList, asyncResp,
+                                              ldapServerElementName);
+                }
+
+                if (userName)
+                {
+                    handleUserNamePatch(*userName, asyncResp,
+                                        ldapServerElementName);
+                }
+                if (baseDNList)
+                {
+                    handleBaseDNPatch(*baseDNList, asyncResp,
+                                      ldapServerElementName);
+                }
+                if (userNameAttribute)
+                {
+                    handleUserNameAttrPatch(*userNameAttribute, asyncResp,
+                                            ldapServerElementName);
+                }
+                if (groupsAttribute)
+                {
+                    handleGroupNameAttrPatch(*groupsAttribute, asyncResp,
+                                             ldapServerElementName);
+                }
+                if (accountProviderType)
+                {
+                    handleAccountProviderTypePatch(*accountProviderType,
+                                                   serverType, asyncResp,
+                                                   ldapServerElementName);
+                }
+
+                if (serviceEnabled)
+                {
+                    // if user has given the value as true then enable the
+                    // service.
+                    // if user has given false then no-op as service is already
+                    // stopped.
+                    if (*serviceEnabled)
+                    {
+                        handleServiceEnablePatch(*serviceEnabled, asyncResp,
+                                                 ldapServerElementName);
+                    }
+                }
+                else
+                {
+                    // if user has not given the service enabled value then
+                    // revert it to the same state as it was before.
+                    handleServiceEnablePatch(confData.serviceEnabled, asyncResp,
+                                             ldapServerElementName);
+                }
+            });
+    }
+
+    /**
      * @brief Get the required values from the given JSON, validates the
      *        value and create the LDAP config object.
      * @param input JSON data
@@ -286,9 +757,6 @@ class AccountService : public Node
                          const std::vector<std::string>& params,
                          const std::string& serverType)
     {
-        // NOTE: Currently we are expecting the user to provide all the data
-        // under LDAP property as we have backend limitation which starts the
-        // certain processes after each property update.
 
         std::string dbusObjectPath = "/xyz/openbmc_project/user/ldap/config";
         dbus::utility::escapePathForDbus(dbusObjectPath);
@@ -297,16 +765,13 @@ class AccountService : public Node
                                              params, serverType](int rc) {
             if (rc) // if path exist
             {
-                // TODO(ratagupt) handling of individual property would be done
-                // in later commit.
-                BMCWEB_LOG_DEBUG << "D-Bus object exist still forces user to "
-                                    "give all the LDAP config data.";
+                BMCWEB_LOG_DEBUG << "LDAP Config object exist.";
+                handleLDAPProperties(input, asyncResp, serverType);
+                return;
             }
             else
             {
-                // D-bus object path doesn't exist so we need all the
-                // required properties from the user.
-                BMCWEB_LOG_DEBUG << "D-Bus object doesn't exist";
+                BMCWEB_LOG_DEBUG << "LDAP Config object doesn't exist";
             }
 
             std::optional<nlohmann::json> authentication;
