@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cb1a750_c7b8f62c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-03-18T10:36:42Z",
+      "side": 1,
+      "message": "A POST is not supposed to be idempotent, however we treat this a replace (more like a PUT). So I think this should be a PUT.",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
