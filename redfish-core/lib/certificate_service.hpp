@@ -29,9 +29,6 @@ constexpr char const *certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
 constexpr char const *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 constexpr char const *dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
-constexpr char const *mapperBusName = "xyz.openbmc_project.ObjectMapper";
-constexpr char const *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
-constexpr char const *mapperIntf = "xyz.openbmc_project.ObjectMapper";
 constexpr char const *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr char const *httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
@@ -82,6 +79,9 @@ class CertificateService : public Node
             {"target", "/redfish/v1/CertificateService/Actions/"
                        "CertificateService.ReplaceCertificate"},
             {"CertificateType@Redfish.AllowableValues", {"PEM"}}};
+        res.jsonValue["Actions"]["#CertificateService.GenerateCSR"] = {
+            {"target", "/redfish/v1/CertificateService/Actions/"
+                       "CertificateService.GenerateCSR"}};
         res.end();
     }
 }; // CertificateService
@@ -165,6 +165,344 @@ class CertificateFile
     std::filesystem::path certificateFile;
     std::filesystem::path certDirectory;
 };
+
+static std::unique_ptr<sdbusplus::bus::match::match> csrMatcher;
+/**
+ * @brief Read data from CSR D-bus object and set to response
+ *
+ * @param[in] asyncResp Shared pointer to the response message
+ * @param[in] certURI Link to certifiate collection URI
+ * @param[in] service D-Bus service name
+ * @param[in] certObjPath certificate D-Bus object path
+ * @param[in] csrObjPath CSR D-Bus object path
+ * @return None
+ */
+static void getCSR(const std::shared_ptr<AsyncResp> &asyncResp,
+                   const std::string &certURI, const std::string &service,
+                   const std::string &certObjPath,
+                   const std::string &csrObjPath)
+{
+    BMCWEB_LOG_DEBUG << "getCSR CertObjectPath" << certObjPath
+                     << " CSRObjectPath=" << csrObjPath
+                     << " service=" << service;
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, certURI](const boost::system::error_code ec,
+                             const std::string &csr) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (csr.empty())
+            {
+                BMCWEB_LOG_ERROR << "CSR read is empty";
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.jsonValue["CSRString"] = csr;
+            asyncResp->res.jsonValue["CertificateCollection"] = {
+                {"@odata.id", certURI}};
+        },
+        service, csrObjPath, "xyz.openbmc_project.Certs.CSR", "CSR");
+}
+
+/**
+ * Action to Generate CSR
+ */
+class CertificateActionGenerateCSR : public Node
+{
+  public:
+    CertificateActionGenerateCSR(CrowApp &app) :
+        Node(app, "/redfish/v1/CertificateService/Actions/"
+                  "CertificateService.GenerateCSR/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        static const int KEY_BIT_LENGTH = 2048;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        // Required parameters
+        std::optional<std::string> city;
+        std::optional<std::string> commonName;
+        std::optional<std::string> country;
+        std::optional<std::string> organization;
+        std::optional<std::string> organizationalUnit;
+        std::optional<std::string> state;
+        std::optional<nlohmann::json> certificateCollection;
+
+        // Optional parameters
+        std::optional<std::vector<std::string>> optAlternativeNames =
+            std::vector<std::string>();
+        std::optional<std::string> optContactPerson = "";
+        std::optional<std::string> optChallengePassword = "";
+        std::optional<std::string> optEmail = "";
+        std::optional<std::string> optGivenName = "";
+        std::optional<std::string> optInitials = "";
+        std::optional<int64_t> optKeyBitLength = KEY_BIT_LENGTH;
+        std::optional<std::string> optKeyCurveId = "secp224r1";
+        std::optional<std::string> optKeyPairAlgorithm = "EC";
+        std::optional<std::vector<std::string>> optKeyUsage =
+            std::vector<std::string>();
+        std::optional<std::string> optSurname = "";
+        std::optional<std::string> optUnstructuredName = "";
+        if (!json_util::readJson(
+                req, res, "City", city, "CommonName", commonName,
+                "ContactPerson", optContactPerson, "Country", country,
+                "Organization", organization, "OrganizationalUnit",
+                organizationalUnit, "State", state, "CertificateCollection",
+                certificateCollection, "AlternativeNames", optAlternativeNames,
+                "ChallengePassword", optChallengePassword, "Email", optEmail,
+                "GivenName", optGivenName, "Initials", optInitials,
+                "KeyBitLength", optKeyBitLength, "KeyCurveId", optKeyCurveId,
+                "KeyPairAlgorithm", optKeyPairAlgorithm, "KeyUsage",
+                optKeyUsage, "Surname", optSurname, "UnstructuredName",
+                optUnstructuredName))
+        {
+            BMCWEB_LOG_ERROR << "Failure to read required parameters";
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        if (!city)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "City");
+            return;
+        }
+        if (!commonName)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "CommonName");
+            return;
+        }
+        if (!country)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "Country");
+            return;
+        }
+        if (!organization)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "Organization");
+            return;
+        }
+        if (!organizationalUnit)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "OrganizationalUnit");
+            return;
+        }
+        if (!state)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "State");
+            return;
+        }
+
+        // bmcweb has no way to store or decode a private key challenge
+        // password, which will likely cause bmcweb to crash on startup if this
+        // is not set on a post so not allowing the user to set value
+        if (*optChallengePassword != "")
+        {
+            messages::actionParameterNotSupported(asyncResp->res, "GenerateCSR",
+                                                  "ChallengePassword");
+            return;
+        }
+
+        if (!certificateCollection)
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "CertificateCollection");
+            return;
+        }
+        std::string certURI;
+        if (!redfish::json_util::readJson(*certificateCollection, res,
+                                          "@odata.id", certURI))
+        {
+            messages::actionParameterMissing(asyncResp->res, "GenerateCSR",
+                                             "CertificateCollection");
+            return;
+        }
+
+        std::string objectPath;
+        std::string service;
+        if (certURI ==
+            "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
+        {
+            objectPath = certs::httpsObjectPath;
+            service = certs::httpsServiceName;
+        }
+        else
+        {
+            messages::actionParameterValueFormatError(asyncResp->res, certURI,
+                                                      "CertificateCollection",
+                                                      "GenerateCSR");
+            return;
+        }
+
+        // If key pair algorithm optional argument is not set, set it to EC
+        if (*optKeyPairAlgorithm == "")
+        {
+            *optKeyPairAlgorithm = "EC";
+        }
+
+        // supporting only EC and RSA algorithm
+        if (*optKeyPairAlgorithm != "EC" && *optKeyPairAlgorithm != "RSA")
+        {
+            messages::actionParameterNotSupported(
+                asyncResp->res, "KeyPairAlgorithm", "GenerateCSR");
+            return;
+        }
+
+        // if key bit length optional argument is not set, set it to default
+        // value
+        if (*optKeyBitLength == 0)
+        {
+            *optKeyBitLength = KEY_BIT_LENGTH;
+        }
+
+        // supporting only 2048 key bit length for RSA algorithm, EC algorithm
+        // does not use key bit length value
+        if (*optKeyPairAlgorithm == "RSA" && *optKeyBitLength != KEY_BIT_LENGTH)
+        {
+            messages::actionParameterValueFormatError(
+                asyncResp->res, std::to_string(*optKeyBitLength),
+                "KeyBitLength", "GenerateCSR");
+            return;
+        }
+
+        // validate KeyUsage
+        for (const std::string &usage : *optKeyUsage)
+        {
+            if (!isKeyUsageFound(usage))
+            {
+                messages::actionParameterValueFormatError(
+                    asyncResp->res, usage, "KeyUsage", "GenerateCSR");
+                return;
+            }
+        }
+
+        // Only allow one CSR matcher at a time so setting retry time-out and
+        // timer expiry to 10 seconds for now. HTTPS time-out is 10 seconds.
+        static const int TIME_OUT = 10;
+        if (csrMatcher)
+        {
+            res.addHeader("Retry-After", std::to_string(TIME_OUT));
+            messages::serviceTemporarilyUnavailable(asyncResp->res,
+                                                    std::to_string(TIME_OUT));
+            return;
+        }
+
+        // Make this static so it survives outside this method
+        static boost::asio::steady_timer timeout(*req.ioService);
+        timeout.expires_after(std::chrono::seconds(TIME_OUT));
+        timeout.async_wait([asyncResp](const boost::system::error_code &ec) {
+            csrMatcher = nullptr;
+            if (ec)
+            {
+                // operation_aborted is expected if timer is canceled before
+                // completion.
+                if (ec != boost::asio::error::operation_aborted)
+                {
+                    BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
+                }
+                return;
+            }
+            BMCWEB_LOG_ERROR << "Timed out waiting for Generating CSR";
+            messages::internalError(asyncResp->res);
+        });
+
+        // create a matcher to wait on CSR object
+        BMCWEB_LOG_DEBUG << "create matcher with path " << objectPath;
+        std::string match("type='signal',"
+                          "interface='org.freedesktop.DBus.ObjectManager',"
+                          "path='" +
+                          objectPath +
+                          "',"
+                          "member='InterfacesAdded'");
+        csrMatcher = std::make_unique<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, match,
+            [asyncResp, service, objectPath,
+             certURI](sdbusplus::message::message &m) {
+                boost::system::error_code ec;
+                timeout.cancel(ec);
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "error canceling timer " << ec;
+                }
+                if (m.is_method_error())
+                {
+                    BMCWEB_LOG_DEBUG << "Dbus method error!!!";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                std::vector<std::pair<
+                    std::string, std::vector<std::pair<
+                                     std::string, std::variant<std::string>>>>>
+                    interfacesProperties;
+                sdbusplus::message::object_path csrObjectPath;
+                m.read(csrObjectPath, interfacesProperties);
+                BMCWEB_LOG_DEBUG << "CSR object added" << csrObjectPath.str;
+                for (auto &interface : interfacesProperties)
+                {
+                    if (interface.first == "xyz.openbmc_project.Certs.CSR")
+                    {
+                        getCSR(asyncResp, certURI, service, objectPath,
+                               csrObjectPath.str);
+                        break;
+                    }
+                }
+            });
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::string &path) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec.message();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            service, objectPath, "xyz.openbmc_project.Certs.CSR.Create",
+            "GenerateCSR", *optAlternativeNames, *optChallengePassword, *city,
+            *commonName, *optContactPerson, *country, *optEmail, *optGivenName,
+            *optInitials, *optKeyBitLength, *optKeyCurveId,
+            *optKeyPairAlgorithm, *optKeyUsage, *organization,
+            *organizationalUnit, *state, *optSurname, *optUnstructuredName);
+    }
+
+    /**
+     * @brief Check if keyusage retrieved from Certificate is of redfish
+     * supported type
+     *
+     * @param[in] str keyusage value retrieved from certificate
+     * @return true if it is of redfish type else false
+     */
+    bool isKeyUsageFound(const std::string &str)
+    {
+        const static std::array<const char *, 15> usageList = {
+            "DigitalSignature",     "NonRepudiation",       "KeyEncipherment",
+            "DataEncipherment",     "KeyAgreement",         "KeyCertSign",
+            "CRLSigning",           "EncipherOnly",         "DecipherOnly",
+            "ServerAuthentication", "ClientAuthentication", "CodeSigning",
+            "EmailProtection",      "Timestamping",         "OCSPSigning"};
+        auto it = std::find_if(
+            usageList.begin(), usageList.end(),
+            [&str](const char *s) { return (strcmp(s, str.c_str()) == 0); });
+        return (it != usageList.end());
+    }
+}; // CertificateActionGenerateCSR
 
 /**
  * @brief Parse and update Certficate Issue/Subject property
