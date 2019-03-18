@@ -120,6 +120,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<HTTPSCertificate>(app));
         nodes.emplace_back(std::make_unique<LDAPCertificateCollection>(app));
         nodes.emplace_back(std::make_unique<LDAPCertificate>(app));
+        nodes.emplace_back(std::make_unique<CertificateActionGenerateCSR>(app));
     }
 
   private:
