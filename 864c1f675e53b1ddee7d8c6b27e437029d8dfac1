@@ -16,6 +16,24 @@
       "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f07ed31_cdfeda49",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-03-18T12:23:38Z",
+      "side": 1,
+      "message": "All other Actions in bmcweb are using POST and specification states to use POST\n\nReplaceCertificate\nThis action is used to replace an existing certificate.\nThe following table shows the parameters for the action which are included in the POST body to the URI shown in the \"target\" property of the Action.",
+      "parentUuid": "1cb1a750_c7b8f62c",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
