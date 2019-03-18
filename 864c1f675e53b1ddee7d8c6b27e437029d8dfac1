@@ -34,6 +34,24 @@
       "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4a8b58f6_783e5367",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-18T12:27:17Z",
+      "side": 1,
+      "message": "I also think that it should be POST as the actions should be defined as POST.\n\nOther examples are\nSystem Reset is under /redfish-core/lib/systems.hpp.",
+      "parentUuid": "9f07ed31_cdfeda49",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
