@@ -70,6 +70,24 @@
       "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f94020a_801f1fe0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2019-03-18T13:48:58Z",
+      "side": 1,
+      "message": "Two use case of POST.\n\n6.4.4.3 Create (POST)\nThe POST method is used to create a new resource. The POST request is submitted to the resource collection in which the new resource is to\nbelong.\n\n6.4.4.5 Actions (POST)\nThe POST method is used to initiate operations on the object (such as Actions).\nServices shall support the POST method for sending actions.\nThe POST operation may not be idempotent.\n\nHere it is action so POST should be used.",
+      "parentUuid": "4a5f33a2_a22a1eca",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
