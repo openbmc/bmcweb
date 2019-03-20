@@ -14,16 +14,15 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "node.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
 #include <dbus_utility.hpp>
+#include <utils/systemd_utils.hpp>
 #include <variant>
 
 namespace redfish
 {
-
 /**
  * ManagerActionsReset class supports handle POST method for Reset action.
  * The class retrieves and sends data directly to dbus.
@@ -53,12 +52,10 @@ class ManagerActionsReset : public Node
                 const std::vector<std::string>& params) override
     {
         std::string resetType;
-
         if (!json_util::readJson(req, res, "ResetType", resetType))
         {
             return;
         }
-
         if (resetType != "GracefulRestart")
         {
             res.result(boost::beast::http::status::bad_request);
@@ -70,7 +67,6 @@ class ManagerActionsReset : public Node
         }
         doBMCGracefulRestart(res, req, params);
     }
-
     /**
      * Function transceives data with dbus directly.
      * All BMC state properties will be retrieved before sending reset request.
@@ -84,12 +80,9 @@ class ManagerActionsReset : public Node
         const std::string& propertyValue =
             "xyz.openbmc_project.State.BMC.Transition.Reboot";
         const char* destProperty = "RequestedBMCTransition";
-
         // Create the D-Bus variant for D-Bus call.
         VariantType dbusPropertyValue(propertyValue);
-
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec) {
                 // Use "Set" method to set the property value.
@@ -99,14 +92,12 @@ class ManagerActionsReset : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-
                 messages::success(asyncResp->res);
             },
             processName, objectPath, "org.freedesktop.DBus.Properties", "Set",
             interfaceName, destProperty, dbusPropertyValue);
     }
 };
-
 static constexpr const char* objectManagerIface =
     "org.freedesktop.DBus.ObjectManager";
 static constexpr const char* pidConfigurationIface =
@@ -115,12 +106,10 @@ static constexpr const char* pidZoneConfigurationIface =
     "xyz.openbmc_project.Configuration.Pid.Zone";
 static constexpr const char* stepwiseConfigurationIface =
     "xyz.openbmc_project.Configuration.Stepwise";
-
 static void asyncPopulatePid(const std::string& connection,
                              const std::string& path,
                              std::shared_ptr<AsyncResp> asyncResp)
 {
-
     crow::connections::systemBus->async_method_call(
         [asyncResp](const boost::system::error_code ec,
                     const dbus::utility::ManagedObjectType& managedObj) {
@@ -139,21 +128,18 @@ static void asyncPopulatePid(const std::string& connection,
                 "/redfish/v1/$metadata#OemManager.FanControllers";
             fans["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc/"
                                 "Fan/FanControllers";
-
             nlohmann::json& pids = configRoot["PidControllers"];
             pids["@odata.type"] = "#OemManager.PidControllers";
             pids["@odata.context"] =
                 "/redfish/v1/$metadata#OemManager.PidControllers";
             pids["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers";
-
             nlohmann::json& stepwise = configRoot["StepwiseControllers"];
             stepwise["@odata.type"] = "#OemManager.StepwiseControllers";
             stepwise["@odata.context"] =
                 "/redfish/v1/$metadata#OemManager.StepwiseControllers";
             stepwise["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers";
-
             nlohmann::json& zones = configRoot["FanZones"];
             zones["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones";
@@ -165,7 +151,6 @@ static void asyncPopulatePid(const std::string& connection,
             configRoot["@odata.type"] = "#OemManager.Fan";
             configRoot["@odata.context"] =
                 "/redfish/v1/$metadata#OemManager.Fan";
-
             for (const auto& pathPair : managedObj)
             {
                 for (const auto& intfPair : pathPair.second)
@@ -191,18 +176,15 @@ static void asyncPopulatePid(const std::string& connection,
                         messages::internalError(asyncResp->res);
                         return;
                     }
-
                     std::string name = *namePtr;
                     dbus::utility::escapePathForDbus(name);
                     nlohmann::json* config = nullptr;
-
                     const std::string* classPtr = nullptr;
                     auto findClass = intfPair.second.find("Class");
                     if (findClass != intfPair.second.end())
                     {
                         classPtr = std::get_if<std::string>(&findClass->second);
                     }
-
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
                         std::string chassis;
@@ -222,7 +204,6 @@ static void asyncPopulatePid(const std::string& connection,
                             "/redfish/v1/$metadata#OemManager.FanZone";
                         config = &zone;
                     }
-
                     else if (intfPair.first == stepwiseConfigurationIface)
                     {
                         if (classPtr == nullptr)
@@ -231,27 +212,22 @@ static void asyncPopulatePid(const std::string& connection,
                             messages::internalError(asyncResp->res);
                             return;
                         }
-
                         nlohmann::json& controller = stepwise[name];
                         config = &controller;
-
                         controller["@odata.id"] =
                             "/redfish/v1/Managers/bmc#/Oem/"
                             "OpenBmc/Fan/StepwiseControllers/" +
                             std::string(name);
                         controller["@odata.type"] =
                             "#OemManager.StepwiseController";
-
                         controller["@odata.context"] =
                             "/redfish/v1/"
                             "$metadata#OemManager.StepwiseController";
                         controller["Direction"] = *classPtr;
                     }
-
                     // pid and fans are off the same configuration
                     else if (intfPair.first == pidConfigurationIface)
                     {
-
                         if (classPtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Pid Class Field illegal";
@@ -270,7 +246,6 @@ static void asyncPopulatePid(const std::string& connection,
                                 std::string(name);
                             element["@odata.type"] =
                                 "#OemManager.FanController";
-
                             element["@odata.context"] =
                                 "/redfish/v1/"
                                 "$metadata#OemManager.FanController";
@@ -294,11 +269,9 @@ static void asyncPopulatePid(const std::string& connection,
                         messages::internalError(asyncResp->res);
                         return;
                     }
-
                     // used for making maps out of 2 vectors
                     const std::vector<double>* keys = nullptr;
                     const std::vector<double>* values = nullptr;
-
                     for (const auto& propertyPair : intfPair.second)
                     {
                         if (propertyPair.first == "Type" ||
@@ -307,7 +280,6 @@ static void asyncPopulatePid(const std::string& connection,
                         {
                             continue;
                         }
-
                         // zones
                         if (intfPair.first == pidZoneConfigurationIface)
                         {
@@ -322,7 +294,6 @@ static void asyncPopulatePid(const std::string& connection,
                             }
                             (*config)[propertyPair.first] = *ptr;
                         }
-
                         if (intfPair.first == stepwiseConfigurationIface)
                         {
                             if (propertyPair.first == "Reading" ||
@@ -331,7 +302,6 @@ static void asyncPopulatePid(const std::string& connection,
                                 const std::vector<double>* ptr =
                                     std::get_if<std::vector<double>>(
                                         &propertyPair.second);
-
                                 if (ptr == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
@@ -339,7 +309,6 @@ static void asyncPopulatePid(const std::string& connection,
                                     messages::internalError(asyncResp->res);
                                     return;
                                 }
-
                                 if (propertyPair.first == "Reading")
                                 {
                                     keys = ptr;
@@ -383,18 +352,15 @@ static void asyncPopulatePid(const std::string& connection,
                                 (*config)[propertyPair.first] = *ptr;
                             }
                         }
-
                         // pid and fans are off the same configuration
                         if (intfPair.first == pidConfigurationIface ||
                             intfPair.first == stepwiseConfigurationIface)
                         {
-
                             if (propertyPair.first == "Zones")
                             {
                                 const std::vector<std::string>* inputs =
                                     std::get_if<std::vector<std::string>>(
                                         &propertyPair.second);
-
                                 if (inputs == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR
@@ -420,7 +386,6 @@ static void asyncPopulatePid(const std::string& connection,
                             // could add another loop to cover all cases,
                             // but I'm okay kicking this can down the road a
                             // bit
-
                             else if (propertyPair.first == "Inputs" ||
                                      propertyPair.first == "Outputs")
                             {
@@ -428,7 +393,6 @@ static void asyncPopulatePid(const std::string& connection,
                                 const std::vector<std::string>* inputs =
                                     std::get_if<std::vector<std::string>>(
                                         &propertyPair.second);
-
                                 if (inputs == nullptr)
                                 {
                                     BMCWEB_LOG_ERROR << "Field Illegal "
@@ -473,14 +437,12 @@ static void asyncPopulatePid(const std::string& connection,
         },
         connection, path, objectManagerIface, "GetManagedObjects");
 }
-
 enum class CreatePIDRet
 {
     fail,
     del,
     patch
 };
-
 static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
                                 std::vector<nlohmann::json>& config,
                                 std::vector<std::string>& zones)
@@ -514,12 +476,10 @@ static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
     }
     return true;
 }
-
 static bool findChassis(const dbus::utility::ManagedObjectType& managedObj,
                         const std::string& value, std::string& chassis)
 {
     BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
-
     std::string escaped = boost::replace_all_copy(value, " ", "_");
     escaped = "/" + escaped;
     auto it = std::find_if(
@@ -531,7 +491,6 @@ static bool findChassis(const dbus::utility::ManagedObjectType& managedObj,
             }
             return false;
         });
-
     if (it == managedObj.end())
     {
         return false;
@@ -540,7 +499,6 @@ static bool findChassis(const dbus::utility::ManagedObjectType& managedObj,
     // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>
     return dbus::utility::getNthStringFromPath(it->first.str, 5, chassis);
 }
-
 static CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
     nlohmann::json::iterator it, const std::string& path,
@@ -549,7 +507,6 @@ static CreatePIDRet createPidInterface(
         output,
     std::string& chassis)
 {
-
     // common deleter
     if (it.value() == nullptr)
     {
@@ -587,7 +544,6 @@ static CreatePIDRet createPidInterface(
             "xyz.openbmc_project.EntityManager", path, iface, "Delete");
         return CreatePIDRet::del;
     }
-
     if (!createNewObject)
     {
         // if we aren't creating a new object, we should be able to find it on
@@ -599,7 +555,6 @@ static CreatePIDRet createPidInterface(
             return CreatePIDRet::fail;
         }
     }
-
     if (type == "PidControllers" || type == "FanControllers")
     {
         if (createNewObject)
@@ -608,7 +563,6 @@ static CreatePIDRet createPidInterface(
                                                        : std::string("fan");
             output["Type"] = std::string("Pid");
         }
-
         std::optional<std::vector<nlohmann::json>> zones;
         std::optional<std::vector<std::string>> inputs;
         std::optional<std::vector<std::string>> outputs;
@@ -646,7 +600,6 @@ static CreatePIDRet createPidInterface(
                 messages::invalidObject(response->res, it.key());
                 return CreatePIDRet::fail;
             }
-
             output["Zones"] = std::move(zonesStr);
         }
         if (inputs || outputs)
@@ -663,7 +616,6 @@ static CreatePIDRet createPidInterface(
                     index++;
                     continue;
                 }
-
                 for (std::string& value : *container)
                 {
                     boost::replace_all(value, "_", " ");
@@ -681,7 +633,6 @@ static CreatePIDRet createPidInterface(
                 index++;
             }
         }
-
         // doubles
         for (const auto& pairs : doubles)
         {
@@ -693,11 +644,9 @@ static CreatePIDRet createPidInterface(
             output[pairs.first] = *(pairs.second);
         }
     }
-
     else if (type == "FanZones")
     {
         output["Type"] = std::string("Pid.Zone");
-
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
         std::optional<double> minThermalOutput;
@@ -710,10 +659,8 @@ static CreatePIDRet createPidInterface(
                              << it.value().dump();
             return CreatePIDRet::fail;
         }
-
         if (chassisContainer)
         {
-
             std::string chassisId;
             if (!redfish::json_util::readJson(*chassisContainer, response->res,
                                               "@odata.id", chassisId))
@@ -722,7 +669,6 @@ static CreatePIDRet createPidInterface(
                                  << chassisContainer->dump();
                 return CreatePIDRet::fail;
             }
-
             // /refish/v1/chassis/chassis_name/
             if (!dbus::utility::getNthStringFromPath(chassisId, 3, chassis))
             {
@@ -743,7 +689,6 @@ static CreatePIDRet createPidInterface(
     else if (type == "StepwiseControllers")
     {
         output["Type"] = std::string("Stepwise");
-
         std::optional<std::vector<nlohmann::json>> zones;
         std::optional<std::vector<nlohmann::json>> steps;
         std::optional<std::vector<std::string>> inputs;
@@ -760,7 +705,6 @@ static CreatePIDRet createPidInterface(
                              << it.value().dump();
             return CreatePIDRet::fail;
         }
-
         if (zones)
         {
             std::vector<std::string> zonesStrs;
@@ -786,7 +730,6 @@ static CreatePIDRet createPidInterface(
             {
                 double target;
                 double output;
-
                 if (!redfish::json_util::readJson(step, response->res, "Target",
                                                   target, "Output", output))
                 {
@@ -839,7 +782,6 @@ static CreatePIDRet createPidInterface(
     }
     return CreatePIDRet::patch;
 }
-
 class Manager : public Node
 {
   public:
@@ -868,7 +810,6 @@ class Manager : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-
                 // create map of <connection, path to objMgr>>
                 boost::container::flat_map<std::string, std::string>
                     objectMgrPaths;
@@ -905,9 +846,7 @@ class Manager : public Node
                                                      << "Has no Object Manager";
                                     continue;
                                 }
-
                                 calledConnections.insert(connectionGroup.first);
-
                                 asyncPopulatePid(findObjMgr->first,
                                                  findObjMgr->second, asyncResp);
                                 break;
@@ -923,7 +862,6 @@ class Manager : public Node
                 pidConfigurationIface, pidZoneConfigurationIface,
                 objectManagerIface, stepwiseConfigurationIface});
     }
-
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -938,14 +876,12 @@ class Manager : public Node
         res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] = uuid;
+        res.jsonValue["ServiceEntryPointUUID"] = systemd_utils::getUuid();
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
-
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
-
         res.jsonValue["NetworkProtocol"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol"}};
-
         res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
         // default oem data
@@ -958,7 +894,6 @@ class Manager : public Node
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
         oemOpenbmc["@odata.context"] =
             "/redfish/v1/$metadata#OemManager.OpenBmc";
-
         // Update Actions object.
         nlohmann::json& manager_reset =
             res.jsonValue["Actions"]["#Manager.Reset"];
@@ -966,7 +901,6 @@ class Manager : public Node
             "/redfish/v1/Managers/bmc/Actions/Manager.Reset";
         manager_reset["ResetType@Redfish.AllowableValues"] = {
             "GracefulRestart"};
-
         res.jsonValue["DateTime"] = getDateTime();
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
@@ -977,7 +911,6 @@ class Manager : public Node
             {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
 #endif
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
                         const dbus::utility::ManagedObjectType& resp) {
@@ -987,7 +920,6 @@ class Manager : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-
                 for (auto& objpath : resp)
                 {
                     for (auto& interface : objpath.second)
@@ -1025,7 +957,6 @@ class Manager : public Node
     }
     void setPidValues(std::shared_ptr<AsyncResp> response, nlohmann::json& data)
     {
-
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
         crow::connections::systemBus->async_method_call(
@@ -1038,10 +969,8 @@ class Manager : public Node
                     messages::internalError(response->res);
                     return;
                 }
-
                 // todo(james) mutable doesn't work with asio bindings
                 nlohmann::json jsonData = data;
-
                 std::optional<nlohmann::json> pidControllers;
                 std::optional<nlohmann::json> fanControllers;
                 std::optional<nlohmann::json> fanZones;
@@ -1065,7 +994,6 @@ class Manager : public Node
                         std::make_pair("FanZones", &fanZones),
                         std::make_pair("StepwiseControllers",
                                        &stepwiseControllers)};
-
                 for (auto& containerPair : sections)
                 {
                     auto& container = *(containerPair.second);
@@ -1074,7 +1002,6 @@ class Manager : public Node
                         continue;
                     }
                     std::string& type = containerPair.first;
-
                     for (nlohmann::json::iterator it = container->begin();
                          it != container->end(); it++)
                     {
@@ -1088,9 +1015,7 @@ class Manager : public Node
                         boost::container::flat_map<
                             std::string, dbus::utility::DbusVariantType>
                             output;
-
                         output.reserve(16); // The pid interface length
-
                         // determines if we're patching entity-manager or
                         // creating a new object
                         bool createNewObject = (pathItr == managedObj.end());
@@ -1114,7 +1039,6 @@ class Manager : public Node
                                     pidZoneConfigurationIface) ==
                                     pathItr->second.end())
                             {
-
                                 createNewObject = true;
                             }
                         }
@@ -1133,7 +1057,6 @@ class Manager : public Node
                                          << "\n";
                         output["Name"] =
                             boost::replace_all_copy(name, "_", " ");
-
                         std::string chassis;
                         CreatePIDRet ret = createPidInterface(
                             response, type, it, pathItr->first.str, managedObj,
@@ -1146,7 +1069,6 @@ class Manager : public Node
                         {
                             continue;
                         }
-
                         if (!createNewObject)
                         {
                             for (const auto& property : output)
@@ -1181,7 +1103,6 @@ class Manager : public Node
                                 messages::invalidObject(response->res, name);
                                 return;
                             }
-
                             bool foundChassis = false;
                             for (const auto& obj : managedObj)
                             {
@@ -1202,7 +1123,6 @@ class Manager : public Node
                                     "/redfish/v1/Chassis/" + chassis);
                                 return;
                             }
-
                             crow::connections::systemBus->async_method_call(
                                 [response](const boost::system::error_code ec) {
                                     if (ec)
@@ -1224,19 +1144,15 @@ class Manager : public Node
             "xyz.openbmc_project.EntityManager", "/", objectManagerIface,
             "GetManagedObjects");
     }
-
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
         std::optional<nlohmann::json> oem;
-
         if (!json_util::readJson(req, res, "Oem", oem))
         {
             return;
         }
-
         std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
-
         if (oem)
         {
             std::optional<nlohmann::json> openbmc;
@@ -1263,13 +1179,11 @@ class Manager : public Node
             }
         }
     }
-
     std::string getDateTime() const
     {
         std::array<char, 128> dateTime;
         std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
         std::time_t time = std::time(nullptr);
-
         if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
                           std::localtime(&time)))
         {
@@ -1277,13 +1191,10 @@ class Manager : public Node
             redfishDateTime = std::string(dateTime.data());
             redfishDateTime.insert(redfishDateTime.end() - 2, ':');
         }
-
         return redfishDateTime;
     }
-
     std::string uuid;
 };
-
 class ManagerCollection : public Node
 {
   public:
