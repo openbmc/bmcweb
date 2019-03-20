@@ -19,6 +19,7 @@
 
 #include <boost/algorithm/string/replace.hpp>
 #include <dbus_utility.hpp>
+#include <utils/systemd_utils.hpp>
 #include <variant>
 
 namespace redfish
@@ -938,6 +939,7 @@ class Manager : public Node
         res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] = uuid;
+        res.jsonValue["ServiceEntryPointUUID"] = systemd_utils::getUuid();
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
