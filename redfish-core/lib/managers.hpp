@@ -20,6 +20,8 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <dbus_utility.hpp>
 #include <variant>
+#include <utils/systemd_utils.hpp>
+
 
 namespace redfish
 {
@@ -195,14 +197,6 @@ static void asyncPopulatePid(const std::string& connection,
                     std::string name = *namePtr;
                     dbus::utility::escapePathForDbus(name);
                     nlohmann::json* config = nullptr;
-
-                    const std::string* classPtr = nullptr;
-                    auto findClass = intfPair.second.find("Class");
-                    if (findClass != intfPair.second.end())
-                    {
-                        classPtr = std::get_if<std::string>(&findClass->second);
-                    }
-
                     if (intfPair.first == pidZoneConfigurationIface)
                     {
                         std::string chassis;
@@ -225,13 +219,6 @@ static void asyncPopulatePid(const std::string& connection,
 
                     else if (intfPair.first == stepwiseConfigurationIface)
                     {
-                        if (classPtr == nullptr)
-                        {
-                            BMCWEB_LOG_ERROR << "Pid Class Field illegal";
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-
                         nlohmann::json& controller = stepwise[name];
                         config = &controller;
 
@@ -245,13 +232,18 @@ static void asyncPopulatePid(const std::string& connection,
                         controller["@odata.context"] =
                             "/redfish/v1/"
                             "$metadata#OemManager.StepwiseController";
-                        controller["Direction"] = *classPtr;
                     }
 
                     // pid and fans are off the same configuration
                     else if (intfPair.first == pidConfigurationIface)
                     {
-
+                        const std::string* classPtr = nullptr;
+                        auto findClass = intfPair.second.find("Class");
+                        if (findClass != intfPair.second.end())
+                        {
+                            classPtr =
+                                std::get_if<std::string>(&findClass->second);
+                        }
                         if (classPtr == nullptr)
                         {
                             BMCWEB_LOG_ERROR << "Pid Class Field illegal";
@@ -485,13 +477,7 @@ static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
                                 std::vector<nlohmann::json>& config,
                                 std::vector<std::string>& zones)
 {
-    if (config.empty())
-    {
-        BMCWEB_LOG_ERROR << "Empty Zones";
-        messages::propertyValueFormatError(response->res,
-                                           nlohmann::json::array(), "Zones");
-        return false;
-    }
+
     for (auto& odata : config)
     {
         std::string path;
@@ -515,35 +501,9 @@ static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
     return true;
 }
 
-static bool findChassis(const dbus::utility::ManagedObjectType& managedObj,
-                        const std::string& value, std::string& chassis)
-{
-    BMCWEB_LOG_DEBUG << "Find Chassis: " << value << "\n";
-
-    std::string escaped = boost::replace_all_copy(value, " ", "_");
-    escaped = "/" + escaped;
-    auto it = std::find_if(
-        managedObj.begin(), managedObj.end(), [&escaped](const auto& obj) {
-            if (boost::algorithm::ends_with(obj.first.str, escaped))
-            {
-                BMCWEB_LOG_DEBUG << "Matched " << obj.first.str << "\n";
-                return true;
-            }
-            return false;
-        });
-
-    if (it == managedObj.end())
-    {
-        return false;
-    }
-    // 5 comes from <chassis-name> being the 5th element
-    // /xyz/openbmc_project/inventory/system/chassis/<chassis-name>
-    return dbus::utility::getNthStringFromPath(it->first.str, 5, chassis);
-}
-
 static CreatePIDRet createPidInterface(
     const std::shared_ptr<AsyncResp>& response, const std::string& type,
-    nlohmann::json::iterator it, const std::string& path,
+    nlohmann::json&& record, const std::string& path,
     const dbus::utility::ManagedObjectType& managedObj, bool createNewObject,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>&
         output,
@@ -551,7 +511,7 @@ static CreatePIDRet createPidInterface(
 {
 
     // common deleter
-    if (it.value() == nullptr)
+    if (record == nullptr)
     {
         std::string iface;
         if (type == "PidControllers" || type == "FanControllers")
@@ -580,24 +540,10 @@ static CreatePIDRet createPidInterface(
                 {
                     BMCWEB_LOG_ERROR << "Error patching " << path << ": " << ec;
                     messages::internalError(response->res);
-                    return;
                 }
-                messages::success(response->res);
             },
             "xyz.openbmc_project.EntityManager", path, iface, "Delete");
         return CreatePIDRet::del;
-    }
-
-    if (!createNewObject)
-    {
-        // if we aren't creating a new object, we should be able to find it on
-        // d-bus
-        if (!findChassis(managedObj, it.key(), chassis))
-        {
-            BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-            messages::invalidObject(response->res, it.key());
-            return CreatePIDRet::fail;
-        }
     }
 
     if (type == "PidControllers" || type == "FanControllers")
@@ -614,7 +560,7 @@ static CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
         if (!redfish::json_util::readJson(
-                it.value(), response->res, "Inputs", inputs, "Outputs", outputs,
+                record, response->res, "Inputs", inputs, "Outputs", outputs,
                 "Zones", zones, "FFGainCoefficient",
                 doubles["FFGainCoefficient"], "FFOffCoefficient",
                 doubles["FFOffCoefficient"], "ICoefficient",
@@ -628,7 +574,7 @@ static CreatePIDRet createPidInterface(
                 doubles["NegativeHysteresis"]))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+                             << record.dump();
             return CreatePIDRet::fail;
         }
         if (zones)
@@ -639,14 +585,6 @@ static CreatePIDRet createPidInterface(
                 BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Zones";
                 return CreatePIDRet::fail;
             }
-            if (chassis.empty() &&
-                !findChassis(managedObj, zonesStr[0], chassis))
-            {
-                BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-                messages::invalidObject(response->res, it.key());
-                return CreatePIDRet::fail;
-            }
-
             output["Zones"] = std::move(zonesStr);
         }
         if (inputs || outputs)
@@ -666,6 +604,25 @@ static CreatePIDRet createPidInterface(
 
                 for (std::string& value : *container)
                 {
+
+                    // try to find the sensor in the
+                    // configuration
+                    if (chassis.empty())
+                    {
+                        std::string escaped =
+                            boost::replace_all_copy(value, " ", "_");
+                        std::find_if(
+                            managedObj.begin(), managedObj.end(),
+                            [&chassis, &escaped](const auto& obj) {
+                                if (boost::algorithm::ends_with(obj.first.str,
+                                                                escaped))
+                                {
+                                    return dbus::utility::getNthStringFromPath(
+                                        obj.first.str, 5, chassis);
+                                }
+                                return false;
+                            });
+                    }
                     boost::replace_all(value, "_", " ");
                 }
                 std::string key;
@@ -700,14 +657,14 @@ static CreatePIDRet createPidInterface(
 
         std::optional<nlohmann::json> chassisContainer;
         std::optional<double> failSafePercent;
-        std::optional<double> minThermalOutput;
-        if (!redfish::json_util::readJson(it.value(), response->res, "Chassis",
+        std::optional<double> minThermalRpm;
+        if (!redfish::json_util::readJson(record, response->res, "Chassis",
                                           chassisContainer, "FailSafePercent",
-                                          failSafePercent, "MinThermalOutput",
-                                          minThermalOutput))
+                                          failSafePercent, "MinThermalRpm",
+                                          minThermalRpm))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+                             << record.dump();
             return CreatePIDRet::fail;
         }
 
@@ -731,9 +688,9 @@ static CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
         }
-        if (minThermalOutput)
+        if (minThermalRpm)
         {
-            output["MinThermalOutput"] = *minThermalOutput;
+            output["MinThermalRpm"] = *minThermalRpm;
         }
         if (failSafePercent)
         {
@@ -749,34 +706,25 @@ static CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> inputs;
         std::optional<double> positiveHysteresis;
         std::optional<double> negativeHysteresis;
-        std::optional<std::string> direction; // upper clipping curve vs lower
         if (!redfish::json_util::readJson(
-                it.value(), response->res, "Zones", zones, "Steps", steps,
-                "Inputs", inputs, "PositiveHysteresis", positiveHysteresis,
-                "NegativeHysteresis", negativeHysteresis, "Direction",
-                direction))
+                record, response->res, "Zones", zones, "Steps", steps, "Inputs",
+                inputs, "PositiveHysteresis", positiveHysteresis,
+                "NegativeHysteresis", negativeHysteresis))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
-                             << it.value().dump();
+                             << record.dump();
             return CreatePIDRet::fail;
         }
 
         if (zones)
         {
-            std::vector<std::string> zonesStrs;
-            if (!getZonesFromJsonReq(response, *zones, zonesStrs))
+            std::vector<std::string> zoneStrs;
+            if (!getZonesFromJsonReq(response, *zones, zoneStrs))
             {
                 BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Zones";
                 return CreatePIDRet::fail;
             }
-            if (chassis.empty() &&
-                !findChassis(managedObj, zonesStrs[0], chassis))
-            {
-                BMCWEB_LOG_ERROR << "Failed to get chassis from config patch";
-                messages::invalidObject(response->res, it.key());
-                return CreatePIDRet::fail;
-            }
-            output["Zones"] = std::move(zonesStrs);
+            output["Zones"] = std::move(zoneStrs);
         }
         if (steps)
         {
@@ -791,8 +739,7 @@ static CreatePIDRet createPidInterface(
                                                   target, "Output", output))
                 {
                     BMCWEB_LOG_ERROR << "Line:" << __LINE__
-                                     << ", Illegal Property "
-                                     << it.value().dump();
+                                     << ", Illegal Property " << record.dump();
                     return CreatePIDRet::fail;
                 }
                 readings.emplace_back(target);
@@ -805,6 +752,22 @@ static CreatePIDRet createPidInterface(
         {
             for (std::string& value : *inputs)
             {
+                if (chassis.empty())
+                {
+                    std::string escaped =
+                        boost::replace_all_copy(value, " ", "_");
+                    std::find_if(
+                        managedObj.begin(), managedObj.end(),
+                        [&chassis, &escaped](const auto& obj) {
+                            if (boost::algorithm::ends_with(obj.first.str,
+                                                            escaped))
+                            {
+                                return dbus::utility::getNthStringFromPath(
+                                    obj.first.str, 5, chassis);
+                            }
+                            return false;
+                        });
+                }
                 boost::replace_all(value, "_", " ");
             }
             output["Inputs"] = std::move(*inputs);
@@ -816,19 +779,6 @@ static CreatePIDRet createPidInterface(
         if (positiveHysteresis)
         {
             output["PositiveHysteresis"] = *positiveHysteresis;
-        }
-        if (direction)
-        {
-            constexpr const std::array<const char*, 2> allowedDirections = {
-                "Ceiling", "Floor"};
-            if (std::find(allowedDirections.begin(), allowedDirections.end(),
-                          *direction) == allowedDirections.end())
-            {
-                messages::propertyValueTypeError(response->res, "Direction",
-                                                 *direction);
-                return CreatePIDRet::fail;
-            }
-            output["Class"] = *direction;
         }
     }
     else
@@ -938,6 +888,7 @@ class Manager : public Node
         res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] = uuid;
+        res.jsonValue["ServiceEntryPointUUID"] = systemd_utils::getUuid();
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
@@ -968,14 +919,11 @@ class Manager : public Node
             "GracefulRestart"};
 
         res.jsonValue["DateTime"] = getDateTime();
-        res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForServers"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForChassis"] = {
-            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
-#endif
+        res.jsonValue["Links"] = {
+            {"ManagerForServers@odata.count", 1},
+            {"ManagerForServers",
+             {{{"@odata.id", "/redfish/v1/Systems/system"}}}},
+            {"ManagerForServers", nlohmann::json::array()}};
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
@@ -1075,15 +1023,14 @@ class Manager : public Node
                     }
                     std::string& type = containerPair.first;
 
-                    for (nlohmann::json::iterator it = container->begin();
-                         it != container->end(); it++)
+                    for (auto& record : container->items())
                     {
-                        const auto& name = it.key();
+                        const auto& name = record.key();
                         auto pathItr =
                             std::find_if(managedObj.begin(), managedObj.end(),
                                          [&name](const auto& obj) {
                                              return boost::algorithm::ends_with(
-                                                 obj.first.str, "/" + name);
+                                                 obj.first.str, name);
                                          });
                         boost::container::flat_map<
                             std::string, dbus::utility::DbusVariantType>
@@ -1129,15 +1076,14 @@ class Manager : public Node
                                 createNewObject = true;
                             }
                         }
-                        BMCWEB_LOG_DEBUG << "Create new = " << createNewObject
-                                         << "\n";
                         output["Name"] =
                             boost::replace_all_copy(name, "_", " ");
 
                         std::string chassis;
                         CreatePIDRet ret = createPidInterface(
-                            response, type, it, pathItr->first.str, managedObj,
-                            createNewObject, output, chassis);
+                            response, type, std::move(record.value()),
+                            pathItr->first.str, managedObj, createNewObject,
+                            output, chassis);
                         if (ret == CreatePIDRet::fail)
                         {
                             return;
@@ -1162,9 +1108,7 @@ class Manager : public Node
                                                 << propertyName << ": " << ec;
                                             messages::internalError(
                                                 response->res);
-                                            return;
                                         }
-                                        messages::success(response->res);
                                     },
                                     "xyz.openbmc_project.EntityManager",
                                     pathItr->first.str,
@@ -1210,9 +1154,7 @@ class Manager : public Node
                                         BMCWEB_LOG_ERROR
                                             << "Error Adding Pid Object " << ec;
                                         messages::internalError(response->res);
-                                        return;
                                     }
-                                    messages::success(response->res);
                                 },
                                 "xyz.openbmc_project.EntityManager", chassis,
                                 "xyz.openbmc_project.AddObject", "AddObject",
@@ -1282,6 +1224,7 @@ class Manager : public Node
     }
 
     std::string uuid;
+    
 };
 
 class ManagerCollection : public Node
@@ -1316,3 +1259,4 @@ class ManagerCollection : public Node
     }
 };
 } // namespace redfish
+
