@@ -973,7 +973,6 @@ class Manager : public Node
         manager_reset["ResetType@Redfish.AllowableValues"] = {
             "GracefulRestart"};
 
-        res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
@@ -1027,6 +1026,7 @@ class Manager : public Node
             "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        getDateTime(asyncResp);
         getPidValues(asyncResp);
     }
     void setPidValues(std::shared_ptr<AsyncResp> response, nlohmann::json& data)
@@ -1273,6 +1273,54 @@ class Manager : public Node
         {
             setDateTime(response, std::move(*datetime));
         }
+    }
+
+    void getDateTime(std::shared_ptr<AsyncResp> aResp) const
+    {
+        BMCWEB_LOG_DEBUG << "Get date time";
+
+        crow::connections::systemBus->async_method_call(
+            [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                      const std::variant<uint64_t>& epochTime) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const uint64_t* epochTimePtr =
+                    std::get_if<uint64_t>(&epochTime);
+
+                if (!epochTimePtr)
+                {
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG << "Epoch time from DBUS: " << *epochTimePtr;
+
+                std::array<char, 128> dateTime;
+                std::string redfishDateTime("0000-00-00T00:00:00Z00:00");
+
+                // DBUS EpochTime is is microseconds
+                std::time_t time =
+                    static_cast<std::time_t>(*epochTimePtr / 1000000);
+
+                if (std::strftime(dateTime.begin(), dateTime.size(), "%FT%T%z",
+                                  std::localtime(&time)))
+                {
+                    // insert the colon required by the ISO 8601 standard
+                    redfishDateTime = std::string(dateTime.data());
+                    redfishDateTime.insert(redfishDateTime.end() - 2, ':');
+                }
+
+                BMCWEB_LOG_DEBUG << "Redfish date time: " << redfishDateTime;
+                aResp->res.jsonValue["DateTime"] = redfishDateTime;
+            },
+            "xyz.openbmc_project.Time.Manager", "/xyz/openbmc_project/time/bmc",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Time.EpochTime", "Elapsed");
     }
 
     void setDateTime(std::shared_ptr<AsyncResp> aResp,
