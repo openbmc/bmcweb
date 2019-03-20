@@ -18,7 +18,9 @@
 #include "node.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
+#include <boost/date_time.hpp>
 #include <dbus_utility.hpp>
+#include <sstream>
 #include <variant>
 
 namespace redfish
@@ -1229,8 +1231,9 @@ class Manager : public Node
                  const std::vector<std::string>& params) override
     {
         std::optional<nlohmann::json> oem;
+        std::optional<std::string> datetime;
 
-        if (!json_util::readJson(req, res, "Oem", oem))
+        if (!json_util::readJson(req, res, "Oem", oem, "DateTime", datetime))
         {
             return;
         }
@@ -1262,6 +1265,10 @@ class Manager : public Node
                 }
             }
         }
+        if (datetime)
+        {
+            setDateTime(response, std::move(*datetime));
+        }
     }
 
     std::string getDateTime() const
@@ -1279,6 +1286,57 @@ class Manager : public Node
         }
 
         return redfishDateTime;
+    }
+
+    void setDateTime(std::shared_ptr<AsyncResp> aResp,
+                     std::string datetime) const
+    {
+        BMCWEB_LOG_DEBUG << "Set date time: " << datetime;
+
+        std::stringstream stream(datetime);
+        // Convert from ISO 8601 to boost local_time
+        // (BMC only has time in UTC)
+        boost::posix_time::ptime posixTime;
+        boost::posix_time::ptime epoch(boost::gregorian::date(1970, 1, 1));
+        // Facet gets deleted with the stringsteam
+        auto ifc = std::make_unique<boost::local_time::local_time_input_facet>(
+            "%Y-%m-%d %H:%M:%S%F %ZP");
+        stream.imbue(std::locale(stream.getloc(), ifc.release()));
+
+        boost::local_time::local_date_time ldt(
+            boost::local_time::not_a_date_time);
+
+        if (stream >> ldt)
+        {
+            posixTime = ldt.utc_time();
+            boost::posix_time::time_duration dur = posixTime - epoch;
+            uint64_t durMicroSecs =
+                static_cast<uint64_t>(dur.total_microseconds());
+            crow::connections::systemBus->async_method_call(
+                [aResp{std::move(aResp)}, datetime{std::move(datetime)}](
+                    const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "Failed to set elapsed time. "
+                                            "DBUS response error "
+                                         << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                    aResp->res.jsonValue["DateTime"] = datetime;
+                },
+                "xyz.openbmc_project.Time.Manager",
+                "/xyz/openbmc_project/time/bmc",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Time.EpochTime", "Elapsed",
+                std::variant<uint64_t>(durMicroSecs));
+        }
+        else
+        {
+            messages::propertyValueFormatError(aResp->res, datetime,
+                                               "DateTime");
+            return;
+        }
     }
 
     std::string uuid;
