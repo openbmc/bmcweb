@@ -20,6 +20,7 @@
 #include <boost/algorithm/string/replace.hpp>
 #include <dbus_utility.hpp>
 #include <variant>
+#include <utils/systemd_utils.hpp>
 
 namespace redfish
 {
@@ -938,7 +939,8 @@ class Manager : public Node
         res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
         res.jsonValue["UUID"] = uuid;
-        res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
+        res.jsonValue["ServiceEntryPointUUID"] = systemd_utils::getUuid();
+	res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/LogServices"}};
@@ -968,14 +970,11 @@ class Manager : public Node
             "GracefulRestart"};
 
         res.jsonValue["DateTime"] = getDateTime();
-        res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForServers"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForChassis"] = {
-            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
-#endif
+        res.jsonValue["Links"] = {
+            {"ManagerForServers@odata.count", 1},
+            {"ManagerForServers",
+             {{{"@odata.id", "/redfish/v1/Systems/system"}}}},
+            {"ManagerForServers", nlohmann::json::array()}};
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(
@@ -1316,3 +1315,4 @@ class ManagerCollection : public Node
     }
 };
 } // namespace redfish
+
