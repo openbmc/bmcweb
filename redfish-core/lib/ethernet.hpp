@@ -82,7 +82,7 @@ struct EthernetInterfaceData
     std::string hostname;
     std::string default_gateway;
     std::string mac_address;
-    std::optional<uint32_t> vlan_id;
+    std::vector<std::uint32_t> vlan_id;
     std::vector<std::string> nameservers;
 };
 
@@ -192,7 +192,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                                 std::get_if<uint32_t>(&propertyPair.second);
                             if (id != nullptr)
                             {
-                                ethData.vlan_id = *id;
+                                ethData.vlan_id.push_back(*id);
                             }
                         }
                     }
@@ -851,12 +851,17 @@ class EthernetCollection : public Node
 
                 nlohmann::json &iface_array = res.jsonValue["Members"];
                 iface_array = nlohmann::json::array();
+                std::string tag = "_";
                 for (const std::string &iface_item : iface_list)
                 {
-                    iface_array.push_back(
-                        {{"@odata.id",
-                          "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                              iface_item}});
+                    std::size_t found = iface_item.find(tag);
+                    if (found==std::string::npos)
+                    {
+                        iface_array.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
+                                  iface_item}});
+                    }
                 }
 
                 res.jsonValue["Members@odata.count"] = iface_array.size();
@@ -896,15 +901,6 @@ class EthernetInterface : public Node
                                 const EthernetInterfaceData &ethData,
                                 const std::shared_ptr<AsyncResp> asyncResp)
     {
-        if (!ethData.vlan_id)
-        {
-            // This interface is not a VLAN. Cannot do anything with it
-            // TODO(kkowalsk) Change this message
-            messages::propertyNotWritable(asyncResp->res, "VLANEnable");
-
-            return;
-        }
-
         // VLAN is configured on the interface
         if (vlanEnable == true)
         {
@@ -1246,17 +1242,9 @@ class EthernetInterface : public Node
             json_response["HostName"] = ethData.hostname;
         }
 
-        nlohmann::json &vlanObj = json_response["VLAN"];
-        if (ethData.vlan_id)
-        {
-            vlanObj["VLANEnable"] = true;
-            vlanObj["VLANId"] = *ethData.vlan_id;
-        }
-        else
-        {
-            vlanObj["VLANEnable"] = false;
-            vlanObj["VLANId"] = 0;
-        }
+        json_response["VLANs"] =
+                  "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id + "/VLANs";
+
         json_response["NameServers"] = ethData.nameservers;
 
         if (ipv4Data.size() > 0)
@@ -1325,13 +1313,12 @@ class EthernetInterface : public Node
 
         const std::string &iface_id = params[0];
 
-        std::optional<nlohmann::json> vlan;
         std::optional<std::string> hostname;
         std::optional<std::string> macAddress;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
 
-        if (!json_util::readJson(req, res, "VLAN", vlan, "HostName", hostname,
+        if (!json_util::readJson(req, res, "HostName", hostname,
                                  "IPv4Addresses", ipv4Addresses,
                                  "IPv6Addresses", ipv6Addresses, "MACAddress",
                                  macAddress))
@@ -1339,37 +1326,11 @@ class EthernetInterface : public Node
             return;
         }
 
-        std::optional<uint64_t> vlanId;
-        std::optional<bool> vlanEnable;
-
-        if (vlan)
-        {
-            if (!json_util::readJson(*vlan, res, "VLANEnable", vlanEnable,
-                                     "VLANId", vlanId))
-            {
-                return;
-            }
-            // Need both vlanId and vlanEnable to service this request
-            if (static_cast<bool>(vlanId) ^ static_cast<bool>(vlanEnable))
-            {
-                if (vlanId)
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANEnable");
-                }
-                else
-                {
-                    messages::propertyMissing(asyncResp->res, "VLANId");
-                }
-
-                return;
-            }
-        }
-
         // Get single eth interface data, and call the below callback for JSON
         // preparation
         getEthernetIfaceData(
             iface_id,
-            [this, asyncResp, iface_id, vlanId, vlanEnable,
+            [this, asyncResp, iface_id,
              hostname = std::move(hostname), macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
              ipv6Addresses = std::move(ipv6Addresses)](
@@ -1381,18 +1342,12 @@ class EthernetInterface : public Node
                     // TODO(Pawel)consider distinguish between non existing
                     // object, and other errors
                     messages::resourceNotFound(
-                        asyncResp->res, "VLAN Network Interface", iface_id);
+                        asyncResp->res, "Ethernet Interface", iface_id);
                     return;
                 }
 
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
-
-                if (vlanId && vlanEnable)
-                {
-                    handleVlanPatch(iface_id, *vlanId, *vlanEnable, ethData,
-                                    asyncResp);
-                }
 
                 if (hostname)
                 {
@@ -1464,20 +1419,17 @@ class VlanNetworkInterface : public Node
             "/VLANs/" + iface_id;
 
         json_response["VLANEnable"] = true;
-        if (ethData.vlan_id)
+        if (ethData.vlan_id.size()!=0)
         {
-            json_response["VLANId"] = *ethData.vlan_id;
+            json_response["VLANId"] = ethData.vlan_id.back();
         }
     }
 
-    bool verifyNames(crow::Response &res, const std::string &parent,
+    bool verifyNames(const std::string &parent,
                      const std::string &iface)
     {
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         if (!boost::starts_with(iface, parent + "_"))
         {
-            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
-                                       iface);
             return false;
         }
         else
@@ -1512,7 +1464,7 @@ class VlanNetworkInterface : public Node
             "/redfish/v1/$metadata#VLanNetworkInterface.VLanNetworkInterface";
         res.jsonValue["Name"] = "VLAN Network Interface";
 
-        if (!verifyNames(res, parent_iface_id, iface_id))
+        if (!verifyNames(parent_iface_id, iface_id))
         {
             return;
         }
@@ -1520,11 +1472,12 @@ class VlanNetworkInterface : public Node
         // Get single eth interface data, and call the below callback for JSON
         // preparation
         getEthernetIfaceData(
-            iface_id,
-            [this, asyncResp, parent_iface_id, iface_id](
+            params[1],
+            [this, asyncResp, parent_iface_id{std::string(params[0])},
+             iface_id{std::string(params[1])}](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
-                if (success && ethData.vlan_id)
+                if (success && ethData.vlan_id.size()!=0 )
                 {
                     parseInterfaceData(asyncResp->res.jsonValue,
                                        parent_iface_id, iface_id, ethData,
@@ -1554,8 +1507,10 @@ class VlanNetworkInterface : public Node
         const std::string &parentIfaceId = params[0];
         const std::string &ifaceId = params[1];
 
-        if (!verifyNames(res, parentIfaceId, ifaceId))
+        if (!verifyNames( parentIfaceId, ifaceId))
         {
+            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
+                                       ifaceId);
             return;
         }
 
@@ -1606,20 +1561,22 @@ class VlanNetworkInterface : public Node
         const std::string &parentIfaceId = params[0];
         const std::string &ifaceId = params[1];
 
-        if (!verifyNames(asyncResp->res, parentIfaceId, ifaceId))
+        if (!verifyNames(parentIfaceId, ifaceId))
         {
+            messages::resourceNotFound(asyncResp->res, "VLAN Network Interface",
+                                       ifaceId);
             return;
         }
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
         getEthernetIfaceData(
-            ifaceId,
-            [this, asyncResp, parentIfaceId{std::string(parentIfaceId)},
-             ifaceId{std::string(ifaceId)}](
+            params[1],
+            [this, asyncResp, parentIfaceId{std::string(params[0])},
+             ifaceId{std::string(params[1])}](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
-                if (success && ethData.vlan_id)
+                if (success && ethData.vlan_id.size()!=0)
                 {
                     parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
                                        ifaceId, ethData, ipv4Data);
@@ -1720,12 +1677,6 @@ class VlanNetworkInterfaceCollection : public Node
                     }
                 }
 
-                if (iface_array.empty())
-                {
-                    messages::resourceNotFound(
-                        asyncResp->res, "EthernetInterface", rootInterfaceName);
-                    return;
-                }
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     iface_array.size();
                 asyncResp->res.jsonValue["Members"] = std::move(iface_array);
@@ -1744,12 +1695,27 @@ class VlanNetworkInterfaceCollection : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-
+        bool vlanEnable = false;
         uint32_t vlanId = 0;
-        if (!json_util::readJson(req, res, "VLANId", vlanId))
+        if (!json_util::readJson(req, res, "VLANId", vlanId,
+                                 "VLANEnable", vlanEnable))
         {
             return;
         }
+        // Need both vlanId and vlanEnable to service this request
+         if (static_cast<bool>(vlanId) ^ static_cast<bool>(vlanEnable))
+        {
+            if (vlanId)
+            {
+                messages::propertyMissing(asyncResp->res, "VLANEnable");
+            }
+            else
+            {
+                messages::propertyMissing(asyncResp->res, "VLANId");
+            }
+            return;
+        }
+
         const std::string &rootInterfaceName = params[0];
         auto callback = [asyncResp](const boost::system::error_code ec) {
             if (ec)
