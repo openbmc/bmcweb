@@ -86,10 +86,10 @@ class RedfishService
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
-        nodes.emplace_back(std::make_unique<CPULogService>(app));
-        nodes.emplace_back(std::make_unique<CPULogEntryCollection>(app));
-        nodes.emplace_back(std::make_unique<CPULogEntry>(app));
-        nodes.emplace_back(std::make_unique<OnDemandCPULog>(app));
+        nodes.emplace_back(std::make_unique<CrashdumpService>(app));
+        nodes.emplace_back(std::make_unique<CrashdumpEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<CrashdumpEntry>(app));
+        nodes.emplace_back(std::make_unique<OnDemandCrashdump>(app));
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         nodes.emplace_back(std::make_unique<SendRawPECI>(app));
 #endif // BMCWEB_ENABLE_REDFISH_RAW_PECI

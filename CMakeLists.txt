@@ -31,7 +31,7 @@ option (BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through
        Actions/Oem/CpuLog.SendRawPeci'." OFF)
 option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
        through Redfish.  Paths are under
-       '/redfish/v1/Systems/system/LogServices/CpuLog'." OFF)
+       '/redfish/v1/Systems/system/LogServices/Crashdump'." OFF)
 option (BMCWEB_ENABLE_REDFISH_ONE_CHASSIS "Enable Redfish to assume only one
        chassis is present.  All sensors will be assumed to be under this
        chassis.  The chassis path is '/redfish/v1/Chassis/chassis'." OFF)
