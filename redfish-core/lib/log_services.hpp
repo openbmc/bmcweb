@@ -27,14 +27,14 @@
 namespace redfish
 {
 
-constexpr char const *cpuLogObject = "com.intel.CpuDebugLog";
-constexpr char const *cpuLogPath = "/com/intel/CpuDebugLog";
-constexpr char const *cpuLogOnDemandPath = "/com/intel/CpuDebugLog/OnDemand";
-constexpr char const *cpuLogInterface = "com.intel.CpuDebugLog";
-constexpr char const *cpuLogOnDemandInterface =
-    "com.intel.CpuDebugLog.OnDemand";
-constexpr char const *cpuLogRawPECIInterface =
-    "com.intel.CpuDebugLog.SendRawPeci";
+constexpr char const *CrashdumpObject = "com.intel.crashdump";
+constexpr char const *CrashdumpPath = "/com/intel/crashdump";
+constexpr char const *CrashdumpOnDemandPath = "/com/intel/crashdump/OnDemand";
+constexpr char const *CrashdumpInterface = "com.intel.crashdump";
+constexpr char const *CrashdumpOnDemandInterface =
+    "com.intel.crashdump.OnDemand";
+constexpr char const *CrashdumpRawPECIInterface =
+    "com.intel.crashdump.SendRawPeci";
 
 namespace fs = std::filesystem;
 
@@ -343,7 +343,7 @@ class SystemLogServiceCollection : public Node
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
             {{ "@odata.id",
-               "/redfish/v1/Systems/system/LogServices/CpuLog" }});
+               "/redfish/v1/Systems/system/LogServices/Crashdump" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1158,12 +1158,12 @@ class BMCJournalLogEntry : public Node
     }
 };
 
-class CPULogService : public Node
+class CrashdumpService : public Node
 {
   public:
     template <typename CrowApp>
-    CPULogService(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/")
+    CrashdumpService(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1184,41 +1184,41 @@ class CPULogService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Copy over the static data to include the entries added by SubRoute
         asyncResp->res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/LogServices/CpuLog";
+            "/redfish/v1/Systems/system/LogServices/Crashdump";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogService.LogService";
-        asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Service";
-        asyncResp->res.jsonValue["Description"] = "CPU Log Service";
-        asyncResp->res.jsonValue["Id"] = "CPU Log";
+        asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Service";
+        asyncResp->res.jsonValue["Description"] = "Crashdump Service";
+        asyncResp->res.jsonValue["Id"] = "Crashdump";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/CpuLog/Entries"}};
+             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
             {"Oem",
-             {{"#CpuLog.OnDemand",
-               {{"target", "/redfish/v1/Systems/system/LogServices/CpuLog/"
-                           "Actions/Oem/CpuLog.OnDemand"}}}}}};
+             {{"#Crashdump.OnDemand",
+               {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                           "Actions/Oem/Crashdump.OnDemand"}}}}}};
 
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
-            {"#CpuLog.SendRawPeci",
+            {"#Crashdump.SendRawPeci",
              { { "target",
-                 "/redfish/v1/Systems/system/LogServices/CpuLog/"
-                 "Actions/Oem/CpuLog.SendRawPeci" } }});
+                 "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                 "Actions/Oem/Crashdump.SendRawPeci" } }});
 #endif
     }
 };
 
-class CPULogEntryCollection : public Node
+class CrashdumpEntryCollection : public Node
 {
   public:
     template <typename CrowApp>
-    CPULogEntryCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/")
+    CrashdumpEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1256,19 +1256,19 @@ class CPULogEntryCollection : public Node
             asyncResp->res.jsonValue["@odata.type"] =
                 "#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
-                "/redfish/v1/Systems/system/LogServices/CpuLog/Entries";
+                "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
             asyncResp->res.jsonValue["@odata.context"] =
                 "/redfish/v1/"
                 "$metadata#LogEntryCollection.LogEntryCollection";
-            asyncResp->res.jsonValue["Name"] = "Open BMC CPU Log Entries";
+            asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Entries";
             asyncResp->res.jsonValue["Description"] =
-                "Collection of CPU Log Entries";
+                "Collection of Crashdump Entries";
             nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
             logEntryArray = nlohmann::json::array();
             for (const std::string &objpath : resp)
             {
                 // Don't list the on-demand log
-                if (objpath.compare(cpuLogOnDemandPath) == 0)
+                if (objpath.compare(CrashdumpOnDemandPath) == 0)
                 {
                     continue;
                 }
@@ -1277,7 +1277,7 @@ class CPULogEntryCollection : public Node
                 {
                     logEntryArray.push_back(
                         {{"@odata.id", "/redfish/v1/Systems/system/LogServices/"
-                                       "CpuLog/Entries/" +
+                                       "Crashdump/Entries/" +
                                            objpath.substr(lastPos + 1)}});
                 }
             }
@@ -1289,14 +1289,14 @@ class CPULogEntryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "", 0,
-            std::array<const char *, 1>{cpuLogInterface});
+            std::array<const char *, 1>{CrashdumpInterface});
     }
 };
 
-std::string getLogCreatedTime(const nlohmann::json &cpuLog)
+std::string getLogCreatedTime(const nlohmann::json &Crashdump)
 {
-    nlohmann::json::const_iterator cdIt = cpuLog.find("crashlog_data");
-    if (cdIt != cpuLog.end())
+    nlohmann::json::const_iterator cdIt = Crashdump.find("crashlog_data");
+    if (cdIt != Crashdump.end())
     {
         nlohmann::json::const_iterator siIt = cdIt->find("SYSTEM_INFO");
         if (siIt != cdIt->end())
@@ -1318,12 +1318,12 @@ std::string getLogCreatedTime(const nlohmann::json &cpuLog)
     return std::string();
 }
 
-class CPULogEntry : public Node
+class CrashdumpEntry : public Node
 {
   public:
-    CPULogEntry(CrowApp &app) :
+    CrashdumpEntry(CrowApp &app) :
         Node(app,
-             "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/<str>/",
+             "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -1372,28 +1372,30 @@ class CPULogEntry : public Node
                 {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
                 {"@odata.id",
-                 "/redfish/v1/Systems/system/LogServices/CpuLog/Entries/" +
+                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                      std::to_string(logId)},
-                {"Name", "CPU Debug Log"},
+                {"Name", "CPU Crashdump"},
                 {"Id", logId},
                 {"EntryType", "Oem"},
-                {"OemRecordFormat", "Intel CPU Log"},
+                {"OemRecordFormat", "Intel Crashdump"},
                 {"Oem", {{"Intel", std::move(j)}}},
                 {"Created", std::move(t)}};
         };
         crow::connections::systemBus->async_method_call(
-            std::move(getStoredLogCallback), cpuLogObject,
-            cpuLogPath + std::string("/") + std::to_string(logId),
-            "org.freedesktop.DBus.Properties", "Get", cpuLogInterface, "Log");
+            std::move(getStoredLogCallback), CrashdumpObject,
+            CrashdumpPath + std::string("/") + std::to_string(logId),
+            "org.freedesktop.DBus.Properties", "Get", CrashdumpInterface,
+            "Log");
     }
 };
 
-class OnDemandCPULog : public Node
+class OnDemandCrashdump : public Node
 {
   public:
-    OnDemandCPULog(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/"
-                  "CpuLog.OnDemand/")
+    OnDemandCrashdump(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
+             "Crashdump.OnDemand/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1455,7 +1457,7 @@ class OnDemandCPULog : public Node
                 interfacesAdded;
             m.read(objPath, interfacesAdded);
             const std::string *log = std::get_if<std::string>(
-                &interfacesAdded[cpuLogInterface]["Log"]);
+                &interfacesAdded[CrashdumpInterface]["Log"]);
             if (log == nullptr)
             {
                 messages::internalError(asyncResp->res);
@@ -1483,9 +1485,9 @@ class OnDemandCPULog : public Node
             asyncResp->res.jsonValue = {
                 {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
                 {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
-                {"Name", "CPU Debug Log"},
+                {"Name", "CPU Crashdump"},
                 {"EntryType", "Oem"},
-                {"OemRecordFormat", "Intel CPU Log"},
+                {"OemRecordFormat", "Intel Crashdump"},
                 {"Oem", {{"Intel", std::move(j)}}},
                 {"Created", std::move(t)}};
             // Careful with onDemandLogMatcher.  It is a unique_ptr to the
@@ -1498,7 +1500,8 @@ class OnDemandCPULog : public Node
         onDemandLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
             *crow::connections::systemBus,
             sdbusplus::bus::match::rules::interfacesAdded() +
-                sdbusplus::bus::match::rules::argNpath(0, cpuLogOnDemandPath),
+                sdbusplus::bus::match::rules::argNpath(0,
+                                                       CrashdumpOnDemandPath),
             std::move(onDemandLogMatcherCallback));
 
         auto generateonDemandLogCallback =
@@ -1527,8 +1530,8 @@ class OnDemandCPULog : public Node
                 }
             };
         crow::connections::systemBus->async_method_call(
-            std::move(generateonDemandLogCallback), cpuLogObject, cpuLogPath,
-            cpuLogOnDemandInterface, "GenerateOnDemandLog");
+            std::move(generateonDemandLogCallback), CrashdumpObject,
+            CrashdumpPath, CrashdumpOnDemandInterface, "GenerateOnDemandLog");
     }
 };
 
@@ -1536,8 +1539,9 @@ class SendRawPECI : public Node
 {
   public:
     SendRawPECI(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/CpuLog/Actions/Oem/"
-                  "CpuLog.SendRawPeci/")
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
+             "Crashdump.SendRawPeci/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
@@ -1579,8 +1583,8 @@ class SendRawPECI : public Node
             };
         // Call the SendRawPECI command with the provided data
         crow::connections::systemBus->async_method_call(
-            std::move(sendRawPECICallback), cpuLogObject, cpuLogPath,
-            cpuLogRawPECIInterface, "SendRawPeci", clientAddress, readLength,
+            std::move(sendRawPECICallback), CrashdumpObject, CrashdumpPath,
+            CrashdumpRawPECIInterface, "SendRawPeci", clientAddress, readLength,
             peciCommand);
     }
 };
