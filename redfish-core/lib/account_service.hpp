@@ -102,7 +102,7 @@ class AccountService : public Node
             {"Name", "Account Service"},
             {"Description", "Account Service"},
             {"ServiceEnabled", true},
-            {"MaxPasswordLength", 31},
+            {"MaxPasswordLength", 20},
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
             {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}}};
