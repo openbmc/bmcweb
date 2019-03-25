@@ -38,8 +38,9 @@ class Power : public Node
     }
 
   private:
-    std::vector<const char*> typeList = {"/xyz/openbmc_project/sensors/voltage",
-                                         "/xyz/openbmc_project/sensors/power"};
+    std::initializer_list<const char*> typeList = {
+        "/xyz/openbmc_project/sensors/voltage",
+        "/xyz/openbmc_project/sensors/power"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {

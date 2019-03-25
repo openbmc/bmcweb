@@ -30,7 +30,6 @@ class ILogHandler
 {
   public:
     virtual void log(std::string message, LogLevel level) = 0;
-    virtual ~ILogHandler(){};
 };
 
 class CerrLogHandler : public ILogHandler

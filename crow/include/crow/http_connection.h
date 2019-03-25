@@ -345,7 +345,7 @@ class Connection
             };
 
             ctx = detail::Context<Middlewares...>();
-            req->middlewareContext = static_cast<void*>(&ctx);
+            req->middlewareContext = (void*)&ctx;
             req->ioService = &adaptor.get_executor().context();
             detail::middlewareCallHelper<
                 0, decltype(ctx), decltype(*middlewares), Middlewares...>(
@@ -388,13 +388,14 @@ class Connection
             needToCallAfterHandlers = false;
 
             // call all afterHandler of middlewares
-            detail::afterHandlersCallHelper<
-                static_cast<int>(sizeof...(Middlewares) - 1), decltype(ctx),
-                decltype(*middlewares)>(*middlewares, ctx, *req, res);
+            detail::afterHandlersCallHelper<((int)sizeof...(Middlewares) - 1),
+                                            decltype(ctx),
+                                            decltype(*middlewares)>(
+                *middlewares, ctx, *req, res);
         }
 
         // auto self = this->shared_from_this();
-        res.completeRequestHandler = [] {};
+        res.completeRequestHandler = res.completeRequestHandler = [] {};
 
         if (!adaptor.lowest_layer().is_open())
         {

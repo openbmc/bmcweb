@@ -49,7 +49,7 @@ class SensorsAsyncResp
 {
   public:
     SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::vector<const char*> types,
+                     const std::initializer_list<const char*> types,
                      const std::string& subNode) :
         res(response),
         chassisId(chassisId), types(types), chassisSubNode(subNode)
@@ -539,11 +539,11 @@ void objectInterfacesToJson(
         auto interfaceProperties = interfacesDict.find(std::get<0>(p));
         if (interfaceProperties != interfacesDict.end())
         {
-            auto valIt = interfaceProperties->second.find(std::get<1>(p));
-            if (valIt != interfaceProperties->second.end())
+            auto valueIt = interfaceProperties->second.find(std::get<1>(p));
+            if (valueIt != interfaceProperties->second.end())
             {
-                const SensorVariant& valueVariant = valIt->second;
-                nlohmann::json& jValueIt = sensor_json[std::get<2>(p)];
+                const SensorVariant& valueVariant = valueIt->second;
+                nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
 
@@ -566,11 +566,11 @@ void objectInterfacesToJson(
                 temp = temp * std::pow(10, scaleMultiplier);
                 if (forceToInt)
                 {
-                    jValueIt = static_cast<int64_t>(temp);
+                    valueIt = static_cast<int64_t>(temp);
                 }
                 else
                 {
-                    jValueIt = temp;
+                    valueIt = temp;
                 }
             }
         }
@@ -985,7 +985,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
  */
 void setSensorOverride(crow::Response& res, const crow::Request& req,
                        const std::vector<std::string>& params,
-                       const std::vector<const char*> typeList,
+                       const std::initializer_list<const char*> typeList,
                        const std::string& chassisSubNode)
 {
 

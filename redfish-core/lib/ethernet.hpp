@@ -302,8 +302,7 @@ inline void
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
                         it = ipv4_config.insert(
-                            {objpath.first.str.substr(ipv4PathStart.size()), "",
-                             "", "", "", "", LinkType::Local});
+                            {objpath.first.str.substr(ipv4PathStart.size())});
                     IPv4AddressData &ipv4_address = *it.first;
                     for (auto &property : interface.second)
                     {
@@ -479,6 +478,45 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string &ip,
 }
 
 /**
+ * @brief Changes IPv4 address type property (Address, Gateway)
+ *
+ * @param[in] ifaceId     Id of interface whose IP should be modified
+ * @param[in] ipIdx       Index of IP in input array that should be modified
+ * @param[in] ipHash      DBus Hash id of modified IP
+ * @param[in] name        Name of field in JSON representation
+ * @param[in] newValue    New value that should be written
+ * @param[io] asyncResp   Response object that will be returned to client
+ *
+ * @return true if give IP is valid and has been sent do D-Bus, false
+ * otherwise
+ */
+inline void changeIPv4AddressProperty(
+    const std::string &ifaceId, int ipIdx, const std::string &ipHash,
+    const std::string &name, const std::string &newValue,
+    const std::shared_ptr<AsyncResp> asyncResp)
+{
+    auto callback = [asyncResp, ipIdx, name{std::string(name)},
+                     newValue{std::move(newValue)}](
+                        const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+        }
+        else
+        {
+            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx][name] = newValue;
+        }
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(callback), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", name,
+        std::variant<std::string>(newValue));
+}
+
+/**
  * @brief Changes IPv4 address origin property
  *
  * @param[in] ifaceId       Id of interface whose IP should be modified
@@ -492,7 +530,7 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string &ip,
  * @return true if give IP is valid and has been sent do D-Bus, false
  * otherwise
  */
-inline void changeIPv4Origin(const std::string &ifaceId, size_t ipIdx,
+inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
                              const std::string &ipHash,
                              const std::string &newValue,
                              const std::string &newValueDbus,
@@ -532,8 +570,7 @@ inline void changeIPv4Origin(const std::string &ifaceId, size_t ipIdx,
  *
  * @return None
  */
-inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId,
-                                         size_t ipIdx,
+inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
                                          const std::string &ipHash,
                                          const std::string &newValueStr,
                                          uint8_t &newValue,
@@ -600,8 +637,9 @@ inline void deleteIPv4(const std::string &ifaceId, const std::string &ipHash,
  *
  * @return None
  */
-inline void createIPv4(const std::string &ifaceId, uint8_t subnetMask,
-                       const std::string &gateway, const std::string &address,
+inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
+                       uint8_t subnetMask, const std::string &gateway,
+                       const std::string &address,
                        std::shared_ptr<AsyncResp> asyncResp)
 {
     auto createIpHandler = [asyncResp](const boost::system::error_code ec) {
@@ -1061,7 +1099,6 @@ class EthernetInterface : public Node
             if (gateway)
             {
                 if (!ipv4VerifyIpAndGetBitcount(*gateway))
-
                 {
                     messages::propertyValueFormatError(asyncResp->res, *gateway,
                                                        pathString + "/Gateway");
@@ -1161,7 +1198,8 @@ class EthernetInterface : public Node
                     continue;
                 }
 
-                createIPv4(ifaceId, entryIdx, *gateway, *address, asyncResp);
+                createIPv4(ifaceId, entryIdx, prefixLength, *gateway, *address,
+                           asyncResp);
 
                 nlohmann::json &ipv4AddressJson =
                     asyncResp->res.jsonValue["IPv4Addresses"][entryIdx];

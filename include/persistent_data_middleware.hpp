@@ -24,7 +24,7 @@ class Middleware
 {
     // todo(ed) should read this from a fixed location somewhere, not CWD
     static constexpr const char* filename = "bmcweb_persistent_data.json";
-    uint64_t jsonRevision = 1;
+    int jsonRevision = 1;
 
   public:
     struct Context
@@ -58,7 +58,7 @@ class Middleware
     void readData()
     {
         std::ifstream persistentFile(filename);
-        uint64_t fileRevision = 0;
+        int fileRevision = 0;
         if (persistentFile.is_open())
         {
             // call with exceptions disabled
