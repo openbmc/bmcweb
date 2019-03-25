@@ -36,6 +36,11 @@ using ManagedObjectType = std::vector<
                   std::string,
                   boost::container::flat_map<std::string, DbusVariantType>>>>;
 
+using ManagedItem = std::pair<
+    sdbusplus::message::object_path,
+    boost::container::flat_map<
+        std::string, boost::container::flat_map<std::string, DbusVariantType>>>;
+
 inline void escapePathForDbus(std::string& path)
 {
     const std::regex reg("[^A-Za-z0-9_/]");
