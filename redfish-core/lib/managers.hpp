@@ -501,7 +501,11 @@ static bool getZonesFromJsonReq(const std::shared_ptr<AsyncResp>& response,
             return false;
         }
         std::string input;
-        if (!dbus::utility::getNthStringFromPath(path, 4, input))
+
+        // 8 below comes from
+        // /redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones/Left
+        //     0    1     2      3    4    5      6     7      8
+        if (!dbus::utility::getNthStringFromPath(path, 8, input))
         {
             BMCWEB_LOG_ERROR << "Got invalid path " << path;
             BMCWEB_LOG_ERROR << "Illegal Type Zones";
