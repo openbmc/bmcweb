@@ -115,15 +115,22 @@ static constexpr const char* pidZoneConfigurationIface =
     "xyz.openbmc_project.Configuration.Pid.Zone";
 static constexpr const char* stepwiseConfigurationIface =
     "xyz.openbmc_project.Configuration.Stepwise";
+static constexpr const char* fanProfileConfigurationIFace =
+    "xyz.openbmc_project.Configuration.FanProfile";
+static constexpr const char* thermalModeIface =
+    "xyz.openbmc_project.Control.ThermalMode";
 
 static void asyncPopulatePid(const std::string& connection,
                              const std::string& path,
+                             const std::string& currentProfile,
+                             const std::vector<std::string>& supportedProfiles,
                              std::shared_ptr<AsyncResp> asyncResp)
 {
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec,
-                    const dbus::utility::ManagedObjectType& managedObj) {
+        [asyncResp, currentProfile, supportedProfiles](
+            const boost::system::error_code ec,
+            const dbus::utility::ManagedObjectType& managedObj) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << ec;
@@ -165,6 +172,64 @@ static void asyncPopulatePid(const std::string& connection,
             configRoot["@odata.type"] = "#OemManager.Fan";
             configRoot["@odata.context"] =
                 "/redfish/v1/$metadata#OemManager.Fan";
+            configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
+            configRoot["Profile"] =
+                currentProfile.size() ? currentProfile : nullptr;
+
+            std::vector<std::regex> allowedContollers;
+            BMCWEB_LOG_ERROR << "profile = " << currentProfile << " !";
+            if (currentProfile.size())
+            {
+                const boost::container::flat_map<
+                    std::string, dbus::utility::DbusVariantType>* interface =
+                    nullptr;
+
+                auto findProfile = std::find_if(
+                    managedObj.begin(), managedObj.end(),
+                    [&interface, &currentProfile](const auto& interfacePair) {
+                        if (!boost::ends_with(interfacePair.first.str,
+                                              currentProfile))
+                        {
+                            return false;
+                        }
+                        auto iface = interfacePair.second.find(
+                            fanProfileConfigurationIFace);
+                        if (iface == interfacePair.second.end())
+                        {
+                            return false;
+                        }
+                        interface = &(iface->second);
+                        return true;
+                    });
+                if (interface != nullptr)
+                {
+                    auto findControllers = interface->find("Controllers");
+                    if (findControllers == interface->end())
+                    {
+                        BMCWEB_LOG_ERROR << "Zone missing Controllers";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    const auto controllers =
+                        std::get_if<std::vector<std::string>>(
+                            &findControllers->second);
+                    if (controllers == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Zone Controllers Illegal Type";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    for (const std::string& controller : *controllers)
+                    {
+                        allowedContollers.emplace_back(controller);
+                    }
+                }
+                else
+                {
+                    BMCWEB_LOG_ERROR << "interface  = nullptr!";
+                }
+            }
 
             for (const auto& pathPair : managedObj)
             {
@@ -183,6 +248,7 @@ static void asyncPopulatePid(const std::string& connection,
                         messages::internalError(asyncResp->res);
                         return;
                     }
+
                     const std::string* namePtr =
                         std::get_if<std::string>(&findName->second);
                     if (namePtr == nullptr)
@@ -193,6 +259,26 @@ static void asyncPopulatePid(const std::string& connection,
                     }
 
                     std::string name = *namePtr;
+
+                    if (allowedContollers.size())
+                    {
+                        BMCWEB_LOG_ERROR << "allowedContollers found\n";
+                        if (allowedContollers.end() ==
+                            std::find_if(
+                                allowedContollers.begin(),
+                                allowedContollers.end(), [&name](auto& reg) {
+                                    std::smatch match;
+                                    return std::regex_search(name, match, reg);
+                                }))
+                        {
+                            // not in the current profile
+                            continue;
+                        }
+                    }
+                    {
+                        BMCWEB_LOG_INFO << "allowedContollers empty";
+                    }
+
                     dbus::utility::escapePathForDbus(name);
                     nlohmann::json* config = nullptr;
 
@@ -861,11 +947,15 @@ class Manager : public Node
     }
 
   private:
-    void getPidValues(std::shared_ptr<AsyncResp> asyncResp)
+    void getPidValues(std::shared_ptr<AsyncResp> asyncResp,
+                      const std::string& currentProfile,
+                      const std::vector<std::string>& supportedProfiles)
     {
+
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const crow::openbmc_mapper::GetSubTreeType& subtree) {
+            [asyncResp, currentProfile, supportedProfiles](
+                const boost::system::error_code ec,
+                const crow::openbmc_mapper::GetSubTreeType& subtree) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << ec;
@@ -913,7 +1003,9 @@ class Manager : public Node
                                 calledConnections.insert(connectionGroup.first);
 
                                 asyncPopulatePid(findObjMgr->first,
-                                                 findObjMgr->second, asyncResp);
+                                                 findObjMgr->second,
+                                                 currentProfile,
+                                                 supportedProfiles, asyncResp);
                                 break;
                             }
                         }
@@ -926,6 +1018,114 @@ class Manager : public Node
             std::array<const char*, 4>{
                 pidConfigurationIface, pidZoneConfigurationIface,
                 objectManagerIface, stepwiseConfigurationIface});
+    }
+
+    void updateFanProfile(const std::shared_ptr<AsyncResp>& asyncResp,
+                          const nlohmann::json& data, bool doGet)
+    {
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, doGet, data,
+             this](const boost::system::error_code ec,
+                   const crow::openbmc_mapper::GetSubTreeType& subtree) {
+                if (ec || subtree.empty())
+                {
+                    // no profiles are OK
+                    if (doGet)
+                    {
+                        getPidValues(asyncResp, std::string(),
+                                     std::vector<std::string>());
+                    }
+                    else
+                    {
+                        setPidValues(asyncResp, data, std::string(),
+                                     std::vector<std::string>(), "", "");
+                    }
+                    return;
+                }
+                if (subtree[0].second.empty())
+                {
+                    // invalid mapper response, should never happen
+                    BMCWEB_LOG_ERROR << "updateFanProfile: Mapper Error";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                const std::string& path = subtree[0].first;
+                const std::string& owner = subtree[0].second[0].first;
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, doGet, data, path, owner, this](
+                        const boost::system::error_code ec,
+                        const boost::container::flat_map<
+                            std::string, std::variant<std::vector<std::string>,
+                                                      std::string>>& resp) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "updateFanProfile: Can't get "
+                                                "thermalModeIface "
+                                             << path;
+                            messages::internalError(asyncResp->res);
+                        }
+                        const std::string* current;
+                        const std::vector<std::string>* supported;
+                        for (auto& [key, value] : resp)
+                        {
+                            if (key == "Current")
+                            {
+                                current = std::get_if<std::string>(&value);
+                                if (current == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "updateFanProfile: thermal mode "
+                                           "iface invalid "
+                                        << path;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            }
+                            if (key == "Supported")
+                            {
+                                supported =
+                                    std::get_if<std::vector<std::string>>(
+                                        &value);
+                                if (supported == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "updateFanProfile: thermal mode "
+                                           "iface invalid"
+                                        << path;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            }
+                        }
+                        if (current == nullptr || supported == nullptr)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "updateFanProfile: thermal mode "
+                                   "iface invalid "
+                                << path;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        if (doGet)
+                        {
+                            getPidValues(asyncResp, *current, *supported);
+                        }
+                        else
+                        {
+                            setPidValues(asyncResp, data, *current, *supported,
+                                         owner, path);
+                        }
+                    },
+                    owner, path, "org.freedesktop.DBus.Properties", "GetAll",
+                    thermalModeIface);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0,
+            std::array<const char*, 1>{thermalModeIface});
     }
 
     void doGet(crow::Response& res, const crow::Request& req,
@@ -1025,15 +1225,21 @@ class Manager : public Node
             "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-        getPidValues(asyncResp);
+        updateFanProfile(asyncResp, nlohmann::json(), true);
     }
-    void setPidValues(std::shared_ptr<AsyncResp> response, nlohmann::json& data)
+    void setPidValues(std::shared_ptr<AsyncResp> response,
+                      const nlohmann::json& data,
+                      const std::string& currentProfile,
+                      const std::vector<std::string> supportedProfiles,
+                      const std::string& profileConnection,
+                      const std::string& profilePath)
     {
 
         // todo(james): might make sense to do a mapper call here if this
         // interface gets more traction
         crow::connections::systemBus->async_method_call(
-            [response,
+            [response, currentProfile, profileConnection, profilePath,
+             supportedProfiles,
              data](const boost::system::error_code ec,
                    const dbus::utility::ManagedObjectType& managedObj) {
                 if (ec)
@@ -1050,17 +1256,43 @@ class Manager : public Node
                 std::optional<nlohmann::json> fanControllers;
                 std::optional<nlohmann::json> fanZones;
                 std::optional<nlohmann::json> stepwiseControllers;
+                std::optional<std::string> profile;
                 if (!redfish::json_util::readJson(
                         jsonData, response->res, "PidControllers",
                         pidControllers, "FanControllers", fanControllers,
                         "FanZones", fanZones, "StepwiseControllers",
-                        stepwiseControllers))
+                        stepwiseControllers, "Profile", profile))
                 {
                     BMCWEB_LOG_ERROR << "Line:" << __LINE__
                                      << ", Illegal Property "
                                      << jsonData.dump();
                     return;
                 }
+                if (profile)
+                {
+                    if (std::find(supportedProfiles.begin(),
+                                  supportedProfiles.end(),
+                                  profile) == supportedProfiles.end())
+                    {
+                        messages::actionParameterUnknown(response->res,
+                                                         "Profile", *profile);
+                        return;
+                    }
+                    crow::connections::systemBus->async_method_call(
+                        [response](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "Error patching profile"
+                                                 << ec;
+                                messages::internalError(response->res);
+                            }
+                        },
+                        profileConnection, profilePath,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        thermalModeIface, "Current",
+                        std::variant<std::string>(*profile));
+                }
+
                 std::array<
                     std::pair<std::string, std::optional<nlohmann::json>*>, 4>
                     sections = {
@@ -1221,6 +1453,105 @@ class Manager : public Node
                                 "xyz.openbmc_project.EntityManager", chassis,
                                 "xyz.openbmc_project.AddObject", "AddObject",
                                 output);
+
+                            if (currentProfile.size())
+                            {
+                                auto findProfile = std::find_if(
+                                    managedObj.begin(), managedObj.end(),
+                                    [&currentProfile](
+                                        const auto& interfacePair) {
+                                        if (!boost::ends_with(
+                                                interfacePair.first.str,
+                                                currentProfile))
+                                        {
+                                            return false;
+                                        }
+                                        auto iface = interfacePair.second.find(
+                                            fanProfileConfigurationIFace);
+                                        if (iface == interfacePair.second.end())
+                                        {
+                                            return false;
+                                        }
+                                        return true;
+                                    });
+
+                                if (findProfile == managedObj.end())
+                                {
+                                    BMCWEB_LOG_ERROR
+                                        << "Cannot determine profile to update";
+                                    messages::internalError(response->res);
+                                    return;
+                                }
+
+                                const std::string& path =
+                                    findProfile->first.str;
+                                crow::connections::systemBus->async_method_call(
+                                    [response, currentProfile, name, path](
+                                        const boost::system::error_code ec,
+                                        const std::variant<
+                                            std::vector<std::string>>& resp) {
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "Error Accessing Zone to "
+                                                   "update "
+                                                << ec;
+                                            messages::internalError(
+                                                response->res);
+                                            return;
+                                        }
+                                        auto ptr = std::get_if<
+                                            std::vector<std::string>>(&resp);
+
+                                        if (!ptr)
+                                        {
+                                            BMCWEB_LOG_ERROR
+                                                << "Error Accessing Zone to "
+                                                   "update, illegal type";
+                                            messages::internalError(
+                                                response->res);
+                                            return;
+                                        }
+                                        std::vector<std::string> patch = *ptr;
+                                        patch.push_back(name);
+
+                                        crow::connections::systemBus
+                                            ->async_method_call(
+                                                [response](const boost::system::
+                                                               error_code ec) {
+                                                    if (ec)
+                                                    {
+                                                        BMCWEB_LOG_ERROR
+                                                            << "Error "
+                                                               "Patchi"
+                                                               "ng "
+                                                               "Zones"
+                                                            << ec;
+                                                        messages::internalError(
+                                                            response->res);
+                                                        return;
+                                                    }
+                                                },
+                                                "xyz.openbmc_project."
+                                                "EntityManager",
+                                                path,
+                                                "org.freedesktop.DBus."
+                                                "Properties",
+                                                "Set",
+                                                "xyz.openbmc_project."
+                                                "Configuration."
+                                                "FanProfile",
+                                                "Controllers",
+                                                std::variant<
+                                                    std::vector<std::string>>(
+                                                    patch));
+                                    },
+                                    "xyz.openbmc_project.EntityManager", path,
+                                    "org.freedesktop.DBus.Properties", "Get",
+                                    "xyz.openbmc_project.Configuration."
+                                    "FanProfile",
+                                    "Controllers");
+                            }
                         }
                     }
                 }
@@ -1262,7 +1593,7 @@ class Manager : public Node
                 }
                 if (fan)
                 {
-                    setPidValues(response, *fan);
+                    updateFanProfile(response, *fan, false);
                 }
             }
         }
