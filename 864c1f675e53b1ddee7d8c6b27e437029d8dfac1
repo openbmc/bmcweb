@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "a515e9d7_6f98b2d9",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2019-03-26T08:51:47Z",
+      "side": 1,
+      "message": "From the schema (https://redfish.dmtf.org/schemas/CertificateService.v1_0_0.json) -  The Location header in the response shall contain the URI of the new Certificate resource. Are we doing that?",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cb1a750_c7b8f62c",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 12
