@@ -323,7 +323,7 @@ class Connection
             if (req->getHeaderValue(boost::beast::http::field::host).empty())
             {
                 isInvalidRequest = true;
-                res = Response(boost::beast::http::status::bad_request);
+                res.result(boost::beast::http::status::bad_request);
             }
         }
 

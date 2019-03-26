@@ -50,7 +50,7 @@ class BaseRule
     virtual void handleUpgrade(const Request&, Response& res,
                                boost::asio::ip::tcp::socket&&)
     {
-        res = Response(boost::beast::http::status::not_found);
+        res.result(boost::beast::http::status::not_found);
         res.end();
     }
 #ifdef BMCWEB_ENABLE_SSL
@@ -58,7 +58,7 @@ class BaseRule
         handleUpgrade(const Request&, Response& res,
                       boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&)
     {
-        res = Response(boost::beast::http::status::not_found);
+        res.result(boost::beast::http::status::not_found);
         res.end();
     }
 #endif
@@ -206,7 +206,7 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
     {
         handler = [f = std::move(f)](const Request&, Response& res,
                                      Args... args) {
-            res = Response(f(args...));
+            res.result(f(args...));
             res.end();
         };
     }
@@ -219,7 +219,7 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
 
         void operator()(const Request& req, Response& res, Args... args)
         {
-            res = Response(f(req, args...));
+            res.result(f(req, args...));
             res.end();
         }
 
@@ -242,7 +242,7 @@ template <typename Func, typename... ArgsWrapped> struct Wrapped
         /*handler = (
             [f = std::move(f)]
             (const Request& req, Response& res, Args... args){
-                 res = Response(f(req, args...));
+                 res.result(f(req, args...));
                  res.end();
             });*/
     }
@@ -319,7 +319,7 @@ class WebSocketRule : public BaseRule
 
     void handle(const Request&, Response& res, const RoutingParams&) override
     {
-        res = Response(boost::beast::http::status::not_found);
+        res.result(boost::beast::http::status::not_found);
         res.end();
     }
 
@@ -533,7 +533,7 @@ class TaggedRule : public BaseRule,
 
         handler = [f = std::move(f)](const Request&, Response& res,
                                      Args... args) {
-            res = Response(f(args...));
+            res.result(f(args...));
             res.end();
         };
     }
@@ -560,7 +560,7 @@ class TaggedRule : public BaseRule,
 
         handler = [f = std::move(f)](const crow::Request& req,
                                      crow::Response& res, Args... args) {
-            res = Response(f(req, args...));
+            res.result(f(req, args...));
             res.end();
         };
     }
@@ -1085,7 +1085,7 @@ class Router
         if (!ruleIndex)
         {
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
-            res = Response(boost::beast::http::status::not_found);
+            res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
@@ -1097,7 +1097,7 @@ class Router
         {
             BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
                             << req.url;
-            res = Response(boost::beast::http::status::moved_permanently);
+            res.result(boost::beast::http::status::moved_permanently);
 
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
@@ -1124,7 +1124,7 @@ class Router
                              << " with " << req.methodString() << "("
                              << (uint32_t)req.method() << ") / "
                              << rules[ruleIndex]->getMethods();
-            res = Response(boost::beast::http::status::not_found);
+            res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
@@ -1141,7 +1141,7 @@ class Router
         catch (std::exception& e)
         {
             BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res = Response(boost::beast::http::status::internal_server_error);
+            res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
         }
@@ -1150,7 +1150,7 @@ class Router
             BMCWEB_LOG_ERROR
                 << "An uncaught exception occurred. The type was unknown "
                    "so no information was available.";
-            res = Response(boost::beast::http::status::internal_server_error);
+            res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
         }
@@ -1183,7 +1183,7 @@ class Router
         {
             BMCWEB_LOG_INFO << "Redirecting to a url with trailing slash: "
                             << req.url;
-            res = Response(boost::beast::http::status::moved_permanently);
+            res.result(boost::beast::http::status::moved_permanently);
 
             // TODO absolute url building
             if (req.getHeaderValue("Host").empty())
@@ -1208,7 +1208,7 @@ class Router
                              << " with " << req.methodString() << "("
                              << (uint32_t)req.method() << ") / "
                              << rules[ruleIndex]->getMethods();
-            res = Response(boost::beast::http::status::not_found);
+            res.result(boost::beast::http::status::method_not_allowed);
             res.end();
             return;
         }
@@ -1225,7 +1225,7 @@ class Router
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
-            res.result(boost::beast::http::status::method_not_allowed);
+            res.result(boost::beast::http::status::unauthorized);
             res.end();
             return;
         }
@@ -1238,7 +1238,7 @@ class Router
         catch (std::exception& e)
         {
             BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res = Response(boost::beast::http::status::internal_server_error);
+            res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
         }
@@ -1247,7 +1247,7 @@ class Router
             BMCWEB_LOG_ERROR
                 << "An uncaught exception occurred. The type was unknown "
                    "so no information was available.";
-            res = Response(boost::beast::http::status::internal_server_error);
+            res.result(boost::beast::http::status::internal_server_error);
             res.end();
             return;
         }
