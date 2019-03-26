@@ -1170,6 +1170,18 @@ class Router
 
         if (!ruleIndex)
         {
+            // Check to see if this url exists at any verb
+            for (const PerMethod& p : perMethods)
+            {
+                const std::pair<unsigned, RoutingParams>& found =
+                    p.trie.find(req.url);
+                if (found.first > 0)
+                {
+                    res.result(boost::beast::http::status::method_not_allowed);
+                    res.end();
+                    return;
+                }
+            }
             BMCWEB_LOG_DEBUG << "Cannot match rules " << req.url;
             res.result(boost::beast::http::status::not_found);
             res.end();
