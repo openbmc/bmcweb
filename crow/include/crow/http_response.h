@@ -38,23 +38,6 @@ struct Response
     {
     }
 
-    explicit Response(boost::beast::http::status code) :
-        stringResponse(response_type{})
-    {
-    }
-
-    explicit Response(std::string_view body_) : stringResponse(response_type{})
-    {
-        stringResponse->body() = std::string(body_);
-    }
-
-    Response(boost::beast::http::status code, std::string_view s) :
-        stringResponse(response_type{})
-    {
-        stringResponse->result(code);
-        stringResponse->body() = std::string(s);
-    }
-
     Response(Response&& r)
     {
         BMCWEB_LOG_DEBUG << "Moving response containers";
