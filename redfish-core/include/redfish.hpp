@@ -112,6 +112,9 @@ class RedfishService
             std::make_unique<MessageRegistryFileCollection>(app));
         nodes.emplace_back(std::make_unique<BaseMessageRegistryFile>(app));
         nodes.emplace_back(std::make_unique<BaseMessageRegistry>(app));
+        nodes.emplace_back(
+            std::make_unique<ResourceEventMessageRegistryFile>(app));
+        nodes.emplace_back(std::make_unique<ResourceEventMessageRegistry>(app));
 
         for (const auto& node : nodes)
         {
