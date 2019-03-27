@@ -100,8 +100,10 @@ class BaseMessageRegistryFile : public Node
         asyncResp->res.jsonValue["Name"] = "Base Message Registry File";
         asyncResp->res.jsonValue["Description"] =
             "DMTF Base Message Registry File Location";
-        asyncResp->res.jsonValue["Id"] = "Base";
-        asyncResp->res.jsonValue["Registry"] = "Base.1.4";
+        asyncResp->res.jsonValue["Id"] =
+            message_registries::base::header.registryPrefix;
+        asyncResp->res.jsonValue["Registry"] =
+            message_registries::base::header.id;
         nlohmann::json &messageRegistryLanguageArray =
             asyncResp->res.jsonValue["Languages"];
         messageRegistryLanguageArray = nlohmann::json::array();
@@ -144,17 +146,22 @@ class BaseMessageRegistry : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         asyncResp->res.jsonValue["@Redfish.Copyright"] =
-            "Copyright 2014-2018 DMTF. All rights reserved.";
+            message_registries::base::header.copyright;
         asyncResp->res.jsonValue["@odata.type"] =
-            "#MessageRegistry.v1_0_0.MessageRegistry";
-        asyncResp->res.jsonValue["Id"] = "Base.1.4.0";
-        asyncResp->res.jsonValue["Name"] = "Base Message Registry";
-        asyncResp->res.jsonValue["Language"] = "en";
+            message_registries::base::header.type;
+        asyncResp->res.jsonValue["Id"] = message_registries::base::header.id;
+        asyncResp->res.jsonValue["Name"] =
+            message_registries::base::header.name;
+        asyncResp->res.jsonValue["Language"] =
+            message_registries::base::header.language;
         asyncResp->res.jsonValue["Description"] =
-            "This registry defines the base messages for Redfish";
-        asyncResp->res.jsonValue["RegistryPrefix"] = "Base";
-        asyncResp->res.jsonValue["RegistryVersion"] = "1.4.0";
-        asyncResp->res.jsonValue["OwningEntity"] = "DMTF";
+            message_registries::base::header.description;
+        asyncResp->res.jsonValue["RegistryPrefix"] =
+            message_registries::base::header.registryPrefix;
+        asyncResp->res.jsonValue["RegistryVersion"] =
+            message_registries::base::header.registryVersion;
+        asyncResp->res.jsonValue["OwningEntity"] =
+            message_registries::base::header.owningEntity;
         nlohmann::json &messageArray = asyncResp->res.jsonValue["Messages"];
         messageArray = nlohmann::json::array();
 

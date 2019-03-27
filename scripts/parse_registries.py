@@ -37,8 +37,6 @@ REGISTRY_HEADER = '''/*
 
 namespace redfish::message_registries::{}
 {{
-
-const std::array registry = {{
 '''
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
@@ -65,6 +63,21 @@ for file, json, namespace in files:
 
     with open(file, 'w') as registry:
         registry.write(REGISTRY_HEADER.format(namespace))
+        # Parse the Registry header info
+        registry.write("const Header header = {")
+        registry.write(".copyright = \"{}\",".format(json["@Redfish.Copyright"]))
+        registry.write(".type = \"{}\",".format(json["@odata.type"]))
+        registry.write(".id = \"{}\",".format(json["Id"]))
+        registry.write(".name = \"{}\",".format(json["Name"]))
+        registry.write(".language = \"{}\",".format(json["Language"]))
+        registry.write(".description = \"{}\",".format(json["Description"]))
+        registry.write(".registryPrefix = \"{}\",".format(json["RegistryPrefix"]))
+        registry.write(".registryVersion = \"{}\",".format(json["RegistryVersion"]))
+        registry.write(".owningEntity = \"{}\",".format(json["OwningEntity"]))
+        registry.write("};")
+
+        # Parse each Message entry
+        registry.write("const std::array registry = {")
         for messageId, message in sorted(json["Messages"].items()):
             registry.write("MessageEntry{")
             registry.write("\"{}\",".format(messageId))
