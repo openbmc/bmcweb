@@ -22,7 +22,17 @@
 
 namespace redfish::message_registries::base
 {
-
+const Header header = {
+    .copyright = "Copyright 2014-2018 DMTF. All rights reserved.",
+    .type = "#MessageRegistry.v1_0_0.MessageRegistry",
+    .id = "Base.1.4.0",
+    .name = "Base Message Registry",
+    .language = "en",
+    .description = "This registry defines the base messages for Redfish",
+    .registryPrefix = "Base",
+    .registryVersion = "1.4.0",
+    .owningEntity = "DMTF",
+};
 const std::array registry = {
     MessageEntry{
         "AccessDenied",
