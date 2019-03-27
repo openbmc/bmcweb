@@ -52,7 +52,12 @@ base_file.raise_for_status()
 base_json = json.loads(base_file.text)
 base_path = os.path.join(include_path, "base_message_registry.hpp")
 
-files = [(base_path, base_json, "base")]
+resource_event_file = requests.get('https://redfish.dmtf.org/registries/ResourceEvent.1.0.0.json', proxies=proxies)
+resource_event_file.raise_for_status()
+resource_event_json = json.loads(resource_event_file.text)
+resource_event_path = os.path.join(include_path, "resource_event_message_registry.hpp")
+
+files = [(base_path, base_json, "base"), (resource_event_path, resource_event_json, "resource_event")]
 
 # Remove the old files
 for file, json, namespace in files:
