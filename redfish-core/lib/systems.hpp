@@ -23,6 +23,18 @@
 
 namespace redfish
 {
+static const char *mapperBusName = "xyz.openbmc_project.ObjectMapper";
+static const char *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
+static const char *mapperIntf = "xyz.openbmc_project.ObjectMapper";
+
+static const char *hostObjectPath = "/xyz/openbmc_project/state/host0";
+static const char *dbusPropIntf = "org.freedesktop.DBus.Properties";
+static const char *hostPropIntf = "xyz.openbmc_project.State.Host";
+static const char *wdtObjectPath = "/xyz/openbmc_project/watchdog/host0";
+static const char *wdtPropIntf = "xyz.openbmc_project.State.Watchdog";
+
+using GetObjectType =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
 
 /**
  * @brief Retrieves computer system properties over dbus
@@ -953,6 +965,178 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
 }
 
 /**
+ * @brief Retrieves Host WatchDog Timer properties over DBUS and fills out the
+ * response
+ *
+ * @param[in] aResp         Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+static void getHostWDTProperties(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get WatchDog Timer Information ";
+
+    auto getWDTPropEnabled = [aResp](const boost::system::error_code ec,
+                                     const std::variant<bool> &WDTState) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+        const bool *isWdtEnabled = std::get_if<bool>(&WDTState);
+
+        if (isWdtEnabled == nullptr)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "WDT Enabled: " << *isWdtEnabled;
+
+        bool wdtEnable = false;
+        std::string wdtState = "Disabled";
+        // Verify WDT State
+        if (*isWdtEnabled == true)
+        {
+            wdtEnable = true;
+            wdtState = "Enabled";
+        }
+        aResp->res.jsonValue["HostWatchdogTimer"]["Status"]["State"] = wdtState;
+        aResp->res.jsonValue["HostWatchdogTimer"]["FunctionEnabled"] =
+            wdtEnable;
+    };
+
+    auto getWDTPropTimeOutAction = [aResp{std::move(aResp)}](
+                                       const boost::system::error_code ec,
+                                       const std::variant<std::string>
+                                           &WDTActionRequired) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        const std::string *actionRequired =
+            std::get_if<std::string>(&WDTActionRequired);
+        BMCWEB_LOG_DEBUG << "Timer Expired Action: " << *actionRequired;
+
+        if (actionRequired != nullptr)
+        {
+            const char *timeOutAction = nullptr;
+            if (*actionRequired == "xyz.openbmc_project.State.Watchdog.Action."
+                                   "HardReset")
+            {
+                timeOutAction = "ResetSystem";
+            }
+            else if (*actionRequired == "xyz.openbmc_project.State.Watchdog."
+                                        "Action.PowerOff")
+            {
+                timeOutAction = "PowerDown";
+            }
+            else if (*actionRequired == "xyz.openbmc_project.State.Watchdog."
+                                        "Action.PowerCycle")
+            {
+                timeOutAction = "PowerCycle";
+            }
+            else if (*actionRequired == "xyz.openbmc_project.State.Watchdog."
+                                        "Action.None")
+            {
+                timeOutAction = "None";
+            }
+
+            if (timeOutAction == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "Invalid Value received"
+                                 << " as Timeout Action:" << *actionRequired;
+                messages::internalError(aResp->res);
+                return;
+            }
+            aResp->res.jsonValue["HostWatchdogTimer"]["TimeoutAction"] =
+                timeOutAction;
+        }
+    };
+    auto getWDTServiceName =
+        [aResp, getWDTPropEnabled(std::move(getWDTPropEnabled)),
+         getWDTPropTimeOutAction(std::move(getWDTPropTimeOutAction)),
+         wdtObjectPath](const boost::system::error_code ec,
+                        const GetObjectType &resp) {
+            if (ec || resp.empty())
+            {
+                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Got WDT Service name";
+
+            std::string wdtService = resp.begin()->first;
+
+            crow::connections::systemBus->async_method_call(
+                std::move(getWDTPropEnabled), wdtService, wdtObjectPath,
+                dbusPropIntf, "Get", wdtPropIntf, "Enabled");
+
+            crow::connections::systemBus->async_method_call(
+                std::move(getWDTPropTimeOutAction), wdtService, wdtObjectPath,
+                dbusPropIntf, "Get", wdtPropIntf, "ExpireAction");
+        };
+    auto getHostCurrentState = [aResp{std::move(aResp)},
+                                getWDTServiceName(
+                                    std::move(getWDTServiceName))](
+                                   const boost::system::error_code ec,
+                                   const std::variant<std::string> &hostState) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        const std::string *s = std::get_if<std::string>(&hostState);
+        BMCWEB_LOG_DEBUG << "Host state to get WDTimer info: " << *s;
+        if (s != nullptr)
+        {
+            if (*s == "xyz.openbmc_project.State.Host.HostState.Running")
+            {
+                crow::connections::systemBus->async_method_call(
+                    std::move(getWDTServiceName), mapperBusName,
+                    mapperObjectPath, mapperIntf, "GetObject", wdtObjectPath,
+                    std::array<std::string, 0>());
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "Host is Not Running so can't get "
+                                    "WDTimer Information";
+                aResp->res.jsonValue["HostWatchdogTimer"]["FunctionEnabled"] =
+                    false;
+                return;
+            }
+        }
+    };
+
+    auto getServiceName = [aResp,
+                           getHostCurrentState(std::move(getHostCurrentState)),
+                           hostObjectPath](const boost::system::error_code ec,
+                                           const GetObjectType &resp) {
+        if (ec || resp.empty())
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "Got Service name for hostState";
+        std::string service = resp.begin()->first;
+
+        crow::connections::systemBus->async_method_call(
+            std::move(getHostCurrentState), service, hostObjectPath,
+            dbusPropIntf, "Get", hostPropIntf, "CurrentHostState");
+    };
+
+    crow::connections::systemBus->async_method_call(
+        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
+        "GetObject", hostObjectPath, std::array<std::string, 0>());
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -1171,6 +1355,7 @@ class Systems : public Node
         getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getHostWDTProperties(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
