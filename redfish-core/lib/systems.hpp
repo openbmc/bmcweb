@@ -953,6 +953,154 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
 }
 
 /**
+ * @brief Retrieves Host WatchDog Timer properties over DBUS and fills out the
+ * response
+ *
+ * @param[in] aResp         Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+static void getHostWDTProperties(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get WatchDog Timer Information ";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                  const std::variant<std::string> &hostState) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string *s = std::get_if<std::string>(&hostState);
+            BMCWEB_LOG_DEBUG << "Host state: " << *s;
+            if (s != nullptr)
+            {
+                if (*s == "xyz.openbmc_project.State.Host.HostState.Running")
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [aResp](const boost::system::error_code ec,
+                                const std::variant<bool> &WDTState) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_DEBUG << "DBUS response error "
+                                                 << ec;
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            const bool *isWdtEnabled =
+                                std::get_if<bool>(&WDTState);
+
+                            if (isWdtEnabled == nullptr)
+                            {
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+                            BMCWEB_LOG_DEBUG << "WDT Enabled: "
+                                             << *isWdtEnabled;
+
+                            bool wdtEnable = false;
+                            std::string wdtState = "Disabled";
+                            // Verify WDT State
+                            if (*isWdtEnabled == true)
+                            {
+                                wdtEnable = true;
+                                wdtState = "Enabled";
+                            }
+                            aResp->res.jsonValue["HostWatchdogTimer"]["Status"]
+                                                ["State"] = wdtState;
+                            aResp->res.jsonValue["HostWatchdogTimer"]
+                                                ["FunctionEnabled"] = wdtEnable;
+                        },
+                        "xyz.openbmc_project.Watchdog",
+                        "/xyz/openbmc_project/watchdog/host0",
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.State.Watchdog", "Enabled");
+
+                    // Get the Required Expiry Action
+                    crow::connections::systemBus->async_method_call(
+                        [aResp{std::move(aResp)}](
+                            const boost::system::error_code ec,
+                            const std::variant<std::string>
+                                &WDTActionRequired) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_DEBUG << "DBUS response error "
+                                                 << ec;
+                                messages::internalError(aResp->res);
+                                return;
+                            }
+
+                            const std::string *actionRequired =
+                                std::get_if<std::string>(&WDTActionRequired);
+                            BMCWEB_LOG_DEBUG << "Timer Expired Action: "
+                                             << *actionRequired;
+
+                            if (actionRequired != nullptr)
+                            {
+                                const char *timeOutAction = nullptr;
+                                if (*actionRequired ==
+                                    "xyz.openbmc_project.State.Watchdog.Action."
+                                    "HardReset")
+                                {
+                                    timeOutAction = "ResetSystem";
+                                }
+                                else if (*actionRequired ==
+                                         "xyz.openbmc_project.State.Watchdog."
+                                         "Action.PowerOff")
+                                {
+                                    timeOutAction = "PowerDown";
+                                }
+                                else if (*actionRequired ==
+                                         "xyz.openbmc_project.State.Watchdog."
+                                         "Action.PowerCycle")
+                                {
+                                    timeOutAction = "PowerCycle";
+                                }
+                                else if (*actionRequired ==
+                                         "xyz.openbmc_project.State.Watchdog."
+                                         "Action.None")
+                                {
+                                    timeOutAction = "None";
+                                }
+
+                                if (timeOutAction == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG << "Invalid Value received"
+                                                     << " as Timeout Action:"
+                                                     << *actionRequired;
+                                    messages::internalError(aResp->res);
+                                    return;
+                                }
+                                aResp->res.jsonValue["HostWatchdogTimer"]
+                                                    ["TimeoutAction"] =
+                                    timeOutAction;
+                            }
+                        },
+                        "xyz.openbmc_project.Watchdog",
+                        "/xyz/openbmc_project/watchdog/host0",
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.State.Watchdog", "ExpireAction");
+                }
+                else
+                { // show in json response
+                    BMCWEB_LOG_DEBUG << "Host is Not Running so can't get "
+                                        "WDTimer Information";
+                    aResp->res
+                        .jsonValue["HostWatchdogTimer"]["FunctionEnabled"] =
+                        false;
+                    return;
+                }
+            }
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Host", "CurrentHostState");
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -1171,6 +1319,7 @@ class Systems : public Node
         getComputerSystem(asyncResp);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
+        getHostWDTProperties(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
