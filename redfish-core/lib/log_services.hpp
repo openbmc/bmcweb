@@ -17,9 +17,15 @@
 
 #include "filesystem.hpp"
 #include "node.hpp"
+#include "registries.hpp"
+#include "registries/base_message_registry.hpp"
+#include "registries/openbmc_message_registry.hpp"
+#include "registries/resource_event_message_registry.hpp"
 
 #include <systemd/sd-journal.h>
 
+#include <boost/algorithm/string/split.hpp>
+#include <boost/beast/core/span.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/utility/string_view.hpp>
 #include <variant>
@@ -35,6 +41,58 @@ constexpr char const *cpuLogImmediateInterface =
     "com.intel.CpuDebugLog.Immediate";
 constexpr char const *cpuLogRawPECIInterface =
     "com.intel.CpuDebugLog.SendRawPeci";
+
+namespace message_registries
+{
+static const Message *getMessageFromRegistry(
+    const std::string &messageKey,
+    const boost::beast::span<const MessageEntry> registry)
+{
+    auto messageIt =
+        std::find_if(registry.cbegin(), registry.cend(),
+                     [&messageKey](const MessageEntry &messageEntry) {
+                         return std::string(messageEntry.first) == messageKey;
+                     });
+    if (messageIt != registry.cend())
+    {
+        return &messageIt->second;
+    }
+
+    return nullptr;
+}
+
+static const Message *getMessage(const std::string messageID)
+{
+    // Redfish MessageIds are in the form
+    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
+    // the right Message
+    std::vector<std::string> fields;
+    fields.reserve(4);
+    boost::split(fields, messageID, boost::is_any_of("."));
+    std::string &registryName = fields[0];
+    std::string &messageKey = fields[3];
+
+    // Find the right registry and check it for the MessageKey
+    if (std::string(base::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey, boost::beast::span<const MessageEntry>(base::registry));
+    }
+    if (std::string(resource_event::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(resource_event::registry));
+    }
+    if (std::string(openbmc::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(openbmc::registry));
+    }
+    return nullptr;
+}
+} // namespace message_registries
 
 namespace fs = std::filesystem;
 
@@ -346,24 +404,16 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
                                  sd_journal *journal,
                                  nlohmann::json &bmcLogEntryJson)
 {
-    // Get the Log Entry contents
-    int ret = 0;
+    // Get the Message from the MessageRegistry
+    const message_registries::Message *message =
+        message_registries::getMessage(std::string(messageID));
 
-    std::string_view msg;
-    ret = getJournalMetadata(journal, "MESSAGE", msg);
-    if (ret < 0)
+    std::string msg;
+    std::string severity;
+    if (message != nullptr)
     {
-        BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
-        return 1;
-    }
-
-    // Get the severity from the PRIORITY field
-    int severity = 8; // Default to an invalid priority
-    ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
-    if (ret < 0)
-    {
-        BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
-        return 1;
+        msg = message->message;
+        severity = message->severity;
     }
 
     // Get the MessageArgs from the journal entry by finding all of the
@@ -398,6 +448,17 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
         }
     }
 
+    // Fill the MessageArgs into the Message
+    for (int i = 0; i < messageArgs.size(); i++)
+    {
+        std::string argStr = "%" + std::to_string(i + 1);
+        size_t argPos = msg.find(argStr);
+        if (argPos != std::string::npos)
+        {
+            msg.replace(argPos, argStr.length(), messageArgs[i]);
+        }
+    }
+
     // Get the Created time from the timestamp
     std::string entryTimeStr;
     if (!getEntryTimestamp(journal, entryTimeStr))
@@ -418,9 +479,7 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
         {"MessageId", messageID},
         {"MessageArgs", std::move(messageArgs)},
         {"EntryType", "Event"},
-        {"Severity",
-         severity <= 2 ? "Critical"
-                       : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
+        {"Severity", severity},
         {"Created", std::move(entryTimeStr)}};
     return 0;
 }
