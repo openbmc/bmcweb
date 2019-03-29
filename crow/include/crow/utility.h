@@ -710,6 +710,10 @@ inline void convertToLinks(std::string& s)
         "(&quot;Members@odata\\.((nextLink))&quot;[ \\n]*:[ "
         "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
     s = std::regex_replace(s, nextLink, "$1<a href=\"$5\">$4</a>");
+
+    const static std::regex uri{"(&quot;((Uri))&quot;[ \\n]*:[ "
+                                "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
+    s = std::regex_replace(s, uri, "$1<a href=\"$5\">$4</a>");
 }
 
 } // namespace utility
