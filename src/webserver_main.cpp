@@ -60,15 +60,6 @@ int main(int argc, char** argv)
     auto io = std::make_shared<boost::asio::io_context>();
     CrowApp app(io);
 
-#ifdef BMCWEB_ENABLE_SSL
-    std::string sslPemFile("server.pem");
-    std::cout << "Building SSL Context\n";
-
-    ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-    std::cout << "SSL Enabled\n";
-    auto sslContext = ensuressl::getSslContext(sslPemFile);
-    app.ssl(std::move(sslContext));
-#endif
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
 
