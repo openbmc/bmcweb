@@ -2,6 +2,7 @@
 #include <systemd/sd-daemon.h>
 
 #include <boost/asio/io_context.hpp>
+#include <csignal>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
@@ -53,57 +54,75 @@ void setupSocket(crow::Crow<Middlewares...>& app)
     }
 }
 
+std::shared_ptr<boost::asio::io_context> io =
+    std::make_shared<boost::asio::io_context>();
+std::unique_ptr<CrowApp> appUniquePtr = std::make_unique<CrowApp>(io);
+
+void loadSslContext()
+{
+    std::string sslPemFile("server.pem");
+    std::cout << "Building SSL Context \n";
+    ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+    std::cout << "SSL Enabled \n";
+    auto sslContext = ensuressl::getSslContext(sslPemFile);
+    appUniquePtr->ssl(std::move(sslContext));
+}
+
+void signalHandler(int signalNo)
+{
+    if (signalNo == SIGHUP)
+    {
+        loadSslContext();
+    }
+    else
+    {
+        std::cout << "Unhandled signal " << signalNo << std::endl;
+    }
+}
+
 int main(int argc, char** argv)
 {
     crow::logger::setLogLevel(crow::LogLevel::DEBUG);
 
-    auto io = std::make_shared<boost::asio::io_context>();
-    CrowApp app(io);
-
 #ifdef BMCWEB_ENABLE_SSL
-    std::string sslPemFile("server.pem");
-    std::cout << "Building SSL Context\n";
-
-    ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-    std::cout << "SSL Enabled\n";
-    auto sslContext = ensuressl::getSslContext(sslPemFile);
-    app.ssl(std::move(sslContext));
+    signal(SIGHUP, signalHandler);
+    loadSslContext();
 #endif
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
-
+    CrowApp* appPtr = appUniquePtr.get();
 #ifdef BMCWEB_ENABLE_STATIC_HOSTING
-    crow::webassets::requestRoutes(app);
+    crow::webassets::requestRoutes(*appPtr);
 #endif
 
 #ifdef BMCWEB_ENABLE_KVM
-    crow::obmc_kvm::requestRoutes(app);
+    crow::obmc_kvm::requestRoutes(*appPtr);
 #endif
 
 #ifdef BMCWEB_ENABLE_REDFISH
-    crow::redfish::requestRoutes(app);
+    crow::redfish::requestRoutes(*appPtr);
 #endif
 
 #ifdef BMCWEB_ENABLE_DBUS_REST
-    crow::dbus_monitor::requestRoutes(app);
-    crow::image_upload::requestRoutes(app);
-    crow::openbmc_mapper::requestRoutes(app);
+    crow::dbus_monitor::requestRoutes(*appPtr);
+    crow::image_upload::requestRoutes(*appPtr);
+    crow::openbmc_mapper::requestRoutes(*appPtr);
 #endif
 
 #ifdef BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
-    crow::obmc_console::requestRoutes(app);
+    crow::obmc_console::requestRoutes(*appPtr);
 #endif
 
-    crow::token_authorization::requestRoutes(app);
+    crow::token_authorization::requestRoutes(*appPtr);
 
     BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
-    setupSocket(app);
+    setupSocket(*appPtr);
 
     crow::connections::systemBus =
         std::make_shared<sdbusplus::asio::connection>(*io);
-    redfish::RedfishService redfish(app);
+    redfish::RedfishService redfish(*appPtr);
 
-    app.run();
+    appPtr->run();
     io->run();
 
     crow::connections::systemBus.reset();
