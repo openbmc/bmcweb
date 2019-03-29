@@ -11,12 +11,12 @@
 #else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
 #include <future>
 #include <memory>
+#include <ssl_key_handler.hpp>
 #include <utility>
 #include <vector>
 
@@ -40,9 +40,9 @@ class Server
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptor)), signals(*ioService, SIGINT, SIGTERM),
-        tickTimer(*ioService), handler(handler), middlewares(middlewares),
-        adaptorCtx(adaptor_ctx)
+        acceptor(std::move(acceptor)),
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
+        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
     {
     }
 
@@ -109,6 +109,7 @@ class Server
 
     void run()
     {
+        loadCertificate();
         updateDateStr();
 
         getCachedDateStr = [this]() -> std::string {
@@ -153,11 +154,45 @@ class Server
 
         BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
                         << acceptor->local_endpoint();
-
-        signals.async_wait([&](const boost::system::error_code& /*error*/,
-                               int /*signal_number*/) { stop(); });
-
+        startAsyncWaitForSignal();
         doAccept();
+    }
+
+    void loadCertificate()
+    {
+#ifdef BMCWEB_ENABLE_SSL
+        std::string sslPemFile("server.pem");
+        std::cout << "Building SSL Context\n";
+        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+        std::cout << "SSL Enabled\n";
+        boost::asio::ssl::context sslContext =
+            ensuressl::getSslContext(sslPemFile);
+        handler->ssl(std::move(sslContext));
+#endif
+    }
+
+    void startAsyncWaitForSignal()
+    {
+        signals.async_wait([this](const boost::system::error_code& ec,
+                                  int signalNo) {
+            if (ec)
+            {
+                BMCWEB_LOG_INFO << "Error in signal handler" << ec.message();
+            }
+            else
+            {
+                if (signalNo == SIGHUP)
+                {
+                    BMCWEB_LOG_INFO << "Receivied reload signal";
+                    loadCertificate();
+                    this->startAsyncWaitForSignal();
+                }
+                else
+                {
+                    stop();
+                }
+            }
+        });
     }
 
     void stop()
