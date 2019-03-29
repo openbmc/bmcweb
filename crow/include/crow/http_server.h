@@ -6,17 +6,18 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
 #include <boost/asio/ssl/context.hpp>
+#include <boost/bind.hpp>
 #if BOOST_VERSION >= 107000
 #include <boost/beast/ssl/ssl_stream.hpp>
 #else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
-
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
 #include <future>
 #include <memory>
+#include <ssl_key_handler.hpp>
 #include <utility>
 #include <vector>
 
@@ -40,9 +41,9 @@ class Server
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptor)), signals(*ioService, SIGINT, SIGTERM),
-        tickTimer(*ioService), handler(handler), middlewares(middlewares),
-        adaptorCtx(adaptor_ctx)
+        acceptor(std::move(acceptor)),
+        signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
+        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
     {
     }
 
@@ -109,6 +110,7 @@ class Server
 
     void run()
     {
+        loadCertificate();
         updateDateStr();
 
         getCachedDateStr = [this]() -> std::string {
@@ -153,11 +155,41 @@ class Server
 
         BMCWEB_LOG_INFO << serverName << " server is running, local endpoint "
                         << acceptor->local_endpoint();
-
-        signals.async_wait([&](const boost::system::error_code& /*error*/,
-                               int /*signal_number*/) { stop(); });
-
+        signals.async_wait(boost::bind(&Server::signalHandler, this, _1, _2));
         doAccept();
+    }
+
+    void loadCertificate()
+    {
+#ifdef BMCWEB_ENABLE_SSL
+        BMCWEB_LOG_INFO << "loadCertificate() ";
+        std::string sslPemFile("server.pem");
+        std::cout << "Building SSL Context\n";
+
+        ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
+        std::cout << "SSL Enabled\n";
+        auto sslContext = ensuressl::getSslContext(sslPemFile);
+        handler->ssl(std::move(sslContext));
+#endif
+    }
+    void signalHandler(const boost::system::error_code& error,
+                       int signal_number)
+    {
+        if (!error)
+        {
+            if (signal_number == SIGHUP)
+            {
+                BMCWEB_LOG_INFO << "Receivied reload signal";
+                loadCertificate();
+                // Rearm the signal to receive Reload signal.
+                signals.async_wait(
+                    boost::bind(&Server::signalHandler, this, _1, _2));
+            }
+            else
+            {
+                stop();
+            }
+        }
     }
 
     void stop()
