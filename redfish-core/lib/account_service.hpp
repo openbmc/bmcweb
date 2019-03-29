@@ -476,7 +476,7 @@ class ManagerAccount : public Node
                                     *userLocked;
                                 asyncResp->res.jsonValue
                                     ["Locked@Redfish.AllowableValues"] = {
-                                    false};
+                                    "false"};
                             }
                             else if (property.first == "UserPrivilege")
                             {
