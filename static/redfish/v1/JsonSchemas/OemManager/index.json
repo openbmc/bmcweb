@@ -49,6 +49,14 @@
                         }
                     ]
                 },
+                "Profile": {
+                    "description": "Current thermal profile.",
+                    "longDescription": "Current thermal profile.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "StepwiseControllers": {
                     "anyOf": [
                         {
@@ -115,6 +123,11 @@
                     "longDescription": "Input sensors to the PID controller.",
                     "type": "array"
                 },
+                "NegativeHysteresis": {
+                    "description": "Negative hysteresis for the controller.",
+                    "longDescription": "Negative hysteresis for the controller.",
+                    "type": "number"
+                },
                 "OutLimitMax": {
                     "description": "Output limit maxiumum for the pwm.",
                     "longDescription": "Output limit maxiumum for the pwm.",
@@ -139,6 +152,11 @@
                 "PCoefficient": {
                     "description": "Polynomial coefficent for the PID.",
                     "longDescription": "Polynomial coefficent for the PID.",
+                    "type": "number"
+                },
+                "PositiveHysteresis": {
+                    "description": "Positive hysteresis for the controller.",
+                    "longDescription": "Positive hysteresis for the controller.",
                     "type": "number"
                 },
                 "SlewNeg": {
@@ -219,7 +237,7 @@
                     "longDescription": "If the sensors are in fail-safe mode, this is the percentage to use.",
                     "type": "number"
                 },
-                "MinThermalRpm": {
+                "MinThermalOutput": {
                     "description": "Minimum thermal RPM that can be set in this Zone.",
                     "longDescription": "Minimum thermal RPM that can be set in this Zone.",
                     "type": "number"
@@ -360,6 +378,11 @@
                     "longDescription": "Input sensors to the PID controller.",
                     "type": "array"
                 },
+                "NegativeHysteresis": {
+                    "description": "Negative hysteresis for the controller.",
+                    "longDescription": "Negative hysteresis for the controller.",
+                    "type": "number"
+                },
                 "OutLimitMax": {
                     "description": "Output limit maxiumum for the pwm.",
                     "longDescription": "Output limit maxiumum for the pwm.",
@@ -373,6 +396,16 @@
                 "PCoefficient": {
                     "description": "Polynomial coefficent for the PID.",
                     "longDescription": "Polynomial coefficent for the PID.",
+                    "type": "number"
+                },
+                "PositiveHysteresis": {
+                    "description": "Positive hysteresis for the controller.",
+                    "longDescription": "Positive hysteresis for the controller.",
+                    "type": "number"
+                },
+                "SetPoint": {
+                    "description": "Setpoint for the PID.",
+                    "longDescription": "Setpoint for the PID.",
                     "type": "number"
                 },
                 "SlewNeg": {
@@ -436,6 +469,14 @@
                 }
             },
             "properties": {
+                "Direction": {
+                    "description": "Direction that the stepwise controller applies.",
+                    "longDescription": "Direction that the stepwise controller applies. Options include Ceiling and Floor.",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
                 "Inputs": {
                     "description": "Input sensors to the Stepwise controller.",
                     "items": {
