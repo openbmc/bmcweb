@@ -366,36 +366,14 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
         return 1;
     }
 
-    // Get the MessageArgs from the journal entry by finding all of the
-    // REDFISH_MESSAGE_ARG_x fields
-    const void *data;
-    size_t length;
+    // Get the MessageArgs from the REDFISH_MESSAGE_ARGS journal field
     std::vector<std::string> messageArgs;
-    SD_JOURNAL_FOREACH_DATA(journal, data, length)
+    std::string_view messageArgString;
+    int ret =
+        getJournalMetadata(journal, "REDFISH_MESSAGE_ARGS", messageArgString);
+    if (ret >= 0)
     {
-        std::string_view field(static_cast<const char *>(data), length);
-        if (boost::starts_with(field, "REDFISH_MESSAGE_ARG_"))
-        {
-            // Get the Arg number from the field name
-            field.remove_prefix(sizeof("REDFISH_MESSAGE_ARG_") - 1);
-            if (field.empty())
-            {
-                continue;
-            }
-            int argNum = std::strtoul(field.data(), nullptr, 10);
-            if (argNum == 0)
-            {
-                continue;
-            }
-            // Get the Arg value after the "=" character.
-            field.remove_prefix(std::min(field.find("=") + 1, field.size()));
-            // Make sure we have enough space in messageArgs
-            if (argNum > messageArgs.size())
-            {
-                messageArgs.resize(argNum);
-            }
-            messageArgs[argNum - 1] = std::string(field);
-        }
+        boost::split(messageArgs, messageArgString, boost::is_any_of(","));
     }
 
     // Get the Created time from the timestamp
