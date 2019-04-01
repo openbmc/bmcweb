@@ -109,13 +109,15 @@
             "Description": "Indicates that the system DC power is off.",
             "Message": "Host system DC power is off",
             "Severity": "OK",
-            "Resolution": "None."
+            "Resolution": "None.",
+            "NumberOfArgs": 3
         },
         "DCPowerOn": {
             "Description": "Indicates that the system DC power is on.",
             "Message": "Host system DC power is on",
             "Severity": "OK",
-            "Resolution": "None."
+            "Resolution": "None.",
+            "NumberOfArgs": 3
         }
     }
 }
