@@ -894,52 +894,6 @@ class EthernetInterface : public Node
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
-    // TODO(kkowalsk) Find a suitable class/namespace for this
-    static void handleVlanPatch(const std::string &ifaceId, bool vlanEnable,
-                                uint64_t vlanId,
-                                const EthernetInterfaceData &ethData,
-                                const std::shared_ptr<AsyncResp> asyncResp)
-    {
-        // VLAN is configured on the interface
-        if (vlanEnable == true)
-        {
-            // Change VLAN Id
-            asyncResp->res.jsonValue["VLANId"] = vlanId;
-            auto callback = [asyncResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                }
-                else
-                {
-                    asyncResp->res.jsonValue["VLANEnable"] = true;
-                }
-            };
-            crow::connections::systemBus->async_method_call(
-                std::move(callback), "xyz.openbmc_project.Network",
-                "/xyz/openbmc_project/network/" + ifaceId,
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Network.VLAN", "Id",
-                std::variant<uint32_t>(vlanId));
-        }
-        else
-        {
-            auto callback = [asyncResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                asyncResp->res.jsonValue["VLANEnable"] = false;
-            };
-
-            crow::connections::systemBus->async_method_call(
-                std::move(callback), "xyz.openbmc_project.Network",
-                "/xyz/openbmc_project/network/" + ifaceId,
-                "xyz.openbmc_project.Object.Delete", "Delete");
-        }
-    }
-
   private:
     void handleHostnamePatch(const std::string &hostname,
                              const std::shared_ptr<AsyncResp> asyncResp)
@@ -1522,27 +1476,55 @@ class VlanNetworkInterface : public Node
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
-        getEthernetIfaceData(
-            ifaceId,
-            [this, asyncResp, parentIfaceId, ifaceId, vlanEnable, vlanId](
-                const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
-                if (!success)
-                {
-                    // TODO(Pawel)consider distinguish between non existing
-                    // object, and other errors
-                    messages::resourceNotFound(
-                        asyncResp->res, "VLAN Network Interface", ifaceId);
-
-                    return;
-                }
-
+        getEthernetIfaceData(params[1], [this, asyncResp,
+                                         parentIfaceId{std::string(params[0])},
+                                         ifaceId{std::string(params[1])},
+                                         &vlanEnable, &vlanId](
+                                            const bool &success,
+                                            const EthernetInterfaceData
+                                                &ethData,
+                                            const boost::container::flat_set<
+                                                IPv4AddressData> &ipv4Data) {
+            if (success && !ethData.vlan_id.empty())
+            {
                 parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
                                    ifaceId, ethData, ipv4Data);
+                auto callback =
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                    };
 
-                EthernetInterface::handleVlanPatch(ifaceId, vlanId, vlanEnable,
-                                                   ethData, asyncResp);
-            });
+                if (vlanEnable == true)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        "/xyz/openbmc_project/network/" + ifaceId,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.VLAN", "Id",
+                        std::variant<uint32_t>(vlanId));
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "vlanEnable is false. Deleting the vlan interface";
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        std::string("/xyz/openbmc_project/network/") + ifaceId,
+                        "xyz.openbmc_project.Object.Delete", "Delete");
+                }
+            }
+            else
+            {
+                // TODO(Pawel)consider distinguish between non existing
+                // object, and other errors
+                messages::resourceNotFound(asyncResp->res,
+                                           "VLAN Network Interface", ifaceId);
+                return;
+            }
+        });
     }
 
     void doDelete(crow::Response &res, const crow::Request &req,
