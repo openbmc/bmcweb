@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "59367dc4_e5112522",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-04-01T07:27:17Z",
+      "side": 1,
+      "message": "ok will add",
+      "parentUuid": "a515e9d7_6f98b2d9",
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cb1a750_c7b8f62c",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 12
@@ -167,6 +185,30 @@
     },
     {
       "key": {
+        "uuid": "cfc2baa8_742de4be",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-04-01T07:27:17Z",
+      "side": 1,
+      "message": "Taken note will address it in next patch",
+      "parentUuid": "59ab2a03_9f953474",
+      "range": {
+        "startLine": 176,
+        "startChar": 33,
+        "endLine": 176,
+        "endChar": 66
+      },
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "31967b76_3d4bae90",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 12
@@ -190,6 +232,30 @@
     },
     {
       "key": {
+        "uuid": "d5ed02c9_5971ea29",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-04-01T07:27:17Z",
+      "side": 1,
+      "message": "Now modifying to do a reload instead of Restart service. Also as part of response returing/modified resource details.",
+      "parentUuid": "31967b76_3d4bae90",
+      "range": {
+        "startLine": 234,
+        "startChar": 16,
+        "endLine": 236,
+        "endChar": 63
+      },
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f6db264a_ecfdfaf3",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 12
@@ -201,6 +267,54 @@
       "writtenOn": "2019-03-26T09:01:04Z",
       "side": 1,
       "message": "This should be Replace now. Let\u0027s fix that up in this commit itself.",
+      "range": {
+        "startLine": 251,
+        "startChar": 38,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5472e79c_0d7a4b4f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-04-01T07:27:17Z",
+      "side": 1,
+      "message": "agree",
+      "parentUuid": "f6db264a_ecfdfaf3",
+      "range": {
+        "startLine": 251,
+        "startChar": 38,
+        "endLine": 251,
+        "endChar": 45
+      },
+      "revId": "864c1f675e53b1ddee7d8c6b27e437029d8dfac1",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5943364f_4205714d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 12
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-04-01T07:27:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6db264a_ecfdfaf3",
       "range": {
         "startLine": 251,
         "startChar": 38,
