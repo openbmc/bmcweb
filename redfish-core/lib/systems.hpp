@@ -17,7 +17,6 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
-#include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <variant>
 
@@ -193,6 +192,19 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                                          VariantType>
                                              &property : properties)
                                     {
+                                        if (property.first == "BIOSVer")
+                                        {
+                                            const std::string *value =
+                                                sdbusplus::message::variant_ns::
+                                                    get_if<std::string>(
+                                                        &property.second);
+                                            if (value != nullptr)
+                                            {
+                                                aResp->res
+                                                    .jsonValue["BiosVersion"] =
+                                                    *value;
+                                            }
+                                        }
                                         if (property.first == "UUID")
                                         {
                                             const std::string *value =
@@ -265,10 +277,6 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     aResp->res.jsonValue["Name"] = "system";
                                     aResp->res.jsonValue["Id"] =
                                         aResp->res.jsonValue["SerialNumber"];
-                                    // Grab the bios version
-                                    fw_util::getActiveFwVersion(
-                                        aResp, fw_util::biosPurpose,
-                                        "BiosVersion");
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
@@ -953,6 +961,95 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
 }
 
 /**
+ * @brief Traslates Time out action from Redfish to DBUS property value.
+ *
+ * @param[in] rfAction    The Time out action in Redfish.
+ *
+ * @return Returns as a string, the time_out action as expected by DBUS.
+ * If translation cannot be done, returns an empty string.
+ */
+static std::string rfToDbusWDTTimeOutAct(const std::string &rfAction)
+{
+    if (rfAction == "None")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.None";
+    }
+    else if (rfAction == "PowerCycle")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.PowerCycle";
+    }
+    else if (rfAction == "PowerDown")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.PowerOff";
+    }
+    else if (rfAction == "ResetSystem")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.HardReset";
+    }
+    else
+    {
+        return "";
+    }
+}
+/**
+ * @brief Sets Host WatchDog Timer properties.
+ *
+ * @param[in] aResp      Shared pointer for generating response message.
+ * @param[in] wdtEnable  The WDTimer Enable value (true/false) from incoming
+ *                       RF request.
+ * @param[in] wdtTimeOutAction The WDT Timeout action, from incoming RF request.
+ *
+ * @return None.
+ */
+static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
+                              bool wdtEnable,
+                              std::optional<std::string> wdtTimeOutAction)
+{
+    BMCWEB_LOG_DEBUG << "Set WatchDogTimer properties.";
+
+    if (wdtTimeOutAction == "")
+    {
+        BMCWEB_LOG_DEBUG << " TimeOutAction String is Empty";
+        return;
+    }
+
+    std::string wdtTimeOutActStr = rfToDbusWDTTimeOutAct(*wdtTimeOutAction);
+
+    crow::connections::systemBus->async_method_call(
+        [aResp]( const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Updated WDT Enable";
+        },
+        "xyz.openbmc_project.Watchdog",
+        "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.State.Watchdog", "Enabled",
+        std::variant<bool>(wdtEnable));
+
+    crow::connections::systemBus->async_method_call(
+        [aResp]( const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Updated WDT TimeOut Action";
+        },
+        "xyz.openbmc_project.Watchdog",
+        "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.State.Watchdog", "ExpireAction",
+        std::variant<std::string>(wdtTimeOutActStr));
+}
+
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -1178,14 +1275,30 @@ class Systems : public Node
     {
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
+        std::optional<nlohmann::json> wdTimerProps;
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps))
+                                 bootProps, "WatchdogTimer", wdTimerProps))
         {
             return;
         }
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         messages::success(asyncResp->res);
+
+        if (wdTimerProps)
+        {
+            bool wdtEnable;
+            std::optional<std::string> wdtTimeOutAction;
+
+            if (!json_util::readJson(*wdTimerProps, asyncResp->res,
+                                     "FunctionEnabled", wdtEnable,
+                                     "TimeoutAction", wdtTimeOutAction))
+            {
+                return;
+            }
+            setWDTProperties(asyncResp, std::move(wdtEnable),
+                              std::move(wdtTimeOutAction));
+        }
 
         if (bootProps)
         {
