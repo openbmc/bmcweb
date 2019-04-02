@@ -972,6 +972,16 @@ class Manager : public Node
             "GracefulRestart"};
 
         res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
+
+        // Fill in GraphicalConsole and SerialConsole info
+        res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
+                                                                   "SSH"};
+        // TODO (Santosh) : Uncomment when KVM support is in.
+        // res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        // res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+        //    {"KVMIP"};
+
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
