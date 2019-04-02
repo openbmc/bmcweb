@@ -114,6 +114,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ResourceEventMessageRegistry>(app));
         nodes.emplace_back(std::make_unique<OpenBMCMessageRegistryFile>(app));
         nodes.emplace_back(std::make_unique<OpenBMCMessageRegistry>(app));
+        nodes.emplace_back(
+            std::make_unique<OEMIntelBIOSMessageRegistryFile>(app));
+        nodes.emplace_back(std::make_unique<OEMIntelBIOSMessageRegistry>(app));
 
         for (const auto& node : nodes)
         {
