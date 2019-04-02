@@ -971,6 +971,15 @@ class Manager : public Node
         manager_reset["ResetType@Redfish.AllowableValues"] = {
             "GracefulRestart"};
 
+        // Fill in GraphicalConsole and SerialConsole info
+        res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
+                                                                   "SSH"};
+        // TODO (Santosh) : Uncomment when KVM support is in.
+        // res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        // res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
+        //    {"KVMIP"};
+
         res.jsonValue["DateTime"] = getDateTime();
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
