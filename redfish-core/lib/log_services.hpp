@@ -19,6 +19,7 @@
 #include "node.hpp"
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
+#include "registries/oem_intel_bios_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
 #include "registries/resource_event_message_registry.hpp"
 
@@ -89,6 +90,12 @@ static const Message *getMessage(const std::string messageID)
         return getMessageFromRegistry(
             messageKey,
             boost::beast::span<const MessageEntry>(openbmc::registry));
+    }
+    if (std::string(oem::intel::bios::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(oem::intel::bios::registry));
     }
     return nullptr;
 }
