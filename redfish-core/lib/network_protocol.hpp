@@ -189,7 +189,7 @@ class NetworkProtocol : public Node
     void getData(const std::shared_ptr<AsyncResp>& asyncResp)
     {
         asyncResp->res.jsonValue["@odata.type"] =
-            "#ManagerNetworkProtocol.v1_1_0.ManagerNetworkProtocol";
+            "#ManagerNetworkProtocol.v1_4_0.ManagerNetworkProtocol";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol";
         asyncResp->res.jsonValue["@odata.context"] =
