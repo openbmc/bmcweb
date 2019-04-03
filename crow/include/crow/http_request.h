@@ -1,5 +1,7 @@
 #pragma once
 
+#include "sessions.hpp"
+
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
@@ -21,6 +23,8 @@ struct Request
 
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
+
+    std::shared_ptr<crow::persistent_data::UserSession> session;
 
     Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
         req(req), body(req.body())
