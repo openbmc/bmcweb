@@ -1,17 +1,15 @@
 #pragma once
 
-#include <crow/app.h>
-#include <crow/http_request.h>
-#include <crow/http_response.h>
-
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
-#include <webassets.hpp>
+
+#include "crow/logging.h"
 
 namespace crow
 {
@@ -25,11 +23,258 @@ enum class PersistenceType
     SINGLE_REQUEST // User times out once this request is completed.
 };
 
+constexpr char const* userService = "xyz.openbmc_project.User.Manager";
+constexpr char const* userObjPath = "/xyz/openbmc_project/user";
+constexpr char const* userAttrIface = "xyz.openbmc_project.User.Attributes";
+constexpr char const* dbusPropertiesIface = "org.freedesktop.DBus.Properties";
+
+class SessionStore;
+
+struct UserRoleMap
+{
+    using GetManagedPropertyType =
+        boost::container::flat_map<std::string,
+                                   std::variant<std::string, bool>>;
+
+    using InterfacesPropertiesType =
+        boost::container::flat_map<std::string, GetManagedPropertyType>;
+
+    using GetManagedObjectsType = std::vector<
+        std::pair<sdbusplus::message::object_path, InterfacesPropertiesType>>;
+
+    static UserRoleMap& getInstance()
+    {
+        static UserRoleMap userRoleMap;
+        return userRoleMap;
+    }
+
+    UserRoleMap(const UserRoleMap&) = delete;
+    UserRoleMap& operator=(const UserRoleMap&) = delete;
+
+    std::string getUserRole(std::string_view name)
+    {
+        auto it = roleMap.find(std::string(name));
+        if (it == roleMap.end())
+        {
+            BMCWEB_LOG_ERROR << "User name " << name
+                             << " is not found in the UserRoleMap.";
+            return "";
+        }
+        return it->second;
+    }
+
+    std::string
+        extractUserRole(const InterfacesPropertiesType& interfacesProperties)
+    {
+        auto iface = interfacesProperties.find(userAttrIface);
+        if (iface == interfacesProperties.end())
+        {
+            return {};
+        }
+
+        auto& properties = iface->second;
+        auto property = properties.find("UserPrivilege");
+        if (property == properties.end())
+        {
+            return {};
+        }
+
+        const std::string* role = std::get_if<std::string>(&property->second);
+        if (role == nullptr)
+        {
+            BMCWEB_LOG_ERROR << "UserPrivilege property value is null";
+            return {};
+        }
+
+        return *role;
+    }
+
+  private:
+    void userAdded(sdbusplus::message::message& m)
+    {
+        sdbusplus::message::object_path objPath;
+        InterfacesPropertiesType interfacesProperties;
+
+        try
+        {
+            m.read(objPath, interfacesProperties);
+        }
+        catch (const sdbusplus::exception::SdBusError& e)
+        {
+            BMCWEB_LOG_ERROR << "Failed to parse user add signal."
+                             << "ERROR=" << e.what()
+                             << "REPLY_SIG=" << m.get_signature();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
+
+        std::size_t lastPos = objPath.str.rfind("/");
+        if (lastPos == std::string::npos)
+        {
+            return;
+        };
+
+        std::string name = objPath.str.substr(lastPos + 1);
+        std::string role = this->extractUserRole(interfacesProperties);
+
+        // Insert the newly added user name and the role
+        auto res = roleMap.emplace(name, role);
+        if (res.second == false)
+        {
+            BMCWEB_LOG_ERROR << "Insertion of the user=\"" << name
+                             << "\" in the roleMap failed.";
+            return;
+        }
+    }
+
+    void userRemoved(sdbusplus::message::message& m)
+    {
+        sdbusplus::message::object_path objPath;
+
+        try
+        {
+            m.read(objPath);
+        }
+        catch (const sdbusplus::exception::SdBusError& e)
+        {
+            BMCWEB_LOG_ERROR << "Failed to parse user delete signal.";
+            BMCWEB_LOG_ERROR << "ERROR=" << e.what()
+                             << "REPLY_SIG=" << m.get_signature();
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
+
+        std::size_t lastPos = objPath.str.rfind("/");
+        if (lastPos == std::string::npos)
+        {
+            return;
+        };
+
+        // User name must be atleast 1 char in length.
+        if ((lastPos + 1) == objPath.str.length())
+        {
+            return;
+        }
+
+        std::string name = objPath.str.substr(lastPos + 1);
+
+        roleMap.erase(name);
+    }
+
+    void userPropertiesChanged(sdbusplus::message::message& m)
+    {
+        std::string interface;
+        GetManagedPropertyType changedProperties;
+        m.read(interface, changedProperties);
+        const std::string path = m.get_path();
+
+        BMCWEB_LOG_DEBUG << "Object Path = \"" << path << "\"";
+
+        std::size_t lastPos = path.rfind("/");
+        if (lastPos == std::string::npos)
+        {
+            return;
+        };
+
+        // User name must be at least 1 char in length.
+        if ((lastPos + 1) == path.length())
+        {
+            return;
+        }
+
+        std::string user = path.substr(lastPos + 1);
+
+        BMCWEB_LOG_DEBUG << "User Name = \"" << user << "\"";
+
+        auto index = changedProperties.find("UserPrivilege");
+        if (index == changedProperties.end())
+        {
+            return;
+        }
+
+        const std::string* role = std::get_if<std::string>(&index->second);
+        if (role == nullptr)
+        {
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "Role = \"" << *role << "\"";
+
+        auto it = roleMap.find(user);
+        if (it == roleMap.end())
+        {
+            BMCWEB_LOG_ERROR << "User Name = \"" << user
+                             << "\" is not found. But, received "
+                                "propertiesChanged signal";
+            return;
+        }
+        it->second = *role;
+    }
+
+    UserRoleMap()
+    {
+        namespace rules = sdbusplus::bus::match::rules;
+
+        userAddedSignal = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus, rules::interfacesAdded(userObjPath),
+            [this](sdbusplus::message::message& m) {
+                BMCWEB_LOG_DEBUG << "User Added";
+                this->userAdded(m);
+            });
+
+        userRemovedSignal = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus,
+            rules::interfacesRemoved(userObjPath),
+            [this](sdbusplus::message::message& m) {
+                BMCWEB_LOG_DEBUG << "User Removed";
+                this->userRemoved(m);
+            });
+
+        userPropertiesChangedSignal = std::make_unique<sdbusplus::bus::match_t>(
+            *crow::connections::systemBus,
+            rules::path_namespace(userObjPath) + rules::type::signal() +
+                rules::member("PropertiesChanged") +
+                rules::interface(dbusPropertiesIface) +
+                rules::argN(0, userAttrIface),
+            [this](sdbusplus::message::message& m) {
+                BMCWEB_LOG_DEBUG << "Properties Changed";
+                this->userPropertiesChanged(m);
+            });
+
+        auto method = crow::connections::systemBus->new_method_call(
+            userService, userObjPath, "org.freedesktop.DBus.ObjectManager",
+            "GetManagedObjects");
+
+        auto reply = crow::connections::systemBus->call(method);
+        GetManagedObjectsType managedObjects;
+        reply.read(managedObjects);
+        for (auto& managedObj : managedObjects)
+        {
+            std::size_t lastPos = managedObj.first.str.rfind("/");
+            if (lastPos == std::string::npos)
+            {
+                continue;
+            };
+
+            std::string name = managedObj.first.str.substr(lastPos + 1);
+            std::string role = extractUserRole(managedObj.second);
+
+            roleMap.emplace(name, role);
+        }
+    }
+
+    boost::container::flat_map<std::string, std::string> roleMap;
+    std::unique_ptr<sdbusplus::bus::match_t> userAddedSignal;
+    std::unique_ptr<sdbusplus::bus::match_t> userRemovedSignal;
+    std::unique_ptr<sdbusplus::bus::match_t> userPropertiesChangedSignal;
+};
+
 struct UserSession
 {
     std::string uniqueId;
     std::string sessionToken;
     std::string username;
+    std::string userRole;
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
@@ -138,8 +383,14 @@ class SessionStore
         {
             uniqueId[i] = alphanum[dist(rd)];
         }
+
+        // Get the User Privilege
+        const std::string& role =
+            UserRoleMap::getInstance().getUserRole(username);
+
+        BMCWEB_LOG_DEBUG << "user name=\"" << username << "\" role = " << role;
         auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
+            uniqueId, sessionToken, std::string(username), role, csrfToken,
             std::chrono::steady_clock::now(), persistence});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
@@ -250,6 +501,7 @@ class SessionStore
             }
         }
     }
+
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
     boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
         authTokens;
