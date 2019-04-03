@@ -1252,10 +1252,17 @@ class EthernetInterface : public Node
             ipv4_array = nlohmann::json::array();
             for (auto &ipv4_config : ipv4Data)
             {
+
+                std::string gatewayStr = ipv4_config.gateway;
+                if (gatewayStr.empty())
+                {
+                    gatewayStr = ethData.default_gateway;
+                }
+
                 ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
                                       {"SubnetMask", ipv4_config.netmask},
                                       {"Address", ipv4_config.address},
-                                      {"Gateway", ipv4_config.gateway}});
+                                      {"Gateway", gatewayStr}});
             }
         }
     }
