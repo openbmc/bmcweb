@@ -32,10 +32,10 @@ class Middleware
             return;
         }
 
-        ctx.session = performXtokenAuth(req);
+        req.session = ctx.session = performXtokenAuth(req);
         if (ctx.session == nullptr)
         {
-            ctx.session = performCookieAuth(req);
+            req.session = ctx.session = performCookieAuth(req);
         }
         if (ctx.session == nullptr)
         {
@@ -45,11 +45,11 @@ class Middleware
                 // Reject any kind of auth other than basic or token
                 if (boost::starts_with(authHeader, "Token "))
                 {
-                    ctx.session = performTokenAuth(authHeader);
+                    req.session = ctx.session = performTokenAuth(authHeader);
                 }
                 else if (boost::starts_with(authHeader, "Basic "))
                 {
-                    ctx.session = performBasicAuth(authHeader);
+                    req.session = ctx.session = performBasicAuth(authHeader);
                 }
             }
         }
