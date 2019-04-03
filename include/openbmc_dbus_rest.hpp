@@ -2047,7 +2047,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .requires({"Login"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
                                   const std::string &path) {
-            std::string objectPath = "/xyz/" + path;
+            std::string objectPath = "/org/" + path;
             handleDBusUrl(req, res, objectPath);
         });
 
@@ -2056,7 +2056,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
-                std::string objectPath = "/xyz/" + path;
+                std::string objectPath = "/org/" + path;
                 handleDBusUrl(req, res, objectPath);
             });
 
