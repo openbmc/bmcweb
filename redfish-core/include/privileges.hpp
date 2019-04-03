@@ -177,6 +177,29 @@ class Privileges
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 
+inline const Privileges& getUserPrivileges(const std::string& userRole)
+{
+    // Redfish privilege : Administrator
+    if (userRole == "priv-admin")
+    {
+        static Privileges admin{"Login", "ConfigureManager", "ConfigureSelf",
+                                "ConfigureUsers", "ConfigureComponents"};
+        return admin;
+    }
+    else if (userRole == "priv-operator")
+    {
+        // Redfish privilege : Operator
+        static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
+        return op;
+    }
+    else
+    {
+        // Redfish privilege : Readonly
+        static Privileges readOnly{"Login", "ConfigureSelf"};
+        return readOnly;
+    }
+}
+
 using OperationMap = boost::container::flat_map<boost::beast::http::verb,
                                                 std::vector<Privileges>>;
 

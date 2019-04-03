@@ -22,7 +22,6 @@ class Middleware
   public:
     struct Context
     {
-        std::shared_ptr<crow::persistent_data::UserSession> session;
     };
 
     void beforeHandle(crow::Request& req, Response& res, Context& ctx)
@@ -32,12 +31,12 @@ class Middleware
             return;
         }
 
-        ctx.session = performXtokenAuth(req);
-        if (ctx.session == nullptr)
+        req.session = performXtokenAuth(req);
+        if (req.session == nullptr)
         {
-            ctx.session = performCookieAuth(req);
+            req.session = performCookieAuth(req);
         }
-        if (ctx.session == nullptr)
+        if (req.session == nullptr)
         {
             std::string_view authHeader = req.getHeaderValue("Authorization");
             if (!authHeader.empty())
@@ -45,16 +44,16 @@ class Middleware
                 // Reject any kind of auth other than basic or token
                 if (boost::starts_with(authHeader, "Token "))
                 {
-                    ctx.session = performTokenAuth(authHeader);
+                    req.session = performTokenAuth(authHeader);
                 }
                 else if (boost::starts_with(authHeader, "Basic "))
                 {
-                    ctx.session = performBasicAuth(authHeader);
+                    req.session = performBasicAuth(authHeader);
                 }
             }
         }
 
-        if (ctx.session == nullptr)
+        if (req.session == nullptr)
         {
             BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
 
@@ -93,12 +92,12 @@ class Middleware
         // middleware, but because it is upstream, it doesn't have access to the
         // session information.  Should the data middleware persist the current
         // user session?
-        if (ctx.session != nullptr &&
-            ctx.session->persistence ==
+        if (req.session != nullptr &&
+            req.session->persistence ==
                 crow::persistent_data::PersistenceType::SINGLE_REQUEST)
         {
             persistent_data::SessionStore::getInstance().removeSession(
-                ctx.session);
+                req.session);
         }
     }
 
@@ -431,24 +430,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
         });
 
     BMCWEB_ROUTE(app, "/logout")
-        .methods(
-            "POST"_method)([&](const crow::Request& req, crow::Response& res) {
-            auto& session =
-                app.template getContext<token_authorization::Middleware>(req)
-                    .session;
-            if (session != nullptr)
-            {
-                res.jsonValue = {
-                    {"data", "User '" + session->username + "' logged out"},
-                    {"message", "200 OK"},
-                    {"status", "ok"}};
+        .methods("POST"_method)(
+            [&](const crow::Request& req, crow::Response& res) {
+                auto& session = req.session;
+                if (session != nullptr)
+                {
+                    res.jsonValue = {
+                        {"data", "User '" + session->username + "' logged out"},
+                        {"message", "200 OK"},
+                        {"status", "ok"}};
 
-                persistent_data::SessionStore::getInstance().removeSession(
-                    session);
-            }
-            res.end();
-            return;
-        });
+                    persistent_data::SessionStore::getInstance().removeSession(
+                        session);
+                }
+                res.end();
+                return;
+            });
 }
 } // namespace token_authorization
 } // namespace crow
