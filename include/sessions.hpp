@@ -4,10 +4,10 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
-#include <dbus_singleton.hpp>
 
 #include "crow/logging.h"
 
@@ -261,34 +261,34 @@ class SessionStore
     std::string getUserRole(const std::string& username)
     {
         auto method = crow::connections::systemBus->new_method_call(
-                                        "xyz.openbmc_project.User.Manager",
-                                        "/xyz/openbmc_project/user",
-                                        "xyz.openbmc_project.User.Manager",
-                                        "GetUserInfo");
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "GetUserInfo");
         method.append(username);
 
         auto reply = crow::connections::systemBus->call(method);
 
-        std::map<std::string, sdbusplus::message::variant<bool,std::string,std::vector<std::string>>> userInfo;
+        std::map<std::string, sdbusplus::message::variant<
+                                  bool, std::string, std::vector<std::string>>>
+            userInfo;
 
         reply.read(userInfo);
-    
-        std::string *userRole = nullptr;
+
+        std::string* userRole = nullptr;
         auto userInfoIter = userInfo.find("UserPrivilege");
-        if ( userInfoIter != userInfo.end() )
+        if (userInfoIter != userInfo.end())
         {
             userRole = std::get_if<std::string>(&userInfoIter->second);
         }
-        
-        if ( userRole != nullptr ) 
+
+        if (userRole != nullptr)
         {
-            BMCWEB_LOG_ERROR
-                    << "User Role is "  << *userRole;
+            BMCWEB_LOG_ERROR << "User Role is " << *userRole;
             return *userRole;
-        } else {
-            
-            BMCWEB_LOG_ERROR
-                    << "Unable to find userRole";
+        }
+        else
+        {
+
+            BMCWEB_LOG_ERROR << "Unable to find userRole";
         }
         return " ";
     }
