@@ -90,6 +90,26 @@ class Privileges
         }
     }
 
+    static Privileges getUserPrivileges(const std::string& userRole)
+    {
+        if (userRole == "priv-admin")
+        {
+            // Redfish privilege : Administrator
+            return Privileges{"Login", "ConfigureManager", "ConfigureSelf",
+                              "ConfigureUsers", "ConfigureComponents"};
+        }
+        else if (userRole == "priv-operator")
+        {
+            // Redfish privilege : Operator
+            return Privileges{"Login", "ConfigureSelf", "ConfigureComponents"};
+        }
+        else
+        {
+            // Redfish privilege : Readonly
+            return Privileges{"Login", "ConfigureSelf"};
+        }
+    }
+
     /**
      * @brief Sets given privilege in the bitset
      *
