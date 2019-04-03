@@ -224,8 +224,12 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                                 }
                                                 BMCWEB_LOG_DEBUG << "UUID = "
                                                                  << valueStr;
-                                                aResp->res.jsonValue["UUID"] =
-                                                    valueStr;
+                                                if (!valueStr.empty())
+                                                {
+                                                    aResp->res
+                                                        .jsonValue["UUID"] =
+                                                        valueStr;
+                                                }
                                             }
                                         }
                                     }
