@@ -30,6 +30,7 @@ struct UserSession
     std::string uniqueId;
     std::string sessionToken;
     std::string username;
+    std::string userRole;
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
@@ -73,6 +74,10 @@ struct UserSession
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+            }
+            else if (element.key() == "user_role")
+            {
+                userSession->userRole = *thisValue;
             }
             else
             {
@@ -138,8 +143,12 @@ class SessionStore
         {
             uniqueId[i] = alphanum[dist(rd)];
         }
+
+        // Get the User Privilege
+        const std::string& role = getUserRole(std::string(username));
+
         auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
+            uniqueId, sessionToken, std::string(username), role, csrfToken,
             std::chrono::steady_clock::now(), persistence});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
@@ -250,6 +259,14 @@ class SessionStore
             }
         }
     }
+
+    std::string getUserRole(const std::string& username)
+    {
+        // make a  dbus call here to get the user info
+        // Phosphor-user-manager
+        return "";
+    }
+
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
     boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
         authTokens;
@@ -277,7 +294,8 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
             j = nlohmann::json{{"unique_id", p->uniqueId},
                                {"session_token", p->sessionToken},
                                {"username", p->username},
-                               {"csrf_token", p->csrfToken}};
+                               {"csrf_token", p->csrfToken},
+                               {"user_role", p->userRole}};
         }
     }
 };
