@@ -1,6 +1,7 @@
 #pragma once
 
 #include "privileges.hpp"
+#include "sessions.hpp"
 
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
@@ -1229,11 +1230,17 @@ class Router
                          << (uint32_t)req.method() << " / "
                          << rules[ruleIndex]->getMethods();
 
-        // TODO: load user privileges from configuration as soon as its
-        // available now we are granting all privileges to everyone.
-        redfish::Privileges userPrivileges{"Login", "ConfigureManager",
-                                           "ConfigureSelf", "ConfigureUsers",
-                                           "ConfigureComponents"};
+        redfish::Privileges userPrivileges;
+        if (req.session != nullptr)
+        {
+            // Get the user role from the session.
+            const std::string& userRole = req.session->userRole;
+
+            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
+
+            // Get the user privileges from the role
+            userPrivileges = redfish::getUserPrivileges(userRole);
+        }
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
