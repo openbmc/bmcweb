@@ -1,7 +1,5 @@
 #pragma once
 
-#include "privileges.hpp"
-
 #include <boost/container/flat_map.hpp>
 #include <boost/container/small_vector.hpp>
 #include <boost/lexical_cast.hpp>
@@ -19,7 +17,8 @@
 #include "crow/http_response.h"
 #include "crow/logging.h"
 #include "crow/utility.h"
-#include "crow/websocket.h"
+#include "privileges.hpp"
+#include "sessions.hpp"
 
 namespace crow
 {
@@ -1229,12 +1228,19 @@ class Router
                          << (uint32_t)req.method() << " / "
                          << rules[ruleIndex]->getMethods();
 
-        // TODO: load user privileges from configuration as soon as its
-        // available now we are granting all privileges to everyone.
-        redfish::Privileges userPrivileges{"Login", "ConfigureManager",
-                                           "ConfigureSelf", "ConfigureUsers",
-                                           "ConfigureComponents"};
+        redfish::Privileges userPrivileges;
+        if ( req.session != nullptr )
+        {
+            // Get the user role from the session.
+            std::string userRole = req.session->userRole;
 
+            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
+
+            // Get the user privileges from the role
+            userPrivileges =
+                redfish::Privileges::getUserPrivileges(userRole);
+        }
+            
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
             res.result(boost::beast::http::status::unauthorized);

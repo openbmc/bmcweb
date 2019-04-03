@@ -6,6 +6,7 @@
 
 #include "crow/common.h"
 #include "crow/query_string.h"
+#include "sessions.hpp"
 
 namespace crow
 {
@@ -21,6 +22,8 @@ struct Request
 
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
+
+    std::shared_ptr<crow::persistent_data::UserSession> session;
 
     Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
         req(req), body(req.body())
