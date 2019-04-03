@@ -1,17 +1,15 @@
 #pragma once
 
-#include <crow/app.h>
-#include <crow/http_request.h>
-#include <crow/http_response.h>
-
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
-#include <webassets.hpp>
+
+#include "crow/logging.h"
 
 namespace crow
 {
@@ -30,6 +28,7 @@ struct UserSession
     std::string uniqueId;
     std::string sessionToken;
     std::string username;
+    std::string userRole;
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
@@ -73,6 +72,10 @@ struct UserSession
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+            }
+            else if (element.key() == "user_role")
+            {
+                userSession->userRole = *thisValue;
             }
             else
             {
@@ -138,8 +141,12 @@ class SessionStore
         {
             uniqueId[i] = alphanum[dist(rd)];
         }
+
+        // Get the User Privilege
+        const std::string& role = getUserRole(std::string(username));
+
         auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
+            uniqueId, sessionToken, std::string(username), role, csrfToken,
             std::chrono::steady_clock::now(), persistence});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
@@ -250,6 +257,41 @@ class SessionStore
             }
         }
     }
+
+    std::string getUserRole(const std::string& username)
+    {
+        auto method = crow::connections::systemBus->new_method_call(
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "GetUserInfo");
+        method.append(username);
+
+        auto reply = crow::connections::systemBus->call(method);
+
+        std::map<std::string, sdbusplus::message::variant<
+                                  bool, std::string, std::vector<std::string>>>
+            userInfo;
+
+        reply.read(userInfo);
+
+        std::string* userRole = nullptr;
+        auto userInfoIter = userInfo.find("UserPrivilege");
+        if (userInfoIter != userInfo.end())
+        {
+            userRole = std::get_if<std::string>(&userInfoIter->second);
+        }
+
+        if (userRole != nullptr)
+        {
+            BMCWEB_LOG_DEBUG << "User Role is " << *userRole;
+            return *userRole;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unable to find userRole";
+        }
+        return " ";
+    }
+
     std::chrono::time_point<std::chrono::steady_clock> lastTimeoutUpdate;
     boost::container::flat_map<std::string, std::shared_ptr<UserSession>>
         authTokens;
@@ -277,7 +319,8 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
             j = nlohmann::json{{"unique_id", p->uniqueId},
                                {"session_token", p->sessionToken},
                                {"username", p->username},
-                               {"csrf_token", p->csrfToken}};
+                               {"csrf_token", p->csrfToken},
+                               {"user_role", p->userRole}};
         }
     }
 };
