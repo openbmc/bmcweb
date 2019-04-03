@@ -90,6 +90,23 @@ class Privileges
         }
     }
 
+    static Privileges getUserPrivileges(const std::string& userRole)
+    {
+        if (userRole == "priv-admin")
+        {
+            return Privileges{"Login", "ConfigureManager", "ConfigureSelf",
+                              "ConfigureUsers", "ConfigureComponents"};
+        }
+        else if (userRole == "priv-operator")
+        {
+            return Privileges{"Login", "ConfigureSelf", "ConfigureComponents"};
+        }
+        else // call back or user role
+        {
+            return Privileges{"Login", "ConfigureSelf"};
+        }
+    }
+
     /**
      * @brief Sets given privilege in the bitset
      *
