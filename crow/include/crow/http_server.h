@@ -126,17 +126,17 @@ class Server
         boost::asio::deadline_timer timer(*ioService);
         timer.expires_from_now(boost::posix_time::seconds(1));
 
-        std::function<void(const boost::system::error_code& ec)> handler;
-        handler = [&](const boost::system::error_code& ec) {
+        std::function<void(const boost::system::error_code& ec)> timerHandler;
+        timerHandler = [&](const boost::system::error_code& ec) {
             if (ec)
             {
                 return;
             }
             timerQueue.process();
             timer.expires_from_now(boost::posix_time::seconds(1));
-            timer.async_wait(handler);
+            timer.async_wait(timerHandler);
         };
-        timer.async_wait(handler);
+        timer.async_wait(timerHandler);
 
         if (tickFunction && tickInterval.count() > 0)
         {
