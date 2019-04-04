@@ -1206,6 +1206,29 @@ class EthernetInterface : public Node
         }
     }
 
+    void handleStaticNameServersPatch(
+        const std::string &ifaceId,
+        const std::vector<std::string> &updatedStaticNameServers,
+        const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             updatedStaticNameServers](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.jsonValue["NameServers"] =
+                    updatedStaticNameServers;
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "Nameservers",
+            std::variant<std::vector<std::string>>{updatedStaticNameServers});
+    }
+
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &iface_id,
         const EthernetInterfaceData &ethData,
@@ -1316,10 +1339,12 @@ class EthernetInterface : public Node
         std::optional<std::string> macAddress;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
+        std::optional<std::vector<std::string>> staticNameServers;
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
-                "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress))
+                "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
+                "StaticNameServers", staticNameServers))
         {
             return;
         }
@@ -1331,7 +1356,8 @@ class EthernetInterface : public Node
             [this, asyncResp, iface_id, hostname = std::move(hostname),
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
-             ipv6Addresses = std::move(ipv6Addresses)](
+             ipv6Addresses = std::move(ipv6Addresses),
+             staticNameServers = std::move(staticNameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1374,6 +1400,12 @@ class EthernetInterface : public Node
                     // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
                     messages::propertyNotWritable(asyncResp->res,
                                                   "IPv6Addresses");
+                }
+
+                if (staticNameServers)
+                {
+                    handleStaticNameServersPatch(iface_id, *staticNameServers,
+                                                 asyncResp);
                 }
             });
     }
