@@ -41,10 +41,15 @@ class AsyncResp
 
     ~AsyncResp()
     {
+        if (isPropertyUpdated)
+        {
+            res.result(boost::beast::http::status::ok);
+        }
         res.end();
     }
 
     crow::Response& res;
+    bool isPropertyUpdated = false;
 };
 
 /**
