@@ -145,8 +145,7 @@ inline void generateSslCertificate(const std::string &filepath)
                 reinterpret_cast<const unsigned char *>("US"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "O", MBSTRING_ASC,
-                reinterpret_cast<const unsigned char *>("Intel BMC"), -1, -1,
-                0);
+                                 reinterpret_cast<const unsigned char *>("OpenBMC"), -1, -1, 0);
             X509_NAME_add_entry_by_txt(
                 name, "CN", MBSTRING_ASC,
                 reinterpret_cast<const unsigned char *>("testhost"), -1, -1, 0);
