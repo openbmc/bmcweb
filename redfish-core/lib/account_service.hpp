@@ -755,6 +755,7 @@ class AccountService : public Node
                                                     "ServiceAddresses",
                                                     serviceAddressList.front());
                 }
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the service address";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -788,6 +789,7 @@ class AccountService : public Node
                 asyncResp->res.jsonValue[ldapServerElementName]
                                         ["Authentication"]["Username"] =
                     username;
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the username";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -820,6 +822,7 @@ class AccountService : public Node
                 }
                 asyncResp->res.jsonValue[ldapServerElementName]
                                         ["Authentication"]["Password"] = "";
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the password";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -864,6 +867,7 @@ class AccountService : public Node
                                                     "BaseDistinguishedNames",
                                                     baseDNList.front());
                 }
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the base DN";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -899,6 +903,7 @@ class AccountService : public Node
                 auto& searchSettingsJson =
                     serverTypeJson["LDAPService"]["SearchSettings"];
                 searchSettingsJson["UsernameAttribute"] = userNameAttribute;
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the user name attr.";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -934,6 +939,7 @@ class AccountService : public Node
                 auto& searchSettingsJson =
                     serverTypeJson["LDAPService"]["SearchSettings"];
                 searchSettingsJson["GroupsAttribute"] = groupsAttribute;
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated the groupname attr";
             },
             ldapDbusService, ldapConfigObject, propertyInterface, "Set",
@@ -967,6 +973,7 @@ class AccountService : public Node
                 asyncResp->res
                     .jsonValue[ldapServerElementName]["ServiceEnabled"] =
                     serviceEnabled;
+                asyncResp->isPropertyUpdated = true;
                 BMCWEB_LOG_DEBUG << "Updated Service enable = "
                                  << serviceEnabled;
             },
