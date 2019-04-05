@@ -1,3 +1,4 @@
-# UUID                           	Group Name
+# UUID                            	Group Name
 #
-github:openbmc/bmcweb-maintainers	github/openbmc/bmcweb-maintainers
+github:openbmc/bitbake-maintainers	github/openbmc/bitbake-maintainers
+github:openbmc/bmcweb-maintainers 	github/openbmc/bmcweb-maintainers
