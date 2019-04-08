@@ -1,0 +1,6 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define HTTPS_CERTIFICATE_PATH "@HTTPS_CERTIFICATE_PATH@"
+
+#endif // CONFIG_H

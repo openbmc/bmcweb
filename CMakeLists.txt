@@ -199,6 +199,14 @@ set (
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+#certificate path in recipe
+if ("${CERTIFICATE_PATH}" STREQUAL "")
+    set (HTTPS_CERTIFICATE_PATH /etc/ssl/certs/https/)
+else ()
+    set (HTTPS_CERTIFICATE_PATH ${CERTIFICATE_PATH})
+endif ()
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/include/config.hpp @ONLY)
+
 # Unit Tests
 if (${BMCWEB_BUILD_UT})
     set (
