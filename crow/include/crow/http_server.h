@@ -15,6 +15,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <chrono>
 #include <cstdint>
+#include <filesystem>
 #include <future>
 #include <memory>
 #include <ssl_key_handler.hpp>
@@ -162,8 +163,18 @@ class Server
     void loadCertificate()
     {
 #ifdef BMCWEB_ENABLE_SSL
-        std::string sslPemFile("server.pem");
-        std::cout << "Building SSL Context\n";
+        namespace fs = std::filesystem;
+        fs::path certPath = "/etc/ssl/certs/https/";
+        // if path does not exist create the path so that
+        // self signed certificate can be created in the
+        // path
+        if (!fs::exists(certPath))
+        {
+            fs::create_directories(certPath);
+        }
+        fs::path certFile = certPath / "server.pem";
+        std::cout << "Building SSL Context file=" << certFile << std::endl;
+        std::string sslPemFile(certFile);
         ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
         std::cout << "SSL Enabled\n";
         boost::asio::ssl::context sslContext =
