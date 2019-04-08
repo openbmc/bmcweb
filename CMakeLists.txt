@@ -200,6 +200,10 @@ set (
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
+set (HTTPS_CERTIFICATE_PATH /etc/ssl/certs/https/)
+
+configure_file(config.h.in ${CMAKE_BINARY_DIR}/include/config.hpp @ONLY)
+
 # Unit Tests
 if (${BMCWEB_BUILD_UT})
     set (
