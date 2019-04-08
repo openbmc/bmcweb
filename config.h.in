@@ -1,0 +1,3 @@
+#pragma once
+
+#define HTTPS_CERTIFICATE_PATH "@HTTPS_CERTIFICATE_PATH@"
