@@ -60,12 +60,15 @@ class RedfishService
         nodes.emplace_back(std::make_unique<EthernetCollection>(app));
         nodes.emplace_back(std::make_unique<EthernetInterface>(app));
         nodes.emplace_back(std::make_unique<Thermal>(app));
+        nodes.emplace_back(std::make_unique<SubAssyThermal>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
         nodes.emplace_back(std::make_unique<ManagerActionsReset>(app));
         nodes.emplace_back(std::make_unique<Power>(app));
+        nodes.emplace_back(std::make_unique<SubAssyPower>(app));
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
+        nodes.emplace_back(std::make_unique<ChassisSubAssy>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
