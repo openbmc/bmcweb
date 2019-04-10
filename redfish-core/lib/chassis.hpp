@@ -151,6 +151,34 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
         std::array<const char *, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
 }
 
+void getChassisElements(const std::vector<std::string> &resourcesList,
+                        std::string &chassisNode,
+                        std::list<std::string> &subAssyList)
+{
+    std::string subassembly;
+    std::smatch re_matches;
+    const int firstMatch = 1;
+    const int secondMatch = 2;
+    std::regex re("/xyz/openbmc_project/inventory/system/"
+                  "(board|chassis|powersupply)/(.+)");
+    for (const std::string &objpath : resourcesList)
+    {
+        if (regex_match(objpath, re_matches, re))
+        {
+            if ((re_matches[firstMatch].str() == "board") ||
+                (re_matches[firstMatch].str() == "powersupply"))
+            {
+                subassembly = re_matches[secondMatch].str();
+                subAssyList.push_back(subassembly);
+            }
+            else
+            {
+                chassisNode = re_matches[secondMatch].str();
+            }
+        }
+    }
+}
+
 /**
  * ChassisCollection derived class for delivering Chassis Collection Schema
  */
@@ -197,26 +225,27 @@ class ChassisCollection : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string> &chassisList) {
+                        const std::vector<std::string> &resourcesList) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
+                std::list<std::string> subAssyList;
+                std::string chassisNode;
                 nlohmann::json &chassisArray =
                     asyncResp->res.jsonValue["Members"];
                 chassisArray = nlohmann::json::array();
-                for (const std::string &objpath : chassisList)
+
+                getChassisElements(resourcesList, chassisNode, subAssyList);
+                chassisArray.push_back(
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisNode}});
+
+                for (auto entry : subAssyList)
                 {
-                    std::size_t lastPos = objpath.rfind("/");
-                    if (lastPos == std::string::npos)
-                    {
-                        BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
-                        continue;
-                    }
                     chassisArray.push_back(
-                        {{"@odata.id", "/redfish/v1/Chassis/" +
-                                           objpath.substr(lastPos + 1)}});
+                        {{"@odata.id",
+                          "/redfish/v1/Chassis/" + chassisNode + "/" + entry}});
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] =
@@ -227,7 +256,7 @@ class ChassisCollection : public Node
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
     }
-};
+}; // namespace redfish
 
 /**
  * Chassis override class for delivering Chassis Schema
@@ -248,6 +277,16 @@ class Chassis : public Node
     }
 
   private:
+    void goGetChassis(crow::Response &res, const crow::Request &req,
+                      const std::vector<std::string> &params)
+    {
+    }
+
+    void doGetSubAssembly(crow::Response &res, const crow::Request &req,
+                          const std::vector<std::string> &params)
+    {
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -255,19 +294,18 @@ class Chassis : public Node
                const std::vector<std::string> &params) override
     {
         const std::array<const char *, 3> interfaces = {
-            "xyz.openbmc_project.Inventory.Item.Board",
-            "xyz.openbmc_project.Inventory.Item.Chassis",
-            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+            "xyz.openbmc_project.Inventory.Item.Chassis"};
 
         // Check if there is required param, truly entering this shall be
         // impossible.
+        const std::string &chassisId = params[0];
+        std::string blub = (std::string)req.target();
         if (params.size() != 1)
         {
             messages::internalError(res);
             res.end();
             return;
         }
-        const std::string &chassisId = params[0];
 #ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
         // In a one chassis system the only supported name is "chassis"
         if (chassisId != "chassis")
@@ -381,6 +419,175 @@ class Chassis : public Node
                     return;
                 }
 
+                // Couldn't find an object with that name.  return an error
+                messages::resourceNotFound(
+                    asyncResp->res, "#Chassis.v1_4_0.Chassis", chassisId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+
+        getPhysicalSecurityData(asyncResp);
+    }
+};
+
+class ChassisSubAssy : public Node
+{
+  public:
+    ChassisSubAssy(CrowApp &app) :
+        Node(app, "/redfish/v1/Chassis/<str>/<str>", std::string(),
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void goGetChassis(crow::Response &res, const crow::Request &req,
+                      const std::vector<std::string> &params)
+    {
+    }
+
+    bool findSubAssyElement(const std::string &path, const std::string &nodeId)
+    {
+        std::string subassembly;
+        std::smatch matches;
+        const int firstMatch = 1;
+        const int secondMatch = 2;
+        std::regex re("/xyz/openbmc_project/inventory/system/"
+                      "(board|powersupply)/(.+)");
+        if (regex_match(path, matches, re))
+        {
+            return (((matches[firstMatch].str() == "board") ||
+                     (matches[firstMatch].str() == "powersupply")) &&
+                    (matches[secondMatch].str() == nodeId.c_str()));
+        }
+        return false;
+    }
+
+    void doGetSubAssembly(const std::shared_ptr<AsyncResp> asyncResp,
+                          const std::string &path,
+                          const std::string &connectionName,
+                          const std::string &chassisId,
+                          const std::string &nodeId)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, chassisId(std::string(chassisId)),
+             nodeId(std::string(nodeId))](
+                const boost::system::error_code ec,
+                const std::vector<std::pair<std::string, VariantType>>
+                    &propertiesList) {
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#Chassis.v1_4_0.Chassis";
+                asyncResp->res.jsonValue["@odata.id"] =
+                    "/redfish/v1/Chassis/" + chassisId + "/" + nodeId;
+                asyncResp->res.jsonValue["@odata.context"] =
+                    "/redfish/v1/$metadata#Chassis.Chassis";
+                asyncResp->res.jsonValue["ChassisType"] = "Card";
+
+                for (const std::pair<std::string, VariantType> &property :
+                     propertiesList)
+                {
+                    // Store DBus properties that are also
+                    // Redfish properties with same name and a
+                    // string value
+                    const std::string &propertyName = property.first;
+                    if ((propertyName == "PartNumber") ||
+                        (propertyName == "SerialNumber") ||
+                        (propertyName == "Manufacturer") ||
+                        (propertyName == "Model"))
+                    {
+                        const std::string *value =
+                            std::get_if<std::string>(&property.second);
+                        if (value != nullptr)
+                        {
+                            asyncResp->res.jsonValue[propertyName] = *value;
+                        }
+                    }
+                }
+                asyncResp->res.jsonValue["Name"] = nodeId;
+                asyncResp->res.jsonValue["Id"] = nodeId;
+                asyncResp->res.jsonValue["Thermal"] = {
+                    {"@odata.id", "/redfish/v1/Chassis/" + chassisId + "/" +
+                                      nodeId + "/Thermal"}};
+                // Power object
+                asyncResp->res.jsonValue["Power"] = {
+                    {"@odata.id", "/redfish/v1/Chassis/" + chassisId + "/" +
+                                      nodeId + "/Power"}};
+                asyncResp->res.jsonValue["Status"] = {
+                    {"Health", "OK"},
+                    {"State", "Enabled"},
+                };
+
+                asyncResp->res.jsonValue["Links"]["ComputerSystems"] = {
+                    {{"@odata.id", "/redfish/v1/Systems/system"}}};
+                asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
+                    {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
+                asyncResp->res.jsonValue["Links"]["ContainedBy"] = {
+                    {{"@odata.id", "/redfish/v1/Managers/" + chassisId}}};
+            },
+            connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
+            "xyz.openbmc_project.Inventory.Decorator.Asset");
+    }
+
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        const std::array<const char *, 2> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+
+        if (params.size() != 2)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+        const std::string &chassisId = params[0];
+        const std::string &nodeId = params[1];
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, chassisId(std::string(chassisId)),
+             nodeId(std::string(nodeId)), this](
+                const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string, std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>>
+                    &subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                // Iterate over all retrieved ObjectPaths.
+                for (const std::pair<
+                         std::string,
+                         std::vector<
+                             std::pair<std::string, std::vector<std::string>>>>
+                         &object : subtree)
+                {
+                    const std::string &path = object.first;
+                    const std::vector<
+                        std::pair<std::string, std::vector<std::string>>>
+                        &connectionNames = object.second;
+                    const std::string connectionName = connectionNames[0].first;
+                    if (findSubAssyElement(path, nodeId))
+                    {
+                        doGetSubAssembly(asyncResp, path, connectionName,
+                                         chassisId, nodeId);
+                        return;
+                    }
+                }
                 // Couldn't find an object with that name.  return an error
                 messages::resourceNotFound(
                     asyncResp->res, "#Chassis.v1_4_0.Chassis", chassisId);
