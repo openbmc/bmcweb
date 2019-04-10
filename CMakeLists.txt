@@ -273,3 +273,16 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
 
 )
+
+# configure and install systemd unit files
+configure_file (bmcweb.socket bmcweb.socket COPYONLY)
+configure_file (bmcweb.service.in bmcweb.service)
+pkg_get_variable (SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
+install (
+    FILES ${PROJECT_BINARY_DIR}/bmcweb.socket
+    DESTINATION ${SYSTEMD_SYSTEMUNITDIR}
+)
+install (
+    FILES ${PROJECT_BINARY_DIR}/bmcweb.service
+    DESTINATION ${SYSTEMD_SYSTEMUNITDIR}
+)
