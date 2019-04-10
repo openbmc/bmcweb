@@ -1189,7 +1189,7 @@ class Systems : public Node
         }
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        messages::success(asyncResp->res);
+        asyncResp->res.result(boost::beast::http::status::no_content);
 
         if (bootProps)
         {
@@ -1208,9 +1208,9 @@ class Systems : public Node
         if (indicatorLed)
         {
             std::string dbusLedState;
-            if (*indicatorLed == "On")
+            if (*indicatorLed == "Lit")
             {
-                dbusLedState = "xyz.openbmc_project.Led.Physical.Action.Lit";
+                dbusLedState = "xyz.openbmc_project.Led.Physical.Action.On";
             }
             else if (*indicatorLed == "Blinking")
             {
@@ -1226,9 +1226,6 @@ class Systems : public Node
                                                  "IndicatorLED");
                 return;
             }
-
-            getHostState(asyncResp);
-            getComputerSystem(asyncResp);
 
             // Update led group
             BMCWEB_LOG_DEBUG << "Update led group.";
