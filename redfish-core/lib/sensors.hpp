@@ -48,14 +48,12 @@ using ManagedObjectsVectorType = std::vector<std::pair<
 class SensorsAsyncResp
 {
   public:
-    SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
+    SensorsAsyncResp(crow::Response& response,
                      const std::initializer_list<const char*> types,
                      const std::string& subNode) :
         res(response),
-        chassisId(chassisId), types(types), chassisSubNode(subNode)
+        types(types), chassisSubNode(subNode)
     {
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Chassis/" + chassisId + "/" + subNode;
     }
 
     ~SensorsAsyncResp()
@@ -72,6 +70,7 @@ class SensorsAsyncResp
 
     crow::Response& res;
     std::string chassisId{};
+    std::string nodeId{};
     const std::vector<const char*> types;
     std::string chassisSubNode{};
 };
@@ -287,7 +286,6 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         }
         boost::container::flat_set<std::string> sensorNames;
 
-        //   SensorsAsyncResp->chassisId
         bool foundChassis = false;
         std::vector<std::string> split;
         // Reserve space for
@@ -309,10 +307,21 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
             const std::string& sensorName = split.end()[-1];
             const std::string& chassisName = split.end()[-2];
 
-            if (chassisName != SensorsAsyncResp->chassisId)
+            if (SensorsAsyncResp->nodeId.empty())
             {
-                split.clear();
-                continue;
+                if (chassisName != SensorsAsyncResp->chassisId)
+                {
+                    split.clear();
+                    continue;
+                }
+            }
+            else
+            {
+                if (chassisName != SensorsAsyncResp->nodeId)
+                {
+                    split.clear();
+                    continue;
+                }
             }
             BMCWEB_LOG_DEBUG << "New sensor: " << sensorName;
             foundChassis = true;
@@ -624,13 +633,15 @@ static void
                             return;
                         }
 
-                        auto found = std::find_if(
-                            endpoints->begin(), endpoints->end(),
-                            [sensorsAsyncResp](const std::string& entry) {
-                                return entry.find(
-                                           sensorsAsyncResp->chassisId) !=
-                                       std::string::npos;
-                            });
+                        std::string nodeName = sensorsAsyncResp->nodeId.empty()
+                                                   ? sensorsAsyncResp->chassisId
+                                                   : sensorsAsyncResp->nodeId;
+                        auto found =
+                            std::find_if(endpoints->begin(), endpoints->end(),
+                                         [nodeName](const std::string& entry) {
+                                             return entry.find(nodeName) !=
+                                                    std::string::npos;
+                                         });
 
                         if (found == endpoints->end())
                         {
@@ -745,24 +756,51 @@ static void
 
                                 auto& resp = sensorsAsyncResp->res
                                                  .jsonValue["Redundancy"];
-                                resp.push_back(
-                                    {{"@odata.id",
-                                      "/refish/v1/Chassis/" +
-                                          sensorsAsyncResp->chassisId + "/" +
-                                          sensorsAsyncResp->chassisSubNode +
-                                          "#/Redundancy/" +
-                                          std::to_string(resp.size())},
-                                     {"@odata.type",
-                                      "#Redundancy.v1_3_2.Redundancy"},
-                                     {"MinNumNeeded",
-                                      collection->size() - *allowedFailures},
-                                     {"MemberId", name},
-                                     {"Mode", "N+m"},
-                                     {"Name", name},
-                                     {"RedundancySet", redfishCollection},
-                                     {"Status",
-                                      {{"Health", health},
-                                       {"State", "Enabled"}}}});
+                                if (sensorsAsyncResp->nodeId.empty())
+                                {
+                                    resp.push_back(
+                                        {{"@odata.id",
+                                          "/refish/v1/Chassis/" +
+                                              sensorsAsyncResp->chassisId +
+                                              "/" +
+                                              sensorsAsyncResp->chassisSubNode +
+                                              "#/Redundancy/" +
+                                              std::to_string(resp.size())},
+                                         {"@odata.type",
+                                          "#Redundancy.v1_3_2.Redundancy"},
+                                         {"MinNumNeeded", collection->size() -
+                                                              *allowedFailures},
+                                         {"MemberId", name},
+                                         {"Mode", "N+m"},
+                                         {"Name", name},
+                                         {"RedundancySet", redfishCollection},
+                                         {"Status",
+                                          {{"Health", health},
+                                           {"State", "Enabled"}}}});
+                                }
+                                else
+                                {
+                                    resp.push_back(
+                                        {{"@odata.id",
+                                          "/refish/v1/Chassis/" +
+                                              sensorsAsyncResp->chassisId +
+                                              "/" + sensorsAsyncResp->nodeId +
+                                              "/" +
+                                              sensorsAsyncResp->chassisSubNode +
+                                              "#/Redundancy/" +
+                                              std::to_string(resp.size())},
+                                         {"@odata.type",
+                                          "#Redundancy.v1_3_2.Redundancy"},
+                                         {"MinNumNeeded", collection->size() -
+                                                              *allowedFailures},
+                                         {"MemberId", name},
+                                         {"Mode", "N+m"},
+                                         {"Name", name},
+                                         {"RedundancySet", redfishCollection},
+                                         {"Status",
+                                          {{"Health", health},
+                                           {"State", "Enabled"}}}});
+                                }
                             },
                             owner, path, "org.freedesktop.DBus.Properties",
                             "GetAll",
@@ -898,11 +936,25 @@ void getSensorData(
                 nlohmann::json& tempArray =
                     SensorsAsyncResp->res.jsonValue[fieldName];
 
-                tempArray.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Chassis/" + SensorsAsyncResp->chassisId +
-                          "/" + SensorsAsyncResp->chassisSubNode + "#/" +
-                          fieldName + "/" + std::to_string(tempArray.size())}});
+                if (SensorsAsyncResp->nodeId.empty())
+                {
+                    tempArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                           SensorsAsyncResp->chassisId + "/" +
+                                           SensorsAsyncResp->chassisSubNode +
+                                           "#/" + fieldName + "/" +
+                                           std::to_string(tempArray.size())}});
+                }
+                else
+                {
+                    tempArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                           SensorsAsyncResp->chassisId + "/" +
+                                           SensorsAsyncResp->nodeId + "/" +
+                                           SensorsAsyncResp->chassisSubNode +
+                                           "#/" + fieldName + "/" +
+                                           std::to_string(tempArray.size())}});
+                }
                 nlohmann::json& sensorJson = tempArray.back();
 
                 objectInterfacesToJson(sensorName, sensorType,
@@ -998,11 +1050,18 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
 
     // TODO: Need to figure out dynamic way to restrict patch (Set Sensor
     // override) based on another d-bus announcement to be more generic.
-    if (params.size() != 1)
+    std::string nodeName;
+    int paramCount = params.size();
+    switch (paramCount)
     {
-        messages::internalError(res);
-        res.end();
-        return;
+        case 1:
+        case 2:
+            nodeName = params[paramCount - 1];
+            break;
+        default:
+            messages::internalError(res);
+            res.end();
+            return;
     }
 
     std::unordered_map<std::string, std::vector<nlohmann::json>> allCollections;
@@ -1081,9 +1140,9 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                                 std::make_pair(value, collectionItems.first));
         }
     }
-    const std::string& chassisName = params[0];
-    auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-        res, chassisName, typeList, chassisSubNode);
+    auto sensorAsyncResp =
+        std::make_shared<SensorsAsyncResp>(res, typeList, chassisSubNode);
+    sensorAsyncResp->chassisId = nodeName;
     // first check for valid chassis id & sensor in requested chassis.
     auto getChassisSensorListCb = [sensorAsyncResp, overrideMap](
                                       const boost::container::flat_set<
