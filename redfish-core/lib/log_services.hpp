@@ -695,7 +695,6 @@ class EventLogEntryCollection : public Node
         asyncResp->res.jsonValue["Description"] =
             "Collection of System Event Log Entries";
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
         // Go through the log files and create a unique ID for each entry
@@ -747,7 +746,43 @@ class EventLogEntryCollection : public Node
                 "Entries?$skip=" +
                 std::to_string(skip + top);
         }
-#else
+    }
+};
+
+class DBusEventLogEntryCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    DBusEventLogEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        // Collections don't include the static data added by SubRoute because
+        // it has a duplicate entry for members
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
+        asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of System Event Log Entries";
+
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
@@ -860,14 +895,13 @@ class EventLogEntryCollection : public Node
             },
             "xyz.openbmc_project.Logging", "/xyz/openbmc_project/logging",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-#endif
     }
 };
 
-class EventLogEntry : public Node
+class DBusEventLogEntry : public Node
 {
   public:
-    EventLogEntry(CrowApp &app) :
+    DBusEventLogEntry(CrowApp &app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
              std::string())
@@ -893,7 +927,6 @@ class EventLogEntry : public Node
         }
         const std::string &entryID = params[0];
 
-#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
@@ -978,7 +1011,6 @@ class EventLogEntry : public Node
             "/xyz/openbmc_project/logging/entry/" + entryID,
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.Logging.Entry");
-#endif
     }
 };
 
@@ -1021,8 +1053,7 @@ class BMCLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         logServiceArray.push_back(
-            {{ "@odata.id",
-               "/redfish/v1/Managers/bmc/LogServices/Journal" }});
+            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
