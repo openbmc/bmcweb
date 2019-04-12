@@ -35,8 +35,43 @@ namespace redfish
 void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
+
+    auto getDimmProperties = [aResp](const boost::system::error_code ec,
+                                     const std::variant<bool> &dimmState) {
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "DBUS response error " << ec;
+            messages::internalError(aResp->res);
+            return;
+        }
+
+        const bool *isDimmFunctional = std::get_if<bool>(&dimmState);
+        if (isDimmFunctional == nullptr)
+        {
+            messages::internalError(aResp->res);
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "Dimm Functional:" << *isDimmFunctional;
+
+        std::string isDimmEnabled = "Disabled";
+        if (*isDimmFunctional == true)
+        {
+            isDimmEnabled = "Enabled";
+        }
+
+        // Set it as Enabled if atleast one DIMM is functional
+        nlohmann::json &prevMemSummary =
+            aResp->res.jsonValue["MemorySummary"]["Status"]["State"];
+        if (prevMemSummary == "Disabled")
+        {
+            aResp->res.jsonValue["MemorySummary"]["Status"]["State"] =
+                isDimmEnabled;
+        }
+    };
+
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}](
+        [aResp{std::move(aResp)},
+         getDimmProperties(std::move(getDimmProperties))](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -75,11 +110,18 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                         {
                             BMCWEB_LOG_DEBUG
                                 << "Found Dimm, now get its properties.";
+
+                            std::string service = connection.first;
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
-                                        const std::vector<
-                                            std::pair<std::string, VariantType>>
-                                            &properties) {
+                                [aResp,
+                                 getDimmProperties(
+                                     std::move(getDimmProperties)),
+                                 service(std::move(service)),
+                                 path(std::move(path))](
+                                    const boost::system::error_code ec,
+                                    const std::vector<
+                                        std::pair<std::string, VariantType>>
+                                        &properties) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -90,32 +132,50 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     BMCWEB_LOG_DEBUG << "Got "
                                                      << properties.size()
                                                      << "Dimm properties.";
-                                    for (const std::pair<std::string,
-                                                         VariantType>
-                                             &property : properties)
+
+                                    if (properties.size() > 0)
                                     {
-                                        if (property.first == "MemorySizeInKb")
+                                        for (const std::pair<std::string,
+                                                             VariantType>
+                                                 &property : properties)
                                         {
-                                            const uint64_t *value =
-                                                sdbusplus::message::variant_ns::
-                                                    get_if<uint64_t>(
-                                                        &property.second);
-                                            if (value != nullptr)
+                                            if (property.first ==
+                                                "MemorySizeInKb")
                                             {
-                                                aResp->res.jsonValue
-                                                    ["TotalSystemMemoryGi"
-                                                     "B"] +=
-                                                    *value / (1024 * 1024);
-                                                aResp->res
-                                                    .jsonValue["MemorySummary"]
-                                                              ["Status"]
-                                                              ["State"] =
-                                                    "Enabled";
+                                                const uint64_t *value =
+                                                    sdbusplus::message::
+                                                        variant_ns::get_if<
+                                                            uint64_t>(
+                                                            &property.second);
+                                                if (value != nullptr)
+                                                {
+                                                    aResp->res.jsonValue
+                                                        ["TotalSystemMemoryGi"
+                                                         "B"] +=
+                                                        *value / (1024 * 1024);
+                                                    aResp->res.jsonValue
+                                                        ["MemorySummary"]
+                                                        ["Status"]["State"] =
+                                                        "Enabled";
+                                                }
                                             }
                                         }
+                                    }    // x86 interface
+                                    else // IBM Power system
+                                    {
+                                        crow::connections::systemBus
+                                            ->async_method_call(
+                                                std::move(getDimmProperties),
+                                                service, path,
+                                                "org.freedesktop.DBus."
+                                                "Properties",
+                                                "Get",
+                                                "xyz.openbmc_project.State."
+                                                "Decorator.OperationalStatus",
+                                                "Functional");
                                     }
                                 },
-                                connection.first, path,
+                                service, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Inventory.Item.Dimm");
                         }
