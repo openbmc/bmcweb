@@ -74,11 +74,10 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                         {
                             BMCWEB_LOG_DEBUG
                                 << "Found Dimm, now get its properties.";
+
                             crow::connections::systemBus->async_method_call(
                                 [aResp](const boost::system::error_code ec,
-                                        const std::vector<
-                                            std::pair<std::string, VariantType>>
-                                            &properties) {
+                                        const std::variant<bool> &dimmState) {
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
@@ -86,37 +85,41 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                         messages::internalError(aResp->res);
                                         return;
                                     }
-                                    BMCWEB_LOG_DEBUG << "Got "
-                                                     << properties.size()
-                                                     << "Dimm properties.";
-                                    for (const std::pair<std::string,
-                                                         VariantType>
-                                             &property : properties)
+
+                                    const bool *isDimmFunctional =
+                                        std::get_if<bool>(&dimmState);
+                                    if (isDimmFunctional == nullptr)
                                     {
-                                        if (property.first == "MemorySizeInKb")
-                                        {
-                                            const uint64_t *value =
-                                                sdbusplus::message::variant_ns::
-                                                    get_if<uint64_t>(
-                                                        &property.second);
-                                            if (value != nullptr)
-                                            {
-                                                aResp->res.jsonValue
-                                                    ["TotalSystemMemoryGi"
-                                                     "B"] +=
-                                                    *value / (1024 * 1024);
-                                                aResp->res
-                                                    .jsonValue["MemorySummary"]
-                                                              ["Status"]
-                                                              ["State"] =
-                                                    "Enabled";
-                                            }
-                                        }
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Dimm Functional:"
+                                                     << *isDimmFunctional;
+
+                                    std::string isDimmEnabled = "Disabled";
+                                    if (*isDimmFunctional == true)
+                                    {
+                                        isDimmEnabled = "Enabled";
+                                    }
+
+                                    // Set it as Enabled if atleast one DIMM is
+                                    // functional
+                                    nlohmann::json &prevMemSummary =
+                                        aResp->res.jsonValue["MemorySummary"]
+                                                            ["Status"]["State"];
+                                    if (prevMemSummary == "Disabled")
+                                    {
+                                        aResp->res
+                                            .jsonValue["MemorySummary"]
+                                                      ["Status"]["State"] =
+                                            isDimmEnabled;
                                     }
                                 },
                                 connection.first, path,
-                                "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Item.Dimm");
+                                "org.freedesktop.DBus.Properties", "Get",
+                                "xyz.openbmc_project.State.Decorator."
+                                "OperationalStatus",
+                                "Functional");
                         }
                         else if (interfaceName ==
                                  "xyz.openbmc_project.Inventory.Item.Cpu")
