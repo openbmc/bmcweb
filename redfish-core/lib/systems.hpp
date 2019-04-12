@@ -74,7 +74,55 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                         {
                             BMCWEB_LOG_DEBUG
                                 << "Found Dimm, now get its properties.";
+
                             crow::connections::systemBus->async_method_call(
+                                [aResp](const boost::system::error_code ec,
+                                        const sdbusplus::message::variant<bool>
+                                            &DimmState) {
+                                    if (ec)
+                                    {
+                                        BMCWEB_LOG_ERROR
+                                            << "DBUS response error " << ec;
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+
+                                    const bool *isDimmFunctional =
+                                        std::get_if<bool>(&DimmState);
+                                    if (isDimmFunctional == nullptr)
+                                    {
+                                        messages::internalError(aResp->res);
+                                        return;
+                                    }
+                                    BMCWEB_LOG_DEBUG << "Dimm Functional:"
+                                                     << *isDimmFunctional;
+
+                                    std::string isDimmEnabled = "Disabled";
+                                    if (*isDimmFunctional == true)
+                                    {
+                                        isDimmEnabled = "Enabled";
+                                    }
+
+                                    // Set it as Enabled if atleast one DIMM is
+                                    // functional
+                                    nlohmann::json &prevMemSummary =
+                                        aResp->res.jsonValue["MemorySummary"]
+                                                            ["Status"]["State"];
+                                    if (prevMemSummary == "Disabled")
+                                    {
+                                        aResp->res
+                                            .jsonValue["MemorySummary"]
+                                                      ["Status"]["State"] =
+                                            isDimmEnabled;
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "Get",
+                                "xyz.openbmc_project.State.Decorator."
+                                "OperationalStatus",
+                                "Functional");
+
+                            /*crow::connections::systemBus->async_method_call(
                                 [aResp](const boost::system::error_code ec,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
@@ -116,7 +164,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
-                                "xyz.openbmc_project.Inventory.Item.Dimm");
+                                "xyz.openbmc_project.Inventory.Item.Dimm");*/
                         }
                         else if (interfaceName ==
                                  "xyz.openbmc_project.Inventory.Item.Cpu")
