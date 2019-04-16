@@ -37,39 +37,39 @@ class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
+        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
     {
     }
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
     }
 
     Server(Handler* handler, int existing_socket,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
     }
 
@@ -173,12 +173,12 @@ class Server
             fs::create_directories(certPath);
         }
         fs::path certFile = certPath / "server.pem";
-        std::cout << "Building SSL Context file=" << certFile << std::endl;
+        BMCWEB_LOG_INFO << "Building SSL Context file=" << certFile;
         std::string sslPemFile(certFile);
         ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
-        std::cout << "SSL Enabled\n";
-        boost::asio::ssl::context sslContext =
+        std::shared_ptr<boost::asio::ssl::context> sslContext =
             ensuressl::getSslContext(sslPemFile);
+        adaptorCtx = sslContext;
         handler->ssl(std::move(sslContext));
 #endif
     }
@@ -287,6 +287,6 @@ class Server
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
 #endif
-    boost::asio::ssl::context* adaptorCtx;
+    std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
 }; // namespace crow
 } // namespace crow
