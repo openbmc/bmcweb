@@ -99,12 +99,12 @@ template <typename... Middlewares> class Crow
         if (-1 == socketFd)
         {
             sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, bindaddrStr, portUint, &middlewares, &sslContext, io));
+                this, bindaddrStr, portUint, sslContext, &middlewares, io));
         }
         else
         {
             sslServer = std::move(std::make_unique<ssl_server_t>(
-                this, socketFd, &middlewares, &sslContext, io));
+                this, socketFd, sslContext, &middlewares, io));
         }
         sslServer->setTickFunction(tickInterval, tickFunction);
         sslServer->run();
@@ -114,12 +114,12 @@ template <typename... Middlewares> class Crow
         if (-1 == socketFd)
         {
             server = std::move(std::make_unique<server_t>(
-                this, bindaddrStr, portUint, &middlewares, nullptr, io));
+                this, bindaddrStr, portUint, nullptr, &middlewares, io));
         }
         else
         {
             server = std::move(std::make_unique<server_t>(
-                this, socketFd, &middlewares, nullptr, io));
+                this, socketFd, nullptr, &middlewares, io));
         }
         server->setTickFunction(tickInterval, tickFunction);
         server->run();
@@ -153,36 +153,43 @@ template <typename... Middlewares> class Crow
     self_t& sslFile(const std::string& crt_filename,
                     const std::string& key_filename)
     {
-        sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext.use_certificate_file(crt_filename, ssl_context_t::pem);
-        sslContext.use_private_key_file(key_filename, ssl_context_t::pem);
-        sslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                               boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3 |
-                               boost::asio::ssl::context::no_tlsv1 |
-                               boost::asio::ssl::context::no_tlsv1_1);
+        sslContext = std::make_shared<ssl_context_t>(
+            boost::asio::ssl::context::tls_server);
+        sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+        sslContext->use_certificate_file(crt_filename, ssl_context_t::pem);
+        sslContext->use_private_key_file(key_filename, ssl_context_t::pem);
+        sslContext->set_options(boost::asio::ssl::context::default_workarounds |
+                                boost::asio::ssl::context::no_sslv2 |
+                                boost::asio::ssl::context::no_sslv3 |
+                                boost::asio::ssl::context::no_tlsv1 |
+                                boost::asio::ssl::context::no_tlsv1_1);
         return *this;
     }
 
     self_t& sslFile(const std::string& pem_filename)
     {
-        sslContext.set_verify_mode(boost::asio::ssl::verify_peer);
-        sslContext.load_verify_file(pem_filename);
-        sslContext.set_options(boost::asio::ssl::context::default_workarounds |
-                               boost::asio::ssl::context::no_sslv2 |
-                               boost::asio::ssl::context::no_sslv3 |
-                               boost::asio::ssl::context::no_tlsv1 |
-                               boost::asio::ssl::context::no_tlsv1_1);
+        sslContext = std::make_shared<ssl_context_t>(
+            boost::asio::ssl::context::tls_server);
+        sslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+        sslContext->load_verify_file(pem_filename);
+        sslContext->set_options(boost::asio::ssl::context::default_workarounds |
+                                boost::asio::ssl::context::no_sslv2 |
+                                boost::asio::ssl::context::no_sslv3 |
+                                boost::asio::ssl::context::no_tlsv1 |
+                                boost::asio::ssl::context::no_tlsv1_1);
         return *this;
     }
 
-    self_t& ssl(boost::asio::ssl::context&& ctx)
+    self_t& ssl(std::shared_ptr<boost::asio::ssl::context>&& ctx)
     {
         sslContext = std::move(ctx);
+        BMCWEB_LOG_INFO << "app::ssl context use_count="
+                        << sslContext.use_count();
         return *this;
     }
 
-    ssl_context_t sslContext{boost::asio::ssl::context::tls_server};
+    std::shared_ptr<ssl_context_t> sslContext{
+        std::make_shared<ssl_context_t>(boost::asio::ssl::context::tls_server)};
 
 #else
     template <typename T, typename... Remain> self_t& ssl_file(T&&, Remain&&...)
