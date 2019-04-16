@@ -71,6 +71,21 @@ struct IPv4AddressData
 };
 
 /**
+ * Structure for keeping IPv6 data required by Redfish
+ */
+struct IPv6AddressData
+{
+    std::string id;
+    std::string address;
+    std::string origin;
+    uint8_t prefixLength;
+
+    bool operator<(const IPv6AddressData &obj) const
+    {
+        return id < obj.id;
+    }
+};
+/**
  * Structure for keeping basic single Ethernet Interface information
  * available from DBus
  */
@@ -269,6 +284,92 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         {
                             ethData.default_gateway = *defaultGateway;
                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Helper function that extracts data for single ethernet ipv6 address
+inline void extractIPV6Data(
+    const std::string &ethiface_id, const GetManagedObjects &dbus_data,
+    boost::container::flat_set<IPv6AddressData> &ipv6_config,
+    boost::container::flat_set<IPv6AddressData> &ipv6_static_config)
+{
+    const std::string ipv6PathStart =
+        "/xyz/openbmc_project/network/" + ethiface_id + "/ipv6/";
+
+    // Since there might be several IPv6 configurations aligned with
+    // single ethernet interface, loop over all of them
+    for (const auto &objpath : dbus_data)
+    {
+        // Check if proper pattern for object path appears
+        if (boost::starts_with(objpath.first.str, ipv6PathStart))
+        {
+            for (auto &interface : objpath.second)
+            {
+                if (interface.first == "xyz.openbmc_project.Network.IP")
+                {
+                    // Instance IPv6AddressData structure, and set as
+                    // appropriate
+                    std::pair<
+                        boost::container::flat_set<IPv6AddressData>::iterator,
+                        bool>
+                        it = ipv6_config.insert(
+                            {objpath.first.str.substr(ipv6PathStart.size())});
+                    IPv6AddressData &ipv6_address = *it.first;
+                    for (auto &property : interface.second)
+                    {
+                        if (property.first == "Address")
+                        {
+                            const std::string *address =
+                                std::get_if<std::string>(&property.second);
+                            if (address != nullptr)
+                            {
+                                ipv6_address.address = *address;
+                            }
+                        }
+                        else if (property.first == "Origin")
+                        {
+                            const std::string *origin =
+                                std::get_if<std::string>(&property.second);
+                            if (origin != nullptr)
+                            {
+                                ipv6_address.origin =
+                                    translateAddressOriginDbusToRedfish(*origin,
+                                                                        false);
+                            }
+                        }
+                        else if (property.first == "PrefixLength")
+                        {
+                            const uint8_t *prefix =
+                                std::get_if<uint8_t>(&property.second);
+                            if (prefix != nullptr)
+                            {
+                                ipv6_address.prefixLength = *prefix;
+                            }
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Got extra property: " << property.first
+                                << " on the " << objpath.first.str << " object";
+                        }
+                    }
+                    if (ipv6_address.origin == "Static")
+                    {
+                        std::pair<boost::container::flat_set<
+                                      IPv6AddressData>::iterator,
+                                  bool>
+                            iter = ipv6_static_config.insert(
+                                {objpath.first.str.substr(
+                                    ipv6PathStart.size())});
+                        IPv6AddressData &ipv6_static_address = *iter.first;
+
+                        ipv6_static_address.address = ipv6_address.address;
+                        ipv6_static_address.prefixLength =
+                            ipv6_address.prefixLength;
                     }
                 }
             }
@@ -656,6 +757,87 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
         "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, subnetMask,
         gateway);
 }
+
+/**
+ * @brief Helper function that verifies IP address to check if it is in
+ *        proper format.
+ *
+ * @param[in]  ip     IP that will be verified
+ *
+ * @return true in case of success, false otherwise
+ */
+inline bool ipv6VerifyIp(const std::string &ip)
+{
+    struct in6_addr ipaddressNetwork;
+    if (inet_pton(AF_INET6, ip.c_str(), &ipaddressNetwork) <= 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * @brief Deletes given IPv6
+ *
+ * @param[in] ifaceId     Id of interface whose IP should be deleted
+ * @param[in] ipHash      DBus Hash id of IP that should be deleted
+ * @param[in] ipIdx       Index of IP in input array that should be deleted
+ * @param[io] asyncResp   Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void deleteIPv6(const std::string &ifaceId, const std::string &ipHash,
+                       unsigned int ipIdx,
+                       const std::shared_ptr<AsyncResp> asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [ipIdx, asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
+            else
+            {
+                asyncResp->res.jsonValue["IPv6StaticAddresses"][ipIdx] =
+                    nullptr;
+            }
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" + ipHash,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
+/**
+ * @brief Creates IPv6 with given data
+ *
+ * @param[in] ifaceId      Id of interface whose IP should be added
+ * @param[in] ipIdx        Index of IP in input array that should be added
+ * @param[in] prefixLength Prefix length that needs to be added
+ * @param[in] address      IP address that needs to be added
+ * @param[io] asyncResp    Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void createIPv6(const std::string &ifaceId, unsigned int ipIdx,
+                       uint8_t prefixLength, const std::string &address,
+                       std::shared_ptr<AsyncResp> asyncResp)
+{
+    auto createIpHandler = [asyncResp](const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+        }
+    };
+    // Passing null for gateway, as per redfish spec IPv6StaticAddresses object
+    // does not have assosiated gateway property
+    crow::connections::systemBus->async_method_call(
+        std::move(createIpHandler), "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId,
+        "xyz.openbmc_project.Network.IP.Create", "IP",
+        "xyz.openbmc_project.Network.IP.Protocol.IPv6", address, prefixLength,
+        "");
+}
+
 using GetAllPropertiesType =
     boost::container::flat_map<std::string, sdbusplus::message::variant<bool>>;
 
@@ -718,16 +900,17 @@ void getEthernetIfaceData(const std::string &ethiface_id,
             const GetManagedObjects &resp) {
             EthernetInterfaceData ethData{};
             boost::container::flat_set<IPv4AddressData> ipv4Data;
+            boost::container::flat_set<IPv6AddressData> ipv6Data;
+            boost::container::flat_set<IPv6AddressData> ipv6StaticData;
 
             if (error_code)
             {
-                callback(false, ethData, ipv4Data);
+                callback(false, ethData, ipv4Data, ipv6Data, ipv6StaticData);
                 return;
             }
 
             extractEthernetInterfaceData(ethiface_id, resp, ethData);
             extractIPData(ethiface_id, resp, ipv4Data);
-
             // Fix global GW
             for (IPv4AddressData &ipv4 : ipv4Data)
             {
@@ -738,8 +921,9 @@ void getEthernetIfaceData(const std::string &ethiface_id,
                 }
             }
 
+            extractIPV6Data(ethiface_id, resp, ipv6Data, ipv6StaticData);
             // Finally make a callback with usefull data
-            callback(true, ethData, ipv4Data);
+            callback(true, ethData, ipv4Data, ipv6Data, ipv6StaticData);
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
@@ -1185,10 +1369,167 @@ class EthernetInterface : public Node
             std::variant<std::vector<std::string>>{updatedStaticNameServers});
     }
 
+    void handleIPv6StaticAddressesPatch(
+        const std::string &ifaceId, nlohmann::json &input,
+        const boost::container::flat_set<IPv6AddressData> &ipv6StaticData,
+        const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        if (!input.is_array())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "IPv6StaticAddresses");
+            return;
+        }
+
+        int entryIdx = 0;
+        boost::container::flat_set<IPv6AddressData>::const_iterator thisData =
+            ipv6StaticData.begin();
+        for (nlohmann::json &thisJson : input)
+        {
+            std::string pathString =
+                "IPv6StaticAddresses/" + std::to_string(entryIdx);
+
+            if (thisJson.is_null())
+            {
+                if (thisData != ipv6StaticData.end())
+                {
+                    deleteIPv6(ifaceId, thisData->id, entryIdx, asyncResp);
+                    thisData++;
+                }
+                else
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, input.dump(), pathString);
+                    return;
+                }
+                entryIdx++;
+                continue;
+            }
+
+            if (thisJson.empty())
+            {
+                if (thisData != ipv6StaticData.end())
+                {
+                    thisData++;
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    return;
+                }
+                entryIdx++;
+                continue;
+            }
+
+            std::optional<std::string> address;
+            std::optional<uint8_t> prefixLength;
+
+            if (!json_util::readJson(thisJson, asyncResp->res, "Address",
+                                     address, "PrefixLength", prefixLength))
+            {
+                return;
+            }
+
+            if (address)
+            {
+                if (!ipv6VerifyIp(*address))
+                {
+                    messages::propertyValueFormatError(asyncResp->res, *address,
+                                                       pathString + "/Address");
+                    return;
+                }
+            }
+            // if IP address exist then  modify it.
+            if (thisData != ipv6StaticData.end())
+            {
+                // Apply changes
+                if (address)
+                {
+                    auto callback = [asyncResp, entryIdx,
+                                     address{std::string(*address)}](
+                                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
+                                                [entryIdx]["Address"] =
+                            std::move(address);
+                    };
+
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" +
+                            thisData->id,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.IP", "Address",
+                        std::variant<std::string>(*address));
+                }
+
+                if (prefixLength)
+                {
+                    auto callback = [asyncResp, entryIdx,
+                                     prefixLength{uint8_t(*prefixLength)}](
+                                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
+                                                [entryIdx]["PrefixLength"] =
+                            std::move(prefixLength);
+                    };
+
+                    crow::connections::systemBus->async_method_call(
+                        std::move(callback), "xyz.openbmc_project.Network",
+                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" +
+                            thisData->id,
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Network.IP", "PrefixLength",
+                        std::variant<uint8_t>(*prefixLength));
+                }
+
+                thisData++;
+            }
+            else
+            {
+                // Create IPv6 with provided data
+
+                if (!prefixLength)
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/PrefixLength");
+                    continue;
+                }
+
+                if (!address)
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    continue;
+                }
+
+                createIPv6(ifaceId, entryIdx, *prefixLength, *address,
+                           asyncResp);
+
+                nlohmann::json &ipv6StaticAddressJson =
+                    asyncResp->res.jsonValue["IPv6StaticAddresses"][entryIdx];
+                ipv6StaticAddressJson["Address"] = *address;
+                ipv6StaticAddressJson["PrefixLength"] = *prefixLength;
+            }
+            entryIdx++;
+        }
+    }
+
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &iface_id,
         const EthernetInterfaceData &ethData,
-        const boost::container::flat_set<IPv4AddressData> &ipv4Data)
+        const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+        const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+        const boost::container::flat_set<IPv6AddressData> &ipv6StaticData)
     {
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
@@ -1238,6 +1579,25 @@ class EthernetInterface : public Node
                                       {"Gateway", ipv4_config.gateway}});
             }
         }
+
+        nlohmann::json &ipv6_array = json_response["IPv6Addresses"];
+        ipv6_array = nlohmann::json::array();
+        for (auto &ipv6_config : ipv6Data)
+        {
+            ipv6_array.push_back({{"Address", ipv6_config.address},
+                                  {"PrefixLength", ipv6_config.prefixLength},
+                                  {"AddressOrigin", ipv6_config.origin}});
+        }
+
+        nlohmann::json &ipv6_static_array =
+            json_response["IPv6StaticAddresses"];
+        ipv6_static_array = nlohmann::json::array();
+        for (auto &ipv6_static_config : ipv6StaticData)
+        {
+            ipv6_static_array.push_back(
+                {{"Address", ipv6_static_config.address},
+                 {"PrefixLength", ipv6_static_config.prefixLength}});
+        }
     }
 
     /**
@@ -1257,7 +1617,10 @@ class EthernetInterface : public Node
             params[0],
             [this, asyncResp, iface_id{std::string(params[0])}](
                 const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+                const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+                const boost::container::flat_set<IPv6AddressData>
+                    &ipv6StaticData) {
                 if (!success)
                 {
                     // TODO(Pawel)consider distinguish between non existing
@@ -1275,7 +1638,7 @@ class EthernetInterface : public Node
                     "Management Network Interface";
 
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
-                                   ipv4Data);
+                                   ipv4Data, ipv6Data, ipv6StaticData);
             });
         getDHCPConfigData(asyncResp);
     }
@@ -1296,12 +1659,14 @@ class EthernetInterface : public Node
         std::optional<std::string> macAddress;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
+        std::optional<nlohmann::json> ipv6StaticAddresses;
         std::optional<std::vector<std::string>> staticNameServers;
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
                 "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
-                "StaticNameServers", staticNameServers))
+                "StaticNameServers", staticNameServers, "IPv6StaticAddresses",
+                ipv6StaticAddresses))
         {
             return;
         }
@@ -1314,9 +1679,13 @@ class EthernetInterface : public Node
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
              ipv6Addresses = std::move(ipv6Addresses),
-             staticNameServers = std::move(staticNameServers)](
+             staticNameServers = std::move(staticNameServers),
+             ipv6StaticAddresses = std::move(ipv6StaticAddresses)](
                 const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+                const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+                const boost::container::flat_set<IPv6AddressData>
+                    &ipv6StaticData) {
                 if (!success)
                 {
                     // ... otherwise return error
@@ -1328,7 +1697,7 @@ class EthernetInterface : public Node
                 }
 
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
-                                   ipv4Data);
+                                   ipv4Data, ipv6Data, ipv6StaticData);
 
                 if (hostname)
                 {
@@ -1364,6 +1733,39 @@ class EthernetInterface : public Node
                     handleStaticNameServersPatch(iface_id, *staticNameServers,
                                                  asyncResp);
                 }
+
+                if (ipv6StaticAddresses)
+                {
+                    nlohmann::json ipv6Static = std::move(*ipv6StaticAddresses);
+                    handleIPv6StaticAddressesPatch(iface_id, ipv6Static,
+                                                   ipv6StaticData, asyncResp);
+
+                    // call getEthernetIfaceData to populate updated static
+                    // addresses data to "IPv6Addresses" json collection
+                    getEthernetIfaceData(
+                        iface_id,
+                        [this, asyncResp, iface_id](
+                            const bool &success,
+                            const EthernetInterfaceData &ethData,
+                            const boost::container::flat_set<IPv4AddressData>
+                                &ipv4Data,
+                            const boost::container::flat_set<IPv6AddressData>
+                                &ipv6Data,
+                            const boost::container::flat_set<IPv6AddressData>
+                                &ipv6StaticData) {
+                            if (!success)
+                            {
+                                messages::resourceNotFound(asyncResp->res,
+                                                           "Ethernet Interface",
+                                                           iface_id);
+                                return;
+                            }
+
+                            parseInterfaceData(asyncResp->res.jsonValue,
+                                               iface_id, ethData, ipv4Data,
+                                               ipv6Data, ipv6StaticData);
+                        });
+                }
             });
     }
 };
@@ -1397,7 +1799,9 @@ class VlanNetworkInterface : public Node
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &parent_iface_id,
         const std::string &iface_id, const EthernetInterfaceData &ethData,
-        const boost::container::flat_set<IPv4AddressData> &ipv4Data)
+        const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+        const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+        const boost::container::flat_set<IPv6AddressData> &ipv6StaticData)
     {
         // Fill out obvious data...
         json_response["Id"] = iface_id;
@@ -1462,12 +1866,15 @@ class VlanNetworkInterface : public Node
             [this, asyncResp, parent_iface_id{std::string(params[0])},
              iface_id{std::string(params[1])}](
                 const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+                const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+                const boost::container::flat_set<IPv6AddressData>
+                    &ipv6StaticData) {
                 if (success && ethData.vlan_id.size() != 0)
                 {
                     parseInterfaceData(asyncResp->res.jsonValue,
                                        parent_iface_id, iface_id, ethData,
-                                       ipv4Data);
+                                       ipv4Data, ipv6Data, ipv6StaticData);
                 }
                 else
                 {
@@ -1511,55 +1918,57 @@ class VlanNetworkInterface : public Node
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
-        getEthernetIfaceData(params[1], [this, asyncResp,
-                                         parentIfaceId{std::string(params[0])},
-                                         ifaceId{std::string(params[1])},
-                                         &vlanEnable, &vlanId](
-                                            const bool &success,
-                                            const EthernetInterfaceData
-                                                &ethData,
-                                            const boost::container::flat_set<
-                                                IPv4AddressData> &ipv4Data) {
-            if (success && !ethData.vlan_id.empty())
-            {
-                parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
-                                   ifaceId, ethData, ipv4Data);
-                auto callback =
-                    [asyncResp](const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                    };
-
-                if (vlanEnable == true)
+        getEthernetIfaceData(
+            params[1],
+            [this, asyncResp, parentIfaceId{std::string(params[0])},
+             ifaceId{std::string(params[1])}, &vlanEnable, &vlanId](
+                const bool &success, const EthernetInterfaceData &ethData,
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+                const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+                const boost::container::flat_set<IPv6AddressData>
+                    &ipv6StaticData) {
+                if (success && !ethData.vlan_id.empty())
                 {
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.VLAN", "Id",
-                        std::variant<uint32_t>(vlanId));
+                    parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
+                                       ifaceId, ethData, ipv4Data, ipv6Data,
+                                       ipv6StaticData);
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                            }
+                        };
+
+                    if (vlanEnable == true)
+                    {
+                        crow::connections::systemBus->async_method_call(
+                            std::move(callback), "xyz.openbmc_project.Network",
+                            "/xyz/openbmc_project/network/" + ifaceId,
+                            "org.freedesktop.DBus.Properties", "Set",
+                            "xyz.openbmc_project.Network.VLAN", "Id",
+                            std::variant<uint32_t>(vlanId));
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_DEBUG << "vlanEnable is false. Deleting the "
+                                            "vlan interface";
+                        crow::connections::systemBus->async_method_call(
+                            std::move(callback), "xyz.openbmc_project.Network",
+                            std::string("/xyz/openbmc_project/network/") +
+                                ifaceId,
+                            "xyz.openbmc_project.Object.Delete", "Delete");
+                    }
                 }
                 else
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "vlanEnable is false. Deleting the vlan interface";
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        std::string("/xyz/openbmc_project/network/") + ifaceId,
-                        "xyz.openbmc_project.Object.Delete", "Delete");
+                    // TODO(Pawel)consider distinguish between non existing
+                    // object, and other errors
+                    messages::resourceNotFound(
+                        asyncResp->res, "VLAN Network Interface", ifaceId);
+                    return;
                 }
-            }
-            else
-            {
-                // TODO(Pawel)consider distinguish between non existing
-                // object, and other errors
-                messages::resourceNotFound(asyncResp->res,
-                                           "VLAN Network Interface", ifaceId);
-                return;
-            }
-        });
+            });
     }
 
     void doDelete(crow::Response &res, const crow::Request &req,
@@ -1589,11 +1998,15 @@ class VlanNetworkInterface : public Node
             [this, asyncResp, parentIfaceId{std::string(params[0])},
              ifaceId{std::string(params[1])}](
                 const bool &success, const EthernetInterfaceData &ethData,
-                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data,
+                const boost::container::flat_set<IPv6AddressData> &ipv6Data,
+                const boost::container::flat_set<IPv6AddressData>
+                    &ipv6StaticData) {
                 if (success && !ethData.vlan_id.empty())
                 {
                     parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
-                                       ifaceId, ethData, ipv4Data);
+                                       ifaceId, ethData, ipv4Data, ipv6Data,
+                                       ipv6StaticData);
 
                     auto callback =
                         [asyncResp](const boost::system::error_code ec) {
