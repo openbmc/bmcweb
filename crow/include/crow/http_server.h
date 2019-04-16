@@ -38,40 +38,46 @@ class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
+        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
     {
+        std::cout << " Server::Server reference count"
+                  << adaptor_ctx.use_count() << std::endl;
     }
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
+        std::cout << " Server::Server reference count"
+                  << adaptor_ctx.use_count() << std::endl;
     }
 
     Server(Handler* handler, int existing_socket,
+           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
-           boost::asio::ssl::context* adaptor_ctx = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         Server(handler,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
-               middlewares, adaptor_ctx, io)
+               adaptor_ctx, middlewares, io)
     {
+        std::cout << " Server::Server reference count"
+                  << adaptor_ctx.use_count() << std::endl;
     }
 
     void setTickFunction(std::chrono::milliseconds d, std::function<void()> f)
@@ -175,8 +181,11 @@ class Server
         std::string sslPemFile(certFile);
         ensuressl::ensureOpensslKeyPresentAndValid(sslPemFile);
         std::cout << "SSL Enabled\n";
-        boost::asio::ssl::context sslContext =
-            ensuressl::getSslContext(sslPemFile);
+        std::shared_ptr<boost::asio::ssl::context> sslContext =
+            std::make_shared<boost::asio::ssl::context>(
+                ensuressl::getSslContext(sslPemFile));
+        std::cout << " loadCertificate reference count"
+                  << sslContext.use_count() << std::endl;
         handler->ssl(std::move(sslContext));
 #endif
     }
@@ -217,27 +226,34 @@ class Server
                                    boost::beast::ssl_stream<
                                        boost::asio::ip::tcp::socket>>::value)
         {
-            adaptorTemp = Adaptor(*ioService, *adaptorCtx);
+            std::cout << " doAccept ssl reference count"
+                      << adaptorCtx.use_count() << std::endl;
+            adaptorTemp = Adaptor(*ioService, *(adaptorCtx.get()));
             Connection<Adaptor, Handler, Middlewares...>* p =
                 new Connection<Adaptor, Handler, Middlewares...>(
                     *ioService, handler, serverName, middlewares,
                     getCachedDateStr, timerQueue,
                     std::move(adaptorTemp.value()));
-
-            acceptor->async_accept(p->socket().next_layer(),
-                                   [this, p](boost::system::error_code ec) {
-                                       if (!ec)
-                                       {
-                                           boost::asio::post(
-                                               *this->ioService,
-                                               [p] { p->start(); });
-                                       }
-                                       else
-                                       {
-                                           delete p;
-                                       }
-                                       doAccept();
-                                   });
+            std::cout << " doAccept before async_accept"
+                      << adaptorCtx.use_count() << std::endl;
+            acceptor->async_accept(
+                p->socket().next_layer(),
+                [this, p](boost::system::error_code ec) {
+                    if (!ec)
+                    {
+                        std::cout << " doAccept calling boost::asio::post "
+                                  << std::endl;
+                        boost::asio::post(*this->ioService,
+                                          [p] { p->start(); });
+                    }
+                    else
+                    {
+                        delete p;
+                    }
+                    std::cout << " doAccept calling doAccept internal "
+                              << std::endl;
+                    doAccept();
+                });
         }
         else
         {
@@ -285,6 +301,7 @@ class Server
 #ifdef BMCWEB_ENABLE_SSL
     bool useSsl{false};
 #endif
-    boost::asio::ssl::context* adaptorCtx;
+    // boost::asio::ssl::context* adaptorCtx;
+    std::shared_ptr<boost::asio::ssl::context> adaptorCtx;
 }; // namespace crow
 } // namespace crow
