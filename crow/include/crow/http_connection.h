@@ -267,6 +267,8 @@ class Connection
         BMCWEB_LOG_DEBUG << this << " Connection open, total "
                          << connectionCount;
 #endif
+        std::cout << this << " Connection open, total " << connectionCount
+                  << std::endl;
     }
 
     ~Connection()
@@ -287,7 +289,7 @@ class Connection
 
     void start()
     {
-
+        std::cout << this << " Connection start() " << std::endl;
         startDeadline();
         // TODO(ed) Abstract this to a more clever class with the idea of an
         // asynchronous "start"
@@ -327,10 +329,10 @@ class Connection
             }
         }
 
-        BMCWEB_LOG_INFO << "Request: "
-                        << " " << this << " HTTP/" << req->version() / 10 << "."
-                        << req->version() % 10 << ' ' << req->methodString()
-                        << " " << req->target();
+        std::cout << "Request: "
+                  << " " << this << " HTTP/" << req->version() / 10 << "."
+                  << req->version() % 10 << ' ' << req->methodString() << " "
+                  << req->target() << std::endl;
 
         needToCallAfterHandlers = false;
 
@@ -405,8 +407,9 @@ class Connection
 
     void completeRequest()
     {
-        BMCWEB_LOG_INFO << "Response: " << this << ' ' << req->url << ' '
-                        << res.resultInt() << " keepalive=" << req->keepAlive();
+        std::cout << " Response: " << this << ' ' << req->url << ' '
+                  << res.resultInt() << " keepalive=" << req->keepAlive()
+                  << std::endl;
 
         if (needToCallAfterHandlers)
         {
@@ -460,7 +463,7 @@ class Connection
     {
         // auto self = this->shared_from_this();
         isReading = true;
-        BMCWEB_LOG_DEBUG << this << " doReadHeaders";
+        std::cout << this << " doReadHeaders" << std::endl;
 
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
@@ -512,20 +515,21 @@ class Connection
     {
         // auto self = this->shared_from_this();
         isReading = true;
-        BMCWEB_LOG_DEBUG << this << " doRead";
+        std::cout << this << "   doRead" << std::endl;
 
         boost::beast::http::async_read(
             adaptor, buffer, *parser,
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-                BMCWEB_LOG_ERROR << this << " async_read " << bytes_transferred
-                                 << " Bytes";
+                std::cout << this << "  async_read " << bytes_transferred
+                          << " Bytes" << std::endl;
                 isReading = false;
 
                 bool errorWhileReading = false;
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Error while reading: " << ec.message();
+                    std::cout << " Error while reading: " << ec.message()
+                              << std::endl;
                     errorWhileReading = true;
                 }
                 else
@@ -539,7 +543,7 @@ class Connection
                 {
                     cancelDeadlineTimer();
                     close();
-                    BMCWEB_LOG_DEBUG << this << " from read(1)";
+                    std::cout << this << "  from read(1)" << std::endl;
                     checkDestroy();
                     return;
                 }
@@ -551,7 +555,7 @@ class Connection
     {
         // auto self = this->shared_from_this();
         isWriting = true;
-        BMCWEB_LOG_DEBUG << "Doing Write";
+        std::cout << " Doing Write" << std::endl;
         res.preparePayload();
         serializer.emplace(*res.stringResponse);
         boost::beast::http::async_write(
@@ -559,25 +563,25 @@ class Connection
             [&](const boost::system::error_code& ec,
                 std::size_t bytes_transferred) {
                 isWriting = false;
-                BMCWEB_LOG_DEBUG << this << " Wrote " << bytes_transferred
-                                 << " bytes";
+                std::cout << this << " Wrote " << bytes_transferred << " bytes"
+                          << std::endl;
 
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << this << " from write(2)";
+                    std::cout << this << " from write(2)" << std::endl;
                     checkDestroy();
                     return;
                 }
                 if (!res.keepAlive())
                 {
                     close();
-                    BMCWEB_LOG_DEBUG << this << " from write(1)";
+                    std::cout << this << " from write(1)" << std::endl;
                     checkDestroy();
                     return;
                 }
 
                 serializer.reset();
-                BMCWEB_LOG_DEBUG << this << " Clearing response";
+                std::cout << this << " Clearing response" << std::endl;
                 res.clear();
                 parser.emplace(std::piecewise_construct, std::make_tuple());
                 parser->body_limit(httpReqBodyLimit); // reset body limit for
@@ -591,24 +595,25 @@ class Connection
 
     void checkDestroy()
     {
-        BMCWEB_LOG_DEBUG << this << " isReading " << isReading << " isWriting "
-                         << isWriting;
+        std::cout << this << " isReading " << isReading << " isWriting "
+                  << isWriting << std::endl;
         if (!isReading && !isWriting)
         {
-            BMCWEB_LOG_DEBUG << this << " delete (idle) ";
+            std::cout << this << " delete (idle) " << std::endl;
             delete this;
         }
     }
 
     void cancelDeadlineTimer()
     {
-        BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue << ' '
-                         << timerCancelKey;
+        std::cout << this << "  timer cancelled: " << &timerQueue << ' '
+                  << timerCancelKey << std::endl;
         timerQueue.cancel(timerCancelKey);
     }
 
     void startDeadline()
     {
+        std::cout << this << " startDeadline:cancelDeadlineTimer " << std::endl;
         cancelDeadlineTimer();
 
         timerCancelKey = timerQueue.add([this] {
@@ -618,8 +623,9 @@ class Connection
             }
             close();
         });
-        BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
-                         << timerCancelKey;
+        std::cout << this << "startDeadline:timerQueue " << std::endl;
+        std::cout << this << " timer added: " << &timerQueue << ' '
+                  << timerCancelKey << std::endl;
     }
 
   private:
