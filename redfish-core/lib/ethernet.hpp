@@ -81,6 +81,7 @@ struct EthernetInterfaceData
     bool DHCPEnabled;
     std::string hostname;
     std::string default_gateway;
+    std::string ipv6_default_gateway;
     std::string mac_address;
     std::vector<std::uint32_t> vlan_id;
     std::vector<std::string> nameservers;
@@ -268,6 +269,16 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
                         if (defaultGateway != nullptr)
                         {
                             ethData.default_gateway = *defaultGateway;
+                        }
+                    }
+                    else if (propertyPair.first == "DefaultGateway6")
+                    {
+                        const std::string *defaultGateway6 =
+                            sdbusplus::message::variant_ns::get_if<std::string>(
+                                &propertyPair.second);
+                        if (defaultGateway6 != nullptr)
+                        {
+                            ethData.ipv6_default_gateway = *defaultGateway6;
                         }
                     }
                 }
@@ -1245,6 +1256,7 @@ class EthernetInterface : public Node
                                       {"Gateway", gatewayStr}});
             }
         }
+        json_response["IPv6DefaultGateway"] = ethData.ipv6_default_gateway;
     }
 
     /**
@@ -1301,6 +1313,7 @@ class EthernetInterface : public Node
 
         std::optional<std::string> hostname;
         std::optional<std::string> macAddress;
+        std::optional<std::string> ipv6DefaultGateway;
         std::optional<nlohmann::json> ipv4Addresses;
         std::optional<nlohmann::json> ipv6Addresses;
         std::optional<std::vector<std::string>> staticNameServers;
@@ -1308,7 +1321,8 @@ class EthernetInterface : public Node
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
                 "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
-                "StaticNameServers", staticNameServers))
+                "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
+                ipv6DefaultGateway))
         {
             return;
         }
@@ -1321,6 +1335,7 @@ class EthernetInterface : public Node
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
              ipv6Addresses = std::move(ipv6Addresses),
+             ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              staticNameServers = std::move(staticNameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
@@ -1370,6 +1385,12 @@ class EthernetInterface : public Node
                 {
                     handleStaticNameServersPatch(iface_id, *staticNameServers,
                                                  asyncResp);
+                }
+
+                if (ipv6DefaultGateway)
+                {
+                    messages::propertyNotWritable(asyncResp->res,
+                                                  "IPv6DefaultGateway");
                 }
             });
     }
