@@ -29,6 +29,154 @@ static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 // Only allow one update at a time
 static bool fwUpdateInProgress = false;
 
+static void cleanUp()
+{
+    fwUpdateInProgress = false;
+    fwUpdateMatcher = nullptr;
+}
+static void activateImage(const std::string &objPath,
+                          const std::string &service)
+{
+    BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
+    crow::connections::systemBus->async_method_call(
+        [](const boost::system::error_code error_code) {
+            if (error_code)
+            {
+                BMCWEB_LOG_DEBUG << "error_code = " << error_code;
+                BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
+            }
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Software.Activation", "RequestedActivation",
+        std::variant<std::string>(
+            "xyz.openbmc_project.Software.Activation.RequestedActivations."
+            "Active"));
+}
+static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
+                                   boost::asio::deadline_timer &timeout,
+                                   sdbusplus::message::message &m)
+{
+    std::vector<std::pair<
+        std::string,
+        std::vector<std::pair<std::string, std::variant<std::string>>>>>
+        interfacesProperties;
+
+    sdbusplus::message::object_path objPath;
+
+    m.read(objPath, interfacesProperties);
+
+    BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
+    for (auto &interface : interfacesProperties)
+    {
+        BMCWEB_LOG_DEBUG << "interface = " << interface.first;
+
+        if (interface.first == "xyz.openbmc_project.Software.Activation")
+        {
+            // Found our interface, disable callbacks
+            fwUpdateMatcher = nullptr;
+
+            // Retrieve service and activate
+            crow::connections::systemBus->async_method_call(
+                [objPath, asyncResp,
+                 &timeout](const boost::system::error_code error_code,
+                           const std::vector<
+                               std::pair<std::string, std::vector<std::string>>>
+                               &objInfo) {
+                    if (error_code)
+                    {
+                        BMCWEB_LOG_DEBUG << "error_code = " << error_code;
+                        BMCWEB_LOG_DEBUG << "error msg = "
+                                         << error_code.message();
+                        messages::internalError(asyncResp->res);
+                        cleanUp();
+                        return;
+                    }
+                    // Ensure we only got one service back
+                    if (objInfo.size() != 1)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid Object Size "
+                                         << objInfo.size();
+                        messages::internalError(asyncResp->res);
+                        cleanUp();
+                        return;
+                    }
+                    // cancel timer only when
+                    // xyz.openbmc_project.Software.Activation interface
+                    // is added
+                    boost::system::error_code ec;
+                    timeout.cancel(ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "error canceling timer " << ec;
+                    }
+                    activateImage(objPath.str, objInfo[0].first);
+                    redfish::messages::success(asyncResp->res);
+                    fwUpdateInProgress = false;
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetObject", objPath.str,
+                std::array<const char *, 1>{
+                    "xyz.openbmc_project.Software.Activation"});
+        }
+    }
+}
+
+static void monitorForSoftwareAvailable(crow::Response &res,
+                                        const crow::Request &req)
+{
+    // Only allow one FW update at a time
+    if (fwUpdateInProgress != false)
+    {
+        res.addHeader("Retry-After", "30");
+        messages::serviceTemporarilyUnavailable(res, "30");
+        res.end();
+        return;
+    }
+
+    // Make this const static so it survives outside this method
+    static boost::asio::deadline_timer timeout(*req.ioService,
+                                               boost::posix_time::seconds(5));
+
+    timeout.expires_from_now(boost::posix_time::seconds(5));
+
+    timeout.async_wait(
+        [&res](const boost::system::error_code &ec) {
+            cleanUp();
+            if (ec == boost::asio::error::operation_aborted)
+            {
+                // expected, we were canceled before the timer completed.
+                return;
+            }
+            BMCWEB_LOG_ERROR
+                << "Timed out waiting for firmware object being created";
+            BMCWEB_LOG_ERROR
+                << "FW image may has already been uploaded to server";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "Async_wait failed" << ec;
+                return;
+            }
+
+            redfish::messages::internalError(res);
+            res.end();
+        });
+
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+    auto callback = [asyncResp](sdbusplus::message::message &m) {
+        BMCWEB_LOG_DEBUG << "Match fired";
+        softwareInterfaceAdded(asyncResp, timeout, m);
+    };
+
+    fwUpdateInProgress = true;
+
+    fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
+        *crow::connections::systemBus,
+        "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
+        "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
+        callback);
+}
+
 class UpdateService : public Node
 {
   public:
@@ -61,153 +209,14 @@ class UpdateService : public Node
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
         res.end();
     }
-    static void cleanUp()
-    {
-        fwUpdateInProgress = false;
-        fwUpdateMatcher = nullptr;
-    }
-    static void activateImage(const std::string &objPath,
-                              const std::string &service)
-    {
-        BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
-        crow::connections::systemBus->async_method_call(
-            [](const boost::system::error_code error_code) {
-                if (error_code)
-                {
-                    BMCWEB_LOG_DEBUG << "error_code = " << error_code;
-                    BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
-                }
-            },
-            service, objPath, "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Software.Activation", "RequestedActivation",
-            std::variant<std::string>(
-                "xyz.openbmc_project.Software.Activation.RequestedActivations."
-                "Active"));
-    }
-    static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
-                                       boost::asio::deadline_timer &timeout,
-                                       sdbusplus::message::message &m)
-    {
-        std::vector<std::pair<
-            std::string,
-            std::vector<std::pair<std::string, std::variant<std::string>>>>>
-            interfacesProperties;
 
-        sdbusplus::message::object_path objPath;
-
-        m.read(objPath, interfacesProperties);
-
-        BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
-        for (auto &interface : interfacesProperties)
-        {
-            BMCWEB_LOG_DEBUG << "interface = " << interface.first;
-
-            if (interface.first == "xyz.openbmc_project.Software.Activation")
-            {
-                // Found our interface, disable callbacks
-                fwUpdateMatcher = nullptr;
-
-                // Retrieve service and activate
-                crow::connections::systemBus->async_method_call(
-                    [objPath, asyncResp, &timeout](
-                        const boost::system::error_code error_code,
-                        const std::vector<std::pair<
-                            std::string, std::vector<std::string>>> &objInfo) {
-                        if (error_code)
-                        {
-                            BMCWEB_LOG_DEBUG << "error_code = " << error_code;
-                            BMCWEB_LOG_DEBUG << "error msg = "
-                                             << error_code.message();
-                            messages::internalError(asyncResp->res);
-                            cleanUp();
-                            return;
-                        }
-                        // Ensure we only got one service back
-                        if (objInfo.size() != 1)
-                        {
-                            BMCWEB_LOG_ERROR << "Invalid Object Size "
-                                             << objInfo.size();
-                            messages::internalError(asyncResp->res);
-                            cleanUp();
-                            return;
-                        }
-                        // cancel timer only when
-                        // xyz.openbmc_project.Software.Activation interface
-                        // is added
-                        boost::system::error_code ec;
-                        timeout.cancel(ec);
-                        if (ec)
-                        {
-                            BMCWEB_LOG_ERROR << "error canceling timer " << ec;
-                        }
-                        UpdateService::activateImage(objPath.str,
-                                                     objInfo[0].first);
-                        redfish::messages::success(asyncResp->res);
-                        fwUpdateInProgress = false;
-                    },
-                    "xyz.openbmc_project.ObjectMapper",
-                    "/xyz/openbmc_project/object_mapper",
-                    "xyz.openbmc_project.ObjectMapper", "GetObject",
-                    objPath.str,
-                    std::array<const char *, 1>{
-                        "xyz.openbmc_project.Software.Activation"});
-            }
-        }
-    }
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
         BMCWEB_LOG_DEBUG << "doPost...";
 
-        // Only allow one FW update at a time
-        if (fwUpdateInProgress != false)
-        {
-            res.addHeader("Retry-After", "30");
-            messages::serviceTemporarilyUnavailable(res, "30");
-            res.end();
-            return;
-        }
-
-        // Make this const static so it survives outside this method
-        static boost::asio::deadline_timer timeout(
-            *req.ioService, boost::posix_time::seconds(5));
-
-        timeout.expires_from_now(boost::posix_time::seconds(5));
-
-        timeout.async_wait([&res](const boost::system::error_code &ec) {
-            cleanUp();
-            if (ec == boost::asio::error::operation_aborted)
-            {
-                // expected, we were canceled before the timer completed.
-                return;
-            }
-            BMCWEB_LOG_ERROR
-                << "Timed out waiting for firmware object being created";
-            BMCWEB_LOG_ERROR
-                << "FW image may has already been uploaded to server";
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "Async_wait failed" << ec;
-                return;
-            }
-
-            redfish::messages::internalError(res);
-            res.end();
-        });
-
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        auto callback = [asyncResp](sdbusplus::message::message &m) {
-            BMCWEB_LOG_DEBUG << "Match fired";
-            softwareInterfaceAdded(asyncResp, timeout, m);
-        };
-
-        fwUpdateInProgress = true;
-
-        fwUpdateMatcher = std::make_unique<sdbusplus::bus::match::match>(
-            *crow::connections::systemBus,
-            "interface='org.freedesktop.DBus.ObjectManager',type='signal',"
-            "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
-            callback);
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(res, req);
 
         std::string filepath(
             "/tmp/images/" +
