@@ -468,7 +468,7 @@ static std::string dbusToRfBootSource(const std::string &dbusSource)
         return "Hdd";
     }
     else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia")
+             "xyz.openbmc_project.Control.Boot.Source.Sources.DVD")
     {
         return "Cd";
     }
@@ -476,6 +476,11 @@ static std::string dbusToRfBootSource(const std::string &dbusSource)
              "xyz.openbmc_project.Control.Boot.Source.Sources.Network")
     {
         return "Pxe";
+    }
+    else if (dbusSource ==
+             "xyz.openbmc_project.Control.Boot.Source.Sources.Removable")
+    {
+        return "Usb";
     }
     else
     {
@@ -531,11 +536,15 @@ static std::string rfToDbusBootSource(const std::string &rfSource)
     }
     else if (rfSource == "Cd")
     {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia";
+        return "xyz.openbmc_project.Control.Boot.Source.Sources.DVD";
     }
     else if (rfSource == "Pxe")
     {
         return "xyz.openbmc_project.Control.Boot.Source.Sources.Network";
+    }
+    else if (rfSource == "Usb")
+    {
+        return "xyz.openbmc_project.Control.Boot.Source.Sources.Removable";
     }
     else
     {
