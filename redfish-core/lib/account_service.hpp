@@ -27,6 +27,9 @@ namespace redfish
 
 constexpr const char* ldapConfigObject =
     "/xyz/openbmc_project/user/ldap/openldap";
+constexpr const char* ADConfigObject =
+    "/xyz/openbmc_project/user/ldap/active_directory";
+
 constexpr const char* ldapRootObject = "/xyz/openbmc_project/user/ldap";
 constexpr const char* ldapDbusService = "xyz.openbmc_project.Ldap.Config";
 constexpr const char* ldapConfigInterface =
@@ -50,6 +53,17 @@ struct LDAPConfigData
     bool serviceEnabled = false;
     std::string userNameAttribute{};
     std::string groupAttribute{};
+    void reset()
+    {
+        uri = "";
+        bindDN = "";
+        baseDN = "";
+        searchScope = "";
+        serverType = "";
+        serviceEnabled = false;
+        userNameAttribute = "";
+        groupAttribute = "";
+    }
 };
 
 using ManagedObjectType = std::vector<std::pair<
@@ -119,10 +133,12 @@ inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
 }
 
 void parseLDAPConfigData(nlohmann::json& json_response,
-                         const LDAPConfigData& confData)
+                         const LDAPConfigData& confData,
+                         const std::string& ldapType)
 {
-    std::string service = "LDAPService";
-    json_response["LDAP"] = {
+    std::string service =
+        (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
+    json_response[ldapType] = {
         {"AccountProviderType", service},
         {"AccountProviderType@Redfish.AllowableValues",
          nlohmann::json::array({service})},
@@ -161,76 +177,109 @@ inline void getLDAPConfigData(const std::string& ldapType,
             BMCWEB_LOG_ERROR << "D-Bus responses error: " << error_code;
             return;
         }
-        std::string ldapConfigObjectStr = std::string(ldapConfigObject);
+
+        auto getDbusLdapType = [ldapType]() {
+            if (ldapType == "LDAP")
+            {
+                return "xyz.openbmc_project.User.Ldap.Config.Type.OpenLdap";
+            }
+            else if (ldapType == "ActiveDirectory")
+            {
+                return "xyz.openbmc_project.User.Ldap.Config.Type."
+                       "ActiveDirectory";
+            }
+            else
+            {
+                return "";
+            }
+        };
+
+        std::string ldapDbusType = getDbusLdapType();
+        if (ldapDbusType.empty())
+        {
+            BMCWEB_LOG_ERROR << "Can't get the DbusType for the given type="
+                             << ldapType;
+            callback(false, confData);
+            return;
+        }
         std::string ldapEnableInterfaceStr = std::string(ldapEnableInterface);
         std::string ldapConfigInterfaceStr = std::string(ldapConfigInterface);
         for (const auto& object : ldapObjects)
         {
-            if (object.first == ldapConfigObjectStr)
+            for (const auto& interface : object.second)
             {
-                for (const auto& interface : object.second)
+                if (interface.first == ldapEnableInterfaceStr)
                 {
-                    if (interface.first == ldapEnableInterfaceStr)
+                    // rest of the properties are string.
+                    for (const auto& property : interface.second)
                     {
-                        // rest of the properties are string.
-                        for (const auto& property : interface.second)
+                        if (property.first == "Enabled")
                         {
-                            if (property.first == "Enabled")
-                            {
-                                const bool* value =
-                                    std::get_if<bool>(&property.second);
-                                if (value == nullptr)
-                                {
-                                    continue;
-                                }
-                                confData.serviceEnabled = *value;
-                                break;
-                            }
-                        }
-                    }
-                    else if (interface.first == ldapConfigInterfaceStr)
-                    {
-
-                        for (const auto& property : interface.second)
-                        {
-                            const std::string* value =
-                                std::get_if<std::string>(&property.second);
+                            const bool* value =
+                                std::get_if<bool>(&property.second);
                             if (value == nullptr)
                             {
                                 continue;
                             }
-                            if (property.first == "LDAPServerURI")
-                            {
-                                confData.uri = *value;
-                            }
-                            else if (property.first == "LDAPBindDN")
-                            {
-                                confData.bindDN = *value;
-                            }
-                            else if (property.first == "LDAPBaseDN")
-                            {
-                                confData.baseDN = *value;
-                            }
-                            else if (property.first == "LDAPSearchScope")
-                            {
-                                confData.searchScope = *value;
-                            }
-                            else if (property.first == "LDAPType")
-                            {
-                                confData.serverType = *value;
-                            }
-                            else if (property.first == "GroupNameAttribute")
-                            {
-                                confData.groupAttribute = *value;
-                            }
-                            else if (property.first == "UserNameAttribute")
-                            {
-                                confData.userNameAttribute = *value;
-                            }
+                            confData.serviceEnabled = *value;
+                            break;
                         }
                     }
                 }
+                else if (interface.first == ldapConfigInterfaceStr)
+                {
 
+                    for (const auto& property : interface.second)
+                    {
+                        const std::string* value =
+                            std::get_if<std::string>(&property.second);
+                        if (value == nullptr)
+                        {
+                            continue;
+                        }
+                        if (property.first == "LDAPServerURI")
+                        {
+                            confData.uri = *value;
+                        }
+                        else if (property.first == "LDAPBindDN")
+                        {
+                            confData.bindDN = *value;
+                        }
+                        else if (property.first == "LDAPBaseDN")
+                        {
+                            confData.baseDN = *value;
+                        }
+                        else if (property.first == "LDAPSearchScope")
+                        {
+                            confData.searchScope = *value;
+                        }
+                        else if (property.first == "LDAPType")
+                        {
+                            // this is not the interested configuration,
+                            // let's move on to the other configuration.
+                            BMCWEB_LOG_DEBUG
+                                << "Value = " << *value
+                                << ", ldapDbusType = " << ldapDbusType;
+                            if (*value != ldapDbusType)
+                            {
+                                confData.reset();
+                                continue;
+                            }
+                            confData.serverType = *value;
+                        }
+                        else if (property.first == "GroupNameAttribute")
+                        {
+                            confData.groupAttribute = *value;
+                        }
+                        else if (property.first == "UserNameAttribute")
+                        {
+                            confData.userNameAttribute = *value;
+                        }
+                    }
+                }
+            }
+            if (confData.serverType == ldapDbusType)
+            {
                 callback(true, confData);
                 break;
             }
@@ -843,11 +892,17 @@ class AccountService : public Node
             "xyz.openbmc_project.User.AccountPolicy");
 
         std::string ldapType = "LDAP";
-        getLDAPConfigData(
-            ldapType,
-            [asyncResp, ldapType](bool success, LDAPConfigData& confData) {
-                parseLDAPConfigData(asyncResp->res.jsonValue, confData);
-            });
+        getLDAPConfigData(ldapType, [asyncResp,
+                                     ldapType](bool success,
+                                               LDAPConfigData& confData) {
+            parseLDAPConfigData(asyncResp->res.jsonValue, confData, ldapType);
+        });
+        ldapType = "ActiveDirectory";
+        getLDAPConfigData(ldapType, [asyncResp,
+                                     ldapType](bool success,
+                                               LDAPConfigData& confData) {
+            parseLDAPConfigData(asyncResp->res.jsonValue, confData, ldapType);
+        });
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
