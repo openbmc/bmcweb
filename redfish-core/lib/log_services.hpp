@@ -387,10 +387,10 @@ class EventLogService : public Node
     }
 };
 
-static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
-                                 const std::string_view &messageID,
-                                 sd_journal *journal,
-                                 nlohmann::json &bmcLogEntryJson)
+static int fillJournalEventLogEntryJson(const std::string &bmcLogEntryID,
+                                        const std::string_view &messageID,
+                                        sd_journal *journal,
+                                        nlohmann::json &bmcLogEntryJson)
 {
     // Get the Log Entry contents
     int ret = 0;
@@ -458,7 +458,7 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
              bmcLogEntryID},
-        {"Name", "System Event Log Entry"},
+        {"Name", "System Journal Event Log Entry"},
         {"Id", bmcLogEntryID},
         {"Message", msg},
         {"MessageId", messageID},
@@ -471,11 +471,11 @@ static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
     return 0;
 }
 
-class EventLogEntryCollection : public Node
+class JournalEventLogEntryCollection : public Node
 {
   public:
     template <typename CrowApp>
-    EventLogEntryCollection(CrowApp &app) :
+    JournalEventLogEntryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
     {
         entityPrivileges = {
@@ -510,9 +510,9 @@ class EventLogEntryCollection : public Node
             "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
-        asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+        asyncResp->res.jsonValue["Name"] = "System Journal Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
-            "Collection of System Event Log Entries";
+            "Collection of System Journal Event Log Entries";
 
         nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
@@ -557,8 +557,8 @@ class EventLogEntryCollection : public Node
 
             logEntryArray.push_back({});
             nlohmann::json &bmcLogEntry = logEntryArray.back();
-            if (fillEventLogEntryJson(idStr, messageID, journal.get(),
-                                      bmcLogEntry) != 0)
+            if (fillJournalEventLogEntryJson(idStr, messageID, journal.get(),
+                                             bmcLogEntry) != 0)
             {
                 messages::internalError(asyncResp->res);
                 return;
@@ -604,9 +604,9 @@ class DBusEventLogEntryCollection : public Node
             "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
-        asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+        asyncResp->res.jsonValue["Name"] = "System DBus Event Log Entries";
         asyncResp->res.jsonValue["Description"] =
-            "Collection of System Event Log Entries";
+            "Collection of System DBus Event Log Entries";
 
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
@@ -723,10 +723,10 @@ class DBusEventLogEntryCollection : public Node
     }
 };
 
-class EventLogEntry : public Node
+class JournalEventLogEntry : public Node
 {
   public:
-    EventLogEntry(CrowApp &app) :
+    JournalEventLogEntry(CrowApp &app) :
         Node(app,
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
              std::string())
@@ -795,7 +795,7 @@ class EventLogEntry : public Node
             return;
         }
 
-        if (fillEventLogEntryJson(entryID, messageID, journal.get(),
+        if (fillJournalEventLogEntryJson(entryID, messageID, journal.get(),
                                   asyncResp->res.jsonValue) != 0)
         {
             messages::internalError(asyncResp->res);
