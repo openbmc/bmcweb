@@ -674,7 +674,15 @@ class AccountService : public Node
                          const std::vector<std::string>& params,
                          const std::string& serverType)
     {
-        std::string dbusObjectPath = ldapConfigObject;
+        std::string dbusObjectPath;
+        if (serverType == "ActiveDirectory")
+        {
+            dbusObjectPath = ADConfigObject;
+        }
+        else if (serverType == "LDAP")
+        {
+            dbusObjectPath = ldapConfigObject;
+        }
 
         checkDbusPathExists(dbusObjectPath, [this, input, asyncResp, req,
                                              params, dbusObjectPath,
@@ -750,7 +758,8 @@ class AccountService : public Node
                             messages::internalError(asyncResp->res);
                             return;
                         }
-                        parseLDAPConfigData(asyncResp->res.jsonValue, confData);
+                        parseLDAPConfigData(asyncResp->res.jsonValue, confData,
+                                            serverType);
                         if (confData.serviceEnabled)
                         {
                             // Disable the service first and update the rest of
@@ -915,12 +924,14 @@ class AccountService : public Node
         std::optional<uint16_t> minPasswordLength;
         std::optional<uint16_t> maxPasswordLength;
         std::optional<nlohmann::json> ldapObject;
+        std::optional<nlohmann::json> activeDirectoryObject;
 
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
                                  lockoutThreshold, "MaxPasswordLength",
                                  maxPasswordLength, "MinPasswordLength",
-                                 minPasswordLength))
+                                 minPasswordLength, "LDAP", ldapObject,
+                                 "ActiveDirectory", activeDirectoryObject))
         {
             return;
         }
@@ -933,6 +944,17 @@ class AccountService : public Node
         if (maxPasswordLength)
         {
             messages::propertyNotWritable(asyncResp->res, "MaxPasswordLength");
+        }
+
+        if (ldapObject)
+        {
+            handleLDAPPatch(*ldapObject, asyncResp, req, params, "LDAP");
+        }
+
+        if (activeDirectoryObject)
+        {
+            handleLDAPPatch(*activeDirectoryObject, asyncResp, req, params,
+                            "ActiveDirectory");
         }
 
         if (unlockTimeout)
