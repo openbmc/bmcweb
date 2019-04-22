@@ -642,6 +642,16 @@ class AccountService : public Node
                          const std::vector<std::string>& params,
                          const std::string& serverType)
     {
+        std::string dbusObjectPath;
+        if (serverType == "ActiveDirectory")
+        {
+            dbusObjectPath = ADConfigObject;
+        }
+        else if (serverType == "LDAP")
+        {
+            dbusObjectPath = ldapConfigObject;
+        }
+
         std::optional<nlohmann::json> authentication;
         std::optional<nlohmann::json> ldapService;
         std::optional<std::string> accountProviderType;
@@ -708,7 +718,8 @@ class AccountService : public Node
         getLDAPConfigData(serverType, [this, asyncResp, userName, password,
                                        baseDNList, userNameAttribute,
                                        groupsAttribute, accountProviderType,
-                                       serviceAddressList, serviceEnabled](
+                                       serviceAddressList, serviceEnabled,
+                                       dbusObjectPath](
                                           bool success, LDAPConfigData confData,
                                           const std::string& serverType) {
             if (!success)
@@ -722,39 +733,39 @@ class AccountService : public Node
                 // Disable the service first and update the rest of
                 // the properties.
                 handleServiceEnablePatch(false, asyncResp, serverType,
-                                         ldapConfigObject);
+                                         dbusObjectPath);
             }
 
             if (serviceAddressList)
             {
                 handleServiceAddressPatch(*serviceAddressList, asyncResp,
-                                          serverType, ldapConfigObject);
+                                          serverType, dbusObjectPath);
             }
             if (userName)
             {
                 handleUserNamePatch(*userName, asyncResp, serverType,
-                                    ldapConfigObject);
+                                    dbusObjectPath);
             }
             if (password)
             {
                 handlePasswordPatch(*password, asyncResp, serverType,
-                                    ldapConfigObject);
+                                    dbusObjectPath);
             }
 
             if (baseDNList)
             {
                 handleBaseDNPatch(*baseDNList, asyncResp, serverType,
-                                  ldapConfigObject);
+                                  dbusObjectPath);
             }
             if (userNameAttribute)
             {
                 handleUserNameAttrPatch(*userNameAttribute, asyncResp,
-                                        serverType, ldapConfigObject);
+                                        serverType, dbusObjectPath);
             }
             if (groupsAttribute)
             {
                 handleGroupNameAttrPatch(*groupsAttribute, asyncResp,
-                                         serverType, ldapConfigObject);
+                                         serverType, dbusObjectPath);
             }
             if (serviceEnabled)
             {
@@ -764,7 +775,7 @@ class AccountService : public Node
                 if (*serviceEnabled)
                 {
                     handleServiceEnablePatch(*serviceEnabled, asyncResp,
-                                             serverType, ldapConfigObject);
+                                             serverType, dbusObjectPath);
                 }
             }
             else
@@ -773,7 +784,7 @@ class AccountService : public Node
                 // then revert it to the same state as it was
                 // before.
                 handleServiceEnablePatch(confData.serviceEnabled, asyncResp,
-                                         serverType, ldapConfigObject);
+                                         serverType, dbusObjectPath);
             }
         });
     }
@@ -869,12 +880,14 @@ class AccountService : public Node
         std::optional<uint16_t> minPasswordLength;
         std::optional<uint16_t> maxPasswordLength;
         std::optional<nlohmann::json> ldapObject;
+        std::optional<nlohmann::json> activeDirectoryObject;
 
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
                                  lockoutThreshold, "MaxPasswordLength",
                                  maxPasswordLength, "MinPasswordLength",
-                                 minPasswordLength))
+                                 minPasswordLength, "LDAP", ldapObject,
+                                 "ActiveDirectory", activeDirectoryObject))
         {
             return;
         }
@@ -892,6 +905,12 @@ class AccountService : public Node
         if (ldapObject)
         {
             handleLDAPPatch(*ldapObject, asyncResp, req, params, "LDAP");
+        }
+
+        if (activeDirectoryObject)
+        {
+            handleLDAPPatch(*activeDirectoryObject, asyncResp, req, params,
+                            "ActiveDirectory");
         }
 
         if (unlockTimeout)
