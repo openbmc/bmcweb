@@ -644,6 +644,16 @@ class AccountService : public Node
                          const std::vector<std::string>& params,
                          const std::string& serverType)
     {
+        std::string dbusObjectPath;
+        if (serverType == "ActiveDirectory")
+        {
+            dbusObjectPath = ADConfigObject;
+        }
+        else if (serverType == "LDAP")
+        {
+            dbusObjectPath = ldapConfigObject;
+        }
+
         std::optional<nlohmann::json> authentication;
         std::optional<nlohmann::json> ldapService;
         std::optional<std::string> accountProviderType;
@@ -871,12 +881,14 @@ class AccountService : public Node
         std::optional<uint16_t> minPasswordLength;
         std::optional<uint16_t> maxPasswordLength;
         std::optional<nlohmann::json> ldapObject;
+        std::optional<nlohmann::json> activeDirectoryObject;
 
         if (!json_util::readJson(req, res, "AccountLockoutDuration",
                                  unlockTimeout, "AccountLockoutThreshold",
                                  lockoutThreshold, "MaxPasswordLength",
                                  maxPasswordLength, "MinPasswordLength",
-                                 minPasswordLength))
+                                 minPasswordLength, "LDAP", ldapObject,
+                                 "ActiveDirectory", activeDirectoryObject))
         {
             return;
         }
@@ -894,6 +906,12 @@ class AccountService : public Node
         if (ldapObject)
         {
             handleLDAPPatch(*ldapObject, asyncResp, req, params, "LDAP");
+        }
+
+        if (activeDirectoryObject)
+        {
+            handleLDAPPatch(*activeDirectoryObject, asyncResp, req, params,
+                            "ActiveDirectory");
         }
 
         if (unlockTimeout)
