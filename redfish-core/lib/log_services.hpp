@@ -652,11 +652,11 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
     return 0;
 }
 
-class EventLogEntryCollection : public Node
+class JournalEventLogEntryCollection : public Node
 {
   public:
     template <typename CrowApp>
-    EventLogEntryCollection(CrowApp &app) :
+    JournalEventLogEntryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Entries/")
     {
         entityPrivileges = {
@@ -876,7 +876,7 @@ class DBusEventLogEntryCollection : public Node
                              "/redfish/v1/Systems/system/LogServices/EventLog/"
                              "Entries/" +
                                  std::to_string(*id)},
-                            {"Name", "System DBus Event Log Entry"},
+                            {"Name", "System Event Log Entry"},
                             {"Id", std::to_string(*id)},
                             {"Message", *message},
                             {"EntryType", "Event"},
@@ -999,7 +999,7 @@ class DBusEventLogEntry : public Node
                      "/redfish/v1/Systems/system/LogServices/EventLog/"
                      "Entries/" +
                          std::to_string(*id)},
-                    {"Name", "System DBus Event Log Entry"},
+                    {"Name", "System Event Log Entry"},
                     {"Id", std::to_string(*id)},
                     {"Message", *message},
                     {"EntryType", "Event"},
