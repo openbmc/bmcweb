@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "260ac994_416dfe5e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-04-23T22:45:16Z",
+      "side": 1,
+      "message": "You should read in all your parameters in one readJson call.\n\nsomething like\n\nreadJson(req, res, \"TransferProtocol\", transferProtocol, \"ImageURI\", imageURI);\n\nOtherwise you will get conflicting error messages about missing parameters.",
+      "range": {
+        "startLine": 229,
+        "startChar": 8,
+        "endLine": 229,
+        "endChar": 65
+      },
+      "revId": "5a651bf43fbe354079f2afff63245e93123228a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0ee5009_56bad5c1",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-04-23T22:45:16Z",
+      "side": 1,
+      "message": "You might consider throwing this check inside the conditional on line 240.",
+      "range": {
+        "startLine": 249,
+        "startChar": 12,
+        "endLine": 249,
+        "endChar": 45
+      },
+      "revId": "5a651bf43fbe354079f2afff63245e93123228a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72ac8cf5_373f9972",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-04-23T22:45:16Z",
+      "side": 1,
+      "message": "Forgot to call res.end() here.\n\nThe current state-of-the-art is to use the AsyncResp object in all cases, so you get RAII to call res.end() automatically, instead of it being manual.",
+      "range": {
+        "startLine": 261,
+        "startChar": 0,
+        "endLine": 261,
+        "endChar": 42
+      },
+      "revId": "5a651bf43fbe354079f2afff63245e93123228a2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
