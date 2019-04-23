@@ -123,7 +123,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 }
 
 static void monitorForSoftwareAvailable(crow::Response &res,
-                                        const crow::Request &req)
+                                        const crow::Request &req, int time = 5)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
@@ -135,10 +135,10 @@ static void monitorForSoftwareAvailable(crow::Response &res,
     }
 
     // Make this const static so it survives outside this method
-    static boost::asio::deadline_timer timeout(*req.ioService,
-                                               boost::posix_time::seconds(5));
+    static boost::asio::deadline_timer timeout(
+        *req.ioService, boost::posix_time::seconds(time));
 
-    timeout.expires_from_now(boost::posix_time::seconds(5));
+    timeout.expires_from_now(boost::posix_time::seconds(time));
 
     timeout.async_wait(
         [&res](const boost::system::error_code &ec) {
@@ -177,6 +177,99 @@ static void monitorForSoftwareAvailable(crow::Response &res,
         callback);
 }
 
+/**
+ * UpdateServiceActionsSimpleUpdate class supports handle POST method for
+ * SimpleUpdate action.
+ */
+class UpdateServiceActionsSimpleUpdate : public Node
+{
+  public:
+    UpdateServiceActionsSimpleUpdate(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string transferProtocol;
+        std::string imageURI;
+
+        BMCWEB_LOG_DEBUG << "Enter UpdateService.SimpleUpdate doPost";
+
+        if (!json_util::readJson(req, res, "TransferProtocol", transferProtocol,
+                                 "ImageURI", imageURI))
+        {
+            messages::actionParameterMissing(res, "UpdateService.SimpleUpdate",
+                                             "TransferProtocol/ImageURI");
+            BMCWEB_LOG_ERROR
+                << "Missing TransferProtocol or ImageURI parameter";
+            return;
+        }
+
+        // OpenBMC currently only supports TFTP
+        if (transferProtocol != "TFTP")
+        {
+            messages::actionParameterNotSupported(res, "TransferProtocol",
+                                                  "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Request incorrect protocol parameter: "
+                             << transferProtocol;
+            return;
+        }
+
+        // Format should be <IP>/<file> for imageURI
+        size_t separator = imageURI.find("/");
+        if ((separator == std::string::npos) ||
+            ((separator + 1) > imageURI.size()))
+        {
+            messages::actionParameterValueTypeError(
+                res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Invalid ImageURI: " << imageURI;
+            return;
+        }
+
+        std::string tftpServer = imageURI.substr(0, separator);
+        std::string fwFile = imageURI.substr(separator + 1);
+        BMCWEB_LOG_DEBUG << "Server: " << tftpServer + " File: " << fwFile;
+
+        // Setup callback for when new software detected
+        // Give FTP 2 minutes to complete
+        monitorForSoftwareAvailable(res, req, 120);
+
+        // Call TFTP service
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    cleanUp();
+                    BMCWEB_LOG_DEBUG << "error_code = " << ec;
+                    BMCWEB_LOG_DEBUG << "error msg = " << ec.message();
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "Call to DownloaViaTFTP Success";
+                    redfish::messages::success(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Software.Download",
+            "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
+            "DownloadViaTFTP", fwFile, tftpServer);
+
+        BMCWEB_LOG_DEBUG << "Exit UpdateService.SimpleUpdate doPost";
+    }
+};
+
 class UpdateService : public Node
 {
   public:
@@ -207,6 +300,13 @@ class UpdateService : public Node
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+        // Update Actions object.
+        nlohmann::json &updateSvcSimpleUpdate =
+            res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+        updateSvcSimpleUpdate["target"] =
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
+        updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
+            "TFTP"};
         res.end();
     }
 
