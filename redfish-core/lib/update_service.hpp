@@ -54,6 +54,9 @@ static void activateImage(const std::string &objPath,
             "xyz.openbmc_project.Software.Activation.RequestedActivations."
             "Active"));
 }
+
+// Note that asyncResp can be either a valid pointer or nullptr. If nullptr
+// then no asyncResp updates will occur
 static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                    sdbusplus::message::message &m)
 {
@@ -87,7 +90,10 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                         BMCWEB_LOG_DEBUG << "error_code = " << error_code;
                         BMCWEB_LOG_DEBUG << "error msg = "
                                          << error_code.message();
-                        messages::internalError(asyncResp->res);
+                        if (asyncResp)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
                         cleanUp();
                         return;
                     }
@@ -96,7 +102,10 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                     {
                         BMCWEB_LOG_ERROR << "Invalid Object Size "
                                          << objInfo.size();
-                        messages::internalError(asyncResp->res);
+                        if (asyncResp)
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
                         cleanUp();
                         return;
                     }
@@ -106,7 +115,10 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                     fwAvailableTimer = nullptr;
 
                     activateImage(objPath.str, objInfo[0].first);
-                    redfish::messages::success(asyncResp->res);
+                    if (asyncResp)
+                    {
+                        redfish::messages::success(asyncResp->res);
+                    }
                     fwUpdateInProgress = false;
                 },
                 "xyz.openbmc_project.ObjectMapper",
@@ -118,21 +130,28 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
     }
 }
 
+// Note that asyncResp can be either a valid pointer or nullptr. If nullptr
+// then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
-                                        const crow::Request &req)
+                                        const crow::Request &req,
+                                        int timeoutTimeSeconds = 5)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
     {
-        asyncResp->res.addHeader("Retry-After", "30");
-        messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
+        if (asyncResp)
+        {
+            asyncResp->res.addHeader("Retry-After", "30");
+            messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
+        }
         return;
     }
 
-    fwAvailableTimer = std::make_unique<boost::asio::deadline_timer>(
-        *req.ioService, boost::posix_time::seconds(5));
+    fwAvailableTimer =
+        std::make_unique<boost::asio::deadline_timer>(*req.ioService);
 
-    fwAvailableTimer->expires_from_now(boost::posix_time::seconds(5));
+    fwAvailableTimer->expires_from_now(
+        boost::posix_time::seconds(timeoutTimeSeconds));
 
     fwAvailableTimer->async_wait(
         [asyncResp](const boost::system::error_code &ec) {
@@ -151,8 +170,10 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
                 BMCWEB_LOG_ERROR << "Async_wait failed" << ec;
                 return;
             }
-
-            redfish::messages::internalError(asyncResp->res);
+            if (asyncResp)
+            {
+                redfish::messages::internalError(asyncResp->res);
+            }
         });
 
     auto callback = [asyncResp](sdbusplus::message::message &m) {
@@ -168,6 +189,156 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
         "member='InterfacesAdded',path='/xyz/openbmc_project/software'",
         callback);
 }
+
+/**
+ * UpdateServiceActionsSimpleUpdate class supports handle POST method for
+ * SimpleUpdate action.
+ */
+class UpdateServiceActionsSimpleUpdate : public Node
+{
+  public:
+    UpdateServiceActionsSimpleUpdate(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string transferProtocol;
+        std::string imageURI;
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        BMCWEB_LOG_DEBUG << "Enter UpdateService.SimpleUpdate doPost";
+
+        // User can pass in both TransferProtocol and ImageURI parameters or
+        // they can pass in just the ImageURI with the transfer protocl embedded
+        // within it.
+        // 1) TransferProtocol:TFTP ImageURI:1.1.1.1/myfile.bin
+        // 2) ImageURI:tftp://1.1.1.1/myfile.bin
+
+        // Check for option 1 first
+        nlohmann::json reqJson =
+            nlohmann::json::parse(req.body, nullptr, false);
+        if (reqJson.is_discarded())
+        {
+            messages::malformedJSON(asyncResp->res);
+            BMCWEB_LOG_ERROR << "Malformed JSON in SimpleUpdate";
+            return;
+        }
+        if (reqJson.count("TransferProtocol"))
+        {
+            BMCWEB_LOG_DEBUG << "TransferProtocol present in req.body";
+            if (!json_util::readJson(req, asyncResp->res, "TransferProtocol",
+                                     transferProtocol, "ImageURI", imageURI))
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Missing TransferProtocol or ImageURI parameter";
+                return;
+            }
+        }
+        else
+        {
+            // Check if they just provided ImageURI with transfer protocol
+            // embedded in it (option 2)
+            if (!json_util::readJson(req, asyncResp->res, "ImageURI", imageURI))
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Missing ImageURI parameter which is required";
+                return;
+            }
+
+            // Verify ImageURI has transfer protocol in it
+            size_t separator = imageURI.find(":");
+            if ((separator == std::string::npos) ||
+                ((separator + 1) > imageURI.size()))
+            {
+                messages::actionParameterValueTypeError(
+                    asyncResp->res, imageURI, "ImageURI",
+                    "UpdateService.SimpleUpdate");
+                BMCWEB_LOG_ERROR << "ImageURI missing transfer protocol: "
+                                 << imageURI;
+                return;
+            }
+            transferProtocol = imageURI.substr(0, separator);
+            BMCWEB_LOG_DEBUG << "Encoded transfer protocol "
+                             << transferProtocol;
+
+            // Adjust imageURI to not have the protocol on it for parsing
+            // below
+            // ex. tftp://1.1.1.1/myfile.bin -> 1.1.1.1/myfile.bin
+            imageURI = imageURI.substr(separator + 3);
+            BMCWEB_LOG_DEBUG << "Adjusted imageUri " << imageURI;
+        }
+
+        // OpenBMC currently only supports TFTP
+        if (!boost::iequals(transferProtocol, "TFTP"))
+        {
+            messages::actionParameterNotSupported(asyncResp->res,
+                                                  "TransferProtocol",
+                                                  "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Request incorrect protocol parameter: "
+                             << transferProtocol;
+            return;
+        }
+
+        // Format should be <IP or Hostname>/<file> for imageURI
+        size_t separator = imageURI.find("/");
+        if ((separator == std::string::npos) ||
+            ((separator + 1) > imageURI.size()))
+        {
+            messages::actionParameterValueTypeError(
+                asyncResp->res, imageURI, "ImageURI",
+                "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Invalid ImageURI: " << imageURI;
+            return;
+        }
+
+        std::string tftpServer = imageURI.substr(0, separator);
+        std::string fwFile = imageURI.substr(separator + 1);
+        BMCWEB_LOG_DEBUG << "Server: " << tftpServer + " File: " << fwFile;
+
+        // Setup callback for when new software detected
+        // Give FTP 2 minutes to complete
+        monitorForSoftwareAvailable(nullptr, req, 120);
+
+        // TFTP can take up to 2 minutes depending on image size and
+        // connection speed. Return to caller as soon as the TFTP operation
+        // has been started. The callback above will ensure the activate
+        // is started once the download has completed
+        redfish::messages::success(asyncResp->res);
+
+        // Call TFTP service
+        crow::connections::systemBus->async_method_call(
+            [](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    // messages::internalError(asyncResp->res);
+                    cleanUp();
+                    BMCWEB_LOG_DEBUG << "error_code = " << ec;
+                    BMCWEB_LOG_DEBUG << "error msg = " << ec.message();
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "Call to DownloaViaTFTP Success";
+                }
+            },
+            "xyz.openbmc_project.Software.Download",
+            "/xyz/openbmc_project/software", "xyz.openbmc_project.Common.TFTP",
+            "DownloadViaTFTP", fwFile, tftpServer);
+
+        BMCWEB_LOG_DEBUG << "Exit UpdateService.SimpleUpdate doPost";
+    }
+};
 
 class UpdateService : public Node
 {
@@ -199,6 +370,15 @@ class UpdateService : public Node
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
+        // Update Actions object.
+        nlohmann::json &updateSvcSimpleUpdate =
+            res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+        updateSvcSimpleUpdate["target"] =
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
+        updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
+            "TFTP"};
+#endif
         res.end();
     }
 
