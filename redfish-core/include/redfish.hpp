@@ -69,6 +69,10 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
+#ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
+        nodes.emplace_back(
+            std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
+#endif
         nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
