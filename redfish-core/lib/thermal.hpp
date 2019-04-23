@@ -76,11 +76,12 @@ class Thermal : public Node
                     messages::internalError(sensorAsyncResp->res);
                     return;
                 }
-                std::list<std::string> subAssyList;
-                std::string chassisNode;
+                std::map<std::string, std::string> subAssyList;
+                std::pair<std::string, std::string> chassisNode;
                 const std::string& chassisName = params[0];
                 getChassisElements(resourcesList, chassisNode, subAssyList);
-                if ((chassisNode.empty()) || (chassisNode != chassisName))
+                if ((chassisNode.first.empty()) ||
+                    (chassisNode.first != chassisName))
                 {
                     messages::resourceNotFound(sensorAsyncResp->res,
                                                "#Chassis.v1_4_0.Chassis",
@@ -88,6 +89,7 @@ class Thermal : public Node
                     return;
                 }
                 // TODO Need to get Chassis Redundancy information.
+                sensorAsyncResp->sensorPath = chassisNode.second;
                 sensorAsyncResp->chassisId = chassisName;
                 getChassisData(sensorAsyncResp);
                 sensorAsyncResp->res.jsonValue["@odata.id"] =
@@ -161,23 +163,25 @@ class SubAssyThermal : public Node
                     messages::internalError(sensorAsyncResp->res);
                     return;
                 }
-                std::list<std::string> subAssyList;
-                std::string chassisNode;
+                std::map<std::string, std::string> subAssyList{};
+                std::pair<std::string, std::string> chassisNode{};
                 const std::string& chassisName = params[0];
                 std::string nodeId = params[1];
                 getChassisElements(resourcesList, chassisNode, subAssyList);
-                if ((chassisNode.empty()) || (chassisNode != chassisName))
+                if ((chassisNode.first.empty()) ||
+                    (chassisNode.first != chassisName))
                 {
                     messages::resourceNotFound(sensorAsyncResp->res,
                                                "#Chassis.v1_4_0.Chassis",
                                                chassisName);
                     return;
                 }
-                for (std::string& subassembly : subAssyList)
+                for (auto& subassembly : subAssyList)
                 {
-                    if (subassembly == nodeId)
+                    if (subassembly.first == nodeId)
                     {
                         // TODO Need to get Chassis Redundancy information.
+                        sensorAsyncResp->sensorPath = subassembly.second;
                         sensorAsyncResp->chassisId = chassisName;
                         sensorAsyncResp->nodeId = nodeId;
                         getChassisData(sensorAsyncResp);
