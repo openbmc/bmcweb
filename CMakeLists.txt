@@ -38,6 +38,8 @@ option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
 option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
         transactions through Redfish. Paths are under
         '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
+option (BMCWEB_ENABLE_REDFISH_FW_TFTP_UPDATE "Enable TFTP based firmware update
+       transactions through Redfish UpdateService.SimpleUpdate." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
