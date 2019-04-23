@@ -152,12 +152,10 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
 }
 
 void getChassisElements(const std::vector<std::string> &resourcesList,
-                        std::string &chassisNode,
-                        std::list<std::string> &subAssyList)
+                        std::pair<std::string, std::string> &chassisNode,
+                        std::map<std::string, std::string> &subAssyList)
 {
     std::string chassisType, subassembly;
-    chassisNode.clear();
-    subAssyList.clear();
     for (const std::string &objpath : resourcesList)
     {
         if ((boost::starts_with(objpath,
@@ -167,11 +165,11 @@ void getChassisElements(const std::vector<std::string> &resourcesList,
         {
             if ((chassisType == "board") || (chassisType == "powersupply"))
             {
-                subAssyList.push_back(subassembly);
+                subAssyList.emplace(std::make_pair(subassembly, objpath));
             }
             else
             {
-                chassisNode = subassembly;
+                chassisNode = std::make_pair(subassembly, objpath);
             }
         }
     }
@@ -229,21 +227,22 @@ class ChassisCollection : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                std::list<std::string> subAssyList;
-                std::string chassisNode;
+                std::map<std::string, std::string> subAssyList;
+                std::pair<std::string, std::string> chassisNode;
                 nlohmann::json &chassisArray =
                     asyncResp->res.jsonValue["Members"];
                 chassisArray = nlohmann::json::array();
 
                 getChassisElements(resourcesList, chassisNode, subAssyList);
-                chassisArray.push_back(
-                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisNode}});
+                chassisArray.push_back({{"@odata.id", "/redfish/v1/Chassis/" +
+                                                          chassisNode.first}});
 
                 for (auto entry : subAssyList)
                 {
                     chassisArray.push_back(
-                        {{"@odata.id",
-                          "/redfish/v1/Chassis/" + chassisNode + "/" + entry}});
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                           chassisNode.first + "/" +
+                                           entry.first}});
                 }
 
                 asyncResp->res.jsonValue["Members@odata.count"] =
@@ -511,7 +510,7 @@ class ChassisSubAssy : public Node
                 asyncResp->res.jsonValue["Links"]["ManagedBy"] = {
                     {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
                 asyncResp->res.jsonValue["Links"]["ContainedBy"] = {
-                    {{"@odata.id", "/redfish/v1/Managers/" + chassisId}}};
+                    {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
             },
             connectionName, path, "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.Inventory.Decorator.Asset");

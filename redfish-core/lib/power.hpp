@@ -86,18 +86,20 @@ class Power : public Node
                     messages::internalError(sensorAsyncResp->res);
                     return;
                 }
-                std::list<std::string> subAssyList;
-                std::string chassisNode;
+                std::map<std::string, std::string> subAssyList;
+                std::pair<std::string, std::string> chassisNode;
                 const std::string& chassis_name = params[0];
                 getChassisElements(resourcesList, chassisNode, subAssyList);
                 // TODO Need to retrieve Power Control information.
-                if ((chassisNode.empty()) || (chassisNode != chassis_name))
+                if ((chassisNode.first.empty()) ||
+                    (chassisNode.first != chassis_name))
                 {
                     messages::resourceNotFound(sensorAsyncResp->res,
                                                "#Chassis.v1_4_0.Chassis",
                                                chassis_name);
                     return;
                 }
+                sensorAsyncResp->sensorPath = chassisNode.second;
                 sensorAsyncResp->chassisId = chassis_name;
                 sensorAsyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Chassis/" + chassis_name + "/Power";
@@ -170,22 +172,24 @@ class SubAssyPower : public Node
                     messages::internalError(sensorAsyncResp->res);
                     return;
                 }
-                std::list<std::string> subAssyList;
-                std::string chassisNode;
+                std::map<std::string, std::string> subAssyList;
+                std::pair<std::string, std::string> chassisNode;
                 getChassisElements(resourcesList, chassisNode, subAssyList);
                 const std::string& chassis_name = params[0];
                 const std::string& nodeId = params[1];
-                if ((chassisNode.empty()) || (chassisNode != chassis_name))
+                if ((chassisNode.first.empty()) ||
+                    (chassisNode.first != chassis_name))
                 {
                     messages::resourceNotFound(sensorAsyncResp->res,
                                                "#Chassis.v1_4_0.Chassis",
                                                chassis_name);
                     return;
                 }
-                for (std::string& subassembly : subAssyList)
+                for (auto& subassembly : subAssyList)
                 {
-                    if (subassembly == nodeId)
+                    if (subassembly.first == nodeId)
                     {
+                        sensorAsyncResp->sensorPath = subassembly.second;
                         sensorAsyncResp->chassisId = chassis_name;
                         sensorAsyncResp->nodeId = nodeId;
                         // TODO Need to retrieve Power Control information.
