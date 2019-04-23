@@ -177,6 +177,91 @@ static void monitorForSoftwareAvailable(crow::Response &res,
         callback);
 }
 
+/**
+ * UpdateServiceActionsSimpleUpdate class supports handle POST method for
+ * SimpleUpdate action.
+ */
+class UpdateServiceActionsSimpleUpdate : public Node
+{
+  public:
+    UpdateServiceActionsSimpleUpdate(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string transferProtocol;
+        BMCWEB_LOG_DEBUG << "Enter doPost";
+
+        if (!json_util::readJson(req, res, "TransferProtocol",
+                                 transferProtocol))
+        {
+            messages::actionParameterMissing(res, "UpdateService.SimpleUpdate",
+                                             "TransferProtocol");
+            BMCWEB_LOG_ERROR << "Missing TransferProtocol parameter";
+            res.end();
+            return;
+        }
+
+        // OpenBMC currently only supports TFTP
+        if (transferProtocol != "TFTP")
+        {
+            messages::actionParameterNotSupported(res, "TransferProtocol",
+                                                  "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Request incorrect protocol parameter: "
+                             << transferProtocol;
+            res.end();
+            return;
+        }
+
+        std::string imageURI;
+        if (!json_util::readJson(req, res, "ImageURI", imageURI))
+        {
+            messages::actionParameterMissing(res, "UpdateService.SimpleUpdate",
+                                             "ImageURI");
+            BMCWEB_LOG_ERROR << "Missing ImageURI parameter";
+            res.end();
+            return;
+        }
+
+        // Format should be <IP>/<file>
+        size_t separator = imageURI.find("/");
+        if (separator == std::string::npos)
+        {
+            messages::actionParameterValueTypeError(
+                res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Invalid ImageURI: " << imageURI;
+            res.end();
+            return;
+        }
+
+        if ((separator + 1) > imageURI.size())
+        {
+            messages::actionParameterValueTypeError(
+                res, imageURI, "ImageURI", "UpdateService.SimpleUpdate");
+            BMCWEB_LOG_ERROR << "Invalid ImageURI file: " << imageURI;
+            res.end();
+            return;
+        }
+        std::string tftpServer = imageURI.substr(0, separator - 1);
+        std::string fwFile = imageURI.substr(separator + 1);
+        BMCWEB_LOG_DEBUG << "Server: " << tftpServer + " File: " << fwFile;
+
+        BMCWEB_LOG_DEBUG << "Exit doPost";
+    }
+};
+
 class UpdateService : public Node
 {
   public:
@@ -207,6 +292,13 @@ class UpdateService : public Node
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
             {"@odata.id", "/redfish/v1/UpdateService/FirmwareInventory"}};
+        // Update Actions object.
+        nlohmann::json &updateSvcSimpleUpdate =
+            res.jsonValue["Actions"]["#UpdateService.SimpleUpdate"];
+        updateSvcSimpleUpdate["target"] =
+            "/redfish/v1/UpdateService/Actions/UpdateService.SimpleUpdate";
+        updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
+            "TFTP"};
         res.end();
     }
 
