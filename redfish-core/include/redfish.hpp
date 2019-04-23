@@ -67,6 +67,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
+        nodes.emplace_back(
+            std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
