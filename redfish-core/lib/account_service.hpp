@@ -31,7 +31,7 @@ using ManagedObjectType = std::vector<std::pair<
         std::string, boost::container::flat_map<
                          std::string, std::variant<bool, std::string>>>>>;
 
-inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
+inline std::string getPrivilegeFromRoleId(std::string_view role)
 {
     if (role == "priv-admin")
     {
@@ -51,7 +51,7 @@ inline std::string getPrivilegeFromRoleId(boost::beast::string_view role)
     }
     return "";
 }
-inline std::string getRoleIdFromPrivilege(boost::beast::string_view role)
+inline std::string getRoleIdFromPrivilege(std::string_view role)
 {
     if (role == "Administrator")
     {
