@@ -143,7 +143,7 @@ class Handler : public std::enable_shared_from_this<Handler>
                 }
 
                 outputBuffer->commit(bytesRead);
-                boost::beast::string_view payload(
+                std::string_view payload(
                     static_cast<const char*>(outputBuffer->data().data()),
                     bytesRead);
                 session->sendBinary(payload);
