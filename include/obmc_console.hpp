@@ -76,7 +76,7 @@ void doRead()
                 }
                 return;
             }
-            boost::beast::string_view payload(outputBuffer.data(), bytesRead);
+            std::string_view payload(outputBuffer.data(), bytesRead);
             for (auto session : sessions)
             {
                 session->sendBinary(payload);

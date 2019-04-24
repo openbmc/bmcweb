@@ -87,7 +87,7 @@ inline void readDone(const boost::system::error_code& ec, std::size_t bytesRead)
     }
 
     outputBuffer.commit(bytesRead);
-    boost::beast::string_view payload(
+    std::string_view payload(
         static_cast<const char*>(outputBuffer.data().data()), bytesRead);
     BMCWEB_LOG_DEBUG << "Sending payload size " << payload.size();
     session->sendBinary(payload);
