@@ -21,11 +21,11 @@ struct Connection : std::enable_shared_from_this<Connection>
     explicit Connection(const crow::Request& req) :
         req(req), userdataPtr(nullptr){};
 
-    virtual void sendBinary(const boost::beast::string_view msg) = 0;
+    virtual void sendBinary(const std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
-    virtual void sendText(const boost::beast::string_view msg) = 0;
+    virtual void sendText(const std::string_view msg) = 0;
     virtual void sendText(std::string&& msg) = 0;
-    virtual void close(const boost::beast::string_view msg = "quit") = 0;
+    virtual void close(const std::string_view msg = "quit") = 0;
     virtual boost::asio::io_context& get_io_context() = 0;
     virtual ~Connection() = default;
 
@@ -97,7 +97,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
             });
     }
 
-    void sendBinary(const boost::beast::string_view msg) override
+    void sendBinary(const std::string_view msg) override
     {
         ws.binary(true);
         outBuffer.emplace_back(msg);
@@ -111,7 +111,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         doWrite();
     }
 
-    void sendText(const boost::beast::string_view msg) override
+    void sendText(const std::string_view msg) override
     {
         ws.text(true);
         outBuffer.emplace_back(msg);
@@ -125,7 +125,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         doWrite();
     }
 
-    void close(const boost::beast::string_view msg) override
+    void close(const std::string_view msg) override
     {
         ws.async_close(
             boost::beast::websocket::close_code::normal,
@@ -166,7 +166,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
                     }
                     if (closeHandler)
                     {
-                        boost::beast::string_view reason = ws.reason().reason;
+                        std::string_view reason = ws.reason().reason;
                         closeHandler(*this, std::string(reason));
                     }
                     return;
