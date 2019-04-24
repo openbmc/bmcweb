@@ -943,7 +943,85 @@ class EthernetInterface : public Node
             "xyz.openbmc_project.Network.MACAddress", "MACAddress",
             std::variant<std::string>(macAddress));
     }
+    void setDHCPEnabled(const std::string &ifaceId,
+                        const std::string &propertyName, const bool &value,
+                        const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", propertyName,
+            std::variant<bool>{value});
+    }
+    void setDHCPv4Config(const std::string &propertyName, const bool &value,
+                         const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        BMCWEB_LOG_DEBUG << propertyName << " = " << value;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/config/dhcp",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.DHCPConfiguration", propertyName,
+            std::variant<bool>{value});
+    }
 
+    void handleDHCPv4Patch(const std::string &ifaceId, nlohmann::json &input,
+                           const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        std::optional<bool> dhcpEnabled;
+        std::optional<bool> useDNSServers;
+        std::optional<bool> useDomainName;
+        std::optional<bool> useNTPServers;
+
+        if (!json_util::readJson(input, asyncResp->res, "DHCPEnabled",
+                                 dhcpEnabled, "UseDNSServers", useDNSServers,
+                                 "UseDomainName", useDomainName,
+                                 "UseNTPServers", useNTPServers))
+        {
+            return;
+        }
+
+        if (dhcpEnabled)
+        {
+            BMCWEB_LOG_DEBUG << "set DHCPEnabled...";
+            setDHCPEnabled(ifaceId, "DHCPEnabled", *dhcpEnabled, asyncResp);
+        }
+
+        if (useDNSServers)
+        {
+            BMCWEB_LOG_DEBUG << "set DNSEnabled...";
+            setDHCPv4Config("DNSEnabled", *useDNSServers, asyncResp);
+        }
+
+        if (useDomainName)
+        {
+            BMCWEB_LOG_DEBUG << "set HostNameEnabled...";
+            setDHCPv4Config("HostNameEnabled", *useDomainName, asyncResp);
+        }
+
+        if (useNTPServers)
+        {
+            BMCWEB_LOG_DEBUG << "set NTPEnabled...";
+            setDHCPv4Config("NTPEnabled", *useNTPServers, asyncResp);
+        }
+    }
     void handleIPv4Patch(
         const std::string &ifaceId, nlohmann::json &input,
         const boost::container::flat_set<IPv4AddressData> &ipv4Data,
@@ -1318,14 +1396,21 @@ class EthernetInterface : public Node
         std::optional<nlohmann::json> ipv6Addresses;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<std::vector<std::string>> nameServers;
+        std::optional<nlohmann::json> dhcpv4;
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
                 "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
                 "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
-                ipv6DefaultGateway, "NameServers", nameServers))
+                ipv6DefaultGateway, "NameServers", nameServers, "DHCPv4",
+                dhcpv4))
         {
             return;
+        }
+
+        if (dhcpv4)
+        {
+            handleDHCPv4Patch(iface_id, *dhcpv4, asyncResp);
         }
 
         // Get single eth interface data, and call the below callback for JSON
