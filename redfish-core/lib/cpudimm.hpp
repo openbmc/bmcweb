@@ -42,7 +42,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
             nlohmann::json &members = aResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
+            //members = nlohmann::json::array();
 
             for (const auto &object : subtree)
             {
@@ -56,6 +56,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
                 }
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
+            ;
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -305,6 +306,103 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
         std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
 };
 
+void getAcclrtrDataByService(std::shared_ptr<AsyncResp> aResp,
+                             const std::string &acclrtrId,
+                             const std::string &service,
+                             const std::string &objPath)
+{
+    BMCWEB_LOG_DEBUG
+        << "Get available system Accelerator resources by service.";
+    crow::connections::systemBus->async_method_call(
+        [acclrtrId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string, uint32_t, uint16_t>>
+                &properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+            aResp->res.jsonValue["Id"] = acclrtrId;
+            aResp->res.jsonValue["Name"] = "Processor";
+            const std::string *accPresent = nullptr;
+            const std::string *accFunctional = nullptr;
+            std::string state = "";
+
+            for (const auto &property : properties)
+            {
+                if (property.first == "Functional")
+                {
+                    accFunctional = std::get_if<std::string>(&property.second);
+                }
+                else if (property.first == "Present")
+                {
+                    accPresent = std::get_if<std::string>(&property.second);
+                }
+            }
+            if ((*accPresent == "Present") && (*accFunctional == "Functional"))
+            {
+                state = "Enabled";
+            }
+            else if (*accPresent == "Present")
+            {
+                state = "Disabled";
+            }
+            else
+            {
+                state = "Absent";
+            }
+            aResp->res.jsonValue["Status"]["State"] = state;
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["ProcessorType"] = "Accelerator";
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+}
+
+void getAcceleratorData(std::shared_ptr<AsyncResp> aResp,
+                        const std::string &acclrtrId)
+{
+    BMCWEB_LOG_DEBUG << "Get available system Accelerator resources.";
+    crow::connections::systemBus->async_method_call(
+        [acclrtrId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, std::vector<std::string>>>
+                &subtree) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+            for (const auto &object : subtree)
+            {
+                if (boost::ends_with(object.first, acclrtrId))
+                {
+                    for (const auto &service : object.second)
+                    {
+                        getAcclrtrDataByService(aResp, acclrtrId, service.first,
+                                                object.first);
+                        return;
+                    }
+                }
+            }
+            // Object not found
+            messages::resourceNotFound(aResp->res, "Processor", acclrtrId);
+            return;
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+        "/xyz/openbmc_project/inventory", int32_t(0),
+        std::array<const char *, 1>{
+            "xyz.openbmc_project.Inventory.Item.Accelerator"});
+}
+
 class ProcessorCollection : public Node
 {
   public:
@@ -337,10 +435,13 @@ class ProcessorCollection : public Node
             "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
 
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors/";
+        res.jsonValue["Members@odata.count"] = 0;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getResourceList(asyncResp, "Processors",
                         "xyz.openbmc_project.Inventory.Item.Cpu");
+        getResourceList(asyncResp, "Processors",
+                        "xyz.openbmc_project.Inventory.Item.Accelerator");
     }
 };
 
@@ -378,16 +479,25 @@ class Processor : public Node
             res.end();
             return;
         }
-        const std::string &cpuId = params[0];
+        const std::string &processorId = params[0];
         res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors/" + cpuId;
+            "/redfish/v1/Systems/system/Processors/" + processorId;
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getCpuData(asyncResp, cpuId);
+        // check the type of Processor, CPU OR Accelerator
+        size_t found = processorId.find("cpu");
+        if (found != std::string::npos)
+        {
+            getCpuData(asyncResp, processorId);
+        }
+        else
+        {
+            getAcceleratorData(asyncResp, processorId);
+        }
     }
 };
 
