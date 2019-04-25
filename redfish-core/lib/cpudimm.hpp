@@ -25,7 +25,7 @@ namespace redfish
 
 void getResourceList(std::shared_ptr<AsyncResp> aResp,
                      const std::string &subclass,
-                     const std::string &collectionName)
+                     const std::array<const char *, 2> collectionName)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu/mem resources.";
     crow::connections::systemBus->async_method_call(
@@ -42,7 +42,6 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
             nlohmann::json &members = aResp->res.jsonValue["Members"];
-            members = nlohmann::json::array();
 
             for (const auto &object : subtree)
             {
@@ -61,7 +60,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char *, 1>{collectionName.c_str()});
+        std::array<const char *, 2>{collectionName});
 }
 
 void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
@@ -156,9 +155,67 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
-void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId)
+void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
+                                 const std::string &acclrtrId,
+                                 const std::string &service,
+                                 const std::string &objPath)
+{
+    BMCWEB_LOG_DEBUG
+        << "Get available system Accelerator resources by service.";
+    crow::connections::systemBus->async_method_call(
+        [acclrtrId, aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string, uint32_t, uint16_t>>
+                &properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+            aResp->res.jsonValue["Id"] = acclrtrId;
+            aResp->res.jsonValue["Name"] = "Processor";
+            const std::string *accPresent = nullptr;
+            const std::string *accFunctional = nullptr;
+            std::string state = "";
+
+            for (const auto &property : properties)
+            {
+                if (property.first == "Functional")
+                {
+                    accFunctional = std::get_if<std::string>(&property.second);
+                }
+                else if (property.first == "Present")
+                {
+                    accPresent = std::get_if<std::string>(&property.second);
+                }
+            }
+            if ((*accPresent == "Present") && (*accFunctional == "Functional"))
+            {
+                state = "Enabled";
+            }
+            else if (*accPresent == "Present")
+            {
+                state = "Disabled";
+            }
+            else
+            {
+                state = "Absent";
+            }
+            aResp->res.jsonValue["Status"]["State"] = state;
+            aResp->res.jsonValue["Status"]["Health"] = "OK";
+            aResp->res.jsonValue["ProcessorType"] = "Accelerator";
+        },
+        service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
+}
+
+void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId,
+                const std::array<const char *, 2> inventory_items)
 {
     BMCWEB_LOG_DEBUG << "Get available system cpu resources.";
+
     crow::connections::systemBus->async_method_call(
         [cpuId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
@@ -178,8 +235,19 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId)
                 {
                     for (const auto &service : object.second)
                     {
-                        getCpuDataByService(aResp, cpuId, service.first,
-                                            object.first);
+                        for (const auto &inventory : service.second)
+                            if (inventory ==
+                                "xyz.openbmc_project.Inventory.Item.Cpu")
+                            {
+                                getCpuDataByService(aResp, cpuId, service.first,
+                                                    object.first);
+                            }
+                            else if (inventory == "xyz.openbmc_project."
+                                                  "Inventory.Item.Accelerator")
+                            {
+                                getAcceleratorDataByService(
+                                    aResp, cpuId, service.first, object.first);
+                            }
                         return;
                     }
                 }
@@ -192,7 +260,7 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId)
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", int32_t(0),
-        std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Cpu"});
+        std::array<const char *, 2>{inventory_items});
 };
 
 void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
@@ -337,10 +405,13 @@ class ProcessorCollection : public Node
             "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
 
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors/";
+        res.jsonValue["Members@odata.count"] = 0;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getResourceList(asyncResp, "Processors",
-                        "xyz.openbmc_project.Inventory.Item.Cpu");
+                        std::array<const char *, 2>{
+                            "xyz.openbmc_project.Inventory.Item.Cpu",
+                            "xyz.openbmc_project.Inventory.Item.Accelerator"});
     }
 };
 
@@ -378,16 +449,19 @@ class Processor : public Node
             res.end();
             return;
         }
-        const std::string &cpuId = params[0];
+        const std::string &processorId = params[0];
         res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
-            "/redfish/v1/Systems/system/Processors/" + cpuId;
+            "/redfish/v1/Systems/system/Processors/" + processorId;
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        getCpuData(asyncResp, cpuId);
+        getCpuData(asyncResp, processorId,
+                   std::array<const char *, 2>{
+                       "xyz.openbmc_project.Inventory.Item.Cpu",
+                       "xyz.openbmc_project.Inventory.Item.Accelerator"});
     }
 };
 
@@ -424,7 +498,8 @@ class MemoryCollection : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getResourceList(asyncResp, "Memory",
-                        "xyz.openbmc_project.Inventory.Item.Dimm");
+                        std::array<const char *, 2>{
+                            "xyz.openbmc_project.Inventory.Item.Dimm"});
     }
 };
 
