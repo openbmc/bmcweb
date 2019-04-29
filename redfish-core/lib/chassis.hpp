@@ -342,7 +342,9 @@ class Chassis : public Node
                                 if ((propertyName == "PartNumber") ||
                                     (propertyName == "SerialNumber") ||
                                     (propertyName == "Manufacturer") ||
-                                    (propertyName == "Model"))
+                                    (propertyName == "Model") ||
+                                    (propertyName == "SKU") ||
+                                    (propertyName == "AssetTag"))
                                 {
                                     const std::string *value =
                                         std::get_if<std::string>(
