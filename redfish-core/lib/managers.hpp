@@ -1510,10 +1510,10 @@ class Manager : public Node
         res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
         res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
                                                                    "SSH"};
-        // TODO (Santosh) : Uncomment when KVM support is in.
-        // res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
-        // res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] =
-        //    {"KVMIP"};
+#ifdef BMCWEB_ENABLE_KVM
+        res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
+#endif // BMCWEB_ENABLE_KVM
 
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
