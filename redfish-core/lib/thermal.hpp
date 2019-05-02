@@ -68,9 +68,6 @@ class Thermal : public Node
         res.jsonValue["Id"] = "Thermal";
         res.jsonValue["Name"] = "Thermal";
 
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Chassis/" + chassisName + "/Thermal";
-
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName, typeList, "Thermal");
 
