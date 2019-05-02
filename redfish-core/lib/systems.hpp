@@ -1018,9 +1018,72 @@ class SystemActionsReset : public Node
             return;
         }
 
-        if (resetType == "ForceOff")
+        std::string bus;
+        std::string objpath;
+        std::string iface;
+        std::string method;
+
+        std::string inputArg1;
+        std::string inputArg2;
+        std::string command;
+        // Execute Reset Action regarding to each reset type.
+        if (resetType == "PushPowerButton")
         {
-            // Force off acts on the chassis
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Chassis.Buttons",
+                "/xyz/openbmc_project/Chassis/Buttons/Power0",
+                "xyz.openbmc_project.Chassis.Buttons.Power", "simPress");
+        }
+        else
+        {
+            if (resetType == "ForceOff")
+            {
+                bus = "xyz.openbmc_project.State.Chassis";
+                objpath = "/xyz/openbmc_project/state/chassis0";
+                iface = "org.freedesktop.DBus.Properties";
+                method = "Set";
+                inputArg1 = "xyz.openbmc_project.State.Chassis";
+                inputArg2 = "RequestedPowerTransition";
+                command = "xyz.openbmc_project.State.Chassis.Transition.Off";
+            }
+            else
+            {
+                bus = "xyz.openbmc_project.State.Host";
+                objpath = "/xyz/openbmc_project/state/host0";
+                iface = "org.freedesktop.DBus.Properties";
+                method = "Set";
+                inputArg1 = "xyz.openbmc_project.State.Host";
+                inputArg2 = "RequestedHostTransition";
+
+                if ((resetType == "On") || (resetType == "ForceOn"))
+                {
+                    command = "xyz.openbmc_project.State.Host.Transition.On";
+                }
+                else if (resetType == "GracefulShutdown")
+                {
+                    command = "xyz.openbmc_project.State.Host.Transition.Off";
+                }
+                else if (resetType == "ForceRestart")
+                {
+                    command =
+                        "xyz.openbmc_project.State.Host.Transition.Reboot";
+                }
+                else
+                {
+                    messages::actionParameterUnknown(res, "Reset", resetType);
+                    return;
+                }
+            }
+
             crow::connections::systemBus->async_method_call(
                 [asyncResp](const boost::system::error_code ec) {
                     if (ec)
@@ -1034,53 +1097,9 @@ class SystemActionsReset : public Node
                     // requested action.
                     messages::success(asyncResp->res);
                 },
-                "xyz.openbmc_project.State.Chassis",
-                "/xyz/openbmc_project/state/chassis0",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-                std::variant<std::string>{
-                    "xyz.openbmc_project.State.Chassis.Transition.Off"});
-            return;
+                bus, objpath, iface, method, inputArg1, inputArg2,
+                std::variant<std::string>{command});
         }
-        // all other actions operate on the host
-        std::string command;
-        // Execute Reset Action regarding to each reset type.
-        if (resetType == "On")
-        {
-            command = "xyz.openbmc_project.State.Host.Transition.On";
-        }
-        else if (resetType == "GracefulShutdown")
-        {
-            command = "xyz.openbmc_project.State.Host.Transition.Off";
-        }
-        else if (resetType == "GracefulRestart")
-        {
-            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
-        }
-        else
-        {
-            messages::actionParameterUnknown(res, "Reset", resetType);
-            return;
-        }
-
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                // TODO Consider support polling mechanism to verify
-                // status of host and chassis after execute the
-                // requested action.
-                messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            std::variant<std::string>{command});
     }
 };
 
@@ -1129,12 +1148,12 @@ class Systems : public Node
         res.jsonValue["Memory"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
 
-        // TODO Need to support ForceRestart.
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
             {"target",
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"ResetType@Redfish.AllowableValues",
-             {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
+             {"On", "ForceOn", "ForceOff", "GracefulShutdown", "ForceRestart",
+              "PushPowerButton"}}};
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
