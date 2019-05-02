@@ -279,13 +279,6 @@ class Chassis : public Node
         }
 #endif
 
-        res.jsonValue["@odata.type"] = "#Chassis.v1_4_0.Chassis";
-        res.jsonValue["@odata.id"] = "/redfish/v1/Chassis/" + chassisId;
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Chassis.Chassis";
-        res.jsonValue["Name"] = "Chassis Collection";
-        res.jsonValue["ChassisType"] = "RackMount";
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
@@ -325,6 +318,15 @@ class Chassis : public Node
                                          << " Connection names";
                         continue;
                     }
+
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#Chassis.v1_4_0.Chassis";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Chassis/" + chassisId;
+                    asyncResp->res.jsonValue["@odata.context"] =
+                        "/redfish/v1/$metadata#Chassis.Chassis";
+                    asyncResp->res.jsonValue["Name"] = "Chassis Collection";
+                    asyncResp->res.jsonValue["ChassisType"] = "RackMount";
 
                     const std::string connectionName = connectionNames[0].first;
                     crow::connections::systemBus->async_method_call(
