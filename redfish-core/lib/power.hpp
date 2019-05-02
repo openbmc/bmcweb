@@ -62,8 +62,6 @@ class Power : public Node
         }
 #endif
 
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Chassis/" + chassis_name + "/Power";
         res.jsonValue["@odata.type"] = "#Power.v1_2_1.Power";
         res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Power.Power";
         res.jsonValue["Id"] = "Power";
