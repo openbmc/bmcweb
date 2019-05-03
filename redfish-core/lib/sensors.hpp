@@ -514,7 +514,11 @@ void objectInterfacesToJson(
     }
     else if (sensorType == "power")
     {
-        unit = "LastPowerOutputWatts";
+        if (sensorName.find("Input") != std::string::npos){
+            unit = "PowerInputWatts";
+        } else {
+            unit = "PowerOutputWatts";
+        }
     }
     else
     {
@@ -955,11 +959,15 @@ void getSensorData(
                 nlohmann::json& tempArray =
                     SensorsAsyncResp->res.jsonValue[fieldName];
 
-                tempArray.push_back(
-                    {{"@odata.id", "/redfish/v1/Chassis/" +
-                                       SensorsAsyncResp->chassisId + "/" +
-                                       SensorsAsyncResp->chassisSubNode + "#/" +
-                                       fieldName + "/"}});
+                if (fieldName == "PowerSupplies" && !tempArray.empty()){
+                    // Power supplies put multiple "sensors" into a single power supply entry, so only create the first one
+                } else {
+                    tempArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                        SensorsAsyncResp->chassisId + "/" +
+                                        SensorsAsyncResp->chassisSubNode + "#/" +
+                                        fieldName + "/"}});
+                }
                 nlohmann::json& sensorJson = tempArray.back();
 
                 objectInterfacesToJson(sensorName, sensorType,
