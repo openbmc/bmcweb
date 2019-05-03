@@ -28,8 +28,6 @@
 namespace redfish
 {
 
-constexpr const char* dbusSensorPrefix = "/xyz/openbmc_project/sensors/";
-
 using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
@@ -169,65 +167,6 @@ void getConnections(
         };
     getObjectsWithConnection(SensorsAsyncResp, sensorNames,
                              std::move(objectsWithConnectionCb));
-}
-
-/**
- * @brief Gets all DBus sensor names.
- *
- * Finds the sensor names asynchronously.  Invokes callback when information has
- * been obtained.
- *
- * The callback must have the following signature:
- *   @code
- *   callback(boost::container::flat_set<std::string>& sensorNames)
- *   @endcode
- *
- * @param SensorsAsyncResp Pointer to object holding response data.
- * @param callback Callback to invoke when sensor names obtained.
- */
-template <typename Callback>
-void getAllSensors(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
-                   Callback&& callback)
-{
-    BMCWEB_LOG_DEBUG << "getAllSensors enter";
-    const std::array<std::string, 1> interfaces = {
-        "xyz.openbmc_project.Sensor.Value"};
-
-    // Response handler for GetSubTreePaths DBus method
-    auto respHandler = [callback{std::move(callback)}, SensorsAsyncResp](
-                           const boost::system::error_code ec,
-                           const std::vector<std::string>& sensorList) {
-        BMCWEB_LOG_DEBUG << "getAllSensors respHandler enter";
-        if (ec)
-        {
-            messages::internalError(SensorsAsyncResp->res);
-            BMCWEB_LOG_ERROR << "getAllSensors respHandler: DBus error " << ec;
-            return;
-        }
-        boost::container::flat_set<std::string> sensorNames;
-        for (const std::string& sensor : sensorList)
-        {
-            std::size_t lastPos = sensor.rfind("/");
-            if (lastPos == std::string::npos)
-            {
-                BMCWEB_LOG_ERROR << "Failed to find '/' in " << sensor;
-                continue;
-            }
-            std::string sensorName = sensor.substr(lastPos + 1);
-            sensorNames.emplace(sensorName);
-            BMCWEB_LOG_DEBUG << "Added sensor name " << sensorName;
-        }
-        callback(sensorNames);
-        BMCWEB_LOG_DEBUG << "getAllSensors respHandler exit";
-    };
-
-    // Query mapper for all DBus sensor object paths
-    crow::connections::systemBus->async_method_call(
-        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
-        "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/sensors", int32_t(0), interfaces);
-    BMCWEB_LOG_DEBUG << "getAllSensors exit";
 }
 
 /**
@@ -1076,13 +1015,8 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
             BMCWEB_LOG_DEBUG << "getChassisCb exit";
         };
 
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-    // Get all sensor names
-    getAllSensors(SensorsAsyncResp, std::move(getChassisCb));
-#else
-    // Get sensor names in chassis
+    // Get set of sensors in chassis
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
-#endif
     BMCWEB_LOG_DEBUG << "getChassisData exit";
 };
 

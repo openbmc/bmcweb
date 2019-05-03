@@ -51,16 +51,6 @@ class Thermal : public Node
             return;
         }
         const std::string& chassisName = params[0];
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        // In a one chassis system the only supported name is "chassis"
-        if (chassisName != "chassis")
-        {
-            messages::resourceNotFound(res, "#Chassis.v1_4_0.Chassis",
-                                       chassisName);
-            res.end();
-            return;
-        }
-#endif
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassisName, typeList, "Thermal");
