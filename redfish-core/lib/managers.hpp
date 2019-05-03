@@ -989,11 +989,7 @@ class Manager : public Node
         res.jsonValue["Links"]["ManagerForServers@odata.count"] = 1;
         res.jsonValue["Links"]["ManagerForServers"] = {
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-        res.jsonValue["Links"]["ManagerForChassis"] = {
-            {{"@odata.id", "/redfish/v1/Chassis/chassis"}}};
-#endif
+
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         crow::connections::systemBus->async_method_call(

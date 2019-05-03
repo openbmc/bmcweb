@@ -51,16 +51,6 @@ class Power : public Node
             return;
         }
         const std::string& chassis_name = params[0];
-#ifdef BMCWEB_ENABLE_REDFISH_ONE_CHASSIS
-        // In a one chassis system the only supported name is "chassis"
-        if (chassis_name != "chassis")
-        {
-            messages::resourceNotFound(res, "#Chassis.v1_4_0.Chassis",
-                                       chassis_name);
-            res.end();
-            return;
-        }
-#endif
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name, typeList, "Power");
