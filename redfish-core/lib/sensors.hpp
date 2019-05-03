@@ -500,7 +500,8 @@ void objectInterfacesToJson(
     }
 
     sensor_json["MemberId"] = sensorName;
-    sensor_json["Name"] = sensorName;
+    sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
+
     sensor_json["Status"]["State"] = "Enabled";
     sensor_json["Status"]["Health"] = "OK";
 
