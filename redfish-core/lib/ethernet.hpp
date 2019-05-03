@@ -158,16 +158,18 @@ inline std::string
     return "";
 }
 
-inline void extractEthernetInterfaceData(const std::string &ethiface_id,
+inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                                          const GetManagedObjects &dbus_data,
                                          EthernetInterfaceData &ethData)
 {
+    bool ret = false;
     for (const auto &objpath : dbus_data)
     {
         for (const auto &ifacePair : objpath.second)
         {
             if (objpath.first == "/xyz/openbmc_project/network/" + ethiface_id)
             {
+                ret = true;
                 if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
                 {
                     for (const auto &propertyPair : ifacePair.second)
@@ -285,6 +287,7 @@ inline void extractEthernetInterfaceData(const std::string &ethiface_id,
             }
         }
     }
+    return ret;
 }
 
 // Helper function that extracts data for single ethernet ipv4 address
@@ -736,7 +739,14 @@ void getEthernetIfaceData(const std::string &ethiface_id,
                 return;
             }
 
-            extractEthernetInterfaceData(ethiface_id, resp, ethData);
+            bool found =
+                extractEthernetInterfaceData(ethiface_id, resp, ethData);
+            if (!found)
+            {
+                callback(false, ethData, ipv4Data);
+                return;
+            }
+
             extractIPData(ethiface_id, resp, ipv4Data);
 
             // Fix global GW
@@ -771,7 +781,7 @@ void getEthernetIfaceList(CallbackFunc &&callback)
             GetManagedObjects &resp) {
             // Callback requires vector<string> to retrieve all available
             // ethernet interfaces
-            std::vector<std::string> iface_list;
+            boost::container::flat_set<std::string> iface_list;
             iface_list.reserve(resp.size());
             if (error_code)
             {
@@ -797,8 +807,7 @@ void getEthernetIfaceList(CallbackFunc &&callback)
                         if (last_pos != std::string::npos)
                         {
                             // and put it into output vector.
-                            iface_list.emplace_back(
-                                iface_id.substr(last_pos + 1));
+                            iface_list.emplace(iface_id.substr(last_pos + 1));
                         }
                     }
                 }
@@ -846,20 +855,21 @@ class EthernetCollection : public Node
         res.jsonValue["Name"] = "Ethernet Network Interface Collection";
         res.jsonValue["Description"] =
             "Collection of EthernetInterfaces for this Manager";
-
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [&res](const bool &success,
-                   const std::vector<std::string> &iface_list) {
+            [asyncResp](
+                const bool &success,
+                const boost::container::flat_set<std::string> &iface_list) {
                 if (!success)
                 {
-                    messages::internalError(res);
-                    res.end();
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
-                nlohmann::json &iface_array = res.jsonValue["Members"];
+                nlohmann::json &iface_array =
+                    asyncResp->res.jsonValue["Members"];
                 iface_array = nlohmann::json::array();
                 std::string tag = "_";
                 for (const std::string &iface_item : iface_list)
@@ -874,10 +884,10 @@ class EthernetCollection : public Node
                     }
                 }
 
-                res.jsonValue["Members@odata.count"] = iface_array.size();
-                res.jsonValue["@odata.id"] =
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    iface_array.size();
+                asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Managers/bmc/EthernetInterfaces";
-                res.end();
             });
     }
 };
@@ -1285,6 +1295,12 @@ class EthernetInterface : public Node
                                                "EthernetInterface", iface_id);
                     return;
                 }
+
+                // because this has no dependence on the interface at this
+                // point, it needs to be done after we know the interface
+                // exists, not before.
+                getDHCPConfigData(asyncResp);
+
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#EthernetInterface.v1_4_1.EthernetInterface";
                 asyncResp->res.jsonValue["@odata.context"] =
@@ -1296,7 +1312,6 @@ class EthernetInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
             });
-        getDHCPConfigData(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -1699,12 +1714,21 @@ class VlanNetworkInterfaceCollection : public Node
         getEthernetIfaceList(
             [asyncResp, rootInterfaceName{std::string(rootInterfaceName)}](
                 const bool &success,
-                const std::vector<std::string> &iface_list) {
+                const boost::container::flat_set<std::string> &iface_list) {
                 if (!success)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
+
+                if (iface_list.find(rootInterfaceName) == iface_list.end())
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "VLanNetworkInterfaceCollection",
+                                               rootInterfaceName);
+                    return;
+                }
+
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#VLanNetworkInterfaceCollection."
                     "VLanNetworkInterfaceCollection";
