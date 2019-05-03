@@ -84,5 +84,23 @@ inline bool getNthStringFromPath(const std::string& path, int index,
     return true;
 }
 
+template <typename Callback>
+inline void checkDbusPathExists(const std::string& path, Callback&& callback)
+{
+    using GetObjectType =
+        std::vector<std::pair<std::string, std::vector<std::string>>>;
+
+    crow::connections::systemBus->async_method_call(
+        [callback{std::move(callback)}](const boost::system::error_code ec,
+                                        const GetObjectType& object_names) {
+            callback(!ec && object_names.size() != 0);
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetObject", path,
+        std::array<std::string, 0>());
+}
+
+
 } // namespace utility
 } // namespace dbus
