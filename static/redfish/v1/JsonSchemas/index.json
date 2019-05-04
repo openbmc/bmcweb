@@ -7,262 +7,262 @@
   "Members@odata.count": 86,
   "Members": [
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction/"
+      "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/AccountService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/AccountService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ActionInfo/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ActionInfo"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Assembly/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Assembly"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/AttributeRegistry/"
+      "@odata.id": "/redfish/v1/JsonSchemas/AttributeRegistry"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Bios/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Bios"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/BootOption/"
+      "@odata.id": "/redfish/v1/JsonSchemas/BootOption"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Certificate/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Certificate"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/CertificateLocations/"
+      "@odata.id": "/redfish/v1/JsonSchemas/CertificateLocations"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/CertificateService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/CertificateService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Chassis/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Chassis"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/CollectionCapabilities/"
+      "@odata.id": "/redfish/v1/JsonSchemas/CollectionCapabilities"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/CompositionService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/CompositionService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ComputerSystem/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ComputerSystem"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Drive/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Drive"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Endpoint/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Endpoint"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface/"
+      "@odata.id": "/redfish/v1/JsonSchemas/EthernetInterface"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Event/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Event"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/EventDestination/"
+      "@odata.id": "/redfish/v1/JsonSchemas/EventDestination"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/EventService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/EventService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ExternalAccountProvider/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ExternalAccountProvider"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Fabric/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Fabric"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/HostInterface/"
+      "@odata.id": "/redfish/v1/JsonSchemas/HostInterface"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/IPAddresses/"
+      "@odata.id": "/redfish/v1/JsonSchemas/IPAddresses"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Job/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Job"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/JobService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/JobService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/JsonSchemaFile/"
+      "@odata.id": "/redfish/v1/JsonSchemas/JsonSchemaFile"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/LogEntry/"
+      "@odata.id": "/redfish/v1/JsonSchemas/LogEntry"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/LogService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/LogService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Manager/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Manager"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ManagerAccount/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ManagerAccount"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Memory/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Memory"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryChunks/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MemoryChunks"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryDomain/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MemoryDomain"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MemoryMetrics/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MemoryMetrics"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Message/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Message"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MessageRegistry/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MessageRegistry"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MessageRegistryFile/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MessageRegistryFile"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MetricDefinition/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricDefinition"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MetricReport/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricReport"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/MetricReportDefinition/"
+      "@odata.id": "/redfish/v1/JsonSchemas/MetricReportDefinition"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkAdapter/"
+      "@odata.id": "/redfish/v1/JsonSchemas/NetworkAdapter"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkDeviceFunction/"
+      "@odata.id": "/redfish/v1/JsonSchemas/NetworkDeviceFunction"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkInterface/"
+      "@odata.id": "/redfish/v1/JsonSchemas/NetworkInterface"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/NetworkPort/"
+      "@odata.id": "/redfish/v1/JsonSchemas/NetworkPort"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PCIeDevice/"
+      "@odata.id": "/redfish/v1/JsonSchemas/PCIeDevice"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PCIeFunction/"
+      "@odata.id": "/redfish/v1/JsonSchemas/PCIeFunction"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PCIeSlots/"
+      "@odata.id": "/redfish/v1/JsonSchemas/PCIeSlots"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext/"
+      "@odata.id": "/redfish/v1/JsonSchemas/PhysicalContext"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Port/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Port"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Power/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Power"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/PrivilegeRegistry/"
+      "@odata.id": "/redfish/v1/JsonSchemas/PrivilegeRegistry"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Privileges/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Privileges"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Processor/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Processor"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ProcessorMetrics/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ProcessorMetrics"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Redundancy/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Redundancy"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Resource/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Resource"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ResourceBlock/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ResourceBlock"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Role/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Role"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Schedule/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Schedule"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot/"
+      "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Sensor/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Sensor"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/SerialInterface/"
+      "@odata.id": "/redfish/v1/JsonSchemas/SerialInterface"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/ServiceRoot/"
+      "@odata.id": "/redfish/v1/JsonSchemas/ServiceRoot"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Session/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Session"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/SessionService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/SessionService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Settings/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Settings"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/SimpleStorage/"
+      "@odata.id": "/redfish/v1/JsonSchemas/SimpleStorage"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/SoftwareInventory/"
+      "@odata.id": "/redfish/v1/JsonSchemas/SoftwareInventory"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Storage/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Storage"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Switch/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Switch"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Task/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Task"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/TaskService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/TaskService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/TelemetryService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/TelemetryService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Thermal/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Thermal"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Triggers/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Triggers"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/UpdateService/"
+      "@odata.id": "/redfish/v1/JsonSchemas/UpdateService"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/VLanNetworkInterface/"
+      "@odata.id": "/redfish/v1/JsonSchemas/VLanNetworkInterface"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/VirtualMedia/"
+      "@odata.id": "/redfish/v1/JsonSchemas/VirtualMedia"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Volume/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Volume"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/Zone/"
+      "@odata.id": "/redfish/v1/JsonSchemas/Zone"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/odata/"
+      "@odata.id": "/redfish/v1/JsonSchemas/odata"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/redfish-error/"
+      "@odata.id": "/redfish/v1/JsonSchemas/redfish-error"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/redfish-payload-annotations/"
+      "@odata.id": "/redfish/v1/JsonSchemas/redfish-payload-annotations"
     },
     {
-      "@odata.id": "/redfish/v1/JsonSchemas/redfish-schema/"
+      "@odata.id": "/redfish/v1/JsonSchemas/redfish-schema"
     }
   ]
 }
