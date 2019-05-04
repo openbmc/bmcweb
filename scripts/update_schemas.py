@@ -147,7 +147,7 @@ for schema, version in schema_files.items():
         schema_file.write(zip_ref.read(zip_filepath))
 
 with open(os.path.join(json_schema_path, "index.json"), 'w') as index_file:
-    members = [{"@odata.id": "/redfish/v1/JsonSchemas/" + schema + "/"}
+    members = [{"@odata.id": "/redfish/v1/JsonSchemas/" + schema}
                for schema in schema_files]
 
     members.sort(key=lambda x: x["@odata.id"])
