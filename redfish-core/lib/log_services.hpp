@@ -27,6 +27,7 @@
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
+#include <string_view>
 #include <variant>
 
 namespace redfish
@@ -503,19 +504,33 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
                                  nlohmann::json &logEntryJson)
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
-    // Use split to separate the entry into its fields
-    std::vector<std::string> logEntryFields;
-    boost::split(logEntryFields, logEntry, boost::is_any_of(" ,"),
-                 boost::token_compress_on);
-    // We need at least a MessageId to be valid
-    if (logEntryFields.size() < 2)
+    // First get the Timestamp
+    size_t space = logEntry.find_first_of(" ");
+    if (space == std::string::npos)
     {
         return 1;
     }
-    std::string &timestamp = logEntryFields[0];
-    std::string &messageID = logEntryFields[1];
-    std::string &messageArgsStart = logEntryFields[2];
-    std::size_t messageArgsSize = logEntryFields.size() - 2;
+    std::string timestamp = logEntry.substr(0, space);
+    // Then get the log contents
+    size_t entryStart = logEntry.find_first_not_of(" ", space);
+    if (entryStart == std::string::npos)
+    {
+        return 1;
+    }
+    std::string_view entry(logEntry);
+    entry.remove_prefix(entryStart);
+    // Use split to separate the entry into its fields
+    std::vector<std::string> logEntryFields;
+    boost::split(logEntryFields, entry, boost::is_any_of(","),
+                 boost::token_compress_on);
+    // We need at least a MessageId to be valid
+    if (logEntryFields.size() < 1)
+    {
+        return 1;
+    }
+    std::string &messageID = logEntryFields[0];
+    std::string &messageArgsStart = logEntryFields[1];
+    std::size_t messageArgsSize = logEntryFields.size() - 1;
 
     // Get the Message from the MessageRegistry
     const message_registries::Message *message =
@@ -622,17 +637,18 @@ class EventLogEntryCollection : public Node
         std::vector<std::filesystem::path> redfishLogFiles;
         getRedfishLogFiles(redfishLogFiles);
         uint64_t entryCount = 0;
+        std::string logEntry;
 
         // Oldest logs are in the last file, so start there and loop backwards
-        for (size_t i = redfishLogFiles.size() - 1; i >= 0; i--)
+        for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend();
+             it++)
         {
-            std::ifstream logStream(redfishLogFiles[i]);
+            std::ifstream logStream(*it);
             if (!logStream.is_open())
             {
                 continue;
             }
 
-            std::string logEntry;
             while (std::getline(logStream, logEntry))
             {
                 entryCount++;
