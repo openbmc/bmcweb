@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d29db32_fa744cad",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "Rename to timeoutTimeSeconds just to make it clear?",
+      "range": {
+        "startLine": 122,
+        "startChar": 70,
+        "endLine": 122,
+        "endChar": 74
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f9f8e54_e5bb4427",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "Looking at this, using this constructor actually doesn\u0027t do anything.... I wonder why it\u0027s here.\n\nNot your problem, but I suspect that statement can be deleted.",
+      "range": {
+        "startLine": 133,
+        "startChar": 22,
+        "endLine": 133,
+        "endChar": 56
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb5c912_67a47735",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "This is going to duplicate the error messages, right?\n\nI wonder if the std::optional pattern would give us better behavior:\n\nstd::optional\u003cstd::string\u003e transferProtocol;\nstd::optional\u003cstd::string\u003e imageURI;\nstd::shared_ptr\u003cAsyncResp\u003e asyncResp \u003d std::make_shared\u003cAsyncResp\u003e(res);\n\nBMCWEB_LOG_DEBUG \u003c\u003c \"Enter UpdateService.SimpleUpdate doPost\";\n\nif (!json_util::readJson(req, asyncResp-\u003eres, \"TransferProtocol\",\n                        transferProtocol, \"ImageURI\", imageURI))\n{\n     BMCWEB_LOG_ERROR \u003c\u003c \"Bad simple update request\";\n     return;\n}\n\nif (!transferProtocol){\n    messages::actionParameterMissing(asyncResp-\u003eres,\n                                     \"UpdateService.SimpleUpdate\",\n                                     \"TransferProtocol\");\n    return\n}\n\nif (!imageURI){\n    messages::actionParameterMissing(asyncResp-\u003eres,\n                                     \"UpdateService.SimpleUpdate\",\n                                     \"ImageURI\");\n    return;\n}\n\n\n\nI\u0027m not sure how much I really care, as we\u0027re talking about error codes, but the above might be something to consider if you\u0027re seeing duplicated errors.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 207,
+        "endChar": 74
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b0b68cf_a38e512d",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "Did you get any answers from the Redfish guys on this?\n\n\nI wonder if the usecase validator has any tests for this.",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 52
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8f6d3f7_ce39a68c",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "This should be the imageURI variable to get the  right behavior.",
+      "range": {
+        "startLine": 231,
+        "startChar": 17,
+        "endLine": 231,
+        "endChar": 44
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "829c3e4a_584d5ffa",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "I don\u0027t think we can let the HTTP connection go idle for up to 2 minutes.  I believe this is where Redfish would recommend returning a task service entry to allow checking status.",
+      "range": {
+        "startLine": 242,
+        "startChar": 52,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "908003f1_04ec1a93",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-09T18:11:51Z",
+      "side": 1,
+      "message": "Good.",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 303,
+        "endChar": 20
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
