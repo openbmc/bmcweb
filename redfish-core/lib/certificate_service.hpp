@@ -20,6 +20,8 @@
 #include <variant>
 namespace redfish
 {
+namespace certs
+{
 constexpr char const *httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
 constexpr char const *certInstallIntf = "xyz.openbmc_project.Certs.Install";
@@ -31,7 +33,7 @@ constexpr char const *mapperBusName = "xyz.openbmc_project.ObjectMapper";
 constexpr char const *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr char const *mapperIntf = "xyz.openbmc_project.ObjectMapper";
 constexpr char const *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
-
+} // namespace certs 
 static void getCertificateProperties(
     const std::shared_ptr<AsyncResp> &asyncResp, const std::string &objectPath,
     const std::string &certId, const std::string &certURL,
@@ -246,13 +248,13 @@ class CertificateActionsReplaceCertificate : public Node
                 certURI,
                 "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/"))
         {
-            objectPath = std::string(httpsObjectPath) + "/" + certId;
+            objectPath = std::string(certs::httpsObjectPath) + "/" + certId;
             name = "HTTPS certificate";
         }
         else if (boost::starts_with(
                      certURI, "/redfish/v1/AccountService/LDAP/Certificates/"))
         {
-            objectPath = std::string(ldapObjectPath) + "/" + certId;
+            objectPath = std::string(certs::ldapObjectPath) + "/" + certId;
             name = "LDAP certificate";
         }
         else
@@ -294,11 +296,13 @@ class CertificateActionsReplaceCertificate : public Node
                 std::string service = resp.begin()->first;
                 crow::connections::systemBus->async_method_call(
                     std::move(replaceCertificate), service, objectPath,
-                    certReplaceIntf, "Replace", certFile->getCertFilePath());
+                    certs::certReplaceIntf, "Replace",
+                    certFile->getCertFilePath());
             };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", objectPath, std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            objectPath, std::array<std::string, 0>());
     }
 }; // CertificateActionsReplaceCertificate
 
@@ -344,8 +348,9 @@ static void getCSR(const std::shared_ptr<AsyncResp> &asyncResp,
             "xyz.openbmc_project.Certs.CSR", "CSR");
     };
     crow::connections::systemBus->async_method_call(
-        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
-        "GetObject", certObjPath, std::array<std::string, 0>());
+        std::move(getServiceName), certs::mapperBusName,
+        certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+        certObjPath, std::array<std::string, 0>());
 }
 
 static std::unique_ptr<sdbusplus::bus::match::match> csrMatcher;
@@ -465,11 +470,11 @@ class CertificateActionGenerateCSR : public Node
         if (certURI ==
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/")
         {
-            objectPath = httpsObjectPath;
+            objectPath = certs::httpsObjectPath;
         }
         else if (certURI == "/redfish/v1/AccountService/LDAP/Certificates/")
         {
-            objectPath = ldapObjectPath;
+            objectPath = certs::ldapObjectPath;
         }
         else
         {
@@ -688,8 +693,9 @@ class CertificateActionGenerateCSR : public Node
                     unstructuredName);
             };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", objectPath, std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            objectPath, std::array<std::string, 0>());
     }
 }; // CertificateActionGenerateCSR
 
@@ -916,12 +922,13 @@ static void getCertificateProperties(
             }
             std::string service = resp.begin()->first;
             crow::connections::systemBus->async_method_call(
-                std::move(getAllProperties), service, objectPath, dbusPropIntf,
-                "GetAll", certPropIntf);
+                std::move(getAllProperties), service, objectPath,
+                certs::dbusPropIntf, "GetAll", certs::certPropIntf);
         };
     crow::connections::systemBus->async_method_call(
-        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
-        "GetObject", objectPath, std::array<std::string, 0>());
+        std::move(getServiceName), certs::mapperBusName,
+        certs::mapperObjectPath, certs::mapperIntf, "GetObject", objectPath,
+        std::array<std::string, 0>());
 }
 
 /**
@@ -961,7 +968,7 @@ class HTTPSCertificate : public Node
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/" +
             certId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        std::string objectPath = httpsObjectPath;
+        std::string objectPath = certs::httpsObjectPath;
         objectPath += "/";
         objectPath += certId;
         std::string name = "HTTPS Certificate";
@@ -1037,13 +1044,13 @@ class HTTPSCertificateCollection : public Node
             }
             std::string service = resp.begin()->first;
             crow::connections::systemBus->async_method_call(
-                std::move(getCertList), service, httpsObjectPath,
-                dbusObjManagerIntf, "GetManagedObjects");
+                std::move(getCertList), service, certs::httpsObjectPath,
+                certs::dbusObjManagerIntf, "GetManagedObjects");
         };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", httpsObjectPath,
-            std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            certs::httpsObjectPath, std::array<std::string, 0>());
     }
 
     void doPost(crow::Response &res, const crow::Request &req,
@@ -1070,7 +1077,7 @@ class HTTPSCertificateCollection : public Node
             certURL += certId;
             std::string name = "HTTPS Certificate";
             std::string objectPath =
-                std::string(httpsObjectPath) + "/" + certId;
+                std::string(certs::httpsObjectPath) + "/" + certId;
             getCertificateProperties(asyncResp, objectPath, certId, certURL,
                                      name);
             BMCWEB_LOG_DEBUG << "HTTPS certificate install file="
@@ -1088,13 +1095,14 @@ class HTTPSCertificateCollection : public Node
             }
             std::string service = resp.begin()->first;
             crow::connections::systemBus->async_method_call(
-                std::move(installCert), service, httpsObjectPath,
-                certInstallIntf, "Install", certFile->getCertFilePath());
+                std::move(installCert), service, certs::httpsObjectPath,
+                certs::certInstallIntf, "Install",
+                certFile->getCertFilePath());
         };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", httpsObjectPath,
-            std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            certs::httpsObjectPath, std::array<std::string, 0>());
     }
 }; // HTTPSCertificateCollection
 
@@ -1147,12 +1155,13 @@ static void getCertificateLocations(std::shared_ptr<AsyncResp> &asyncResp,
             std::string service = resp.begin()->first;
             BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
             crow::connections::systemBus->async_method_call(
-                std::move(getCertLocations), service, path, dbusObjManagerIntf,
-                "GetManagedObjects");
+                std::move(getCertLocations), service, path,
+                certs::dbusObjManagerIntf, "GetManagedObjects");
         };
     crow::connections::systemBus->async_method_call(
-        std::move(getServiceName), mapperBusName, mapperObjectPath, mapperIntf,
-        "GetObject", path, std::array<std::string, 0>());
+        std::move(getServiceName), certs::mapperBusName,
+        certs::mapperObjectPath, certs::mapperIntf, "GetObject", path,
+        std::array<std::string, 0>());
 }
 
 /**
@@ -1198,10 +1207,10 @@ class CertificateLocations : public Node
         getCertificateLocations(
             asyncResp,
             "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates/",
-            httpsObjectPath);
+            certs::httpsObjectPath);
         getCertificateLocations(asyncResp,
                                 "/redfish/v1/AccountService/LDAP/Certificates/",
-                                ldapObjectPath);
+                                certs::ldapObjectPath);
     }
 }; // CertificateLocations
 /**
@@ -1270,13 +1279,14 @@ class LDAPCertificateCollection : public Node
                 std::string service = resp.begin()->first;
                 BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
                 crow::connections::systemBus->async_method_call(
-                    std::move(getCertificateList), service, ldapObjectPath,
-                    dbusObjManagerIntf, "GetManagedObjects");
+                    std::move(getCertificateList), service,
+                    certs::ldapObjectPath, certs::dbusObjManagerIntf,
+                    "GetManagedObjects");
             };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", ldapObjectPath,
-            std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            certs::ldapObjectPath, std::array<std::string, 0>());
     }
 
     void doPost(crow::Response &res, const crow::Request &req,
@@ -1285,26 +1295,27 @@ class LDAPCertificateCollection : public Node
         std::shared_ptr<CertificateFile> certFile =
             std::make_shared<CertificateFile>(req.body);
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        auto installCertificate = [asyncResp, certFile](
-                                      const boost::system::error_code ec) {
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                messages::internalError(asyncResp->res);
-                return;
-            }
-            //// TODO: Issue#3 supproting only 1 certificate
-            std::string certId = "1";
-            std::string certURL =
-                "/redfish/v1/AccountService/LDAP/Certificates/";
-            certURL += certId;
-            std::string name = "LDAP Certificate";
-            std::string objectPath = std::string(ldapObjectPath) + "/" + certId;
-            getCertificateProperties(asyncResp, objectPath, certId, certURL,
-                                     name);
-            BMCWEB_LOG_DEBUG << "LDAP certificate install file="
-                             << certFile->getCertFilePath();
-        };
+        auto installCertificate =
+            [asyncResp, certFile](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                //// TODO: Issue#3 supproting only 1 certificate
+                std::string certId = "1";
+                std::string certURL =
+                    "/redfish/v1/AccountService/LDAP/Certificates/";
+                certURL += certId;
+                std::string name = "LDAP Certificate";
+                std::string objectPath =
+                    std::string(certs::ldapObjectPath) + "/" + certId;
+                getCertificateProperties(asyncResp, objectPath, certId, certURL,
+                                         name);
+                BMCWEB_LOG_DEBUG << "LDAP certificate install file="
+                                 << certFile->getCertFilePath();
+            };
         auto getServiceName =
             [asyncResp, installCertificate(std::move(installCertificate)),
              certFile](const boost::system::error_code ec,
@@ -1317,13 +1328,14 @@ class LDAPCertificateCollection : public Node
                 }
                 std::string service = resp.begin()->first;
                 crow::connections::systemBus->async_method_call(
-                    std::move(installCertificate), service, ldapObjectPath,
-                    certInstallIntf, "Install", certFile->getCertFilePath());
+                    std::move(installCertificate), service,
+                    certs::ldapObjectPath, certs::certInstallIntf,
+                    "Install", certFile->getCertFilePath());
             };
         crow::connections::systemBus->async_method_call(
-            std::move(getServiceName), mapperBusName, mapperObjectPath,
-            mapperIntf, "GetObject", ldapObjectPath,
-            std::array<std::string, 0>());
+            std::move(getServiceName), certs::mapperBusName,
+            certs::mapperObjectPath, certs::mapperIntf, "GetObject",
+            certs::ldapObjectPath, std::array<std::string, 0>());
     }
 }; // LDAPCertificateCollection
 
@@ -1356,7 +1368,7 @@ class LDAPCertificate : public Node
         std::string certURL = "/redfish/v1/AccountService/LDAP/Certificates/";
         certURL += certId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        std::string objectPath = ldapObjectPath;
+        std::string objectPath = certs::ldapObjectPath;
         objectPath += "/";
         objectPath += certId;
         std::string name = "LDAP Certificate";
