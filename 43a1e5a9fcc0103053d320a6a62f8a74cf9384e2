@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "bb4cadaa_2b33c977",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2019-05-10T19:32:09Z",
+      "side": 1,
+      "message": "I put up a forum post at https://redfishforum.com/thread/193/imageuri-updateservice. Lets see if we get anything back there.",
+      "parentUuid": "1b0b68cf_a38e512d",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 52
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8f6d3f7_ce39a68c",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
@@ -128,6 +152,30 @@
       "writtenOn": "2019-05-09T18:11:51Z",
       "side": 1,
       "message": "I don\u0027t think we can let the HTTP connection go idle for up to 2 minutes.  I believe this is where Redfish would recommend returning a task service entry to allow checking status.",
+      "range": {
+        "startLine": 242,
+        "startChar": 52,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d233a78_9f5b1347",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2019-05-10T19:32:09Z",
+      "side": 1,
+      "message": "Yeah, this is def where the task feature comes into play. For now should we just return to the caller once the TFTP download has started (vs. completed)?",
+      "parentUuid": "829c3e4a_584d5ffa",
       "range": {
         "startLine": 242,
         "startChar": 52,
