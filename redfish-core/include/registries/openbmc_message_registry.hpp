@@ -220,6 +220,32 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
+        "InventoryAdded",
+        {
+            .description = "Indicates that an inventory item was populated.",
+            .message = "The object %1 was discovered.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "InventoryRemoved",
+        {
+            .description = "Indicates that an inventory item was removed.",
+            .message = "The object %1 was removed.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "IntelUPILinkWidthReducedToHalf",
         {
             .description =
