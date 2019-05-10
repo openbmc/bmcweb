@@ -220,6 +220,40 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
+        "InventoryAdded",
+        {
+            .description =
+                "Indicates that an inventory item with the specified model, "
+                "Redfish type, and serial number was installed.",
+            .message = "%1 %2 with serial number %3 was installed.",
+            .severity = "OK",
+            .numberOfArgs = 3,
+            .paramTypes =
+                {
+                    "string",
+                    "string",
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "InventoryRemoved",
+        {
+            .description =
+                "Indicates that an inventory item with the specified model, "
+                "Redfish type, and serial number was removed.",
+            .message = "%1 %2 with serial number %3 was removed.",
+            .severity = "OK",
+            .numberOfArgs = 3,
+            .paramTypes =
+                {
+                    "string",
+                    "string",
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "IntelUPILinkWidthReducedToHalf",
         {
             .description =
