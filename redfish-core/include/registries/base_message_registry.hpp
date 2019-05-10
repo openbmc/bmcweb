@@ -396,6 +396,32 @@ const std::array registry = {
                 "Correct the condition and resubmit the request if it failed.",
         }},
     MessageEntry{
+        "InventoryAdded",
+        {
+            .description = "Indicates that an inventory item was populated.",
+            .message = "The object %1 was discovered.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "InventoryRemoved",
+        {
+            .description = "Indicates that an inventory item was removed.",
+            .message = "The object %1 was removed.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "MalformedJSON",
         {
             .description = "Indicates that the request body was malformed "
