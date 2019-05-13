@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8336d43_cc472bf5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "See below.  Should we support PKCS7?",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 70
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf504453_0c11e80c",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Should we declare this std::optional, and default to PEM if no type is specified?",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 36
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "535e68da_a6c9fb87",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Do we support PKCS7 certificates?  If so, do we need to?  I suspect PEM is just enough, and reduces the number of test cases significantly.",
+      "range": {
+        "startLine": 208,
+        "startChar": 37,
+        "endLine": 208,
+        "endChar": 66
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7bc8632_ff49c873",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "This should be actionParameterNotSupported, not actionParameterNotSupported.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "05e7aba9_9f40be00",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Just a side note (nothing to fix).  This seems like a good use case for supporting jsonPointer in the readJson call, so you could just do.\n\nreadJson(\"CertificateUri/@odata.id\", certURI) inside the call on 192.  I wonder if we should look into that, and how much code it would simplify.",
+      "range": {
+        "startLine": 217,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 51
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975842f8_3c1ae322",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "This looks more like a \"field missing\" error than a value format error.  ValueFormat is for when the property is of the wrong type.",
+      "range": {
+        "startLine": 220,
+        "startChar": 22,
+        "endLine": 220,
+        "endChar": 53
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14dbc4bd_ae9448d5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Please explicitly declare std::string.",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 12
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
