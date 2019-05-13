@@ -42,7 +42,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                 std::cout << "Found an RSA key\n";
                 if (RSA_check_key(rsa) == 1)
                 {
-                    // private_key_valid = true;
+                    privateKeyValid = true;
                 }
                 else
                 {
