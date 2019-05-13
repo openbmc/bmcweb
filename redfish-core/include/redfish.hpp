@@ -1,5 +1,5 @@
 /*
-// Copyright (c) 2018 Intel Corporation
+// Copyright (c) 2018-2019 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@
 #include "../lib/ethernet.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
+#include "../lib/message_registries.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
@@ -106,6 +107,13 @@ class RedfishService
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
 #endif
+
+        nodes.emplace_back(
+            std::make_unique<MessageRegistryFileCollection>(app));
+        nodes.emplace_back(std::make_unique<BaseMessageRegistryFile>(app));
+        nodes.emplace_back(std::make_unique<BaseMessageRegistry>(app));
+        nodes.emplace_back(std::make_unique<OpenBMCMessageRegistryFile>(app));
+        nodes.emplace_back(std::make_unique<OpenBMCMessageRegistry>(app));
 
         for (const auto& node : nodes)
         {

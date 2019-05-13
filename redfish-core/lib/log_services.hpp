@@ -16,12 +16,18 @@
 #pragma once
 
 #include "node.hpp"
+#include "registries.hpp"
+#include "registries/base_message_registry.hpp"
+#include "registries/openbmc_message_registry.hpp"
 
 #include <systemd/sd-journal.h>
 
+#include <boost/algorithm/string/split.hpp>
+#include <boost/beast/core/span.hpp>
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
+#include <string_view>
 #include <variant>
 
 namespace redfish
@@ -35,6 +41,53 @@ constexpr char const *CrashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const *CrashdumpRawPECIInterface =
     "com.intel.crashdump.SendRawPeci";
+
+namespace message_registries
+{
+static const Message *getMessageFromRegistry(
+    const std::string &messageKey,
+    const boost::beast::span<const MessageEntry> registry)
+{
+    boost::beast::span<const MessageEntry>::const_iterator messageIt =
+        std::find_if(registry.cbegin(), registry.cend(),
+                     [&messageKey](const MessageEntry &messageEntry) {
+                         return !std::strcmp(messageEntry.first,
+                                             messageKey.c_str());
+                     });
+    if (messageIt != registry.cend())
+    {
+        return &messageIt->second;
+    }
+
+    return nullptr;
+}
+
+static const Message *getMessage(const std::string_view &messageID)
+{
+    // Redfish MessageIds are in the form
+    // RegistryName.MajorVersion.MinorVersion.MessageKey, so parse it to find
+    // the right Message
+    std::vector<std::string> fields;
+    fields.reserve(4);
+    boost::split(fields, messageID, boost::is_any_of("."));
+    std::string &registryName = fields[0];
+    std::string &messageKey = fields[3];
+
+    // Find the right registry and check it for the MessageKey
+    if (std::string(base::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey, boost::beast::span<const MessageEntry>(base::registry));
+    }
+    if (std::string(openbmc::header.registryPrefix) == registryName)
+    {
+        return getMessageFromRegistry(
+            messageKey,
+            boost::beast::span<const MessageEntry>(openbmc::registry));
+    }
+    return nullptr;
+}
+} // namespace message_registries
 
 namespace fs = std::filesystem;
 
@@ -239,6 +292,39 @@ static bool getUniqueEntryID(sd_journal *journal, std::string &entryID)
     return true;
 }
 
+static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID)
+{
+    static uint64_t prevTs = 0;
+    static int index = 0;
+    // Get the entry timestamp
+    uint64_t curTs = 0;
+    std::tm timeStruct = {};
+    std::istringstream entryStream(logEntry);
+    if (entryStream >> std::get_time(&timeStruct, "%Y-%m-%dT%H:%M:%S"))
+    {
+        curTs = std::mktime(&timeStruct);
+    }
+    // If the timestamp isn't unique, increment the index
+    if (curTs == prevTs)
+    {
+        index++;
+    }
+    else
+    {
+        // Otherwise, reset it
+        index = 0;
+    }
+    // Save the timestamp
+    prevTs = curTs;
+
+    entryID = std::to_string(curTs);
+    if (index > 0)
+    {
+        entryID += "_" + std::to_string(index);
+    }
+    return true;
+}
+
 static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
                                uint64_t &timestamp, uint16_t &index)
 {
@@ -299,6 +385,31 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
         return false;
     }
     return true;
+}
+
+static bool
+    getRedfishLogFiles(std::vector<std::filesystem::path> &redfishLogFiles)
+{
+    static const std::filesystem::path redfishLogDir = "/var/log";
+    static const std::string redfishLogFilename = "redfish";
+
+    // Loop through the directory looking for redfish log files
+    for (const std::filesystem::directory_entry &dirEnt :
+         std::filesystem::directory_iterator(redfishLogDir))
+    {
+        // If we find a redfish log file, save the path
+        std::string filename = dirEnt.path().filename();
+        if (boost::starts_with(filename, redfishLogFilename))
+        {
+            redfishLogFiles.emplace_back(redfishLogDir / filename);
+        }
+    }
+    // As the log files rotate, they are appended with a ".#" that is higher for
+    // the older logs. Since we don't expect more than 10 log files, we
+    // can just sort the list to get them in order from newest to oldest
+    std::sort(redfishLogFiles.begin(), redfishLogFiles.end());
+
+    return !redfishLogFiles.empty();
 }
 
 class SystemLogServiceCollection : public Node
@@ -388,87 +499,91 @@ class EventLogService : public Node
     }
 };
 
-static int fillEventLogEntryJson(const std::string &bmcLogEntryID,
-                                 const std::string_view &messageID,
-                                 sd_journal *journal,
-                                 nlohmann::json &bmcLogEntryJson)
+static int fillEventLogEntryJson(const std::string &logEntryID,
+                                 const std::string logEntry,
+                                 nlohmann::json &logEntryJson)
 {
-    // Get the Log Entry contents
-    int ret = 0;
-
-    std::string_view msg;
-    ret = getJournalMetadata(journal, "MESSAGE", msg);
-    if (ret < 0)
+    // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
+    // First get the Timestamp
+    size_t space = logEntry.find_first_of(" ");
+    if (space == std::string::npos)
     {
-        BMCWEB_LOG_ERROR << "Failed to read MESSAGE field: " << strerror(-ret);
         return 1;
     }
-
-    // Get the severity from the PRIORITY field
-    int severity = 8; // Default to an invalid priority
-    ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
-    if (ret < 0)
+    std::string timestamp = logEntry.substr(0, space);
+    // Then get the log contents
+    size_t entryStart = logEntry.find_first_not_of(" ", space);
+    if (entryStart == std::string::npos)
     {
-        BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
         return 1;
     }
-
-    // Get the MessageArgs from the journal entry by finding all of the
-    // REDFISH_MESSAGE_ARG_x fields
-    const void *data;
-    size_t length;
-    std::vector<std::string> messageArgs;
-    SD_JOURNAL_FOREACH_DATA(journal, data, length)
+    std::string_view entry(logEntry);
+    entry.remove_prefix(entryStart);
+    // Use split to separate the entry into its fields
+    std::vector<std::string> logEntryFields;
+    boost::split(logEntryFields, entry, boost::is_any_of(","),
+                 boost::token_compress_on);
+    // We need at least a MessageId to be valid
+    if (logEntryFields.size() < 1)
     {
-        std::string_view field(static_cast<const char *>(data), length);
-        if (boost::starts_with(field, "REDFISH_MESSAGE_ARG_"))
+        return 1;
+    }
+    std::string &messageID = logEntryFields[0];
+    std::string &messageArgsStart = logEntryFields[1];
+    std::size_t messageArgsSize = logEntryFields.size() - 1;
+
+    // Get the Message from the MessageRegistry
+    const message_registries::Message *message =
+        message_registries::getMessage(messageID);
+
+    std::string msg;
+    std::string severity;
+    if (message != nullptr)
+    {
+        msg = message->message;
+        severity = message->severity;
+    }
+
+    // Get the MessageArgs from the log
+    boost::beast::span messageArgs(&messageArgsStart, messageArgsSize);
+
+    // Fill the MessageArgs into the Message
+    int i = 0;
+    for (const std::string &messageArg : messageArgs)
+    {
+        std::string argStr = "%" + std::to_string(++i);
+        size_t argPos = msg.find(argStr);
+        if (argPos != std::string::npos)
         {
-            // Get the Arg number from the field name
-            field.remove_prefix(sizeof("REDFISH_MESSAGE_ARG_") - 1);
-            if (field.empty())
-            {
-                continue;
-            }
-            int argNum = std::strtoul(field.data(), nullptr, 10);
-            if (argNum == 0)
-            {
-                continue;
-            }
-            // Get the Arg value after the "=" character.
-            field.remove_prefix(std::min(field.find("=") + 1, field.size()));
-            // Make sure we have enough space in messageArgs
-            if (argNum > messageArgs.size())
-            {
-                messageArgs.resize(argNum);
-            }
-            messageArgs[argNum - 1] = std::string(field);
+            msg.replace(argPos, argStr.length(), messageArg);
         }
     }
 
-    // Get the Created time from the timestamp
-    std::string entryTimeStr;
-    if (!getEntryTimestamp(journal, entryTimeStr))
+    // Get the Created time from the timestamp. The log timestamp is in RFC3339
+    // format which matches the Redfish format except for the fractional seconds
+    // between the '.' and the '+', so just remove them.
+    std::size_t dot = timestamp.find_first_of(".");
+    std::size_t plus = timestamp.find_first_of("+");
+    if (dot != std::string::npos && plus != std::string::npos)
     {
-        return 1;
+        timestamp.erase(dot, plus - dot);
     }
 
     // Fill in the log entry with the gathered data
-    bmcLogEntryJson = {
+    logEntryJson = {
         {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id",
-         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-             bmcLogEntryID},
+         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/#" +
+             logEntryID},
         {"Name", "System Event Log Entry"},
-        {"Id", bmcLogEntryID},
-        {"Message", msg},
-        {"MessageId", messageID},
+        {"Id", logEntryID},
+        {"Message", std::move(msg)},
+        {"MessageId", std::move(messageID)},
         {"MessageArgs", std::move(messageArgs)},
         {"EntryType", "Event"},
-        {"Severity",
-         severity <= 2 ? "Critical"
-                       : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
-        {"Created", std::move(entryTimeStr)}};
+        {"Severity", std::move(severity)},
+        {"Created", std::move(timestamp)}};
     return 0;
 }
 
@@ -518,59 +633,53 @@ class EventLogEntryCollection : public Node
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
         logEntryArray = nlohmann::json::array();
-        // Go through the journal and create a unique ID for each entry
-        sd_journal *journalTmp = nullptr;
-        int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
-        if (ret < 0)
-        {
-            BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
-            journalTmp, sd_journal_close);
-        journalTmp = nullptr;
+        // Go through the log files and create a unique ID for each entry
+        std::vector<std::filesystem::path> redfishLogFiles;
+        getRedfishLogFiles(redfishLogFiles);
         uint64_t entryCount = 0;
-        SD_JOURNAL_FOREACH(journal.get())
+        std::string logEntry;
+
+        // Oldest logs are in the last file, so start there and loop backwards
+        for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend();
+             it++)
         {
-            // Look for only journal entries that contain a REDFISH_MESSAGE_ID
-            // field
-            std::string_view messageID;
-            ret = getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID",
-                                     messageID);
-            if (ret < 0)
+            std::ifstream logStream(*it);
+            if (!logStream.is_open())
             {
                 continue;
             }
 
-            entryCount++;
-            // Handle paging using skip (number of entries to skip from the
-            // start) and top (number of entries to display)
-            if (entryCount <= skip || entryCount > skip + top)
+            while (std::getline(logStream, logEntry))
             {
-                continue;
-            }
+                entryCount++;
+                // Handle paging using skip (number of entries to skip from the
+                // start) and top (number of entries to display)
+                if (entryCount <= skip || entryCount > skip + top)
+                {
+                    continue;
+                }
 
-            std::string idStr;
-            if (!getUniqueEntryID(journal.get(), idStr))
-            {
-                continue;
-            }
+                std::string idStr;
+                if (!getUniqueEntryID(logEntry, idStr))
+                {
+                    continue;
+                }
 
-            logEntryArray.push_back({});
-            nlohmann::json &bmcLogEntry = logEntryArray.back();
-            if (fillEventLogEntryJson(idStr, messageID, journal.get(),
-                                      bmcLogEntry) != 0)
-            {
-                messages::internalError(asyncResp->res);
-                return;
+                logEntryArray.push_back({});
+                nlohmann::json &bmcLogEntry = logEntryArray.back();
+                if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry) != 0)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
             }
         }
         asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
         if (skip + top < entryCount)
         {
             asyncResp->res.jsonValue["Members@odata.nextLink"] =
-                "/redfish/v1/Managers/bmc/LogServices/BmcLog/Entries?$skip=" +
+                "/redfish/v1/Systems/system/LogServices/EventLog/"
+                "Entries?$skip=" +
                 std::to_string(skip + top);
         }
 #else
@@ -719,57 +828,7 @@ class EventLogEntry : public Node
         }
         const std::string &entryID = params[0];
 
-#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-        // Convert the unique ID back to a timestamp to find the entry
-        uint64_t ts = 0;
-        uint16_t index = 0;
-        if (!getTimestampFromID(asyncResp->res, entryID, ts, index))
-        {
-            return;
-        }
-
-        sd_journal *journalTmp = nullptr;
-        int ret = sd_journal_open(&journalTmp, SD_JOURNAL_LOCAL_ONLY);
-        if (ret < 0)
-        {
-            BMCWEB_LOG_ERROR << "failed to open journal: " << strerror(-ret);
-            messages::internalError(asyncResp->res);
-            return;
-        }
-        std::unique_ptr<sd_journal, decltype(&sd_journal_close)> journal(
-            journalTmp, sd_journal_close);
-        journalTmp = nullptr;
-        // Go to the timestamp in the log and move to the entry at the index
-        ret = sd_journal_seek_realtime_usec(journal.get(), ts);
-        for (int i = 0; i <= index; i++)
-        {
-            sd_journal_next(journal.get());
-        }
-        // Confirm that the entry ID matches what was requested
-        std::string idStr;
-        if (!getUniqueEntryID(journal.get(), idStr) || idStr != entryID)
-        {
-            messages::resourceMissingAtURI(asyncResp->res, entryID);
-            return;
-        }
-
-        // only use journal entries that contain a REDFISH_MESSAGE_ID field
-        std::string_view messageID;
-        ret =
-            getJournalMetadata(journal.get(), "REDFISH_MESSAGE_ID", messageID);
-        if (ret < 0)
-        {
-            messages::resourceNotFound(asyncResp->res, "LogEntry", "system");
-            return;
-        }
-
-        if (fillEventLogEntryJson(entryID, messageID, journal.get(),
-                                  asyncResp->res.jsonValue) != 0)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-#else
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         // DBus implementation of EventLog/Entries
         // Make call to Logging Service to find all log entry objects
         crow::connections::systemBus->async_method_call(
@@ -847,7 +906,8 @@ class EventLogEntry : public Node
                     {"Message", *message},
                     {"EntryType", "Event"},
                     {"Severity", translateSeverityDbusToRedfish(*severity)},
-                    {"Created", crow::utility::getDateTime(timestamp)}};
+                    { "Created",
+                      crow::utility::getDateTime(timestamp) }};
             },
             "xyz.openbmc_project.Logging",
             "/xyz/openbmc_project/logging/entry/" + entryID,
