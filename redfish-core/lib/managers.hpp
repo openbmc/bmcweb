@@ -944,8 +944,8 @@ class Manager : public Node
         res.jsonValue["PowerState"] = "On";
         res.jsonValue["Status"] = {{"State", "Enabled"}, {"Health", "OK"}};
         res.jsonValue["ManagerType"] = "BMC";
-        res.jsonValue["UUID"] = uuid;
-        res.jsonValue["ServiceEntryPointUUID"] = systemd_utils::getUuid();
+        res.jsonValue["UUID"] = systemd_utils::getUuid();
+        res.jsonValue["ServiceEntryPointUUID"] = uuid;
         res.jsonValue["Model"] = "OpenBmc"; // TODO(ed), get model
 
         res.jsonValue["LogServices"] = {
