@@ -27,6 +27,8 @@ class ServiceRoot : public Node
   public:
     ServiceRoot(CrowApp& app) : Node(app, "/redfish/v1/")
     {
+        uuid = app.template getMiddleware<crow::persistent_data::Middleware>()
+                   .systemUuid;
         entityPrivileges = {
             {boost::beast::http::verb::get, {}},
             {boost::beast::http::verb::head, {}},
@@ -64,9 +66,11 @@ class ServiceRoot : public Node
         res.jsonValue["UpdateService"] = {
             {"@odata.id", "/redfish/v1/UpdateService"}};
 
-        res.jsonValue["UUID"] = systemd_utils::getUuid();
+        res.jsonValue["UUID"] = uuid;
         res.end();
     }
+
+    std::string uuid;
 };
 
 } // namespace redfish
