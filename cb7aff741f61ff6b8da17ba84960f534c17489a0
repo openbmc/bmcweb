@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7bc690b_4de204f4",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "You should use the AsyncResp pattern to avoid all these res.end() calls.",
+      "range": {
+        "startLine": 200,
+        "startChar": 0,
+        "endLine": 200,
+        "endChar": 22
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10053cf9_d2452d47",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "The below code seems to differ.",
+      "range": {
+        "startLine": 210,
+        "startChar": 8,
+        "endLine": 210,
+        "endChar": 46
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4126e58f_fd47725d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "We support PKCS7 certificates?  That doesn\u0027t seem right....",
+      "range": {
+        "startLine": 211,
+        "startChar": 60,
+        "endLine": 211,
+        "endChar": 65
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5e0e6ed_aa00e44f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Please avoid auto here.",
+      "range": {
+        "startLine": 230,
+        "startChar": 8,
+        "endLine": 230,
+        "endChar": 12
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceb17da8_50ff9246",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this check be done first, before getIDfromURL?",
+      "range": {
+        "startLine": 238,
+        "startChar": 0,
+        "endLine": 247,
+        "endChar": 9
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64ea9882_a5765154",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Please move LDAP code upload into a separate patchset.  I requires different testing conditions.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 9
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61b99edc_54c5f28a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "See comments in earlier patchsets about not building lambdas in scopes where they\u0027re not used.",
+      "range": {
+        "startLine": 266,
+        "startChar": 13,
+        "endLine": 266,
+        "endChar": 31
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3440ab71_67c1970a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "unintentional copy?",
+      "range": {
+        "startLine": 290,
+        "startChar": 28,
+        "endLine": 290,
+        "endChar": 35
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e532255d_0cecf7f5",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-05-13T22:46:45Z",
+      "side": 1,
+      "message": "Need certificate interface here?",
+      "range": {
+        "startLine": 297,
+        "startChar": 49,
+        "endLine": 297,
+        "endChar": 77
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
