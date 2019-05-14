@@ -129,10 +129,10 @@ const std::array registry = {
         "FanInserted",
         {
             .description = "Indicates that a system fan has been inserted.",
-            .message = "Fan %1 inserted.",
+            .message = "%1 inserted.",
             .severity = "OK",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{"FanRedundancyLost",
@@ -160,10 +160,10 @@ const std::array registry = {
         "FanRemoved",
         {
             .description = "Indicates that a system fan has been removed.",
-            .message = "Fan %1 removed.",
-            .severity = "Warning",
+            .message = "%1 removed.",
+            .severity = "OK",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{
