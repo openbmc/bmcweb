@@ -283,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "ac98f86f_cee266d4",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "61b99edc_54c5f28a",
+      "range": {
+        "startLine": 266,
+        "startChar": 13,
+        "endLine": 266,
+        "endChar": 31
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3440ab71_67c1970a",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 27
@@ -350,6 +374,30 @@
       "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e712fee_1a37298a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 27
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e532255d_0cecf7f5",
+      "range": {
+        "startLine": 297,
+        "startChar": 49,
+        "endLine": 297,
+        "endChar": 77
+      },
+      "revId": "cb7aff741f61ff6b8da17ba84960f534c17489a0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
