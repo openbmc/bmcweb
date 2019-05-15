@@ -237,6 +237,30 @@
     },
     {
       "key": {
+        "uuid": "fee3dceb_fcdd5a0a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T10:52:05Z",
+      "side": 1,
+      "message": "adding json pointer probably will take up some other time but pushing as is",
+      "parentUuid": "0af73e61_6b7f2543",
+      "range": {
+        "startLine": 217,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 51
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "975842f8_3c1ae322",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 17
