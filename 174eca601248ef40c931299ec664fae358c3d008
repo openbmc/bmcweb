@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "11d884a1_ddd6df9b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8336d43_cc472bf5",
+      "range": {
+        "startLine": 81,
+        "startChar": 65,
+        "endLine": 81,
+        "endChar": 70
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf504453_0c11e80c",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 17
@@ -36,6 +60,30 @@
       "writtenOn": "2019-05-13T22:46:45Z",
       "side": 1,
       "message": "Should we declare this std::optional, and default to PEM if no type is specified?",
+      "range": {
+        "startLine": 191,
+        "startChar": 8,
+        "endLine": 191,
+        "endChar": 36
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3dcf7e7_3889db7b",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Redfish defines this as RequiredParameter, assuming caller need to supply this value.\nhttps://redfish.dmtf.org/schemas/v1/CertificateService.v1_0_0.json\n\nagree that making it optional and setting it to \"PEM\" is less pain to the caller but might deviate the specification.",
+      "parentUuid": "bf504453_0c11e80c",
       "range": {
         "startLine": 191,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da9b8e1f_1f214d1d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "535e68da_a6c9fb87",
+      "range": {
+        "startLine": 208,
+        "startChar": 37,
+        "endLine": 208,
+        "endChar": 66
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7bc8632_ff49c873",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 17
@@ -91,6 +163,30 @@
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a170c1f5_ce1eec0f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e7bc8632_ff49c873",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 54
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "0af73e61_6b7f2543",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "05e7aba9_9f40be00",
+      "range": {
+        "startLine": 217,
+        "startChar": 1,
+        "endLine": 218,
+        "endChar": 51
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "975842f8_3c1ae322",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 17
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "6d9f69d2_e8e82f9d",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975842f8_3c1ae322",
+      "range": {
+        "startLine": 220,
+        "startChar": 22,
+        "endLine": 220,
+        "endChar": 53
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14dbc4bd_ae9448d5",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 17
@@ -160,6 +304,30 @@
       "revId": "174eca601248ef40c931299ec664fae358c3d008",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e95872d3_ffd4b66a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-05-15T07:11:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14dbc4bd_ae9448d5",
+      "range": {
+        "startLine": 226,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 12
+      },
+      "revId": "174eca601248ef40c931299ec664fae358c3d008",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
