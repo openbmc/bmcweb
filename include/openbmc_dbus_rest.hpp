@@ -1871,7 +1871,7 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            forbiddenPropDesc,
+                                                            ec.category().name(),
                                                             ec.message());
                                                     }
                                                     else
