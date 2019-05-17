@@ -18,7 +18,9 @@
     <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Chassis_v1.xml">
         <edmx:Include Namespace="Chassis"/>
     </edmx:Reference>
-
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/CertificateCollection_v1.xml">
+        <edmx:Include Namespace="CertificateCollection"/>
+    </edmx:Reference>
     <edmx:DataServices>
         <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemManager">
             <ComplexType Name="Oem" BaseType="Resource.OemObject">
@@ -26,6 +28,12 @@
                 <Annotation Term="OData.Description" String="OemManager Oem properties." />
                 <Annotation Term="OData.AutoExpand"/>
                 <Property Name="OpenBmc" Type="OemManager.OpenBmc"/>
+                <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                    <Annotation Term="OData.Description" String="This is a reference to a collection of certificates used for Truststore by this manager."/>
+                    <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type CertificateCollection."/>
+                    <Annotation Term="OData.AutoExpandReferences"/>
+                </NavigationProperty>
             </ComplexType>
 
             <ComplexType Name="OpenBmc">
