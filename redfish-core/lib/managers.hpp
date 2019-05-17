@@ -1497,6 +1497,8 @@ class Manager : public Node
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
         oemOpenbmc["@odata.context"] =
             "/redfish/v1/$metadata#OemManager.OpenBmc";
+        oemOpenbmc["Certificates"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
 
         // Update Actions object.
         nlohmann::json& manager_reset =
