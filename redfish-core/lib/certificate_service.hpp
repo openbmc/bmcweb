@@ -331,6 +331,11 @@ class CertificateActionGenerateCSR : public Node
             objectPath = certs::httpsObjectPath;
             service = certs::httpsServiceName;
         }
+        else if (certURI == "/redfish/v1/AccountService/LDAP/Certificates/")
+        {
+            objectPath = certs::ldapObjectPath;
+            service = certs::ldapServiceName;
+        }
         else
         {
             messages::actionParameterValueFormatError(asyncResp->res, certURI,
