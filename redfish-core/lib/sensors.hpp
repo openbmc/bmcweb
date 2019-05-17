@@ -32,7 +32,7 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-using SensorVariant = std::variant<int64_t, double>;
+using SensorVariant = std::variant<int64_t, double, uint32_t, bool>;
 
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
@@ -481,7 +481,11 @@ void objectInterfacesToJson(
         std::string sensorNameLower =
             boost::algorithm::to_lower_copy(sensorName);
 
-        if (sensorNameLower.find("input") != std::string::npos)
+        if (!sensorName.compare("total_power"))
+        {
+            unit = "PowerConsumedWatts";
+        }
+        else if (sensorNameLower.find("input") != std::string::npos)
         {
             unit = "PowerInputWatts";
         }
@@ -547,6 +551,7 @@ void objectInterfacesToJson(
                 const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
 
                 const double* doubleValue = std::get_if<double>(&valueVariant);
+                const uint32_t* uValue = std::get_if<uint32_t>(&valueVariant);
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
@@ -555,6 +560,10 @@ void objectInterfacesToJson(
                 else if (doubleValue != nullptr)
                 {
                     temp = *doubleValue;
+                }
+                else if (uValue != nullptr)
+                {
+                    temp = *uValue;
                 }
                 else
                 {
@@ -917,7 +926,14 @@ void getSensorData(
                 }
                 else if (sensorType == "power")
                 {
-                    fieldName = "PowerSupplies";
+                    if (!sensorName.compare("total_power"))
+                    {
+                        fieldName = "PowerControl";
+                    }
+                    else
+                    {
+                        fieldName = "PowerSupplies";
+                    }
                 }
                 else
                 {
