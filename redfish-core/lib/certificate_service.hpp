@@ -297,6 +297,11 @@ class CertificateActionGenerateCSR : public Node
             objectPath = certs::httpsObjectPath;
             service = certs::httpsServiceName;
         }
+        else if (certURI == "/redfish/v1/AccountService/LDAP/Certificates/")
+        {
+            objectPath = certs::ldapObjectPath;
+            service = certs::ldapServiceName;
+        }
         else
         {
             messages::actionParameterValueFormatError(asyncResp->res, certURI,
@@ -331,6 +336,18 @@ class CertificateActionGenerateCSR : public Node
             for (const std::string &usage : *optKeyUsage)
             {
                 if (!isServerKeyUsageFound(usage))
+                {
+                    messages::actionParameterValueFormatError(
+                        asyncResp->res, usage, "KeyUsage", "GenerateCSR");
+                    return;
+                }
+            }
+        }
+        else if (certURI == "/redfish/v1/AccountService/LDAP/Certificates/")
+        {
+            for (const std::string &usage : *optKeyUsage)
+            {
+                if (!isClientKeyUsageFound(usage))
                 {
                     messages::actionParameterValueFormatError(
                         asyncResp->res, usage, "KeyUsage", "GenerateCSR");
@@ -439,6 +456,21 @@ class CertificateActionGenerateCSR : public Node
     {
         const static std::array<const char *, 3> usageList = {
             "DigitalSignature", "KeyCertSign", "ServerAuthentication"};
+        auto it = std::find_if(
+            usageList.begin(), usageList.end(),
+            [&str](const char *s) { return (strcmp(s, str.c_str()) == 0); });
+        return it != usageList.end();
+    }
+    /**
+     * @brief Check if keyusage is for client certificate
+     *
+     * @param[in] str keyusage received from user
+     * @return true if it is of client supported else false
+     */
+    bool isClientKeyUsageFound(const std::string &str)
+    {
+        const static std::array<const char *, 3> usageList = {
+            "DigitalSignature", "KeyCertSign", "ClientAuthentication"};
         auto it = std::find_if(
             usageList.begin(), usageList.end(),
             [&str](const char *s) { return (strcmp(s, str.c_str()) == 0); });
