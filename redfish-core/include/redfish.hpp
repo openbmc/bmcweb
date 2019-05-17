@@ -76,6 +76,7 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));
+        nodes.emplace_back(std::make_unique<EventLogClear>(app));
         nodes.emplace_back(std::make_unique<EventLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogEntry>(app));
 

@@ -496,6 +496,61 @@ class EventLogService : public Node
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
+        asyncResp->res.jsonValue["Actions"] = {
+            {{"#LogService.ClearLog",
+              {{"target", "/redfish/v1/Systems/system/LogServices/EventLog/"
+                          "Actions/LogService.ClearLog"}}}}};
+    }
+};
+
+class EventLogClear : public Node
+{
+  public:
+    EventLogClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        // Clear the EventLog by deleting the log files
+        std::vector<std::filesystem::path> redfishLogFiles;
+        if (getRedfishLogFiles(redfishLogFiles))
+        {
+            for (const std::filesystem::path &file : redfishLogFiles)
+            {
+                std::error_code ec;
+                std::filesystem::remove(file, ec);
+            }
+        }
+
+        // Reload rsyslog so it knows to start new log files
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Failed to reload rsyslog: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                messages::success(asyncResp->res);
+            },
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
+            "replace");
     }
 };
 
