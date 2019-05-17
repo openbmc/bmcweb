@@ -135,6 +135,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<LDAPCertificateCollection>(app));
         nodes.emplace_back(std::make_unique<LDAPCertificate>(app));
         nodes.emplace_back(std::make_unique<CertificateActionGenerateCSR>(app));
+        nodes.emplace_back(
+            std::make_unique<TrustStoreCertificateCollection>(app));
+        nodes.emplace_back(std::make_unique<TrustStoreCertificate>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
         for (const auto& node : nodes)
