@@ -1485,6 +1485,8 @@ class Manager : public Node
 
         res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+        res.jsonValue["Certificates"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
         // default oem data
         nlohmann::json& oem = res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
