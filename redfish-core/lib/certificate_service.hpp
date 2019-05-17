@@ -34,6 +34,8 @@ constexpr char const *mapperObjectPath = "/xyz/openbmc_project/object_mapper";
 constexpr char const *mapperIntf = "xyz.openbmc_project.ObjectMapper";
 constexpr char const *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
 constexpr char const *generateCSRIntf = "xyz.openbmc_project.Certs.CSR.Create";
+constexpr char const *authorityObjectPath =
+    "/xyz/openbmc_project/certs/authority/ldap";
 } // namespace certs
 
 /**
@@ -234,7 +236,9 @@ class CertificateActionsReplaceCertificate : public Node
                                 "/redfish/v1/Managers/bmc/NetworkProtocol/"
                                 "HTTPS/Certificates/") &&
             !boost::starts_with(
-                certURI, "/redfish/v1/AccountService/LDAP/Certificates/"))
+                certURI, "/redfish/v1/AccountService/LDAP/Certificates/") &&
+            !boost::starts_with(
+                certURI, "/redfish/v1/Managers/bmc/Truststore/Certificates/"))
         {
             BMCWEB_LOG_ERROR << "Unsupported certificate URI" << certURI;
             messages::actionParameterValueFormatError(asyncResp->res, certURI,
@@ -267,6 +271,13 @@ class CertificateActionsReplaceCertificate : public Node
         {
             objectPath = std::string(certs::ldapObjectPath) + "/" + certId;
             name = "LDAP certificate";
+        }
+        else if (boost::starts_with(
+                     certURI,
+                     "/redfish/v1/Managers/bmc/Truststore/Certificates/"))
+        {
+            objectPath = std::string(certs::authorityObjectPath) + "/" + certId;
+            name = "TrustStore certificate";
         }
         else
         {
@@ -513,6 +524,7 @@ class CertificateActionGenerateCSR : public Node
         }
         for (const std::string &usage : *optKeyUsage)
         {
+            BMCWEB_LOG_DEBUG << "key usage" << usage;
             if (!isKeyUsageFound(usage))
             {
                 messages::actionParameterValueFormatError(
@@ -1164,6 +1176,9 @@ class CertificateLocations : public Node
         getCertificateLocations(asyncResp,
                                 "/redfish/v1/AccountService/LDAP/Certificates/",
                                 certs::ldapObjectPath);
+        getCertificateLocations(
+            asyncResp, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
+            certs::authorityObjectPath);
     }
 }; // CertificateLocations
 
@@ -1338,4 +1353,181 @@ class LDAPCertificate : public Node
                                  "LDAP Certificate");
     }
 }; // LDAPCertificate
+
+/**
+ * Collection of TrustStoreCertificate certificates
+ */
+class TrustStoreCertificateCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    TrustStoreCertificateCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        res.jsonValue = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
+            {"@odata.type", "#CertificateCollection.CertificateCollection"},
+            {"@odata.context",
+             "/redfish/v1/"
+             "$metadata#CertificateCollection.CertificateCollection"},
+            {"Name", "TrustStore Certificates Collection"},
+            {"Description",
+             "A Collection of TrustStore certificate instances"}};
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const GetObjectType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (resp.size() > 1 || resp.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Invalid number of objects found "
+                                     << resp.size();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string &service = resp.begin()->first;
+                BMCWEB_LOG_DEBUG << "getServiceName service: " << service;
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec,
+                                const ManagedObjectType &certs) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        nlohmann::json &members =
+                            asyncResp->res.jsonValue["Members"];
+                        members = nlohmann::json::array();
+                        for (const auto &cert : certs)
+                        {
+                            auto id = getIDFromURL(cert.first.str);
+                            if (id)
+                            {
+                                members.push_back(
+                                    {{"@odata.id", "/redfish/v1/Managers/bmc/"
+                                                   "Truststore/Certificates/" +
+                                                       std::to_string(id)}});
+                            }
+                        }
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            members.size();
+                    },
+                    service, certs::authorityObjectPath,
+                    certs::dbusObjManagerIntf, "GetManagedObjects");
+            },
+            certs::mapperBusName, certs::mapperObjectPath, certs::mapperIntf,
+            "GetObject", certs::authorityObjectPath,
+            std::array<const char *, 1>{certs::certInstallIntf});
+    }
+
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(req.body);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, certFile](const boost::system::error_code ec,
+                                  const GetObjectType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (resp.size() > 1 || resp.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Invalid number of objects found "
+                                     << resp.size();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const std::string &service = resp.begin()->first;
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, certFile](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        //// TODO: Issue#84 supproting only 1 certificate
+                        std::string certId = "1";
+                        std::string certURL =
+                            "/redfish/v1/Managers/bmc/Truststore/Certificates/";
+                        certURL += certId;
+                        std::string objectPath =
+                            std::string(certs::authorityObjectPath) + "/" +
+                            certId;
+                        getCertificateProperties(asyncResp, objectPath, certId,
+                                                 certURL,
+                                                 "TrustStore Certificate");
+                        BMCWEB_LOG_DEBUG
+                            << "TrustStore certificate install file="
+                            << certFile->getCertFilePath();
+                    },
+                    service, certs::authorityObjectPath, certs::certInstallIntf,
+                    "Install", certFile->getCertFilePath());
+            },
+            certs::mapperBusName, certs::mapperObjectPath, certs::mapperIntf,
+            "GetObject", certs::authorityObjectPath,
+            std::array<const char *, 1>{certs::certInstallIntf});
+    }
+}; // TrustStoreCertificateCollection
+
+/**
+ * Certificate resource describes a certificate used to prove the identity
+ * of a component, account or service.
+ */
+class TrustStoreCertificate : public Node
+{
+  public:
+    template <typename CrowApp>
+    TrustStoreCertificate(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/Truststore/Certificates/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::string certId = params[0];
+        dbus::utility::escapePathForDbus(certId);
+        BMCWEB_LOG_DEBUG << "TrustStore Certificate ID=" << certId;
+        std::string certURL =
+            "/redfish/v1/Managers/bmc/Truststore/Certificates/";
+        certURL += certId;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string objectPath = certs::authorityObjectPath;
+        objectPath += "/";
+        objectPath += certId;
+        getCertificateProperties(asyncResp, objectPath, certId, certURL,
+                                 "TrustStore Certificate");
+    }
+}; // TrustStoreCertificate
 } // namespace redfish
