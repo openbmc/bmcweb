@@ -298,6 +298,12 @@ class CertificateActionGenerateCSR : public Node
             objectPath = certs::httpsObjectPath;
             service = certs::httpsServiceName;
         }
+        else if (boost::starts_with(
+                     certURI, "/redfish/v1/AccountService/LDAP/Certificates"))
+        {
+            objectPath = certs::ldapObjectPath;
+            service = certs::ldapServiceName;
+        }
         else
         {
             messages::actionParameterNotSupported(
@@ -336,6 +342,29 @@ class CertificateActionGenerateCSR : public Node
             else if (optKeyUsage->size() == 1)
             {
                 if ((*optKeyUsage)[0] != "ServerAuthentication")
+                {
+                    messages::propertyValueNotInList(
+                        asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
+                    return;
+                }
+            }
+            else
+            {
+                messages::actionParameterNotSupported(
+                    asyncResp->res, "KeyUsage", "GenerateCSR");
+                return;
+            }
+        }
+        else if (boost::starts_with(
+                     certURI, "/redfish/v1/AccountService/LDAP/Certificates"))
+        {
+            if (optKeyUsage->size() == 0)
+            {
+                optKeyUsage->push_back("ClientAuthentication");
+            }
+            else if (optKeyUsage->size() == 1)
+            {
+                if ((*optKeyUsage)[0] != "ClientAuthentication")
                 {
                     messages::propertyValueNotInList(
                         asyncResp->res, (*optKeyUsage)[0], "KeyUsage");
