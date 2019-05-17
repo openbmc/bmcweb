@@ -32,7 +32,7 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
-using SensorVariant = std::variant<int64_t, double>;
+using SensorVariant = std::variant<int64_t, double, bool>;
 
 using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
@@ -401,6 +401,87 @@ void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
 }
 
 /**
+ * @brief Retrieves the health from a sensor .
+ * @param interfacesDict   Map of all sensor interfaces
+ * @param sensorName  Sensor name of the sensor for error printing
+ */
+
+static std::string getHealth(
+    const boost::container::flat_map<
+        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        interfacesDict)
+{
+    auto criticalThresholdIt =
+        interfacesDict.find("xyz.openbmc_project.Sensor.Threshold.Critical");
+    if (criticalThresholdIt != interfacesDict.end())
+    {
+        auto thresholdHighIt =
+            criticalThresholdIt->second.find("CriticalAlarmHigh");
+        auto thresholdLowIt =
+            criticalThresholdIt->second.find("CriticalAlarmLow");
+        if (thresholdHighIt != criticalThresholdIt->second.end())
+        {
+            const bool* asserted = std::get_if<bool>(&thresholdHighIt->second);
+            if (asserted == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+            }
+            else if (*asserted)
+            {
+                return "Critical";
+            }
+        }
+        if (thresholdLowIt != criticalThresholdIt->second.end())
+        {
+            const bool* asserted = std::get_if<bool>(&thresholdLowIt->second);
+            if (asserted == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold";
+            }
+            else if (*asserted)
+            {
+                return "Critical";
+            }
+        }
+    }
+
+    auto warningThresholdIt =
+        interfacesDict.find("xyz.openbmc_project.Sensor.Threshold.Warning");
+    if (warningThresholdIt != interfacesDict.end())
+    {
+        auto thresholdHighIt =
+            warningThresholdIt->second.find("WarningAlarmHigh");
+        auto thresholdLowIt =
+            warningThresholdIt->second.find("WarningAlarmLow");
+        if (thresholdHighIt != warningThresholdIt->second.end())
+        {
+            const bool* asserted = std::get_if<bool>(&thresholdHighIt->second);
+            if (asserted == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold" << sensorName;
+            }
+            else if (*asserted)
+            {
+                return "Warning";
+            }
+        }
+        if (thresholdLowIt != warningThresholdIt->second.end())
+        {
+            const bool* asserted = std::get_if<bool>(&thresholdLowIt->second);
+            if (asserted == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal sensor threshold" << sensorName;
+            }
+            else if (*asserted)
+            {
+                return "Warning";
+            }
+        }
+    }
+    return "OK";
+}
+
+/**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
@@ -442,7 +523,7 @@ void objectInterfacesToJson(
     sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
 
     sensor_json["Status"]["State"] = "Enabled";
-    sensor_json["Status"]["Health"] = "OK";
+    sensor_json["Status"]["Health"] = getHealth(interfacesDict);
 
     // Parameter to set to override the type we get from dbus, and force it to
     // int, regardless of what is available.  This is used for schemas like fan,
