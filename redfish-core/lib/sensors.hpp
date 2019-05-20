@@ -404,6 +404,41 @@ void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
 }
 
 /**
+ * @brief Retrieves the state from a sensor .
+ * @param interfacesDict   Map of all sensor interfaces
+ */
+
+static std::string getState(
+    const boost::container::flat_map<
+        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        interfacesDict)
+{
+    auto itemIfaceIt =
+        interfacesDict.find("xyz.openbmc_project.Inventory.Item");
+    if (itemIfaceIt != interfacesDict.end())
+    {
+        auto presentIt = itemIfaceIt->second.find("Present");
+        if (presentIt == itemIfaceIt->second.end())
+        {
+            BMCWEB_LOG_ERROR << "Illegal item iface";
+        }
+        else
+        {
+            const bool* present = std::get_if<bool>(&presentIt->second);
+            if (present == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Illegal item iface";
+            }
+            else if (!*present)
+            {
+                return "Absent";
+            }
+        }
+    }
+    return "Enabled";
+}
+
+/**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
@@ -444,7 +479,7 @@ void objectInterfacesToJson(
     sensor_json["MemberId"] = sensorName;
     sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
 
-    sensor_json["Status"]["State"] = "Enabled";
+    sensor_json["Status"]["State"] = getState(interfacesDict);
     sensor_json["Status"]["Health"] = "OK";
 
     // Parameter to set to override the type we get from dbus, and force it to
@@ -878,6 +913,40 @@ void getSensorData(
                 messages::internalError(SensorsAsyncResp->res);
                 return;
             }
+
+            // merge the inventory item with the sensor
+            for (auto it = resp.begin(); it != resp.end();)
+            {
+                const std::string& objPath =
+                    static_cast<const std::string&>(it->first);
+                if (boost::starts_with(objPath, "/xyz/openbmc_project/sensors"))
+                {
+                    it++;
+                    continue;
+                }
+                size_t lastSlash = objPath.rfind("/");
+                if (lastSlash == std::string::npos ||
+                    (lastSlash + 1) >= objPath.size())
+                {
+                    it++;
+                    continue;
+                }
+                std::string name = objPath.substr(lastSlash + 1);
+                auto objItr = std::find_if(
+                    resp.begin(), resp.end(), [name](const auto& obj) {
+                        return boost::ends_with(obj.first.str, name);
+                    });
+                if (objItr == resp.end())
+                {
+                    it++;
+                    continue;
+                }
+
+                objItr->second.insert(it->second.begin(), it->second.end());
+                BMCWEB_LOG_DEBUG << "deleting " << objPath;
+                it = resp.erase(it);
+            }
+
             // Go through all objects and update response with sensor data
             for (const auto& objDictEntry : resp)
             {
