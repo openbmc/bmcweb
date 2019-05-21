@@ -1,0 +1,10 @@
+.content {
+  max-width: 500px;
+  margin: auto;
+  font-family: monospace;
+}
+
+.header {
+  max-width: 576px;
+  margin: 0 auto;
+}
