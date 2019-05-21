@@ -221,6 +221,189 @@ class ChassisCollection : public Node
     }
 };
 
+struct GetChassisHealth : std::enable_shared_from_this<GetChassisHealth>
+{
+
+    GetChassisHealth(const std::shared_ptr<AsyncResp> &asyncResp,
+                     const std::string &chassisPath) :
+        asyncResp(asyncResp),
+        chassisPath(chassisPath)
+    {
+    }
+    void populate(void)
+    {
+        getGlobalHealth();
+        getInventory();
+        getSensorHealth();
+    }
+    ~GetChassisHealth()
+    {
+        auto &health = asyncResp->res.jsonValue["Status"]["Health"];
+        auto &rollup = asyncResp->res.jsonValue["Status"]["HealthRollup"];
+        for (const std::string &failure : globalCritical)
+        {
+            if (inventory.find(failure) != inventory.end())
+            {
+                health = "Critical";
+                break;
+            }
+        }
+        if (health.empty())
+        {
+            for (const std::string &failure : globalWarning)
+            {
+                if (inventory.find(failure) != inventory.end())
+                {
+                    health = "Warning";
+                    break;
+                }
+            }
+        }
+        if (health.empty())
+        {
+            health = "OK";
+        }
+        for (const std::string &failure : sensorCritical)
+        {
+            if (inventory.find(failure) != inventory.end())
+            {
+                rollup = "Critical";
+                break;
+            }
+        }
+        if (rollup.empty())
+        {
+            for (const std::string &failure : sensorWarning)
+            {
+                if (inventory.find(failure) != inventory.end())
+                {
+                    rollup = "Warning";
+                    break;
+                }
+            }
+        }
+        if (rollup.empty())
+        {
+            rollup = "OK";
+        }
+    }
+
+    void getGlobalHealth(void)
+    {
+        std::shared_ptr<GetChassisHealth> self = shared_from_this();
+        crow::connections::systemBus->async_method_call(
+            [self](const boost::system::error_code ec,
+                   crow::openbmc_mapper::GetSubTreeType &resp) {
+                if (ec || resp.size() != 1)
+                {
+                    // no global item, or too many
+                    return;
+                }
+                const std::string &path = resp[0].first;
+                const std::array<const std::string, 2> levels{"warning",
+                                                              "critical"};
+                for (const std::string &level : levels)
+                {
+                    crow::connections::systemBus->async_method_call(
+                        [self,
+                         level](const boost::system::error_code ec,
+                                std::variant<std::vector<std::string>> &resp) {
+                            if (ec)
+                            {
+                                return;
+                            }
+                            std::vector<std::string> *data =
+                                std::get_if<std::vector<std::string>>(&resp);
+                            if (data != nullptr)
+                            {
+                                if (level == "critical")
+                                {
+                                    self->globalCritical = std::move(*data);
+                                }
+                                else
+                                {
+                                    self->globalWarning = std::move(*data);
+                                }
+                            }
+                        },
+                        "xyz.openbmc_project.ObjectMapper", path + "/" + level,
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Association", "endpoints");
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+            std::array<const char *, 1>{
+                "xyz.openbmc_project.Inventory.Item.Global"});
+    }
+
+    void getInventory(void)
+    {
+        std::shared_ptr<GetChassisHealth> self = shared_from_this();
+        crow::connections::systemBus->async_method_call(
+            [self](const boost::system::error_code ec,
+                   std::variant<std::vector<std::string>> &resp) {
+                if (ec)
+                {
+                    return; // no sensors = no failures
+                }
+                std::vector<std::string> *data =
+                    std::get_if<std::vector<std::string>>(&resp);
+                if (data == nullptr)
+                {
+                    return;
+                }
+                self->inventory.insert(data->begin(), data->end());
+            },
+            "xyz.openbmc_project.ObjectMapper", chassisPath + "/sensors",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Association", "endpoints");
+    }
+
+    void getSensorHealth(void)
+    {
+        std::shared_ptr<GetChassisHealth> self = shared_from_this();
+        const std::array<const std::string, 2> levels{"warning", "critical"};
+        for (const std::string &level : levels)
+        {
+            crow::connections::systemBus->async_method_call(
+                [level, self](const boost::system::error_code ec,
+                              std::variant<std::vector<std::string>> &resp) {
+                    if (ec)
+                    {
+                        return;
+                    }
+                    std::vector<std::string> *data =
+                        std::get_if<std::vector<std::string>>(&resp);
+                    if (data != nullptr)
+                    {
+                        if (level == "critical")
+                        {
+                            self->sensorCritical = std::move(*data);
+                        }
+                        else
+                        {
+                            self->sensorWarning = std::move(*data);
+                        }
+                    }
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/sensors/" + level,
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Association", "endpoints");
+        }
+    }
+
+    std::shared_ptr<AsyncResp> asyncResp;
+    std::string chassisPath;
+    std::vector<std::string> globalCritical;
+    std::vector<std::string> globalWarning;
+    std::vector<std::string> sensorCritical;
+    std::vector<std::string> sensorWarning;
+    std::set<std::string> inventory;
+};
+
 /**
  * Chassis override class for delivering Chassis Schema
  */
@@ -291,6 +474,10 @@ class Chassis : public Node
                         continue;
                     }
 
+                    auto health =
+                        std::make_shared<GetChassisHealth>(asyncResp, path);
+                    health->populate();
+
                     if (connectionNames.size() < 1)
                     {
                         BMCWEB_LOG_ERROR << "Only got "
@@ -347,7 +534,6 @@ class Chassis : public Node
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/Power"}};
                             asyncResp->res.jsonValue["Status"] = {
-                                {"Health", "OK"},
                                 {"State", "Enabled"},
                             };
 
