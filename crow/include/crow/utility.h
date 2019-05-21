@@ -666,55 +666,6 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     return true;
 }
 
-inline void escapeHtml(std::string& data)
-{
-    std::string buffer;
-    // less than 5% of characters should be larger, so reserve a buffer of the
-    // right size
-    buffer.reserve(data.size() * 1.05);
-    for (size_t pos = 0; pos != data.size(); ++pos)
-    {
-        switch (data[pos])
-        {
-            case '&':
-                buffer.append("&amp;");
-                break;
-            case '\"':
-                buffer.append("&quot;");
-                break;
-            case '\'':
-                buffer.append("&apos;");
-                break;
-            case '<':
-                buffer.append("&lt;");
-                break;
-            case '>':
-                buffer.append("&gt;");
-                break;
-            default:
-                buffer.append(&data[pos], 1);
-                break;
-        }
-    }
-    data.swap(buffer);
-}
-
-inline void convertToLinks(std::string& s)
-{
-    const static std::regex r{"(&quot;@odata\\.((id)|(Context))&quot;[ \\n]*:[ "
-                              "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
-
-    const static std::regex nextLink{
-        "(&quot;Members@odata\\.((nextLink))&quot;[ \\n]*:[ "
-        "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, nextLink, "$1<a href=\"$5\">$4</a>");
-
-    const static std::regex uri{"(&quot;((Uri))&quot;[ \\n]*:[ "
-                                "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, uri, "$1<a href=\"$5\">$4</a>");
-}
-
 /**
  * Method returns Date Time information according to requested format
  *
