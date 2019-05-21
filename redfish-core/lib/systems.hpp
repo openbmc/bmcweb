@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "health.hpp"
 #include "redfish_util.hpp"
 
 #include <boost/container/flat_map.hpp>
@@ -1214,6 +1215,29 @@ class Systems : public Node
             {"State", "Enabled"},
         };
         auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        constexpr const std::array<const char *, 2> inventoryForSystems = {
+            "xyz.openbmc_project.Inventory.Item.Dimm",
+            "xyz.openbmc_project.Inventory.Item.Cpu"};
+
+        auto health = std::make_shared<HealthPopulate>(asyncResp);
+        crow::connections::systemBus->async_method_call(
+            [health](const boost::system::error_code ec,
+                     std::vector<std::string> &resp) {
+                if (ec)
+                {
+                    // no inventory
+                    return;
+                }
+
+                health->inventory = std::move(resp);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
+            int32_t(0), inventoryForSystems);
+
+        health->populate();
 
         getMainChassisId(asyncResp, [](const std::string &chassisId,
                                        std::shared_ptr<AsyncResp> aRsp) {
