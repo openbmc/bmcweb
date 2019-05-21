@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "health.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
@@ -1149,6 +1151,35 @@ class Systems : public Node
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        auto health = std::make_shared<HealthPopulate>(
+            asyncResp, [](const std::shared_ptr<HealthPopulate> &self) {
+                // todo: all inventory used below this point needs to be added
+                // to this array
+                const std::array<const char *, 2> inventoryForSystems = {
+                    "xyz.openbmc_project.Inventory.Item.Dimm",
+                    "xyz.openbmc_project.Inventory.Item.Cpu"};
+
+                crow::connections::systemBus->async_method_call(
+                    [self](const boost::system::error_code ec,
+                           crow::openbmc_mapper::GetSubTreeType &resp) {
+                        if (ec)
+                        {
+                            // no inventory
+                            return;
+                        }
+                        for (auto &[path, _] : resp)
+                        {
+                            self->inventory.emplace(std::move(path));
+                        }
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+                    int32_t(0), inventoryForSystems);
+            });
+
+        health->populate();
 
         getLedGroupIdentify(
             asyncResp,
