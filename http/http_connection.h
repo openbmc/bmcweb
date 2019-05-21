@@ -18,6 +18,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
 #include <boost/beast/websocket.hpp>
+#include <json_html_serializer.hpp>
 #include <ssl_key_handler.hpp>
 
 #include <atomic>
@@ -29,31 +30,8 @@ namespace crow
 
 inline void prettyPrintJson(crow::Response& res)
 {
-    std::string value = res.jsonValue.dump(4, ' ', true);
-    utility::escapeHtml(value);
-    utility::convertToLinks(value);
-    res.body() = "<html>\n"
-                 "<head>\n"
-                 "<title>Redfish API</title>\n"
-                 "<link rel=\"stylesheet\" type=\"text/css\" "
-                 "href=\"/styles/default.css\">\n"
-                 "<script src=\"/highlight.pack.js\"></script>"
-                 "<script>hljs.initHighlightingOnLoad();</script>"
-                 "</head>\n"
-                 "<body>\n"
-                 "<div style=\"max-width: 576px;margin:0 auto;\">\n"
-                 "<img src=\"/DMTF_Redfish_logo_2017.svg\" alt=\"redfish\" "
-                 "height=\"406px\" "
-                 "width=\"576px\">\n"
-                 "<br>\n"
-                 "<pre>\n"
-                 "<code class=\"json\">" +
-                 value +
-                 "</code>\n"
-                 "</pre>\n"
-                 "</div>\n"
-                 "</body>\n"
-                 "</html>\n";
+    json_html_util::dump_html(res.body(), res.jsonValue);
+
     res.addHeader("Content-Type", "text/html;charset=UTF-8");
 }
 
