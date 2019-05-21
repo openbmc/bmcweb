@@ -17,6 +17,7 @@
 
 #include "node.hpp"
 #include "redfish_util.hpp"
+#include "health.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
@@ -1521,6 +1522,10 @@ class Manager : public Node
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        auto health = std::make_shared<HealthPopulate>(asyncResp);
+        health->isManagersHealth = true;
+        health->populate();
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
