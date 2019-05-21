@@ -1,0 +1,19 @@
+img {
+  max-width: 30em;
+  margin: 0 auto;
+}
+
+.container {
+  width: 30em;
+  top: 50%;
+  left: 50%;
+  margin: 0 auto;
+}
+
+.content {
+  font-family: monospace;
+}
+
+.tab {
+  margin-left: 2em;
+}
