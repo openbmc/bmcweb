@@ -15,6 +15,7 @@
 */
 #pragma once
 
+#include "health.hpp"
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
@@ -291,6 +292,30 @@ class Chassis : public Node
                         continue;
                     }
 
+                    auto health = std::make_shared<HealthPopulate>(asyncResp);
+
+                    crow::connections::systemBus->async_method_call(
+                        [health](const boost::system::error_code ec,
+                                 std::variant<std::vector<std::string>> &resp) {
+                            if (ec)
+                            {
+                                return; // no sensors = no failures
+                            }
+                            std::vector<std::string> *data =
+                                std::get_if<std::vector<std::string>>(&resp);
+                            if (data == nullptr)
+                            {
+                                return;
+                            }
+                            health->inventory = std::move(*data);
+                        },
+                        "xyz.openbmc_project.ObjectMapper",
+                        path + "/all_sensors",
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Association", "endpoints");
+
+                    health->populate();
+
                     if (connectionNames.size() < 1)
                     {
                         BMCWEB_LOG_ERROR << "Only got "
@@ -347,7 +372,6 @@ class Chassis : public Node
                                 {"@odata.id", "/redfish/v1/Chassis/" +
                                                   chassisId + "/Power"}};
                             asyncResp->res.jsonValue["Status"] = {
-                                {"Health", "OK"},
                                 {"State", "Enabled"},
                             };
 
