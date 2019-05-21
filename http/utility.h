@@ -734,48 +734,6 @@ inline bool base64Decode(const std::string_view input, std::string& output)
     return true;
 }
 
-inline void escapeHtml(std::string& data)
-{
-    std::string buffer;
-    // less than 5% of characters should be larger, so reserve a buffer of the
-    // right size
-    buffer.reserve(data.size() * 11 / 10);
-    for (size_t pos = 0; pos != data.size(); ++pos)
-    {
-        switch (data[pos])
-        {
-            case '&':
-                buffer.append("&amp;");
-                break;
-            case '\"':
-                buffer.append("&quot;");
-                break;
-            case '\'':
-                buffer.append("&apos;");
-                break;
-            case '<':
-                buffer.append("&lt;");
-                break;
-            case '>':
-                buffer.append("&gt;");
-                break;
-            default:
-                buffer.append(&data[pos], 1);
-                break;
-        }
-    }
-    data.swap(buffer);
-}
-
-inline void convertToLinks(std::string& s)
-{
-    // Convert anything with a redfish path into a link
-    const static std::regex redfishPath{
-        "(&quot;((.*))&quot;[ \\n]*:[ "
-        "\\n]*)(&quot;((?!&quot;)/redfish/.*)&quot;)"};
-    s = std::regex_replace(s, redfishPath, "$1<a href=\"$5\">$4</a>");
-}
-
 /**
  * Method returns Date Time information according to requested format
  *
