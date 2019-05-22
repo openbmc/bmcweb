@@ -112,6 +112,104 @@ class ManagerActionsReset : public Node
     }
 };
 
+struct ManagersHealth : std::enable_shared_from_this<ManagersHealth>
+{
+    ManagersHealth(const std::shared_ptr<AsyncResp>& asyncResp) :
+        asyncResp(asyncResp)
+    {
+    }
+    ~ManagersHealth()
+    {
+        auto& health = asyncResp->res.jsonValue["Status"]["Health"];
+        auto& rollup = asyncResp->res.jsonValue["Status"]["HealthRollup"];
+
+        health = "OK";
+        rollup = "OK";
+
+        for (const std::string& path : statuses)
+        {
+            if (boost::starts_with(path, globalPath) &&
+                boost::ends_with(path, "critical"))
+            {
+                health = "Critical";
+                rollup = "Critical";
+                return;
+            }
+            else if (boost::starts_with(path, globalPath) &&
+                     boost::ends_with(path, "warning"))
+            {
+                health = "Warning";
+                if (rollup != "Critical")
+                {
+                    rollup = "Warning";
+                }
+            }
+            else if (boost::ends_with(path, "critical"))
+            {
+                rollup = "Critical";
+            }
+            else if (boost::ends_with(path, "warning"))
+            {
+                if (rollup != "Critical")
+                {
+                    rollup = "Warning";
+                }
+            }
+        }
+    }
+    void populate()
+    {
+        getAllStatusAssociations();
+        getGlobalPath();
+    }
+    void getGlobalPath()
+    {
+        std::shared_ptr<ManagersHealth> self = shared_from_this();
+        crow::connections::systemBus->async_method_call(
+            [self](const boost::system::error_code ec,
+                   std::vector<std::string>& resp) {
+                if (ec || resp.size() != 1)
+                {
+                    // no global item, or too many
+                    return;
+                }
+                self->globalPath = std::move(resp[0]);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
+            int32_t(0),
+            std::array<const char*, 1>{
+                "xyz.openbmc_project.Inventory.Item.Global"});
+    }
+    void getAllStatusAssociations()
+    {
+        std::shared_ptr<ManagersHealth> self = shared_from_this();
+        crow::connections::systemBus->async_method_call(
+            [self](const boost::system::error_code ec,
+                   dbus::utility::ManagedObjectType& resp) {
+                if (ec)
+                {
+                    return;
+                }
+                for (auto it = resp.begin(); it != resp.end();)
+                {
+                    if (boost::ends_with(it->first.str, "critical") ||
+                        boost::ends_with(it->first.str, "warning"))
+                    {
+                        self->statuses.emplace_back(it->first);
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper", "/",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    std::shared_ptr<AsyncResp> asyncResp;
+    std::string globalPath = "-"; // default to illegal dbus path
+    std::vector<std::string> statuses;
+};
+
 static constexpr const char* objectManagerIface =
     "org.freedesktop.DBus.ObjectManager";
 static constexpr const char* pidConfigurationIface =
@@ -1521,6 +1619,9 @@ class Manager : public Node
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        auto health = std::make_shared<ManagersHealth>(asyncResp);
+        health->populate();
 
         crow::connections::systemBus->async_method_call(
             [asyncResp](const boost::system::error_code ec,
