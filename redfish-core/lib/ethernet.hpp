@@ -916,6 +916,111 @@ class EthernetInterface : public Node
     }
 
   private:
+    void handleDHCPPatch(nlohmann::json &input, const std::string &iface_id,
+                         const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        std::optional<bool> DNSEnabled;
+        std::optional<bool> NTPEnabled;
+        std::optional<bool> DomainNameEnabled;
+        std::optional<bool> DHCPEnabled;
+
+        if (!json_util::readJson(input, asyncResp->res, "UseDNSServers",
+                                 DNSEnabled, "UseNTPServers", NTPEnabled,
+                                 "UseDomainName", DomainNameEnabled,
+                                 "DHCPEnabled", DHCPEnabled))
+        {
+            return;
+        }
+        if (DNSEnabled)
+        {
+            auto callback = [asyncResp,
+                             DNSEnabled](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["DHCPv4"]["UseDNSServers"] =
+                        *DNSEnabled;
+                }
+            };
+            crow::connections::systemBus->async_method_call(
+                std::move(callback), "xyz.openbmc_project.Network",
+                "/xyz/openbmc_project/network/config/dhcp",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Network.DHCPConfiguration", "DNSEnabled",
+                std::variant<bool>{*DNSEnabled});
+        }
+
+        if (NTPEnabled)
+        {
+
+            auto callback = [asyncResp,
+                             NTPEnabled](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["DHCPv4"]["UseNTPServers"] =
+                        *NTPEnabled;
+                }
+            };
+            crow::connections::systemBus->async_method_call(
+                std::move(callback), "xyz.openbmc_project.Network",
+                "/xyz/openbmc_project/network/config/dhcp",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Network.DHCPConfiguration", "NTPEnabled",
+                std::variant<bool>{*NTPEnabled});
+        }
+
+        if (DomainNameEnabled)
+        {
+
+            auto callback = [asyncResp, DomainNameEnabled](
+                                const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["DHCPv4"]["UseDomainName"] =
+                        *DomainNameEnabled;
+                }
+            };
+            crow::connections::systemBus->async_method_call(
+                std::move(callback), "xyz.openbmc_project.Network",
+                "/xyz/openbmc_project/network/config/dhcp",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Network.DHCPConfiguration",
+                "HostNameEnabled", std::variant<bool>{*DomainNameEnabled});
+        }
+
+        if (DHCPEnabled)
+        {
+            auto callback = [asyncResp,
+                             DHCPEnabled](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                else
+                {
+                    asyncResp->res.jsonValue["DHCPv4"]["DHCPEnabled"] =
+                        *DHCPEnabled;
+                }
+            };
+            crow::connections::systemBus->async_method_call(
+                std::move(callback), "xyz.openbmc_project.Network",
+                "/xyz/openbmc_project/network/" + iface_id,
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
+                std::variant<bool>{*DHCPEnabled});
+        }
+    }
     void handleHostnamePatch(const std::string &hostname,
                              const std::shared_ptr<AsyncResp> asyncResp)
     {
@@ -1333,15 +1438,20 @@ class EthernetInterface : public Node
         std::optional<nlohmann::json> ipv6Addresses;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<std::vector<std::string>> nameServers;
+        std::optional<nlohmann::json> dhcpv4;
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
                 "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
                 "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
-                ipv6DefaultGateway, "NameServers", nameServers))
+                ipv6DefaultGateway, "NameServers", nameServers, "DHCPv4",
+                dhcpv4))
         {
             return;
         }
+
+        // Get the DHCP config data for JSON preparation
+        getDHCPConfigData(asyncResp);
 
         // Get single eth interface data, and call the below callback for JSON
         // preparation
@@ -1353,7 +1463,7 @@ class EthernetInterface : public Node
              ipv6Addresses = std::move(ipv6Addresses),
              ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              staticNameServers = std::move(staticNameServers),
-             nameServers = std::move(nameServers)](
+             nameServers = std::move(nameServers), dhcpv4 = std::move(dhcpv4)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -1368,6 +1478,12 @@ class EthernetInterface : public Node
 
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
+
+                if (dhcpv4)
+                {
+                    nlohmann::json dhcpv4Data = std::move(*dhcpv4);
+                    handleDHCPPatch(dhcpv4Data, iface_id, asyncResp);
+                }
 
                 if (hostname)
                 {
