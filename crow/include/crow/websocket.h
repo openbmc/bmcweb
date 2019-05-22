@@ -73,19 +73,30 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     {
         BMCWEB_LOG_DEBUG << "starting connection " << this;
 
-        std::string_view protocol = req.getHeaderValue(
-            boost::beast::http::field::sec_websocket_protocol);
+        using bf = boost::beast::http::field;
+
+        std::string_view protocol =
+            req.getHeaderValue(bf::sec_websocket_protocol);
 
         // Perform the websocket upgrade
-        ws.async_accept_ex(
+        ws.async_accept(
             req.req,
             [protocol{std::string(protocol)}](
                 boost::beast::websocket::response_type& m) {
                 if (!protocol.empty())
                 {
-                    m.insert(boost::beast::http::field::sec_websocket_protocol,
-                             protocol);
+                    m.insert(bf::sec_websocket_protocol, protocol);
                 }
+
+                m.insert(bf::strict_transport_security, "max-age=31536000; "
+                                                        "includeSubdomains; "
+                                                        "preload");
+                m.insert(bf::pragma, "no-cache");
+                m.insert(bf::cache_control, "no-Store,no-Cache");
+                m.insert("Content-Security-Policy", "default-src 'self';");
+                m.insert("X-XSS-Protection", "1; "
+                                             "mode=block");
+                m.insert("X-Content-Type-Options", "nosniff");
             },
             [this, self(shared_from_this())](boost::system::error_code ec) {
                 if (ec)
