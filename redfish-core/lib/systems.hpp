@@ -468,7 +468,7 @@ static std::string dbusToRfBootSource(const std::string &dbusSource)
         return "Hdd";
     }
     else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.DVD")
+             "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia")
     {
         return "Cd";
     }
@@ -536,7 +536,7 @@ static std::string rfToDbusBootSource(const std::string &rfSource)
     }
     else if (rfSource == "Cd")
     {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.DVD";
+        return "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia";
     }
     else if (rfSource == "Pxe")
     {
