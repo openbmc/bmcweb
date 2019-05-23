@@ -997,7 +997,7 @@ class BMCJournalLogService : public Node
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
-             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/"}};
+             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries"}};
     }
 };
 
@@ -1045,7 +1045,7 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
         {"Severity",
          severity <= 2 ? "Critical"
                        : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
-        {"OemRecordFormat", "Intel BMC Journal Entry"},
+        {"OemRecordFormat", "BMC Journal Entry"},
         {"Created", std::move(entryTimeStr)}};
     return 0;
 }
