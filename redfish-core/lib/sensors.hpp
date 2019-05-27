@@ -1041,14 +1041,12 @@ bool findSensorNameUsingSensorPath(
 {
     for (const std::string& chassisSensor : sensorsList)
     {
-        std::string thisSensorName;
-        if (!dbus::utility::getNthStringFromPath(chassisSensor, 5,
-                                                 thisSensorName))
+        std::size_t pos = chassisSensor.rfind("/");
+        if (pos == std::string::npos || pos >= (chassisSensor.size() - 1))
         {
-            BMCWEB_LOG_ERROR << "Got path that isn't long enough "
-                             << chassisSensor;
             continue;
         }
+        std::string_view thisSensorName = chassisSensor.substr(pos + 1);
         if (thisSensorName == sensorName)
         {
             sensorsModified.emplace(chassisSensor);
