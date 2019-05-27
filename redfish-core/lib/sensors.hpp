@@ -1035,20 +1035,18 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
  *                         repeated calls to this function
  */
 bool findSensorNameUsingSensorPath(
-    const std::string& sensorName,
+    std::string_view sensorName,
     boost::container::flat_set<std::string>& sensorsList,
     boost::container::flat_set<std::string>& sensorsModified)
 {
-    for (const std::string& chassisSensor : sensorsList)
+    for (std::string_view chassisSensor : sensorsList)
     {
-        std::string thisSensorName;
-        if (!dbus::utility::getNthStringFromPath(chassisSensor, 5,
-                                                 thisSensorName))
+        std::size_t pos = chassisSensor.rfind("/");
+        if (pos == std::string_view::npos || pos >= (chassisSensor.size() - 1))
         {
-            BMCWEB_LOG_ERROR << "Got path that isn't long enough "
-                             << chassisSensor;
             continue;
         }
+        std::string_view thisSensorName = chassisSensor.substr(pos + 1);
         if (thisSensorName == sensorName)
         {
             sensorsModified.emplace(chassisSensor);
