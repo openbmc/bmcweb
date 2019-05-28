@@ -202,6 +202,74 @@ class UpdateService : public Node
         res.end();
     }
 
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "doPatch...";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        std::string applyTime;
+
+        if (json_util::readJson(req, res, "ApplyTime", applyTime))
+        {
+            if (applyTime == "Immediate")
+            {
+                BMCWEB_LOG_INFO << "Apply time value is Immediate";
+                // Immediate image apply time is requested
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        messages::success(asyncResp->res);
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/software/apply_time",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Software.ApplyTime",
+                    "RequestedApplyTime",
+                    std::variant<std::string>{
+                        "xyz.openbmc_project.Software.ApplyTime."
+                        "RequestedApplyTimes.Immediate"});
+                return;
+            }
+            else if (applyTime == "OnReset")
+            {
+                BMCWEB_LOG_INFO << "Apply time value is OnReset";
+                // Immediate image apply time is requested
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        messages::success(asyncResp->res);
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/software/apply_time",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Software.ApplyTime",
+                    "RequestedApplyTime",
+                    std::variant<std::string>{
+                        "xyz.openbmc_project.Software.ApplyTime."
+                        "RequestedApplyTimes.OnReset"});
+                return;
+            }
+            else
+            {
+                BMCWEB_LOG_INFO << "Apply time value is invalid";
+                messages::propertyValueTypeError(asyncResp->res, applyTime,
+                                                 "ApplyTime");
+                return;
+            }
+        }
+    }
+
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
