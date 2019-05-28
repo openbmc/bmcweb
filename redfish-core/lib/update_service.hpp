@@ -202,6 +202,59 @@ class UpdateService : public Node
         res.end();
     }
 
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "doPatch...";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        std::string applyTime;
+
+        if (!json_util::readJson(req, res, "ApplyTime", applyTime))
+        {
+            return;
+        }
+
+        if ((applyTime == "Immediate") || (applyTime == "OnReset"))
+        {
+            std::string applyTimeNewVal;
+            if (applyTime == "Immediate")
+            {
+                applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                                  "RequestedApplyTimes.Immediate";
+            }
+            else
+            {
+                applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                                  "RequestedApplyTimes.OnReset";
+            }
+
+            // Set the requested image apply time value
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.Settings",
+                "/xyz/openbmc_project/software/apply_time",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
+                std::variant<std::string>{applyTimeNewVal});
+        }
+        else
+        {
+            BMCWEB_LOG_INFO << "ApplyTime value is not in the list of "
+                               "acceptable values";
+            messages::propertyValueNotInList(asyncResp->res, applyTime,
+                                             "ApplyTime");
+        }
+    }
+
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
