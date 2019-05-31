@@ -116,6 +116,17 @@ const std::array registry = {
                      .resolution = "None.",
                  }},
     MessageEntry{
+        "DCPowerOnAfterACLost",
+        {
+            .description =
+                "Indicates that the system DC power is on after AC loss.",
+            .message = "Host system DC power is on after AC loss",
+            .severity = "OK",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "EventLogCleared",
         {
             .description = "Indicates that the event log has been cleared.",
