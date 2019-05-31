@@ -105,13 +105,14 @@ class Roles : public Node
         }
 
         res.jsonValue = {
-            {"@odata.type", "#Role.v1_0_2.Role"},
+            {"@odata.type", "#Role.v1_2_1.Role"},
             {"@odata.context", "/redfish/v1/$metadata#Role.Role"},
             {"Name", "User Role"},
             {"Description", roleId + " User Role"},
             {"OemPrivileges", nlohmann::json::array()},
             {"IsPredefined", true},
             {"Id", roleId},
+            {"RoleId", roleId},
             {"@odata.id", "/redfish/v1/AccountService/Roles/" + roleId},
             {"AssignedPrivileges", std::move(privArray)}};
         res.end();
