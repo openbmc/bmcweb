@@ -1027,44 +1027,43 @@ class SystemActionsReset : public Node
             return;
         }
 
-        if (resetType == "ForceOff")
-        {
-            // Force off acts on the chassis
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::internalError(asyncResp->res);
-                        return;
-                    }
-                    // TODO Consider support polling mechanism to verify
-                    // status of host and chassis after execute the
-                    // requested action.
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.State.Chassis",
-                "/xyz/openbmc_project/state/chassis0",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-                std::variant<std::string>{
-                    "xyz.openbmc_project.State.Chassis.Transition.Off"});
-            return;
-        }
-        // all other actions operate on the host
+        // Get the command and host vs. chassis
         std::string command;
-        // Execute Reset Action regarding to each reset type.
+        bool hostCommand;
         if (resetType == "On")
         {
             command = "xyz.openbmc_project.State.Host.Transition.On";
+            hostCommand = true;
+        }
+        else if (resetType == "ForceOff")
+        {
+            command = "xyz.openbmc_project.State.Chassis.Transition.Off";
+            hostCommand = false;
+        }
+        else if (resetType == "ForceOn")
+        {
+            command = "xyz.openbmc_project.State.Host.Transition.On";
+            hostCommand = true;
+        }
+        else if (resetType == "ForceRestart")
+        {
+            command = "xyz.openbmc_project.State.Chassis.Transition.Reset";
+            hostCommand = false;
         }
         else if (resetType == "GracefulShutdown")
         {
             command = "xyz.openbmc_project.State.Host.Transition.Off";
+            hostCommand = true;
         }
         else if (resetType == "GracefulRestart")
         {
             command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+            hostCommand = true;
+        }
+        else if (resetType == "PowerCycle")
+        {
+            command = "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
+            hostCommand = false;
         }
         else
         {
@@ -1072,24 +1071,58 @@ class SystemActionsReset : public Node
             return;
         }
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                // TODO Consider support polling mechanism to verify
-                // status of host and chassis after execute the
-                // requested action.
-                messages::success(asyncResp->res);
-            },
-            "xyz.openbmc_project.State.Host",
-            "/xyz/openbmc_project/state/host0",
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-            std::variant<std::string>{command});
+        if (hostCommand)
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, resetType](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        if (ec.value() == boost::asio::error::invalid_argument)
+                        {
+                            messages::actionParameterNotSupported(
+                                asyncResp->res, resetType, "Reset");
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.State.Host",
+                "/xyz/openbmc_project/state/host0",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+                std::variant<std::string>{command});
+        }
+        else
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, resetType](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                        if (ec.value() == boost::asio::error::invalid_argument)
+                        {
+                            messages::actionParameterNotSupported(
+                                asyncResp->res, resetType, "Reset");
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
+                        return;
+                    }
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.State.Chassis",
+                "/xyz/openbmc_project/state/chassis0",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
+                std::variant<std::string>{command});
+        }
     }
 };
 
@@ -1143,7 +1176,8 @@ class Systems : public Node
             {"target",
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"ResetType@Redfish.AllowableValues",
-             {"On", "ForceOff", "GracefulRestart", "GracefulShutdown"}}};
+             {"On", "ForceOff","ForceOn", "ForceRestart", "GracefulRestart",
+              "GracefulShutdown", "PowerCycle"}}};
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
