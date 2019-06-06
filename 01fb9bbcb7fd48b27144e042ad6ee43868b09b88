@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76fc8de0_520a37a5",
+        "filename": "bmcweb.service.in",
+        "patchSetId": 37
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-06T21:58:16Z",
+      "side": 1,
+      "message": "I\u0027m pretty sure you didn\u0027t intend to duplicate these, and I don\u0027t think they\u0027re needed at all.  Just call kill",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 72
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb0a7408_2ffe3c47",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-06T21:58:16Z",
+      "side": 1,
+      "message": "If i compare this function to how openssl parses these strings, I\u0027m seeing some significant differences in how bad characters are parsed as well as multiple property values.\n\nhttps://github.com/openssl/openssl/blob/7ed66e2634e6cfbb16a1ef975572e79a479217a8/apps/apps.c#L1607\n\nI wonder, should we reading this into an openssl X509 subject, then reading the values out from there?  That way, we can make sure that we handle all the corner cases correctly.\n\nWhat do you think?",
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
