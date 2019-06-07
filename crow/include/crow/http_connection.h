@@ -336,6 +336,29 @@ class Connection
 
         if (!isInvalidRequest)
         {
+            if constexpr (std::is_same_v<Adaptor,
+                                         boost::beast::ssl_stream<
+                                             boost::asio::ip::tcp::socket>>)
+            {
+                boost::system::error_code ec;
+
+                auto remoteEnd = adaptor.next_layer().remote_endpoint(ec);
+                if (!ec)
+                {
+                    req->remoteIp = remoteEnd.address().to_string();
+                }
+            }
+            else
+            {
+                boost::system::error_code ec;
+
+                auto remoteEnd = adaptor.remote_endpoint(ec);
+                if (!ec)
+                {
+                    req->remoteIp = remoteEnd.address().to_string();
+                }
+            }
+
             res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 

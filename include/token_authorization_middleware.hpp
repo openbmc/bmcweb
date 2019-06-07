@@ -388,6 +388,11 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                     auto session = persistent_data::SessionStore::getInstance()
                                        .generateUserSession(username);
 
+#ifdef BMCWEB_ENABLE_TRAFFIC_LOGGING
+                    app.template getMiddleware<crow::logging::Middleware>().log(
+                        req, res, username, true);
+#endif
+
                     if (looksLikeIbm)
                     {
                         // IBM requires a very specific login structure, and

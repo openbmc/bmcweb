@@ -58,6 +58,8 @@ option (BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE "Enable TFTP based
        firmware update transactions through Redfish
        UpdateService.SimpleUpdate." OFF)
 
+option (BMCWEB_ENABLE_TRAFFIC_LOGGING  "Enable traffic logging" OFF)
+
 project (bmc-webserver CXX)
 
 include (CTest)
@@ -277,7 +279,7 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
     $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>: -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
-
+    $<$<BOOL:${BMCWEB_ENABLE_TRAFFIC_LOGGING}>: -DBMCWEB_ENABLE_TRAFFIC_LOGGING>
 )
 
 # configure and install systemd unit files
