@@ -98,6 +98,24 @@
       "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0f2c980_313a26ae",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 544,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-07T22:43:07Z",
+      "side": 1,
+      "message": "Fair enough that openssl might not be the way to go here.\n\nWhat mostly worries me is that there is no error handling whatsoever if the string doesn\u0027t match what we\u0027re expecting, or fails to parse, or has unacceptable characters in it.  I also am not a big fan of adding yet another boost dependency (boost tokenizer) when the parser we\u0027re trying to write can be easily done with a single while loop, while at the same time avoiding a bunch of the string copies that seem to have been made.\n\n\n\nI took a little time to doctor up the (untested) version of what I\u0027d like to see instead, which has no string copies (with the exception of copying it into the output) and doesn\u0027t have any dependencies on boost.\n\nstatic void updateCertIssuerOrSubject(const std::string \u0026s,\n                                      nlohmann::json \u0026j)\n{\n    const std::string_view::iterator i \u003d s.begin();\n    while (i !\u003d s.end())\n    {\n        const std::string_view::iterator tokenBegin \u003d i;\n        /* Collect the type */\n        while (i !\u003d s.end() \u0026\u0026 *i !\u003d \u0027\u003d\u0027){\n            i++;\n        }\n        if (i \u003d\u003d s.end())\n        {\n            BMCWEB_LOG_ERROR(\"Hit end of string before finding the \u0027\u003d\u0027\");\n            return;\n        }\n        const std::string_view key \u003d s.substr(tokenBegin, i);\n        i++;\n        tokenBegin \u003d i;\n        while (i !\u003d s.end() \u0026\u0026 *i !\u003d \u0027,\u0027){\n            i++;\n        }\n        const std::string_view value \u003d s.substr(tokenBegin, i);\n\n        if (key \u003d\u003d \"L\")\n        {\n            value[\"City\"] \u003d value;\n        }\n        else if (key \u003d\u003d \"CN\")\n        {\n            value[\"CommonName\"] \u003d value;\n        }\n        else if (key \u003d\u003d \"C\")\n        {\n            value[\"Country\"] \u003d value;\n        }\n        else if (key \u003d\u003d \"O\")\n        {\n            value[\"Organization\"] \u003d value;\n        }\n        else if (key \u003d\u003d \"OU\")\n        {\n            value[\"OrganizationalUnit\"] \u003d value;\n        }\n        else if (key \u003d\u003d \"ST\")\n        {\n            value[\"State\"] \u003d value;\n        }\n        \n        while (i !\u003d s.end() \u0026\u0026 *i !\u003d \u0027 \u0027){\n            i++;\n        }\n    }\n}",
+      "parentUuid": "9f940763_e1db72c9",
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
