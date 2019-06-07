@@ -23,6 +23,7 @@ struct Request
 
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
+    std::string remoteIp;
 
     std::shared_ptr<crow::persistent_data::UserSession> session;
 

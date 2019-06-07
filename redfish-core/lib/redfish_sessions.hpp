@@ -113,7 +113,8 @@ class SessionCollection : public Node
 {
   public:
     SessionCollection(CrowApp& app) :
-        Node(app, "/redfish/v1/SessionService/Sessions/"), memberSession(app)
+        Node(app, "/redfish/v1/SessionService/Sessions/"), memberSession(app),
+        app(app)
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -195,6 +196,10 @@ class SessionCollection : public Node
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
         res.result(boost::beast::http::status::created);
+#ifdef BMCWEB_ENABLE_TRAFFIC_LOGGING
+        app.template getMiddleware<crow::logging::Middleware>().log(
+            req, res, username, true);
+#endif
         memberSession.doGet(res, req, {session->uniqueId});
     }
 
@@ -203,6 +208,7 @@ class SessionCollection : public Node
      * member's doGet, as they should return 100% matching data
      */
     Sessions memberSession;
+    CrowApp& app;
 };
 
 class SessionService : public Node
