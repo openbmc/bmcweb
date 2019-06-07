@@ -21,6 +21,8 @@ struct Request
 
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
+    std::string username;
+    std::string remoteIp;
 
     Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
         req(req), body(req.body())

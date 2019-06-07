@@ -15,10 +15,16 @@
 */
 #pragma once
 
+#include "logging_middleware.hpp"
 #include "security_headers_middleware.hpp"
 #include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
 
 using CrowApp = crow::App<crow::SecurityHeadersMiddleware,
                           crow::persistent_data::Middleware,
-                          crow::token_authorization::Middleware>;
+                          crow::token_authorization::Middleware
+#ifdef BMCWEB_ENABLE_LOGGING_MW
+                          ,
+                          crow::logging::Middleware
+#endif // BMCWEB_ENABLE_LOGGING_MW
+                          >;

@@ -80,6 +80,10 @@ class Middleware
             res.end();
             return;
         }
+        else
+        {
+            req.username = ctx.session->username;
+        }
 
         // TODO get user privileges here and propagate it via MW Context
         // else let the request continue unharmed
@@ -380,6 +384,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
+                res.username = username;
                 if (!pamAuthenticateUser(username, password))
                 {
                     res.result(boost::beast::http::status::unauthorized);

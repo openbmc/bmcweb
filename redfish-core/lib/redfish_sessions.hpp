@@ -178,6 +178,8 @@ class SessionCollection : public Node
             return;
         }
 
+        res.username = username;
+
         if (!pamAuthenticateUser(username, password))
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
