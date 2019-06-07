@@ -470,8 +470,8 @@ inline void
                     // Check if given address is local, or global
                     ipv4_address.linktype =
                         boost::starts_with(ipv4_address.address, "169.254.")
-                            ? LinkType::Global
-                            : LinkType::Local;
+                            ? LinkType::Local
+                            : LinkType::Global;
                 }
             }
         }
