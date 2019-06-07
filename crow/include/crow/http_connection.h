@@ -336,6 +336,20 @@ class Connection
 
         if (!isInvalidRequest)
         {
+            if constexpr (std::is_same_v<Adaptor,
+                                         boost::beast::ssl_stream<
+                                             boost::asio::ip::tcp::socket>>)
+            {
+                req->remoteIp = adaptor.next_layer()
+                                    .remote_endpoint()
+                                    .address()
+                                    .to_string();
+            }
+            else
+            {
+                req->remoteIp = adaptor.remote_endpoint().address().to_string();
+            }
+
             res.completeRequestHandler = [] {};
             res.isAliveHelper = [this]() -> bool { return isAlive(); };
 
