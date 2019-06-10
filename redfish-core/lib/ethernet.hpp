@@ -1752,10 +1752,10 @@ class EthernetInterface : public Node
 
         if (!json_util::readJson(
                 req, res, "HostName", hostname, "IPv4Addresses", ipv4Addresses,
-                "IPv6Addresses", ipv6Addresses, "MACAddress", macAddress,
-                "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
-                ipv6DefaultGateway, "IPv6StaticAddresses", ipv6StaticAddresses,
-                "NameServers", nameServers, "DHCPv4", dhcpv4))
+                "MACAddress", macAddress, "StaticNameServers",
+                staticNameServers, "IPv6DefaultGateway", ipv6DefaultGateway,
+                "IPv6StaticAddresses", ipv6StaticAddresses, "NameServers",
+                nameServers, "DHCPv4", dhcpv4))
         {
             return;
         }
@@ -1772,7 +1772,6 @@ class EthernetInterface : public Node
             [this, asyncResp, iface_id, hostname = std::move(hostname),
              macAddress = std::move(macAddress),
              ipv4Addresses = std::move(ipv4Addresses),
-             ipv6Addresses = std::move(ipv6Addresses),
              ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
              staticNameServers = std::move(staticNameServers),
@@ -1822,13 +1821,6 @@ class EthernetInterface : public Node
                     // Data.Permissions is read-only
                     messages::propertyNotWritable(asyncResp->res,
                                                   "NameServers");
-                }
-
-                if (ipv6Addresses)
-                {
-                    // TODO(kkowalsk) IPv6 Not supported on D-Bus yet
-                    messages::propertyNotWritable(asyncResp->res,
-                                                  "IPv6Addresses");
                 }
 
                 if (staticNameServers)
