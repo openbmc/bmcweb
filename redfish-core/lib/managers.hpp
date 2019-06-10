@@ -1565,6 +1565,7 @@ class Manager : public Node
             "xyz.openbmc_project.Software.BMC.Updater",
             "/xyz/openbmc_project/software",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
 
@@ -1574,6 +1575,32 @@ class Manager : public Node
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
         });
+        
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<double>& resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Error while getting progress";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                const double* val = std::get_if<double>(&resp);
+                if (val == nullptr)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Invalid response while getting progress";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                if (*val < 1.0)
+                {
+                    asyncResp->res.jsonValue["Status"]["State"] = "Starting";
+                }
+            },
+            "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
+            "org.freedesktop.DBus.Properties", "Get",
+            "org.freedesktop.systemd1.Manager", "Progress");
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
