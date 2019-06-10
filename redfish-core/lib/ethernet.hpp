@@ -610,18 +610,14 @@ inline void changeIPv4AddressProperty(
     const std::string &name, const std::string &newValue,
     const std::shared_ptr<AsyncResp> asyncResp)
 {
-    auto callback = [asyncResp, ipIdx, name{std::string(name)},
-                     newValue{std::move(newValue)}](
-                        const boost::system::error_code ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx][name] = newValue;
-        }
-    };
+    auto callback =
+        [asyncResp, ipIdx, name{std::string(name)},
+         newValue{std::move(newValue)}](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
+        };
 
     crow::connections::systemBus->async_method_call(
         std::move(callback), "xyz.openbmc_project.Network",
@@ -638,7 +634,6 @@ inline void changeIPv4AddressProperty(
  * @param[in] ipIdx         Index of IP in input array that should be
  * modified
  * @param[in] ipHash        DBus Hash id of modified IP
- * @param[in] newValue      New value in Redfish format
  * @param[in] newValueDbus  New value in D-Bus format
  * @param[io] asyncResp     Response object that will be returned to client
  *
@@ -647,20 +642,13 @@ inline void changeIPv4AddressProperty(
  */
 inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
                              const std::string &ipHash,
-                             const std::string &newValue,
                              const std::string &newValueDbus,
                              const std::shared_ptr<AsyncResp> asyncResp)
 {
-    auto callback = [asyncResp, ipIdx, newValue{std::move(newValue)}](
-                        const boost::system::error_code ec) {
+    auto callback = [asyncResp, ipIdx](const boost::system::error_code ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["AddressOrigin"] =
-                newValue;
         }
     };
 
@@ -679,7 +667,6 @@ inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
  * @param[in] ipIdx        Index of IP in input array that should be
  * modified
  * @param[in] ipHash       DBus Hash id of modified IP
- * @param[in] newValueStr  Mask in dot notation as string
  * @param[in] newValue     Mask as PrefixLength in bitcount
  * @param[io] asyncResp   Response object that will be returned to client
  *
@@ -687,20 +674,13 @@ inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
  */
 inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
                                          const std::string &ipHash,
-                                         const std::string &newValueStr,
                                          uint8_t &newValue,
                                          std::shared_ptr<AsyncResp> asyncResp)
 {
-    auto callback = [asyncResp, ipIdx, newValueStr{std::move(newValueStr)}](
-                        const boost::system::error_code ec) {
+    auto callback = [asyncResp, ipIdx](const boost::system::error_code ec) {
         if (ec)
         {
             messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["SubnetMask"] =
-                newValueStr;
         }
     };
 
@@ -716,25 +696,19 @@ inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
  * @brief Deletes given IPv4
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
- * @param[in] ipIdx       Index of IP in input array that should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
  * @param[io] asyncResp   Response object that will be returned to client
  *
  * @return None
  */
 inline void deleteIPv4(const std::string &ifaceId, const std::string &ipHash,
-                       unsigned int ipIdx,
                        const std::shared_ptr<AsyncResp> asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [ipIdx, asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
                 messages::internalError(asyncResp->res);
-            }
-            else
-            {
-                asyncResp->res.jsonValue["IPv4Addresses"][ipIdx] = nullptr;
             }
         },
         "xyz.openbmc_project.Network",
@@ -777,25 +751,18 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
  * @param[in] ipHash      DBus Hash id of IP that should be deleted
- * @param[in] ipIdx       Index of IP in input array that should be deleted
  * @param[io] asyncResp   Response object that will be returned to client
  *
  * @return None
  */
 inline void deleteIPv6(const std::string &ifaceId, const std::string &ipHash,
-                       unsigned int ipIdx,
                        const std::shared_ptr<AsyncResp> asyncResp)
 {
     crow::connections::systemBus->async_method_call(
-        [ipIdx, asyncResp](const boost::system::error_code ec) {
+        [asyncResp](const boost::system::error_code ec) {
             if (ec)
             {
                 messages::internalError(asyncResp->res);
-            }
-            else
-            {
-                asyncResp->res.jsonValue["IPv6StaticAddresses"][ipIdx] =
-                    nullptr;
             }
         },
         "xyz.openbmc_project.Network",
@@ -1111,7 +1078,6 @@ class EthernetInterface : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                asyncResp->res.jsonValue["MACAddress"] = std::move(macAddress);
             },
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
@@ -1119,6 +1085,7 @@ class EthernetInterface : public Node
             "xyz.openbmc_project.Network.MACAddress", "MACAddress",
             std::variant<std::string>(macAddress));
     }
+
     void setDHCPEnabled(const std::string &ifaceId,
                         const std::string &propertyName, const bool &value,
                         const std::shared_ptr<AsyncResp> asyncResp)
@@ -1222,7 +1189,7 @@ class EthernetInterface : public Node
             {
                 if (thisData != ipv4Data.end())
                 {
-                    deleteIPv4(ifaceId, thisData->id, entryIdx, asyncResp);
+                    deleteIPv4(ifaceId, thisData->id, asyncResp);
                     thisData++;
                 }
                 else
@@ -1326,18 +1293,14 @@ class EthernetInterface : public Node
                 // Apply changes
                 if (address)
                 {
-                    auto callback = [asyncResp, entryIdx,
-                                     address{std::string(*address)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue["IPv4Addresses"][entryIdx]["Address"] =
-                            std::move(address);
-                    };
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        };
 
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
@@ -1351,31 +1314,26 @@ class EthernetInterface : public Node
                 if (subnetMask)
                 {
                     changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
-                                                 thisData->id, *subnetMask,
-                                                 prefixLength, asyncResp);
+                                                 thisData->id, prefixLength,
+                                                 asyncResp);
                 }
 
                 if (addressOrigin)
                 {
                     changeIPv4Origin(ifaceId, entryIdx, thisData->id,
-                                     *addressOrigin, addressOriginInDBusFormat,
-                                     asyncResp);
+                                     addressOriginInDBusFormat, asyncResp);
                 }
 
                 if (gateway)
                 {
-                    auto callback = [asyncResp, entryIdx,
-                                     gateway{std::string(*gateway)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue["IPv4Addresses"][entryIdx]["Gateway"] =
-                            std::move(gateway);
-                    };
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        };
 
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
@@ -1431,17 +1389,12 @@ class EthernetInterface : public Node
         const std::shared_ptr<AsyncResp> &asyncResp)
     {
         crow::connections::systemBus->async_method_call(
-            [asyncResp,
-             updatedStaticNameServers](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                asyncResp->res.jsonValue["NameServers"] =
-                    updatedStaticNameServers;
-                asyncResp->res.jsonValue["StaticNameServers"] =
-                    updatedStaticNameServers;
             },
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
@@ -1474,7 +1427,7 @@ class EthernetInterface : public Node
             {
                 if (thisData != ipv6StaticData.end())
                 {
-                    deleteIPv6(ifaceId, thisData->id, entryIdx, asyncResp);
+                    deleteIPv6(ifaceId, thisData->id, asyncResp);
                     thisData++;
                 }
                 else
@@ -1518,18 +1471,14 @@ class EthernetInterface : public Node
                 // Apply changes
                 if (address)
                 {
-                    auto callback = [asyncResp, entryIdx,
-                                     address{std::string(*address)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
-                                                [entryIdx]["Address"] =
-                            std::move(address);
-                    };
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        };
 
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
@@ -1542,18 +1491,14 @@ class EthernetInterface : public Node
 
                 if (prefixLength)
                 {
-                    auto callback = [asyncResp, entryIdx,
-                                     prefixLength{uint8_t(*prefixLength)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
-                                                [entryIdx]["PrefixLength"] =
-                            std::move(prefixLength);
-                    };
+                    auto callback =
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        };
 
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
@@ -1792,9 +1737,6 @@ class EthernetInterface : public Node
                     return;
                 }
 
-                parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
-                                   ipv4Data, ipv6Data, ipv6StaticData);
-
                 if (hostname)
                 {
                     handleHostnamePatch(*hostname, asyncResp);
@@ -1848,32 +1790,6 @@ class EthernetInterface : public Node
                     nlohmann::json ipv6Static = std::move(*ipv6StaticAddresses);
                     handleIPv6StaticAddressesPatch(iface_id, ipv6Static,
                                                    ipv6StaticData, asyncResp);
-
-                    // call getEthernetIfaceData to populate updated static
-                    // addresses data to "IPv6Addresses" json collection
-                    getEthernetIfaceData(
-                        iface_id,
-                        [this, asyncResp, iface_id](
-                            const bool &success,
-                            const EthernetInterfaceData &ethData,
-                            const boost::container::flat_set<IPv4AddressData>
-                                &ipv4Data,
-                            const boost::container::flat_set<IPv6AddressData>
-                                &ipv6Data,
-                            const boost::container::flat_set<IPv6AddressData>
-                                &ipv6StaticData) {
-                            if (!success)
-                            {
-                                messages::resourceNotFound(asyncResp->res,
-                                                           "Ethernet Interface",
-                                                           iface_id);
-                                return;
-                            }
-
-                            parseInterfaceData(asyncResp->res.jsonValue,
-                                               iface_id, ethData, ipv4Data,
-                                               ipv6Data, ipv6StaticData);
-                        });
                 }
             });
     }
@@ -2038,9 +1954,6 @@ class VlanNetworkInterface : public Node
                     &ipv6StaticData) {
                 if (success && !ethData.vlan_id.empty())
                 {
-                    parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
-                                       ifaceId, ethData, ipv4Data, ipv6Data,
-                                       ipv6StaticData);
                     auto callback =
                         [asyncResp](const boost::system::error_code ec) {
                             if (ec)
@@ -2113,10 +2026,6 @@ class VlanNetworkInterface : public Node
                     &ipv6StaticData) {
                 if (success && !ethData.vlan_id.empty())
                 {
-                    parseInterfaceData(asyncResp->res.jsonValue, parentIfaceId,
-                                       ifaceId, ethData, ipv4Data, ipv6Data,
-                                       ipv6StaticData);
-
                     auto callback =
                         [asyncResp](const boost::system::error_code ec) {
                             if (ec)
