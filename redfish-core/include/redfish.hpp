@@ -1,3 +1,4 @@
+
 /*
 // Copyright (c) 2018-2019 Intel Corporation
 //
@@ -28,6 +29,7 @@
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
+#include "../lib/sensors.hpp"
 #include "../lib/service_root.hpp"
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
@@ -140,6 +142,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<TrustStoreCertificate>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
+
+        nodes.emplace_back(std::make_unique<SensorCollection>(app));
+        nodes.emplace_back(std::make_unique<Sensor>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
