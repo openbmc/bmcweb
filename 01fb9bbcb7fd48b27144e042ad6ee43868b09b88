@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "91c5ca4a_a2f5d8cb",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-11T10:38:57Z",
+      "side": 1,
+      "message": "getIDFromURL(\"/3 3\")  --\u003e returns 0\ngetIDFromURL(\"/3\")  --\u003e returns 3\ngetIDFromURL(\"/333a\")  --\u003e returns 0\n\ntried to use \u0027\\n\u0027 but it retuns 0 fro all the above cases.",
+      "parentUuid": "7b80dc44_9b3cd5a3",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b9ee01_aa504dc0",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
