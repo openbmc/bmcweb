@@ -338,6 +338,30 @@
     },
     {
       "key": {
+        "uuid": "b381aaa6_b941272b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T02:14:40Z",
+      "side": 1,
+      "message": "That might be a short term option.  We need to figure something else long term.",
+      "parentUuid": "6d233a78_9f5b1347",
+      "range": {
+        "startLine": 242,
+        "startChar": 52,
+        "endLine": 242,
+        "endChar": 55
+      },
+      "revId": "43a1e5a9fcc0103053d320a6a62f8a74cf9384e2",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "908003f1_04ec1a93",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 4
