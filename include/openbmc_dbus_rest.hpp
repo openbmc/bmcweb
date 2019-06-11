@@ -1866,14 +1866,15 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                                     BMCWEB_LOG_DEBUG << "sent";
                                                     if (ec)
                                                     {
+                                                        const sd_bus_error *e =
+                                                            m.get_error();
                                                         setErrorResponse(
                                                             transaction->res,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            ec.category()
-                                                                .name(),
-                                                            ec.message());
+                                                            e->name,
+                                                            e->message);
                                                     }
                                                     else
                                                     {
