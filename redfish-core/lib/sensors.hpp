@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "node.hpp"
+
 #include <math.h>
 
 #include <boost/algorithm/string/predicate.hpp>
@@ -39,6 +41,9 @@ using ManagedObjectsVectorType = std::vector<std::pair<
     boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
 
+using GetObjectType =
+    std::vector<std::pair<std::string, std::vector<std::string>>>;
+
 /**
  * SensorsAsyncResp
  * Gathers data needed for response processing after async calls are done
@@ -51,6 +56,11 @@ class SensorsAsyncResp
                      const std::string& subNode) :
         res(response),
         chassisId(chassisId), types(types), chassisSubNode(subNode)
+    {
+    }
+
+    SensorsAsyncResp(crow::Response& response, const std::string& chassisId) :
+        res(response), chassisId(chassisId)
     {
     }
 
@@ -72,6 +82,186 @@ class SensorsAsyncResp
     std::string chassisSubNode{};
 };
 
+class SensorCollection : public Node
+{
+  public:
+    SensorCollection(CrowApp& app) :
+        Node(app, "/redfish/v1/Chassis/<str>/Sensors", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "SensorCollection doGet enter";
+        if (params.size() != 1)
+        {
+            BMCWEB_LOG_DEBUG << "SensorCollection doGet param size < 1";
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+        const std::string &chassisId = params[0];
+        std::shared_ptr<SensorsAsyncResp> asyncResp =
+            std::make_shared<SensorsAsyncResp>(res, chassisId);
+        BMCWEB_LOG_DEBUG << "SensorCollection doGet after asyncResp create";
+        asyncResp->res.jsonValue["@odata.type"] = "#SensorCollection.SensorCollection";
+        asyncResp->res.jsonValue["@odata.id"] = "/redfish/v1/Chassis/" + chassisId +
+                                     "/Sensors";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#SensorCollection.SensorCollection";
+        asyncResp->res.jsonValue["Name"] = "Sensor Collection";
+        asyncResp->res.jsonValue["Description"] = "Collection of Sensors for this Chassis";
+
+        BMCWEB_LOG_DEBUG << "SensorCollection doGet after initial JSON initialization";
+        const std::array<const char*, 1> interfaces = {
+            "xyz.openbmc_project.Sensor.Value"};
+
+        const std::vector<std::string> excludeSensors = {
+            "/xyz/openbmc_project/sensors/temperature/",
+            "/xyz/openbmc_project/sensors/voltage/",
+            "/xyz/openbmc_project/sensors/fan_tach/"};
+
+        BMCWEB_LOG_DEBUG << "SensorCollection doGet before async_method_call 1 enter";
+        //std::vector<std::string> nodeSensorList;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp,
+             excludeSensors](const boost::system::error_code ec,
+                             const GetSubTreeType& subtree)
+            {
+                BMCWEB_LOG_DEBUG << "respHandler1 enter";
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    BMCWEB_LOG_ERROR
+                        << "SensorCollection getSensorList resp_handler: "
+                        << "Dbus error " << ec;
+                    return;
+                }
+
+                std::vector<std::string> nodeSensorList;
+                for (const std::pair<
+                        std::string,
+                        std::vector<std::pair<std::string,
+                                    std::vector<std::string>>>>&
+                                    object : subtree)
+                {
+                    BMCWEB_LOG_DEBUG << "Checking if sensor excluded: " << object.first;
+                    if (std::find_if(excludeSensors.begin(),
+                                     excludeSensors.end(),
+                                     [object](const std::string& str)
+                                     {
+                                         BMCWEB_LOG_DEBUG << "In find_if: object=" << object.first;
+                                         return object.first.find(str) !=
+                                                std::string::npos;
+                                     }) != excludeSensors.end())
+                    {
+                        BMCWEB_LOG_DEBUG << "Sensor IS exlcuded: " << object.first;
+                        continue;
+                    }
+                    BMCWEB_LOG_DEBUG << "Sensor NOT exlcuded: " << object.first;
+                    nodeSensorList.push_back(object.first);
+                }
+
+                for(auto & sensor : nodeSensorList)
+                {
+                    BMCWEB_LOG_DEBUG << "Validating sensor " << sensor;
+                    crow::connections::systemBus->async_method_call(
+                        [sensor, asyncResp](
+                            const boost::system::error_code ec,
+                            std::variant<std::vector<std::string>>
+                                variantEndpoints)
+                        {
+                            BMCWEB_LOG_DEBUG << "respHandler2 enter: sensor=" << sensor;
+                            if (ec)
+                            {
+                                return; // if they don't have an association we
+                                        // just skip it
+                            }
+
+                            auto endpoints = std::get_if<std::vector<
+                                                    std::string>>(
+                                                        &variantEndpoints);
+
+                            if (endpoints == nullptr)
+                            {
+                                BMCWEB_LOG_ERROR << "Invalid association interface";
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+
+                            for (auto & endpoint : *endpoints)
+                            {
+                                const std::array<const char*, 2> excludeInventory = {
+                                    "xyz.openbmc_project.Inventory.Item.PowerSupply",
+                                    "xyz.openbmc_project.Inventory.Item.Fan"};
+                                auto ref_count = asyncResp.use_count();
+                                auto size = asyncResp->res.jsonValue[
+                                    "Members"].size();
+
+                                crow::connections::systemBus->async_method_call(
+                                    [sensor, endpoint, excludeInventory, asyncResp](
+                                        const boost::system::error_code ec,
+                                        const GetObjectType &objects)
+                                    {
+                                        BMCWEB_LOG_DEBUG << "respHandler3 enter";
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_DEBUG << "GetObject for path "
+                                                             << endpoint
+                                                             << " has error code " << ec;
+                                            BMCWEB_LOG_DEBUG << "respHandler3 USE sensor: " << sensor;
+                                            nlohmann::json &entriesArray = asyncResp->res.jsonValue["Members"];
+                                            entriesArray.push_back(sensor);
+                                            return;
+                                        }
+                                        BMCWEB_LOG_DEBUG << "respHandler3 NOT use sensor: " << sensor;
+                                    },
+                                    "xyz.openbmc_project.ObjectMapper",
+                                    "/xyz/openbmc_project/object_mapper",
+                                    "xyz.openbmc_project.ObjectMapper",
+                                    "GetObject", endpoint, excludeInventory);
+
+                                //while(asyncResp.use_count() > ref_count){}
+
+                                if (asyncResp->res.jsonValue["Members"].size() > size)
+                                {
+                                    //Don't want to add it multiple times
+                                    //if there are multiple valid endpoints somehow
+                                    break;
+                                }
+                            }
+                            BMCWEB_LOG_DEBUG << "respHandler2 exit";
+                        },
+                        "xyz.openbmc_project.ObjectMapper", sensor + "/inventory",
+                        "org.freedesktop.DBus.Properties", "Get",
+                        "xyz.openbmc_project.Association", "endpoints");
+                        BMCWEB_LOG_DEBUG << "respHandler2 exit";
+                    }
+
+                    if(asyncResp.use_count() == 1)
+                    {
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            asyncResp->res.jsonValue["Members"].size();
+                    }
+                    BMCWEB_LOG_DEBUG << "respHandler1 exit";
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                "/xyz/openbmc_project/object_mapper",
+                "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                "/xyz/openbmc_project/sensors", 2, interfaces);
+
+        BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
+    }
+};
 /**
  * @brief Get objects with connection necessary for sensors
  * @param SensorsAsyncResp Pointer to object holding response data

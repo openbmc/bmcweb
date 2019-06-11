@@ -26,6 +26,7 @@
 #include "../lib/power.hpp"
 #include "../lib/redfish_sessions.hpp"
 #include "../lib/roles.hpp"
+#include "../lib/sensors.hpp"
 #include "../lib/service_root.hpp"
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
@@ -114,7 +115,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<BaseMessageRegistry>(app));
         nodes.emplace_back(std::make_unique<OpenBMCMessageRegistryFile>(app));
         nodes.emplace_back(std::make_unique<OpenBMCMessageRegistry>(app));
-
+        nodes.emplace_back(std::make_unique<SensorCollection>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
