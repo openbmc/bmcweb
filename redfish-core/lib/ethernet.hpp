@@ -151,28 +151,6 @@ inline std::string
     return "";
 }
 
-inline std::string
-    translateAddressOriginRedfishToDbus(const std::string &inputOrigin)
-{
-    if (inputOrigin == "Static")
-    {
-        return "xyz.openbmc_project.Network.IP.AddressOrigin.Static";
-    }
-    if (inputOrigin == "DHCP" || inputOrigin == "DHCPv6")
-    {
-        return "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP";
-    }
-    if (inputOrigin == "IPv4LinkLocal" || inputOrigin == "LinkLocal")
-    {
-        return "xyz.openbmc_project.Network.IP.AddressOrigin.LinkLocal";
-    }
-    if (inputOrigin == "SLAAC")
-    {
-        return "xyz.openbmc_project.Network.IP.AddressOrigin.SLAAC";
-    }
-    return "";
-}
-
 inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                                          const GetManagedObjects &dbus_data,
                                          EthernetInterfaceData &ethData)
@@ -629,47 +607,6 @@ inline void changeIPv4AddressProperty(
         "org.freedesktop.DBus.Properties", "Set",
         "xyz.openbmc_project.Network.IP", name,
         std::variant<std::string>(newValue));
-}
-
-/**
- * @brief Changes IPv4 address origin property
- *
- * @param[in] ifaceId       Id of interface whose IP should be modified
- * @param[in] ipIdx         Index of IP in input array that should be
- * modified
- * @param[in] ipHash        DBus Hash id of modified IP
- * @param[in] newValue      New value in Redfish format
- * @param[in] newValueDbus  New value in D-Bus format
- * @param[io] asyncResp     Response object that will be returned to client
- *
- * @return true if give IP is valid and has been sent do D-Bus, false
- * otherwise
- */
-inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
-                             const std::string &ipHash,
-                             const std::string &newValue,
-                             const std::string &newValueDbus,
-                             const std::shared_ptr<AsyncResp> asyncResp)
-{
-    auto callback = [asyncResp, ipIdx, newValue{std::move(newValue)}](
-                        const boost::system::error_code ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["AddressOrigin"] =
-                newValue;
-        }
-    };
-
-    crow::connections::systemBus->async_method_call(
-        std::move(callback), "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "Origin",
-        std::variant<std::string>(newValueDbus));
 }
 
 /**
@@ -1262,14 +1199,12 @@ class EthernetInterface : public Node
             }
 
             std::optional<std::string> address;
-            std::optional<std::string> addressOrigin;
             std::optional<std::string> subnetMask;
             std::optional<std::string> gateway;
 
             if (!json_util::readJson(thisJson, asyncResp->res, "Address",
-                                     address, "AddressOrigin", addressOrigin,
-                                     "SubnetMask", subnetMask, "Gateway",
-                                     gateway))
+                                     address, "SubnetMask", subnetMask,
+                                     "Gateway", gateway))
             {
                 return;
             }
@@ -1292,20 +1227,6 @@ class EthernetInterface : public Node
                     messages::propertyValueFormatError(
                         asyncResp->res, *subnetMask,
                         pathString + "/SubnetMask");
-                    return;
-                }
-            }
-            std::string addressOriginInDBusFormat;
-            if (addressOrigin)
-            {
-                // Get Address origin in proper format
-                addressOriginInDBusFormat =
-                    translateAddressOriginRedfishToDbus(*addressOrigin);
-                if (addressOriginInDBusFormat.empty())
-                {
-                    messages::propertyValueNotInList(
-                        asyncResp->res, *addressOrigin,
-                        pathString + "/AddressOrigin");
                     return;
                 }
             }
@@ -1353,13 +1274,6 @@ class EthernetInterface : public Node
                     changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
                                                  thisData->id, *subnetMask,
                                                  prefixLength, asyncResp);
-                }
-
-                if (addressOrigin)
-                {
-                    changeIPv4Origin(ifaceId, entryIdx, thisData->id,
-                                     *addressOrigin, addressOriginInDBusFormat,
-                                     asyncResp);
                 }
 
                 if (gateway)
