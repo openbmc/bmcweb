@@ -49,6 +49,98 @@
     },
     {
       "key": {
+        "uuid": "695b52c6_63a5c392",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T01:59:43Z",
+      "side": 1,
+      "message": "This is subtle, but relying on undefined behavior.\n\nurl.substr is going to return a std::string rvalue.\nthen calling c_str() on it, will return a pointer to said rvalue.\nBefore strtol is invoked, the rvalue will be destroyed, as it is no longer in scope, and there are no owning things looking at it.\n\nIf you declare your substr on the line above, all of the problems go away.",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a1415342_b2832449",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T01:59:43Z",
+      "side": 1,
+      "message": "You should be comparing against the end of url, not dependent on whether or not it points at the null character.  Strings that contain a null character will not be handled correctly.",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02b9ee01_aa504dc0",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T01:59:43Z",
+      "side": 1,
+      "message": "What if the ID is zero?  Should this function be using a negative return type for it\u0027s error code instead of zero?",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6363fbaa_98f35d47",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T01:59:43Z",
+      "side": 1,
+      "message": "Here you are implicitly converting a long to an int.  While unlikely that someone could upload enough certificates to be an issue, lets just avoid casting and make this function return long.",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bb0a7408_2ffe3c47",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
