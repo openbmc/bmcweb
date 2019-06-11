@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2c3d533f_48d951c9",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T02:14:40Z",
+      "side": 1,
+      "message": "Should we prefix this with BMCWEB_INSECURE given that it is known to be insecure?",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 45
+      },
+      "revId": "43162d999341701c3f18524c39fccee4f1162038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c9d65e_5c4b968e",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T02:14:40Z",
+      "side": 1,
+      "message": "Did you double check this with PrivilegeRegistry?  I thought it was ConfigureManager.",
+      "range": {
+        "startLine": 188,
+        "startChar": 49,
+        "endLine": 188,
+        "endChar": 68
+      },
+      "revId": "43162d999341701c3f18524c39fccee4f1162038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3acfcb66_163f0519",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T02:14:40Z",
+      "side": 1,
+      "message": "Hostname, not necessarily IP.\n\nAlso, shouldn\u0027t we include decoding protocol in the URI?  I thought that was allowed in Redfish, and something that a user is very likely to do.\n\ntftp://1.1.1.1/myfile.bin\nRather than explicitly setting the transfer protocol parameter.",
+      "range": {
+        "startLine": 223,
+        "startChar": 28,
+        "endLine": 223,
+        "endChar": 32
+      },
+      "revId": "43162d999341701c3f18524c39fccee4f1162038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9788152e_f40b748a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T02:14:40Z",
+      "side": 1,
+      "message": "This isn\u0027t really going to fly in an http context.  Most libraries default to a 15-30 second timeout before assuming this didn\u0027t go to plan.",
+      "range": {
+        "startLine": 240,
+        "startChar": 11,
+        "endLine": 240,
+        "endChar": 41
+      },
+      "revId": "43162d999341701c3f18524c39fccee4f1162038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
