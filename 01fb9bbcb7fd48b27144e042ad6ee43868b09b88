@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "2a2ae658_5a694680",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T14:43:24Z",
+      "side": 1,
+      "message": "\u0026url.last() gets you a pointer to the last character.  Alternatively you could use operator[] and .size() to get the last character.\n\nYou didn\u0027t quite understand my test case here:\ngetIdFromURL(std::string(\"12\\03\", 4))  In your implementation would return 12.  It should return -1 (see comment about not using 0 as your error code)",
+      "parentUuid": "91c5ca4a_a2f5d8cb",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b9ee01_aa504dc0",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
@@ -202,6 +226,30 @@
       "side": 1,
       "message": "assumption in certificate manager is certificated id\u0027s are \u003e 0. so using 0 is safer and changing it to -ve value requires changes for all the callers.",
       "parentUuid": "02b9ee01_aa504dc0",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b6f505c7_23c9cbb7",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-11T14:43:24Z",
+      "side": 1,
+      "message": "You\u0027re writing a utility function here.  The utility function cannot make the same assumptions.\n\n\"changing it to -ve value requires changes for all the callers.\"\nYou have 3 callers, and they all need to be fixed anyway, as this function can produce negative numbers given that strtol can return negative numbers.",
+      "parentUuid": "e71626ad_da663936",
       "range": {
         "startLine": 102,
         "startChar": 0,
