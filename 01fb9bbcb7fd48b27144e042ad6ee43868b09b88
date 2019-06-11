@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "96bd5772_af2b4591",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-11T09:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "695b52c6_63a5c392",
+      "range": {
+        "startLine": 99,
+        "startChar": 55,
+        "endLine": 99,
+        "endChar": 60
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1415342_b2832449",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
@@ -83,6 +107,30 @@
       "writtenOn": "2019-06-11T01:59:43Z",
       "side": 1,
       "message": "You should be comparing against the end of url, not dependent on whether or not it points at the null character.  Strings that contain a null character will not be handled correctly.",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b80dc44_9b3cd5a3",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-11T09:50:58Z",
+      "side": 1,
+      "message": "how can I determine end of URL, assume it is the \u0027\\0\u0027 that determines end of string..",
+      "parentUuid": "a1415342_b2832449",
       "range": {
         "startLine": 100,
         "startChar": 24,
@@ -118,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e71626ad_da663936",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-11T09:50:58Z",
+      "side": 1,
+      "message": "assumption in certificate manager is certificated id\u0027s are \u003e 0. so using 0 is safer and changing it to -ve value requires changes for all the callers.",
+      "parentUuid": "02b9ee01_aa504dc0",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 21
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6363fbaa_98f35d47",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
@@ -138,6 +210,30 @@
       "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "631e2e5d_c049b711",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-11T09:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6363fbaa_98f35d47",
+      "range": {
+        "startLine": 104,
+        "startChar": 15,
+        "endLine": 104,
+        "endChar": 20
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
