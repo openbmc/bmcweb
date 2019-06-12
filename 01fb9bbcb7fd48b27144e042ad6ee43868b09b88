@@ -215,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "ef8f0a7f_bbd27b0e",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-12T08:41:58Z",
+      "side": 1,
+      "message": "Using .back() option fails in parsing \"\\333a\" but where as using \"\\0\" value check passes all the cases.\n\nusing if (*endPtr !\u003d \u0027\\0\u0027) condition\nbash-4.2$ ./a.out\nurl\u003dasfdsafdsa expected\u003d-1 received\u003d-1\nurl\u003d/3 expected\u003d3 received\u003d3\nrul\u003d/333a expected\u003d-1 received\u003d-1\nurl\u003d/12\\03,4 expected\u003d-1 received\u003d-1\n\nusing if (*endPtr !\u003d str.at(str.length()-1)) condition\nbash-4.2$ ./a.out\nurl\u003dasfdsafdsa expected\u003d-1 received\u003d-1\nurl\u003d/3 expected\u003d3 received\u003d-1\nrul\u003d/333a expected\u003d-1 received\u003d333\nurl\u003d/12\\03,4 expected\u003d-1 received\u003d-1\n\nsticking with (*endPtr !\u003d \u0027\\0\u0027) condition",
+      "parentUuid": "0ac4dcdb_15c13674",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b9ee01_aa504dc0",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
