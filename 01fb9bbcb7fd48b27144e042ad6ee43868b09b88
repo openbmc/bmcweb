@@ -239,6 +239,30 @@
     },
     {
       "key": {
+        "uuid": "3dc3a0fb_ef7f262f",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 37
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-12T20:27:38Z",
+      "side": 1,
+      "message": "\"Using .back() option fails in parsing \"\\333a\"\nand it should fail in parsing it.  It\u0027s not a valid number.\n\n\u0026str.back()\nand \n\u0026str[srt.length() -1] \n\nShould return the same pointer unless string is empty.  Can you link the code you were using to test.\n\nAnother minor point.  Don\u0027t use std::string::at, prefer operator[] here.  at() throws if the index is incorrect, which in your example can never happen, but the unwind tables still get generated.",
+      "parentUuid": "ef8f0a7f_bbd27b0e",
+      "range": {
+        "startLine": 100,
+        "startChar": 24,
+        "endLine": 100,
+        "endChar": 26
+      },
+      "revId": "01fb9bbcb7fd48b27144e042ad6ee43868b09b88",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "02b9ee01_aa504dc0",
         "filename": "redfish-core/lib/certificate_service.hpp",
         "patchSetId": 37
