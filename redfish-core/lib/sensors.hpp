@@ -343,8 +343,8 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
  *
  * The callback must have the following signature:
  *   @code
- *   callback(const boost::container::flat_map<std::string,
- *            std::string>& objectMgrPaths)
+ *   callback(std::shared_ptr<boost::container::flat_map<std::string,
+ *                std::string>> objectMgrPaths)
  *   @endcode
  *
  * @param sensorsAsyncResp Pointer to object holding response data.
@@ -372,7 +372,9 @@ void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
         }
 
         // Loop over returned object paths
-        boost::container::flat_map<std::string, std::string> objectMgrPaths;
+        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+            objectMgrPaths = std::make_shared<
+                boost::container::flat_map<std::string, std::string>>();
         for (const std::pair<
                  std::string,
                  std::vector<std::pair<std::string, std::vector<std::string>>>>&
@@ -385,12 +387,12 @@ void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
             {
                 // Add mapping from connection to object path
                 const std::string& connection = objData.first;
-                objectMgrPaths[connection] = objectPath;
+                (*objectMgrPaths)[connection] = objectPath;
                 BMCWEB_LOG_DEBUG << "Added mapping " << connection << " -> "
                                  << objectPath;
             }
         }
-        callback(std::move(objectMgrPaths));
+        callback(objectMgrPaths);
         BMCWEB_LOG_DEBUG << "getObjectManagerPaths respHandler exit";
     };
 
@@ -911,6 +913,467 @@ void sortJSONResponse(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
 }
 
 /**
+ * @brief Finds the JSON object for the specified sensor.
+ *
+ * Searches the JSON response in sensorsAsyncResp for an object corresponding to
+ * the specified sensor.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorName DBus object path to the sensor.
+ * @return Pointer to JSON object, or nullptr if object not found.
+ */
+static nlohmann::json*
+    findSensorJson(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+                   const std::string& sensorName)
+{
+    // Get base name of sensor
+    std::size_t lastSlash = sensorName.rfind('/');
+    if (lastSlash != std::string::npos)
+    {
+        std::string baseSensorName = sensorName.substr(lastSlash + 1);
+
+        // Loop through JSON sensor groups that could contain sensor
+        nlohmann::json& response = sensorsAsyncResp->res.jsonValue;
+        std::array<std::string, 4> sensorGroups{"Temperatures", "Fans",
+                                                "Voltages", "PowerSupplies"};
+        for (const std::string& sensorGroup : sensorGroups)
+        {
+            nlohmann::json::iterator groupIt = response.find(sensorGroup);
+            if (groupIt != response.end())
+            {
+                // Loop through sensors in current group
+                for (nlohmann::json& sensorJson : *groupIt)
+                {
+                    // Check if this is the sensor we are looking for
+                    nlohmann::json::iterator memberIdIt =
+                        sensorJson.find("MemberId");
+                    if (memberIdIt != sensorJson.end())
+                    {
+                        std::string* memberId =
+                            memberIdIt->get_ptr<std::string*>();
+                        if ((memberId != nullptr) &&
+                            (*memberId == baseSensorName))
+                        {
+                            return &sensorJson;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Unable to find JSON object for specified sensor
+    return nullptr;
+}
+
+/**
+ * @brief Updates sensor status in JSON response based on inventory item status.
+ *
+ * Updates the status of the specified sensor based on the status of a related
+ * inventory item.
+ *
+ * Modifies the Redfish Status property in the JSON response if the inventory
+ * item indicates the hardware is not present or not functional.
+ *
+ * The D-Bus Present and Functional properties are typically on the inventory
+ * item rather than the sensor.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorName DBus object path to the sensor.
+ * @param interfacesDict Map containing the interfaces and properties of the
+ * inventory item associated with this sensor.
+ */
+static void updateSensorStatus(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    const std::string& sensorName,
+    const boost::container::flat_map<
+        std::string, boost::container::flat_map<std::string, SensorVariant>>&
+        interfacesDict)
+{
+    // Find the JSON object in the response for this sensor
+    nlohmann::json* sensorJson = findSensorJson(sensorsAsyncResp, sensorName);
+    if (sensorJson != nullptr)
+    {
+        // Get Inventory.Item.Present property of inventory item
+        auto itemIt = interfacesDict.find("xyz.openbmc_project.Inventory.Item");
+        if (itemIt != interfacesDict.end())
+        {
+            auto presentIt = itemIt->second.find("Present");
+            if (presentIt != itemIt->second.end())
+            {
+                const bool* present = std::get_if<bool>(&presentIt->second);
+                if ((present != nullptr) && (*present == false))
+                {
+                    // Inventory item is not present; update sensor State
+                    (*sensorJson)["Status"]["State"] = "Absent";
+                }
+            }
+        }
+
+        // Get OperationalStatus.Functional property of inventory item
+        auto opStatusIt = interfacesDict.find(
+            "xyz.openbmc_project.State.Decorator.OperationalStatus");
+        if (opStatusIt != interfacesDict.end())
+        {
+            auto functionalIt = opStatusIt->second.find("Functional");
+            if (functionalIt != opStatusIt->second.end())
+            {
+                const bool* functional =
+                    std::get_if<bool>(&functionalIt->second);
+                if ((functional != nullptr) && (*functional == false))
+                {
+                    // Inventory item is not functional; update sensor Health
+                    (*sensorJson)["Status"]["Health"] = "Critical";
+                }
+            }
+        }
+    }
+}
+
+/**
+ * @brief Gets status of inventory items associated with sensors.
+ *
+ * Gets the D-Bus status properties for the inventory items associated with
+ * sensors.
+ *
+ * Updates the Redfish sensors status in the JSON response, if needed, based on
+ * the inventory items status.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorToInvMap Mappings from sensor object path to the associated
+ * inventory object path.
+ * @param invConnections Connections that provide the status
+ * interfaces/properties for the inventory items.
+ * @param objectMgrPaths Mappings from connection name to DBus object path that
+ * implements ObjectManager.
+ */
+static void getInventoryItemsStatus(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        sensorToInvMap,
+    std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        objectMgrPaths)
+{
+    BMCWEB_LOG_DEBUG << "getInventoryItemsStatus enter";
+
+    // Loop through all connections providing inventory item status
+    for (const std::string& invConnection : *invConnections)
+    {
+        // Response handler for GetManagedObjects
+        auto respHandler = [sensorsAsyncResp,
+                            sensorToInvMap](const boost::system::error_code ec,
+                                            ManagedObjectsVectorType& resp) {
+            BMCWEB_LOG_DEBUG << "getInventoryItemsStatus respHandler enter";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "getInventoryItemsStatus respHandler DBus error " << ec;
+                messages::internalError(sensorsAsyncResp->res);
+                return;
+            }
+
+            // Loop through returned object paths
+            for (const auto& objDictEntry : resp)
+            {
+                const std::string& objPath =
+                    static_cast<const std::string&>(objDictEntry.first);
+
+                // Find all sensors associated with this inventory item
+                for (const std::pair<std::string, std::string>& pair :
+                     *sensorToInvMap)
+                {
+                    if (pair.second == objPath)
+                    {
+                        // Update sensor status based on inventory item status
+                        updateSensorStatus(sensorsAsyncResp, pair.first,
+                                           objDictEntry.second);
+                    }
+                }
+            }
+
+            BMCWEB_LOG_DEBUG << "getInventoryItemsStatus respHandler exit";
+        };
+
+        // Find DBus object path that implements ObjectManager for the current
+        // connection.  If no mapping found, default to "/".
+        auto iter = objectMgrPaths->find(invConnection);
+        const std::string& objectMgrPath =
+            (iter != objectMgrPaths->end()) ? iter->second : "/";
+        BMCWEB_LOG_DEBUG << "ObjectManager path for " << invConnection << " is "
+                         << objectMgrPath;
+
+        // Get all object paths and their interfaces for current connection
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), invConnection, objectMgrPath,
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    BMCWEB_LOG_DEBUG << "getInventoryItemsStatus exit";
+}
+
+/**
+ * @brief Gets connections that provide status information on inventory items.
+ *
+ * Gets the D-Bus connections (services) that provide the interfaces and
+ * properties containing status information for the inventory items.
+ *
+ * Finds the connections asynchronously.  Invokes callback when information has
+ * been obtained.
+ *
+ * The callback must have the following signature:
+ *   @code
+ *   callback(std::shared_ptr<boost::container::flat_set<std::string>>
+ *            invConnections)
+ *   @endcode
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorToInvMap Mappings from sensor object path to the associated
+ * inventory object path.
+ * @param callback Callback to invoke when connections have been obtained.
+ */
+template <typename Callback>
+static void getInventoryItemsConnections(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        sensorToInvMap,
+    Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "getInventoryItemsConnections enter";
+
+    const std::string path = "/xyz/openbmc_project/inventory";
+    const std::array<std::string, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item",
+        "xyz.openbmc_project.State.Decorator.OperationalStatus"};
+
+    // Response handler for parsing output from GetSubTree
+    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+                        sensorToInvMap](const boost::system::error_code ec,
+                                        const GetSubTreeType& subtree) {
+        BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler enter";
+        if (ec)
+        {
+            messages::internalError(sensorsAsyncResp->res);
+            BMCWEB_LOG_ERROR
+                << "getInventoryItemsConnections respHandler DBus error " << ec;
+            return;
+        }
+
+        // Make unique list of connections for desired inventory items
+        std::shared_ptr<boost::container::flat_set<std::string>>
+            invConnections =
+                std::make_shared<boost::container::flat_set<std::string>>();
+        invConnections->reserve(8);
+
+        // Loop through objects from GetSubTree
+        for (const std::pair<
+                 std::string,
+                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+                 object : subtree)
+        {
+            // Look for inventory item object path in the sensor->inventory map
+            const std::string& objPath = object.first;
+            for (const std::pair<std::string, std::string>& pair :
+                 *sensorToInvMap)
+            {
+                if (pair.second == objPath)
+                {
+                    // Store all connections to inventory item
+                    for (const std::pair<std::string, std::vector<std::string>>&
+                             objData : object.second)
+                    {
+                        const std::string& invConnection = objData.first;
+                        invConnections->insert(invConnection);
+                    }
+                    break;
+                }
+            }
+        }
+        callback(invConnections);
+        BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler exit";
+    };
+
+    // Make call to ObjectMapper to find all inventory items
+    crow::connections::systemBus->async_method_call(
+        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+    BMCWEB_LOG_DEBUG << "getInventoryItemsConnections exit";
+}
+
+/**
+ * @brief Gets inventory items associated with the specified sensors.
+ *
+ * Looks for ObjectMapper associations from the specified sensors to related
+ * inventory items.  Builds map where key is sensor object path and value is
+ * inventory item object path.
+ *
+ * Finds the inventory items asynchronously.  Invokes callback when information
+ * has been obtained.
+ *
+ * The callback must have the following signature:
+ *   @code
+ *   callback(std::shared_ptr<boost::container::flat_map<
+                  std::string, std::string>> sensorToInvMap)
+ *   @endcode
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorNames All sensors within the current chassis.
+ * @param objectMgrPaths Mappings from connection name to DBus object path that
+ * implements ObjectManager.
+ * @param callback Callback to invoke when inventory items have been obtained.
+ */
+template <typename Callback>
+static void getInventoryItems(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        objectMgrPaths,
+    Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "getInventoryItems enter";
+
+    // Response handler for GetManagedObjects
+    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+                        sensorNames](const boost::system::error_code ec,
+                                     dbus::utility::ManagedObjectType& resp) {
+        BMCWEB_LOG_DEBUG << "getInventoryItems respHandler enter";
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR << "getInventoryItems respHandler DBus error "
+                             << ec;
+            messages::internalError(sensorsAsyncResp->res);
+            return;
+        }
+
+        // Loop through returned object paths
+        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+            sensorToInvMap = std::make_shared<
+                boost::container::flat_map<std::string, std::string>>();
+        std::string sensorAssocPath;
+        sensorAssocPath.reserve(128); // avoid memory allocations
+        for (const auto& objDictEntry : resp)
+        {
+            const std::string& objPath =
+                static_cast<const std::string&>(objDictEntry.first);
+            const boost::container::flat_map<
+                std::string, boost::container::flat_map<
+                                 std::string, dbus::utility::DbusVariantType>>&
+                interfacesDict = objDictEntry.second;
+
+            // If path is inventory association for one of the specified sensors
+            for (const std::string& sensorName : *sensorNames)
+            {
+                sensorAssocPath = sensorName;
+                sensorAssocPath += "/inventory";
+                if (objPath == sensorAssocPath)
+                {
+                    // Get Association interface for object path
+                    auto assocIt =
+                        interfacesDict.find("xyz.openbmc_project.Association");
+                    if (assocIt != interfacesDict.end())
+                    {
+                        // Get inventory item from end point
+                        auto endpointsIt = assocIt->second.find("endpoints");
+                        if (endpointsIt != assocIt->second.end())
+                        {
+                            const std::vector<std::string>* endpoints =
+                                std::get_if<std::vector<std::string>>(
+                                    &endpointsIt->second);
+                            if ((endpoints != nullptr) && !endpoints->empty())
+                            {
+                                // Store sensor -> inventory item mapping
+                                const std::string& invItem = endpoints->front();
+                                (*sensorToInvMap)[sensorName] = invItem;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+
+        // Call callback if at least one inventory item was found
+        if (!sensorToInvMap->empty())
+        {
+            callback(sensorToInvMap);
+        }
+        BMCWEB_LOG_DEBUG << "getInventoryItems respHandler exit";
+    };
+
+    // Find DBus object path that implements ObjectManager for ObjectMapper
+    std::string connection = "xyz.openbmc_project.ObjectMapper";
+    auto iter = objectMgrPaths->find(connection);
+    const std::string& objectMgrPath =
+        (iter != objectMgrPaths->end()) ? iter->second : "/";
+    BMCWEB_LOG_DEBUG << "ObjectManager path for " << connection << " is "
+                     << objectMgrPath;
+
+    // Call GetManagedObjects on the ObjectMapper to get all associations
+    crow::connections::systemBus->async_method_call(
+        std::move(respHandler), connection, objectMgrPath,
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
+    BMCWEB_LOG_DEBUG << "getInventoryItems exit";
+}
+
+/**
+ * @brief Checks the status of inventory items associated with sensors.
+ *
+ * Finds the inventory items that are associated with the specified sensors.
+ * Gets the status of those inventory items.
+ *
+ * If the inventory items are not present or functional, the sensor status is
+ * updated in the JSON response.
+ *
+ * In D-Bus, the hardware present and functional properties are typically on the
+ * inventory item rather than the sensor.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param sensorNames All sensors within the current chassis.
+ * @param objectMgrPaths Mappings from connection name to DBus object path that
+ * implements ObjectManager.
+ */
+static void checkInventoryItemsStatus(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        objectMgrPaths)
+{
+    BMCWEB_LOG_DEBUG << "checkInventoryItemsStatus enter";
+    auto getInventoryItemsCb =
+        [sensorsAsyncResp,
+         objectMgrPaths](std::shared_ptr<
+                         boost::container::flat_map<std::string, std::string>>
+                             sensorToInvMap) {
+            BMCWEB_LOG_DEBUG << "getInventoryItemsCb enter";
+            auto getInventoryItemsConnectionsCb =
+                [sensorsAsyncResp, sensorToInvMap, objectMgrPaths](
+                    std::shared_ptr<boost::container::flat_set<std::string>>
+                        invConnections) {
+                    BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb enter";
+
+                    // Get status of inventory items and update sensors
+                    getInventoryItemsStatus(sensorsAsyncResp, sensorToInvMap,
+                                            invConnections, objectMgrPaths);
+
+                    BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb exit";
+                };
+
+            // Get connections that provide status of inventory items
+            getInventoryItemsConnections(
+                sensorsAsyncResp, sensorToInvMap,
+                std::move(getInventoryItemsConnectionsCb));
+            BMCWEB_LOG_DEBUG << "getInventoryItemsCb exit";
+        };
+
+    // Get inventory items that are associated with specified sensors
+    getInventoryItems(sensorsAsyncResp, sensorNames, objectMgrPaths,
+                      std::move(getInventoryItemsCb));
+    BMCWEB_LOG_DEBUG << "checkInventoryItemsStatus exit";
+}
+
+/**
  * @brief Gets the values of the specified sensors.
  *
  * Stores the results as JSON in the SensorsAsyncResp.
@@ -941,14 +1404,16 @@ void getSensorData(
     std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     const std::shared_ptr<boost::container::flat_set<std::string>> sensorNames,
     const boost::container::flat_set<std::string>& connections,
-    const boost::container::flat_map<std::string, std::string>& objectMgrPaths)
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        objectMgrPaths)
 {
     BMCWEB_LOG_DEBUG << "getSensorData enter";
     // Get managed objects from all services exposing sensors
     for (const std::string& connection : connections)
     {
         // Response handler to process managed objects
-        auto getManagedObjectsCb = [SensorsAsyncResp, sensorNames](
+        auto getManagedObjectsCb = [SensorsAsyncResp, sensorNames,
+                                    objectMgrPaths](
                                        const boost::system::error_code ec,
                                        ManagedObjectsVectorType& resp) {
             BMCWEB_LOG_DEBUG << "getManagedObjectsCb enter";
@@ -1049,6 +1514,8 @@ void getSensorData(
             if (SensorsAsyncResp.use_count() == 1)
             {
                 sortJSONResponse(SensorsAsyncResp);
+                checkInventoryItemsStatus(SensorsAsyncResp, sensorNames,
+                                          objectMgrPaths);
                 if (SensorsAsyncResp->chassisSubNode == "Thermal")
                 {
                     populateFanRedundancy(SensorsAsyncResp);
@@ -1059,9 +1526,9 @@ void getSensorData(
 
         // Find DBus object path that implements ObjectManager for the current
         // connection.  If no mapping found, default to "/".
-        auto iter = objectMgrPaths.find(connection);
+        auto iter = objectMgrPaths->find(connection);
         const std::string& objectMgrPath =
-            (iter != objectMgrPaths.end()) ? iter->second : "/";
+            (iter != objectMgrPaths->end()) ? iter->second : "/";
         BMCWEB_LOG_DEBUG << "ObjectManager path for " << connection << " is "
                          << objectMgrPath;
 
@@ -1085,29 +1552,29 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
             std::shared_ptr<boost::container::flat_set<std::string>>
                 sensorNames) {
             BMCWEB_LOG_DEBUG << "getChassisCb enter";
-            auto getConnectionCb =
-                [SensorsAsyncResp,
-                 sensorNames](const boost::container::flat_set<std::string>&
-                                  connections) {
-                    BMCWEB_LOG_DEBUG << "getConnectionCb enter";
-                    auto getObjectManagerPathsCb =
-                        [SensorsAsyncResp, sensorNames, connections](
-                            const boost::container::flat_map<
-                                std::string, std::string>& objectMgrPaths) {
-                            BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
-                            // Get sensor data and store results in JSON
-                            // response
-                            getSensorData(SensorsAsyncResp, sensorNames,
-                                          connections, objectMgrPaths);
-                            BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb exit";
-                        };
+            auto getConnectionCb = [SensorsAsyncResp, sensorNames](
+                                       const boost::container::flat_set<
+                                           std::string>& connections) {
+                BMCWEB_LOG_DEBUG << "getConnectionCb enter";
+                auto getObjectManagerPathsCb =
+                    [SensorsAsyncResp, sensorNames, connections](
+                        std::shared_ptr<boost::container::flat_map<std::string,
+                                                                   std::string>>
+                            objectMgrPaths) {
+                        BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb enter";
+                        // Get sensor data and store results in JSON
+                        // response
+                        getSensorData(SensorsAsyncResp, sensorNames,
+                                      connections, objectMgrPaths);
+                        BMCWEB_LOG_DEBUG << "getObjectManagerPathsCb exit";
+                    };
 
-                    // Get mapping from connection names to the DBus object
-                    // paths that implement the ObjectManager interface
-                    getObjectManagerPaths(SensorsAsyncResp,
-                                          std::move(getObjectManagerPathsCb));
-                    BMCWEB_LOG_DEBUG << "getConnectionCb exit";
-                };
+                // Get mapping from connection names to the DBus object
+                // paths that implement the ObjectManager interface
+                getObjectManagerPaths(SensorsAsyncResp,
+                                      std::move(getObjectManagerPathsCb));
+                BMCWEB_LOG_DEBUG << "getConnectionCb exit";
+            };
 
             // Get set of connections that provide sensor values
             getConnections(SensorsAsyncResp, sensorNames,
