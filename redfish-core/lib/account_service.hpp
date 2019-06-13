@@ -977,9 +977,7 @@ class AccountsCollection : public Node
                 const boost::system::error_code ec) {
                 if (ec)
                 {
-                    messages::resourceAlreadyExists(
-                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
-                        "UserName", username);
+                    messages::createLimitReachedForResource(asyncResp->res);
                     return;
                 }
 
