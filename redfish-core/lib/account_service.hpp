@@ -1328,13 +1328,16 @@ class AccountsCollection : public Node
 
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, username, password{std::move(password)}](
-                        const boost::system::error_code ec) {
+                        const boost::system::error_code ec,
+                        sdbusplus::message::message& m) {
                         if (ec)
                         {
-                            messages::resourceAlreadyExists(
-                                asyncResp->res,
-                                "#ManagerAccount.v1_0_3.ManagerAccount",
-                                "UserName", username);
+                            const sd_bus_error* e = m.get_error();
+                            if (e != nullptr)
+                            {
+                                userErrorMessageHandler(e->name, asyncResp,
+                                                        username, "");
+                            }
                             return;
                         }
 
@@ -1345,16 +1348,17 @@ class AccountsCollection : public Node
                             // but the password set failed.Something is wrong,
                             // so delete the user that we've already created
                             crow::connections::systemBus->async_method_call(
-                                [asyncResp](
-                                    const boost::system::error_code ec) {
+                                [asyncResp,
+                                 password](const boost::system::error_code ec) {
                                     if (ec)
                                     {
                                         messages::internalError(asyncResp->res);
                                         return;
                                     }
 
-                                    messages::invalidObject(asyncResp->res,
-                                                            "Password");
+                                    // If password is invalid
+                                    messages::propertyValueFormatError(
+                                        asyncResp->res, password, "Password");
                                 },
                                 "xyz.openbmc_project.User.Manager",
                                 "/xyz/openbmc_project/user/" + username,
