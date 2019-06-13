@@ -593,126 +593,6 @@ inline bool ipv4VerifyIpAndGetBitcount(const std::string &ip,
 }
 
 /**
- * @brief Changes IPv4 address type property (Address, Gateway)
- *
- * @param[in] ifaceId     Id of interface whose IP should be modified
- * @param[in] ipIdx       Index of IP in input array that should be modified
- * @param[in] ipHash      DBus Hash id of modified IP
- * @param[in] name        Name of field in JSON representation
- * @param[in] newValue    New value that should be written
- * @param[io] asyncResp   Response object that will be returned to client
- *
- * @return true if give IP is valid and has been sent do D-Bus, false
- * otherwise
- */
-inline void changeIPv4AddressProperty(
-    const std::string &ifaceId, int ipIdx, const std::string &ipHash,
-    const std::string &name, const std::string &newValue,
-    const std::shared_ptr<AsyncResp> asyncResp)
-{
-    auto callback = [asyncResp, ipIdx, name{std::string(name)},
-                     newValue{std::move(newValue)}](
-                        const boost::system::error_code ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx][name] = newValue;
-        }
-    };
-
-    crow::connections::systemBus->async_method_call(
-        std::move(callback), "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", name,
-        std::variant<std::string>(newValue));
-}
-
-/**
- * @brief Changes IPv4 address origin property
- *
- * @param[in] ifaceId       Id of interface whose IP should be modified
- * @param[in] ipIdx         Index of IP in input array that should be
- * modified
- * @param[in] ipHash        DBus Hash id of modified IP
- * @param[in] newValue      New value in Redfish format
- * @param[in] newValueDbus  New value in D-Bus format
- * @param[io] asyncResp     Response object that will be returned to client
- *
- * @return true if give IP is valid and has been sent do D-Bus, false
- * otherwise
- */
-inline void changeIPv4Origin(const std::string &ifaceId, int ipIdx,
-                             const std::string &ipHash,
-                             const std::string &newValue,
-                             const std::string &newValueDbus,
-                             const std::shared_ptr<AsyncResp> asyncResp)
-{
-    auto callback = [asyncResp, ipIdx, newValue{std::move(newValue)}](
-                        const boost::system::error_code ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["AddressOrigin"] =
-                newValue;
-        }
-    };
-
-    crow::connections::systemBus->async_method_call(
-        std::move(callback), "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "Origin",
-        std::variant<std::string>(newValueDbus));
-}
-
-/**
- * @brief Modifies SubnetMask for given IP
- *
- * @param[in] ifaceId      Id of interface whose IP should be modified
- * @param[in] ipIdx        Index of IP in input array that should be
- * modified
- * @param[in] ipHash       DBus Hash id of modified IP
- * @param[in] newValueStr  Mask in dot notation as string
- * @param[in] newValue     Mask as PrefixLength in bitcount
- * @param[io] asyncResp   Response object that will be returned to client
- *
- * @return None
- */
-inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
-                                         const std::string &ipHash,
-                                         const std::string &newValueStr,
-                                         uint8_t &newValue,
-                                         std::shared_ptr<AsyncResp> asyncResp)
-{
-    auto callback = [asyncResp, ipIdx, newValueStr{std::move(newValueStr)}](
-                        const boost::system::error_code ec) {
-        if (ec)
-        {
-            messages::internalError(asyncResp->res);
-        }
-        else
-        {
-            asyncResp->res.jsonValue["IPv4Addresses"][ipIdx]["SubnetMask"] =
-                newValueStr;
-        }
-    };
-
-    crow::connections::systemBus->async_method_call(
-        std::move(callback), "xyz.openbmc_project.Network",
-        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" + ipHash,
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Network.IP", "PrefixLength",
-        std::variant<uint8_t>(newValue));
-}
-
-/**
  * @brief Deletes given IPv4
  *
  * @param[in] ifaceId     Id of interface whose IP should be deleted
@@ -1320,72 +1200,12 @@ class EthernetInterface : public Node
                 }
             }
 
-            // if IP address exist then  modify it.
+            // if IP address exist,property update is not allowed.
             if (thisData != ipv4Data.end())
             {
-                // Apply changes
-                if (address)
-                {
-                    auto callback = [asyncResp, entryIdx,
-                                     address{std::string(*address)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue["IPv4Addresses"][entryIdx]["Address"] =
-                            std::move(address);
-                    };
-
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" +
-                            thisData->id,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.IP", "Address",
-                        std::variant<std::string>(*address));
-                }
-
-                if (subnetMask)
-                {
-                    changeIPv4SubnetMaskProperty(ifaceId, entryIdx,
-                                                 thisData->id, *subnetMask,
-                                                 prefixLength, asyncResp);
-                }
-
-                if (addressOrigin)
-                {
-                    changeIPv4Origin(ifaceId, entryIdx, thisData->id,
-                                     *addressOrigin, addressOriginInDBusFormat,
-                                     asyncResp);
-                }
-
-                if (gateway)
-                {
-                    auto callback = [asyncResp, entryIdx,
-                                     gateway{std::string(*gateway)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res
-                            .jsonValue["IPv4Addresses"][entryIdx]["Gateway"] =
-                            std::move(gateway);
-                    };
-
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" +
-                            thisData->id,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.IP", "Gateway",
-                        std::variant<std::string>(*gateway));
-                }
-
+                BMCWEB_LOG_DEBUG
+                    << "Individual property update is not supported.";
+                messages::internalError(asyncResp->res);
                 thisData++;
             }
             else
@@ -1512,58 +1332,12 @@ class EthernetInterface : public Node
                 return;
             }
 
-            // if IP address exist then  modify it.
+            // if IP address exist,property update is not allowed.
             if (thisData != ipv6StaticData.end())
             {
-                // Apply changes
-                if (address)
-                {
-                    auto callback = [asyncResp, entryIdx,
-                                     address{std::string(*address)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
-                                                [entryIdx]["Address"] =
-                            std::move(address);
-                    };
-
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" +
-                            thisData->id,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.IP", "Address",
-                        std::variant<std::string>(*address));
-                }
-
-                if (prefixLength)
-                {
-                    auto callback = [asyncResp, entryIdx,
-                                     prefixLength{uint8_t(*prefixLength)}](
-                                        const boost::system::error_code ec) {
-                        if (ec)
-                        {
-                            messages::internalError(asyncResp->res);
-                            return;
-                        }
-                        asyncResp->res.jsonValue["IPv6StaticAddresses"]
-                                                [entryIdx]["PrefixLength"] =
-                            std::move(prefixLength);
-                    };
-
-                    crow::connections::systemBus->async_method_call(
-                        std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv6/" +
-                            thisData->id,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.IP", "PrefixLength",
-                        std::variant<uint8_t>(*prefixLength));
-                }
-
+                BMCWEB_LOG_DEBUG
+                    << "Individual property update is not supported.";
+                messages::internalError(asyncResp->res);
                 thisData++;
             }
             else
