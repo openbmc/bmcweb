@@ -846,7 +846,7 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
-        "PCIeFatalReceivedERR_NONFATALMessage",
+        "PCIeFatalReceivedErrNonFatalMessage",
         {
             .description =
                 "Indicates a PCIe Received ERR_NONFATAL Message Error.",
