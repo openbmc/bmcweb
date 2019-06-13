@@ -1080,13 +1080,44 @@ class AccountsCollection : public Node
         roleId = priv;
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, username, password{std::move(password)}](
-                const boost::system::error_code ec) {
+            [asyncResp, username,
+             password{std::move(password)}](const boost::system::error_code ec,
+                                            sdbusplus::message::message& m) {
                 if (ec)
                 {
-                    messages::resourceAlreadyExists(
-                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
-                        "UserName", username);
+                    const sd_bus_error* e = m.get_error();
+                    std::string err = e->name;
+                    if (err ==
+                        "xyz.openbmc_project.User.Common.Error.UserNameExists")
+                    {
+                        messages::resourceAlreadyExists(
+                            asyncResp->res,
+                            "#ManagerAccount.v1_0_3.ManagerAccount", "UserName",
+                            username);
+                    }
+                    else if (err ==
+                             "xyz.openbmc_project.User.Common.Error.NoResource")
+                    {
+                        messages::createLimitReachedForResource(asyncResp->res);
+                    }
+                    else if (err ==
+                             "xyz.openbmc_project.Common.Error.InvalidArgument")
+                    {
+                        messages::actionParameterUnknown(asyncResp->res,
+                                                         "UserName", username);
+                    }
+                    else if (err == "xyz.openbmc_project.User.Common.Error."
+                                    "UserNameGroupFail")
+                    {
+                        messages::actionParameterValueFormatError(
+                            asyncResp->res,
+                            "#ManagerAccount.v1_0_3.ManagerAccount", "UserName",
+                            username);
+                    }
+                    else
+                    {
+                        messages::internalError(asyncResp->res);
+                    }
                     return;
                 }
 
