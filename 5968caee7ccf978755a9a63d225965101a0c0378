@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "809d3db5_7d40d807",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000089
+      },
+      "writtenOn": "2019-06-14T11:10:15Z",
+      "side": 1,
+      "message": "Ed,\n\nthis is not working assuming I gave input as \"/1\" endPtr points to \u0027/0\u0027 and str.back points to \u00271\", as per strtol documentation.\n\nFixing this as part of next patch set https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/18544\n\nIf endptr is not NULL, strtol() stores the address of the first invalid character in *endptr.  If there were no digits at all, strtol() stores  the\noriginal value of nptr in *endptr (and returns 0).  In particular, if *nptr is not \u0027\\0\u0027 but **endptr is \u0027\\0\u0027 on return, the entire string is valid.\n\n#include\u003ciostream\u003e\n#include\u003ccstdlib\u003e\n#include \u003cstring_view\u003e\nusing namespace std;\n\nlong getIDFromURL(const std::string_view url)\n{\n    std::size_t found \u003d url.rfind(\"/\");\n    if (found \u003d\u003d std::string::npos)\n    {\n        return -1;\n    }\n    if ((found + 1) \u003c url.length())\n    {\n        char *endPtr;\n        std::string_view str \u003d url.substr(found + 1);\n        long value \u003d std::strtol(str.data(), \u0026endPtr, 10);\n        if (*endPtr !\u003d \u0027\\0\u0027)\n        //if (*endPtr !\u003d str.back())\n        {\n            return -1;\n        }\n        return value;\n    }\n    return -1;\n}\n\nint main()\n{\n    std::cout \u003c\u003c\"url\u003d/xyz/openbmc_project/certs/server/https/1 expected\u003d1 received\u003d\" \u003c\u003c  getIDFromURL(\"/xyz/openbmc_project/certs/server/https/1\") \u003c\u003c std::endl;\n    std::cout \u003c\u003c\"url\u003dasfdsafdsa expected\u003d-1 received\u003d\" \u003c\u003c  getIDFromURL(\"asfdsafdsa\") \u003c\u003c std::endl;\n    std::cout \u003c\u003c \"url\u003d/3 expected\u003d3 received\u003d\" \u003c\u003c  getIDFromURL(\"/3\") \u003c\u003c std::endl;\n    std::cout \u003c\u003c \"rul\u003d/333a expected\u003d-1 received\u003d\" \u003c\u003c getIDFromURL(\"/333a\") \u003c\u003c std::endl;\n    std::cout \u003c\u003c \"url\u003d/12\\\\03,4 expected\u003d-1 received\u003d\" \u003c\u003c getIDFromURL(\"12\\03,4\") \u003c\u003c std::endl;\n    return 0;\n}\noutput\n\nurl\u003d/xyz/openbmc_project/certs/server/https/1 expected\u003d1 received\u003d1\nurl\u003dasfdsafdsa expected\u003d-1 received\u003d-1\nurl\u003d/3 expected\u003d3 received\u003d3\nrul\u003d/333a expected\u003d-1 received\u003d-1\nurl\u003d/12\\03,4 expected\u003d-1 received\u003d-1",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "5968caee7ccf978755a9a63d225965101a0c0378",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
