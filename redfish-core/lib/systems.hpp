@@ -1065,6 +1065,11 @@ class SystemActionsReset : public Node
             command = "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
             hostCommand = false;
         }
+        else if (resetType == "Nmi")
+        {
+            command = "xyz.openbmc_project.Control.Host.NMI.NmiReset";
+            hostCommand = true;
+        }
         else
         {
             messages::actionParameterUnknown(res, "Reset", resetType);
@@ -1073,29 +1078,38 @@ class SystemActionsReset : public Node
 
         if (hostCommand)
         {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp, resetType](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        if (ec.value() == boost::asio::error::invalid_argument)
+            if (command == "xyz.openbmc_project.Control.Host.NMI.NmiReset")
+            {
+                BMCWEB_LOG_DEBUG << " NMI detected!!! ";
+                doNmiReset(res, req, params);
+            }
+            else
+            {
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, resetType](const boost::system::error_code ec) {
+                        if (ec)
                         {
-                            messages::actionParameterNotSupported(
-                                asyncResp->res, resetType, "Reset");
+                            BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                            if (ec.value() ==
+                                boost::asio::error::invalid_argument)
+                            {
+                                messages::actionParameterNotSupported(
+                                    asyncResp->res, resetType, "Reset");
+                            }
+                            else
+                            {
+                                messages::internalError(asyncResp->res);
+                            }
+                            return;
                         }
-                        else
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        return;
-                    }
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.State.Host",
-                "/xyz/openbmc_project/state/host0",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-                std::variant<std::string>{command});
+                        messages::success(asyncResp->res);
+                    },
+                    "xyz.openbmc_project.State.Host",
+                    "/xyz/openbmc_project/state/host0",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.State.Host", "RequestedHostTransition",
+                    std::variant<std::string>{command});
+            }
         }
         else
         {
@@ -1123,6 +1137,32 @@ class SystemActionsReset : public Node
                 "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
                 std::variant<std::string>{command});
         }
+    }
+    /**
+     * Function transceives data with dbus directly.
+     */
+    void doNmiReset(crow::Response &res, const crow::Request &req,
+                    const std::vector<std::string> &params)
+    {
+        const char *serviceName = "xyz.openbmc_project.Control.Host.NMI";
+        const char *objectPath = "/xyz/openbmc_project/control/host0/nmi";
+        const char *interfaceName = "xyz.openbmc_project.Control.Host.NMI";
+        const char *method = "NmiReset";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " Bad D-Bus request error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                messages::success(asyncResp->res);
+            },
+            serviceName, objectPath, interfaceName, method);
     }
 };
 
@@ -1177,7 +1217,7 @@ class Systems : public Node
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"ResetType@Redfish.AllowableValues",
              {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
-              "GracefulShutdown", "PowerCycle"}}};
+              "GracefulShutdown", "PowerCycle", "Nmi"}}};
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
