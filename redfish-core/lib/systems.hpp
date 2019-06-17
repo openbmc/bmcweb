@@ -1065,6 +1065,11 @@ class SystemActionsReset : public Node
             command = "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
             hostCommand = false;
         }
+        else if (resetType == "Nmi")
+        {
+            doNMI(res, req, params);
+            return;
+        }
         else
         {
             messages::actionParameterUnknown(res, "Reset", resetType);
@@ -1124,6 +1129,31 @@ class SystemActionsReset : public Node
                 std::variant<std::string>{command});
         }
     }
+    /**
+     * Function transceives data with dbus directly.
+     */
+    void doNMI(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params)
+    {
+        const char *serviceName = "xyz.openbmc_project.Control.Host.NMI";
+        const char *objectPath = "/xyz/openbmc_project/control/host0/nmi";
+        const char *interfaceName = "xyz.openbmc_project.Control.Host.NMI";
+        const char *method = "NMI";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " Bad D-Bus request error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            serviceName, objectPath, interfaceName, method);
+    }
 };
 
 /**
@@ -1177,7 +1207,7 @@ class Systems : public Node
              "/redfish/v1/Systems/system/Actions/ComputerSystem.Reset"},
             {"ResetType@Redfish.AllowableValues",
              {"On", "ForceOff", "ForceOn", "ForceRestart", "GracefulRestart",
-              "GracefulShutdown", "PowerCycle"}}};
+              "GracefulShutdown", "PowerCycle", "Nmi"}}};
 
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
