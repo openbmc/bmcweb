@@ -22,6 +22,30 @@
       "revId": "5968caee7ccf978755a9a63d225965101a0c0378",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d261271_966a0c6a",
+        "filename": "redfish-core/lib/certificate_service.hpp",
+        "patchSetId": 42
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-17T20:48:18Z",
+      "side": 1,
+      "message": "In your example you forgot to get the pointer from .back() you are comparing values not memory locations.\n\nif (endPtr !\u003d \u0026str.back())\n\nis what I was recommending, which is comparing LOCATIONS in the string, not VALUES in the string, and is not susceptible to duplicates.",
+      "parentUuid": "809d3db5_7d40d807",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 34
+      },
+      "revId": "5968caee7ccf978755a9a63d225965101a0c0378",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
