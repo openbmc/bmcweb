@@ -1237,7 +1237,7 @@ class Router
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
-            res.result(boost::beast::http::status::unauthorized);
+            res.result(boost::beast::http::status::forbidden);
             res.end();
             return;
         }
