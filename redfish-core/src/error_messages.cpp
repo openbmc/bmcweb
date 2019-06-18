@@ -1001,7 +1001,7 @@ void generalError(crow::Response& res)
                         "information on how to resolve the error."},
             {"MessageArgs", nlohmann::json::array()},
             {"Severity", "Critical"},
-            {"Resolution", "None."}});
+            {"Resolution", "None"}});
 }
 
 /**
