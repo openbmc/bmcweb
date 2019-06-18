@@ -989,7 +989,7 @@ void createLimitReachedForResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void generalError(crow::Response& res)
+void generalError(crow::Response& res, std::string resolution)
 {
     res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(
@@ -1001,7 +1001,7 @@ void generalError(crow::Response& res)
                         "information on how to resolve the error."},
             {"MessageArgs", nlohmann::json::array()},
             {"Severity", "Critical"},
-            {"Resolution", "None."}});
+            {"Resolution", resolution}});
 }
 
 /**

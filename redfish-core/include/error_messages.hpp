@@ -419,7 +419,7 @@ void createLimitReachedForResource(crow::Response& res);
  *
  *
  * @returns Message GeneralError formatted to JSON */
-void generalError(crow::Response& res);
+void generalError(crow::Response& res, std::string resolution = "None.");
 
 /**
  * @brief Formats Success message into JSON
