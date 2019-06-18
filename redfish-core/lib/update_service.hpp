@@ -499,58 +499,14 @@ class SoftwareInventoryCollection : public Node
                     }
                     std::string swId = obj.first.substr(idPos + 1);
 
-                    for (auto &conn : connections)
-                    {
-                        const std::string &connectionName = conn.first;
-                        BMCWEB_LOG_DEBUG << "connectionName = "
-                                         << connectionName;
-                        BMCWEB_LOG_DEBUG << "obj.first = " << obj.first;
-
-                        crow::connections::systemBus->async_method_call(
-                            [asyncResp,
-                             swId](const boost::system::error_code error_code,
-                                   const VariantType &activation) {
-                                BMCWEB_LOG_DEBUG
-                                    << "safe returned in lambda function";
-                                if (error_code)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-
-                                const std::string *swActivationStatus =
-                                    std::get_if<std::string>(&activation);
-                                if (swActivationStatus == nullptr)
-                                {
-                                    messages::internalError(asyncResp->res);
-                                    return;
-                                }
-                                if (swActivationStatus != nullptr &&
-                                    *swActivationStatus !=
-                                        "xyz.openbmc_project.Software."
-                                        "Activation."
-                                        "Activations.Active")
-                                {
-                                    // The activation status of this software is
-                                    // not currently active, so does not need to
-                                    // be listed in the response
-                                    return;
-                                }
-                                nlohmann::json &members =
-                                    asyncResp->res.jsonValue["Members"];
-                                members.push_back(
-                                    {{"@odata.id", "/redfish/v1/UpdateService/"
-                                                   "FirmwareInventory/" +
-                                                       swId}});
-                                asyncResp->res
-                                    .jsonValue["Members@odata.count"] =
-                                    members.size();
-                            },
-                            connectionName, obj.first,
-                            "org.freedesktop.DBus.Properties", "Get",
-                            "xyz.openbmc_project.Software.Activation",
-                            "Activation");
-                    }
+                    nlohmann::json &members =
+                        asyncResp->res.jsonValue["Members"];
+                    members.push_back(
+                        {{"@odata.id", "/redfish/v1/UpdateService/"
+                                       "FirmwareInventory/" +
+                                           swId}});
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        members.size();
                 }
             },
             "xyz.openbmc_project.ObjectMapper",
@@ -617,7 +573,6 @@ class SoftwareInventory : public Node
         res.jsonValue["Updateable"] = false;
         res.jsonValue["Status"]["Health"] = "OK";
         res.jsonValue["Status"]["HealthRollup"] = "OK";
-        res.jsonValue["Status"]["State"] = "Enabled";
 
         if (params.size() != 1)
         {
@@ -661,6 +616,8 @@ class SoftwareInventory : public Node
                     {
                         continue;
                     }
+
+                    fw_util::getFwStatus(asyncResp, swId, obj.second[0].first);
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp,
