@@ -415,13 +415,7 @@ struct InProgressActionData
         {
             if (!methodPassed)
             {
-                if (methodFailed)
-                {
-                    setErrorResponse(res,
-                                     boost::beast::http::status::bad_request,
-                                     "Method call failed", methodFailedMsg);
-                }
-                else
+                if (!methodFailed)
                 {
                     setErrorResponse(res, boost::beast::http::status::not_found,
                                      methodNotFoundDesc, notFoundMsg);
@@ -1388,6 +1382,25 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                     if (ec)
                                     {
                                         transaction->methodFailed = true;
+                                        const sd_bus_error *e = m.get_error();
+
+                                        if (e)
+                                        {
+                                            setErrorResponse(
+                                                transaction->res,
+                                                boost::beast::http::status::
+                                                    bad_request,
+                                                e->name, e->message);
+                                        }
+                                        else
+                                        {
+                                            setErrorResponse(
+                                                transaction->res,
+                                                boost::beast::http::status::
+                                                    bad_request,
+                                                "Method call failed",
+                                                methodFailedMsg);
+                                        }
                                         return;
                                     }
                                     else
@@ -1873,8 +1886,11 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                                             boost::beast::http::
                                                                 status::
                                                                     forbidden,
-                                                            e->name,
-                                                            e->message);
+                                                            (e) ? e->name
+                                                                : ec.category()
+                                                                      .name(),
+                                                            (e) ? e->message
+                                                                : ec.message());
                                                     }
                                                     else
                                                     {
