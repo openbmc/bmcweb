@@ -584,8 +584,6 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
         return 1;
     }
     std::string &messageID = logEntryFields[0];
-    std::string &messageArgsStart = logEntryFields[1];
-    std::size_t messageArgsSize = logEntryFields.size() - 1;
 
     // Get the Message from the MessageRegistry
     const message_registries::Message *message =
@@ -599,18 +597,30 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
         severity = message->severity;
     }
 
-    // Get the MessageArgs from the log
-    boost::beast::span messageArgs(&messageArgsStart, messageArgsSize);
-
-    // Fill the MessageArgs into the Message
-    int i = 0;
-    for (const std::string &messageArg : messageArgs)
+    // Get the MessageArgs from the log if there are any
+    boost::beast::span<std::string> messageArgs;
+    if (logEntryFields.size() > 1)
     {
-        std::string argStr = "%" + std::to_string(++i);
-        size_t argPos = msg.find(argStr);
-        if (argPos != std::string::npos)
+        std::string &messageArgsStart = logEntryFields[1];
+        // If the first string is empty, assume there are no MessageArgs
+        std::size_t messageArgsSize = 0;
+        if (!messageArgsStart.empty())
         {
-            msg.replace(argPos, argStr.length(), messageArg);
+            messageArgsSize = logEntryFields.size() - 1;
+        }
+
+        messageArgs = boost::beast::span(&messageArgsStart, messageArgsSize);
+
+        // Fill the MessageArgs into the Message
+        int i = 0;
+        for (const std::string &messageArg : messageArgs)
+        {
+            std::string argStr = "%" + std::to_string(++i);
+            size_t argPos = msg.find(argStr);
+            if (argPos != std::string::npos)
+            {
+                msg.replace(argPos, argStr.length(), messageArg);
+            }
         }
     }
 
