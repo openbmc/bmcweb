@@ -186,5 +186,89 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
 
     return;
 }
+
+/**
+ * @brief Translate input fwState to Redfish state
+ *
+ * This function will return the corresponding Redfish state
+ *
+ * @param[i]   fwState  The OpenBMC firmware state
+ *
+ * @return The corresponding Redfish state
+ */
+std::string getRedfishFWState(const std::string &fwState)
+{
+    if (fwState == "xyz.openbmc_project.Software.Activation.Activations.Active")
+    {
+        return "Enabled";
+    }
+    else if (fwState ==
+             "xyz.openbmc_project.Software.Activation.Activations.Activating")
+    {
+        return "Updating";
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "Default fw state " << fwState << " to Disabled";
+        return "Disabled";
+    }
+}
+
+/**
+ * @brief Put status of input swId into json response
+ *
+ * This function will put the appropriate Redfish state of the input
+ * firmware id to ["Status"]["State"] within the json response
+ *
+ * @param[i,o] aResp    Async response object
+ * @param[i]   swId     The software ID to get status for
+ * @param[i]   dbusSvc  The dbus service implementing the software object
+ *
+ * @return void
+ */
+void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
+                 const std::shared_ptr<std::string> swId,
+                 const std::string &dbusSvc)
+{
+    BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp,
+         swId](const boost::system::error_code error_code,
+               const boost::container::flat_map<std::string, VariantType>
+                   &propertiesList) {
+            if (error_code)
+            {
+                messages::internalError(asyncResp->res);
+                BMCWEB_LOG_ERROR
+                    << "getFwStatus: Error trying to get Activation for "
+                    << *swId;
+                return;
+            }
+            boost::container::flat_map<std::string, VariantType>::const_iterator
+                it = propertiesList.find("Activation");
+            if (it == propertiesList.end())
+            {
+                BMCWEB_LOG_DEBUG << "Can't find property \"Activation\"!";
+                messages::propertyMissing(asyncResp->res, "Activation");
+                return;
+            }
+            const std::string *swInvActivation =
+                std::get_if<std::string>(&it->second);
+            if (swInvActivation == nullptr)
+            {
+                BMCWEB_LOG_DEBUG << "wrong types for property\"Activation\"!";
+                messages::propertyValueTypeError(asyncResp->res, "",
+                                                 "Activation");
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
+            asyncResp->res.jsonValue["Status"]["State"] =
+                getRedfishFWState(*swInvActivation);
+        },
+        dbusSvc, "/xyz/openbmc_project/software/" + *swId,
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Software.Activation");
+}
 } // namespace fw_util
 } // namespace redfish
