@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "435b4b4e_9dbb3e7a",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-20T21:01:24Z",
+      "side": 1,
+      "message": "A little weird... but I guess I\u0027m ok with it.",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 39
+      },
+      "revId": "71d8c5d7eefb48998b1bf3c254f3fdbf07a2f663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b030b133_687752a7",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-20T21:01:24Z",
+      "side": 1,
+      "message": "It seems a little odd you\u0027re parsing this by hand.  I would\u0027ve expect to just declare the TransferProtocol parameter std::optional\u003cstd::string\u003e, then check for existence later.  Something like\n\n\nstd::optional\u003cstd::string\u003e transferProtocol;\nstd::string imageURI;\nif (!json_util::readJson(req, asyncResp-\u003eres, \"TransferProtocol\",\n                            transferProtocol, \"ImageURI\", imageURI))\n{\n    BMCWEB_LOG_DEBUG\n        \u003c\u003c \"Missing TransferProtocol or ImageURI parameter\";\n    return;\n}\n\n\nif (transferProtocol){\n    // Follow option 1 logic\n\n} else {\n    // follow option 2 logic.\n}\n\nThat avoids a bunch of extra lookups and code.",
+      "range": {
+        "startLine": 230,
+        "startChar": 0,
+        "endLine": 237,
+        "endChar": 9
+      },
+      "revId": "71d8c5d7eefb48998b1bf3c254f3fdbf07a2f663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6409b88e_07403ea5",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-20T21:01:24Z",
+      "side": 1,
+      "message": "Technically this should be case-sensitive.  Right?",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "71d8c5d7eefb48998b1bf3c254f3fdbf07a2f663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a0d2d07_4168bd3b",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-20T21:01:24Z",
+      "side": 1,
+      "message": "TFTP?",
+      "range": {
+        "startLine": 311,
+        "startChar": 16,
+        "endLine": 311,
+        "endChar": 19
+      },
+      "revId": "71d8c5d7eefb48998b1bf3c254f3fdbf07a2f663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
