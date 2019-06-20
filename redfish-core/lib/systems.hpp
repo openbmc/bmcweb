@@ -1191,27 +1191,6 @@ class Systems : public Node
         };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const VariantType &biosId) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << ec;
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                const std::string *strBiosId =
-                    std::get_if<std::string>(&biosId);
-                if (strBiosId != nullptr)
-                {
-                    BMCWEB_LOG_DEBUG << "bios ver. = " << strBiosId;
-                    asyncResp->res.jsonValue["BiosVersion"] = *strBiosId;
-                }
-            },
-            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/bios",
-            "org.freedesktop.DBus.Properties", "Get",
-            "xyz.openbmc_project.Inventory.Item.Bios", "BiosId");
-
         getMainChassisId(asyncResp, [](const std::string &chassisId,
                                        std::shared_ptr<AsyncResp> aRsp) {
             aRsp->res.jsonValue["Links"]["Chassis"] = {
