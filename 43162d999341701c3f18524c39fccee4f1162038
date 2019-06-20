@@ -98,6 +98,30 @@
     },
     {
       "key": {
+        "uuid": "3012c469_5c9177fc",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-20T20:54:59Z",
+      "side": 1,
+      "message": "Redfish standard registries is where the defaults for these are supposed to be coming from.\n\nhttps://www.dmtf.org/sites/default/files/standards/documents/DSP8011_2019.1.zip\n\nI really need to get those files checked into the codebase in a more obvious, and harder to screw up way.",
+      "parentUuid": "ad76470e_9bbf7e85",
+      "range": {
+        "startLine": 188,
+        "startChar": 49,
+        "endLine": 188,
+        "endChar": 68
+      },
+      "revId": "43162d999341701c3f18524c39fccee4f1162038",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3acfcb66_163f0519",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 9
