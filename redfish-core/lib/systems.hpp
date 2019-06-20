@@ -234,9 +234,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                             &propertiesList) {
                                     if (ec)
                                     {
-                                        BMCWEB_LOG_ERROR
-                                            << "DBUS response error: " << ec;
-                                        messages::internalError(aResp->res);
+                                        // doesn't have to include this
+                                        // interface
                                         return;
                                     }
                                     BMCWEB_LOG_DEBUG << "Got "
@@ -276,6 +275,31 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Inventory.Decorator."
                                 "Asset");
+
+                            crow::connections::systemBus->async_method_call(
+                                [aResp](
+                                    const boost::system::error_code ec,
+                                    const std::variant<std::string> &property) {
+                                    if (ec)
+                                    {
+                                        // doesn't have to include this
+                                        // interface
+                                        return;
+                                    }
+
+                                    const std::string *value =
+                                        std::get_if<std::string>(&property);
+                                    if (value != nullptr)
+                                    {
+                                        aResp->res.jsonValue["AssetTag"] =
+                                            *value;
+                                    }
+                                },
+                                connection.first, path,
+                                "org.freedesktop.DBus.Properties", "Get",
+                                "xyz.openbmc_project.Inventory.Decorator."
+                                "AssetTag",
+                                "AssetTag");
                         }
                     }
                 }
