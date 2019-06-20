@@ -52,8 +52,6 @@ class Power : public Node
         }
         const std::string& chassis_name = params[0];
 
-        res.jsonValue["PowerControl"] = nlohmann::json::array();
-
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
             res, chassis_name, typeList, "Power");
 

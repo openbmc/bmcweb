@@ -16,7 +16,6 @@
 #pragma once
 
 #include "node.hpp"
-#include "redfish_util.hpp"
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/date_time.hpp>
@@ -1567,13 +1566,6 @@ class Manager : public Node
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
-
-        getMainChassisId(asyncResp, [](const std::string& chassisId,
-                                       const std::shared_ptr<AsyncResp> aRsp) {
-            aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
-            aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
-                {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
-        });
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
