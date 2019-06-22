@@ -72,6 +72,11 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
 
             if (privateKeyValid)
             {
+                // If order is certificate and then key component in input file
+                // then certificate read will fail.So, setting the file pointer
+                // to point beginning of file to aviod this issue.
+                fseek(file, 0, SEEK_SET);
+
                 X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
                 if (x509 == nullptr)
                 {
