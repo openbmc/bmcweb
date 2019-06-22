@@ -69,33 +69,60 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                     EC_KEY_free(ec);
                 }
             }
-
-            if (privateKeyValid)
-            {
-                X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
-                if (x509 == nullptr)
-                {
-                    std::cout << "error getting x509 cert " << ERR_get_error()
-                              << "\n";
-                }
-                else
-                {
-                    rc = X509_verify(x509, pkey);
-                    if (rc == 1)
-                    {
-                        certValid = true;
-                    }
-                    else
-                    {
-                        std::cerr << "Error in verifying private key signature "
-                                  << ERR_get_error() << "\n";
-                    }
-                }
-            }
-
             EVP_PKEY_free(pkey);
         }
+        else
+            std::cerr
+                << "Error in during PEM_read_PrivateKey call. ErrorReasonCode: "
+                << ERR_GET_REASON(ERR_get_error()) << std::endl;
+
         fclose(file);
+
+        if (privateKeyValid)
+        {
+            using X509_Ptr = std::unique_ptr<X509, decltype(&::X509_free)>;
+
+            X509_Ptr x509(X509_new(), ::X509_free);
+            if (x509)
+            {
+                using BIO_MEM_Ptr = std::unique_ptr<BIO, decltype(&::BIO_free)>;
+
+                BIO_MEM_Ptr bioCert(BIO_new_file(filepath.c_str(), "rb"),
+                                    ::BIO_free);
+
+                if (bioCert)
+                {
+                    X509 *x509Ptr = x509.get();
+                    if (PEM_read_bio_X509(bioCert.get(), &x509Ptr, NULL, NULL))
+                    {
+                        rc = X509_verify(x509.get(), pkey);
+                        std::cout << " X509_verify return code: " << rc
+                                  << std::endl;
+                        if (rc == 1)
+                        {
+                            certValid = true;
+                        }
+                        else
+                            std::cerr << "Error in verifying private key "
+                                         "signature. ErrorReasonCode: "
+                                      << ERR_GET_REASON(ERR_get_error())
+                                      << std::endl;
+                    }
+                    else
+                        std::cerr << "Error while read certification. "
+                                     "ErrorReasonCode: "
+                                  << ERR_GET_REASON(ERR_get_error())
+                                  << std::endl;
+                }
+                else
+                    std::cerr << "Error in during BIO_new_file call. "
+                                 "ErrorReasonCode: "
+                              << ERR_GET_REASON(ERR_get_error()) << std::endl;
+            }
+            else
+                std::cerr << "Error in during X509_new call. ErrorReasonCode: "
+                          << ERR_GET_REASON(ERR_get_error()) << std::endl;
+        }
     }
     return certValid;
 }
