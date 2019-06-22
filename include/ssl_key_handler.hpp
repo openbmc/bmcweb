@@ -69,33 +69,53 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                     EC_KEY_free(ec);
                 }
             }
-
-            if (privateKeyValid)
-            {
-                X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
-                if (x509 == nullptr)
-                {
-                    std::cout << "error getting x509 cert " << ERR_get_error()
-                              << "\n";
-                }
-                else
-                {
-                    rc = X509_verify(x509, pkey);
-                    if (rc == 1)
-                    {
-                        certValid = true;
-                    }
-                    else
-                    {
-                        std::cerr << "Error in verifying private key signature "
-                                  << ERR_get_error() << "\n";
-                    }
-                }
-            }
-
             EVP_PKEY_free(pkey);
         }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Error in during PEM_read_PrivateKey call";
+        }
+
         fclose(file);
+
+        if (privateKeyValid)
+        {
+            X509 *x509 = X509_new();
+            if (!x509)
+            {
+                BMCWEB_LOG_ERROR << "Error in during X509_new call";
+                return certValid;
+            }
+
+            BIO *bioCert = BIO_new_file(filepath.c_str(), "rb");
+
+            if (!bioCert)
+            {
+                BMCWEB_LOG_ERROR << "Error in during BIO_new_file call";
+                X509_free(x509);
+                return certValid;
+            }
+
+            if (PEM_read_bio_X509(bioCert, &x509, NULL, NULL))
+            {
+                rc = X509_verify(x509, pkey);
+                if (rc != 1)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Error in verifying private key signature";
+                    BIO_free(bioCert);
+                    X509_free(x509);
+                    return certValid;
+                }
+                certValid = true;
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Error in during PEM_read_bio_X509 call";
+            }
+            BIO_free(bioCert);
+            X509_free(x509);
+        }
     }
     return certValid;
 }
