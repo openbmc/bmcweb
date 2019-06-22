@@ -22,6 +22,106 @@ static EVP_PKEY *createRsaKey();
 static EVP_PKEY *createEcKey();
 static void handleOpensslError();
 
+// Trust chain related errors.`
+inline bool isTrustChainError(const unsigned int &errnum)
+{
+    if ((errnum == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT) ||
+        (errnum == X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN) ||
+        (errnum == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY) ||
+        (errnum == X509_V_ERR_CERT_UNTRUSTED) ||
+        (errnum == X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+inline bool validateCertificate(const std::string &filePath,
+                                const X509 *const cert)
+{
+    // X509_LOOKUP_free free up store object.
+    // Create an empty X509_STORE structure for certificate validation.
+    X509_STORE *x509Store = X509_STORE_new();
+    if (!x509Store)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_new call";
+        return false;
+    }
+
+    // ADD Certificate Lookup method.
+    X509_LOOKUP *x509Lookup =
+        X509_STORE_add_lookup(x509Store, X509_LOOKUP_file());
+    if (!x509Lookup)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_add_lookup call";
+        X509_STORE_free(x509Store);
+        return false;
+    }
+    // Load Certificate file.
+    int errCode =
+        X509_LOOKUP_load_file(x509Lookup, filePath.c_str(), X509_FILETYPE_PEM);
+    if (errCode != 1)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_LOOKUP_load_file call";
+        X509_LOOKUP_free(x509Lookup);
+        return false;
+    }
+
+    // Load Certificate file into the X509 structure.
+    X509_STORE_CTX *storeCtx = X509_STORE_CTX_new();
+    if (!storeCtx)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_new call";
+        X509_LOOKUP_free(x509Lookup);
+        return false;
+    }
+
+    errCode = X509_STORE_CTX_init(storeCtx, x509Store, const_cast<X509 *>(cert),
+                                  NULL);
+    if (errCode != 1)
+    {
+        BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_init call";
+        X509_STORE_CTX_free(storeCtx);
+        X509_LOOKUP_free(x509Lookup);
+        return false;
+    }
+
+    errCode = X509_verify_cert(storeCtx);
+    if (errCode == 1)
+    {
+        BMCWEB_LOG_INFO << "Certificate verification is success";
+        X509_STORE_CTX_free(storeCtx);
+        X509_LOOKUP_free(x509Lookup);
+        return true;
+    }
+    if (errCode == 0)
+    {
+        unsigned int retErrCode = X509_STORE_CTX_get_error(storeCtx);
+        X509_STORE_CTX_free(storeCtx);
+        X509_LOOKUP_free(x509Lookup);
+        if (isTrustChainError(retErrCode))
+        {
+            BMCWEB_LOG_DEBUG << "Ignoring Trust Chain error";
+            return true;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Certificate verification failed. Reason: "
+                             << X509_verify_cert_error_string(retErrCode);
+            return false;
+        }
+    }
+
+    BMCWEB_LOG_ERROR
+        << "Error occured during X509_verify_cert call. ErrorCode: " << errCode;
+    X509_STORE_CTX_free(storeCtx);
+    X509_LOOKUP_free(x509Lookup);
+    return false;
+}
+
 inline bool verifyOpensslKeyCert(const std::string &filepath)
 {
     bool privateKeyValid = false;
@@ -86,16 +186,8 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                 }
                 else
                 {
-                    rc = X509_verify(x509, pkey);
-                    if (rc == 1)
-                    {
-                        certValid = true;
-                    }
-                    else
-                    {
-                        std::cerr << "Error in verifying private key signature "
-                                  << ERR_get_error() << "\n";
-                    }
+                    certValid = validateCertificate(filepath, x509);
+                    X509_free(x509);
                 }
             }
 
