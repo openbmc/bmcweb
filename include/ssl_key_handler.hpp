@@ -22,6 +22,123 @@ static EVP_PKEY *createRsaKey();
 static EVP_PKEY *createEcKey();
 static void handleOpensslError();
 
+// Trust chain related errors.`
+#define TRUST_CHAIN_ERR(errnum)                                                \
+    ((errnum == X509_V_ERR_DEPTH_ZERO_SELF_SIGNED_CERT) ||                     \
+     (errnum == X509_V_ERR_SELF_SIGNED_CERT_IN_CHAIN) ||                       \
+     (errnum == X509_V_ERR_UNABLE_TO_GET_ISSUER_CERT_LOCALLY) ||               \
+     (errnum == X509_V_ERR_CERT_UNTRUSTED) ||                                  \
+     (errnum == X509_V_ERR_UNABLE_TO_VERIFY_LEAF_SIGNATURE))
+
+using X509_Ptr = std::unique_ptr<X509, decltype(&::X509_free)>;
+
+inline bool validateCertificate(const std::string &filePath,
+                                const X509_Ptr &cert)
+{
+    // Defining store object as RAW to avoid double free.
+    // X509_LOOKUP_free free up store object.
+    // Create an empty X509_STORE structure for certificate validation.
+    auto x509Store = X509_STORE_new();
+    if (!x509Store)
+    {
+        std::cerr << "Error occured during X509_STORE_new call. ErrorCode: "
+                  << ERR_get_error() << std::endl;
+        return false;
+    }
+
+    // ADD Certificate Lookup method.
+    using X509_LOOKUP_Ptr =
+        std::unique_ptr<X509_LOOKUP, decltype(&::X509_LOOKUP_free)>;
+
+    X509_LOOKUP_Ptr lookup(X509_STORE_add_lookup(x509Store, X509_LOOKUP_file()),
+                           ::X509_LOOKUP_free);
+    if (!lookup)
+    {
+        // Normally lookup cleanup function interanlly does X509Store cleanup
+        // Free up the X509Store.
+        X509_STORE_free(x509Store);
+        std::cerr
+            << "Error occured during X509_STORE_add_lookup call. ErrorCode: "
+            << ERR_get_error() << std::endl;
+        return false;
+    }
+    // Load Certificate file.
+    auto errCode = X509_V_OK;
+    errCode = X509_LOOKUP_load_file(lookup.get(), filePath.c_str(),
+                                    X509_FILETYPE_PEM);
+    if (errCode != 1)
+    {
+        std::cerr
+            << "Error occured during X509_LOOKUP_load_file call. ErroCode: "
+            << ERR_get_error() << std::endl;
+        return false;
+    }
+
+    // Load Certificate file into the X509 structre.
+    using X509_STORE_CTX_Ptr =
+        std::unique_ptr<X509_STORE_CTX, decltype(&::X509_STORE_CTX_free)>;
+
+    X509_STORE_CTX_Ptr storeCtx(X509_STORE_CTX_new(), ::X509_STORE_CTX_free);
+    if (!storeCtx)
+    {
+        std::cerr << "Error occured during X509_STORE_CTX_new call. ErrorCode: "
+                  << ERR_get_error() << std::endl;
+        return false;
+    }
+
+    errCode = X509_STORE_CTX_init(storeCtx.get(), x509Store, cert.get(), NULL);
+    if (errCode != 1)
+    {
+        std::cerr
+            << "Error occured during X509_STORE_CTX_init call. ErrorCode: "
+            << ERR_get_error() << std::endl;
+        return false;
+    }
+
+    // Set time to current time.
+    auto locTime = time(nullptr);
+
+    X509_STORE_CTX_set_time(storeCtx.get(), X509_V_FLAG_USE_CHECK_TIME,
+                            locTime);
+
+    errCode = X509_verify_cert(storeCtx.get());
+    if (errCode == 1)
+    {
+        errCode = X509_V_OK;
+    }
+    else if (errCode == 0)
+    {
+        errCode = X509_STORE_CTX_get_error(storeCtx.get());
+        std::cerr << "Certificate verification failed. ErrorCode: " << errCode
+                  << std::endl;
+    }
+    else
+    {
+        std::cerr << "Error occured during X509_verify_cert call. ErrorCode: "
+                  << errCode << std::endl;
+        return false;
+    }
+
+    // Allow certificate upload, for "certificate is not yet valid" and
+    // trust chain related errors.
+    if (!((errCode == X509_V_OK) ||
+          (errCode == X509_V_ERR_CERT_NOT_YET_VALID) ||
+          TRUST_CHAIN_ERR(errCode)))
+    {
+        if (errCode == X509_V_ERR_CERT_HAS_EXPIRED)
+        {
+            std::cerr << "Expired Certificate" << std::endl;
+        }
+        else // Loging general error here.
+        {
+            std::cerr << "Certificate validation failed" << std::endl;
+        }
+        return false;
+    }
+
+    return true;
+}
+
 inline bool verifyOpensslKeyCert(const std::string &filepath)
 {
     bool privateKeyValid = false;
@@ -82,8 +199,6 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
 
         if (privateKeyValid)
         {
-            using X509_Ptr = std::unique_ptr<X509, decltype(&::X509_free)>;
-
             X509_Ptr x509(X509_new(), ::X509_free);
             if (!x509)
             {
@@ -108,15 +223,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
             X509 *x509Ptr = x509.get();
             if (PEM_read_bio_X509(bioCert.get(), &x509Ptr, NULL, NULL))
             {
-                rc = X509_verify(x509.get(), pkey);
-                if (rc != 1)
-                {
-                    std::cerr << "Error in verifying private key "
-                                 "signature. ErrorReasonCode: "
-                              << ERR_GET_REASON(ERR_get_error()) << std::endl;
-                    return certValid;
-                }
-                certValid = true;
+                certValid = validateCertificate(filepath, x509);
             }
             else
             {
