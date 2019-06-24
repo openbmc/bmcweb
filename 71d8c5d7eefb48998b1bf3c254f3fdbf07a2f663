@@ -146,6 +146,30 @@
     },
     {
       "key": {
+        "uuid": "652d40c7_9955e1ec",
+        "filename": "redfish-core/lib/update_service.hpp",
+        "patchSetId": 11
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1000153
+      },
+      "writtenOn": "2019-06-24T22:26:11Z",
+      "side": 1,
+      "message": "I\u0027d prefer we\u0027re redfish compliant here.  Can we just call std::toupper on the string on line 272?  That way, if it comes through that path, it\u0027s case insensitive, which I think is the right behavior for URLs.  Then if it comes in through the TransferProtocol path, we\u0027re case sensitive as Redfish requires.  Sound reasonable?",
+      "parentUuid": "97776ab4_4b155f30",
+      "range": {
+        "startLine": 284,
+        "startChar": 20,
+        "endLine": 284,
+        "endChar": 27
+      },
+      "revId": "71d8c5d7eefb48998b1bf3c254f3fdbf07a2f663",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0a0d2d07_4168bd3b",
         "filename": "redfish-core/lib/update_service.hpp",
         "patchSetId": 11
