@@ -322,6 +322,18 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 {
                     aResp->res.jsonValue["DataWidthBits"] = property.second;
                 }
+                else if (property.first == "PartNumber")
+                {
+                    aResp->res.jsonValue["PartNumber"] = property.second;
+                }
+                else if (property.first == "SerialNumber")
+                {
+                    aResp->res.jsonValue["SerialNumber"] = property.second;
+                }
+                else if (property.first == "Manufacturer")
+                {
+                    aResp->res.jsonValue["Manufacturer"] = property.second;
+                }
                 else if (property.first == "MemoryType")
                 {
                     const auto *value =
