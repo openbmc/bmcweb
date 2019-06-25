@@ -987,6 +987,16 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{"PowerRestorePolicyApplied",
+                 {
+                     .description = "Indicates that power was restored and the "
+                                    "BMC has applied the restore policy.",
+                     .message = "Power restore policy applied.",
+                     .severity = "OK",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
     MessageEntry{
         "PowerSupplyACLost",
         {
