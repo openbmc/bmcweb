@@ -997,6 +997,97 @@ const std::array registry = {
             .paramTypes = {"number"},
             .resolution = "None.",
         }},
+    MessageEntry{"PowerUnitRedundancyLost",
+                 {
+                     .description =
+                         "Indicates that power unit redundancy has been lost.",
+                     .message = "Power Unit Redundancy lost.",
+                     .severity = "Warning",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{
+        "PowerUnitRedundancyRegained",
+        {
+            .description =
+                "Indicates that power unit redundancy has been regained.",
+            .message = "Power Unit Redundancy regained.",
+            .severity = "OK",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "PowerUnitRedundancyDegraded",
+        {
+            .description =
+                "Indicates that power unit redundancy has been degraded.",
+            .message = "Power Unit Redundancy degraded.",
+            .severity = "Warning",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{"PowerUnitNonRedundantSufficient",
+                 {
+                     .description =
+                         "Indicates that power unit is not in full redundancy"
+                         " but still has sufficient power to support "
+                         "redundancy.",
+                     .message = "Power Unit Nonredundant in sufficient.",
+                     .severity = "Warning",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{
+        "PowerUnitRedundantFromInsufficient",
+        {
+            .description = "Indicates that power unit is not in full redundancy"
+                           " and get sufficient power to support redundancy "
+                           "from insufficient power.",
+            .message =
+                "Power Unit Nonredundant from insufficient to sufficient.",
+            .severity = "Warning",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{"PowerUnitNonRedundantInsufficient",
+                 {
+                     .description =
+                         "Indicates that power unit do not have sufficient "
+                         "power to support redundancy.",
+                     .message = "Power Unit Nonredundant in insufficient.",
+                     .severity = "Error",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"PowerUnitDegradedFromRedundant",
+                 {
+                     .description =
+                         "Indicates that power unit is degarded from full "
+                         "redundancy mode.",
+                     .message = "Power Unit degraded from redundant.",
+                     .severity = "Warning",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"PowerUnitDegradedFromNonredundant",
+                 {
+                     .description =
+                         "Indicates that power unit is degarded and previous "
+                         "power unit status is not in full redundancy mode.",
+                     .message = "Power Unit degraded from nonredundant.",
+                     .severity = "Warning",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+
     MessageEntry{
         "PowerSupplyConfigurationError",
         {
