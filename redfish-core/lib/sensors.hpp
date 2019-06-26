@@ -861,7 +861,7 @@ static void
                             "GetAll",
                             "xyz.openbmc_project.Control.FanRedundancy");
                     },
-                    "xyz.openbmc_project.ObjectMapper", path + "/inventory",
+                    "xyz.openbmc_project.ObjectMapper", path + "/chassis",
                     "org.freedesktop.DBus.Properties", "Get",
                     "xyz.openbmc_project.Association", "endpoints");
             }
