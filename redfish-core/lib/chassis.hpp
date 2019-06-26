@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "leds.hpp"
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
