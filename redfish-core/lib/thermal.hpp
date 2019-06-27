@@ -37,7 +37,7 @@ class Thermal : public Node
     }
 
   private:
-    std::initializer_list<const char*> typeList = {
+    std::vector<const char*> typeList = {
         "/xyz/openbmc_project/sensors/fan_tach",
         "/xyz/openbmc_project/sensors/temperature",
         "/xyz/openbmc_project/sensors/fan_pwm"};

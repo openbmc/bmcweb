@@ -47,7 +47,7 @@ class SensorsAsyncResp
 {
   public:
     SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::initializer_list<const char*> types,
+                     const std::vector<const char*> types,
                      const std::string& subNode) :
         res(response),
         chassisId(chassisId), types(types), chassisSubNode(subNode)
@@ -1630,7 +1630,7 @@ bool findSensorNameUsingSensorPath(
  */
 void setSensorOverride(crow::Response& res, const crow::Request& req,
                        const std::vector<std::string>& params,
-                       const std::initializer_list<const char*> typeList,
+                       const std::vector<const char*> typeList,
                        const std::string& chassisSubNode)
 {
 
