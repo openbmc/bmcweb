@@ -24,6 +24,7 @@
 #include <dbus_utility.hpp>
 #include <memory>
 #include <sstream>
+#include <utils/fw_utils.hpp>
 #include <utils/systemd_utils.hpp>
 #include <variant>
 
@@ -1527,49 +1528,8 @@ class Manager : public Node
         health->isManagersHealth = true;
         health->populate();
 
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const dbus::utility::ManagedObjectType& resp) {
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "Error while getting Software Version";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                for (auto& objpath : resp)
-                {
-                    for (auto& interface : objpath.second)
-                    {
-                        // If interface is
-                        // xyz.openbmc_project.Software.Version, this is
-                        // what we're looking for.
-                        if (interface.first ==
-                            "xyz.openbmc_project.Software.Version")
-                        {
-                            // Cut out everyting until last "/", ...
-                            for (auto& property : interface.second)
-                            {
-                                if (property.first == "Version")
-                                {
-                                    const std::string* value =
-                                        std::get_if<std::string>(
-                                            &property.second);
-                                    if (value == nullptr)
-                                    {
-                                        continue;
-                                    }
-                                    asyncResp->res
-                                        .jsonValue["FirmwareVersion"] = *value;
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "xyz.openbmc_project.Software.BMC.Updater",
-            "/xyz/openbmc_project/software",
-            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        fw_util::getActiveFwVersion(asyncResp, fw_util::bmcPurpose,
+                                    "FirmwareVersion");
 
         auto pids = std::make_shared<GetPIDValues>(asyncResp);
         pids->run();
