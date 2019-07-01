@@ -69,17 +69,9 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "Administrator";
     }
-    else if (role == "priv-callback")
+    else
     {
-        return "Callback";
-    }
-    else if (role == "priv-user")
-    {
-        return "User";
-    }
-    else if (role == "priv-operator")
-    {
-        return "Operator";
+        std::cerr << "Not Enough Privileges\n";
     }
     return "";
 }
@@ -89,17 +81,9 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "priv-admin";
     }
-    else if (role == "Callback")
+    else
     {
-        return "priv-callback";
-    }
-    else if (role == "User")
-    {
-        return "priv-user";
-    }
-    else if (role == "Operator")
-    {
-        return "priv-operator";
+        std::cerr << "Not Enough Privileges\n";
     }
     return "";
 }
