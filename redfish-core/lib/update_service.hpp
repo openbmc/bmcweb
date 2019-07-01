@@ -601,6 +601,8 @@ class SoftwareInventory : public Node
                     return;
                 }
 
+                // Ensure we find our input swId, otherwise return an error
+                bool found = false;
                 for (const std::pair<
                          std::string,
                          std::vector<
@@ -617,6 +619,7 @@ class SoftwareInventory : public Node
                         continue;
                     }
 
+                    found = true;
                     fw_util::getFwStatus(asyncResp, swId, obj.second[0].first);
 
                     crow::connections::systemBus->async_method_call(
@@ -705,6 +708,14 @@ class SoftwareInventory : public Node
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
                         "xyz.openbmc_project.Software.Version");
+                }
+                if (!found)
+                {
+                    BMCWEB_LOG_ERROR << "Input swID " + *swId + " not found!";
+                    messages::resourceMissingAtURI(
+                        asyncResp->res,
+                        "/redfish/v1/UpdateService/FirmwareInventory/" + *swId);
+                    return;
                 }
             },
             "xyz.openbmc_project.ObjectMapper",
