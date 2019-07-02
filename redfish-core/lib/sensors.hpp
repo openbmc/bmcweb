@@ -568,6 +568,11 @@ void objectInterfacesToJson(
 
         if (!sensorName.compare("total_power"))
         {
+            sensor_json["@odata.type"] = "#Power.v1_0_0.PowerControl";
+            // Put multiple "sensors" into a single PowerControl, so have
+            // generic names for MemberId and Name. Follows Redfish mockup.
+            sensor_json["MemberId"] = "0";
+            sensor_json["Name"] = "Chassis Power Control";
             unit = "PowerConsumedWatts";
         }
         else if (sensorNameLower.find("input") != std::string::npos)
@@ -1493,10 +1498,23 @@ void getSensorData(
                 nlohmann::json& tempArray =
                     SensorsAsyncResp->res.jsonValue[fieldName];
 
-                if (fieldName == "PowerSupplies" && !tempArray.empty())
+                if ((fieldName == "PowerSupplies" ||
+                     fieldName == "PowerControl") &&
+                    !tempArray.empty())
                 {
-                    // Power supplies put multiple "sensors" into a single power
-                    // supply entry, so only create the first one
+                    // For power supplies and power control put multiple
+                    // "sensors" into a single power supply or power control
+                    // entry, so only create the first one
+                }
+                else if (fieldName == "PowerControl")
+                {
+                    // Put multiple "sensors" into a single PowerControl.
+                    // Follows MemberId naming and naming in power.hpp.
+                    tempArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Chassis/" +
+                                           SensorsAsyncResp->chassisId + "/" +
+                                           SensorsAsyncResp->chassisSubNode +
+                                           "#/" + fieldName + "/0"}});
                 }
                 else
                 {

@@ -124,11 +124,21 @@ class Power : public Node
                     }
 
                     nlohmann::json& tempArray =
-                        sensorAsyncResp->res.jsonValue["PowerLimit"];
+                        sensorAsyncResp->res.jsonValue["PowerControl"];
 
+                    // Put multiple "sensors" into a single PowerControl, 0, so
+                    // only create the first one
                     if (tempArray.empty())
                     {
-                        tempArray.push_back({});
+                        // Mandatory properties odata.id and MemberId
+                        // A warning without a odata.type
+                        tempArray.push_back(
+                            {{"@odata.type", "#Power.v1_0_0.PowerControl"},
+                             {"@odata.id", "/redfish/v1/Chassis/" +
+                                               sensorAsyncResp->chassisId +
+                                               "/Power#/PowerControl/0"},
+                             {"Name", "Chassis Power Control"},
+                             {"MemberId", "0"}});
                     }
 
                     nlohmann::json& sensorJson = tempArray.back();
@@ -188,7 +198,8 @@ class Power : public Node
                         }
                     }
 
-                    nlohmann::json& value = sensorJson["LimitInWatts"];
+                    nlohmann::json& value =
+                        sensorJson["PowerLimit"]["LimitInWatts"];
 
                     if (enabled)
                     {
