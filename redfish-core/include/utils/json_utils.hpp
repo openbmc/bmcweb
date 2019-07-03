@@ -278,6 +278,8 @@ template <typename... UnpackTypes>
 bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
               UnpackTypes&... in)
 {
+    auto oldResult = res.result();
+
     if (!jsonRequest.is_object())
     {
         BMCWEB_LOG_DEBUG << "Json value is not an object";
@@ -301,7 +303,7 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
 
     details::handleMissing(handled, res, key, in...);
 
-    return res.result() == boost::beast::http::status::ok;
+    return res.result() == oldResult;
 }
 
 template <typename... UnpackTypes>
