@@ -1453,13 +1453,14 @@ class Systems : public Node
     {
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps))
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (!json_util::readJson(req, asyncResp->res, "IndicatorLED",
+                                 indicatorLed, "Boot", bootProps))
         {
             return;
         }
 
-        auto asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.result(boost::beast::http::status::no_content);
 
         if (bootProps)

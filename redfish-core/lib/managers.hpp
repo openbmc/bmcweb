@@ -1654,13 +1654,13 @@ class Manager : public Node
     {
         std::optional<nlohmann::json> oem;
         std::optional<std::string> datetime;
+        std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, res, "Oem", oem, "DateTime", datetime))
+        if (!json_util::readJson(req, response->res, "Oem", oem, "DateTime",
+                                 datetime))
         {
             return;
         }
-
-        std::shared_ptr<AsyncResp> response = std::make_shared<AsyncResp>(res);
 
         if (oem)
         {
