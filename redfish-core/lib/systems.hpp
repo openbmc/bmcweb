@@ -1308,6 +1308,7 @@ class Systems : public Node
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
                                  bootProps))
         {
+            res.end();
             return;
         }
 
