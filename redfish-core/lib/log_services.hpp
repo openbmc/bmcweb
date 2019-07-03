@@ -496,10 +496,10 @@ class EventLogService : public Node
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
-        asyncResp->res.jsonValue["Actions"] = {
-            {{"#LogService.ClearLog",
-              {{"target", "/redfish/v1/Systems/system/LogServices/EventLog/"
-                          "Actions/LogService.ClearLog"}}}}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+
+            {"target", "/redfish/v1/Systems/system/LogServices/EventLog/"
+                       "Actions/LogService.ClearLog"}};
     }
 };
 
