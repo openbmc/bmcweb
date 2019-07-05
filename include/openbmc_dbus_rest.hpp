@@ -23,6 +23,7 @@
 #include <dbus_utility.hpp>
 #include <filesystem>
 #include <fstream>
+#include <regex>
 #include <sdbusplus/message/types.hpp>
 
 namespace crow
@@ -2110,7 +2111,30 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 {
                     continue;
                 }
+
                 res.addHeader("Content-Type", "application/octet-stream");
+
+                // Assuming only one dump file will be present in the dump id
+                // directory
+                std::string dumpFileName = file.path().filename().string();
+
+                // Filename should be in alphanumeric, dot and underscore
+                // Its based on phosphor-debug-collector application dumpfile
+                // format
+                std::regex dumpFileRegex("[a-zA-Z0-9\\._]+");
+                if (!std::regex_match(dumpFileName, dumpFileRegex))
+                {
+                    BMCWEB_LOG_ERROR << "Invalid dump filename "
+                                     << dumpFileName;
+                    res.result(boost::beast::http::status::not_found);
+                    res.end();
+                    return;
+                }
+                std::string contentDispositionParam =
+                    "attachment; filename=\"" + dumpFileName + "\"";
+
+                res.addHeader("Content-Disposition", contentDispositionParam);
+
                 res.body() = {std::istreambuf_iterator<char>(readFile),
                               std::istreambuf_iterator<char>()};
                 res.end();
