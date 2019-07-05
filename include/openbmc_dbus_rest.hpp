@@ -2111,6 +2111,14 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     continue;
                 }
                 res.addHeader("Content-Type", "application/octet-stream");
+
+                // Assuming only one dump file will be present in the dump id
+                // directory
+                std::string dumpFileName = "attachment; filename=\"" +
+                                           file.path().filename().string() +
+                                           "\"";
+                res.addHeader("Content-Disposition", dumpFileName);
+
                 res.body() = {std::istreambuf_iterator<char>(readFile),
                               std::istreambuf_iterator<char>()};
                 res.end();
