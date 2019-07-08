@@ -118,9 +118,10 @@ bool checkRange(const FromType* from, const std::string& key,
 }
 
 template <typename Type>
-void unpackValue(nlohmann::json& jsonValue, const std::string& key,
+bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
 {
+    bool r = true;
     if constexpr (std::is_floating_point_v<Type>)
     {
         double helper = 0;
@@ -137,7 +138,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         }
         if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
         {
-            return;
+            return false;
         }
         value = static_cast<Type>(*jsonPtr);
     }
@@ -147,7 +148,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
         if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
         {
-            return;
+            return false;
         }
         value = static_cast<Type>(*jsonPtr);
     }
@@ -158,7 +159,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
         {
-            return;
+            return false;
         }
         value = static_cast<Type>(*jsonPtr);
     }
@@ -166,7 +167,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
     else if constexpr (is_optional_v<Type>)
     {
         value.emplace();
-        unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+        r = unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
     }
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
     {
@@ -175,7 +176,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         if (!jsonValue.is_object() && !jsonValue.is_array())
         {
             messages::propertyValueTypeError(res, jsonValue.dump(), key);
-            return;
+            return false;
         }
 
         value = std::move(jsonValue);
@@ -185,18 +186,21 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         if (!jsonValue.is_array())
         {
             messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
-            return;
+            return false;
         }
         if (jsonValue.size() != value.size())
         {
             messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
-            return;
+            return false;
         }
         size_t index = 0;
         for (const auto& val : jsonValue.items())
         {
-            unpackValue<typename Type::value_type>(val.value(), key, res,
+            bool unpack = unpackValue<typename Type::value_type>(val.value(), key, res,
                                                    value[index++]);
+            if (!unpack){
+                r = false;
+            }
         }
     }
     else if constexpr (is_vector_v<Type>)
@@ -204,14 +208,17 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
         if (!jsonValue.is_array())
         {
             messages::propertyValueTypeError(res, res.jsonValue.dump(), key);
-            return;
+            return false;
         }
 
         for (const auto& val : jsonValue.items())
         {
             value.emplace_back();
-            unpackValue<typename Type::value_type>(val.value(), key, res,
+            bool unpack = unpackValue<typename Type::value_type>(val.value(), key, res,
                                                    value.back());
+                                                               if (!unpack){
+                r = false;
+            }
         }
     }
     else
@@ -224,36 +231,37 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                 << "Value for key " << key
                 << " was incorrect type: " << jsonValue.type_name();
             messages::propertyValueTypeError(res, jsonValue.dump(), key);
-            return;
+            return false;
         }
         value = std::move(*jsonPtr);
     }
+    return true;
 }
 
 template <size_t Count, size_t Index>
-void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled)
 {
     BMCWEB_LOG_DEBUG << "Unable to find variable for key" << key;
     messages::propertyUnknown(res, key);
+    return false;
 }
 
 template <size_t Count, size_t Index, typename ValueType,
           typename... UnpackTypes>
-void readJsonValues(const std::string& key, nlohmann::json& jsonValue,
+bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
                     crow::Response& res, std::bitset<Count>& handled,
                     const char* keyToCheck, ValueType& valueToFill,
                     UnpackTypes&... in)
 {
     if (key != keyToCheck)
     {
-        readJsonValues<Count, Index + 1>(key, jsonValue, res, handled, in...);
-        return;
+        return readJsonValues<Count, Index + 1>(key, jsonValue, res, handled, in...);
     }
 
     handled.set(Index);
 
-    unpackValue<ValueType>(jsonValue, key, res, valueToFill);
+    return unpackValue<ValueType>(jsonValue, key, res, valueToFill);
 }
 
 template <size_t Index = 0, size_t Count>
@@ -293,15 +301,20 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     }
 
     std::bitset<(sizeof...(in) + 1) / 2> handled(0);
+    bool unpackResult = true;
     for (const auto& item : jsonRequest.items())
     {
-        details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
+        bool r = details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
             item.key(), item.value(), res, handled, key, in...);
+
+        if (!r){
+            unpackResult = false;
+        }
     }
 
     details::handleMissing(handled, res, key, in...);
 
-    return res.result() == boost::beast::http::status::ok;
+    return unpackResult;
 }
 
 template <typename... UnpackTypes>
