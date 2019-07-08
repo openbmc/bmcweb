@@ -86,7 +86,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error line: "
+                                            << __LINE__ << ec;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -135,7 +136,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     if (ec)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error line: "
+                                            << __LINE__ << ec;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -185,7 +187,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     if (ec)
                                     {
                                         BMCWEB_LOG_DEBUG
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error line: "
+                                            << __LINE__ << ec;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -338,7 +341,8 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                                         const ManagedObjectsType &resp) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -388,7 +392,8 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                                         const PropertiesType &properties) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -447,7 +452,8 @@ void getHostState(std::shared_ptr<AsyncResp> aResp)
                 const std::variant<std::string> &hostState) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -622,7 +628,8 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
                 const std::variant<std::string> &bootMode) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -693,7 +700,8 @@ static void getBootSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled)
                              const std::variant<std::string> &bootSource) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -738,7 +746,8 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
                 const sdbusplus::message::variant<bool> &oneTime) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -894,7 +903,8 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
             [aResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                     << ec;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -911,7 +921,8 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
             [aResp](const boost::system::error_code ec) {
                 if (ec)
                 {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                     << ec;
                     messages::internalError(aResp->res);
                     return;
                 }
@@ -926,7 +937,8 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
         [aResp{std::move(aResp)}](const boost::system::error_code ec) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -962,7 +974,8 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
             const sdbusplus::message::variant<bool> &oneTime) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                BMCWEB_LOG_DEBUG << "DBUS response error line: " << __LINE__
+                                 << ec;
                 messages::internalError(aResp->res);
                 return;
             }
@@ -1326,7 +1339,8 @@ class Systems : public Node
                 [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error line: " << __LINE__ << ec;
                         messages::internalError(asyncResp->res);
                         return;
                     }
@@ -1349,7 +1363,8 @@ class Systems : public Node
                     const boost::system::error_code ec) {
                     if (ec)
                     {
-                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        BMCWEB_LOG_DEBUG
+                            << "DBUS response error line: " << __LINE__ << ec;
                         messages::internalError(asyncResp->res);
                         return;
                     }
