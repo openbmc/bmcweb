@@ -15,6 +15,9 @@
 */
 #pragma once
 
+#include "leds.hpp"
+#include "node.hpp"
+
 #include <math.h>
 
 #include <boost/algorithm/string/predicate.hpp>
@@ -38,39 +41,6 @@ using ManagedObjectsVectorType = std::vector<std::pair<
     sdbusplus::message::object_path,
     boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
-
-/**
- * SensorsAsyncResp
- * Gathers data needed for response processing after async calls are done
- */
-class SensorsAsyncResp
-{
-  public:
-    SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::vector<const char*> types,
-                     const std::string& subNode) :
-        res(response),
-        chassisId(chassisId), types(types), chassisSubNode(subNode)
-    {
-    }
-
-    ~SensorsAsyncResp()
-    {
-        if (res.result() == boost::beast::http::status::internal_server_error)
-        {
-            // Reset the json object to clear out any data that made it in
-            // before the error happened todo(ed) handle error condition with
-            // proper code
-            res.jsonValue = nlohmann::json::object();
-        }
-        res.end();
-    }
-
-    crow::Response& res;
-    std::string chassisId{};
-    const std::vector<const char*> types;
-    std::string chassisSubNode{};
-};
 
 /**
  * @brief Get objects with connection necessary for sensors
@@ -1510,6 +1480,9 @@ void getSensorData(
 
                 objectInterfacesToJson(sensorName, sensorType,
                                        objDictEntry.second, sensorJson);
+                std::shared_ptr<nlohmann::json> jsonObj =
+                    std::make_shared<nlohmann::json>(sensorJson);
+                checkSensorLed(SensorsAsyncResp, objPath, jsonObj);
             }
             if (SensorsAsyncResp.use_count() == 1)
             {

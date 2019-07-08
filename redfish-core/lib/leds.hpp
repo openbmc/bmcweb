@@ -31,16 +31,22 @@
 namespace redfish
 {
 
-void getLedState(std::shared_ptr<AsyncResp> aResp, nlohmann::json &ledEntry,
+using GetSubTreeType = std::vector<
+    std::pair<std::string,
+              std::vector<std::pair<std::string, std::vector<std::string>>>>>;
+
+void getLedState(std::shared_ptr<SensorsAsyncResp> aResp, std::shared_ptr<nlohmann::json> sensorEntry,
                  const std::string owner, const std::string ledPath)
 {
 
     crow::connections::systemBus->async_method_call(
-        [aResp, &ledEntry](const boost::system::error_code ec,
+        [ledPath, aResp, &sensorEntry](const boost::system::error_code ec,
                            const boost::container::flat_map<std::string,
                               std::variant<std::string, uint16_t,
                                   uint8_t>>& ret)
         {
+            BMCWEB_LOG_DEBUG << "getLedState respHandler1 enter: led="
+                             << ledPath;
             if (ec)
             {
                 messages::internalError(aResp->res);
@@ -72,30 +78,154 @@ void getLedState(std::shared_ptr<AsyncResp> aResp, nlohmann::json &ledEntry,
                 return;
             }
 
-            std::string ledState;
-
             if (boost::ends_with(*state, "On"))
             {
-                ledState = "Lit";
+                (*sensorEntry.get())["IndicatorLed"] = "Lit";
             }
             else if (boost::ends_with(*state, "Blink"))
             {
-                ledState = "Blinking";
+                (*sensorEntry.get())["IndicatorLed"] = "Blinking";
             }
             else if(boost::ends_with(*state, "Off"))
             {
-                ledState = "Off";
+                (*sensorEntry.get())["IndicatorLed"] = "Off";
             }
             else
             {
-                ledState = "Unknown";
+                (*sensorEntry.get())["IndicatorLed"] = "Unknown";
             }
 
-            ledEntry = ledState;
+            //BMCWEB_LOG_DEBUG << "ledState=" << ledState;
+
+            BMCWEB_LOG_DEBUG << "getLedState respHandler1 exit: led="
+                             << ledPath;
         },
         owner, ledPath,
         "org.freedesktop.DBus.Properties",
         "GetAll", "xyz.openbmc_project.Led.Physical");
+}
+
+void checkSensorLed(std::shared_ptr<redfish::SensorsAsyncResp> aResp,
+                    const std::string& sensorPath, std::shared_ptr<nlohmann::json> sensorEntry)
+{
+    crow::connections::systemBus->async_method_call(
+        [&sensorEntry, sensorPath, aResp](const boost::system::error_code ec,
+                            std::variant<std::vector<std::string>>
+                                variantEndpoints)
+        {
+            BMCWEB_LOG_DEBUG << "respHandler1 enter: sensor="
+                             << sensorPath;
+            if (ec)
+            {
+                return; // if they don't have an association we
+                        // just skip it
+            }
+
+            auto endpoints = std::get_if<std::vector<std::string>>(
+                                &variantEndpoints);
+
+            if (endpoints == nullptr)
+            {
+                BMCWEB_LOG_ERROR << "Invalid association interface";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            // Assume there is only one endpoint
+            std::string endpoint = *(endpoints->begin());
+            BMCWEB_LOG_DEBUG << "endpoint=" << endpoint;
+
+            crow::connections::systemBus->async_method_call(
+                [&sensorEntry, sensorPath, aResp](const boost::system::error_code ec,
+                                    std::variant<std::vector<std::string>>
+                                        variantEndpoints)
+                {
+                    BMCWEB_LOG_DEBUG << "respHandler2 enter: sensor="
+                                     << sensorPath;
+                    if (ec)
+                    {
+                        return; // if they don't have an association we
+                                // just skip it
+                    }
+
+                    auto endpoints = std::get_if<std::vector<std::string>>(
+                                        &variantEndpoints);
+
+                    if (endpoints == nullptr)
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid association interface";
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    // Assume there is only one endpoint
+                    std::string endpoint = *(endpoints->begin());
+                    BMCWEB_LOG_DEBUG << "endpoint=" << endpoint;
+
+                    const std::array<const char*, 1> interfaces = {
+                    "xyz.openbmc_project.Led.Physical"};
+                    crow::connections::systemBus->async_method_call(
+                        [aResp, endpoint, &sensorEntry]
+                            (const boost::system::error_code ec,
+                            const GetSubTreeType& subtree)
+                        {
+                            BMCWEB_LOG_DEBUG << "respHandler3 enter";
+                            if (ec)
+                            {
+                                messages::internalError(aResp->res);
+                                BMCWEB_LOG_ERROR
+                                    << "checkSensorLed get owner resp_handler: "
+                                    << "Dbus error " << ec;
+                                return;
+                            }
+
+                            auto it = std::find_if(subtree.begin(), subtree.end(),
+                                        [endpoint](const std::pair<std::string,
+                                                       std::vector<std::pair<
+                                                       std::string, std::vector<
+                                                       std::string>>>> &object)
+                                        {
+                                            return object.first == endpoint;
+                                        });
+
+                            if(it == subtree.end())
+                            {
+                                BMCWEB_LOG_ERROR
+                                    << "Could not find path for physical led: "
+                                    << endpoint;
+                                return;
+                            }
+
+                            std::string ledPath = (*it).first;
+                            BMCWEB_LOG_DEBUG << "Found path for Led '" <<
+                                                ledPath;
+
+                            // This should always be correct if we found the sensorPath
+                            std::string owner = (*it).second.begin()->first;
+                            BMCWEB_LOG_DEBUG << "Found service for Led '" <<
+                                                ledPath << "': " << owner;
+
+                            getLedState(aResp, sensorEntry, owner, endpoint);
+                            BMCWEB_LOG_DEBUG << "respHandler3 exit";
+                        },
+                        "xyz.openbmc_project.ObjectMapper",
+                        "/xyz/openbmc_project/object_mapper",
+                        "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+                        "/xyz/openbmc_project/led/physical", 2, interfaces);
+
+                    BMCWEB_LOG_DEBUG << "respHandler2 exit";
+                },
+                "xyz.openbmc_project.ObjectMapper",
+                endpoint + "/leds",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Association", "endpoints");
+
+            BMCWEB_LOG_DEBUG << "respHandler1 exit";
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        sensorPath + "/inventory",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
 }
 
 } // namespace redfish
