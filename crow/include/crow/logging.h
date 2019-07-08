@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
+#include <filesystem>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -63,10 +64,14 @@ class logger
     }
 
   public:
-    logger(const std::string& prefix, LogLevel level) : level(level)
+    logger(const std::string& prefix, const std::string& filename,
+           const size_t line, LogLevel level) :
+        level(level)
     {
 #ifdef BMCWEB_ENABLE_LOGGING
-        stringstream << "(" << timestamp() << ") [" << prefix << "] ";
+        stringstream << "(" << timestamp() << ") [" << prefix << " "
+                     << std::filesystem::path(filename).filename() << ":"
+                     << line << "] ";
 #endif
     }
     ~logger()
@@ -130,16 +135,16 @@ class logger
 
 #define BMCWEB_LOG_CRITICAL                                                    \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Critical)     \
-    crow::logger("CRITICAL", crow::LogLevel::Critical)
+    crow::logger("CRITICAL", __FILE__, __LINE__, crow::LogLevel::Critical)
 #define BMCWEB_LOG_ERROR                                                       \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Error)        \
-    crow::logger("ERROR   ", crow::LogLevel::Error)
+    crow::logger("ERROR", __FILE__, __LINE__, crow::LogLevel::Error)
 #define BMCWEB_LOG_WARNING                                                     \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Warning)      \
-    crow::logger("WARNING ", crow::LogLevel::Warning)
+    crow::logger("WARNING", __FILE__, __LINE__, crow::LogLevel::Warning)
 #define BMCWEB_LOG_INFO                                                        \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Info)         \
-    crow::logger("INFO    ", crow::LogLevel::Info)
+    crow::logger("INFO", __FILE__, __LINE__, crow::LogLevel::Info)
 #define BMCWEB_LOG_DEBUG                                                       \
     if (crow::logger::get_current_log_level() <= crow::LogLevel::Debug)        \
-    crow::logger("DEBUG   ", crow::LogLevel::Debug)
+    crow::logger("DEBUG", __FILE__, __LINE__, crow::LogLevel::Debug)
