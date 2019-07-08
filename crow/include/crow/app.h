@@ -38,9 +38,9 @@ template <typename... Middlewares> class Crow
     using server_t = Server<Crow, socket_t, Middlewares...>;
 #endif
 
-    explicit Crow(std::shared_ptr<boost::asio::io_context> io =
+    explicit Crow(std::shared_ptr<boost::asio::io_context> ioIn =
                       std::make_shared<boost::asio::io_context>()) :
-        io(std::move(io))
+        io(std::move(ioIn))
     {
     }
     ~Crow()
