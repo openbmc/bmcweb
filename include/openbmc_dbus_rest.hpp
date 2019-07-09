@@ -564,8 +564,8 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
-            r = sd_bus_message_append_basic(m, argCode[0],
-                                            (void *)stringValue->c_str());
+            r = sd_bus_message_append_basic(
+                m, argCode[0], static_cast<const void *>(stringValue->data()));
             if (r < 0)
             {
                 return r;
@@ -1585,8 +1585,8 @@ void handleEnumerate(crow::Response &res, const std::string &objectPath)
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath,
-        static_cast<int32_t>(0), std::array<const char *, 0>());
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", objectPath, 0,
+        std::array<const char *, 0>());
 }
 
 void handleGet(crow::Response &res, std::string &objectPath,
@@ -2435,14 +2435,15 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                                     propertiesObj[name];
                                 crow::connections::systemBus->async_send(
                                     m, [&propertyItem, asyncResp](
-                                           boost::system::error_code &ec,
-                                           sdbusplus::message::message &m) {
-                                        if (ec)
+                                           boost::system::error_code &e,
+                                           sdbusplus::message::message &msg) {
+                                        if (e)
                                         {
                                             return;
                                         }
 
-                                        convertDBusToJSON("v", m, propertyItem);
+                                        convertDBusToJSON("v", msg,
+                                                          propertyItem);
                                     });
                             }
                             property = property->NextSiblingElement("property");
