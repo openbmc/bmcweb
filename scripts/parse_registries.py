@@ -41,7 +41,7 @@ namespace redfish::message_registries::{}
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-include_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "redfish-core", "include"))
+include_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries"))
 
 proxies = {
     'https': os.environ.get("https_proxy", None)
@@ -65,15 +65,15 @@ for file, json, namespace in files:
         registry.write(REGISTRY_HEADER.format(namespace))
         # Parse the Registry header info
         registry.write("const Header header = {")
-        registry.write(".copyright = \"{}\",".format(json["@Redfish.Copyright"]))
-        registry.write(".type = \"{}\",".format(json["@odata.type"]))
-        registry.write(".id = \"{}\",".format(json["Id"]))
-        registry.write(".name = \"{}\",".format(json["Name"]))
-        registry.write(".language = \"{}\",".format(json["Language"]))
-        registry.write(".description = \"{}\",".format(json["Description"]))
-        registry.write(".registryPrefix = \"{}\",".format(json["RegistryPrefix"]))
-        registry.write(".registryVersion = \"{}\",".format(json["RegistryVersion"]))
-        registry.write(".owningEntity = \"{}\",".format(json["OwningEntity"]))
+        registry.write("\"{}\",".format(json["@Redfish.Copyright"]))
+        registry.write("\"{}\",".format(json["@odata.type"]))
+        registry.write("\"{}\",".format(json["Id"]))
+        registry.write(".\"{}\",".format(json["Name"]))
+        registry.write("\"{}\",".format(json["Language"]))
+        registry.write("\"{}\",".format(json["Description"]))
+        registry.write(".\"{}\",".format(json["RegistryPrefix"]))
+        registry.write("\"{}\",".format(json["RegistryVersion"]))
+        registry.write("\"{}\",".format(json["OwningEntity"]))
         registry.write("};")
 
         # Parse each Message entry
@@ -82,17 +82,17 @@ for file, json, namespace in files:
             registry.write("MessageEntry{")
             registry.write("\"{}\",".format(messageId))
             registry.write("{")
-            registry.write(".description = \"{}\",".format(message["Description"]))
-            registry.write(".message = \"{}\",".format(message["Message"]))
-            registry.write(".severity = \"{}\",".format(message["Severity"]))
-            registry.write(".numberOfArgs = {},".format(message["NumberOfArgs"]))
-            registry.write(".paramTypes = {")
+            registry.write("\"{}\",".format(message["Description"]))
+            registry.write("\"{}\",".format(message["Message"]))
+            registry.write("\"{}\",".format(message["Severity"]))
+            registry.write("{},".format(message["NumberOfArgs"]))
+            registry.write("{")
             paramTypes = message.get("ParamTypes")
             if paramTypes:
                 for paramType in paramTypes:
                     registry.write("\"{}\",".format(paramType))
             registry.write("},")
-            registry.write(".resolution = \"{}\",".format(message["Resolution"]))
+            registry.write("\"{}\",".format(message["Resolution"]))
             registry.write("}},")
         registry.write("};}\n")
-    subprocess.check_call(["clang-format", "-i", file])
+    subprocess.check_call(["clang-format-6.0", "-i", file])

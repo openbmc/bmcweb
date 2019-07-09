@@ -33,9 +33,9 @@ const std::string getUuid()
 {
     std::string ret;
     // This ID needs to match the one in ipmid
-    sd_id128_t appId = SD_ID128_MAKE(e0, e1, 73, 76, 64, 61, 47, da, a5, 0c, d0,
-                                     cc, 64, 12, 45, 78);
-    sd_id128_t machineId = SD_ID128_NULL;
+    sd_id128_t appId{{0Xe0, 0Xe1, 0X73, 0X76, 0X64, 0X61, 0X47, 0Xda, 0Xa5,
+                      0X0c, 0Xd0, 0Xcc, 0X64, 0X12, 0X45, 0X78}};
+    sd_id128_t machineId{};
 
     if (sd_id128_get_machine_app_specific(appId, &machineId) == 0)
     {

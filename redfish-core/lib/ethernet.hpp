@@ -320,9 +320,10 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv6AddressData>::iterator,
                         bool>
-                        it = ipv6_config.insert(
-                            {objpath.first.str.substr(ipv6PathStart.size())});
+                        it = ipv6_config.insert(IPv6AddressData{});
                     IPv6AddressData &ipv6_address = *it.first;
+                    ipv6_address.id =
+                        objpath.first.str.substr(ipv6PathStart.size());
                     for (auto &property : interface.second)
                     {
                         if (property.first == "Address")
@@ -392,9 +393,10 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
-                        it = ipv4_config.insert(
-                            {objpath.first.str.substr(ipv4PathStart.size())});
+                        it = ipv4_config.insert(IPv4AddressData{});
                     IPv4AddressData &ipv4_address = *it.first;
+                    ipv4_address.id =
+                        objpath.first.str.substr(ipv4PathStart.size());
                     for (auto &property : interface.second)
                     {
                         if (property.first == "Address")
@@ -858,7 +860,7 @@ void getEthernetIfaceData(const std::string &ethiface_id,
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 /**
  * Function that retrieves all Ethernet Interfaces available through Network
@@ -911,7 +913,7 @@ void getEthernetIfaceList(CallbackFunc &&callback)
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 /**
  * EthernetCollection derived class for delivering Ethernet Collection Schema
@@ -1169,7 +1171,7 @@ class EthernetInterface : public Node
             return;
         }
 
-        int entryIdx = 1;
+        unsigned entryIdx = 1;
         // Find the first static IP address currently active on the NIC and
         // match it to the first JSON element in the IPv4StaticAddresses array.
         // Match each subsequent JSON element to the next static IP programmed
@@ -1201,8 +1203,8 @@ class EthernetInterface : public Node
                 // not explicitly provided are assumed to be unmodified from the
                 // current state of the interface. Merge existing state into the
                 // current request.
-                const std::string *addr;
-                const std::string *gw;
+                const std::string *addr = nullptr;
+                const std::string *gw = nullptr;
                 uint8_t prefixLength = 0;
                 bool errorInEntry = false;
                 if (address)
@@ -1288,6 +1290,13 @@ class EthernetInterface : public Node
 
                 if (NICIPentry != ipv4Data.cend())
                 {
+                    if (gw != nullptr || addr != nullptr)
+                    {
+                        // Shouldn't be possible based on errorInEntry, but
+                        // it flags -wmaybe-uninitialized in the compiler,
+                        // so defend against that
+                        return;
+                    }
                     deleteAndCreateIPv4(ifaceId, NICIPentry->id, prefixLength,
                                         *gw, *addr, asyncResp);
                     NICIPentry =
@@ -1365,7 +1374,7 @@ class EthernetInterface : public Node
                                              "IPv6StaticAddresses");
             return;
         }
-        int entryIdx = 1;
+        size_t entryIdx = 1;
         boost::container::flat_set<IPv6AddressData>::const_iterator NICIPentry =
             GetNextStaticIPEntry(ipv6Data.cbegin(), ipv6Data.cend());
         for (nlohmann::json &thisJson : input)
@@ -1874,7 +1883,7 @@ class VlanNetworkInterface : public Node
         // JSON preparation
         getEthernetIfaceData(
             params[1],
-            [this, asyncResp, parentIfaceId{std::string(params[0])},
+            [asyncResp, parentIfaceId{std::string(params[0])},
              ifaceId{std::string(params[1])}, &vlanEnable, &vlanId](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data,
@@ -1944,7 +1953,7 @@ class VlanNetworkInterface : public Node
         // JSON preparation
         getEthernetIfaceData(
             params[1],
-            [this, asyncResp, parentIfaceId{std::string(params[0])},
+            [asyncResp, parentIfaceId{std::string(params[0])},
              ifaceId{std::string(params[1])}](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data,
@@ -2090,7 +2099,7 @@ class VlanNetworkInterfaceCollection : public Node
         {
             messages::propertyMissing(asyncResp->res, "VLANEnable");
         }
-        if (static_cast<bool>(vlanId) ^ static_cast<bool>(vlanEnable))
+        if (static_cast<bool>(vlanId) ^ vlanEnable)
         {
             return;
         }

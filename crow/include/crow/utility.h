@@ -173,8 +173,8 @@ static inline bool isParameterTagCompatible(uint64_t a, uint64_t b)
     {
         return a == 0;
     }
-    int sa = a % 6;
-    int sb = a % 6;
+    uint64_t sa = a % 6;
+    uint64_t sb = a % 6;
     if (sa == 5)
     {
         sa = 4;
@@ -291,7 +291,7 @@ template <typename F, typename... Args> struct CallHelper<F, S<Args...>>
     static constexpr bool value = sizeof(__test<F, Args...>(0)) == sizeof(char);
 };
 
-template <int N> struct SingleTagToType
+template <uint64_t N> struct SingleTagToType
 {
 };
 
@@ -360,10 +360,10 @@ struct concat<Seq<I1...>, Seq<I2...>> : Seq<I1..., (sizeof...(I1) + I2)...>
 
 template <class S1, class S2> using Concat = Invoke<concat<S1, S2>>;
 
-template <unsigned N> struct gen_seq;
-template <unsigned N> using GenSeq = Invoke<gen_seq<N>>;
+template <size_t N> struct gen_seq;
+template <size_t N> using GenSeq = Invoke<gen_seq<N>>;
 
-template <unsigned N> struct gen_seq : Concat<GenSeq<N / 2>, GenSeq<N - N / 2>>
+template <size_t N> struct gen_seq : Concat<GenSeq<N / 2>, GenSeq<N - N / 2>>
 {
 };
 
@@ -388,7 +388,7 @@ struct PopBack //: public PopBackHelper<typename
 {
     template <template <typename... Args> class U>
     using rebind =
-        typename PopBackHelper<typename gen_seq<sizeof...(T) - 1>::type,
+        typename PopBackHelper<typename gen_seq<sizeof...(T) - 1UL>::type,
                                std::tuple<T...>>::template rebind<U>;
 };
 
@@ -452,19 +452,19 @@ namespace detail
 template <class T, std::size_t N, class... Args>
 struct GetIndexOfElementFromTupleByTypeImpl
 {
-    static constexpr auto value = N;
+    static constexpr std::size_t value = N;
 };
 
 template <class T, std::size_t N, class... Args>
 struct GetIndexOfElementFromTupleByTypeImpl<T, N, T, Args...>
 {
-    static constexpr auto value = N;
+    static constexpr std::size_t value = N;
 };
 
 template <class T, std::size_t N, class U, class... Args>
 struct GetIndexOfElementFromTupleByTypeImpl<T, N, U, Args...>
 {
-    static constexpr auto value =
+    static constexpr std::size_t value =
         GetIndexOfElementFromTupleByTypeImpl<T, N + 1, Args...>::value;
 };
 
@@ -532,29 +532,34 @@ inline static std::string base64encode(
     auto it = ret.begin();
     while (size >= 3)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
-        *it++ = key[h | ((((unsigned char)*data) & 0xF0) >> 4)];
-        h = (((unsigned char)*data++) & 0x0F) << 2;
-        *it++ = key[h | ((((unsigned char)*data) & 0xC0) >> 6)];
-        *it++ = key[((unsigned char)*data++) & 0x3F];
+        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
+        unsigned char h = static_cast<unsigned char>(
+            (static_cast<unsigned char>(*data++) & 0x03u) << 4u);
+        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xF0) >> 4)];
+        h = static_cast<unsigned char>(
+            (static_cast<unsigned char>(*data++) & 0x0F) << 2u);
+        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xC0) >> 6)];
+        *it++ = key[static_cast<unsigned char>(*data++) & 0x3F];
 
         size -= 3;
     }
     if (size == 1)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
+        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
+        unsigned char h = static_cast<unsigned char>(
+            (static_cast<unsigned char>(*data++) & 0x03) << 4u);
         *it++ = key[h];
         *it++ = '=';
         *it++ = '=';
     }
     else if (size == 2)
     {
-        *it++ = key[(((unsigned char)*data) & 0xFC) >> 2];
-        unsigned char h = (((unsigned char)*data++) & 0x03) << 4;
-        *it++ = key[h | ((((unsigned char)*data) & 0xF0) >> 4)];
-        h = (((unsigned char)*data++) & 0x0F) << 2;
+        *it++ = key[(static_cast<unsigned char>(*data) & 0xFC) >> 2];
+        unsigned char h = static_cast<unsigned char>(
+            (static_cast<unsigned char>(*data++) & 0x03) << 4u);
+        *it++ = key[h | ((static_cast<unsigned char>(*data) & 0xF0) >> 4)];
+        h = static_cast<unsigned char>(
+            (static_cast<unsigned char>(*data++) & 0x0F) << 2u);
         *it++ = key[h];
         *it++ = '=';
     }
@@ -572,7 +577,7 @@ inline static std::string base64encodeUrlsafe(const char* data, size_t size)
 // crow
 inline bool base64Decode(const std::string_view input, std::string& output)
 {
-    static const char nop = -1;
+    static const char nop = static_cast<char>(-1);
     // See note on encoding_data[] in above function
     static const char decodingData[] = {
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
@@ -671,7 +676,7 @@ inline void escapeHtml(std::string& data)
     std::string buffer;
     // less than 5% of characters should be larger, so reserve a buffer of the
     // right size
-    buffer.reserve(data.size() * 1.05);
+    buffer.reserve(data.size() * 11 / 10);
     for (size_t pos = 0; pos != data.size(); ++pos)
     {
         switch (data[pos])

@@ -1,5 +1,7 @@
 cmake_minimum_required (VERSION 3.5 FATAL_ERROR)
 
+project (bmc-webserver CXX)
+
 cmake_policy (SET CMP0054 NEW)
 
 set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
@@ -58,8 +60,6 @@ option (BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE "Enable TFTP based
        firmware update transactions through Redfish
        UpdateService.SimpleUpdate." OFF)
 
-project (bmc-webserver CXX)
-
 include (CTest)
 
 set (CMAKE_CXX_STANDARD 17)
@@ -69,7 +69,43 @@ set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -fno-rtti \
+")
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+-Wall \
+-Wextra \
+-Wnon-virtual-dtor \
+-Wold-style-cast \
+-Wcast-align \
+-Wunused \
+-Woverloaded-virtual \
+-Wpedantic \
+-Wconversion \
+-Wsign-conversion \
+-Wnull-dereference \
+-Wdouble-promotion \
+-Wformat=2 \
+-Wno-unused-parameter \
+")
+
+# only set -Werror if we're on a compiler that we know passes
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+        -Werror \
+        -Wduplicated-cond \
+        -Wduplicated-branches \
+        -Wlogical-op \
+        -Wnull-dereference \
+        -Wdouble-promotion \
+        -Wformat=2 \
+        -Wno-unused-parameter \
+        ")
+    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
@@ -127,30 +163,32 @@ if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
 
+find_package (Boost 1.66 REQUIRED)
+include_directories (SYSTEM ${BOOST_SRC_DIR})
+
 # add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
-# Uncomment once Yocto moves to boost 1.70
-# add_definitions (-DBOOST_ASIO_NO_DEPRECATED)
+message(BOOST_VERSION = ${Boost_VERSION})
+if ("${Boost_VERSION}" STREQUAL "107100")
+    add_definitions (-DBOOST_ASIO_NO_DEPRECATED)
+endif()
 add_definitions (-DBOOST_ALL_NO_LIB)
 add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
 add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 
-find_package (Boost 1.66 REQUIRED)
-include_directories (${BOOST_SRC_DIR})
-
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
-    include_directories (${CMAKE_BINARY_DIR}/sdbusplus-src)
+    include_directories (SYSTEM ${CMAKE_BINARY_DIR}/sdbusplus-src)
     link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/.libs)
 endif ()
 
 # Openssl
 find_package (OpenSSL REQUIRED)
-include_directories (${OPENSSL_INCLUDE_DIR})
+include_directories (SYSTEM ${OPENSSL_INCLUDE_DIR})
 message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
 # bmcweb
@@ -168,7 +206,7 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
 find_package (ZLIB REQUIRED)
-include_directories (${ZLIB_INCLUDE_DIRS})
+include_directories (SYSTEM ${ZLIB_INCLUDE_DIRS})
 
 # PAM
 option (WEBSERVER_ENABLE_PAM "enable pam authentication" ON)

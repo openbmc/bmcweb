@@ -29,10 +29,10 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
         return;
     }
     // Make this const static so it survives outside this method
-    static boost::asio::deadline_timer timeout(*req.ioService,
-                                               boost::posix_time::seconds(5));
+    static boost::asio::steady_timer timeout(*req.ioService,
+                                             std::chrono::seconds(5));
 
-    timeout.expires_from_now(boost::posix_time::seconds(15));
+    timeout.expires_after(std::chrono::seconds(15));
 
     auto timeoutHandler = [&res](const boost::system::error_code& ec) {
         fwUpdateMatcher = nullptr;
@@ -76,12 +76,7 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
                                         "xyz.openbmc_project.Software.Version";
                              }) != interfaces.end())
             {
-                boost::system::error_code ec;
-                timeout.cancel(ec);
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "error canceling timer " << ec;
-                }
+                timeout.cancel();
 
                 std::size_t index = path.str.rfind('/');
                 if (index != std::string::npos)

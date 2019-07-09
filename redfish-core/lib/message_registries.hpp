@@ -257,7 +257,7 @@ class OpenBMCMessageRegistry : public Node
             if (message.second.numberOfArgs > 0)
             {
                 nlohmann::json &messageParamArray = obj["ParamTypes"];
-                for (int i = 0; i < message.second.numberOfArgs; i++)
+                for (size_t i = 0; i < message.second.numberOfArgs; i++)
                 {
                     messageParamArray.push_back(message.second.paramTypes[i]);
                 }
