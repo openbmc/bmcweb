@@ -44,7 +44,7 @@ void doWrite()
 
             if (ec == boost::asio::error::eof)
             {
-                for (auto session : sessions)
+                for (crow::websocket::Connection* session : sessions)
                 {
                     session->close("Error in reading to host port");
                 }
@@ -70,14 +70,14 @@ void doRead()
             {
                 BMCWEB_LOG_ERROR << "Couldn't read from host serial port: "
                                  << ec;
-                for (auto session : sessions)
+                for (crow::websocket::Connection* session : sessions)
                 {
                     session->close("Error in connecting to host port");
                 }
                 return;
             }
             std::string_view payload(outputBuffer.data(), bytesRead);
-            for (auto session : sessions)
+            for (crow::websocket::Connection* session : sessions)
             {
                 session->sendBinary(payload);
             }
@@ -90,7 +90,7 @@ void connectHandler(const boost::system::error_code& ec)
     if (ec)
     {
         BMCWEB_LOG_ERROR << "Couldn't connect to host serial port: " << ec;
-        for (auto session : sessions)
+        for (crow::websocket::Connection* session : sessions)
         {
             session->close("Error in connecting to host port");
         }

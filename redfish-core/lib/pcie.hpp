@@ -108,7 +108,7 @@ class SystemPCIeDevice : public Node
                 {
                     BMCWEB_LOG_DEBUG
                         << "failed to get PCIe Device properties ec: "
-                        << static_cast<int>(ec.value()) << ": " << ec.message();
+                        << ec.value() << ": " << ec.message();
                     if (ec.value() ==
                         boost::system::linux_error::bad_request_descriptor)
                     {
@@ -221,7 +221,7 @@ class SystemPCIeFunction : public Node
                 {
                     BMCWEB_LOG_DEBUG
                         << "failed to get PCIe Device properties ec: "
-                        << static_cast<int>(ec.value()) << ": " << ec.message();
+                        << ec.value() << ": " << ec.message();
                     if (ec.value() ==
                         boost::system::linux_error::bad_request_descriptor)
                     {

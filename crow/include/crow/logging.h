@@ -30,13 +30,14 @@ enum class LogLevel
 class ILogHandler
 {
   public:
-    virtual void log(std::string message, LogLevel level) = 0;
+    virtual void log(std::string message, LogLevel levelIn) = 0;
+    virtual ~ILogHandler() = 0;
 };
 
 class CerrLogHandler : public ILogHandler
 {
   public:
-    void log(std::string message, LogLevel /*level*/) override
+    void log(std::string message, LogLevel /*levelIn*/) override
     {
         std::cerr << message;
     }
@@ -48,25 +49,24 @@ class logger
     //
     static std::string timestamp()
     {
-        char date[32];
+        std::string date;
+        date.resize(32, '\0');
         time_t t = time(0);
 
         tm myTm{};
 
-#ifdef _MSC_VER
-        gmtime_s(&my_tm, &t);
-#else
         gmtime_r(&t, &myTm);
-#endif
 
-        size_t sz = strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", &myTm);
-        return std::string(date, date + sz);
+        size_t sz =
+            strftime(date.data(), date.size(), "%Y-%m-%d %H:%M:%S", &myTm);
+        date.resize(sz);
+        return date;
     }
 
   public:
     logger(const std::string& prefix, const std::string& filename,
-           const size_t line, LogLevel level) :
-        level(level)
+           const size_t line, LogLevel levelIn) :
+        level(levelIn)
     {
 #ifdef BMCWEB_ENABLE_LOGGING
         stringstream << "(" << timestamp() << ") [" << prefix << " "
