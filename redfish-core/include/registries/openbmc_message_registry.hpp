@@ -19,1512 +19,1410 @@
 namespace redfish::message_registries::openbmc
 {
 const Header header = {
-    .copyright = "Copyright 2018 OpenBMC. All rights reserved.",
-    .type = "#MessageRegistry.v1_0_0.MessageRegistry",
-    .id = "OpenBMC.0.1.0",
-    .name = "OpenBMC Message Registry",
-    .language = "en",
-    .description = "This registry defines the base messages for OpenBMC.",
-    .registryPrefix = "OpenBMC",
-    .registryVersion = "0.1.0",
-    .owningEntity = "OpenBMC",
+    "Copyright 2018 OpenBMC. All rights reserved.",
+    "#MessageRegistry.v1_0_0.MessageRegistry",
+    "OpenBMC.0.1.0",
+    "OpenBMC Message Registry",
+    "en",
+    "This registry defines the base messages for OpenBMC.",
+    "OpenBMC",
+    "0.1.0",
+    "OpenBMC",
 };
-const std::array registry = {
+const std::array<MessageEntry, 114> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
-            .description = "Indicates an ADDDC Correctable Error.",
-            .message =
-                "ADDDC Correctable Error.Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
-            .severity = "Warning",
-            .numberOfArgs = 4,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates an ADDDC Correctable Error.",
+            "ADDDC Correctable Error.Socket=%1 Channel=%2 DIMM=%3 Rank=%4.",
+            "Warning",
+            4,
+            {
+                "number",
+                "string",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{
         "BIOSBoot",
         {
-            .description =
-                "Indicates BIOS has transitioned control to the OS Loader.",
-            .message = "BIOS System Boot.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
+            "Indicates BIOS has transitioned control to the OS Loader.",
+            "BIOS System Boot.",
+            "OK",
+            0,
+            {},
+            "None.",
         }},
-    MessageEntry{
-        "BIOSPOSTError",
-        {
-            .description = "Indicates BIOS POST has encountered an error.",
-            .message = "BIOS POST Error. Error Code=%1",
-            .severity = "Warning",
-            .numberOfArgs = 1,
-            .paramTypes = {"number"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"BIOSPOSTError",
+                 {
+                     "Indicates BIOS POST has encountered an error.",
+                     "BIOS POST Error. Error Code=%1",
+                     "Warning",
+                     1,
+                     {"number"},
+                     "None.",
+                 }},
     MessageEntry{"BIOSRecoveryComplete",
                  {
-                     .description = "Indicates BIOS Recovery has completed.",
-                     .message = "BIOS Recovery Complete.",
-                     .severity = "OK",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates BIOS Recovery has completed.",
+                     "BIOS Recovery Complete.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
                  }},
     MessageEntry{"BIOSRecoveryStart",
                  {
-                     .description = "Indicates BIOS Recovery has started.",
-                     .message = "BIOS Recovery Start.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates BIOS Recovery has started.",
+                     "BIOS Recovery Start.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
     MessageEntry{"CPUError",
                  {
-                     .description = "Indicates that a CPU Error occurred of "
-                                    "the specified type or cause.",
-                     .message = "CPU Error Occurred: %1.",
-                     .severity = "Critical",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a CPU Error occurred of "
+                     "the specified type or cause.",
+                     "CPU Error Occurred: %1.",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
     MessageEntry{"CPUThermalTrip",
                  {
-                     .description = "Indicates that the specified CPU thermal "
-                                    "trip has been asserted.",
-                     .message = "CPU %1 Thermal Trip.",
-                     .severity = "Critical",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"number"},
-                     .resolution = "None.",
+                     "Indicates that the specified CPU thermal "
+                     "trip has been asserted.",
+                     "CPU %1 Thermal Trip.",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "None.",
                  }},
-    MessageEntry{
-        "DCPowerOff",
-        {
-            .description = "Indicates that the system DC power is off.",
-            .message = "Host system DC power is off",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"DCPowerOff",
+                 {
+                     "Indicates that the system DC power is off.",
+                     "Host system DC power is off",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"DCPowerOn",
                  {
-                     .description = "Indicates that the system DC power is on.",
-                     .message = "Host system DC power is on",
-                     .severity = "OK",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that the system DC power is on.",
+                     "Host system DC power is on",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "EventLogCleared",
-        {
-            .description = "Indicates that the event log has been cleared.",
-            .message = "Event Log Cleared.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "FanInserted",
-        {
-            .description = "Indicates that a system fan has been inserted.",
-            .message = "%1 inserted.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"EventLogCleared",
+                 {
+                     "Indicates that the event log has been cleared.",
+                     "Event Log Cleared.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"FanInserted",
+                 {
+                     "Indicates that a system fan has been inserted.",
+                     "%1 inserted.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
     MessageEntry{"FanRedundancyLost",
                  {
-                     .description =
-                         "Indicates that system fan redundancy has been lost.",
-                     .message = "Fan redundancy lost.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that system fan redundancy has been lost.",
+                     "Fan redundancy lost.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "FanRedundancyRegained",
-        {
-            .description =
-                "Indicates that system fan redundancy has been regained.",
-            .message = "Fan redundancy regained.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "FanRemoved",
-        {
-            .description = "Indicates that a system fan has been removed.",
-            .message = "%1 removed.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "FirmwareUpdateCompleted",
-        {
-            .description =
-                "Indicates a firmware update has completed successfully.",
-            .message = "%1 firmware update to version %2 completed "
-                       "successfully.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes = {"string", "string"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"FanRedundancyRegained",
+                 {
+                     "Indicates that system fan redundancy has been regained.",
+                     "Fan redundancy regained.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"FanRemoved",
+                 {
+                     "Indicates that a system fan has been removed.",
+                     "%1 removed.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"FirmwareUpdateCompleted",
+                 {
+                     "Indicates a firmware update has completed successfully.",
+                     "%1 firmware update to version %2 completed "
+                     "successfully.",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
+                 }},
     MessageEntry{"FirmwareUpdateFailed",
                  {
-                     .description = "Indicates a firmware update has failed.",
-                     .message = "%1 firmware update to version %2 failed.",
-                     .severity = "Warning",
-                     .numberOfArgs = 2,
-                     .paramTypes = {"string", "string"},
-                     .resolution = "None.",
+                     "Indicates a firmware update has failed.",
+                     "%1 firmware update to version %2 failed.",
+                     "Warning",
+                     2,
+                     {"string", "string"},
+                     "None.",
                  }},
     MessageEntry{"FirmwareUpdateStarted",
                  {
-                     .description = "Indicates a firmware update has started.",
-                     .message = "%1 firmware update to version %2 started.",
-                     .severity = "OK",
-                     .numberOfArgs = 2,
-                     .paramTypes = {"string", "string"},
-                     .resolution = "None.",
+                     "Indicates a firmware update has started.",
+                     "%1 firmware update to version %2 started.",
+                     "OK",
+                     2,
+                     {"string", "string"},
+                     "None.",
                  }},
     MessageEntry{
         "GeneralFirmwareSecurityViolation",
         {
-            .description =
-                "Indicates a general firmware security violation has occurred.",
-            .message = "Firmware security violation: %1.",
-            .severity = "Critical",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
+            "Indicates a general firmware security violation has occurred.",
+            "Firmware security violation: %1.",
+            "Critical",
+            1,
+            {"string"},
+            "None.",
         }},
-    MessageEntry{
-        "InvalidLoginAttempted",
-        {
-            .description =
-                "Indicates that a login was attempted on the specified "
-                "interface with an invalid username or password.",
-            .message = "Invalid username or password attempted on %1.",
-            .severity = "Warning",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"InvalidLoginAttempted",
+                 {
+                     "Indicates that a login was attempted on the specified "
+                     "interface with an invalid username or password.",
+                     "Invalid username or password attempted on %1.",
+                     "Warning",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
     MessageEntry{
         "InventoryAdded",
         {
-            .description =
-                "Indicates that an inventory item with the specified model, "
-                "type, and serial number was installed.",
-            .message = "%1 %2 with serial number %3 was installed.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
+            "Indicates that an inventory item with the specified model, "
+            "type, and serial number was installed.",
+            "%1 %2 with serial number %3 was installed.",
+            "OK",
+            3,
+
+            {
+                "string",
+                "string",
+                "string",
+            },
+            "None.",
         }},
     MessageEntry{
         "InventoryRemoved",
         {
-            .description =
-                "Indicates that an inventory item with the specified model, "
-                "type, and serial number was removed.",
-            .message = "%1 %2 with serial number %3 was removed.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
+            "Indicates that an inventory item with the specified model, "
+            "type, and serial number was removed.",
+            "%1 %2 with serial number %3 was removed.",
+            "OK",
+            3,
+
+            {
+                "string",
+                "string",
+                "string",
+            },
+            "None.",
         }},
     MessageEntry{
         "IntelUPILinkWidthReducedToHalf",
         {
-            .description =
-                "Indicates Intel UPI link width has reduced to half width.",
-            .message = "Intel UPI link width reduced to half. Node=%1.",
-            .severity = "Warning",
-            .numberOfArgs = 1,
-            .paramTypes =
-                {
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates Intel UPI link width has reduced to half width.",
+            "Intel UPI link width reduced to half. Node=%1.",
+            "Warning",
+            1,
+
+            {
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{
         "IntelUPILinkWidthReducedToQuarter",
         {
-            .description =
-                "Indicates Intel UPI link width has reduced to quarter width.",
-            .message = "Intel UPI link width reduced to quarter. Node=%1.",
-            .severity = "Warning",
-            .numberOfArgs = 1,
-            .paramTypes =
-                {
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates Intel UPI link width has reduced to quarter width.",
+            "Intel UPI link width reduced to quarter. Node=%1.",
+            "Warning",
+            1,
+
+            {
+                "number",
+            },
+            "None.",
         }},
 
-    MessageEntry{
-        "IPMIWatchdog",
-        {
-            .description = "Indicates that there is a host watchdog event.",
-            .message = "Host Watchdog Event: %1",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes =
-                {
-                    "string",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"IPMIWatchdog",
+                 {
+                     "Indicates that there is a host watchdog event.",
+                     "Host Watchdog Event: %1",
+                     "OK",
+                     1,
 
-    MessageEntry{
-        "LegacyPCIPERR",
-        {
-            .description = "Indicates a Legacy PCI PERR.",
-            .message = "Legacy PCI PERR. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "LegacyPCISERR",
-        {
-            .description = "Indicates a Legacy PCI SERR.",
-            .message = "Legacy PCI SERR. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Critical",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+
+    MessageEntry{"LegacyPCIPERR",
+                 {
+                     "Indicates a Legacy PCI PERR.",
+                     "Legacy PCI PERR. Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"LegacyPCISERR",
+                 {
+                     "Indicates a Legacy PCI SERR.",
+                     "Legacy PCI SERR. Bus=%1 Device=%2 Function=%3.",
+                     "Critical",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"ManufacturingModeEntered",
                  {
-                     .description = "Indicates that Factory, Manufacturing, or "
-                                    "Test mode has been entered.",
-                     .message = "Entered Manufacturing Mode.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that Factory, Manufacturing, or "
+                     "Test mode has been entered.",
+                     "Entered Manufacturing Mode.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
                  {
-                     .description = "Indicates a Correctable Memory ECC error.",
-                     .message = "Memory ECC correctable error. Socket=%1 "
-                                "Channel=%2 DIMM=%3 Rank=%4.",
-                     .severity = "Warning",
-                     .numberOfArgs = 4,
-                     .paramTypes =
-                         {
-                             "number",
-                             "string",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates a Correctable Memory ECC error.",
+                     "Memory ECC correctable error. Socket=%1 "
+                     "Channel=%2 DIMM=%3 Rank=%4.",
+                     "Warning",
+                     4,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "MemoryECCUncorrectable",
-        {
-            .description = "Indicates an Uncorrectable Memory ECC error.",
-            .message = "Memory ECC uncorrectable error. Socket=%1 Channel=%2 "
-                       "DIMM=%3 Rank=%4.",
-            .severity = "Critical",
-            .numberOfArgs = 4,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MemoryParityCommandAndAddress",
-        {
-            .description = "Indicates a Command and Address parity error.",
-            .message = "Command and Address parity error. Socket=%1 Channel=%2 "
-                       "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
-            .severity = "Critical",
-            .numberOfArgs = 5,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"MemoryECCUncorrectable",
+                 {
+                     "Indicates an Uncorrectable Memory ECC error.",
+                     "Memory ECC uncorrectable error. Socket=%1 Channel=%2 "
+                     "DIMM=%3 Rank=%4.",
+                     "Critical",
+                     4,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MemoryParityCommandAndAddress",
+                 {
+                     "Indicates a Command and Address parity error.",
+                     "Command and Address parity error. Socket=%1 Channel=%2 "
+                     "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
+                     "Critical",
+                     5,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"MemoryParityNotKnown",
                  {
-                     .description = "Indicates an unknown parity error.",
-                     .message = "Memory parity error. Socket=%1 Channel=%2 "
-                                "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
-                     .severity = "Critical",
-                     .numberOfArgs = 5,
-                     .paramTypes =
-                         {
-                             "number",
-                             "string",
-                             "number",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates an unknown parity error.",
+                     "Memory parity error. Socket=%1 Channel=%2 "
+                     "DIMM=%3 ChannelValid=%4 DIMMValid=%5.",
+                     "Critical",
+                     5,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "MemoryRASConfigurationDisabled",
-        {
-            .description =
-                "Indicates Memory RAS Disabled Configuration Status.",
-            .message = "Memory RAS Configuration Disabled. Error=%1 Mode=%2.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MemoryRASConfigurationEnabled",
-        {
-            .description = "Indicates Memory RAS Enabled Configuration Status.",
-            .message = "Memory RAS Configuration Enabled. Error=%1 Mode=%2.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MemoryRASModeDisabled",
-        {
-            .description = "Indicates Memory RAS Disabled Mode Selection.",
-            .message = "Memory RAS Mode Select Disabled. Prior Mode=%1 "
-                       "Selected Mode=%2.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MemoryRASModeEnabled",
-        {
-            .description = "Indicates Memory RAS Enabled Mode Selection.",
-            .message = "Memory RAS Mode Select Enabled. Prior Mode=%1 Selected "
-                       "Mode=%2.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes =
-                {
-                    "string",
-                    "string",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MemoryThermTrip",
-        {
-            .description =
-                "Indicates that the system memory ThermTrip is asserted.",
-            .message = "Memory ThermTrip asserted.",
-            .severity = "Critical",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "MirroringRedundancyDegraded",
-        {
-            .description =
-                "Indicates the mirroring redundancy state is degraded.",
-            .message = "Mirroring redundancy state degraded. Socket=%1 "
-                       "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
-            .severity = "Warning",
-            .numberOfArgs = 5,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"MemoryRASConfigurationDisabled",
+                 {
+                     "Indicates Memory RAS Disabled Configuration Status.",
+                     "Memory RAS Configuration Disabled. Error=%1 Mode=%2.",
+                     "OK",
+                     2,
+
+                     {
+                         "string",
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MemoryRASConfigurationEnabled",
+                 {
+                     "Indicates Memory RAS Enabled Configuration Status.",
+                     "Memory RAS Configuration Enabled. Error=%1 Mode=%2.",
+                     "OK",
+                     2,
+
+                     {
+                         "string",
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MemoryRASModeDisabled",
+                 {
+                     "Indicates Memory RAS Disabled Mode Selection.",
+                     "Memory RAS Mode Select Disabled. Prior Mode=%1 "
+                     "Selected Mode=%2.",
+                     "OK",
+                     2,
+
+                     {
+                         "string",
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MemoryRASModeEnabled",
+                 {
+                     "Indicates Memory RAS Enabled Mode Selection.",
+                     "Memory RAS Mode Select Enabled. Prior Mode=%1 Selected "
+                     "Mode=%2.",
+                     "OK",
+                     2,
+
+                     {
+                         "string",
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MemoryThermTrip",
+                 {
+                     "Indicates that the system memory ThermTrip is asserted.",
+                     "Memory ThermTrip asserted.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"MirroringRedundancyDegraded",
+                 {
+                     "Indicates the mirroring redundancy state is degraded.",
+                     "Mirroring redundancy state degraded. Socket=%1 "
+                     "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
+                     "Warning",
+                     5,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "MirroringRedundancyFull",
         {
-            .description =
-                "Indicates the mirroring redundancy state is fully redundant.",
-            .message = "Mirroring redundancy state fully redundant. Socket=%1 "
-                       "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
-            .severity = "OK",
-            .numberOfArgs = 5,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates the mirroring redundancy state is fully redundant.",
+            "Mirroring redundancy state fully redundant. Socket=%1 "
+            "Channel=%2 DIMM=%3 Pair=%4 Rank=%5.",
+            "OK",
+            5,
+
+            {
+                "number",
+                "string",
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
-    MessageEntry{
-        "NMIButtonPressed",
-        {
-            .description = "Indicates that the NMI button was pressed.",
-            .message = "NMI Button Pressed.",
-            .severity = "Critical",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"NMIButtonPressed",
+                 {
+                     "Indicates that the NMI button was pressed.",
+                     "NMI Button Pressed.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"NMIDiagnosticInterrupt",
                  {
-                     .description = "Indicates that an NMI Diagnostic "
-                                    "Interrupt has been generated.",
-                     .message = "NMI Diagnostic Interrupt.",
-                     .severity = "Critical",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that an NMI Diagnostic "
+                     "Interrupt has been generated.",
+                     "NMI Diagnostic Interrupt.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "PCIeCorrectableAdvisoryNonFatal",
-        {
-            .description =
-                "Indicates a PCIe Correctable Advisory Non-fatal Error.",
-            .message = "PCIe Correctable Advisory Non-fatal Error. Bus=%1 "
-                       "Device=%2 Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableBadDLLP",
-        {
-            .description = "Indicates a PCIe Correctable Bad DLLP Error.",
-            .message =
-                "PCIe Correctable Bad DLLP. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableBadTLP",
-        {
-            .description = "Indicates a PCIe Correctable Bad TLP Error.",
-            .message =
-                "PCIe Correctable Bad TLP. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableHeaderLogOverflow",
-        {
-            .description =
-                "Indicates a PCIe Correctable Header Log Overflow Error.",
-            .message = "PCIe Correctable Header Log Overflow. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableInternal",
-        {
-            .description = "Indicates a PCIe Correctable Internal Error.",
-            .message = "PCIe Correctable Internal Error. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeCorrectableAdvisoryNonFatal",
+                 {
+                     "Indicates a PCIe Correctable Advisory Non-fatal Error.",
+                     "PCIe Correctable Advisory Non-fatal Error. Bus=%1 "
+                     "Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableBadDLLP",
+                 {
+                     "Indicates a PCIe Correctable Bad DLLP Error.",
+
+                     "PCIe Correctable Bad DLLP. Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableBadTLP",
+                 {
+                     "Indicates a PCIe Correctable Bad TLP Error.",
+
+                     "PCIe Correctable Bad TLP. Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableHeaderLogOverflow",
+                 {
+                     "Indicates a PCIe Correctable Header Log Overflow Error.",
+                     "PCIe Correctable Header Log Overflow. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableInternal",
+                 {
+                     "Indicates a PCIe Correctable Internal Error.",
+                     "PCIe Correctable Internal Error. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"PCIeCorrectableLinkBWChanged",
                  {
-                     .description =
-                         "Indicates a PCIe Correctable Link BW Changed Error.",
-                     .message = "PCIe Correctable Link BW Changed. Bus=%1 "
-                                "Device=%2 Function=%3.",
-                     .severity = "Warning",
-                     .numberOfArgs = 3,
-                     .paramTypes =
-                         {
-                             "number",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates a PCIe Correctable Link BW Changed Error.",
+                     "PCIe Correctable Link BW Changed. Bus=%1 "
+                     "Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "PCIeCorrectableReceiverError",
-        {
-            .description = "Indicates a PCIe Correctable Receiver Error.",
-            .message = "PCIe Correctable Receiver Error. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableReplayNumRollover",
-        {
-            .description = "Indicates a PCIe Correctable Replay Num Rollover.",
-            .message = "PCIe Correctable Replay Num Rollover. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeCorrectableReplayTimerTimeout",
-        {
-            .description = "Indicates a PCIe Correctable Replay Timer Timeout.",
-            .message = "PCIe Correctable Replay Timer Timeout. Bus=%1 "
-                       "Device=%2 Function=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeCorrectableReceiverError",
+                 {
+                     "Indicates a PCIe Correctable Receiver Error.",
+                     "PCIe Correctable Receiver Error. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableReplayNumRollover",
+                 {
+                     "Indicates a PCIe Correctable Replay Num Rollover.",
+                     "PCIe Correctable Replay Num Rollover. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeCorrectableReplayTimerTimeout",
+                 {
+                     "Indicates a PCIe Correctable Replay Timer Timeout.",
+                     "PCIe Correctable Replay Timer Timeout. Bus=%1 "
+                     "Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"PCIeCorrectableUnspecifiedAERError",
                  {
-                     .description =
-                         "Indicates a PCIe Correctable Unspecified AER Error.",
-                     .message = "PCIe Correctable Unspecified AER Error. "
-                                "Bus=%1 Device=%2 Function=%3.",
-                     .severity = "Warning",
-                     .numberOfArgs = 3,
-                     .paramTypes =
-                         {
-                             "number",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates a PCIe Correctable Unspecified AER Error.",
+                     "PCIe Correctable Unspecified AER Error. "
+                     "Bus=%1 Device=%2 Function=%3.",
+                     "Warning",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "PCIeFatalACSViolation",
-        {
-            .description = "Indicates a PCIe ACS Violation Error.",
-            .message =
-                "PCIe Fatal ACS Violation. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeFatalAtomicEgressBlocked",
-        {
-            .description = "Indicates a PCIe Atomic Egress Blocked Error.",
-            .message = "PCIe Fatal Atomic Egress Blocked. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeFatalACSViolation",
+                 {
+                     "Indicates a PCIe ACS Violation Error.",
+
+                     "PCIe Fatal ACS Violation. Bus=%1 Device=%2 Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeFatalAtomicEgressBlocked",
+                 {
+                     "Indicates a PCIe Atomic Egress Blocked Error.",
+                     "PCIe Fatal Atomic Egress Blocked. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "PCIeFatalCompleterAbort",
         {
-            .description = "Indicates a PCIe Completer Abort Error.",
-            .message =
-                "PCIe Fatal Completer Abort. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Completer Abort Error.",
+
+            "PCIe Fatal Completer Abort. Bus=%1 Device=%2 Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{
         "PCIeFatalCompletionTimeout",
         {
-            .description = "Indicates a PCIe Completion Timeout Error.",
-            .message =
-                "PCIe Fatal Completion Timeout. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Completion Timeout Error.",
+
+            "PCIe Fatal Completion Timeout. Bus=%1 Device=%2 Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{
         "PCIeFatalDataLinkLayerProtocol",
         {
-            .description = "Indicates a PCIe Data Link Layer Protocol Error.",
-            .message =
-                "PCIe Fatal Data Link Layer Protocol Error. Bus=%1 Device=%2 "
-                "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Data Link Layer Protocol Error.",
+
+            "PCIe Fatal Data Link Layer Protocol Error. Bus=%1 Device=%2 "
+            "Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
-    MessageEntry{
-        "PCIeFatalECRCError",
-        {
-            .description = "Indicates a PCIe ECRC Error.",
-            .message = "PCIe Fatal ECRC Error. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeFatalFlowControlProtocol",
-        {
-            .description = "Indicates a PCIe Flow Control Protocol Error.",
-            .message =
-                "PCIe Fatal Flow Control Protocol Error. Bus=%1 Device=%2 "
-                "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeFatalECRCError",
+                 {
+                     "Indicates a PCIe ECRC Error.",
+                     "PCIe Fatal ECRC Error. Bus=%1 Device=%2 Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeFatalFlowControlProtocol",
+                 {
+                     "Indicates a PCIe Flow Control Protocol Error.",
+
+                     "PCIe Fatal Flow Control Protocol Error. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "PCIeFatalMalformedTLP",
         {
-            .description = "Indicates a PCIe Malformed TLP Error.",
-            .message =
-                "PCIe Fatal Malformed TLP Error. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Malformed TLP Error.",
+
+            "PCIe Fatal Malformed TLP Error. Bus=%1 Device=%2 Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{"PCIeFatalMCBlockedTLP",
                  {
-                     .description = "Indicates a PCIe MC Blocked TLP Error.",
-                     .message = "PCIe Fatal MC Blocked TLP Error. Bus=%1 "
-                                "Device=%2 Function=%3.",
-                     .severity = "Error",
-                     .numberOfArgs = 3,
-                     .paramTypes =
-                         {
-                             "number",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates a PCIe MC Blocked TLP Error.",
+                     "PCIe Fatal MC Blocked TLP Error. Bus=%1 "
+                     "Device=%2 Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
     MessageEntry{
         "PCIeFatalPoisonedTLP",
         {
-            .description = "Indicates a PCIe Poisoned TLP Error.",
-            .message =
-                "PCIe Fatal Poisoned TLP Error. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Poisoned TLP Error.",
+
+            "PCIe Fatal Poisoned TLP Error. Bus=%1 Device=%2 Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
-    MessageEntry{
-        "PCIeFatalReceiverBufferOverflow",
-        {
-            .description = "Indicates a PCIe Receiver Buffer Overflow Error.",
-            .message = "PCIe Fatal Receiver Buffer Overflow. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeFatalReceiverBufferOverflow",
+                 {
+                     "Indicates a PCIe Receiver Buffer Overflow Error.",
+                     "PCIe Fatal Receiver Buffer Overflow. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "PCIeFatalReceivedErrNonFatalMessage",
         {
-            .description =
-                "Indicates a PCIe Received ERR_NONFATAL Message Error.",
-            .message =
-                "PCIe Fatal Received ERR_NONFATAL Message. Bus=%1 Device=%2 "
-                "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Received ERR_NONFATAL Message Error.",
+
+            "PCIe Fatal Received ERR_NONFATAL Message. Bus=%1 Device=%2 "
+            "Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{"PCIeFatalReceivedFatalMessageFromDownstream",
                  {
-                     .description = "Indicates a PCIe Received Fatal Message "
-                                    "From Downstream Error.",
-                     .message =
-                         "PCIe Fatal Received Fatal Message From Downstream. "
-                         "Bus=%1 Device=%2 Function=%3.",
-                     .severity = "Error",
-                     .numberOfArgs = 3,
-                     .paramTypes =
-                         {
-                             "number",
-                             "number",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates a PCIe Received Fatal Message "
+                     "From Downstream Error.",
+
+                     "PCIe Fatal Received Fatal Message From Downstream. "
+                     "Bus=%1 Device=%2 Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "PCIeFatalSurpriseLinkDown",
-        {
-            .description = "Indicates a PCIe Surprise Link Down Error.",
-            .message = "PCIe Fatal Surprise Link Down Error. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeFatalTLPPrefixBlocked",
-        {
-            .description = "Indicates a PCIe TLP Prefix Blocked Error.",
-            .message = "PCIe Fatal TLP Prefix Blocked Error. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeFatalSurpriseLinkDown",
+                 {
+                     "Indicates a PCIe Surprise Link Down Error.",
+                     "PCIe Fatal Surprise Link Down Error. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeFatalTLPPrefixBlocked",
+                 {
+                     "Indicates a PCIe TLP Prefix Blocked Error.",
+                     "PCIe Fatal TLP Prefix Blocked Error. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "PCIeFatalUncorrectableInternal",
         {
-            .description = "Indicates a PCIe Uncorrectable Internal Error.",
-            .message =
-                "PCIe Fatal Uncorrectable Internal Error. Bus=%1 Device=%2 "
-                "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Uncorrectable Internal Error.",
+
+            "PCIe Fatal Uncorrectable Internal Error. Bus=%1 Device=%2 "
+            "Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
-    MessageEntry{
-        "PCIeFatalUnexpectedCompletion",
-        {
-            .description = "Indicates a PCIe Unexpected Completion Error.",
-            .message = "PCIe Fatal Unexpected Completion. Bus=%1 Device=%2 "
-                       "Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PCIeFatalUnspecifiedNonAERFatalError",
-        {
-            .description = "Indicates a PCIe Unspecified Non-AER Fatal Error.",
-            .message = "PCIe Fatal Unspecified Non-AER Fatal Error. Bus=%1 "
-                       "Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
-        }},
+    MessageEntry{"PCIeFatalUnexpectedCompletion",
+                 {
+                     "Indicates a PCIe Unexpected Completion Error.",
+                     "PCIe Fatal Unexpected Completion. Bus=%1 Device=%2 "
+                     "Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PCIeFatalUnspecifiedNonAERFatalError",
+                 {
+                     "Indicates a PCIe Unspecified Non-AER Fatal Error.",
+                     "PCIe Fatal Unspecified Non-AER Fatal Error. Bus=%1 "
+                     "Device=%2 Function=%3.",
+                     "Error",
+                     3,
+
+                     {
+                         "number",
+                         "number",
+                         "number",
+                     },
+                     "None.",
+                 }},
     MessageEntry{
         "PCIeFatalUnsupportedRequest",
         {
-            .description = "Indicates a PCIe Unsupported Request Error.",
-            .message =
-                "PCIe Fatal Unsupported Request. Bus=%1 Device=%2 Function=%3.",
-            .severity = "Error",
-            .numberOfArgs = 3,
-            .paramTypes =
-                {
-                    "number",
-                    "number",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates a PCIe Unsupported Request Error.",
+
+            "PCIe Fatal Unsupported Request. Bus=%1 Device=%2 Function=%3.",
+            "Error",
+            3,
+
+            {
+                "number",
+                "number",
+                "number",
+            },
+            "None.",
         }},
     MessageEntry{"ChassisIntrusionDetected",
                  {
-                     .description = "Indicates that a physical security event "
-                                    "of the chassis intrusion has occurred.",
-                     .message = "Chassis Intrusion Detected.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that a physical security event "
+                     "of the chassis intrusion has occurred.",
+                     "Chassis Intrusion Detected.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "ChassisIntrusionReset",
-        {
-            .description =
-                "Indicates that chassis intrusion status has recovered.",
-            .message = "Chassis Intrusion Reset.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"ChassisIntrusionReset",
+                 {
+                     "Indicates that chassis intrusion status has recovered.",
+                     "Chassis Intrusion Reset.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"LanLost",
                  {
-                     .description = "Indicates that a physical security event "
-                                    "of the LAN leash has lost.",
-                     .message = "%1 LAN leash lost.",
-                     .severity = "Warning",
-                     .numberOfArgs = 1,
-                     .paramTypes =
-                         {
-                             "string",
-                         },
-                     .resolution = "None.",
+                     "Indicates that a physical security event "
+                     "of the LAN leash has lost.",
+                     "%1 LAN leash lost.",
+                     "Warning",
+                     1,
+
+                     {
+                         "string",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "LanRegained",
-        {
-            .description = "Indicates that LAN link status has reconnected.",
-            .message = "%1 LAN leash regained.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes =
-                {
-                    "string",
-                },
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PowerButtonPressed",
-        {
-            .description = "Indicates that the power button was pressed.",
-            .message = "Power Button Pressed.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"LanRegained",
+                 {
+                     "Indicates that LAN link status has reconnected.",
+                     "%1 LAN leash regained.",
+                     "OK",
+                     1,
+
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PowerButtonPressed",
+                 {
+                     "Indicates that the power button was pressed.",
+                     "Power Button Pressed.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"PowerRestorePolicyApplied",
                  {
-                     .description = "Indicates that power was restored and the "
-                                    "BMC has applied the restore policy.",
-                     .message = "Power restore policy applied.",
-                     .severity = "OK",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that power was restored and the "
+                     "BMC has applied the restore policy.",
+                     "Power restore policy applied.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "PowerSupplyConfigurationError",
-        {
-            .description = "Indicates an error in power supply configuration.",
-            .message = "Power supply %1 configuration error.",
-            .severity = "Critical",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerSupplyConfigurationError",
+                 {
+                     "Indicates an error in power supply configuration.",
+                     "Power supply %1 configuration error.",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
     MessageEntry{
         "PowerSupplyFanFailed",
         {
-            .description =
-                "Indicates that the specified power supply fan has failed.",
-            .message = "Power supply %1 fan %2 failed.",
-            .severity = "Critical",
-            .numberOfArgs = 2,
-            .paramTypes = {"string", "string"},
-            .resolution = "None.",
+            "Indicates that the specified power supply fan has failed.",
+            "Power supply %1 fan %2 failed.",
+            "Critical",
+            2,
+            {"string", "string"},
+            "None.",
         }},
     MessageEntry{
         "PowerSupplyFanRecovered",
         {
-            .description =
-                "Indicates that the power supply fan recovered from a failure.",
-            .message = "Power supply %1 fan %2 recovered.",
-            .severity = "OK",
-            .numberOfArgs = 2,
-            .paramTypes = {"string", "string"},
-            .resolution = "None.",
+            "Indicates that the power supply fan recovered from a failure.",
+            "Power supply %1 fan %2 recovered.",
+            "OK",
+            2,
+            {"string", "string"},
+            "None.",
         }},
     MessageEntry{"PowerSupplyFailed",
                  {
-                     .description = "Indicates that a power supply has failed.",
-                     .message = "Power supply %1 failed.",
-                     .severity = "Critical",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a power supply has failed.",
+                     "Power supply %1 failed.",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
     MessageEntry{"PowerSupplyFailurePredicted",
                  {
-                     .description =
-                         "Indicates that a power supply is predicted to fail.",
-                     .message = "Power supply %1 failure predicted.",
-                     .severity = "Warning",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a power supply is predicted to fail.",
+                     "Power supply %1 failure predicted.",
+                     "Warning",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
-    MessageEntry{
-        "PowerSupplyInserted",
-        {
-            .description = "Indicates that a power supply has been inserted.",
-            .message = "Power supply %1 inserted.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PowerSupplyPowerGoodFailed",
-        {
-            .description = "Indicates that the power supply power good signal "
-                           "failed to assert within the specified time.",
-            .message = "Power supply power good failed to assert within %1 "
-                       "milliseconds.",
-            .severity = "Critical",
-            .numberOfArgs = 1,
-            .paramTypes = {"number"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerSupplyInserted",
+                 {
+                     "Indicates that a power supply has been inserted.",
+                     "Power supply %1 inserted.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"PowerSupplyPowerGoodFailed",
+                 {
+                     "Indicates that the power supply power good signal "
+                     "failed to assert within the specified time.",
+                     "Power supply power good failed to assert within %1 "
+                     "milliseconds.",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "None.",
+                 }},
     MessageEntry{"PowerSupplyPowerLost",
                  {
-                     .description =
-                         "Indicates that a power supply has lost input power.",
-                     .message = "Power supply %1 power lost.",
-                     .severity = "Critical",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a power supply has lost input power.",
+                     "Power supply %1 power lost.",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
-    MessageEntry{
-        "PowerSupplyPowerRestored",
-        {
-            .description =
-                "Indicates that a power supply input power was restored.",
-            .message = "Power supply %1 power restored.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerSupplyPowerRestored",
+                 {
+                     "Indicates that a power supply input power was restored.",
+                     "Power supply %1 power restored.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
     MessageEntry{"PowerSupplyPredictedFailureRecovered",
                  {
-                     .description = "Indicates that a power supply recovered "
-                                    "from a predicted failure.",
-                     .message = "Power supply %1 predicted failure recovered.",
-                     .severity = "OK",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a power supply recovered "
+                     "from a predicted failure.",
+                     "Power supply %1 predicted failure recovered.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
-    MessageEntry{
-        "PowerSupplyRecovered",
-        {
-            .description =
-                "Indicates that a power supply recovered from a failure.",
-            .message = "Power supply %1 recovered.",
-            .severity = "OK",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PowerSupplyRemoved",
-        {
-            .description = "Indicates that a power supply has been removed.",
-            .message = "Power supply %1 removed.",
-            .severity = "Warning",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "PowerUnitDegradedFromNonRedundant",
-        {
-            .description =
-                "Indicates that power unit is come back to redundant from"
-                "nonredundant but is still not in full redundancy mode.",
-            .message = "Power Unit degraded from nonredundant.",
-            .severity = "Warning",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerSupplyRecovered",
+                 {
+                     "Indicates that a power supply recovered from a failure.",
+                     "Power supply %1 recovered.",
+                     "OK",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"PowerSupplyRemoved",
+                 {
+                     "Indicates that a power supply has been removed.",
+                     "Power supply %1 removed.",
+                     "Warning",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"PowerUnitDegradedFromNonRedundant",
+                 {
+                     "Indicates that power unit is come back to redundant from"
+                     "nonredundant but is still not in full redundancy mode.",
+                     "Power Unit degraded from nonredundant.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"PowerUnitDegradedFromRedundant",
                  {
-                     .description =
-                         "Indicates that power unit is degarded from full "
-                         "redundancy mode.",
-                     .message = "Power Unit degraded from redundant.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that power unit is degarded from full "
+                     "redundancy mode.",
+                     "Power Unit degraded from redundant.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "PowerUnitRedundancyDegraded",
-        {
-            .description =
-                "Indicates that power unit redundancy has been degraded.",
-            .message = "Power Unit Redundancy degraded.",
-            .severity = "Warning",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerUnitRedundancyDegraded",
+                 {
+                     "Indicates that power unit redundancy has been degraded.",
+                     "Power Unit Redundancy degraded.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{
         "PowerUnitNonRedundantFromInsufficient",
         {
-            .description =
-                "Indicates that power unit is not in redundancy mode and get"
-                "sufficient power to support redundancy from insufficient"
-                "power.",
-            .message =
-                "Power Unit NonRedundant from insufficient to sufficient.",
-            .severity = "Warning",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
+            "Indicates that power unit is not in redundancy mode and get"
+            "sufficient power to support redundancy from insufficient"
+            "power.",
+
+            "Power Unit NonRedundant from insufficient to sufficient.",
+            "Warning",
+            0,
+            {},
+            "None.",
         }},
-    MessageEntry{
-        "PowerUnitNonRedundantInsufficient",
-        {
-            .description = "Indicates that power unit do not have sufficient "
-                           "power to support redundancy.",
-            .message = "Power Unit NonRedundant and has insufficient resource.",
-            .severity = "Error",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"PowerUnitNonRedundantInsufficient",
+                 {
+                     "Indicates that power unit do not have sufficient "
+                     "power to support redundancy.",
+                     "Power Unit NonRedundant and has insufficient resource.",
+                     "Error",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"PowerUnitRedundancyLost",
                  {
-                     .description =
-                         "Indicates that power unit redundancy has been lost.",
-                     .message = "Power Unit Redundancy lost.",
-                     .severity = "Warning",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that power unit redundancy has been lost.",
+                     "Power Unit Redundancy lost.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
                  }},
     MessageEntry{
         "PowerUnitRedundancyRegained",
         {
-            .description =
-                "Indicates that power unit full redundancy has been regained.",
-            .message = "Power Unit Redundancy regained.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
+            "Indicates that power unit full redundancy has been regained.",
+            "Power Unit Redundancy regained.",
+            "OK",
+            0,
+            {},
+            "None.",
         }},
     MessageEntry{
         "PowerUnitNonRedundantSufficient",
         {
-            .description =
-                "Indicates that power unit is not in redundancy mode but still"
-                "has sufficient power to support redundancy.",
-            .message = "Power Unit Nonredundant but has sufficient resource.",
-            .severity = "Warning",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
+            "Indicates that power unit is not in redundancy mode but still"
+            "has sufficient power to support redundancy.",
+            "Power Unit Nonredundant but has sufficient resource.",
+            "Warning",
+            0,
+            {},
+            "None.",
         }},
-    MessageEntry{
-        "ResetButtonPressed",
-        {
-            .description = "Indicates that the reset button was pressed.",
-            .message = "Reset Button Pressed.",
-            .severity = "OK",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"ResetButtonPressed",
+                 {
+                     "Indicates that the reset button was pressed.",
+                     "Reset Button Pressed.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"SELEntryAdded",
                  {
-                     .description = "Indicates a SEL entry was added using the "
-                                    "Add SEL Entry or Platform Event command.",
-                     .message = "SEL Entry Added: %1",
-                     .severity = "OK",
-                     .numberOfArgs = 1,
-                     .paramTypes =
-                         {
-                             "string",
-                         },
-                     .resolution = "None.",
+                     "Indicates a SEL entry was added using the "
+                     "Add SEL Entry or Platform Event command.",
+                     "SEL Entry Added: %1",
+                     "OK",
+                     1,
+
+                     {
+                         "string",
+                     },
+                     "None.",
                  }},
-    MessageEntry{
-        "SensorThresholdCriticalHighGoingHigh",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "critical high threshold going high.",
-            .message = "%1 sensor crossed a critical high threshold going "
-                       "high. Reading=%2 Threshold=%3.",
-            .severity = "Critical",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "Check the sensor or subsystem for errors.",
-        }},
-    MessageEntry{
-        "SensorThresholdCriticalHighGoingLow",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "critical high threshold going low.",
-            .message = "%1 sensor crossed a critical high threshold going low. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "SensorThresholdCriticalLowGoingHigh",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "critical low threshold going high.",
-            .message = "%1 sensor crossed a critical low threshold going high. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "SensorThresholdCriticalLowGoingLow",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "critical low threshold going low.",
-            .message = "%1 sensor crossed a critical low threshold going low. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "Critical",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "Check the sensor or subsystem for errors.",
-        }},
-    MessageEntry{
-        "SensorThresholdWarningHighGoingHigh",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "warning high threshold going high.",
-            .message = "%1 sensor crossed a warning high threshold going high. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "Check the sensor or subsystem for errors.",
-        }},
-    MessageEntry{
-        "SensorThresholdWarningHighGoingLow",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "warning high threshold going low.",
-            .message = "%1 sensor crossed a warning high threshold going low. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "SensorThresholdWarningLowGoingHigh",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "warning low threshold going high.",
-            .message = "%1 sensor crossed a warning low threshold going high. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "OK",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "SensorThresholdWarningLowGoingLow",
-        {
-            .description = "Indicates that a threshold sensor has crossed a "
-                           "warning low threshold going low.",
-            .message = "%1 sensor crossed a warning low threshold going low. "
-                       "Reading=%2 Threshold=%3.",
-            .severity = "Warning",
-            .numberOfArgs = 3,
-            .paramTypes = {"string", "number", "number"},
-            .resolution = "Check the sensor or subsystem for errors.",
-        }},
+    MessageEntry{"SensorThresholdCriticalHighGoingHigh",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "critical high threshold going high.",
+                     "%1 sensor crossed a critical high threshold going "
+                     "high. Reading=%2 Threshold=%3.",
+                     "Critical",
+                     3,
+                     {"string", "number", "number"},
+                     "Check the sensor or subsystem for errors.",
+                 }},
+    MessageEntry{"SensorThresholdCriticalHighGoingLow",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "critical high threshold going low.",
+                     "%1 sensor crossed a critical high threshold going low. "
+                     "Reading=%2 Threshold=%3.",
+                     "OK",
+                     3,
+                     {"string", "number", "number"},
+                     "None.",
+                 }},
+    MessageEntry{"SensorThresholdCriticalLowGoingHigh",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "critical low threshold going high.",
+                     "%1 sensor crossed a critical low threshold going high. "
+                     "Reading=%2 Threshold=%3.",
+                     "OK",
+                     3,
+                     {"string", "number", "number"},
+                     "None.",
+                 }},
+    MessageEntry{"SensorThresholdCriticalLowGoingLow",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "critical low threshold going low.",
+                     "%1 sensor crossed a critical low threshold going low. "
+                     "Reading=%2 Threshold=%3.",
+                     "Critical",
+                     3,
+                     {"string", "number", "number"},
+                     "Check the sensor or subsystem for errors.",
+                 }},
+    MessageEntry{"SensorThresholdWarningHighGoingHigh",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "warning high threshold going high.",
+                     "%1 sensor crossed a warning high threshold going high. "
+                     "Reading=%2 Threshold=%3.",
+                     "Warning",
+                     3,
+                     {"string", "number", "number"},
+                     "Check the sensor or subsystem for errors.",
+                 }},
+    MessageEntry{"SensorThresholdWarningHighGoingLow",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "warning high threshold going low.",
+                     "%1 sensor crossed a warning high threshold going low. "
+                     "Reading=%2 Threshold=%3.",
+                     "OK",
+                     3,
+                     {"string", "number", "number"},
+                     "None.",
+                 }},
+    MessageEntry{"SensorThresholdWarningLowGoingHigh",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "warning low threshold going high.",
+                     "%1 sensor crossed a warning low threshold going high. "
+                     "Reading=%2 Threshold=%3.",
+                     "OK",
+                     3,
+                     {"string", "number", "number"},
+                     "None.",
+                 }},
+    MessageEntry{"SensorThresholdWarningLowGoingLow",
+                 {
+                     "Indicates that a threshold sensor has crossed a "
+                     "warning low threshold going low.",
+                     "%1 sensor crossed a warning low threshold going low. "
+                     "Reading=%2 Threshold=%3.",
+                     "Warning",
+                     3,
+                     {"string", "number", "number"},
+                     "Check the sensor or subsystem for errors.",
+                 }},
     MessageEntry{"ServiceFailure",
                  {
-                     .description =
-                         "Indicates that a service has exited unsuccessfully.",
-                     .message = "Service %1 has exited unsuccessfully.",
-                     .severity = "Warning",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"string"},
-                     .resolution = "None.",
+                     "Indicates that a service has exited unsuccessfully.",
+                     "Service %1 has exited unsuccessfully.",
+                     "Warning",
+                     1,
+                     {"string"},
+                     "None.",
                  }},
     MessageEntry{"SparingRedundancyDegraded",
                  {
-                     .description =
-                         "Indicates the sparing redundancy state is degraded.",
-                     .message = "Sparing redundancy state degraded. Socket=%1 "
-                                "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
-                     .severity = "Warning",
-                     .numberOfArgs = 5,
-                     .paramTypes =
-                         {
-                             "number",
-                             "string",
-                             "number",
-                             "string",
-                             "number",
-                         },
-                     .resolution = "None.",
+                     "Indicates the sparing redundancy state is degraded.",
+                     "Sparing redundancy state degraded. Socket=%1 "
+                     "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
+                     "Warning",
+                     5,
+
+                     {
+                         "number",
+                         "string",
+                         "number",
+                         "string",
+                         "number",
+                     },
+                     "None.",
                  }},
     MessageEntry{
         "SparingRedundancyFull",
         {
-            .description =
-                "Indicates the sparing redundancy state is fully redundant.",
-            .message = "Sparing redundancy state fully redundant. Socket=%1 "
-                       "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
-            .severity = "OK",
-            .numberOfArgs = 5,
-            .paramTypes =
-                {
-                    "number",
-                    "string",
-                    "number",
-                    "string",
-                    "number",
-                },
-            .resolution = "None.",
+            "Indicates the sparing redundancy state is fully redundant.",
+            "Sparing redundancy state fully redundant. Socket=%1 "
+            "Channel=%2 DIMM=%3 Domain=%4 Rank=%5.",
+            "OK",
+            5,
+
+            {
+                "number",
+                "string",
+                "number",
+                "string",
+                "number",
+            },
+            "None.",
         }},
-    MessageEntry{
-        "SsbThermalTrip",
-        {
-            .description =
-                "Indicates that an SSB Thermal trip has been asserted.",
-            .message = "SSB Thermal trip.",
-            .severity = "Critical",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"SsbThermalTrip",
+                 {
+                     "Indicates that an SSB Thermal trip has been asserted.",
+                     "SSB Thermal trip.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{"SystemPowerGoodFailed",
                  {
-                     .description =
-                         "Indicates that the system power good signal failed "
-                         "to assert within the specified time (VR failure).",
-                     .message = "System power good failed to assert within %1 "
-                                "milliseconds (VR failure).",
-                     .severity = "Critical",
-                     .numberOfArgs = 1,
-                     .paramTypes = {"number"},
-                     .resolution = "None.",
+                     "Indicates that the system power good signal failed "
+                     "to assert within the specified time (VR failure).",
+                     "System power good failed to assert within %1 "
+                     "milliseconds (VR failure).",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "None.",
                  }},
     MessageEntry{"SystemPowerLost",
                  {
-                     .description = "Indicates that power was lost while the "
-                                    "system was powered on.",
-                     .message = "System Power Lost.",
-                     .severity = "Critical",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None.",
+                     "Indicates that power was lost while the "
+                     "system was powered on.",
+                     "System Power Lost.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
                  }},
-    MessageEntry{
-        "SystemPowerOffFailed",
-        {
-            .description = "Indicates that the system failed to power off.",
-            .message = "System Power-Off Failed.",
-            .severity = "Critical",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
-    MessageEntry{
-        "SystemPowerOnFailed",
-        {
-            .description = "Indicates that the system failed to power on.",
-            .message = "System Power-On Failed.",
-            .severity = "Critical",
-            .numberOfArgs = 0,
-            .paramTypes = {},
-            .resolution = "None.",
-        }},
+    MessageEntry{"SystemPowerOffFailed",
+                 {
+                     "Indicates that the system failed to power off.",
+                     "System Power-Off Failed.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SystemPowerOnFailed",
+                 {
+                     "Indicates that the system failed to power on.",
+                     "System Power-On Failed.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
     MessageEntry{
         "VoltageRegulatorOverheated",
         {
-            .description =
-                "Indicates that the specified voltage regulator overheated.",
-            .message = "%1 Voltage Regulator Overheated.",
-            .severity = "Critical",
-            .numberOfArgs = 1,
-            .paramTypes = {"string"},
-            .resolution = "None.",
+            "Indicates that the specified voltage regulator overheated.",
+            "%1 Voltage Regulator Overheated.",
+            "Critical",
+            1,
+            {"string"},
+            "None.",
         }},
 };
 } // namespace redfish::message_registries::openbmc

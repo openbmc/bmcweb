@@ -63,7 +63,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0), collectionName);
+        "/xyz/openbmc_project/inventory", 0, collectionName);
 }
 
 void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
@@ -360,8 +360,8 @@ void getCpuData(std::shared_ptr<AsyncResp> aResp, const std::string &cpuId,
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0), inventoryItems);
-};
+        "/xyz/openbmc_project/inventory", 0, inventoryItems);
+}
 
 void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                           const std::string &dimmId, const std::string &service,
@@ -481,9 +481,9 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string &dimmId)
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
+        "/xyz/openbmc_project/inventory", 0,
         std::array<const char *, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
-};
+}
 
 class ProcessorCollection : public Node
 {
