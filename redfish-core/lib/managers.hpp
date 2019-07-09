@@ -278,7 +278,7 @@ static void asyncPopulatePid(const std::string& connection,
                         controller["@odata.id"] =
                             "/redfish/v1/Managers/bmc#/Oem/"
                             "OpenBmc/Fan/StepwiseControllers/" +
-                            std::string(name);
+                            name;
                         controller["@odata.type"] =
                             "#OemManager.StepwiseController";
 
@@ -307,7 +307,7 @@ static void asyncPopulatePid(const std::string& connection,
                             element["@odata.id"] =
                                 "/redfish/v1/Managers/bmc#/Oem/"
                                 "OpenBmc/Fan/FanControllers/" +
-                                std::string(name);
+                                name;
                             element["@odata.type"] =
                                 "#OemManager.FanController";
 
@@ -320,7 +320,7 @@ static void asyncPopulatePid(const std::string& connection,
                             element["@odata.id"] =
                                 "/redfish/v1/Managers/bmc#/Oem/"
                                 "OpenBmc/Fan/PidControllers/" +
-                                std::string(name);
+                                name;
                             element["@odata.type"] =
                                 "#OemManager.PidController";
                             element["@odata.context"] =
@@ -1077,8 +1077,8 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        const std::string* current;
-                        const std::vector<std::string>* supported;
+                        const std::string* current = nullptr;
+                        const std::vector<std::string>* supported = nullptr;
                         for (auto& [key, value] : resp)
                         {
                             if (key == "Current")
@@ -1193,9 +1193,9 @@ struct GetPIDValues : std::enable_shared_from_this<GetPIDValues>
 struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 {
 
-    SetPIDValues(const std::shared_ptr<AsyncResp>& asyncResp,
+    SetPIDValues(const std::shared_ptr<AsyncResp>& asyncRespIn,
                  nlohmann::json& data) :
-        asyncResp(asyncResp)
+        asyncResp(asyncRespIn)
     {
 
         std::optional<nlohmann::json> pidControllers;
@@ -1231,14 +1231,14 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
         // interface gets more traction
         crow::connections::systemBus->async_method_call(
             [self](const boost::system::error_code ec,
-                   dbus::utility::ManagedObjectType& managedObj) {
+                   dbus::utility::ManagedObjectType& mObj) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Error communicating to Entity Manager";
                     messages::internalError(self->asyncResp->res);
                     return;
                 }
-                self->managedObj = std::move(managedObj);
+                self->managedObj = std::move(mObj);
             },
             "xyz.openbmc_project.EntityManager", "/", objectManagerIface,
             "GetManagedObjects");
@@ -1266,7 +1266,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         const boost::system::error_code ec,
                         const boost::container::flat_map<
                             std::string, std::variant<std::vector<std::string>,
-                                                      std::string>>& resp) {
+                                                      std::string>>& r) {
                         if (ec)
                         {
                             BMCWEB_LOG_ERROR << "SetPIDValues: Can't get "
@@ -1275,9 +1275,9 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                             messages::internalError(self->asyncResp->res);
                             return;
                         }
-                        const std::string* current;
-                        const std::vector<std::string>* supported;
-                        for (auto& [key, value] : resp)
+                        const std::string* current = nullptr;
+                        const std::vector<std::string>* supported = nullptr;
+                        for (auto& [key, value] : r)
                         {
                             if (key == "Current")
                             {
