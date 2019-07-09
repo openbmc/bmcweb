@@ -5,8 +5,6 @@
 #include "crow.h"
 
 #include "gtest/gtest.h"
-#undef BMCWEB_LOG_LEVEL
-#define BMCWEB_LOG_LEVEL 0
 
 using namespace std;
 using namespace crow;
