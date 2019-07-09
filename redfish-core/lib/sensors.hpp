@@ -49,11 +49,11 @@ using ManagedObjectsVectorType = std::vector<std::pair<
 class SensorsAsyncResp
 {
   public:
-    SensorsAsyncResp(crow::Response& response, const std::string& chassisId,
-                     const std::vector<const char*> types,
+    SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
+                     const std::vector<const char*> typesIn,
                      const std::string& subNode) :
         res(response),
-        chassisId(chassisId), types(types), chassisSubNode(subNode)
+        chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
     {
     }
 
@@ -340,12 +340,12 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         std::string sensorPath = *chassisPath + "/all_sensors";
         crow::connections::systemBus->async_method_call(
             [sensorsAsyncResp, callback{std::move(callback)}](
-                const boost::system::error_code ec,
+                const boost::system::error_code& e,
                 const std::variant<std::vector<std::string>>&
                     variantEndpoints) {
-                if (ec)
+                if (e)
                 {
-                    if (ec.value() != EBADR)
+                    if (e.value() != EBADR)
                     {
                         messages::internalError(sensorsAsyncResp->res);
                         return;
@@ -381,7 +381,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         respHandler, "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-        "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+        "/xyz/openbmc_project/inventory", 0, interfaces);
     BMCWEB_LOG_DEBUG << "getChassis exit";
 }
 
@@ -452,8 +452,7 @@ void getObjectManagerPaths(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp,
     crow::connections::systemBus->async_method_call(
         std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
-        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
-        interfaces);
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 0, interfaces);
     BMCWEB_LOG_DEBUG << "getObjectManagerPaths exit";
 }
 
@@ -803,10 +802,10 @@ void objectInterfacesToJson(
         auto interfaceProperties = interfacesDict.find(std::get<0>(p));
         if (interfaceProperties != interfacesDict.end())
         {
-            auto valueIt = interfaceProperties->second.find(std::get<1>(p));
-            if (valueIt != interfaceProperties->second.end())
+            auto thisValueIt = interfaceProperties->second.find(std::get<1>(p));
+            if (thisValueIt != interfaceProperties->second.end())
             {
-                const SensorVariant& valueVariant = valueIt->second;
+                const SensorVariant& valueVariant = thisValueIt->second;
 
                 // The property we want to set may be nested json, so use
                 // a json_pointer for easy indexing into the json structure.
@@ -820,7 +819,7 @@ void objectInterfacesToJson(
                 double temp = 0.0;
                 if (int64Value != nullptr)
                 {
-                    temp = *int64Value;
+                    temp = static_cast<double>(*int64Value);
                 }
                 else if (doubleValue != nullptr)
                 {
@@ -878,10 +877,10 @@ static void
                 const std::string& owner = objDict.begin()->first;
                 crow::connections::systemBus->async_method_call(
                     [path, owner,
-                     sensorsAsyncResp](const boost::system::error_code ec,
+                     sensorsAsyncResp](const boost::system::error_code e,
                                        std::variant<std::vector<std::string>>
                                            variantEndpoints) {
-                        if (ec)
+                        if (e)
                         {
                             return; // if they don't have an association we
                                     // can't tell what chassis is
@@ -911,13 +910,13 @@ static void
                         }
                         crow::connections::systemBus->async_method_call(
                             [path, sensorsAsyncResp](
-                                const boost::system::error_code ec,
+                                const boost::system::error_code& err,
                                 const boost::container::flat_map<
                                     std::string,
                                     std::variant<uint8_t,
                                                  std::vector<std::string>,
                                                  std::string>>& ret) {
-                                if (ec)
+                                if (err)
                                 {
                                     return; // don't have to have this
                                             // interface
@@ -1016,15 +1015,16 @@ static void
                                     }
                                 }
 
-                                auto& resp = sensorsAsyncResp->res
-                                                 .jsonValue["Redundancy"];
-                                resp.push_back(
+                                nlohmann::json& jResp =
+                                    sensorsAsyncResp->res
+                                        .jsonValue["Redundancy"];
+                                jResp.push_back(
                                     {{"@odata.id",
                                       "/refish/v1/Chassis/" +
                                           sensorsAsyncResp->chassisId + "/" +
                                           sensorsAsyncResp->chassisSubNode +
                                           "#/Redundancy/" +
-                                          std::to_string(resp.size())},
+                                          std::to_string(jResp.size())},
                                      {"@odata.type",
                                       "#Redundancy.v1_3_2.Redundancy"},
                                      {"MinNumNeeded",
@@ -1314,7 +1314,7 @@ static void getInventoryItemsData(
     std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
     std::shared_ptr<boost::container::flat_map<std::string, std::string>>
         objectMgrPaths,
-    Callback&& callback, int invConnectionsIndex = 0)
+    Callback&& callback, size_t invConnectionsIndex = 0)
 {
     BMCWEB_LOG_DEBUG << "getInventoryItemsData enter";
 
@@ -1800,7 +1800,7 @@ void getSensorData(
                 }
                 else
                 {
-                    const char* fieldName = nullptr;
+                    std::string fieldName;
                     if (sensorType == "temperature")
                     {
                         fieldName = "Temperatures";
@@ -1978,7 +1978,7 @@ void getChassisData(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
     // Get set of sensors in chassis
     getChassis(SensorsAsyncResp, std::move(getChassisCb));
     BMCWEB_LOG_DEBUG << "getChassisData exit";
-};
+}
 
 /**
  * @brief Find the requested sensorName in the list of all sensors supplied by

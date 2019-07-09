@@ -29,7 +29,7 @@ static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 // Only allow one update at a time
 static bool fwUpdateInProgress = false;
 // Timer for software available
-static std::unique_ptr<boost::asio::deadline_timer> fwAvailableTimer;
+static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
 
 static void cleanUp()
 {
@@ -148,10 +148,9 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
     }
 
     fwAvailableTimer =
-        std::make_unique<boost::asio::deadline_timer>(*req.ioService);
+        std::make_unique<boost::asio::steady_timer>(*req.ioService);
 
-    fwAvailableTimer->expires_from_now(
-        boost::posix_time::seconds(timeoutTimeSeconds));
+    fwAvailableTimer->expires_after(std::chrono::seconds(timeoutTimeSeconds));
 
     fwAvailableTimer->async_wait(
         [asyncResp](const boost::system::error_code &ec) {
@@ -485,10 +484,6 @@ class SoftwareInventoryCollection : public Node
 
                 for (auto &obj : subtree)
                 {
-                    const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>
-                        &connections = obj.second;
-
                     // if can't parse fw id then return
                     std::size_t idPos;
                     if ((idPos = obj.first.rfind("/")) == std::string::npos)
@@ -511,7 +506,8 @@ class SoftwareInventoryCollection : public Node
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+            static_cast<int32_t>(0),
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }
@@ -719,7 +715,8 @@ class SoftwareInventory : public Node
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", int32_t(0),
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+            static_cast<int32_t>(0),
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }
