@@ -109,7 +109,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 
     connection->sendText(j.dump());
     return 0;
-};
+}
 
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 {
@@ -150,7 +150,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
             nlohmann::json::iterator paths = j.find("paths");
             if (paths != j.end())
             {
-                int interfaceCount = thisSession.interfaces.size();
+                size_t interfaceCount = thisSession.interfaces.size();
                 if (interfaceCount == 0)
                 {
                     interfaceCount = 1;
@@ -160,7 +160,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                 // PropertiesChanged
                 thisSession.matches.reserve(thisSession.matches.size() +
                                             paths->size() *
-                                                (1 + interfaceCount));
+                                                (1U + interfaceCount));
             }
             std::string object_manager_match_string;
             std::string properties_match_string;
