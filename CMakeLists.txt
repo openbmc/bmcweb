@@ -62,14 +62,46 @@ project (bmc-webserver CXX)
 
 include (CTest)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -fno-rtti \
+")
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+-Wall \
+-Wextra \
+-Werror \
+-Wnon-virtual-dtor \
+-Wold-style-cast \
+-Wcast-align \
+-Wunused \
+-Woverloaded-virtual \
+-Wpedantic \
+-Wconversion \
+-Wsign-conversion \
+-Wmisleading-indentation \
+-Wduplicated-cond \
+-Wduplicated-branches \
+-Wlogical-op \
+-Wnull-dereference \
+-Wdouble-promotion \
+-Wformat=2 \
+-Wno-unused-parameter \
+")
+
+# only set -Werror if we're on a compiler that we know passes
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general
@@ -140,17 +172,17 @@ add_definitions (-DBOOST_NO_TYPEID)
 add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 
 find_package (Boost 1.66 REQUIRED)
-include_directories (${BOOST_SRC_DIR})
+include_directories (SYSTEM ${BOOST_SRC_DIR})
 
 # sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
-    include_directories (${CMAKE_BINARY_DIR}/sdbusplus-src)
+    include_directories (SYSTEM ${CMAKE_BINARY_DIR}/sdbusplus-src)
     link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/.libs)
 endif ()
 
 # Openssl
 find_package (OpenSSL REQUIRED)
-include_directories (${OPENSSL_INCLUDE_DIR})
+include_directories (SYSTEM ${OPENSSL_INCLUDE_DIR})
 message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
 # bmcweb
@@ -168,7 +200,7 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
 
 # Zlib
 find_package (ZLIB REQUIRED)
-include_directories (${ZLIB_INCLUDE_DIRS})
+include_directories (SYSTEM ${ZLIB_INCLUDE_DIRS})
 
 # PAM
 option (WEBSERVER_ENABLE_PAM "enable pam authentication" ON)

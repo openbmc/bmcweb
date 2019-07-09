@@ -23,8 +23,8 @@ static constexpr auto nbdBufferSize = 131088;
 class Handler : public std::enable_shared_from_this<Handler>
 {
   public:
-    Handler(const std::string& media, boost::asio::io_service& ios) :
-        pipeOut(ios), pipeIn(ios), media(media), doingWrite(false),
+    Handler(const std::string& mediaIn, boost::asio::io_service& ios) :
+        pipeOut(ios), pipeIn(ios), media(mediaIn), doingWrite(false),
         outputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>),
         inputBuffer(new boost::beast::flat_static_buffer<nbdBufferSize>)
     {
