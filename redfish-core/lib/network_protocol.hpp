@@ -139,7 +139,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 class NetworkProtocol : public Node
 {
@@ -253,9 +253,9 @@ class NetworkProtocol : public Node
         });
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<UnitStruct>& resp) {
-                if (ec)
+            [asyncResp](const boost::system::error_code e,
+                        const std::vector<UnitStruct>& r) {
+                if (e)
                 {
                     asyncResp->res.jsonValue = nlohmann::json::object();
                     messages::internalError(asyncResp->res);
@@ -265,7 +265,7 @@ class NetworkProtocol : public Node
                     {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
                                   "HTTPS/Certificates/"}};
 
-                for (auto& unit : resp)
+                for (auto& unit : r)
                 {
                     for (auto& kv : protocolToDBus)
                     {

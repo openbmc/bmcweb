@@ -55,7 +55,7 @@ class Node
 {
   public:
     template <typename... Params>
-    Node(CrowApp& app, std::string&& entityUrl, Params... params)
+    Node(CrowApp& app, std::string&& entityUrl, Params... paramsIn)
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;

@@ -148,7 +148,7 @@ void getPhysicalSecurityData(std::shared_ptr<AsyncResp> aResp)
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/Intrusion", int32_t(1),
+        "/xyz/openbmc_project/Intrusion", 1,
         std::array<const char *, 1>{"xyz.openbmc_project.Chassis.Intrusion"});
 }
 
@@ -217,7 +217,7 @@ class ChassisCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+            "/xyz/openbmc_project/inventory", 0, interfaces);
     }
 };
 
@@ -397,7 +397,7 @@ class Chassis : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
+            "/xyz/openbmc_project/inventory", 0, interfaces);
 
         getPhysicalSecurityData(asyncResp);
     }
