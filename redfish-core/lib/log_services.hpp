@@ -145,8 +145,8 @@ static int getJournalMetadata(sd_journal *journal,
     size_t length = 0;
     int ret = 0;
     // Get the metadata from the requested field of the journal entry
-    ret = sd_journal_get_data(journal, field.data(), (const void **)&data,
-                              &length);
+    ret = sd_journal_get_data(journal, field.data(),
+                              reinterpret_cast<const void **>(&data), &length);
     if (ret < 0)
     {
         return ret;
@@ -159,7 +159,7 @@ static int getJournalMetadata(sd_journal *journal,
 
 static int getJournalMetadata(sd_journal *journal,
                               const std::string_view &field, const int &base,
-                              int &contents)
+                              long int &contents)
 {
     int ret = 0;
     std::string_view metadata;
@@ -205,13 +205,13 @@ static bool getEntryTimestamp(sd_journal *journal, std::string &entryTimestamp)
 }
 
 static bool getSkipParam(crow::Response &res, const crow::Request &req,
-                         long &skip)
+                         uint64_t &skip)
 {
     char *skipParam = req.urlParams.get("$skip");
     if (skipParam != nullptr)
     {
         char *ptr = nullptr;
-        skip = std::strtol(skipParam, &ptr, 10);
+        skip = std::strtoul(skipParam, &ptr, 10);
         if (*skipParam == '\0' || *ptr != '\0')
         {
 
@@ -219,33 +219,26 @@ static bool getSkipParam(crow::Response &res, const crow::Request &req,
                                                    "$skip");
             return false;
         }
-        if (skip < 0)
-        {
-
-            messages::queryParameterOutOfRange(res, std::to_string(skip),
-                                               "$skip", "greater than 0");
-            return false;
-        }
     }
     return true;
 }
 
-static constexpr const long maxEntriesPerPage = 1000;
+static constexpr const uint64_t maxEntriesPerPage = 1000;
 static bool getTopParam(crow::Response &res, const crow::Request &req,
-                        long &top)
+                        uint64_t &top)
 {
     char *topParam = req.urlParams.get("$top");
     if (topParam != nullptr)
     {
         char *ptr = nullptr;
-        top = std::strtol(topParam, &ptr, 10);
+        top = std::strtoul(topParam, &ptr, 10);
         if (*topParam == '\0' || *ptr != '\0')
         {
             messages::queryParameterValueTypeError(res, std::string(topParam),
                                                    "$top");
             return false;
         }
-        if (top < 1 || top > maxEntriesPerPage)
+        if (top < 1U || top > maxEntriesPerPage)
         {
 
             messages::queryParameterOutOfRange(
@@ -301,7 +294,7 @@ static bool getUniqueEntryID(sd_journal *journal, std::string &entryID,
 static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID,
                              const bool firstEntry = true)
 {
-    static uint64_t prevTs = 0;
+    static time_t prevTs = 0;
     static int index = 0;
     if (firstEntry)
     {
@@ -309,7 +302,7 @@ static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID,
     }
 
     // Get the entry timestamp
-    uint64_t curTs = 0;
+    std::time_t curTs = 0;
     std::tm timeStruct = {};
     std::istringstream entryStream(logEntry);
     if (entryStream >> std::get_time(&timeStruct, "%Y-%m-%dT%H:%M:%S"))
@@ -338,7 +331,7 @@ static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID,
 }
 
 static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
-                               uint64_t &timestamp, uint16_t &index)
+                               uint64_t &timestamp, uint64_t &index)
 {
     if (entryID.empty())
     {
@@ -359,12 +352,12 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
         {
             index = std::stoul(std::string(indexStr), &pos);
         }
-        catch (std::invalid_argument)
+        catch (std::invalid_argument &)
         {
             messages::resourceMissingAtURI(res, entryID);
             return false;
         }
-        catch (std::out_of_range)
+        catch (std::out_of_range &)
         {
             messages::resourceMissingAtURI(res, entryID);
             return false;
@@ -381,12 +374,12 @@ static bool getTimestampFromID(crow::Response &res, const std::string &entryID,
     {
         timestamp = std::stoull(std::string(tsStr), &pos);
     }
-    catch (std::invalid_argument)
+    catch (std::invalid_argument &)
     {
         messages::resourceMissingAtURI(res, entryID);
         return false;
     }
-    catch (std::out_of_range)
+    catch (std::out_of_range &)
     {
         messages::resourceMissingAtURI(res, entryID);
         return false;
@@ -685,8 +678,8 @@ class JournalEventLogEntryCollection : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        long skip = 0;
-        long top = maxEntriesPerPage; // Show max entries by default
+        uint64_t skip = 0;
+        uint64_t top = maxEntriesPerPage; // Show max entries by default
         if (!getSkipParam(asyncResp->res, req, skip))
         {
             return;
@@ -912,7 +905,6 @@ class DBusEventLogEntryCollection : public Node
                         uint32_t *id;
                         std::time_t timestamp;
                         std::string *severity, *message;
-                        bool *resolved;
                         for (auto &propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Id")
@@ -933,15 +925,16 @@ class DBusEventLogEntryCollection : public Node
                                 {
                                     messages::propertyMissing(asyncResp->res,
                                                               "Timestamp");
+                                    continue;
                                 }
                                 // Retrieve Created property with format:
                                 // yyyy-mm-ddThh:mm:ss
                                 std::chrono::milliseconds chronoTimeStamp(
                                     *millisTimeStamp);
-                                timestamp =
-                                    std::chrono::duration_cast<
-                                        std::chrono::seconds>(chronoTimeStamp)
-                                        .count();
+                                timestamp = std::chrono::duration_cast<
+                                                std::chrono::duration<int>>(
+                                                chronoTimeStamp)
+                                                .count();
                             }
                             else if (propertyMap.first == "Severity")
                             {
@@ -1038,7 +1031,6 @@ class DBusEventLogEntry : public Node
                 uint32_t *id;
                 std::time_t timestamp;
                 std::string *severity, *message;
-                bool *resolved;
                 for (auto &propertyMap : resp)
                 {
                     if (propertyMap.first == "Id")
@@ -1057,14 +1049,15 @@ class DBusEventLogEntry : public Node
                         {
                             messages::propertyMissing(asyncResp->res,
                                                       "Timestamp");
+                            continue;
                         }
                         // Retrieve Created property with format:
                         // yyyy-mm-ddThh:mm:ss
                         std::chrono::milliseconds chronoTimeStamp(
                             *millisTimeStamp);
                         timestamp =
-                            std::chrono::duration_cast<std::chrono::seconds>(
-                                chronoTimeStamp)
+                            std::chrono::duration_cast<
+                                std::chrono::duration<int>>(chronoTimeStamp)
                                 .count();
                     }
                     else if (propertyMap.first == "Severity")
@@ -1086,6 +1079,10 @@ class DBusEventLogEntry : public Node
                                                       "Message");
                         }
                     }
+                }
+                if (id == nullptr || message == nullptr || severity == nullptr)
+                {
+                    return;
                 }
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
@@ -1249,7 +1246,7 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
     }
 
     // Get the severity from the PRIORITY field
-    int severity = 8; // Default to an invalid priority
+    long int severity = 8; // Default to an invalid priority
     ret = getJournalMetadata(journal, "PRIORITY", 10, severity);
     if (ret < 0)
     {
@@ -1302,8 +1299,8 @@ class BMCJournalLogEntryCollection : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         static constexpr const long maxEntriesPerPage = 1000;
-        long skip = 0;
-        long top = maxEntriesPerPage; // Show max entries by default
+        uint64_t skip = 0;
+        uint64_t top = maxEntriesPerPage; // Show max entries by default
         if (!getSkipParam(asyncResp->res, req, skip))
         {
             return;
@@ -1415,7 +1412,7 @@ class BMCJournalLogEntry : public Node
         const std::string &entryID = params[0];
         // Convert the unique ID back to a timestamp to find the entry
         uint64_t ts = 0;
-        uint16_t index = 0;
+        uint64_t index = 0;
         if (!getTimestampFromID(asyncResp->res, entryID, ts, index))
         {
             return;
@@ -1437,7 +1434,7 @@ class BMCJournalLogEntry : public Node
         std::string idStr;
         bool firstEntry = true;
         ret = sd_journal_seek_realtime_usec(journal.get(), ts);
-        for (int i = 0; i <= index; i++)
+        for (uint64_t i = 0; i <= index; i++)
         {
             sd_journal_next(journal.get());
             if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
@@ -1652,7 +1649,7 @@ class CrashdumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        const uint8_t logId = std::atoi(params[0].c_str());
+        const int logId = std::atoi(params[0].c_str());
         auto getStoredLogCallback = [asyncResp, logId](
                                         const boost::system::error_code ec,
                                         const std::variant<std::string> &resp) {
@@ -1728,9 +1725,9 @@ class OnDemandCrashdump : public Node
             return;
         }
         // Make this static so it survives outside this method
-        static boost::asio::deadline_timer timeout(*req.ioService);
+        static boost::asio::steady_timer timeout(*req.ioService);
 
-        timeout.expires_from_now(boost::posix_time::seconds(30));
+        timeout.expires_after(std::chrono::seconds(30));
         timeout.async_wait([asyncResp](const boost::system::error_code &ec) {
             onDemandLogMatcher = nullptr;
             if (ec)
@@ -1751,12 +1748,8 @@ class OnDemandCrashdump : public Node
         auto onDemandLogMatcherCallback = [asyncResp](
                                               sdbusplus::message::message &m) {
             BMCWEB_LOG_DEBUG << "OnDemand log available match fired";
-            boost::system::error_code ec;
-            timeout.cancel(ec);
-            if (ec)
-            {
-                BMCWEB_LOG_ERROR << "error canceling timer " << ec;
-            }
+            timeout.cancel();
+
             sdbusplus::message::object_path objPath;
             boost::container::flat_map<
                 std::string, boost::container::flat_map<
@@ -1825,13 +1818,8 @@ class OnDemandCrashdump : public Node
                     {
                         messages::internalError(asyncResp->res);
                     }
-                    boost::system::error_code timeoutec;
-                    timeout.cancel(timeoutec);
-                    if (timeoutec)
-                    {
-                        BMCWEB_LOG_ERROR << "error canceling timer "
-                                         << timeoutec;
-                    }
+
+                    timeout.cancel();
                     onDemandLogMatcher = nullptr;
                     return;
                 }

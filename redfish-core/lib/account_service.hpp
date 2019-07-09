@@ -299,7 +299,7 @@ static void handleRoleMapPatch(
                                  << ",LocalRole=" << *localRole;
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, serverType, index, localRole,
+                    [asyncResp, serverType, localRole,
                      remoteGroup](const boost::system::error_code ec) {
                         if (ec)
                         {
@@ -422,43 +422,43 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
                                 for (const auto& property : interface.second)
                                 {
-                                    const std::string* value =
+                                    const std::string* strValue =
                                         std::get_if<std::string>(
                                             &property.second);
-                                    if (value == nullptr)
+                                    if (strValue == nullptr)
                                     {
                                         continue;
                                     }
                                     if (property.first == "LDAPServerURI")
                                     {
-                                        confData.uri = *value;
+                                        confData.uri = *strValue;
                                     }
                                     else if (property.first == "LDAPBindDN")
                                     {
-                                        confData.bindDN = *value;
+                                        confData.bindDN = *strValue;
                                     }
                                     else if (property.first == "LDAPBaseDN")
                                     {
-                                        confData.baseDN = *value;
+                                        confData.baseDN = *strValue;
                                     }
                                     else if (property.first ==
                                              "LDAPSearchScope")
                                     {
-                                        confData.searchScope = *value;
+                                        confData.searchScope = *strValue;
                                     }
                                     else if (property.first ==
                                              "GroupNameAttribute")
                                     {
-                                        confData.groupAttribute = *value;
+                                        confData.groupAttribute = *strValue;
                                     }
                                     else if (property.first ==
                                              "UserNameAttribute")
                                     {
-                                        confData.userNameAttribute = *value;
+                                        confData.userNameAttribute = *strValue;
                                     }
                                     else if (property.first == "LDAPType")
                                     {
-                                        confData.serverType = *value;
+                                        confData.serverType = *strValue;
                                     }
                                 }
                             }
@@ -469,22 +469,22 @@ inline void getLDAPConfigData(const std::string& ldapType,
                                 LDAPRoleMapData roleMapData{};
                                 for (const auto& property : interface.second)
                                 {
-                                    const std::string* value =
+                                    const std::string* strValue =
                                         std::get_if<std::string>(
                                             &property.second);
 
-                                    if (value == nullptr)
+                                    if (strValue == nullptr)
                                     {
                                         continue;
                                     }
 
                                     if (property.first == "GroupName")
                                     {
-                                        roleMapData.groupName = *value;
+                                        roleMapData.groupName = *strValue;
                                     }
                                     else if (property.first == "Privilege")
                                     {
-                                        roleMapData.privilege = *value;
+                                        roleMapData.privilege = *strValue;
                                     }
                                 }
 
@@ -1518,7 +1518,7 @@ class ManagerAccount : public Node
             crow::connections::systemBus->async_method_call(
                 [this, asyncResp, username, password(std::move(password)),
                  roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{std::string(*newUserName)}, locked(std::move(locked))](
+                 newUser{*newUserName}, locked(std::move(locked))](
                     const boost::system::error_code ec) {
                     if (ec)
                     {

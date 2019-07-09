@@ -139,7 +139,7 @@ void getEthernetIfaceData(CallbackFunc&& callback)
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 class NetworkProtocol : public Node
 {
@@ -230,32 +230,32 @@ class NetworkProtocol : public Node
 
         // TODO Get eth0 interface data, and call the below callback for JSON
         // preparation
-        getEthernetIfaceData([this, hostName, asyncResp](
-                                 const bool& success,
-                                 const std::vector<std::string>& ntpServers,
-                                 const std::vector<std::string>& domainNames) {
-            if (!success)
-            {
-                messages::resourceNotFound(asyncResp->res, "EthernetInterface",
-                                           "eth0");
-                return;
-            }
-            asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
-            if (hostName.empty() == false)
-            {
-                std::string FQDN = std::move(hostName);
-                if (domainNames.empty() == false)
+        getEthernetIfaceData(
+            [hostName, asyncResp](const bool& success,
+                                  const std::vector<std::string>& ntpServers,
+                                  const std::vector<std::string>& domainNames) {
+                if (!success)
                 {
-                    FQDN += "." + domainNames[0];
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", "eth0");
+                    return;
                 }
-                asyncResp->res.jsonValue["FQDN"] = std::move(FQDN);
-            }
-        });
+                asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
+                if (hostName.empty() == false)
+                {
+                    std::string FQDN = std::move(hostName);
+                    if (domainNames.empty() == false)
+                    {
+                        FQDN += "." + domainNames[0];
+                    }
+                    asyncResp->res.jsonValue["FQDN"] = std::move(FQDN);
+                }
+            });
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<UnitStruct>& resp) {
-                if (ec)
+            [asyncResp](const boost::system::error_code e,
+                        const std::vector<UnitStruct>& r) {
+                if (e)
                 {
                     asyncResp->res.jsonValue = nlohmann::json::object();
                     messages::internalError(asyncResp->res);
@@ -265,7 +265,7 @@ class NetworkProtocol : public Node
                     {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
                                   "HTTPS/Certificates/"}};
 
-                for (auto& unit : resp)
+                for (auto& unit : r)
                 {
                     for (auto& kv : protocolToDBus)
                     {
