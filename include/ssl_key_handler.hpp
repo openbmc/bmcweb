@@ -17,10 +17,7 @@
 namespace ensuressl
 {
 static void initOpenssl();
-static void cleanupOpenssl();
-static EVP_PKEY *createRsaKey();
 static EVP_PKEY *createEcKey();
-static void handleOpensslError();
 
 inline bool verifyOpensslKeyCert(const std::string &filepath)
 {
@@ -123,7 +120,7 @@ inline void generateSslCertificate(const std::string &filepath)
             // number If this is not random, regenerating certs throws broswer
             // errors
             std::random_device rd;
-            int serial = rd();
+            int serial = static_cast<int>(rd());
 
             ASN1_INTEGER_set(X509_get_serialNumber(x509), serial);
 
@@ -177,45 +174,6 @@ inline void generateSslCertificate(const std::string &filepath)
     // cleanup_openssl();
 }
 
-EVP_PKEY *createRsaKey()
-{
-    RSA *pRSA = NULL;
-#if OPENSSL_VERSION_NUMBER < 0x00908000L
-    pRSA = RSA_generate_key(2048, RSA_3, NULL, NULL);
-#else
-    RSA_generate_key_ex(pRSA, 2048, NULL, NULL);
-#endif
-
-    EVP_PKEY *pKey = EVP_PKEY_new();
-    if ((pRSA != nullptr) && (pKey != nullptr) &&
-        EVP_PKEY_assign_RSA(pKey, pRSA))
-    {
-        /* pKey owns pRSA from now */
-        if (RSA_check_key(pRSA) <= 0)
-        {
-            fprintf(stderr, "RSA_check_key failed.\n");
-            handleOpensslError();
-            EVP_PKEY_free(pKey);
-            pKey = NULL;
-        }
-    }
-    else
-    {
-        handleOpensslError();
-        if (pRSA != nullptr)
-        {
-            RSA_free(pRSA);
-            pRSA = NULL;
-        }
-        if (pKey != nullptr)
-        {
-            EVP_PKEY_free(pKey);
-            pKey = NULL;
-        }
-    }
-    return pKey;
-}
-
 EVP_PKEY *createEcKey()
 {
     EVP_PKEY *pKey = NULL;
@@ -252,20 +210,6 @@ void initOpenssl()
 #endif
 }
 
-void cleanupOpenssl()
-{
-    CRYPTO_cleanup_all_ex_data();
-    ERR_free_strings();
-#if OPENSSL_VERSION_NUMBER < 0x10100000L
-    ERR_remove_thread_state(0);
-#endif
-    EVP_cleanup();
-}
-
-void handleOpensslError()
-{
-    ERR_print_errors_fp(stderr);
-}
 inline void ensureOpensslKeyPresentAndValid(const std::string &filepath)
 {
     bool pemFileValid = false;

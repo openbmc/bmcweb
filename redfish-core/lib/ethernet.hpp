@@ -320,9 +320,10 @@ inline void extractIPV6Data(
                     std::pair<
                         boost::container::flat_set<IPv6AddressData>::iterator,
                         bool>
-                        it = ipv6_config.insert(
-                            {objpath.first.str.substr(ipv6PathStart.size())});
+                        it = ipv6_config.insert(IPv6AddressData{});
                     IPv6AddressData &ipv6_address = *it.first;
+                    ipv6_address.id =
+                        objpath.first.str.substr(ipv6PathStart.size());
                     for (auto &property : interface.second)
                     {
                         if (property.first == "Address")
@@ -366,11 +367,10 @@ inline void extractIPV6Data(
                         std::pair<boost::container::flat_set<
                                       IPv6AddressData>::iterator,
                                   bool>
-                            iter = ipv6_static_config.insert(
-                                {objpath.first.str.substr(
-                                    ipv6PathStart.size())});
+                            iter = ipv6_static_config.insert(IPv6AddressData{});
                         IPv6AddressData &ipv6_static_address = *iter.first;
-
+                        ipv6_static_address.id = {
+                            objpath.first.str.substr(ipv6PathStart.size())};
                         ipv6_static_address.address = ipv6_address.address;
                         ipv6_static_address.prefixLength =
                             ipv6_address.prefixLength;
@@ -406,9 +406,10 @@ inline void
                     std::pair<
                         boost::container::flat_set<IPv4AddressData>::iterator,
                         bool>
-                        it = ipv4_config.insert(
-                            {objpath.first.str.substr(ipv4PathStart.size())});
+                        it = ipv4_config.insert(IPv4AddressData{});
                     IPv4AddressData &ipv4_address = *it.first;
+                    ipv4_address.id =
+                        objpath.first.str.substr(ipv4PathStart.size());
                     for (auto &property : interface.second)
                     {
                         if (property.first == "Address")
@@ -629,7 +630,8 @@ inline void changeIPv4AddressProperty(
  *
  * @return None
  */
-inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId, int ipIdx,
+inline void changeIPv4SubnetMaskProperty(const std::string &ifaceId,
+                                         size_t ipIdx,
                                          const std::string &ipHash,
                                          uint8_t &newValue,
                                          std::shared_ptr<AsyncResp> asyncResp)
@@ -738,7 +740,7 @@ inline void deleteIPv6(const std::string &ifaceId, const std::string &ipHash,
  *
  * @return None
  */
-inline void createIPv6(const std::string &ifaceId, unsigned int ipIdx,
+inline void createIPv6(const std::string &ifaceId, size_t ipIdx,
                        uint8_t prefixLength, const std::string &address,
                        std::shared_ptr<AsyncResp> asyncResp)
 {
@@ -854,7 +856,7 @@ void getEthernetIfaceData(const std::string &ethiface_id,
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 /**
  * Function that retrieves all Ethernet Interfaces available through Network
@@ -907,7 +909,7 @@ void getEthernetIfaceList(CallbackFunc &&callback)
         },
         "xyz.openbmc_project.Network", "/xyz/openbmc_project/network",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
-};
+}
 
 /**
  * EthernetCollection derived class for delivering Ethernet Collection Schema
@@ -1134,7 +1136,7 @@ class EthernetInterface : public Node
             return;
         }
 
-        int entryIdx = 0;
+        size_t entryIdx = 0;
         boost::container::flat_set<IPv4AddressData>::const_iterator thisData =
             ipv4Data.begin();
         for (nlohmann::json &thisJson : input)
@@ -1350,7 +1352,7 @@ class EthernetInterface : public Node
             return;
         }
 
-        int entryIdx = 0;
+        size_t entryIdx = 0;
         boost::container::flat_set<IPv6AddressData>::const_iterator thisData =
             ipv6StaticData.begin();
         for (nlohmann::json &thisJson : input)
@@ -2097,7 +2099,7 @@ class VlanNetworkInterfaceCollection : public Node
         {
             messages::propertyMissing(asyncResp->res, "VLANEnable");
         }
-        if (static_cast<bool>(vlanId) ^ static_cast<bool>(vlanEnable))
+        if (static_cast<bool>(vlanId) ^ vlanEnable)
         {
             return;
         }

@@ -18,8 +18,8 @@ namespace websocket
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& req) :
-        req(req), userdataPtr(nullptr){};
+    explicit Connection(const crow::Request& reqIn) :
+        req(reqIn), userdataPtr(nullptr){};
 
     virtual void sendBinary(const std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
@@ -48,13 +48,13 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& req, Adaptor adaptorIn,
+        const crow::Request& reqIn, Adaptor adaptorIn,
         std::function<void(Connection&)> open_handler,
         std::function<void(Connection&, const std::string&, bool)>
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        Connection(req),
+        Connection(reqIn),
         ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
@@ -66,7 +66,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 
     boost::asio::io_context& get_io_context() override
     {
-        return (boost::asio::io_context&)ws.get_executor().context();
+        return static_cast<boost::asio::io_context&>(ws.get_executor().context());
     }
 
     void start()

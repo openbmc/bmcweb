@@ -121,7 +121,6 @@ template <typename Type>
 bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                  crow::Response& res, Type& value)
 {
-    bool r = true;
     if constexpr (std::is_floating_point_v<Type>)
     {
         double helper = 0;
@@ -167,7 +166,12 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
     else if constexpr (is_optional_v<Type>)
     {
         value.emplace();
-        r = unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+        bool r =
+            unpackValue<typename Type::value_type>(jsonValue, key, res, *value);
+        if (!r)
+        {
+            return false;
+        }
     }
     else if constexpr (std::is_same_v<nlohmann::json, Type>)
     {
@@ -196,10 +200,11 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
         size_t index = 0;
         for (const auto& val : jsonValue.items())
         {
-            bool unpack = unpackValue<typename Type::value_type>(val.value(), key, res,
-                                                   value[index++]);
-            if (!unpack){
-                r = false;
+            bool unpack = unpackValue<typename Type::value_type>(
+                val.value(), key, res, value[index++]);
+            if (!unpack)
+            {
+                return false;
             }
         }
     }
@@ -214,10 +219,11 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
         for (const auto& val : jsonValue.items())
         {
             value.emplace_back();
-            bool unpack = unpackValue<typename Type::value_type>(val.value(), key, res,
-                                                   value.back());
-                                                               if (!unpack){
-                r = false;
+            bool unpack = unpackValue<typename Type::value_type>(
+                val.value(), key, res, value.back());
+            if (!unpack)
+            {
+                return false;
             }
         }
     }
@@ -256,7 +262,8 @@ bool readJsonValues(const std::string& key, nlohmann::json& jsonValue,
 {
     if (key != keyToCheck)
     {
-        return readJsonValues<Count, Index + 1>(key, jsonValue, res, handled, in...);
+        return readJsonValues<Count, Index + 1>(key, jsonValue, res, handled,
+                                                in...);
     }
 
     handled.set(Index);
@@ -304,10 +311,12 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
     bool unpackResult = true;
     for (const auto& item : jsonRequest.items())
     {
-        bool r = details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
-            item.key(), item.value(), res, handled, key, in...);
+        bool r =
+            details::readJsonValues<(sizeof...(in) + 1) / 2, 0, UnpackTypes...>(
+                item.key(), item.value(), res, handled, key, in...);
 
-        if (!r){
+        if (!r)
+        {
             unpackResult = false;
         }
     }

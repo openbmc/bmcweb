@@ -36,40 +36,40 @@ template <typename Handler, typename Adaptor = boost::asio::ip::tcp::socket,
 class Server
 {
   public:
-    Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
-           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
+    Server(Handler* handlerIn, std::unique_ptr<tcp::acceptor>&& acceptorIn,
+           std::shared_ptr<boost::asio::ssl::context>& adaptorCtxIn,
+           std::tuple<Middlewares...>* middlewaresIn = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
         ioService(std::move(io)),
-        acceptor(std::move(acceptor)),
+        acceptor(std::move(acceptorIn)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
+        handler(handlerIn), middlewares(middlewaresIn), adaptorCtx(adaptorCtxIn)
     {
     }
 
-    Server(Handler* handler, const std::string& bindaddr, uint16_t port,
+    Server(Handler* handlerIn, const std::string& bindaddr, uint16_t port,
            std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
+           std::tuple<Middlewares...>* middlewaresIn = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
-        Server(handler,
+        Server(handlerIn,
                std::make_unique<tcp::acceptor>(
                    *io, tcp::endpoint(boost::asio::ip::make_address(bindaddr),
                                       port)),
-               adaptor_ctx, middlewares, io)
+               adaptor_ctx, middlewaresIn, io)
     {
     }
 
-    Server(Handler* handler, int existing_socket,
+    Server(Handler* handlerIn, int existing_socket,
            std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
-           std::tuple<Middlewares...>* middlewares = nullptr,
+           std::tuple<Middlewares...>* middlewaresIn = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
-        Server(handler,
+        Server(handlerIn,
                std::make_unique<tcp::acceptor>(*io, boost::asio::ip::tcp::v6(),
                                                existing_socket),
-               adaptor_ctx, middlewares, io)
+               adaptor_ctx, middlewaresIn, io)
     {
     }
 
@@ -95,14 +95,11 @@ class Server
 
     void updateDateStr()
     {
-        auto lastTimeT = time(0);
+        time_t lastTimeT = time(0);
         tm myTm{};
 
-#ifdef _MSC_VER
-        gmtime_s(&my_tm, &last_time_t);
-#else
         gmtime_r(&lastTimeT, &myTm);
-#endif
+
         dateStr.resize(100);
         size_t dateStrSz =
             strftime(&dateStr[0], 99, "%a, %d %b %Y %H:%M:%S GMT", &myTm);

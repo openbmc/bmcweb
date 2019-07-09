@@ -556,7 +556,7 @@ class SoftwareInventoryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", int32_t(1),
+            "/xyz/openbmc_project/software", 1,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }
@@ -753,7 +753,7 @@ class SoftwareInventory : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", int32_t(1),
+            "/xyz/openbmc_project/software", 1,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }

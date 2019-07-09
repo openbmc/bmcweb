@@ -119,22 +119,22 @@ class SessionStore
         // https://www.owasp.org/index.php/Session_Management_Cheat_Sheet#Session_ID_Entropy
         std::string sessionToken;
         sessionToken.resize(20, '0');
-        std::uniform_int_distribution<int> dist(0, alphanum.size() - 1);
-        for (int i = 0; i < sessionToken.size(); ++i)
+        std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
+        for (size_t i = 0; i < sessionToken.size(); ++i)
         {
             sessionToken[i] = alphanum[dist(rd)];
         }
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
         csrfToken.resize(20, '0');
-        for (int i = 0; i < csrfToken.size(); ++i)
+        for (size_t i = 0; i < csrfToken.size(); ++i)
         {
             csrfToken[i] = alphanum[dist(rd)];
         }
 
         std::string uniqueId;
         uniqueId.resize(10, '0');
-        for (int i = 0; i < uniqueId.size(); ++i)
+        for (size_t i = 0; i < uniqueId.size(); ++i)
         {
             uniqueId[i] = alphanum[dist(rd)];
         }
@@ -205,7 +205,7 @@ class SessionStore
     {
         return needWrite;
     }
-    int getTimeoutInSeconds() const
+    int64_t getTimeoutInSeconds() const
     {
         return std::chrono::seconds(timeoutInMinutes).count();
     };
