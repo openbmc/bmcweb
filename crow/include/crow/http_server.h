@@ -44,7 +44,7 @@ class Server
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
+        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
     {
     }
 
@@ -95,14 +95,11 @@ class Server
 
     void updateDateStr()
     {
-        auto lastTimeT = time(0);
+        time_t lastTimeT = time(0);
         tm myTm{};
 
-#ifdef _MSC_VER
-        gmtime_s(&my_tm, &last_time_t);
-#else
         gmtime_r(&lastTimeT, &myTm);
-#endif
+
         dateStr.resize(100);
         size_t dateStrSz =
             strftime(&dateStr[0], 99, "%a, %d %b %Y %H:%M:%S GMT", &myTm);

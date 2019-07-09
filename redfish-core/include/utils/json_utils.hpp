@@ -139,6 +139,9 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
     else if constexpr (std::is_signed_v<Type>)
     {
         int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
+        if (jsonPtr == nullptr){
+            return false;
+        }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return false;
@@ -150,6 +153,9 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                            !std::is_same_v<bool, Type>))
     {
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+        if (jsonPtr == nullptr){
+            return false;
+        }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return false;
