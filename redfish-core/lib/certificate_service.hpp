@@ -531,14 +531,16 @@ static void updateCertIssuerOrSubject(nlohmann::json &out,
         {
             break;
         }
-        const std::string_view key(tokenBegin, i - tokenBegin);
+        const std::string_view key(tokenBegin,
+                                   static_cast<size_t>(i - tokenBegin));
         i++;
         tokenBegin = i;
         while (i != value.end() && *i != ',')
         {
             i++;
         }
-        const std::string_view val(tokenBegin, i - tokenBegin);
+        const std::string_view val(tokenBegin,
+                                   static_cast<size_t>(i - tokenBegin));
         if (key == "L")
         {
             out["City"] = val;

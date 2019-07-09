@@ -485,10 +485,6 @@ class SoftwareInventoryCollection : public Node
 
                 for (auto &obj : subtree)
                 {
-                    const std::vector<
-                        std::pair<std::string, std::vector<std::string>>>
-                        &connections = obj.second;
-
                     // if can't parse fw id then return
                     std::size_t idPos;
                     if ((idPos = obj.first.rfind("/")) == std::string::npos)
@@ -512,7 +508,7 @@ class SoftwareInventoryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", int32_t(1),
+            "/xyz/openbmc_project/software", 1,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }
@@ -721,7 +717,7 @@ class SoftwareInventory : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/software", int32_t(1),
+            "/xyz/openbmc_project/software", 1,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }

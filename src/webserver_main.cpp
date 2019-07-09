@@ -56,7 +56,7 @@ void setupSocket(crow::Crow<Middlewares...>& app)
 
 int main(int argc, char** argv)
 {
-    crow::logger::setLogLevel(crow::LogLevel::DEBUG);
+    crow::logger::setLogLevel(crow::LogLevel::Debug);
 
     auto io = std::make_shared<boost::asio::io_context>();
     CrowApp app(io);

@@ -25,7 +25,7 @@ namespace fs = std::filesystem;
 
 class Middleware
 {
-    int jsonRevision = 1;
+    uint64_t jsonRevision = 1;
 
   public:
     // todo(ed) should read this from a fixed location somewhere, not CWD
@@ -62,7 +62,7 @@ class Middleware
     void readData()
     {
         std::ifstream persistentFile(filename);
-        int fileRevision = 0;
+        uint64_t fileRevision = 0;
         if (persistentFile.is_open())
         {
             // call with exceptions disabled
