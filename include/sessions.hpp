@@ -8,6 +8,7 @@
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
+#include <sdbusplus/bus/match.hpp>
 
 #include "crow/logging.h"
 
