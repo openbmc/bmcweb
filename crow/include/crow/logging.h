@@ -12,34 +12,11 @@ namespace crow
 {
 enum class LogLevel
 {
-#ifndef ERROR
-    DEBUG = 0,
-    INFO,
-    WARNING,
-    ERROR,
-    CRITICAL,
-#endif
-
     Debug = 0,
     Info,
     Warning,
     Error,
     Critical,
-};
-
-class ILogHandler
-{
-  public:
-    virtual void log(std::string message, LogLevel level) = 0;
-};
-
-class CerrLogHandler : public ILogHandler
-{
-  public:
-    void log(std::string message, LogLevel /*level*/) override
-    {
-        std::cerr << message;
-    }
 };
 
 class logger
@@ -48,25 +25,24 @@ class logger
     //
     static std::string timestamp()
     {
-        char date[32];
+        std::string date;
+        date.resize(32, '\0');
         time_t t = time(0);
 
         tm myTm{};
 
-#ifdef _MSC_VER
-        gmtime_s(&my_tm, &t);
-#else
         gmtime_r(&t, &myTm);
-#endif
 
-        size_t sz = strftime(date, sizeof(date), "%Y-%m-%d %H:%M:%S", &myTm);
-        return std::string(date, date + sz);
+        size_t sz =
+            strftime(date.data(), date.size(), "%Y-%m-%d %H:%M:%S", &myTm);
+        date.resize(sz);
+        return date;
     }
 
   public:
     logger(const std::string& prefix, const std::string& filename,
-           const size_t line, LogLevel level) :
-        level(level)
+           const size_t line, LogLevel levelIn) :
+        level(levelIn)
     {
 #ifdef BMCWEB_ENABLE_LOGGING
         stringstream << "(" << timestamp() << ") [" << prefix << " "
@@ -80,7 +56,7 @@ class logger
         {
 #ifdef BMCWEB_ENABLE_LOGGING
             stringstream << std::endl;
-            getHandlerRef()->log(stringstream.str(), level);
+            std::cerr << stringstream.str();
 #endif
         }
     }
@@ -103,11 +79,6 @@ class logger
         getLogLevelRef() = level;
     }
 
-    static void setHandler(ILogHandler* handler)
-    {
-        getHandlerRef() = handler;
-    }
-
     static LogLevel get_current_log_level()
     {
         return getLogLevelRef();
@@ -119,12 +90,6 @@ class logger
     {
         static auto currentLevel = static_cast<LogLevel>(1);
         return currentLevel;
-    }
-    static ILogHandler*& getHandlerRef()
-    {
-        static CerrLogHandler defaultHandler;
-        static ILogHandler* currentHandler = &defaultHandler;
-        return currentHandler;
     }
 
     //
