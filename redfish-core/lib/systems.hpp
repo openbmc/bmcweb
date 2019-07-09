@@ -79,14 +79,14 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                             BMCWEB_LOG_DEBUG
                                 << "Found Dimm, now get its properties.";
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
+                                [aResp](const boost::system::error_code e,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                    if (ec)
+                                    if (e)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << e;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -128,14 +128,14 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                             BMCWEB_LOG_DEBUG
                                 << "Found Cpu, now get its properties.";
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
+                                [aResp](const boost::system::error_code e,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                    if (ec)
+                                    if (e)
                                     {
                                         BMCWEB_LOG_ERROR
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << e;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -178,14 +178,14 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                             BMCWEB_LOG_DEBUG
                                 << "Found UUID, now get its properties.";
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
+                                [aResp](const boost::system::error_code e,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &properties) {
-                                    if (ec)
+                                    if (e)
                                     {
                                         BMCWEB_LOG_DEBUG
-                                            << "DBUS response error " << ec;
+                                            << "DBUS response error " << e;
                                         messages::internalError(aResp->res);
                                         return;
                                     }
@@ -229,11 +229,11 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                  "xyz.openbmc_project.Inventory.Item.System")
                         {
                             crow::connections::systemBus->async_method_call(
-                                [aResp](const boost::system::error_code ec,
+                                [aResp](const boost::system::error_code e,
                                         const std::vector<
                                             std::pair<std::string, VariantType>>
                                             &propertiesList) {
-                                    if (ec)
+                                    if (e)
                                     {
                                         // doesn't have to include this
                                         // interface
@@ -279,9 +279,9 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
 
                             crow::connections::systemBus->async_method_call(
                                 [aResp](
-                                    const boost::system::error_code ec,
+                                    const boost::system::error_code e,
                                     const std::variant<std::string> &property) {
-                                    if (ec)
+                                    if (e)
                                     {
                                         // doesn't have to include this
                                         // interface
@@ -309,7 +309,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-        "/xyz/openbmc_project/inventory", int32_t(0),
+        "/xyz/openbmc_project/inventory", 0,
         std::array<const char *, 5>{
             "xyz.openbmc_project.Inventory.Decorator.Asset",
             "xyz.openbmc_project.Inventory.Item.Cpu",
@@ -1053,7 +1053,7 @@ class SystemActionsReset : public Node
         }
 
         // Get the command and host vs. chassis
-        std::string command;
+        std::variant<std::string> command;
         bool hostCommand;
         if (resetType == "On")
         {
@@ -1100,58 +1100,41 @@ class SystemActionsReset : public Node
             messages::actionParameterUnknown(res, "Reset", resetType);
             return;
         }
-
+        auto handleErrors = [asyncResp,
+                             resetType](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                if (ec.value() == boost::asio::error::invalid_argument)
+                {
+                    messages::actionParameterNotSupported(asyncResp->res,
+                                                          resetType, "Reset");
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            messages::success(asyncResp->res);
+        };
         if (hostCommand)
         {
             crow::connections::systemBus->async_method_call(
-                [asyncResp, resetType](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        if (ec.value() == boost::asio::error::invalid_argument)
-                        {
-                            messages::actionParameterNotSupported(
-                                asyncResp->res, resetType, "Reset");
-                        }
-                        else
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        return;
-                    }
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.State.Host",
+                handleErrors, "xyz.openbmc_project.State.Host",
                 "/xyz/openbmc_project/state/host0",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.State.Host", "RequestedHostTransition",
-                std::variant<std::string>{command});
+                command);
         }
         else
         {
             crow::connections::systemBus->async_method_call(
-                [asyncResp, resetType](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        if (ec.value() == boost::asio::error::invalid_argument)
-                        {
-                            messages::actionParameterNotSupported(
-                                asyncResp->res, resetType, "Reset");
-                        }
-                        else
-                        {
-                            messages::internalError(asyncResp->res);
-                        }
-                        return;
-                    }
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.State.Chassis",
+                handleErrors, "xyz.openbmc_project.State.Chassis",
                 "/xyz/openbmc_project/state/chassis0",
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.State.Chassis", "RequestedPowerTransition",
-                std::variant<std::string>{command});
+                command);
         }
     }
     /**
@@ -1217,7 +1200,7 @@ class Systems : public Node
         res.jsonValue["Description"] = "Computer System";
         res.jsonValue["ProcessorSummary"]["Count"] = 0;
         res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
+        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = 0;
         res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
@@ -1264,8 +1247,8 @@ class Systems : public Node
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
-            int32_t(0), inventoryForSystems);
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
+            inventoryForSystems);
 
         health->populate();
 
@@ -1283,10 +1266,11 @@ class Systems : public Node
                     // get led status
                     getLedIdentify(
                         aRsp, [](const std::string &ledStatus,
-                                 const std::shared_ptr<AsyncResp> aRsp) {
+                                 const std::shared_ptr<AsyncResp> asyncRsp) {
                             if (!ledStatus.empty())
                             {
-                                aRsp->res.jsonValue["IndicatorLED"] = ledStatus;
+                                asyncRsp->res.jsonValue["IndicatorLED"] =
+                                    ledStatus;
                             }
                         });
                 }

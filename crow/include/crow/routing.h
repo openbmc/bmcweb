@@ -63,7 +63,7 @@ class BaseRule
     }
 #endif
 
-    uint32_t getMethods()
+    size_t getMethods()
     {
         return methodsBitfield;
     }
@@ -87,7 +87,7 @@ class BaseRule
         return false;
     }
 
-    uint32_t methodsBitfield{1 << (int)boost::beast::http::verb::get};
+    size_t methodsBitfield{1 << static_cast<size_t>(boost::beast::http::verb::get)};
 
     std::vector<redfish::Privileges> privilegesSet;
 
@@ -383,46 +383,52 @@ template <typename T> struct RuleParameterTraits
     using self_t = T;
     WebSocketRule& websocket()
     {
-        WebSocketRule* p = new WebSocketRule(((self_t*)this)->rule);
-        ((self_t*)this)->ruleToUpgrade.reset(p);
+        self_t* self = static_cast<self_t*>(this);
+        WebSocketRule* p = new WebSocketRule(self->rule);
+        self->ruleToUpgrade.reset(p);
         return *p;
     }
 
     self_t& name(std::string name) noexcept
     {
-        ((self_t*)this)->nameStr = std::move(name);
-        return (self_t&)*this;
+        self_t* self = static_cast<self_t*>(this);
+        self->nameStr = std::move(name);
+        return *self;
     }
 
     self_t& methods(boost::beast::http::verb method)
     {
-        ((self_t*)this)->methodsBitfield = 1 << (int)method;
-        return (self_t&)*this;
+        self_t* self = static_cast<self_t*>(this);
+        self->methodsBitfield = 1U << static_cast<size_t>(method);
+        return *self;
     }
 
     template <typename... MethodArgs>
     self_t& methods(boost::beast::http::verb method, MethodArgs... args_method)
     {
+        self_t* self = static_cast<self_t*>(this);
         methods(args_method...);
-        ((self_t*)this)->methodsBitfield |= 1 << (int)method;
-        return (self_t&)*this;
+        self->methodsBitfield |= 1U << static_cast<size_t>(method);
+        return *self;
     }
 
     template <typename... MethodArgs>
     self_t& requires(std::initializer_list<const char*> l)
     {
-        ((self_t*)this)->privilegesSet.emplace_back(l);
-        return (self_t&)*this;
+        self_t* self = static_cast<self_t*>(this);
+        self->privilegesSet.emplace_back(l);
+        return *self;
     }
 
     template <typename... MethodArgs>
     self_t& requires(const std::vector<redfish::Privileges>& p)
     {
+        self_t* self = static_cast<self_t*>(this);
         for (const redfish::Privileges& privilege : p)
         {
-            ((self_t*)this)->privilegesSet.emplace_back(privilege);
+            self->privilegesSet.emplace_back(privilege);
         }
-        return (self_t&)*this;
+        return *self;
     }
 };
 
@@ -501,7 +507,7 @@ class TaggedRule : public BaseRule,
   public:
     using self_t = TaggedRule<Args...>;
 
-    TaggedRule(std::string rule) : BaseRule(std::move(rule))
+    TaggedRule(std::string ruleIn) : BaseRule(std::move(ruleIn))
     {
     }
 
@@ -619,15 +625,15 @@ class Trie
   public:
     struct Node
     {
-        unsigned ruleIndex{};
-        std::array<unsigned, (int)ParamType::MAX> paramChildrens{};
+        size_t ruleIndex{};
+        std::array<size_t, static_cast<size_t>(ParamType::MAX)> paramChildrens{};
         boost::container::flat_map<std::string, unsigned> children;
 
         bool isSimpleNode() const
         {
             return !ruleIndex && std::all_of(std::begin(paramChildrens),
                                              std::end(paramChildrens),
-                                             [](unsigned x) { return !x; });
+                                             [](size_t x) { return !x; });
         }
     };
 
@@ -638,7 +644,7 @@ class Trie
   private:
     void optimizeNode(Node* node)
     {
-        for (unsigned int x : node->paramChildrens)
+        for (size_t x : node->paramChildrens)
         {
             if (!x)
                 continue;
@@ -730,7 +736,7 @@ class Trie
 
     std::pair<unsigned, RoutingParams>
         find(const std::string_view req_url, const Node* node = nullptr,
-             unsigned pos = 0, RoutingParams* params = nullptr) const
+             size_t pos = 0, RoutingParams* params = nullptr) const
     {
         RoutingParams empty;
         if (params == nullptr)
@@ -753,7 +759,7 @@ class Trie
                 }
             };
 
-        if (node->paramChildrens[(int)ParamType::INT])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::INT)])
         {
             char c = req_url[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-')
@@ -767,15 +773,15 @@ class Trie
                     params->intParams.push_back(value);
                     std::pair<unsigned, RoutingParams> ret =
                         find(req_url,
-                             &nodes[node->paramChildrens[(int)ParamType::INT]],
-                             eptr - req_url.data(), params);
+                             &nodes[node->paramChildrens[static_cast<size_t>(ParamType::INT)]],
+                             static_cast<size_t>(eptr - req_url.data()), params);
                     updateFound(ret);
                     params->intParams.pop_back();
                 }
             }
         }
 
-        if (node->paramChildrens[(int)ParamType::UINT])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::UINT)])
         {
             char c = req_url[pos];
             if ((c >= '0' && c <= '9') || c == '+')
@@ -789,15 +795,15 @@ class Trie
                     params->uintParams.push_back(value);
                     std::pair<unsigned, RoutingParams> ret =
                         find(req_url,
-                             &nodes[node->paramChildrens[(int)ParamType::UINT]],
-                             eptr - req_url.data(), params);
+                             &nodes[node->paramChildrens[static_cast<size_t>(ParamType::UINT)]],
+                             static_cast<size_t>(eptr - req_url.data()), params);
                     updateFound(ret);
                     params->uintParams.pop_back();
                 }
             }
         }
 
-        if (node->paramChildrens[(int)ParamType::DOUBLE])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)])
         {
             char c = req_url[pos];
             if ((c >= '0' && c <= '9') || c == '+' || c == '-' || c == '.')
@@ -810,15 +816,15 @@ class Trie
                     params->doubleParams.push_back(value);
                     std::pair<unsigned, RoutingParams> ret = find(
                         req_url,
-                        &nodes[node->paramChildrens[(int)ParamType::DOUBLE]],
-                        eptr - req_url.data(), params);
+                        &nodes[node->paramChildrens[static_cast<size_t>(ParamType::DOUBLE)]],
+                        static_cast<size_t>(eptr - req_url.data()), params);
                     updateFound(ret);
                     params->doubleParams.pop_back();
                 }
             }
         }
 
-        if (node->paramChildrens[(int)ParamType::STRING])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::STRING)])
         {
             size_t epos = pos;
             for (; epos < req_url.size(); epos++)
@@ -833,14 +839,14 @@ class Trie
                     req_url.substr(pos, epos - pos));
                 std::pair<unsigned, RoutingParams> ret =
                     find(req_url,
-                         &nodes[node->paramChildrens[(int)ParamType::STRING]],
+                         &nodes[node->paramChildrens[static_cast<size_t>(ParamType::STRING)]],
                          epos, params);
                 updateFound(ret);
                 params->stringParams.pop_back();
             }
         }
 
-        if (node->paramChildrens[(int)ParamType::PATH])
+        if (node->paramChildrens[static_cast<size_t>(ParamType::PATH)])
         {
             size_t epos = req_url.size();
 
@@ -849,7 +855,7 @@ class Trie
                 params->stringParams.emplace_back(
                     req_url.substr(pos, epos - pos));
                 std::pair<unsigned, RoutingParams> ret = find(
-                    req_url, &nodes[node->paramChildrens[(int)ParamType::PATH]],
+                    req_url, &nodes[node->paramChildrens[static_cast<size_t>(ParamType::PATH)]],
                     epos, params);
                 updateFound(ret);
                 params->stringParams.pop_back();
@@ -874,7 +880,7 @@ class Trie
 
     void add(const std::string& url, unsigned ruleIndex)
     {
-        unsigned idx{0};
+        size_t idx = 0;
 
         for (unsigned i = 0; i < url.size(); i++)
         {
@@ -896,13 +902,14 @@ class Trie
                 {
                     if (url.compare(i, x.second.size(), x.second) == 0)
                     {
-                        if (!nodes[idx].paramChildrens[(int)x.first])
+                        size_t index = static_cast<size_t>(x.first);
+                        if (!nodes[idx].paramChildrens[index])
                         {
                             unsigned newNodeIdx = newNode();
-                            nodes[idx].paramChildrens[(int)x.first] =
+                            nodes[idx].paramChildrens[index] =
                                 newNodeIdx;
                         }
-                        idx = nodes[idx].paramChildrens[(int)x.first];
+                        idx = nodes[idx].paramChildrens[index];
                         i += x.second.size();
                         break;
                     }
@@ -927,15 +934,15 @@ class Trie
     }
 
   private:
-    void debugNodePrint(Node* n, int level)
+    void debugNodePrint(Node* n, size_t level)
     {
-        for (int i = 0; i < (int)ParamType::MAX; i++)
+        for (size_t i = 0; i < static_cast<size_t>(ParamType::MAX); i++)
         {
             if (n->paramChildrens[i])
             {
                 BMCWEB_LOG_DEBUG << std::string(
-                    2 * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
-                switch ((ParamType)i)
+                    2U * level, ' ') /*<< "("<<n->paramChildrens[i]<<") "*/;
+                switch (static_cast<ParamType>(i))
                 {
                     case ParamType::INT:
                         BMCWEB_LOG_DEBUG << "<int>";
@@ -963,7 +970,7 @@ class Trie
         for (const std::pair<std::string, unsigned>& kv : n->children)
         {
             BMCWEB_LOG_DEBUG
-                << std::string(2 * level, ' ') /*<< "(" << kv.second << ") "*/
+                << std::string(2U * level, ' ') /*<< "(" << kv.second << ") "*/
                 << kv.first;
             debugNodePrint(&nodes[kv.second], level + 1);
         }
@@ -972,7 +979,7 @@ class Trie
   public:
     void debugPrint()
     {
-        debugNodePrint(head(), 0);
+        debugNodePrint(head(), 0U);
     }
 
   private:
@@ -1073,10 +1080,10 @@ class Router
     template <typename Adaptor>
     void handleUpgrade(const Request& req, Response& res, Adaptor&& adaptor)
     {
-        if (static_cast<int>(req.method()) >= perMethods.size())
+        if (static_cast<size_t>(req.method()) >= perMethods.size())
             return;
 
-        PerMethod& perMethod = perMethods[(int)req.method()];
+        PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
@@ -1117,12 +1124,12 @@ class Router
             return;
         }
 
-        if ((rules[ruleIndex]->getMethods() & (1 << (uint32_t)req.method())) ==
-            0)
+        if ((rules[ruleIndex]->getMethods() &
+             (1U << static_cast<size_t>(req.method()))) == 0)
         {
             BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
                              << " with " << req.methodString() << "("
-                             << (uint32_t)req.method() << ") / "
+                             << static_cast<uint32_t>(req.method()) << ") / "
                              << rules[ruleIndex]->getMethods();
             res.result(boost::beast::http::status::not_found);
             res.end();
@@ -1130,7 +1137,7 @@ class Router
         }
 
         BMCWEB_LOG_DEBUG << "Matched rule (upgrade) '" << rules[ruleIndex]->rule
-                         << "' " << (uint32_t)req.method() << " / "
+                         << "' " << static_cast<uint32_t>(req.method()) << " / "
                          << rules[ruleIndex]->getMethods();
 
         // any uncaught exceptions become 500s
@@ -1158,9 +1165,9 @@ class Router
 
     void handle(const Request& req, Response& res)
     {
-        if ((int)req.method() >= perMethods.size())
+        if (static_cast<size_t>(req.method()) >= perMethods.size())
             return;
-        PerMethod& perMethod = perMethods[(int)req.method()];
+        PerMethod& perMethod = perMethods[static_cast<size_t>(req.method())];
         Trie& trie = perMethod.trie;
         std::vector<BaseRule*>& rules = perMethod.rules;
 
@@ -1213,12 +1220,12 @@ class Router
             return;
         }
 
-        if ((rules[ruleIndex]->getMethods() & (1 << (uint32_t)req.method())) ==
+        if ((rules[ruleIndex]->getMethods() & (1U << static_cast<uint32_t>(req.method()))) ==
             0)
         {
             BMCWEB_LOG_DEBUG << "Rule found but method mismatch: " << req.url
                              << " with " << req.methodString() << "("
-                             << (uint32_t)req.method() << ") / "
+                             << static_cast<uint32_t>(req.method()) << ") / "
                              << rules[ruleIndex]->getMethods();
             res.result(boost::beast::http::status::method_not_allowed);
             res.end();
@@ -1226,7 +1233,7 @@ class Router
         }
 
         BMCWEB_LOG_DEBUG << "Matched rule '" << rules[ruleIndex]->rule << "' "
-                         << (uint32_t)req.method() << " / "
+                         << static_cast<uint32_t>(req.method()) << " / "
                          << rules[ruleIndex]->getMethods();
 
         // TODO: load user privileges from configuration as soon as its
@@ -1267,9 +1274,10 @@ class Router
 
     void debugPrint()
     {
-        for (int i = 0; i < perMethods.size(); i++)
+        for (size_t i = 0; i < perMethods.size(); i++)
         {
-            BMCWEB_LOG_DEBUG << methodName((boost::beast::http::verb)i);
+            BMCWEB_LOG_DEBUG
+                << methodName(static_cast<boost::beast::http::verb>(i));
             perMethods[i].trie.debugPrint();
         }
     }
