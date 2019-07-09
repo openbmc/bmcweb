@@ -1,7 +1,7 @@
 #pragma once
 
 #include <atomic>
-#include <boost/asio/deadline_timer.hpp>
+#include <boost/asio/steady_timer.hpp>
 #include <boost/asio/ip/address.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/signal_set.hpp>
@@ -44,7 +44,7 @@ class Server
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), adaptorCtx(adaptor_ctx), middlewares(middlewares)
+        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
     {
     }
 
@@ -82,8 +82,8 @@ class Server
     void onTick()
     {
         tickFunction();
-        tickTimer.expires_from_now(
-            boost::posix_time::milliseconds(tickInterval.count()));
+        tickTimer.expires_after(
+            std::chrono::milliseconds(tickInterval.count()));
         tickTimer.async_wait([this](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -95,14 +95,11 @@ class Server
 
     void updateDateStr()
     {
-        auto lastTimeT = time(0);
+        time_t lastTimeT = time(0);
         tm myTm{};
 
-#ifdef _MSC_VER
-        gmtime_s(&my_tm, &last_time_t);
-#else
         gmtime_r(&lastTimeT, &myTm);
-#endif
+
         dateStr.resize(100);
         size_t dateStrSz =
             strftime(&dateStr[0], 99, "%a, %d %b %Y %H:%M:%S GMT", &myTm);
@@ -126,8 +123,8 @@ class Server
             return this->dateStr;
         };
 
-        boost::asio::deadline_timer timer(*ioService);
-        timer.expires_from_now(boost::posix_time::seconds(1));
+        boost::asio::steady_timer timer(*ioService);
+        timer.expires_after(std::chrono::seconds(1));
 
         std::function<void(const boost::system::error_code& ec)> timerHandler;
         timerHandler = [&](const boost::system::error_code& ec) {
@@ -136,15 +133,15 @@ class Server
                 return;
             }
             timerQueue.process();
-            timer.expires_from_now(boost::posix_time::seconds(1));
+            timer.expires_after(std::chrono::seconds(1));
             timer.async_wait(timerHandler);
         };
         timer.async_wait(timerHandler);
 
         if (tickFunction && tickInterval.count() > 0)
         {
-            tickTimer.expires_from_now(
-                boost::posix_time::milliseconds(tickInterval.count()));
+            tickTimer.expires_after(
+                std::chrono::milliseconds(tickInterval.count()));
             tickTimer.async_wait([this](const boost::system::error_code& ec) {
                 if (ec)
                 {
@@ -278,7 +275,7 @@ class Server
     std::function<std::string()> getCachedDateStr;
     std::unique_ptr<tcp::acceptor> acceptor;
     boost::asio::signal_set signals;
-    boost::asio::deadline_timer tickTimer;
+    boost::asio::steady_timer tickTimer;
 
     std::string dateStr;
 

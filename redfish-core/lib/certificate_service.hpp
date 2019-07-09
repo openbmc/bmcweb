@@ -458,13 +458,7 @@ class CertificateActionGenerateCSR : public Node
             *crow::connections::systemBus, match,
             [asyncResp, service, objectPath,
              certURI](sdbusplus::message::message &m) {
-                boost::system::error_code ec;
-                timeout.cancel(ec);
-                if (ec)
-                {
-                    BMCWEB_LOG_ERROR << "error canceling timer " << ec;
-                    csrMatcher = nullptr;
-                }
+                timeout.cancel();
                 if (m.is_method_error())
                 {
                     BMCWEB_LOG_ERROR << "Dbus method error!!!";
@@ -489,7 +483,7 @@ class CertificateActionGenerateCSR : public Node
                 }
             });
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
+            [asyncResp](const boost::system::error_code& ec,
                         const std::string &path) {
                 if (ec)
                 {
@@ -531,14 +525,16 @@ static void updateCertIssuerOrSubject(nlohmann::json &out,
         {
             break;
         }
-        const std::string_view key(tokenBegin, i - tokenBegin);
+        const std::string_view key(tokenBegin,
+                                   static_cast<size_t>(i - tokenBegin));
         i++;
         tokenBegin = i;
         while (i != value.end() && *i != ',')
         {
             i++;
         }
-        const std::string_view val(tokenBegin, i - tokenBegin);
+        const std::string_view val(tokenBegin,
+                                   static_cast<size_t>(i - tokenBegin));
         if (key == "L")
         {
             out["City"] = val;
