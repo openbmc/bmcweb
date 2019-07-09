@@ -164,7 +164,7 @@ typename std::enable_if<IsAfterHandleArity3Impl<MW>::value>::type
     mw.afterHandle(req, res, ctx.template get<MW>());
 }
 
-template <int N, typename Context, typename Container, typename CurrentMW,
+template <size_t N, typename Context, typename Container, typename CurrentMW,
           typename... Middlewares>
 bool middlewareCallHelper(Container& middlewares, Request& req, Response& res,
                           Context& ctx)
@@ -194,21 +194,21 @@ bool middlewareCallHelper(Container& middlewares, Request& req, Response& res,
     return false;
 }
 
-template <int N, typename Context, typename Container>
+template <size_t N, typename Context, typename Container>
 bool middlewareCallHelper(Container& /*middlewares*/, Request& /*req*/,
                           Response& /*res*/, Context& /*ctx*/)
 {
     return false;
 }
 
-template <int N, typename Context, typename Container>
+template <size_t N, typename Context, typename Container>
 typename std::enable_if<(N < 0)>::type
     afterHandlersCallHelper(Container& /*middlewares*/, Context& /*Context*/,
                             Request& /*req*/, Response& /*res*/)
 {
 }
 
-template <int N, typename Context, typename Container>
+template <size_t N, typename Context, typename Container>
 typename std::enable_if<(N == 0)>::type
     afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
                             Response& res)
@@ -221,7 +221,7 @@ typename std::enable_if<(N == 0)>::type
         static_cast<parent_context_t&>(ctx));
 }
 
-template <int N, typename Context, typename Container>
+template <size_t N, typename Context, typename Container>
 typename std::enable_if<(N > 0)>::type
     afterHandlersCallHelper(Container& middlewares, Context& ctx, Request& req,
                             Response& res)
@@ -248,14 +248,15 @@ template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection
 {
   public:
-    Connection(boost::asio::io_context& ioService, Handler* handler,
-               const std::string& server_name,
-               std::tuple<Middlewares...>* middlewares,
+    Connection(boost::asio::io_context& ioService, Handler* handlerIn,
+               const std::string& ServerNameIn,
+               std::tuple<Middlewares...>* middlewaresIn,
                std::function<std::string()>& get_cached_date_str_f,
-               detail::TimerQueue& timerQueue, Adaptor adaptorIn) :
+               detail::TimerQueue& timerQueueIn, Adaptor adaptorIn) :
         adaptor(std::move(adaptorIn)),
-        handler(handler), serverName(server_name), middlewares(middlewares),
-        getCachedDateStr(get_cached_date_str_f), timerQueue(timerQueue)
+        handler(handlerIn), serverName(ServerNameIn),
+        middlewares(middlewaresIn), getCachedDateStr(get_cached_date_str_f),
+        timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
         // Temporarily changed to 30MB; Need to modify uploading/authentication
@@ -344,7 +345,7 @@ class Connection
             req->ioService = static_cast<decltype(req->ioService)>(
                 &adaptor.get_executor().context());
             detail::middlewareCallHelper<
-                0, decltype(ctx), decltype(*middlewares), Middlewares...>(
+                0U, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
 
             if (!res.completed)
@@ -413,7 +414,7 @@ class Connection
             needToCallAfterHandlers = false;
 
             // call all afterHandler of middlewares
-            detail::afterHandlersCallHelper<((int)sizeof...(Middlewares) - 1),
+            detail::afterHandlersCallHelper<sizeof...(Middlewares) - 1,
                                             decltype(ctx),
                                             decltype(*middlewares)>(
                 *middlewares, ctx, *req, res);
@@ -643,7 +644,7 @@ class Connection
 
     const std::string& serverName;
 
-    int timerCancelKey{-1};
+    size_t timerCancelKey = 0;
 
     bool isReading{};
     bool isWriting{};

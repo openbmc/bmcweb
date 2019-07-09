@@ -19,7 +19,7 @@ int qsStrncmp(const char* s, const char* qs, size_t n);
  *  Also decodes the value portion of the k/v pair *in-place*.  In a future
  *  enhancement it will also have a compile-time option of sorting qs_kv
  *  alphabetically by key.  */
-int qsParse(char* qs, char* qs_kv[], int qs_kv_size);
+size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size);
 
 /*  Used by qs_parse to decode the value portion of a k/v pair  */
 int qsDecode(char* qs);
@@ -55,12 +55,13 @@ char* qsScanvalue(const char* key, const char* qs, char* val, size_t val_len);
 inline int qsStrncmp(const char* s, const char* qs, size_t n)
 {
     int i = 0;
-    unsigned char u1, u2, unyb, lnyb;
+    char u1, u2;
+    char unyb, lnyb;
 
     while (n-- > 0)
     {
-        u1 = static_cast<unsigned char>(*s++);
-        u2 = static_cast<unsigned char>(*qs++);
+        u1 = *s++;
+        u2 = *qs++;
 
         if (!BMCWEB_QS_ISQSCHR(u1))
         {
@@ -77,11 +78,12 @@ inline int qsStrncmp(const char* s, const char* qs, size_t n)
         }
         if (u1 == '%') // easier/safer than scanf
         {
-            unyb = static_cast<unsigned char>(*s++);
-            lnyb = static_cast<unsigned char>(*s++);
+            unyb = static_cast<char>(*s++);
+            lnyb = static_cast<char>(*s++);
             if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb))
             {
-                u1 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
+                u1 = static_cast<char>((BMCWEB_QS_HEX2DEC(unyb) * 16) +
+                                       BMCWEB_QS_HEX2DEC(lnyb));
             }
             else
             {
@@ -95,11 +97,12 @@ inline int qsStrncmp(const char* s, const char* qs, size_t n)
         }
         if (u2 == '%') // easier/safer than scanf
         {
-            unyb = static_cast<unsigned char>(*qs++);
-            lnyb = static_cast<unsigned char>(*qs++);
+            unyb = static_cast<char>(*qs++);
+            lnyb = static_cast<char>(*qs++);
             if (BMCWEB_QS_ISHEX(unyb) && BMCWEB_QS_ISHEX(lnyb))
             {
-                u2 = (BMCWEB_QS_HEX2DEC(unyb) * 16) + BMCWEB_QS_HEX2DEC(lnyb);
+                u2 = static_cast<char>((BMCWEB_QS_HEX2DEC(unyb) * 16) +
+                                       BMCWEB_QS_HEX2DEC(lnyb));
             }
             else
             {
@@ -127,9 +130,10 @@ inline int qsStrncmp(const char* s, const char* qs, size_t n)
     }
 }
 
-inline int qsParse(char* qs, char* qs_kv[], int qs_kv_size)
+inline size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size)
 {
-    int i, j;
+    size_t i;
+    size_t j;
     char* substrPtr;
 
     for (i = 0; i < qs_kv_size; i++)
@@ -201,8 +205,8 @@ inline int qsDecode(char* qs)
                 qs[i] = '\0';
                 return i;
             }
-            qs[i] = (BMCWEB_QS_HEX2DEC(qs[j + 1]) * 16) +
-                    BMCWEB_QS_HEX2DEC(qs[j + 2]);
+            qs[i] = static_cast<char>(BMCWEB_QS_HEX2DEC(qs[j + 1] * 16) +
+                                      BMCWEB_QS_HEX2DEC(qs[j + 2]));
             j += 2;
         }
         else
@@ -307,7 +311,7 @@ namespace crow
 class QueryString
 {
   public:
-    static const int maxKeyValuePairsCount = 256;
+    static const size_t maxKeyValuePairsCount = 256;
 
     QueryString() = default;
 
@@ -353,7 +357,8 @@ class QueryString
 
         keyValuePairs.resize(maxKeyValuePairsCount);
 
-        int count = qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
+        size_t count =
+            qsParse(&url[0], &keyValuePairs[0], maxKeyValuePairsCount);
         keyValuePairs.resize(count);
     }
 
@@ -380,8 +385,8 @@ class QueryString
 
     char* get(const std::string& name) const
     {
-        char* ret =
-            qsK2v(name.c_str(), keyValuePairs.data(), keyValuePairs.size());
+        char* ret = qsK2v(name.c_str(), keyValuePairs.data(),
+                          static_cast<int>(keyValuePairs.size()));
         return ret;
     }
 
@@ -395,7 +400,7 @@ class QueryString
         while (1)
         {
             element = qsK2v(plus.c_str(), keyValuePairs.data(),
-                            keyValuePairs.size(), count++);
+                            static_cast<int>(keyValuePairs.size()), count++);
             if (element == nullptr)
             {
                 break;
