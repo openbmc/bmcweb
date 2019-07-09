@@ -20,20 +20,20 @@ class TimerQueue
         dq.set_capacity(100);
     }
 
-    void cancel(int k)
+    void cancel(size_t k)
     {
-        unsigned int index = static_cast<unsigned int>(k - step);
+        size_t index = k - step;
         if (index < dq.size())
         {
             dq[index].second = nullptr;
         }
     }
 
-    int add(std::function<void()> f)
+    size_t add(std::function<void()> f)
     {
         dq.push_back(
             std::make_pair(std::chrono::steady_clock::now(), std::move(f)));
-        int ret = step + dq.size() - 1;
+        size_t ret = step + dq.size() - 1;
 
         BMCWEB_LOG_DEBUG << "timer add inside: " << this << ' ' << ret;
         return ret;
@@ -72,7 +72,7 @@ class TimerQueue
 
     // boost::circular_buffer<storage_type> dq{20};
     // std::deque<storage_type> dq{};
-    int step{};
+    size_t step{};
 };
 } // namespace detail
 } // namespace crow

@@ -62,14 +62,47 @@ project (bmc-webserver CXX)
 
 include (CTest)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} -Wall")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    -fno-rtti \
+")
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+-Wall \
+-Wextra \
+-Werror \
+-Wnon-virtual-dtor \
+-Wold-style-cast \
+-Wcast-align \
+-Wunused \
+-Woverloaded-virtual \
+-Wpedantic \
+-Wconversion \
+-Wsign-conversion \
+-Wmisleading-indentation \
+-Wduplicated-cond \
+-Wduplicated-branches \
+-Wlogical-op \
+-Wnull-dereference \
+-Wuseless-cast \
+-Wdouble-promotion \
+-Wformat=2 \
+-Wno-unused-parameter \
+")
+
+# only set -Werror if we're on a compiler that we know passes
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Werror")
+        endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
 # general

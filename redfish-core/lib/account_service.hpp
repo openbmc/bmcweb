@@ -205,13 +205,13 @@ inline void getLDAPConfigData(const std::string& ldapType,
                     {
                         if (property.first == "Enabled")
                         {
-                            const bool* value =
+                            const bool* boolValue =
                                 std::get_if<bool>(&property.second);
-                            if (value == nullptr)
+                            if (boolValue == nullptr)
                             {
                                 continue;
                             }
-                            confData.serviceEnabled = *value;
+                            confData.serviceEnabled = *boolValue;
                             break;
                         }
                     }
@@ -221,35 +221,35 @@ inline void getLDAPConfigData(const std::string& ldapType,
 
                     for (const auto& property : interface.second)
                     {
-                        const std::string* value =
+                        const std::string* thisValue =
                             std::get_if<std::string>(&property.second);
-                        if (value == nullptr)
+                        if (thisValue == nullptr)
                         {
                             continue;
                         }
                         if (property.first == "LDAPServerURI")
                         {
-                            confData.uri = *value;
+                            confData.uri = *thisValue;
                         }
                         else if (property.first == "LDAPBindDN")
                         {
-                            confData.bindDN = *value;
+                            confData.bindDN = *thisValue;
                         }
                         else if (property.first == "LDAPBaseDN")
                         {
-                            confData.baseDN = *value;
+                            confData.baseDN = *thisValue;
                         }
                         else if (property.first == "LDAPSearchScope")
                         {
-                            confData.searchScope = *value;
+                            confData.searchScope = *thisValue;
                         }
                         else if (property.first == "GroupNameAttribute")
                         {
-                            confData.groupAttribute = *value;
+                            confData.groupAttribute = *thisValue;
                         }
                         else if (property.first == "UserNameAttribute")
                         {
-                            confData.userNameAttribute = *value;
+                            confData.userNameAttribute = *thisValue;
                         }
                     }
                 }
@@ -1261,7 +1261,7 @@ class ManagerAccount : public Node
             crow::connections::systemBus->async_method_call(
                 [this, asyncResp, username, password(std::move(password)),
                  roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{std::string(*newUserName)}, locked(std::move(locked))](
+                 newUser{*newUserName}, locked(std::move(locked))](
                     const boost::system::error_code ec) {
                     if (ec)
                     {
