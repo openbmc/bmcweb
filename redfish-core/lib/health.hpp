@@ -153,8 +153,7 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
-            int32_t(0),
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/", 0,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Inventory.Item.Global"});
     }

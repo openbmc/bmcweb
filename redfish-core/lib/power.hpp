@@ -62,13 +62,13 @@ class Power : public Node
         // chassis that implements the Chassis inventory item. This prevents
         // things like power supplies providing the chassis power limit
         auto chassisHandler = [sensorAsyncResp](
-                                  const boost::system::error_code ec,
+                                  const boost::system::error_code e,
                                   const std::vector<std::string>&
                                       chassisPaths) {
-            if (ec)
+            if (e)
             {
                 BMCWEB_LOG_ERROR
-                    << "Power Limit GetSubTreePaths handler Dbus error " << ec;
+                    << "Power Limit GetSubTreePaths handler Dbus error " << e;
                 return;
             }
 
@@ -178,7 +178,7 @@ class Power : public Node
                             }
                             else if (i)
                             {
-                                powerCap = *i;
+                                powerCap = static_cast<double>(*i);
                             }
                             else if (u)
                             {
@@ -220,7 +220,7 @@ class Power : public Node
             std::move(chassisHandler), "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/inventory", int32_t(0),
+            "/xyz/openbmc_project/inventory", 0,
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
     }

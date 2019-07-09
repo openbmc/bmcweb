@@ -22,12 +22,14 @@ struct Request
     void* middlewareContext{};
     boost::asio::io_context* ioService{};
 
-    Request(boost::beast::http::request<boost::beast::http::string_body>& req) :
-        req(req), body(req.body())
+    Request(
+        boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
+        req(reqIn),
+        body(reqIn.body())
     {
     }
 
-    const boost::beast::http::verb method() const
+    boost::beast::http::verb method() const
     {
         return req.method();
     }
