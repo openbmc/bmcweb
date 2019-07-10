@@ -312,7 +312,21 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
+    mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+#ifdef BMCWEB_ENABLE_TLS_AUTHENTICATION
+    if (const char *env_p = std::getenv("TRUST_STORE_PATH"))
+    {
+        BMCWEB_LOG_INFO << "Using overwritten TrustStore location: " << env_p;
+        mSslContext->add_verify_path(env_p);
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG
+            << "Using default TrustStore location: " << DEFAULT_TRUST_STORE_PATH
+            << ", to overwrite, set env variable TRUST_STORE_PATH.";
+        mSslContext->add_verify_path(DEFAULT_TRUST_STORE_PATH);
+    }
+#endif // BMCWEB_ENABLE_TLS_AUTHENTICATION
     mSslContext->use_certificate_file(ssl_pem_file,
                                       boost::asio::ssl::context::pem);
     mSslContext->use_private_key_file(ssl_pem_file,
