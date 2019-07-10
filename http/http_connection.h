@@ -263,6 +263,143 @@ class Connection
         // mechanism
         parser->body_limit(httpReqBodyLimit);
         req.emplace(parser->get());
+
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        adaptor.set_verify_callback([this](
+                                        bool preverified,
+                                        boost::asio::ssl::verify_context& ctx) {
+            // We always return true to allow full auth flow
+            if (!preverified)
+            {
+                return true;
+            }
+
+            X509_STORE_CTX* cts = ctx.native_handle();
+            if (cts == nullptr)
+            {
+                return true;
+            }
+
+            // Get certificate
+            X509* peerCert =
+                X509_STORE_CTX_get_current_cert(ctx.native_handle());
+            if (peerCert == nullptr)
+            {
+                return true;
+            }
+
+            // Check if certificate is OK
+            int error = X509_STORE_CTX_get_error(cts);
+            if (error != X509_V_OK)
+            {
+                return true;
+            }
+            // Check that we have reached final certificate in chain
+            int32_t depth = X509_STORE_CTX_get_error_depth(cts);
+            if (depth != 0)
+
+
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Certificate verification in progress (depth "
+                    << depth << "), waiting to reach final depth";
+                return true;
+            }
+
+            BMCWEB_LOG_DEBUG
+                << "Certificate verification of final depth";
+
+            // Verify KeyUsage
+            bool isKeyUsageDigitalSignature = false;
+            bool isKeyUsageKeyAgreement = false;
+
+            ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
+                X509_get_ext_d2i(peerCert, NID_key_usage, NULL, NULL));
+
+            if (usage == nullptr)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < usage->length; i++)
+            {
+                if (KU_DIGITAL_SIGNATURE & usage->data[i])
+                {
+                    isKeyUsageDigitalSignature = true;
+                }
+                if (KU_KEY_AGREEMENT & usage->data[i])
+                {
+                    isKeyUsageKeyAgreement = true;
+                }
+            }
+
+            if (!isKeyUsageDigitalSignature|| !isKeyUsageKeyAgreement ){
+                BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
+                    "not allow provided certificate to "
+                    "be used for user authentication";
+                return true;
+            }
+
+            // Determine that ExtendedKeyUsage includes Client Auth
+
+            stack_st_ASN1_OBJECT* extUsage =
+                static_cast<stack_st_ASN1_OBJECT*>(X509_get_ext_d2i(
+                    peerCert, NID_ext_key_usage, NULL, NULL));
+
+            if (extUsage == nullptr)
+            {
+                return true;
+            }
+
+            bool isExKeyUsageClientAuth = false;
+            for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
+            {
+                if (NID_client_auth ==
+                    OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i)))
+                {
+                    isExKeyUsageClientAuth = true;
+                    break;
+                }
+            }
+
+            // Certificate has to have proper key usages set
+            if (!isExKeyUsageClientAuth)
+            {
+                BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
+                    "not allow provided certificate to "
+                    "be used for user authentication";
+                return true;
+            }
+            std::string sslUser;
+            // Extract username contained in CommonName
+            sslUser.resize(256, '\0');
+
+            int status = X509_NAME_get_text_by_NID(
+                X509_get_subject_name(peerCert), NID_commonName,
+                sslUser.data(), static_cast<int>(sslUser.size()));
+
+            if (status == -1)
+            {
+                return true;
+            }
+
+            size_t lastChar = sslUser.find('\0');
+            if (lastChar == std::string::npos || lastChar == 0){
+                return true;
+            }
+            sslUser.resize(lastChar-1);
+
+            session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(
+                        sslUser, crow::persistent_data::
+                                        PersistenceType::TIMEOUT);
+
+
+            return true;
+        });
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+
 #ifdef BMCWEB_ENABLE_DEBUG
         connectionCount++;
         BMCWEB_LOG_DEBUG << this << " Connection open, total "
@@ -344,6 +481,16 @@ class Connection
             req->middlewareContext = static_cast<void*>(&ctx);
             req->ioService = static_cast<decltype(req->ioService)>(
                 &adaptor.get_executor().context());
+
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+            if (session)
+            {
+                BMCWEB_LOG_DEBUG << "TLS session: " << session->uniqueId
+                                 << " will be used for this request.";
+                req->session = session;
+            }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+
             detail::middlewareCallHelper<
                 0U, decltype(ctx), decltype(*middlewares), Middlewares...>(
                 *middlewares, *req, res, ctx);
@@ -391,12 +538,19 @@ class Connection
     }
     void close()
     {
-
         if constexpr (std::is_same_v<Adaptor,
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
         {
             adaptor.next_layer().close();
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+            if (session)
+            {
+                BMCWEB_LOG_DEBUG << "Removing TLS session: " << session->uniqueId;
+                persistent_data::SessionStore::getInstance().removeSession(
+                    session);
+            }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         }
         else
         {
@@ -652,6 +806,9 @@ class Connection
 
     std::optional<crow::Request> req;
     crow::Response res;
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+    std::shared_ptr<crow::persistent_data::UserSession> session;
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 
     const std::string& serverName;
 
