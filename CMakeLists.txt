@@ -38,6 +38,8 @@ option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
 option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
         transactions through Redfish. Paths are under
         '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
+option (BMCWEB_ENABLE_TLS_AUTHENTICATION "Enable TLS authentication.
+        The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect." ON)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -263,6 +265,8 @@ install (TARGETS bmcweb DESTINATION bin)
 
 target_compile_definitions (
     bmcweb PRIVATE
+    $<$<AND:$<NOT:$<BOOL:${BMCWEB_INSECURE_DISABLE_SSL}>>,$<BOOL:${BMCWEB_ENABLE_TLS_AUTHENTICATION}>>: -DBMCWEB_ENABLE_TLS_AUTHENTICATION>
+    $<$<BOOL:${BMCWEB_ENABLE_TLS_AUTHENTICATION}>: -DDEFAULT_TRUST_STORE_PATH="/etc/ssl/certs/authority">
     $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
