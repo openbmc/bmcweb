@@ -369,7 +369,8 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
+    mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+    mSslContext->add_verify_path(BMCWEB_TLS_AUTH_CERT_STORE_LOCATION);
     mSslContext->use_certificate_file(ssl_pem_file,
                                       boost::asio::ssl::context::pem);
     mSslContext->use_private_key_file(ssl_pem_file,
