@@ -71,6 +71,12 @@ option (
     '/redfish/v1/Systems/system/LogServices/EventLog/Entries'."
     OFF
 )
+option (
+    BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+    "Enable mutual TLS authentication.
+        The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect."
+    ON
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -338,6 +344,8 @@ install (TARGETS bmcweb DESTINATION bin)
 
 target_compile_definitions (
     bmcweb PRIVATE $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
+    $<$<AND:$<NOT:$<BOOL:${BMCWEB_INSECURE_DISABLE_SSL}>>,$<BOOL:${BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION}>>:
+    -DBMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION>
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
