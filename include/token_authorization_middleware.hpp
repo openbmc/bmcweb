@@ -31,7 +31,10 @@ class Middleware
             return;
         }
 
-        req.session = performXtokenAuth(req);
+        if (req.session == nullptr)
+        {
+            req.session = performXtokenAuth(req);
+        }
         if (req.session == nullptr)
         {
             req.session = performCookieAuth(req);
