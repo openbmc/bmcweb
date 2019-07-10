@@ -16,6 +16,7 @@
 
 namespace ensuressl
 {
+constexpr char const *trustStorePath = "/etc/ssl/certs/authority";
 static void initOpenssl();
 static EVP_PKEY *createEcKey();
 
@@ -312,7 +313,11 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
+    mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+    BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
+    mSslContext->add_verify_path(trustStorePath);
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     mSslContext->use_certificate_file(ssl_pem_file,
                                       boost::asio::ssl::context::pem);
     mSslContext->use_private_key_file(ssl_pem_file,
