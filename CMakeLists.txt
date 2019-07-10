@@ -112,6 +112,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     endif (NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
+if (NOT DEFINED BMCWEB_TLS_AUTH_CERT_STORE_LOCATION)
+    message(WARNING "BMCWEB_TLS_AUTH_CERT_STORE_LOCATION not set, assuming "
+                    "/etc/ssl/certs/tls_auth")
+    set (BMCWEB_TLS_AUTH_CERT_STORE_LOCATION "/etc/ssl/certs/tls_auth")
+endif (NOT DEFINED BMCWEB_TLS_AUTH_CERT_STORE_LOCATION)
+
 if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
                                # time
     configure_file (CMakeLists.txt.in 3rdparty/CMakeLists.txt)
@@ -263,6 +269,7 @@ install (TARGETS bmcweb DESTINATION bin)
 
 target_compile_definitions (
     bmcweb PRIVATE
+    -DBMCWEB_TLS_AUTH_CERT_STORE_LOCATION="${BMCWEB_TLS_AUTH_CERT_STORE_LOCATION}"
     $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
