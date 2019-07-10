@@ -31,7 +31,19 @@ class Middleware
             return;
         }
 
-        req.session = performXtokenAuth(req);
+        if (!req.sslUser.empty())
+        {
+            req.session =
+                persistent_data::SessionStore::getInstance()
+                    .generateUserSession(
+                        req.sslUser,
+                        crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+        }
+
+        if (req.session == nullptr)
+        {
+            req.session = performXtokenAuth(req);
+        }
         if (req.session == nullptr)
         {
             req.session = performCookieAuth(req);

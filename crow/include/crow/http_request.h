@@ -18,6 +18,7 @@ struct Request
     std::string_view url{};
     QueryString urlParams{};
     bool isSecure{false};
+    std::string sslUser;
 
     const std::string& body;
 
