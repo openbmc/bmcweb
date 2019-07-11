@@ -477,7 +477,50 @@ static void asyncPopulatePid(const std::string& connection,
                                     return;
                                 }
                                 data = *inputs;
-                            } // doubles
+                            }
+                            else if (propertyPair.first == "SetPointOffset")
+                            {
+                                const std::string* ptr =
+                                    std::get_if<std::string>(
+                                        &propertyPair.second);
+
+                                if (ptr == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR << "Field Illegal "
+                                                     << propertyPair.first;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                // translate from dbus to redfish
+                                if (*ptr == "WarningHigh")
+                                {
+                                    (*config)["SetPointOffset"] =
+                                        "UpperThresholdNonCritical";
+                                }
+                                else if (*ptr == "WarningLow")
+                                {
+                                    (*config)["SetPointOffset"] =
+                                        "LowerThresholdNonCritical";
+                                }
+                                else if (*ptr == "CriticalHigh")
+                                {
+                                    (*config)["SetPointOffset"] =
+                                        "UpperThresholdCritical";
+                                }
+                                else if (*ptr == "CriticalLow")
+                                {
+                                    (*config)["SetPointOffset"] =
+                                        "LowerThresholdCritical";
+                                }
+                                else
+                                {
+                                    BMCWEB_LOG_ERROR << "Value Illegal "
+                                                     << *ptr;
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                            }
+                            // doubles
                             else if (propertyPair.first ==
                                          "FFGainCoefficient" ||
                                      propertyPair.first == "FFOffCoefficient" ||
@@ -715,6 +758,7 @@ static CreatePIDRet createPidInterface(
         std::optional<std::vector<std::string>> inputs;
         std::optional<std::vector<std::string>> outputs;
         std::map<std::string, std::optional<double>> doubles;
+        std::optional<std::string> setpointOffset;
         if (!redfish::json_util::readJson(
                 it.value(), response->res, "Inputs", inputs, "Outputs", outputs,
                 "Zones", zones, "FFGainCoefficient",
@@ -724,10 +768,10 @@ static CreatePIDRet createPidInterface(
                 "ILimitMin", doubles["ILimitMin"], "OutLimitMax",
                 doubles["OutLimitMax"], "OutLimitMin", doubles["OutLimitMin"],
                 "PCoefficient", doubles["PCoefficient"], "SetPoint",
-                doubles["SetPoint"], "SlewNeg", doubles["SlewNeg"], "SlewPos",
-                doubles["SlewPos"], "PositiveHysteresis",
-                doubles["PositiveHysteresis"], "NegativeHysteresis",
-                doubles["NegativeHysteresis"]))
+                doubles["SetPoint"], "SetPointOffset", setpointOffset,
+                "SlewNeg", doubles["SlewNeg"], "SlewPos", doubles["SlewPos"],
+                "PositiveHysteresis", doubles["PositiveHysteresis"],
+                "NegativeHysteresis", doubles["NegativeHysteresis"]))
         {
             BMCWEB_LOG_ERROR << "Line:" << __LINE__ << ", Illegal Property "
                              << it.value().dump();
@@ -781,6 +825,34 @@ static CreatePIDRet createPidInterface(
                 }
                 output[key] = *container;
                 index++;
+            }
+        }
+
+        if (setpointOffset)
+        {
+            // translate between redfish and dbus names
+            if (*setpointOffset == "UpperThresholdNonCritical")
+            {
+                output["SetPointOffset"] = std::string("WarningLow");
+            }
+            else if (*setpointOffset == "LowerThresholdNonCritical")
+            {
+                output["SetPointOffset"] = std::string("WarningHigh");
+            }
+            else if (*setpointOffset == "LowerThresholdCritical")
+            {
+                output["SetPointOffset"] = std::string("CriticalLow");
+            }
+            else if (*setpointOffset == "UpperThresholdCritical")
+            {
+                output["SetPointOffset"] = std::string("CriticalHigh");
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "Invalid setpointoffset "
+                                 << *setpointOffset;
+                messages::invalidObject(response->res, it.key());
+                return CreatePIDRet::fail;
             }
         }
 

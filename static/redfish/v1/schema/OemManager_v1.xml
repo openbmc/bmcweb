@@ -245,6 +245,10 @@
                     <Annotation Term="OData.Description" String="Setpoint for the PID." />
                     <Annotation Term="OData.LongDescription" String="Setpoint for the PID." />
                 </Property>
+                <Property Name="SetPointOffset" Type="Edm.String" Nullable="false">
+                    <Annotation Term="OData.Description" String="Threshold to take value from and apply to setpoint." />
+                    <Annotation Term="OData.LongDescription" String="Threshold to take value from and apply to setpoint. Valid threshold names are supported." />
+                </Property>
                 <Property Name="SlewNeg" Type="Edm.Decimal" Nullable="false">
                     <Annotation Term="OData.Description" String="Negative slew rate for the PID." />
                     <Annotation Term="OData.LongDescription" String="Negative slew rate for the PID." />
