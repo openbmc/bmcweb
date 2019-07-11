@@ -1488,6 +1488,12 @@ class Manager : public Node
 
         res.jsonValue["EthernetInterfaces"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces"}};
+
+#ifdef BMCWEB_ENABLE_VM_NBDPROXY
+        res.jsonValue["VirtualMedia"] = {
+            {"@odata.id", "/redfish/v1/Managers/bmc/VirtualMedia"}};
+#endif // BMCWEB_ENABLE_VM_NBDPROXY
+
         // default oem data
         nlohmann::json& oem = res.jsonValue["Oem"];
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
