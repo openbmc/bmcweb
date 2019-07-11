@@ -281,6 +281,21 @@ const std::array registry = {
                 },
             .resolution = "None.",
         }},
+
+    MessageEntry{
+        "IPMIWatchdog",
+        {
+            .description = "Indicates that there is a host watchdog event.",
+            .message = "Host Watchdog Event: %1",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
+
     MessageEntry{
         "LegacyPCIPERR",
         {
