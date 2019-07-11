@@ -4,6 +4,7 @@
 #include <boost/asio/io_context.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <filesystem>
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
 #include <memory>
@@ -56,10 +57,23 @@ void setupSocket(crow::Crow<Middlewares...>& app)
 
 int main(int argc, char** argv)
 {
+    namespace fs = std::filesystem;
+
     crow::logger::setLogLevel(crow::LogLevel::DEBUG);
 
     auto io = std::make_shared<boost::asio::io_context>();
     CrowApp app(io);
+
+    if (!fs::exists(crow::persistent_data::Middleware::filename))
+    {
+        // create the file
+        std::ofstream persistentFile(
+            crow::persistent_data::Middleware::filename);
+    }
+    // set the permission of the file to 640
+    auto permission =
+        fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read;
+    fs::permissions(crow::persistent_data::Middleware::filename, permission);
 
     // Static assets need to be initialized before Authorization, because auth
     // needs to build the whitelist from the static routes
@@ -98,10 +112,6 @@ int main(int argc, char** argv)
     crow::connections::systemBus =
         std::make_shared<sdbusplus::asio::connection>(*io);
     redfish::RedfishService redfish(app);
-
-    // Keep the user role map hot in memory and
-    // track the changes using match object
-    crow::persistent_data::UserRoleMap::getInstance();
 
     app.run();
     io->run();

@@ -22,11 +22,12 @@ namespace persistent_data
 
 class Middleware
 {
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
     int jsonRevision = 1;
 
   public:
+    // todo(ed) should read this from a fixed location somewhere, not CWD
+    static constexpr const char* filename = "bmcweb_persistent_data.json";
+
     struct Context
     {
     };
