@@ -736,6 +736,10 @@
     <edmx:Reference Uri="/redfish/v1/schema/NetworkPortCollection_v1.xml">
         <edmx:Include Namespace="NetworkPortCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OpenBMC_v1.xml">
+        <edmx:Include Namespace="OpenBMC"/>
+        <edmx:Include Namespace="OpenBMC.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/PCIeDevice_v1.xml">
         <edmx:Include Namespace="PCIeDevice"/>
         <edmx:Include Namespace="PCIeDevice.v1_0_0"/>
