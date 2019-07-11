@@ -994,7 +994,7 @@ const std::array registry = {
             .message = "Power supply %1 AC power lost.",
             .severity = "Critical",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{
@@ -1004,7 +1004,7 @@ const std::array registry = {
             .message = "Power supply %1 configuration error.",
             .severity = "Critical",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{
@@ -1015,7 +1015,7 @@ const std::array registry = {
             .message = "Power supply %1 fan %2 failed.",
             .severity = "Critical",
             .numberOfArgs = 2,
-            .paramTypes = {"number", "number"},
+            .paramTypes = {"string", "string"},
             .resolution = "None.",
         }},
     MessageEntry{"PowerSupplyFailed",
@@ -1024,7 +1024,7 @@ const std::array registry = {
                      .message = "Power supply %1 failed.",
                      .severity = "Critical",
                      .numberOfArgs = 1,
-                     .paramTypes = {"number"},
+                     .paramTypes = {"string"},
                      .resolution = "None.",
                  }},
     MessageEntry{"PowerSupplyFailurePredicted",
@@ -1034,7 +1034,7 @@ const std::array registry = {
                      .message = "Power supply %1 failure predicted.",
                      .severity = "Warning",
                      .numberOfArgs = 1,
-                     .paramTypes = {"number"},
+                     .paramTypes = {"string"},
                      .resolution = "None.",
                  }},
     MessageEntry{
@@ -1044,7 +1044,7 @@ const std::array registry = {
             .message = "Power supply %1 inserted.",
             .severity = "OK",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{
@@ -1054,7 +1054,7 @@ const std::array registry = {
             .message = "Power supply %1 removed.",
             .severity = "Warning",
             .numberOfArgs = 1,
-            .paramTypes = {"number"},
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
     MessageEntry{
