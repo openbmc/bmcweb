@@ -408,6 +408,11 @@
                     "longDescription": "Setpoint for the PID.",
                     "type": "number"
                 },
+                "SetPointOffset": {
+                    "description": "Threshold to take value from and apply to setpoint.",
+                    "longDescription": "Threshold to take value from and apply to setpoint. Valid threshold names are supported.",
+                    "type": "string"
+                },
                 "SlewNeg": {
                     "description": "Negative slew rate for the PID.",
                     "longDescription": "Negative slew rate for the PID.",
