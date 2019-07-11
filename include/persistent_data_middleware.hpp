@@ -8,6 +8,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <filesystem>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
@@ -20,13 +21,16 @@ namespace crow
 namespace persistent_data
 {
 
+namespace fs = std::filesystem;
+
 class Middleware
 {
-    // todo(ed) should read this from a fixed location somewhere, not CWD
-    static constexpr const char* filename = "bmcweb_persistent_data.json";
     int jsonRevision = 1;
 
   public:
+    // todo(ed) should read this from a fixed location somewhere, not CWD
+    static constexpr const char* filename = "bmcweb_persistent_data.json";
+
     struct Context
     {
     };
@@ -151,6 +155,12 @@ class Middleware
     void writeData()
     {
         std::ofstream persistentFile(filename);
+
+        // set the permission of the file to 640
+        fs::perms permission = fs::perms::owner_read | fs::perms::owner_write |
+                               fs::perms::group_read;
+        fs::permissions(filename, permission);
+
         nlohmann::json data{
             {"sessions", SessionStore::getInstance().authTokens},
             {"system_uuid", systemUuid},
