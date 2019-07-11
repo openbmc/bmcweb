@@ -30,6 +30,8 @@ constexpr char const *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 constexpr char const *dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
 constexpr char const *ldapObjectPath = "/xyz/openbmc_project/certs/client/ldap";
+constexpr char const *tlsAuthObjectPath =
+    "/xyz/openbmc_project/certs/storage/tls_auth";
 constexpr char const *httpsServiceName =
     "xyz.openbmc_project.Certs.Manager.Server.Https";
 constexpr char const *ldapServiceName =
@@ -38,6 +40,8 @@ constexpr char const *authorityServiceName =
     "xyz.openbmc_project.Certs.Manager.Authority.Ldap";
 constexpr char const *authorityObjectPath =
     "/xyz/openbmc_project/certs/authority/ldap";
+constexpr char const *tlsAuthServiceName =
+    "xyz.openbmc_project.Certs.Manager.Storage.Tls_auth";
 } // namespace certs
 
 /**
@@ -751,6 +755,15 @@ class CertificateActionsReplaceCertificate : public Node
             name = "TrustStore certificate";
             service = certs::authorityServiceName;
         }
+        else if (boost::starts_with(
+                     certURI,
+                     "/redfish/v1/AccountService/TLSAuth/Certificates/"))
+        {
+            objectPath = std::string(certs::tlsAuthObjectPath) + "/" +
+                         std::to_string(id);
+            name = "TLS Auth certificate";
+            service = certs::tlsAuthServiceName;
+        }
         else
         {
             messages::actionParameterNotSupported(
@@ -977,6 +990,9 @@ class CertificateLocations : public Node
         getCertificateLocations(
             asyncResp, "/redfish/v1/Managers/bmc/Truststore/Certificates/",
             certs::authorityObjectPath, certs::authorityServiceName);
+        getCertificateLocations(
+            asyncResp, "/redfish/v1/AccountService/TLSAuth/Certificates/",
+            certs::tlsAuthObjectPath, certs::tlsAuthServiceName);
     }
     /**
      * @brief Retrieve the certificates installed list and append to the
@@ -1292,4 +1308,183 @@ class TrustStoreCertificate : public Node
                                  "TrustStore Certificate");
     }
 }; // TrustStoreCertificate
+
+/**
+ * Collection of TLS Auth certificates
+ */
+class TLSAuthCertificateCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    TLSAuthCertificateCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/AccountService/TLSAuth/Certificates/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        res.jsonValue = {
+            {"@odata.id", "/redfish/v1/AccountService/TLSAuth/Certificates"},
+            {"@odata.type", "#CertificateCollection.CertificateCollection"},
+            {"@odata.context",
+             "/redfish/v1/"
+             "$metadata#CertificateCollection.CertificateCollection"},
+            {"Name", "TLS Auth Certificates Collection"},
+            {"Description", "A Collection of certificate instances used for "
+                            "TLS Authentication"}};
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const ManagedObjectType &certs) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json &members = asyncResp->res.jsonValue["Members"];
+                members = nlohmann::json::array();
+                for (const auto &cert : certs)
+                {
+                    long id = getIDFromURL(cert.first.str);
+                    if (id >= 0)
+                    {
+                        members.push_back(
+                            {{"@odata.id", "/redfish/v1/AccountService/"
+                                           "TLSAuth/Certificates/" +
+                                               std::to_string(id)}});
+                    }
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    members.size();
+            },
+            certs::tlsAuthServiceName, certs::tlsAuthObjectPath,
+            certs::dbusObjManagerIntf, "GetManagedObjects");
+    }
+
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(req.body);
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, certFile](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                getLatestTLSAuthCertificate(asyncResp);
+            },
+            certs::tlsAuthServiceName, certs::tlsAuthObjectPath,
+            certs::certInstallIntf, "Install", certFile->getCertFilePath());
+    }
+
+  private:
+    /**
+     * @brief Retrieves data from the latest certificate
+     *
+     * This is needed as Phosphor Certificate Manager does not return path for
+     * created certificate on installation, so we have to get certificate with
+     * the highest id to get exactly the one we have just installed.
+     *
+     */
+    static void
+        getLatestTLSAuthCertificate(const std::shared_ptr<AsyncResp> &asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const ManagedObjectType &certs) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                long maxId = 0;
+                for (const auto &cert : certs)
+                {
+                    long id = getIDFromURL(cert.first.str);
+                    if (id > maxId)
+                    {
+                        maxId = id;
+                    }
+                }
+
+                std::string certURL =
+                    "/redfish/v1/AccountService/TLSAuth/Certificates/" +
+                    std::to_string(maxId);
+                std::string objectPath = std::string(certs::tlsAuthObjectPath) +
+                                         "/" + std::to_string(maxId);
+
+                getCertificateProperties(asyncResp, objectPath,
+                                         certs::tlsAuthServiceName, maxId,
+                                         certURL, "TLS Auth Certificate");
+            },
+            certs::tlsAuthServiceName, certs::tlsAuthObjectPath,
+            certs::dbusObjManagerIntf, "GetManagedObjects");
+    }
+}; // TLSAuthCertificateCollection
+
+/**
+ * Certificate resource describes a certificate used to prove the identity
+ * of a component, account or service.
+ */
+class TLSAuthCertificate : public Node
+{
+  public:
+    template <typename CrowApp>
+    TLSAuthCertificate(CrowApp &app) :
+        Node(app, "/redfish/v1/AccountService/TLSAuth/Certificates/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        long id = getIDFromURL(req.url);
+        if (id < 0)
+        {
+            BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "TLS Auth Certificate ID=" << std::to_string(id);
+        std::string certURL =
+            "/redfish/v1/AccountService/TLSAuth/Certificates/" +
+            std::to_string(id);
+        std::string objectPath = certs::tlsAuthObjectPath;
+        objectPath += "/";
+        objectPath += std::to_string(id);
+        getCertificateProperties(asyncResp, objectPath,
+                                 certs::tlsAuthServiceName, id, certURL,
+                                 "TLS Auth Certificate");
+    }
+}; // TLSAuthCertificate
 } // namespace redfish
