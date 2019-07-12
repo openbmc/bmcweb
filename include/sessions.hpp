@@ -347,6 +347,47 @@ class Middleware;
 class SessionStore
 {
   public:
+    struct AuthConfigMethods
+    {
+        bool mutualTls;
+        bool xtoken;
+        bool cookie;
+        bool sessionToken;
+        bool basic;
+
+        void fromJson(const nlohmann::json& j)
+        {
+            for (const auto& element : j.items())
+            {
+                if (!element.value().is_boolean())
+                {
+                    continue;
+                }
+
+                if (element.key() == "TLS")
+                {
+                    mutualTls = element.value().get<bool>();
+                }
+                else if (element.key() == "XToken")
+                {
+                    xtoken = element.value().get<bool>();
+                }
+                else if (element.key() == "Cookie")
+                {
+                    cookie = element.value().get<bool>();
+                }
+                else if (element.key() == "SessionToken")
+                {
+                    sessionToken = element.value().get<bool>();
+                }
+                else if (element.key() == "BasicAuth")
+                {
+                    basic = element.value().get<bool>();
+                }
+            }
+        }
+    } authMethodsConfig;
+
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
         PersistenceType persistence = PersistenceType::TIMEOUT)
@@ -453,6 +494,12 @@ class SessionStore
         return ret;
     }
 
+    void updateAuthMethodsConfig(const AuthConfigMethods& config)
+    {
+        authMethodsConfig = config;
+        needWrite = true;
+    }
+
     bool needsWrite()
     {
         return needWrite;
@@ -476,7 +523,8 @@ class SessionStore
     SessionStore& operator=(const SessionStore&) = delete;
 
   private:
-    SessionStore() : timeoutInMinutes(60)
+    SessionStore() :
+        timeoutInMinutes(60), authMethodsConfig{true, true, true, true, true}
     {
     }
 
@@ -532,6 +580,21 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
                                {"username", p->username},
                                {"csrf_token", p->csrfToken}};
         }
+    }
+};
+
+template <>
+struct adl_serializer<crow::persistent_data::SessionStore::AuthConfigMethods>
+{
+    static void
+        to_json(nlohmann::json& j,
+                const crow::persistent_data::SessionStore::AuthConfigMethods& c)
+    {
+        j = nlohmann::json{{"TLS", c.mutualTls},
+                           {"XToken", c.xtoken},
+                           {"Cookie", c.cookie},
+                           {"SessionToken", c.sessionToken},
+                           {"BasicAuth", c.basic}};
     }
 };
 } // namespace nlohmann
