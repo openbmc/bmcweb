@@ -15,10 +15,33 @@ namespace crow
 {
 namespace websocket
 {
+
+class AsyncResp
+{
+  public:
+    AsyncResp(crow::Response& response, std::function<void()>&& function) :
+        res(response), func(std::move(function))
+    {
+    }
+
+    ~AsyncResp()
+    {
+        if (func && res.result() == boost::beast::http::status::ok)
+        {
+            func();
+        }
+
+        res.end();
+    }
+
+    crow::Response& res;
+    std::function<void()> func;
+};
+
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& req) :
+    explicit Connection(const crow::Request& req, crow::Response& res) :
         req(req), userdataPtr(nullptr){};
 
     virtual void sendBinary(const std::string_view msg) = 0;
@@ -39,6 +62,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     }
 
     crow::Request req;
+    crow::Response res;
 
   private:
     void* userdataPtr;
@@ -48,13 +72,14 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& req, Adaptor adaptorIn,
-        std::function<void(Connection&)> open_handler,
+        const crow::Request& req, crow::Response& res, Adaptor adaptorIn,
+        std::function<void(Connection&, std::shared_ptr<AsyncResp>)>
+            open_handler,
         std::function<void(Connection&, const std::string&, bool)>
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        Connection(req),
+        Connection(req, res),
         ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
@@ -157,11 +182,18 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     {
         BMCWEB_LOG_DEBUG << "Websocket accepted connection";
 
+        std::function<void()> func = [this, self(shared_from_this())]() {
+            doRead();
+        };
+
+        auto asyncResp = std::make_shared<AsyncResp>(res, std::move(func));
+
+        asyncResp->res.result(boost::beast::http::status::ok);
+
         if (openHandler)
         {
-            openHandler(*this);
+            openHandler(*this, asyncResp);
         }
-        doRead();
     }
 
     void doRead()
@@ -240,7 +272,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     std::vector<std::string> outBuffer;
     bool doingWrite = false;
 
-    std::function<void(Connection&)> openHandler;
+    std::function<void(Connection&, std::shared_ptr<AsyncResp>)> openHandler;
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
