@@ -342,6 +342,43 @@ struct UserSession
     }
 };
 
+struct AuthConfigMethods
+{
+    bool xtoken = true;
+    bool cookie = true;
+    bool sessionToken = true;
+    bool basic = true;
+
+    void fromJson(const nlohmann::json& j)
+    {
+        for (const auto& element : j.items())
+        {
+            const bool* value = element.value().get_ptr<const bool*>();
+            if (value == nullptr)
+            {
+                continue;
+            }
+
+            if (element.key() == "XToken")
+            {
+                xtoken = *value;
+            }
+            else if (element.key() == "Cookie")
+            {
+                cookie = *value;
+            }
+            else if (element.key() == "SessionToken")
+            {
+                sessionToken = *value;
+            }
+            else if (element.key() == "BasicAuth")
+            {
+                basic = *value;
+            }
+        }
+    }
+};
+
 class Middleware;
 
 class SessionStore
@@ -453,6 +490,16 @@ class SessionStore
         return ret;
     }
 
+    void updateAuthMethodsConfig(const AuthConfigMethods& config)
+    {
+        authMethodsConfig = config;
+        needWrite = true;
+    }
+
+    AuthConfigMethods& getAuthMethodsConfig(){
+        return authMethodsConfig;
+    }
+
     bool needsWrite()
     {
         return needWrite;
@@ -509,6 +556,7 @@ class SessionStore
     std::random_device rd;
     bool needWrite{false};
     std::chrono::minutes timeoutInMinutes;
+    AuthConfigMethods authMethodsConfig;
 };
 
 } // namespace persistent_data
@@ -532,6 +580,18 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
                                {"username", p->username},
                                {"csrf_token", p->csrfToken}};
         }
+    }
+};
+
+template <> struct adl_serializer<crow::persistent_data::AuthConfigMethods>
+{
+    static void to_json(nlohmann::json& j,
+                        const crow::persistent_data::AuthConfigMethods& c)
+    {
+        j = nlohmann::json{{"XToken", c.xtoken},
+                           {"Cookie", c.cookie},
+                           {"SessionToken", c.sessionToken},
+                           {"BasicAuth", c.basic}};
     }
 };
 } // namespace nlohmann
