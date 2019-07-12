@@ -105,7 +105,8 @@ void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/console0")
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](crow::websocket::Connection& conn,
+                   std::shared_ptr<crow::websocket::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             sessions.insert(&conn);
