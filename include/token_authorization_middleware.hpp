@@ -31,7 +31,11 @@ class Middleware
             return;
         }
 
-        if (!req.sslUser.empty())
+        const auto& authMethodsConfig =
+            crow::persistent_data::SessionStore::getInstance()
+                .authMethodsConfig;
+
+        if (!req.sslUser.empty() && authMethodsConfig.tls)
         {
             req.session =
                 persistent_data::SessionStore::getInstance()
@@ -40,11 +44,11 @@ class Middleware
                         crow::persistent_data::PersistenceType::SINGLE_REQUEST);
         }
 
-        if (req.session == nullptr)
+        if (req.session == nullptr && authMethodsConfig.xtoken)
         {
             req.session = performXtokenAuth(req);
         }
-        if (req.session == nullptr)
+        if (req.session == nullptr && authMethodsConfig.cookie)
         {
             req.session = performCookieAuth(req);
         }
@@ -54,11 +58,13 @@ class Middleware
             if (!authHeader.empty())
             {
                 // Reject any kind of auth other than basic or token
-                if (boost::starts_with(authHeader, "Token "))
+                if (boost::starts_with(authHeader, "Token ") &&
+                    authMethodsConfig.sessionToken)
                 {
                     req.session = performTokenAuth(authHeader);
                 }
-                else if (boost::starts_with(authHeader, "Basic "))
+                else if (boost::starts_with(authHeader, "Basic ") &&
+                         authMethodsConfig.basicAuth)
                 {
                     req.session = performBasicAuth(authHeader);
                 }

@@ -347,6 +347,15 @@ class Middleware;
 class SessionStore
 {
   public:
+    struct
+    {
+        bool tls;
+        bool xtoken;
+        bool cookie;
+        bool sessionToken;
+        bool basicAuth;
+    } authMethodsConfig;
+
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
         PersistenceType persistence = PersistenceType::TIMEOUT)
@@ -476,7 +485,8 @@ class SessionStore
     SessionStore& operator=(const SessionStore&) = delete;
 
   private:
-    SessionStore() : timeoutInMinutes(60)
+    SessionStore() :
+        timeoutInMinutes(60), authMethodsConfig{true, true, true, true, true}
     {
     }
 
