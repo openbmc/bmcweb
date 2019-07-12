@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMC">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OpenBMC.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
+
+      <ComplexType Name="AuthMethodsConfig">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
+        <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
+
+        <Property Name="BasicAuth" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether BasicAuth authorization is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether BasicAuth authorization is enabled."/>
+        </Property>
+
+        <Property Name="Cookie" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether Cookie authorization is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether Cookie authorization is enabled."/>
+        </Property>
+
+        <Property Name="SessionToken" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether SessionToken authorization is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether SessionToken authorization is enabled."/>
+        </Property>
+
+        <Property Name="XToken" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether XToken authorization is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether XToken authorization is enabled."/>
+        </Property>
+      </ComplexType>
+
+      <!--Base entity type for array members-->
+      <EntityType Name="AccountService" BaseType="Resource.OemObject" Abstract="true">
+        <Annotation Term="OData.Description" String="OEM Extension for AccountService"/>
+        <Annotation Term="OData.LongDescription" String="OEM Extension for AccountService providing info about TLS Auth."/>
+
+        <Property Name="AuthMethods" Type="OpenBMC.v1_0_0.AuthMethodsConfig">
+          <Annotation Term="OData.Description" String="Authorization Methods configuration."/>
+          <Annotation Term="OData.LongDescription" String="Configuration describing which auth methods are enabled."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
