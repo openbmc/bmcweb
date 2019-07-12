@@ -100,6 +100,12 @@ class Middleware
                             systemUuid = *jSystemUuid;
                         }
                     }
+                    else if (item.key() == "auth_config")
+                    {
+                        SessionStore::getInstance()
+                            .getAuthMethodsConfig()
+                            .fromJson(item.value());
+                    }
                     else if (item.key() == "sessions")
                     {
                         for (const auto& elem : item.value())
@@ -163,6 +169,7 @@ class Middleware
 
         nlohmann::json data{
             {"sessions", SessionStore::getInstance().authTokens},
+            {"auth_config", SessionStore::getInstance().getAuthMethodsConfig()},
             {"system_uuid", systemUuid},
             {"revision", jsonRevision}};
         persistentFile << data;
