@@ -2,6 +2,7 @@
 #include <app.h>
 #include <websocket.h>
 
+#include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
@@ -116,7 +117,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
     BMCWEB_ROUTE(app, "/subscribe")
         .requires({"Login"})
         .websocket()
-        .onopen([&](crow::websocket::Connection& conn) {
+        .onopen([&](crow::websocket::Connection& conn,
+                    std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
             sessions[&conn] = DbusWebsocketSession();
         })

@@ -160,7 +160,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
     BMCWEB_ROUTE(app, "/vm/0/0")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](crow::websocket::Connection& conn,
+                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             if (session != nullptr)

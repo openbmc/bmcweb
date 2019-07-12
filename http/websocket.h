@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include <async_resp.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/asio/buffer.hpp>
 #include <boost/beast/websocket.hpp>
@@ -15,10 +16,11 @@ namespace crow
 {
 namespace websocket
 {
+
 struct Connection : std::enable_shared_from_this<Connection>
 {
   public:
-    explicit Connection(const crow::Request& reqIn) :
+    explicit Connection(const crow::Request& reqIn, crow::Response& res) :
         req(reqIn), userdataPtr(nullptr){};
 
     virtual void sendBinary(const std::string_view msg) = 0;
@@ -39,6 +41,7 @@ struct Connection : std::enable_shared_from_this<Connection>
     }
 
     crow::Request req;
+    crow::Response res;
 
   private:
     void* userdataPtr;
@@ -48,13 +51,14 @@ template <typename Adaptor> class ConnectionImpl : public Connection
 {
   public:
     ConnectionImpl(
-        const crow::Request& reqIn, Adaptor adaptorIn,
-        std::function<void(Connection&)> open_handler,
+        const crow::Request& reqIn, crow::Response& res, Adaptor adaptorIn,
+        std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
+            open_handler,
         std::function<void(Connection&, const std::string&, bool)>
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        Connection(reqIn),
+        Connection(reqIn, res),
         ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
@@ -158,11 +162,15 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     {
         BMCWEB_LOG_DEBUG << "Websocket accepted connection";
 
+        auto asyncResp = std::make_shared<bmcweb::AsyncResp>(
+            res, [this, self(shared_from_this())]() { doRead(); });
+
+        asyncResp->res.result(boost::beast::http::status::ok);
+
         if (openHandler)
         {
-            openHandler(*this);
+            openHandler(*this, asyncResp);
         }
-        doRead();
     }
 
     void doRead()
@@ -241,7 +249,8 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     std::vector<std::string> outBuffer;
     bool doingWrite = false;
 
-    std::function<void(Connection&)> openHandler;
+    std::function<void(Connection&, std::shared_ptr<bmcweb::AsyncResp>)>
+        openHandler;
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;

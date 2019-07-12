@@ -23,6 +23,10 @@
 #include <webassets.hpp>
 #include <webserver_common.hpp>
 
+#ifdef BMCWEB_ENABLE_VM_NBDPROXY
+#include <nbd_proxy.hpp>
+#endif
+
 constexpr int defaultPort = 18080;
 
 template <typename... Middlewares>
@@ -97,6 +101,11 @@ int main(int argc, char** argv)
 
     crow::connections::systemBus =
         std::make_shared<sdbusplus::asio::connection>(*io);
+
+#ifdef BMCWEB_ENABLE_VM_NBDPROXY
+    crow::nbd_proxy::requestRoutes(app);
+#endif
+
     redfish::RedfishService redfish(app);
 
     // Keep the user role map hot in memory and
