@@ -665,6 +665,63 @@ class AccountService : public Node
             ldapEnableInterface, "Enabled", std::variant<bool>(serviceEnabled));
     }
 
+    void handleAuthMethodsPatch(nlohmann::json& input,
+                                const std::shared_ptr<AsyncResp>& asyncResp)
+    {
+        std::optional<bool> basicAuth;
+        std::optional<bool> cookie;
+        std::optional<bool> sessionToken;
+        std::optional<bool> xToken;
+
+        if (!json_util::readJson(input, asyncResp->res, "BasicAuth", basicAuth,
+                                 "Cookie", cookie, "SessionToken", sessionToken,
+                                 "XToken", xToken))
+        {
+            BMCWEB_LOG_ERROR << "Cannot read values from AuthMethod tag! new "
+                                "TLS config not applied.";
+            return;
+        }
+
+        // Make a copy of methods configuration
+        crow::persistent_data::AuthConfigMethods authMethodsConfig =
+            crow::persistent_data::SessionStore::getInstance()
+                .getAuthMethodsConfig();
+
+        if (basicAuth)
+        {
+            authMethodsConfig.basic = *basicAuth;
+        }
+
+        if (cookie)
+        {
+            authMethodsConfig.cookie = *cookie;
+        }
+
+        if (sessionToken)
+        {
+            authMethodsConfig.sessionToken = *sessionToken;
+        }
+
+        if (xToken)
+        {
+            authMethodsConfig.xtoken = *xToken;
+        }
+
+        if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&
+            !authMethodsConfig.sessionToken && !authMethodsConfig.xtoken)
+        {
+            // Do not allow user to disable everything
+            messages::actionNotSupported(asyncResp->res,
+                                         "of disabling all available methods");
+            return;
+        }
+
+        crow::persistent_data::SessionStore::getInstance()
+            .updateAuthMethodsConfig(authMethodsConfig);
+
+        messages::success(asyncResp->res);
+    }
+
     /**
      * @brief Get the required values from the given JSON, validates the
      *        value and create the LDAP config object.
@@ -829,6 +886,10 @@ class AccountService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+        const crow::persistent_data::AuthConfigMethods& authMethodsConfig =
+            crow::persistent_data::SessionStore::getInstance()
+                .getAuthMethodsConfig();
+
         auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {
             {"@odata.context", "/redfish/v1/"
@@ -844,6 +905,16 @@ class AccountService : public Node
             {"Accounts",
              {{"@odata.id", "/redfish/v1/AccountService/Accounts"}}},
             {"Roles", {{"@odata.id", "/redfish/v1/AccountService/Roles"}}},
+            {"Oem",
+             {{"OpenBMC",
+               {{"@odata.type", "#OpenBMC.v1_0_0.AccountService"},
+                {"AuthMethods",
+                 {
+                     {"BasicAuth", authMethodsConfig.basic},
+                     {"SessionToken", authMethodsConfig.sessionToken},
+                     {"XToken", authMethodsConfig.xtoken},
+                     {"Cookie", authMethodsConfig.cookie},
+                 }}}}}},
             {"LDAP",
              {{"Certificates",
                {{"@odata.id",
@@ -921,13 +992,14 @@ class AccountService : public Node
         std::optional<uint16_t> maxPasswordLength;
         std::optional<nlohmann::json> ldapObject;
         std::optional<nlohmann::json> activeDirectoryObject;
+        std::optional<nlohmann::json> oemObject;
 
-        if (!json_util::readJson(req, res, "AccountLockoutDuration",
-                                 unlockTimeout, "AccountLockoutThreshold",
-                                 lockoutThreshold, "MaxPasswordLength",
-                                 maxPasswordLength, "MinPasswordLength",
-                                 minPasswordLength, "LDAP", ldapObject,
-                                 "ActiveDirectory", activeDirectoryObject))
+        if (!json_util::readJson(
+                req, res, "AccountLockoutDuration", unlockTimeout,
+                "AccountLockoutThreshold", lockoutThreshold,
+                "MaxPasswordLength", maxPasswordLength, "MinPasswordLength",
+                minPasswordLength, "LDAP", ldapObject, "ActiveDirectory",
+                activeDirectoryObject, "Oem", oemObject))
         {
             return;
         }
@@ -945,6 +1017,27 @@ class AccountService : public Node
         if (ldapObject)
         {
             handleLDAPPatch(*ldapObject, asyncResp, req, params, "LDAP");
+        }
+
+        if (std::optional<nlohmann::json> oemOpenBMCObject;
+            oemObject &&
+            json_util::readJson(*oemObject, res, "OpenBMC", oemOpenBMCObject))
+        {
+            if (std::optional<nlohmann::json> tlsAuthObject, authMethodsObject;
+                oemOpenBMCObject &&
+                json_util::readJson(*oemOpenBMCObject, res, "TLSAuth",
+                                    tlsAuthObject, "AuthMethods",
+                                    authMethodsObject))
+            {
+                if (tlsAuthObject)
+                {
+                    messages::propertyNotWritable(asyncResp->res, "TLSAuth");
+                }
+                if (authMethodsObject)
+                {
+                    handleAuthMethodsPatch(*authMethodsObject, asyncResp);
+                }
+            }
         }
 
         if (activeDirectoryObject)
