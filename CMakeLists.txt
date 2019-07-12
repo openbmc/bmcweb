@@ -23,6 +23,11 @@ option (
     ON
 )
 option (
+    BMCWEB_ENABLE_VM_NBDPROXY
+    "Enable the Virtual Media WebSocket."
+    OFF
+)
+option (
     BMCWEB_ENABLE_DBUS_REST
     "Enable Phosphor REST (D-Bus) APIs.  Paths directly map Phosphor D-Bus
     object paths, for example, '/xyz/openbmc_project/logging/entry/enumerate'.
@@ -345,6 +350,7 @@ install (TARGETS bmcweb DESTINATION bin)
 target_compile_definitions (
     bmcweb PRIVATE $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
+    $<$<BOOL:${BMCWEB_ENABLE_VM_NBDPROXY}>: -DBMCWEB_ENABLE_VM_NBDPROXY>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
     $<$<BOOL:${BMCWEB_ENABLE_STATIC_HOSTING}>: -DBMCWEB_ENABLE_STATIC_HOSTING>

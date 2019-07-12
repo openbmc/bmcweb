@@ -3,6 +3,7 @@
 #include <sys/socket.h>
 #include <websocket.h>
 
+#include <async_resp.hpp>
 #include <boost/container/flat_map.hpp>
 #include <webserver_common.hpp>
 
@@ -161,7 +162,8 @@ inline void requestRoutes(CrowApp& app)
     BMCWEB_ROUTE(app, "/kvm/0")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
-        .onopen([](crow::websocket::Connection& conn) {
+        .onopen([](crow::websocket::Connection& conn,
+                   std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
             if (sessions.size() == maxSessions)
