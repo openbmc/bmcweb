@@ -267,6 +267,13 @@ class Connection
         adaptor.set_verify_callback([this](
                                         bool preverified,
                                         boost::asio::ssl::verify_context& ctx) {
+            // Don't do anything if TLS Auth is disabled
+            if (!crow::persistent_data::SessionStore::getInstance()
+                     .authMethodsConfig.mutualTls)
+            {
+                return true;
+            }
+
             // We always return true to allow full auth flow
             if (!preverified)
             {
