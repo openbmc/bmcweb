@@ -325,19 +325,19 @@ class WebSocketRule : public BaseRule
         res.end();
     }
 
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& res,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
         std::shared_ptr<
             crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
             myConnection = std::make_shared<
                 crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
-                req, std::move(adaptor), openHandler, messageHandler,
+                req, res, std::move(adaptor), openHandler, messageHandler,
                 closeHandler, errorHandler);
         myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
-    void handleUpgrade(const Request& req, Response&,
+    void handleUpgrade(const Request& req, Response& res,
                        boost::beast::ssl_stream<boost::asio::ip::tcp::socket>&&
                            adaptor) override
     {
@@ -345,7 +345,7 @@ class WebSocketRule : public BaseRule
             boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>
             myConnection = std::make_shared<crow::websocket::ConnectionImpl<
                 boost::beast::ssl_stream<boost::asio::ip::tcp::socket>>>(
-                req, std::move(adaptor), openHandler, messageHandler,
+                req, res, std::move(adaptor), openHandler, messageHandler,
                 closeHandler, errorHandler);
         myConnection->start();
     }
@@ -376,7 +376,9 @@ class WebSocketRule : public BaseRule
     }
 
   protected:
-    std::function<void(crow::websocket::Connection&)> openHandler;
+    std::function<void(crow::websocket::Connection&,
+                       std::shared_ptr<crow::websocket::AsyncResp>)>
+        openHandler;
     std::function<void(crow::websocket::Connection&, const std::string&, bool)>
         messageHandler;
     std::function<void(crow::websocket::Connection&, const std::string&)>

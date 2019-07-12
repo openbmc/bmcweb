@@ -116,7 +116,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
     BMCWEB_ROUTE(app, "/subscribe")
         .requires({"Login"})
         .websocket()
-        .onopen([&](crow::websocket::Connection& conn) {
+        .onopen([&](crow::websocket::Connection& conn,
+                    std::shared_ptr<crow::websocket::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
             sessions[&conn] = DbusWebsocketSession();
         })
