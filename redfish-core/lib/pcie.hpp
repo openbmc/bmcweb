@@ -35,9 +35,9 @@ static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp)
                     std::vector<std::string> &pcieDevicePaths) {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "failed to get PCIe device paths ec: "
+                BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
                                  << ec.message();
-                messages::internalError(asyncResp->res);
+                // Not an error, system just doesn't have PCIe info
                 return;
             }
             nlohmann::json &pcieDeviceList =
