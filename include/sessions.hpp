@@ -54,14 +54,51 @@ struct UserRoleMap
 
     std::string getUserRole(std::string_view name)
     {
+        // check the in memory user-role map
         auto it = roleMap.find(std::string(name));
-        if (it == roleMap.end())
+        if (it != roleMap.end())
         {
-            BMCWEB_LOG_ERROR << "User name " << name
-                             << " is not found in the UserRoleMap.";
-            return "";
+            return it->second;
         }
-        return it->second;
+
+        BMCWEB_LOG_DEBUG << "User name " << name
+                         << " is not found in the local UserRoleMap.";
+
+        // Call GetUserInfo to get the role from the LDAP server
+        auto method = crow::connections::systemBus->new_method_call(
+            userService, userObjPath, userService, "GetUserInfo");
+
+        // string_view is not support by this dbus call. Hence, need to create a
+        // temporary string object.
+        method.append(std::string(name));
+
+        auto reply = crow::connections::systemBus->call(method);
+
+        std::map<std::string, sdbusplus::message::variant<
+                                  bool, std::string, std::vector<std::string>>>
+            userInfo;
+        reply.read(userInfo);
+
+        const std::string* userRole = nullptr;
+        auto userInfoIter = userInfo.find("UserPrivilege");
+        if (userInfoIter != userInfo.end())
+        {
+            userRole = std::get_if<std::string>(&userInfoIter->second);
+        }
+
+        if (userRole != nullptr)
+        {
+            BMCWEB_LOG_DEBUG << "user name " << name << " role is "
+                             << *userRole;
+            return *userRole;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Unable to find the userRole for the user "
+                             << name;
+        }
+
+        return "";
     }
 
     std::string
