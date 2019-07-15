@@ -108,10 +108,6 @@ int main(int argc, char** argv)
 
     redfish::RedfishService redfish(app);
 
-    // Keep the user role map hot in memory and
-    // track the changes using match object
-    crow::persistent_data::UserRoleMap::getInstance();
-
     app.run();
     io->run();
 
