@@ -1011,6 +1011,47 @@ class DBusEventLogEntry : public Node
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.Logging.Entry");
     }
+
+    void doDelete(crow::Response &res, const crow::Request &req,
+                  const std::vector<std::string> &params) override
+    {
+
+        BMCWEB_LOG_DEBUG << "Do delete single event entries.";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string entryID = params[0];
+
+        dbus::utility::escapePathForDbus(entryID);
+
+        // Process response from Logging service.
+        auto respHandler = [asyncResp](const boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG << "EventLogEntry (DBus) doDelete callback: Done";
+            if (ec)
+            {
+                // TODO Handle for specific error code
+                BMCWEB_LOG_ERROR
+                    << "EventLogEntry (DBus) doDelete respHandler got error "
+                    << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+
+            asyncResp->res.result(boost::beast::http::status::ok);
+        };
+
+        // Make call to Logging service to request Delete Log
+        crow::connections::systemBus->async_method_call(
+            respHandler, "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging/entry/" + entryID,
+            "xyz.openbmc_project.Object.Delete", "Delete");
+    }
 };
 
 class BMCLogServiceCollection : public Node
