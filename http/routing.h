@@ -1250,48 +1250,60 @@ class Router
                          << static_cast<uint32_t>(req.method()) << " / "
                          << rules[ruleIndex]->getMethods();
 
-        redfish::Privileges userPrivileges;
-        if (req.session != nullptr)
-        {
-            // Get the user role from the session.
-            const std::string& userRole =
-                persistent_data::UserRoleMap::getInstance().getUserRole(
-                    req.session->username);
-
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
-
-            // Get the user privileges from the role
-            userPrivileges = redfish::getUserPrivileges(userRole);
-        }
-
-        if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
-        {
-            res.result(boost::beast::http::status::forbidden);
-            res.end();
-            return;
-        }
-
-        // any uncaught exceptions become 500s
-        try
+        if (req.session == nullptr)
         {
             rules[ruleIndex]->handle(req, res, found.second);
-        }
-        catch (std::exception& e)
-        {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
             return;
         }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
+
+        crow::connections::systemBus->async_method_call(
+            [&req, &res, &rules, ruleIndex, found](
+                const boost::system::error_code ec,
+                std::map<std::string, std::variant<bool, std::string,
+                                                   std::vector<std::string>>>
+                    userInfo) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "GetUserInfo failed...";
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
+                    res.end();
+                    return;
+                }
+
+                const std::string* userRolePtr = nullptr;
+                auto userInfoIter = userInfo.find("UserPrivilege");
+                if (userInfoIter != userInfo.end())
+                {
+                    userRolePtr =
+                        std::get_if<std::string>(&userInfoIter->second);
+                }
+
+                std::string userRole{};
+                if (userRolePtr != nullptr)
+                {
+                    userRole = *userRolePtr;
+                    BMCWEB_LOG_DEBUG << "userName = " << req.session->username
+                                     << " userRole = " << *userRolePtr;
+                }
+
+                // Get the user privileges from the role
+                redfish::Privileges userPrivileges =
+                    redfish::getUserPrivileges(userRole);
+
+                if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
+                {
+                    res.result(
+                        boost::beast::http::status::forbidden);
+                    res.end();
+                    return;
+                }
+
+                rules[ruleIndex]->handle(req, res, found.second);
+            },
+            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+            "xyz.openbmc_project.User.Manager", "GetUserInfo",
+            req.session->username);
     }
 
     void debugPrint()
