@@ -257,7 +257,8 @@ static void getCertificateProperties(
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                messages::internalError(asyncResp->res);
+                messages::resourceNotFound(asyncResp->res, name,
+                                           std::to_string(certId));
                 return;
             }
             asyncResp->res.jsonValue = {
@@ -448,7 +449,8 @@ class CertificateActionsReplaceCertificate : public Node
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
-                    messages::internalError(asyncResp->res);
+                    messages::resourceNotFound(asyncResp->res, name,
+                                               std::to_string(id));
                     return;
                 }
                 getCertificateProperties(asyncResp, objectPath, service, id,
