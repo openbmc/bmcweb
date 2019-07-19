@@ -294,8 +294,8 @@ class Sensor : public Node
                     [sensorName, sensorPath, asyncResp](
                         const boost::system::error_code ec,
                         const boost::container::flat_map<
-                            std::string, std::variant<std::string, int64_t>>&
-                            ret) {
+                            std::string,
+                            std::variant<std::string, int64_t, bool>>& ret) {
                         if (ec)
                         {
                             messages::internalError(asyncResp->res);
@@ -315,11 +315,9 @@ class Sensor : public Node
                         asyncResp->res.jsonValue["Name"] = sensorName;
                         asyncResp->res.jsonValue["Id"] = sensorName;
 
-                        const int64_t* value;
-                        const int64_t* max;
-                        const int64_t* min;
+                        const int64_t *value, *max, *min, *scale;
+                        const int64_t *critHigh, *critLow, *warnHigh, *warnLow;
                         const std::string* unit;
-                        const int64_t* scale;
                         for (auto& obj : ret)
                         {
                             BMCWEB_LOG_DEBUG << "Found data for: " << obj.first;
@@ -348,44 +346,110 @@ class Sensor : public Node
                                 scale = sdbusplus::message::variant_ns::get_if<
                                     int64_t>(&obj.second);
                             }
+                            else if (obj.first == "CriticalHigh")
+                            {
+                                critHigh =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "CriticalLow")
+                            {
+                                critLow =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "WarningHigh")
+                            {
+                                warnHigh =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "WarningLow")
+                            {
+                                warnLow =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
                             else
                             {
-                                BMCWEB_LOG_DEBUG << "Unexpected sensor data: "
+                                BMCWEB_LOG_DEBUG << "Unneeded sensor property: "
                                                  << obj.first;
                             }
                         }
 
+                        // Properties from Sensor.Value are required
                         if (value == nullptr)
                         {
                             messages::propertyMissing(asyncResp->res, "Value");
+                        }
+                        else
+                        {
+                            if (scale == nullptr)
+                            {
+                                messages::propertyMissing(asyncResp->res,
+                                                          "Scale");
+                            }
+                            else
+                            {
+                                asyncResp->res.jsonValue["Reading"] =
+                                    *value * std::pow(10, *scale);
+                            }
                         }
                         if (max == nullptr)
                         {
                             messages::propertyMissing(asyncResp->res,
                                                       "MaxValue");
                         }
+                        else
+                        {
+                            asyncResp->res.jsonValue["ReadingRangeMax"] = *max;
+                        }
                         if (min == nullptr)
                         {
                             messages::propertyMissing(asyncResp->res,
                                                       "MinValue");
                         }
-                        if (max == nullptr)
+                        else
+                        {
+                            asyncResp->res.jsonValue["ReadingRangeMin"] = *min;
+                        }
+                        if (unit == nullptr)
                         {
                             messages::propertyMissing(asyncResp->res, "Unit");
                         }
-                        if (scale == nullptr)
+                        else
                         {
-                            messages::propertyMissing(asyncResp->res, "Scale");
+                            asyncResp->res.jsonValue["ReadingUnits"] = *unit;
                         }
-
-                        asyncResp->res.jsonValue["Reading"] =
-                            *value * std::pow(10, *scale);
-                        asyncResp->res.jsonValue["ReadingRangeMax"] = *max;
-                        asyncResp->res.jsonValue["ReadingRangeMin"] = *min;
-                        asyncResp->res.jsonValue["ReadingUnits"] = *unit;
+                        // Sensor.Threshold.* interface may not be on every
+                        // sensor, so no need for errors, just exclude them.
+                        if (critHigh != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["Thresholds"]["UpperCritical"]
+                                          ["Reading"] = *critHigh;
+                        }
+                        if (critLow != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["Thresholds"]["LowerCritical"]
+                                          ["Reading"] = *critLow;
+                        }
+                        if (warnHigh != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["Thresholds"]["UpperCaution"]
+                                          ["Reading"] = *warnHigh;
+                        }
+                        if (warnLow != nullptr)
+                        {
+                            asyncResp->res
+                                .jsonValue["Thresholds"]["LowerCaution"]
+                                          ["Reading"] = *warnLow;
+                        }
                     },
                     service, sensorPath, "org.freedesktop.DBus.Properties",
-                    "GetAll", "xyz.openbmc_project.Sensor.Value");
+                    "GetAll", "");
 
                 BMCWEB_LOG_DEBUG << "respHandler1 exit";
             },
