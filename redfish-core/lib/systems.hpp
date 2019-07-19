@@ -886,7 +886,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
+                // not an error, don't have to have the interface
                 return;
             }
 
