@@ -735,7 +735,22 @@ void objectInterfacesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (sensorType != "power" && sensorSchema != "Sensors")
+    if (sensorSchema == "Sensors")
+    {
+        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                                "WarningHigh",
+                                "Thresholds UpperCaution Reading");
+        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
+                                "WarningLow",
+                                "Thresholds LowerCaution Reading");
+        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                                "CriticalHigh",
+                                "Thresholds UpperCritical Reading");
+        properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Critical",
+                                "CriticalLow",
+                                "Thresholds LowerCritical Reading");
+    }
+    else if (sensorType != "power")
     {
         properties.emplace_back("xyz.openbmc_project.Sensor.Threshold.Warning",
                                 "WarningHigh", "UpperThresholdNonCritical");
@@ -781,7 +796,29 @@ void objectInterfacesToJson(
             if (valueIt != interfaceProperties->second.end())
             {
                 const SensorVariant& valueVariant = valueIt->second;
-                nlohmann::json& valueIt = sensor_json[std::get<2>(p)];
+
+                // The property we want to set may be nested json, so to account
+                // for this we parse a space separated string of keys and
+                // build the json objects dynamically.
+                std::vector<std::string> split;
+                boost::algorithm::split(split, std::get<2>(p),
+                                        boost::is_any_of(" "));
+                if (split.size() < 1)
+                {
+                    BMCWEB_LOG_ERROR << "Error parsing property: "
+                                     << std::get<2>(p);
+                    continue;
+                }
+
+                // Initialize the first key. Then iterate through any remaining
+                // keys to build the (possibly) nested json object.
+                nlohmann::json* json_ptr = &sensor_json[split[0]];
+                for (int i = 1; i < split.size(); i++)
+                {
+                    json_ptr = &(*json_ptr)[split[i]];
+                }
+                nlohmann::json& valueIt = *json_ptr;
+
                 // Attempt to pull the int64 directly
                 const int64_t* int64Value = std::get_if<int64_t>(&valueVariant);
 
