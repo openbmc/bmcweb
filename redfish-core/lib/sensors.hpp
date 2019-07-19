@@ -299,7 +299,8 @@ class Sensor : public Node
                     [sensorName, sensorPath, asyncResp](
                         const boost::system::error_code ec,
                         const boost::container::flat_map<
-                            std::string, std::variant<std::string, int64_t>>&
+                            std::string, std::variant<std::string, int64_t,
+                                                      bool>>&
                             ret) {
                         if (ec)
                         {
@@ -320,11 +321,9 @@ class Sensor : public Node
                         asyncResp->res.jsonValue["Name"] = sensorName;
                         asyncResp->res.jsonValue["Id"] = sensorName;
 
-                        const int64_t* value;
-                        const int64_t* max;
-                        const int64_t* min;
+                        const int64_t *value, *max, *min, *scale;
+                        const int64_t *critHigh, *critLow, *warnHigh, *warnLow;
                         const std::string* unit;
-                        const int64_t* scale;
                         for (auto& obj : ret)
                         {
                             BMCWEB_LOG_DEBUG << "Found data for: " << obj.first;
@@ -352,6 +351,30 @@ class Sensor : public Node
                             {
                                 scale = sdbusplus::message::variant_ns::get_if<
                                     int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "CriticalHigh")
+                            {
+                                critHigh =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "CriticalLow")
+                            {
+                                critLow =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if (obj.first == "WarningHigh")
+                            {
+                                warnHigh =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
+                            }
+                            else if(obj.first == "WarningLow")
+                            {
+                                warnHigh =
+                                    sdbusplus::message::variant_ns::get_if<
+                                        int64_t>(&obj.second);
                             }
                             else
                             {
@@ -382,15 +405,44 @@ class Sensor : public Node
                         {
                             messages::propertyMissing(asyncResp->res, "Scale");
                         }
+                        if (critHigh == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "CriticalHigh");
+                        }
+                        if (critLow == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "CriticalLow");
+                        }
+                        if (warnHigh == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "WarningHigh");
+                        }
+                        if (warnLow == nullptr)
+                        {
+                            messages::propertyMissing(asyncResp->res,
+                                                      "WarningLow");
+                        }
 
                         asyncResp->res.jsonValue["Reading"] =
                             *value * std::pow(10, *scale);
                         asyncResp->res.jsonValue["ReadingRangeMax"] = *max;
                         asyncResp->res.jsonValue["ReadingRangeMin"] = *min;
                         asyncResp->res.jsonValue["ReadingUnits"] = *unit;
+                        BMCWEB_LOG_DEBUG << "Attempting Threshold output: " << sensorName;
+
+                        asyncResp->res.jsonValue["Thresholds"] =
+                        {
+                            {"UpperCritical", {"Reading", *critHigh}},
+                            {"LowerCritical", {"Reading", *critLow}},
+                            {"UpperCaution", {"Reading", *warnHigh}},
+                            {"LowerCaution", {"Reading", *warnLow}}
+                        };
                     },
                     service, sensorPath, "org.freedesktop.DBus.Properties",
-                    "GetAll", "xyz.openbmc_project.Sensor.Value");
+                    "GetAll", "");
 
                 BMCWEB_LOG_DEBUG << "respHandler1 exit";
             },
