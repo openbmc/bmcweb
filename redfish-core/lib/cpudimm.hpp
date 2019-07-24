@@ -166,8 +166,8 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
         [acclrtrId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t>>
-                &properties) {
+                std::string, std::variant<std::string, uint32_t, uint16_t,
+                                          bool>> &properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -176,19 +176,19 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
             }
             aResp->res.jsonValue["Id"] = acclrtrId;
             aResp->res.jsonValue["Name"] = "Processor";
-            const std::string *accPresent = nullptr;
-            const std::string *accFunctional = nullptr;
+            const bool *accPresent = nullptr;
+            const bool *accFunctional = nullptr;
             std::string state = "";
 
             for (const auto &property : properties)
             {
                 if (property.first == "Functional")
                 {
-                    accFunctional = std::get_if<std::string>(&property.second);
+                    accFunctional = std::get_if<bool>(&property.second);
                 }
                 else if (property.first == "Present")
                 {
-                    accPresent = std::get_if<std::string>(&property.second);
+                    accPresent = std::get_if<bool>(&property.second);
                 }
             }
 
@@ -200,11 +200,11 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
                 return;
             }
 
-            if ((*accPresent == "Present") && (*accFunctional == "Functional"))
+            if (*accPresent && *accFunctional)
             {
                 state = "Enabled";
             }
-            else if (*accPresent == "Present")
+            else if (*accPresent)
             {
                 state = "UnavailableOffline";
             }
