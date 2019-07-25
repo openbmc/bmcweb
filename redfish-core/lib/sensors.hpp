@@ -122,80 +122,133 @@ class SensorCollection : public Node
         asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
         asyncResp->res.jsonValue["Members@odata.count"] = 0;
 
-        const std::array<const char*, 1> interfaces = {
-            "xyz.openbmc_project.Sensor.Value"};
-
         const std::vector<std::string> excludeSensors = {
             "/xyz/openbmc_project/sensors/temperature/",
             "/xyz/openbmc_project/sensors/voltage/",
             "/xyz/openbmc_project/sensors/fan_tach/"};
 
-        // Get list of all sensors and filter out the types we don't want
+        const std::array<const char*, 3> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis",
+            "xyz.openbmc_project.Inventory.Item.PowerSupply"};
+
         crow::connections::systemBus->async_method_call(
-            [asyncResp, excludeSensors](const boost::system::error_code ec,
-                                        const GetSubTreeType& subtree) {
-                BMCWEB_LOG_DEBUG << "respHandler1 enter";
+            [asyncResp,
+             excludeSensors](const boost::system::error_code ec,
+                             const std::vector<std::string>& chassisPaths) {
+
+                BMCWEB_LOG_DEBUG << "SensorCollection respHandler1 enter";
                 if (ec)
                 {
-                    messages::internalError(asyncResp->res);
                     BMCWEB_LOG_ERROR
-                        << "SensorCollection getSensorList resp_handler: "
-                        << "Dbus error " << ec;
+                        << "SensorCollection get respHandler DBUS error: "
+                        << ec;
+                    messages::internalError(asyncResp->res);
                     return;
                 }
 
-                std::vector<std::string> nodeSensorList;
-                for (const std::pair<
-                         std::string,
-                         std::vector<
-                             std::pair<std::string, std::vector<std::string>>>>&
-                         object : subtree)
+                const std::string* chassisPath = nullptr;
+                std::string chassisName;
+                for (const std::string& chassis : chassisPaths)
                 {
-                    const std::string& objPath = object.first;
-                    BMCWEB_LOG_DEBUG << "Checking if sensor excluded: "
-                                     << objPath;
-                    if (std::find_if(
-                            excludeSensors.begin(), excludeSensors.end(),
-                            [objPath](const std::string& str) {
-                                BMCWEB_LOG_DEBUG << "In find_if: object="
-                                                 << objPath;
-
-                                return objPath.find(str) != std::string::npos;
-                            }) != excludeSensors.end())
-                    {
-                        BMCWEB_LOG_DEBUG << "Sensor excluded: " << objPath;
-                        continue;
-                    }
-                    BMCWEB_LOG_DEBUG << "Sensor kept: " << objPath;
-                    nodeSensorList.push_back(objPath);
-                }
-
-                nlohmann::json& entriesArray =
-                    asyncResp->res.jsonValue["Members"];
-                for (auto& sensor : nodeSensorList)
-                {
-                    std::size_t lastPos = sensor.rfind("/");
+                    std::size_t lastPos = chassis.rfind("/");
                     if (lastPos == std::string::npos)
                     {
-                        BMCWEB_LOG_ERROR << "Failed to find '/' in " << sensor;
-                        return;
+                        BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
+                        continue;
                     }
-                    std::string sensorName = sensor.substr(lastPos + 1);
-                    entriesArray.push_back({});
-                    nlohmann::json& thisEntry = entriesArray.back();
-                    thisEntry = {{"@odata.id", "/redfish/v1/Chassis/" +
-                                                   asyncResp->chassisId +
-                                                   "/Sensors/" + sensorName}};
+                    chassisName = chassis.substr(lastPos + 1);
+                    if (chassisName == asyncResp->chassisId)
+                    {
+                        chassisPath = &chassis;
+                        break;
+                    }
+                }
+                if (chassisPath == nullptr)
+                {
+                    messages::resourceNotFound(asyncResp->res, "Chassis",
+                                               asyncResp->chassisId);
+                    return;
                 }
 
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    entriesArray.size();
-                BMCWEB_LOG_DEBUG << "respHandler1 exit";
+                // Get the list of all sensors for this Chassis element
+                std::string sensorPath = *chassisPath + "/all_sensors";
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, excludeSensors](
+                        const boost::system::error_code ec,
+                        const std::variant<std::vector<std::string>>&
+                            variantEndpoints) {
+                        if (ec)
+                        {
+                            if (ec.value() != EBADR)
+                            {
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                        }
+                        const std::vector<std::string>* nodeSensorList =
+                            std::get_if<std::vector<std::string>>(
+                                &(variantEndpoints));
+                        if (nodeSensorList == nullptr)
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       asyncResp->chassisId,
+                                                       "SensorCollection");
+                            return;
+                        }
+
+                        nlohmann::json& entriesArray =
+                            asyncResp->res.jsonValue["Members"];
+                        for (auto& sensor : *nodeSensorList)
+                        {
+                            BMCWEB_LOG_DEBUG << "Checking if sensor excluded: "
+                                             << sensor;
+                            if (std::find_if(
+                                    excludeSensors.begin(),
+                                    excludeSensors.end(),
+                                    [sensor](const std::string& str) {
+                                        BMCWEB_LOG_DEBUG
+                                            << "In find_if: sensorPath="
+                                            << sensor;
+
+                                        return sensor.find(str) !=
+                                               std::string::npos;
+                                    }) != excludeSensors.end())
+                            {
+                                BMCWEB_LOG_DEBUG << "Sensor excluded: "
+                                                 << sensor;
+                                continue;
+                            }
+                            BMCWEB_LOG_DEBUG << "Adding sensor: " << sensor;
+
+                            std::size_t lastPos = sensor.rfind("/");
+                            if (lastPos == std::string::npos)
+                            {
+                                BMCWEB_LOG_ERROR << "Failed to find '/' in "
+                                                 << sensor;
+                                return;
+                            }
+                            std::string sensorName = sensor.substr(lastPos + 1);
+                            entriesArray.push_back({});
+                            nlohmann::json& thisEntry = entriesArray.back();
+                            thisEntry = {
+                                {"@odata.id", "/redfish/v1/Chassis/" +
+                                                  asyncResp->chassisId +
+                                                  "/Sensors/" + sensorName}};
+                        }
+
+                        asyncResp->res.jsonValue["Members@odata.count"] =
+                            entriesArray.size();
+                        BMCWEB_LOG_DEBUG << "respHandler1 exit";
+                    },
+                    "xyz.openbmc_project.ObjectMapper", sensorPath,
+                    "org.freedesktop.DBus.Properties", "Get",
+                    "xyz.openbmc_project.Association", "endpoints");
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
-            "/xyz/openbmc_project/sensors", 2, interfaces);
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+            "/xyz/openbmc_project/inventory", int32_t(0), interfaces);
 
         BMCWEB_LOG_DEBUG << "SensorCollection doGet exit";
     }
