@@ -1539,6 +1539,8 @@ class Manager : public Node
             aRsp->res.jsonValue["Links"]["ManagerForChassis@odata.count"] = 1;
             aRsp->res.jsonValue["Links"]["ManagerForChassis"] = {
                 {{"@odata.id", "/redfish/v1/Chassis/" + chassisId}}};
+            aRsp->res.jsonValue["Links"]["ManagerInChassis"] = {
+                {"@odata.id", "/redfish/v1/Chassis/" + chassisId}};
         });
 
         static bool started = false;
