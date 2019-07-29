@@ -40,6 +40,10 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     {
         return "Operator";
     }
+    else if (priv == "")
+    {
+        return "NoAccess";
+    }
     return "";
 }
 
@@ -62,6 +66,10 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     else if (role == "Callback")
     {
         privArray = {"Login"};
+    }
+    else if (role == "NoAccess")
+    {
+        privArray = {""};
     }
     else
     {
@@ -170,6 +178,10 @@ class RoleCollection : public Node
                               "/redfish/v1/AccountService/Roles/" + role}});
                     }
                 }
+                // Adding role - NoAccess
+                memberArray.push_back(
+                    {{"@odata.id",
+                      "/redfish/v1/AccountService/Roles/NoAccess"}});
                 asyncResp->res.jsonValue["Members@odata.count"] =
                     memberArray.size();
             },
