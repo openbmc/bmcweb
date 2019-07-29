@@ -40,6 +40,14 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     {
         return "Operator";
     }
+    else if (priv == "")
+    {
+        return "NoAccess";
+    }
+    else if (priv == "priv-noaccess")
+    {
+        return "NoAccess";
+    }
     return "";
 }
 
@@ -62,6 +70,10 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     else if (role == "Callback")
     {
         privArray = {"Login"};
+    }
+    else if (role == "NoAccess")
+    {
+        privArray = {""};
     }
     else
     {

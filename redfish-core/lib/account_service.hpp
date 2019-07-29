@@ -88,6 +88,14 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Operator";
     }
+    else if (role == "")
+    {
+        return "NoAccess";
+    }
+    else if (role == "priv-noaccess")
+    {
+        return "NoAccess";
+    }
     return "";
 }
 inline std::string getPrivilegeFromRoleId(std::string_view role)
@@ -107,6 +115,14 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     else if (role == "Operator")
     {
         return "priv-operator";
+    }
+    else if (role == "NoAccess")
+    {
+        return "";
+    }
+    else if (role == "NoAccess")
+    {
+        return "priv-noaccess";
     }
     return "";
 }
@@ -1071,13 +1087,7 @@ class AccountsCollection : public Node
             return;
         }
 
-        std::string priv = getPrivilegeFromRoleId(*roleId);
-        if (priv.empty())
-        {
-            messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
-            return;
-        }
-        roleId = priv;
+        roleId = getPrivilegeFromRoleId(*roleId);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, username, password{std::move(password)}](
@@ -1378,12 +1388,6 @@ class ManagerAccount : public Node
                 if (roleId)
                 {
                     std::string priv = getPrivilegeFromRoleId(*roleId);
-                    if (priv.empty())
-                    {
-                        messages::propertyValueNotInList(asyncResp->res,
-                                                         *roleId, "RoleId");
-                        return;
-                    }
 
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec) {
