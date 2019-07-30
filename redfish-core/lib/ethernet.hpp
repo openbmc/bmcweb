@@ -855,8 +855,9 @@ void getEthernetIfaceData(const std::string &ethiface_id,
             // Fix global GW
             for (IPv4AddressData &ipv4 : ipv4Data)
             {
-                if ((ipv4.linktype == LinkType::Global) &&
-                    (ipv4.gateway == "0.0.0.0"))
+                if (((ipv4.linktype == LinkType::Global) &&
+                     (ipv4.gateway == "0.0.0.0")) ||
+                    (ipv4.origin == "DHCP"))
                 {
                     ipv4.gateway = ethData.default_gateway;
                 }
