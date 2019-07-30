@@ -257,11 +257,17 @@ static bool getTopParam(crow::Response &res, const crow::Request &req,
     return true;
 }
 
-static bool getUniqueEntryID(sd_journal *journal, std::string &entryID)
+static bool getUniqueEntryID(sd_journal *journal, std::string &entryID,
+                             const bool firstEntry = true)
 {
     int ret = 0;
     static uint64_t prevTs = 0;
     static int index = 0;
+    if (firstEntry)
+    {
+        prevTs = 0;
+    }
+
     // Get the entry timestamp
     uint64_t curTs = 0;
     ret = sd_journal_get_realtime_usec(journal, &curTs);
@@ -292,10 +298,16 @@ static bool getUniqueEntryID(sd_journal *journal, std::string &entryID)
     return true;
 }
 
-static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID)
+static bool getUniqueEntryID(const std::string &logEntry, std::string &entryID,
+                             const bool firstEntry = true)
 {
     static uint64_t prevTs = 0;
     static int index = 0;
+    if (firstEntry)
+    {
+        prevTs = 0;
+    }
+
     // Get the entry timestamp
     uint64_t curTs = 0;
     std::tm timeStruct = {};
@@ -713,6 +725,8 @@ class JournalEventLogEntryCollection : public Node
                 continue;
             }
 
+            // Reset the unique ID on the first entry
+            bool firstEntry = true;
             while (std::getline(logStream, logEntry))
             {
                 entryCount++;
@@ -724,9 +738,14 @@ class JournalEventLogEntryCollection : public Node
                 }
 
                 std::string idStr;
-                if (!getUniqueEntryID(logEntry, idStr))
+                if (!getUniqueEntryID(logEntry, idStr, firstEntry))
                 {
                     continue;
+                }
+
+                if (firstEntry)
+                {
+                    firstEntry = false;
                 }
 
                 logEntryArray.push_back({});
@@ -1250,6 +1269,8 @@ class BMCJournalLogEntryCollection : public Node
             journalTmp, sd_journal_close);
         journalTmp = nullptr;
         uint64_t entryCount = 0;
+        // Reset the unique ID on the first entry
+        bool firstEntry = true;
         SD_JOURNAL_FOREACH(journal.get())
         {
             entryCount++;
@@ -1261,9 +1282,14 @@ class BMCJournalLogEntryCollection : public Node
             }
 
             std::string idStr;
-            if (!getUniqueEntryID(journal.get(), idStr))
+            if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
             {
                 continue;
+            }
+
+            if (firstEntry)
+            {
+                firstEntry = false;
             }
 
             logEntryArray.push_back({});
