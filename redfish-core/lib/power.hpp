@@ -19,8 +19,169 @@
 #include "node.hpp"
 #include "sensors.hpp"
 
+#include <regex>
+
 namespace redfish
 {
+
+struct PowerMetrics : std::enable_shared_from_this<PowerMetrics>
+{
+    PowerMetrics(const std::shared_ptr<SensorsAsyncResp>& asyncResp) :
+        asyncResp(asyncResp)
+    {
+    }
+
+    ~PowerMetrics()
+    {
+        nlohmann::json& pc = asyncResp->res.jsonValue["PowerControl"];
+        if (!pc.empty())
+        {
+            nlohmann::json& pcJson = pc.back();
+
+            // Set metric values after all have been read
+            if (avgMetric != nullptr)
+            {
+                nlohmann::json& avgWatts =
+                    pcJson["PowerMetrics"]["AverageConsumedWatts"];
+                avgWatts = *avgMetric;
+            }
+
+            if (maxMetric != nullptr)
+            {
+                nlohmann::json& maxWatts =
+                    pcJson["PowerMetrics"]["MaxConsumedWatts"];
+                maxWatts = *std::max_element(maxMetric->begin(),
+                                             maxMetric->end());
+            }
+
+            if (avgMetric != nullptr || maxMetric != nullptr)
+            {
+                // Set interval based on number of history entries divided by 2
+                // Collection is done every 30s, Redfish interval is in minutes
+                nlohmann::json& intMin =
+                    pcJson["PowerMetrics"]["IntervalInMin"];
+                intMin = int30s / 2;
+            }
+        }
+    }
+
+    void getAverage(const std::string service, const std::string path)
+    {
+        std::shared_ptr<PowerMetrics> self = shared_from_this();
+        // Get aggregation history
+        crow::connections::systemBus->async_method_call(
+            [self](
+                const boost::system::error_code ec,
+                const std::variant<std::vector<std::tuple<uint64_t, int64_t>>>&
+                    history) {
+                if (ec)
+                {
+                    // No average power aggregation history
+                    return;
+                }
+
+                const auto* avgHistory =
+                    std::get_if<std::vector<std::tuple<uint64_t, int64_t>>>(
+                        &(history));
+                if (avgHistory == nullptr)
+                {
+                    // Do not set/return average metric value
+                    return;
+                }
+                auto sum = std::accumulate(
+                    avgHistory->begin(), avgHistory->end(), 0,
+                    [](int64_t sum, std::tuple<uint64_t, int64_t> entry) {
+                        return sum + std::get<int64_t>(entry);
+                    });
+                // Accumulate average power consumed per power supply
+                // as the total average power consumed
+                if (self->avgMetric == nullptr)
+                {
+                    self->avgTotal = sum / avgHistory->size();
+                    self->avgMetric = &self->avgTotal;
+                }
+                else
+                {
+                    self->avgTotal = self->avgTotal + sum / avgHistory->size();
+                }
+
+                // Set the interval for this aggregation history
+                self->setInterval(avgHistory->size());
+            },
+            service, path, "org.freedesktop.DBus.Properties", "Get",
+            "org.open_power.Sensor.Aggregation.History.Average", "Values");
+    }
+
+    void getMaximum(const std::string service, const std::string path)
+    {
+        std::shared_ptr<PowerMetrics> self = shared_from_this();
+        // Get aggregation history
+        crow::connections::systemBus->async_method_call(
+            [self](
+                const boost::system::error_code ec,
+                const std::variant<std::vector<std::tuple<uint64_t, int64_t>>>&
+                    history) {
+                if (ec)
+                {
+                    // No maximum power aggregation history
+                    return;
+                }
+
+                const auto* maxHistory =
+                    std::get_if<std::vector<std::tuple<uint64_t, int64_t>>>(
+                        &(history));
+                if (maxHistory == nullptr)
+                {
+                    // Do not set/return maximum metric value
+                    return;
+                }
+
+                // Set the interval for this aggregation history
+                self->setInterval(maxHistory->size());
+
+                // Accumulate maximum power consumed per power supply
+                // as the total maximum power consumed
+                if (self->maxMetric == nullptr)
+                {
+                    for (auto& maxEntry : *maxHistory)
+                    {
+                        self->maxTotals.emplace_back(
+                            std::move(std::get<int64_t>(maxEntry)));
+                    }
+                    self->maxMetric = &self->maxTotals;
+                }
+                else
+                {
+                    auto it = self->maxTotals.begin();
+                    while (it != self->maxTotals.end())
+                    {
+                        *it = *it + std::get<int64_t>(*maxHistory->begin()++);
+                        ++it;
+                    }
+                }
+            },
+            service, path, "org.freedesktop.DBus.Properties", "Get",
+            "org.open_power.Sensor.Aggregation.History.Maximum", "Values");
+    }
+
+    void setInterval(uint64_t int30sCount)
+    {
+        std::shared_ptr<PowerMetrics> self = shared_from_this();
+        // Redfish has a single interval for all power metrics
+        // Set the interval to the highest history interval count
+        if (int30sCount > self->int30s)
+        {
+            self->int30s = int30sCount;
+        }
+    }
+
+    std::shared_ptr<SensorsAsyncResp> asyncResp;
+    int64_t avgTotal = 0;
+    int64_t* avgMetric = nullptr;
+    std::vector<int64_t> maxTotals;
+    std::vector<int64_t>* maxMetric = nullptr;
+    uint64_t int30s = 0;
+};
 
 class Power : public Node
 {
@@ -223,6 +384,77 @@ class Power : public Node
             "/xyz/openbmc_project/inventory", int32_t(0),
             std::array<const char*, 1>{
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
+
+        // Retrieve OpenPower power metrics
+        const char* avgIntf =
+            "org.open_power.Sensor.Aggregation.History.Average";
+        const char* maxIntf =
+            "org.open_power.Sensor.Aggregation.History.Maximum";
+        crow::connections::systemBus->async_method_call(
+            [sensorAsyncResp, avgIntf, maxIntf](
+                const boost::system::error_code ec,
+                const std::vector<std::pair<
+                    std::string, std::vector<std::pair<
+                                     std::string, std::vector<std::string>>>>>&
+                    subtree) {
+                if (ec)
+                {
+                    // No OpenPower aggregation history
+                    return;
+                }
+
+                auto powerMetrics =
+                    std::make_shared<PowerMetrics>(sensorAsyncResp);
+                const std::regex psInputRegex =
+                    std::regex("(ps)([0-9]+)(_input_power)");
+
+                for (const auto& object : subtree)
+                {
+                    const auto& path = object.first;
+                    size_t metricPos = path.rfind("/");
+                    if (metricPos == std::string::npos)
+                    {
+                        // Last object path '/' not found
+                        continue;
+                    }
+
+                    // Get object name providing metric
+                    size_t objectPos = path.rfind("/", metricPos - 1);
+                    if (objectPos == std::string::npos)
+                    {
+                        // Invalid object path providing metric
+                        continue;
+                    }
+                    auto objectName =
+                        path.substr(objectPos + 1, (metricPos - 1) - objectPos);
+
+                    // Only get power metrics from ps*_input_power objects
+                    if (std::regex_match(objectName, psInputRegex))
+                    {
+                        for (const auto& service : object.second)
+                        {
+                            // Get aggregation history from the proper interface
+                            if (std::find(service.second.begin(),
+                                          service.second.end(),
+                                          avgIntf) != service.second.end())
+                            {
+                                powerMetrics->getAverage(service.first, path);
+                            }
+                            if (std::find(service.second.begin(),
+                                          service.second.end(),
+                                          maxIntf) != service.second.end())
+                            {
+                                powerMetrics->getMaximum(service.first, path);
+                            }
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/org/open_power/sensors/aggregation/per_30s", int32_t(0),
+            std::array<const char*, 2>{avgIntf, maxIntf});
     }
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
