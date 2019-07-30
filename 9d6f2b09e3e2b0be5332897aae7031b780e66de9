@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fffd1a0_a88add7a",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2019-07-30T19:43:00Z",
+      "side": 1,
+      "message": "as discussed, the max value needs to come from the max sum of max values taken from the same timestamp",
+      "revId": "9d6f2b09e3e2b0be5332897aae7031b780e66de9",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
