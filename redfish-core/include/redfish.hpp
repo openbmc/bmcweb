@@ -86,6 +86,7 @@ class RedfishService
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(
             std::make_unique<JournalEventLogEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<JournalEventLogEntry>(app));
 #endif
 
         nodes.emplace_back(std::make_unique<BMCLogServiceCollection>(app));
