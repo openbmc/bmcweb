@@ -651,7 +651,7 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
         {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
         {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id",
-         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/#" +
+         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
              logEntryID},
         {"Name", "System Event Log Entry"},
         {"Id", logEntryID},
@@ -765,6 +765,83 @@ class JournalEventLogEntryCollection : public Node
                 "Entries?$skip=" +
                 std::to_string(skip + top);
         }
+    }
+};
+
+class JournalEventLogEntry : public Node
+{
+  public:
+    JournalEventLogEntry(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string &targetID = params[0];
+
+        // Go through the log files and check the unique ID for each entry to
+        // find the target entry
+        std::vector<std::filesystem::path> redfishLogFiles;
+        getRedfishLogFiles(redfishLogFiles);
+        std::string logEntry;
+
+        // Oldest logs are in the last file, so start there and loop backwards
+        for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend();
+             it++)
+        {
+            std::ifstream logStream(*it);
+            if (!logStream.is_open())
+            {
+                continue;
+            }
+
+            // Reset the unique ID on the first entry
+            bool firstEntry = true;
+            while (std::getline(logStream, logEntry))
+            {
+                std::string idStr;
+                if (!getUniqueEntryID(logEntry, idStr, firstEntry))
+                {
+                    continue;
+                }
+
+                if (firstEntry)
+                {
+                    firstEntry = false;
+                }
+
+                if (idStr == targetID)
+                {
+                    if (fillEventLogEntryJson(idStr, logEntry,
+                                              asyncResp->res.jsonValue) != 0)
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    return;
+                }
+            }
+        }
+        // Requested ID was not found
+        messages::resourceMissingAtURI(asyncResp->res, targetID);
     }
 };
 
