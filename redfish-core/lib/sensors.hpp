@@ -74,6 +74,17 @@ class SensorsAsyncResp
 };
 
 /**
+ * Possible states for physical inventory leds
+ */
+enum LedState
+{
+    OFF,
+    ON,
+    BLINK,
+    UNKNOWN
+};
+
+/**
  * D-Bus inventory item associated with one or more sensors.
  */
 class InventoryItem
@@ -82,7 +93,8 @@ class InventoryItem
     InventoryItem(const std::string& objPath) :
         objectPath(objPath), name(), isPresent(true), isFunctional(true),
         isPowerSupply(false), manufacturer(), model(), partNumber(),
-        serialNumber(), sensors()
+        serialNumber(), sensors(), ledState(LedState::UNKNOWN),
+        ledObjectPath("")
     {
     }
 
@@ -96,6 +108,8 @@ class InventoryItem
     std::string partNumber;
     std::string serialNumber;
     std::set<std::string> sensors;
+    std::string ledObjectPath;
+    LedState ledState;
 };
 
 /**
@@ -571,6 +585,21 @@ static std::string getHealth(
     return "OK";
 }
 
+static void getLedState(nlohmann::json& sensorJson,
+                        const InventoryItem* inventoryItem)
+{
+    if (inventoryItem != nullptr && !inventoryItem->ledObjectPath.empty())
+    {
+        switch(inventoryItem->ledState)
+        {
+            case OFF   : sensorJson["IndicatorLED"] = "Off";      break;
+            case ON    : sensorJson["IndicatorLED"] = "Lit";      break;
+            case BLINK : sensorJson["IndicatorLED"] = "Blinking"; break;
+            default    : break;
+        }
+    }
+}
+
 /**
  * @brief Builds a json sensor representation of a sensor.
  * @param sensorName  The name of the sensor to be built
@@ -642,6 +671,7 @@ void objectInterfacesToJson(
         unit = "Reading";
         sensor_json["ReadingUnits"] = "RPM";
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        getLedState(sensor_json, inventoryItem);
         forceToInt = true;
     }
     else if (sensorType == "fan_pwm")
@@ -649,7 +679,9 @@ void objectInterfacesToJson(
         unit = "Reading";
         sensor_json["ReadingUnits"] = "Percent";
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        getLedState(sensor_json, inventoryItem);
         forceToInt = true;
+
     }
     else if (sensorType == "voltage")
     {
@@ -1051,6 +1083,26 @@ static InventoryItem* findInventoryItemForSensor(
 }
 
 /**
+ * @brief Finds the inventory item associated with the specified led path.
+ * @param inventoryItems D-Bus inventory items associated with sensors.
+ * @param sensorObjPath D-Bus object path of led.
+ * @return Inventory item within vector, or nullptr if no match found.
+ */
+static InventoryItem* findInventoryItemForLed(
+    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    const std::string& ledObjPath)
+{
+    for (InventoryItem& inventoryItem : *inventoryItems)
+    {
+        if (inventoryItem.ledObjectPath == ledObjPath)
+        {
+            return &inventoryItem;
+        }
+    }
+    return nullptr;
+}
+
+/**
  * @brief Adds inventory item and associated sensor to specified vector.
  *
  * Adds a new InventoryItem to the vector if necessary.  Searches for an
@@ -1250,7 +1302,7 @@ static void getInventoryItemsData(
     // If no more connections left, call callback
     if (invConnectionsIndex >= invConnections->size())
     {
-        callback(inventoryItems);
+        callback();
         BMCWEB_LOG_DEBUG << "getInventoryItemsData exit";
         return;
     }
@@ -1389,6 +1441,7 @@ static void getInventoryItemsConnections(
                 }
             }
         }
+
         callback(invConnections);
         BMCWEB_LOG_DEBUG << "getInventoryItemsConnections respHandler exit";
     };
@@ -1494,7 +1547,95 @@ static void getInventoryItemAssociations(
             }
         }
 
-        callback(inventoryItems);
+        // We need to loop through the all the ObjectManager paths again to
+        // find all of the physical LED associations to the inventory items
+        // that we just found.
+        auto getLedInventoryAssociationsCb =
+            [callback{std::move(callback)}, sensorsAsyncResp, sensorNames,
+             inventoryItems]
+            (const boost::system::error_code ec,
+             dbus::utility::ManagedObjectType& resp) {
+                BMCWEB_LOG_DEBUG
+                    << "getLedInventoryAssociations respHandler enter";
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "getLedInventoryAssociations respHandler DBus error "
+                        << ec;
+                    messages::internalError(sensorsAsyncResp->res);
+                    return;
+                }
+
+                // Loop through returned object paths
+                std::string sensorAssocPath;
+                sensorAssocPath.reserve(128); // avoid memory allocations
+                for (const auto& objDictEntry : resp)
+                {
+                    const std::string& objPath =
+                        static_cast<const std::string&>(objDictEntry.first);
+                    const boost::container::flat_map<
+                        std::string,
+                        boost::container::flat_map<
+                            std::string, dbus::utility::DbusVariantType>>&
+                        interfacesDict = objDictEntry.second;
+                    const std::string& physLedPath =
+                        "/xyz/openbmc_project/led/physical/";
+                    if (boost::starts_with(objPath, physLedPath) &&
+                        boost::ends_with(objPath, "/inventory"))
+                    {
+                        std::size_t lastSlash = objPath.rfind("/");
+                        // We already verified that it ends in "/inventory"
+                        // so should be no need for bounds checking here
+                        const std::string& ledPath =
+                            objPath.substr(0, lastSlash);
+                        // Get Association interface for object path
+                        auto assocIt =
+                            interfacesDict.find(
+                                "xyz.openbmc_project.Association");
+                        if (assocIt != interfacesDict.end())
+                        {
+                            // Get inventory item from end point
+                            auto endpointsIt =
+                                assocIt->second.find("endpoints");
+                            if (endpointsIt != assocIt->second.end())
+                            {
+                                const std::vector<std::string>* endpoints =
+                                    std::get_if<std::vector<std::string>>(
+                                        &endpointsIt->second);
+                                if ((endpoints != nullptr) &&
+                                    (!endpoints->empty()))
+                                {
+                                    // Add inventory item to vector
+                                    const std::string& invItemPath =
+                                        endpoints->front();
+                                    // Find the inventory item and store the
+                                    // led path
+                                    for (auto& inventoryItem :
+                                         *(inventoryItems.get()))
+                                    {
+                                        if(inventoryItem.objectPath ==
+                                           invItemPath)
+                                        {
+                                            inventoryItem.ledObjectPath =
+                                                std::string(ledPath);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                callback(inventoryItems);
+                BMCWEB_LOG_DEBUG
+                    << "getLedInventoryAssociations respHandler exit";
+            };
+
+        crow::connections::systemBus->async_method_call(
+            std::move(getLedInventoryAssociationsCb),
+            "xyz.openbmc_project.ObjectMapper", "/",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+
         BMCWEB_LOG_DEBUG << "getInventoryItemAssociations respHandler exit";
     };
 
@@ -1512,6 +1653,201 @@ static void getInventoryItemAssociations(
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 
     BMCWEB_LOG_DEBUG << "getInventoryItemAssociations exit";
+}
+
+
+
+/**
+ * @brief Gets D-Bus data for inventory item leds associated with sensors.
+ *
+ * Uses the specified connections (services) to obtain D-Bus data for inventory
+ * item leds associated with sensors.  Stores the resulting data in the
+ * inventoryItems vector.
+ *
+ * This data is later used to provide sensor property values in the JSON
+ * response.
+ *
+ * Finds the inventory item led data asynchronously.  Invokes callback when data
+ * has been obtained.
+ *
+ * The callback must have the following signature:
+ *   @code
+ *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   @endcode
+ *
+ * This function is called recursively, obtaining data asynchronously from one
+ * connection in each call.  This ensures the callback is not invoked until the
+ * last asynchronous function has completed.
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param inventoryItems D-Bus inventory items associated with sensors.
+ * @param ledConnections Connections that provide data for the inventory leds.
+ * @param callback Callback to invoke when inventory data has been obtained.
+ * @param invConnectionsIndex Current index in invConnections.  Only specified
+ * in recursive calls to this function.
+ */
+template <typename Callback>
+static void getInventoryLedData(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+        ledConnections,
+    Callback&& callback, int ledConnectionsIndex = 0)
+{
+    BMCWEB_LOG_DEBUG << "getInventoryLedData enter";
+
+    // If no more connections left, call callback
+    if (ledConnectionsIndex >= ledConnections->size())
+    {
+        callback(inventoryItems);
+        BMCWEB_LOG_DEBUG << "getInventoryLedData exit";
+        return;
+    }
+
+    // Get inventory item data from current connection
+    auto it = ledConnections->nth(ledConnectionsIndex);
+    if (it != ledConnections->end())
+    {
+        const std::string& ledPath = (*it).first;
+        const std::string& ledConnection = (*it).second;
+        // Response handler for Get State property
+        auto respHandler = [sensorsAsyncResp, inventoryItems, ledConnections,
+                            ledPath, callback{std::move(callback)},
+                            ledConnectionsIndex](
+                               const boost::system::error_code ec,
+                               const std::variant<std::string> &ledState) {
+            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler enter";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "getInventoryLedData respHandler DBus error " << ec;
+                messages::internalError(sensorsAsyncResp->res);
+                return;
+            }
+
+            const std::string *state = std::get_if<std::string>(&ledState);
+            BMCWEB_LOG_DEBUG << "Led state: " << *state;
+            // If this object path is one of the specified inventory items
+            InventoryItem* inventoryItem =
+                findInventoryItemForLed(inventoryItems, ledPath);
+            if (inventoryItem != nullptr)
+            {
+                // Store inventory data in InventoryItem
+                if (boost::ends_with(*state, "On"))
+                {
+                    inventoryItem->ledState = LedState::ON;
+                }
+                else if (boost::ends_with(*state, "Blink"))
+                {
+                    inventoryItem->ledState = LedState::BLINK;
+                }
+                else if (boost::ends_with(*state, "Off"))
+                {
+                    inventoryItem->ledState = LedState::OFF;
+                }
+                else
+                {
+                    inventoryItem->ledState = LedState::UNKNOWN;
+                }
+            }
+
+            // Recurse to get inventory item data from next connection
+            getInventoryLedData(sensorsAsyncResp, inventoryItems,
+                                ledConnections, std::move(callback),
+                                ledConnectionsIndex + 1);
+
+            BMCWEB_LOG_DEBUG << "getInventoryLedData respHandler exit";
+        };
+
+        // Get all object paths and their interfaces for current connection
+        crow::connections::systemBus->async_method_call(
+            std::move(respHandler), ledConnection, ledPath,
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Led.Physical", "State");
+    }
+
+    BMCWEB_LOG_DEBUG << "getInventoryLedData exit";
+}
+
+/**
+ * @brief Gets connections that provide D-Bus data for inventory item leds.
+ *
+ * Gets the D-Bus connections (services) that provide data for the inventory
+ * item leds that are associated with sensors.
+ *
+ * Finds the connections asynchronously.  Invokes callback when information has
+ * been obtained.
+ *
+ * The callback must have the following signature:
+ *   @code
+ *   callback(std::shared_ptr<std::vector<InventoryItem>> inventoryItems)
+ *   @endcode
+ *
+ * @param sensorsAsyncResp Pointer to object holding response data.
+ * @param inventoryItems D-Bus inventory items associated with sensors.
+ * @param invConnections Connections that provide data for the inventory items.
+ * @param callback Callback to invoke when inventory items have been obtained.
+ */
+template <typename Callback>
+static void getInventoryLeds(
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
+    std::shared_ptr<std::vector<InventoryItem>> inventoryItems,
+    std::shared_ptr<boost::container::flat_set<std::string>> invConnections,
+    Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "getInventoryLeds enter";
+
+    const std::string path = "/xyz/openbmc_project/led/physical";
+    const std::array<std::string, 1> interfaces = {
+        "xyz.openbmc_project.Led.Physical"};
+
+    // Response handler for parsing output from GetSubTree
+    auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp,
+                        inventoryItems](const boost::system::error_code ec,
+                                        const GetSubTreeType& subtree) {
+        BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler enter";
+        if (ec)
+        {
+            messages::internalError(sensorsAsyncResp->res);
+            BMCWEB_LOG_ERROR
+                << "getInventoryLeds respHandler DBus error " << ec;
+            return;
+        }
+
+        // Make unique list of connections for desired inventory items
+        std::shared_ptr<boost::container::flat_map<std::string, std::string>>
+            ledConnections =
+                std::make_shared<boost::container::flat_map<
+                    std::string, std::string>>();
+
+        // Loop through objects from GetSubTree
+        for (const std::pair<
+                 std::string,
+                 std::vector<std::pair<std::string, std::vector<std::string>>>>&
+                 object : subtree)
+        {
+            // Check if object path is one of the specified inventory led items
+            const std::string& ledPath = object.first;
+            if (findInventoryItemForLed(inventoryItems, ledPath) != nullptr)
+            {
+                 // Add mapping from ledPath to connection
+                const std::string& connection = object.second.begin()->first;
+                (*ledConnections)[ledPath] = connection;
+                BMCWEB_LOG_DEBUG << "Added mapping " << ledPath << " -> "
+                                 << connection;
+            }
+        }
+
+        getInventoryLedData(sensorsAsyncResp, inventoryItems, ledConnections,
+                            std::move(callback));
+        BMCWEB_LOG_DEBUG << "getInventoryLeds respHandler exit";
+    };
+    // Make call to ObjectMapper to find all inventory items
+    crow::connections::systemBus->async_method_call(
+        std::move(respHandler), "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", path, 0, interfaces);
+    BMCWEB_LOG_DEBUG << "getInventoryLeds exit";
 }
 
 /**
@@ -1556,12 +1892,20 @@ static void getInventoryItems(
                     std::shared_ptr<boost::container::flat_set<std::string>>
                         invConnections) {
                     BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb enter";
+                    auto getInventoryItemsDataCb =
+                        [sensorsAsyncResp, inventoryItems, objectMgrPaths,
+                        invConnections, callback{std::move(callback)}]() {
+                            BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb enter";
+                            // Find led connections and get the data
+                            getInventoryLeds(sensorsAsyncResp, inventoryItems,
+                                invConnections ,std::move(callback));
+                            BMCWEB_LOG_DEBUG << "getInventoryItemsDataCb exit";
+                        };
 
                     // Get inventory item data from connections
                     getInventoryItemsData(sensorsAsyncResp, inventoryItems,
                                           invConnections, objectMgrPaths,
-                                          std::move(callback));
-
+                                          std::move(getInventoryItemsDataCb));
                     BMCWEB_LOG_DEBUG << "getInventoryItemsConnectionsCb exit";
                 };
 
@@ -1618,6 +1962,7 @@ static nlohmann::json& getPowerSupply(nlohmann::json& powerSupplyArray,
     powerSupply["Model"] = inventoryItem.model;
     powerSupply["PartNumber"] = inventoryItem.partNumber;
     powerSupply["SerialNumber"] = inventoryItem.serialNumber;
+    getLedState(powerSupply, &inventoryItem);
 
     const char* state = inventoryItem.isPresent ? "Enabled" : "Absent";
     powerSupply["Status"]["State"] = state;
