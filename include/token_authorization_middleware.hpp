@@ -283,12 +283,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
             // within it are not destroyed before we can use them
             nlohmann::json loginCredentials;
             // Check if auth was provided by a payload
-            if (contentType == "application/json")
+            if (boost::starts_with(contentType, "application/json"))
             {
                 loginCredentials =
                     nlohmann::json::parse(req.body, nullptr, false);
                 if (loginCredentials.is_discarded())
                 {
+                    BMCWEB_LOG_DEBUG << "Bad json in request";
                     res.result(boost::beast::http::status::bad_request);
                     res.end();
                     return;
@@ -424,6 +425,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
             }
             else
             {
+                BMCWEB_LOG_DEBUG << "Couldn't interpret password";
                 res.result(boost::beast::http::status::bad_request);
             }
             res.end();
