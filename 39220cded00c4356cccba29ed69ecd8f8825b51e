@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d2d441b_ab4cb998",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2019-07-31T23:15:34Z",
+      "side": 1,
+      "message": "Perhaps this is a simplistic question, but I was initially thrown off by having this in a struct, then having logic in the destructor. Does this have something to do with using this PowerMetrics in a lambda down below?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf58f20f_32bc0d01",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2019-07-31T23:15:34Z",
+      "side": 1,
+      "message": "Have I forgotten something here or mixed it up in my head? Is this looking at ps0_input_power and/or ps1_input_power (well, 0 to 9, one to ten) values somewhere? I thought we had some timestamp/average values in one, then timestamp/max in another.",
+      "range": {
+        "startLine": 422,
+        "startChar": 19,
+        "endLine": 422,
+        "endChar": 59
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
