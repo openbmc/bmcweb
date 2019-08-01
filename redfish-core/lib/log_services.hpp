@@ -1435,14 +1435,25 @@ class BMCJournalLogEntry : public Node
             journalTmp, sd_journal_close);
         journalTmp = nullptr;
         // Go to the timestamp in the log and move to the entry at the index
+        // tracking the unique ID
+        std::string idStr;
+        bool firstEntry = true;
         ret = sd_journal_seek_realtime_usec(journal.get(), ts);
         for (int i = 0; i <= index; i++)
         {
             sd_journal_next(journal.get());
+            if (!getUniqueEntryID(journal.get(), idStr, firstEntry))
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            if (firstEntry)
+            {
+                firstEntry = false;
+            }
         }
         // Confirm that the entry ID matches what was requested
-        std::string idStr;
-        if (!getUniqueEntryID(journal.get(), idStr) || idStr != entryID)
+        if (idStr != entryID)
         {
             messages::resourceMissingAtURI(asyncResp->res, entryID);
             return;
