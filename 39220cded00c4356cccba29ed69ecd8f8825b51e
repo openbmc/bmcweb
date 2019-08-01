@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cf6f5b0e_5aa71e51",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-01T15:50:21Z",
+      "side": 1,
+      "message": "This actually has more to do with the async calls to get the metrics for each power supply. The async lambdas to get each metric are called to get the aggregation history for each power supply. Since its unknown when they\u0027ll return, to consolidate each metric correctly across all power supplies this struct is used to do the consolidation per metric when the lambda returns. Once all async call return, this struct is destroyed, therefore that is when the resulting consolidated metric values can be returned in Redfish.",
+      "parentUuid": "2d2d441b_ab4cb998",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf58f20f_32bc0d01",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-31T23:15:34Z",
       "side": 1,
       "message": "Have I forgotten something here or mixed it up in my head? Is this looking at ps0_input_power and/or ps1_input_power (well, 0 to 9, one to ten) values somewhere? I thought we had some timestamp/average values in one, then timestamp/max in another.",
+      "range": {
+        "startLine": 422,
+        "startChar": 19,
+        "endLine": 422,
+        "endChar": 59
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "adf78084_ee1e8bc2",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-01T15:50:21Z",
+      "side": 1,
+      "message": "This is for filtering to get only aggregation history from the power supplies (since any object could really implement the aggregation history interface). See line 445\n\nThis regex should be producing a filter for `ps*_input_power` where * \u003d\u003d to any ps number. (i.e. ps0_input_power, ps10_input_power, ps999_input_power, etc...).",
+      "parentUuid": "bf58f20f_32bc0d01",
       "range": {
         "startLine": 422,
         "startChar": 19,
