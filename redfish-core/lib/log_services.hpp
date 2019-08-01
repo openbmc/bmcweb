@@ -1158,7 +1158,6 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
     if (ret < 0)
     {
         BMCWEB_LOG_ERROR << "Failed to read PRIORITY field: " << strerror(-ret);
-        return 1;
     }
 
     // Get the Created time from the timestamp
@@ -1179,8 +1178,7 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
         {"Message", msg},
         {"EntryType", "Oem"},
         {"Severity",
-         severity <= 2 ? "Critical"
-                       : severity <= 4 ? "Warning" : severity <= 7 ? "OK" : ""},
+         severity <= 2 ? "Critical" : severity <= 4 ? "Warning" : "OK"},
         {"OemRecordFormat", "BMC Journal Entry"},
         {"Created", std::move(entryTimeStr)}};
     return 0;
