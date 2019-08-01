@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "e4f11269_e0ad7ae9",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-01T20:34:01Z",
+      "side": 1,
+      "message": "correct, this is to time-align the entries in the aggregation history returned per power supply",
+      "parentUuid": "7d56fb22_40314ae4",
+      "range": {
+        "startLine": 164,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 17
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf58f20f_32bc0d01",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 13
