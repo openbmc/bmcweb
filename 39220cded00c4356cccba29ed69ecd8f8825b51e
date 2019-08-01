@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4c244296_ea81a129",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2019-08-01T19:22:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf6f5b0e_5aa71e51",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 19
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bf58f20f_32bc0d01",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 13
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "This is for filtering to get only aggregation history from the power supplies (since any object could really implement the aggregation history interface). See line 445\n\nThis regex should be producing a filter for `ps*_input_power` where * \u003d\u003d to any ps number. (i.e. ps0_input_power, ps10_input_power, ps999_input_power, etc...).",
       "parentUuid": "bf58f20f_32bc0d01",
+      "range": {
+        "startLine": 422,
+        "startChar": 19,
+        "endLine": 422,
+        "endChar": 59
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "785d65f9_f05d0993",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2019-08-01T19:22:33Z",
+      "side": 1,
+      "message": "Peaking at a system, re-looking over all the code/strings... in this file, and seems to make more sense now.\n\nhttp://man7.org/linux/man-pages/man1/busctl.1.html\n...\n       get-property SERVICE OBJECT INTERFACE PROPERTY...\n           Retrieve the current value of one or more object properties. Takes a service name, object path, interface\n           name and property name. Multiple properties may be specified at once in which case their values will be\n           shown one after the other, separated by newlines. The output is by default in terse format. Use --verbose\n           for a more elaborate output format.\n...\n# busctl get-property  org.open_power.powersupply.ps0_input_power /org/open_power/sensors/aggregation/per_30s/ps0_input_power/average org.open_power.Sensor.Aggregation.History.Average Values\na(tx) 120 1564686697885 4 1564686667850 4 1564686637816 4 1564686607781 4 1564686577747 4 1564686547712 4 1564686517677 4 1564686487643 4 1564686457609 4 1564686427574 4 1564686397540 4 1564686367505 4 1564686337471 4 1564686305434 4 1564686275400 4 1564686245366 4 1564686215331 4 1564686185297 4 1564686155262 4 1564686125228 4 1564686095192 4 1564686065158 4 1564686035124 4 1564686005089 4 1564685975055 4 1564685945020 4 1564685914986 4 1564685884951 4 1564685854917 4 1564685824884 4 1564685794849 4 1564685764814 4 1564685732778 4 1564685702743 4 1564685672709 4 1564685642675 4 1564685612640 4 1564685582606 4 1564685552571 4 1564685522537 4 1564685492502 4 1564685462468 4 1564685432433 4 1564685402399 4 1564685372365 4 1564685342330 4 1564685312296 4 1564685282261 4 1564685252227 4 1564685222190 4 1564685190153 4 1564685160120 4 1564685130081 4 1564685100047 4 1564685070012 4 1564685039978 4 1564685009943 4 1564684979909 4 1564684949875 4 1564684919840 4 1564684889806 4 1564684859771 4 1564684829737 4 1564684799703 4 1564684769668 4 1564684739634 4 1564684709600 4 1564684679565 4 1564684647528 4 1564684617494 4 1564684587459 4 1564684557425 4 1564684527390 4 1564684497357 4 1564684467322 4 1564684437289 4 1564684407253 4 1564684377218 4 1564684347183 4 1564684317148 4 1564684287114 4 1564684257079 4 1564684227045 4 1564684197010 4 1564684166976 4 1564684134939 4 1564684104904 4 1564684074870 4 1564684044835 4 1564684014801 4 1564683984767 4 1564683954732 4 1564683924698 4 1564683894664 4 1564683864629 4 1564683834594 4 1564683804560 4 1564683774525 4 1564683744491 4 1564683714456 4 1564683684421 4 1564683654387 4 1564683624352 4 1564683594318 4 1564683562281 4 1564683532247 4 1564683502213 4 1564683472178 4 1564683442144 4 1564683412110 4 1564683382076 4 1564683352041 4 1564683322007 4 1564683291972 4 1564683261938 4 1564683231903 4 1564683201869 4 1564683171834 4 1564683141800 4 1564683111766 4\n#\n\nJust not 100% where the SERVICE and OBJECT are sneaking into this code. :-)",
+      "parentUuid": "adf78084_ee1e8bc2",
       "range": {
         "startLine": 422,
         "startChar": 19,
