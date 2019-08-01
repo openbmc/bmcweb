@@ -164,6 +164,30 @@
       "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2db7e38e_05221b12",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000085
+      },
+      "writtenOn": "2019-08-01T20:06:19Z",
+      "side": 1,
+      "message": "Spinler explained GetSubTree (below), now it makes more sense how you are finding this.",
+      "parentUuid": "785d65f9_f05d0993",
+      "range": {
+        "startLine": 422,
+        "startChar": 19,
+        "endLine": 422,
+        "endChar": 59
+      },
+      "revId": "39220cded00c4356cccba29ed69ecd8f8825b51e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
