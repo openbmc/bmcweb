@@ -1083,6 +1083,18 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
+        "PowerSupplyPowerGoodFailed",
+        {
+            .description = "Indicates that the power supply power good signal "
+                           "failed to assert within the specified time.",
+            .message = "Power supply power good failed to assert within %1 "
+                       "milliseconds.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"number"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "PowerSupplyRemoved",
         {
             .description = "Indicates that a power supply has been removed.",
@@ -1269,6 +1281,18 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{"SystemPowerGoodFailed",
+                 {
+                     .description =
+                         "Indicates that the system power good signal failed "
+                         "to assert within the specified time (VR failure).",
+                     .message = "System power good failed to assert within %1 "
+                                "milliseconds (VR failure).",
+                     .severity = "Critical",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"number"},
+                     .resolution = "None.",
+                 }},
     MessageEntry{"SystemPowerLost",
                  {
                      .description = "Indicates that power was lost while the "
