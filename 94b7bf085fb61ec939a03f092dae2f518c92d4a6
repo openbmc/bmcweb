@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16625519_b6670f0c",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2019-08-02T14:17:27Z",
+      "side": 1,
+      "message": "I figured I should ask - is this somehow different than just:\npcJson[][] \u003d *avgMetric",
+      "range": {
+        "startLine": 44,
+        "startChar": 8,
+        "endLine": 46,
+        "endChar": 38
+      },
+      "revId": "94b7bf085fb61ec939a03f092dae2f518c92d4a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc586c9d_0e286153",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2019-08-02T14:17:27Z",
+      "side": 1,
+      "message": "could probably be a const \u0026?",
+      "range": {
+        "startLine": 104,
+        "startChar": 36,
+        "endLine": 104,
+        "endChar": 65
+      },
+      "revId": "94b7bf085fb61ec939a03f092dae2f518c92d4a6",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
