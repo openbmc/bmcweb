@@ -420,15 +420,6 @@ inline void extractIPData(
                                 ipv4_address.address = *address;
                             }
                         }
-                        else if (property.first == "Gateway")
-                        {
-                            const std::string *gateway =
-                                std::get_if<std::string>(&property.second);
-                            if (gateway != nullptr)
-                            {
-                                ipv4_address.gateway = *gateway;
-                            }
-                        }
                         else if (property.first == "Origin")
                         {
                             const std::string *origin =
@@ -463,7 +454,6 @@ inline void extractIPData(
                         IPv4AddressData ipv4_static_address = {
                             objpath.first.str.substr(ipv4PathStart.size())};
                         ipv4_static_address.address = ipv4_address.address;
-                        ipv4_static_address.gateway = ipv4_address.gateway;
                         ipv4_static_address.netmask = ipv4_address.netmask;
                         ipv4_static_config.emplace(ipv4_static_address);
                     }
@@ -714,6 +704,23 @@ inline void createIPv4(const std::string &ifaceId, unsigned int ipIdx,
         gateway);
 }
 
+inline void updateIPv4DefaultGateway(const std::string &gateway,
+                              const std::shared_ptr<AsyncResp> asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+            }
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/config",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
+        std::variant<std::string>(gateway));
+}
+
 /**
  * @brief Deletes given IPv6
  *
@@ -857,10 +864,16 @@ void getEthernetIfaceData(const std::string &ethiface_id,
             {
                 if (((ipv4.linktype == LinkType::Global) &&
                      (ipv4.gateway == "0.0.0.0")) ||
-                    (ipv4.origin == "DHCP"))
+                    (ipv4.origin == "DHCP") ||
+                    (ipv4.origin == "Static"))
                 {
                     ipv4.gateway = ethData.default_gateway;
                 }
+            }
+
+            for (IPv4AddressData &ipv4Static : ipv4StaticData)
+            {
+                ipv4Static.gateway = ethData.default_gateway;
             }
 
             extractIPV6Data(ethiface_id, resp, ipv6Data, ipv6StaticData);
@@ -1288,10 +1301,9 @@ class EthernetInterface : public Node
 
                     crow::connections::systemBus->async_method_call(
                         std::move(callback), "xyz.openbmc_project.Network",
-                        "/xyz/openbmc_project/network/" + ifaceId + "/ipv4/" +
-                            thisData->id,
+                        "/xyz/openbmc_project/network/config",
                         "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Network.IP", "Gateway",
+                        "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
                         std::variant<std::string>(*gateway));
                 }
 
@@ -1323,7 +1335,7 @@ class EthernetInterface : public Node
 
                 createIPv4(ifaceId, entryIdx, prefixLength, *gateway, *address,
                            asyncResp);
-
+                updateIPv4DefaultGateway(*gateway,asyncResp);
                 nlohmann::json &ipv4StaticAddressJson =
                     asyncResp->res.jsonValue["IPv4StaticAddresses"][entryIdx];
                 ipv4StaticAddressJson["Address"] = *address;
