@@ -322,6 +322,43 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                                 ethData.domainnames = *domainNames;
                             }
                         }
+                        else if (propertyPair.first == "DefaultGateway")
+                        {
+                            const std::string* defaultGateway =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (defaultGateway != nullptr)
+                            {
+                                std::string defaultGatewayStr = *defaultGateway;
+                                if (defaultGatewayStr.empty())
+                                {
+                                    ethData.default_gateway = "0.0.0.0";
+                                }
+                                else
+                                {
+                                    ethData.default_gateway = defaultGatewayStr;
+                                }
+                            }
+                        }
+                        else if (propertyPair.first == "DefaultGateway6")
+                        {
+                            const std::string* defaultGateway6 =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (defaultGateway6 != nullptr)
+                            {
+                                std::string defaultGateway6Str =
+                                    *defaultGateway6;
+                                if (defaultGateway6Str.empty())
+                                {
+                                    ethData.ipv6_default_gateway =
+                                        "0:0:0:0:0:0:0:0";
+                                }
+                                else
+                                {
+                                    ethData.ipv6_default_gateway =
+                                        defaultGateway6Str;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -387,24 +424,6 @@ inline bool extractEthernetInterfaceData(const std::string& ethifaceId,
                         if (hostname != nullptr)
                         {
                             ethData.hostname = *hostname;
-                        }
-                    }
-                    else if (propertyPair.first == "DefaultGateway")
-                    {
-                        const std::string* defaultGateway =
-                            std::get_if<std::string>(&propertyPair.second);
-                        if (defaultGateway != nullptr)
-                        {
-                            ethData.default_gateway = *defaultGateway;
-                        }
-                    }
-                    else if (propertyPair.first == "DefaultGateway6")
-                    {
-                        const std::string* defaultGateway6 =
-                            std::get_if<std::string>(&propertyPair.second);
-                        if (defaultGateway6 != nullptr)
-                        {
-                            ethData.ipv6_default_gateway = *defaultGateway6;
                         }
                     }
                 }
@@ -525,15 +544,6 @@ inline void
                             if (address != nullptr)
                             {
                                 ipv4Address.address = *address;
-                            }
-                        }
-                        else if (property.first == "Gateway")
-                        {
-                            const std::string* gateway =
-                                std::get_if<std::string>(&property.second);
-                            if (gateway != nullptr)
-                            {
-                                ipv4Address.gateway = *gateway;
                             }
                         }
                         else if (property.first == "Origin")
@@ -710,6 +720,26 @@ inline void deleteIPv4(const std::string& ifaceId, const std::string& ipHash,
         "xyz.openbmc_project.Object.Delete", "Delete");
 }
 
+inline void
+    updateIPv4DefaultGateway(const std::string& ifaceId,
+                             const std::string& gateway,
+                             const std::shared_ptr<AsyncResp>& asyncResp)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            asyncResp->res.result(boost::beast::http::status::no_content);
+        },
+        "xyz.openbmc_project.Network",
+        "/xyz/openbmc_project/network/" + ifaceId,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.EthernetInterface", "DefaultGateway",
+        std::variant<std::string>(gateway));
+}
 /**
  * @brief Creates a static IPv4 entry
  *
@@ -725,14 +755,18 @@ inline void createIPv4(const std::string& ifaceId, uint8_t prefixLength,
                        const std::string& gateway, const std::string& address,
                        const std::shared_ptr<bmcweb::AsyncResp>& asyncResp)
 {
+    auto createIpHandler = [asyncResp, ifaceId,
+                            gateway](const boost::system::error_code ec) {
+        if (ec)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        updateIPv4DefaultGateway(ifaceId, gateway, asyncResp);
+    };
+
     crow::connections::systemBus->async_method_call(
-        [asyncResp](const boost::system::error_code ec) {
-            if (ec)
-            {
-                messages::internalError(asyncResp->res);
-            }
-        },
-        "xyz.openbmc_project.Network",
+        std::move(createIpHandler), "xyz.openbmc_project.Network",
         "/xyz/openbmc_project/network/" + ifaceId,
         "xyz.openbmc_project.Network.IP.Create", "IP",
         "xyz.openbmc_project.Network.IP.Protocol.IPv4", address, prefixLength,
@@ -764,13 +798,18 @@ inline void
             if (ec)
             {
                 messages::internalError(asyncResp->res);
+                return;
             }
+
             crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec2) {
+                [asyncResp, ifaceId,
+                 gateway](const boost::system::error_code ec2) {
                     if (ec2)
                     {
                         messages::internalError(asyncResp->res);
+                        return;
                     }
+                    updateIPv4DefaultGateway(ifaceId, gateway, asyncResp);
                 },
                 "xyz.openbmc_project.Network",
                 "/xyz/openbmc_project/network/" + ifaceId,
@@ -919,7 +958,7 @@ void getEthernetIfaceData(const std::string& ethifaceId,
             {
                 if (((ipv4.linktype == LinkType::Global) &&
                      (ipv4.gateway == "0.0.0.0")) ||
-                    (ipv4.origin == "DHCP"))
+                    (ipv4.origin == "DHCP") || (ipv4.origin == "Static"))
                 {
                     ipv4.gateway = ethData.default_gateway;
                 }
