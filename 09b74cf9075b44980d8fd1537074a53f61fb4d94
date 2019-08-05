@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b4892493_e540fca1",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "yes, and we should hide this entry if that\u0027s the case. good catch.",
+      "parentUuid": "5c882934_84d13e20",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08058fea_cae4b115",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-05T20:24:55Z",
       "side": 1,
       "message": "nit - why in parentheses?",
+      "range": {
+        "startLine": 78,
+        "startChar": 25,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33bfe5cf_f9cc73da",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "no reason, just a habit of mine. will remove here and on maxHistory.",
+      "parentUuid": "08058fea_cae4b115",
       "range": {
         "startLine": 78,
         "startChar": 25,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4045de95_4c4d5567",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "Correct, the most recent entries are at the front of the array in the aggregation history. So a `resize` trims the appropriate entries off the end so we get down to a 10min interval.",
+      "parentUuid": "c4c1ead2_9f01a419",
+      "range": {
+        "startLine": 88,
+        "startChar": 32,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8fb8cfb1_c6af5bee",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "d40c4baf_e2d91c93",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "See above",
+      "parentUuid": "8fb8cfb1_c6af5bee",
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a75aef76_cbd643c3",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -99,6 +189,30 @@
       "writtenOn": "2019-08-05T20:24:55Z",
       "side": 1,
       "message": "Nit: Is there a reason to std::move a built-in type?",
+      "range": {
+        "startLine": 155,
+        "startChar": 28,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fc883791_7c082d23",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "I actually did this move since I was moving the int64 out of a tuple. I can remove this.",
+      "parentUuid": "a75aef76_cbd643c3",
       "range": {
         "startLine": 155,
         "startChar": 28,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "0015620f_464d2da9",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "Same as the above functions, this follows other areas of the Redfish code that shares ownership of `this` with all that refer to it. I\u0027m hesitant to think its actually required here as it is above for the lambdas, so I\u0027ll change.",
+      "parentUuid": "e51a7493_4729b582",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 64
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86e97b7a_4641e42c",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -145,6 +283,24 @@
       "writtenOn": "2019-08-05T20:24:55Z",
       "side": 1,
       "message": "Not sure if this matters, but because you are doing your asyncs *after* the ones above vs. *nested inside* the ones above, there are no guarantees on which async handlers will run first.  Thus, it is possible that your async handler will run before the ones above.\n\nI wanted to mention this due to the code in ~PowerMetrics():\n\n        nlohmann::json\u0026 pc \u003d asyncResp-\u003eres.jsonValue[\"PowerControl\"];\n        if (!pc.empty())\n\nThis seems to be assuming that some other code has already finished and added an element to the PowerControl JSON.\n\nIn practice, it may be that your new code will always run last, but I\u0027m not sure that is guaranteed.  Probably depends on whether the D-Bus code enforces a FIFO ordering of handling requests.",
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "021d7334_fe1c635e",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-05T21:02:39Z",
+      "side": 1,
+      "message": "Not sure I follow this. What \"async ones above\" are you referring to?\n\nThis async is guaranteed to run after those above here in the `doGet` method and the \"PowerControl\" json entry is created prior to any async call here in the `doGet`. That \"PowerControl\" json entry is in the response that\u0027s given when the PowerMetrics shared object is created within the async below.\n\nOnce this GetSubTree async return enters this lambda, that PowerMetrics object is created and the average and maximum functions are called which do their own asyncs to get the data for each power supply.",
+      "parentUuid": "86e97b7a_4641e42c",
       "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
