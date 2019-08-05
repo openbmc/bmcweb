@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c882934_84d13e20",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "Is it possible for maxMetric-\u003esize() \u003d\u003d 0?  If so, do we need to check for that here?  Not sure what *std::max_element() will be for an empty vector.",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08058fea_cae4b115",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "nit - why in parentheses?",
+      "range": {
+        "startLine": 78,
+        "startChar": 25,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4c1ead2_9f01a419",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "This removes the excess elements from the end of the vector.  Are those the ones we want to eliminate (oldest?  newest?  Can\u0027t happen?)",
+      "range": {
+        "startLine": 88,
+        "startChar": 32,
+        "endLine": 88,
+        "endChar": 38
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb8cfb1_c6af5bee",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "Same question as above re: resize()",
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a75aef76_cbd643c3",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "Nit: Is there a reason to std::move a built-in type?",
+      "range": {
+        "startLine": 155,
+        "startChar": 28,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e51a7493_4729b582",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "Why is this needed?  If we are in the method, we already have a this pointer.",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 64
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86e97b7a_4641e42c",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2019-08-05T20:24:55Z",
+      "side": 1,
+      "message": "Not sure if this matters, but because you are doing your asyncs *after* the ones above vs. *nested inside* the ones above, there are no guarantees on which async handlers will run first.  Thus, it is possible that your async handler will run before the ones above.\n\nI wanted to mention this due to the code in ~PowerMetrics():\n\n        nlohmann::json\u0026 pc \u003d asyncResp-\u003eres.jsonValue[\"PowerControl\"];\n        if (!pc.empty())\n\nThis seems to be assuming that some other code has already finished and added an element to the PowerControl JSON.\n\nIn practice, it may be that your new code will always run last, but I\u0027m not sure that is guaranteed.  Probably depends on whether the D-Bus code enforces a FIFO ordering of handling requests.",
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
