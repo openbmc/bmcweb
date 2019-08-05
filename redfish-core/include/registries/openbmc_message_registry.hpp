@@ -1268,5 +1268,23 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{"SSBThermtrip",
+                 {
+                     .description = "Indicates that SSB Thermal trip.",
+                     .message = "SSB Thermal trip.",
+                     .severity = "Critical",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"NmiDiagInt",
+                 {
+                     .description = "Indicates that NMI Diagnostic Interrupt.",
+                     .message = "NMI Diagnostic Interrupt.",
+                     .severity = "Critical",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
 };
 } // namespace redfish::message_registries::openbmc
