@@ -1461,12 +1461,11 @@ class Systems : public Node
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-
         if (bootProps)
         {
             std::optional<std::string> bootSource;
             std::optional<std::string> bootEnable;
+            messages::success(asyncResp->res);
 
             if (!json_util::readJson(*bootProps, asyncResp->res,
                                      "BootSourceOverrideTarget", bootSource,
@@ -1480,6 +1479,7 @@ class Systems : public Node
         if (indicatorLed)
         {
             std::string dbusLedState;
+            asyncResp->res.result(boost::beast::http::status::no_content);
             if (*indicatorLed == "Lit")
             {
                 dbusLedState = "xyz.openbmc_project.Led.Physical.Action.On";
