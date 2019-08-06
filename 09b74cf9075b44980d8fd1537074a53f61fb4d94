@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "5d59465e_66c8099e",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-06T18:25:00Z",
+      "side": 1,
+      "message": "Done\n\nChange made below to skip metric when the vector size is 0.",
+      "parentUuid": "b4892493_e540fca1",
+      "range": {
+        "startLine": 47,
+        "startChar": 15,
+        "endLine": 47,
+        "endChar": 37
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "08058fea_cae4b115",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "no reason, just a habit of mine. will remove here and on maxHistory.",
       "parentUuid": "08058fea_cae4b115",
+      "range": {
+        "startLine": 78,
+        "startChar": 25,
+        "endLine": 78,
+        "endChar": 34
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d176596_60b0c4f1",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-06T18:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "33bfe5cf_f9cc73da",
       "range": {
         "startLine": 78,
         "startChar": 25,
@@ -225,6 +273,30 @@
     },
     {
       "key": {
+        "uuid": "a4c9545c_4f5a35e5",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-06T18:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fc883791_7c082d23",
+      "range": {
+        "startLine": 155,
+        "startChar": 28,
+        "endLine": 155,
+        "endChar": 38
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e51a7493_4729b582",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -272,6 +344,30 @@
     },
     {
       "key": {
+        "uuid": "de595a76_f1297fe7",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-06T18:25:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0015620f_464d2da9",
+      "range": {
+        "startLine": 190,
+        "startChar": 8,
+        "endLine": 190,
+        "endChar": 64
+      },
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "86e97b7a_4641e42c",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 16
@@ -301,6 +397,24 @@
       "side": 1,
       "message": "Not sure I follow this. What \"async ones above\" are you referring to?\n\nThis async is guaranteed to run after those above here in the `doGet` method and the \"PowerControl\" json entry is created prior to any async call here in the `doGet`. That \"PowerControl\" json entry is in the response that\u0027s given when the PowerMetrics shared object is created within the async below.\n\nOnce this GetSubTree async return enters this lambda, that PowerMetrics object is created and the average and maximum functions are called which do their own asyncs to get the data for each power supply.",
       "parentUuid": "86e97b7a_4641e42c",
+      "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb9b6658_7b9127e2",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1000029
+      },
+      "writtenOn": "2019-08-06T18:25:00Z",
+      "side": 1,
+      "message": "Done\n\nShawn and I discussed his concern here. I added the \"PowerControl\" mandatory attributes within the PowerMetrics to ensure they are set when the metrics are added in case they have not already (i.e. Power limit not enabled, still want power metric data to be added to \"PowerControl\").",
+      "parentUuid": "021d7334_fe1c635e",
       "revId": "09b74cf9075b44980d8fd1537074a53f61fb4d94",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
