@@ -573,7 +573,9 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "i")
         {
-            if (intValue == nullptr)
+            if ((intValue == nullptr) ||
+                (*intValue < std::numeric_limits<int32_t>::lowest()) ||
+                (*intValue > std::numeric_limits<int32_t>::max()))
             {
                 return -1;
             }
@@ -612,7 +614,9 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "n")
         {
-            if (intValue == nullptr)
+            if ((intValue == nullptr) ||
+                (*intValue < std::numeric_limits<int16_t>::lowest()) ||
+                (*intValue > std::numeric_limits<int16_t>::max()))
             {
                 return -1;
             }
@@ -637,7 +641,9 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "y")
         {
-            if (uintValue == nullptr)
+            if ((uintValue == nullptr) ||
+                (*uintValue < std::numeric_limits<uint8_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint8_t>::max()))
             {
                 return -1;
             }
@@ -646,7 +652,9 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "q")
         {
-            if (uintValue == nullptr)
+            if ((uintValue == nullptr) ||
+                (*uintValue < std::numeric_limits<uint16_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint16_t>::max()))
             {
                 return -1;
             }
@@ -655,7 +663,9 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "u")
         {
-            if (uintValue == nullptr)
+            if ((uintValue == nullptr) ||
+                (*uintValue < std::numeric_limits<uint32_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint32_t>::max()))
             {
                 return -1;
             }
