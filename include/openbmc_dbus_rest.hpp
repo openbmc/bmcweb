@@ -507,6 +507,12 @@ std::vector<std::string> dbusArgSplit(const std::string &string)
     return ret;
 }
 
+template <typename T, typename U> bool isInRange(T base, U value)
+{
+    return (std::numeric_limits<decltype(base)>::min() <= value &&
+            value <= std::numeric_limits<decltype(base)>::max());
+}
+
 int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
                       const nlohmann::json &input_json)
 {
@@ -573,11 +579,12 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "i")
         {
-            if (intValue == nullptr)
+            int32_t i = 0;
+            if ((intValue == nullptr) || !(isInRange(i, *intValue)))
             {
                 return -1;
             }
-            int32_t i = static_cast<int32_t>(*intValue);
+            i = static_cast<int32_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &i);
             if (r < 0)
             {
@@ -612,11 +619,12 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "n")
         {
-            if (intValue == nullptr)
+            int16_t n = 0;
+            if ((intValue == nullptr) || !(isInRange(n, *intValue)))
             {
                 return -1;
             }
-            int16_t n = static_cast<int16_t>(*intValue);
+            n = static_cast<int16_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &n);
             if (r < 0)
             {
@@ -637,29 +645,32 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "y")
         {
-            if (uintValue == nullptr)
+            uint8_t y = 0;
+            if ((uintValue == nullptr) || !(isInRange(y, *uintValue)))
             {
                 return -1;
             }
-            uint8_t y = static_cast<uint8_t>(*uintValue);
+            y = static_cast<uint8_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &y);
         }
         else if (argCode == "q")
         {
-            if (uintValue == nullptr)
+            uint16_t q = 0;
+            if ((uintValue == nullptr) || !(isInRange(q, *uintValue)))
             {
                 return -1;
             }
-            uint16_t q = static_cast<uint16_t>(*uintValue);
+            q = static_cast<uint16_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &q);
         }
         else if (argCode == "u")
         {
-            if (uintValue == nullptr)
+            uint32_t u = 0;
+            if ((uintValue == nullptr) || !(isInRange(u, *uintValue)))
             {
                 return -1;
             }
-            uint32_t u = static_cast<uint32_t>(*uintValue);
+            u = static_cast<uint32_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &u);
         }
         else if (argCode == "t")
