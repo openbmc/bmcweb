@@ -577,6 +577,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*intValue < std::numeric_limits<int32_t>::lowest()) ||
+                (*intValue > std::numeric_limits<int32_t>::max()))
+            {
+                return -ERANGE;
+            }
             int32_t i = static_cast<int32_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &i);
             if (r < 0)
@@ -590,6 +595,10 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             int boolInt = false;
             if (intValue != nullptr)
             {
+                if ((*intValue != 0) && (*intValue != 1))
+                {
+                    return -ERANGE;
+                }
                 boolInt = *intValue > 0 ? 1 : 0;
             }
             else if (b != nullptr)
@@ -616,6 +625,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*intValue < std::numeric_limits<int16_t>::lowest()) ||
+                (*intValue > std::numeric_limits<int16_t>::max()))
+            {
+                return -ERANGE;
+            }
             int16_t n = static_cast<int16_t>(*intValue);
             r = sd_bus_message_append_basic(m, argCode[0], &n);
             if (r < 0)
@@ -629,6 +643,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*intValue < std::numeric_limits<int64_t>::lowest()) ||
+                (*intValue > std::numeric_limits<int64_t>::max()))
+            {
+                return -ERANGE;
+            }
             r = sd_bus_message_append_basic(m, argCode[0], intValue);
             if (r < 0)
             {
@@ -641,6 +660,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*uintValue < std::numeric_limits<uint8_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint8_t>::max()))
+            {
+                return -ERANGE;
+            }
             uint8_t y = static_cast<uint8_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &y);
         }
@@ -649,6 +673,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             if (uintValue == nullptr)
             {
                 return -1;
+            }
+            if ((*uintValue < std::numeric_limits<uint16_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint16_t>::max()))
+            {
+                return -ERANGE;
             }
             uint16_t q = static_cast<uint16_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &q);
@@ -659,6 +688,11 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*uintValue < std::numeric_limits<uint32_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint32_t>::max()))
+            {
+                return -ERANGE;
+            }
             uint32_t u = static_cast<uint32_t>(*uintValue);
             r = sd_bus_message_append_basic(m, argCode[0], &u);
         }
@@ -668,10 +702,24 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             {
                 return -1;
             }
+            if ((*uintValue < std::numeric_limits<uint64_t>::lowest()) ||
+                (*uintValue > std::numeric_limits<uint64_t>::max()))
+            {
+                return -ERANGE;
+            }
             r = sd_bus_message_append_basic(m, argCode[0], uintValue);
         }
         else if (argCode == "d")
         {
+            if (doubleValue == nullptr)
+            {
+                return -1;
+            }
+            if ((*doubleValue < std::numeric_limits<double>::lowest()) ||
+                (*doubleValue > std::numeric_limits<double>::max()))
+            {
+                return -ERANGE;
+            }
             sd_bus_message_append_basic(m, argCode[0], doubleValue);
         }
         else if (boost::starts_with(argCode, "a"))
@@ -1857,8 +1905,18 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                             transaction->propertyValue);
                                         if (r < 0)
                                         {
-                                            transaction->setErrorStatus(
-                                                "Invalid arg type");
+                                            if (r == -ERANGE)
+                                            {
+                                                transaction->setErrorStatus(
+                                                    "Provided property value "
+                                                    "is out of range for the "
+                                                    "property type");
+                                            }
+                                            else
+                                            {
+                                                transaction->setErrorStatus(
+                                                    "Invalid arg type");
+                                            }
                                             return;
                                         }
                                         r = sd_bus_message_close_container(
