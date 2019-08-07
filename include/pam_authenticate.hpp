@@ -100,6 +100,11 @@ inline bool pamUpdatePassword(const std::string& username,
     }
     int retval = pam_chauthtok(localAuthHandle, PAM_SILENT);
 
+    if (retval == PAM_USER_UNKNOWN)
+    {
+        pam_end(localAuthHandle, PAM_SUCCESS);
+        return true;
+    }
     if (retval != PAM_SUCCESS)
     {
         pam_end(localAuthHandle, PAM_SUCCESS);
