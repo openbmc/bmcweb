@@ -86,30 +86,26 @@ inline bool pamAuthenticateUser(const std::string_view username,
     return true;
 }
 
-inline bool pamUpdatePassword(const std::string& username,
-                              const std::string& password)
+inline int pamUpdatePassword(const std::string& username,
+                             const std::string& password)
 {
     const struct pam_conv localConversation = {
         pamFunctionConversation, const_cast<char*>(password.c_str())};
     pam_handle_t* localAuthHandle = NULL; // this gets set by pam_start
 
-    if (pam_start("passwd", username.c_str(), &localConversation,
-                  &localAuthHandle) != PAM_SUCCESS)
-    {
-        return false;
-    }
-    int retval = pam_chauthtok(localAuthHandle, PAM_SILENT);
+    int retval = pam_start("passwd", username.c_str(), &localConversation,
+                           &localAuthHandle);
 
     if (retval != PAM_SUCCESS)
     {
-        pam_end(localAuthHandle, PAM_SUCCESS);
-        return false;
+        return retval;
     }
 
-    if (pam_end(localAuthHandle, PAM_SUCCESS) != PAM_SUCCESS)
+    retval = pam_chauthtok(localAuthHandle, PAM_SILENT);
+    if (retval != PAM_SUCCESS)
     {
-        return false;
+        return retval;
     }
 
-    return true;
+    return pam_end(localAuthHandle, PAM_SUCCESS);
 }

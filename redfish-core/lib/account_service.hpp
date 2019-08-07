@@ -113,6 +113,46 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     return "";
 }
 
+void userErrorMessageHandler(const char* errorMessage,
+                             std::shared_ptr<AsyncResp> asyncResp,
+                             const std::string& newUser,
+                             const std::string& username)
+{
+    if (strcmp(errorMessage,
+               "xyz.openbmc_project.User.Common.Error.UserNameExists") == 0)
+    {
+        messages::resourceAlreadyExists(asyncResp->res,
+                                        "#ManagerAccount.v1_0_3.ManagerAccount",
+                                        "UserName", newUser);
+    }
+    else if (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
+                                  "UserNameDoesNotExist") == 0)
+    {
+        messages::resourceNotFound(
+            asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount", username);
+    }
+    else if (strcmp(errorMessage,
+                    "xyz.openbmc_project.Common.Error.InvalidArgument") == 0)
+    {
+        messages::propertyValueFormatError(asyncResp->res, newUser, "UserName");
+    }
+    else if (strcmp(errorMessage,
+                    "xyz.openbmc_project.User.Common.Error.NoResource") == 0)
+    {
+        messages::createLimitReachedForResource(asyncResp->res);
+    }
+    else if (strcmp(errorMessage, "xyz.openbmc_project.User.Common.Error."
+                                  "UserNameGroupFail") == 0)
+    {
+        messages::propertyValueFormatError(asyncResp->res, newUser, "UserName");
+    }
+    else
+    {
+        messages::internalError(asyncResp->res);
+    }
+    return;
+}
+
 void parseLDAPConfigData(nlohmann::json& json_response,
                          const LDAPConfigData& confData,
                          const std::string& ldapType)
@@ -1298,7 +1338,8 @@ class AccountsCollection : public Node
                             return;
                         }
 
-                        if (!pamUpdatePassword(username, password))
+                        if (pamUpdatePassword(username, password) !=
+                            PAM_SUCCESS)
                         {
                             // At this point we have a user that's been created,
                             // but the password set failed.Something is wrong,
@@ -1505,10 +1546,12 @@ class ManagerAccount : public Node
 
         const std::string& username = params[0];
 
-        if (!newUserName)
+        // if user name is not provided in the patch method or if it
+        // matches the user name in the URI, then we are treating it as updating
+        // user properties other then username. If username provided doesn't
+        // match the URI, then we are treating this as user rename request.
+        if (!newUserName || (newUserName.value() == username))
         {
-            // If the username isn't being updated, we can update the
-            // properties directly
             updateUserProperties(asyncResp, username, password, enabled, roleId,
                                  locked);
             return;
@@ -1518,14 +1561,17 @@ class ManagerAccount : public Node
             crow::connections::systemBus->async_method_call(
                 [this, asyncResp, username, password(std::move(password)),
                  roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{*newUserName}, locked(std::move(locked))](
-                    const boost::system::error_code ec) {
+                 newUser{std::string(*newUserName)},
+                 locked(std::move(locked))](const boost::system::error_code ec,
+                                            sdbusplus::message::message& m) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::resourceNotFound(
-                            asyncResp->res,
-                            "#ManagerAccount.v1_0_3.ManagerAccount", username);
+                        const sd_bus_error* e = m.get_error();
+                        if (e != nullptr)
+                        {
+                            userErrorMessageHandler(e->name, asyncResp, newUser,
+                                                    username);
+                        }
                         return;
                     }
 
@@ -1545,16 +1591,6 @@ class ManagerAccount : public Node
                               std::optional<std::string> roleId,
                               std::optional<bool> locked)
     {
-        if (password)
-        {
-            if (!pamUpdatePassword(username, *password))
-            {
-                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                messages::internalError(asyncResp->res);
-                return;
-            }
-        }
-
         std::string dbusObjectPath = "/xyz/openbmc_project/user/" + username;
         dbus::utility::escapePathForDbus(dbusObjectPath);
 
@@ -1566,8 +1602,39 @@ class ManagerAccount : public Node
              asyncResp{std::move(asyncResp)}](int rc) {
                 if (!rc)
                 {
-                    messages::invalidObject(asyncResp->res, username.c_str());
+                    messages::resourceNotFound(
+                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
+                        username);
                     return;
+                }
+                if (password)
+                {
+                    int retval = pamUpdatePassword(username, *password);
+
+                    if (retval != PAM_SUCCESS)
+                    {
+                        if (retval == PAM_USER_UNKNOWN)
+                        {
+                            messages::resourceNotFound(
+                                asyncResp->res,
+                                "#ManagerAccount.v1_0_3.ManagerAccount",
+                                username);
+                            return;
+                        }
+                        else if (retval == PAM_AUTHTOK_ERR)
+                        {
+                            // If password is invalid
+                            messages::propertyValueFormatError(
+                                asyncResp->res, *password, "Password");
+                            BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                            return;
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                    }
                 }
                 if (enabled)
                 {
