@@ -1290,7 +1290,7 @@ class ManagerAccount : public Node
 
         const std::string& username = params[0];
 
-        if (!newUserName)
+        if (newUserName.value() == username)
         {
             // If the username isn't being updated, we can update the
             // properties directly
@@ -1303,14 +1303,44 @@ class ManagerAccount : public Node
             crow::connections::systemBus->async_method_call(
                 [this, asyncResp, username, password(std::move(password)),
                  roleId(std::move(roleId)), enabled(std::move(enabled)),
-                 newUser{std::string(*newUserName)}, locked(std::move(locked))](
-                    const boost::system::error_code ec) {
+                 newUser{std::string(*newUserName)},
+                 locked(std::move(locked))](const boost::system::error_code ec,
+                                            sdbusplus::message::message& m) {
                     if (ec)
                     {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::resourceNotFound(
-                            asyncResp->res,
-                            "#ManagerAccount.v1_0_3.ManagerAccount", username);
+                        const sd_bus_error* e = m.get_error();
+                        std::string err = e->name;
+
+                        if (err == "xyz.openbmc_project.User.Common.Error."
+                                   "UserNameExists")
+                        {
+                            messages::resourceAlreadyExists(
+                                asyncResp->res,
+                                "#ManagerAccount.v1_0_3.ManagerAccount",
+                                "UserName", newUser);
+                        }
+                        else if (err == "xyz.openbmc_project.User.Common.Error."
+                                        "UserNameDoesNotExist")
+                        {
+                            messages::resourceNotFound(asyncResp->res,
+                                                       "UserName", username);
+                        }
+                        else if (err == "xyz.openbmc_project.Common.Error."
+                                        "InvalidArgument")
+                        {
+                            messages::actionParameterUnknown(
+                                asyncResp->res, "UserName", newUser);
+                        }
+                        else if (err == "xyz.openbmc_project.User.Common.Error."
+                                        "UserNameGroupFail")
+                        {
+                            messages::stringValueTooLong(asyncResp->res,
+                                                         "UserName", 16);
+                        }
+                        else
+                        {
+                            messages::internalError(asyncResp->res);
+                        }
                         return;
                     }
 
@@ -1334,8 +1364,35 @@ class ManagerAccount : public Node
         {
             if (!pamUpdatePassword(username, *password))
             {
-                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                messages::internalError(asyncResp->res);
+                // This is to handle the case where username does not exist
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, username](const boost::system::error_code ec,
+                                          sdbusplus::message::message& m) {
+                        if (ec)
+                        {
+                            const sd_bus_error* e = m.get_error();
+                            std::string err = e->name;
+
+                            if (err == "xyz.openbmc_project.User.Common.Error."
+                                       "UserNameDoesNotExist")
+                            {
+                                messages::resourceNotFound(
+                                    asyncResp->res, "UserName", username);
+                            }
+                            else
+                            {
+                                messages::invalidObject(asyncResp->res,
+                                                        "Password");
+                                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                            }
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.Manager", "RenameUser", username,
+                    username);
+
                 return;
             }
         }
