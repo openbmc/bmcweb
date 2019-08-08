@@ -1206,6 +1206,58 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
         "xyz.openbmc_project.Object.Enable", "Enabled");
 }
 
+#ifdef BMCWEB_ENABLE_REDFISH_INTEL_OEM
+/**
+ * @brief Retrieves Oem properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getOemProperties(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get OEM information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const std::vector<std::pair<std::string, VariantType>>
+                    &propertiesList) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            nlohmann::json &oemPFR =
+                aResp->res.jsonValue["Oem"]["OpenBmc"]["FirmwareProvisioning"];
+            for (const std::pair<std::string, VariantType> &property :
+                 propertiesList)
+            {
+                if (property.first == "ufm_provisioned")
+                {
+                    const bool *value = std::get_if<bool>(&property.second);
+                    if (value != nullptr)
+                    {
+                        oemPFR["Provisioned"] = *value;
+                    }
+                }
+                else if (property.first == "ufm_locked")
+                {
+                    const bool *value = std::get_if<bool>(&property.second);
+                    if (value != nullptr)
+                    {
+                        oemPFR["Locked"] = *value;
+                    }
+                }
+            }
+        },
+        "xyz.openbmc_project.Intel.PFR.Manager",
+        "/xyz/openbmc_project/intel_pfr", "org.freedesktop.DBus.Properties",
+        "GetAll", "xyz.openbmc_project.Intel_PFR.Attributes");
+}
+#endif
+
+/**
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
@@ -1519,6 +1571,9 @@ class Systems : public Node
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp);
+#ifdef BMCWEB_ENABLE_REDFISH_INTEL_OEM
+        getOemProperties(asyncResp);
+#endif
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
