@@ -79,25 +79,17 @@ template <typename Type>
 constexpr bool is_std_array_v = is_std_array<Type>::value;
 
 template <typename ToType, typename FromType>
-bool checkRange(const FromType* from, const std::string& key,
+bool checkRange(const FromType& from, const std::string& key,
                 nlohmann::json& jsonValue, crow::Response& res)
 {
-    if (from == nullptr)
-    {
-        BMCWEB_LOG_DEBUG << "Value for key " << key
-                         << " was incorrect type: " << __PRETTY_FUNCTION__;
-        messages::propertyValueTypeError(res, jsonValue.dump(), key);
-        return false;
-    }
-
-    if (*from > std::numeric_limits<ToType>::max())
+    if (from > std::numeric_limits<ToType>::max())
     {
         BMCWEB_LOG_DEBUG << "Value for key " << key
                          << " was greater than max: " << __PRETTY_FUNCTION__;
         messages::propertyValueNotInList(res, jsonValue.dump(), key);
         return false;
     }
-    if (*from < std::numeric_limits<ToType>::lowest())
+    if (from < std::numeric_limits<ToType>::lowest())
     {
         BMCWEB_LOG_DEBUG << "Value for key " << key
                          << " was less than min: " << __PRETTY_FUNCTION__;
@@ -106,7 +98,7 @@ bool checkRange(const FromType* from, const std::string& key,
     }
     if constexpr (std::is_floating_point_v<ToType>)
     {
-        if (std::isnan(*from))
+        if (std::isnan(from))
         {
             BMCWEB_LOG_DEBUG << "Value for key " << key << " was NAN";
             messages::propertyValueNotInList(res, jsonValue.dump(), key);
@@ -135,7 +127,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                 jsonPtr = &helper;
             }
         }
-        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return;
         }
@@ -145,7 +137,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
     else if constexpr (std::is_signed_v<Type>)
     {
         int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
-        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return;
         }
@@ -156,7 +148,7 @@ void unpackValue(nlohmann::json& jsonValue, const std::string& key,
                            !std::is_same_v<bool, Type>))
     {
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
-        if (!checkRange<Type>(jsonPtr, key, jsonValue, res))
+        if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return;
         }
