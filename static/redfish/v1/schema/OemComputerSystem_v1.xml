@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+        <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+        <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/ComputerSystem_v1.xml">
+        <edmx:Include Namespace="ComputerSystem"/>
+        <edmx:Include Namespace="ComputerSystem.v1_4_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+        <edmx:Include Namespace="Resource"/>
+        <edmx:Include Namespace="Resource.v1_0_0"/>
+    </edmx:Reference>
+
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemComputerSystem">
+            <ComplexType Name="Oem" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="OemComputerSystem Oem properties." />
+                <Annotation Term="OData.AutoExpand"/>
+                <Property Name="OpenBmc" Type="OemComputerSystem.OpenBmc"/>
+            </ComplexType>
+
+            <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="true" />
+                <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
+                <Annotation Term="Redfish.DynamicPropertyPatterns">
+                    <Collection>
+                        <NavigationProperty Type="OemComputerSystem.FirmwareProvisioning">
+                            <Annotation Term="OData.AutoExpand"/>
+                            <PropertyValue Property="Pattern" String="[A-Za-z0-9_.:]+" />
+                            <PropertyValue Property="Type" String="OemComputerSystem.FirmwareProvisioning" />
+                        </NavigationProperty>
+                    </Collection>
+                </Annotation>
+            </ComplexType>
+
+            <ComplexType Name="FirmwareProvisioning" BaseType="Resource.OemObject">
+                <Annotation Term="OData.AdditionalProperties" Bool="false" />
+                <Annotation Term="OData.Description" String="Configuration data for platform firmware provisioning." />
+                <Property Name="Provisioned" Type="Edm.Boolean">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                    <Annotation Term="OData.Description" String="This indicates whether platform firmware is provisioned."/>
+                    <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating provisioned state of platform firmware."/>
+                </Property>
+                <Property Name="Locked" Type="Edm.Boolean">
+                    <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                    <Annotation Term="OData.Description" String="This indicates whether platform firmware provisioning is locked."/>
+                    <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating platform firmware provisioning is locked."/>
+                </Property>
+            </ComplexType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
