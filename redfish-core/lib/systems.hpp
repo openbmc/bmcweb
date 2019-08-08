@@ -986,7 +986,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
  * @param[in] bootSource      The boot source to set.
  * @param[in] bootEnable      The source override "enable" to set.
  *
- * @return None.
+ * @return Integer error code.
  */
 static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                                 bool oneTimeEnabled,
@@ -1167,7 +1167,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  * @param[in] bootSource The boot source from incoming RF request.
  * @param[in] bootEnable The boot override enable from incoming RF request.
  *
- * @return None.
+ * @return Integer error code.
  */
 static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
                               std::optional<std::string> bootSource,
@@ -1176,7 +1176,7 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}, bootSource{std::move(bootSource)},
+        [aResp, bootSource{std::move(bootSource)},
          bootEnable{std::move(bootEnable)}](
             const boost::system::error_code ec,
             const sdbusplus::message::variant<bool> &oneTime) {
@@ -1550,6 +1550,7 @@ class Systems : public Node
             setBootProperties(asyncResp, std::move(bootSource),
                               std::move(bootEnable));
         }
+
         if (indicatorLed)
         {
             std::string dbusLedState;
@@ -1589,16 +1590,13 @@ class Systems : public Node
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
                 std::variant<bool>(
-                    (dbusLedState ==
-                             "xyz.openbmc_project.Led.Physical.Action.Off"
-                         ? false
-                         : true)));
+                    (dbusLedState !=
+                     "xyz.openbmc_project.Led.Physical.Action.Off")));
+
             // Update identify led status
             BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
             crow::connections::systemBus->async_method_call(
-                [asyncResp{std::move(asyncResp)},
-                 indicatorLed{std::move(*indicatorLed)}](
-                    const boost::system::error_code ec) {
+                [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
