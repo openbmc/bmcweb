@@ -992,6 +992,42 @@ const std::array registry = {
                 },
             .resolution = "None.",
         }},
+#ifdef BMCWEB_ENABLE_REDFISH_INTEL_OEM
+    MessageEntry{
+        "PlatformFirmwareErrorOccurred",
+        {
+            .description = "Indicates that the specific error occurred in "
+                           "platform firmware.",
+            .message = "Error occurred in platform firmware. Major error=%1"
+                       " Minor error=%2",
+            .severity = "Critical",
+            .numberOfArgs = 2,
+            .paramTypes = {"number", "number"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "PlatformFirmwarePanicTriggered",
+        {
+            .description = "Indicates that a platform firmware panic event "
+                           "occurred for the specified reason.",
+            .message = "Platform firmware panic event triggered due to %1.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "PlatformFirmwareRecovered",
+        {
+            .description = "Indicates that the platform firmware recovered "
+                           "from failure for the specified reason.",
+            .message = "Platform firmware recovered from failure due to %1.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+#endif
     MessageEntry{
         "PowerButtonPressed",
         {
