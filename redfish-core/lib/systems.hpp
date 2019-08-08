@@ -913,12 +913,12 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
  * @param[in] bootSource      The boot source to set.
  * @param[in] bootEnable      The source override "enable" to set.
  *
- * @return None.
+ * @return Integer error code.
  */
-static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
-                                bool oneTimeEnabled,
-                                std::optional<std::string> bootSource,
-                                std::optional<std::string> bootEnable)
+static boost::system::error_code
+    setBootModeOrSource(std::shared_ptr<AsyncResp> aResp, bool oneTimeEnabled,
+                        std::optional<std::string> bootSource,
+                        std::optional<std::string> bootEnable)
 {
     if (bootEnable && (bootEnable != "Once") && (bootEnable != "Continuous") &&
         (bootEnable != "Disabled"))
@@ -927,7 +927,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                          << *bootEnable;
         messages::propertyValueNotInList(aResp->res, *bootEnable,
                                          "BootSourceOverrideEnabled");
-        return;
+        return boost::asio::error::invalid_argument;
     }
 
     bool oneTimeSetting = oneTimeEnabled;
@@ -954,7 +954,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                              << *bootEnable;
             messages::propertyValueNotInList(aResp->res, *bootEnable,
                                              "BootSourceOverrideEnabled");
-            return;
+            return boost::asio::error::invalid_argument;
         }
     }
     std::string bootSourceStr;
@@ -974,7 +974,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                              << *bootSource;
             messages::propertyValueNotInList(aResp->res, *bootSource,
                                              "BootSourceTargetOverride");
-            return;
+            return boost::asio::error::invalid_argument;
         }
     }
     const char *bootObj =
@@ -1009,7 +1009,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                              << *bootSource;
             messages::propertyValueNotInList(aResp->res, *bootSource,
                                              "BootSourceTargetOverride");
-            return;
+            return boost::asio::error::invalid_argument;
         }
 
         if (!bootSourceStr.empty())
@@ -1043,7 +1043,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                     messages::internalError(aResp->res);
-                    return;
+                    return ec;
                 }
                 BMCWEB_LOG_DEBUG << "Boot source update done.";
             },
@@ -1060,7 +1060,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                 {
                     BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                     messages::internalError(aResp->res);
-                    return;
+                    return ec;
                 }
                 BMCWEB_LOG_DEBUG << "Boot mode update done.";
             },
@@ -1075,7 +1075,7 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                 messages::internalError(aResp->res);
-                return;
+                return ec;
             }
             BMCWEB_LOG_DEBUG << "Boot enable update done.";
         },
@@ -1094,16 +1094,17 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
  * @param[in] bootSource The boot source from incoming RF request.
  * @param[in] bootEnable The boot override enable from incoming RF request.
  *
- * @return None.
+ * @return Integer error code.
  */
-static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
-                              std::optional<std::string> bootSource,
-                              std::optional<std::string> bootEnable)
+static boost::system::error_code
+    setBootProperties(std::shared_ptr<AsyncResp> aResp,
+                      std::optional<std::string> bootSource,
+                      std::optional<std::string> bootEnable)
 {
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}, bootSource{std::move(bootSource)},
+        [aResp, bootSource{std::move(bootSource)},
          bootEnable{std::move(bootEnable)}](
             const boost::system::error_code ec,
             const sdbusplus::message::variant<bool> &oneTime) {
@@ -1111,7 +1112,7 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
                 messages::internalError(aResp->res);
-                return;
+                return ec;
             }
 
             const bool *oneTimePtr = std::get_if<bool>(&oneTime);
@@ -1119,13 +1120,14 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
             if (!oneTimePtr)
             {
                 messages::internalError(aResp->res);
-                return;
+                return ec;
             }
 
             BMCWEB_LOG_DEBUG << "Got one time: " << *oneTimePtr;
 
-            setBootModeOrSource(aResp, *oneTimePtr, std::move(bootSource),
-                                std::move(bootEnable));
+            return setBootModeOrSource(aResp, *oneTimePtr,
+                                       std::move(bootSource),
+                                       std::move(bootEnable));
         },
         "xyz.openbmc_project.Settings",
         "/xyz/openbmc_project/control/host0/boot/one_time",
@@ -1461,8 +1463,6 @@ class Systems : public Node
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-
         if (bootProps)
         {
             std::optional<std::string> bootSource;
@@ -1474,9 +1474,13 @@ class Systems : public Node
             {
                 return;
             }
-            setBootProperties(asyncResp, std::move(bootSource),
-                              std::move(bootEnable));
+            if (setBootProperties(asyncResp, std::move(bootSource),
+                                  std::move(bootEnable)))
+            {
+                return;
+            }
         }
+
         if (indicatorLed)
         {
             std::string dbusLedState;
@@ -1516,16 +1520,13 @@ class Systems : public Node
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
                 std::variant<bool>(
-                    (dbusLedState ==
-                             "xyz.openbmc_project.Led.Physical.Action.Off"
-                         ? false
-                         : true)));
+                    (dbusLedState !=
+                     "xyz.openbmc_project.Led.Physical.Action.Off")));
+
             // Update identify led status
             BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
             crow::connections::systemBus->async_method_call(
-                [asyncResp{std::move(asyncResp)},
-                 indicatorLed{std::move(*indicatorLed)}](
-                    const boost::system::error_code ec) {
+                [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1540,6 +1541,8 @@ class Systems : public Node
                 "xyz.openbmc_project.Led.Physical", "State",
                 std::variant<std::string>(dbusLedState));
         }
+
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
 };
 } // namespace redfish
