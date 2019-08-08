@@ -1003,6 +1003,30 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
+        "PlatformFirmwareErrorOccurred",
+        {
+            .description = "Indicates that the specific error occurred in "
+                           "platform firmware.",
+            .message = "Error occurred in platform firmware. Major error=%1"
+                       " Minor error=%2",
+            .severity = "Critical",
+            .numberOfArgs = 2,
+            .paramTypes = {"number", "number"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "PlatformFirmwareEventTriggered",
+        {
+            .description = "Indicates that the platform firmware events like "
+                           "panic or recovery occurred for the specified "
+                           "reason.",
+            .message = "Platform firmware %1 event triggered due to %2.",
+            .severity = "Critical",
+            .numberOfArgs = 2,
+            .paramTypes = {"string", "string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "PowerButtonPressed",
         {
             .description = "Indicates that the power button was pressed.",
