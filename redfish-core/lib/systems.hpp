@@ -1461,8 +1461,6 @@ class Systems : public Node
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-
         if (bootProps)
         {
             std::optional<std::string> bootSource;
@@ -1516,16 +1514,13 @@ class Systems : public Node
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
                 std::variant<bool>(
-                    (dbusLedState ==
-                             "xyz.openbmc_project.Led.Physical.Action.Off"
-                         ? false
-                         : true)));
+                    (dbusLedState !=
+                     "xyz.openbmc_project.Led.Physical.Action.Off")));
+
             // Update identify led status
             BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
             crow::connections::systemBus->async_method_call(
-                [asyncResp{std::move(asyncResp)},
-                 indicatorLed{std::move(*indicatorLed)}](
-                    const boost::system::error_code ec) {
+                [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
