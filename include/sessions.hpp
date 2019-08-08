@@ -389,6 +389,11 @@ class SessionStore
         const std::string& role =
             UserRoleMap::getInstance().getUserRole(username);
 
+        if (role.empty())
+        {
+            return nullptr;
+        }
+
         BMCWEB_LOG_DEBUG << "user name=\"" << username << "\" role = " << role;
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), role, csrfToken,
@@ -409,6 +414,24 @@ class SessionStore
             return nullptr;
         }
         std::shared_ptr<UserSession> userSession = sessionIt->second;
+
+        // Check if user is still valid
+        const std::string& role =
+            UserRoleMap::getInstance().getUserRole(userSession->username);
+
+        if (role.empty())
+        {
+            // Delete session as it is no longer valid
+            userSession.reset();
+            authTokens.erase(sessionIt);
+            return nullptr;
+        }
+        else if (userSession->userRole != role)
+        {
+            // User role changed, make the adjustments
+            userSession->userRole = role;
+        }
+
         userSession->lastUpdated = std::chrono::steady_clock::now();
         return userSession;
     }
