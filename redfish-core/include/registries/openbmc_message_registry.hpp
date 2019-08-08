@@ -1268,5 +1268,39 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{
+        "PlatformFWRecovered",
+        {
+            .description = "Indicates that the platform firmware recovered "
+                           "from failure.",
+            .message = "Platform firmware recovered from failure due to %1.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "PlatformFWPanicTriggered",
+       {
+            .description = "Indicates that the platform firmware panic event "
+                           "occurred.",
+           .message = "Platform firmware panic event triggered due to %1.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+           .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+       "PlatformFWErrorOccurred",
+        {
+            .description = "Indicates that the error occurred in platform "
+                           "firmware.",
+            .message = "Error occurred in Platform firmware. Major error=%1"
+                       " Minor error=%2",
+            .severity = "Critical",
+            .numberOfArgs = 2,
+            .paramTypes = {"number", "number"},
+            .resolution = "None.",
+        }},
 };
 } // namespace redfish::message_registries::openbmc
