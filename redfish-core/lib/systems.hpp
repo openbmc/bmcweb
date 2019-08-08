@@ -1103,7 +1103,7 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
     BMCWEB_LOG_DEBUG << "Set boot information.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp{std::move(aResp)}, bootSource{std::move(bootSource)},
+        [aResp, bootSource{std::move(bootSource)},
          bootEnable{std::move(bootEnable)}](
             const boost::system::error_code ec,
             const sdbusplus::message::variant<bool> &oneTime) {
@@ -1461,8 +1461,6 @@ class Systems : public Node
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-
         if (bootProps)
         {
             std::optional<std::string> bootSource;
@@ -1476,6 +1474,10 @@ class Systems : public Node
             }
             setBootProperties(asyncResp, std::move(bootSource),
                               std::move(bootEnable));
+            if (asyncResp->res.result() != boost::beast::http::status::ok)
+            {
+                return;
+            }
         }
         if (indicatorLed)
         {
@@ -1516,16 +1518,13 @@ class Systems : public Node
                 "org.freedesktop.DBus.Properties", "Set",
                 "xyz.openbmc_project.Led.Group", "Asserted",
                 std::variant<bool>(
-                    (dbusLedState ==
-                             "xyz.openbmc_project.Led.Physical.Action.Off"
-                         ? false
-                         : true)));
+                    (dbusLedState !=
+                     "xyz.openbmc_project.Led.Physical.Action.Off")));
+
             // Update identify led status
             BMCWEB_LOG_DEBUG << "Update led SoftwareInventoryCollection.";
             crow::connections::systemBus->async_method_call(
-                [asyncResp{std::move(asyncResp)},
-                 indicatorLed{std::move(*indicatorLed)}](
-                    const boost::system::error_code ec) {
+                [asyncResp](const boost::system::error_code ec) {
                     if (ec)
                     {
                         BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1540,6 +1539,8 @@ class Systems : public Node
                 "xyz.openbmc_project.Led.Physical", "State",
                 std::variant<std::string>(dbusLedState));
         }
+
+        asyncResp->res.result(boost::beast::http::status::no_content);
     }
 };
 } // namespace redfish
