@@ -1,5 +1,5 @@
 /*
-// Copyright (c) 2018 Intel Corporation
+// Copyright (c) 2018-2019 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -68,6 +68,11 @@ class ServiceRoot : public Node
         res.jsonValue["UUID"] = uuid;
         res.jsonValue["CertificateService"] = {
             {"@odata.id", "/redfish/v1/CertificateService"}};
+
+#ifdef BMCWEB_ENABLE_VROC_SWORDFISH
+        res.jsonValue["StorageServices"] = {{"@odata.id", "/redfish/v1/StorageServices"}};
+#endif
+
         res.end();
     }
 

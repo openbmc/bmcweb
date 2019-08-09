@@ -34,6 +34,8 @@
 #include "../lib/update_service.hpp"
 #include "webserver_common.hpp"
 
+#include "../lib/swordfish/storage_services.hpp"
+
 namespace redfish
 {
 /*
@@ -137,6 +139,12 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
+
+#ifdef BMCWEB_ENABLE_VROC_SWORDFISH
+        //Swordfish classes
+        nodes.emplace_back(std::make_unique<StorageServiceCollection>(app));
+        nodes.emplace_back(std::make_unique<StorageService>(app));
+#endif
 
         for (const auto& node : nodes)
         {

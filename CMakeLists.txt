@@ -21,6 +21,8 @@ option (BMCWEB_ENABLE_REDFISH "Enable Redfish APIs.  Paths are under
        '/redfish/v1/'.  See
        https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish."
        ON)
+option (BMCWEB_ENABLE_VROC_SWORDFISH "Enable VROC Swordfish API. Extends
+       Redfish API under '/redfish/v1/' path" OFF)
 option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial console
        WebSocket.  Path is '/console0'.  See
        https://github.com/openbmc/docs/blob/master/console.md." ON)
@@ -267,6 +269,7 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
+    $<$<BOOL:${BMCWEB_ENABLE_VROC_SWORDFISH}>: -DBMCWEB_ENABLE_VROC_SWORDFISH>
     $<$<BOOL:${BMCWEB_ENABLE_STATIC_HOSTING}>: -DBMCWEB_ENABLE_STATIC_HOSTING>
     $<$<BOOL:${BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET}>: -DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET>
     $<$<BOOL:${BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION}>: -DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION>
