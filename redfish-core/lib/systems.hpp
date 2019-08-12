@@ -724,7 +724,7 @@ static std::string dbusToRfBootSource(const std::string &dbusSource)
         return "Pxe";
     }
     else if (dbusSource ==
-             "xyz.openbmc_project.Control.Boot.Source.Sources.Removable")
+             "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia")
     {
         return "Usb";
     }
@@ -763,67 +763,64 @@ static std::string dbusToRfBootMode(const std::string &dbusMode)
 }
 
 /**
- * @brief Traslates boot source from Redfish to DBUS property value.
+ * @brief Traslates boot source from Redfish to the DBus boot paths.
  *
  * @param[in] rfSource    The boot source in Redfish.
+ * @param[out] bootSource The DBus source
+ * @param[out] bootMode   the DBus boot mode
  *
- * @return Returns as a string, the boot source as expected by DBUS.
- * If translation cannot be done, returns an empty string.
+ * @return Integer error code.
  */
-static std::string rfToDbusBootSource(const std::string &rfSource)
+static int assignBootParameters(std::shared_ptr<AsyncResp> aResp,
+                                const std::string &rfSource,
+                                std::string &bootSource, std::string &bootMode)
 {
+    // The caller has initialized the bootSource and bootMode to:
+    // bootMode = "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
+    // bootSource = "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
+    // Only modify the bootSource/bootMode variable needed to achieve the
+    // desired boot action.
+
     if (rfSource == "None")
     {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
-    }
-    else if (rfSource == "Hdd")
-    {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.Disk";
-    }
-    else if (rfSource == "Cd")
-    {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia";
+        return 0;
     }
     else if (rfSource == "Pxe")
     {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.Network";
+        bootSource = "xyz.openbmc_project.Control.Boot.Source.Sources.Network";
+    }
+    else if (rfSource == "Hdd")
+    {
+        bootSource = "xyz.openbmc_project.Control.Boot.Source.Sources.Disk";
+    }
+    else if (rfSource == "Diags")
+    {
+        bootMode = "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe";
+    }
+    else if (rfSource == "Cd")
+    {
+        bootSource =
+            "xyz.openbmc_project.Control.Boot.Source.Sources.ExternalMedia";
+    }
+    else if (rfSource == "BiosSetup")
+    {
+        bootMode = "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup";
     }
     else if (rfSource == "Usb")
     {
-        return "xyz.openbmc_project.Control.Boot.Source.Sources.Removable";
+        bootSource =
+            "xyz.openbmc_project.Control.Boot.Source.Sources.RemovableMedia";
     }
     else
     {
-        return "";
+        BMCWEB_LOG_DEBUG << "Invalid property value for "
+                            "BootSourceOverrideTarget: "
+                         << bootSource;
+        messages::propertyValueNotInList(aResp->res, rfSource,
+                                         "BootSourceTargetOverride");
+        return -1;
     }
-}
-
-/**
- * @brief Traslates boot mode from Redfish to DBUS property value.
- *
- * @param[in] rfMode    The boot mode in Redfish.
- *
- * @return Returns as a string, the boot mode as expected by DBUS.
- * If translation cannot be done, returns an empty string.
- */
-static std::string rfToDbusBootMode(const std::string &rfMode)
-{
-    if (rfMode == "None")
-    {
-        return "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
-    }
-    else if (rfMode == "Diags")
-    {
-        return "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe";
-    }
-    else if (rfMode == "BiosSetup")
-    {
-        return "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup";
-    }
-    else
-    {
-        return "";
-    }
+    return 0;
 }
 
 /**
@@ -862,7 +859,7 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = "Legacy";
             aResp->res.jsonValue["Boot"]["BootSourceOverrideTarget@Redfish."
                                          "AllowableValues"] = {
-                "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup"};
+                "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup", "Usb"};
 
             if (*bootModeStr !=
                 "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
@@ -993,17 +990,13 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
                                 std::optional<std::string> bootSource,
                                 std::optional<std::string> bootEnable)
 {
-    if (bootEnable && (bootEnable != "Once") && (bootEnable != "Continuous") &&
-        (bootEnable != "Disabled"))
-    {
-        BMCWEB_LOG_DEBUG << "Unsupported value for BootSourceOverrideEnabled: "
-                         << *bootEnable;
-        messages::propertyValueNotInList(aResp->res, *bootEnable,
-                                         "BootSourceOverrideEnabled");
-        return;
-    }
-
+    std::string bootSourceStr =
+        "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
+    std::string bootModeStr =
+        "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
     bool oneTimeSetting = oneTimeEnabled;
+    bool useBootSource = true;
+
     // Validate incoming parameters
     if (bootEnable)
     {
@@ -1017,11 +1010,12 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
         }
         else if (*bootEnable == "Disabled")
         {
+            BMCWEB_LOG_DEBUG << "Boot source override will be disabled";
             oneTimeSetting = false;
+            useBootSource = false;
         }
         else
         {
-
             BMCWEB_LOG_DEBUG << "Unsupported value for "
                                 "BootSourceOverrideEnabled: "
                              << *bootEnable;
@@ -1030,118 +1024,61 @@ static void setBootModeOrSource(std::shared_ptr<AsyncResp> aResp,
             return;
         }
     }
-    std::string bootSourceStr;
-    std::string bootModeStr;
-    if (bootSource)
-    {
-        bootSourceStr = rfToDbusBootSource(*bootSource);
-        bootModeStr = rfToDbusBootMode(*bootSource);
 
-        BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
-        BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
-
-        if (bootSourceStr.empty() && bootModeStr.empty())
-        {
-            BMCWEB_LOG_DEBUG << "Invalid property value for "
-                                "BootSourceOverrideTarget: "
-                             << *bootSource;
-            messages::propertyValueNotInList(aResp->res, *bootSource,
-                                             "BootSourceTargetOverride");
-            return;
-        }
-    }
-    const char *bootObj =
-        oneTimeSetting ? "/xyz/openbmc_project/control/host0/boot/one_time"
-                       : "/xyz/openbmc_project/control/host0/boot";
-    // Figure out what properties to set
-    if (bootEnable && (*bootEnable == "Disabled"))
-    {
-        BMCWEB_LOG_DEBUG << "Boot source override will be disabled";
-        // Request to only turn OFF/ON enabled, if turning enabled OFF, need
-        // to reset the source and mode too. If turning it ON, we only need
-        // to set the enabled property
-        bootSourceStr =
-            "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
-        bootModeStr = "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
-    }
-    else if (bootSource)
+    if (bootSource && useBootSource)
     {
         // Source target specified
         BMCWEB_LOG_DEBUG << "Boot source: " << *bootSource;
         // Figure out which DBUS interface and property to use
-        bootSourceStr = rfToDbusBootSource(*bootSource);
-        bootModeStr = rfToDbusBootMode(*bootSource);
-
-        BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
-        BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
-
-        if (bootSourceStr.empty() && bootModeStr.empty())
+        if (assignBootParameters(aResp, *bootSource, bootSourceStr,
+                                 bootModeStr))
         {
-            BMCWEB_LOG_DEBUG << "Invalid property value for "
-                                "BootSourceOverrideTarget: "
-                             << *bootSource;
+            BMCWEB_LOG_DEBUG
+                << "Invalid property value for BootSourceOverrideTarget: "
+                << *bootSource;
             messages::propertyValueNotInList(aResp->res, *bootSource,
                                              "BootSourceTargetOverride");
             return;
         }
+    }
 
-        if (!bootSourceStr.empty())
-        {
-            // If setting to anything other than default, also reset boot
-            // mode property
-            if (bootSourceStr !=
-                "xyz.openbmc_project.Control.Boot.Source.Sources.Default")
+    // Act on validated parameters
+    BMCWEB_LOG_DEBUG << "DBUS boot source: " << bootSourceStr;
+    BMCWEB_LOG_DEBUG << "DBUS boot mode: " << bootModeStr;
+    const char *bootObj =
+        oneTimeSetting ? "/xyz/openbmc_project/control/host0/boot/one_time"
+                       : "/xyz/openbmc_project/control/host0/boot";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
             {
-                bootModeStr =
-                    "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
             }
-        }
-        else // if (!bootModeStr.empty())
-        {
-            // If setting to anything other than default, also reset boot
-            // source property
-            if (bootModeStr !=
-                "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
+            BMCWEB_LOG_DEBUG << "Boot source update done.";
+        },
+        "xyz.openbmc_project.Settings", bootObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.Source", "BootSource",
+        std::variant<std::string>(bootSourceStr));
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
             {
-                bootSourceStr =
-                    "xyz.openbmc_project.Control.Boot.Source.Sources.Default";
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
             }
-        }
-    }
-    if (!bootSourceStr.empty())
-    {
-        crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG << "Boot source update done.";
-            },
-            "xyz.openbmc_project.Settings", bootObj,
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Control.Boot.Source", "BootSource",
-            std::variant<std::string>(bootSourceStr));
-    }
-    if (!bootModeStr.empty())
-    {
-        crow::connections::systemBus->async_method_call(
-            [aResp](const boost::system::error_code ec) {
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                    messages::internalError(aResp->res);
-                    return;
-                }
-                BMCWEB_LOG_DEBUG << "Boot mode update done.";
-            },
-            "xyz.openbmc_project.Settings", bootObj,
-            "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
-            std::variant<std::string>(bootModeStr));
-    }
+            BMCWEB_LOG_DEBUG << "Boot mode update done.";
+        },
+        "xyz.openbmc_project.Settings", bootObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Boot.Mode", "BootMode",
+        std::variant<std::string>(bootModeStr));
+
     crow::connections::systemBus->async_method_call(
         [aResp{std::move(aResp)}](const boost::system::error_code ec) {
             if (ec)
@@ -1528,14 +1465,13 @@ class Systems : public Node
         std::optional<nlohmann::json> bootProps;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, asyncResp->res, "IndicatorLED",
-                                 indicatorLed, "Boot", bootProps))
+        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
+                                 bootProps))
         {
             return;
         }
 
-        asyncResp->res.result(boost::beast::http::status::no_content);
-
+        res.result(boost::beast::http::status::no_content);
         if (bootProps)
         {
             std::optional<std::string> bootSource;
