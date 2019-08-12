@@ -117,6 +117,39 @@ long getIDFromURL(const std::string_view url)
     return -1;
 }
 
+std::string
+    getCertificateFromReqBody(const std::shared_ptr<AsyncResp> &asyncResp,
+                              const crow::Request &req)
+{
+    nlohmann::json reqJson = nlohmann::json::parse(req.body, nullptr, false);
+
+    if (reqJson.is_discarded())
+    {
+        // We did not receive JSON request, proceed as it is RAW data
+        return req.body;
+    }
+
+    std::string certificate;
+    std::optional<std::string> certificateType = "PEM";
+
+    if (!json_util::readJson(reqJson, asyncResp->res, "CertificateString",
+                             certificate, "CertificateType", certificateType))
+    {
+        BMCWEB_LOG_ERROR << "Required parameters are missing";
+        messages::internalError(asyncResp->res);
+        return std::string();
+    }
+
+    if (*certificateType != "PEM")
+    {
+        messages::propertyValueNotInList(asyncResp->res, *certificateType,
+                                         "CertificateType");
+        return std::string();
+    }
+
+    return certificate;
+}
+
 /**
  * Class to create a temporary certificate file for uploading to system
  */
@@ -593,8 +626,15 @@ class HTTPSCertificateCollection : public Node
         asyncResp->res.jsonValue = {{"Name", "HTTPS Certificate"},
                                     {"Description", "HTTPS Certificate"}};
 
+        std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+
+        if (certFileBody.empty())
+        {
+            return;
+        }
+
         std::shared_ptr<CertificateFile> certFile =
-            std::make_shared<CertificateFile>(req.body);
+            std::make_shared<CertificateFile>(certFileBody);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec) {
@@ -779,9 +819,17 @@ class LDAPCertificateCollection : public Node
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
-        std::shared_ptr<CertificateFile> certFile =
-            std::make_shared<CertificateFile>(req.body);
         auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+
+        if (certFileBody.empty())
+        {
+            return;
+        }
+
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(certFileBody);
+
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec) {
                 if (ec)
@@ -914,9 +962,16 @@ class TLSAuthCertificateCollection : public Node
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
-        std::shared_ptr<CertificateFile> certFile =
-            std::make_shared<CertificateFile>(req.body);
         auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+
+        if (certFileBody.empty())
+        {
+            return;
+        }
+
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(certFileBody);
 
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec) {
