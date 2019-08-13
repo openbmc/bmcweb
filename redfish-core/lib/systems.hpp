@@ -445,9 +445,20 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Common.UUID");
                         }
-                        else if (interfaceName ==
-                                 "xyz.openbmc_project.Inventory.Item.System")
+                        else if (interfaceName == "xyz.openbmc_project."
+                                                  "Inventory.Decorator.Asset")
                         {
+                            // The system path is like "/xyz/.../sytem/board/...
+                            // The PSU path is "/xyz/.../system/powersupply/...
+                            int pos = path.find("board");
+                            if (pos < 0)
+                            {
+                                return;
+                            }
+
+                            BMCWEB_LOG_DEBUG
+                                << "Found system, now get its properties.";
+
                             crow::connections::systemBus->async_method_call(
                                 [aResp](const boost::system::error_code ec,
                                         const std::vector<
@@ -459,9 +470,9 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                         // interface
                                         return;
                                     }
-                                    BMCWEB_LOG_DEBUG << "Got "
-                                                     << propertiesList.size()
-                                                     << "properties for system";
+                                    BMCWEB_LOG_DEBUG
+                                        << "Got " << propertiesList.size()
+                                        << " properties for system";
                                     for (const std::pair<std::string,
                                                          VariantType>
                                              &property : propertiesList)
