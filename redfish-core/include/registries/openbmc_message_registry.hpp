@@ -992,6 +992,53 @@ const std::array registry = {
                 },
             .resolution = "None.",
         }},
+    MessageEntry{"ChassisIntrusionDetected",
+                 {
+                     .description = "Indicates that a physical security event "
+                                    "of the chassis intrusion has occurred.",
+                     .message = "Chassis Intrusion Detected.",
+                     .severity = "Warning",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{
+        "ChassisIntrusionReset",
+        {
+            .description =
+                "Indicates that chassis intrusion status has recovered.",
+            .message = "Chassis Intrusion Reset.",
+            .severity = "OK",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{"LanLost",
+                 {
+                     .description = "Indicates that a physical security event "
+                                    "of the LAN leash has lost.",
+                     .message = "%1 LAN leash lost.",
+                     .severity = "Warning",
+                     .numberOfArgs = 1,
+                     .paramTypes =
+                         {
+                             "string",
+                         },
+                     .resolution = "None.",
+                 }},
+    MessageEntry{
+        "LanRegained",
+        {
+            .description = "Indicates that LAN link status has reconnected.",
+            .message = "%1 LAN leash regained.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "None.",
+        }},
     MessageEntry{
         "PowerButtonPressed",
         {
