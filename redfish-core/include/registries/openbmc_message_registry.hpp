@@ -992,6 +992,21 @@ const std::array registry = {
                 },
             .resolution = "None.",
         }},
+    MessageEntry{"PhysicalSecurity",
+                 {
+                     .description =
+                         "Indicates that a physical security event of the "
+                         "specified type (like change of the LAN link status "
+                         "or chassis intrusion status) has occurred.",
+                     .message = "Physical Security: %1",
+                     .severity = "Warning",
+                     .numberOfArgs = 1,
+                     .paramTypes =
+                         {
+                             "string",
+                         },
+                     .resolution = "None.",
+                 }},
     MessageEntry{
         "PowerButtonPressed",
         {
