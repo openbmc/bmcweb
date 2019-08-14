@@ -522,6 +522,16 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{"NMIDiagnosticInterrupt",
+                 {
+                     .description = "Indicates that an NMI Diagnostic "
+                                    "Interrupt has been generated.",
+                     .message = "NMI Diagnostic Interrupt.",
+                     .severity = "Critical",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
     MessageEntry{
         "PCIeCorrectableAdvisoryNonFatal",
         {
@@ -1236,6 +1246,17 @@ const std::array registry = {
                     "string",
                     "number",
                 },
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "SsbThermalTrip",
+        {
+            .description =
+                "Indicates that an SSB Thermal trip has been asserted.",
+            .message = "SSB Thermal trip.",
+            .severity = "Critical",
+            .numberOfArgs = 0,
+            .paramTypes = {},
             .resolution = "None.",
         }},
     MessageEntry{"SystemPowerLost",
