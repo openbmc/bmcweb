@@ -1211,6 +1211,16 @@ const std::array registry = {
             .paramTypes = {"string", "number", "number"},
             .resolution = "Check the sensor or subsystem for errors.",
         }},
+    MessageEntry{"ServiceFailure",
+                 {
+                     .description =
+                         "Indicates that a service has exited unsuccessfully.",
+                     .message = "Service %1 has exited unsuccessfully.",
+                     .severity = "Warning",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"string"},
+                     .resolution = "None.",
+                 }},
     MessageEntry{"SparingRedundancyDegraded",
                  {
                      .description =
