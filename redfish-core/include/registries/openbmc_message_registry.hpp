@@ -19,7 +19,7 @@
 namespace redfish::message_registries::openbmc
 {
 const Header header = {
-    .copyright = "Copyright 2018 Intel. All rights reserved.",
+    .copyright = "Copyright 2018 OpenBMC. All rights reserved.",
     .type = "#MessageRegistry.v1_0_0.MessageRegistry",
     .id = "OpenBMC.0.1.0",
     .name = "OpenBMC Message Registry",
