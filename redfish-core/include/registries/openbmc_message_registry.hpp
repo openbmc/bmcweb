@@ -1289,5 +1289,15 @@ const std::array registry = {
             .paramTypes = {},
             .resolution = "None.",
         }},
+    MessageEntry{"UartConsoleStarted",
+                 {
+                     .description =
+                         "Indicates that the uart console service is started.",
+                     .message = "Uart Debug console service is started: %1",
+                     .severity = "Critical",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"string"},
+                     .resolution = "None.",
+                 }},
 };
 } // namespace redfish::message_registries::openbmc
