@@ -28,6 +28,9 @@
 namespace redfish
 {
 
+static constexpr const char *watchdogActionStr =
+    "xyz.openbmc_project.State.Watchdog.Action.";
+
 /**
  * @brief Updates the Functional State of DIMMs
  *
@@ -760,6 +763,53 @@ static std::string dbusToRfBootMode(const std::string &dbusMode)
     {
         return "";
     }
+}
+
+/**
+ * @brief Retrieves host watchdog timer properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get watchodg timer information.";
+
+    aResp->res.jsonValue["HostWatchdogTimer"]["Status"]["State"] = "Enabled";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const sdbusplus::message::variant<std::string> &watchdogTimer) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string *s = std::get_if<std::string>(&watchdogTimer);
+
+            if (s != nullptr)
+            {
+                std::size_t pos = (*s).find(watchdogActionStr);
+                if (pos == std::string::npos)
+                {
+                    BMCWEB_LOG_DEBUG << "Invalid interface path " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                std::string action =
+                    (*s).substr(pos + strlen(watchdogActionStr));
+                aResp->res.jsonValue["HostWatchdogTimer"]["TimeoutAction"] =
+                    action;
+            }
+        },
+        "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Watchdog", "ExpireAction");
+
+    aResp->res.jsonValue["HostWatchdogTimer"]["FunctionEnabled"] = "true";
 }
 
 /**
@@ -1519,6 +1569,7 @@ class Systems : public Node
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp);
+        getHostWatchdogTimer(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
