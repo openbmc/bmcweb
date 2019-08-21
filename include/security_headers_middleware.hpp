@@ -37,19 +37,44 @@ struct SecurityHeadersMiddleware
         res.addHeader(bf::pragma, "no-cache");
         res.addHeader(bf::cache_control, "no-Store,no-Cache");
 
+        std::string csp = "default-src 'none'; "
+                          "img-src 'self' data:; "
+                          "font-src 'self'; "
+                          "style-src 'self'; "
+                          "script-src 'self'; ";
+
+        if (req.getHeaderValue("User-Agent").find("Edge/") !=
+            std::string_view::npos)
+        {
+            // Edge doesn't handle 'self' as allowing websockets to the same
+            // connection.  This is really unfortunate, as it prevents
+            // websockets from working entirely.  Unfortunately, we don't
+            // actually know the hostname that the user is connecting with.  It
+            // could be an ip address or a hostname, or another name, so the
+            // best we can do here is to send back what the browser thinks it's
+            // connected to, which should give the same behavior as 'self' on
+            // other browsers.
+            csp += "connect-src wss://";
+            csp += req.getHeaderValue("Host");
+        }
+        else
+        {
+            csp += "connect-src 'self'";
+        }
+
         // The KVM currently needs to load images from base64 encoded strings.
         // img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
-        res.addHeader("Content-Security-Policy",
-                      "default-src 'self'; img-src 'self' data:");
+        res.addHeader("Content-Security-Policy", csp);
+
         res.addHeader("X-XSS-Protection", "1; "
                                           "mode=block");
         res.addHeader("X-Content-Type-Options", "nosniff");
-        res.addHeader("X-UA-Compatible", "IE=11");
 
 #ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
 
-        res.addHeader(bf::access_control_allow_origin, "http://localhost:8080");
+        res.addHeader(bf::access_control_allow_origin,
+                      "http://" + req.getHeaderValue("Host"));
         res.addHeader(bf::access_control_allow_methods, "GET, "
                                                         "POST, "
                                                         "PUT, "
