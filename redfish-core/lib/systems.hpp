@@ -750,7 +750,7 @@ static std::string dbusToRfBootMode(const std::string &dbusMode)
     }
     else if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe")
     {
-        return "Diags";
+        return "Safe";
     }
     else if (dbusMode == "xyz.openbmc_project.Control.Boot.Mode.Modes.Setup")
     {
@@ -812,7 +812,7 @@ static std::string rfToDbusBootMode(const std::string &rfMode)
     {
         return "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular";
     }
-    else if (rfMode == "Diags")
+    else if (rfMode == "Safe")
     {
         return "xyz.openbmc_project.Control.Boot.Mode.Modes.Safe";
     }
@@ -862,7 +862,7 @@ static void getBootMode(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Boot"]["BootSourceOverrideMode"] = "Legacy";
             aResp->res.jsonValue["Boot"]["BootSourceOverrideTarget@Redfish."
                                          "AllowableValues"] = {
-                "None", "Pxe", "Hdd", "Cd", "Diags", "BiosSetup"};
+                "None", "Pxe", "Hdd", "Cd", "Safe", "BiosSetup"};
 
             if (*bootModeStr !=
                 "xyz.openbmc_project.Control.Boot.Mode.Modes.Regular")
