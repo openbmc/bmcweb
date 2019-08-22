@@ -1033,6 +1033,17 @@ const std::array registry = {
             .resolution = "None.",
         }},
     MessageEntry{
+        "PowerSupplyACInserted",
+        {
+            .description =
+                "Indicates that a power supply is recovered from AC Lost .",
+            .message = "Power supply %1 AC power regained.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "PowerSupplyConfigurationError",
         {
             .description = "Indicates an error in power supply configuration.",
@@ -1053,11 +1064,32 @@ const std::array registry = {
             .paramTypes = {"string", "string"},
             .resolution = "None.",
         }},
+    MessageEntry{
+        "PowerSupplyFanFailedRecovered",
+        {
+            .description =
+                "Indicates that the power supply fan failure is recovered.",
+            .message = "Power supply %1 fan %2 recovered.",
+            .severity = "OK",
+            .numberOfArgs = 2,
+            .paramTypes = {"string", "string"},
+            .resolution = "None.",
+        }},
     MessageEntry{"PowerSupplyFailed",
                  {
                      .description = "Indicates that a power supply has failed.",
                      .message = "Power supply %1 failed.",
                      .severity = "Critical",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"string"},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"PowerSupplyFailedRecovered",
+                 {
+                     .description =
+                         "Indicates that a power supply failure is recovered.",
+                     .message = "Power supply %1 failure recovered.",
+                     .severity = "OK",
                      .numberOfArgs = 1,
                      .paramTypes = {"string"},
                      .resolution = "None.",
@@ -1072,6 +1104,16 @@ const std::array registry = {
                      .paramTypes = {"string"},
                      .resolution = "None.",
                  }},
+    MessageEntry{
+        "PowerSupplyFailurePredictedRecovered",
+        {
+            .description = "A power supply predictive failure is recovered.",
+            .message = "Power supply %1 predictive failure recovered.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
     MessageEntry{
         "PowerSupplyInserted",
         {
