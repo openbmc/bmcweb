@@ -1583,12 +1583,15 @@ class Manager : public Node
 
         res.jsonValue["DateTime"] = crow::utility::dateTimeNow();
 
-        // Fill in GraphicalConsole and SerialConsole info
+        // Fill in SerialConsole info
         res.jsonValue["SerialConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["SerialConsole"]["MaxConcurrentSessions"] = 1;
         res.jsonValue["SerialConsole"]["ConnectTypesSupported"] = {"IPMI",
                                                                    "SSH"};
 #ifdef BMCWEB_ENABLE_KVM
+        // Fill in GraphicalConsole info
         res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
+        res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 1;
         res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
 #endif // BMCWEB_ENABLE_KVM
 
