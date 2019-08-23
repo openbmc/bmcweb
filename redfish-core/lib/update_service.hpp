@@ -339,7 +339,7 @@ class UpdateService : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_2_0.UpdateService";
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#UpdateService.UpdateService";
@@ -360,7 +360,44 @@ class UpdateService : public Node
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
             "TFTP"};
 #endif
-        res.end();
+        // Get the current ApplyTime value
+        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    const std::variant<std::string> &applyTime) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const std::string *s = std::get_if<std::string>(&applyTime);
+                if (s != nullptr)
+                {
+                    // Store the ApplyTime Value
+                    if (*s == "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.Immediate")
+                    {
+                        aResp->res
+                            .jsonValue["HttpPushUriOptions"]
+                                      ["HttpPushUriApplyTime"]["ApplyTime"] =
+                            "Immediate";
+                    }
+                    else if (*s == "xyz.openbmc_project.Software.ApplyTime."
+                                   "RequestedApplyTimes.OnReset")
+                    {
+                        aResp->res
+                            .jsonValue["HttpPushUriOptions"]
+                                      ["HttpPushUriApplyTime"]["ApplyTime"] =
+                            "OnReset";
+                    }
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -369,9 +406,26 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "doPatch...";
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        std::string applyTime;
 
-        if (!json_util::readJson(req, res, "ApplyTime", applyTime))
+        std::optional<nlohmann::json> pushUriOptions;
+        if (!json_util::readJson(req, res, "HttpPushUriOptions",
+                                 pushUriOptions))
+        {
+            return;
+        }
+
+        std::optional<nlohmann::json> pushUriApplyTime;
+        if ((!pushUriOptions) ||
+            (!json_util::readJson(*pushUriOptions, res, "HttpPushUriApplyTime",
+                                  pushUriApplyTime)))
+        {
+            return;
+        }
+
+        std::string applyTime;
+        if ((!pushUriApplyTime) ||
+            (!json_util::readJson(*pushUriApplyTime, res, "ApplyTime",
+                                  applyTime)))
         {
             return;
         }
