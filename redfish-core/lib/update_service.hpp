@@ -360,7 +360,37 @@ class UpdateService : public Node
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
             "TFTP"};
 #endif
-        res.end();
+        // Get the current ApplyTime value
+        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    const std::variant<std::string> &applyTime) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const std::string *s = std::get_if<std::string>(&applyTime);
+                if (s != nullptr)
+                {
+                    // Store the ApplyTime Value
+                    if (*s == "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.Immediate")
+                    {
+                        aResp->res.jsonValue["ApplyTime"] = "Immediate";
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["ApplyTime"] = "OnReset";
+                    }
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
