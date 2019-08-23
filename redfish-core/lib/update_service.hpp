@@ -337,7 +337,8 @@ class UpdateService : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_2_0.UpdateService";
+        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#UpdateService.UpdateService";
@@ -358,7 +359,42 @@ class UpdateService : public Node
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
             "TFTP"};
 #endif
-        res.end();
+        // Get the current ApplyTime value
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    const std::variant<std::string> &applyTime) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const std::string *s = std::get_if<std::string>(&applyTime);
+                if (s == nullptr)
+                {
+                    return;
+                }
+                // Store the ApplyTime Value
+                if (*s == "xyz.openbmc_project.Software.ApplyTime."
+                          "RequestedApplyTimes.Immediate")
+                {
+                    aResp->res.jsonValue["HttpPushUriOptions"]
+                                        ["HttpPushUriApplyTime"]["ApplyTime"] =
+                        "Immediate";
+                }
+                else if (*s == "xyz.openbmc_project.Software.ApplyTime."
+                               "RequestedApplyTimes.OnReset")
+                {
+                    aResp->res.jsonValue["HttpPushUriOptions"]
+                                        ["HttpPushUriApplyTime"]["ApplyTime"] =
+                        "OnReset";
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -367,50 +403,77 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "doPatch...";
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        std::string applyTime;
 
-        if (!json_util::readJson(req, res, "ApplyTime", applyTime))
+        std::optional<nlohmann::json> pushUriOptions;
+        if (!json_util::readJson(req, res, "HttpPushUriOptions",
+                                 pushUriOptions))
         {
             return;
         }
 
-        if ((applyTime == "Immediate") || (applyTime == "OnReset"))
+        if (pushUriOptions)
         {
-            std::string applyTimeNewVal;
-            if (applyTime == "Immediate")
+            std::optional<nlohmann::json> pushUriApplyTime;
+            if (!json_util::readJson(*pushUriOptions, res,
+                                     "HttpPushUriApplyTime", pushUriApplyTime))
             {
-                applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
-                                  "RequestedApplyTimes.Immediate";
-            }
-            else
-            {
-                applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
-                                  "RequestedApplyTimes.OnReset";
+                return;
             }
 
-            // Set the requested image apply time value
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
+            if (pushUriApplyTime)
+            {
+                std::optional<std::string> applyTime;
+                if (!json_util::readJson(*pushUriApplyTime, res, "ApplyTime",
+                                         applyTime))
+                {
+                    return;
+                }
+
+                if (applyTime)
+                {
+                    std::string applyTimeNewVal;
+                    if (applyTime == "Immediate")
                     {
-                        BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
-                        messages::internalError(asyncResp->res);
+                        applyTimeNewVal =
+                            "xyz.openbmc_project.Software.ApplyTime."
+                            "RequestedApplyTimes.Immediate";
+                    }
+                    else if (applyTime == "OnReset")
+                    {
+                        applyTimeNewVal =
+                            "xyz.openbmc_project.Software.ApplyTime."
+                            "RequestedApplyTimes.OnReset";
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_INFO
+                            << "ApplyTime value is not in the list of "
+                               "acceptable values";
+                        messages::propertyValueNotInList(
+                            asyncResp->res, *applyTime, "ApplyTime");
                         return;
                     }
-                    messages::success(asyncResp->res);
-                },
-                "xyz.openbmc_project.Settings",
-                "/xyz/openbmc_project/software/apply_time",
-                "org.freedesktop.DBus.Properties", "Set",
-                "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
-                std::variant<std::string>{applyTimeNewVal});
-        }
-        else
-        {
-            BMCWEB_LOG_INFO << "ApplyTime value is not in the list of "
-                               "acceptable values";
-            messages::propertyValueNotInList(asyncResp->res, applyTime,
-                                             "ApplyTime");
+
+                    // Set the requested image apply time value
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                        },
+                        "xyz.openbmc_project.Settings",
+                        "/xyz/openbmc_project/software/apply_time",
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Software.ApplyTime",
+                        "RequestedApplyTime",
+                        std::variant<std::string>{applyTimeNewVal});
+                }
+            }
         }
     }
 
