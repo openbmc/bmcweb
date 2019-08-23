@@ -1382,6 +1382,8 @@ class Systems : public Node
             {"@odata.id", "/redfish/v1/Systems/system/Processors"}};
         res.jsonValue["Memory"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Memory"}};
+        res.jsonValue["Storage"] = {
+            {"@odata.id", "/redfish/v1/Systems/system/Storage"}};
 
         // TODO Need to support ForceRestart.
         res.jsonValue["Actions"]["#ComputerSystem.Reset"] = {
