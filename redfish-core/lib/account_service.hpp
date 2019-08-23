@@ -992,6 +992,8 @@ class AccountService : public Node
 class AccountsCollection : public Node
 {
   public:
+    std::vector<std::string> allGroupsList;
+
     AccountsCollection(CrowApp& app) :
         Node(app, "/redfish/v1/AccountService/Accounts/")
     {
@@ -1058,6 +1060,46 @@ class AccountsCollection : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
+
+        if (allGroupsList.empty())
+        {
+            // Reading AllGroups property
+            crow::connections::systemBus->async_method_call(
+                [this, &res, &req](
+                    const boost::system::error_code ec,
+                    const std::variant<std::vector<std::string>>& allGroups) {
+                    auto asyncResp = std::make_shared<AsyncResp>(res);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    auto ptrGroupList =
+                        std::get_if<std::vector<std::string>>(&allGroups);
+                    if (!ptrGroupList || ptrGroupList->empty())
+                    {
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    allGroupsList = *ptrGroupList;
+
+                    createUserAndUpdatePwd(res, req);
+                },
+                "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
+                "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.User.Manager", "AllGroups");
+        }
+
+        else
+        {
+            createUserAndUpdatePwd(res, req);
+        }
+    }
+
+    void createUserAndUpdatePwd(crow::Response& res, const crow::Request& req)
+    {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         std::string username;
@@ -1078,7 +1120,6 @@ class AccountsCollection : public Node
             return;
         }
         roleId = priv;
-
         crow::connections::systemBus->async_method_call(
             [asyncResp, username, password{std::move(password)}](
                 const boost::system::error_code ec) {
@@ -1092,9 +1133,9 @@ class AccountsCollection : public Node
 
                 if (!pamUpdatePassword(username, password))
                 {
-                    // At this point we have a user that's been created, but
-                    // the password set failed.  Something is wrong, so
-                    // delete the user that we've already created
+                    // At this point we have a user that's been created,
+                    // but the password set failed.  Something is wrong,
+                    // so delete the user that we've already created
                     crow::connections::systemBus->async_method_call(
                         [asyncResp](const boost::system::error_code ec) {
                             if (ec)
@@ -1110,6 +1151,7 @@ class AccountsCollection : public Node
                         "xyz.openbmc_project.Object.Delete", "Delete");
 
                     BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+
                     return;
                 }
 
@@ -1120,8 +1162,7 @@ class AccountsCollection : public Node
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "xyz.openbmc_project.User.Manager", "CreateUser", username,
-            std::array<const char*, 4>{"ipmi", "redfish", "ssh", "web"},
-            *roleId, *enabled);
+            allGroupsList, *roleId, *enabled);
     }
 };
 
