@@ -30,6 +30,7 @@
 #include "../lib/roles.hpp"
 #include "../lib/sensors.hpp"
 #include "../lib/service_root.hpp"
+#include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
@@ -71,6 +72,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
         nodes.emplace_back(std::make_unique<Chassis>(app));
         nodes.emplace_back(std::make_unique<UpdateService>(app));
+        nodes.emplace_back(std::make_unique<StorageCollection>(app));
+        nodes.emplace_back(std::make_unique<Storage>(app));
+        nodes.emplace_back(std::make_unique<Drive>(app));
 #ifdef BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
         nodes.emplace_back(
             std::make_unique<UpdateServiceActionsSimpleUpdate>(app));
