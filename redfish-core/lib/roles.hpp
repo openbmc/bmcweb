@@ -59,10 +59,6 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     {
         privArray = {"Login", "ConfigureSelf"};
     }
-    else if (role == "Callback")
-    {
-        privArray = {"Login"};
-    }
     else
     {
         return false;

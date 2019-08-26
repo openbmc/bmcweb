@@ -192,11 +192,17 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
         static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
         return op;
     }
-    else
+    else if (userRole == "priv-user")
     {
         // Redfish privilege : Readonly
         static Privileges readOnly{"Login", "ConfigureSelf"};
         return readOnly;
+    }
+    else
+    {
+        // Redfish Privilage : should not have any privilages
+        static Privileges noPriv{};
+        return noPriv;
     }
 }
 
