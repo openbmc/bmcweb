@@ -1023,6 +1023,16 @@ const std::array registry = {
                      .resolution = "None.",
                  }},
     MessageEntry{
+        "PowerSupplyACInserted",
+        {
+            .description = "Indicates that a power supply AC was inserted.",
+            .message = "Power supply %1 AC power inserted.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "PowerSupplyACLost",
         {
             .description = "Indicates that a power supply has lost AC power.",
@@ -1053,6 +1063,17 @@ const std::array registry = {
             .paramTypes = {"string", "string"},
             .resolution = "None.",
         }},
+    MessageEntry{
+        "PowerSupplyFanRecovered",
+        {
+            .description =
+                "Indicates that the power supply fan recovered from a failure.",
+            .message = "Power supply %1 fan %2 recovered.",
+            .severity = "OK",
+            .numberOfArgs = 2,
+            .paramTypes = {"string", "string"},
+            .resolution = "None.",
+        }},
     MessageEntry{"PowerSupplyFailed",
                  {
                      .description = "Indicates that a power supply has failed.",
@@ -1077,6 +1098,27 @@ const std::array registry = {
         {
             .description = "Indicates that a power supply has been inserted.",
             .message = "Power supply %1 inserted.",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{"PowerSupplyPredictedFailureRecovered",
+                 {
+                     .description = "Indicates that a power supply recovered "
+                                    "from a predicted failure.",
+                     .message = "Power supply %1 predicted failure recovered.",
+                     .severity = "OK",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"string"},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{
+        "PowerSupplyRecovered",
+        {
+            .description =
+                "Indicates that a power supply recovered from a failure.",
+            .message = "Power supply %1 recovered.",
             .severity = "OK",
             .numberOfArgs = 1,
             .paramTypes = {"string"},
