@@ -1546,7 +1546,7 @@ class EthernetInterface : public Node
         }
         else
         {
-            json_response["StaticNameServers"] = {};
+            json_response["StaticNameServers"] = nlohmann::json::array();
         }
 
         nlohmann::json &ipv4_array = json_response["IPv4Addresses"];
