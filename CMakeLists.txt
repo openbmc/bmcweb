@@ -38,6 +38,7 @@ option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
 option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
         transactions through Redfish. Paths are under
         '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
+option (BMCWEB_ENABLE_REDFISH_PFR_FEATURE "Enable PFR feature." OFF)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -277,6 +278,7 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
     $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>: -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PFR_FEATURE}>: -DBMCWEB_ENABLE_REDFISH_PFR_FEATURE>
 
 )
 
