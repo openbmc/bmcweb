@@ -168,7 +168,8 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
     {
         // Must be a complex type.  Simple types (int string etc) should be
         // unpacked directly
-        if (!jsonValue.is_object() && !jsonValue.is_array())
+        if (!jsonValue.is_object() && !jsonValue.is_array() &&
+            !jsonValue.is_null())
         {
             messages::propertyValueTypeError(res, jsonValue.dump(), key);
             return false;
