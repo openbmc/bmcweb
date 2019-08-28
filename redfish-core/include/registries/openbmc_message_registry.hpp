@@ -96,6 +96,16 @@ const std::array registry = {
                      .paramTypes = {"string"},
                      .resolution = "None.",
                  }},
+    MessageEntry{"CPUThermalTrip",
+                 {
+                     .description = "Indicates that the specified CPU thermal "
+                                    "trip has been asserted.",
+                     .message = "CPU %1 Thermal Trip.",
+                     .severity = "Critical",
+                     .numberOfArgs = 1,
+                     .paramTypes = {"number"},
+                     .resolution = "None.",
+                 }},
     MessageEntry{
         "DCPowerOff",
         {
@@ -1364,6 +1374,17 @@ const std::array registry = {
             .severity = "Critical",
             .numberOfArgs = 0,
             .paramTypes = {},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "VoltageRegulatorOverheated",
+        {
+            .description =
+                "Indicates that the specified voltage regulator overheated.",
+            .message = "%1 Voltage Regulator Overheated.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
             .resolution = "None.",
         }},
 };
