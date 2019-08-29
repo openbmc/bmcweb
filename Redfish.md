@@ -482,15 +482,16 @@ the other.
 ##### UpdateService
 - SoftwareInventory
 
-#### /redfish/v1/UpdateService/SoftwareInventory
+#### /redfish/v1/UpdateService/FirmwareInventory
 ##### SoftwareInventoryCollection
 - Members
 - Should Support BMC, ME, CPLD and BIOS
 - Members@odata.count
 
-#### /redfish/v1/UpdateService/SoftwareInventory/{MemberName}
+#### /redfish/v1/UpdateService/FirmwareInventory/{SoftwareInventoryId}
 ##### SoftwareInventory
 - Version
+- Updateable
 
 [1]: https://www.dmtf.org/standards/redfish
 [2]: https://redfish.dmtf.org/schemas/v1/LogService.json
