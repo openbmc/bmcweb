@@ -360,7 +360,7 @@ the other.
   - Should support one system
 - Members@odata.count
 
-#### /redfish/v1/Systems/{SystemName}
+#### /redfish/v1/Systems/system
 ##### ComputerSystem
 - Boot
 - PartNumber
@@ -384,27 +384,27 @@ the other.
 - EthernetInterfaces
 - MemorySummary
 
-#### /redfish/v1/Systems/{SystemName}/EthernetInterfaces
+#### /redfish/v1/Systems/system/EthernetInterfaces
 ##### EthernetInterfaceCollection
 - Members
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Systems/{SystemName}/LogServices
+#### /redfish/v1/Systems/system/LogServices
 ##### LogServiceCollection
 - Members
   - Should default to one member, named SEL
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Systems/{SystemName}/LogServices/SEL/Entries
+#### /redfish/v1/Systems/system/LogServices/SEL/Entries
 ##### LogEntryCollection
 - Members
 - Members@odata.count
 - Description
 - @odata.nextLink
 
-#### /redfish/v1/Systems/{SystemName}/LogServices/SEL/Entries/{entryNumber}
+#### /redfish/v1/Systems/system/LogServices/SEL/Entries/{entryNumber}
 ##### LogEntry
 - MessageArgs
 - Severity
@@ -415,12 +415,12 @@ the other.
 - EntryCode
 - EntryType
 
-#### /redfish/v1/Systems/{SystemName}/Memory
+#### /redfish/v1/Systems/system/Memory
 ##### MemoryCollection
 - Members
 - Members@odata.count
 
-#### /redfish/v1/Systems/{SystemName}/Memory/Memory1
+#### /redfish/v1/Systems/system/Memory/Memory1
 ##### Memory
 - MemoryType
 - Description
@@ -442,18 +442,18 @@ the other.
 - BusWidthBits
 - MemoryMedia
 
-#### /redfish/v1/Systems/{SystemName}/Memory/Memory1/MemoryMetrics
+#### /redfish/v1/Systems/system/Memory/Memory1/MemoryMetrics
 ##### MemoryMetrics
 - Description
 - HealthData
 
-#### /redfish/v1/Systems/{SystemName}/Processors
+#### /redfish/v1/Systems/system/Processors
 ##### ProcessorCollection
 - Members
   - Should Support CPU1 and CPU2 for dual socket systems
 - Members@odata.count
 
-#### /redfish/v1/Systems/{SystemName}/Processors/{CPUName}
+#### /redfish/v1/Systems/system/Processors/{CPUName}
 ##### Processor
 - ProcessorArchitecture
 - TotalCores
@@ -467,12 +467,12 @@ the other.
 - ProcessorType
 - TotalThreads
 
-#### /redfish/v1/Systems/{SystemName}/Storage
+#### /redfish/v1/Systems/system/Storage
 ##### StorageCollection
 - Members
 - Members@odata.count
 
-#### /redfish/v1/Systems/{SystemName}/Storage/{storageIndex>
+#### /redfish/v1/Systems/system/Storage/{storageIndex>
 ##### Storage
 - Drives
 - Links
