@@ -49,8 +49,8 @@ Fields common to all schemas
 - Members@odata.count
 - Members
 
-#### /redfish/v1/AccountService/Accounts/<AccountName>
-##### Account
+#### /redfish/v1/AccountService/Accounts/{ManagerAccountId}
+##### ManagerAccount
 
 - Description
 - Enabled
@@ -67,7 +67,7 @@ Fields common to all schemas
 - Members
   - By default will contain 3 roles, "Administrator", "Operator", and "User"
 
-#### /redfish/v1/AccountService/Roles/<RoleName>
+#### /redfish/v1/AccountService/Roles/{RoleId}
 ##### Role
 
 - Description
@@ -89,7 +89,7 @@ Fields common to all schemas
 - Members@odata.count
 - Members
 
-#### /redfish/v1/Chassis/<ChassisName>
+#### /redfish/v1/Chassis/{ChassisId}
 ##### Chassis
 
 - ChassisType
@@ -105,11 +105,11 @@ Fields common to all schemas
   - Shall be included if component contains voltage/current sensing
     components, otherwise will be omitted.
 
-#### /redfish/v1/Chassis/<ChassisName>/Thermal
+#### /redfish/v1/Chassis/{ChassisId}/Thermal
 ##### Thermal
 Temperatures Fans Redundancy
 
-#### /redfish/v1/Chassis/<ChassisName>/Thermal#/Temperatures/<SensorName>
+#### /redfish/v1/Chassis/{ChassisId}/Thermal#/Temperatures/{SensorName}
 ##### Temperature
 - MemberId
 - Status
@@ -123,7 +123,7 @@ Temperatures Fans Redundancy
 
 *threshold fields only present if defined for sensor, otherwise absent*
 
-#### /redfish/v1/Chassis/<ChassisName>/Thermal#/Fans/<FanName>
+#### /redfish/v1/Chassis/{ChassisId}/Thermal#/Fans/{FanName}
 ##### Fan
 - MemberId
 - Status
@@ -139,8 +139,8 @@ Temperatures Fans Redundancy
 
 *threshold fields only present if defined for sensor, otherwise absent*
 
-#### /redfish/v1/Chassis/<ChassisName>/Thermal#/Redundancy/<RedundancyName>
-##### Fan
+#### /redfish/v1/Chassis/{ChassisId}/Thermal#/Redundancy/{RedundancyName}
+##### Redundancy
 - MemberId
 - RedundancySet
 - Mode
@@ -149,11 +149,11 @@ Temperatures Fans Redundancy
 - MaxNumSupported
 
 
-#### /redfish/v1/Chassis/<ChassisName>/Power/
-##### Thermal
+#### /redfish/v1/Chassis/{ChassisId}/Power/
+##### Power
 PowerControl Voltages PowerSupplies Redundancy
 
-#### /redfish/v1/Chassis/<ChassisName>/Power#/PowerControl/<ControlName>
+#### /redfish/v1/Chassis/{ChassisId}/Power#/PowerControl/{ControlName}
 ##### PowerControl
 - MemberId
 - PowerConsumedWatts
@@ -164,7 +164,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - RelatedItem
   - Should list systems and related chassis
 
-#### /redfish/v1/Chassis/<ChassisName>/Power#/Voltages/<VoltageName>
+#### /redfish/v1/Chassis/{ChassisId}/Power#/Voltages/{VoltageName}
 ##### Voltage
 - MemberId
 - Status
@@ -178,7 +178,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - PhysicalContext
 - RelatedItem
 
-#### /redfish/v1/Chassis/<ChassisName>/Power#/PowerSupplies/<PSUName>
+#### /redfish/v1/Chassis/{ChassisId}/Power#/PowerSupplies/{PSUName}
 ##### PowerSupply
 - MemberId
 - Status
@@ -191,7 +191,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - RelatedItem
 - Redundancy
 
-#### /redfish/v1/Chassis/{ChassisName}/Power#/Redundancy/<RedundancyName>
+#### /redfish/v1/Chassis/{ChassisId}/Power#/Redundancy/{RedundancyName}
 ##### Redundancy
 - MemberId
 - RedundancySet
@@ -217,7 +217,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - Members@odata.count
 - Members
 
-#### /redfish/v1/EventService/Subscriptions/{EventName}/
+#### /redfish/v1/EventService/Subscriptions/{EventName}
 ##### EventDestination
 - Id
 - Destination
@@ -258,7 +258,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Managers/bmc/EthernetInterfaces/{InterfaceName}
+#### /redfish/v1/Managers/bmc/EthernetInterfaces/{EthernetInterfaceId}
 ##### EthernetInterface
 - Description
 - VLAN
@@ -291,6 +291,7 @@ then be translated to Redfish EventLog Entries.
 These two implementations do not work together, so choosing one will disable
 the other.
 
+#### /redfish/v1/Managers/bmc/LogServices
 ##### LogServiceCollection
 - Members
 - Members@odata.count
@@ -305,7 +306,7 @@ the other.
 - DateTime
 - MaxNumberOfRecords
 
-#### /redfish/v1/Managers/bmc/LogServices/RedfishLog/Entries/{entry}
+#### /redfish/v1/Managers/bmc/LogServices/RedfishLog/Entries/{LogEntryId}
 ##### LogEntry
 - Message
 - Created
@@ -329,7 +330,7 @@ the other.
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Registries/<MessageRegistry>
+#### /redfish/v1/Registries/{MessageRegistryFileId}
 ##### MessageRegistryFile
 - Location
 - Description
@@ -404,7 +405,7 @@ the other.
 - Description
 - @odata.nextLink
 
-#### /redfish/v1/Systems/system/LogServices/SEL/Entries/{entryNumber}
+#### /redfish/v1/Systems/system/LogServices/SEL/Entries/{LogEntryId}
 ##### LogEntry
 - MessageArgs
 - Severity
@@ -420,7 +421,7 @@ the other.
 - Members
 - Members@odata.count
 
-#### /redfish/v1/Systems/system/Memory/Memory1
+#### /redfish/v1/Systems/system/Memory/{MemoryId}
 ##### Memory
 - MemoryType
 - Description
@@ -442,7 +443,7 @@ the other.
 - BusWidthBits
 - MemoryMedia
 
-#### /redfish/v1/Systems/system/Memory/Memory1/MemoryMetrics
+#### /redfish/v1/Systems/system/Memory/{MemoryId}/MemoryMetrics
 ##### MemoryMetrics
 - Description
 - HealthData
@@ -453,7 +454,7 @@ the other.
   - Should Support CPU1 and CPU2 for dual socket systems
 - Members@odata.count
 
-#### /redfish/v1/Systems/system/Processors/{CPUName}
+#### /redfish/v1/Systems/system/Processors/{ProcessorId}
 ##### Processor
 - ProcessorArchitecture
 - TotalCores
@@ -472,7 +473,7 @@ the other.
 - Members
 - Members@odata.count
 
-#### /redfish/v1/Systems/system/Storage/{storageIndex>
+#### /redfish/v1/Systems/system/Storage/{StorageId}
 ##### Storage
 - Drives
 - Links
