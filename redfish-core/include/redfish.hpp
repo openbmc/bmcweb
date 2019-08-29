@@ -32,6 +32,7 @@
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
+#include "../lib/event-service.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -140,6 +141,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<TrustStoreCertificate>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeFunction>(app));
         nodes.emplace_back(std::make_unique<SystemPCIeDevice>(app));
+        nodes.emplace_back(std::make_unique<EventService>(app));
+        nodes.emplace_back(std::make_unique<SubscriptionCollection>(app));
+        nodes.emplace_back(std::make_unique<ManagerSubscription>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
