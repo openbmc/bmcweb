@@ -232,7 +232,7 @@ PowerControl Voltages PowerSupplies Redundancy
 - Members
 - Members@odata.count
 
-#### /redfish/v1/Managers/BMC
+#### /redfish/v1/Managers/bmc
 ##### Manager
 - Description
 - LogServices
@@ -252,19 +252,19 @@ PowerControl Voltages PowerSupplies Redundancy
 - VirtualMedia
 - EthernetInterfaces
 
-#### /redfish/v1/Managers/BMC/EthernetInterfaces
+#### /redfish/v1/Managers/bmc/EthernetInterfaces
 ##### EthernetInterfaceCollection
 - Members
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Managers/BMC/EthernetInterfaces/{InterfaceName}
+#### /redfish/v1/Managers/bmc/EthernetInterfaces/{InterfaceName}
 ##### EthernetInterface
 - Description
 - VLAN
 - MaxIPv6StaticAddresses
 
-#### /redfish/v1/Managers/BMC/LogServices
+#### /redfish/v1/Managers/bmc/LogServices
 
 The [LogService][2] resource provides properties for monitoring and configuring
 events for the service or resource to which it is associated.
@@ -296,7 +296,7 @@ the other.
 - Members@odata.count
 - Description
 
-#### /redfish/v1/Managers/BMC/LogServices/RedfishLog
+#### /redfish/v1/Managers/bmc/LogServices/RedfishLog
 ##### LogService
 - Entries
 - OverWritePolicy
@@ -305,13 +305,13 @@ the other.
 - DateTime
 - MaxNumberOfRecords
 
-#### /redfish/v1/Managers/BMC/LogServices/RedfishLog/Entries/{entry}
+#### /redfish/v1/Managers/bmc/LogServices/RedfishLog/Entries/{entry}
 ##### LogEntry
 - Message
 - Created
 - EntryType
 
-#### /redfish/v1/Managers/BMC/NetworkProtocol
+#### /redfish/v1/Managers/bmc/NetworkProtocol
 ##### ManagerNetworkProtocol
 - Description
 - SSDP
