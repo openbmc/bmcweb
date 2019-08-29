@@ -28,9 +28,16 @@ Fields common to all schemas
 #### /redfish/v1/
 ##### ServiceRoot
 
+- AccountService
+- CertificateService
+- Chassis
+- JsonSchemas
+- Managers
 - RedfishVersion
+- SessionService
+- Systems
 - UUID
-
+- UpdateService
 
 #### /redfish/v1/AccountService/
 ##### AccountService
