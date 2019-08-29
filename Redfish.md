@@ -80,8 +80,8 @@ Fields common to all schemas
     default
       - Administrator: Login, ConfigureManager, ConfigureUsers, ConfigureSelf,
         ConfigureComponents
-      - Operator: Login, ConfigureComponents
-      - User: Login
+      - Operator: Login, ConfigureSelf, ConfigureComponents
+      - User: Login, ConfigureSelf
       - Callback: None
 
 
