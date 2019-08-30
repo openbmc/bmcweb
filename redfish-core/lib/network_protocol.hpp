@@ -352,7 +352,6 @@ class NetworkProtocol : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                messages::success(asyncResp->res);
             },
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/config",
@@ -377,10 +376,7 @@ class NetworkProtocol : public Node
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp,
-             ntpEnabled](const boost::system::error_code error_code) {
-                asyncResp->res.jsonValue["NTP"]["ProtocolEnabled"] = ntpEnabled;
-            },
+            [asyncResp](const boost::system::error_code error_code) {},
             "xyz.openbmc_project.Settings",
             "/xyz/openbmc_project/time/sync_method",
             "org.freedesktop.DBus.Properties", "Set",
@@ -392,14 +388,12 @@ class NetworkProtocol : public Node
                                const std::shared_ptr<AsyncResp>& asyncResp)
     {
         crow::connections::systemBus->async_method_call(
-            [asyncResp, ntpServers](const boost::system::error_code ec) {
+            [asyncResp](const boost::system::error_code ec) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                asyncResp->res.jsonValue["NTP"]["NTPServers"] =
-                    std::move(ntpServers);
             },
             "xyz.openbmc_project.Network", "/xyz/openbmc_project/network/eth0",
             "org.freedesktop.DBus.Properties", "Set",
@@ -412,27 +406,38 @@ class NetworkProtocol : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::optional<std::string> newHostName;
-        std::optional<std::vector<std::string>> ntpServers;
-        std::optional<bool> ntpEnabled;
+        std::optional<nlohmann::json> ntp;
 
-        if (!json_util::readJson(req, res, "HostName", newHostName,
-                                 "NTPServers", ntpServers, "NTPEnabled",
-                                 ntpEnabled))
+        if (!json_util::readJson(req, res, "HostName", newHostName, "NTP", ntp))
         {
             return;
         }
+
+        res.result(boost::beast::http::status::no_content);
         if (newHostName)
         {
             handleHostnamePatch(*newHostName, asyncResp);
-            return;
         }
-        if (ntpEnabled)
+
+        if (ntp)
         {
-            handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
-        }
-        if (ntpServers)
-        {
-            handleNTPServersPatch(*ntpServers, asyncResp);
+            std::optional<std::vector<std::string>> ntpServers;
+            std::optional<bool> ntpEnabled;
+            if (!json_util::readJson(*ntp, res, "NTPServers", ntpServers,
+                                     "ProtocolEnabled", ntpEnabled))
+            {
+                return;
+            }
+
+            if (ntpEnabled)
+            {
+                handleNTPProtocolEnabled(*ntpEnabled, asyncResp);
+            }
+
+            if (ntpServers)
+            {
+                handleNTPServersPatch(*ntpServers, asyncResp);
+            }
         }
     }
 };
