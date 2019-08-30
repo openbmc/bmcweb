@@ -14,19 +14,69 @@
 // limitations under the License.
 */
 #pragma once
-
 #include "node.hpp"
 
+#include <boost/container/flat_map.hpp>
+#include <error_messages.hpp>
+#include <utils/json_utils.hpp>
 #include <variant>
 
 namespace redfish
 {
 
+static std::vector<std::string> supportedEvtTypes = {"Event", "MetricReport"};
+static std::vector<std::string> supportedRegPrefixes = {"Base", "OpenBMC"};
+static std::vector<std::string> supportedResourceTypes = {"Task"};
+
+struct EventSrvConfig
+{
+    bool enabled;
+    uint32_t retryAttempts;
+    uint32_t retryTimeoutInterval;
+};
+
+struct EventSrvSubscription
+{
+    std::string destinationUri;
+    std::string protocol;
+    std::string retryPolicy;
+    std::string customText;
+    std::string eventFormatType;
+    std::string subscriptionType;
+    std::vector<std::string> registryMsgIds;
+    std::vector<std::string> registryPrefixes;
+    std::vector<std::string> resourceTypes;
+    std::vector<nlohmann::json> httpHeaders; // key-value pair
+    std::vector<nlohmann::json> originResources;
+    std::vector<nlohmann::json> metricReportDefinitions;
+};
+
+EventSrvConfig configData;
+boost::container::flat_map<std::string, EventSrvSubscription> subscriptionsList;
+
+inline void initEventSrvStore()
+{
+    // TODO: Read the persistent data from store and populate
+    // Poulating with default.
+    configData.enabled = true;
+    configData.retryAttempts = 3;
+    configData.retryTimeoutInterval = 30; // seconds
+}
+
+inline void updateSubscriptionData()
+{
+    // Persist the config and subscription data.
+    // TODO: subscriptionsList & configData need to be
+    // written to Persist store.
+    return;
+}
 class EventService : public Node
 {
   public:
     EventService(CrowApp& app) : Node(app, "/redfish/v1/EventService/")
     {
+        initEventSrvStore();
+
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -40,18 +90,13 @@ class EventService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {
             {"@odata.type", "#EventService.v1_3_0.EventService"},
             {"@odata.context",
              "/redfish/v1/$metadata#EventService.EventService"},
             {"Id", "EventService"},
             {"Name", "Event Service"},
-            {"ServiceEnabled", true},
-            {"DeliveryRetryAttempts", 3},
-            {"DeliveryRetryIntervalSeconds", 30},
-            {"RegistryPrefixes", {"Base", "OpenBMC"}},
-            {"ResourceTypes", {"Task"}},
-            {"EventFormatTypes", {"Event", "MetricReport"}},
             {"ServerSentEventUri",
              "/redfish/v1/EventService/Subscriptions/SSE"},
             {"Subscriptions",
@@ -61,7 +106,69 @@ class EventService : public Node
                {{"target", "/redfish/v1/EventService/Actions/"
                            "EventService.SubmitTestEvent"}}}}},
             {"@odata.id", "/redfish/v1/EventService"}};
+
+        asyncResp->res.jsonValue["ServiceEnabled"] = configData.enabled;
+        asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
+            configData.retryAttempts;
+        asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
+            configData.retryTimeoutInterval;
+        asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtTypes;
+        asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
+        asyncResp->res.jsonValue["ResourceTypes"] = supportedResourceTypes;
+
         res.end();
+    }
+
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::optional<bool> serviceEnabled;
+        std::optional<uint32_t> retryAttemps;
+        std::optional<uint32_t> retryInterval;
+
+        if (!json_util::readJson(req, res, "ServiceEnabled", serviceEnabled,
+                                 "DeliveryRetryAttempts", retryAttemps,
+                                 "DeliveryRetryIntervalSeconds", retryInterval))
+        {
+            return;
+        }
+
+        if (serviceEnabled)
+        {
+            configData.enabled = *serviceEnabled;
+        }
+
+        if (retryAttemps)
+        {
+            // Supported range [1-3]
+            if ((*retryAttemps < 1) || (*retryAttemps > 3))
+            {
+                messages::propertyValueNotInList(asyncResp->res,
+                                                 std::to_string(*retryAttemps),
+                                                 "DeliveryRetryAttempts");
+            }
+            else
+            {
+                configData.retryAttempts = *retryAttemps;
+            }
+        }
+
+        if (retryInterval)
+        {
+            // Supported range [30 - 180]
+            if ((*retryInterval < 30) || (*retryInterval > 180))
+            {
+                messages::propertyValueNotInList(
+                    asyncResp->res, std::to_string(*retryInterval),
+                    "DeliveryRetryIntervalSeconds");
+            }
+            else
+            {
+                configData.retryTimeoutInterval = *retryInterval;
+            }
+        }
     }
 };
 
@@ -84,18 +191,167 @@ class SubscriptionCollection : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
         res.jsonValue = {
             {"@odata.type",
              "#EventDestinationCollection.v1_0_0.EventDestinationCollection"},
             {"@odata.context",
              "/redfish/v1/"
              "$metadata#EventDestinationCollection.EventDestinationCollection"},
-            {"Members@odata.count", 1},
-            {"Members",
-             {{{"@odata.id", "/redfish/v1/EventService/Subscriptions/1"}},
-              {{"@odata.id", "/redfish/v1/EventService/Subscriptions/2"}}}},
             {"@odata.id", "/redfish/v1/EventService/Subscriptions"}};
-        res.end();
+
+        nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
+        memberArray = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] =
+            subscriptionsList.size();
+
+        for (auto& it : subscriptionsList)
+        {
+            memberArray.push_back(
+                {{"@odata.id",
+                  "/redfish/v1/EventService/Subscriptions/" + it.first}});
+        }
+    }
+
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string destUri;
+        std::string protocol;
+        std::optional<std::string> context;
+        std::optional<std::string> eventType;
+        std::optional<std::string> retryPolicy;
+        std::optional<std::vector<std::string>> msgIds;
+        std::optional<std::vector<std::string>> regPrefixes;
+        std::optional<std::vector<nlohmann::json>> headers;
+        std::optional<std::vector<nlohmann::json>> originResources;
+        std::optional<std::vector<std::string>> resourceTypes;
+        std::optional<std::vector<nlohmann::json>> metricReportDefinitions;
+
+        if (!json_util::readJson(
+                req, res, "Destination", destUri, "Context", context,
+                "Protocol", protocol, "EventFormatType", eventType,
+                "HttpHeaders", headers, "RegistryPrefixes", regPrefixes,
+                "MessageIds", msgIds, "DeliveryRetryPolicy", retryPolicy,
+                "ResourceTypes", resourceTypes, "OriginResources",
+                originResources, "MetricReportDefinitions",
+                metricReportDefinitions))
+        {
+            return;
+        }
+
+        EventSrvSubscription subValue;
+
+        // TODO: Validate URI
+        subValue.destinationUri = destUri;
+        subValue.subscriptionType = "Event";
+        if (protocol != "Redfish")
+        {
+            messages::propertyValueNotInList(asyncResp->res, protocol,
+                                             "Protocol");
+            return;
+        }
+        subValue.protocol = protocol;
+
+        if (eventType)
+        {
+            if (std::find(supportedEvtTypes.begin(), supportedEvtTypes.end(),
+                          *eventType) == supportedEvtTypes.end())
+            {
+                messages::propertyValueNotInList(asyncResp->res, *eventType,
+                                                 "EventFormatType");
+                return;
+            }
+            subValue.eventFormatType = *eventType;
+        }
+        else
+        {
+            // If not specified, use default "Event"
+            subValue.eventFormatType.assign({"Event"});
+        }
+
+        if (context)
+        {
+            subValue.customText = *context;
+        }
+
+        if (headers)
+        {
+            subValue.httpHeaders = *headers;
+        }
+
+        if (regPrefixes)
+        {
+            for (const std::string& it : *regPrefixes)
+            {
+                if (std::find(supportedRegPrefixes.begin(),
+                              supportedRegPrefixes.end(),
+                              it) == supportedRegPrefixes.end())
+                {
+                    messages::propertyValueNotInList(asyncResp->res, it,
+                                                     "RegistryPrefixes");
+                    return;
+                }
+            }
+            subValue.registryPrefixes = *regPrefixes;
+        }
+
+        if (msgIds)
+        {
+            // Do we need to loop-up MessageRegistry and validate
+            // data for authenticity??? Not mandate, i believe.
+            subValue.registryMsgIds = *msgIds;
+        }
+
+        if (retryPolicy)
+        {
+            // TODO Validate
+            subValue.retryPolicy = *retryPolicy;
+        }
+        else
+        {
+            // Default "TerminateAfterRetries"
+            subValue.retryPolicy = "TerminateAfterRetries";
+        }
+
+        if (metricReportDefinitions)
+        {
+            // TODO Validate
+            subValue.metricReportDefinitions = *metricReportDefinitions;
+        }
+
+        if (resourceTypes)
+        {
+            for (const std::string& it : *resourceTypes)
+            {
+                if (std::find(supportedResourceTypes.begin(),
+                              supportedResourceTypes.end(),
+                              it) == supportedResourceTypes.end())
+                {
+                    messages::propertyValueNotInList(asyncResp->res, it,
+                                                     "ResourceTypes");
+                    return;
+                }
+            }
+            subValue.resourceTypes = *resourceTypes;
+        }
+
+        if (originResources)
+        {
+            subValue.originResources = *originResources;
+        }
+
+        std::string id =
+            boost::uuids::to_string(boost::uuids::random_generator()());
+        subscriptionsList.insert(std::pair(id, subValue));
+
+        messages::created(asyncResp->res);
+        asyncResp->res.addHeader(
+            "Location", "/redfish/v1/EventService/Subscriptions/" + id);
+
+        updateSubscriptionData();
     }
 };
 
@@ -127,54 +383,115 @@ class ManagerSubscription : public Node
         }
 
         const std::string& id = params[0];
-        if (!((id == "1") || (id == "2")))
+        auto obj = subscriptionsList.find(id);
+        if (obj == subscriptionsList.end())
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
+
+        EventSrvSubscription& subValue = obj->second;
+
         res.jsonValue = {
-            {"@odata.type", "#EventDestination.v1_5_0.EventDestination"},
+            {"@odata.type", "#EventDestination.v1_6_0.EventDestination"},
             {"@odata.context",
              "/redfish/v1/$metadata#EventDestination.EventDestination"},
-            {"Destination", "http://test.domain.com/EventListener"},
-            {"SubscriptionType", "RedfishEvent"}, // HTTP Push style
-            {"HttpHeaders",
-             nlohmann::json::array({{{"X-Auth-Token", "XYZ12345678"}}})},
-            {"Context", "CustomText"},
-            {"DeliveryRetryPolicy", "TerminateAfterRetries"},
             {"Protocol", "Redfish"}};
-
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/EventService/Subscriptions/" + id;
         asyncResp->res.jsonValue["Id"] = id;
-        asyncResp->res.jsonValue["Name"] = "Event Subscription sample " + id;
+        asyncResp->res.jsonValue["Name"] = "Event Subscription " + id;
+        asyncResp->res.jsonValue["Destination"] = subValue.destinationUri;
+        asyncResp->res.jsonValue["Context"] = subValue.customText;
+        asyncResp->res.jsonValue["SubscriptionType"] =
+            subValue.subscriptionType;
+        asyncResp->res.jsonValue["HttpHeaders"] = subValue.httpHeaders;
+        asyncResp->res.jsonValue["EventFormatType"] = subValue.eventFormatType;
+        asyncResp->res.jsonValue["RegistryPrefixes"] =
+            subValue.registryPrefixes;
+        asyncResp->res.jsonValue["OriginResources"] = subValue.originResources;
+        asyncResp->res.jsonValue["ResourceTypes"] = subValue.resourceTypes;
+        asyncResp->res.jsonValue["MessageIds"] = subValue.registryMsgIds;
+        asyncResp->res.jsonValue["MetricReportDefinitions"] =
+            subValue.metricReportDefinitions;
+        asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue.retryPolicy;
+    }
 
-        if (id == "1")
+    void doPatch(crow::Response& res, const crow::Request& req,
+                 const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
         {
-            // Mockup for Event Log Subscription
-            asyncResp->res.jsonValue["EventFormatType"] = "Event";
-
-            asyncResp->res.jsonValue["RegistryPrefixes"] =
-                nlohmann::json::array({"OpenBMC"});
-            asyncResp->res.jsonValue["ResourceTypes"] =
-                nlohmann::json::array({"Task"});
-            asyncResp->res.jsonValue["MessageIds"] =
-                nlohmann::json::array({"DCPowerOff", "InventoryAdded"});
-            asyncResp->res.jsonValue["OriginResources"] = nlohmann::json::array(
-                {{{"@odata.id", "/redfish/v1/Systems/system/Thermal"}}});
-            asyncResp->res.jsonValue["SubordinateResources"] = true;
+            messages::internalError(asyncResp->res);
+            return;
         }
-        else if (id == "2")
+
+        const std::string& id = params[0];
+        auto obj = subscriptionsList.find(id);
+        if (obj == subscriptionsList.end())
         {
-            // Mockup for MetricReport subscription
-            asyncResp->res.jsonValue["EventFormatType"] = "MetricReport";
-
-            asyncResp->res.jsonValue["MetricReportDefinitions"] =
-                nlohmann::json::array(
-                    {{{"@odata.id", "/redfish/v1/TelemetryService/"
-                                    "MetricReportDefinitions/SampleMetric"}}});
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+            return;
         }
+
+        std::optional<std::string> context;
+        std::optional<std::string> retryPolicy;
+        std::optional<std::vector<nlohmann::json>> headers;
+
+        if (!json_util::readJson(req, res, "Context", context,
+                                 "DeliveryRetryPolicy", retryPolicy,
+                                 "HttpHeaders", headers))
+        {
+            return;
+        }
+
+        EventSrvSubscription& subValue = obj->second;
+
+        if (context)
+        {
+            subValue.customText = *context;
+        }
+
+        if (headers)
+        {
+            subValue.httpHeaders = *headers;
+        }
+
+        if (retryPolicy)
+        {
+            // TODO validate supported DeliveryRetryPolicy.
+            subValue.retryPolicy = *retryPolicy;
+        }
+
+        updateSubscriptionData();
+    }
+
+    void doDelete(crow::Response& res, const crow::Request& req,
+                  const std::vector<std::string>& params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& id = params[0];
+        auto obj = subscriptionsList.find(id);
+        if (obj == subscriptionsList.end())
+        {
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+            return;
+        }
+
+        subscriptionsList.erase(obj);
+
+        updateSubscriptionData();
     }
 };
 
