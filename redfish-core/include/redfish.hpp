@@ -127,6 +127,9 @@ class RedfishService
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
         nodes.emplace_back(std::make_unique<VirtualMedia>(app));
         nodes.emplace_back(std::make_unique<VirtualMediaCollection>(app));
+        nodes.emplace_back(
+            std::make_unique<VirtualMediaActionInsertMedia>(app));
+        nodes.emplace_back(std::make_unique<VirtualMediaActionEjectMedia>(app));
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
