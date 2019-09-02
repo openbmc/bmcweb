@@ -298,6 +298,7 @@ set (WEBSERVER_MAIN src/webserver_main.cpp)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/lib)
 
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/bmcweb)
 include_directories (${CMAKE_BINARY_DIR}/include)
