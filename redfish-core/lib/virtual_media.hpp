@@ -168,6 +168,15 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
 
                 aResp->res.jsonValue = vmItemTemplate(name, resName);
 
+                // Check if dbus path is Legacy type
+                if (path.find("VirtualMedia/Legacy") != std::string::npos)
+                {
+                    aResp->res.jsonValue["Actions"]["#VirtualMedia.InsertMedia"]
+                                        ["target"] =
+                        "/redfish/v1/Managers/" + name + "/VirtualMedia/" +
+                        resName + "/Actions/VirtualMedia.InsertMedia";
+                }
+
                 vmParseInterfaceObject(item.second, aResp->res.jsonValue);
 
                 return;
@@ -179,6 +188,204 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp, const std::string &name,
         "xyz.openbmc_project.VirtualMedia", "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
 }
+
+class VirtualMediaActions : public Node
+{
+  public:
+    VirtualMediaActions(CrowApp &app, const std::string vmAction,
+                        const std::string dBusAction) :
+        Node(app,
+             "/redfish/v1/Managers/<str>/VirtualMedia/<str>/Actions/"
+             "VirtualMedia." +
+                 vmAction,
+             std::string(), std::string()),
+        vmAction(vmAction), dBusAction(dBusAction)
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * @brief Function handles GET method request.
+     *
+     * it is not required to retrieve more information in GET.
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        res.end();
+    }
+
+    /**
+     * @brief Function handles POST method request.
+     *
+     * Analyzes POST body message before sends Reset request data to dbus.
+     */
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::string resName;
+
+        if (params.size() != 2)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+
+        // take resource name from URL
+        resName = params[1];
+
+        auto aResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [this, resName, req,
+             aResp{std::move(aResp)}](const boost::system::error_code ec,
+                                      VmManagedObjectType &subtree) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error";
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                for (const auto &object : subtree)
+                {
+                    nlohmann::json item;
+                    const std::string &path =
+                        static_cast<const std::string &>(object.first);
+                    std::size_t lastIndex = path.rfind("/");
+                    if (lastIndex == std::string::npos)
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        lastIndex += 1;
+                    }
+
+                    if (path.substr(lastIndex) == resName)
+                    {
+                        lastIndex = path.rfind("Proxy");
+                        if (lastIndex != std::string::npos)
+                        {
+                            if (vmAction == "EjectMedia")
+                            {
+                                doVmAction(aResp->res, req, resName, false, "");
+                            }
+                            else
+                            {
+                                aResp->res.result(
+                                    boost::beast::http::status::not_found);
+                                aResp->res.end();
+                                return;
+                            }
+                        }
+                        lastIndex = path.rfind("Legacy");
+                        if (lastIndex != std::string::npos)
+                        {
+                            // Legacy mode
+                            std::string imageUrl;
+
+                            // Read obligatory paramters (url of image)
+                            if (!json_util::readJson(req, aResp->res, "Image",
+                                                     imageUrl))
+                            {
+                                return;
+                            }
+
+                            // must not be empty
+                            if (imageUrl.size() == 0)
+                            {
+                                aResp->res.result(
+                                    boost::beast::http::status::bad_request);
+                                messages::actionParameterValueFormatError(
+                                    aResp->res, "\"\"", "Image", vmAction);
+                                BMCWEB_LOG_ERROR << "Request action parameter "
+                                                    "Image is empty.";
+                                aResp->res.end();
+                                return;
+                            }
+
+                            // manager is irrelevant for VirtualMedia dbus calls
+                            doVmAction(aResp->res, req, resName, true,
+                                       imageUrl);
+                        }
+                    }
+                }
+            },
+            "xyz.openbmc_project.VirtualMedia",
+            "/xyz/openbmc_project/VirtualMedia",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    /**
+     * @brief Function transceives data with dbus directly.
+     *
+     * All BMC state properties will be retrieved before sending reset request.
+     */
+    void doVmAction(crow::Response &res, const crow::Request &req,
+                    const std::string &name, bool legacy,
+                    const std::string &imageUrl)
+    {
+        // Create the D-Bus variant for D-Bus call.
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        // Legacy mount requires parameter with image
+        if (legacy && dBusAction == "Mount")
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    asyncResp->res.result(boost::beast::http::status::ok);
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.VirtualMedia",
+                "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
+                "xyz.openbmc_project.VirtualMedia.Legacy", dBusAction,
+                imageUrl);
+        }
+        else // proxy mount and umount
+        {
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    asyncResp->res.result(boost::beast::http::status::ok);
+                    messages::success(asyncResp->res);
+                },
+                "xyz.openbmc_project.VirtualMedia",
+                "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
+                "xyz.openbmc_project.VirtualMedia.Proxy", dBusAction);
+        }
+    }
+
+    /** Action name in redfish */
+    std::string vmAction;
+    /** Action name in DBus */
+    std::string dBusAction;
+};
 
 class VirtualMediaCollection : public Node
 {
@@ -272,6 +479,10 @@ class VirtualMedia : public Node
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         getVmData(asyncResp, name, resName);
+
+        res.jsonValue["Actions"]["#VirtualMedia.EjectMedia"]["target"] =
+            "/redfish/v1/Managers/" + name + "/VirtualMedia/" + resName +
+            "/Actions/VirtualMedia.EjectMedia";
     }
 };
 
