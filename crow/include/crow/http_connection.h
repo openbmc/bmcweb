@@ -447,6 +447,17 @@ class Connection
         {
             res.body() = std::string(res.reason());
         }
+
+        if (res.result() == boost::beast::http::status::no_content)
+        {
+            // Boost beast throws if content is provided on a no-content
+            // response.  Ideally, this would never happen, but in the case that
+            // it does, we don't want to throw.
+            BMCWEB_LOG_CRITICAL
+                << "Response content provided but code was no-content";
+            res.body().clear();
+        }
+
         res.addHeader(boost::beast::http::field::server, serverName);
         res.addHeader(boost::beast::http::field::date, getCachedDateStr());
 
