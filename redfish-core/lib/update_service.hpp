@@ -565,14 +565,6 @@ class SoftwareInventory : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] =
-            "#SoftwareInventory.v1_1_0.SoftwareInventory";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
-        res.jsonValue["Name"] = "Software Inventory";
-        res.jsonValue["Updateable"] = false;
-        res.jsonValue["Status"]["Health"] = "OK";
-        res.jsonValue["Status"]["HealthRollup"] = "OK";
 
         if (params.size() != 1)
         {
@@ -717,6 +709,14 @@ class SoftwareInventory : public Node
                         "/redfish/v1/UpdateService/FirmwareInventory/" + *swId);
                     return;
                 }
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#SoftwareInventory.v1_1_0.SoftwareInventory";
+                asyncResp->res.jsonValue["@odata.context"] =
+                    "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
+                asyncResp->res.jsonValue["Name"] = "Software Inventory";
+                asyncResp->res.jsonValue["Updateable"] = false;
+                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
+                asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
