@@ -1005,8 +1005,6 @@ class AccountsCollection : public Node
             {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
     }
 
-  private:
-    std::vector<std::string> allGroupsList;
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -1059,37 +1057,7 @@ class AccountsCollection : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-        // Reading AllGroups property
-        crow::connections::systemBus->async_method_call(
-            [this, &res,
-             &req](const boost::system::error_code ec,
-                   const std::variant<std::vector<std::string>>& allGroups) {
-                auto asyncResp = std::make_shared<AsyncResp>(res);
-                if (ec)
-                {
-                    BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
 
-                auto ptrGroupList =
-                    std::get_if<std::vector<std::string>>(&allGroups);
-                if (!ptrGroupList || ptrGroupList->empty())
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-                allGroupsList = *ptrGroupList;
-
-                createUserAndUpdatePwd(res, req);
-            },
-            "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "org.freedesktop.DBus.Properties", "Get",
-            "xyz.openbmc_project.User.Manager", "AllGroups");
-    }
-
-    void createUserAndUpdatePwd(crow::Response& res, const crow::Request& req)
-    {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         std::string username;
@@ -1111,48 +1079,71 @@ class AccountsCollection : public Node
         }
         roleId = priv;
 
+        // Reading AllGroups property
         crow::connections::systemBus->async_method_call(
-            [asyncResp, username, password{std::move(password)}](
-                const boost::system::error_code ec) {
+            [asyncResp, username, password{std::move(password)}, roleId,
+             enabled](const boost::system::error_code ec,
+                      const std::variant<std::vector<std::string>>& allGroups) {
                 if (ec)
                 {
-                    messages::resourceAlreadyExists(
-                        asyncResp->res, "#ManagerAccount.v1_0_3.ManagerAccount",
-                        "UserName", username);
+                    BMCWEB_LOG_DEBUG << "ERROR with async_method_call";
                     return;
                 }
 
-                if (!pamUpdatePassword(username, password))
-                {
-                    // At this point we have a user that's been created,
-                    // but the password set failed.  Something is wrong,
-                    // so delete the user that we've already created
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
+                const std::vector<std::string>* allGroupsList =
+                    std::get_if<std::vector<std::string>>(&allGroups);
 
-                            messages::invalidObject(asyncResp->res, "Password");
-                        },
-                        "xyz.openbmc_project.User.Manager",
-                        "/xyz/openbmc_project/user/" + username,
-                        "xyz.openbmc_project.Object.Delete", "Delete");
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, username, password{std::move(password)}](
+                        const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            messages::resourceAlreadyExists(
+                                asyncResp->res,
+                                "#ManagerAccount.v1_0_3.ManagerAccount",
+                                "UserName", username);
+                            return;
+                        }
 
-                    BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
-                    return;
-                }
+                        if (!pamUpdatePassword(username, password))
+                        {
+                            // At this point we have a user that's been created,
+                            // but the password set failed.	Something is wrong,
+                            // so delete the user that we've already created
+                            crow::connections::systemBus->async_method_call(
+                                [asyncResp](
+                                    const boost::system::error_code ec) {
+                                    if (ec)
+                                    {
+                                        messages::internalError(asyncResp->res);
+                                        return;
+                                    }
 
-                messages::created(asyncResp->res);
-                asyncResp->res.addHeader(
-                    "Location",
-                    "/redfish/v1/AccountService/Accounts/" + username);
+                                    messages::invalidObject(asyncResp->res,
+                                                            "Password");
+                                },
+                                "xyz.openbmc_project.User.Manager",
+                                "/xyz/openbmc_project/user/" + username,
+                                "xyz.openbmc_project.Object.Delete", "Delete");
+
+                            BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+
+                            return;
+                        }
+
+                        messages::created(asyncResp->res);
+                        asyncResp->res.addHeader(
+                            "Location",
+                            "/redfish/v1/AccountService/Accounts/" + username);
+                    },
+                    "xyz.openbmc_project.User.Manager",
+                    "/xyz/openbmc_project/user",
+                    "xyz.openbmc_project.User.Manager", "CreateUser", username,
+                    *allGroupsList, *roleId, *enabled);
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
-            "xyz.openbmc_project.User.Manager", "CreateUser", username,
-            allGroupsList, *roleId, *enabled);
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.User.Manager", "AllGroups");
     }
 };
 
@@ -1176,14 +1167,6 @@ class ManagerAccount : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = {
-            {"@odata.context",
-             "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
-            {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-            {"Name", "User Account"},
-            {"Description", "User Account"},
-            {"Password", nullptr},
-            {"RoleId", "Administrator"}};
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -1217,6 +1200,16 @@ class ManagerAccount : public Node
                                                accountName);
                     return;
                 }
+
+                asyncResp->res.jsonValue = {
+                    {"@odata.context",
+                     "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
+                    {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
+                    {"Name", "User Account"},
+                    {"Description", "User Account"},
+                    {"Password", nullptr},
+                    {"RoleId", "Administrator"}};
+
                 for (const auto& interface : userIt->second)
                 {
                     if (interface.first ==
