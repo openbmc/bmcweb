@@ -1176,15 +1176,6 @@ class ManagerAccount : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue = {
-            {"@odata.context",
-             "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
-            {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
-            {"Name", "User Account"},
-            {"Description", "User Account"},
-            {"Password", nullptr},
-            {"RoleId", "Administrator"}};
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
@@ -1194,9 +1185,9 @@ class ManagerAccount : public Node
         }
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, accountName{std::string(params[0])}](
-                const boost::system::error_code ec,
-                const ManagedObjectType& users) {
+            [asyncResp, accountName{std::string(params[0])},
+             &res](const boost::system::error_code ec,
+                   const ManagedObjectType& users) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -1217,6 +1208,16 @@ class ManagerAccount : public Node
                                                accountName);
                     return;
                 }
+
+                res.jsonValue = {
+                    {"@odata.context",
+                     "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
+                    {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
+                    {"Name", "User Account"},
+                    {"Description", "User Account"},
+                    {"Password", nullptr},
+                    {"RoleId", "Administrator"}};
+
                 for (const auto& interface : userIt->second)
                 {
                     if (interface.first ==
