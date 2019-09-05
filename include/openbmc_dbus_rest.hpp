@@ -21,6 +21,7 @@
 #include <boost/container/flat_set.hpp>
 #include <dbus_singleton.hpp>
 #include <dbus_utility.hpp>
+#include <experimental/filesystem>
 #include <filesystem>
 #include <fstream>
 #include <regex>
@@ -31,6 +32,7 @@ namespace crow
 namespace openbmc_mapper
 {
 
+namespace fs = std::experimental::filesystem;
 using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
@@ -2062,6 +2064,88 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
     res.end();
 }
 
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+void handleIbmPost(const crow::Request &req, crow::Response &res,
+                   const std::string &objectPath,
+                   const std::string &destProperty)
+{
+    if (!strcmp(objectPath.c_str(), "/ibm/v1/files/partitions/"))
+    {
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Request to create the save-area file";
+        try
+        {
+            if (!fs::is_directory("/var/lib/obmc/bmc-console-mgmt"))
+            {
+                fs::create_directory("/var/lib/obmc/bmc-console-mgmt");
+            }
+            if (!fs::is_directory("/var/lib/obmc/bmc-console-mgmt/save-area"))
+            {
+                fs::create_directory(
+                    "/var/lib/obmc/bmc-console-mgmt/save-area");
+            }
+        }
+        catch (const fs::filesystem_error &e)
+        {
+            setErrorResponse(
+                res, boost::beast::http::status::internal_server_error,
+                "Failed to create save-area directory", "Internal Error");
+            res.end();
+            BMCWEB_LOG_DEBUG
+                << "handleIbmPost: Failed to prepare save-area dir";
+            return;
+        }
+        std::string data = req.body;
+        std::string fileData, fileId;
+        char *token = strtok((char *)data.c_str(), "\r\n");
+        char *boundary = token;
+        while (token != NULL)
+        {
+            token = strtok(NULL, "\r\n");
+            std::size_t pos = std::string(token).find(" name=\"");
+            if (pos != 0)
+            {
+                fileId = strtok(
+                    (char *)std::string(token).substr(pos + 6).c_str(), "\"");
+                break;
+            }
+        }
+        std::size_t pos1 = data.find("octet-stream");
+        std::size_t pos2 = data.find_last_of(boundary);
+        if (pos1 != 0)
+        {
+            fileData = data.substr(pos1 + 12, (pos2) - (pos1 + 12));
+        }
+        data.erase(std::remove(fileData.begin(), fileData.end(), '\n'),
+                   fileData.end());
+        std::ofstream file;
+        std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+        loc /= (char *)fileId.c_str();
+        file.open(loc, std::ofstream::out);
+        file << fileData;
+        file.close();
+
+        BMCWEB_LOG_DEBUG << "save-area file " << loc << " is created";
+        res.end();
+        return;
+    }
+}
+
+inline void handleIbmUrl(const crow::Request &req, crow::Response &res,
+                         std::string &objectPath)
+{
+    std::string destProperty = "";
+    if (req.method() == "POST"_method)
+    {
+        handleIbmPost(req, res, objectPath, destProperty);
+        return;
+    }
+    setErrorResponse(res, boost::beast::http::status::method_not_allowed,
+                     methodNotAllowedDesc, methodNotAllowedMsg);
+    res.end();
+}
+
+#endif
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
@@ -2550,6 +2634,25 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 findActionOnInterface(transaction, processName);
             }
         });
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    BMCWEB_ROUTE(app, "/ibm/<path>")
+        .requires({"Login"})
+        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
+                                  const std::string &path) {
+            std::string objectPath = "/ibm/" + path;
+            handleIbmUrl(req, res, objectPath);
+        });
+
+    BMCWEB_ROUTE(app, "/ibm/<path>")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method, "DELETE"_method)([](const crow::Request &req,
+                                                    crow::Response &res,
+                                                    const std::string &path) {
+            std::string objectPath = "/ibm/" + path;
+            handleIbmUrl(req, res, objectPath);
+        });
+#endif
 }
 } // namespace openbmc_mapper
 } // namespace crow
