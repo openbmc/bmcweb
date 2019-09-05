@@ -9,6 +9,7 @@
 #include <memory>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
+#include <openbmc_ibm_mc_rest.hpp>
 #include <persistent_data_middleware.hpp>
 #include <redfish.hpp>
 #include <redfish_v1.hpp>
@@ -88,6 +89,10 @@ int main(int argc, char** argv)
 
 #ifdef BMCWEB_ENABLE_VM_WEBSOCKET
     crow::obmc_vm::requestRoutes(app);
+#endif
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    crow::openbmc_ibm_mc::requestRoutes(app);
 #endif
 
     crow::token_authorization::requestRoutes(app);
