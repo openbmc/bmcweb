@@ -20,6 +20,7 @@
 #include "redfish_util.hpp"
 
 #include <boost/container/flat_map.hpp>
+#include <iostream>
 #include <node.hpp>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
@@ -206,19 +207,29 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                                  &property : properties)
                                         {
                                             if (property.first ==
-                                                "MemorySizeInKb")
+                                                "MemorySizeInKB")
                                             {
-                                                const uint64_t *value =
+                                                const uint32_t *value =
                                                     sdbusplus::message::
                                                         variant_ns::get_if<
-                                                            uint64_t>(
+                                                            uint32_t>(
                                                             &property.second);
                                                 if (value != nullptr)
                                                 {
+                                                    nlohmann::json
+                                                        &totalMemory =
+                                                            aResp->res.jsonValue
+                                                                ["MemorySummar"
+                                                                 "y"]
+                                                                ["TotalSystemMe"
+                                                                 "moryGiB"];
                                                     aResp->res.jsonValue
+                                                        ["MemorySummary"]
                                                         ["TotalSystemMemoryGi"
-                                                         "B"] +=
-                                                        *value / (1024 * 1024);
+                                                         "B"] =
+                                                        *value / (1024 * 1024) +
+                                                        totalMemory
+                                                            .get<uint64_t>();
                                                     aResp->res.jsonValue
                                                         ["MemorySummary"]
                                                         ["Status"]["State"] =
