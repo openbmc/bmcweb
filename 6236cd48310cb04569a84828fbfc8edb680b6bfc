@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "30a06598_dc33c22b",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2019-09-05T20:27:32Z",
+      "side": 1,
+      "message": "This construct is hazardous.\nYou have assigned ownership of gateway to the lambda, removing it from createIPv4.  That means the aysnc_method_call may not have access to the gateway variable in the parameter list.",
+      "revId": "6236cd48310cb04569a84828fbfc8edb680b6bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
