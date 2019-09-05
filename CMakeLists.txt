@@ -71,6 +71,10 @@ option (
     '/redfish/v1/Systems/system/LogServices/EventLog/Entries'."
     OFF
 )
+option (BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    "Enable the IBMs management console specific functionalities"
+    OFF
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -334,6 +338,7 @@ target_link_libraries (bmcweb -lsystemd)
 target_link_libraries (bmcweb -lstdc++fs)
 target_link_libraries (bmcweb sdbusplus)
 target_link_libraries (bmcweb tinyxml2)
+target_link_libraries (bmcweb -lmimetic)
 install (TARGETS bmcweb DESTINATION bin)
 
 target_compile_definitions (
@@ -359,6 +364,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
     $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>:
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
+    $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
+    -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
 )
 
 # configure and install systemd unit files
