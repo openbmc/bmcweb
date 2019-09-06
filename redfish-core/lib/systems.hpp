@@ -763,6 +763,98 @@ static std::string dbusToRfBootMode(const std::string &dbusMode)
 }
 
 /**
+ * @brief Retrieves host watchdog timer properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getHostWatchdogTimerStatus(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get watchodg timer status.";
+
+    aResp->res.jsonValue["HostWatchdogTimer"]["FunctionEnabled"] = "true";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const sdbusplus::message::variant<bool> &watchdogTimer) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const bool *state = std::get_if<bool>(&watchdogTimer);
+
+            if (!state)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+            if (*state)
+            {
+                aResp->res.jsonValue["HostWatchdogTimer"]["Status"]["State"] =
+                    "Running";
+            }
+            else
+            {
+                aResp->res.jsonValue["HostWatchdogTimer"]["Status"]["State"] =
+                    "Stopped";
+            }
+        },
+        "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Watchdog", "Enabled");
+}
+
+/**
+ * @brief Retrieves host watchdog timer properties over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getHostWatchdogTimerAction(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get watchodg timer action.";
+
+    constexpr char const *watchdogActionStr =
+        "xyz.openbmc_project.State.Watchdog.Action.";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                const sdbusplus::message::variant<std::string> &watchdogTimer) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string *s = std::get_if<std::string>(&watchdogTimer);
+
+            if (s != nullptr)
+            {
+                std::size_t pos = s->find(watchdogActionStr);
+                if (pos == std::string::npos)
+                {
+                    BMCWEB_LOG_DEBUG << "Invalid interface path " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                std::string action =
+                    (*s).substr(pos + strlen(watchdogActionStr));
+                aResp->res.jsonValue["HostWatchdogTimer"]["TimeoutAction"] =
+                    action;
+            }
+        },
+        "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Watchdog", "ExpireAction");
+}
+
+/**
  * @brief Traslates boot source from Redfish to the DBus boot paths.
  *
  * @param[in] rfSource    The boot source in Redfish.
@@ -1456,6 +1548,8 @@ class Systems : public Node
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp);
+        getHostWatchdogTimerStatus(asyncResp);
+        getHostWatchdogTimerAction(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
