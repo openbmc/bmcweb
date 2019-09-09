@@ -2065,6 +2065,74 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
 }
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+void handleIbmList(crow::Response &res, std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "handleList on Path: " << objectPath;
+    std::experimental::filesystem::path loc(
+        "/var/lib/obmc/bmc-console-mgmt/save-area");
+    if (!fs::exists(loc) || !fs::is_directory(loc))
+    {
+        BMCWEB_LOG_ERROR << loc << "Not found";
+        res.result(boost::beast::http::status::not_found);
+        res.end();
+        return;
+    }
+    else
+    {
+        std::string files;
+        std::vector<std::string> file_name_split;
+        for (const auto &file : fs::directory_iterator(loc))
+        {
+            BMCWEB_LOG_DEBUG << file;
+            // Stripping off the complete path...
+            std::string f(file.path());
+            boost::split(file_name_split, f, boost::is_any_of("/"));
+            files.append(file_name_split[file_name_split.size() - 1]);
+            files.append("\n");
+        }
+        res.body() = files;
+        res.end();
+    }
+}
+
+void handleIbmGet(crow::Response &res, std::string &objectPath,
+                  std::string &destProperty)
+{
+    if (boost::ends_with(objectPath, "/"))
+    {
+        handleIbmList(res, objectPath);
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "handleGet on path: " << objectPath;
+        std::experimental::filesystem::path loc(
+            "/var/lib/obmc/bmc-console-mgmt/save-area/");
+        if (!fs::exists(loc) || !fs::is_directory(loc))
+        {
+            BMCWEB_LOG_ERROR << loc << "Not found";
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+            return;
+        }
+
+        std::vector<std::string> result;
+        boost::split(result, objectPath, boost::is_any_of("/"));
+
+        std::string filename(result[result.size() - 1]);
+        std::string path(loc);
+        path.append(filename);
+
+        std::ifstream readfile(path);
+        std::string contentDispositionParam =
+            "attachment; filename=\"" + filename + "\"";
+        res.addHeader("Content-Disposition", contentDispositionParam);
+        res.body() = {std::istreambuf_iterator<char>(readfile),
+                      std::istreambuf_iterator<char>()};
+        res.end();
+    }
+    return;
+}
+
 void handleIbmPost(const crow::Request &req, crow::Response &res,
                    const std::string &objectPath,
                    const std::string &destProperty)
@@ -2131,21 +2199,75 @@ void handleIbmPost(const crow::Request &req, crow::Response &res,
     }
 }
 
+void handleIbmDelete(const crow::Request &req, crow::Response &res,
+                     const std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "handleDelete on Path: " << objectPath;
+
+    std::vector<std::string> obj_path_split;
+    boost::split(obj_path_split, objectPath, boost::is_any_of("/"));
+
+    std::string path("/var/lib/obmc/bmc-console-mgmt/save-area/");
+    std::string filePath(path + obj_path_split[obj_path_split.size() - 1]);
+    BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
+
+    std::ifstream file_open(filePath.c_str());
+    if ((bool)file_open)
+        if (remove(filePath.c_str()) == 0)
+        {
+            BMCWEB_LOG_DEBUG << "File removed!\n";
+            res.jsonValue = {{"message", "200 OK"},
+                             {"status", "ok"},
+                             {"data", "File Removed"}};
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "File not removed!\n";
+            res.jsonValue = {{"message", "500 Internal Server Error"},
+                             {"status", "Error"},
+                             {"data", "File Not Removed"}};
+        }
+    else
+    {
+        BMCWEB_LOG_ERROR << "File not found!\n";
+        res.jsonValue = {{"message", "404 Not Found"},
+                         {"status", "Error"},
+                         {"data", "File Not Found"}};
+    }
+    res.end();
+    return;
+}
+
 inline void handleIbmUrl(const crow::Request &req, crow::Response &res,
                          std::string &objectPath)
 {
     std::string destProperty = "";
+
+    if (req.method() == "GET"_method)
+    {
+        handleIbmGet(res, objectPath, destProperty);
+        return;
+    }
+
     if (req.method() == "POST"_method)
     {
         handleIbmPost(req, res, objectPath, destProperty);
         return;
     }
+
+    if (req.method() == "DELETE"_method)
+    {
+        handleIbmDelete(req, res, objectPath);
+        return;
+    }
+
     setErrorResponse(res, boost::beast::http::status::method_not_allowed,
                      methodNotAllowedDesc, methodNotAllowedMsg);
     res.end();
 }
 
 #endif
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
