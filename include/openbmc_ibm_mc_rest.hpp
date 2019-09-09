@@ -122,6 +122,142 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
     return;
 }
 
+void handleFileList(crow::Response &res, std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "HandleList of SaveArea files on Path: " << objectPath;
+
+    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    if (!std::filesystem::exists(loc) || !std::filesystem::is_directory(loc))
+    {
+        BMCWEB_LOG_ERROR << loc << " Not found";
+        setErrorResponse(res, boost::beast::http::status::not_found,
+                         resourceNotFoundDesc, resourceNotFoundMsg);
+        return;
+    }
+
+    for (const auto &file : std::filesystem::directory_iterator(loc))
+    {
+        std::filesystem::path pathObj(file.path());
+        res.body().append(pathObj.filename().string() + "\n");
+    }
+}
+
+void handleFileGet(crow::Response &res, std::string &objectPath,
+                   std::string &destProperty)
+{
+    std::string basePath("/ibm/v1/host/partitions");
+
+    if (boost::iequals(objectPath, basePath) ||
+        boost::iequals(objectPath, basePath.append("/")))
+    {
+        handleFileList(res, objectPath);
+        return;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: "
+                         << objectPath;
+
+        if (!boost::starts_with(objectPath, basePath))
+        {
+            BMCWEB_LOG_ERROR << "Invalid URI path: " << objectPath;
+            setErrorResponse(res, boost::beast::http::status::not_found,
+                             resourceNotFoundDesc, resourceNotFoundMsg);
+            return;
+        }
+
+        std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/");
+        if (!std::filesystem::exists(loc) ||
+            !std::filesystem::is_directory(loc))
+        {
+            BMCWEB_LOG_ERROR << loc << " Not found";
+            setErrorResponse(res, boost::beast::http::status::not_found,
+                             resourceNotFoundDesc, resourceNotFoundMsg);
+            return;
+        }
+
+        std::string filename;
+        std::filesystem::path pathObj(objectPath);
+        if (!pathObj.has_filename() ||
+            !boost::iequals(objectPath, basePath + pathObj.filename().string()))
+        {
+            BMCWEB_LOG_DEBUG << "File name not specified / Invalid file path";
+            setErrorResponse(res, boost::beast::http::status::not_found,
+                             resourceNotFoundDesc, resourceNotFoundMsg);
+            return;
+        }
+
+        filename = pathObj.filename().string();
+        std::string path(loc);
+        path.append(filename);
+
+        std::ifstream readfile(path);
+        if (!readfile)
+        {
+            BMCWEB_LOG_ERROR << path << " Not found";
+            setErrorResponse(res, boost::beast::http::status::not_found,
+                             resourceNotFoundDesc, resourceNotFoundMsg);
+            return;
+        }
+
+        std::string contentDispositionParam =
+            "attachment; filename=\"" + filename + "\"";
+        res.addHeader("Content-Disposition", contentDispositionParam);
+        res.body() = {std::istreambuf_iterator<char>(readfile),
+                      std::istreambuf_iterator<char>()};
+    }
+    return;
+}
+
+void handleFileDelete(const crow::Request &req, crow::Response &res,
+                      const std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "HandleDelete of SaveArea files on Path: "
+                     << objectPath;
+
+    std::string basePath("/ibm/v1/host/partitions/");
+
+    if (!boost::starts_with(objectPath, basePath))
+    {
+        BMCWEB_LOG_ERROR << "Invalid URI path: " << objectPath;
+        setErrorResponse(res, boost::beast::http::status::not_found,
+                         resourceNotFoundDesc, resourceNotFoundMsg);
+        return;
+    }
+
+    std::string filename =
+        objectPath.substr(basePath.length(), objectPath.length());
+
+    std::string path("/var/lib/obmc/bmc-console-mgmt/save-area/");
+    std::string filePath(path + filename);
+
+    BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
+
+    std::ifstream file_open(filePath.c_str());
+    if (static_cast<bool>(file_open))
+        if (remove(filePath.c_str()) == 0)
+        {
+            BMCWEB_LOG_DEBUG << "File removed!\n";
+            res.jsonValue = {{"message", "200 OK"},
+                             {"status", "ok"},
+                             {"data", "File Removed"}};
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "File not removed!\n";
+            setErrorResponse(
+                res, boost::beast::http::status::internal_server_error,
+                "File name not found", "500 Internal Server Error");
+        }
+    else
+    {
+        BMCWEB_LOG_ERROR << "File not found!\n";
+        setErrorResponse(res, boost::beast::http::status::not_found,
+                         resourceNotFoundDesc, resourceNotFoundMsg);
+    }
+    return;
+}
+
 inline void handleFileUrl(const crow::Request &req, crow::Response &res,
                           std::string &objectPath)
 {
@@ -129,6 +265,20 @@ inline void handleFileUrl(const crow::Request &req, crow::Response &res,
     if (req.method() == "PUT"_method)
     {
         handleFilePut(req, res, objectPath, destProperty);
+        res.end();
+        return;
+    }
+
+    if (req.method() == "GET"_method)
+    {
+        handleFileGet(res, objectPath, destProperty);
+        res.end();
+        return;
+    }
+
+    if (req.method() == "DELETE"_method)
+    {
+        handleFileDelete(req, res, objectPath);
         res.end();
         return;
     }
@@ -144,11 +294,12 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/host/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &path) {
-            std::string objectPath = "/ibm/v1/host/" + path;
-            handleFileUrl(req, res, objectPath);
-        });
+        .methods("PUT"_method, "GET"_method, "DELETE"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) {
+                std::string objectPath = "/ibm/v1/host/" + path;
+                handleFileUrl(req, res, objectPath);
+            });
 }
 } // namespace openbmc_ibm_mc
 } // namespace crow
