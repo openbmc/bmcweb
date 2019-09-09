@@ -2062,6 +2062,210 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
     res.end();
 }
 
+<<<<<<< 944ffaf9ccae2a084cd650370facfb3f76701186
+=======
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+void handleIbmList(crow::Response &res, std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "handleList on Path: " << objectPath;
+    std::experimental::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    if (!fs::exists(loc) ||
+        !fs::is_directory(loc))
+    {
+        BMCWEB_LOG_ERROR << loc << "Not found";
+        res.result(boost::beast::http::status::not_found);
+        res.end();
+        return;
+    }
+    else
+    {
+        std::string files;
+        std::vector <std::string> file_name_split;
+        for (const auto & file : fs::directory_iterator(loc)) {
+            BMCWEB_LOG_DEBUG << file;
+            // Stripping off the complete path...
+            std::string f(file.path());
+            boost::split(file_name_split, f, boost::is_any_of("/"));
+            files.append(file_name_split[file_name_split.size()-1]);
+            files.append("\n");
+        }
+        res.body() = files;
+        res.end();
+    }
+}
+
+void handleIbmGet(crow::Response &res, std::string &objectPath,
+               std::string &destProperty)
+{
+    if (boost::ends_with(objectPath, "/"))
+    {
+        //BMCWEB_LOG_DEBUG << "handleList on Path: " << objectPath;
+        handleIbmList(res, objectPath);
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "handleGet on path: " << objectPath;
+        std::experimental::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/");        
+        if (!fs::exists(loc) ||
+            !fs::is_directory(loc))
+        {
+            BMCWEB_LOG_ERROR << loc << "Not found";
+            res.result(boost::beast::http::status::not_found);
+            res.end();
+            return;
+        }
+
+        std::vector <std::string> result;
+        boost::split(result, objectPath, boost::is_any_of("/"));
+
+        std::string filename (result[result.size()-1]);
+        std::string path (loc);
+        path.append (filename);
+
+        std::ifstream readfile(path);
+        std::string contentDispositionParam =
+                        "attachment; filename=\"" + filename + "\"";
+        res.addHeader("Content-Disposition", contentDispositionParam);
+        res.body() = {std::istreambuf_iterator<char>(readfile),
+                              std::istreambuf_iterator<char>()};
+        res.end();
+    }
+    return;
+}
+
+void handleIbmPost(const crow::Request &req, crow::Response &res,
+                   const std::string &objectPath,
+                   const std::string &destProperty)
+{
+    if (!strcmp(objectPath.c_str(), "/ibm/v1/files/partitions/"))
+    {
+        BMCWEB_LOG_DEBUG
+            << "handleIbmPost: Request to create the save-area file";
+        try
+        {
+            if (!fs::is_directory("/var/lib/obmc/bmc-console-mgmt"))
+            {
+                fs::create_directory("/var/lib/obmc/bmc-console-mgmt");
+            }
+            if (!fs::is_directory("/var/lib/obmc/bmc-console-mgmt/save-area"))
+            {
+                fs::create_directory(
+                    "/var/lib/obmc/bmc-console-mgmt/save-area");
+            }
+        }
+        catch (const fs::filesystem_error &e)
+        {
+            setErrorResponse(
+                res, boost::beast::http::status::internal_server_error,
+                "Failed to create save-area directory", "Internal Error");
+            res.end();
+            BMCWEB_LOG_DEBUG
+                << "handleIbmPost: Failed to prepare save-area dir";
+            return;
+        }
+        std::string data = req.body;
+        std::string fileData, fileId;
+        char *token = strtok((char *)data.c_str(), "\r\n");
+        char *boundary = token;
+        while (token != NULL)
+        {
+            token = strtok(NULL, "\r\n");
+            std::size_t pos = std::string(token).find(" name=\"");
+            if (pos != 0)
+            {
+                fileId = strtok(
+                    (char *)std::string(token).substr(pos + 6).c_str(), "\"");
+                break;
+            }
+        }
+        std::size_t pos1 = data.find("octet-stream");
+        std::size_t pos2 = data.find_last_of(boundary);
+        if (pos1 != 0)
+        {
+            fileData = data.substr(pos1 + 12, (pos2) - (pos1 + 12));
+        }
+        data.erase(std::remove(fileData.begin(), fileData.end(), '\n'),
+                   fileData.end());
+        std::ofstream file;
+        std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+        loc /= (char *)fileId.c_str();
+        file.open(loc, std::ofstream::out);
+        file << fileData;
+        file.close();
+
+        BMCWEB_LOG_DEBUG << "save-area file " << loc << " is created";
+        res.end();
+        return;
+    }
+}
+
+void handleIbmDelete(const crow::Request &req, crow::Response &res,
+                  const std::string &objectPath)
+{
+    BMCWEB_LOG_DEBUG << "handleDelete on Path: " << objectPath;
+
+    std::vector <std::string> obj_path_split;
+    boost::split(obj_path_split, objectPath, boost::is_any_of("/"));
+
+    std::string path ("/var/lib/obmc/bmc-console-mgmt/save-area/");
+    std::string filePath (path + obj_path_split[obj_path_split.size()-1]);
+    BMCWEB_LOG_DEBUG << "Removing the file : " << filePath <<"\n";
+
+    std::ifstream file_open(filePath.c_str());
+    if ((bool)file_open)
+        if (remove(filePath.c_str()) == 0) {
+            BMCWEB_LOG_DEBUG << "File removed!\n";
+            res.jsonValue = {{"message", "200 OK"},
+                             {"status", "ok"},
+                             {"data", "File Removed"}};
+        }
+        else {
+            BMCWEB_LOG_ERROR << "File not removed!\n";
+            res.jsonValue = {{"message", "500 Internal Server Error"},
+                             {"status", "Error"},
+                             {"data", "File Not Removed"}};
+        }
+    else {
+        BMCWEB_LOG_ERROR << "File not found!\n";
+        res.jsonValue = {{"message", "404 Not Found"},
+                         {"status", "Error"},
+                         {"data", "File Not Found"}};
+    }
+    res.end();
+    return;
+}
+
+inline void handleIbmUrl(const crow::Request &req, crow::Response &res,
+                         std::string &objectPath)
+{
+    std::string destProperty = "";
+
+    if (req.method() == "GET"_method)
+    {
+        handleIbmGet(res, objectPath, destProperty);
+        return;
+    }
+
+    if (req.method() == "POST"_method)
+    {
+        handleIbmPost(req, res, objectPath, destProperty);
+        return;
+    }
+
+    if (req.method() == "DELETE"_method)
+    {
+        handleIbmDelete(req, res, objectPath);
+        return;
+    }
+
+    setErrorResponse(res, boost::beast::http::status::method_not_allowed,
+                     methodNotAllowedDesc, methodNotAllowedMsg);
+    res.end();
+}
+
+#endif
+
+>>>>>>> 6722379b9de122f00be941505ec4c656f30a004f
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
