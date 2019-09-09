@@ -59,8 +59,7 @@ bool createSaveAreaPath(crow::Response &res)
     return true;
 }
 void handleFilePut(const crow::Request &req, crow::Response &res,
-                   const std::string &objectPath,
-                   const std::string &destProperty)
+                   const std::string &fileID)
 {
     // Check the content-type of the request
     std::string_view contentType = req.getHeaderValue("content-type");
@@ -77,53 +76,102 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
     {
         BMCWEB_LOG_DEBUG << "Not a multipart/form-data. Continue..";
     }
-    std::size_t pos = objectPath.find("ConfigFiles/");
-    if (pos != std::string::npos)
+
+    BMCWEB_LOG_DEBUG
+        << "handleIbmPut: Request to create/update the save-area file";
+    if (!createSaveAreaPath(res))
     {
-        BMCWEB_LOG_DEBUG
-            << "handleIbmPut: Request to create/update the save-area file";
-        if (!createSaveAreaPath(res))
-        {
-            res.result(boost::beast::http::status::not_found);
-            res.jsonValue["Description"] = resourceNotFoundMsg;
-            return;
-        }
-        // Extract the file name from the objectPath
-        std::string fileId = objectPath.substr(pos + strlen("ConfigFiles/"));
-        // Create the file
-        std::ofstream file;
-        std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
-        loc /= fileId;
+        res.result(boost::beast::http::status::not_found);
+        res.jsonValue["Description"] = resourceNotFoundMsg;
+        return;
+    }
+    // Create the file
+    std::ofstream file;
+    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    loc /= fileID;
 
-        std::string data = std::move(req.body);
-        BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
-        if (data.capacity() > MAX_SAVE_AREA_FILESIZE)
-        {
-            res.result(boost::beast::http::status::bad_request);
-            res.jsonValue["Description"] =
-                "File size exceeds 200KB. Maximum allowed size is 200KB";
-            return;
-        }
+    std::string data = std::move(req.body);
+    BMCWEB_LOG_DEBUG << "data capaticty : " << data.capacity();
+    if (data.capacity() > MAX_SAVE_AREA_FILESIZE)
+    {
+        res.result(boost::beast::http::status::bad_request);
+        res.jsonValue["Description"] =
+            "File size exceeds 200KB. Maximum allowed size is 200KB";
+        return;
+    }
 
-        BMCWEB_LOG_DEBUG << "Creating file " << loc;
-        file.open(loc, std::ofstream::out);
-        if (file.fail())
-        {
-            BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue["Description"] = "Error while creating the file";
-            return;
-        }
-        else
-        {
-            file << data;
-            BMCWEB_LOG_DEBUG << "save-area file is created";
-            res.jsonValue["Description"] = "File Created";
-        }
+    BMCWEB_LOG_DEBUG << "Creating file " << loc;
+    file.open(loc, std::ofstream::out);
+    if (file.fail())
+    {
+        BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = "Error while creating the file";
+        return;
     }
     else
     {
-        BMCWEB_LOG_DEBUG << "Bad URI";
+        file << data;
+        BMCWEB_LOG_DEBUG << "save-area file is created";
+        res.jsonValue["Description"] = "File Created";
+    }
+
+    return;
+}
+
+void handleFileGet(crow::Response &res, const std::string &fileID)
+{
+    BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
+    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area/" +
+                              fileID);
+    if (!std::filesystem::exists(loc))
+    {
+        BMCWEB_LOG_ERROR << loc << "Not found";
+        res.result(boost::beast::http::status::not_found);
+        res.jsonValue["Description"] = resourceNotFoundMsg;
+        return;
+    }
+
+    std::ifstream readfile(loc.string());
+    if (!readfile)
+    {
+        BMCWEB_LOG_ERROR << loc.string() << "Not found";
+        res.result(boost::beast::http::status::not_found);
+        res.jsonValue["Description"] = resourceNotFoundMsg;
+        return;
+    }
+
+    std::string contentDispositionParam =
+        "attachment; filename=\"" + fileID + "\"";
+    res.addHeader("Content-Disposition", contentDispositionParam);
+    std::string fileData;
+    fileData = {std::istreambuf_iterator<char>(readfile),
+                std::istreambuf_iterator<char>()};
+    res.jsonValue["Data"] = fileData;
+    return;
+}
+
+void handleFileDelete(crow::Response &res, const std::string &fileID)
+{
+    std::string filePath("/var/lib/obmc/bmc-console-mgmt/save-area/" + fileID);
+    BMCWEB_LOG_DEBUG << "Removing the file : " << filePath << "\n";
+
+    std::ifstream file_open(filePath.c_str());
+    if (static_cast<bool>(file_open))
+        if (remove(filePath.c_str()) == 0)
+        {
+            BMCWEB_LOG_DEBUG << "File removed!\n";
+            res.jsonValue["Description"] = "File Deleted";
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "File not removed!\n";
+            res.result(boost::beast::http::status::internal_server_error);
+            res.jsonValue["Description"] = internalServerError;
+        }
+    else
+    {
+        BMCWEB_LOG_ERROR << "File not found!\n";
         res.result(boost::beast::http::status::not_found);
         res.jsonValue["Description"] = resourceNotFoundMsg;
     }
@@ -131,18 +179,26 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
 }
 
 inline void handleFileUrl(const crow::Request &req, crow::Response &res,
-                          std::string &objectPath)
+                          const std::string &fileID)
 {
-    std::string destProperty = "";
     if (req.method() == "PUT"_method)
     {
-        handleFilePut(req, res, objectPath, destProperty);
+        handleFilePut(req, res, fileID);
         res.end();
         return;
     }
-    res.result(boost::beast::http::status::method_not_allowed);
-    res.jsonValue["Description"] = methodNotAllowedMsg;
-    res.end();
+    if (req.method() == "GET"_method)
+    {
+        handleFileGet(res, fileID);
+        res.end();
+        return;
+    }
+    if (req.method() == "DELETE"_method)
+    {
+        handleFileDelete(res, fileID);
+        res.end();
+        return;
+    }
 }
 
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
@@ -166,13 +222,11 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             res.end();
         });
 
-    BMCWEB_ROUTE(app, "/ibm/v1/Host/<path>")
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &path) {
-            std::string objectPath = "/ibm/v1/Host/" + path;
-            handleFileUrl(req, res, objectPath);
-        });
+        .methods("PUT"_method, "GET"_method, "DELETE"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) { handleFileUrl(req, res, path); });
 }
 
 } // namespace ibm_mc
