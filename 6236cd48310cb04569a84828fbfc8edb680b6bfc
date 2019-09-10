@@ -34,6 +34,24 @@
       "revId": "6236cd48310cb04569a84828fbfc8edb680b6bfc",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd38a76b_09cacbb3",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 708,
+      "author": {
+        "id": 1000278
+      },
+      "writtenOn": "2019-09-10T18:12:15Z",
+      "side": 1,
+      "message": "It is a potential race condition.  The lambda uses a std::move on gateway.  This may move gateway out of scope prior to the crow::connections call.  As a result the lambda will receive the passed value of gateway, while the crow::connections will see a \"safe\" or indeterminate value in gateway.",
+      "parentUuid": "9ac118f3_f0a566e1",
+      "revId": "6236cd48310cb04569a84828fbfc8edb680b6bfc",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
