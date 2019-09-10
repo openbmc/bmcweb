@@ -256,9 +256,10 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
                 Callback&& callback)
 {
     BMCWEB_LOG_DEBUG << "getChassis enter";
-    const std::array<const char*, 2> interfaces = {
+    const std::array<const char*, 3> interfaces = {
         "xyz.openbmc_project.Inventory.Item.Board",
-        "xyz.openbmc_project.Inventory.Item.Chassis"};
+        "xyz.openbmc_project.Inventory.Item.Chassis",
+        "xyz.openbmc_project.Inventory.Item.PowerSupply"};
     auto respHandler = [callback{std::move(callback)}, sensorsAsyncResp](
                            const boost::system::error_code ec,
                            const std::vector<std::string>& chassisPaths) {

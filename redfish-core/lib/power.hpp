@@ -221,8 +221,9 @@ class Power : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", int32_t(0),
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Inventory.Item.Chassis"});
+            std::array<const char*, 2>{
+                "xyz.openbmc_project.Inventory.Item.Chassis",
+                "xyz.openbmc_project.Inventory.Item.PowerSupply"});
     }
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
