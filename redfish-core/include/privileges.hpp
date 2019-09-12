@@ -189,8 +189,15 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
     else if (userRole == "priv-operator")
     {
         // Redfish privilege : Operator
-        static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
+        static Privileges op{"Login", "ConfigureManager", "ConfigureSelf",
+                             "ConfigureComponents"};
         return op;
+    }
+    else if (userRole == "priv-user")
+    {
+        // Redfish privilege : User
+        static Privileges user{"Login", "ConfigureManager", "ConfigureSelf"};
+        return user;
     }
     else
     {
