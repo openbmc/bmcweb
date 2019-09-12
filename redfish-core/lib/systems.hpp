@@ -208,17 +208,33 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                             if (property.first ==
                                                 "MemorySizeInKb")
                                             {
-                                                const uint64_t *value =
+                                                const uint32_t *value =
                                                     sdbusplus::message::
                                                         variant_ns::get_if<
-                                                            uint64_t>(
+                                                            uint32_t>(
                                                             &property.second);
                                                 if (value != nullptr)
                                                 {
+                                                    nlohmann::json
+                                                        &totalMemory =
+                                                            aResp->res.jsonValue
+                                                                ["MemorySummar"
+                                                                 "y"]
+                                                                ["TotalSystemMe"
+                                                                 "moryGiB"];
+                                                    uint64_t *preValue =
+                                                        totalMemory.get_ptr<
+                                                            uint64_t *>();
+                                                    if (preValue == nullptr)
+                                                    {
+                                                        continue;
+                                                    }
                                                     aResp->res.jsonValue
+                                                        ["MemorySummary"]
                                                         ["TotalSystemMemoryGi"
-                                                         "B"] +=
-                                                        *value / (1024 * 1024);
+                                                         "B"] =
+                                                        *value / (1024 * 1024) +
+                                                        *preValue;
                                                     aResp->res.jsonValue
                                                         ["MemorySummary"]
                                                         ["Status"]["State"] =
@@ -1374,7 +1390,7 @@ class Systems : public Node
         res.jsonValue["Description"] = "Computer System";
         res.jsonValue["ProcessorSummary"]["Count"] = 0;
         res.jsonValue["ProcessorSummary"]["Status"]["State"] = "Disabled";
-        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = int(0);
+        res.jsonValue["MemorySummary"]["TotalSystemMemoryGiB"] = uint64_t(0);
         res.jsonValue["MemorySummary"]["Status"]["State"] = "Disabled";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system";
 
