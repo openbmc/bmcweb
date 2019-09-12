@@ -129,7 +129,9 @@ class Middleware
 
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 
-        if (!pamAuthenticateUser(user, pass))
+        bool passwordChangeRequired;
+        if (!pamAuthenticateUser(user, pass, passwordChangeRequired) or
+            passwordChangeRequired)
         {
             return nullptr;
         }
@@ -141,7 +143,8 @@ class Middleware
         // This whole flow needs to be revisited anyway, as we can't be
         // calling directly into pam for every request
         return persistent_data::SessionStore::getInstance().generateUserSession(
-            user, crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+            user, false,
+            crow::persistent_data::PersistenceType::SINGLE_REQUEST);
     }
 
     const std::shared_ptr<crow::persistent_data::UserSession>
@@ -380,14 +383,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
-                if (!pamAuthenticateUser(username, password))
+                bool passwordChangeRequired;
+                if (!pamAuthenticateUser(username, password,
+                                         passwordChangeRequired) or
+                    passwordChangeRequired)
                 {
                     res.result(boost::beast::http::status::unauthorized);
+                    if (passwordChangeRequired)
+                    {
+                        res.write("Password change required");
+                    }
                 }
                 else
                 {
                     auto session = persistent_data::SessionStore::getInstance()
-                                       .generateUserSession(username);
+                                       .generateUserSession(
+                                           username, passwordChangeRequired);
 
                     if (looksLikeIbm)
                     {

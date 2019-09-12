@@ -348,7 +348,7 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username,
+        const std::string_view username, bool configureSelfOnly,
         PersistenceType persistence = PersistenceType::TIMEOUT)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
@@ -387,7 +387,9 @@ class SessionStore
 
         // Get the User Privilege
         const std::string& role =
-            UserRoleMap::getInstance().getUserRole(username);
+            (configureSelfOnly
+                 ? "priv-special-configure-self"
+                 : UserRoleMap::getInstance().getUserRole(username));
 
         BMCWEB_LOG_DEBUG << "user name=\"" << username << "\" role = " << role;
         auto session = std::make_shared<UserSession>(UserSession{
