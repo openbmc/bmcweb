@@ -63,6 +63,12 @@ class Sessions : public Node
             "/redfish/v1/$metadata#Session.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
+        if (session->userRole == "priv-special-configure-self")
+        {
+            messages::passwordChangeRequired(
+                res,
+                "/redfish/v1/AccountService/Accounts/" + session->username);
+        }
 
         res.end();
     }
@@ -178,7 +184,8 @@ class SessionCollection : public Node
             return;
         }
 
-        if (!pamAuthenticateUser(username, password))
+        bool passwordChangeRequired;
+        if (!pamAuthenticateUser(username, password, passwordChangeRequired))
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
@@ -190,7 +197,7 @@ class SessionCollection : public Node
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(username);
+                .generateUserSession(username, passwordChangeRequired);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
