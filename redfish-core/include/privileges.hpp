@@ -62,6 +62,9 @@ static const std::vector<std::string> privilegeNames{basePrivileges.begin(),
  *        A bit is set if the privilege is required (entity domain) or granted
  *        (user domain) and false otherwise.
  *
+ *        This does not implement any Redfish property overrides, subordinate
+ *        overrides, or resource URI overrides.
+ *
  */
 class Privileges
 {
@@ -88,6 +91,29 @@ class Privileges
                                     << "in constructor";
             }
         }
+    }
+
+    /**
+     * @brief Resets the given privilege in the bitset
+     *
+     * @param[in] privilege  Privilege to be reset
+     *
+     * @return               None
+     *
+     */
+    bool resetSinglePrivilege(const char* privilege)
+    {
+        for (int searchIndex = 0; searchIndex < privilegeNames.size();
+             searchIndex++)
+        {
+            if (privilege == privilegeNames[searchIndex])
+            {
+                privilegeBitset.reset(searchIndex);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -173,6 +199,11 @@ class Privileges
         return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
     }
 
+    std::string to_string() const
+    {
+        return privilegeBitset.to_string();
+    }
+
   private:
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
@@ -192,6 +223,12 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
         static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
         return op;
     }
+    else if (userRole == "special-priv-configure-self")
+    {
+        // Redfish privilege : N/A - internal within BMCWeb
+        static Privileges configSelf{"ConfigureSelf"};
+        return configSelf;
+    }
     else
     {
         // Redfish privilege : Readonly
@@ -202,6 +239,34 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
 
 using OperationMap = boost::container::flat_map<boost::beast::http::verb,
                                                 std::vector<Privileges>>;
+
+/* @brief Checks if user is allowed to call an operation
+ *
+ * @param[in] operationPrivilegesRequired   Privileges required
+ * @param[in] userPrivileges                Privileges the user has
+ *
+ * @return                 True if operation is allowed, false otherwise
+ */
+inline bool isOperationAllowedWithPrivileges(
+    const std::vector<Privileges>& operationPrivilegesRequired,
+    const Privileges& userPrivileges)
+{
+    // If there are no privileges assigned, there are no privileges required
+    if (operationPrivilegesRequired.empty())
+    {
+        return true;
+    }
+    for (auto& requiredPrivileges : operationPrivilegesRequired)
+    {
+        BMCWEB_LOG_ERROR << "Checking operation privileges...";
+        if (userPrivileges.isSupersetOf(requiredPrivileges))
+        {
+            BMCWEB_LOG_ERROR << "...success";
+            return true;
+        }
+    }
+    return false;
+}
 
 /**
  * @brief Checks if given privileges allow to call an HTTP method
@@ -222,20 +287,7 @@ inline bool isMethodAllowedWithPrivileges(const boost::beast::http::verb method,
         return false;
     }
 
-    // If there are no privileges assigned, assume no privileges required
-    if (it->second.empty())
-    {
-        return true;
-    }
-
-    for (auto& requiredPrivileges : it->second)
-    {
-        if (userPrivileges.isSupersetOf(requiredPrivileges))
-        {
-            return true;
-        }
-    }
-    return false;
+    return isOperationAllowedWithPrivileges(it->second, userPrivileges);
 }
 
 /**
