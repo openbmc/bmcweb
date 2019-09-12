@@ -348,7 +348,7 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username,
+        const std::string_view username, bool configureSelfOnly,
         PersistenceType persistence = PersistenceType::TIMEOUT)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
@@ -385,9 +385,19 @@ class SessionStore
             uniqueId[i] = alphanum[dist(rd)];
         }
 
-        // Get the User Privilege
-        const std::string& role =
-            UserRoleMap::getInstance().getUserRole(username);
+        // Get the OpenBMC Privilege Role from the User Manager
+        std::string role;
+        if (not configureSelfOnly)
+        {
+            role = UserRoleMap::getInstance().getUserRole(username);
+        }
+        else
+        {
+            // Internal (to BMCWeb) user privilege role for
+            // PasswordChangeRequired sessions which limits the
+            // session to the Redfish ConfigureSelf privilege.
+            role = "special-priv-configure-self";
+        }
 
         BMCWEB_LOG_DEBUG << "user name=\"" << username << "\" role = " << role;
         auto session = std::make_shared<UserSession>(UserSession{

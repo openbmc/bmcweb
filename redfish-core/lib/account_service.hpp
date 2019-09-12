@@ -1349,7 +1349,8 @@ class ManagerAccount : public Node
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::patch,
+             {{"ConfigureUsers"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
@@ -1359,13 +1360,25 @@ class ManagerAccount : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
-            messages::internalError(asyncResp->res);
+            messages::internalError(res);
             return;
+        }
+
+        // Handle the ManagerAccount Resource URI override.  The ConfigureSelf
+        // privilege allows a user to GET only their own account.
+        if (req.session->username != params[0])
+        {
+            if (!isAllowedWithoutConfigureSelf(req,
+                                               boost::beast::http::verb::get))
+            {
+                BMCWEB_LOG_DEBUG << "Resource URI override: access denied";
+                messages::accessDenied(asyncResp->res, std::string(req.url));
+                return;
+            }
         }
 
         crow::connections::systemBus->async_method_call(
@@ -1505,7 +1518,38 @@ class ManagerAccount : public Node
 
         const std::string& username = params[0];
 
-        if (!newUserName)
+        // Handle the Password property override.  The ConfigureSelf
+        // privilege allows a user to PATCH only the Password property
+        // of their own account.
+        if ((username != req.session->username) or
+            (newUserName or enabled or roleId or locked))
+        {
+            BMCWEB_LOG_ERROR << "Password property override check";
+            if (!isAllowedWithoutConfigureSelf(req,
+                                               boost::beast::http::verb::patch))
+            {
+                BMCWEB_LOG_ERROR << "ConfigureSelf check auth failed";
+                asyncResp->res.clear();
+                messages::accessDenied(asyncResp->res, std::string(req.url));
+                return;
+            }
+        }
+
+        if (password and !(newUserName or enabled or roleId or locked))
+        {
+            // If only the password is being updated, send messages.
+            if (pamUpdatePassword(username, *password))
+            {
+                messages::accountModified(asyncResp->res);
+            }
+            else
+            {
+                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                messages::accountNotModified(asyncResp->res);
+            }
+            return;
+        }
+        else if (!newUserName)
         {
             // If the username isn't being updated, we can update the
             // properties directly

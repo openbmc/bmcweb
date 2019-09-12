@@ -35,7 +35,8 @@ class Sessions : public Node
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_,
+             {{"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
@@ -63,6 +64,12 @@ class Sessions : public Node
             "/redfish/v1/$metadata#Session.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
+        if (session->userRole == "special-priv-configure-self")
+        {
+            messages::passwordChangeRequired(
+                res,
+                "/redfish/v1/AccountService/Accounts/" + session->username);
+        }
 
         res.end();
     }
@@ -91,6 +98,21 @@ class Sessions : public Node
             messages::resourceNotFound(res, "Session", params[0]);
             res.end();
             return;
+        }
+
+        // Handle the Session resource URI override.  The ConfigureSelf
+        // privilege allows a user to DELETE only their own session.
+        if (session->uniqueId != req.session->uniqueId)
+        {
+            BMCWEB_LOG_ERROR << "SessionResource URI override check";
+            if (!isAllowedWithoutConfigureSelf(
+                    req, boost::beast::http::verb::delete_))
+            {
+                BMCWEB_LOG_INFO << "SessionResource URI override denied access";
+                messages::accessDenied(res, std::string(req.url));
+                res.end();
+                return;
+            }
         }
 
         // DELETE should return representation of object that will be removed
@@ -178,7 +200,8 @@ class SessionCollection : public Node
             return;
         }
 
-        if (!pamAuthenticateUser(username, password))
+        bool passwordChangeRequired = false;
+        if (!pamAuthenticateUser(username, password, passwordChangeRequired))
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
@@ -190,7 +213,7 @@ class SessionCollection : public Node
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(username);
+                .generateUserSession(username, passwordChangeRequired);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);

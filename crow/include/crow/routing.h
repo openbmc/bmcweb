@@ -9,6 +9,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
+#include <error_messages.hpp>
 #include <limits>
 #include <memory>
 #include <tuple>
@@ -1233,42 +1234,80 @@ class Router
         redfish::Privileges userPrivileges;
         if (req.session != nullptr)
         {
-            // Get the user role from the session.
+            // Get the OpenBMC privilege role from the session.
             const std::string& userRole = req.session->userRole;
 
             BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
 
-            // Get the user privileges from the role
+            // Get the user's Redfish Privileges from the role.
             userPrivileges = redfish::getUserPrivileges(userRole);
         }
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
-            res.result(boost::beast::http::status::forbidden);
+            if (req.url.compare(0, 9, "/redfish/") == 0)
+            {
+                if (req.session == nullptr)
+                {
+                    redfish::messages::noValidSession(res);
+                }
+                else
+                {
+                    redfish::messages::insufficientPrivilege(res);
+                    if (req.session->userRole == "special-priv-configure-self")
+                    {
+                        redfish::messages::passwordChangeRequired(
+                            res, "/redfish/v1/AccountService/Accounts/" +
+                                     req.session->username);
+                    }
+                }
+            }
+            else
+            {
+                res.result(boost::beast::http::status::forbidden);
+                res.jsonValue = {
+                    {"data",
+                     {{"description",
+                       "The session is not authorized to access URI: " +
+                           std::string(req.url)}}},
+                    {"message", "403 Forbidden"},
+                    {"status", "error"}};
+                if ((req.session != nullptr) and
+                    (req.session->userRole == "special-priv-configure-self"))
+                {
+                    res.jsonValue["extendedMessage"] =
+                        "The password for "
+                        "this account must be changed.  PATCH the 'Password' "
+                        "property for the account under URI: "
+                        "/redfish/v1/AccountService/Accounts/" +
+                        req.session->username;
+                }
+            }
             res.end();
-            return;
         }
-
-        // any uncaught exceptions become 500s
-        try
+        else
         {
-            rules[ruleIndex]->handle(req, res, found.second);
-        }
-        catch (std::exception& e)
-        {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
+            try
+            {
+                rules[ruleIndex]->handle(req, res, found.second);
+            }
+            catch (std::exception& e)
+            {
+                BMCWEB_LOG_ERROR << "An uncaught exception occurred: "
+                                 << e.what();
+                res.result(boost::beast::http::status::internal_server_error);
+                res.end();
+                return;
+            }
+            catch (...)
+            {
+                BMCWEB_LOG_ERROR
+                    << "An uncaught exception occurred. The type was unknown "
+                       "so no information was available.";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.end();
+                return;
+            }
         }
     }
 

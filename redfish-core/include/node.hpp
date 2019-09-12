@@ -168,6 +168,28 @@ class Node
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
     }
+
+    /* @brief Would the operation be allowed if the user did not have the
+     * ConfigureSelf Privilege?  This helps implement operation-to-privilege
+     * overrides.
+     *
+     * @param req      the request
+     * @param verb     the operation's verb
+     *
+     * @returns        True if allowed, false otherwise
+     */
+    inline bool
+        isAllowedWithoutConfigureSelf(const crow::Request& req,
+                                      const boost::beast::http::verb& verb)
+    {
+        Privileges effectiveUserPrivileges =
+            getUserPrivileges(req.session->userRole);
+        effectiveUserPrivileges.resetSinglePrivilege("ConfigureSelf");
+        const auto& requiredPrivilegesIt = entityPrivileges.find(verb);
+        return (requiredPrivilegesIt != entityPrivileges.end()) and
+               isOperationAllowedWithPrivileges(requiredPrivilegesIt->second,
+                                                effectiveUserPrivileges);
+    }
 };
 
 } // namespace redfish

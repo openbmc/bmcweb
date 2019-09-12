@@ -48,10 +48,12 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 }
 
 inline bool pamAuthenticateUser(const std::string_view username,
-                                const std::string_view password)
+                                const std::string_view password,
+                                bool& passwordChangeRequired)
 {
     std::string userStr(username);
     std::string passStr(password);
+    passwordChangeRequired = false;
     const struct pam_conv localConversation = {
         pamFunctionConversation, const_cast<char*>(passStr.c_str())};
     pam_handle_t* localAuthHandle = NULL; // this gets set by pam_start
@@ -70,12 +72,18 @@ inline bool pamAuthenticateUser(const std::string_view username,
         return false;
     }
 
-    /* check that the account is healthy */
-    if (pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK) !=
-        PAM_SUCCESS)
+    /* check if the account is healthy */
+    switch (pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK))
     {
-        pam_end(localAuthHandle, PAM_SUCCESS);
-        return false;
+        case PAM_SUCCESS:
+            break;
+        case PAM_NEW_AUTHTOK_REQD:
+            passwordChangeRequired = true;
+            break;
+        default:
+            pam_end(localAuthHandle, PAM_SUCCESS);
+            return false;
+            break;
     }
 
     if (pam_end(localAuthHandle, PAM_SUCCESS) != PAM_SUCCESS)
