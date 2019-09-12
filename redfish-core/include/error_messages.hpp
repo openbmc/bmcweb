@@ -32,7 +32,7 @@ namespace redfish
 namespace messages
 {
 
-constexpr const char* messageVersionPrefix = "Base.1.2.0.";
+constexpr const char* messageVersionPrefix = "Base.1.5.0.";
 constexpr const char* messageAnnotation = "@Message.ExtendedInfo";
 
 /**
@@ -624,6 +624,25 @@ void accountModified(crow::Response& res);
  * @returns Message QueryParameterOutOfRange formatted to JSON */
 void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
                               const std::string& arg2, const std::string& arg3);
+
+/**
+ * @brief Formats PasswordChangeRequired message into JSON
+ * Message body: The password provided for this account must be changed
+ * before access is granted.  PATCH the 'Password' property for this
+ * account located at the target URI '%1' to complete this process.
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PasswordChangeRequired formatted to JSON */
+void passwordChangeRequired(crow::Response& res, const std::string& arg1);
+
+/**
+ * @brief Formats SubscriptionTerminated message into JSON
+ * Message body: The event subscription has been terminated.
+ *
+ * @returns Message SubscriptionTerminated formatted to JSON */
+void subscriptionTerminated(crow::Response& res);
+
 
 } // namespace messages
 

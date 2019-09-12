@@ -1135,7 +1135,8 @@ class ManagerAccount : public Node
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::patch,
+             {{"ConfigureUsers"}, {"ConfigureSelf"}}}, // Property override
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
@@ -1289,6 +1290,10 @@ class ManagerAccount : public Node
         }
 
         const std::string& username = params[0];
+
+        // TODO: Add the Password property override here.  The
+        // ConfigureSelf privilege only allows a user to PATCH the
+        // Password property of their own account.
 
         if (!newUserName)
         {

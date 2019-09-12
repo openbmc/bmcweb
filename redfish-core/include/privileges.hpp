@@ -192,6 +192,12 @@ inline const Privileges& getUserPrivileges(const std::string& userRole)
         static Privileges op{"Login", "ConfigureSelf", "ConfigureComponents"};
         return op;
     }
+    else if (userRole == "special-priv-configure-self")
+    {
+        // Redfish privilege : N/A - internal within BMCWeb
+        static Privileges op{"ConfigureSelf"};
+        return op;
+    }
     else
     {
         // Redfish privilege : Readonly
