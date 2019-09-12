@@ -35,7 +35,8 @@ class Sessions : public Node
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_,
+             {{"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
@@ -43,6 +44,7 @@ class Sessions : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
+        // Note that control also reaches here via doPost and doDelete.
         auto session =
             crow::persistent_data::SessionStore::getInstance().getSessionByUid(
                 params[0]);
@@ -63,6 +65,12 @@ class Sessions : public Node
             "/redfish/v1/$metadata#Session.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
+        if (session->isConfigureSelfOnly)
+        {
+            messages::passwordChangeRequired(
+                res,
+                "/redfish/v1/AccountService/Accounts/" + session->username);
+        }
 
         res.end();
     }
@@ -91,6 +99,24 @@ class Sessions : public Node
             messages::resourceNotFound(res, "Session", params[0]);
             res.end();
             return;
+        }
+
+        // Perform a tighter authority check for how the ConfigureSelf
+        // privilege interacts with the Session resource URI override.
+        // (Meaning: the ConfigureSelf privilege only applies to that
+        // session's Session resource.)  If a session is DELETEing
+        // some other session, then the ConfigureSelf privilege does
+        // not apply, so remove the user's ConfigureSelf privilege and
+        // perform the authority check again.
+        if (session->uniqueId != req.session->uniqueId)
+        {
+            if (!isAllowedWithoutConfigureSelf(req))
+            {
+                BMCWEB_LOG_WARNING << "DELETE Session denied access";
+                messages::accessDenied(res, std::string(req.url));
+                res.end();
+                return;
+            }
         }
 
         // DELETE should return representation of object that will be removed
@@ -178,7 +204,8 @@ class SessionCollection : public Node
             return;
         }
 
-        if (!pamAuthenticateUser(username, password))
+        bool passwordChangeRequired = false;
+        if (!pamAuthenticateUser(username, password, passwordChangeRequired))
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
@@ -190,7 +217,7 @@ class SessionCollection : public Node
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(username);
+                .generateUserSession(username, passwordChangeRequired);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);

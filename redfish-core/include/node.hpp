@@ -20,6 +20,7 @@
 #include "webserver_common.hpp"
 
 #include <error_messages.hpp>
+#include <sessions.hpp>
 #include <vector>
 
 #include "crow/http_request.h"
@@ -167,6 +168,28 @@ class Node
     {
         res.result(boost::beast::http::status::method_not_allowed);
         res.end();
+    }
+
+    /* @brief Would the operation be allowed if the user did not have
+     * the ConfigureSelf Privilege?
+     *
+     * @param req      the request
+     * @param verb     the operation's verb
+     *
+     * @returns        True if allowed, false otherwise
+     */
+    inline bool isAllowedWithoutConfigureSelf(const crow::Request& req)
+    {
+        const std::string& userRole =
+            crow::persistent_data::UserRoleMap::getInstance().getUserRole(
+                req.session->username);
+        Privileges effectiveUserPrivileges =
+            redfish::getUserPrivileges(userRole);
+        effectiveUserPrivileges.resetSinglePrivilege("ConfigureSelf");
+        const auto& requiredPrivilegesIt = entityPrivileges.find(req.method());
+        return (requiredPrivilegesIt != entityPrivileges.end()) and
+               isOperationAllowedWithPrivileges(requiredPrivilegesIt->second,
+                                                effectiveUserPrivileges);
     }
 };
 

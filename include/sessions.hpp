@@ -276,6 +276,7 @@ struct UserSession
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
+    bool isConfigureSelfOnly;
 
     /**
      * @brief Fills object with data from UserSession's JSON representation
@@ -334,6 +335,7 @@ struct UserSession
         // this is done temporarily
         userSession->lastUpdated = std::chrono::steady_clock::now();
         userSession->persistence = PersistenceType::TIMEOUT;
+        userSession->isConfigureSelfOnly = false;
 
         return userSession;
     }
@@ -345,7 +347,7 @@ class SessionStore
 {
   public:
     std::shared_ptr<UserSession> generateUserSession(
-        const std::string_view username,
+        const std::string_view username, bool configureSelfOnly,
         PersistenceType persistence = PersistenceType::TIMEOUT)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
@@ -385,6 +387,7 @@ class SessionStore
         auto session = std::make_shared<UserSession>(UserSession{
             uniqueId, sessionToken, std::string(username), csrfToken,
             std::chrono::steady_clock::now(), persistence});
+        session->isConfigureSelfOnly = configureSelfOnly;
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;

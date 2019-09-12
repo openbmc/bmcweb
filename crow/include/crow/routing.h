@@ -1,5 +1,6 @@
 #pragma once
 
+#include "json_msg_utility.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
 
@@ -9,6 +10,7 @@
 #include <cerrno>
 #include <cstdint>
 #include <cstdlib>
+#include <error_messages.hpp>
 #include <limits>
 #include <memory>
 #include <tuple>
@@ -1233,44 +1235,109 @@ class Router
         redfish::Privileges userPrivileges;
         if (req.session != nullptr)
         {
-            // Get the user role from the session.
-            const std::string& userRole =
-                persistent_data::UserRoleMap::getInstance().getUserRole(
-                    req.session->username);
+            if (!req.session->isConfigureSelfOnly)
+            {
+                // Get the user role from the session.
+                const std::string& userRole =
+                    persistent_data::UserRoleMap::getInstance().getUserRole(
+                        req.session->username);
 
-            BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
+                BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
 
-            // Get the user privileges from the role
-            userPrivileges = redfish::getUserPrivileges(userRole);
+                // Get the user's Redfish Privileges from the role.
+                userPrivileges = redfish::getUserPrivileges(userRole);
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << "Session limited to ConfigureSelf";
+                userPrivileges = {"ConfigureSelf"};
+            }
         }
 
         if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
         {
-            res.result(boost::beast::http::status::forbidden);
+            if (boost::starts_with(req.url, "/redfish/"))
+            {
+                if (req.session == nullptr)
+                {
+                    redfish::messages::noValidSession(res);
+                }
+                else
+                {
+                    redfish::messages::insufficientPrivilege(res);
+                    if (req.session->isConfigureSelfOnly)
+                    {
+                        redfish::messages::passwordChangeRequired(
+                            res, "/redfish/v1/AccountService/Accounts/" +
+                                     req.session->username);
+                    }
+                }
+            }
+#ifdef BMCWEB_ENABLE_DBUS_REST
+            else if (boost::starts_with(req.url, "/xyz/") ||
+                     boost::starts_with(req.url, "/bus/") ||
+                     boost::starts_with(req.url, "/list/") ||
+                     boost::starts_with(req.url, "/org/") ||
+                     boost::starts_with(req.url, "/action/") ||
+                     boost::starts_with(req.url, "/enumerate/") ||
+                     boost::starts_with(req.url, "/download/"))
+            {
+                if (req.session != nullptr)
+                {
+                    crow::setErrorResponse(
+                        res, boost::beast::http::status::forbidden,
+                        "The session is not authorized to access URI: " +
+                            std::string(req.url),
+                        crow::msg::forbiddenMsg);
+                    if (req.session->isConfigureSelfOnly)
+                    {
+                        crow::setPasswordChangeRequired(res,
+                                                        req.session->username);
+                    }
+                }
+                else
+                {
+                    // How can we get here?
+                    crow::setErrorResponse(
+                        res, boost::beast::http::status::unauthorized,
+                        crow::msg::unAuthMsg,
+                        "The request is not authenticated");
+                    if (req.getHeaderValue("User-Agent").empty())
+                    {
+                        res.addHeader("WWW-Authenticate", "Basic");
+                    }
+                }
+            }
+            else
+            {
+                res.result(boost::beast::http::status::forbidden);
+            }
             res.end();
-            return;
         }
-
-        // any uncaught exceptions become 500s
-        try
+#endif
+        else
         {
-            rules[ruleIndex]->handle(req, res, found.second);
-        }
-        catch (std::exception& e)
-        {
-            BMCWEB_LOG_ERROR << "An uncaught exception occurred: " << e.what();
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
-        }
-        catch (...)
-        {
-            BMCWEB_LOG_ERROR
-                << "An uncaught exception occurred. The type was unknown "
-                   "so no information was available.";
-            res.result(boost::beast::http::status::internal_server_error);
-            res.end();
-            return;
+            try
+            {
+                rules[ruleIndex]->handle(req, res, found.second);
+            }
+            catch (std::exception& e)
+            {
+                BMCWEB_LOG_ERROR << "An uncaught exception occurred: "
+                                 << e.what();
+                res.result(boost::beast::http::status::internal_server_error);
+                res.end();
+                return;
+            }
+            catch (...)
+            {
+                BMCWEB_LOG_ERROR
+                    << "An uncaught exception occurred. The type was unknown "
+                       "so no information was available.";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.end();
+                return;
+            }
         }
     }
 
