@@ -6,6 +6,7 @@
 #include <crow/http_response.h>
 
 #include <boost/container/flat_set.hpp>
+#include <error_messages.hpp>
 #include <pam_authenticate.hpp>
 #include <persistent_data_middleware.hpp>
 #include <random>
@@ -129,7 +130,9 @@ class Middleware
 
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 
-        if (!pamAuthenticateUser(user, pass))
+        bool passwordChangeRequired = false;
+        if (!pamAuthenticateUser(user, pass, passwordChangeRequired) or
+            passwordChangeRequired)
         {
             return nullptr;
         }
@@ -141,7 +144,8 @@ class Middleware
         // This whole flow needs to be revisited anyway, as we can't be
         // calling directly into pam for every request
         return persistent_data::SessionStore::getInstance().generateUserSession(
-            user, crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+            user, false,
+            crow::persistent_data::PersistenceType::SINGLE_REQUEST);
     }
 
     const std::shared_ptr<crow::persistent_data::UserSession>
@@ -380,14 +384,17 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
-                if (!pamAuthenticateUser(username, password))
+                bool passwordChangeRequired = false;
+                if (!pamAuthenticateUser(username, password,
+                                         passwordChangeRequired))
                 {
                     res.result(boost::beast::http::status::unauthorized);
                 }
                 else
                 {
                     auto session = persistent_data::SessionStore::getInstance()
-                                       .generateUserSession(username);
+                                       .generateUserSession(
+                                           username, passwordChangeRequired);
 
                     if (looksLikeIbm)
                     {
@@ -421,6 +428,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                         // if content type is json, assume json token
                         res.jsonValue = {{"token", session->sessionToken}};
                     }
+                    if (passwordChangeRequired)
+                    {
+                        redfish::messages::passwordChangeRequired(
+                            res, "/redfish/v1/AccountService/Accounts/" +
+                                     std::string(username));
+                    }
+
                 }
             }
             else
