@@ -625,6 +625,12 @@ void accountModified(crow::Response& res);
 void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
                               const std::string& arg2, const std::string& arg3);
 
+/**
+ * @brief Formats PasswordChangeRequired message into JSON
+ *
+ * @returns Message PasswordChangeRequired formatted to JSON */
+void passwordChangeRequired(crow::Response& res, const std::string& arg1);
+
 } // namespace messages
 
 } // namespace redfish

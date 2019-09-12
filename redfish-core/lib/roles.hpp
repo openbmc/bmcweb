@@ -40,6 +40,10 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     {
         return "Operator";
     }
+    else if (priv == "priv-special-configure-self")
+    {
+        return "SpecialConfigureSelfOnly"; // for PasswordChangeRequired
+    }
     return "";
 }
 
@@ -62,6 +66,10 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     else if (role == "Callback")
     {
         privArray = {"Login"};
+    }
+    else if (role == "SpecialConfigureSelfOnly")
+    {
+        privArray = {"ConfigureSelf"};
     }
     else
     {
