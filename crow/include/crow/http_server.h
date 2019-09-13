@@ -37,7 +37,7 @@ class Server
 {
   public:
     Server(Handler* handler, std::unique_ptr<tcp::acceptor>&& acceptor,
-           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
+           std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
@@ -49,7 +49,7 @@ class Server
     }
 
     Server(Handler* handler, const std::string& bindaddr, uint16_t port,
-           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
+           std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
@@ -62,7 +62,7 @@ class Server
     }
 
     Server(Handler* handler, int existing_socket,
-           std::shared_ptr<boost::asio::ssl::context>& adaptor_ctx,
+           std::shared_ptr<boost::asio::ssl::context> adaptor_ctx,
            std::tuple<Middlewares...>* middlewares = nullptr,
            std::shared_ptr<boost::asio::io_context> io =
                std::make_shared<boost::asio::io_context>()) :
