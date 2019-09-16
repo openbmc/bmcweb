@@ -47,12 +47,8 @@ static void addMessageToErrorJson(nlohmann::json& target,
                 << "Attempt to add error message without Message";
             return;
         }
-        // clang-format off
-    error = {
-        {"code", *messageIdIterator},
-        {"message", *messageFieldIterator}
-    };
-        // clang-format on
+        error = {{"code", *messageIdIterator},
+                 {"message", *messageFieldIterator}};
     }
     else
     {
