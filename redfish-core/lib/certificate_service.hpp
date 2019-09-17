@@ -26,6 +26,7 @@ constexpr char const *httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
 constexpr char const *certInstallIntf = "xyz.openbmc_project.Certs.Install";
 constexpr char const *certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
+constexpr char const *objDeleteIntf = "xyz.openbmc_project.Object.Delete";
 constexpr char const *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 constexpr char const *dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
@@ -1540,6 +1541,44 @@ class TLSAuthCertificate : public Node
         getCertificateProperties(asyncResp, objectPath,
                                  certs::tlsAuthServiceName, id, certURL,
                                  "TLS Auth Certificate");
+    }
+
+    void doDelete(crow::Response &res, const crow::Request &req,
+                  const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "TLS Auth Certificate delete";
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        long id = getIDFromURL(req.url);
+        if (id < 0)
+        {
+            BMCWEB_LOG_ERROR << "Invalid url value" << req.url;
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string certPath = certs::tlsAuthObjectPath;
+        certPath += "/";
+        certPath += std::to_string(id);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, id](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "TLS Auth Certificate",
+                                               std::to_string(id));
+                    return;
+                }
+                BMCWEB_LOG_INFO << "Certificate deleted";
+            },
+            certs::tlsAuthServiceName, certPath, certs::objDeleteIntf,
+            "Delete");
     }
 }; // TLSAuthCertificate
 } // namespace redfish
