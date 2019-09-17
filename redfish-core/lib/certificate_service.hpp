@@ -26,6 +26,7 @@ constexpr char const *httpsObjectPath =
     "/xyz/openbmc_project/certs/server/https";
 constexpr char const *certInstallIntf = "xyz.openbmc_project.Certs.Install";
 constexpr char const *certReplaceIntf = "xyz.openbmc_project.Certs.Replace";
+constexpr char const *objDeleteIntf = "xyz.openbmc_project.Object.Delete";
 constexpr char const *certPropIntf = "xyz.openbmc_project.Certs.Certificate";
 constexpr char const *dbusPropIntf = "org.freedesktop.DBus.Properties";
 constexpr char const *dbusObjManagerIntf = "org.freedesktop.DBus.ObjectManager";
@@ -1362,6 +1363,47 @@ class TrustStoreCertificate : public Node
         getCertificateProperties(asyncResp, objectPath,
                                  certs::authorityServiceName, id, certURL,
                                  "TrustStore Certificate");
+    }
+
+    void doDelete(crow::Response &res, const crow::Request &req,
+                  const std::vector<std::string> &params) override
+    {
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        long id = getIDFromURL(req.url);
+        if (id < 0)
+        {
+            BMCWEB_LOG_ERROR << "Invalid url value: " << req.url;
+            messages::resourceNotFound(asyncResp->res, "TrustStore Certificate",
+                                       std::string(req.url));
+            return;
+        }
+        BMCWEB_LOG_DEBUG << "TrustStoreCertificate::doDelete ID="
+                         << std::to_string(id);
+        std::string certPath = certs::authorityObjectPath;
+        certPath += "/";
+        certPath += std::to_string(id);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, id](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "TrustStore Certificate",
+                                               std::to_string(id));
+                    return;
+                }
+                BMCWEB_LOG_INFO << "Certificate deleted";
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            certs::authorityServiceName, certPath, certs::objDeleteIntf,
+            "Delete");
     }
 }; // TrustStoreCertificate
 } // namespace redfish
