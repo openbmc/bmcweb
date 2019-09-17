@@ -23,14 +23,14 @@
 namespace redfish::message_registries::base
 {
 const Header header = {
-    .copyright = "Copyright 2014-2018 DMTF. All rights reserved.",
+    .copyright = "Copyright 2014-2019 DMTF. All rights reserved.",
     .type = "#MessageRegistry.v1_0_0.MessageRegistry",
-    .id = "Base.1.4.0",
+    .id = "Base.1.5.0",
     .name = "Base Message Registry",
     .language = "en",
     .description = "This registry defines the base messages for Redfish",
     .registryPrefix = "Base",
-    .registryVersion = "1.4.0",
+    .registryVersion = "1.5.0",
     .owningEntity = "DMTF",
 };
 const std::array registry = {
@@ -276,17 +276,17 @@ const std::array registry = {
                 "Either delete resources and resubmit the request if the "
                 "operation failed or do not resubmit the request.",
         }},
-    MessageEntry{"Created",
-                 {
-                     .description =
-                         "Indicates that all conditions of a successful "
-                         "creation operation have been met.",
-                     .message = "The resource has been created successfully",
-                     .severity = "OK",
-                     .numberOfArgs = 0,
-                     .paramTypes = {},
-                     .resolution = "None",
-                 }},
+    MessageEntry{
+        "Created",
+        {
+            .description = "Indicates that all conditions of a successful "
+                           "creation operation have been met.",
+            .message = "The resource has been created successfully",
+            .severity = "OK",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "None",
+        }},
     MessageEntry{
         "EmptyJSON",
         {
@@ -434,6 +434,29 @@ const std::array registry = {
             .paramTypes = {},
             .resolution =
                 "Establish as session before attempting any operations.",
+        }},
+    MessageEntry{
+        "PasswordChangeRequired",
+        {
+            .description =
+                "Indicates that the password for the account provided must be "
+                "changed before accessing the service.  The password can be "
+                "changed with a PATCH to the 'Password' property in the "
+                "ManagerAccount resource instance.  Implementations that "
+                "provide a default password for an account may require a "
+                "password change prior to first access to the service.",
+            .message = "The password provided for this account must be changed "
+                       "before access is granted.  PATCH the 'Password' "
+                       "property for this account located at the target URI "
+                       "'%1' to complete this process.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes =
+                {
+                    "string",
+                },
+            .resolution = "Change the password for this account using a PATCH "
+                          "to the 'Password' property at the URI provided.",
         }},
     MessageEntry{
         "PropertyDuplicate",
@@ -938,6 +961,17 @@ const std::array registry = {
                 },
             .resolution =
                 "Resubmit the request with an appropriate string length.",
+        }},
+    MessageEntry{
+        "SubscriptionTerminated",
+        {
+            .description = "An event subscription has been terminated by the "
+                           "Service. No further events will be delivered.",
+            .message = "The event subscription has been terminated.",
+            .severity = "OK",
+            .numberOfArgs = 0,
+            .paramTypes = {},
+            .resolution = "No resolution is required.",
         }},
     MessageEntry{"Success",
                  {

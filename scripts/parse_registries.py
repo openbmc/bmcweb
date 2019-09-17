@@ -41,13 +41,13 @@ namespace redfish::message_registries::{}
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-include_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "redfish-core", "include"))
+include_path = os.path.realpath(os.path.join(SCRIPT_DIR, "..", "redfish-core", "include", "registries"))
 
 proxies = {
     'https': os.environ.get("https_proxy", None)
 }
 
-base_file = requests.get('https://redfish.dmtf.org/registries/Base.1.4.0.json', proxies=proxies)
+base_file = requests.get('https://redfish.dmtf.org/registries/Base.1.5.0.json', proxies=proxies)
 base_file.raise_for_status()
 base_json = json.loads(base_file.text)
 base_path = os.path.join(include_path, "base_message_registry.hpp")
