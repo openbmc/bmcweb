@@ -1234,7 +1234,9 @@ class Router
         if (req.session != nullptr)
         {
             // Get the user role from the session.
-            const std::string& userRole = req.session->userRole;
+            const std::string& userRole =
+                persistent_data::UserRoleMap::getInstance().getUserRole(
+                    req.session->username);
 
             BMCWEB_LOG_DEBUG << "USER ROLE=" << userRole;
 
