@@ -29,8 +29,6 @@ constexpr char const* userObjPath = "/xyz/openbmc_project/user";
 constexpr char const* userAttrIface = "xyz.openbmc_project.User.Attributes";
 constexpr char const* dbusPropertiesIface = "org.freedesktop.DBus.Properties";
 
-class SessionStore;
-
 struct UserRoleMap
 {
     using GetManagedPropertyType =
@@ -275,7 +273,6 @@ struct UserSession
     std::string uniqueId;
     std::string sessionToken;
     std::string username;
-    std::string userRole;
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
@@ -385,13 +382,8 @@ class SessionStore
             uniqueId[i] = alphanum[dist(rd)];
         }
 
-        // Get the User Privilege
-        const std::string& role =
-            UserRoleMap::getInstance().getUserRole(username);
-
-        BMCWEB_LOG_DEBUG << "user name=\"" << username << "\" role = " << role;
         auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), role, csrfToken,
+            uniqueId, sessionToken, std::string(username), csrfToken,
             std::chrono::steady_clock::now(), persistence});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
