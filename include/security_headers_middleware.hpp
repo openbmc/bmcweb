@@ -37,6 +37,11 @@ struct SecurityHeadersMiddleware
         res.addHeader(bf::pragma, "no-cache");
         res.addHeader(bf::cache_control, "no-Store,no-Cache");
 
+        res.addHeader("X-XSS-Protection", "1; "
+                                          "mode=block");
+        res.addHeader("X-Content-Type-Options", "nosniff");
+
+#ifndef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
         res.addHeader("Content-Security-Policy", "default-src 'none'; "
                                                  "img-src 'self' data:; "
                                                  "font-src 'self'; "
@@ -47,13 +52,18 @@ struct SecurityHeadersMiddleware
         // strings. img-src 'self' data: is used to allow that.
         // https://stackoverflow.com/questions/18447970/content-security-policy-data-not-working-for-base64-images-in-chrome-28
 
-        res.addHeader("X-XSS-Protection", "1; "
-                                          "mode=block");
-        res.addHeader("X-Content-Type-Options", "nosniff");
+#else
+        // If XSS is disabled, we need to allow loading from addresses other
+        // than self, as the BMC will be hosted elsewhere.
+        res.addHeader("Content-Security-Policy", "default-src 'none'; "
+                                                 "img-src *; "
+                                                 "font-src *; "
+                                                 "style-src *; "
+                                                 "script-src *; "
+                                                 "connect-src *");
 
-#ifdef BMCWEB_INSECURE_DISABLE_XSS_PREVENTION
-        res.addHeader(bf::access_control_allow_origin,
-                      req.getHeaderValue("Origin"));
+        const std::string_view origin = req.getHeaderValue("Origin");
+        res.addHeader(bf::access_control_allow_origin, origin);
         res.addHeader(bf::access_control_allow_methods, "GET, "
                                                         "POST, "
                                                         "PUT, "
