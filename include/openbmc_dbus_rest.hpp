@@ -2126,6 +2126,40 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 handleDBusUrl(req, res, objectPath);
             });
 
+    BMCWEB_ROUTE(app, "/xyz/openbmc_project/user/root/action/SetPassword")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("PATCH"_method)(
+            [](const crow::Request &req, crow::Response &res)
+                {
+                std::string data = req.body;
+                const std::string username = "root";
+                std::string password;
+                std::vector<std::string> data_split;
+
+                boost::split(data_split, data, boost::is_any_of(":"));
+                password = data_split[data_split.size() - 1];
+                password = std::string(password).substr(std::string(password).find("\"") + 1, std::string(password).rfind("\"") - 1);
+
+                if (!pamUpdatePassword(username, {std::move(password)}))
+                {
+                    BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                    res.jsonValue = {{"message", "304 Not Modified"},
+                                     {"status", "Error"},
+                                     {"data", "Password Not Updated"}};
+                    res.end();
+                    return;
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG << "pamUpdatePassword Successful";
+                    res.jsonValue = {{"message", "204 Resource Updated Successfully"},
+                                     {"status", "ok"},
+                                     {"data", "Password Updated"}};
+                    res.end();
+                    return;
+                }
+            });
+
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"Login"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
