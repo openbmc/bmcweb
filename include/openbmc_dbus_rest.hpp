@@ -2126,6 +2126,48 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 handleDBusUrl(req, res, objectPath);
             });
 
+    BMCWEB_ROUTE(app, "/xyz/openbmc_project/user/root/action/SetPassword")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "PATCH"_method)([](const crow::Request &req, crow::Response &res) {
+            nlohmann::json data = nlohmann::json::parse(std::move(req.body));
+            const std::string *pwd;
+            for (const auto &item : data.items())
+            {
+                if (item.key() == "Password")
+                {
+                    pwd = item.value().get_ptr<const std::string *>();
+                }
+            }
+
+            if (!pwd || pwd->empty())
+            {
+                BMCWEB_LOG_ERROR << "Password Empty!";
+                res.jsonValue = {{"message", "400 Bad Request"},
+                                 {"status", "Error"},
+                                 {"data", "Password Not Updated"}};
+                res.end();
+                return;
+            }
+
+            if (!pamUpdatePassword("root", *pwd))
+            {
+                BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                res.jsonValue = {{"message", "500 Internal Server Error"},
+                                 {"status", "Error"},
+                                 {"data", "Password Not Updated"}};
+                res.end();
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "pamUpdatePassword Successful";
+            res.jsonValue = {{"message", "204 Resource Updated Successfully"},
+                             {"status", "ok"},
+                             {"data", "Password Updated"}};
+            res.end();
+            return;
+        });
+
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"Login"})
         .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
