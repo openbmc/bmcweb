@@ -35,6 +35,7 @@ using GetSubTreeType = std::vector<
     std::pair<std::string,
               std::vector<std::pair<std::string, std::vector<std::string>>>>>;
 
+const std::string notModifiedMsg = "304 Not Modified";
 const std::string notFoundMsg = "404 Not Found";
 const std::string badReqMsg = "400 Bad Request";
 const std::string methodNotAllowedMsg = "405 Method Not Allowed";
@@ -42,6 +43,7 @@ const std::string forbiddenMsg = "403 Forbidden";
 const std::string methodFailedMsg = "500 Method Call Failed";
 const std::string methodOutputFailedMsg = "500 Method Output Error";
 
+const std::string notModifiedDesc = "The specified property cannot be modified";
 const std::string notFoundDesc =
     "org.freedesktop.DBus.Error.FileNotFound: path or object not found";
 const std::string propNotFoundDesc = "The specified property cannot be found";
@@ -1479,6 +1481,31 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
         "org.freedesktop.DBus.Introspectable", "Introspect");
 }
 
+void handleActionSetPassword(std::shared_ptr<InProgressActionData> transaction)
+{
+    nlohmann::json::const_iterator setPasswdIt = transaction->arguments.begin();
+    std::string pwd = std::move(*setPasswdIt);
+
+    if (pwd.empty())
+    {
+        BMCWEB_LOG_ERROR << "Password Empty";
+        transaction->setErrorStatus("Password Empty");
+        transaction->outputFailed = true;
+        return;
+    }
+
+    if (!pamUpdatePassword("root", pwd))
+    {
+        BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+        transaction->setErrorStatus("Password Not Modified");
+        transaction->outputFailed = true;
+        return;
+    }
+
+    BMCWEB_LOG_DEBUG << "pamUpdatePassword Successful";
+    return;
+}
+
 void handleAction(const crow::Request &req, crow::Response &res,
                   const std::string &objectPath, const std::string &methodName)
 {
@@ -1515,6 +1542,17 @@ void handleAction(const crow::Request &req, crow::Response &res,
     transaction->path = objectPath;
     transaction->methodName = methodName;
     transaction->arguments = std::move(*data);
+
+    // Special handling of Set Password as the password
+    // interface is not availble now.
+    if (methodName == "SetPassword")
+    {
+        transaction->methodPassed = true; // we know that password interface is
+                                          // not there so making it true
+        handleActionSetPassword(std::move(transaction));
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [transaction](
             const boost::system::error_code ec,
@@ -1535,6 +1573,7 @@ void handleAction(const crow::Request &req, crow::Response &res,
             for (const std::pair<std::string, std::vector<std::string>>
                      &object : interfaceNames)
             {
+                BMCWEB_LOG_DEBUG << "Calling findActionOnInterface\n";
                 findActionOnInterface(transaction, object.first);
             }
         },
@@ -2122,6 +2161,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("PUT"_method, "POST"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
+                BMCWEB_LOG_DEBUG << "Implicit Path - with no change\n";
                 std::string objectPath = "/xyz/" + path;
                 handleDBusUrl(req, res, objectPath);
             });
