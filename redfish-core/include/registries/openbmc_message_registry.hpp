@@ -338,10 +338,20 @@ const std::array registry = {
         }},
     MessageEntry{"ManufacturingModeEntered",
                  {
-                     .description = "Indicates that Factory, Manufacturing, or "
-                                    "Test mode has been entered.",
-                     .message = "Entered Manufacturing Mode.",
-                     .severity = "Warning",
+                     .description = "Indicates that the BMC entered Factory, "
+                                    "or Manufacturing special mode.",
+                     .message = "Entered Manufacturing Mode",
+                     .severity = "Critical",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"ManufacturingModeExited",
+                 {
+                     .description = "Indicates that the BMC exited Factory, "
+                                    " or Manufacturing special mode.",
+                     .message = "Exited Manufacturing Mode",
+                     .severity = "OK",
                      .numberOfArgs = 0,
                      .paramTypes = {},
                      .resolution = "None.",
