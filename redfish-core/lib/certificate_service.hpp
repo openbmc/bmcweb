@@ -937,21 +937,26 @@ class HTTPSCertificateCollection : public Node
             std::make_shared<CertificateFile>(certFileBody);
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, certFile](const boost::system::error_code ec) {
+            [asyncResp, certFile](const boost::system::error_code ec,
+                                  const std::string &objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                // TODO: Issue#84 supporting only 1 certificate
-                long certId = 1;
+                long certId = getIDFromURL(objectPath);
+                if (certId < 0)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid objectPath value"
+                                     << objectPath;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 std::string certURL =
                     "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/"
                     "Certificates/" +
                     std::to_string(certId);
-                std::string objectPath = std::string(certs::httpsObjectPath) +
-                                         "/" + std::to_string(certId);
                 getCertificateProperties(asyncResp, objectPath,
                                          certs::httpsServiceName, certId,
                                          certURL, "HTTPS Certificate");
@@ -1131,20 +1136,25 @@ class LDAPCertificateCollection : public Node
             std::make_shared<CertificateFile>(certFileBody);
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp, certFile](const boost::system::error_code ec) {
+            [asyncResp, certFile](const boost::system::error_code ec,
+                                  const std::string &objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                //// TODO: Issue#84 supporting only 1 certificate
-                long certId = 1;
+                long certId = getIDFromURL(objectPath);
+                if (certId < 0)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid objectPath value"
+                                     << objectPath;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 std::string certURL =
                     "/redfish/v1/AccountService/LDAP/Certificates/" +
                     std::to_string(certId);
-                std::string objectPath = std::string(certs::ldapObjectPath) +
-                                         "/" + std::to_string(certId);
                 getCertificateProperties(asyncResp, objectPath,
                                          certs::ldapServiceName, certId,
                                          certURL, "LDAP Certificate");
@@ -1265,21 +1275,26 @@ class TrustStoreCertificateCollection : public Node
             std::make_shared<CertificateFile>(req.body);
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
-            [asyncResp, certFile](const boost::system::error_code ec) {
+            [asyncResp, certFile](const boost::system::error_code ec,
+                                  const std::string &objectPath) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "DBUS response error: " << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                //// TODO: Issue#84 supporting only 1 certificate
-                long certId = 1;
+                long certId = getIDFromURL(objectPath);
+                if (certId < 0)
+                {
+                    BMCWEB_LOG_ERROR << "Invalid objectPath value"
+                                     << objectPath;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 std::string certURL = "/redfish/v1/Managers/bmc/"
                                       "Truststore/Certificates/" +
                                       std::to_string(certId);
-                std::string objectPath =
-                    std::string(certs::authorityObjectPath) + "/" +
-                    std::to_string(certId);
+
                 getCertificateProperties(asyncResp, objectPath,
                                          certs::authorityServiceName, certId,
                                          certURL, "TrustStore Certificate");
