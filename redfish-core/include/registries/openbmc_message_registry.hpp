@@ -1320,6 +1320,28 @@ const std::array registry = {
                      .resolution = "None.",
                  }},
     MessageEntry{
+        "SecuritySpecialModeTampered",
+        {
+            .description = "Indicates that the system tampered with special "
+                           "mode security state ",
+            .message = "System special mode state tampered from Normal to %1.",
+            .severity = "Critical",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
+        "SecuritySpecialModeNormalized",
+        {
+            .description = "Indicates that the system returned to Normal "
+                           "special mode security state ",
+            .message = "System special mode state returned from %1 to Normal",
+            .severity = "OK",
+            .numberOfArgs = 1,
+            .paramTypes = {"string"},
+            .resolution = "None.",
+        }},
+    MessageEntry{
         "SensorThresholdCriticalHighGoingHigh",
         {
             .description = "Indicates that a threshold sensor has crossed a "
