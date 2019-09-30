@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 114> registry = {
+const std::array<MessageEntry, 115> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -357,13 +357,23 @@ const std::array<MessageEntry, 114> registry = {
                  }},
     MessageEntry{"ManufacturingModeEntered",
                  {
-                     "Indicates that Factory, Manufacturing, or "
-                     "Test mode has been entered.",
-                     "Entered Manufacturing Mode.",
-                     "Warning",
-                     0,
-                     {},
-                     "None.",
+                     .description = "Indicates that the BMC entered Factory, "
+                                    "or Manufacturing special mode.",
+                     .message = "Entered Manufacturing Mode",
+                     .severity = "Critical",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
+    MessageEntry{"ManufacturingModeExited",
+                 {
+                     .description = "Indicates that the BMC exited Factory, "
+                                    " or Manufacturing special mode.",
+                     .message = "Exited Manufacturing Mode",
+                     .severity = "OK",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
                  {
