@@ -1144,6 +1144,115 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
 }
 
 /**
+ * @brief Translates watchdog timeout action DBUS property value to redfish.
+ *
+ * @param[in] dbusAction    The watchdog timeout action in D-BUS.
+ *
+ * @return Returns as a string, the timeout action in Redfish terms. If
+ * translation cannot be done, returns an empty string.
+ */
+static std::string dbusToRfWatchdogAction(const std::string &dbusAction)
+{
+    if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.None")
+    {
+        return "None";
+    }
+    else if (dbusAction ==
+             "xyz.openbmc_project.State.Watchdog.Action.HardReset")
+    {
+        return "ResetSystem";
+    }
+    else if (dbusAction == "xyz.openbmc_project.State.Watchdog.Action.PowerOff")
+    {
+        return "PowerDown";
+    }
+    else if (dbusAction ==
+             "xyz.openbmc_project.State.Watchdog.Action.PowerCycle")
+    {
+        return "PowerCycle";
+    }
+    else
+    {
+        return "";
+    }
+}
+
+/**
+ * @brief Retrieves host watchdog timer properties over DBUS
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get host watchodg";
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                PropertiesType &properties) {
+            if (ec)
+            {
+                // system does not support watchdog
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Got " << properties.size()
+                             << " watchdog properties.";
+            // watchdog is functional
+            aResp->res.jsonValue["HostWatchdogTimer"]["FunctionEnabled"] = true;
+            for (const auto &property : properties)
+            {
+                BMCWEB_LOG_DEBUG << "prop=" << property.first;
+                if (property.first == "Enabled")
+                {
+                    const bool *state = std::get_if<bool>(&property.second);
+
+                    if (!state)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    if (*state)
+                    {
+                        aResp->res
+                            .jsonValue["HostWatchdogTimer"]["Status"]["State"] =
+                            "Enabled";
+                    }
+                    else
+                    {
+                        aResp->res
+                            .jsonValue["HostWatchdogTimer"]["Status"]["State"] =
+                            "Disabled";
+                    }
+                }
+                else if (property.first == "ExpireAction")
+                {
+                    const std::string *s =
+                        std::get_if<std::string>(&property.second);
+                    if (!s)
+                    {
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+
+                    auto action = dbusToRfWatchdogAction(*s);
+                    if (!action.empty())
+                    {
+                        aResp->res
+                            .jsonValue["HostWatchdogTimer"]["TimeoutAction"] =
+                            action;
+                    }
+                }
+            }
+        },
+        "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
+        "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.State.Watchdog");
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -1456,6 +1565,7 @@ class Systems : public Node
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp);
+        getHostWatchdogTimer(asyncResp);
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
