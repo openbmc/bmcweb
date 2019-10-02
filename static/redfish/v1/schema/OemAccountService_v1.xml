@@ -53,6 +53,12 @@
           <Annotation Term="OData.Description" String="Indicates whether XToken authorization is enabled."/>
           <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether XToken authorization is enabled."/>
         </Property>
+
+        <Property Name="TLS" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates whether TLS authorization is enabled."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether TLS authorization is enabled."/>
+        </Property>
       </ComplexType>
 
       <!--Base entity type for array members-->
