@@ -672,10 +672,11 @@ class AccountService : public Node
         std::optional<bool> cookie;
         std::optional<bool> sessionToken;
         std::optional<bool> xToken;
+        std::optional<bool> tls;
 
         if (!json_util::readJson(input, asyncResp->res, "BasicAuth", basicAuth,
                                  "Cookie", cookie, "SessionToken", sessionToken,
-                                 "XToken", xToken))
+                                 "XToken", xToken, "TLS", tls))
         {
             BMCWEB_LOG_ERROR << "Cannot read values from AuthMethod tag";
             return;
@@ -706,8 +707,14 @@ class AccountService : public Node
             authMethodsConfig.xtoken = *xToken;
         }
 
+        if (tls)
+        {
+            authMethodsConfig.tls = *tls;
+        }
+
         if (!authMethodsConfig.basic && !authMethodsConfig.cookie &&
-            !authMethodsConfig.sessionToken && !authMethodsConfig.xtoken)
+            !authMethodsConfig.sessionToken && !authMethodsConfig.xtoken &&
+            !authMethodsConfig.tls)
         {
             // Do not allow user to disable everything
             messages::actionNotSupported(asyncResp->res,
@@ -913,6 +920,7 @@ class AccountService : public Node
                      {"SessionToken", authMethodsConfig.sessionToken},
                      {"XToken", authMethodsConfig.xtoken},
                      {"Cookie", authMethodsConfig.cookie},
+                     {"TLS", authMethodsConfig.tls},
                  }}}}}},
             {"LDAP",
              {{"Certificates",
