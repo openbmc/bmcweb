@@ -26,6 +26,43 @@ using InterfacesProperties = boost::container::flat_map<
     std::string,
     boost::container::flat_map<std::string, dbus::utility::DbusVariantType>>;
 
+uint32_t getDimmMemorySize(const std::string &service,
+                           const std::string &objPath)
+{
+    const constexpr auto PROPERTY_INTF = "org.freedesktop.DBus.Properties";
+
+    sdbusplus::message::variant<std::string> property;
+    auto bus = sdbusplus::bus::new_default();
+    auto method = bus.new_method_call(service.c_str(), objPath.c_str(),
+                                      PROPERTY_INTF, "Get");
+    method.append("xyz.openbmc_project.Inventory.Item", "PrettyName");
+
+    auto reply = bus.call(method);
+    reply.read(property);
+
+    auto prettyName =
+        sdbusplus::message::variant_ns::get<std::string>(property);
+    std::vector<std::string> split;
+    // DDR4-2666 8GiB 64-bit ECC RDIMM
+    split.reserve(5);
+    boost::algorithm::split(split, prettyName, boost::is_any_of(" "));
+    if (split.size() < 5)
+    {
+        BMCWEB_LOG_ERROR << "Got path that isn't long enough " << prettyName;
+        return 0;
+    }
+    try
+    {
+        return boost::lexical_cast<uint32_t>(
+            split[1].substr(0, split[1].find("G")));
+    }
+    catch (boost::bad_lexical_cast &e)
+    {
+        BMCWEB_LOG_ERROR << "Source type value conversion failed " << split[1];
+        return 0;
+    }
+}
+
 void getResourceList(std::shared_ptr<AsyncResp> aResp,
                      const std::string &subclass,
                      const std::vector<const char *> &collectionName)
@@ -47,6 +84,7 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
             nlohmann::json &members = aResp->res.jsonValue["Members"];
             members = nlohmann::json::array();
 
+            uint32_t totalSize = 0;
             for (const auto &object : subtree)
             {
                 auto iter = object.first.rfind("/");
@@ -56,9 +94,16 @@ void getResourceList(std::shared_ptr<AsyncResp> aResp,
                         {{"@odata.id", "/redfish/v1/Systems/system/" +
                                            subclass + "/" +
                                            object.first.substr(iter + 1)}});
+                    for (const auto &service : object.second)
+                    {
+                        totalSize +=
+                            getDimmMemorySize(service.first, object.first);
+                        break;
+                    }
                 }
             }
             aResp->res.jsonValue["Members@odata.count"] = members.size();
+            aResp->res.jsonValue["TotalSystemMemoryGiB"] = totalSize;
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
@@ -426,6 +471,40 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 else if (property.first == "Manufacturer")
                 {
                     aResp->res.jsonValue["Manufacturer"] = property.second;
+                }
+                else if (property.first == "PrettyName")
+                {
+                    std::string prettyName =
+                        std::get<std::string>(property.second);
+                    std::vector<std::string> split;
+                    // DDR4-2666 8GiB 64-bit ECC RDIMM
+                    split.reserve(5);
+                    boost::algorithm::split(split, prettyName,
+                                            boost::is_any_of(" "));
+                    if (split.size() < 5)
+                    {
+                        BMCWEB_LOG_ERROR << "Got path that isn't long enough "
+                                         << prettyName;
+                        continue;
+                    }
+                    if (boost::starts_with(split[0], "DDR"))
+                    {
+                        aResp->res.jsonValue["MemoryType"] = "DRAM";
+                    }
+                    try
+                    {
+                        aResp->res.jsonValue["SizeMiB"] =
+                            boost::lexical_cast<uint32_t>(
+                                split[1].substr(0, split[1].find("G")))
+                            << 10;
+                    }
+                    catch (boost::bad_lexical_cast &e)
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "Source type value conversion failed "
+                            << split[1];
+                        aResp->res.jsonValue["SizeMiB"] = nullptr;
+                    }
                 }
                 else if (property.first == "MemoryType")
                 {
