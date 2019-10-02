@@ -83,6 +83,15 @@
                         "null"
                     ]
                 },
+                "TLS": {
+                    "description": "Indicates whether TLS authorization is enabled.",
+                    "longDescription": "The value of this property shall be a boolean indicating whether TLS authorization is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
                 "XToken": {
                     "description": "Indicates whether XToken authorization is enabled.",
                     "longDescription": "The value of this property shall be a boolean indicating whether XToken authorization is enabled.",
