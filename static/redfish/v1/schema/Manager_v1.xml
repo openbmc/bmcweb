@@ -378,6 +378,12 @@
           <Annotation Term="OData.Description" String="This object is used to enumerate the Graphical Console connection types allowed by the implementation."/>
           <Annotation Term="OData.LongDescription" String="The value of ConnectTypesSupported shall be an array of the enumerations provided here.  RDP shall be included if the Remote Desktop (RDP) protocol is supported.  KVMIP shall be included if a vendor-define KVM-IP protocol is supported."/>
         </Property>
+        <Property Name="MaxConcurrentSessions" Type="Edm.Int64" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates the maximum number of service sessions, regardless of protocol, this manager is able to support."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the maximum number of concurrent service sessions supported by the implementation."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
       </ComplexType>
 
     </Schema>
