@@ -239,10 +239,7 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
                    &propertiesList) {
             if (error_code)
             {
-                messages::internalError(asyncResp->res);
-                BMCWEB_LOG_ERROR
-                    << "getFwStatus: Error trying to get Activation for "
-                    << *swId;
+                // not all fwtypes are updateable, this is ok
                 return;
             }
             boost::container::flat_map<std::string, VariantType>::const_iterator
