@@ -348,6 +348,7 @@ struct AuthConfigMethods
     bool cookie = true;
     bool sessionToken = true;
     bool basic = true;
+    bool tls = true;
 
     void fromJson(const nlohmann::json& j)
     {
@@ -374,6 +375,10 @@ struct AuthConfigMethods
             else if (element.key() == "BasicAuth")
             {
                 basic = *value;
+            }
+            else if (element.key() == "TLS")
+            {
+                tls = *value;
             }
         }
     }
@@ -592,7 +597,8 @@ template <> struct adl_serializer<crow::persistent_data::AuthConfigMethods>
         j = nlohmann::json{{"XToken", c.xtoken},
                            {"Cookie", c.cookie},
                            {"SessionToken", c.sessionToken},
-                           {"BasicAuth", c.basic}};
+                           {"BasicAuth", c.basic},
+                           {"TLS", c.tls}};
     }
 };
 } // namespace nlohmann
