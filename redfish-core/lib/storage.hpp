@@ -46,6 +46,7 @@ class StorageCollection : public Node
         res.jsonValue["Members"] = {
             {"@odata.id", "/redfish/v1/Systems/system/Storage/1"}};
         res.jsonValue["Members@odata.count"] = 1;
+        res.end();
     }
 };
 
