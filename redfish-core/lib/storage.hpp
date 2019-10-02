@@ -73,7 +73,7 @@ class Storage : public Node
             "/redfish/v1/$metadata#Storage.Storage";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
         res.jsonValue["Name"] = "Storage Controller";
-        res.jsonValue["Id"] = "NVMe Controller";
+        res.jsonValue["Id"] = "Storage Controller";
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
