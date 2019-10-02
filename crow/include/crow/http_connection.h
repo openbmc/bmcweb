@@ -267,6 +267,15 @@ class Connection
         adaptor.set_verify_callback([this](
                                         bool preverified,
                                         boost::asio::ssl::verify_context& ctx) {
+            // do nothing if TLS is disabled
+            if (!crow::persistent_data::SessionStore::getInstance()
+                     .getAuthMethodsConfig()
+                     .tls)
+            {
+                BMCWEB_LOG_INFO << "TLS auth_config is disabled";
+                return true;
+            }
+
             // We always return true to allow full auth flow
             if (!preverified)
             {
