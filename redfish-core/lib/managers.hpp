@@ -1591,7 +1591,7 @@ class Manager : public Node
 #ifdef BMCWEB_ENABLE_KVM
         // Fill in GraphicalConsole info
         res.jsonValue["GraphicalConsole"]["ServiceEnabled"] = true;
-        res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 1;
+        res.jsonValue["GraphicalConsole"]["MaxConcurrentSessions"] = 4;
         res.jsonValue["GraphicalConsole"]["ConnectTypesSupported"] = {"KVMIP"};
 #endif // BMCWEB_ENABLE_KVM
 
