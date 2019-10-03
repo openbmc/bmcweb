@@ -1609,7 +1609,7 @@ class EthernetInterface : public Node
                 getDHCPConfigData(asyncResp);
 
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#EthernetInterface.v1_4_1.EthernetInterface";
+                    "#EthernetInterface.v1_5_1.EthernetInterface";
                 asyncResp->res.jsonValue["@odata.context"] =
                     "/redfish/v1/"
                     "$metadata#EthernetInterface.EthernetInterface";
