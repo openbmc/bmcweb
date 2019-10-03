@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EthernetInterface  v1.4.1-->
+<!--# Redfish Schema:  EthernetInterface v1.5.1                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -53,8 +53,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="EthernetInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The EthernetInterface schema represents a single, logical ethernet interface or network interface controller (NIC)."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent NIC resources as part of the Redfish specification."/>
+        <Annotation Term="OData.Description" String="The EthernetInterface schema represents a single, logical Ethernet interface or network interface controller (NIC)."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains NIC Resources as part of the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -63,7 +63,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="An Ethernet Interface can be updated to change addressing, link information and other writable properties."/>
+            <Annotation Term="OData.Description" String="Any writable properties, such as addressing and link information, can be updated for Ethernet interfaces."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -90,103 +90,101 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.EthernetInterface">
-        <Annotation Term="OData.Description" String="The EthernetInterface schema represents a single, logical ethernet interface or network interface controller (NIC)."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent NIC resources as part of the Redfish specification."/>
         <Property Name="UefiDevicePath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UEFI device path for this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the UEFI device path to the device which implements this interface (port)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path to the device that implements this interface, or port."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="InterfaceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether this interface is enabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this interface is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this interface is enabled."/>
         </Property>
         <Property Name="PermanentMACAddress" Type="EthernetInterface.v1_0_0.MACAddress">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the permanent MAC address assigned to this interface (port)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Permanent MAC Address of this interface (port). This value is typically programmed during the manufacturing time. This address is not assignable."/>
+          <Annotation Term="OData.Description" String="The permanent MAC address assigned to this interface, or port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the permanent MAC address of this interface, or port.  Typically, this value is programmed during manufacturing.  This address is not assignable."/>
         </Property>
         <Property Name="MACAddress" Type="EthernetInterface.v1_0_0.MACAddress">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the currently configured MAC address of the (logical port) interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the effective current MAC Address of this interface. If an assignable MAC address is not supported, this is a read only alias of the PermanentMACAddress."/>
+          <Annotation Term="OData.Description" String="The currently configured MAC address of the interface, or logical port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the effective current MAC address of this interface.  If an assignable MAC address is not supported, this value is a read-only alias of the PermanentMACAddress."/>
         </Property>
         <Property Name="SpeedMbps" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The current speed, in Mbps, of this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link speed of the interface, in Mbps.  This property shall be writable only when the AutoNeg property is `false`."/>
           <Annotation Term="Measures.Unit" String="Mbit/s"/>
-          <Annotation Term="OData.Description" String="This is the current speed in Mbps of this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the link speed of the interface in Mbps."/>
         </Property>
         <Property Name="AutoNeg" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates if the speed and duplex are automatically negotiated and configured on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be true if auto negotiation of speed and duplex is enabled on this interface and false if it is disabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether the speed and duplex are automatically negotiated and configured on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the speed and duplex are automatically negotiated and configured on this interface."/>
         </Property>
         <Property Name="FullDuplex" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates if the interface is in Full Duplex mode or not."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall represent the duplex status of the Ethernet connection on this interface."/>
+          <Annotation Term="OData.Description" String="An indication of whether full-duplex mode is enabled on the Ethernet connection for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether full-duplex mode is enabled on the Ethernet connection for this interface."/>
         </Property>
         <Property Name="MTUSize" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the currently configured Maximum Transmission Unit (MTU) in bytes on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the size in bytes of largest Protocol Data Unit (PDU) that can be passed in an Ethernet (MAC) frame on this interface."/>
+          <Annotation Term="OData.Description" String="The currently configured maximum transmission unit (MTU), in bytes, on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size, in bytes, of largest protocol data unit (PDU) that can be passed in an Ethernet (MAC) frame on this interface."/>
         </Property>
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The DNS Host Name, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be host name for this interface."/>
+          <Annotation Term="OData.Description" String="The DNS host name, without any domain information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain DNS host name for this interface."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the complete, fully qualified domain name obtained by DNS for this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the fully qualified domain name for this interface."/>
+          <Annotation Term="OData.Description" String="The complete, fully qualified domain name that DNS obtains for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name that DNS obtains for this interface."/>
         </Property>
         <Property Name="MaxIPv6StaticAddresses" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This indicates the maximum number of Static IPv6 addresses that can be configured on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the number of array items supported by IPv6StaticAddresses."/>
+          <Annotation Term="OData.Description" String="The maximum number of static IPv6 addresses that can be configured on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the number of array items supported by IPv6StaticAddresses, or the maximum number of static IPv6 addresses that can be configured on this interface."/>
         </Property>
-        <Property Name="VLAN" Type="VLanNetworkInterface.VLAN">
-          <Annotation Term="OData.Description" String="If this Network Interface supports more than one VLAN, this property is not present. VLANs collections appear in the Link section of this resource."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall not be present and the VLANS collection link shall be present instead."/>
+        <Property Name="VLAN" Type="VLanNetworkInterface.VLAN" Nullable="false">
+          <Annotation Term="OData.Description" String="If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the Link section of this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall be absent and, instead, the VLAN collection link shall be present."/>
         </Property>
         <Property Name="IPv4Addresses" Type="Collection(IPAddresses.IPv4Address)" Nullable="false">
           <Annotation Term="OData.Description" String="The IPv4 addresses currently assigned to this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of objects used to represent the IPv4 connection characteristics for this interface. It is recommended that this propety be regarded as read-only, with configuration of static addresses performed by updating the values within IPv4StaticAddessses. Services may reject updates to this array for this reason."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddessses.  Services may reject updates to this array for this reason."/>
         </Property>
-        <Property Name="IPv6AddressPolicyTable" Type="Collection(EthernetInterface.v1_0_0.IPv6AddressPolicyEntry)" Nullable="false">
-          <Annotation Term="OData.Description" String="An array representing the RFC 6724 Address Selection Policy Table."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of objects used to represent the Address Selection Policy Table as defined in RFC 6724."/>
+        <Property Name="IPv6AddressPolicyTable" Type="Collection(EthernetInterface.v1_0_0.IPv6AddressPolicyEntry)">
+          <Annotation Term="OData.Description" String="An array that represents the RFC6724-defined address selection policy table."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the RFC6724-defined address selection policy table."/>
         </Property>
         <Property Name="IPv6Addresses" Type="Collection(IPAddresses.IPv6Address)" Nullable="false">
-          <Annotation Term="OData.Description" String="Enumerates in an array all of the currently assigned IPv6 addresses on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of objects used to represent the IPv6 connection characteristics for this interface."/>
+          <Annotation Term="OData.Description" String="An array of the currently assigned IPv6 addresses on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 connection characteristics for this interface."/>
         </Property>
-        <Property Name="IPv6StaticAddresses" Type="Collection(IPAddresses.IPv6StaticAddress)" Nullable="false">
-          <Annotation Term="OData.Description" String="Represents in an array all of the IPv6 static addresses to be assigned on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of objects used to represent the IPv6 static connection characteristics for this interface."/>
+        <Property Name="IPv6StaticAddresses" Type="Collection(IPAddresses.IPv6StaticAddress)">
+          <Annotation Term="OData.Description" String="An array of the IPv6 static addresses to assign on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent the IPv6 static connection characteristics for this interface."/>
         </Property>
         <Property Name="IPv6DefaultGateway" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the IPv6 default gateway address that is currently in use on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the current IPv6 default gateway address that is in use on this interface."/>
+          <Annotation Term="OData.Description" String="The IPv6 default gateway address in use on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current IPv6 default gateway address in use on this interface."/>
           <Annotation Term="Redfish.IPv6Format"/>
         </Property>
         <Property Name="NameServers" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This represents DNS name servers that are currently in use on this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the DNS name servers used on this interface."/>
+          <Annotation Term="OData.Description" String="The DNS servers in use on this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DNS servers in use on this interface."/>
         </Property>
         <NavigationProperty Name="VLANs" Type="VLanNetworkInterfaceCollection.VLanNetworkInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is a reference to a collection of VLANs and is only used if the interface supports more than one VLANs."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall reference a collection of VLAN resources. If this property is used, the VLANEnabled and VLANId property shall not be used."/>
+          <Annotation Term="OData.Description" String="The link to a collection of VLANs, which applies only if the interface supports more than one VLAN.  If this property applies, the VLANEnabled and VLANId properties do not apply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a collection of VLAN Resources, which applies only if the interface supports more than one VLAN.  If this property is present, the VLANEnabled and VLANId properties shall not be present."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -197,25 +195,25 @@
 
       <ComplexType Name="IPv6AddressPolicyEntry">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="A entry in the RFC 6724 Address Selection Policy Table."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe and entry in the Address Selection Policy Table as defined in RFC 6724."/>
+        <Annotation Term="OData.Description" String="The entry in the RFC6724-defined address selection policy table."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe an entry in the RFC6724-defined address selection policy table."/>
         <Property Name="Prefix" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The IPv6 Address Prefix (as defined in RFC 6724 section 2.1)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 Address Prefix for this table entry as defined in RFC 6724 section 2.1."/>
+          <Annotation Term="OData.Description" String="The IPv6 address prefix, as defined in RFC6724, section 2.1."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 address prefix for this table entry, as defined in RFC6724, section 2.1."/>
           <Annotation Term="Redfish.IPv6Format"/>
         </Property>
         <Property Name="Precedence" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The IPv6 Precedence (as defined in RFC 6724 section 2.1."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 Precedence value for this table entry as defined in RFC 6724 section 2.1."/>
+          <Annotation Term="OData.Description" String="The IPv6 precedence, as defined in RFC6724, section 2.1."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 precedence value for this table entry, as defined in RFC6724, section 2.1."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
           <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
         <Property Name="Label" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The IPv6 Label (as defined in RFC 6724 section 2.1)."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 Label value for this table entry as defined in RFC 6724 section 2.1."/>
+          <Annotation Term="OData.Description" String="The IPv6 label, as defined in RFC6724, section 2.1."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 label value for this table entry, as defined in RFC6724, section 2.1."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Validation.Maximum" Int="100"/>
         </Property>
@@ -224,7 +222,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_0.EthernetInterface"/>
     </Schema>
 
@@ -236,13 +234,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_3.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to structures in IPAddresses and VLanNetworkInterface to be their abstract base type."/>
+      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_4.EthernetInterface"/>
     </Schema>
 
@@ -252,18 +250,30 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_5.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_6.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_7.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_0_2.EthernetInterface">
         <Property Name="LinkStatus" Type="EthernetInterface.v1_1_0.LinkStatus">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link status of this interface (port)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the link status of this interface (port)."/>
+          <Annotation Term="OData.Description" String="The link status of this interface, or port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link status of this interface, or port."/>
         </Property>
         <Property Name="Links" Type="EthernetInterface.v1_1_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
         </Property>
       </EntityType>
 
@@ -272,20 +282,20 @@
           <Annotation Term="OData.Description" String="The link is available for communication on this interface."/>
         </Member>
         <Member Name="NoLink">
-          <Annotation Term="OData.Description" String="There is no link or connection detected on this interface."/>
+          <Annotation Term="OData.Description" String="No link or connection is detected on this interface."/>
         </Member>
         <Member Name="LinkDown">
-          <Annotation Term="OData.Description" String="There is no link on this interface, but the interface is connected."/>
+          <Annotation Term="OData.Description" String="No link is detected on this interface, but the interface is connected."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of references to the endpoints that connect to this ethernet interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to the resources that this ethernet interface is associated with and shall reference a resource of type Endpoint."/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resources of the Endpoint type with which this Ethernet interface is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -299,13 +309,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of type Collection."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet from NavigationProperties of the Collection type."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_1.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to structures in IPAddresses and VLanNetworkInterface to be their abstract base type."/>
+      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_2.EthernetInterface"/>
     </Schema>
 
@@ -313,6 +323,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_3.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_4.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_1_5.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_0">
@@ -323,8 +345,8 @@
       <ComplexType Name="Links" BaseType="EthernetInterface.v1_1_0.Links">
         <NavigationProperty Name="HostInterface" Type="HostInterface.HostInterface" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is a reference to a Host Interface that is associated with this Ethernet Interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to a resource of type HostInterface which represents the interface used by a host to communicate with a Manager."/>
+          <Annotation Term="OData.Description" String="The link to a Host Interface that is associated with this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type HostInterface that represents the interface that a host uses to communicate with a manager."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -332,13 +354,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of type Collection."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_0.EthernetInterface"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to structures in IPAddresses and VLanNetworkInterface to be their abstract base type."/>
+      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_1.EthernetInterface"/>
     </Schema>
 
@@ -348,45 +370,57 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_2.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_3.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_4.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_2_1.EthernetInterface">
         <Property Name="Actions" Type="EthernetInterface.v1_3_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="EthernetInterface.v1_2_0.Links">
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the Chassis which contains this Ethernet Interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to a resource of type Chassis that represent the physical container associated with this Ethernet Interface."/>
+          <Annotation Term="OData.Description" String="The link to the chassis that contains this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Chassis that represent the physical container associated with this Ethernet interface."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="EthernetInterface.v1_3_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change references to structures in IPAddresses and VLanNetworkInterface to be their abstract base type."/>
+      <Annotation Term="OData.Description" String="This version was created to change IPAddresses and VLanNetworkInterface structures to their abstract base types."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_0.EthernetInterface"/>
     </Schema>
 
@@ -396,34 +430,46 @@
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_1.EthernetInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_2.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_3.EthernetInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_3_1.EthernetInterface">
-        <Property Name="DHCPv4" Type="EthernetInterface.v1_4_0.DHCPv4Configuration">
+        <Property Name="DHCPv4" Type="EthernetInterface.v1_4_0.DHCPv4Configuration" Nullable="false">
           <Annotation Term="OData.Description" String="DHCPv4 configuration for this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of DHCP v4."/>
         </Property>
-        <Property Name="DHCPv6" Type="EthernetInterface.v1_4_0.DHCPv6Configuration">
+        <Property Name="DHCPv6" Type="EthernetInterface.v1_4_0.DHCPv6Configuration" Nullable="false">
           <Annotation Term="OData.Description" String="DHCPv6 configuration for this interface."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of DHCP v6."/>
         </Property>
-        <Property Name="StatelessAddressAutoConfig" Type="EthernetInterface.v1_4_0.StatelessAddressAutoConfiguration">
-          <Annotation Term="OData.Description" String="Stateless Address Automatic Configuration (SLAAC) parameters for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain the IPv4 and IPv6 Stateless Address Automatic Configuration (SLAAC) properties for this interface."/>
+        <Property Name="StatelessAddressAutoConfig" Type="EthernetInterface.v1_4_0.StatelessAddressAutoConfiguration" Nullable="false">
+          <Annotation Term="OData.Description" String="Stateless address autoconfiguration (SLAAC) parameters for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the IPv4 and IPv6 stateless address automatic configuration (SLAAC) properties for this interface."/>
         </Property>
-        <Property Name="IPv6StaticDefaultGateways" Type="Collection(IPAddresses.IPv6GatewayStaticAddress)" Nullable="false">
+        <Property Name="IPv6StaticDefaultGateways" Type="Collection(IPAddresses.IPv6GatewayStaticAddress)">
           <Annotation Term="OData.Description" String="The IPv6 static default gateways for this interface."/>
           <Annotation Term="OData.LongDescription" String="The values in this array shall represent the IPv6 static default gateway addresses for this interface."/>
         </Property>
-        <Property Name="StaticNameServers" Type="Collection(Edm.String)" Nullable="false">
+        <Property Name="StaticNameServers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="A statically defined set of DNS server IP addresses (both IPv4 and IPv6)."/>
-          <Annotation Term="OData.LongDescription" String="A statically defined set of DNS server IP addresses to be used when DHCP provisioning is not in enabled for name server configuration. As an implementation option they may also be used in addition to DHCP provided addresses, or in cases where the DHCP server provides no DNS assigments."/>
+          <Annotation Term="OData.Description" String="The statically-defined set of DNS server IPv4 and IPv6 addresses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they may also be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assigments."/>
         </Property>
-        <Property Name="IPv4StaticAddresses" Type="Collection(IPAddresses.IPv4Address)" Nullable="false">
+        <Property Name="IPv4StaticAddresses" Type="Collection(IPAddresses.IPv4Address)">
           <Annotation Term="OData.Description" String="The IPv4 static addresses assigned to this interface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of objects used to represent all IPv4 static addresses assigned (but not necessarily in use) to this interface. Addresses in use by this interface shall also appear in the IPv4Addresses property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of objects that represent all IPv4 static addresses assigned to, but not necessarily in use by, this interface.  The IPv4Addresses property shall also list the addresses that this interface uses ."/>
         </Property>
       </EntityType>
 
@@ -433,33 +479,33 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe the configuration of DHCP v4."/>
         <Property Name="DHCPEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether DHCPv4 is enabled on this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether DHCP v4 is enabled for this EthernetInterface."/>
+          <Annotation Term="OData.Description" String="An indication of whether DHCP v4 is enabled on this Ethernet interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether DHCP v4 is enabled for this Ethernet interface."/>
         </Property>
         <Property Name="UseDNSServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use DHCPv4-supplied DNS servers."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use DHCPv4-supplied DNS servers."/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface uses DHCP v4-supplied DNS servers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses DHCP v4-supplied DNS servers."/>
         </Property>
         <Property Name="UseDomainName" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use a DHCPv4-supplied domain name."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use a DHCPv4-supplied domain name."/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface uses a DHCP v4-supplied domain name."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a DHCP v4-supplied domain name."/>
         </Property>
         <Property Name="UseGateway" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use a DHCPv4-supplied gateway."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use a DHCPv4-supplied gateway."/>
+          <Annotation Term="OData.Description" String="An indication of whether this interface uses a DHCP v4-supplied gateway."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a DHCP v4-supplied gateway."/>
         </Property>
         <Property Name="UseNTPServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use DHCPv4-supplied NTP servers."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use DHCPv4-supplied NTP servers."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses DHCP v4-supplied NTP servers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses DHCP v4-supplied NTP servers."/>
         </Property>
         <Property Name="UseStaticRoutes" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use DHCPv4-supplied static routes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use a DHCPv4-supplied static routes."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses DHCP v4-supplied static routes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a DHCP v4-supplied static routes."/>
         </Property>
       </ComplexType>
 
@@ -470,38 +516,38 @@
         <Property Name="OperatingMode" Type="EthernetInterface.v1_4_0.DHCPv6OperatingMode">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Determines the DHCPv6 operating mode for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall control the operating mode of DHCPv6 on this interface. DHCPv6 stateful mode is used to configure addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall control the operating mode of DHCPv6 on this interface.  DHCPv6 stateful mode configures addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
         </Property>
         <Property Name="UseDNSServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="When enabled, DNS server addresses supplied through DHCPv6 stateless mode will be used."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use DHCPv6-supplied DNS servers."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses DHCP v6-supplied DNS servers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses DHCP v6-supplied DNS servers."/>
         </Property>
         <Property Name="UseDomainName" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="When enabled, the domain name supplied through DHCPv6 stateless mode will be used."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use a domain name supplied through  DHCPv6 stateless mode."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses a domain name supplied through DHCP v6 stateless mode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses a domain name supplied through DHCP v6 stateless mode."/>
         </Property>
         <Property Name="UseNTPServers" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="When enabled, NTP server addresses supplied through DHCPv6 stateless mode will be used."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use DHCPv6-supplied NTP servers."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses DHCP v6-supplied NTP servers."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses DHCP v6-supplied NTP servers."/>
         </Property>
         <Property Name="UseRapidCommit" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Determines whether to use DHCPv6 rapid commit mode for stateful mode address assignments. Do not enable in networks where more than one DHCPv6 server is configured to provide address assignments."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface will use DHCPv6 rapid commit mode for stateful mode address assignments."/>
+          <Annotation Term="OData.Description" String="An indication of whether the interface uses DHCP v6 rapid commit mode for stateful mode address assignments.  Do not enable this option in networks where more than one DHCP v6 server is configured to provide address assignments."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the interface uses DHCP v6 rapid commit mode for stateful mode address assignments."/>
         </Property>
       </ComplexType>
 
       <EnumType Name="DHCPv6OperatingMode">
         <Member Name="Stateful">
           <Annotation Term="OData.Description" String="DHCPv6 stateful mode."/>
-          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateful mode on this interface. DHCPv6 stateful mode is used to configure addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateful mode on this interface.  DHCPv6 stateful mode configures addresses, and when it is enabled, stateless mode is also implicitly enabled."/>
         </Member>
         <Member Name="Stateless">
           <Annotation Term="OData.Description" String="DHCPv6 stateless mode."/>
-          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in  stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses. It is always enabled by default whenever DHCPv6 Stateful mode is also enabled."/>
+          <Annotation Term="OData.LongDescription" String="DHCPv6 shall operate in stateless mode on this interface.  DHCPv6 stateless mode allows configuring the interface using DHCP options but does not configure addresses.  It is always enabled by default whenever DHCPv6 Stateful mode is also enabled."/>
         </Member>
         <Member Name="Disabled">
           <Annotation Term="OData.Description" String="DHCPv6 is disabled."/>
@@ -511,17 +557,17 @@
 
       <ComplexType Name="StatelessAddressAutoConfiguration">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Stateless Address Automatic Configuration (SLAAC) parameters for this interface."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the IPv4 and IPv6 Stateless Address Automatic Configuration (SLAAC) for this interface."/>
+        <Annotation Term="OData.Description" String="Stateless address autoconfiguration (SLAAC) parameters for this interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the IPv4 and IPv6 stateless address autoconfiguration (SLAAC) for this interface."/>
         <Property Name="IPv4AutoConfigEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates whether IPv4 SLAAC is enabled for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv4 Stateless Address Auto-Configuration (SLAAC) is enabled for this interface."/>
+          <Annotation Term="OData.Description" String="An indication of whether IPv4 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv4 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
         </Property>
         <Property Name="IPv6AutoConfigEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates whether IPv6 SLAAC is enabled for this interface."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv6 Stateless Address Auto-Configuration (SLAAC) is enabled for this interface."/>
+          <Annotation Term="OData.Description" String="An indication of whether IPv6 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether IPv6 stateless address autoconfiguration (SLAAC) is enabled for this interface."/>
         </Property>
       </ComplexType>
 
@@ -529,8 +575,55 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to correct type used in IPv6StaticDefaultGateways."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number, and corrects the type in IPv6StaticDefaultGateways."/>
       <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_0.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version allows for null in StaticNameServers, forces the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_1.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_2.EthernetInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.1"/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_4_2.EthernetInterface"/>
+
+      <ComplexType Name="DHCPv4Configuration" BaseType="EthernetInterface.v1_4_0.DHCPv4Configuration">
+        <Property Name="FallbackAddress" Type="EthernetInterface.v1_5_0.DHCPFallback">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="DHCPv4 fallback address method for this interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fallback address method of DHCPv4."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="DHCPFallback">
+        <Member Name="Static">
+          <Annotation Term="OData.Description" String="Fall back to a static address specified by IPv4StaticAddresses."/>
+          <Annotation Term="OData.LongDescription" String="DHCP shall fall back to a static address specified by IPv4StaticAddresses."/>
+        </Member>
+        <Member Name="AutoConfig">
+          <Annotation Term="OData.Description" String="Fall back to an autoconfigured address."/>
+          <Annotation Term="OData.LongDescription" String="DHCP shall fall back to an address generated by the implementation."/>
+        </Member>
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="Continue attempting DHCP without a fallback address."/>
+          <Annotation Term="OData.LongDescription" String="DHCP shall continue trying to obtain an address without falling back to a fixed address."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EthernetInterface.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to allow for null to be used in several writable properties that are arrays.  It was also created to update the description for the SpeedMbps property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="EthernetInterface" BaseType="EthernetInterface.v1_5_0.EthernetInterface"/>
     </Schema>
 
   </edmx:DataServices>
