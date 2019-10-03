@@ -676,7 +676,7 @@ class SoftwareInventory : public Node
 
                             // swInvPurpose is of format:
                             // xyz.openbmc_project.Software.Version.VersionPurpose.ABC
-                            // Translate this to "ABC update"
+                            // Translate this to "ABC image"
                             size_t endDesc = swInvPurpose->rfind(".");
                             if (endDesc == std::string::npos)
                             {
@@ -693,7 +693,7 @@ class SoftwareInventory : public Node
                             std::string formatDesc =
                                 swInvPurpose->substr(endDesc);
                             asyncResp->res.jsonValue["Description"] =
-                                formatDesc + " update";
+                                formatDesc + " image";
                             getRelatedItems(asyncResp, *swInvPurpose);
                         },
                         obj.second[0].first, obj.first,
