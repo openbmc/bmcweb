@@ -693,7 +693,7 @@ class SoftwareInventory : public Node
                             std::string formatDesc =
                                 swInvPurpose->substr(endDesc);
                             asyncResp->res.jsonValue["Description"] =
-                                formatDesc + " update";
+                                formatDesc + " image";
                             getRelatedItems(asyncResp, *swInvPurpose);
                         },
                         obj.second[0].first, obj.first,
