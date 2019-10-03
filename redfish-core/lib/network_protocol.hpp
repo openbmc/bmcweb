@@ -243,11 +243,12 @@ class NetworkProtocol : public Node
             asyncResp->res.jsonValue["NTP"]["NTPServers"] = ntpServers;
             if (hostName.empty() == false)
             {
-                asyncResp->res.jsonValue["FQDN"] = hostName;
+                std::string FQDN = std::move(hostName);
                 if (domainNames.empty() == false)
                 {
-                    asyncResp->res.jsonValue["FQDN"] += "." + domainNames[0];
+                    FQDN += "." + domainNames[0];
                 }
+                asyncResp->res.jsonValue["FQDN"] = std::move(FQDN);
             }
         });
 
