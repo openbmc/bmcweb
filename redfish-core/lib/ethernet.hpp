@@ -107,7 +107,8 @@ struct EthernetInterfaceData
     std::string ipv6_default_gateway;
     std::string mac_address;
     std::vector<std::uint32_t> vlan_id;
-    std::vector<std::string> nameservers;
+    std::vector<std::string> nameServers;
+    std::vector<std::string> staticNameServers;
     std::vector<std::string> domainnames;
 };
 
@@ -294,7 +295,19 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                                     &propertyPair.second);
                             if (nameservers != nullptr)
                             {
-                                ethData.nameservers = std::move(*nameservers);
+                                ethData.nameServers = std::move(*nameservers);
+                            }
+                        }
+                        else if (propertyPair.first == "StaticNameServers")
+                        {
+                            const std::vector<std::string> *staticNameServers =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (staticNameServers != nullptr)
+                            {
+                                ethData.staticNameServers =
+                                    std::move(*staticNameServers);
                             }
                         }
                         else if (propertyPair.first == "DHCPEnabled")
@@ -1606,7 +1619,8 @@ class EthernetInterface : public Node
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
             "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Network.EthernetInterface", "Nameservers",
+            "xyz.openbmc_project.Network.EthernetInterface",
+            "StaticNameServers",
             std::variant<std::vector<std::string>>{updatedStaticNameServers});
     }
 
@@ -1806,15 +1820,8 @@ class EthernetInterface : public Node
             {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
                               iface_id + "/VLANs"}};
 
-        if (translateDHCPEnabledToBool(ethData.DHCPEnabled, true) &&
-            ethData.DNSEnabled)
-        {
-            json_response["StaticNameServers"] = nlohmann::json::array();
-        }
-        else
-        {
-            json_response["StaticNameServers"] = ethData.nameservers;
-        }
+        json_response["NameServers"] = ethData.nameServers;
+        json_response["StaticNameServers"] = ethData.staticNameServers;
 
         nlohmann::json &ipv4_array = json_response["IPv4Addresses"];
         nlohmann::json &ipv4_static_array =
