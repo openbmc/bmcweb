@@ -100,6 +100,7 @@ struct EthernetInterfaceData
     std::string mac_address;
     std::vector<std::uint32_t> vlan_id;
     std::vector<std::string> nameservers;
+    std::vector<std::string> staticnameservers;
     std::vector<std::string> domainnames;
 };
 
@@ -226,6 +227,17 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (nameservers != nullptr)
                             {
                                 ethData.nameservers = std::move(*nameservers);
+                            }
+                        }
+                        else if (propertyPair.first == "StaticNameServers")
+                        {
+                            const std::vector<std::string> *staticnameservers =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::vector<std::string>>(
+                                    &propertyPair.second);
+                            if (staticnameservers != nullptr)
+                            {
+                                ethData.staticnameservers = std::move(*staticnameservers);
                             }
                         }
                         else if (propertyPair.first == "DHCPEnabled")
@@ -1359,7 +1371,7 @@ class EthernetInterface : public Node
             "xyz.openbmc_project.Network",
             "/xyz/openbmc_project/network/" + ifaceId,
             "org.freedesktop.DBus.Properties", "Set",
-            "xyz.openbmc_project.Network.EthernetInterface", "Nameservers",
+            "xyz.openbmc_project.Network.EthernetInterface", "StaticNameServers",
             std::variant<std::vector<std::string>>{updatedStaticNameServers});
     }
 
@@ -1524,15 +1536,7 @@ class EthernetInterface : public Node
                               iface_id + "/VLANs"}};
 
         json_response["NameServers"] = ethData.nameservers;
-
-        if (!ethData.DHCPEnabled)
-        {
-            json_response["StaticNameServers"] = ethData.nameservers;
-        }
-        else
-        {
-            json_response["StaticNameServers"] = nlohmann::json::array();
-        }
+        json_response["StaticNameServers"] = ethData.staticnameservers;
 
         nlohmann::json &ipv4_array = json_response["IPv4Addresses"];
         nlohmann::json &ipv4_static_array =
@@ -1648,15 +1652,17 @@ class EthernetInterface : public Node
         std::optional<std::string> ipv6DefaultGateway;
         std::optional<nlohmann::json> ipv4StaticAddresses;
         std::optional<nlohmann::json> ipv6StaticAddresses;
+        std::optional<std::vector<std::string>> nameServers;
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
 
         if (!json_util::readJson(req, res, "HostName", hostname,
                                  "IPv4StaticAddresses", ipv4StaticAddresses,
-                                 "MACAddress", macAddress, "StaticNameServers",
-                                 staticNameServers, "IPv6DefaultGateway",
-                                 ipv6DefaultGateway, "IPv6StaticAddresses",
-                                 ipv6StaticAddresses, "DHCPv4", dhcpv4))
+                                 "MACAddress", macAddress,"NameServers",nameServers,
+                                 "StaticNameServers",staticNameServers, 
+                                 "IPv6DefaultGateway", ipv6DefaultGateway,
+                                 "IPv6StaticAddresses",ipv6StaticAddresses,
+                                 "DHCPv4", dhcpv4))
         {
             return;
         }
@@ -1675,6 +1681,7 @@ class EthernetInterface : public Node
              ipv4StaticAddresses = std::move(ipv4StaticAddresses),
              ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
+             nameServers = std::move(nameServers),
              staticNameServers = std::move(staticNameServers)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data,
@@ -1718,7 +1725,11 @@ class EthernetInterface : public Node
                     handleStaticNameServersPatch(iface_id, *staticNameServers,
                                                  asyncResp);
                 }
-
+                if (nameServers)
+                {
+                    messages::propertyNotWritable(asyncResp->res,
+                                                  "NameServers");
+                }
                 if (ipv6DefaultGateway)
                 {
                     messages::propertyNotWritable(asyncResp->res,
