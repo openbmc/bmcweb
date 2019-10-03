@@ -1515,15 +1515,7 @@ class EthernetInterface : public Node
                               iface_id + "/VLANs"}};
 
         json_response["NameServers"] = ethData.nameservers;
-
-        if (!ethData.DHCPEnabled)
-        {
-            json_response["StaticNameServers"] = ethData.nameservers;
-        }
-        else
-        {
-            json_response["StaticNameServers"] = nlohmann::json::array();
-        }
+        json_response["StaticNameServers"] = ethData.nameservers;
 
         nlohmann::json &ipv4_array = json_response["IPv4Addresses"];
         nlohmann::json &ipv4_static_array =
