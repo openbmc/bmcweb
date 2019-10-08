@@ -1,0 +1,120 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/Crashdump.v1_0_0.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "Actions": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "#Crashdump.OnDemand": {
+                    "$ref": "#/definitions/OnDemand"
+                },
+                "#Crashdump.SendRawPeci": {
+                    "$ref": "#/definitions/SendRawPeci"
+                }
+            },
+            "type": "object"
+        },
+        "OnDemand": {
+            "additionalProperties": false,
+            "description": "This action is used to trigger a new on-demand crashdump.",
+            "longDescription": "This action is used to trigger a new on-demand crashdump which is returned immediately.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "SendRawPeci": {
+            "additionalProperties": false,
+            "description": "This action is used to send a raw PECI command to the CPU.",
+            "longDescription": "This action is used to send a raw PECI command to the CPU.",
+            "parameters": {
+                "ClientAddress": {
+                    "description": "PECI client address for the command.",
+                    "longDescription": "This defines the PECI client address that is the target for this command.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                },
+                "PECICommand": {
+                    "description": "The raw bytes to be sent as the PECI command.",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "longDescription": "This defines an array of raw data that is made up of the raw bytes of the PECI command to be sent.",
+                    "requiredParameter": true,
+                    "type": "array"
+                },
+                "ReadLength": {
+                    "description": "Read length parameter for the command",
+                    "longDescription": "This defines the read length parameter for this command.",
+                    "requiredParameter": true,
+                    "type": "integer"
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "title": "#Crashdump.v1_0_0"
+}
