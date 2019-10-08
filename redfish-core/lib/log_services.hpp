@@ -1747,58 +1747,51 @@ class OnDemandCrashdump : public Node
             messages::internalError(asyncResp->res);
         });
 
-        auto onDemandLogMatcherCallback = [asyncResp](
-                                              sdbusplus::message::message &m) {
-            BMCWEB_LOG_DEBUG << "OnDemand log available match fired";
-            timeout.cancel();
+        auto onDemandLogMatcherCallback =
+            [asyncResp](sdbusplus::message::message &m) {
+                BMCWEB_LOG_DEBUG << "OnDemand log available match fired";
+                timeout.cancel();
 
-            sdbusplus::message::object_path objPath;
-            boost::container::flat_map<
-                std::string, boost::container::flat_map<
-                                 std::string, std::variant<std::string>>>
-                interfacesAdded;
-            m.read(objPath, interfacesAdded);
-            const std::string *log = std::get_if<std::string>(
-                &interfacesAdded[CrashdumpInterface]["Log"]);
-            if (log == nullptr)
-            {
-                messages::internalError(asyncResp->res);
+                sdbusplus::message::object_path objPath;
+                boost::container::flat_map<
+                    std::string, boost::container::flat_map<
+                                     std::string, std::variant<std::string>>>
+                    interfacesAdded;
+                m.read(objPath, interfacesAdded);
+                const std::string *log = std::get_if<std::string>(
+                    &interfacesAdded[CrashdumpInterface]["Log"]);
+                if (log == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    // Careful with onDemandLogMatcher.  It is a unique_ptr to
+                    // the match object inside which this lambda is executing.
+                    // Once it is set to nullptr, the match object will be
+                    // destroyed and the lambda will lose its context, including
+                    // res, so it needs to be the last thing done.
+                    onDemandLogMatcher = nullptr;
+                    return;
+                }
+                nlohmann::json crashdumpJson =
+                    nlohmann::json::parse(*log, nullptr, false);
+                if (crashdumpJson.is_discarded())
+                {
+                    messages::internalError(asyncResp->res);
+                    // Careful with onDemandLogMatcher.  It is a unique_ptr to
+                    // the match object inside which this lambda is executing.
+                    // Once it is set to nullptr, the match object will be
+                    // destroyed and the lambda will lose its context, including
+                    // res, so it needs to be the last thing done.
+                    onDemandLogMatcher = nullptr;
+                    return;
+                }
+                asyncResp->res.jsonValue = crashdumpJson;
                 // Careful with onDemandLogMatcher.  It is a unique_ptr to the
                 // match object inside which this lambda is executing.  Once it
                 // is set to nullptr, the match object will be destroyed and the
                 // lambda will lose its context, including res, so it needs to
                 // be the last thing done.
                 onDemandLogMatcher = nullptr;
-                return;
-            }
-            nlohmann::json j = nlohmann::json::parse(*log, nullptr, false);
-            if (j.is_discarded())
-            {
-                messages::internalError(asyncResp->res);
-                // Careful with onDemandLogMatcher.  It is a unique_ptr to the
-                // match object inside which this lambda is executing.  Once it
-                // is set to nullptr, the match object will be destroyed and the
-                // lambda will lose its context, including res, so it needs to
-                // be the last thing done.
-                onDemandLogMatcher = nullptr;
-                return;
-            }
-            std::string t = getLogCreatedTime(j);
-            asyncResp->res.jsonValue = {
-                {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-                {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
-                {"Name", "CPU Crashdump"},
-                {"EntryType", "Oem"},
-                {"OemRecordFormat", "Intel Crashdump"},
-                {"Oem", {{"Intel", std::move(j)}}},
-                {"Created", std::move(t)}};
-            // Careful with onDemandLogMatcher.  It is a unique_ptr to the
-            // match object inside which this lambda is executing.  Once it is
-            // set to nullptr, the match object will be destroyed and the lambda
-            // will lose its context, including res, so it needs to be the last
-            // thing done.
-            onDemandLogMatcher = nullptr;
-        };
+            };
         onDemandLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
             *crow::connections::systemBus,
             sdbusplus::bus::match::rules::interfacesAdded() +
