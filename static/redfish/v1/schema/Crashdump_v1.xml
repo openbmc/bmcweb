@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+        <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData" />
+    </edmx:Reference>
+    <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/LogService_v1.xml">
+        <edmx:Include Namespace="LogService"/>
+        <edmx:Include Namespace="LogService.v1_0_0"/>
+    </edmx:Reference>
+
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Crashdump.v1_0_0">
+            <Action Name="OnDemand" IsBound="true">
+                <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
+                <Annotation Term="OData.Description" String="This action is used to trigger a new on-demand crashdump." />
+                <Annotation Term="OData.LongDescription" String="This action is used to trigger a new on-demand crashdump which is returned immediately." />
+            </Action>
+
+            <Action Name="SendRawPeci" IsBound="true">
+                <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
+                <Parameter Name="ClientAddress" Type="Edm.Int64" Nullable="false">
+                    <Annotation Term="OData.Description" String="PECI client address for the command." />
+                    <Annotation Term="OData.LongDescription" String="This defines the PECI client address that is the target for this command." />
+                </Parameter>
+                <Parameter Name="ReadLength" Type="Edm.Int64" Nullable="false">
+                    <Annotation Term="OData.Description" String="Read length parameter for the command" />
+                    <Annotation Term="OData.LongDescription" String="This defines the read length parameter for this command." />
+                </Parameter>
+                <Parameter Name="PECICommand" Type="Collection(Edm.Int64)" Nullable="false">
+                    <Annotation Term="OData.Description" String="The raw bytes to be sent as the PECI command." />
+                    <Annotation Term="OData.LongDescription" String="This defines an array of raw data that is made up of the raw bytes of the PECI command to be sent." />
+                </Parameter>
+                <Annotation Term="OData.Description" String="This action is used to send a raw PECI command to the CPU." />
+                <Annotation Term="OData.LongDescription" String="This action is used to send a raw PECI command to the CPU." />
+            </Action>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>
