@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/CompositionService.v1_1_2.json",
     "$ref": "#/definitions/CompositionService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -24,18 +25,18 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "CompositionService": {
             "additionalProperties": false,
-            "description": "The CompositionService schema defines a Composition Service which represents the properties for the service and links to the resources available for composition.",
-            "longDescription": "This resource shall be used to represent the Composition Service Properties for a Redfish implementation.",
+            "description": "The CompositionService schema describes a Composition Service and its properties and links to the Resources available for composition.",
+            "longDescription": "This Resource shall represent the Composition Service and its properties for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -50,39 +51,41 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "AllowOverprovisioning": {
-                    "description": "This indicates whether this service is allowed to overprovision a composition relative to the composition request.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service is allowed to overprovision a composition relative to the composition request.",
+                    "description": "An indication of whether this service is allowed to overprovision a composition relative to the composition request.",
+                    "longDescription": "This property shall indicate whether this service is allowed to overprovision a composition relative to the composition request.",
                     "readonly": false,
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "AllowZoneAffinity": {
-                    "description": "This indicates whether a client is allowed to request that given composition request is fulfilled by a specified Resource Zone.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether a client is allowed to request that given composition request is fulfilled by a specified Resource Zone.",
+                    "description": "An indication of whether a client can request that a specific Resource Zone fulfill a composition request.",
+                    "longDescription": "This property shall indicate whether a client can request that a specific Resource Zone fulfill a composition request.",
                     "readonly": true,
                     "type": [
                         "boolean",
                         "null"
-                    ]
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -105,24 +108,24 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "ResourceBlocks": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlockCollection.json#/definitions/ResourceBlockCollection",
-                    "description": "The resource blocks available on the service.",
-                    "longDescription": "This property shall contain the link to a collection of type ResourceBlockCollection.",
+                    "description": "The Resource Blocks available on the service.",
+                    "longDescription": "This property shall contain the link to a Resource Collection of type ResourceBlockCollection.",
                     "readonly": true
                 },
                 "ResourceZones": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ZoneCollection.json#/definitions/ZoneCollection",
-                    "description": "The resource zones available on the service.",
-                    "longDescription": "This property shall contain the link to a collection of type ZoneCollection.",
+                    "description": "The Resource Zones available on the service.",
+                    "longDescription": "This property shall contain the link to a Resource Collection of type ZoneCollection.",
                     "readonly": true
                 },
                 "ServiceEnabled": {
-                    "description": "This indicates whether this service is enabled.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.",
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -131,8 +134,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 }
             },
             "required": [
@@ -145,10 +148,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -166,5 +169,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#CompositionService.v1_1_0.CompositionService"
+    "release": "2018.2",
+    "title": "#CompositionService.v1_1_2.CompositionService"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory  v1.7.0-->
+<!--# Redfish Schema:  Memory v1.8.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -44,8 +44,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Memory" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition of the Memory and its configuration."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Memory in a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The schema definition of the memory and its configuration."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains the memory in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -74,36 +74,36 @@
       </EntityType>
 
       <Action Name="UnlockUnit" IsBound="true">
-        <Annotation Term="OData.Description" String="This defines the action for unlocking given regions."/>
+        <Annotation Term="OData.Description" String="This contains the action for unlocking given regions."/>
         <Annotation Term="OData.LongDescription" String="This action shall apply the supplied passphrase to the supplied region for the purpose of unlocking the given regions."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region ID to which to apply this action."/>
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this actionn."/>
+          <Annotation Term="OData.Description" String="The passphrase required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase required to complete this actionn."/>
         </Parameter>
       </Action>
 
       <Action Name="SecureEraseUnit" IsBound="true">
-        <Annotation Term="OData.Description" String="This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase."/>
-        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase. Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite."/>
+        <Annotation Term="OData.Description" String="This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase."/>
+        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase.  Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region ID to which to apply this action."/>
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase used in this action."/>
         </Parameter>
       </Action>
 
       <Action Name="OverwriteUnit" IsBound="true">
-        <Annotation Term="OData.Description" String="This defines the action for securely erasing given regions using the NIST SP800-88 Purge: Overwrite."/>
-        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Overwrite. Use the SecureEraseUnit method to perform NIST SP800-88 Purge: Cryptographic Erase."/>
+        <Annotation Term="OData.Description" String="This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Overwrite."/>
+        <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Overwrite.  Use the SecureEraseUnit method to perform NIST SP800-88 Purge: Cryptographic Erase."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -114,12 +114,12 @@
         </Annotation>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region ID to which to apply this action."/>
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase used in this action."/>
         </Parameter>
       </Action>
 
@@ -128,12 +128,12 @@
         <Annotation Term="OData.LongDescription" String="This action shall apply the supplied passphrase to the supplied region."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region ID to which to apply this action."/>
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase used in this action."/>
         </Parameter>
       </Action>
 
@@ -142,13 +142,31 @@
         <Annotation Term="OData.LongDescription" String="This action shall disaple the need for passphrases on the supplied region provided the supplied passphrase matches that of the region."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory region ID for which this action to be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory region ID for which this action to be applied."/>
+          <Annotation Term="OData.Description" String="The memory region ID to which to apply this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region ID to which to apply this action."/>
         </Parameter>
         <Parameter Name="Passphrase" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="Passphrase for doing the operation."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the passphrase used in this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the passphrase used in this action."/>
         </Parameter>
+      </Action>
+
+      <Action Name="Reset" IsBound="true">
+        <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
+        <Parameter Name="ResetType" Type="Resource.ResetType">
+          <Annotation Term="OData.Description" String="The type of reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="This action resets this memory."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset this memory."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_8_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
     </Schema>
 
@@ -157,86 +175,86 @@
       <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="Memory" BaseType="Memory.Memory">
-        <Annotation Term="OData.Description" String="This is the schema definition for definition of a Memory and its configuration."/>
+        <Annotation Term="OData.Description" String="The schema for definition of a memory and its configuration."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
 
         <Property Name="MemoryType" Type="Memory.v1_0_0.MemoryType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the type of Memory represented by this resource."/>
+          <Annotation Term="OData.Description" String="The type of memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of memory that this Resource represents."/>
         </Property>
         <Property Name="MemoryDeviceType" Type="Memory.v1_0_0.MemoryDeviceType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Type details of the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory Device Type as defined by SMBIOS."/>
+          <Annotation Term="OData.Description" String="Type details of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Memory Device Type as defined by SMBIOS."/>
         </Property>
         <Property Name="BaseModuleType" Type="Memory.v1_0_0.BaseModuleType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The base module type of Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the base module type of Memory."/>
+          <Annotation Term="OData.Description" String="The base module type of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the base module type of the memory."/>
         </Property>
         <Property Name="MemoryMedia" Type="Collection(Memory.v1_0_0.MemoryMedia)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Media of this Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the media types of this Memory."/>
+          <Annotation Term="OData.Description" String="Media of this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the media types of this memory."/>
         </Property>
         <Property Name="CapacityMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Memory Capacity in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Memory capacity in MiB."/>
+          <Annotation Term="OData.Description" String="Memory capacity in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory capacity in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="DataWidthBits" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Data Width in bits."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the data width in bits."/>
+          <Annotation Term="OData.Description" String="Data width in bits."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the data width in bits."/>
         </Property>
         <Property Name="BusWidthBits" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Bus Width in bits."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the bus width in bits."/>
+          <Annotation Term="OData.Description" String="The bus width, in bits."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the bus width, in bits."/>
         </Property>
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Memory manufacturer."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a string which identifies the manufacturer of the Memory."/>
+          <Annotation Term="OData.Description" String="The memory manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the manufacturer of the memory."/>
         </Property>
         <Property Name="SerialNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product serial number of this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the serial number as provided by the manufacturer of this Memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the serial number as provided by the manufacturer of this memory."/>
         </Property>
         <Property Name="PartNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product part number of this device."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the part number as provided by the manufacturer of this Memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the part number as provided by the manufacturer of this memory."/>
         </Property>
         <Property Name="AllowedSpeedsMHz" Type="Collection(Edm.Int64)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Speed bins supported by this Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the speed supported by this Memory."/>
+          <Annotation Term="OData.Description" String="Speeds supported by this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the speed supported by this memory."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="FirmwareRevision" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Revision of firmware on the Memory controller."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the revision of firmware on the Memory controller."/>
+          <Annotation Term="OData.Description" String="Revision of firmware on the memory controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the revision of firmware on the memory controller."/>
         </Property>
         <Property Name="FirmwareApiVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Version of API supported by the firmware."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the version of API supported by the firmware."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of API supported by the firmware."/>
         </Property>
         <Property Name="FunctionClasses" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Function Classes by the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the function classes by the Memory."/>
+          <Annotation Term="OData.Description" String="Function classes by the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the function classes by the memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of OperatingMemoryModes at the root of the resource, or MemoryClassification found within RegionSet."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of OperatingMemoryModes at the root of the Resource, or MemoryClassification found within RegionSet."/>
               </Record>
             </Collection>
           </Annotation>
@@ -244,13 +262,13 @@
         <Property Name="VendorID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Vendor ID."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the vendor ID of the Memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the vendor ID of the memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of ModuleManufacturerID."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of ModuleManufacturerID."/>
               </Record>
             </Collection>
           </Annotation>
@@ -258,152 +276,152 @@
         <Property Name="DeviceID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Device ID."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the device ID of the Memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the device ID of the memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of ModuleProductID."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of ModuleProductID."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="SubsystemVendorID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="SubSystem Vendor ID."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the subsystem Vendor ID of the Memory."/>
+          <Annotation Term="OData.Description" String="SubSystem vendor ID."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the subsystem vendor ID of the memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of MemorySubsystemControllerManufacturerID."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of MemorySubsystemControllerManufacturerID."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="SubsystemDeviceID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Subsystem Device ID."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the subsystem Device ID of the Memory."/>
+          <Annotation Term="OData.Description" String="Subsystem device ID."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the subsystem device ID of the memory."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of MemorySubsystemControllerProductID."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of MemorySubsystemControllerProductID."/>
               </Record>
             </Collection>
           </Annotation>
         </Property>
         <Property Name="MaxTDPMilliWatts" Type="Collection(Edm.Int64)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum TDPs in milli Watts."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum power budgets supported by the Memory in milli Watts."/>
+          <Annotation Term="OData.Description" String="Set of maximum power budgets supported by the memory in milliwatts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of maximum power budgets supported by the memory in milliwatts."/>
           <Annotation Term="Measures.Unit" String="mW"/>
         </Property>
         <Property Name="SecurityCapabilities" Type="Memory.v1_0_0.SecurityCapabilities" Nullable="false">
-          <Annotation Term="OData.Description" String="This object contains security capabilities of the Memory."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain properties which describe the security capabilities of the Memory."/>
+          <Annotation Term="OData.Description" String="Security capabilities of the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain properties that describe the security capabilities of the memory."/>
         </Property>
         <Property Name="SpareDeviceCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Number of unused spare devices available in the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the number of unused spare devices available in the Memory. If memory devices fails, the spare device could be used."/>
+          <Annotation Term="OData.Description" String="Number of unused spare devices available in the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of unused spare devices available in the memory.  If memory devices fails, the spare device could be used."/>
         </Property>
         <Property Name="RankCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Number of ranks available in the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be number of ranks available in the Memory. The ranks could be used for spare or interleave."/>
+          <Annotation Term="OData.Description" String="Number of ranks available in the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of ranks available in the memory.  The ranks could be used for spare or interleave."/>
         </Property>
         <Property Name="DeviceLocator" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Location of the Memory in the platform."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be location of the Memory in the platform, typically marked in the silk screen."/>
+          <Annotation Term="OData.Description" String="Location of the memory in the platform."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain location of the memory in the platform, typically marked in the silk screen."/>
         </Property>
         <Property Name="MemoryLocation" Type="Memory.v1_0_0.MemoryLocation" Nullable="false">
           <Annotation Term="OData.Description" String="Memory connection information to sockets and memory controllers."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain properties which describe the Memory connection information to sockets and memory controllers."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain properties that describe the memory connection information to sockets and memory controllers."/>
         </Property>
         <Property Name="ErrorCorrection" Type="Memory.v1_0_0.ErrorCorrection">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Error correction scheme supported for this memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the error correction scheme supported for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the error correction scheme supported for this memory."/>
         </Property>
         <Property Name="OperatingSpeedMhz" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Operating speed of Memory in MHz or MT/s as appropriate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the operating speed of Memory in MHz or MT/s (mega-transfers per second) as reported by the memory device. Memory devices which operate at their bus speed shall report the operating speed in MHz (bus speed), while memory device which transfer data faster than their bus speed (e.g. DDR memory) shall report the operating speed in MT/s (mega-transfers/second). In any case, the reported value shall match the conventionally reported values for the technology utilized by the memory device."/>
+          <Annotation Term="OData.Description" String="Operating speed of memory in MHz or MT/s as appropriate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  In any case, the reported value shall match the conventionally reported values for the technology used by the memory device."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="VolatileRegionSizeLimitMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of volatile regions in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of volatile regions in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of volatile regions in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="PersistentRegionSizeLimitMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of persistent regions in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of persistent regions in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of persistent regions in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Regions" Type="Collection(Memory.v1_0_0.RegionSet)" Nullable="false">
-          <Annotation Term="OData.Description" String="Memory regions information within the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the memory region information within the Memory."/>
+          <Annotation Term="OData.Description" String="Memory regions information within the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory region information within the memory."/>
         </Property>
         <Property Name="OperatingMemoryModes" Type="Collection(Memory.v1_0_0.OperatingMemoryModes)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Memory modes supported by the Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the memory modes supported by the Memory."/>
+          <Annotation Term="OData.Description" String="Memory modes supported by the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory modes supported by the memory."/>
         </Property>
         <Property Name="PowerManagementPolicy" Type="Memory.v1_0_0.PowerManagementPolicy" Nullable="false">
           <Annotation Term="OData.Description" String="Power management policy information."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain properties which describe the power management policy for the current resource."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain properties that describe the power management policy for this Resource."/>
         </Property>
         <Property Name="IsSpareDeviceEnabled" Type="Edm.Boolean" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Spare device enabled status."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be true if a spare device is enabled for this Memory."/>
+          <Annotation Term="OData.Description" String="An indication of whether a spare device is enabled for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the spare device is enabled."/>
         </Property>
         <Property Name="IsRankSpareEnabled" Type="Edm.Boolean" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Rank spare enabled status."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be true if a rank spare is enabled for this Memory."/>
+          <Annotation Term="OData.Description" String="An indication of whether rank spare is enabled for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether rank spare is enabled for this memory."/>
         </Property>
         <NavigationProperty Name="Metrics" Type="MemoryMetrics.MemoryMetrics" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the Metrics associated with this Memory."/>
-          <Annotation Term="OData.LongDescription" String="A reference to the Metrics associated with this Memory."/>
+          <Annotation Term="OData.Description" String="The link to the Metrics associated with this memory."/>
+          <Annotation Term="OData.LongDescription" String="The link to the metrics associated with this memory."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Memory.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <EnumType Name="MemoryType">
         <Member Name="DRAM">
-          <Annotation Term="OData.Description" String="The memory module is composed of volatile memory."/>
+          <Annotation Term="OData.Description" String="The memory module is comprised of volatile memory."/>
           <Annotation Term="OData.LongDescription" String="This memory type shall represent volatile DRAM."/>
         </Member>
         <Member Name="NVDIMM_N">
-          <Annotation Term="OData.Description" String="The memory module is composed of volatile memory backed by non-volatile memory."/>
+          <Annotation Term="OData.Description" String="The memory module is comprised of volatile memory backed by non-volatile memory."/>
           <Annotation Term="OData.LongDescription" String="This memory type shall represent NVDIMM_N as defined by JEDEC."/>
         </Member>
         <Member Name="NVDIMM_F">
-          <Annotation Term="OData.Description" String="The memory module is composed of non-volatile memory."/>
+          <Annotation Term="OData.Description" String="The memory module is comprised of non-volatile memory."/>
           <Annotation Term="OData.LongDescription" String="This memory type shall represent NVDIMM_F as defined by JEDEC."/>
         </Member>
         <Member Name="NVDIMM_P">
-          <Annotation Term="OData.Description" String="The memory module is composed of a combination of non-volatile and volatile memory."/>
+          <Annotation Term="OData.Description" String="The memory module is comprised of a combination of non-volatile and volatile memory."/>
           <Annotation Term="OData.LongDescription" String="This memory type shall represent NVDIMM_P as defined by JEDEC."/>
-        </Member>
+        </Member>	
         <Member Name="IntelOptane">
-          <Annotation Term="OData.Description" String="The memory module is Intel Optane DC Persistent Memory and composed of a combination of non-volatile and volatile memory."/>
-          <Annotation Term="OData.LongDescription" String="This memory type shall represent Intel Optane DC Persistent Memory."/>
+          <Annotation Term="OData.Description" String="The memory module is an Intel Optane DC Persistent Memory Module."/>
+          <Annotation Term="OData.LongDescription" String="This memory type shall represent an Intel Optane DC Persistent Memory Module."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -577,30 +595,30 @@
 
       <ComplexType Name="SecurityCapabilities">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This type contains security capabilities of a Memory entity."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties which describe the security capabilities of a Memory entity."/>
+        <Annotation Term="OData.Description" String="This type contains security capabilities of a memory device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the security capabilities of a memory device."/>
         <Property Name="PassphraseCapable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Memory passphrase set capability."/>
-          <Annotation Term="OData.LongDescription" String="Memory passphrase set capability."/>
+          <Annotation Term="OData.Description" String="An indication of whether the memory is passphrase capable."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the memory is passphrase capable."/>
         </Property>
         <Property Name="MaxPassphraseCount" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum number of passphrases supported for this Memory."/>
-          <Annotation Term="OData.LongDescription" String="Maximum number of passphrases supported for this Memory."/>
+          <Annotation Term="OData.Description" String="Maximum number of passphrases supported for this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of passphrases supported for this memory."/>
         </Property>
         <Property Name="SecurityStates" Type="Collection(Memory.v1_0_0.SecurityStates)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Security states supported by the Memory."/>
-          <Annotation Term="OData.LongDescription" String="Security states supported by the Memory."/>
+          <Annotation Term="OData.Description" String="Security states supported by the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the security states supported by the memory."/>
           <Annotation Term="Redfish.Revisions">
-             <Collection>
-                <Record>
-                  <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
-                  <PropertyValue Property="Version" String="v1_7_0"/>
-                  <PropertyValue Property="Description" String="This property has been deprecated in favor of using the individual PassphraseCapable, DataLockCapable and ConfigurationLockCapable properties."/>
-                </Record>
-             </Collection>
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of using the individual PassphraseCapable, DataLockCapable and ConfigurationLockCapable properties."/>
+              </Record>
+            </Collection>
           </Annotation>
         </Property>
       </ComplexType>
@@ -615,58 +633,58 @@
         <Member Name="Unlocked">
           <Annotation Term="OData.Description" String="Secure mode is enabled and access to the data is unlocked."/>
           <Annotation Term="Redfish.Revisions">
-             <Collection>
-                <Record>
-                  <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
-                  <PropertyValue Property="Version" String="v1_7_0"/>
-                  <PropertyValue Property="Description" String="This value has been deprecated in favor of 'Enabled' to indicate normal security operation."/>
-                </Record>
-             </Collection>
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of 'Enabled' to indicate normal security operation."/>
+              </Record>
+            </Collection>
           </Annotation>
         </Member>
         <Member Name="Locked">
           <Annotation Term="OData.Description" String="Secure mode is enabled and access to the data is locked."/>
         </Member>
         <Member Name="Frozen">
-          <Annotation Term="OData.Description" String="Secure state is frozen and can not be modified until reset."/>
+          <Annotation Term="OData.Description" String="Secure state is frozen and cannot be modified until reset."/>
           <Annotation Term="Redfish.Revisions">
-             <Collection>
-                <Record>
-                  <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
-                  <PropertyValue Property="Version" String="v1_7_0"/>
-                  <PropertyValue Property="Description" String="This value has been deprecated in favor of using the ConfigurationLocked to indicate that the configuration has been frozen."/>
-                </Record>
-             </Collection>
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of using the ConfigurationLocked to indicate that the configuration has been frozen."/>
+              </Record>
+            </Collection>
           </Annotation>
         </Member>
         <Member Name="Passphraselimit">
-          <Annotation Term="OData.Description" String="Number of attempts to unlock the Memory exceeded limit."/>
+          <Annotation Term="OData.Description" String="Number of attempts to unlock the memory exceeded limit."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="MemoryLocation">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Memory connection information to sockets and memory controllers."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties which describe the Memory connection information to sockets and memory controllers."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the memory connection information to sockets and memory controllers."/>
         <Property Name="Socket" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Socket number in which Memory is connected."/>
-          <Annotation Term="OData.LongDescription" String="Socket number in which Memory is connected."/>
+          <Annotation Term="OData.Description" String="The socket number to which the memory is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the socket number to which the memory is connected."/>
         </Property>
         <Property Name="MemoryController" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Memory controller number in which Memory is connected."/>
-          <Annotation Term="OData.LongDescription" String="Memory controller number in which Memory is connected."/>
+          <Annotation Term="OData.Description" String="The memory controller number to which the memory is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory controller number to which the memory is connected."/>
         </Property>
         <Property Name="Channel" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Channel number in which Memory is connected."/>
-          <Annotation Term="OData.LongDescription" String="Channel number in which Memory is connected."/>
+          <Annotation Term="OData.Description" String="The channel number to which the memory is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the channel number to which the memory is connected."/>
         </Property>
         <Property Name="Slot" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Slot number in which Memory is connected."/>
-          <Annotation Term="OData.LongDescription" String="Slot number in which Memory is connected."/>
+          <Annotation Term="OData.Description" String="The slot number to which the memory is connected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the slot number to which the memory is connected."/>
         </Property>
       </ComplexType>
 
@@ -675,52 +693,52 @@
           <Annotation Term="OData.Description" String="No ECC available."/>
         </Member>
         <Member Name="SingleBitECC">
-          <Annotation Term="OData.Description" String="Single bit Data error can be corrected by ECC."/>
+          <Annotation Term="OData.Description" String="Single bit data errors can be corrected by ECC."/>
         </Member>
         <Member Name="MultiBitECC">
-          <Annotation Term="OData.Description" String="Multi-bit Data errors can be corrected by ECC."/>
+          <Annotation Term="OData.Description" String="Multibit data errors can be corrected by ECC."/>
         </Member>
         <Member Name="AddressParity">
-          <Annotation Term="OData.Description" String="Address Parity errors can be corrected."/>
+          <Annotation Term="OData.Description" String="Address parity errors can be corrected."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="RegionSet">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Memory region information within a Memory entity."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the memory region information within a Memory entity."/>
+        <Annotation Term="OData.Description" String="Memory region information within a memory device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the memory region information within a memory device."/>
         <Property Name="RegionId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Unique region ID representing a specific region within the Memory."/>
-          <Annotation Term="OData.LongDescription" String="Unique region ID representing a specific region within the Memory."/>
+          <Annotation Term="OData.Description" String="Unique region ID representing a specific region within the memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unique region ID representing a specific region within the memory."/>
         </Property>
         <Property Name="MemoryClassification" Type="Memory.v1_0_0.MemoryClassification">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Classification of memory occupied by the given memory region."/>
-          <Annotation Term="OData.LongDescription" String="Classification of memory occupied by the given memory region."/>
+          <Annotation Term="OData.Description" String="The classification of memory that the memory region occupies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the classification of memory that the memory region occupies."/>
         </Property>
         <Property Name="OffsetMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Offset with in the Memory that corresponds to the starting of this memory region in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="Offset with in the Memory that corresponds to the starting of this memory region in MiB."/>
+          <Annotation Term="OData.Description" String="Offset within the memory that corresponds to the start of this memory region in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset within the memory that corresponds to the start of this memory region in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="SizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of this memory region in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="Size of this memory region in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of this memory region in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="PassphraseState" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="State of the passphrase for this region."/>
-          <Annotation Term="OData.LongDescription" String="State of the passphrase for this region."/>
+          <Annotation Term="OData.Description" String="An indication of whether the state of the passphrase for this region is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the state of the passphrase for this region is enabled."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_5_0"/>
-                <PropertyValue Property="Description" String="This property has been Deprecated in favor of PassphraseEnabled found within RegionSet."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of PassphraseEnabled found within RegionSet."/>
               </Record>
             </Collection>
           </Annotation>
@@ -732,10 +750,10 @@
           <Annotation Term="OData.Description" String="Volatile memory."/>
         </Member>
         <Member Name="ByteAccessiblePersistent">
-          <Annotation Term="OData.Description" String="Byte accessible persistent memory."/>
+          <Annotation Term="OData.Description" String="Byte-accessible persistent memory."/>
         </Member>
         <Member Name="Block">
-          <Annotation Term="OData.Description" String="Block accesible memory."/>
+          <Annotation Term="OData.Description" String="Block-accesible memory."/>
         </Member>
       </EnumType>
 
@@ -744,75 +762,75 @@
           <Annotation Term="OData.Description" String="Volatile memory."/>
         </Member>
         <Member Name="PMEM">
-          <Annotation Term="OData.Description" String="Persistent memory, byte accesible through system address space."/>
+          <Annotation Term="OData.Description" String="Persistent memory, byte-accesible through system address space."/>
         </Member>
         <Member Name="Block">
-          <Annotation Term="OData.Description" String="Block accessible system memory."/>
+          <Annotation Term="OData.Description" String="Block-accessible system memory."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="PowerManagementPolicy">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Power management policy information."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties which describe the power management policy for the current resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the power management policy for this Resource."/>
         <Property Name="PolicyEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Power management policy enabled status."/>
-          <Annotation Term="OData.LongDescription" String="Power management policy enabled status."/>
+          <Annotation Term="OData.Description" String="An indication of whether the power management policy is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the power management policy is enabled."/>
         </Property>
         <Property Name="MaxTDPMilliWatts" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum TDP in milli watts."/>
-          <Annotation Term="OData.LongDescription" String="Maximum TDP in milli watts."/>
+          <Annotation Term="OData.Description" String="Maximum TDP in milliwatts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum TDP in milliwatts."/>
           <Annotation Term="Measures.Unit" String="mW"/>
         </Property>
         <Property Name="PeakPowerBudgetMilliWatts" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Peak power budget in milli watts."/>
-          <Annotation Term="OData.LongDescription" String="Peak power budget in milli watts."/>
+          <Annotation Term="OData.Description" String="Peak power budget, in milliwatts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the peak power budget, in milliwatts."/>
           <Annotation Term="Measures.Unit" String="mW"/>
         </Property>
         <Property Name="AveragePowerBudgetMilliWatts" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Average power budget in milli watts."/>
-          <Annotation Term="OData.LongDescription" String="Average power budget in milli watts."/>
+          <Annotation Term="OData.Description" String="Average power budget, in milliwatts."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the average power budget, in milliwatts."/>
           <Annotation Term="Measures.Unit" String="mW"/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Memory.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_0.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_2.Memory"/>
     </Schema>
 
@@ -824,8 +842,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_4.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_5.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_6.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_0">
@@ -833,21 +863,21 @@
       <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_1.Memory">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_0.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_1.Memory"/>
     </Schema>
 
@@ -859,8 +889,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_3.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_4.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_5.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_0">
@@ -869,51 +911,51 @@
       <EntityType Name="Memory" BaseType="Memory.v1_1_1.Memory">
         <Property Name="VolatileRegionNumberLimit" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Total number of volatile regions this Memory can support."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total number of volatile regions this Memory can support."/>
+          <Annotation Term="OData.Description" String="Total number of volatile regions this memory can support."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of volatile regions this memory can support."/>
         </Property>
         <Property Name="PersistentRegionNumberLimit" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Total number of persistent regions this Memory can support."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total number of persistent regions this Memory can support."/>
+          <Annotation Term="OData.Description" String="Total number of persistent regions this memory can support."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of persistent regions this memory can support."/>
         </Property>
         <Property Name="VolatileRegionSizeMaxMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Maximum size of a single volatile region in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum size of a single volatile regions in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum size of a single volatile regions in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="PersistentRegionSizeMaxMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Maximum size of a single persistent region in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum size of a single persistent regions in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum size of a single persistent regions in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AllocationIncrementMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The size of the smallest unit of allocation for a memory region in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the allocation increment for regions, measured in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the allocation increment for regions, measured in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AllocationAlignmentMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The boundary which memory regions are allocated on, measured in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be thealignment boundary on which memory regions are allocated, measured in MiB."/>
+          <Annotation Term="OData.Description" String="The boundary that memory regions are allocated on, measured in mebibytes (MiB)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the alignment boundary on which memory regions are allocated, measured in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Links" Type="Memory.v1_2_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the Chassis which contains this Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to a resource of type Chassis that represent the physical container associated with this Memory."/>
+          <Annotation Term="OData.Description" String="The link to the chassis that contains this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Chassis that represent the physical container associated with this memory."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -921,7 +963,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_0.Memory"/>
     </Schema>
 
@@ -933,8 +975,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_2.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_3.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_4.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_0">
@@ -944,25 +998,25 @@
         <Property Name="ModuleManufacturerID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The manufacturer ID of this memory module."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the two byte manufacturer ID of this memory module as defined by JEDEC in JEP-106."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two byte manufacturer ID of this memory module as defined by JEDEC in JEP-106."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
         <Property Name="ModuleProductID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product ID of this memory module."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the two byte product ID of this memory module as defined by the manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two byte product ID of this memory module as defined by the manufacturer."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
         <Property Name="MemorySubsystemControllerManufacturerID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The manufacturer ID of the memory subsystem controller of this memory module."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the two byte manufacturer ID of the memory subsystem controller of this memory module as defined by JEDEC in JEP-106."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two byte manufacturer ID of the memory subsystem controller of this memory module as defined by JEDEC in JEP-106."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
         <Property Name="MemorySubsystemControllerProductID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The product ID of the memory subsystem controller of this memory module."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the two byte product ID of the memory subsystem controller of this memory module as defined by the manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two byte product ID of the memory subsystem controller of this memory module as defined by the manufacturer."/>
           <Annotation Term="Validation.Pattern" String="^0[xX](([a-fA-F]|[0-9]){2}){2}$"/>
         </Property>
       </EntityType>
@@ -970,7 +1024,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory via Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_0.Memory"/>
     </Schema>
 
@@ -982,8 +1036,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_2.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_3.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_4.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_0">
@@ -993,35 +1059,35 @@
         <Property Name="VolatileSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of the volitile portion memory in MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of the volatile portion memory in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of the volatile portion memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="NonVolatileSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of the non-volatile portion memory in MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of the non-volatile portion memory in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of the non-volatile portion memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="CacheSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of the cache portion memory in MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of the cache portion memory in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of the cache portion memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="LogicalSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Total size of the logical memory in MiB."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the total size of the logical memory in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total size of the logical memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Location" Type="Resource.Location" Nullable="false">
-          <Annotation Term="OData.Description" String="The Location of the memory."/>
+          <Annotation Term="OData.Description" String="The location of the memory."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated memory."/>
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the Assembly resource associated with this memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type Assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly Resource associated with this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1041,8 +1107,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_4_2.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_3.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_4.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_0">
@@ -1053,8 +1131,8 @@
       <ComplexType Name="RegionSet" BaseType="Memory.v1_0_0.RegionSet">
         <Property Name="PassphraseEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates if the passphrase is enabled for this region."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating if the passphrase is enabled for this region."/>
+          <Annotation Term="OData.Description" String="An indication of whether the passphrase is enabled for this region."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the passphrase is enabled for this region."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -1067,21 +1145,45 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_5_1.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_2.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_3.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to change the LongDescription of SecureEraseUnit.  It was also created to define a new OverwriteUnit action.  It also adds IntelOptane to the MemoryType list."/>
+      <Annotation Term="OData.Description" String="This version was created to change the long description for SecureEraseUnit.  It was also created to define a new OverwriteUnit action, and adds IntelOptane to the MemoryType list."/>
       <EntityType Name="Memory" BaseType="Memory.v1_5_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_6_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_6_1.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_6_2.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_0">
@@ -1091,34 +1193,52 @@
       <EntityType Name="Memory" BaseType="Memory.v1_6_1.Memory">
         <Property Name="SecurityState" Type="Memory.v1_0_0.SecurityStates">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The current security state of this Memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the current security state of this memory."/>
+          <Annotation Term="OData.Description" String="The current security state of this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the current security state of this memory."/>
         </Property>
         <Property Name="ConfigurationLocked" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates that the configuration of this memory has been locked."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the current configuration lock state of this memory. True shall indicate that the configuration is locked and cannot be altered. False shall indicate that the configuration is not locked and may be altered."/>
+          <Annotation Term="OData.Description" String="An indication of whether the configuration of this memory is locked and cannot be altered."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the configuration of this memory is locked and cannot be altered."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="SecurityCapabilities" BaseType="Memory.v1_0_0.SecurityCapabilities">
         <Property Name="ConfigurationLockCapable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Support for locking the configuration."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate whether this memory supports the locking (freezing) of the configuration."/>
+          <Annotation Term="OData.Description" String="An indication of whether this memory supports the locking, or freezing, of the configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this memory supports the locking, or freezing, of the configuration."/>
         </Property>
         <Property Name="DataLockCapable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Support for data locking."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate whether this memory supports the locking of data access."/>
+          <Annotation Term="OData.Description" String="An indication of whether this memory supports data locking."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this memory supports the locking of data access."/>
         </Property>
         <Property Name="PassphraseLockLimit" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum number of incorrect passphrase attempts allowed before memory is locked."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum number of incorrect passphase access attempts allowed before access to data is locked. A value of zero shall indicate that there is no limit to the number of attempts."/>
+          <Annotation Term="OData.Description" String="The maximum number of incorrect passphrase attempts allowed before memory is locked."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of incorrect passphase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite."/>
         </Property>
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_1.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add a Reset action."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_2.Memory"/>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>

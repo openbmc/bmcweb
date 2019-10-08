@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ActionInfo  v1.1.0-->
+<!--# Redfish Schema:  ActionInfo v1.1.2                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -30,8 +30,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ActionInfo" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ActionInfo schema describes the parameters and other information necessary to perform a Redfish Action on a particular Action target. Parameter support can differ between vendors and even between instances of a resource. This data can be used to ensure Action requests from applications contain supported parameters."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent information about the supported parameters for an Action within a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The ActionInfo schema defines the supported parameters and other information for a Redfish action.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent the supported parameters and other information for a Redfish action on a target within a Redfish implementation.  Supported parameters can differ among vendors and even among Resource instances.  This data can ensure that action requests from applications contain supported parameters."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -57,46 +57,46 @@
 
       <EntityType Name="ActionInfo" BaseType="ActionInfo.ActionInfo">
         <Property Name="Parameters" Type="Collection(ActionInfo.v1_0_0.Parameters)" Nullable="false">
-          <Annotation Term="OData.Description" String="The parameters associated with the specified Redfish Action."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a list of parameters associated with a Redfish Action associated with this resource."/>
+          <Annotation Term="OData.Description" String="The list of parameters included in the specified Redfish action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall list the parameters included in the specified Redfish action for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Parameters">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="A parameter associated with the specified Redfish Action."/>
-        <Annotation Term="OData.LongDescription" String="This property shall contain information about a specific parameter associated with a Redfish Action associated with this resource."/>
+        <Annotation Term="OData.Description" String="The information about a parameter included in a Redfish action for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain information about a parameter included in a Redfish Action for this Resource."/>
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the parameter for this Action."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the parameter used by the associated Redfish Action."/>
+          <Annotation Term="OData.Description"  String="The name of the parameter for this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the parameter included in a Redfish action."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Required" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether the parameter is required to perform this Action."/>
-          <Annotation Term="OData.LongDescription" String="This property shall return true if the parameter is required to be present to perform the associated Action, and shall be false if the parameter is not required (optional) to perform the associated Action."/>
+          <Annotation Term="OData.Description" String="An indication of whether the parameter is required to complete this action."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the parameter is required to complete this action."/>
         </Property>
         <Property Name="DataType" Type="ActionInfo.v1_0_0.ParameterTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The JSON property type used for this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the JSON property type of the parameter."/>
+          <Annotation Term="OData.Description" String="The JSON property type for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the JSON property type for this parameter."/>
         </Property>
         <Property Name="ObjectDataType" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The OData Type of an object-based parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall describe the entity type definition (in @odata.type format) for the parameter.  This property shall be required for parameters with a DataType of Object or ObjectArray, and shall not be present for parameters with other DataType(s)."/>
+          <Annotation Term="OData.Description" String="The data type of an object-based parameter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the entity type definition in `@odata.type` format for the parameter.  This property shall be required for parameters with a data type of `Object` or `ObjectArray`, and shall not be present for parameters with other data types."/>
         </Property>
         <Property Name="AllowableValues" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A list of values for this parameter supported by this Action target."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable values for this parameter as applied to this Action target."/>
+          <Annotation Term="OData.Description" String="The allowable values for this parameter as applied to this action target."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the allowable values for this parameter as applied to this action target."/>
         </Property>
       </ComplexType>
 
       <EnumType Name="ParameterTypes">
         <Member Name="Boolean">
-          <Annotation Term="OData.Description" String="A boolean (true or false)."/>
+          <Annotation Term="OData.Description" String="A boolean."/>
         </Member>
         <Member Name="Number">
           <Annotation Term="OData.Description" String="A number."/>
@@ -134,7 +134,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to perform editorial updates of descriptions defined in this schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_2.ActionInfo"/>
     </Schema>
 
@@ -142,6 +142,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_3.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_4.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_0_5.ActionInfo"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_0">
@@ -154,14 +166,26 @@
         <Property Name="MinimumValue" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The minimum supported value for this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the minimum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the minimum value that this service supports.  This property shall not be present for parameters that are of types other than integer or number."/>
         </Property>
         <Property Name="MaximumValue" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum supported value of this parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum value of an integer or number type parameter supported by this service. This property shall not be present for parameters that are of types other than integer or number."/>
+          <Annotation Term="OData.Description" String="The maximum supported value for this parameter."/>
+          <Annotation Term="OData.LongDescription" String="This integer or number property shall contain the maximum value that this service supports.  This property shall not be present for non-integer or number parameters."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_0.ActionInfo"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ActionInfo.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ActionInfo" BaseType="ActionInfo.v1_1_1.ActionInfo"/>
     </Schema>
 
   </edmx:DataServices>

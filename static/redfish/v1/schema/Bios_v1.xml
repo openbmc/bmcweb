@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Bios  v1.0.5 -->
+<!--# Redfish Schema:  Bios v1.1.0                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -21,7 +21,11 @@
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SoftwareInventory_v1.xml">
+    <edmx:Include Namespace="SoftwareInventory"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -31,8 +35,8 @@
 
       <EntityType Name="Bios" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The Bios schema contains properties related to the BIOS Attribute Registry.  The Attribute Registry describes the system-specific BIOS attributes and Actions for changing to BIOS settings.  Changes to the BIOS typically require a system reset before they take effect.  It is likely that a client will find the @Redfish.Settings term in this resource, and if it is found, the client makes requests to change BIOS settings by modifying the resource identified by the @Redfish.Settings term."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent BIOS attributes for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Bios schema contains properties related to the BIOS Attribute Registry.  The Attribute Registry describes the system-specific BIOS attributes and actions for changing to BIOS settings.  Changes to the BIOS typically require a system reset before they take effect.  It is likely that a client finds the `@Redfish.Settings` term in this Resource, and if it is found, the client makes requests to change BIOS settings by modifying the Resource identified by the `@Redfish.Settings` term."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent BIOS attributes for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -41,7 +45,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The BIOS resource can be updated to change the value of the BIOS properties available in the Attribute Registry."/>
+            <Annotation Term="OData.Description" String="The attributes in the BIOS Resource can be updated."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -60,26 +64,26 @@
 
       <Action Name="ResetBios" IsBound="true">
         <Parameter Name="Bios" Type="Bios.v1_0_0.Actions"/>
-        <Annotation Term="OData.Description" String="This action is used to reset the BIOS attributes to default."/>
-        <Annotation Term="OData.LongDescription" String="This action shall perform a reset of the BIOS attributes to their default values.  A system reset may be required for the default values to be applied.  This action may impact other resources."/>
+        <Annotation Term="OData.Description" String="This action resets the BIOS attributes to default."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the BIOS attributes to their default values.  A system reset may be required to apply the default values.  This action may impact other Resources."/>
       </Action>
 
       <Action Name="ChangePassword" IsBound="true">
         <Parameter Name="Bios" Type="Bios.v1_0_0.Actions"/>
         <Parameter Name="PasswordName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The name of the BIOS password to change."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall define the BIOS password name to change. For instance, this could be the AdminPassword or UserPassword."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the BIOS password to change.  For instance, AdminPassword or UserPassword."/>
         </Parameter>
         <Parameter Name="OldPassword" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The value of the existing password."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall define the value of the existing BIOS password that is about to be changed."/>
+          <Annotation Term="OData.Description" String="The existing BIOS password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the existing BIOS password to change."/>
         </Parameter>
         <Parameter Name="NewPassword" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The value of the new BIOS password."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall define the value of the new BIOS password."/>
+          <Annotation Term="OData.Description" String="The new BIOS password."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the new BIOS password."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action is used to change the BIOS passwords."/>
-        <Annotation Term="OData.LongDescription" String="This action shall perform a change of the selected BIOS password."/>
+        <Annotation Term="OData.Description" String="This action changes a BIOS password."/>
+        <Annotation Term="OData.LongDescription" String="This action shall change the selected BIOS password."/>
       </Action>
 
     </Schema>
@@ -91,39 +95,39 @@
       <EntityType Name="Bios" BaseType="Bios.Bios">
         <Property Name="AttributeRegistry" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Resource ID of the Attribute Registry that has the system-specific information about a BIOS resource."/>
-          <Annotation Term="OData.LongDescription" String="The reference to the Attribute Registry that lists the metadata describing the BIOS attribute settings in this resource."/>
+          <Annotation Term="OData.Description" String="The Resource ID of the Attribute Registry that has the system-specific information about a BIOS Resource."/>
+          <Annotation Term="OData.LongDescription" String="The link to the Attribute Registry that lists the metadata describing the BIOS attribute settings in this Resource."/>
         </Property>
         <Property Name="Actions" Type="Bios.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
         <Property Name="Attributes" Type="Bios.v1_0_0.Attributes" Nullable="false">
           <Annotation Term="OData.Description" String="The list of BIOS attributes specific to the manufacturer or provider."/>
-          <Annotation Term="OData.LongDescription" String="BIOS Attribute settings appear as additional properties in this object, and can be looked up in the Attribute Registry by their AttributeName."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the list of BIOS attributes specific to the manufacturer or provider.  BIOS Attribute settings appear as additional properties in this object, and can be looked up in the Attribute Registry by their AttributeName."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Bios.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
       <ComplexType Name="Attributes">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The manufacturer/provider-specific list of BIOS attributes and their values."/>
-        <Annotation Term="OData.LongDescription" String="BIOS Attribute settings shall be described as additional properties in this object. If a BIOS AttributeRegistry is specified, Attributes shall be looked up in that registry by their AttributeName. Attributes in the registry with AttributeType of Enumeration shall use valid ValueName as values in this object, as listed in that registry."/>
+        <Annotation Term="OData.Description" String="The list of BIOS attributes and their values as determined by the manufacturer or provider."/>
+        <Annotation Term="OData.LongDescription" String="This property shall contain the list of BIOS attributes and their values as determined by the manufacturer or provider.  This object shall describe BIOS attribute settings as additional properties.  If the object specifies a BIOS Attribute Registry, attributes shall be looked up in that Attribute Registry by their attribute name.  Attributes in this Attribute Registry with the AttributeType of Enumeration shall use valid ValueName values in this object, as listed in that Attribute Registry."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
@@ -150,7 +154,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the Descriptions and LongDescriptions used in the defined Actions.  It was also created to perform editoral updates of descriptions defined in this schema."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions.  It was also created to update the descriptions that this schema defines."/>
       <EntityType Name="Bios" BaseType="Bios.v1_0_2.Bios"/>
     </Schema>
 
@@ -162,8 +166,49 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to update the LongDescriptions of the Attributes type to clarify how BIOS attributes and their values are referenced in the Attribute Registry."/>
+      <Annotation Term="OData.Description" String="This version was created to update the long descriptions of the Attributes type to clarify how the Attribute Registry describes BIOS attributes and their values."/>
       <EntityType Name="Bios" BaseType="Bios.v1_0_4.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_0_5.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Bios" BaseType="Bios.v1_0_6.Bios"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Bios.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+
+      <EntityType Name="Bios" BaseType="Bios.v1_0_6.Bios">
+        <Property Name="Links" Type="Bios.v1_1_0.Links" Nullable="false">
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Resource.Links">
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+        <NavigationProperty Name="ActiveSoftwareImage" Type="SoftwareInventory.SoftwareInventory" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the SoftwareInventory that represents the active BIOS firmware image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the SoftwareInventory Resource that represents the active BIOS firmware image."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="SoftwareImages" Type="Collection(SoftwareInventory.SoftwareInventory)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The images that are associated with this BIOS."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the SoftwareInventory Resources that represent the firmware images that apply to this BIOS."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

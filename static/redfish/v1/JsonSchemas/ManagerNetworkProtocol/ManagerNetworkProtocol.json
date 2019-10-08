@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_4_2.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -34,10 +34,10 @@
         },
         "HTTPSProtocol": {
             "additionalProperties": false,
-            "description": "Settings for a network protocol associated with a manager.",
+            "description": "The settings for a network protocol associated with a manager.",
             "longDescription": "This type shall describe information about a protocol setting for a manager.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -53,14 +53,14 @@
             "properties": {
                 "Certificates": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
-                    "description": "This is a reference to a collection of certificates used for HTTPS by this manager.",
-                    "longDescription": "The value of this property shall be a link to a collection of type CertificateCollection.",
+                    "description": "The link to a collection of certificates used for HTTPS by this manager.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
                 "Port": {
-                    "description": "Indicates the protocol port.",
-                    "longDescription": "The value of this property shall contain the port assigned for the protocol.",
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -69,8 +69,8 @@
                     ]
                 },
                 "ProtocolEnabled": {
-                    "description": "Indicates if the protocol is enabled or disabled.",
-                    "longDescription": "The value of this property shall contain the enabled status of the protocol.  The value shall be true if enabled and false if disabled.",
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -82,10 +82,10 @@
         },
         "ManagerNetworkProtocol": {
             "additionalProperties": false,
-            "description": "This resource is used to obtain or modify the network services managed by a given manager.",
-            "longDescription": "This object shall be used to represent the network service settings for the manager.",
+            "description": "The network service settings for the manager.",
+            "longDescription": "This Resource shall represent the network service settings for the manager.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -100,33 +100,33 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "The actions property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_2_0"
                 },
                 "DHCP": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's DHCPv4 protocol support.",
-                    "longDescription": "This object shall contain information for the DHCPv4 protocol settings for the manager.",
+                    "description": "The settings for this manager's DHCPv4 protocol support.",
+                    "longDescription": "This object shall contain the DHCPv4 protocol settings for the manager.",
                     "versionAdded": "v1_1_0"
                 },
                 "DHCPv6": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's DHCPv6 protocol support.",
-                    "longDescription": "This object shall contain information for the DHCPv6 protocol settings for the manager.",
+                    "description": "The settings for this manager's DHCPv6 protocol support.",
+                    "longDescription": "This object shall contain the DHCPv6 protocol settings for the manager.",
                     "versionAdded": "v1_3_0"
                 },
                 "Description": {
@@ -141,8 +141,8 @@
                     "readonly": true
                 },
                 "FQDN": {
-                    "description": "This is the fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name.",
-                    "longDescription": "The value of this property shall contain the fully qualified domain name for the manager.",
+                    "description": "The fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name.",
+                    "longDescription": "This property shall contain the fully qualified domain name for the manager.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -151,17 +151,17 @@
                 },
                 "HTTP": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's HTTP protocol support.",
-                    "longDescription": "This object shall contain information for the HTTP protocol settings for the manager. The default value of the Port property should be 80 for compatibility with established client implementations."
+                    "description": "The settings for this manager's HTTP protocol support.",
+                    "longDescription": "This object shall contain the HTTP protocol settings for the manager.  The default Port property value should be `80` for compatibility with established client implementations."
                 },
                 "HTTPS": {
                     "$ref": "#/definitions/HTTPSProtocol",
-                    "description": "Settings for this Manager's HTTPS protocol support.",
-                    "longDescription": "This object shall contain information for the HTTPS/SSL protocol settings for this manager. The default value of the Port property should be 443 for compatibility with established client implementations."
+                    "description": "The settings for this manager's HTTPS protocol support.",
+                    "longDescription": "This object shall contain the HTTPS/SSL protocol settings for this manager.  The default Port property value should be `443` for compatibility with established client implementations."
                 },
                 "HostName": {
-                    "description": "The DNS Host Name of this manager, without any domain information.",
-                    "longDescription": "The value of this property shall contain the host name without any domain information.",
+                    "description": "The DNS host name of this manager, without any domain information.",
+                    "longDescription": "This property shall contain the host name without any domain information.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -170,8 +170,8 @@
                 },
                 "IPMI": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's IPMI-over-LAN protocol support.",
-                    "longDescription": "This object shall contain information for the IPMI over LAN protocol settings for the manager. The default value of the Port property should be 623 for compatibility with established client implementations."
+                    "description": "The settings for this manager's IPMI-over-LAN protocol support.",
+                    "longDescription": "This object shall contain the IPMI over LAN protocol settings for the manager.  The default Port property value should be `623` for compatibility with established client implementations."
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -179,13 +179,13 @@
                 },
                 "KVMIP": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's KVM-IP protocol support.",
-                    "longDescription": "This object shall contain information for the KVM-IP (Keyboard, Video, Mouse) protocol settings for the manager."
+                    "description": "The settings for this manager's KVM-IP protocol support.",
+                    "longDescription": "This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager."
                 },
                 "NTP": {
                     "$ref": "#/definitions/NTPProtocol",
-                    "description": "Settings for this Manager's NTP protocol support.",
-                    "longDescription": "This object shall contain information for the NTP protocol settings for the manager.",
+                    "description": "The settings for this manager's NTP protocol support.",
+                    "longDescription": "This object shall contain the NTP protocol settings for the manager.",
                     "versionAdded": "v1_2_0"
                 },
                 "Name": {
@@ -194,50 +194,50 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "RDP": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's Remote Desktop Protocol support.",
-                    "longDescription": "This object shall contain information for the Remote Desktop Protocol settings for the manager.",
+                    "description": "The settings for this manager's Remote Desktop Protocol support.",
+                    "longDescription": "This object shall contain the Remote Desktop Protocol settings for the manager.",
                     "versionAdded": "v1_3_0"
                 },
                 "RFB": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's Remote Frame Buffer protocol support, which can be used to support VNC.",
-                    "longDescription": "This object shall contain information for the Remote Frame Buffer protocol settings for the manager.",
+                    "description": "The settings for this manager's Remote Frame Buffer protocol support, which can support VNC.",
+                    "longDescription": "This object shall contain the Remote Frame Buffer protocol settings for the manager.",
                     "versionAdded": "v1_3_0"
                 },
                 "SNMP": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's SNMP support.",
-                    "longDescription": "This object shall contain information for the SNMP protocol settings for this manager. The default value of the Port property should be 161 for compatibility with established client implementations."
+                    "description": "The settings for this manager's SNMP support.",
+                    "longDescription": "This object shall contain the SNMP protocol settings for this manager.  The default Port property value should be `161` for compatibility with established client implementations."
                 },
                 "SSDP": {
                     "$ref": "#/definitions/SSDProtocol",
-                    "description": "Settings for this Manager's SSDP support.",
-                    "longDescription": "This object shall contain information for the SSDP protocol settings for this manager.  Simple Service Discovery Protocol (SSDP) is for network discovery of devices supporting the Redfish service. The default value of the Port property should be 1900 for compatibility with established client implementations."
+                    "description": "The settings for this manager's SSDP support.",
+                    "longDescription": "This object shall contain the SSDP protocol settings for this manager.  Simple Service Discovery Protocol (SSDP) is for network discovery of devices supporting the Redfish Service.  The default Port property value should be `1900` for compatibility with established client implementations."
                 },
                 "SSH": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's SSH (Secure Shell) protocol support.",
-                    "longDescription": "This object shall contain information for the SSH protocol settings for the manager. The default value of the Port property should be 22 for compatibility with established client implementations."
+                    "description": "The settings for this manager's Secure Shell (SSH) protocol support.",
+                    "longDescription": "This object shall contain the Secure Shell (SSH) protocol settings for the manager.  The default value should be 22 for compatibility with established client implementations."
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
                 "Telnet": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's Telnet protocol support.",
-                    "longDescription": "This object shall contain information for the Telnet protocol settings for this manager. The default value of the Port property should be 23 for compatibility with established client implementations."
+                    "description": "The settings for this manager's Telnet protocol support.",
+                    "longDescription": "This object shall contain the Telnet protocol settings for this manager.  The default Port property value should be `23` for compatibility with established client implementations."
                 },
                 "VirtualMedia": {
                     "$ref": "#/definitions/Protocol",
-                    "description": "Settings for this Manager's Virtual Media support.",
-                    "longDescription": "This object shall contain information for the Virtual Media protocol settings for this manager. The value of the Port property shall contain the TCP port assigned for Virtual Media usage."
+                    "description": "The settings for this manager's virtual media support.",
+                    "longDescription": "This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage."
                 }
             },
             "required": [
@@ -250,10 +250,10 @@
         },
         "NTPProtocol": {
             "additionalProperties": false,
-            "description": "Settings for a network protocol associated with a manager.",
+            "description": "The settings for a network protocol associated with a manager.",
             "longDescription": "This type shall describe information about a protocol setting for a manager.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -275,14 +275,14 @@
                             "null"
                         ]
                     },
-                    "longDescription": "The value of this property shall contain all the NTP servers for which this manager is using to obtain time.",
+                    "longDescription": "This property shall contain all the NTP servers for which this manager is using to obtain time.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "Port": {
-                    "description": "Indicates the protocol port.",
-                    "longDescription": "The value of this property shall contain the port assigned for the protocol.",
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -291,8 +291,8 @@
                     ]
                 },
                 "ProtocolEnabled": {
-                    "description": "Indicates if the protocol is enabled or disabled.",
-                    "longDescription": "The value of this property shall contain the enabled status of the protocol.  The value shall be true if enabled and false if disabled.",
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -309,18 +309,18 @@
                 "Organization"
             ],
             "enumDescriptions": {
-                "Link": "SSDP Notify messages are sent to addresses in the IPv6 Local Link scope.",
-                "Organization": "SSDP Notify messages are sent to addresses in the IPv6 Local Organization scope.",
-                "Site": "SSDP Notify messages are sent to addresses in the IPv6 Local Site scope."
+                "Link": "SSDP NOTIFY messages are sent to addresses in the IPv6 local link scope.",
+                "Organization": "SSDP NOTIFY messages are sent to addresses in the IPv6 local organization scope.",
+                "Site": "SSDP NOTIFY messages are sent to addresses in the IPv6 local site scope."
             },
             "type": "string"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -338,10 +338,10 @@
         },
         "Protocol": {
             "additionalProperties": false,
-            "description": "Settings for a network protocol associated with a manager.",
+            "description": "The settings for a network protocol associated with a manager.",
             "longDescription": "This type shall describe information about a protocol setting for a manager.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -356,8 +356,8 @@
             },
             "properties": {
                 "Port": {
-                    "description": "Indicates the protocol port.",
-                    "longDescription": "The value of this property shall contain the port assigned for the protocol.",
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -366,8 +366,8 @@
                     ]
                 },
                 "ProtocolEnabled": {
-                    "description": "Indicates if the protocol is enabled or disabled.",
-                    "longDescription": "The value of this property shall contain the enabled status of the protocol.  The value shall be true if enabled and false if disabled.",
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -379,10 +379,10 @@
         },
         "SSDProtocol": {
             "additionalProperties": false,
-            "description": "Settings for a network protocol associated with a manager.",
+            "description": "The settings for a network protocol associated with a manager.",
             "longDescription": "This type shall describe information about a protocol setting for a manager.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -405,13 +405,13 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates the scope for the IPv6 Notify messages for SSDP.",
-                    "longDescription": "The value of this property shall contain the IPv6 scope used for multicast NOTIFY messages.  The valid enumerations are a subset of the available IPv6 Scope types.",
+                    "description": "The IPv6 scope for multicast NOTIFY messages for SSDP.",
+                    "longDescription": "This property shall contain the IPv6 scope for multicast NOTIFY messages.  The valid enumerations are a subset of the available IPv6 scope types.",
                     "readonly": false
                 },
                 "NotifyMulticastIntervalSeconds": {
-                    "description": "Indicates how often the Multicast is done from this service for SSDP.",
-                    "longDescription": "The value of this property shall contain the time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message.  A setting of 0 seconds shall disable this functionality.  The recommended value is 600 seconds.",
+                    "description": "The time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message from this service for SSDP.",
+                    "longDescription": "This property shall contain the time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message.  A setting of 0 seconds shall disable this functionality.  The recommended value is 600 seconds.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -421,8 +421,8 @@
                     "units": "s"
                 },
                 "NotifyTTL": {
-                    "description": "Indicates the time to live hop count for SSDPs Notify messages.",
-                    "longDescription": "The value of this property shall contain the Time-To-Live hop count used for multicast NOTIFY messages.  The recommended value is 2.",
+                    "description": "The time-to-live hop count for SSDP multicast NOTIFY messages.",
+                    "longDescription": "This property shall contain the time-to-live hop count used for multicast NOTIFY messages.  The recommended value is 2.",
                     "minimum": 1,
                     "readonly": false,
                     "type": [
@@ -431,8 +431,8 @@
                     ]
                 },
                 "Port": {
-                    "description": "Indicates the protocol port.",
-                    "longDescription": "The value of this property shall contain the port assigned for the protocol.",
+                    "description": "The protocol port.",
+                    "longDescription": "This property shall contain the port assigned to the protocol.",
                     "minimum": 0,
                     "readonly": false,
                     "type": [
@@ -441,8 +441,8 @@
                     ]
                 },
                 "ProtocolEnabled": {
-                    "description": "Indicates if the protocol is enabled or disabled.",
-                    "longDescription": "The value of this property shall contain the enabled status of the protocol.  The value shall be true if enabled and false if disabled.",
+                    "description": "An indication of whether the protocol is enabled.",
+                    "longDescription": "This property shall indicate whether the protocol is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -455,5 +455,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#ManagerNetworkProtocol.v1_4_0.ManagerNetworkProtocol"
+    "title": "#ManagerNetworkProtocol.v1_4_2.ManagerNetworkProtocol"
 }

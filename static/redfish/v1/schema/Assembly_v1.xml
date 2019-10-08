@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Assembly  v1.2.0-->
+<!--# Redfish Schema:  Assembly v1.2.2                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,8 +34,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Assembly" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Assembly properties."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an assembly information resource for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Assembly schema defines an assembly.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent an assembly for a Redfish implementation.  Assembly information contains details about a device, such as part number, serial number, manufacturer, and production date.  It also provides access to the original data for the assembly."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -44,7 +44,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Assembly resources can be updated to change any writable properties."/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated for an assembly."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -87,7 +87,7 @@
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Assembly</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Assembly</String>
-            <String>/redfish/v1/Chassis/{ChassisId}/Thermal/Fans/{FanId}/Thermal</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Thermal/Fans/{FanId}/Assembly</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -101,114 +101,114 @@
       <EntityType Name="Assembly" BaseType="Assembly.Assembly">
         <NavigationProperty Name="Assemblies" Type="Collection(Assembly.v1_0_0.AssemblyData)" ContainsTarget="true">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the definition for an assembly information record."/>
-          <Annotation Term="OData.LongDescription" String="These properties shall be the definition for assembly records  for a Redfish implementation."/>
+          <Annotation Term="OData.Description" String="The assembly records."/>
+          <Annotation Term="OData.LongDescription" String="These properties shall define assembly records for a Redfish implementation."/>
           <Annotation Term="OData.AutoExpand"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Assembly.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <EntityType Name="AssemblyData" BaseType="Resource.v1_0_0.ReferenceableMember">
         <Property Name="Name" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Name of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the assembly."/>
+          <Annotation Term="OData.Description" String="The name of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the assembly."/>
         </Property>
         <Property Name="Description" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Description of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a description of this assembly."/>
+          <Annotation Term="OData.Description" String="The description of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the description of the assembly."/>
         </Property>
         <Property Name="Model" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Model number of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name by which the manufacturer generally refers to the assembly."/>
+          <Annotation Term="OData.Description" String="The model number of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the assembly."/>
         </Property>
         <Property Name="PartNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Part number of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the assembly."/>
+          <Annotation Term="OData.Description" String="The part number of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the part number of the assembly."/>
         </Property>
         <Property Name="SparePartNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Spare part number of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the assembly."/>
+          <Annotation Term="OData.Description" String="The spare part number of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the spare part number of the assembly."/>
         </Property>
         <Property Name="SKU" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="SKU of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the assembly."/>
+          <Annotation Term="OData.Description" String="The SKU of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SKU of the assembly."/>
         </Property>
         <Property Name="Vendor" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Vendor of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the company which provides the final product that includes this assembly. This value shall be equal to the 'Vendor' field in a PLDM FRU structure, if applicable, for this assembly."/>
+          <Annotation Term="OData.Description" String="The vendor of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the company that provides the final product that includes this assembly.  This value shall be equal to the 'Vendor' field value in a PLDM FRU structure, if applicable, for the assembly."/>
         </Property>
         <Property Name="ProductionDate" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Production date of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the date of production or manufacture for this assembly.  The time of day portion of the property shall be '00:00:00Z' if the time of day is unknown."/>
+          <Annotation Term="OData.Description" String="The production date of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of production or manufacture for the assembly.  The time of day portion of the property shall be `00:00:00Z`, if the time of day is unknown."/>
         </Property>
         <Property Name="Producer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Producer or manufacturer of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the company which supplied or manufactured this assembly. This value shall be equal to the 'Manufacturer' field in a PLDM FRU structure, if applicable, for this assembly."/>
+          <Annotation Term="OData.Description" String="The producer or manufacturer of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the company that produced or manufactured the assembly.  This value shall be equal to the 'Manufacturer' field value in a PLDM FRU structure, if applicable, for the assembly."/>
         </Property>
         <Property Name="Version" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Version of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the version of the assembly as determined by the vendor or supplier."/>
+          <Annotation Term="OData.Description" String="The version of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of the assembly as determined by the vendor or supplier."/>
         </Property>
         <Property Name="EngineeringChangeLevel" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Engineering change level of the Assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the Engineering Change Level (ECL) or revision of the assembly."/>
+          <Annotation Term="OData.Description" String="The engineering change level of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the engineering change level or revision of the assembly."/>
         </Property>
         <Property Name="BinaryDataURI" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="URI that provides the ability to access an image of the assembly information."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a URI at which the Service provides for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME time application/octet-stream. An HTTP PUT to this URI, if supported by the Service, shall replace the binary image of the assembly."/>
+          <Annotation Term="OData.Description" String="The URI at which to access an image of the assembly information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI at which to access an image of the assembly information, using the Redfish protocol and authentication methods.  The Service provides this URI for the download of the OEM-specific binary image of the assembly data.  An HTTP GET from this URI shall return a response payload of MIME time `application/octet-stream`.  If the service supports it, an HTTP PUT to this URI shall replace the binary image of the assembly."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="Actions" Type="Assembly.v1_0_0.AssemblyDataActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Assembly.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
       <ComplexType Name="AssemblyDataActions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Assembly.v1_0_0.AssemblyDataOemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="AssemblyDataOemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
     </Schema>
@@ -219,6 +219,18 @@
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_0_1.Assembly"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_0_2.Assembly"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -226,8 +238,8 @@
 
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
       </EntityType>
     </Schema>
@@ -238,24 +250,48 @@
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_0.Assembly"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_1_2.Assembly"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
-      <Annotation Term="OData.Description" String="This version was created to add SerialNumber and PhysicalContext properties."/>
+      <Annotation Term="OData.Description" String="This version was created to add the SerialNumber and PhysicalContext properties."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
 
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_0.AssemblyData">
         <Property Name="SerialNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The serial number of this assembly."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a manufacturer-allocated number used to identify the assembly."/>
+          <Annotation Term="OData.Description" String="The serial number of the assembly."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the assembly."/>
         </Property>
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Describes the area or device to which this assembly data applies."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a description of the physical context for this assembly data."/>
+          <Annotation Term="OData.Description" String="The area or device to which the assembly data applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the physical context for the assembly data."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_2_0.Assembly"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
+      <EntityType Name="Assembly" BaseType="Assembly.v1_2_1.Assembly"/>
     </Schema>
 
   </edmx:DataServices>

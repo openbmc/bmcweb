@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Port.v1_1_3.json",
     "$ref": "#/definitions/Port",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -27,18 +28,18 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "Links": {
             "additionalProperties": false,
-            "description": "Contains references to other resources that are related to this resource.",
-            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -53,55 +54,55 @@
             },
             "properties": {
                 "AssociatedEndpoints": {
-                    "description": "An array of references to the endpoints that connect to the switch through this port.",
+                    "description": "An array of links to the endpoints that connect through this port.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "The value of this property shall be a reference to the resources that this port is associated with and shall reference a resource of type Endpoint.",
+                    "longDescription": "This property shall contain a link to the Resources of the Endpoint type with which this port is associated.",
                     "readonly": true,
                     "type": "array"
                 },
                 "AssociatedEndpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ConnectedSwitchPorts": {
-                    "description": "An array of references to the ports that connect to the switch through this port.",
+                    "description": "An array of links to the ports that connect to the switch through this port.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
                     },
-                    "longDescription": "The value of this property shall be a reference to the resources that this port is associated with and shall reference a resource of type Port.",
+                    "longDescription": "This property shall contain a link to the Resources of the Port type with which this port is associated.",
                     "readonly": true,
                     "type": "array"
                 },
                 "ConnectedSwitchPorts@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ConnectedSwitches": {
-                    "description": "An array of references to the switches that connect to the switch through this port.",
+                    "description": "An array of links to the switches that connect to the device through this port.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.json#/definitions/Switch"
                     },
-                    "longDescription": "The value of this property shall be a reference to the resources that this port is associated with and shall reference a resource of type Switch.",
+                    "longDescription": "This property shall contain a link to the Resources of the Switch type with which this port is associated.",
                     "readonly": true,
                     "type": "array"
                 },
                 "ConnectedSwitches@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 }
             },
             "type": "object"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -119,10 +120,10 @@
         },
         "Port": {
             "additionalProperties": false,
-            "description": "Port contains properties describing a port of a switch.",
-            "longDescription": "This resource shall be used to represent a simple switch port for a Redfish implementation.",
+            "description": "The Port schema contains properties that describe a port of a switch, controller, chassis, or any other device that could be connected to another entity.",
+            "longDescription": "This Resource contains a simple port for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -137,25 +138,25 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "CurrentSpeedGbps": {
                     "description": "The current speed of this port.",
-                    "longDescription": "The value of this property shall be the speed of this port currently negotiated and running.",
+                    "longDescription": "This property shall contain the speed of this port currently negotiated and running.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -180,17 +181,18 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "Contains references to other resources that are related to this resource.",
-                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
-                    "description": "The Location of the port.",
-                    "longDescription": "This property shall contain location information of the associated port."
+                    "description": "The location of the port.",
+                    "longDescription": "This property shall contain location information of the associated port.",
+                    "versionAdded": "v1_1_0"
                 },
                 "MaxSpeedGbps": {
                     "description": "The maximum speed of this port as currently configured.",
-                    "longDescription": "The value of this property shall be the maximum speed of which this port is capable of being configured.  If capable of auto-negotiation, the system shall attempt to negotiate at the maximum speed set.",
+                    "longDescription": "This property shall contain the maximum speed of which this port is capable of being configured.  If capable of auto-negotiation, the system shall attempt to negotiate at the maximum speed set.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -204,12 +206,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "PortId": {
-                    "description": "This is the label of this port on the physical switch package.",
-                    "longDescription": "The value of this property shall be the name of the switch port as indicated on the outside of the switch.",
+                    "description": "The label of this port on the physical package for this port.",
+                    "longDescription": "This property shall contain the name of the port as indicated on the device containing the port.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -226,7 +228,7 @@
                         }
                     ],
                     "description": "The protocol being sent over this port.",
-                    "longDescription": "The value of this property shall contain the protocol being sent over this port.",
+                    "longDescription": "This property shall contain the protocol being sent over this port.",
                     "readonly": true
                 },
                 "PortType": {
@@ -238,18 +240,18 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This is the type of this port.",
-                    "longDescription": "The value of this property shall be the port type for this port.",
+                    "description": "The type of this port.",
+                    "longDescription": "This property shall contain the port type for this port.",
                     "readonly": true
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
                 "Width": {
                     "description": "The number of lanes, phys, or other physical transport links that this port contains.",
-                    "longDescription": "The value of this property shall be the number of physical transport links that this port contains.",
+                    "longDescription": "This property shall contain the number of physical transport links that this port contains.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -286,17 +288,17 @@
         },
         "Reset": {
             "additionalProperties": false,
-            "description": "This action is used to reset this port.",
-            "longDescription": "This action shall perform a reset of this port.",
+            "description": "This action resets this port.",
+            "longDescription": "This action shall reset this port.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
-                    "description": "The type of reset to be performed.",
-                    "longDescription": "This parameter shall define the type of reset to be performed.  The service may accept a request without the parameter and perform an implementation specific default reset."
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."
                 }
             },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -312,7 +314,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -324,5 +326,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Port.v1_1_1.Port"
+    "release": "2017.3",
+    "title": "#Port.v1_1_3.Port"
 }

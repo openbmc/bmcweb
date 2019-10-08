@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.v1_1_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/JsonSchemaFile.v1_1_4.json",
     "$ref": "#/definitions/JsonSchemaFile",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -34,10 +34,10 @@
         },
         "JsonSchemaFile": {
             "additionalProperties": false,
-            "description": "This is the schema definition for the Schema File locator resource.",
-            "longDescription": "This resource shall be used to represent the Schema File locator resource for a Redfish implementation.",
+            "description": "The JsonSchemaFile schema contains the properties that describe the locations, as URIs, of a Redfish Schema definition that a Redfish Service implements or references.",
+            "longDescription": "This Resource shall represent the schema file locator Resource for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -52,21 +52,21 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "Description": {
@@ -85,11 +85,11 @@
                     "readonly": true
                 },
                 "Languages": {
-                    "description": "Language codes for the schemas available.",
+                    "description": "The RFC5646-conformant language codes for the available schemas.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "The value of this property shall be a string consisting of an RFC 5646 language code.",
+                    "longDescription": "This property contains a set of RFC5646-conformant language codes.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -107,12 +107,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "Schema": {
                     "description": "The @odata.type name this schema describes.",
-                    "longDescription": "The value of this property shall be the value of the @odata.type property for that schema and shall conform to the syntax specified in the Redfish specification for the Type property.",
+                    "longDescription": "This property shall contain the @odata.type property value for that schema and shall conform to the Redfish Specification-specified syntax for the Type property.",
                     "readonly": true,
                     "type": "string"
                 }
@@ -133,7 +133,7 @@
             "description": "Location information for a schema file.",
             "longDescription": "This type shall describe location information for a schema file.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -148,35 +148,35 @@
             },
             "properties": {
                 "ArchiveFile": {
-                    "description": "If the schema is hosted on the service in an archive file, this is the name of the file within the archive.",
-                    "longDescription": "The value of this property shall be the file name of the individual schema file within the archive file specified by the ArchiveUri property.  The file name shall conform to the format specified in the Redfish specification.",
+                    "description": "The name of the file in the archive, if the schema is hosted on the service in an archive file.",
+                    "longDescription": "This property shall contain the file name of the individual schema file within the archive file that the ArchiveUri property specifies.  The file name shall conform to the Redfish Specification-described format.",
                     "readonly": true,
                     "type": "string"
                 },
                 "ArchiveUri": {
-                    "description": "If the schema is hosted on the service in an archive file, this is the link to the archive file.",
-                    "format": "uri",
-                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for archive files (zip or other formats).  The value of ArchiveFile shall have the file name of the individual schema file within the archive file.",
+                    "description": "The link to an archive file, if the schema is hosted on the service in an archive file.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI colocated with the Redfish Service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only archive files, in zip or other formats.  The ArchiveFile value shall be the individual schema file name within the archive file.",
                     "readonly": true,
                     "type": "string"
                 },
                 "Language": {
-                    "description": "The language code for the file the schema is in.",
-                    "longDescription": "The value of this property shall be a string consisting of an RFC5646 language code or the string 'default'.",
+                    "description": "The language code for the schema file.",
+                    "longDescription": "This property shall contain an RFC5646-conformant language code or the `default` string.",
                     "readonly": true,
                     "type": "string"
                 },
                 "PublicationUri": {
-                    "description": "Link to publicly available (canonical) URI for schema.",
-                    "format": "uri",
-                    "longDescription": "The value of this property shall be a URI not co-located with the Redfish service that specifies the canonical location of the schema file.  This property shall only be used for individual schema files.",
+                    "description": "The link to publicly available (canonical) URI for schema.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI not colocated with the Redfish Service that specifies the canonical location of the schema file.  This property shall be used for only individual schema files.",
                     "readonly": true,
                     "type": "string"
                 },
                 "Uri": {
-                    "description": "Link to locally available URI for schema.",
-                    "format": "uri",
-                    "longDescription": "The value of this property shall be a URI co-located with the Redfish service that specifies the location of the schema file.  This property shall only be used for individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish specification.",
+                    "description": "The link to locally available URI for schema.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI colocated with the Redfish Service that specifies the location of the schema file, which can be retrieved using the Redfish protocol and authentication methods.  This property shall be used for only individual schema files.  The file name portion of the URI shall conform to the format specified in the Redfish Specification.",
                     "readonly": true,
                     "type": "string"
                 }
@@ -185,10 +185,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -207,5 +207,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.1",
-    "title": "#JsonSchemaFile.v1_1_2.JsonSchemaFile"
+    "title": "#JsonSchemaFile.v1_1_4.JsonSchemaFile"
 }

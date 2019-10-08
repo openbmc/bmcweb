@@ -1,16 +1,17 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/odata-v4_0_4.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "definitions": {
         "context": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The OData description of a payload.",
             "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish specification."
         },
         "id": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The unique identifier for a resource.",
             "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish specification."
@@ -46,7 +47,7 @@
         },
         "nextLink": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The URI to the resource containing the next set of partial members.",
             "longDescription": "The value of this property shall be a URI to a resource, with the same @odata.type, containing the next set of partial members."

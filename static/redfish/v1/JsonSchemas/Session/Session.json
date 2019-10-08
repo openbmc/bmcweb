@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Session.v1_2_1.json",
     "$ref": "#/definitions/Session",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -24,18 +25,19 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -53,10 +55,10 @@
         },
         "Session": {
             "additionalProperties": false,
-            "description": "The Session resource describes a single connection (session) between a client and a Redfish service instance.",
-            "longDescription": "This resource shall be used to represent a session for a Redfish implementation.",
+            "description": "The Session Resource describes a single connection (session) between a client and a Redfish Service instance.",
+            "longDescription": "This Resource shall represent a session for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -71,21 +73,22 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -108,21 +111,45 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OemSessionType": {
+                    "description": "The active OEM-defined session type.",
+                    "longDescription": "When SessionType is reported as OEM, this property should report the OEM-specific session type.  Thus, this property shall represent the type of OEM session that is currently active.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "Password": {
-                    "description": "This property is used in a POST to specify a password when creating a new session.  This property is null on a GET.",
-                    "longDescription": "The value of this property shall be the password for this session.  The value shall be null for GET requests.",
+                    "description": "The password for this session.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the password for this session.  The value shall be `null` in responses.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
                     ]
                 },
+                "SessionType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SessionTypes"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The active session type.",
+                    "longDescription": "This property shall represent the type of session that is currently active.",
+                    "readonly": true,
+                    "versionAdded": "v1_2_0"
+                },
                 "UserName": {
                     "description": "The UserName for the account for this session.",
-                    "longDescription": "The value of this property shall be the UserName that matches a registered account identified by a ManagerAccount resource registered with the Account Service.",
+                    "longDescription": "This property shall contain the user name that matches an account recognized by the Account Service.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -141,8 +168,32 @@
                 "Password"
             ],
             "type": "object"
+        },
+        "SessionTypes": {
+            "enum": [
+                "HostConsole",
+                "ManagerConsole",
+                "IPMI",
+                "KVMIP",
+                "OEM",
+                "Redfish",
+                "VirtualMedia",
+                "WebUI"
+            ],
+            "enumDescriptions": {
+                "HostConsole": "The host's console, which could be connected through Telnet, SSH, or other protocol.",
+                "IPMI": "Intelligent Platform Management Interface.",
+                "KVMIP": "Keyboard-Video-Mouse over IP Session.",
+                "ManagerConsole": "The manager's console, which could be connected through Telnet, SSH, SM CLP, or other protocol.",
+                "OEM": "OEM Type.  For OEM session types, see the OemSessionType property.",
+                "Redfish": "A Redfish session.",
+                "VirtualMedia": "Virtual media.",
+                "WebUI": "A non-Redfish web user interface session, such as a graphical interface or another web-based protocol."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Session.v1_1_1.Session"
+    "release": "2019.1",
+    "title": "#Session.v1_2_1.Session"
 }

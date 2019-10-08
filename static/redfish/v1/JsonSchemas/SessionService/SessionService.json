@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/SessionService.v1_1_6.json",
     "$ref": "#/definitions/SessionService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -23,26 +24,20 @@
             },
             "properties": {
                 "Oem": {
-                    "anyOf": [
-                        {
-                            "$ref": "#/definitions/OemActions"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "$ref": "#/definitions/OemActions",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -60,10 +55,10 @@
         },
         "SessionService": {
             "additionalProperties": false,
-            "description": "This is the schema definition for the Session Service.  It represents the properties for the service itself and has links to the actual list of sessions.",
-            "longDescription": "This resource shall be used to represent the Session Service Properties for a Redfish implementation.",
+            "description": "The SessionService schema describes the Session Service and its properties, with links to the actual list of sessions.",
+            "longDescription": "This Resource contains the Session Service properties for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -78,21 +73,22 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "Description": {
                     "anyOf": [
@@ -115,12 +111,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "ServiceEnabled": {
-                    "description": "This indicates whether this service is enabled.  If set to false, the Session Service is disabled, and new sessions cannot be created, old sessions cannot be deleted, and established sessions may continue operating.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.  If disabled, new sessions shall not be created, old sessions shall not be deleted, and established sessions may continue operating.",
+                    "description": "An indication of whether this service is enabled.  If `true`, this service is enabled.  If `false`, it is disabled, and new sessions cannot be created, old sessions cannot be deleted, and established sessions may continue operating.",
+                    "longDescription": "This property shall indicate whether this service is enabled.  If `true`, this service is enabled.  If `false`, it is disabled, and new sessions shall not be created, old sessions shall not be deleted, and established sessions may continue operating.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -128,8 +124,8 @@
                     ]
                 },
                 "SessionTimeout": {
-                    "description": "This is the number of seconds of inactivity that a session may have before the session service closes the session due to inactivity.",
-                    "longDescription": "This property shall reference the threshold of time in seconds between requests on a specific session at which point the session service shall close the session due to inactivity. The session service shall support any value between the Validation.Minimum and Validation.Maximum.",
+                    "description": "The number of seconds of inactivity that a session may have before the Session Service closes the session due to inactivity.",
+                    "longDescription": "This property shall contain the threshold of time in seconds between requests on a specific session at which point the Session Service shall close the session due to inactivity.  The Session Service shall support any value between the Validation.Minimum and Validation.Maximum.",
                     "maximum": 86400,
                     "minimum": 30,
                     "readonly": false,
@@ -138,14 +134,14 @@
                 },
                 "Sessions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SessionCollection.json#/definitions/SessionCollection",
-                    "description": "Link to a collection of Sessions.",
-                    "longDescription": "This property shall contain the link to a collection of Sessions.",
+                    "description": "The link to a collection of sessions.",
+                    "longDescription": "This property shall contain the link to a Resource Collection of type SessionCollection.",
                     "readonly": true
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 }
             },
             "required": [
@@ -158,5 +154,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#SessionService.v1_1_4.SessionService"
+    "release": "2016.2",
+    "title": "#SessionService.v1_1_6.SessionService"
 }

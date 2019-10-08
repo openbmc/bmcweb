@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_6_0",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_7_0",
     "type": "object",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "title": "Redfish Schema Extension",
@@ -111,6 +111,18 @@
             "type": "string",
             "description": "Indicates a filter to apply to an array of objects when the values are copies of data elsewhere in the data model."
         },
+        "language": {
+            "type": "string",
+            "description": "The term specifies the ISO 639-1 language code (Alpha-2) that matches the language used for the descriptive text in this schema file. If this term is not present, the default value shall be English (en)."
+        },
+        "translation": {
+            "type": "string",
+            "description": "The term specifies a translated language (localized) version of the property name, parameter, or enumeration string. The language used shall match the 'language' value for this schema."
+        },
+        "enumTranslations": {
+            "type": "object",
+            "description": "The term specifies a translated language (localized) version of enumeration values. The object shall contain properties with names that match the enumerations and values that contain the translation of the enumeration value. The language used shall match the 'language' value for this schema."
+        },
         "actionResponse": {
             "type": "object",
             "description": "Contains the definition of the response body for a given action if it does not follow the Redfish Error format."
@@ -200,6 +212,15 @@
         },
         "filter": {
             "$ref": "#/definitions/filter"
+        },
+        "language": {
+            "$ref": "#/definitions/language"
+        },
+        "translation": {
+            "$ref": "#/definitions/translation"
+        },
+        "enumTranslations": {
+            "$ref": "#/definitions/enumTranslations"
         },
         "actionResponse": {
             "$ref": "#/definitions/actionResponse"

@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Bios.v1_0_5.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Bios.v1_1_0.json",
     "$ref": "#/definitions/Bios",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -31,18 +31,18 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "Attributes": {
             "additionalProperties": false,
-            "description": "The manufacturer/provider-specific list of BIOS attributes and their values.",
-            "longDescription": "BIOS Attribute settings shall be described as additional properties in this object. If a BIOS AttributeRegistry is specified, Attributes shall be looked up in that registry by their AttributeName. Attributes in the registry with AttributeType of Enumeration shall use valid ValueName as values in this object, as listed in that registry.",
+            "description": "The list of BIOS attributes and their values as determined by the manufacturer or provider.",
+            "longDescription": "This property shall contain the list of BIOS attributes and their values as determined by the manufacturer or provider.  This object shall describe BIOS attribute settings as additional properties.  If the object specifies a BIOS Attribute Registry, attributes shall be looked up in that Attribute Registry by their attribute name.  Attributes in this Attribute Registry with the AttributeType of Enumeration shall use valid ValueName values in this object, as listed in that Attribute Registry.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -68,10 +68,10 @@
         },
         "Bios": {
             "additionalProperties": true,
-            "description": "The Bios schema contains properties related to the BIOS Attribute Registry.  The Attribute Registry describes the system-specific BIOS attributes and Actions for changing to BIOS settings.  Changes to the BIOS typically require a system reset before they take effect.  It is likely that a client will find the @Redfish.Settings term in this resource, and if it is found, the client makes requests to change BIOS settings by modifying the resource identified by the @Redfish.Settings term.",
-            "longDescription": "This resource shall be used to represent BIOS attributes for a Redfish implementation.",
+            "description": "The Bios schema contains properties related to the BIOS Attribute Registry.  The Attribute Registry describes the system-specific BIOS attributes and actions for changing to BIOS settings.  Changes to the BIOS typically require a system reset before they take effect.  It is likely that a client finds the `@Redfish.Settings` term in this Resource, and if it is found, the client makes requests to change BIOS settings by modifying the Resource identified by the `@Redfish.Settings` term.",
+            "longDescription": "This Resource shall represent BIOS attributes for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -86,25 +86,25 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "AttributeRegistry": {
-                    "description": "The Resource ID of the Attribute Registry that has the system-specific information about a BIOS resource.",
-                    "longDescription": "The reference to the Attribute Registry that lists the metadata describing the BIOS attribute settings in this resource.",
+                    "description": "The Resource ID of the Attribute Registry that has the system-specific information about a BIOS Resource.",
+                    "longDescription": "The link to the Attribute Registry that lists the metadata describing the BIOS attribute settings in this Resource.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -114,7 +114,7 @@
                 "Attributes": {
                     "$ref": "#/definitions/Attributes",
                     "description": "The list of BIOS attributes specific to the manufacturer or provider.",
-                    "longDescription": "BIOS Attribute settings appear as additional properties in this object, and can be looked up in the Attribute Registry by their AttributeName."
+                    "longDescription": "This property shall contain the list of BIOS attributes specific to the manufacturer or provider.  BIOS Attribute settings appear as additional properties in this object, and can be looked up in the Attribute Registry by their AttributeName."
                 },
                 "Description": {
                     "anyOf": [
@@ -131,14 +131,20 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource.",
+                    "versionAdded": "v1_1_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 }
             },
             "required": [
@@ -151,30 +157,30 @@
         },
         "ChangePassword": {
             "additionalProperties": false,
-            "description": "This action is used to change the BIOS passwords.",
-            "longDescription": "This action shall perform a change of the selected BIOS password.",
+            "description": "This action changes a BIOS password.",
+            "longDescription": "This action shall change the selected BIOS password.",
             "parameters": {
                 "NewPassword": {
-                    "description": "The value of the new BIOS password.",
-                    "longDescription": "This parameter shall define the value of the new BIOS password.",
+                    "description": "The new BIOS password.",
+                    "longDescription": "This parameter shall contain the new BIOS password.",
                     "requiredParameter": true,
                     "type": "string"
                 },
                 "OldPassword": {
-                    "description": "The value of the existing password.",
-                    "longDescription": "This parameter shall define the value of the existing BIOS password that is about to be changed.",
+                    "description": "The existing BIOS password.",
+                    "longDescription": "This parameter shall contain the existing BIOS password to change.",
                     "requiredParameter": true,
                     "type": "string"
                 },
                 "PasswordName": {
                     "description": "The name of the BIOS password to change.",
-                    "longDescription": "This parameter shall define the BIOS password name to change. For instance, this could be the AdminPassword or UserPassword.",
+                    "longDescription": "This parameter shall contain the name of the BIOS password to change.  For instance, AdminPassword or UserPassword.",
                     "requiredParameter": true,
                     "type": "string"
                 }
             },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -190,7 +196,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -200,12 +206,59 @@
             },
             "type": "object"
         },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ActiveSoftwareImage": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
+                    "description": "The link to the SoftwareInventory that represents the active BIOS firmware image.",
+                    "longDescription": "This property shall contain a link to the SoftwareInventory Resource that represents the active BIOS firmware image.",
+                    "readonly": false,
+                    "versionAdded": "v1_1_0"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                },
+                "SoftwareImages": {
+                    "description": "The images that are associated with this BIOS.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory"
+                    },
+                    "longDescription": "This property shall contain an array of links to the SoftwareInventory Resources that represent the firmware images that apply to this BIOS.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_1_0"
+                },
+                "SoftwareImages@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -223,11 +276,11 @@
         },
         "ResetBios": {
             "additionalProperties": false,
-            "description": "This action is used to reset the BIOS attributes to default.",
-            "longDescription": "This action shall perform a reset of the BIOS attributes to their default values.  A system reset may be required for the default values to be applied.  This action may impact other resources.",
+            "description": "This action resets the BIOS attributes to default.",
+            "longDescription": "This action shall reset the BIOS attributes to their default values.  A system reset may be required to apply the default values.  This action may impact other Resources.",
             "parameters": {},
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -243,7 +296,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -255,6 +308,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2016.1",
-    "title": "#Bios.v1_0_5.Bios"
+    "release": "2019.2",
+    "title": "#Bios.v1_1_0.Bios"
 }

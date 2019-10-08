@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  JobService  v1.0.0-->
+<!--# Redfish Schema:  JobService v1.0.2                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -37,8 +37,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="JobService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Job Service of a Redfish service allows scheduling and execution of long-duration processes.  It represents the properties for the Job Service itself and has links to the actual collection of Job resources."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a job service for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Redfish Job Service enables the scheduling and execution of operations, represents the properties for the Job Service itself, and has links to the actual Resource Collection of Jobs."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Job Service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -47,7 +47,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Job Service can be updated to enable or disable the service, though some implementations may not allow the operation to succeed."/>
+            <Annotation Term="OData.Description" String="The Job Service can be updated to enable or disable the service, though some implementations may fail the update operation."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -67,80 +67,90 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="JobService" BaseType="JobService.JobService">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Job Service.  It represents the properties for the service itself and has links to the actual list of tasks."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a job service for a Redfish implementation."/>
         <Property Name="DateTime" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The current DateTime (with offset) setting that the job service is using."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall represent the current DateTime value for the JobService, with offset from UTC, in Redfish Timestamp format."/>
+          <Annotation Term="OData.Description" String="The current date and time, with UTC offset, setting that the Job Service uses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the current DateTime value for the Job Service, with UTC offset, in Redfish Timestamp format."/>
         </Property>
         <Property Name="ServiceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether this service is enabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled."/>
         </Property>
         <Property Name="ServiceCapabilities" Type="JobService.v1_0_0.JobServiceCapabilities" Nullable="false">
-          <Annotation Term="OData.Description" String="This object describes the supported capabilities of this Job Service implementation."/>
-          <Annotation Term="OData.LongDescription" String="This type shall contain properties which describe the capabilities or supported features of this implementation of JobService."/>
+          <Annotation Term="OData.Description" String="The supported capabilities of this Job Service implementation."/>
+          <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the capabilities or supported features of this implementation of a Job Service."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
-        <NavigationProperty Name="Log" Type="LogService.LogService" ContainsTarget="true" Nullable="false">
+        <NavigationProperty Name="Log" Type="LogService.LogService" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is a reference to a Log Service used by the Job Service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain a reference to a LogService for the use by this JobService."/>
+          <Annotation Term="OData.Description" String="The link to a Log Service that the Job Service uses.  This service may be a dedicated Log Service or a pointer a Log Service under another entity, such as Manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Log Service that this Job Service uses."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Jobs" Type="JobCollection.JobCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="References to the Jobs collection."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type JobCollection."/>
+          <Annotation Term="OData.Description" String="The links to the Jobs collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type JobCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="JobService.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="JobServiceCapabilities">
-        <Annotation Term="OData.Description" String="This object describes the supported capabilities of this Job Service implementation."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties which describe the capabilities or supported features of this implementation of JobService."/>
+        <Annotation Term="OData.Description" String="The supported capabilities of this Job Service implementation."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the capabilities or supported features of this implementation of a Job Service."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="MaxJobs" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum number of Jobs supported."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum number of Job resources supported by the implementation."/>
+          <Annotation Term="OData.Description" String="The maximum number of jobs supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of jobs supported by the implementation."/>
         </Property>
         <Property Name="MaxSteps" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Maximum number of Job Steps supported."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum number of Step resources supported by a single Job instance."/>
+          <Annotation Term="OData.Description" String="The maximum number of job steps supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of steps supported by a single job instance."/>
         </Property>
         <Property Name="Scheduling" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether scheduling of Jobs is supported."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the support of scheduling of Jobs using the Schedule object within the Job resource."/>
+          <Annotation Term="OData.Description" String="An indication of whether scheduling of jobs is supported."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the Schedule property within the job supports scheduling of jobs."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="JobService.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <EntityType Name="JobService" BaseType="JobService.v1_0_0.JobService"/>
+    </Schema>
+    
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="JobService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of the Log property.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="JobService" BaseType="JobService.v1_0_1.JobService"/>
     </Schema>
 
   </edmx:DataServices>

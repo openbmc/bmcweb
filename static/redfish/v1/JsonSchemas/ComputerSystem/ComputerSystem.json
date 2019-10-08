@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_8_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -37,36 +37,36 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "AddResourceBlock": {
             "additionalProperties": false,
-            "description": "This action is used to add a Resource Block to a system.",
-            "longDescription": "This action shall be used to add a Resource Block to a system.",
+            "description": "This action adds a Resource Block to a system.",
+            "longDescription": "This action shall add a Resource Block to a system.",
             "parameters": {
                 "ComputerSystemETag": {
                     "description": "The current ETag of the system.",
-                    "longDescription": "This parameter shall be a the current ETag of the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the system.",
+                    "longDescription": "This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
                     "type": "string"
                 },
                 "ResourceBlock": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlock",
                     "description": "The Resource Block to add to the system.",
-                    "longDescription": "This parameter shall be a link to the specified Resource Block to add to the system.",
+                    "longDescription": "This parameter shall contain a link to the specified Resource Block to add to the system.",
                     "requiredParameter": true
                 },
                 "ResourceBlockETag": {
                     "description": "The current ETag of the Resource Block to add to the system.",
-                    "longDescription": "This parameter shall be a the current ETag of the Resource Block to add to the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the Resource Block specified by the ResourceBlock parameter.",
+                    "longDescription": "This parameter shall contain the current ETag of the Resource Block to add to the system.  If the client-provided ETag does not match the current ETag of the Resource Block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
                     "type": "string"
                 }
             },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -82,7 +82,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -95,10 +95,10 @@
         },
         "Boot": {
             "additionalProperties": false,
-            "description": "This object contains the boot information for the current resource.",
-            "longDescription": "This type shall contain properties which describe boot information for a system.",
+            "description": "The boot information for this Resource.",
+            "longDescription": "This type shall contain properties that describe boot information for a system.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -113,7 +113,7 @@
             },
             "properties": {
                 "AliasBootOrder": {
-                    "description": "Ordered array of boot source aliases representing the persistent Boot Order associated with this computer system.",
+                    "description": "Ordered array of boot source aliases representing the persistent boot order associated with this computer system.",
                     "items": {
                         "anyOf": [
                             {
@@ -124,14 +124,14 @@
                             }
                         ]
                     },
-                    "longDescription": "The value of this property shall be an ordered array of boot source aliases (of type BootSource) representing the persistent Boot Order of this computer system.",
+                    "longDescription": "This property shall contain an ordered array of boot source aliases of the BootSource type that represents the persistent boot order of this computer system.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_6_0"
                 },
                 "BootNext": {
-                    "description": "This property is the BootOptionReference of the Boot Option to perform a one time boot from when BootSourceOverrideTarget is UefiBootNext.",
-                    "longDescription": "The value of this property shall be the BootOptionReference of the UEFI Boot Option for one time boot, as defined by the UEFI Specification. The valid values for this property are specified in the values of the BootOrder array. BootSourceOverrideEnabled = Continuous is not supported for UEFI BootNext as this setting is defined in UEFI as a one-time boot only.",
+                    "description": "The BootOptionReference of the Boot Option to perform a one-time boot from when BootSourceOverrideTarget is `UefiBootNext`.",
+                    "longDescription": "This property shall contain the BootOptionReference of the UEFI boot option for one time boot, as defined by the UEFI Specification.  The valid values for this property are specified in the values of the BootOrder array.  BootSourceOverrideEnabled set to `Continuous` is not supported for UEFI BootNext because this setting is defined in UEFI as a one-time boot only.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -141,20 +141,20 @@
                 },
                 "BootOptions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/BootOptionCollection.json#/definitions/BootOptionCollection",
-                    "description": "A reference to the collection of the UEFI Boot Options associated with this Computer System.",
-                    "longDescription": "The value of this property shall be a link to a collection of type BootOptionCollection.",
+                    "description": "The link to the collection of the UEFI boot options associated with this computer system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type BootOptionCollection.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
                 "BootOrder": {
-                    "description": "Ordered array of BootOptionReference strings representing the persistent Boot Order associated with this computer system.",
+                    "description": "An array of BootOptionReference strings that represent the persistent boot order for with this computer system.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "The value of this property shall be an ordered array of BootOptionReference strings representing the persistent Boot Order of this computer system. For UEFI systems, this is the UEFI BootOrder as defined by the UEFI Specification.",
+                    "longDescription": "This property shall contain an array of BootOptionReference strings that represent the persistent boot order for this computer system.  For UEFI systems, this is the UEFI Specification-defined UEFI BootOrder.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_5_0"
@@ -168,8 +168,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Choice of which boot order property to use when specifying the boot order.",
-                    "longDescription": "The value of this property shall indicate which boot order property the system uses when specifying the persistent boot order.",
+                    "description": "The name of the boot order property that the system uses for the persistent boot order.",
+                    "longDescription": "This property shall indicate which boot order property the system uses for the persistent boot order.",
                     "readonly": false,
                     "versionAdded": "v1_6_0"
                 },
@@ -182,8 +182,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Describes the state of the Boot Source Override feature.",
-                    "longDescription": "The value of this property shall be Once if this is a one time boot override and Continuous if this selection should remain active until cancelled. If the property value is set to Once, the value will be reset back to Disabled after the BootSourceOverrideTarget actions have been completed. Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "description": "The state of the boot source override feature.",
+                    "longDescription": "This property shall contain `Once` for a one-time boot override, and `Continuous` for a remain-active-until-cancelled override.  The `Continuous` value is not supported for this property for UEFI boot source override because UEFI supports one-time boot only.  If set to `Once`, the value is reset to `Disabled` after the BootSourceOverrideTarget actions have completed successfully.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
                 "BootSourceOverrideMode": {
@@ -195,8 +195,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The BIOS Boot Mode (either Legacy or UEFI) to be used when BootSourceOverrideTarget boot source is booted from.",
-                    "longDescription": "The value of this property shall be Legacy for non-UEFI BIOS boot or UEFI for UEFI boot from boot source specified in BootSourceOverrideTarget property.",
+                    "description": "The BIOS boot mode to use when the system boots from the BootSourceOverrideTarget boot source.",
+                    "longDescription": "This property shall contain the BIOS boot mode to use when the system boots from the BootSourceOverrideTarget boot source.",
                     "readonly": false,
                     "versionAdded": "v1_1_0"
                 },
@@ -209,13 +209,20 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The current boot source to be used at next boot instead of the normal boot device, if BootSourceOverrideEnabled is true.",
-                    "longDescription": "The value of this property shall contain the source to boot the system from, overriding the normal boot order. The valid values for this property are specified through the Redfish.AllowableValues annotation. Pxe indicates to PXE boot from the primary NIC; Floppy, Cd, Usb, Hdd indicates to boot from their devices respectively. BiosSetup indicates to boot into the native BIOS screen setup. Utilities and Diags indicate to boot from the local utilities or diags partitions. UefiTarget indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride. UefiBootNext indicates to boot from the UEFI BootOptionReference found in BootNext. Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "description": "The current boot source to use at the next boot instead of the normal boot device, if BootSourceOverrideEnabled is `true`.",
+                    "longDescription": "This property shall contain the source to boot the system from, overriding the normal boot order.  The Redfish.AllowableValues annotation specifies the valid values for this property.  `Pxe` indicates to PXE boot from the primary NIC; `Floppy`, `Cd`, `Usb`, and `Hdd` indicate to boot from their devices respectively.  `BiosSetup` indicates to boot into the native BIOS screen setup.  `Utilities` and `Diags` indicate to boot from the local utilities or diags partitions.  `UefiTarget` indicates to boot from the UEFI device path found in UefiTargetBootSourceOverride.  `UefiBootNext` indicates to boot from the UEFI BootOptionReference found in BootNext.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false
                 },
+                "Certificates": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/CertificateCollection.json#/definitions/CertificateCollection",
+                    "description": "The link to a collection of certificates used for booting through HTTPS by this computer system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
                 "UefiTargetBootSourceOverride": {
-                    "description": "This property is the UEFI Device Path of the device to boot from when BootSourceOverrideTarget is UefiTarget.",
-                    "longDescription": "The value of this property shall be the UEFI device path of the override boot target. The valid values for this property are specified through the Redfish.AllowableValues annotation. BootSourceOverrideEnabled = Continuous is not supported for UEFI Boot Source Override as this setting is defined in UEFI as a one time boot only. Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
+                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  The Redfish.AllowableValues annotation specifies the values for this property.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -232,8 +239,8 @@
                 "AliasBootOrder"
             ],
             "enumDescriptions": {
-                "AliasBootOrder": "The system uses the AliasBootOrder property for specifying persistent boot order.",
-                "BootOrder": "The system uses the BootOrder property for specifying persistent boot order."
+                "AliasBootOrder": "The system uses the AliasBootOrder property to specify the persistent boot order.",
+                "BootOrder": "The system uses the BootOrder property to specify the persistent boot order."
             },
             "type": "string"
         },
@@ -244,9 +251,9 @@
                 "Continuous"
             ],
             "enumDescriptions": {
-                "Continuous": "The system will boot to the target specified in the BootSourceOverrideTarget until this property is set to Disabled.",
-                "Disabled": "The system will boot normally.",
-                "Once": "On its next boot cycle, the system will boot (one time) to the Boot Source Override Target. The value of BootSourceOverrideEnabled is then reset back to Disabled."
+                "Continuous": "The system boots to the target specified in the BootSourceOverrideTarget property until this property is `Disabled`.",
+                "Disabled": "The system boots normally.",
+                "Once": "On its next boot cycle, the system boots one time to the boot source override target.  Then, the BootSourceOverrideEnabled value is reset to `Disabled`."
             },
             "type": "string"
         },
@@ -256,17 +263,17 @@
                 "UEFI"
             ],
             "enumDescriptions": {
-                "Legacy": "The system will boot in non-UEFI boot mode to the Boot Source Override Target.",
-                "UEFI": "The system will boot in UEFI boot mode to the Boot Source Override Target."
+                "Legacy": "The system boots in non-UEFI boot mode to the boot source override target.",
+                "UEFI": "The system boots in UEFI boot mode to the boot source override target."
             },
             "type": "string"
         },
         "ComputerSystem": {
             "additionalProperties": false,
-            "description": "This schema defines a computer system and its respective properties.  A computer system represents a machine (physical or virtual) and the local resources such as memory, cpu and other devices that can be accessed from that machine.",
-            "longDescription": "This resource shall be used to represent resources that represent a computing system in the Redfish specification.",
+            "description": "The ComputerSystem schema represents a computer or system instance and the software-visible Resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those Resources or subsystems are also linked through this Resource.",
+            "longDescription": "This Resource shall represent a computing system in the Redfish Specification.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -281,25 +288,25 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "AssetTag": {
-                    "description": "The user definable tag that can be used to track this computer system for inventory or other client purposes.",
-                    "longDescription": "The value of this property shall contain the value of the asset tag of the system.",
+                    "description": "The user-definable tag that can track this computer system for inventory or other client purposes.",
+                    "longDescription": "This property shall contain the system asset tag value.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -308,14 +315,14 @@
                 },
                 "Bios": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Bios.json#/definitions/Bios",
-                    "description": "A reference to the BIOS settings associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a resource of type Bios that lists the BIOS settings for this system.",
+                    "description": "The link to the BIOS settings associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource of type Bios that lists the BIOS settings for this system.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "BiosVersion": {
                     "description": "The version of the system BIOS or primary system firmware.",
-                    "longDescription": "The value of this property shall be the version string of the currently installed and running BIOS (for x86 systems).  For other systems, the value may contain a version string representing the primary system firmware.",
+                    "longDescription": "This property shall contain the version string of the currently installed and running BIOS for x86 systems.  For other systems, the property may contain a version string that represents the primary system firmware.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -324,8 +331,8 @@
                 },
                 "Boot": {
                     "$ref": "#/definitions/Boot",
-                    "description": "Information about the boot settings for this system.",
-                    "longDescription": "This object shall contain properties which describe boot information for the current resource."
+                    "description": "The boot settings for this system.",
+                    "longDescription": "This property shall contain the boot settings for this system."
                 },
                 "Description": {
                     "anyOf": [
@@ -340,13 +347,13 @@
                 },
                 "EthernetInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
-                    "description": "A reference to the collection of Ethernet interfaces associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type EthernetInterfaceCollection.",
+                    "description": "The link to the collection of Ethernet interfaces associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type EthernetInterfaceCollection.",
                     "readonly": true
                 },
                 "HostName": {
-                    "description": "The DNS Host Name, without any domain information.",
-                    "longDescription": "The value of this property shall be the host name for this system, as reported by the operating system or hypervisor.  This value is typically provided to the Manager by a service running in the host operating system.",
+                    "description": "The DNS host name, without any domain information.",
+                    "longDescription": "This property shall contain the host name for this system, as reported by the operating system or hypervisor.  A service running in the host operating system typically reports this value to the manager.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -355,22 +362,22 @@
                 },
                 "HostWatchdogTimer": {
                     "$ref": "#/definitions/WatchdogTimer",
-                    "description": "This object describes the Host Watchdog Timer functionality for this system.",
-                    "longDescription": "This object shall contain properties which describe the host watchdog timer functionality for this ComputerSystem.",
+                    "description": "The host watchdog timer functionality for this system.",
+                    "longDescription": "This object shall contain properties that describe the host watchdog timer functionality for this ComputerSystem.",
                     "versionAdded": "v1_5_0"
                 },
                 "HostedServices": {
                     "$ref": "#/definitions/HostedServices",
                     "description": "The services that this computer system supports.",
-                    "longDescription": "The values of this collection shall describe services supported by this computer system.",
+                    "longDescription": "This property shall describe services that this computer system supports.",
                     "versionAdded": "v1_2_0"
                 },
                 "HostingRoles": {
-                    "description": "The hosing roles that this computer system supports.",
+                    "description": "The hosting roles that this computer system supports.",
                     "items": {
                         "$ref": "#/definitions/HostingRole"
                     },
-                    "longDescription": "The values of this collection shall be the hosting roles supported by this computer system.",
+                    "longDescription": "This property shall contain the hosting roles that this computer system supports.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
@@ -388,24 +395,24 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The state of the indicator LED, used to identify the system.",
-                    "longDescription": "The value of this property shall contain the indicator light state for the indicator light associated with this system.",
+                    "description": "The state of the indicator LED, which identifies the system.",
+                    "longDescription": "This property shall contain the state of the indicator light, which identifies this system.",
                     "readonly": false
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "Contains references to other resources that are related to this resource.",
-                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
-                    "description": "A reference to the collection of Log Services associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type LogServiceCollection.",
+                    "description": "The link to the collection of Log Services associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type LogServiceCollection.",
                     "readonly": true
                 },
                 "Manufacturer": {
                     "description": "The manufacturer or OEM of this system.",
-                    "longDescription": "The value of this property shall contain a value that represents the manufacturer of the system.",
+                    "longDescription": "This property shall contain a value that represents the manufacturer of the system.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -414,33 +421,26 @@
                 },
                 "Memory": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryCollection.json#/definitions/MemoryCollection",
-                    "description": "A reference to the collection of Memory associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type MemoryCollection.",
+                    "description": "The link to the collection of memory associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type MemoryCollection.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "MemoryDomains": {
-                    "anyOf": [
-                        {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomainCollection.json#/definitions/MemoryDomainCollection"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "description": "A reference to the collection of Memory Domains associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type MemoryDomainCollection.",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomainCollection.json#/definitions/MemoryDomainCollection",
+                    "description": "The link to the collection of memory domains associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type MemoryDomainCollection.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
                 "MemorySummary": {
                     "$ref": "#/definitions/MemorySummary",
-                    "description": "This object describes the central memory of the system in general detail.",
-                    "longDescription": "This object shall contain properties which describe the central memory for the current resource."
+                    "description": "The central memory of the system in general detail.",
+                    "longDescription": "This property shall describe the central memory for this Resource."
                 },
                 "Model": {
                     "description": "The product name for this system, without the manufacturer name.",
-                    "longDescription": "The value of this property shall contain the information about how the manufacturer references this system. This is typically the product name, without the manufacturer name.",
+                    "longDescription": "This property shall describe how the manufacturer refers to this system.  Typically, this value is the product name for this system without the manufacturer name.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -453,45 +453,45 @@
                 },
                 "NetworkInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkInterfaceCollection.json#/definitions/NetworkInterfaceCollection",
-                    "description": "A reference to the collection of Network Interfaces associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type NetworkInterfaceCollection.",
+                    "description": "The link to the collection of Network Interfaces associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type NetworkInterfaceCollection.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "PCIeDevices": {
-                    "description": "A reference to a collection of PCIe Devices used by this computer system.",
+                    "description": "The link to a collection of PCIe devices that this computer system uses.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeDevice.json#/definitions/PCIeDevice"
                     },
-                    "longDescription": "The value of this property shall be an array of references of type PCIeDevice.",
+                    "longDescription": "This property shall contain an array of links of the PCIeDevice type.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "PCIeDevices@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "PCIeFunctions": {
-                    "description": "A reference to a collection of PCIe Functions used by this computer system.",
+                    "description": "The link to a collection of PCIe functions that this computer system uses.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction"
                     },
-                    "longDescription": "The value of this property shall be an array of references of type PCIeFunction.",
+                    "longDescription": "This property shall contain an array of links of the PCIeFunction type.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "PCIeFunctions@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "PartNumber": {
                     "description": "The part number for this system.",
-                    "longDescription": "The value of this property shall contain the part number for the system as defined by the manufacturer.",
+                    "longDescription": "This property shall contain the manufacturer-defined part number for the system.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -501,7 +501,7 @@
                 "PowerRestorePolicy": {
                     "$ref": "#/definitions/PowerRestorePolicyTypes",
                     "description": "The desired power state of the system when power is restored after a power loss.",
-                    "longDescription": "This property shall indicate the desired PowerState of the system when power is applied to the system.  A value of 'LastState' shall return the system to the PowerState it was in when power was lost.",
+                    "longDescription": "This property shall indicate the desired PowerState of the system when power is applied to the system.  The `LastState` value shall return the system to the PowerState it was in when power was lost.",
                     "readonly": false,
                     "versionAdded": "v1_6_0"
                 },
@@ -514,38 +514,38 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This is the current power state of the system.",
-                    "longDescription": "The value of this property shall contain the power state of the system.",
+                    "description": "The current power state of the system.",
+                    "longDescription": "This property shall contain the power state of the system.",
                     "readonly": true
                 },
                 "ProcessorSummary": {
                     "$ref": "#/definitions/ProcessorSummary",
-                    "description": "This object describes the central processors of the system in general detail.",
-                    "longDescription": "This object shall contain properties which describe the central processors for the current resource."
+                    "description": "The central processors of the system in general detail.",
+                    "longDescription": "This property shall describe the central processors for this Resource."
                 },
                 "Processors": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorCollection.json#/definitions/ProcessorCollection",
-                    "description": "A reference to the collection of Processors associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type ProcessorCollection.",
+                    "description": "The link to the collection of processors associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type ProcessorCollection.",
                     "readonly": true
                 },
                 "Redundancy": {
                     "autoExpand": true,
-                    "description": "A reference to a collection of Redundancy entities that each name a set of computer systems that provide redundancy for this ComputerSystem.",
+                    "description": "The link to a collection of redundancy entities.  Each entity specifies a kind and level of redundancy and a collection, or redundancy set, of other computer systems that provide the specified redundancy to this computer system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Redundancy.json#/definitions/Redundancy"
                     },
-                    "longDescription": "If present, each entry shall reference a redundancy entity that specifies a kind and level of redundancy and a collection (RedundancySet) of other ComputerSystems that provide the specified redundancy to this ComputerSystem.",
+                    "longDescription": "This property shall contain a set of redundancy entities.  Each entity specifies a kind and level of redundancy and a collection, or redundancy set, of other computer systems that provide the specified redundancy to this computer system.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_5_0"
                 },
                 "Redundancy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "SKU": {
                     "description": "The manufacturer SKU for this system.",
-                    "longDescription": "The value of this property shall contain the Stock Keeping Unit (SKU) for the system.",
+                    "longDescription": "This property shall contain the SKU for the system.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -554,14 +554,14 @@
                 },
                 "SecureBoot": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SecureBoot.json#/definitions/SecureBoot",
-                    "description": "A reference to the UEFI SecureBoot resource associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a resource of type SecureBoot.",
+                    "description": "The link to the UEFI Secure Boot associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource of type SecureBoot.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "SerialNumber": {
                     "description": "The serial number for this system.",
-                    "longDescription": "The value of this property shall contain the serial number for the system.",
+                    "longDescription": "This property shall contain the serial number for the system.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -570,25 +570,25 @@
                 },
                 "SimpleStorage": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SimpleStorageCollection.json#/definitions/SimpleStorageCollection",
-                    "description": "A reference to the collection of storage devices associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type SimpleStorageCollection.",
+                    "description": "The link to the collection of storage devices associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type SimpleStorageCollection.",
                     "readonly": true
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
                 "Storage": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/StorageCollection.json#/definitions/StorageCollection",
-                    "description": "A reference to the collection of storage devices associated with this system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type StorageCollection.",
+                    "description": "The link to the collection of storage devices associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type StorageCollection.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
                 "SubModel": {
                     "description": "The sub-model for this system.",
-                    "longDescription": "The value of this property shall contain the information about the sub-model (or config) of the system. This shall not include the model/product name or the manufacturer name.",
+                    "longDescription": "This property shall contain the information about the sub-model (or config) of the system.  This shall not include the model/product name or the manufacturer name.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -598,16 +598,16 @@
                 },
                 "SystemType": {
                     "$ref": "#/definitions/SystemType",
-                    "description": "The type of computer system represented by this resource.",
-                    "longDescription": "An enumeration that indicates the kind of system that this resource represents.",
+                    "description": "The type of computer system that this Resource represents.",
+                    "longDescription": "An enumeration that indicates the kind of system that this Resource represents.",
                     "readonly": true
                 },
                 "TrustedModules": {
-                    "description": "This object describes the array of Trusted Modules in the system.",
+                    "description": "An array of trusted modules in the system.",
                     "items": {
                         "$ref": "#/definitions/TrustedModules"
                     },
-                    "longDescription": "This object shall contain an array of objects with properties which describe the truted modules for the current resource.",
+                    "longDescription": "This object shall contain an array of objects with properties that describe the trusted modules for this Resource.",
                     "type": "array",
                     "versionAdded": "v1_1_0"
                 },
@@ -620,8 +620,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The universal unique identifier (UUID) for this system.",
-                    "longDescription": "The value of this property shall be used to contain a universal unique identifier number for the system. RFC4122 describes methods that can be used to create the value. The value should be considered to be opaque. Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID. If the system supports SMBIOS, the value of the property should be formed by following the SMBIOS 2.6+ recommendation for converting the SMBIOS 16-byte UUID structure into the redfish canonical xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx string format so that the property value matches the byte order presented by current OS APIs such as WMI and dmidecode.",
+                    "description": "The UUID for this system.",
+                    "longDescription": "This property shall contain the UUID for the system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode.",
                     "readonly": true
                 }
             },
@@ -635,10 +635,10 @@
         },
         "HostedServices": {
             "additionalProperties": false,
-            "description": "This object describes services that may be running or installed on the system.",
-            "longDescription": "The values of this collection shall describe services supported by a computer system.",
+            "description": "The services that may be running or installed on the system.",
+            "longDescription": "This type shall describe services that a computer system supports.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -654,14 +654,14 @@
             "properties": {
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
                     "versionAdded": "v1_2_0"
                 },
                 "StorageServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/HostedStorageServices.json#/definitions/HostedStorageServices",
-                    "description": "A reference to a collection of storage services supported by this computer system.",
-                    "longDescription": "The value of this property shall be a link to a collection of type HostedStorageServices.",
+                    "description": "The link to a collection of storage services that this computer system supports.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type HostedStorageServices.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 }
@@ -690,19 +690,19 @@
                 "Off"
             ],
             "enumDeprecated": {
-                "Unknown": "This value has been Deprecated in favor of returning null if the state is unknown."
+                "Unknown": "This value has been deprecated in favor of returning null if the state is unknown."
             },
             "enumDescriptions": {
-                "Blinking": "The Indicator LED is blinking.",
-                "Lit": "The Indicator LED is lit.",
-                "Off": "The Indicator LED is off.",
-                "Unknown": "The state of the Indicator LED cannot be determined."
+                "Blinking": "The indicator LED is blinking.",
+                "Lit": "The indicator LED is lit.",
+                "Off": "The indicator LED is off.",
+                "Unknown": "The state of the indicator LED cannot be determined."
             },
             "enumLongDescriptions": {
-                "Blinking": "This value shall represent the Indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
-                "Lit": "This value shall represent the Indicator LED is in a solid on state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
-                "Off": "This value shall represent the Indicator LED is in a solid off state.  If this value is not supported by the service, the service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request).",
-                "Unknown": "This value shall represent the Indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning HTTP 400 (Bad Request)."
+                "Blinking": "This value shall represent that the indicator LED is in a blinking state where the LED is being turned on and off in repetition.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code.",
+                "Lit": "This value shall represent that the indicator LED is in a solid on state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code.",
+                "Off": "This value shall represent that the indicator LED is in a solid off state.  If the service does not support this value, it shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code.",
+                "Unknown": "This value shall represent that the indicator LED is in an unknown state.  The Service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."
             },
             "enumVersionDeprecated": {
                 "Unknown": "v1_1_0"
@@ -731,19 +731,19 @@
                 "OemMethod"
             ],
             "enumDescriptions": {
-                "BiosSetting": "The TrustedModule supports switching InterfaceType via platform software, such as a BIOS configuration Attribute.",
-                "FirmwareUpdate": "The TrustedModule supports switching InterfaceType via a firmware update.",
+                "BiosSetting": "The TrustedModule supports switching InterfaceType through platform software, such as a BIOS configuration attribute.",
+                "FirmwareUpdate": "The TrustedModule supports switching InterfaceType through a firmware update.",
                 "None": "The TrustedModule does not support switching the InterfaceType.",
-                "OemMethod": "The TrustedModule supports switching InterfaceType via an OEM proprietary mechanism."
+                "OemMethod": "The TrustedModule supports switching InterfaceType through an OEM proprietary mechanism."
             },
             "type": "string"
         },
         "Links": {
             "additionalProperties": false,
-            "description": "Contains references to other resources that are related to this resource.",
-            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -758,109 +758,109 @@
             },
             "properties": {
                 "Chassis": {
-                    "description": "An array of references to the chassis in which this system is contained.",
+                    "description": "An array of links to the chassis that contains this system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis"
                     },
-                    "longDescription": "The value of this property shall reference a resource of type Chassis that represents the physical container associated with this resource.",
+                    "longDescription": "This property shall link to a Resource of type Chassis that represents the physical container associated with this Resource.",
                     "readonly": true,
                     "type": "array"
                 },
                 "Chassis@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ConsumingComputerSystems": {
-                    "description": "An array of references to ComputerSystems that are realized, in whole or in part, from this ComputerSystem.",
+                    "description": "An array of links to ComputerSystems that are realized, in whole or in part, from this ComputerSystem.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
                     },
-                    "longDescription": "The value shall be an array of references to ComputerSystems that are realized, in whole or in part, from this ComputerSystem.",
+                    "longDescription": "The value shall be an array of links to ComputerSystems that are realized, in whole or in part, from this ComputerSystem.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_5_0"
                 },
                 "ConsumingComputerSystems@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "CooledBy": {
-                    "description": "An array of ID[s] of resources that cool this computer system. Normally the ID will be a chassis or a specific set of fans.",
+                    "description": "An array of one or more IDs for Resources that cool this computer system.  Normally, the ID is for either a chassis or a specific set of fans.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that powers this computer system.",
+                    "longDescription": "This property shall contain an array of IDs that contain pointers consistent with JSON Pointer syntax to the Resource that powers this computer system.",
                     "readonly": true,
                     "type": "array"
                 },
                 "CooledBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Endpoints": {
-                    "description": "An array of references to the endpoints that connect to this system.",
+                    "description": "An array of links to the endpoints that connect to this system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "The value of this property shall be a reference to the resources that this system is associated with and shall reference a resource of type Endpoint.",
+                    "longDescription": "This property shall contain a link to the Resources of the Endpoint type with which this system is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "Endpoints@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ManagedBy": {
-                    "description": "An array of references to the Managers responsible for this system.",
+                    "description": "An array of links to the managers responsible for this system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Manager.json#/definitions/Manager"
                     },
-                    "longDescription": "The value of this property shall reference a resource of type manager that represents the resource with management responsibility for this resource.",
+                    "longDescription": "This property shall link to a Resource of type Manager that represents the Resource with management responsibility for this Resource.",
                     "readonly": true,
                     "type": "array"
                 },
                 "ManagedBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "PoweredBy": {
-                    "description": "An array of ID[s] of resources that power this computer system. Normally the ID will be a chassis or a specific set of Power Supplies.",
+                    "description": "An array of one or more IDs for Resources that power this computer system.  Normally, the ID is for either a chassis or a specific set of power supplies.",
                     "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that powers this computer system.",
+                    "longDescription": "This property shall contain an array of IDs that contain pointers consistent with JSON Pointer syntax to the Resource that powers this computer system.",
                     "readonly": true,
                     "type": "array"
                 },
                 "PoweredBy@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ResourceBlocks": {
-                    "description": "An array of references to the Resource Blocks that are used in this Computer System.",
+                    "description": "An array of links to the Resource Blocks that are used in this computer system.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlock"
                     },
-                    "longDescription": "The value of this property shall be an array of references of type ResourceBlock that show the Resource Blocks that are used in this Computer System.",
+                    "longDescription": "This property shall contain an array of links of the ResourceBlock type that show the Resource Blocks that are used in this computer system.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
                 "ResourceBlocks@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "SupplyingComputerSystems": {
-                    "description": "An array of references to ComputerSystems that contribute, in whole or in part, to the implementation of this ComputerSystem.",
+                    "description": "An array of links to ComputerSystems that contribute, in whole or in part, to the implementation of this ComputerSystem.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.json#/definitions/ComputerSystem"
                     },
-                    "longDescription": "The value shall be an array of references to ComputerSystems that contribute, in whole or in part, to the implementation of this ComputerSystem.",
+                    "longDescription": "The value shall be an array of links to ComputerSystems that contribute, in whole or in part, to the implementation of this ComputerSystem.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_5_0"
                 },
                 "SupplyingComputerSystems@odata.count": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 }
             },
             "type": "object"
@@ -876,16 +876,16 @@
                 "DIMM": "The system supports DIMM mirroring at the DIMM level.  Individual DIMMs can be mirrored.",
                 "Hybrid": "The system supports a hybrid mirroring at the system and DIMM levels.  Individual DIMMs can be mirrored.",
                 "None": "The system does not support DIMM mirroring.",
-                "System": "The system supports DIMM mirroring at the System level.  Individual DIMMs are not paired for mirroring in this mode."
+                "System": "The system supports DIMM mirroring at the system level.  Individual DIMMs are not paired for mirroring in this mode."
             },
             "type": "string"
         },
         "MemorySummary": {
             "additionalProperties": false,
-            "description": "This object describes the memory of the system in general detail.",
-            "longDescription": "This type shall contain properties which describe the central memory for a system.",
+            "description": "The memory of the system in general detail.",
+            "longDescription": "This type shall contain properties that describe the central memory for a system.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -908,15 +908,22 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The ability and type of memory mirroring supported by this system.",
-                    "longDescription": "This property shall contain the ability and type of memory mirring supported by this system.",
+                    "description": "The ability and type of memory mirroring that this computer system supports.",
+                    "longDescription": "This property shall contain the ability and type of memory mirring that this computer system supports.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
                 },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.json#/definitions/MemoryMetrics",
+                    "description": "The link to the metrics associated with all memory in this system.",
+                    "longDescription": "This property shall contain a link to the metrics associated with all memory in this system.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
                 "TotalSystemMemoryGiB": {
                     "description": "The total configured operating system-accessible memory (RAM), measured in GiB.",
@@ -946,10 +953,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -973,9 +980,9 @@
                 "LastState"
             ],
             "enumDescriptions": {
-                "AlwaysOff": "The system will always remain powered off when power is applied.",
-                "AlwaysOn": "The system will always power on when power is applied.",
-                "LastState": "The system will return to its last power state (on or off) when power is applied."
+                "AlwaysOff": "The system always remains powered off when power is applied.",
+                "AlwaysOn": "The system always powers on when power is applied.",
+                "LastState": "The system returns to its last on or off power state when power is applied."
             },
             "type": "string"
         },
@@ -989,17 +996,17 @@
             "enumDescriptions": {
                 "Off": "The system is powered off, although some components may continue to have AUX power such as management controller.",
                 "On": "The system is powered on.",
-                "PoweringOff": "A temporary state between On and Off. The power off action can take time while the OS is in the shutdown process.",
-                "PoweringOn": "A temporary state between Off and On. This temporary state can be very short."
+                "PoweringOff": "A temporary state between on and off.  The power off action can take time while the OS is in the shutdown process.",
+                "PoweringOn": "A temporary state between off and on.  This temporary state can be very short."
             },
             "type": "string"
         },
         "ProcessorSummary": {
             "additionalProperties": false,
-            "description": "This object describes the central processors of the system in general detail.",
-            "longDescription": "This type shall contain properties which describe the central processors for a system.",
+            "description": "The central processors of the system in general detail.",
+            "longDescription": "This type shall contain properties that describe the central processors for a system.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1034,6 +1041,13 @@
                     ],
                     "versionAdded": "v1_5_0"
                 },
+                "Metrics": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.json#/definitions/ProcessorMetrics",
+                    "description": "The link to the metrics associated with all processors in this system.",
+                    "longDescription": "This property shall contain a link to the metrics associated with all processors in this system.",
+                    "readonly": true,
+                    "versionAdded": "v1_7_0"
+                },
                 "Model": {
                     "description": "The processor model for the primary or majority of processors in this system.",
                     "longDescription": "This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later.",
@@ -1045,36 +1059,36 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 }
             },
             "type": "object"
         },
         "RemoveResourceBlock": {
             "additionalProperties": false,
-            "description": "This action is used to remove a Resource Block from a system.",
-            "longDescription": "This action shall be used to remove a Resource Block from a system.",
+            "description": "This action removes a Resource Block from a system.",
+            "longDescription": "This action shall remove a Resource Block from a system.",
             "parameters": {
                 "ComputerSystemETag": {
                     "description": "The current ETag of the system.",
-                    "longDescription": "This parameter shall be a the current ETag of the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the system.",
+                    "longDescription": "This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
                     "type": "string"
                 },
                 "ResourceBlock": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlock",
                     "description": "The Resource Block to remove from the system.",
-                    "longDescription": "This parameter shall be a link to the specified Resource Block to remove from the system.",
+                    "longDescription": "This parameter shall contain a link to the specified Resource Block to remove from the system.",
                     "requiredParameter": true
                 },
                 "ResourceBlockETag": {
                     "description": "The current ETag of the Resource Block to remove from the system.",
-                    "longDescription": "This parameter shall be a the current ETag of the Resource Block to remove from the system.  If provided by the client, the service shall reject the request by returning HTTP 428 (Precondition Required) if the provided ETag does not match the current ETag of the Resource Block specified by the ResourceBlock parameter.",
+                    "longDescription": "This parameter shall contain the current ETag of the Resource Block to remove from the system.  If the client-provided ETag does not match the current ETag of the Resource Block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request.",
                     "type": "string"
                 }
             },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1090,7 +1104,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -1103,17 +1117,17 @@
         },
         "Reset": {
             "additionalProperties": false,
-            "description": "This action is used to reset the system.",
-            "longDescription": "This action shall perform a reset of the ComputerSystem.  For systems which implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override (commonly known as a 4-second hold of the Power Button).  The ForceRestart value shall perform a ForceOff action followed by a On action.",
+            "description": "This action resets the system.",
+            "longDescription": "This action shall reset the system represented by the Resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action.",
             "parameters": {
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
-                    "description": "The type of reset to be performed.",
-                    "longDescription": "This parameter shall define the type of reset to be performed.  The service may accept a request without the parameter and perform an implementation specific default reset."
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation-specific default reset."
                 }
             },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1129,7 +1143,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -1141,11 +1155,11 @@
         },
         "SetDefaultBootOrder": {
             "additionalProperties": false,
-            "description": "This action is used to set the Boot Order to the default settings.",
-            "longDescription": "This action shall perform a set the BootOrder to the default values.",
+            "description": "This action sets the BootOrder to the default settings.",
+            "longDescription": "This action shall set the BootOrder array to the default settings.",
             "parameters": {},
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1161,7 +1175,7 @@
             "properties": {
                 "target": {
                     "description": "Link to invoke action",
-                    "format": "uri",
+                    "format": "uri-reference",
                     "type": "string"
                 },
                 "title": {
@@ -1182,7 +1196,7 @@
                 "Composed"
             ],
             "enumDescriptions": {
-                "Composed": "A computer system that has been created by binding resource blocks together.",
+                "Composed": "A computer system constructed by binding Resource Blocks together.",
                 "OS": "An operating system instance.",
                 "Physical": "A computer system.",
                 "PhysicallyPartitioned": "A hardware-based partition of a computer system.",
@@ -1190,12 +1204,12 @@
                 "VirtuallyPartitioned": "A virtual or software-based partition of a computer system."
             },
             "enumLongDescriptions": {
-                "Composed": "A SystemType of Composed is typically used when representating a single system constructed from disaggregated resource via the Redfish Composition service.",
-                "OS": "A SystemType of OS is typically used when representating an OS or hypervisor view of the system.",
-                "Physical": "A SystemType of Physical is typically used when representating the hardware aspects of a system such as is done by a management controller.",
-                "PhysicallyPartitioned": "A SystemType of PhysicallyPartition is typically used when representating a single system constructed from one or more physical systems via a firmware or hardware-based service.",
-                "Virtual": "A SystemType of Virtual is typically used when representating a system that is actually a virtual machine instance.",
-                "VirtuallyPartitioned": "A SystemType of VirtuallyPartition is typically used when representating a single system constructed from one or more virtual systems via a software-based service."
+                "Composed": "A SystemType of Composed typically represents a single system constructed from disaggregated Resources through the Redfish Composition Service.",
+                "OS": "A SystemType of OS typically represents an OS or hypervisor view of the system.",
+                "Physical": "A SystemType of Physical typically represents the hardware aspects of a system, such as a management controller.",
+                "PhysicallyPartitioned": "A SystemType of PhysicallyPartition typically represents a single system constructed from one or more physical systems through a firmware or hardware-based service.",
+                "Virtual": "A SystemType of Virtual typically represents a system that is actually a virtual machine instance.",
+                "VirtuallyPartitioned": "A SystemType of VirtuallyPartition typically represents a single system constructed from one or more virtual systems through a software-based service."
             },
             "enumVersionAdded": {
                 "Composed": "v1_4_0"
@@ -1204,10 +1218,10 @@
         },
         "TrustedModules": {
             "additionalProperties": false,
-            "description": "This object describes the inventory of a Trusted Modules installed in the system.",
-            "longDescription": "This type shall describe a truted module for a system.",
+            "description": "The Trusted Module installed in the system.",
+            "longDescription": "This type shall describe a Trusted Module for a system.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1232,7 +1246,7 @@
                     "versionAdded": "v1_1_0"
                 },
                 "FirmwareVersion2": {
-                    "description": "The 2nd firmware version of this Trusted Module, if applicable.",
+                    "description": "The second firmware version of this Trusted Module, if applicable.",
                     "longDescription": "This property shall contain the 2nd firmware version, if applicable, as defined by the manufacturer for the Trusted Module.",
                     "readonly": true,
                     "type": [
@@ -1250,7 +1264,7 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This property indicates the interface type of the Trusted Module.",
+                    "description": "The interface type of the Trusted Module.",
                     "longDescription": "This property shall contain the interface type of the installed Trusted Module.",
                     "readonly": true,
                     "versionAdded": "v1_1_0"
@@ -1264,28 +1278,28 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The Interface Type selection supported by this Trusted Module.",
-                    "longDescription": "This property shall contain the Interface Type Selection method (for example to switch between TPM1_2 and TPM2_0) that is supported by this TrustedModule.",
+                    "description": "The interface type selection supported by this Trusted Module.",
+                    "longDescription": "This property shall contain the interface type Selection method (for example to switch between TPM1_2 and TPM2_0) that is supported by this TrustedModule.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
                     "versionAdded": "v1_1_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
         },
         "WatchdogTimeoutActions": {
-            "description": "The enumerations of WatchdogTimeoutActions specify the choice of action to take when the Host Watchdog Timer reaches its timeout value.",
+            "description": "The enumerations of WatchdogTimeoutActions specify the choice of action to take when the host watchdog timer reaches its timeout value.",
             "enum": [
                 "None",
                 "ResetSystem",
@@ -1304,10 +1318,10 @@
         },
         "WatchdogTimer": {
             "additionalProperties": false,
-            "description": "This type describes the Host Watchdog Timer functionality for this system.",
-            "longDescription": "This type shall contain properties which describe the host watchdog timer functionality for this ComputerSystem.",
+            "description": "This type describes the host watchdog timer functionality for this system.",
+            "longDescription": "This type shall contain properties that describe the host watchdog timer functionality for this ComputerSystem.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -1322,8 +1336,8 @@
             },
             "properties": {
                 "FunctionEnabled": {
-                    "description": "This indicates if the Host Watchdog Timer functionality has been enabled. Additional host-based software is necessary to activate the timer function.",
-                    "longDescription": "The value of this property shall indicate whether the host watchdog timer functionality has been enabled or not.  This property indicates only that the functionality is enabled or disabled by the user, and updates to this property shall not initiate a watchdog timer countdown.",
+                    "description": "An indication of whether a user has enabled the host watchdog timer functionality.  This property indicates only that a user has enabled the timer.  To activate the timer, installation of additional host-based software is necessary; an update to this property does not initiate the timer.",
+                    "longDescription": "This property shall indicate whether a user has enabled the host watchdog timer functionality.  This property indicates only that a user has enabled the timer.  To activate the timer, installation of additional host-based software is necessary; an update to this property does not initiate the timer.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -1333,14 +1347,14 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
                     "versionAdded": "v1_5_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource.",
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource.",
                     "versionAdded": "v1_5_0"
                 },
                 "TimeoutAction": {
@@ -1352,8 +1366,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This property indicates the action to perform when the Watchdog Timer reaches its timeout value.",
-                    "longDescription": "This property shall contain the action to perform upon the  expiration of the Watchdog Timer.",
+                    "description": "The action to perform when the watchdog timer reaches its timeout value.",
+                    "longDescription": "This property shall contain the action to perform when the watchdog timer reaches its timeout value.",
                     "readonly": false,
                     "versionAdded": "v1_5_0"
                 },
@@ -1366,8 +1380,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This property indicates the action to perform when the Watchdog Timer is close (typically 3-10 seconds) to reaching its timeout value.",
-                    "longDescription": "This property shall contain the action to perform prior to the expiration of the Watchdog Timer. This action typically occurs 3-10 seconds prior to the timeout value, but the exact timing is dependent on the implementation.",
+                    "description": "The action to perform when the watchdog timer is close to reaching its timeout value.  This action typically occurs from three to ten seconds before to the timeout value, but the exact timing is dependent on the implementation.",
+                    "longDescription": "This property shall contain the action to perform before the watchdog timer expires.  This action typically occurs from three to ten seconds before to the timeout value, but the exact timing is dependent on the implementation.",
                     "readonly": false,
                     "versionAdded": "v1_5_0"
                 }
@@ -1379,7 +1393,7 @@
             "type": "object"
         },
         "WatchdogWarningActions": {
-            "description": "The enumerations of WatchdogWarningActions specify the choice of action to take when the Host Watchdog Timer is close (typically 3-10 seconds) to reaching its timeout value.",
+            "description": "The enumerations of WatchdogWarningActions specify the choice of action to take when the host watchdog timer is close (typically 3-10 seconds) to reaching its timeout value.",
             "enum": [
                 "None",
                 "DiagnosticInterrupt",
@@ -1400,6 +1414,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#ComputerSystem.v1_6_0.ComputerSystem"
+    "release": "2019.2",
+    "title": "#ComputerSystem.v1_8_0.ComputerSystem"
 }
