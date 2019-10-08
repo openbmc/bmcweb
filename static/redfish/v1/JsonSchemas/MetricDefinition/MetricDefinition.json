@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_0_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MetricDefinition.v1_0_3.json",
     "$ref": "#/definitions/MetricDefinition",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -25,14 +25,14 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "Calculable": {
-            "description": "The types of calculations which can be applied to the metric reading.  This property provides information to the client on the suitability of calculatiion using the metric reading.",
+            "description": "The types of calculations that can be applied to the metric reading.  Provides information to the client on the suitability of calculation using the metric reading.",
             "enum": [
                 "NonCalculatable",
                 "Summable",
@@ -43,7 +43,7 @@
                 "NonSummable": "The sum of the metric reading across multiple instances is not meaningful.",
                 "Summable": "The sum of the metric reading across multiple instances is meaningful."
             },
-            "longDescription": "The value shall indicate the types of calculations which can applied to the metric reading.",
+            "longDescription": "The type shall describe the types of calculations that can be applied to the metric reading.",
             "type": "string"
         },
         "CalculationAlgorithmEnum": {
@@ -53,23 +53,23 @@
                 "Minimum"
             ],
             "enumDescriptions": {
-                "Average": "The metric is calculated as the average of a metric reading over a sliding time interval.",
-                "Maximum": "The metric is calculated as the maximum value of a metric reading over during a time interval.",
-                "Minimum": "The metric is calculated as the minimum value of a metric reading over a sliding time interval."
+                "Average": "The metric is calculated as the average metric reading over a sliding time interval.",
+                "Maximum": "The metric is calculated as the maximum metric reading over during a time interval.",
+                "Minimum": "The metric is calculated as the minimum metric reading over a sliding time interval."
             },
             "enumLongDescriptions": {
-                "Average": "The metric shall be calculated as the average of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property.",
-                "Maximum": "The metric shall be calculated as the maximum of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property.",
-                "Minimum": "The metric shall be calculated as the minimum of a metric reading over a sliding time interval.  The time interval shall be the value of the CalculationTimeInterval property."
+                "Average": "The metric shall be calculated as the average metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value.",
+                "Maximum": "The metric shall be calculated as the maximum metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value.",
+                "Minimum": "The metric shall be calculated as the minimum metric reading over a sliding time interval.  The time interval shall contain the CalculationTimeInterval property value."
             },
             "type": "string"
         },
         "CalculationParamsType": {
             "additionalProperties": false,
-            "description": "Specifies the usage of the parameter in the calculation.",
-            "longDescription": "The value of the list element shall be the usage of the parameter in the calculation.  This property is present when the MetricType property has the value 'Synthesized'.",
+            "description": "The usage of the parameter in the calculation.",
+            "longDescription": "The list element shall contain the usage of the parameter in the calculation.  This property is present when the MetricType property is `Synthesized`.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -84,8 +84,8 @@
             },
             "properties": {
                 "ResultMetric": {
-                    "description": "The metric property used to store the results of the calculation.",
-                    "longDescription": "This property shall contain a reference to a metric property wsed to place the result of the calcuation.",
+                    "description": "The link to a metric property that stores the result of the calculation.",
+                    "longDescription": "This property shall contain a link to a metric property that stores the result of the calcuation.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -94,7 +94,7 @@
                 },
                 "SourceMetric": {
                     "description": "The metric property used as the input into the calculation.",
-                    "longDescription": "This property shall contain a reference to a metric property used in a calcuation.",
+                    "longDescription": "This property shall contain a link to a metric property used in a calcuation.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -115,12 +115,12 @@
                 "Calculated": "The metric is implemented by applying a calculation on another metric property.  The calculation is specified in the CalculationAlgorithm property.",
                 "DigitalMeter": "The metric is implemented as digital meter.",
                 "PhysicalSensor": "The metric is implemented as a physical sensor.",
-                "Synthesized": "The metric is implemented by applying a calculation on one or more metric properties.  (The calculation is not specified.  For expressing generalized formula, see MathSON)."
+                "Synthesized": "The metric is implemented by applying a calculation on one or more metric properties.  The calculation is not provided."
             },
             "type": "string"
         },
         "MetricDataType": {
-            "description": "The data type of the related metric values.  The property provides information to the client on the nature of the metric reading.",
+            "description": "The data type of the related metric values.  Provides information to the client on the nature of the metric reading.",
             "enum": [
                 "Boolean",
                 "DateTime",
@@ -130,22 +130,22 @@
                 "Enumeration"
             ],
             "enumDescriptions": {
-                "Boolean": "The data type follows the JSON Boolean definition.",
-                "DateTime": "The data type follows the JSON String definition with the Date-Time format applied.",
-                "Decimal": "The data type follows the JSON Decimal definition.",
-                "Enumeration": "The data type follows the JSON String definition with a set of enumerations defined.",
-                "Integer": "The data type follows the JSON Integer definition.",
-                "String": "The data type follows the JSON String definition."
+                "Boolean": "The JSON boolean definition.",
+                "DateTime": "The JSON string definition with the 'date-time' format.",
+                "Decimal": "The JSON decimal definition.",
+                "Enumeration": "The JSON string definition with a set of defined enumerations.",
+                "Integer": "The JSON integer definition.",
+                "String": "The JSON string definition."
             },
-            "longDescription": "The value shall be the data type of the related metric values as defined by JSON data types.",
+            "longDescription": "This type shall describe the data type of the related metric values as defined by JSON data types.",
             "type": "string"
         },
         "MetricDefinition": {
             "additionalProperties": false,
-            "description": "The metadata information about a metric.",
-            "longDescription": "Shall define the metadata information about a metric.",
+            "description": "The MetricDefinition schema describes the metadata information for a metric.",
+            "longDescription": "This Resource shall contain the metadata information for a metric.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -160,20 +160,20 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Accuracy": {
-                    "description": "Estimated percent error of measured vs. actual values.",
-                    "longDescription": "The value of the property shall be the percent error +/- of the measured vs. actual values.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
+                    "description": "The estimated percent error of measured versus actual values.",
+                    "longDescription": "This property shall contain the percent error +/- of the measured versus actual values.  The property is not meaningful when the MetricType property is `Discrete`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -182,8 +182,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "Calculable": {
                     "anyOf": [
@@ -194,8 +194,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates whether the  metric can be used in a calculation.",
-                    "longDescription": "The value shall specify whether the metric can be used in a calculation.",
+                    "description": "An indication of whether the metric can be used in a calculation.",
+                    "longDescription": "This property shall specify whether the metric can be used in a calculation.",
                     "readonly": false
                 },
                 "CalculationAlgorithm": {
@@ -207,12 +207,12 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The calculation which is performed on a source metric to obtain the metric being defined.",
-                    "longDescription": "The value of this property shall specify the calculation performed to obtain the metric.",
+                    "description": "The calculation that is performed on a source metric to obtain the metric being defined.",
+                    "longDescription": "This property shall contain the calculation performed to obtain the metric.",
                     "readonly": true
                 },
                 "CalculationParameters": {
-                    "description": "Specifies the metric properties which are part of the synthesis calculation.  This property is present when the MetricType property has the value 'Synthesized'.",
+                    "description": "The metric properties that are part of the synthesis calculation.  This property is present when the MetricType property is `Synthesized`.",
                     "items": {
                         "anyOf": [
                             {
@@ -223,12 +223,12 @@
                             }
                         ]
                     },
-                    "longDescription": "Shall list the metric properties which are part of the synthesis calculation.  When MetricType=Synthesis, this property may be present.",
+                    "longDescription": "This property shall list the metric properties that are part of the synthesis calculation.  When MetricType=Synthesis, this property may be present.",
                     "type": "array"
                 },
                 "CalculationTimeInterval": {
                     "description": "The time interval over which the metric calculation is performed.",
-                    "longDescription": "The value shall specify the time interval over the metric calculation is performed.  The format of the value shall conform to the Duration format.",
+                    "longDescription": "This property shall specify the time interval over the metric calculation is performed.  The format of the value shall conform to the Duration format.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": false,
                     "type": [
@@ -237,8 +237,8 @@
                     ]
                 },
                 "Calibration": {
-                    "description": "Specifies the calibration offset added to the metric reading.",
-                    "longDescription": "The value shall be the calibration offset added to the metric reading.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
+                    "description": "The calibration offset added to the metric reading.",
+                    "longDescription": "This property shall contain the calibration offset added to the metric reading.  The value shall have the units specified in the Units property.  The property is not meaningful when the MetricType property is `Discrete`.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -282,12 +282,12 @@
                         }
                     ],
                     "description": "The implementation of the metric.",
-                    "longDescription": "The value shall specify the implementation of the metric.",
+                    "longDescription": "This property shall specify the implementation of the metric.",
                     "readonly": true
                 },
                 "IsLinear": {
-                    "description": "Indicates whether the metric values are linear (vs non-linear).",
-                    "longDescription": "The value shall specify that the corresponding metric values shall be linear or non-linear.  Linear metrics may be compared using a greater than relation.  An example of linear metrics include performance metrics.  Examples of non-linear metrics include error codes.",
+                    "description": "An indication of whether the metric values are linear versus non-linear.",
+                    "longDescription": "This property shall indicate whether the metric values are linear versus non-linear.  Linear metrics may use a greater than relation to compared them.  An example of linear metrics include performance metrics.  Examples of non-linear metrics include error codes.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -313,19 +313,19 @@
                         }
                     ],
                     "description": "The data type of the metric.",
-                    "longDescription": "The value shall specify the data-type of the metric.",
+                    "longDescription": "This property shall specify the data-type of the metric.",
                     "readonly": false
                 },
                 "MetricProperties": {
-                    "description": "A list of URIs with wildcards and property identifiers for which this metric definition is defined. If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
-                    "format": "uri",
+                    "description": "The list of URIs with wildcards and property identifiers that this metric definition defines.  If a URI has wildcards, the wildcards are substituted as specified in the Wildcards array property.",
+                    "format": "uri-reference",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This array property shall contain a list of URIs with wildcards and property identifiers for which this metric definition is defined. Each wildcard in the URI shall be delimited by a set of curly braces. Each wildcard shall be substituted as specified by the corresponding entry in the Wildcard array property.  Once an URI with wildcards has had its wildcards fully substituted, it shall reference a resource property for which the metric definition applies. The property identifiers portion of the URI shall follow JSON fragment notation rules defined by RFC6901.",
+                    "longDescription": "This array property shall list the URIs with wildcards and property identifiers that this metric defines.  A set of curly braces shall delimit each wildcard in the URI.  The corresponding entry in the Wildcard property shall replace each wildcard.  After a URI with wildcards replaces its wildcards, it shall identify a Resource property to which the metric definition applies.  The property identifiers portion of the URI shall follow RFC6901-defined JSON fragment notation rules.",
                     "readonly": false,
                     "type": "array"
                 },
@@ -339,12 +339,12 @@
                         }
                     ],
                     "description": "The type of metric.",
-                    "longDescription": "The value shall specify the type of metric.",
+                    "longDescription": "This property shall specify the type of metric.",
                     "readonly": false
                 },
                 "MinReadingRange": {
                     "description": "Minimum value for metric reading.",
-                    "longDescription": "The value shall be the lowest possible value for the metric reading.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
+                    "longDescription": "This property shall contain the lowest possible value for the metric reading.  The value shall have the units specified in the property Units.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -357,8 +357,8 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "PhysicalContext": {
                     "anyOf": [
@@ -369,13 +369,13 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Specifies the physical context of the metric.",
-                    "longDescription": "The value of this property shall specify the physical context of the metric.",
+                    "description": "The physical context of the metric.",
+                    "longDescription": "This property shall contain the physical context of the metric.",
                     "readonly": true
                 },
                 "Precision": {
                     "description": "Number of significant digits in the metric reading.",
-                    "longDescription": "The value of the property shall specify the number of significant digits in the metric reading.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
+                    "longDescription": "This property shall specify the number of significant digits in the metric reading.  The property is not meaningful, when the MetricType property has the value 'Discrete'.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -384,7 +384,7 @@
                 },
                 "SensingInterval": {
                     "description": "The time interval between when a metric is updated.",
-                    "longDescription": "The value shall specify the time interval between when a metric is updated.  The format of the value shall conform to the Duration format.",
+                    "longDescription": "This property shall specify the time interval between when a metric is updated.  The format of the value shall conform to the Duration format.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": false,
                     "type": [
@@ -393,8 +393,8 @@
                     ]
                 },
                 "TimestampAccuracy": {
-                    "description": "Accuracy of the timestamp.",
-                    "longDescription": "The value shall specify the expected + or - variability of the timestamp.  The format of the value shall conform to the Duration format.",
+                    "description": "The accuracy of the timestamp.",
+                    "longDescription": "This property shall specify the expected + or - variability of the timestamp.  The format of the value shall conform to the Duration format.",
                     "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
                     "readonly": true,
                     "type": [
@@ -404,7 +404,7 @@
                 },
                 "Units": {
                     "description": "The units of measure for this metric.",
-                    "longDescription": "The value shall specify the units of the metric. shall be consistent with the case sensitive Unified Code for Units of Measure as defined at http://unitsofmeasure.org/ucum.html.  Note: the units of measure is not covered in UCUM.",
+                    "longDescription": "This property shall specify the units of the metric.  This property shall be consistent with the case-sensitive ('C/s' column) Unified Code for Units of Measure.  Note: Not all units of measured are covered by UCUM.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -412,18 +412,11 @@
                     ]
                 },
                 "Wildcards": {
-                    "description": "A list of wildcards and their substitution values to be applied to the entries in the MetricProperties array property.",
+                    "description": "The wildcards and their substitution values for the entries in the MetricProperties array property.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/Wildcard"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/Wildcard"
                     },
-                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property. Each wildcard shall have a corresponding entry in this array property.",
+                    "longDescription": "The property shall contain a list of wildcards and their replacement strings, which are applied to the MetricProperties array property.  Each wildcard shall have a corresponding entry in this array property.",
                     "type": "array"
                 }
             },
@@ -436,7 +429,7 @@
             "type": "object"
         },
         "MetricType": {
-            "description": "Specifies the type of metric provided.  The property provides information to the client on how the metric can be handled.",
+            "description": "The type of metric.  Provides information to the client on how the metric can be handled.",
             "enum": [
                 "Numeric",
                 "Discrete",
@@ -445,8 +438,8 @@
                 "Countdown"
             ],
             "enumDescriptions": {
-                "Countdown": "The metric is a countdown metric.  The metric reading is a non-negative integer which decreases monotonically.  When a counter reaches its minimum, the value resets to preset value and resumes counting down.",
-                "Counter": "The metric is a counter metric.  The metric reading is a non-negative integer which increases monotonically.  When a counter reaches its maximum, the value resets to 0 and resumes counting.",
+                "Countdown": "The metric is a countdown metric.  The metric reading is a non-negative integer that decreases monotonically.  When a counter reaches its minimum, the value resets to preset value and resumes counting down.",
+                "Counter": "The metric is a counter metric.  The metric reading is a non-negative integer that increases monotonically.  When a counter reaches its maximum, the value resets to 0 and resumes counting.",
                 "Discrete": "The metric is a discrete metric.  The metric value is discrete.  The possible values are listed in the DiscreteValues property.",
                 "Gauge": "The metric is a gauge metric.  The metric value is a real number.  When the metric value reaches the gauges extrema, it stays at that value, until the reading falls within the extrema.",
                 "Numeric": "The metric is a numeric metric.  The metric value is any real number."
@@ -454,15 +447,15 @@
             "enumLongDescriptions": {
                 "Discrete": "The metric values shall indicate discrete states."
             },
-            "longDescription": "The value of this property shall specify the type of metric.",
+            "longDescription": "This property shall contain the type of metric.",
             "type": "string"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -480,10 +473,10 @@
         },
         "Wildcard": {
             "additionalProperties": false,
-            "description": "Contains a wildcard and its substitution values.",
+            "description": "The wildcard and its substitution values.",
             "longDescription": "This property shall contain a wildcard and its substitution values.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -524,5 +517,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#MetricDefinition.v1_0_1.MetricDefinition"
+    "title": "#MetricDefinition.v1_0_3.MetricDefinition"
 }

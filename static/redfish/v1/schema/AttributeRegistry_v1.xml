@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AttributeRegistry  v1.3.0-->
+<!--# Redfish Schema:  AttributeRegistry v1.3.2                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,8 +32,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="AttributeRegistry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The AttributeRegistry schema contains a set of key-value pairs that represents the structure of a Registry. It includes mechanisms for building user interfaces (menus), allowing consistent navigation of the contents. The Attribute Registry is specific to a particular implementation or product. The attributes and property names are not standardized."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an Attribute registry for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The AttributeRegistry schema contains a set of key-value pairs that represent the structure of an Attribute Registry.  It includes mechanisms for building user interfaces, or menus, allowing consistent navigation of the contents.  The Attribute Registry is specific to an implementation or product.  The attributes and property names are not standardized."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent an Attribute Registry for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -60,332 +60,333 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.AttributeRegistry">
         <Property Name="Language" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the RFC 5646 compliant language code for the registry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string consisting of an RFC 5646 language code."/>
+          <Annotation Term="OData.Description" String="The RFC5646-conformant language code for the Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an RFC5646-conformant language code."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="RegistryVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the attribute registry version which is used in the middle portion of a AttributeRegistry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the version of this attribute registry. The format of this string shall be of the format majorversion.minorversion.errata in compliance with Protocol Version section of the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The Attribute Registry version."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this Attribute Registry."/>
+          <Annotation Term="Validation.Pattern" String="^\d+\.\d+\.\d+$"/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="OwningEntity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the organization or company that publishes this registry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string that represents the publisher of this registry."/>
+          <Annotation Term="OData.Description" String="The organization or company that publishes this Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the publisher of this Attribute Registry."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="SupportedSystems" Type="Collection(AttributeRegistry.v1_0_0.SupportedSystems)" Nullable="false">
-          <Annotation Term="OData.Description" String="Array of systems supported by this attribute registry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing a list of systems supported by this attribute registry."/>
+          <Annotation Term="OData.Description" String="An array of systems that this Attribute Registry supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing a list of systems that this Attribute Registry supports."/>
         </Property>
         <Property Name="RegistryEntries" Type="AttributeRegistry.v1_0_0.RegistryEntries" Nullable="false">
-          <Annotation Term="OData.Description" String="List of all attributes and their metadata for this component."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall a list of all attributes for this component, along with their possible values, dependencies, and other metadata."/>
+          <Annotation Term="OData.Description" String="The list of all attributes and their metadata for this component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall list attributes for this component, along with their possible values, dependencies, and other metadata."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="SupportedSystems">
-        <Annotation Term="OData.Description" String="A system supported by this attribute registry."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a system supported by this attribute registry."/>
+        <Annotation Term="OData.Description" String="A system that this Attribute Registry supports."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a system that this Attribute Registry supports."/>
         <Property Name="ProductName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The product name of the system."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the product name of the computer system that this registry applies to."/>
+          <Annotation Term="OData.Description" String="The product name of the computer system to which this Attribute Registry applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the product name of the computer system to which this Attribute Registry applies."/>
         </Property>
         <Property Name="SystemId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The system ID of the system."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the system ID that identifies the computer system model that this registry applies to."/>
+          <Annotation Term="OData.Description" String="The ID of the systems to which this Attribute Registry applies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the system ID that identifies the systems to which this Attribute Registry applies.  This may be identified by one or more properties in the ComputerSystem Resource, such as Model, SubModel, or SKU."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z0-9]+$"/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="RegistryEntries">
-        <Annotation Term="OData.Description" String="List of all attributes and their metadata for this component."/>
+        <Annotation Term="OData.Description" String="The list of all attributes and metadata for this component."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a list of all attributes for this component, along with their possible values, dependencies, and other metadata."/>
         <Property Name="Attributes" Type="Collection(AttributeRegistry.v1_0_0.Attributes)" Nullable="false">
-          <Annotation Term="OData.Description" String="The array containing the attributes and their possible values."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing the attributes and their possible values and other metadata."/>
+          <Annotation Term="OData.Description" String="An array of attributes and their possible values in the Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes and their possible values and other metadata in the Attribute Registry."/>
         </Property>
         <Property Name="Menus" Type="Collection(AttributeRegistry.v1_0_0.Menus)" Nullable="false">
-          <Annotation Term="OData.Description" String="The array containing the attributes menus and their hierarchy."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing the attributes menus and their hierarchy."/>
+          <Annotation Term="OData.Description" String="An array for the attributes menus and their hierarchy in the Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the attributes menus and their hierarchy in the Attribute Registry."/>
         </Property>
         <Property Name="Dependencies" Type="Collection(AttributeRegistry.v1_0_0.Dependencies)" Nullable="false">
-          <Annotation Term="OData.Description" String="The array containing a list of dependencies of attributes on this component."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing a list of dependencies of attributes on this component."/>
+          <Annotation Term="OData.Description" String="An array of dependencies of attributes on this component."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing a list of dependencies of attributes on this component."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Attributes">
-        <Annotation Term="OData.Description" String="An attribute and its possible values."/>
+        <Annotation Term="OData.Description" String="An attribute and its possible values and other metadata."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe an attribute and its possible values and other metadata."/>
         <Property Name="AttributeName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The unique name of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of this attribute that is unique in this registry."/>
+          <Annotation Term="OData.Description" String="The unique name for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this attribute that is unique in this Attribute Registry."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
-          <Annotation Term="Redfish.Required"/>	  
+          <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Type" Type="AttributeRegistry.v1_0_0.AttributeType" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an enumeration describing type of the attribute."/>
+          <Annotation Term="OData.Description" String="The attribute type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an enumeration that describes the attribute type."/>
         </Property>
         <Property Name="Value" Type="Collection(AttributeRegistry.v1_0_0.AttributeValue)" Nullable="false">
-          <Annotation Term="OData.Description" String="The array containing possible values for attributes of type 'Enumeration'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing the possible values of an attribute of type 'Enumeration'."/>
+          <Annotation Term="OData.Description" String="An array of the possible values for enumerated attribute values."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the possible values of an attribute of the Enumeration type."/>
         </Property>
         <Property Name="DisplayName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The user-readable display string of the attribute in the defined 'Language'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the user-readable display string of the attribute in the defined 'Language'."/>
+          <Annotation Term="OData.Description" String="The user-readable display string for the attribute in the defined language."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user-readable display string for the attribute in the defined language."/>
         </Property>
         <Property Name="HelpText" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The help text for the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the help text of the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the help text for the attribute."/>
         </Property>
         <Property Name="WarningText" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The warning text for changing the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the warning text of the attribute."/>
+          <Annotation Term="OData.Description" String="The warning text for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the warning text for the attribute."/>
         </Property>
         <Property Name="CurrentValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Placeholder of the current value of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="Placeholder of the current value of the attribute, to aid in evaluating dependencies. The current value of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.Description" String="The placeholder of the current value for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the placeholder of the current value for the attribute, to aid in evaluating dependencies.  The evaluation results of the Dependencies array might affect the current attribute value."/>
         </Property>
         <Property Name="DefaultValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The default current value of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the default value of the attribute."/>
+          <Annotation Term="OData.Description" String="The default value for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the default value for the attribute."/>
         </Property>
         <Property Name="DisplayOrder" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The numeric value describing the ascending order that the attribute is displayed relative to other attributes."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number the describes the ascending order in which this attribute is displayed, relative to other attributes."/>
+          <Annotation Term="OData.Description" String="The ascending order, as a number, in which this attribute appears relative to other attributes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ascending order, as a number, in which this attribute appears relative to other attributes."/>
         </Property>
         <Property Name="MenuPath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A path that describes the menu hierarchy of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this attribute, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal."/>
+          <Annotation Term="OData.Description" String="The path that describes the menu hierarchy of this attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the menu hierarchy of this attribute, in the form of a path to the menu names.  It shall start with `./` to indicate the root menu, followed by the menu names with `/` characters to delineate the menu traversal."/>
           <Annotation Term="Validation.Pattern" String="^\.\/([^/]+(\/[^/]+)*)?$"/>
         </Property>
         <Property Name="ReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The read-only state of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the read-only state of attribute. A read-only attribute cannot be modified, and should be grayed out in user interfaces. The read-only state of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is read-only.  A read-only attribute cannot be modified, and should be grayed out in user interfaces.  The evaluation results of the Dependencies array might affect the read-only state of an attribute."/>
         </Property>
         <Property Name="WriteOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Defines whether this attribute is write-only. Such attributes revert back to their initial value after settings are applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the write-only state of this attribute. A write-only attribute reverts back to it's initial value after settings are applied."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is write-only.  A write-only attribute reverts to its initial value after settings are applied."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is write-only.  A write-only attribute reverts to its initial value after settings are applied."/>
         </Property>
         <Property Name="GrayOut" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The gray-out state of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the gray-out state of this attribute. When set to true, a grayed-out attribute should be grayed out in user interfaces. But, unlike ReadOnly, the value of grayed-out attributes might still be modified. The grayout state of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is grayed out.  A grayed-out attribute is not active and is grayed out in user interfaces but the attribute value can be modified.  The evaluation results of the Dependencies array might affect the grayed-out state of an attribute."/>
         </Property>
         <Property Name="Hidden" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The hidden state of this attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the visibility state of this attribute. When set to true, a hidden attribute should be hidden in user interfaces. The hidden state of an attribute might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is hidden in user interfaces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of an attribute."/>
         </Property>
         <Property Name="Immutable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Defines whether this attribute is immutable or not."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the immutable state of this attribute. Immutable attributes should not be modified and are typically used to reflect a hardware state."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is immutable.  Immutable attributes shall not be modified and typically reflect a hardware state."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is immutable.  Immutable attributes shall not be modified and typically reflect a hardware state."/>
         </Property>
         <Property Name="IsSystemUniqueProperty" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Defines whether this attribute is unique for this system and should not be replicated."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing this attribute is unique or not. A value of true indicates that the attribute is unique and should not be replicated."/>
+          <Annotation Term="OData.Description" String="An indication of whether this attribute is unique for this system and should not be replicated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this attribute is unique."/>
         </Property>
         <Property Name="MaxLength" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The maximum character length of the value of an attribute of type 'String'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number indicating the maximum character length of the value of an attribute of type 'String'."/>
+          <Annotation Term="OData.Description" String="The maximum character length of a string attribute."/>
+          <Annotation Term="OData.LongDescription" String="This numeric property shall contain the maximum character length of an attribute of the String type."/>
         </Property>
         <Property Name="MinLength" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The minimum character length of the value of an attribute of type 'String'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number indicating the minimum character length of the value of an attribute of type 'String'."/>
+          <Annotation Term="OData.Description" String="The minimum character length of the string attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number indicating the minimum character length of an attribute of the String type."/>
         </Property>
         <Property Name="ScalarIncrement" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number indicating the amount to increment or decrement the value of an attribute of type 'Integer' each time a user requests a value change. A ScalarIncrement value of 0 indicates a free-form numeric user input."/>
+          <Annotation Term="OData.Description" String="The amount to increment or decrement an integer attribute each time a user requests a value change.  The `0` value indicates a free-form numeric user-input attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number indicating the amount to increment or decrement an integer attribute each time a user requests a value change.  The `0` value indicates a free-form numeric user-input attribute."/>
         </Property>
         <Property Name="UpperBound" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The upper limit of the value of an attribute of type 'Integer'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number indicating the upper limit of the value of an attribute of type 'Integer'."/>
+          <Annotation Term="OData.Description" String="The upper limit for an integer attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number indicating the upper limit for an integer attribute."/>
         </Property>
         <Property Name="LowerBound" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The lower limit of the value of an attribute of type 'Integer'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number indicating the lower limit of the value of an attribute of type 'Integer'."/>
+          <Annotation Term="OData.Description" String="The lower limit for an integer attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a number indicating the lower limit for an integer attribute."/>
         </Property>
         <Property Name="ValueExpression" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A regular expression that is used to validate the value of the attribute. This is only applicable to attributes of type 'String' or 'Integer'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a regular expression that is valid according to the Perl regular expression dialect. This string is used to validate the value of the attribute. This is only applicable to attributes of type 'String' or 'Integer'."/>
+          <Annotation Term="OData.Description" String="A valid regular expression, according to the Perl regular expression dialect, that validates the attribute value.  Applies to only string and integer attributes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a valid regular expression, according to the Perl regular expression dialect, that validates the attribute value.  Applies to only string and integer attributes."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Menus">
-        <Annotation Term="OData.Description" String="A menu and its hierarchy."/>
+        <Annotation Term="OData.Description" String="An attribute's menu and its hierarchy."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe an attribute's menu and its hierarchy."/>
         <Property Name="MenuName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The unique name string of this menu."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of this menu that is unique in this registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of this menu that is unique in this Attribute Registry."/>
           <Annotation Term="Validation.Pattern" String="^[^/]+$"/>
         </Property>
         <Property Name="DisplayName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The user-readable display string of this menu in the defined 'Language'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the user-readable display string of the menu in the defined 'Language'."/>
+          <Annotation Term="OData.Description" String="The user-readable display string of this menu in the defined language."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user-readable display string of the menu in the defined language."/>
         </Property>
         <Property Name="DisplayOrder" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The numeric value describing the ascending order in which this menu is displayed relative to other menus."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a number the describes the ascending order in which this menu is displayed, relative to other menus."/>
+          <Annotation Term="OData.Description" String="The ascending order, as a number, in which this menu appears relative to other menus."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ascending order, as a number, in which this menu appears relative to other menus."/>
         </Property>
         <Property Name="ReadOnly" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The read-only state of this menu."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the read-only state of this menu. A read-only menu is not accessible in user interfaces, and all properties contained in that menu and its sub-menus become read-only."/>
+          <Annotation Term="OData.Description" String="An indication of whether this menu is read-only.  A read-only menu, its properties, and sub-menus are not accessible in user interfaces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this menu is read-only.  A read-only menu is not accessible in user interfaces, and all properties contained in that menu and its sub-menus are read-only."/>
         </Property>
         <Property Name="GrayOut" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The gray-out state of this menu. A grayed-only menu is not accessible in user interfaces."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the gray-out state of this menu. When set to true, a grayed-only menu is not accessible in user interfaces."/>
+          <Annotation Term="OData.Description" String="An indication of whether this menu is grayed out.  A grayed-only menu is not accessible in user interfaces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this menu is grayed out.  A grayed-only menu is not accessible in user interfaces."/>
         </Property>
         <Property Name="MenuPath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A path that describes this menu hierarchy relative to other menus."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string indicating the menu hierarchy of this menu, in the form of a path to the menu names.  It shall start with './' to indicate the root menu, followed by the menu names with '/' characters to delineate the menu traversal."/>
+          <Annotation Term="OData.Description" String="The path to the menu names that describes this menu hierarchy relative to other menus."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the menu hierarchy of this menu, in the form of a path to the menu names.  It shall start with `./` to indicate the root menu, followed by the menu names with `/` characters to delineate the menu traversal."/>
           <Annotation Term="Validation.Pattern" String="^\.\/([^/]+(\/[^/]+)*)?$"/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Dependencies">
-        <Annotation Term="OData.Description" String="A dependency of attributes on this component."/>
+        <Annotation Term="OData.Description" String="The dependency of attributes on this component."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a dependency of attributes on this component."/>
         <Property Name="Dependency" Type="AttributeRegistry.v1_0_0.Dependency" Nullable="false">
-          <Annotation Term="OData.Description" String="The dependency expression for one or more Attributes in this Attribute Registry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the dependency expression for one or more Attributes in this Attribute Registry."/>
+          <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this Attribute Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the dependency expression for one or more attributes in this Attribute Registry."/>
         </Property>
         <Property Name="DependencyFor" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The AttributeName of the attribute whose change triggers the evaluation of this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the AttributeName of the attribute whose change triggers the evaluation of this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the AttributeName of the attribute whose change triggers the evaluation of this dependency expression."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
         </Property>
         <Property Name="Type" Type="AttributeRegistry.v1_0_0.DependencyType" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of the dependency structure."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an enumeration describing type of the attribute dependency."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an enumeration that describes the type for the attribute dependency."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="AttributeValue">
-        <Annotation Term="OData.Description" String="A possible value for attributes of type 'Enumeration'."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a possible value of an attribute of type 'Enumeration'."/>
+        <Annotation Term="OData.Description" String="A possible value for an enumeration attribute."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a possible enumeration attribute value."/>
         <Property Name="ValueName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The unique value name of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the value name of the attribute. ValueName is a unique string within the list of possible values in the 'Value' array of a given attribute."/>
-          <Annotation Term="Redfish.Required"/>	  
+          <Annotation Term="OData.Description" String="The unique value name for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string representing the value name for the attribute.  ValueName is a unique string within the list of possible values in the Value array for an attribute."/>
+          <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="ValueDisplayName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A user-readable display string of the value of the attribute in the defined 'Language'."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the user-readable display string of the value of the attribute in the defined 'Language'."/>
+          <Annotation Term="OData.Description" String="A user-readable display string of the value for the attribute in the defined language."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string representing the user-readable display string of the value for the attribute in the defined language."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Dependency">
-        <Annotation Term="OData.Description" String="The dependency expression for one or more Attributes in this Attribute Registry."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the dependency expression for one or more Attributes in this Attribute Registry."/>
+        <Annotation Term="OData.Description" String="The dependency expression for one or more attributes in this Attribute Registry."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the dependency expression for one or more attributes in this Attribute Registry."/>
         <Property Name="MapFrom" Type="Collection(AttributeRegistry.v1_0_0.MapFrom)" Nullable="false">
-          <Annotation Term="OData.Description" String="Array of the map-from conditions for mapping dependency."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array containing the map-from conditions for a dependency of Type 'Map'."/>
+          <Annotation Term="OData.Description" String="An array of the map-from conditions for a mapping dependency."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array containing the map-from conditions for a dependency of the Map type."/>
         </Property>
         <Property Name="MapToAttribute" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Name of the attribute that is affected by this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the AttributeName of the attribute that is affected by this dependency expression."/>
+          <Annotation Term="OData.Description" String="The AttributeName of the attribute that is affected by this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the AttributeName of the attribute that is affected by this dependency expression."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
         </Property>
         <Property Name="MapToProperty" Type="AttributeRegistry.v1_0_0.MapToProperty" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression. For example, this could be the MapFromAttribute CurrentValue, or ReadOnly state."/>
+          <Annotation Term="OData.Description" String="The metadata property for the attribute that contains the map-from condition that evaluates this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the metadata property for the attribute that the MapFromAttribute property specifies that evaluates this dependency expression.  For example, this value could be the MapFromAttribute CurrentValue or ReadOnly state."/>
         </Property>
         <Property Name="MapToValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The value that MapToProperty is changed to if the dependency expression evaluates to true."/>
-          <Annotation Term="OData.LongDescription" String="The value that the property specified in MapToProperty (in the attribute specified in MapToAttribute) is changed to if the dependency expression evaluates to true."/>
+          <Annotation Term="OData.Description" String="The value that the map-to property changes to if the dependency expression evaluates to `true`."/>
+          <Annotation Term="OData.LongDescription" String="The value that the property in MapToProperty in the attribute specified in MapToAttribute changes to if the dependency expression evaluates to `true`."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="MapFrom">
         <Annotation Term="OData.Description" String="A map-from condition for mapping dependency."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a map-from condition for a dependency of Type 'Map'."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a map-from condition for a dependency of the Map type."/>
         <Property Name="MapFromAttribute" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The attribute that is used to evaluate this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the AttributeName of the attribute that is used in evaluating this dependency expression term."/>
+          <Annotation Term="OData.Description" String="The attribute to use to evaluate this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the AttributeName for the attribute to use to evaluate this dependency expression term."/>
           <Annotation Term="Validation.Pattern" String="^[A-Za-z][A-Za-z0-9_]+$"/>
         </Property>
         <Property Name="MapFromProperty" Type="AttributeRegistry.v1_0_0.MapFromProperty" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the meta-data property of the attribute specified in MapFromAttribute that is used to evaluate this dependency expression. For example, this could be the MapFromAttribute CurrentValue, or ReadOnly state."/>
+          <Annotation Term="OData.Description" String="The metadata property for the attribute that the MapFromAttribute property specifies to use to evaluate this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the metadata property for the attribute that the MapFromAttribute property specifies to use to evaluate this dependency expression.  For example, this value could be the MapFromAttribute CurrentValue, or ReadOnly state."/>
         </Property>
         <Property Name="MapFromCondition" Type="AttributeRegistry.v1_0_0.MapFromCondition" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The condition that is used to evaluate this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the condition that is used to evaluate this dependency expression. For example, 'EQU' or 'NEQ'."/>
+          <Annotation Term="OData.Description" String="The condition to use to evaluate this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the condition to use to evaluate this dependency expression.  For example, `EQU` or `NEQ`."/>
         </Property>
         <Property Name="MapFromValue" Type="Edm.PrimitiveType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The value that the is used property specified in MapFromProperty that is used to evaluate this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value that the property specified in MapFromProperty (in the attribute specified in MapFromAttribute) that is used to evaluate this dependency expression."/>
+          <Annotation Term="OData.Description" String="The value to use to evaluate this dependency expression."/>
+          <Annotation Term="OData.LongDescription" String="The value that the property in MapFromProperty in the attribute in MapFromAttribute to use to evaluate this dependency expression."/>
         </Property>
         <Property Name="MapTerms" Type="AttributeRegistry.v1_0_0.MapTerms" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The logical term used to combine two or more MapFrom conditions in this dependency expression."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the logical term used to combine two or more MapFrom conditions in this dependency expression. For example, 'AND' for logical AND, or 'OR' for logical OR of the conditions."/>
+          <Annotation Term="OData.Description" String="The logical term that combines two or more map-from conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the logical term that combines two or more MapFrom conditions in this dependency expression.  For example, `AND` for logical AND, or `OR` for logical OR."/>
         </Property>
       </ComplexType>
 
       <EnumType Name="AttributeType">
         <Member Name="Enumeration">
-          <Annotation Term="OData.Description" String="The attributes that include a list of the known possible enumerated values."/>
+          <Annotation Term="OData.Description" String="A list of the known possible enumerated values."/>
         </Member>
         <Member Name="String">
-          <Annotation Term="OData.Description" String="The attributes that include free form text in their values."/>
+          <Annotation Term="OData.Description" String="Free-form text in their values."/>
         </Member>
         <Member Name="Integer">
-          <Annotation Term="OData.Description" String="The attributes that have integer numeric values."/>
+          <Annotation Term="OData.Description" String="An integer value."/>
         </Member>
         <Member Name="Boolean">
-          <Annotation Term="OData.Description" String="The attributes that are true or false."/>
+          <Annotation Term="OData.Description" String="A flag with a `true` or `false` value."/>
         </Member>
         <Member Name="Password">
-          <Annotation Term="OData.Description" String="The attributes that include password values and are not displayed as plain text. The value shall be null for GET requests."/>
+          <Annotation Term="OData.Description" String="Password values that do not appear as plain text.  The value shall be null in responses."/>
         </Member>
       </EnumType>
 
       <EnumType Name="DependencyType">
         <Member Name="Map">
-          <Annotation Term="OData.Description" String="A simple mapping dependency. The attribute value or state is changed to the mapped value if the condition evaluates to true."/>
+          <Annotation Term="OData.Description" String="A simple mapping dependency.  If the condition evaluates to `true`, the attribute or state changes to the mapped value."/>
         </Member>
       </EnumType>
 
@@ -541,44 +542,56 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_4.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_5.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It also updates descriptions that this schema defines."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_6.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_0_2.AttributeRegistry">
         <Property Name="Actions" Type="AttributeRegistry.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="AttributeRegistry.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
       <ComplexType Name="SupportedSystems" BaseType="AttributeRegistry.v1_0_0.SupportedSystems">
         <Property Name="FirmwareVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Firmware version."/>
-          <Annotation Term="OData.LongDescription" String="The version of the component firmware image that this registry applies to."/>
+          <Annotation Term="OData.LongDescription" String="The version of the component firmware image to which this Attribute Registry applies."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to perform editoral updates of descriptions defined in this schema."/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions that this schema defines."/>
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_0.AttributeRegistry"/>
     </Schema>
 
@@ -600,6 +613,18 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_3.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_4.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update the description of AttributeType Password enumeration.  It also updates descriptions that this schema defines."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_1_5.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -610,23 +635,23 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe an attribute and its possible values and other metadata."/>
         <Property Name="ResetRequired" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="True if changing the value of this attribute requires a system or device reset in order to take effect."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the requirement for a system or device reset for this attribute value change to take effect."/>
+          <Annotation Term="OData.Description" String="An indication of whether a system or device reset is required for this attribute value change to take effect."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a system or device reset is required for this attribute value change to take effect."/>
         </Property>
         <Property Name="UefiDevicePath" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UEFI device path that qualifies this attribute."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path string used to qualify and locate the specific device for this Attribute, as defined by the UEFI Specification."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI Specification-defined UEFI device path that qualifies and locates this device for this attribute."/>
         </Property>
         <Property Name="UefiKeywordName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The UEFI KeywordString of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the configuration KeywordString of this attribute, as defined in the UEFI Specification."/>
+          <Annotation Term="OData.Description" String="The UEFI keyword string for this attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI Specification-defined keyword for this attribute."/>
         </Property>
         <Property Name="UefiNamespaceId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The UEFI NamespaceId of the attribute."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the configuration NamespaceId of this attribute, as defined in the UEFI Specification."/>
+          <Annotation Term="OData.Description" String="The UEFI namespace ID for the attribute."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI Specification-defined namespace ID for this attribute."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -643,6 +668,18 @@
       <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_1.AttributeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_2.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update the description of AttributeType Password enumeration.  It also updates descriptions that this schema defines."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_2_3.AttributeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -650,22 +687,34 @@
 
       <ComplexType Name="Attributes" BaseType="AttributeRegistry.v1_2_0.Attributes">
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Menus" BaseType="AttributeRegistry.v1_0_0.Menus">
         <Property Name="Hidden" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The hidden state of this menu."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean describing the visibility state of this menu. When set to true, a hidden menu should be hidden in user interfaces. The hidden state of a menu might be affected by the results of evaluating the 'Dependencies' array."/>
+          <Annotation Term="OData.Description" String="An indication of whether this menu is hidden in user interfaces."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this menu is hidden in user interfaces.  The evaluation results of the Dependencies array might affect the hidden state of a menu."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_0.AttributeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AttributeRegistry.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update the description of AttributeType Password enumeration.  It also updates descriptions that this schema defines."/>
+      <EntityType Name="AttributeRegistry" BaseType="AttributeRegistry.v1_3_1.AttributeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

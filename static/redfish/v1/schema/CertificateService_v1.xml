@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateService  v1.0.0-->
+<!--# Redfish Schema:  CertificateService v1.0.2                                           -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,8 +39,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="CertificateService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The CertificateService schema defines a Certificate Service which represents the actions available to manage certificates and links to where certificates are installed."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Certificate Service Properties for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The CertificateService schema describes a Certificate Service that represents the actions available to manage certificates and links to the certificates."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent the Certificate Service properties for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -66,102 +66,102 @@
       <Action Name="GenerateCSR" IsBound="true">
         <Parameter Name="CertificateService" Type="CertificateService.v1_0_0.Actions"/>
         <Parameter Name="CommonName" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The fully qualified domain name of the component that is being secured."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the fully qualified domain name of the component that is being secured as defined by the commonName attribute in RFC5280."/>
+          <Annotation Term="OData.Description" String="The fully qualified domain name of the component to secure."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the fully qualified domain name of the component to secure, as defined by the RFC5280 'commonName' attribute."/>
         </Parameter>
         <Parameter Name="AlternativeNames" Type="Collection(Edm.String)">
-          <Annotation Term="OData.Description" String="Additional hostnames of the component that is being secured."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of additional hostnames of the component that is being secured as defined by the Subject Alternative Name extension in RFC5280."/>
+          <Annotation Term="OData.Description" String="The additional host names of the component to secure."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an array of additional host names of the component to secure, as defined by the RFC5280 'subjectAltName' attribute."/>
         </Parameter>
         <Parameter Name="Organization" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The name of the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the organization making the request as defined by the organizationName attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the organization making the request, as defined by the RFC5280 'organizationName' attribute."/>
         </Parameter>
         <Parameter Name="OrganizationalUnit" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The name of the unit or division of the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the unit or division of the organization making the request as defined by the organizationalUnitName attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the name of the unit or division of the organization making the request, as defined by the RFC5280 'organizationalUnitName' attribute."/>
         </Parameter>
         <Parameter Name="City" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The city or locality of the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the city or locality of the organization making the request as defined by the localityName attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the city or locality of the organization making the request, as defined by the RFC5280 'localityName' attribute."/>
         </Parameter>
         <Parameter Name="State" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The state, province, or region of the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the state, province, or region of the organization making the request as defined by the stateOrProvinceName attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the state, province, or region of the organization making the request, as defined by the RFC5280 'stateOrProvinceName' attribute."/>
         </Parameter>
         <Parameter Name="Country" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The country of the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the two letter ISO code for the country of the organization making the request as defined by the countryName attribute in RFC5280."/>
+          <Annotation Term="OData.Description" String="The two-letter country code of the organization making the request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the two-letter ISO code for the country of the organization making the request, as defined by the RFC5280 'countryName' attribute."/>
         </Parameter>
         <Parameter Name="Email" Type="Edm.String">
           <Annotation Term="OData.Description" String="The email address of the contact within the organization making the request."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the email address of the contact within the organization making the request as defined by the emailAddress attribute in RFC2985."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the email address of the contact within the organization making the request, as defined by the RFC2985 'emailAddress' attribute."/>
         </Parameter>
         <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The type of key pair for use with signing algorithms."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the type of key pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="KeyBitLength" Type="Edm.Int64">
-          <Annotation Term="OData.Description" String="The length of the key in bits, if needed based on the value of the 'KeyPairAlgorithm' parameter."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the length of the key in bits, if needed based on the value of the 'KeyPairAlgorithm' parameter."/>
+          <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
         </Parameter>
         <Parameter Name="KeyCurveId" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The curve ID to be used with the key, if needed based on the value of the 'KeyPairAlgorithm' parameter."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the curve ID to be used with the key, if needed based on the value of the 'KeyPairAlgorithm' parameter.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+          <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
         </Parameter>
         <Parameter Name="CertificateCollection" Type="CertificateCollection.CertificateCollection" Nullable="false">
-          <Annotation Term="OData.Description" String="A link to the certificate collection where the certificate will be installed."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the Certificate Collection where the certificate will be installed once the CA has signed the certificate."/>
+          <Annotation Term="OData.Description" String="The URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) signs the certificate."/>
         </Parameter>
         <Parameter Name="KeyUsage" Type="Collection(Certificate.KeyUsage)">
           <Annotation Term="OData.Description" String="The usage of the key contained in the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the usage of the key contained in the certificate.  If not provided by the client, the service may determine the appropriate key usage settings in the certificate signing request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the usage of the key contained in the certificate.  If the client does not provide this value, the service may determine the appropriate key usage settings in the certificate signing request."/>
         </Parameter>
         <Parameter Name="Surname" Type="Edm.String">
           <Annotation Term="OData.Description" String="The surname of the user making the request."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the surname of the user making the request as defined by the surname attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the surname of the user making the request, as defined by the RFC5280 'surname' attribute."/>
         </Parameter>
         <Parameter Name="GivenName" Type="Edm.String">
           <Annotation Term="OData.Description" String="The given name of the user making the request."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the given name of the user making the request as defined by the givenName attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the given name of the user making the request, as defined by the RFC5280 'givenName' attribute."/>
         </Parameter>
         <Parameter Name="Initials" Type="Edm.String">
           <Annotation Term="OData.Description" String="The initials of the user making the request."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the initials of the user making the request as defined by the initials attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the initials of the user making the request, as defined by the RFC5280 'initials' attribute."/>
         </Parameter>
         <Parameter Name="ChallengePassword" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The challenge password to be applied to the certificate for revocation requests."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the challenge password to be applied to the certificate for revocation requests as defined by the challengePassword attribute in RFC2985."/>
+          <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
         </Parameter>
         <Parameter Name="UnstructuredName" Type="Edm.String">
           <Annotation Term="OData.Description" String="The unstructured name of the subject."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the unstructured name of the subject as defined by the unstructuredName attribute in RFC2985."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the unstructured name of the subject, as defined by the RFC2985 'unstructuredName' attribute."/>
         </Parameter>
         <Parameter Name="ContactPerson" Type="Edm.String">
           <Annotation Term="OData.Description" String="The name of the user making the request."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the name of the user making the request as defined by the name attribute in RFC5280."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the user making the request, as defined by the RFC5280 'name' attribute."/>
         </Parameter>
         <ReturnType Type="CertificateService.v1_0_0.GenerateCSRResponse" Nullable="false"/>
-        <Annotation Term="OData.Description" String="This action is used to perform a certificate signing request."/>
-        <Annotation Term="OData.LongDescription" String="This action shall perform a certificate signing request.  The response shall contain a signing request that is used to be signed by a certificate authority (CA).  The service should retain the private key used for the generation of this request for when the certificate is installed.  The private key should not be part of the response."/>
+        <Annotation Term="OData.Description" String="This action makes a certificate signing request."/>
+        <Annotation Term="OData.LongDescription" String="This action shall make a certificate signing request.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that was generated during this request for installation of the certificate.  The private key should not be part of the response."/>
       </Action>
 
       <Action Name="ReplaceCertificate" IsBound="true">
         <Parameter Name="CertificateService" Type="CertificateService.v1_0_0.Actions"/>
         <Parameter Name="CertificateString" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Description" String="The string for the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the string of the certificate, and the format shall follow the requirements specified by the value of the CertificateType property.  If the certificate contains any private keys, they shall be removed from the string on GET requests.  If the private key for the certificate is not known by the service and is needed to use the certificate, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the string of the certificate, and the format shall follow the requirements specified by the CertificateType property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and it is needed to use the certificate, the client shall provide the private key as part of the string in the POST request."/>
         </Parameter>
         <Parameter Name="CertificateType" Type="Certificate.CertificateType" Nullable="false">
           <Annotation Term="OData.Description" String="The format of the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this parameter shall contain the format type for the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the format type for the certificate."/>
         </Parameter>
         <Parameter Name="CertificateUri" Type="Certificate.Certificate" Nullable="false">
-          <Annotation Term="OData.Description" String="A link to the certificate that is being replaced."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the Certificate that is being replaced."/>
+          <Annotation Term="OData.Description" String="The link to the certificate that is being replaced."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the URI of the Certificate Resource that is being replaced."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action is used to replace an existing certificate."/>
-        <Annotation Term="OData.LongDescription" String="This action shall replace an existing certificate.  The Location header in the response shall contain the URI of the new Certificate resource."/>
+        <Annotation Term="OData.Description" String="This action replaces a certificate."/>
+        <Annotation Term="OData.LongDescription" String="This action shall replace a certificate.  The Location header in the response shall contain the URI of the new Certificate Resource."/>
       </Action>
     </Schema>
 
@@ -171,31 +171,31 @@
 
       <EntityType Name="CertificateService" BaseType="CertificateService.CertificateService">
         <Property Name="Actions" Type="CertificateService.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
         <NavigationProperty Name="CertificateLocations" Type="CertificateLocations.CertificateLocations" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Information regarding the location of certificates."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource of type CertificateLocations."/>
+          <Annotation Term="OData.Description" String="The information about the location of certificates."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a Resource of type CertificateLocations."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="CertificateService.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
       <ComplexType Name="GenerateCSRResponse">
@@ -204,17 +204,29 @@
         <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the GenerateCSR action."/>
         <NavigationProperty Name="CertificateCollection" Type="CertificateCollection.CertificateCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A link to the certificate collection where the certificate will be installed."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Collection where the certificate will be installed once the CA has signed the certificate."/>
+          <Annotation Term="OData.Description" String="The link to the Certificate Resource Collection where the certificate is installed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Resource Collection where the certificate is installed after the certificate authority (CA) has signed the certificate."/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
         <Property Name="CSRString" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The string for the certificate signing request."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the string of the certificate signing request as a Privacy Enhanced Mail (PEM) encoded string, containing structures specified by RFC2986.  The private key should not be part of the string."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Privacy Enhanced Mail (PEM)-encoded string, which contains RFC2986-specified structures, of the certificate signing request.  The private key should not be part of the string."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_0.CertificateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateService.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of CertificateString.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="CertificateService" BaseType="CertificateService.v1_0_1.CertificateService"/>
     </Schema>
 
   </edmx:DataServices>

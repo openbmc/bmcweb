@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_0_2.json",
     "$ref": "#/definitions/ProcessorMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
@@ -34,9 +34,9 @@
         "CStateResidency": {
             "additionalProperties": false,
             "description": "The C-state residency of the processor.",
-            "longDescription": "This type shall contain properties which describe the C-state residency of the processor or core.",
+            "longDescription": "This type shall contain properties that describe the C-state residency of the processor or core.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -51,8 +51,8 @@
             },
             "properties": {
                 "Level": {
-                    "description": "The level of C-state, e.g. C0, C1, C2.",
-                    "longDescription": "The value of this property shall be the level of C-state.",
+                    "description": "The C-state level, such as C0, C1, or C2.",
+                    "longDescription": "This property shall contain the C-state level, such as C0, C1, or C2.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -61,7 +61,7 @@
                 },
                 "ResidencyPercent": {
                     "description": "The percentage of time that the processor or core has spent in this particular level of C-state.",
-                    "longDescription": "The value of this property shall be the percentage of time that the processor or core has spent in this particular level of C-state.",
+                    "longDescription": "This property shall contain the percentage of time that the processor or core has spent in this particular level of C-state.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -78,7 +78,7 @@
             "description": "The processor core metrics.",
             "longDescription": "This type shall contain properties that describe cache metrics of a processor or core.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -94,7 +94,7 @@
             "properties": {
                 "CacheMiss": {
                     "description": "The number of cache line misses in millions.",
-                    "longDescription": "The value of this property shall be the number of cache line misses of the processor or core in millions.",
+                    "longDescription": "This property shall contain the number of cache line misses of the processor or core in millions.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -103,7 +103,7 @@
                 },
                 "CacheMissesPerInstruction": {
                     "description": "The number of cache misses per instruction.",
-                    "longDescription": "The value of this property shall be the number of cache misses per instruction of the processor or core.",
+                    "longDescription": "This property shall contain the number of cache misses per instruction of the processor or core.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -112,7 +112,7 @@
                 },
                 "HitRatio": {
                     "description": "The cache line hit ratio.",
-                    "longDescription": "The value of this property shall be the cache hit ratio of the processor or core.",
+                    "longDescription": "This property shall contain the cache hit ratio of the processor or core.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -121,7 +121,7 @@
                 },
                 "Level": {
                     "description": "The cache level.",
-                    "longDescription": "This property shall be the level of the cache in the processor or core.",
+                    "longDescription": "This property shall contain the level of the cache in the processor or core.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -130,7 +130,7 @@
                 },
                 "OccupancyBytes": {
                     "description": "The total cache level occupancy in bytes.",
-                    "longDescription": "The value of this property shall be the total cache occupancy of the processor or core in bytes.",
+                    "longDescription": "This property shall contain the total cache occupancy of the processor or core in bytes.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -140,7 +140,7 @@
                 },
                 "OccupancyPercent": {
                     "description": "The total cache occupancy percentage.",
-                    "longDescription": "The value of this property shall be the total cache occupancy percentage of the processor or core.",
+                    "longDescription": "This property shall contain the total cache occupancy percentage of the processor or core.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -157,7 +157,7 @@
             "description": "The processor core metrics.",
             "longDescription": "This type shall contain properties that describe the cores of a processor.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -174,14 +174,7 @@
                 "CStateResidency": {
                     "description": "The C-state residency of this core in the processor.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/CStateResidency"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/CStateResidency"
                     },
                     "longDescription": "This property shall contain properties that describe the C-state residency of this core in the processor.",
                     "type": "array"
@@ -189,21 +182,14 @@
                 "CoreCache": {
                     "description": "The cache metrics of this core in the processor.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/CacheMetrics"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/CacheMetrics"
                     },
                     "longDescription": "This property shall contain properties that describe the cache metrics of this core in the processor.",
                     "type": "array"
                 },
                 "CoreId": {
                     "description": "The processor core identifier.",
-                    "longDescription": "This property shall be the processor core identifier.",
+                    "longDescription": "This property shall contain the identifier of the core within the processor.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -212,7 +198,7 @@
                 },
                 "IOStallCount": {
                     "description": "The number of stalled cycles due to I/O operations.",
-                    "longDescription": "The value of this property shall be the number of stalled cycles due to I/O operations of this core in the processor.",
+                    "longDescription": "This property shall contain the number of stalled cycles due to I/O operations of this core in the processor.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -221,7 +207,7 @@
                 },
                 "InstructionsPerCycle": {
                     "description": "The number of instructions per clock cycle of this core.",
-                    "longDescription": "The value of this property shall be the number of instructions per clock cycle of this core in the processor.",
+                    "longDescription": "This property shall contain the number of instructions per clock cycle of this core in the processor.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -230,7 +216,7 @@
                 },
                 "MemoryStallCount": {
                     "description": "The number of stalled cycles due to memory operations.",
-                    "longDescription": "The value of this property shall be the number of stalled cycles due to memory operations of this core in the processor.",
+                    "longDescription": "This property shall contain the number of stalled cycles due to memory operations of this core in the processor.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -239,7 +225,7 @@
                 },
                 "UnhaltedCycles": {
                     "description": "The unhalted cycles count of this core.",
-                    "longDescription": "The value of this property shall be the number of unhalted cycles of this core in the processor.",
+                    "longDescription": "This property shall contain the number of unhalted cycles of this core in the processor.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -251,10 +237,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -272,10 +258,10 @@
         },
         "ProcessorMetrics": {
             "additionalProperties": false,
-            "description": "ProcessorMetrics contains usage and health statistics for a Processor (all Cores).",
-            "longDescription": "This resource shall be used to represent the Processor Metrics for a single Processor in a Redfish implementation.",
+            "description": "The ProcessorMetrics schema contains usage and health statistics for a processor.",
+            "longDescription": "This Resource contains the Processor Metrics for a single Processor in a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -290,25 +276,25 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "AverageFrequencyMHz": {
                     "description": "The average frequency of the processor.",
-                    "longDescription": "The value of this property shall be average frequency across all enabled cores in the processor in MHz.",
+                    "longDescription": "This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -318,7 +304,7 @@
                 },
                 "BandwidthPercent": {
                     "description": "The CPU bandwidth as a percentage.",
-                    "longDescription": "The value of this property shall be CPU utilization of the processor as a percentage.",
+                    "longDescription": "This property shall contain CPU utilization of the processor as a percentage.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the CPU utilization over all processors as a percentage.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -330,21 +316,14 @@
                 "Cache": {
                     "description": "The processor cache metrics.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/CacheMetrics"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/CacheMetrics"
                     },
-                    "longDescription": "This property shall contain properties that describe this processor's cache.",
+                    "longDescription": "This property shall contain properties that describe this processor's cache.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "type": "array"
                 },
                 "ConsumedPowerWatt": {
-                    "description": "The power consumed by the processor.",
-                    "longDescription": "The value of this property shall be the power consumed by the processor in Watts.",
+                    "description": "The power, in watts, that the processor has consumed.",
+                    "longDescription": "This property shall contain the power, in watts, that the processor has consumed.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of power, in watts, that all processors have consumed.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -355,16 +334,9 @@
                 "CoreMetrics": {
                     "description": "The processor core metrics.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/CoreMetrics"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/CoreMetrics"
                     },
-                    "longDescription": "This property shall contain properties that describe the cores of this processor.",
+                    "longDescription": "This property shall contain properties that describe the cores of this processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "type": "array"
                 },
                 "Description": {
@@ -380,7 +352,7 @@
                 },
                 "FrequencyRatio": {
                     "description": "The frequency relative to the nominal processor frequency ratio.",
-                    "longDescription": "The value of this property shall be the frequency relative to the nominal processor frequency ratio of this processor.",
+                    "longDescription": "This property shall contain the frequency relative to the nominal processor frequency ratio of this processor.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average FrequencyRatio over all processors.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -393,7 +365,7 @@
                 },
                 "KernelPercent": {
                     "description": "The percentage of time spent in kernel mode.",
-                    "longDescription": "The value of this property shall be total percentage of time the processor has spent in kernel mode.",
+                    "longDescription": "This property shall contain total percentage of time the processor has spent in kernel mode.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average KernelPercent over all processors.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -404,7 +376,7 @@
                 },
                 "LocalMemoryBandwidthBytes": {
                     "description": "The local memory bandwidth usage in bytes.",
-                    "longDescription": "The value of this property shall be the local memory bandwidth usage of this processor in bytes.",
+                    "longDescription": "This property shall contain the local memory bandwidth usage of this processor in bytes.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of LocalMemoryBandwidthBytes over all processors.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -418,12 +390,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "RemoteMemoryBandwidthBytes": {
                     "description": "The remote memory bandwidth usage in bytes.",
-                    "longDescription": "The value of this property shall be the remote memory bandwidth usage of this processor in bytes.",
+                    "longDescription": "This property shall contain the remote memory bandwidth usage of this processor in bytes.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of RemoteMemoryBandwidthBytes over all processors.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -433,7 +405,7 @@
                 },
                 "TemperatureCelsius": {
                     "description": "The temperature of the processor.",
-                    "longDescription": "The value of this property shall be the temperature of the processor in Celsius.",
+                    "longDescription": "This property shall contain the temperature, in Celsius, of the processor.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average temperature, in Celcius, over all processors.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -443,7 +415,7 @@
                 },
                 "ThrottlingCelsius": {
                     "description": "The CPU margin to throttle (temperature offset in degree Celsius).",
-                    "longDescription": "The value of this property shall be the CPU margin to throttle based on an offset between the maximum temperature in which the processor can operate, and the processor's current temperature.",
+                    "longDescription": "This property shall contain the CPU margin to throttle based on an offset between the maximum temperature in which the processor can operate, and the processor's current temperature.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -453,7 +425,7 @@
                 },
                 "UserPercent": {
                     "description": "The percentage of time spent in user mode.",
-                    "longDescription": "The value of this property shall be total percentage of time the processor has spent in user mode.",
+                    "longDescription": "This property shall contain total percentage of time the processor has spent in user mode.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the average UserPercent over all processors.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -474,5 +446,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#ProcessorMetrics.v1_0_0.ProcessorMetrics"
+    "title": "#ProcessorMetrics.v1_0_2.ProcessorMetrics"
 }

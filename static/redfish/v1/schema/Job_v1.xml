@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Job  v1.0.1-->
+<!--# Redfish Schema:  Job v1.0.3                                                          -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -43,8 +43,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Job" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This resource contains information about a specific Job scheduled  or being executed by a Redfish service's Job Service."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a job in a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Job schema contains information about a job that a a Redfish Job Service schedules or executes.  Clients create jobs to describe a series of operations that occur at periodic intervals."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall contain a job in a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -53,13 +53,13 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="A jobs can be modified with an Update operation."/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated for jobs."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Jobs can be removed with a Delete operation."/>
+            <Annotation Term="OData.Description" String="Jobs can be deleted."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -79,22 +79,22 @@
         <Property Name="JobStatus" Type="Resource.Health" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The status of the job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the health status of the job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the health status of the job."/>
         </Property>
         <Property Name="JobState" Type="Job.v1_0_0.JobState" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The state of the job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the state of the job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the state of the job."/>
         </Property>
         <Property Name="StartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The date-time stamp that the job was started or is scheduled to start."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the time the job was last started or will start as scheduled."/>
+          <Annotation Term="OData.Description" String="The date and time when the job was started or is scheduled to start."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the date and time when the job was last started or is scheduled to start."/>
         </Property>
-        <Property Name="EndTime" Type="Edm.DateTimeOffset" Nullable="true">
+        <Property Name="EndTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The date-time stamp that the job was completed."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the time the job was completed. This property shall not appear if the job is running or has otherwise not been completed. This property shall appear only if the JobState is Completed, Cancelled, or Exception."/>
+          <Annotation Term="OData.Description" String="The date and time when the job was completed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the date and time when the job was completed.  This property shall not appear if the job is running or was not completed.  This property shall appear only if the JobState is Completed, Cancelled, or Exception."/>
         </Property>
         <Property Name="MaxExecutionTime" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -104,45 +104,45 @@
         <Property Name="PercentComplete" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The completion percentage of this job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the completion progress of the job, reported in percent of completion. If the job has not been started, the value shall be zero."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the completion progress of the job, reported in percent of completion.  If the job has not been started, the value shall be zero."/>
           <Annotation Term="Measures.Unit" String="%"/>
         </Property>
         <Property Name="CreatedBy" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The person or program that created this job entry."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the user name, software program name, or other identifier indicating the creator of this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user name, software program name, or other identifier indicating the creator of this job."/>
         </Property>
         <Property Name="Schedule" Type="Schedule.Schedule" Nullable="false">
-          <Annotation Term="OData.Description" String="The Schedule Settings for this Job."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the scheduling for this job and the re-occurrence frequency for future instances of this job."/>
+          <Annotation Term="OData.Description" String="The schedule settings for this job."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the scheduling details for this job and the recurrence frequency for future instances of this job."/>
         </Property>
         <Property Name="HidePayload" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates that the contents of the Payload should be hidden from view after the Job has been created.  When set to True, the Payload object will not be returned on GET."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be set to True if the Payload object  shall not be returned on GET operations, and set to False if the contents can be returned normally. If this property is not specified when the Job is created, the default value shall be False."/>
+          <Annotation Term="OData.Description" String="An indication of whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the job is created, the default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the contents of the payload should be hidden from view after the job has been created.  If `true`, responses shall not return the Payload property.  If `false`, responses shall return the Payload property.  If this property is not present when the job is created, the default is `false`."/>
         </Property>
         <Property Name="Payload" Type="Job.v1_0_0.Payload" Nullable="false">
           <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this job."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON payload information for executing this job. This object shall not be included in the response if the HidePayload property is set to True."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP and JSON payload information for executing this job.  This property shall not be included in the response if the HidePayload property is `true`."/>
         </Property>
         <NavigationProperty Name="Steps" Type="JobCollection.JobCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A link to a collection of Steps for this Job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a collection of type Job."/>
+          <Annotation Term="OData.Description" String="The link to a collection of steps for this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a Resource Collection of type JobCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="StepOrder" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This represents the serialized execution order of the Job Steps."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of Ids for the Job Steps in the order that they shall be executed. Each step shall be completed prior to the execution of the next step in array order. An incomplete list of steps shall be considered an invalid configuration. If this property is not present or contains an empty array it shall indicate that the step execution order is not specified and may occur in parallel or in series as determined by the service."/>
+          <Annotation Term="OData.Description" String="The serialized execution order of the job Steps."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for the job steps in the order that they shall be executed.  Each step shall be completed prior to the execution of the next step in array order.  An incomplete list of steps shall be considered an invalid configuration.  If this property is not present or contains an empty array it shall indicate that the step execution order is omitted and may occur in parallel or in series as determined by the service."/>
         </Property>
         <Property Name="Messages" Type="Collection(Message.Message)" Nullable="false">
-          <Annotation Term="OData.Description" String="This is an array of messages associated with the job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of messages associated with the job."/>
+          <Annotation Term="OData.Description" String="An array of messages associated with the job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of messages associated with the job."/>
         </Property>
         <Property Name="Actions" Type="Job.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
@@ -176,16 +176,16 @@
           <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is stopping but is not yet complete."/>
         </Member>
         <Member Name="Completed">
-          <Annotation Term="OData.Description" String="Job has completed."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is complete and completed successfully or with warnings."/>
+          <Annotation Term="OData.Description" String="Job was completed."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed successfully or with warnings."/>
         </Member>
         <Member Name="Cancelled">
-          <Annotation Term="OData.Description" String="Job was cancelled.."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is complete because the job was cancelled by an operator."/>
+          <Annotation Term="OData.Description" String="Job was cancelled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed because the job was cancelled by an operator."/>
         </Member>
         <Member Name="Exception">
           <Annotation Term="OData.Description" String="Job has stopped due to an exception condition."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is complete and completed with errors."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation completed with errors."/>
         </Member>
         <Member Name="Service">
           <Annotation Term="OData.Description" String="Job is running as a service."/>
@@ -193,7 +193,7 @@
         </Member>
         <Member Name="UserIntervention">
           <Annotation Term="OData.Description" String="Job is waiting for user intervention."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is waiting for a user to intervene and must be manually continued, stopped or cancelled."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the operation is waiting for a user to intervene and must be manually continued, stopped, or cancelled."/>
         </Member>
         <Member Name="Continue">
           <Annotation Term="OData.Description" String="Job is to resume operation."/>
@@ -207,42 +207,42 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="TargetUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The URI of the target for this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI referencing a location to be used as the target for an HTTP operation."/>
+          <Annotation Term="OData.Description" String="The link to the target for this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain link to a target location for an HTTP operation."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="HttpOperation" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The HTTP operation to perform to execute this job."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP operation to execute for this job."/>
+          <Annotation Term="OData.Description" String="The HTTP operation that executes this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the HTTP operation that executes this job."/>
         </Property>
         <Property Name="HttpHeaders" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This represents the HTTP headers used in the operation of this job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of HTTP headers used in the execution of this job."/>
+          <Annotation Term="OData.Description" String="An array of HTTP headers in this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of HTTP headers in this job."/>
         </Property>
         <Property Name="JsonBody" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property contains the JSON payload to use in the execution of this Job."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be JSON formatted payload used for this job."/>
+          <Annotation Term="OData.Description" String="The JSON payload to use in the execution of this job."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain JSON-formatted payload for this job."/>
         </Property>
 
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Job.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -250,6 +250,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add the Measures.Unit annotation to PercentComplete."/>
       <EntityType Name="Job" BaseType="Job.v1_0_0.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to correct the Resource description."/>
+      <EntityType Name="Job" BaseType="Job.v1_0_1.Job"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Job.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of the HidePayload property.  It was also created to make the EndTime property not nullable.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="Job" BaseType="Job.v1_0_2.Job"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerNetworkProtocol  v1.4.0-->
+<!--# Redfish Schema:  ManagerNetworkProtocol v1.4.2                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,8 +38,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ManagerNetworkProtocol" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This resource is used to obtain or modify the network services managed by a given manager."/>
-        <Annotation Term="OData.LongDescription" String="This object shall be used to represent the network service settings for the manager."/>
+        <Annotation Term="OData.Description" String="The network service settings for the manager."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent the network service settings for the manager."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -48,7 +48,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Manager Network Protocol resources can be updated to change the protocol and virtual media settings and other writable properties."/>
+            <Annotation Term="OData.Description" String="Writable properties, such as protocol and virtual media settings, can be updated for manager network protocols."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -72,69 +72,69 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.ManagerNetworkProtocol">
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The DNS Host Name of this manager, without any domain information."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the host name without any domain information."/>
+          <Annotation Term="OData.Description" String="The DNS host name of this manager, without any domain information."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the host name without any domain information."/>
         </Property>
         <Property Name="FQDN" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the fully qualified domain name for the manager."/>
+          <Annotation Term="OData.Description" String="The fully qualified domain name for the manager obtained by DNS including the host name and top-level domain name."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the fully qualified domain name for the manager."/>
         </Property>
         <Property Name="HTTP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's HTTP protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the HTTP protocol settings for the manager. The default value of the Port property should be 80 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's HTTP protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the HTTP protocol settings for the manager.  The default Port property value should be `80` for compatibility with established client implementations."/>
         </Property>
         <Property Name="HTTPS" Type="ManagerNetworkProtocol.v1_0_0.HTTPSProtocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's HTTPS protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the HTTPS/SSL protocol settings for this manager. The default value of the Port property should be 443 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's HTTPS protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the HTTPS/SSL protocol settings for this manager.  The default Port property value should be `443` for compatibility with established client implementations."/>
         </Property>
         <Property Name="SNMP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's SNMP support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the SNMP protocol settings for this manager. The default value of the Port property should be 161 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's SNMP support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the SNMP protocol settings for this manager.  The default Port property value should be `161` for compatibility with established client implementations."/>
         </Property>
         <Property Name="VirtualMedia" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's Virtual Media support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Virtual Media protocol settings for this manager. The value of the Port property shall contain the TCP port assigned for Virtual Media usage."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's virtual media support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the virtual media protocol settings for this manager.  The Port property shall contain the TCP port assigned for Virtual Media usage."/>
         </Property>
         <Property Name="Telnet" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's Telnet protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Telnet protocol settings for this manager. The default value of the Port property should be 23 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's Telnet protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Telnet protocol settings for this manager.  The default Port property value should be `23` for compatibility with established client implementations."/>
         </Property>
         <Property Name="SSDP" Type="ManagerNetworkProtocol.v1_0_0.SSDProtocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's SSDP support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the SSDP protocol settings for this manager.  Simple Service Discovery Protocol (SSDP) is for network discovery of devices supporting the Redfish service. The default value of the Port property should be 1900 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's SSDP support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the SSDP protocol settings for this manager.  Simple Service Discovery Protocol (SSDP) is for network discovery of devices supporting the Redfish Service.  The default Port property value should be `1900` for compatibility with established client implementations."/>
         </Property>
         <Property Name="IPMI" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's IPMI-over-LAN protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the IPMI over LAN protocol settings for the manager. The default value of the Port property should be 623 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's IPMI-over-LAN protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the IPMI over LAN protocol settings for the manager.  The default Port property value should be `623` for compatibility with established client implementations."/>
         </Property>
         <Property Name="SSH" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's SSH (Secure Shell) protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the SSH protocol settings for the manager. The default value of the Port property should be 22 for compatibility with established client implementations."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's Secure Shell (SSH) protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Secure Shell (SSH) protocol settings for the manager.  The default value should be 22 for compatibility with established client implementations."/>
         </Property>
         <Property Name="KVMIP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's KVM-IP protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the KVM-IP (Keyboard, Video, Mouse) protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's KVM-IP protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the KVM-IP (Keyboard, Video, Mouse over IP) protocol settings for the manager."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Protocol">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="Settings for a network protocol associated with a manager."/>
+        <Annotation Term="OData.Description" String="The settings for a network protocol associated with a manager."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe information about a protocol setting for a manager."/>
         <Property Name="ProtocolEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates if the protocol is enabled or disabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the enabled status of the protocol.  The value shall be true if enabled and false if disabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether the protocol is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the protocol is enabled."/>
         </Property>
         <Property Name="Port" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates the protocol port."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the port assigned for the protocol."/>
+          <Annotation Term="OData.Description" String="The protocol port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port assigned to the protocol."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
       </ComplexType>
@@ -143,21 +143,21 @@
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="NotifyMulticastIntervalSeconds" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates how often the Multicast is done from this service for SSDP."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message.  A setting of 0 seconds shall disable this functionality.  The recommended value is 600 seconds."/>
+          <Annotation Term="OData.Description" String="The time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message from this service for SSDP."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time interval, in seconds, between transmissions of the multicast NOTIFY ALIVE message.  A setting of 0 seconds shall disable this functionality.  The recommended value is 600 seconds."/>
           <Annotation Term="Measures.Unit" String="s"/>
           <Annotation Term="Validation.Minimum" Int="0"/>
         </Property>
         <Property Name="NotifyTTL" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates the time to live hop count for SSDPs Notify messages."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the Time-To-Live hop count used for multicast NOTIFY messages.  The recommended value is 2."/>
+          <Annotation Term="OData.Description" String="The time-to-live hop count for SSDP multicast NOTIFY messages."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the time-to-live hop count used for multicast NOTIFY messages.  The recommended value is 2."/>
           <Annotation Term="Validation.Minimum" Int="1"/>
         </Property>
         <Property Name="NotifyIPv6Scope" Type="ManagerNetworkProtocol.v1_0_0.NotifyIPv6Scope">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="Indicates the scope for the IPv6 Notify messages for SSDP."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the IPv6 scope used for multicast NOTIFY messages.  The valid enumerations are a subset of the available IPv6 Scope types."/>
+          <Annotation Term="OData.Description" String="The IPv6 scope for multicast NOTIFY messages for SSDP."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the IPv6 scope for multicast NOTIFY messages.  The valid enumerations are a subset of the available IPv6 scope types."/>
         </Property>
       </ComplexType>
 
@@ -165,13 +165,13 @@
 
       <EnumType Name="NotifyIPv6Scope">
         <Member Name="Link">
-          <Annotation Term="OData.Description" String="SSDP Notify messages are sent to addresses in the IPv6 Local Link scope."/>
+          <Annotation Term="OData.Description" String="SSDP NOTIFY messages are sent to addresses in the IPv6 local link scope."/>
         </Member>
         <Member Name="Site">
-          <Annotation Term="OData.Description" String="SSDP Notify messages are sent to addresses in the IPv6 Local Site scope."/>
+          <Annotation Term="OData.Description" String="SSDP NOTIFY messages are sent to addresses in the IPv6 local site scope."/>
         </Member>
         <Member Name="Organization">
-          <Annotation Term="OData.Description" String="SSDP Notify messages are sent to addresses in the IPv6 Local Organization scope."/>
+          <Annotation Term="OData.Description" String="SSDP NOTIFY messages are sent to addresses in the IPv6 local organization scope."/>
         </Member>
       </EnumType>
 
@@ -201,13 +201,25 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_4.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_5.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_6.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_0_3.ManagerNetworkProtocol">
         <Property Name="DHCP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv4 protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the DHCPv4 protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's DHCPv4 protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the DHCPv4 protocol settings for the manager."/>
         </Property>
       </EntityType>
     </Schema>
@@ -224,17 +236,29 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_1.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_2.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_3.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_1_1.ManagerNetworkProtocol">
         <Property Name="NTP" Type="ManagerNetworkProtocol.v1_2_0.NTPProtocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's NTP protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the NTP protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's NTP protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the NTP protocol settings for the manager."/>
         </Property>
         <Property Name="Actions" Type="ManagerNetworkProtocol.v1_2_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The actions property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
@@ -243,24 +267,24 @@
         <Property Name="NTPServers" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Indicates to which NTP servers this manager is subscribed."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain all the NTP servers for which this manager is using to obtain time."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain all the NTP servers for which this manager is using to obtain time."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="ManagerNetworkProtocol.v1_2_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -270,23 +294,47 @@
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_0.ManagerNetworkProtocol"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_1.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_2.ManagerNetworkProtocol"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_2_1.ManagerNetworkProtocol">
         <Property Name="DHCPv6" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's DHCPv6 protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the DHCPv6 protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's DHCPv6 protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the DHCPv6 protocol settings for the manager."/>
         </Property>
         <Property Name="RDP" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's Remote Desktop Protocol support."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Remote Desktop Protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's Remote Desktop Protocol support."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Remote Desktop Protocol settings for the manager."/>
         </Property>
         <Property Name="RFB" Type="ManagerNetworkProtocol.v1_0_0.Protocol" Nullable="false">
-          <Annotation Term="OData.Description" String="Settings for this Manager's Remote Frame Buffer protocol support, which can be used to support VNC."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain information for the Remote Frame Buffer protocol settings for the manager."/>
+          <Annotation Term="OData.Description" String="The settings for this manager's Remote Frame Buffer protocol support, which can support VNC."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain the Remote Frame Buffer protocol settings for the manager."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_3_1.ManagerNetworkProtocol"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_0">
@@ -297,11 +345,23 @@
       <ComplexType Name="HTTPSProtocol" BaseType="ManagerNetworkProtocol.v1_0_0.HTTPSProtocol">
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is a reference to a collection of certificates used for HTTPS by this manager."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type CertificateCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates used for HTTPS by this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type CertificateCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_0.ManagerNetworkProtocol"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerNetworkProtocol.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="ManagerNetworkProtocol" BaseType="ManagerNetworkProtocol.v1_4_1.ManagerNetworkProtocol"/>
     </Schema>
 
   </edmx:DataServices>

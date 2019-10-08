@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService  v1.4.0-->
+<!--# Redfish Schema:  UpdateService v1.6.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,8 +38,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="UpdateService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Update Service. It represents the properties for the service itself and has links to collections of firmware and software inventory."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an Update Service for a Redfish implementation. It represents the properties that affect the service itself."/>
+        <Annotation Term="OData.Description" String="The UpdateService schema describes the Update Service and the properties for the Service itself with links to collections of firmware and software inventory.  The Update Service also provides methods for updating software and firmware of the Resources in a Redfish Service."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent an Update Service and the properties that affect the Service itself for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -48,7 +48,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The Update Service can be updated to change properties such as ServiceEnabled."/>
+            <Annotation Term="OData.Description" String="Writable properties, such as ServiceEnabled, can be updated for the Update Service."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -63,21 +63,23 @@
         </Annotation>
       </EntityType>
 
+      <ComplexType Name="UpdateParameters" Abstract="true"/>
+
       <Action Name="SimpleUpdate" IsBound="true">
-        <Annotation Term="OData.Description" String="This action is used to update software components."/>
-        <Annotation Term="OData.LongDescription" String="This action shall perform an update of installed software component(s) as contained within a software image file located at a URI referenced by the ImageURI parameter."/>
+        <Annotation Term="OData.Description" String="This action updates software components."/>
+        <Annotation Term="OData.LongDescription" String="This action shall update installed software components in a software image file located at an ImageURI parameter-specified URI."/>
         <Parameter Name="UpdateService" Type="UpdateService.v1_0_0.Actions"/>
         <Parameter Name="ImageURI" Type="Edm.String" Nullable="false">
-          <Annotation Term="OData.Description" String="The URI of the software image to be installed."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a URI referencing a software image to be retreived by the UpdateService for the purpose of installing software contained within the image."/>
+          <Annotation Term="OData.Description" String="The URI of the software image to install."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain an RFC3986-defined URI that links to a software image that the Update Service retrieves to install software in that image.  This URI should contain a scheme that describes the transfer protocol.  If the TransferProtocol parameter is absent or not supported, and a transfer protocol is not specified by a scheme contained within this URI, the Service shall use HTTP to get the image."/>
         </Parameter>
         <Parameter Name="TransferProtocol" Type="UpdateService.v1_0_0.TransferProtocolType">
-          <Annotation Term="OData.Description" String="The network protocol used by the Update Service to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the network protocol that the Update Service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within ImageURI, the Update Service shall use HTTP to retrieve the image."/>
+          <Annotation Term="OData.Description" String="The network protocol that the Update Service uses to retrieve the software image file located at the URI provided in ImageURI, if the URI does not contain a scheme."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the network protocol that the Update Service shall use to retreive the software image located at the ImageURI.  If this parameter is not provided (or supported), and a transfer protocol is not specified by a scheme contained within this URI, the Service shall use HTTP to retrieve the image."/>
         </Parameter>
         <Parameter Name="Targets" Type="Collection(Edm.String)">
-          <Annotation Term="OData.Description" String="The array of URIs indicating where the update image is to be applied."/>
-          <Annotation Term="OData.LongDescription" String="This array property shall contain zero or more URIs indicating where the update image is to be applied. These targets should correspond to SoftwareInventory instances or their RelatedItems. If this property is not present or contains zero targets, the Service shall apply the software image to all applicable targets (as determined by the Service)."/>
+          <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
+          <Annotation Term="OData.LongDescription" String="This array property shall contain zero or more URIs that indicate where to apply the update image.  These targets should correspond to SoftwareInventory instances or their related items.  If this parameter is not present or contains no targets, the Service shall apply the software image to all applicable targets, as determined by the Service."/>
           <Annotation Term="OData.IsURL"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
@@ -89,8 +91,8 @@
           </Annotation>
         </Parameter>
         <Parameter Name="Username" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The username to be used when accessing the URI specified by the ImageURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the username to be used when accessing the URI specified by the ImageURI parameter."/>
+          <Annotation Term="OData.Description" String="The user name to access the URI specified by the ImageURI parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall represent the user name to access the URI specified by the ImageURI parameter."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -101,8 +103,8 @@
           </Annotation>
         </Parameter>
         <Parameter Name="Password" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The password to be used when accessing the URI specified by the ImageURI parameter."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a string representing the password to be used when accessing the URI specified by the ImageURI parameter."/>
+          <Annotation Term="OData.Description" String="The password to access the URI specified by the ImageURI parameter."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall represent the password to access the URI specified by the ImageURI parameter."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -120,60 +122,58 @@
       <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="UpdateService" BaseType="UpdateService.UpdateService">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Update Service. It represents the properties for the service itself and has links to collections of firmware and software inventory."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent an Update Service for a Redfish implementation. It represents the properties that affect the service itself."/>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="ServiceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether this service is enabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled."/>
         </Property>
-        <NavigationProperty Name="FirmwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true">
+        <NavigationProperty Name="FirmwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of firmware."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type SoftwareInventoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type SoftwareInventoryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
-        <NavigationProperty Name="SoftwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true">
+        <NavigationProperty Name="SoftwareInventory" Type="SoftwareInventoryCollection.SoftwareInventoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An inventory of software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type SoftwareInventoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type SoftwareInventoryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="UpdateService.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="UpdateService.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
       <EnumType Name="TransferProtocolType">
         <Member Name="CIFS">
-          <Annotation Term="OData.Description" String="Common Internet File System protocol."/>
+          <Annotation Term="OData.Description" String="Common Internet File System (CIFS)."/>
         </Member>
         <Member Name="FTP">
-          <Annotation Term="OData.Description" String="File Transfer Protocol."/>
+          <Annotation Term="OData.Description" String="File Transfer Protocol (FTP)."/>
         </Member>
         <Member Name="SFTP">
-          <Annotation Term="OData.Description" String="Secure File Transfer Protocol."/>
+          <Annotation Term="OData.Description" String="Secure File Transfer Protocol (SFTP)."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -184,34 +184,34 @@
           </Annotation>
         </Member>
         <Member Name="HTTP">
-          <Annotation Term="OData.Description" String="Hypertext Transfer Protocol."/>
+          <Annotation Term="OData.Description" String="Hypertext Transfer Protocol (HTTP)."/>
         </Member>
         <Member Name="HTTPS">
-          <Annotation Term="OData.Description" String="HTTP Secure protocol."/>
+          <Annotation Term="OData.Description" String="Hypertext Transfer Protocol Secure (HTTPS)."/>
         </Member>
         <Member Name="NSF">
-          <Annotation Term="OData.Description" String="Network File System protocol."/>
+          <Annotation Term="OData.Description" String="Network File System (NFS)."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This value has been Deprecated in favor of NFS."/>
+                <PropertyValue Property="Description" String="This value has been deprecated in favor of NFS."/>
               </Record>
             </Collection>
           </Annotation>
         </Member>
         <Member Name="SCP">
-          <Annotation Term="OData.Description" String="Secure File Copy protocol."/>
+          <Annotation Term="OData.Description" String="Secure Copy Protocol (SCP)."/>
         </Member>
         <Member Name="TFTP">
-          <Annotation Term="OData.Description" String="Trivial File Transfer Protocol."/>
+          <Annotation Term="OData.Description" String="Trivial File Transfer Protocol (TFTP)."/>
         </Member>
         <Member Name="OEM">
-          <Annotation Term="OData.Description" String="A protocol defined by the manufacturer."/>
+          <Annotation Term="OData.Description" String="A manufacturer-defined protocol."/>
         </Member>
         <Member Name="NFS">
-          <Annotation Term="OData.Description" String="Network File System protocol."/>
+          <Annotation Term="OData.Description" String="Network File System (NFS)."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -239,7 +239,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema so that the action parameters are included."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_2.UpdateService"/>
     </Schema>
 
@@ -251,8 +251,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_4.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on FirmwareInventory and SoftwareInventory to not allow them to be null."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_5.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_6.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_0">
@@ -261,8 +273,8 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_0_1.UpdateService">
         <Property Name="HttpPushUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The URI used to perform an HTTP or HTTPS push update to the Update Service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI at which the UpdateService supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the Update Service."/>
+          <Annotation Term="OData.Description" String="The URI used to perform an HTTP or HTTPS push update to the Update Service.  The format of the message is vendor-specific."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI at which the Update Service supports an HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image.  Access to this URI shall require the same privilege as access to the Update Service.  If the Service requires the Content-Length header for POST requests to this URI, the service should return HTTP 411 if the client does not include this header in the POST request."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
       </EntityType>
@@ -276,7 +288,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema so that the action parameters are included."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_1.UpdateService"/>
     </Schema>
 
@@ -288,8 +300,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also updated to clarify the description of HttpPushUri."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also updated to clarify the description of HttpPushUri."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_3.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of HttpPushUri.  It was also updated to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on FirmwareInventory and SoftwareInventory to not allow them to be null."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_4.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_5.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_0">
@@ -298,21 +322,21 @@
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_1_1.UpdateService">
         <Property Name="HttpPushUriTargets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The array of URIs indicating the target for applying the update image."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs indicating the targets for applying the update image when using HttpPushUri to push a software image. These targets should correspond to SoftwareInventory instances or their RelatedItems. If this property is not present or contains zero targets, the Service shall apply the software image to all applicable targets (as determined by the Service)."/>
+          <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the HttpPushUri property to push a software image.  These targets should correspond to SoftwareInventory instances or their related items.  If this property is not present or contains no targets, the Service shall apply the software image to all applicable targets, as determined by the Service."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="HttpPushUriTargetsBusy" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This represents if the HttpPushUriTargets property is reserved by any client."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be a boolean that determines when the HttpPushUriTargets property is being used by a client for firmware updates. A client should set this property to True when it is using HttpPushUriTargets for firmware update, and should set it to False when it is no longer using HttpPushUriTargets for updates. The property can provide multiple clients a way to negotiate ownership of HttpPushUriTargets. This will help clients to know if a firmware update using HttpPushUriTargets is used by another client. This property has no functional requirements for the Service."/>
+          <Annotation Term="OData.Description" String="An indication of whether any client has reserved the HttpPushUriTargets property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether any client has reserved the HttpPushUriTargets property for firmware updates.  A client should set this property to `true` when it uses HttpPushUriTargets for firmware updates.  A client should set it to `false` when it is no longer uses HttpPushUriTargets for updates.  The property can provide multiple clients a way to negotiate ownership of HttpPushUriTargets and helps clients determine whether another client is using HttpPushUriTargets to make firmware updates.  This property has no functional requirements for the Service."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON schema so that the action parameters are included."/>
+      <Annotation Term="OData.Description" String="This version was created to regenerate the JSON Schema so that the action parameters are included."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_0.UpdateService"/>
     </Schema>
 
@@ -324,8 +348,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also updated to clarify the description of HttpPushUri."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also updated to clarify the HttpPushUri description."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_2.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of HttpPushUri.  It was also updated to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term to FirmwareInventory and SoftwareInventory to not allow them to be null."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_3.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter and HttpPushUriTargetsBusy.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_2_4.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_0">
@@ -337,54 +373,66 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation. It was also updated to clarify the description of HttpPushUri."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also updated to clarify the description of HttpPushUri."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of HttpPushUri.  It was also updated to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on FirmwareInventory and SoftwareInventory to not allow them to be null."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter and HttpPushUriTargetsBusy.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_2.UpdateService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add Username and Password parameters to SimpleUpdate. It was also created to add HttpPushUriOptions settings."/>
+      <Annotation Term="OData.Description" String="This version was created to add Username and Password parameters to SimpleUpdate.  It was also created to add HttpPushUriOptions settings."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_3_1.UpdateService">
         <Property Name="HttpPushUriOptions" Type="UpdateService.v1_4_0.HttpPushUriOptions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains options for software update via HttpPushUri."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain options and requirements of the service for software update via HttpPushUri."/>
+          <Annotation Term="OData.Description" String="The options for HttpPushUri-provided software updates."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain options and requirements of the Service for HttpPushUri-provided software updates."/>
         </Property>
         <Property Name="HttpPushUriOptionsBusy" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This represents if the properties of HttpPushUriOptions are reserved by any client."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be a boolean that determines when the properties within the HttpPushUriOptions object are being used by a client for software updates. A client should set this property to True when it is using any properties in HttpPushUriOptions for software update, and should set it to False when it is no longer using HttpPushUriOptions properties for updates. The property can provide multiple clients a way to negotiate ownership of HttpPushUriOptions. This will help clients to know if a firmware update using HttpPushUriOptions is used by another client. This property has no functional requirements for the Service."/>
-        </Property>        
+          <Annotation Term="OData.Description" String="An indication of whether a client has reserved the HttpPushUriOptions properties for software updates."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether a client uses the HttpPushUriOptions properties for software updates.  When a client uses any HttpPushUriOptions properties for software updates, it should set this property to `true`.  When a client no longer uses HttpPushUriOptions properties for software updates, it should set this property to `false`.  This property can provide multiple clients a way to negotiate ownership of HttpPushUriOptions properties.  Clients can use this property to determine whether another client uses HttpPushUriOptions properties for software updates.  This property has no functional requirements for the Service."/>
+        </Property>
       </EntityType>
 
       <ComplexType Name="HttpPushUriOptions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This object contains settings for software update via HttpPushUri."/>
-        <Annotation Term="OData.LongDescription" String="The properties in this object shall contain settings and requirements of the service for software update via HttpPushUri."/>
+        <Annotation Term="OData.Description" String="The settings for HttpPushUri-provided software updates."/>
+        <Annotation Term="OData.LongDescription" String="The properties in this object shall contain settings and requirements of the Service for HttpPushUri-provided software updates."/>
         <Property Name="HttpPushUriApplyTime" Type="UpdateService.v1_4_0.HttpPushUriApplyTime" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains settings for when firmware is to be applied when provided via HttpPushUri."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain settings for when firmware is to be applied when provided via HttpPushUri."/>
+          <Annotation Term="OData.Description" String="The settings for when to apply HttpPushUri-provided firmware."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain settings for when to apply HttpPushUri-provided firmware."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="HttpPushUriApplyTime">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This object contains settings for when software is to be applied when provided via HttpPushUri."/>
-        <Annotation Term="OData.LongDescription" String="The properties in this object shall contain settings for when software is to be applied when provided via HttpPushUri."/>
+        <Annotation Term="OData.Description" String="The settings for when to apply HttpPushUri-provided software."/>
+        <Annotation Term="OData.LongDescription" String="The properties in this object shall contain settings for when to apply HttpPushUri-provided software."/>
         <Property Name="ApplyTime" Type="UpdateService.v1_4_0.ApplyTime" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property indicates when the software  update invoked via HttpPushUri should be applied."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the preference on to when to apply the software provided via HttpPushUri."/>
+          <Annotation Term="OData.Description" String="The time when to apply the HttpPushUri-provided software update."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the time when to apply the HttpPushUri-provided software update."/>
         </Property>
         <Property Name="MaintenanceWindowStartTime" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The value of this property as specified by client to indicate the start time of a maintenance window."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the date and time as to when the service is allowed to start applying the software provided via HttpPushUri as part of a maintenance window.  This property shall be required if the HttpPushUriApplyTime property is specified as AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.Description" String="The start time of a maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the date and time when the Service can start to apply the HttpPushUri-provided software as part of a maintenance window.  This property shall contain required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
         </Property>
         <Property Name="MaintenanceWindowDurationInSeconds" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The value of this property as specified by client indicates the expiry time of maintenance window in seconds."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the end of the maintenance window as the number of seconds after the time specified by the HttpPushUriMaintenanceWindowStartTime property.  This property shall be required if the HttpPushUriApplyTime property is specified as AtMaintenanceWindowStart or InMaintenanceWindowOnReset."/>
+          <Annotation Term="OData.Description" String="The expiry time, in seconds, of the maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the end of the maintenance window as the number of seconds after the time specified by the HttpPushUriMaintenanceWindowStartTime property.  This property shall contain required if the HttpPushUriApplyTime property value is `AtMaintenanceWindowStart` or `InMaintenanceWindowOnReset`."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="s"/>
         </Property>
@@ -393,21 +441,78 @@
       <EnumType Name="ApplyTime">
         <Member Name="Immediate">
           <Annotation Term="OData.Description" String="Apply immediately."/>
-          <Annotation Term="OData.LongDescription" String="This ApplyTime value shall be used to indicate the software provided via HttpPushUri is applied immediately."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied immediately."/>
         </Member>
         <Member Name="OnReset">
           <Annotation Term="OData.Description" String="Apply on a reset."/>
-          <Annotation Term="OData.LongDescription" String="This ApplyTime value shall be used to indicate the software provided via HttpPushUri is applied when the system or service is reset."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied when the system or Service is reset."/>
         </Member>
         <Member Name="AtMaintenanceWindowStart">
-          <Annotation Term="OData.Description" String="Apply during a maintenance window as specified by an administrator."/>
-          <Annotation Term="OData.LongDescription" String="This ApplyTime value shall be used to indicate the software provided via HttpPushUri is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A service may perform resets during this maintenance window."/>
+          <Annotation Term="OData.Description" String="Apply during an administrator-specified maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties.  A Service may perform resets during this maintenance window."/>
         </Member>
         <Member Name="InMaintenanceWindowOnReset">
-          <Annotation Term="OData.Description" String="Apply after a reset but within maintenance window as specified by an adminstrator."/>
-          <Annotation Term="OData.LongDescription" String="This ApplyTime value shall be used to indicate the software provided via HttpPushUri is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
+          <Annotation Term="OData.Description" String="Apply after a reset but within an administrator-specified maintenance window."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the HttpPushUri-provided software is applied during the maintenance window specified by the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties, and if a reset occurs within the maintenance window."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of HttpPushUri.  It was also updated to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on FirmwareInventory and SoftwareInventory to not allow them to be null."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter, HttpPushUriTargetsBusy, HttpPushUriOptionsBusy, and HttpPushUriApplyTime.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_1.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.1"/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_4_1.UpdateService">
+        <Property Name="MaxImageSizeBytes" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The maximum size in bytes of the software update image that this Service supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the maximum size of the software update image that clients can send to this Update Service."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was added to update the long description of ImageURI parameter, HttpPushUriTargetsBusy, HttpPushUriOptionsBusy, and HttpPushUriApplyTime.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_5_1.UpdateService">
+        <Property Name="MultipartHttpPushUri" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS push update to the Update Service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI used to perform a Redfish Specification-defined Multipart HTTP or HTTPS POST of a software image for the purpose of installing software contained within the image."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="UpdateParameters" BaseType="UpdateService.UpdateParameters">
+        <Annotation Term="OData.Description" String="The update parameters used with MultipartHttpPushUri software update."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the update parameters when passing the update image when using the URI specified by the MultipartHttpPushUri property to push a software image."/>
+        <Property Name="Targets" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of URIs that indicate where to apply the update image."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain zero or more URIs that indicate where to apply the update image when using the URI specified by the MultipartHttpPushUri property to push a software image.  These targets should correspond to SoftwareInventory instances or their related items.  If this property is not present or contains no targets, the Service shall apply the software image to all applicable targets, as determined by the Service."/>
+          <Annotation Term="OData.IsURL"/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

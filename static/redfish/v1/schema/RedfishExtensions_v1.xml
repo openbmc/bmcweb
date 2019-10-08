@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  RedfishExtensions v1.0.0-->
+<!--# Redfish Schema:  RedfishExtensions v1.0.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -37,110 +37,116 @@
         <Annotation Term="OData.Description" String="The set of allowable values for a parameter."/>
       </Term>
       <Term Name="Required" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a property is required to be supported by services. Properties not annotated as required are optional."/>
+        <Annotation Term="OData.Description" String="This term specifies that a property is required to be supported by Services.  Properties not annotated as required are optional."/>
       </Term>
       <Term Name="RequiredOnCreate" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a property is required to be specified in the body of a POST request to create the resource."/>
+        <Annotation Term="OData.Description" String="The term specifies that a property is required to be specified in the body of a POST request to create the Resource."/>
       </Term>
       <Term Name="Settings" Type="Settings.Settings">
-        <Annotation Term="OData.Description" String="Reference to the resource that represents the settings to be applied to this object."/>
+        <Annotation Term="OData.Description" String="The link to the Settings Resource that represents the settings to apply to this Resource."/>
       </Term>
       <Term Name="AutoExpandReferences" Type="Edm.Boolean" DefaultValue="true">
         <Annotation Term="RedfishExtensions.v1_0_0.Deprecated" String="This term has been deprecated in favor of OData.AutoExpandReferences."/>
-        <Annotation Term="OData.Description" String="The term can be applied to a navigation property in order to specify that the default behavior for the service is to expand the references for the related resource or collection of resources in responses."/>
+        <Annotation Term="OData.Description" String="This term can be applied to a navigation property to specify that the default behavior for the Service is to expand the links to the related Resource or Resource Collection in responses."/>
       </Term>
       <Term Name="AutoExpand" Type="Edm.Boolean" DefaultValue="true">
         <Annotation Term="RedfishExtensions.v1_0_0.Deprecated" String="This term has been deprecated in favor of OData.AutoExpand."/>
-        <Annotation Term="OData.Description" String="The term can be applied to a navigation property in order to specify that the default behavior for the service is to expand the related resource or collection of resources in responses."/>
+        <Annotation Term="OData.Description" String="The term can be applied to a navigation property to specify that the default behavior for the Service is to expand the related Resource or Resource Collection in responses."/>
       </Term>
       <Term Name="IPv6Format" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term can be applied to a property or parameter in order to specify that IPv6 addressing rules apply to that property or parameter."/>
+        <Annotation Term="OData.Description" String="The term can be applied to a property or parameter to specify that IPv6 addressing rules apply to that property or parameter."/>
       </Term>
       <Term Name="Copyright" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term is applied to Redfish payload samples in order to specify copyright information. It would not generally be used in production payloads."/>
+        <Annotation Term="OData.Description" String="The term is applied to Redfish payload samples to specify copyright information.  It would not generally be used in production payloads."/>
       </Term>
       <Term Name="Deprecated" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term shall be applied to a property or value in order to specify that the property or value is deprecated.  The value of the string should explain the deprecation, including new property or properties or value to be used.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema."/>
+        <Annotation Term="OData.Description" String="The term shall be applied to a property or value to specify that the property or value is deprecated.  The string value should explain the deprecation, including new property or properties or value to use.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema."/>
       </Term>
       <Term Name="ActionInfo" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term can be applied to an Action to specify a URI to an ActionInfo resource which describes the parameters supported by this instance of the Action."/>
+        <Annotation Term="OData.Description" String="The term can be applied to an action to specify a URI to an ActionInfo Resource that describes the parameters supported by this instance of the action."/>
         <Annotation Term="OData.IsURL"/>
       </Term>
       <Term Name="DynamicPropertyPatterns" Type="Collection(RedfishExtensions.v1_0_0.PropertyPattern)" Nullable="false"/>
       <Term Name="SetOnlyOnCreate" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a property can only be set when a client is creating a new instance of a resource via POST."/>
+        <Annotation Term="OData.Description" String="The term specifies that a property can only be set when a client creates an instance of a Resource through POST."/>
       </Term>
       <Term Name="OptionalOnCreate" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a property may be set when a client is creating a new instance of a resource via POST."/>
+        <Annotation Term="OData.Description" String="The term specifies that a property may be set when a client creates an instance of a Resource through POST."/>
       </Term>
       <Term Name="UpdatableAfterCreate" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a property may be set by a client using PATCH after creating a new instance of a resource via POST."/>
+        <Annotation Term="OData.Description" String="The term specifies that a property may be set by a client that uses PATCH after it creates an instance of a Resource through POST."/>
       </Term>
       <Term Name="CollectionCapabilities" Type="CollectionCapabilities.CollectionCapabilities">
-        <Annotation Term="OData.Description" String="Reference to the resource that represents the POST capabilities of a given collection."/>
+        <Annotation Term="OData.Description" String="The link to the Resource that represents the POST capabilities of a collection."/>
       </Term>
       <Term Name="Confidential" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies that a schema or property is un-released and is therefore confidential material not for public disclosure."/>
+        <Annotation Term="OData.Description" String="The term specifies that a schema or property is un-released and confidential material that is not meant for public disclosure."/>
       </Term>
       <Term Name="Release" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies the version of the release bundle that this schema or versioned namespace was first released."/>
+        <Annotation Term="OData.Description" String="The term specifies the version of the release bundle in which this schema or versioned namespace was first released."/>
       </Term>
       <Term Name="ReleaseStatus" Type="RedfishExtensions.v1_0_0.ReleaseStatusType">
         <Annotation Term="OData.Description" String="The term specifies the public release status of a property or schema."/>
       </Term>
       <Term Name="SettingsApplyTime" Type="Settings.PreferredApplyTime">
-        <Annotation Term="OData.Description" String="Configuration settings for when the values in the settings object are applied to a given resource."/>
+        <Annotation Term="OData.Description" String="The configuration settings for when the values in the settings object are applied to a Resource."/>
       </Term>
       <Term Name="OperationApplyTime" Type="Settings.OperationApplyTime">
-        <Annotation Term="OData.Description" String="The requested apply time from a client when performing a Create, Delete, or Action operation."/>
+        <Annotation Term="OData.Description" String="The requested apply time from a client when performing a create, delete, or action operation."/>
       </Term>
       <Term Name="OperationApplyTimeSupport" Type="Settings.OperationApplyTimeSupport">
-        <Annotation Term="OData.Description" String="Indicates if a client is allowed to request for a specific apply time of a Create, Delete, or Action operation of a given resource via the OperationApplyTime term."/>
+        <Annotation Term="OData.Description" String="An indication of whether a client can request an apply time for a create, delete, or action operation of a Resource through the OperationApplyTime term."/>
       </Term>
       <Term Name="MaintenanceWindow" Type="Settings.MaintenanceWindow">
-        <Annotation Term="OData.Description" String="Maintenance window configuration of a resource for when to apply settings or operations."/>
+        <Annotation Term="OData.Description" String="The maintenance window configuration for a Resource for when to apply settings or operations."/>
       </Term>
       <Term Name="OwningEntity" Type="Edm.String">
-        <Annotation Term="OData.Description" String="Indicates the name of the entity responsible for development, publication and maintenance of a given schema.  Possible values include DMTF, SNIA or an OEM label such as is used in a Redfish OEM extension section."/>
+        <Annotation Term="OData.Description" String="The name of the entity responsible for development, publication, and maintenance of a schema.  Possible values include `DMTF` or `SNIA`, or an OEM label from a Redfish OEM extension section."/>
       </Term>
       <Term Name="Uris" Type="Collection(Edm.String)">
-        <Annotation Term="OData.Description" String="The term specifies the URIs a service is allowed to use for the given resource."/>
+        <Annotation Term="OData.Description" String="The term specifies the URIs that a Service can use for the Resource."/>
       </Term>
       <Term Name="RequestedCount" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term is used by a client in order to specify a request for a quantity of items."/>
+        <Annotation Term="OData.Description" String="The term is used by a client to specify a request for a quantity of items."/>
       </Term>
       <Term Name="RequestedCountRequired" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that a client is required to provide the @Redfish.RequestedCount term as part of the payload in order to specify a quantity of items."/>
+        <Annotation Term="OData.Description" String="The term specifies that a client is required to provide the @Redfish.RequestedCount term as part of the payload to specify a quantity of items."/>
       </Term>
       <Term Name="AllowOverprovisioning" Type="Edm.Boolean" DefaultValue="false">
-        <Annotation Term="OData.Description" String="The term specifies that a client is allowing the service to provide more resources than what was requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices."/>
-        <Annotation Term="OData.LongDescription" String="The term shall specify that a client is allowing the service to provide more resources than what was requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, then the service shall treat this as false."/>
+        <Annotation Term="OData.Description" String="The term specifies that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, the Service shall treat this as `false`."/>
       </Term>
       <Term Name="ZoneAffinity" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies that a client is requesting the service fulfills a request using resources available within a specific Zone resource.  The value of the term is the Id property of the given Zone resource."/>
-        <Annotation Term="OData.LongDescription" String="The term shall specify that a client is requesting the service fulfills a request using resources available within a specific Zone resource.  The value of the term shall be the Id property of the given Zone resource.  This term shall only be at the root level of the request payload."/>
+        <Annotation Term="OData.Description" String="The term specifies that a client requests that the Service fulfills a request with Resources available within a specific Zone Resource.  The term value is the Id property of the Zone Resource."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify that a client requests that the Service fulfills a request with Resources available in a specific Zone Resource.  The term value shall contain the Id property of the Zone Resource.  This term shall only be at the root level of the request payload."/>
       </Term>
       <Term Name="Filter" Type="Edm.String">
-        <Annotation Term="OData.Description" String="Indicates a filter to apply to an array of objects when the values are copies of data elsewhere in the data model."/>
-        <Annotation Term="OData.LongDescription" String="The term shall specify a Filter to apply to a set of objects used as the data source for an array. The value of the term shall follow the Filter query parameter format as specified in the Redfish Specification. Items matching the filter shall be included in the resulting array, while items that do not match the filter shall be excluded from the results."/>
+        <Annotation Term="OData.Description" String="The filter to apply to an array of objects when the values are copies of data elsewhere in the data model."/>
+        <Annotation Term="OData.LongDescription" String="The term shall specify a filter to apply to a set of objects used as the data source for an array.  The term value shall follow the Redfish Specification-specified filter query parameter format.  Items that match the filter shall appear in the resulting array, while items that do not match the filter shall be excluded from the results."/>
       </Term>
       <Term Name="Excerpt" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies that the property is a Excerpt data element that shall appear in objects marked as a Excerpt Copy when the value of the term matches the type specified by the ExcerptCopy term. The value shall be a property name to use as a key, and the value of that key property, and only one key property can be defined per resource. If the value of the term is unspecified, the property shall appear in all ExcerptCopy instances."/>
+        <Annotation Term="OData.Description" String="The term specifies that the property is a Excerpt data element that shall appear in objects marked as a Excerpt Copy when the term value matches the ExcerptCopy term type.  The value shall contain a property name to use as a key, and the key property value, and only one key property can be defined for each Resource.  If the term value is unspecified, the property shall appear in all ExcerptCopy instances."/>
       </Term>
       <Term Name="ExcerptCopy" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as Excerpt in that referenced definition shall be included. The value of the term shall contain the name and value of a key property used to construct the Excerpt subset of properties from the referenced definition. If the value of the term is not defined, then all Excerpt properties shall be copied from the referenced definition."/>
+        <Annotation Term="OData.Description" String="The term specifies that the object or property definition is a copy of data from a source elsewhere in the data model, and that only properties marked as Excerpt in that linked definition shall be included.  The term value shall contain the name of the specific Excerpt from the linked definition.  If the term value is not defined, all Excerpt properties shall be copied from the linked definition."/>
       </Term>
       <Term Name="ExcerptCopyOnly" Type="Edm.Boolean" DefaultValue="true">
-        <Annotation Term="OData.Description" String="The term specifies that the property is a data element that shall appear only when the resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data resource."/>
+        <Annotation Term="OData.Description" String="The term specifies that the property is a data element that shall appear only when the Resource definition is used as a copy (using the ExcerptCopy term), and shall not appear in the original data Resource."/>
       </Term>
       <Term Name="SupportedCertificates" Type="Collection(Certificate.CertificateType)">
         <Annotation Term="OData.Description" String="The term specifies the supported certificate formats for a given certificate collection."/>
       </Term>
       <Term Name="ResourceBlockLimits" Type="ResourceBlock.ResourceBlockLimits">
-        <Annotation Term="OData.Description" String="The term specifies the allowable quantities of types of Resource Blocks for a given composition request."/>
+        <Annotation Term="OData.Description" String="The term specifies the allowable quantities of types of Resource Blocks for a composition request."/>
+      </Term>
+      <Term Name="Language" Type="Edm.String" DefaultValue="en">
+        <Annotation Term="OData.Description" String="The term specifies the ISO 639-1 language code (Alpha-2) that matches the language used for the descriptive text in this schema file.  If this term is not present, the default value shall be English (en)."/>
+      </Term>
+      <Term Name="Translation" Type="Edm.String">
+        <Annotation Term="OData.Description" String="The term specifies a translated language (localized) version of the property name, parameter, or enumeration string.  The language shall match the Redfish.Language value for this schema."/>
       </Term>
       <Term Name="License" Type="Edm.String">
-        <Annotation Term="OData.Description" String="The term is applied to Redfish schema or registry in order to specify licensing information."/>
+        <Annotation Term="OData.Description" String="The term specifies licensing information for a Redfish schema or registry."/>
       </Term>
 
       <EnumType Name="ReleaseStatusType">
@@ -163,20 +169,20 @@
         <Annotation Term="OData.LongDescription" String="This type shall describe the pattern to which a dynamic property name must adhere."/>
         <Property Name="Pattern" Type="Edm.String">
           <Annotation Term="OData.Description" String="The pattern that the property name shall match."/>
-          <Annotation Term="OData.LongDescription" String="This shall be the pattern that the property name shall match."/>
+          <Annotation Term="OData.LongDescription" String="This shall contain the pattern that the property name shall match."/>
         </Property>
         <Property Name="Type" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The type that the name shall have."/>
-          <Annotation Term="OData.LongDescription" String="This shall be the type that the name shall have."/>
+          <Annotation Term="OData.Description" String="The type of name."/>
+          <Annotation Term="OData.LongDescription" String="This shall contain the type that the name shall have."/>
         </Property>
       </ComplexType>
 
       <Term Name="Revisions" Type="Collection(RedfishExtensions.v1_0_0.RevisionType)" Nullable="false">
-        <Annotation Term="OData.Description" String="List of revisions of a model element."/>
+        <Annotation Term="OData.Description" String="The list of revisions of a model element."/>
       </Term>
 
       <ComplexType Name="RevisionType">
-        <Annotation Term="OData.Description" String="A structure containing revision information."/>
+        <Annotation Term="OData.Description" String="The structure that contains revision information."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain revision information."/>
         <Property Name="Version" Type="Edm.String" Nullable="true">
           <Annotation Term="OData.Description" String="The schema version with which this revision was first published."/>
@@ -187,8 +193,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall describe the type of change made."/>
         </Property>
         <Property Name="Description" Type="Edm.String">
-          <Annotation Term="OData.Description" String="Text describing the reason for the revision."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the change made."/>
+          <Annotation Term="OData.Description" String="The reason for the revision."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a description of the change."/>
         </Property>
       </ComplexType>
 
@@ -209,8 +215,8 @@
       </Term>
 
       <ComplexType Name="EnumerationMember">
-        <Annotation Term="OData.Description" String="This type describes a member of an enumeration used for compatability purposes for enumerations which do not comply with OData rules."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a member of an enumeration which contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules."/>
+        <Annotation Term="OData.Description" String="The member of an enumeration that contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules.  Used for compatability purposes for enumerations that do not comply with OData rules."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a member of an enumeration that contains spaces, starts with a number, or otherwise does not comply with OData EnumMember naming rules."/>
         <Property Name="Member" Type="Edm.String">
           <Annotation Term="OData.Description" String="An allowable string member."/>
           <Annotation Term="OData.LongDescription" String="This shall be an allowable string member for the enumeration."/>
@@ -225,12 +231,13 @@
 
       <Term Name="Pattern" Type="Edm.String">
         <Annotation Term="OData.Description" String="The pattern that a string property or parameter must match."/>
+        <Annotation Term="OData.LongDescription" String="This term shall contain a regular expression that follows the ECMA 262 syntax."/>
       </Term>
       <Term Name="Minimum" Type="Edm.Int64">
-        <Annotation Term="OData.Description" String="Minimum value that an integer property or parameter can have."/>
+        <Annotation Term="OData.Description" String="The minimum value for an integer property or parameter."/>
       </Term>
       <Term Name="Maximum" Type="Edm.Int64">
-        <Annotation Term="OData.Description" String="Maximum value that an integer property or parameter can have."/>
+        <Annotation Term="OData.Description" String="The maximum value for an integer property or parameter."/>
       </Term>
 
     </Schema>
