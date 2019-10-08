@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ExternalAccountProvider  v1.1.0-->
+<!--# Redfish Schema:  ExternalAccountProvider v1.1.2                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,8 +34,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ExternalAccountProvider" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="A remote service that can provide accounts for this manager to utilize for authentication."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent resources that represent external user account services for this manager."/>
+        <Annotation Term="OData.Description" String="The remote service that provides accounts for this manager to use for authentication."/>
+        <Annotation Term="OData.LongDescription" String="The ExternalAccountProvider Schema contains Resources that represent external user account services for this manager."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -44,13 +44,13 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="External Account Providers can be updated to change the authentication and other writable properties."/>
+            <Annotation Term="OData.Description" String="Any writable properties, such as Authentication, can be updated for external account providers."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="External Account Providers are removed with a Delete operation."/>
+            <Annotation Term="OData.Description" String="The external account providers can be deleted."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -71,90 +71,90 @@
         <Property Name="AccountProviderType" Type="ExternalAccountProvider.v1_0_0.AccountProviderTypes">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property contains the type of external account provider this resource references."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the type of external account provider referenced by this resource."/>
+          <Annotation Term="OData.Description" String="The type of external account provider to which this Service connects."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of external account provider to which this Service connects."/>
         </Property>
         <Property Name="ServiceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether this service is enabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled."/>
         </Property>
         <Property Name="ServiceAddresses" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property contains the addresses of the user account providers this resource references. The format of this field depends on the Type."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the addresses of the account providers this resource references. The format of this field depends on the Type of the ExternalAccountProvider. Each item in the array shall contain a single address. Services may define their own behavior for managing multiple addresses."/>
+          <Annotation Term="OData.Description" String="The addresses of the user account providers to which this external account provider links.  The format of this field depends on the type of external account provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the addresses of the account providers to which this external account provider links.  The format of this field depends on the type of external account provider.  Each item in the array shall contain a single address.  Services may define their own behavior for managing multiple addresses."/>
         </Property>
-        <Property Name="Authentication" Type="ExternalAccountProvider.v1_0_0.Authentication">
-          <Annotation Term="OData.Description" String="This property contains the authentication information for the external account provider."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the authentication information for the external account provider."/>
+        <Property Name="Authentication" Type="ExternalAccountProvider.v1_0_0.Authentication" Nullable="false">
+          <Annotation Term="OData.Description" String="The authentication information for the external account provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the authentication information for the external account provider."/>
         </Property>
-        <Property Name="LDAPService" Type="ExternalAccountProvider.v1_0_0.LDAPService">
-          <Annotation Term="OData.Description" String="This property contains additional mapping information needed to parse a generic LDAP service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain any additional mapping information needed to parse a generic LDAP service."/>
+        <Property Name="LDAPService" Type="ExternalAccountProvider.v1_0_0.LDAPService" Nullable="false">
+          <Annotation Term="OData.Description" String="The additional mapping information needed to parse a generic LDAP service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any additional mapping information needed to parse a generic LDAP service.  This property should only be present if AccountProviderType is LDAPService."/>
         </Property>
         <Property Name="RemoteRoleMapping" Type="Collection(ExternalAccountProvider.v1_0_0.RoleMapping)">
-          <Annotation Term="OData.Description" String="This property contains a collection of the mapping rules to convert the external account providers account information to the local Redfish Role."/>
+          <Annotation Term="OData.Description" String="The mapping rules to convert the external account providers account information to the local Redfish Role."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a collection of the mapping rules to convert the external account providers account information to the local Redfish Role."/>
         </Property>
         <Property Name="Links" Type="ExternalAccountProvider.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="The Redfish Specification-define Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
         </Property>
         <Property Name="Actions" Type="ExternalAccountProvider.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <EnumType Name="AccountProviderTypes">
         <Member Name="RedfishService">
           <Annotation Term="OData.Description" String="An external Redfish Service."/>
-          <Annotation Term="OData.LongDescription" String="The external account provider shall be a service conforming to the DMTF Redfish specification. The format of ServiceAddresses shall be a collection of URIs which corresponds to a Redfish AccountService entity."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be a DMTF Redfish Specification-comformant service.  The ServiceAddresses format shall contain a collection of URIs that correspond to a Redfish Account Service entity."/>
         </Member>
         <Member Name="ActiveDirectoryService">
-          <Annotation Term="OData.Description" String="An external Active Directory Service."/>
-          <Annotation Term="OData.LongDescription" String="The external account provider shall be a service conforming to the Microsoft Active Directory Technical specification. The format of ServiceAddresses shall be a collection of FQDNs or Netbios names that references the set of domain servers for the Active Directory service."/>
+          <Annotation Term="OData.Description" String="An external Active Directory service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be a Microsoft Active Directory Technical Specification-comformant service.  The ServiceAddresses format shall contain a collection of fully qualified domain names (FQDN) or NetBIOS names that links to the set of domain servers for the Active Directory service."/>
         </Member>
         <Member Name="LDAPService">
-          <Annotation Term="OData.Description" String="A generic external LDAP Service."/>
-          <Annotation Term="OData.LongDescription" String="The external account provider shall be a service conforming to RFC4511. The format of ServiceAddresses shall be a collection of FQDNs that references the set of LDAP servers for the service."/>
+          <Annotation Term="OData.Description" String="A generic external LDAP service."/>
+          <Annotation Term="OData.LongDescription" String="The external account provider shall be an RFC4511-conformant service.  The ServiceAddresses format shall contain a collection of fully qualified domain names (FQDN) that links to the set of LDAP servers for the Service."/>
         </Member>
         <Member Name="OEM">
-          <Annotation Term="OData.Description" String="An OEM specific external authentication or directory service."/>
+          <Annotation Term="OData.Description" String="An OEM-specific external authentication or directory service."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="Authentication">
-        <Annotation Term="OData.Description" String="Contains the authentication information for the external service."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain all the required information to authenticate to the external service."/>
+        <Annotation Term="OData.Description" String="The information required to authenticate to the external service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the information required to authenticate to the external service."/>
         <Property Name="AuthenticationType" Type="ExternalAccountProvider.v1_0_0.AuthenticationTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property contains the type of authentication used to connect to the external account provider."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the type of authentication used to connect to the external account provider."/>
+          <Annotation Term="OData.Description" String="The type of authentication used to connect to the external account provider."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of authentication used to connect to the external account provider."/>
         </Property>
         <Property Name="Username" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property contains the user name for the account service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the user name for this account service."/>
+          <Annotation Term="OData.Description" String="The user name for the Service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the user name for this Service."/>
         </Property>
         <Property Name="Password" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property is used with a PATCH or PUT to write the password for the account service.  This property is null on a GET."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the password for this account service.  The value shall be null for GET requests."/>
+          <Annotation Term="OData.Description" String="The password for this Service.  A PATCH or PUT request writes the password.  This property is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password for this Service.  A PATCH or PUT operation writes the password.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="Token" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property is used with a PATCH or PUT to write the token for the account.  This property is null on a GET."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the token for this account service.  The value shall be null for GET requests."/>
+          <Annotation Term="OData.Description" String="The token for this Service.  A PATCH or PUT operation writes the token.  This property is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the token for this Service.  A PATCH or PUT operation writes the token.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="KerberosKeytab" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property is used with a PATCH or PUT to write a base64 encoded version of the kerberos keytab for the account.  This property is null on a GET."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a base64 encoded version of the kerberos keytab for this account service.  The value shall be null for GET requests."/>
+          <Annotation Term="OData.Description" String="The Base64-encoded version of the Kerberos keytab for this Service.  A PATCH or PUT operation writes the keytab.  This property is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a Base64-encoded version of the Kerberos keytab for this Service.  A PATCH or PUT operation writes the keytab.  The value shall be `null` in responses."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
 
@@ -163,97 +163,97 @@
           <Annotation Term="OData.Description" String="An opaque authentication token."/>
         </Member>
         <Member Name="KerberosKeytab">
-          <Annotation Term="OData.Description" String="A kerberos keytab."/>
+          <Annotation Term="OData.Description" String="A Kerberos keytab."/>
         </Member>
         <Member Name="UsernameAndPassword">
-          <Annotation Term="OData.Description" String="Username and password combination."/>
+          <Annotation Term="OData.Description" String="A user name and password combination."/>
         </Member>
         <Member Name="OEM">
-          <Annotation Term="OData.Description" String="An OEM specific authentication mechanism."/>
+          <Annotation Term="OData.Description" String="An OEM-specific authentication mechanism."/>
         </Member>
       </EnumType>
 
       <ComplexType Name="LDAPService">
-        <Annotation Term="OData.Description" String="Contains settings for parsing a generic LDAP service."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain all the required settings for parsing a generic LDAP service."/>
-        <Property Name="SearchSettings" Type="ExternalAccountProvider.v1_0_0.LDAPSearchSettings">
-          <Annotation Term="OData.Description" String="This property contains the settings needed to search an external LDAP service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the settings needed to search an external LDAP service."/>
+        <Annotation Term="OData.Description" String="The settings required to parse a generic LDAP service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain all required settings to parse a generic LDAP service."/>
+        <Property Name="SearchSettings" Type="ExternalAccountProvider.v1_0_0.LDAPSearchSettings" Nullable="false">
+          <Annotation Term="OData.Description" String="The required settings to search an external LDAP service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the required settings to search an external LDAP service."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="LDAPSearchSettings">
-        <Annotation Term="OData.Description" String="Contains settings for searching a generic LDAP service."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain all the required settings for searching a generic LDAP service."/>
+        <Annotation Term="OData.Description" String="The settings to search a generic LDAP service."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain all required settings to search a generic LDAP service."/>
         <Property Name="BaseDistinguishedNames" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The base distinguished names to use when searching the LDAP service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a collection of base distinguished names to use when searching the LDAP service."/>
+          <Annotation Term="OData.Description" String="The base distinguished names to search an external LDAP service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a collection of base distinguished names to search an external LDAP service."/>
         </Property>
         <Property Name="UsernameAttribute" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The attribute name that contains the Username."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the attribute name that contains the Username."/>
+          <Annotation Term="OData.Description" String="The attribute name that contains the LDAP user name entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the attribute name that contains the LDAP user name."/>
         </Property>
         <Property Name="GroupNameAttribute" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The attribute name that contains the name of the Group."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the attribute name that contains the name of the Group."/>
+          <Annotation Term="OData.Description" String="The attribute name that contains the LDAP group name entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the attribute name that contains the LDAP group name."/>
         </Property>
         <Property Name="GroupsAttribute" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The attribute name that contains the Groups for a user."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the attribute name that contains the Groups for a user."/>
+          <Annotation Term="OData.Description" String="The attribute name that contains the groups for a user on the LDAP user entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the attribute name that contains the groups for an LDAP user entry."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="RoleMapping">
-        <Annotation Term="OData.Description" String="Contains mapping rules to convert the external account providers account information to the local Redfish Role."/>
+        <Annotation Term="OData.Description" String="The mapping rules to convert the external account providers account information to the local Redfish Role."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain mapping rules to convert the external account providers account information to the local Redfish Role."/>
         <Property Name="RemoteGroup" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property is the name of the remote group (or in the case of a Redfish Service, remote role) that will be mapped to the local role referenced by this entity."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the name of the remote group (or in the case of a Redfish Service, remote role) that will be mapped to the local role referenced by this entity."/>
+          <Annotation Term="OData.Description" String="The name of the remote group, or the remote role in the case of a Redfish Service, that maps to the local Redfish Role to which this entity links."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote group, or the remote role in the case of a Redfish Service, that maps to the local Redfish Role to which this entity links."/>
         </Property>
         <Property Name="RemoteUser" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This property is the name of the remote user that will be mapped to the local role referenced by this entity."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the name of the remote user that will be mapped to the local role referenced by this entity."/>
+          <Annotation Term="OData.Description" String="The name of the remote user that maps to the local Redfish Role to which this entity links."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the remote user that maps to the local Redfish Role to which this entity links."/>
         </Property>
         <Property Name="LocalRole" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The name of the local role in which to map the remote user or group."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the value of the RoleId property within a Role resource on this Redfish service in which to map the remote user or group."/>
+          <Annotation Term="OData.Description" String="The name of the local Redfish Role to which to map the remote user or group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RoleId property value within a Role Resource on this Redfish Service to which to map the remote user or group."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="ExternalAccountProvider.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -263,17 +263,41 @@
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_0.ExternalAccountProvider"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, clarifies the LDAPSearchSettings property descriptions, and adds a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_1.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of Password, Token, and KerberosKeytab properties.  It was also created to clarify the usage of the LDAPService property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_2.ExternalAccountProvider"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
       <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_0_1.ExternalAccountProvider">
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is a reference to a collection of certificates used for the external account provider."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type CertificateCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of certificates that the external account provider uses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type CertificateCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, clarifies the LDAPSearchSettings property descriptions, and adds a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_1_0.ExternalAccountProvider"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ExternalAccountProvider.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of Password, Token, and KerberosKeytab properties.  It was also created to clarify the usage of the LDAPService property."/>
+      <EntityType Name="ExternalAccountProvider" BaseType="ExternalAccountProvider.v1_1_1.ExternalAccountProvider"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  CertificateLocations  v1.0.0-->
+<!--# Redfish Schema:  CertificateLocations v1.0.2                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,8 +34,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="CertificateLocations" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The CertificateLocations schema defines a resource that an administrator can use in order to locate all certificates installed on a given service."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Certificate Location Properties for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The CertificateLocations schema describes a Resource that an administrator can use in order to locate all certificates installed on a given service."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent the Certificate Location Properties for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -65,41 +65,53 @@
 
       <EntityType Name="CertificateLocations" BaseType="CertificateLocations.CertificateLocations">
         <Property Name="Links" Type="CertificateLocations.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
         </Property>
         <Property Name="Actions" Type="CertificateLocations.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
         <NavigationProperty Name="Certificates" Type="Collection(Certificate.Certificate)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property is an array of references to the certificates installed on this service."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of references to Certificate resources that are installed on this service."/>
+          <Annotation Term="OData.Description" String="An array of links to the certificates installed on this service."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to Certificate Resources that are installed on this service."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="CertificateLocations.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateLocations.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="CertificateLocations" BaseType="CertificateLocations.v1_0_0.CertificateLocations"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="CertificateLocations.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="CertificateLocations" BaseType="CertificateLocations.v1_0_1.CertificateLocations"/>
     </Schema>
 
   </edmx:DataServices>

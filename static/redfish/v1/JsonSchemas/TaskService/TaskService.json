@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/TaskService.v1_1_4.json",
     "$ref": "#/definitions/TaskService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -24,18 +25,19 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -64,10 +66,10 @@
         },
         "TaskService": {
             "additionalProperties": false,
-            "description": "This is the schema definition for the Task Service.  It represents the properties for the service itself and has links to the actual list of tasks.",
-            "longDescription": "This resource shall be used to represent a task service for a Redfish implementation.",
+            "description": "The TaskService schema describes a Task Service that enables management of long-duration operations, includes the properties for the Task Service itself, and has links to the actual Resource Collection of Tasks.",
+            "longDescription": "This Resource contains a Task Service for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -82,32 +84,33 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "CompletedTaskOverWritePolicy": {
                     "$ref": "#/definitions/OverWritePolicy",
-                    "description": "Overwrite policy of completed tasks.",
-                    "longDescription": "The value of this property shall indicate how completed tasks are handled should the task service need to track more tasks.",
+                    "description": "The overwrite policy for completed tasks.  This property indicates whether the Task Service overwrites completed task information.",
+                    "longDescription": "This property shall indicate how the Task Service shall handle completed tasks if the service must track more tasks.  This property indicates whether the Task Service overwrites completed task information.",
                     "readonly": true
                 },
                 "DateTime": {
-                    "description": "The current DateTime (with offset) setting that the task service is using.",
+                    "description": "The current date and time, with UTC offset, setting that the Task Service uses.",
                     "format": "date-time",
-                    "longDescription": "The value of this property shall represent the current DateTime value for the TaskService, with offset from UTC, in Redfish Timestamp format.",
+                    "longDescription": "This property shall represent the current DateTime value for the Task Service, with UTC offset, in Redfish Timestamp format.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -130,8 +133,8 @@
                     "readonly": true
                 },
                 "LifeCycleEventOnTaskStateChange": {
-                    "description": "Send an Event upon Task State Change.",
-                    "longDescription": "The value of this property, if set to true, shall indicate that the service shall send a Life cycle event to Event Destinations Subscriptions registered for such events upon change of task state. Life cycle events are defined in the Eventing section of the Redfish Specification.",
+                    "description": "An indication of whether a task state change sends an event.",
+                    "longDescription": "This property shall indicate whether a task state change sends an event.  The Eventing section of the Redfish Specification defines life-cycle events.",
                     "readonly": true,
                     "type": "boolean"
                 },
@@ -141,12 +144,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "ServiceEnabled": {
-                    "description": "This indicates whether this service is enabled.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.",
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -155,13 +158,13 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
                 "Tasks": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/TaskCollection.json#/definitions/TaskCollection",
-                    "description": "References to the Tasks collection.",
-                    "longDescription": "The value of this property shall be a link to a resource of type TaskCollection.",
+                    "description": "The links to the Tasks collection.",
+                    "longDescription": "This property shall contain a link to a Resource of type TaskCollection.",
                     "readonly": true
                 }
             },
@@ -175,5 +178,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#TaskService.v1_1_2.TaskService"
+    "release": "2017.1",
+    "title": "#TaskService.v1_1_4.TaskService"
 }

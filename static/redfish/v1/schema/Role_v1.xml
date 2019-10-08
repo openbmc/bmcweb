@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Role  v1.2.2-->
+<!--# Redfish Schema:  Role v1.2.4                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,8 +33,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Role" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This schema defines a user role to be used in conjunction with a manager account."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent resources that represent the user role for the user account."/>
+        <Annotation Term="OData.Description" String="The Role schema contains a Redfish Role to use in conjunction with a manager account."/>
+        <Annotation Term="OData.LongDescription" String="This Resource represents the Redfish Role for the user account."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -43,7 +43,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Roles can be updated to change various priveleges."/>
+            <Annotation Term="OData.Description" String="Various privileges can be updated for Roles."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -66,22 +66,20 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="Role" BaseType="Role.Role">
-        <Annotation Term="OData.Description" String="This resource defines a user role to be used in conjunction with a Manager Account."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent resources that represent the user role for the user account."/>
         <Property Name="IsPredefined" Type="Edm.Boolean" Nullable="false" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property is used to indicate if the Role is one of the Redfish Predefined Roles vs a Custom role."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if the role is a predefined role. ."/>
+          <Annotation Term="OData.Description" String="An indication of whether the Role is a Redfish-predefined Role rather than a custom Redfish Role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the Role is a Redfish-predefined Role rather than a custom Redfish Role."/>
         </Property>
         <Property Name="AssignedPrivileges" Type="Collection(Privileges.PrivilegeType)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The redfish privileges that this role includes."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the redfish privileges that the role includes. For pre-defined roles, this property shall be readOnly. For custom roles some implementations may not allow writing this property."/>
+          <Annotation Term="OData.Description" String="The Redfish privileges for this Role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Redfish privileges for this Role.  For predefined Roles, this property shall be read-only.  For custom Roles, some implementations may not allow writing to this property."/>
         </Property>
         <Property Name="OemPrivileges" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The OEM privileges that this role includes."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the OEM privileges that this role includes. For pre-defined roles, this property shall be readOnly. For custom roles some implementations may not allow writing this property."/>
+          <Annotation Term="OData.Description" String="The OEM privileges for this Role."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM privileges for this Role.  For predefined Roles, this property shall be read-only.  For custom Roles, some implementations may not allow writing to this property."/>
         </Property>
       </EntityType>
 
@@ -89,7 +87,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Role" BaseType="Role.v1_0_0.Role"/>
     </Schema>
 
@@ -105,30 +103,42 @@
       <EntityType Name="Role" BaseType="Role.v1_0_3.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Role" BaseType="Role.v1_0_4.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Role" BaseType="Role.v1_0_5.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Role" BaseType="Role.v1_0_2.Role">
         <Property Name="Actions" Type="Role.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Role.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -144,6 +154,18 @@
       <EntityType Name="Role" BaseType="Role.v1_1_1.Role"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Role" BaseType="Role.v1_1_2.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Role" BaseType="Role.v1_1_3.Role"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
@@ -151,7 +173,7 @@
         <Property Name="RoleId" Type="Edm.String" Nullable="false">
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This property contains the name of the Role."/>
+          <Annotation Term="OData.Description" String="The name of the Role."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the string name of the Role.  This property shall contain the same value as the Id property."/>
         </Property>
       </EntityType>
@@ -167,6 +189,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Role" BaseType="Role.v1_2_1.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Role" BaseType="Role.v1_2_2.Role"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Role.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Role" BaseType="Role.v1_2_3.Role"/>
     </Schema>
 
   </edmx:DataServices>

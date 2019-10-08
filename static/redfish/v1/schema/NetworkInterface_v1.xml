@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkInterface  v1.1.1-->
+<!--# Redfish Schema:  NetworkInterface v1.1.3                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,8 +39,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="NetworkInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="A NetworkInterface contains references linking NetworkAdapter, NetworkPort, and NetworkDeviceFunction resources and represents the functionality available to the containing system."/>
-        <Annotation Term="OData.LongDescription" String="A NetworkInterface contains references linking NetworkAdapter, NetworkPort, and NetworkDeviceFunction resources and represents the functionality available to the containing system."/>
+        <Annotation Term="OData.Description" String="The NetworkInterface schema describes links to the NetworkAdapter, NetworkPort, and NetworkDeviceFunction Resources and represents the functionality available to the containing system."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains links to the NetworkAdapter, NetworkPort, and NetworkDeviceFunction Resources and represents the functionality available to the containing system."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -74,37 +74,35 @@
       <Annotation Term="Redfish.Release" String="2016.3"/>
 
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.NetworkInterface">
-        <Annotation Term="OData.Description" String="A NetworkInterface contains references linking NetworkAdapter, NetworkPort, and NetworkDeviceFunction resources and represents the functionality available to the containing system."/>
-        <Annotation Term="OData.LongDescription" String="A NetworkInterface contains references linking NetworkAdapter, NetworkPort, and NetworkDeviceFunction resources and represents the functionality available to the containing system."/>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="Links" Type="NetworkInterface.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="Links."/>
+          <Annotation Term="OData.Description" String="The links."/>
           <Annotation Term="OData.LongDescription" String="Links for this controller."/>
         </Property>
         <NavigationProperty Name="NetworkPorts" Type="NetworkPortCollection.NetworkPortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the collection of NetworkPorts associated with this NetworkInterface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type NetworkPortCollection."/>
+          <Annotation Term="OData.Description" String="The link to the network ports associated with this network interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkPortCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the collection of NetworkDeviceFunctions associated with this NetworkInterface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a collection of type NetworkDeviceFunctionCollection."/>
+          <Annotation Term="OData.Description" String="The link to the network device functions associated with this network interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkDeviceFunctionCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
         <NavigationProperty Name="NetworkAdapter" Type="NetworkAdapter.NetworkAdapter" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the NetworkAdapter which contains this NetworkInterface."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to a resource of type NetworkAdapter that represents the physical container associated with this NetworkInterface."/>
+          <Annotation Term="OData.Description" String="The link to the network adapter that contains this network interface."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type NetworkAdapter that represents the physical container associated with this NetworkInterface."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -113,7 +111,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_0.NetworkInterface"/>
     </Schema>
 
@@ -123,30 +121,42 @@
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_1.NetworkInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_2.NetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_3.NetworkInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_0_1.NetworkInterface">
         <Property Name="Actions" Type="NetworkInterface.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="NetworkInterface.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -154,6 +164,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_0.NetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_1.NetworkInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkInterface.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="NetworkInterface" BaseType="NetworkInterface.v1_1_2.NetworkInterface"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,15 +1,15 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_4_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_4_3.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource.",
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -39,18 +39,18 @@
                 "Critical"
             ],
             "enumDescriptions": {
-                "Critical": "A critical condition requiring immediate attention.",
+                "Critical": "A critical condition that requires immediate attention.",
                 "OK": "Informational or operating normally.",
-                "Warning": "A condition requiring attention."
+                "Warning": "A condition that requires attention."
             },
             "type": "string"
         },
         "Links": {
             "additionalProperties": false,
-            "description": "Contains references to other resources that are related to this resource.",
-            "longDescription": "This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource.",
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -66,13 +66,13 @@
             "properties": {
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "OriginOfCondition": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
-                    "description": "This is the URI of the resource that caused the log entry.",
-                    "longDescription": "The value of this property shall be an href that references the resource for which the log is associated.",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
+                    "description": "The URI of the Resource that caused the log entry.",
+                    "longDescription": "This property shall contain a link to the Resource that caused the log entry.",
                     "readonly": true
                 }
             },
@@ -80,10 +80,10 @@
         },
         "LogEntry": {
             "additionalProperties": false,
-            "description": "This resource defines the record format for a log.  It is designed to be used for SEL logs (from IPMI) as well as Event Logs and OEM-specific log formats.  The EntryType field indicates the type of log and the resource includes several additional properties dependent on the EntryType.",
-            "longDescription": "This resource shall represent the log format for log services in a Redfish implementation.",
+            "description": "The LogEntry schema defines the record format for a log.  It is designed for Redfish event logs, OEM-specific log formats, and the IPMI System Event Log (SEL).  The EntryType field indicates the type of log and the Resource includes several additional properties dependent on the EntryType.",
+            "longDescription": "This Resource shall represent the log format for Log Services in a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -98,27 +98,27 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource.",
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_2_0"
                 },
                 "Created": {
-                    "description": "The time the log entry was created.",
+                    "description": "The date and time when the log entry was created.",
                     "format": "date-time",
-                    "longDescription": "The value of this property shall be the time at which the log entry was created.",
+                    "longDescription": "This property shall contain the date and time when the log entry was created.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -142,19 +142,19 @@
                             "type": "null"
                         }
                     ],
-                    "description": "If the EntryType is SEL, this will have the entry code for the log entry.",
-                    "longDescription": "This property shall be present if the EntryType value is SEL.  These enumerations are the values from tables 42-1 and 42-2 of the IPMI specification.",
+                    "description": "The entry code for the log entry if the entry type is `SEL`.",
+                    "longDescription": "This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification describe these enumerations.",
                     "readonly": true
                 },
                 "EntryType": {
                     "$ref": "#/definitions/LogEntryType",
-                    "description": "This is the type of log entry.",
-                    "longDescription": "This property shall represent the type of LogEntry.  If the resource represents an IPMI SEL log entry, the value shall be SEL.  If the resource represents an Event log, the value shall be Event.  If the resource represents an OEM log format, the value shall be Oem.",
+                    "description": "The type of log entry.",
+                    "longDescription": "This property shall represent the type of log entry.  If the Resource represents an IPMI SEL entry, the value shall contain `SEL`.  If the Resource represents a Redfish event log entry, the value shall contain `Event`.  If the Resource represents an OEM log entry format, the value shall contain `Oem`.",
                     "readonly": true
                 },
                 "EventGroupId": {
-                    "description": "This value is the identifier used to correlate events that came from the same cause.",
-                    "longDescription": "The value of this property shall indicate that events are related and shall have the same value in the case where multiple Event messages are produced by the same root cause.  Implementations shall use separate values for events with separate root cause.  There shall not be ordering of events implied by the value of this property.",
+                    "description": "An identifier that correlates events with the same cause.",
+                    "longDescription": "This property shall indicate that events are related and shall have the same value in the case where multiple event messages are produced by the same root cause.  Implementations shall use separate values for events with separate root cause.  There shall not be ordering of events implied by this property's value.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -163,26 +163,28 @@
                     "versionAdded": "v1_4_0"
                 },
                 "EventId": {
-                    "description": "This is a unique instance identifier of an event.",
+                    "description": "The unique instance identifier for an event.",
                     "longDescription": "If present, this LogEntry records an Event and the value shall indicate a unique identifier for the event, the format of which is implementation dependent.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_1_0"
                 },
                 "EventTimestamp": {
-                    "description": "This is time the event occurred.",
+                    "description": "The date and time when the event occurred.",
                     "format": "date-time",
-                    "longDescription": "If present, this LogEntry records an Event and the value shall be the time the event occurred.",
+                    "longDescription": "If present, this LogEntry records an event and the value shall contain the date and time when the event occurred.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_1_0"
                 },
                 "EventType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Event.json#/definitions/EventType",
-                    "description": "This indicates the type of an event recorded in this log.",
-                    "longDescription": "If present, this LogEntry records an Event and the value shall indicate the type of event.",
+                    "deprecated": "This property has been deprecated.  Starting with Redfish Specification v1.6 (Event v1.3), subscriptions are based on the RegistryPrefix and ResourceType properties and not on the EventType property.",
+                    "description": "The type of event recorded in this log.",
+                    "longDescription": "If present, this LogEntry records an event and the value shall indicate the type of event.",
                     "readonly": true,
-                    "versionAdded": "v1_1_0"
+                    "versionAdded": "v1_1_0",
+                    "versionDeprecated": "v1_4_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -190,12 +192,12 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "Contains references to other resources that are related to this resource.",
-                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "This Redfish Specification-described property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."
                 },
                 "Message": {
-                    "description": "This property decodes from EntryType.  If the EntryType is Event, then it is a message string.  Otherwise, it is SEL or OEM specific.  In most cases, this will be the actual Log Entry.",
-                    "longDescription": "The value of this property shall be the Message property of the event if the EntryType is Event, the Description if the EntryType is SEL, and OEM Specific if the EntryType is Oem.",
+                    "description": "The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
+                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -203,17 +205,17 @@
                     ]
                 },
                 "MessageArgs": {
-                    "description": "The values of this property shall be any arguments for the message.",
+                    "description": "The arguments for the message.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This contains message arguments to be substituted into the message included or in the message looked up via a registry.",
+                    "longDescription": "This property shall contain message arguments to substitute into the included or looked-up message.",
                     "readonly": true,
                     "type": "array"
                 },
                 "MessageId": {
-                    "description": "This property decodes from EntryType.  If the EntryType is Event, then it is a message id.  If the EntryType is SEL, then it contains the Event Data.  Otherwise, it is OEM specific.  This value is only used for registries - for more information, see the specification.",
-                    "longDescription": "The value of this property shall the MessageId property of the event if the EntryType is Event, the three IPMI Event Data bytes if the EntryType is SEL, and OEM Specific if the EntryType is Oem.  The format of this property shall be as defined in the Redfish specification.  If representing the three IPMI Event Data bytes, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){3}$', where Event Data 1 is the first byte in the string, Event Data 2 is the second byte in the string, and Event Data 3 is the third byte in the string.",
+                    "description": "The MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId.  If the entry type is `SEL`, this property contains the Event Data.  Otherwise, this property contains OEM-specific information.",
+                    "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, this property contains the three IPMI Event Data bytes.  In this case, the format should follow the `^0[xX](([a-fA-F]|[0-9]){2}){3}$` pattern, where Event Data 1 is the first byte in the string, Event Data 2 is the second byte in the string, and Event Data 3 is the third byte in the string.  Otherwise, this property contains OEM-specific information.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -223,12 +225,12 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "OemLogEntryCode": {
-                    "description": "If the LogEntryCode type is OEM, this will contain the OEM-specific entry code.",
-                    "longDescription": "The value of this property shall represent the OEM specific Log Entry Code type of the Entry.  This property shall only be present if the value of EntryType is SEL and the value of LogEntryCode is OEM.",
+                    "description": "The OEM-specific entry code, if the LogEntryCode type is `OEM`.",
+                    "longDescription": "This property shall represent the OEM-specific Log Entry Code type of the Entry.  This property shall only be present if EntryType is `SEL` and LogEntryCode is `OEM`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -237,8 +239,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "OemRecordFormat": {
-                    "description": "If the EntryType is Oem, this will contain more information about the record format from the Oem.",
-                    "longDescription": "The value of this property shall represent the OEM specific format of the Entry.  This property shall be required if the value of EntryType is Oem.",
+                    "description": "The OEM-specific format of the entry.  If the entry type is `Oem`, this property contains more information about the record format from the OEM.",
+                    "longDescription": "This property shall represent the OEM-specific format of the entry.  This property shall be required if the EntryType value is `Oem`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -246,8 +248,8 @@
                     ]
                 },
                 "OemSensorType": {
-                    "description": "If the Sensor Type is OEM, this will contain the OEM-specific sensor type.",
-                    "longDescription": "The value of this property shall represent the OEM specific sensor type of the Entry.  This property shall only be used if the value of EntryType is SEL and the value of SensorType is OEM.",
+                    "description": "The OEM-specific sensor type if the sensor type is `OEM`.",
+                    "longDescription": "This property shall represent the OEM-specific sensor type of the entry.  This property shall only be used if EntryType is `SEL` and SensorType is `OEM`.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -256,8 +258,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "SensorNumber": {
-                    "description": "This property decodes from EntryType.  If the EntryType is SEL, it is the sensor number.  If the EntryType is Event, then the count of events.  Otherwise, it is OEM specific.",
-                    "longDescription": "The value of this property shall be the IPMI sensor number if the EntryType is SEL, the count of events if the EntryType is Event, and OEM Specific if EntryType is Oem.",
+                    "description": "The sensor number, the count of events, or OEM-specific information.  This property value is decoded from the entry type.  If the entry type is `SEL`, this property contains the sensor number.  If the entry type is `Event`, this property contains the count of events.  Otherwise, this property contains OEM-specific information.",
+                    "longDescription": "This property shall contain the sensor number, the count of events, or OEM-specific information.  This property value is decoded from the entry type.  If the entry type is `SEL`, this property contains the sensor number.  If the entry type is `Event`, this property contains the count of events.  Otherwise, this property contains OEM-specific information.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -273,8 +275,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "If the EntryType is SEL, this will have the sensor type that the log entry pertains to.",
-                    "longDescription": "This property shall be present if the EntryType value is SEL.  These enumerations are the values from table 42-3 of the IPMI specification.",
+                    "description": "The sensor type to which the log entry pertains if the entry type is `SEL`.",
+                    "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3 in the IPMI Specification describes these enumerations.",
                     "readonly": true
                 },
                 "Severity": {
@@ -286,8 +288,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "This is the severity of the log entry.",
-                    "longDescription": "The value of this property shall be the severity of the condition resulting in the log entry, as defined in the Status section of the Redfish specificaiton.",
+                    "description": "The severity of the log entry.",
+                    "longDescription": "This property shall contain the severity of the condition that created the log entry, as defined in the Status section of the Redfish Specification.",
                     "readonly": true
                 }
             },
@@ -368,18 +370,18 @@
             ],
             "enumDescriptions": {
                 "Assert": "The condition has been asserted.",
-                "D0 Power State": "The ACPI defined D0 Power State.",
-                "D1 Power State": "The ACPI defined D1 Power State.",
-                "D2 Power State": "The ACPI defined D2 Power State.",
-                "D3 Power State": "The ACPI defined D3 Power State.",
+                "D0 Power State": "The ACPI-defined D0 power state.",
+                "D1 Power State": "The ACPI-defined D1 power state.",
+                "D2 Power State": "The ACPI-defined D2 power state.",
+                "D3 Power State": "The ACPI-defined D3 power state.",
                 "Deassert": "The condition has been deasserted.",
                 "Device Disabled": "A device has been disabled.",
                 "Device Enabled": "A device has been enabled.",
-                "Device Inserted / Device Present": "A device has been inserted or is now present.",
-                "Device Removed / Device Absent": "A device has been removed or is now absent.",
+                "Device Inserted / Device Present": "A device has been inserted or is present.",
+                "Device Removed / Device Absent": "A device has been removed or is absent.",
                 "Fully Redundant": "Indicates that full redundancy has been regained.",
-                "Informational": "An Informational event.",
-                "Install Error": "An Install Error has been detected.",
+                "Informational": "An informational event.",
+                "Install Error": "An install error has been detected.",
                 "Limit Exceeded": "A limit has been exceeded.",
                 "Limit Not Exceeded": "A limit has not been exceeded.",
                 "Lower Critical - going high": "The reading crossed the Lower Critical threshold while going high.",
@@ -388,11 +390,11 @@
                 "Lower Non-critical - going low": "The reading crossed the Lower Non-critical threshold while going low.",
                 "Lower Non-recoverable - going high": "The reading crossed the Lower Non-recoverable threshold while going high.",
                 "Lower Non-recoverable - going low": "The reading crossed the Lower Non-recoverable threshold while going low.",
-                "Monitor": "A Monitor event.",
-                "Non-redundant:Insufficient Resources": "Unit is non-redundant and has insufficient resource to maintain normal operation.",
-                "Non-redundant:Sufficient Resources from Insufficient Resources": "Unit has regianed minimum resources needed for normal operation.",
+                "Monitor": "A monitor event.",
+                "Non-redundant:Insufficient Resources": "Unit is non-redundant and has insufficient resources to maintain normal operation.",
+                "Non-redundant:Sufficient Resources from Insufficient Resources": "Unit has regained minimum resources needed for normal operation.",
                 "Non-redundant:Sufficient Resources from Redundant": "Redundancy has been lost but unit is functioning with minimum resources needed for normal operation.",
-                "OEM": "An OEM defined event.",
+                "OEM": "An OEM-defined event.",
                 "Performance Lags": "Performance does not meet expectations.",
                 "Performance Met": "Performance meets expectations.",
                 "Predictive Failure asserted": "A Predictive Failure has been detected.",
@@ -440,18 +442,18 @@
                 "Oem"
             ],
             "enumDescriptions": {
-                "Event": "Contains a Redfish-defined message (event).",
-                "Oem": "Contains an entry in an OEM-defined format.",
-                "SEL": "Contains a legacy IPMI System Event Log (SEL) entry."
+                "Event": "A Redfish-defined message.",
+                "Oem": "An entry in an OEM-defined format.",
+                "SEL": "A legacy IPMI System Event Log (SEL) entry."
             },
             "type": "string"
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -520,7 +522,7 @@
                 "Battery": "A sensor for a battery.",
                 "Boot Error": "A sensor for a boot error event.",
                 "Button/Switch": "A sensor for a button or switch.",
-                "Cable/Interconnect": "A sensor for a cable or interconnect type of device.",
+                "Cable/Interconnect": "A sensor for a cable or interconnect device type.",
                 "Chassis": "A sensor for a chassis.",
                 "ChipSet": "A sensor for a chipset.",
                 "CoolingDevice": "A sensor for a cooling device.",
@@ -537,9 +539,9 @@
                 "Microcontroller/Coprocessor": "A sensor for a microcontroller or coprocessor.",
                 "Module/Board": "A sensor for a module or board.",
                 "Monitor ASIC/IC": "A sensor for a monitor ASIC or IC.",
-                "OEM": "An OEM defined sensor.",
+                "OEM": "An OEM-defined sensor.",
                 "OS Stop/Shutdown": "A sensor for an OS stop or shutdown event",
-                "Other FRU": "A sensor for an other type of FRU.",
+                "Other FRU": "A sensor for another type of FRU.",
                 "Other Units-based Sensor": "A sensor for a miscellaneous analog sensor.",
                 "POST Memory Resize": "A sensor for a POST memory resize event.",
                 "Physical Chassis Security": "A physical security sensor.",
@@ -568,5 +570,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#LogEntry.v1_4_1.LogEntry"
+    "title": "#LogEntry.v1_4_3.LogEntry"
 }

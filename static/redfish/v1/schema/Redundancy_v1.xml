@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Redundancy  v1.3.2-->
+<!--# Redfish Schema:  Redundancy v1.3.3                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -28,8 +28,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Redundancy" BaseType="Resource.v1_0_0.ReferenceableMember" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the common redundancy definition and structure used in other Redfish schemas."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the Redundancy element property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.  The value of this string shall be of the format for the reserved word *Redundancy*."/>
+        <Annotation Term="OData.Description" String="The common redundancy definition and structure used in other Redfish schemas."/>
+        <Annotation Term="OData.LongDescription" String="This object represents the redundancy element property."/>
       </EntityType>
 
     </Schema>
@@ -39,40 +39,38 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="Redundancy" BaseType="Redundancy.Redundancy">
-        <Annotation Term="OData.Description" String="This is the redundancy definition to be used in other resource schemas."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the Redundancy element property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification.  The value of this string shall be of the format for the reserved word *Redundancy*."/>
         <Property Name="Name" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description"  String="The name of the resource or array element."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Name property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification. The value of this string shall be of the format for the reserved word *Name*."/>
+          <Annotation Term="OData.Description"  String="The name of the Resource or array member."/>
+          <Annotation Term="OData.LongDescription" String="This object represents the name of this Resource or array member.  The Resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Mode" Type="Redundancy.v1_0_0.RedundancyMode">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the redundancy mode of the group."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the information about the redundancy mode of this subsystem."/>
+          <Annotation Term="OData.Description" String="The redundancy mode of the group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the information about the redundancy mode of this subsystem."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="MaxNumSupported" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the maximum number of members allowable for this particular redundancy group."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the maximum number of members allowed in the redundancy group."/>
+          <Annotation Term="OData.Description" String="The maximum number of members allowable for this particular redundancy group."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of members allowed in the redundancy group."/>
         </Property>
         <Property Name="MinNumNeeded" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the minumum number of members needed for this group to be redundant."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to still be fault tolerant."/>
+          <Annotation Term="OData.Description" String="The minumum number of members needed for this group to be redundant."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to still be fault tolerant."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <NavigationProperty Name="RedundancySet" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Contains any ids that represent components of this redundancy set."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall contain the ids of components that are part of this redundancy set. The id values may or may not be dereferenceable."/>
+          <Annotation Term="OData.Description" String="The links to components of this redundancy set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the links to components that are part of this redundancy set."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
@@ -83,7 +81,7 @@
           <Collection>
             <Record>
               <PropertyValue Property="Member" String="Failover"/>
-              <Annotation Term="OData.Description" String="Failure of one unit will automatically cause its functions to be taken over by a standby or offline unit in the redundancy set."/>
+              <Annotation Term="OData.Description" String="Failure of one unit automatically causes a standby or offline unit in the redundancy set to take over its functions."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="N+m"/>
@@ -117,25 +115,25 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_0.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_1.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_2.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of type Collection."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_3.Redundancy"/>
     </Schema>
 
@@ -147,8 +145,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_5.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_6.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_7.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_0">
@@ -157,21 +167,21 @@
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_0_2.Redundancy">
         <Property Name="RedundancyEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether redundancy is enabled."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether the redundancy is enabled."/>
+          <Annotation Term="OData.Description" String="An indication of whether redundancy is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the redundancy is enabled."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_0.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of type Collection."/>
+      <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_1.Redundancy"/>
     </Schema>
 
@@ -183,8 +193,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_3.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_4.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_5.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_0">
@@ -192,25 +214,25 @@
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_1_2.Redundancy">
         <Property Name="Actions" Type="Redundancy.v1_2_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Redundancy.v1_2_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -222,8 +244,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_1.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_2.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_2_3.Redundancy"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_0">
@@ -241,8 +275,20 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to make use of the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to remove the 'Required' term on MaxNumSupported."/>
       <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_1.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_2.Redundancy"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Redundancy.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="Redundancy" BaseType="Redundancy.v1_3_3.Redundancy"/>
     </Schema>
 
   </edmx:DataServices>

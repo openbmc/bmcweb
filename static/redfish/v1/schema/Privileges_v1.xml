@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Privileges  v1.0.4-->
+<!--# Redfish Schema:  Privileges v1.0.5                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -25,19 +25,19 @@
 
       <EnumType Name="PrivilegeType">
         <Member Name="Login">
-          <Annotation Term="OData.Description" String="Able to log into the service and read resources."/>
+          <Annotation Term="OData.Description" String="Can log in to the service and read Resources."/>
         </Member>
         <Member Name="ConfigureManager">
-          <Annotation Term="OData.Description" String="Able to configure Manager resources."/>
+          <Annotation Term="OData.Description" String="Can configure managers."/>
         </Member>
         <Member Name="ConfigureUsers">
-          <Annotation Term="OData.Description" String="Able to configure Users and their Accounts."/>
+          <Annotation Term="OData.Description" String="Can configure users and their accounts."/>
         </Member>
         <Member Name="ConfigureSelf">
-          <Annotation Term="OData.Description" String="Able to change the password for the current user Account."/>
+          <Annotation Term="OData.Description" String="Can change the password for the current user account."/>
         </Member>
         <Member Name="ConfigureComponents">
-          <Annotation Term="OData.Description" String="Able to configure components managed by this service."/>
+          <Annotation Term="OData.Description" String="Can configure components that this service manages."/>
         </Member>
       </EnumType>
 
@@ -48,33 +48,38 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <Term Name="OemGetPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM Get operations privileges may be defined on a Link element to provide read privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="The OEM GET operations privileges may be defined on a Link element to provide read privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
       </Term>
       <Term Name="OemPostPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM Post privileges may be defined on a Link element to provide create privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="The OEM POST privileges may be defined on a Link element to provide create privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
       </Term>
       <Term Name="OemPatchPutPrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM PatchPut privileges may be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM PatchPut privileges may be defined on a Link element to provide update privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
       </Term>
       <Term Name="OemDeletePrivileges" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="OEM Delete privileges may be defined on a Link element to provide update privileges for the referenced resources, or on individual elements to override the privileges for that element."/>
+        <Annotation Term="OData.Description" String="OEM Delete privileges may be defined on a Link element to provide update privileges for the linked Resources, or on an individual element to override the privileges for that element."/>
       </Term>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to deprecate the versioned definition of PrivilegeType to use an unversioned definition."/>
+      <Annotation Term="OData.Description" String="This version deprecates the versioned PrivilegeType definition to use an unversioned definition."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Privileges.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
   </edmx:DataServices>

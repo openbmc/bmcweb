@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeDevice  v1.3.0-->
+<!--# Redfish Schema:  PCIeDevice v1.4.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,6 +31,9 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
     <edmx:Include Namespace="PCIeFunction"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunctionCollection_v1.xml">
+    <edmx:Include Namespace="PCIeFunctionCollection"/>
+  </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Assembly_v1.xml">
     <edmx:Include Namespace="Assembly"/>
   </edmx:Reference>
@@ -41,8 +44,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="PCIeDevice" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for the PCIeDevice resource.  It represents the properties of a PCIeDevice attached to a System."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a PCIeDevice attached to a System."/>
+        <Annotation Term="OData.Description" String="The PCIeDevice schema describes the properties of a PCIe device that is attached to a system."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains a PCIeDevice that is attached to a system."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -70,7 +73,7 @@
       <ComplexType Name="PCIeInterface" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="This type describes a PCIe Interface."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the PCIe interface characteristics of a PCIe Device."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the PCIe interface characteristics of a PCIe device."/>
       </ComplexType>
 
       <EnumType Name="PCIeTypes">
@@ -108,70 +111,79 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.PCIeDevice">
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the manufacturer of this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name of the organization responsible for producing the PCIe device. This organization might be the entity from whom the PCIe device is purchased, but this is not necessarily true."/>
+          <Annotation Term="OData.Description" String="The manufacturer of this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the PCIe device.  This organization might be the entity from whom the PCIe device is purchased, but this is not necessarily true."/>
         </Property>
         <Property Name="Model" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the model number for the PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the name by which the manufacturer generally refers to the PCIe device."/>
+          <Annotation Term="OData.Description" String="The model number for the PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name by which the manufacturer generally refers to the PCIe device."/>
         </Property>
         <Property Name="SKU" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the SKU for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the stock-keeping unit number for this PCIe device."/>
+          <Annotation Term="OData.Description" String="The SKU for this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the stock-keeping unit number for this PCIe device."/>
         </Property>
         <Property Name="SerialNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The serial number for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a manufacturer-allocated number used to identify the PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the PCIe device."/>
         </Property>
         <Property Name="PartNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The part number for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a part number assigned by the organization that is responsible for producing or manufacturing the PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the PCIe device."/>
         </Property>
         <Property Name="AssetTag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The user assigned asset tag for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an identifying string used to track the PCIe device for inventory purposes."/>
+          <Annotation Term="OData.Description" String="The user-assigned asset tag for this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an identifying string that tracks the PCIe device for inventory purposes."/>
         </Property>
 
         <Property Name="DeviceType" Type="PCIeDevice.v1_0_0.DeviceType" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The device type for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the device type of the PCIe device such as SingleFunction or MultiFunction."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the device type of the PCIe device such as SingleFunction or MultiFunction."/>
         </Property>
         <Property Name="FirmwareVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The version of firmware for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the firmware version of the PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the firmware version of the PCIe device."/>
         </Property>
 
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="Links" Type="PCIeDevice.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links object contains the links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by, or subordinate to, this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
+        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
+        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of references to the chassis in which the PCIe device is contained."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall reference a resource of type Chassis that represents the physical container associated with this resource."/>
+          <Annotation Term="OData.Description" String="An array of links to the chassis in which the PCIe device is contained."/>
+          <Annotation Term="OData.LongDescription" String="This property shall link to a Resource of type Chassis that represents the physical container associated with this Resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PCIeFunctions" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of references to PCIeFunctions exposed by this device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to the resources that this device exposes and shall reference a resource of type PCIeFunction."/>
+          <Annotation Term="OData.Description" String="An array of links to PCIeFunctions exposed by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resources of the PCIeFunction type that this device exposes."/>
           <Annotation Term="OData.AutoExpandReferences"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_4_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeFunctions property in the root that provides a link to a Resource Collection."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </NavigationProperty>
       </ComplexType>
 
@@ -183,7 +195,7 @@
           <Annotation Term="OData.Description" String="A multi-function PCIe device."/>
         </Member>
         <Member Name="Simulated">
-          <Annotation Term="OData.Description" String="A PCIe device which is not currently physically present, but is being simulated by the PCIe infrastructure."/>
+          <Annotation Term="OData.Description" String="A PCIe device that is not currently physically present, but is being simulated by the PCIe infrastructure."/>
         </Member>
       </EnumType>
 
@@ -191,13 +203,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_0.PCIeDevice"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_1.PCIeDevice"/>
     </Schema>
 
@@ -207,30 +219,42 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_2.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_3.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_4.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_0_2.PCIeDevice">
         <Property Name="Actions" Type="PCIeDevice.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="PCIeDevice.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -240,14 +264,26 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_2.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_1_0.PCIeDevice">
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A reference to the Assembly resource associated with this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a link to a resource of type Assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly Resource associated with this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -259,47 +295,84 @@
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_0.PCIeDevice"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_2.PCIeDevice"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_2_1.PCIeDevice">
-        <Property Name="PCIeInterface" Type="PCIeDevice.v1_3_0.PCIeInterface">
+        <Property Name="PCIeInterface" Type="PCIeDevice.v1_3_0.PCIeInterface" Nullable="false">
           <Annotation Term="OData.Description" String="The PCIe interface details for this PCIe device."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain details on the PCIe interface used to connect this PCIe Device to its host or upstream switch."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain details for the PCIe interface that connects this PCIe device to its host or upstream switch."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="PCIeInterface" BaseType="PCIeDevice.PCIeInterface">
-        <Annotation Term="OData.Description" String="This is the definition for a PCI Interface object."/>
-        <Annotation Term="OData.LongDescription" String="These properties shall be the definition for a PCIe Interface for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="This type defines a PCI interface."/>
+        <Annotation Term="OData.LongDescription" String="These properties shall contain the definition for a PCIe Interface for a Redfish implementation."/>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
         <Property Name="MaxPCIeType" Type="PCIeDevice.PCIeTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The highest version of the PCIe specification supported by this device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum PCIe specification that this device supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum PCIe specification that this device supports."/>
         </Property>
         <Property Name="PCIeType" Type="PCIeDevice.PCIeTypes">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The version of the PCIe specification in use by this device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the negotiated PCIe interface version in use by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the negotiated PCIe interface version in use by this device."/>
         </Property>
         <Property Name="MaxLanes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the number of PCIe lanes supported by this device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the maximum number of PCIe lanes supported by this device."/>
+          <Annotation Term="OData.Description" String="The number of PCIe lanes supported by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of PCIe lanes supported by this device."/>
           <Annotation Term="Validation.Maximum" Int="32"/>
         </Property>
         <Property Name="LanesInUse" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the number of PCIe lanes in use by this device."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the number of PCIe lanes in use by this device, which shall be equal or less than the value of MaxLanes."/>
+          <Annotation Term="OData.Description" String="The number of PCIe lanes in use by this device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of PCIe lanes in use by this device, which shall be equal to or less than the MaxLanes property value."/>
           <Annotation Term="Validation.Maximum" Int="32"/>
         </Property>
       </ComplexType>
+    </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to PCIeInterface to disallow it from being null."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_0.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_1.PCIeDevice"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeDevice.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.2"/>
+      <Annotation Term="OData.Description" String="This version was created to add a PCIeFunction Resource Collection and to deprecate the Link to an array of PCIeFunction instances."/>
+      <EntityType Name="PCIeDevice" BaseType="PCIeDevice.v1_3_2.PCIeDevice">
+        <NavigationProperty Name="PCIeFunctions" Type="PCIeFunctionCollection.PCIeFunctionCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of PCIe functions associated with this PCIe device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type PCIeFunctionCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message  v1.0.6-->
+<!--# Redfish Schema:  Message v1.0.8                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -32,8 +32,8 @@
 
       <ComplexType Name="Message" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="This type describes a Message returned by the Redfish service."/>
-        <Annotation Term="OData.LongDescription" String="This type shall define a Message as described in the Redfish specification."/>
+        <Annotation Term="OData.Description" String="The message that the Redfish Service returns."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain a message that the Redfish Service returns, as described in the Redfish Specification."/>
       </ComplexType>
 
     </Schema>
@@ -45,38 +45,38 @@
       <ComplexType Name="Message" BaseType="Message.Message">
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the key for this message which can be used to look up the message in a message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be a key into message registry as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The key for this message used to find the message in a Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a key into Message Registry, as described in the Redfish Specification."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Message" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the human readable message, if provided."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an optional human readable message."/>
+          <Annotation Term="OData.Description" String="The human-readable message, if provided."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an optional human-readable message."/>
         </Property>
         <Property Name="RelatedProperties" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is an array of properties described by the message."/>
+          <Annotation Term="OData.Description" String="A set of properties described by the message."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of JSON Pointers indicating the properties described by the message, if appropriate for the message."/>
         </Property>
         <Property Name="MessageArgs" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This array of message arguments are substituted for the arguments in the message when looked up in the message registry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message substitution arguments for the specific message referenced by the MessageId and shall only be included if the MessageId is present."/>
+          <Annotation Term="OData.Description" String="This array of message arguments are substituted for the arguments in the message when looked up in the Message Registry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message substitution arguments for the specific message to which this MessageId refers and shall be included only if the MessageId is present.  Any number and integer type arguments shall be converted to strings."/>
         </Property>
         <Property Name="Severity" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="This is the severity of the errors."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the severity of the error, as defined in the Status section of the Redfish specificaiton."/>
+          <Annotation Term="OData.Description" String="The severity of the errors."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification."/>
         </Property>
         <Property Name="Resolution" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Used to provide suggestions on how to resolve the situation that caused the error."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an override of the Resolution of the message in message registry, if present."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an override of the resolution of the message in the Message Registry, if present."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
-          <Annotation Term="OData.Description" String="Oem extension object."/>
-          <Annotation Term="OData.LongDescription" String="This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."/>
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
         </Property>
       </ComplexType>
 
@@ -84,25 +84,25 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_0.Message"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_2.Message"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_3.Message"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_4.Message"/>
     </Schema>
 
@@ -110,6 +110,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_5.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify the usage of integer or number type values in the MessageArgs array."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_6.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <ComplexType Name="Message" BaseType="Message.v1_0_7.Message"/>
     </Schema>
 
   </edmx:DataServices>

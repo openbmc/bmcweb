@@ -1,47 +1,48 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_4_1.json",
-    "copyright": "Copyright 2014-2018 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_0_1.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
         "@Redfish.ActionInfo": {
-            "description": "The term can be applied to an Action to specify a URI to an ActionInfo resource which describes the parameters supported by this instance of the Action.",
+            "description": "The term can be applied to an action to specify a URI to an ActionInfo Resource that describes the parameters supported by this instance of the action.",
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true
         },
         "@Redfish.Settings": {
-            "description": "Reference to the resource that represents the settings to be applied to this object.",
+            "description": "The link to the Settings Resource that represents the settings to apply to this Resource.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/Settings"
         },
         "@Redfish.SettingsApplyTime": {
-            "description": "Configuration settings for when the values in the settings object are applied to a given resource.",
+            "description": "The configuration settings for when the values in the settings object are applied to a Resource.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/PreferredApplyTime"
         },
         "@Redfish.OperationApplyTime": {
-            "description": "The requested apply time from a client when performing a Create, Delete, or Action operation.",
+            "description": "The requested apply time from a client when performing a create, delete, or action operation.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTime"
         },
         "@Redfish.OperationApplyTimeSupport": {
-            "description": "Indicates if a client is allowed to request for a specific apply time of a Create, Delete, or Action operation of a given resource via the OperationApplyTime term.",
+            "description": "An indication of whether a client can request an apply time for a create, delete, or action operation of a Resource through the OperationApplyTime term.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/OperationApplyTimeSupport"
         },
         "@Redfish.MaintenanceWindow": {
-            "description": "Maintenance window configuration of a resource for when to apply settings or operations.",
+            "description": "The maintenance window configuration for a Resource for when to apply settings or operations.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/Settings.json#/definitions/MaintenanceWindow"
         },
         "@Redfish.CollectionCapabilities": {
-            "description": "Reference to the resource that represents the POST capabilities of a given collection.",
+            "description": "The link to the Resource that represents the POST capabilities of a collection.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json#/definitions/CollectionCapabilities"
         },
         "@odata.context": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The OData description of a payload.",
             "longDescription": "The value of this property shall be the context URL that describes the resource according to OData-Protocol and shall be of the form defined in the Redfish specification."
         },
         "@odata.id": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The unique identifier for a resource.",
             "longDescription": "The value of this property shall be the unique identifier for the resource and it shall be of the form defined in the Redfish specification."
@@ -61,7 +62,7 @@
     },
     "patternProperties": {
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowableValues$": {
-            "description": "The set of allowable values for a parameter or property.",
+            "description": "The set of allowable values for a parameter.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -69,22 +70,22 @@
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.RequiredOnCreate$": {
-            "description": "The term specifies that a property is required to be specified in the body of a POST request to create the resource.",
+            "description": "The term specifies that a property is required to be specified in the body of a POST request to create the Resource.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.SetOnlyOnCreate$": {
-            "description": "The term specifies that a property can only be set when a client is creating a new instance of a resource via POST.",
+            "description": "The term specifies that a property can only be set when a client creates an instance of a Resource through POST.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.OptionalOnCreate$": {
-            "description": "The term specifies that a property may be set when a client is creating a new instance of a resource via POST.",
+            "description": "The term specifies that a property may be set when a client creates an instance of a Resource through POST.",
             "type": "boolean",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.UpdatableAfterCreate$": {
-            "description": "The term specifies that a property may be set by a client using PATCH after creating a new instance of a resource via POST.",
+            "description": "The term specifies that a property may be set by a client that uses PATCH after it creates an instance of a Resource through POST.",
             "type": "boolean",
             "readonly": true
         },
@@ -103,7 +104,7 @@
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@odata.nextLink$": {
             "type": "string",
-            "format": "uri",
+            "format": "uri-reference",
             "readonly": true,
             "description": "The URI to the resource containing the next set of partial members.",
             "longDescription": "The value of this property shall be a URI to a resource, with the same @odata.type, containing the next set of partial members."
