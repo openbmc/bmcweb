@@ -1,13 +1,14 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/Message.v1_0_8.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Message": {
             "additionalProperties": false,
-            "description": "This type describes a Message returned by the Redfish service.",
-            "longDescription": "This type shall define a Message as described in the Redfish specification.",
+            "description": "The message that the Redfish Service returns.",
+            "longDescription": "This type shall contain a message that the Redfish Service returns, as described in the Redfish Specification.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -22,8 +23,8 @@
             },
             "properties": {
                 "Message": {
-                    "description": "This is the human readable message, if provided.",
-                    "longDescription": "This property shall contain an optional human readable message.",
+                    "description": "The human-readable message, if provided.",
+                    "longDescription": "This property shall contain an optional human-readable message.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -31,27 +32,27 @@
                     ]
                 },
                 "MessageArgs": {
-                    "description": "This array of message arguments are substituted for the arguments in the message when looked up in the message registry.",
+                    "description": "This array of message arguments are substituted for the arguments in the message when looked up in the Message Registry.",
                     "items": {
                         "type": "string"
                     },
-                    "longDescription": "This property shall contain the message substitution arguments for the specific message referenced by the MessageId and shall only be included if the MessageId is present.",
+                    "longDescription": "This property shall contain the message substitution arguments for the specific message to which this MessageId refers and shall be included only if the MessageId is present.  Any number and integer type arguments shall be converted to strings.",
                     "readonly": true,
                     "type": "array"
                 },
                 "MessageId": {
-                    "description": "This is the key for this message which can be used to look up the message in a message registry.",
-                    "longDescription": "This property shall be a key into message registry as described in the Redfish specification.",
+                    "description": "The key for this message used to find the message in a Message Registry.",
+                    "longDescription": "This property shall contain a key into Message Registry, as described in the Redfish Specification.",
                     "readonly": true,
                     "type": "string"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "Oem extension object.",
-                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "RelatedProperties": {
-                    "description": "This is an array of properties described by the message.",
+                    "description": "A set of properties described by the message.",
                     "items": {
                         "type": "string"
                     },
@@ -61,7 +62,7 @@
                 },
                 "Resolution": {
                     "description": "Used to provide suggestions on how to resolve the situation that caused the error.",
-                    "longDescription": "This property shall contain an override of the Resolution of the message in message registry, if present.",
+                    "longDescription": "This property shall contain an override of the resolution of the message in the Message Registry, if present.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -69,8 +70,8 @@
                     ]
                 },
                 "Severity": {
-                    "description": "This is the severity of the errors.",
-                    "longDescription": "The value of this property shall be the severity of the error, as defined in the Status section of the Redfish specificaiton.",
+                    "description": "The severity of the errors.",
+                    "longDescription": "This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -85,5 +86,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#Message.v1_0_6"
+    "release": "1.0",
+    "title": "#Message.v1_0_8"
 }

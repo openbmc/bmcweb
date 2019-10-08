@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PrivilegeRegistry  v1.1.2-->
+<!--# Redfish Schema:  PrivilegeRegistry v1.1.4                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,8 +33,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="PrivilegeRegistry" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for Operation to Privilege mapping."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent operation to privilege mappings."/>
+        <Annotation Term="OData.Description" String="The PrivilegeRegistry schema describes the operation-to-privilege mappings."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains operation-to-privilege mappings."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -43,7 +43,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="A Privilege Resource resource can be updated to change permissions on the various resource types based on a user's privilege level."/>
+            <Annotation Term="OData.Description" String="The permissions on the various Resource types, based on a user's privilege level, can be updated for operation-to-privilege mappings."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -60,101 +60,99 @@
       <Annotation Term="Redfish.Release" String="2016.3"/>
 
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.PrivilegeRegistry">
-        <Annotation Term="OData.Description" String="This is the schema definition for Operation to Privilege mapping."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent operation to privilege mappings."/>
         <Property Name="PrivilegesUsed" Type="Collection(Privileges.PrivilegeType)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Lists the set of Redfish standard priviliges used in building this mapping."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be an array that contains the set of Redfish standard priviliges used in building this mapping."/>
+          <Annotation Term="OData.Description" String="The set of Redfish standard privileges used in this mapping."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of Redfish standard privileges used in this mapping."/>
         </Property>
         <Property Name="OEMPrivilegesUsed" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Lists the set of OEM Priviliges used in building this mapping."/>
-          <Annotation Term="OData.LongDescription" String="This property shall be an array that contains the set of OEM Priviliges used in building this mapping."/>
+          <Annotation Term="OData.Description" String="The set of OEM privileges used in this mapping."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of OEM privileges used in this mapping."/>
         </Property>
         <Property Name="Mappings" Type="Collection(PrivilegeRegistry.v1_0_0.Mapping)" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the mappings between entities and the relevant privileges used to access them."/>
-          <Annotation Term="OData.LongDescription" String="This property shall describe the mappings between entities and the relevant privileges used to access them."/>
+          <Annotation Term="OData.Description" String="The mappings between entities and the relevant privileges that access those entities."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the mappings between entities and the relevant privileges that access those entities."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Mapping">
-        <Annotation Term="OData.Description" String="This type describes a mapping between an entity and the relevant privileges used to access it."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a mapping between an entity and the relevant privileges used to access it."/>
+        <Annotation Term="OData.Description" String="The mapping between a Resource type and the relevant privileges that accesses the Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a mapping between a Resource type and the relevant privileges that accesses the Resource."/>
         <Property Name="Entity" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates entity name. e.g., Manager."/>
-          <Annotation Term="OData.LongDescription" String="Indicates entity name. e.g., Manager."/>
+          <Annotation Term="OData.Description" String="The Resource name, such as `Manager`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the Resource name, such as `Manager`."/>
         </Property>
-        <Property Name="SubordinateOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="true">
-          <Annotation Term="OData.Description" String="Indicates privilege overrides of subordinate resource."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege overrides of subordinate resource. Target lists referenced by Entity."/>
+        <Property Name="SubordinateOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privilege overrides of the subordinate Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege overrides of the subordinate Resource.  The target lists are identified by Resource type."/>
         </Property>
-        <Property Name="ResourceURIOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="true">
-          <Annotation Term="OData.Description" String="Indicates privilege overrides of Resource URI."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege overrides of Resource URI. Target lists Resource URI."/>
+        <Property Name="ResourceURIOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privilege overrides of Resource URIs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege overrides of Resource URIs.  The target lists the Resource URI and the new privileges."/>
         </Property>
-        <Property Name="PropertyOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="true">
-          <Annotation Term="OData.Description" String="Indicates privilege overrides of property or element within a entity."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege overrides of property or element. e.g., password property."/>
+        <Property Name="PropertyOverrides" Type="Collection(PrivilegeRegistry.v1_0_0.Target_PrivilegeMap)" Nullable="false">
+          <Annotation Term="OData.Description" String="The privilege overrides of properties within a Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege overrides of properties, such as the `Password` property in the `ManagerAccount` Resource."/>
         </Property>
         <Property Name="OperationMap" Type="PrivilegeRegistry.v1_0_0.OperationMap" Nullable="false">
-          <Annotation Term="OData.Description" String="List mapping between HTTP method and privilege required for entity."/>
-          <Annotation Term="OData.LongDescription" String="List mapping between HTTP method and privilege required for entity."/>
+          <Annotation Term="OData.Description" String="List mapping between HTTP methods and privilege required for the Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall list the mapping between HTTP methods and the privilege required for the Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="Target_PrivilegeMap">
         <Annotation Term="OData.Description" String="This type describes a mapping between one or more targets and the HTTP operations associated with them."/>
         <Annotation Term="OData.LongDescription" String="This type shall describe a mapping between one or more targets and the HTTP operations associated with them."/>
-        <Property Name="Targets" Type="Collection(Edm.String)" Nullable="true">
+        <Property Name="Targets" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates the URI or Entity."/>
-          <Annotation Term="OData.LongDescription" String="Indicates the set of URI(s) or Entity(s) or property(s). e.g./redfish/v1/Systems/1, Manager, Password. When targets property is not mentioned, then there is no override."/>
+          <Annotation Term="OData.Description" String="The set of URIs, Resource types, or properties."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the array of URIs, Resource types, or properties.  For example, `/redfish/v1/Systems/1`, `Manager`, or `Password`.  When the Targets property is not present, no override is specified."/>
         </Property>
-        <Property Name="OperationMap" Type="PrivilegeRegistry.v1_0_0.OperationMap" >
-          <Annotation Term="OData.Description" String="List mapping between HTTP operation and privilege needed to perform operation."/>
-          <Annotation Term="OData.LongDescription" String="List mapping between HTTP operation and privilege needed to perform operation."/>
+        <Property Name="OperationMap" Type="PrivilegeRegistry.v1_0_0.OperationMap" Nullable="false">
+          <Annotation Term="OData.Description" String="The mapping between the HTTP operation and the privilege required to complete the operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the mapping between the HTTP operation and the privilege required to complete the operation."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OperationMap">
-        <Annotation Term="OData.Description" String="Used for describing the specific privileges for a set of HTTP operations."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the specific privileges required for a set of HTTP operations."/>
+        <Annotation Term="OData.Description" String="The specific privileges required to complete a set of HTTP operations."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the specific privileges required to complete a set of HTTP operations."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Property Name="GET" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP GET operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP GET operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP GET operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP GET operation."/>
         </Property>
         <Property Name="HEAD" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP HEAD operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP HEAD operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP HEAD operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP HEAD operation."/>
         </Property>
         <Property Name="PATCH" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP PATCH operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP PATCH operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP PATCH operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP PATCH operation."/>
         </Property>
         <Property Name="POST" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP POST operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP POST operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP POST operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP POST operation."/>
         </Property>
         <Property Name="PUT" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP PUT operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP PUT operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP PUT operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP PUT operation."/>
         </Property>
         <Property Name="DELETE" Type="Collection(PrivilegeRegistry.v1_0_0.OperationPrivilege)" Nullable="false">
-          <Annotation Term="OData.Description" String="Indicates privilege required for HTTP DELETE operation."/>
-          <Annotation Term="OData.LongDescription" String="Indicates privilege required for HTTP DELETE operation."/>
+          <Annotation Term="OData.Description" String="The privilege required to complete an HTTP DELETE operation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the privilege required to complete an HTTP DELETE operation."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OperationPrivilege">
-        <Annotation Term="OData.Description" String="Used for describing the specific privileges for a given type of HTTP operation."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the specific privileges required for a given type of HTTP operation."/>
+        <Annotation Term="OData.Description" String="The privileges for a specific HTTP operation."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the privileges required to complete a specific HTTP operation."/>
         <Property Name="Privilege" Type="Collection(Edm.String)" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Lists the privileges that are allowed to perform the given type of HTTP operation on the entity type."/>
-          <Annotation Term="OData.LongDescription" String="This array shall contain a set of strings that match 0 or more of the strings found in the PrivilegesUsed and OEMPrivilegesUsed properties."/>
+          <Annotation Term="OData.Description" String="An array of privileges that are required to complete a specific HTTP operation on a Resource."/>
+          <Annotation Term="OData.LongDescription" String="This array shall contain an array of privileges that are required to complete a specific HTTP operation on a Resource.  This set of strings match zero or more strings in the PrivilegesUsed and OEMPrivilegesUsed properties."/>
         </Property>
       </ComplexType>
 
@@ -162,7 +160,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_0.PrivilegeRegistry"/>
     </Schema>
 
@@ -178,30 +176,42 @@
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_2.PrivilegeRegistry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_3.PrivilegeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_4.PrivilegeRegistry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_0_1.PrivilegeRegistry">
         <Property Name="Actions" Type="PrivilegeRegistry.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="PrivilegeRegistry.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -215,6 +225,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to fix the Permission term in several properties."/>
       <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_1_1.PrivilegeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to several properties to disallow them from being null."/>
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_1_2.PrivilegeRegistry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PrivilegeRegistry.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are not included.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="PrivilegeRegistry" BaseType="PrivilegeRegistry.v1_1_3.PrivilegeRegistry"/>
     </Schema>
 
   </edmx:DataServices>

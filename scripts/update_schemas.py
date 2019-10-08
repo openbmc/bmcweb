@@ -12,14 +12,19 @@ import glob
 
 import xml.etree.ElementTree as ET
 
+VERSION = "DSP8010_2019.2"
+
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
 proxies = {
     'https': os.environ.get("https_proxy", None)
 }
 
-r = requests.get('https://www.dmtf.org/sites/default/files/standards/documents/'
-                 'DSP8010_2018.3.zip', proxies=proxies)
+r = requests.get(
+    'https://www.dmtf.org/sites/default/files/standards/documents/' +
+    VERSION +
+    '.zip',
+    proxies=proxies)
 
 r.raise_for_status()
 
@@ -59,14 +64,24 @@ with open(metadata_index_path, 'w') as metadata_index:
         "<edmx:Edmx xmlns:edmx=\"http://docs.oasis-open.org/odata/ns/edmx\" Version=\"4.0\">\n")
 
     for zip_filepath in zip_ref.namelist():
-        if zip_filepath.startswith('DSP8010_2018.3/csdl/') & (zip_filepath != "DSP8010_2018.3/csdl/"):
+        if zip_filepath.startswith(VERSION +
+                                   '/' +
+                                   VERSION +
+                                   '/csdl/') & (zip_filepath != VERSION +
+                                                "/csdl/") & (zip_filepath != VERSION +
+                                                             '/' +
+                                                             VERSION +
+                                                             "/csdl/"):
             filename = os.path.basename(zip_filepath)
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
 
                 metadata_index.write(
-                    "    <edmx:Reference Uri=\"/redfish/v1/schema/" + filename + "\">\n")
+                    "    <edmx:Reference Uri=\"/redfish/v1/schema/" +
+                    filename +
+                    "\">\n")
 
                 content = zip_ref.read(zip_filepath)
+                content = content.replace(b'\r\n', b'\n')
                 xml_root = ET.fromstring(content)
 
                 for edmx_child in xml_root:
@@ -91,23 +106,24 @@ with open(metadata_index_path, 'w') as metadata_index:
         </Schema>
     </edmx:DataServices>
 """)
-    #TODO:Issue#32 There's a bug in the script that currently deletes this
-    #schema (because it's an OEM schema). Because it's the only one, and we
-    #don't update schemas very often, we just manually fix it. Need a
-    #permanent fix to the script.
-    metadata_index.write("    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\">\n")
+    # TODO:Issue#32 There's a bug in the script that currently deletes this
+    # schema (because it's an OEM schema). Because it's the only one, and we
+    # don't update schemas very often, we just manually fix it. Need a
+    # permanent fix to the script.
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\">\n")
     metadata_index.write("        <edmx:Include Namespace=\"OemManager\"/>\n")
     metadata_index.write("    </edmx:Reference>\n")
     metadata_index.write("</edmx:Edmx>\n")
 
 schema_files = {}
 for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith('DSP8010_2018.3/json-schema/'):
+    if zip_filepath.startswith(os.path.join(VERSION, VERSION, 'json-schema/')):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
         if len(filenamesplit) == 3:
             thisSchemaVersion = schema_files.get(filenamesplit[0], None)
-            if thisSchemaVersion == None:
+            if thisSchemaVersion is None:
                 schema_files[filenamesplit[0]] = filenamesplit[1]
             else:
                 # need to see if we're a newer version.
@@ -118,7 +134,7 @@ for zip_filepath in zip_ref.namelist():
 
 for schema, version in schema_files.items():
     basename = schema + "." + version + ".json"
-    zip_filepath = os.path.join("DSP8010_2018.3/json-schema", basename)
+    zip_filepath = os.path.join(VERSION, VERSION, "json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
     location_json = OrderedDict()
@@ -134,17 +150,17 @@ for schema, version in schema_files.items():
     index_json["@odata.type"] = "#JsonSchemaFile.v1_0_2.JsonSchemaFile"
     index_json["Name"] = schema + " Schema File"
     index_json["Schema"] = "#" + schema + "." + schema
-    index_json["Description"] =  schema + " Schema File Location"
+    index_json["Description"] = schema + " Schema File Location"
     index_json["Id"] = schema
-    index_json["Languages"] = [ "en" ]
+    index_json["Languages"] = ["en"]
     index_json["Languages@odata.count"] = 1
-    index_json["Location"] = [ location_json ]
+    index_json["Location"] = [location_json]
     index_json["Location@odata.count"] = 1
 
     with open(os.path.join(schemadir, "index.json"), 'w') as schema_file:
         json.dump(index_json, schema_file, indent=4)
     with open(os.path.join(schemadir, schema + ".json"), 'wb') as schema_file:
-        schema_file.write(zip_ref.read(zip_filepath))
+        schema_file.write(zip_ref.read(zip_filepath).replace(b'\r\n', b'\n'))
 
 with open(os.path.join(json_schema_path, "index.json"), 'w') as index_file:
     members = [{"@odata.id": "/redfish/v1/JsonSchemas/" + schema}

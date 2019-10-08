@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory  v1.2.1-->
+<!--# Redfish Schema:  SoftwareInventory v1.2.3                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,8 +31,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="SoftwareInventory" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This schema defines an inventory of software components."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a single software component managed by this Redfish Service."/>
+        <Annotation Term="OData.Description" String="The SoftwareInventory schema contains an inventory of software components.  This can include software components such as BIOS, BMC firmware, firmware for other devices, system drivers, or provider software."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains a single software component that this Redfish Service manages."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -63,55 +63,53 @@
       <Annotation Term="Redfish.Release" String="2016.2"/>
 
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.SoftwareInventory">
-        <Annotation Term="OData.Description" String="This schema defines an inventory of software components."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a single software component managed by this Redfish Service."/>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="Version" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A string representing the version of this software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the version of this software."/>
+          <Annotation Term="OData.Description" String="The version of this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the version of this software."/>
         </Property>
         <Property Name="Updateable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Indicates whether this software can be updated by the update service."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this software can be updated by the update service. If false, this software is for reporting purpose only."/>
+          <Annotation Term="OData.Description" String="An indication of whether the Update Service can update this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the Update Service can update this software.  If `true`, the Service can update this software.  If `false`, the Service cannot update this software and the software is for reporting purposes only."/>
         </Property>
         <Property Name="Actions" Type="SoftwareInventory.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="SoftwareInventory.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
 
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_0.SoftwareInventory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_1.SoftwareInventory"/>
     </Schema>
 
@@ -121,29 +119,41 @@
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_2.SoftwareInventory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_3.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_4.SoftwareInventory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_0_1.SoftwareInventory">
         <Property Name="SoftwareId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A string representing the implementation-specific ID for identifying this software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing an implementation-specific ID for identifying this software. This string is used for correlation to a component repository or database."/>
+          <Annotation Term="OData.Description" String="The implementation-specific label that identifies this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent an implementation-specific label that identifies this software.  This string correlates with a component repository or database."/>
         </Property>
         <Property Name="LowestSupportedVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A string representing the lowest supported version of this software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the lowest supported version of this software. This string is formatted using the same format used for the Version property."/>
+          <Annotation Term="OData.Description" String="The lowest supported version of this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the lowest supported version of this software.  This string is formatted using the same format used for the Version property."/>
         </Property>
         <Property Name="UefiDevicePaths" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A list of strings representing the UEFI Device Path(s) of the component(s) associated with this software inventory item."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a list of strings representing the UEFI Device Path(s) of the component(s) associated with this software inventory item. The UEFI Device Path string(s) shall be formatted as defined by the UEFI Specification."/>
+          <Annotation Term="OData.Description" String="The list of UEFI device paths of the components associated with this software inventory item."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a list UEFI device paths of the components associated with this software inventory item.  The UEFI device paths shall be formatted as defined by the UEFI Specification."/>
         </Property>
         <NavigationProperty Name="RelatedItem" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The ID(s) of the resources associated with this software inventory item."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an array of IDs containing pointers consistent with JSON pointer syntax to the resource that is associated with this software inventory item."/>
+          <Annotation Term="OData.Description" String="The IDs of the Resources associated with this software inventory item."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resource that is associated with this software inventory item."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -151,7 +161,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_0.SoftwareInventory"/>
     </Schema>
 
@@ -161,6 +171,18 @@
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_1.SoftwareInventory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_2.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_3.SoftwareInventory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -168,21 +190,33 @@
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_1_1.SoftwareInventory">
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="A string representing the manufacturer/producer of this software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a string representing the name of the manufacturer/producer of this software."/>
+          <Annotation Term="OData.Description" String="The manufacturer or producer of this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the name of the manufacturer or producer of this software."/>
         </Property>
         <Property Name="ReleaseDate" Type="Edm.DateTimeOffset">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Release date of this software."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the date of release or production for this software.  The time of day portion of the property shall be '00:00:00Z' if the time of day is unknown."/>
+          <Annotation Term="OData.Description" String="The release date of this software."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date of release or production for this software.  If the time of day is unknown, the time of day portion of the property shall contain `00:00:00Z`."/>
         </Property>
       </EntityType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ReleaseDate property."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It also clarifies the time of day portion of the ReleaseDate property."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_2_0.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_2_1.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_2_2.SoftwareInventory"/>
     </Schema>
 
   </edmx:DataServices>

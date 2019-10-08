@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_2_4.json",
     "$ref": "#/definitions/MemoryChunks",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -24,8 +25,9 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 }
             },
             "type": "object"
@@ -48,7 +50,7 @@
             "description": "This an interleave set for a memory chunk.",
             "longDescription": "This type shall describe an interleave set of which the memory chunk is a part.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -63,14 +65,14 @@
             },
             "properties": {
                 "Memory": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef",
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef",
                     "description": "Describes a memory device of the interleave set.",
-                    "longDescription": "The value of this property shall be the memory device to which these settings apply.",
+                    "longDescription": "This property shall contain the memory device to which these settings apply.",
                     "readonly": true
                 },
                 "MemoryLevel": {
                     "description": "Level of the interleave set for multi-level tiered memory.",
-                    "longDescription": "The value of this property shall be the level of this interleave set for multi-level tiered memory.",
+                    "longDescription": "This property shall contain the level of this interleave set for multi-level tiered memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -79,7 +81,7 @@
                 },
                 "OffsetMiB": {
                     "description": "Offset within the DIMM that corresponds to the start of this memory region, measured in mebibytes (MiB).",
-                    "longDescription": "The value of this property shall be the offset within the DIMM that corresponds to the start of this memory region, with units in MiB.",
+                    "longDescription": "This property shall contain the offset within the DIMM that corresponds to the start of this memory region, with units in MiB.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -89,7 +91,7 @@
                 },
                 "RegionId": {
                     "description": "DIMM region identifier.",
-                    "longDescription": "The value of this property shall be the DIMM region identifier.",
+                    "longDescription": "This property shall contain the DIMM region identifier.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -98,7 +100,7 @@
                 },
                 "SizeMiB": {
                     "description": "Size of this memory region measured in mebibytes (MiB).",
-                    "longDescription": "The value of this property shall be the size of this memory region, with units in MiB.",
+                    "longDescription": "This property shall contain the size of this memory region, with units in MiB.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -111,10 +113,10 @@
         },
         "MemoryChunks": {
             "additionalProperties": false,
-            "description": "This is the schema definition of a Memory Chunk and its configuration.",
-            "longDescription": "This resource shall be used to represent Memory Chunks and Interleave Sets in a Redfish implementation.",
+            "description": "The schema definition of a memory chunk and its configuration.",
+            "longDescription": "This Resource shall represent memory chunks and interleave sets in a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -129,21 +131,22 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "versionAdded": "v1_1_0"
                 },
                 "AddressRangeType": {
                     "anyOf": [
@@ -155,7 +158,7 @@
                         }
                     ],
                     "description": "Memory type of this memory chunk.",
-                    "longDescription": "The value of this property shall be the type of memory chunk.",
+                    "longDescription": "This property shall contain the type of memory chunk.",
                     "readonly": true
                 },
                 "Description": {
@@ -174,23 +177,16 @@
                     "readonly": true
                 },
                 "InterleaveSets": {
-                    "description": "This is the interleave sets for the memory chunk.",
+                    "description": "The interleave sets for the memory chunk.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "#/definitions/InterleaveSet"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "#/definitions/InterleaveSet"
                     },
                     "longDescription": "These properties shall represent the interleave sets for the memory chunk.",
                     "type": "array"
                 },
                 "IsMirrorEnabled": {
-                    "description": "Mirror Enabled status.",
-                    "longDescription": "The value of this property shall indicate if memory mirroring is enabled for this MemoryChunk.",
+                    "description": "An indication of whether memory mirroring is enabled for this memory chunk.",
+                    "longDescription": "This property shall indicate whether memory mirroring is enabled for this memory chunk.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -198,8 +194,8 @@
                     ]
                 },
                 "IsSpare": {
-                    "description": "Spare enabled status.",
-                    "longDescription": "The value of this property shall indicate if sparing is enabled for this MemoryChunk.",
+                    "description": "An indication of whether sparing is enabled for this memory chunk.",
+                    "longDescription": "This property shall indicate whether sparing is enabled for this memory chunk.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -208,7 +204,7 @@
                 },
                 "MemoryChunkSizeMiB": {
                     "description": "Size of the memory chunk measured in mebibytes (MiB).",
-                    "longDescription": "The value of this property shall be the size of the memory chunk in MiB.",
+                    "longDescription": "This property shall contain the size of the memory chunk in MiB.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -222,13 +218,14 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource.",
+                    "versionAdded": "v1_2_0"
                 }
             },
             "required": [
@@ -241,10 +238,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -262,5 +259,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#MemoryChunks.v1_2_2.MemoryChunks"
+    "release": "2017.3",
+    "title": "#MemoryChunks.v1_2_4.MemoryChunks"
 }

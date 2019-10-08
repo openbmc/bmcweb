@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  MemoryChunks  v1.2.2-->
+<!--# Redfish Schema:  MemoryChunks v1.2.4                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -34,8 +34,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="MemoryChunks" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition of a Memory Chunk and its configuration."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent Memory Chunks and Interleave Sets in a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The schema definition of a memory chunk and its configuration."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent memory chunks and interleave sets in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -45,11 +45,13 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Any writable properties can be updated for memory chunks."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Memory chunks can be deleted."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -71,26 +73,26 @@
         <Property Name="MemoryChunkSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of the memory chunk measured in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the size of the memory chunk in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of the memory chunk in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="AddressRangeType" Type="MemoryChunks.v1_0_0.AddressRangeType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Memory type of this memory chunk."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the type of memory chunk."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of memory chunk."/>
         </Property>
         <Property Name="IsMirrorEnabled" Type="Edm.Boolean" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Mirror Enabled status."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if memory mirroring is enabled for this MemoryChunk."/>
+          <Annotation Term="OData.Description" String="An indication of whether memory mirroring is enabled for this memory chunk."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether memory mirroring is enabled for this memory chunk."/>
         </Property>
         <Property Name="IsSpare" Type="Edm.Boolean" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Spare enabled status."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate if sparing is enabled for this MemoryChunk."/>
+          <Annotation Term="OData.Description" String="An indication of whether sparing is enabled for this memory chunk."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether sparing is enabled for this memory chunk."/>
         </Property>
-        <Property Name="InterleaveSets" Type="Collection(MemoryChunks.v1_0_0.InterleaveSet)">
-          <Annotation Term="OData.Description" String="This is the interleave sets for the memory chunk."/>
+        <Property Name="InterleaveSets" Type="Collection(MemoryChunks.v1_0_0.InterleaveSet)" Nullable="false">
+          <Annotation Term="OData.Description" String="The interleave sets for the memory chunk."/>
           <Annotation Term="OData.LongDescription" String="These properties shall represent the interleave sets for the memory chunk."/>
         </Property>
       </EntityType>
@@ -102,30 +104,30 @@
         <NavigationProperty Name="Memory" Type="Resource.Item" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Describes a memory device of the interleave set."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the memory device to which these settings apply."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory device to which these settings apply."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="RegionId" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="DIMM region identifier."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the DIMM region identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the DIMM region identifier."/>
         </Property>
         <Property Name="OffsetMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Offset within the DIMM that corresponds to the start of this memory region, measured in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the offset within the DIMM that corresponds to the start of this memory region, with units in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the offset within the DIMM that corresponds to the start of this memory region, with units in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="SizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Size of this memory region measured in mebibytes (MiB)."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the size of this memory region, with units in MiB."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size of this memory region, with units in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="MemoryLevel" Type="Edm.Int64" DefaultValue="1">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Level of the interleave set for multi-level tiered memory."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the level of this interleave set for multi-level tiered memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the level of this interleave set for multi-level tiered memory."/>
         </Property>
       </ComplexType>
 
@@ -145,13 +147,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_0_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_0.MemoryChunks"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_1.MemoryChunks"/>
     </Schema>
 
@@ -161,30 +163,42 @@
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_2.MemoryChunks"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on InterleaveSets to not allow it to be null."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_3.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_4.MemoryChunks"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_0_2.MemoryChunks">
         <Property Name="Actions" Type="MemoryChunks.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="MemoryChunks.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
@@ -194,13 +208,25 @@
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_0.MemoryChunks"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on InterleaveSets to not allow it to be null."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_1.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_2.MemoryChunks"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_1_0.MemoryChunks">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
       </EntityType>
     </Schema>
@@ -215,6 +241,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_2_1.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format.  It was also created to add a missing term on InterleaveSets to not allow it to be null."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_2_2.MemoryChunks"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="MemoryChunks.v1_2_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="MemoryChunks" BaseType="MemoryChunks.v1_2_3.MemoryChunks"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
-<!--############################################################################## -->
-<!--# Redfish Schema:  Volume  v1.0.3-->
-<!--#                                                                                      -->
-<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
-<!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
-<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
-<!--################################################################################       -->
+<!-- Copyright 2015-2018 Storage Networking Industry Association (SNIA), USA. All rights reserved.-->
 <!---->
+
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+  <edmx:Reference Uri="http://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
     <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+  <edmx:Reference Uri="http://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
     <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+  <edmx:Reference Uri="http://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
     <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
     <edmx:Include Namespace="Resource.v1_0_0"/>
-    <edmx:Include Namespace="Resource.v1_1_0"/>
-  </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
-    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Drive_v1.xml">
     <edmx:Include Namespace="Drive"/>
@@ -34,41 +27,38 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Task_v1.xml">
     <edmx:Include Namespace="Task"/>
   </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities_v1.xml">
+    <edmx:Include Namespace="DataStorageLoSCapabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService_v1.xml">
+    <edmx:Include Namespace="ClassOfService"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Capacity_v1.xml">
+    <edmx:Include Namespace="Capacity"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection_v1.xml">
+    <edmx:Include Namespace="StoragePoolCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection_v1.xml">
+    <edmx:Include Namespace="StorageGroupCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo_v1.xml">
+    <edmx:Include Namespace="StorageReplicaInfo"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOStatistics_v1.xml">
+    <edmx:Include Namespace="IOStatistics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/SpareResourceSet_v1.xml">
+    <edmx:Include Namespace="SpareResourceSet"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume">
-      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <EntityType Name="Volume" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="Volume contains properties used to describe a volume, virtual disk, LUN, or other logical storage entity for any system."/>
         <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a volume, virtual disk, logical disk, LUN, or other logical storage for a Redfish implementation."/>
-        <Annotation Term="Capabilities.InsertRestrictions">
-          <Record>
-            <PropertyValue Property="Insertable" Bool="false"/>
-          </Record>
-        </Annotation>
-        <Annotation Term="Capabilities.UpdateRestrictions">
-          <Record>
-            <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Volumes can be updated to change the writable properties."/>
-          </Record>
-        </Annotation>
-        <Annotation Term="Capabilities.DeleteRestrictions">
-          <Record>
-            <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Volumes can be deleted by deleting the Volume resource."/>
-          </Record>
-        </Annotation>
-        <Annotation Term="Redfish.Uris">
-          <Collection>
-            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes/{VolumeId}</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Volumes/{VolumeId}</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes/{VolumeId}</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/Volumes/{VolumeId}</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/Volumes/{VolumeId}</String>
-          </Collection>
-        </Annotation>
       </EntityType>
 
       <Action Name="Initialize" IsBound="true">
@@ -77,8 +67,8 @@
           <Annotation Term="OData.Description" String="The type of initialization to be performed."/>
           <Annotation Term="OData.LongDescription" String="This defines the property name for the action."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action is used to prepare the contents of the volume for use by the system."/>
-        <Annotation Term="OData.LongDescription" String="This defines the name of the custom action supported on this resource."/>
+        <Annotation Term="OData.Description" String="This action is used to prepare the contents of the volume for use by the system. If InitializeType is not specified in the request body, the InitializeType should be Fast."/>
+        <Annotation Term="OData.LongDescription" String="This defines the name of the custom action supported on this resource. If InitializeType is not specified in the request body, the InitializeType should be Fast."/>
       </Action>
 
       <Action Name="CheckConsistency">
@@ -89,19 +79,82 @@
 
       <EnumType Name="InitializeType">
         <Member Name="Fast">
-          <Annotation Term="OData.Description" String="The volume is prepared for use quickly, typically by erasing just the begining and end of the space so that partitioning can be performed."/>
+          <Annotation Term="OData.Description" String="The volume is prepared for use quickly, typically by erasing just the beginning and end of the space so that partitioning can be performed."/>
         </Member>
         <Member Name="Slow">
           <Annotation Term="OData.Description" String="The volume is prepared for use slowly, typically by completely erasing the volume."/>
         </Member>
       </EnumType>
 
+      <EnumType Name="RAIDType">
+        <Member Name="RAID0">
+          <Annotation Term="OData.Description" String="A placement policy where consecutive logical blocks of data are uniformly distributed across a set of independent storage devices without offering any form of redundancy."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy where consecutive logical blocks of data are uniformly distributed across a set of independent storage devices without offering any form of redundancy. This is commonly referred to as data striping. This form of RAID will encounter data loss with the failure of any storage device in the set."/>
+        </Member>
+        <Member Name="RAID1">
+          <Annotation Term="OData.Description" String="A placement policy where each logical block of data is stored on more than one independent storage device."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy where each logical block of data is stored on more than one independent storage device. This is commonly referred to as mirroring. Data stored using this form of RAID is able to survive a single storage device failure without data loss."/>
+        </Member>
+        <Member Name="RAID3">
+          <Annotation Term="OData.Description" String="A placement policy using parity-based protection where logical bytes of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy using parity-based protection where logical bytes of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device. Data stored using this form of RAID is able to survive a single storage device failure without data loss. If the storage devices use rotating media, they are assumed to be rotationally synchronized, and the data stripe size should be no larger than the exported block size."/>
+        </Member>
+        <Member Name="RAID4">
+          <Annotation Term="OData.Description" String="A placement policy using parity-based protection where logical blocks of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy using parity-based protection where logical blocks of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device. Data stored using this form of RAID is able to survive a single storage device failure without data loss."/>
+        </Member>
+        <Member Name="RAID5">
+          <Annotation Term="OData.Description" String="A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and one logical block of parity across a set of 'n+1' independent storage devices where the parity and data blocks are interleaved across the storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and one logical block of parity across a set of 'n+1' independent storage devices where the parity and data blocks are interleaved across the storage devices. Data stored using this form of RAID is able to survive a single storage device failure without data loss."/>
+        </Member>
+        <Member Name="RAID6">
+          <Annotation Term="OData.Description" String="A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and two logical blocks of independent parity across a set of 'n+2' independent storage devices where the parity and data blocks are interleaved across the storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and two logical blocks of independent parity across a set of 'n+2' independent storage devices where the parity and data blocks are interleaved across the storage devices. Data stored using this form of RAID is able to survive any two independent storage device failures without data loss."/>
+        </Member>
+        <Member Name="RAID10">
+          <Annotation Term="OData.Description" String="A placement policy that creates a striped device (RAID 0) over a set of mirrored devices (RAID 1)."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that creates a striped device (RAID 0) over a set of mirrored devices (RAID 1). This is commonly referred to as RAID 1/0. Data stored using this form of RAID is able to survive storage device failures in each RAID 1 set without data loss."/>
+        </Member>
+        <Member Name="RAID01">
+          <Annotation Term="OData.Description" String="A data placement policy that creates a mirrored device (RAID 1) over a set of striped devices (RAID 0)."/>
+          <Annotation Term="OData.LongDescription" String="A data placement policy that creates a mirrored device (RAID 1) over a set of striped devices (RAID 0). This is commonly referred to as RAID 0+1 or RAID 0/1. Data stored using this form of RAID is able to survive a single RAID 0 data set failure without data loss."/>
+        </Member>
+        <Member Name="RAID6TP">
+          <Annotation Term="OData.Description" String="A placement policy that uses parity-based protection for storing stripes of 'n' logical blocks of data and three logical blocks of independent parity across a set of 'n+3' independent storage devices where the parity and data blocks are interleaved across the storage devices. This is commonly referred to as Triple Parity RAID. Data stored using this form of RAID is able to survive any three independent storage device failures without data loss."/>
+        </Member>
+        <Member Name="RAID1E">
+          <Annotation Term="OData.Description" String="A placement policy that uses a form of mirroring implemented over a set of independent storage devices where logical blocks are duplicated on a pair of independent storage devices so that data is uniformly distributed across the storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that uses a form of mirroring implemented over a set of independent storage devices where logical blocks are duplicated on a pair of independent storage devices so that data is uniformly distributed across the storage devices. This is commonly referred to as RAID 1 Enhanced. Data stored using this form of RAID is able to survive a single storage device failure without data loss."/>
+        </Member>
+        <Member Name="RAID50">
+          <Annotation Term="OData.Description" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 5 sets of independent storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 5 sets of independent storage devices. Data stored using this form of RAID is able to survive a single storage device failure within each RAID 5 set without data loss."/>
+        </Member>
+        <Member Name="RAID60">
+          <Annotation Term="OData.Description" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 6 sets of independent storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 6 sets of independent storage devices. Data stored using this form of RAID is able to survive two device failures within each RAID 6 set without data loss."/>
+        </Member>
+        <Member Name="RAID00">
+          <Annotation Term="OData.Description" String="A placement policy that creates a RAID 0 stripe set over two or more RAID 0 sets."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that creates a RAID 0 stripe set over two or more RAID 0 sets. This is commonly referred to as RAID 0+0. This form of data layout is not fault tolerant; if any storage device fails there will be data loss."/>
+        </Member>
+        <Member Name="RAID10E">
+          <Annotation Term="OData.Description" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 10 sets."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that uses a RAID 0 stripe set over two or more RAID 10 sets. This is commonly referred to as Enhanced RAID 10. Data stored using this form of RAID is able to survive a single device failure within each nested RAID 1 set without data loss."/>
+        </Member>
+        <Member Name="RAID1Triple">
+          <Annotation Term="OData.Description" String="A placement policy where each logical block of data is mirrored three times across a set of three independent storage devices."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy where each logical block of data is mirrored three times across a set of three independent storage devices. This is commonly referred to as three-way mirroring. This form of RAID can survive two device failures without data loss."/>
+        </Member>
+        <Member Name="RAID10Triple">
+          <Annotation Term="OData.Description" String="A placement policy that uses a striped device (RAID 0) over a set of triple mirrored devices (RAID 1Triple)."/>
+          <Annotation Term="OData.LongDescription" String="A placement policy that uses a striped device (RAID 0) over a set of triple mirrored devices (RAID 1Triple). This form of RAID can survive up to two failures in each triple mirror set without data loss. "/>
+        </Member>
+      </EnumType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_0_0">
-      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="Redfish.Release" String="2016.1"/>
-
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <EntityType Name="Volume" BaseType="Volume.Volume">
         <Property Name="Status" Type="Resource.Status" Nullable="false"/>
         <Property Name="CapacityBytes" Type="Edm.Int64">
@@ -114,6 +167,7 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of this volume."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the type of the associated Volume."/>
+          <Annotation Term="Redfish.Deprecated" String="Deprecated in favor of explicit use of RAIDType."/>
         </Property>
         <Property Name="Encrypted" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -125,17 +179,17 @@
           <Annotation Term="OData.Description" String="The types of encryption used by this Volume."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the types of encryption used by this Volume."/>
         </Property>
-        <Property Name="Identifiers" Type="Collection(Resource.v1_1_0.Identifier)" Nullable="false">
+        <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
           <Annotation Term="OData.Description" String="The Durable names for the volume."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated volume."/>
         </Property>
         <Property Name="BlockSizeBytes" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The size of the smallest addressible unit (Block) of this volume in bytes."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain size of the smallest addressible unit of the associated volume."/>
+          <Annotation Term="OData.Description" String="The size of the smallest addressable unit (Block) of this volume in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain size of the smallest addressable unit of the associated volume."/>
           <Annotation Term="Measures.Unit" String="By"/>
         </Property>
-        <Property Name="Operations" Type="Collection(Volume.v1_0_0.Operations)" Nullable="false">
+        <Property Name="Operations" Type="Collection(Volume.v1_0_0.Operation)" Nullable="false">
           <Annotation Term="OData.Description" String="The operations currently running on the Volume."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a list of all currently running on the Volume."/>
         </Property>
@@ -156,32 +210,26 @@
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="Contains references to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."/>
         <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of references to the drives which contain this volume. This will reference Drives that either wholly or only partly contain this volume."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently members of the Volume, not hot spare Drives which are not currently a member of the volume."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently members of the Volume, not hot spare Drives which are not currently a member of the volume."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Volume.v1_0_0.OemActions" Nullable="false"/>
       </ComplexType>
 
       <ComplexType Name="OemActions">
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
       </ComplexType>
 
-      <ComplexType Name="Operations">
-        <Annotation Term="OData.Description" String="An operation currently running on this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a currently running operation on the resource."/>
+      <ComplexType Name="Operation">
         <Property Name="OperationName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The name of the operation."/>
@@ -232,22 +280,208 @@
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_0_1">
-      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
       <EntityType Name="Volume" BaseType="Volume.v1_0_0.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_0_2">
-      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
       <EntityType Name="Volume" BaseType="Volume.v1_0_1.Volume"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_0_3">
-      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
       <Annotation Term="OData.Description" String="This version was created to fix supported types and remove the Nullable facet on NavigationProperties of type Collection."/>
       <EntityType Name="Volume" BaseType="Volume.v1_0_2.Volume"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_0_4">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_0_3.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <EntityType Name="Volume" BaseType="Volume.v1_0_0.Volume">
+        <Property Name="AccessCapabilities" Type="Collection(DataStorageLoSCapabilities.StorageAccessCapability)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Supported IO access capabilities."/>
+          <Annotation Term="OData.LongDescription" String="Each entry shall specify a current storage access capability."/>
+        </Property>
+        <Property Name="MaxBlockSizeBytes" Type="Edm.Int32">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Max Block size in bytes."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain size of the largest addressable unit of this storage volume."/>
+          <Annotation Term="Measures.Unit" String="By"/>
+        </Property>
+        <Property Name="Capacity" Type="Capacity.Capacity">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Capacity utilization."/>
+          <Annotation Term="OData.LongDescription" String="Information about the utilization of capacity allocated to this storage volume."/>
+        </Property>
+        <NavigationProperty Name="CapacitySources" Type="Collection(Capacity.CapacitySource)" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of space allocations to this volume."/>
+          <Annotation Term="OData.LongDescription" String="Fully or partially consumed storage from a source resource. Each entry provides capacity allocation information from a named source resource."/>
+        </NavigationProperty>
+        <Property Name="LowSpaceWarningThresholdPercents" Type="Collection(Edm.Int64)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Low space warning."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="Each time the following value is less than one of the values in the array the LOW_SPACE_THRESHOLD_WARNING event shall be triggered: Across all CapacitySources entries, percent = (SUM(AllocatedBytes) - SUM(ConsumedBytes))/SUM(AllocatedBytes)."/>
+          <Annotation Term="Measures.Unit" String="%"/>
+        </Property>
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer or OEM of this storage volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a value that represents the manufacturer or implementer of the storage volume."/>
+        </Property>
+        <Property Name="Model" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The model number for this storage volume."/>
+          <Annotation Term="OData.LongDescription" String="The value is assigned by the manufacturer and shall represents a specific storage volume implementation."/>
+        </Property>
+        <Property Name="ReplicaInfo" Type="StorageReplicaInfo.ReplicaInfo">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Describes this storage volume in its role as a target replica."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the replica relationship between this storage volume and a corresponding source volume."/>
+        </Property>
+        <NavigationProperty Name="StorageGroups" Type="StorageGroupCollection.StorageGroupCollection" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of references to Storage Groups that includes this volume."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain references to all storage groups that include this volume."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="AllocatedPools" Type="StoragePoolCollection.StoragePoolCollection" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of references to StoragePools allocated from this Volume."/>
+          <Annotation Term="OData.LongDescription" String="The value of this property shall contain references to all storage pools allocated from this volume."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Volume.v1_0_0.Links">
+        <NavigationProperty Name="ClassOfService" Type="ClassOfService.ClassOfService">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The ClassOfService that this storage volume conforms to."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a reference to the ClassOfService that this storage volume conforms to."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the complex type nullable property definition from the drive collection."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_1_0.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was for errata to Volume."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_1_1.Volume">
+        <Annotation Term="OData.Description" String="Errata to change AllocatedPools and StorageGroups to use ResourceCollections."/>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_1_3">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_1_2.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to add IO Statistics, and adds the RemainingCapacityPercent property."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_1_1.Volume">
+        <Annotation Term="OData.Description" String="Add volume statistics."/>
+
+        <Property Name="IOStatistics" Type="IOStatistics.IOStatistics">
+          <Annotation Term="OData.Description" String="Statistics for this volume."/>
+          <Annotation Term="OData.LongDescription" String="The value shall represent IO statistics for this volume."/>
+        </Property>
+        <Property Name="RemainingCapacityPercent" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The percentage of the capacity remaining in the StoragePool."/>
+          <Annotation Term="OData.LongDescription" String="If present, this value shall return  {[(SUM(AllocatedBytes) - SUM(ConsumedBytes)]/SUM(AllocatedBytes)}*100 represented as an integer value."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Volume.v1_1_0.Links">
+        <NavigationProperty Name="DedicatedSpareDrives" Type="Collection(Drive.Drive)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of references to the drives which are dedicated spares for this volume."/>
+          <Annotation
+            Term="OData.LongDescription"
+            String="The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently assigned as a dedicated spare and are able to support this Volume."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_2_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation
+        Term="OData.Description"
+        String="This version was created to show name change from Operations to Operation. The  description and long description for action Initialize have been extended to add a default InitializeType == Fast recommendation. Change references to unversioned."/>
+        <EntityType Name="Volume" BaseType="Volume.v1_2_0.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_2_2">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_2_1.Volume"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to add RecoverableCapacitySourceCount and SpareResourceSets. This also replaces collection StorageReplicaInfos with scalar StorageReplicaInfo, and adds a ReplicaTargets collection. It also adds the RAIDType enum, which replaces the use of VolumeType for direct Volume characterization."/>
+
+      <EntityType Name="Volume" BaseType="Volume.v1_2_1.Volume">
+        <Annotation Term="OData.Description" String="Add ability to manage spare capacity."/>
+        <Property Name="RecoverableCapacitySourceCount" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Current number of capacity source resources that are available as replacements."/>
+          <Annotation Term="OData.LongDescription" String="The value is the number of available capacity source resources currently available in the event that an equivalent capacity source resource fails."/>
+        </Property>
+        <NavigationProperty Name="ReplicaTargets" Type="Collection(Resource.Item)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The resources that are target replicas of this source."/>
+          <Annotation Term="OData.LongDescription" String="The value shall reference the target replicas that are sourced by this replica."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Volume.v1_2_0.Links">
+        <Annotation Term="OData.Description" String="Add ability to manage spare capacity."/>
+        <NavigationProperty Name="SpareResourceSets" Type="Collection(SpareResourceSet.SpareResourceSet)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An array of references to SpareResourceSets."/>
+          <Annotation Term="OData.LongDescription" String="Each referenced SpareResourceSet shall contain resources that may be utilized to replace the capacity provided by a failed resource having a compatible type."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to add the RAIDType property, which replaces the use of VolumeType for direct Volume characterization."/>
+
+      <EntityType Name="Volume" BaseType="Volume.v1_3_0.Volume">
+        <Annotation Term="OData.Description" String="Add RAIDType property."/>
+        <Property Name="RAIDType" Type="Volume.RAIDType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The RAID type of this volume."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the RAID type of the associated Volume."/>
+        </Property>
+      </EntityType>
+    </Schema>
+
   </edmx:DataServices>
+
 </edmx:Edmx>

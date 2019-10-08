@@ -1,14 +1,15 @@
 {
+    "$id": "http://redfish.dmtf.org/schemas/v1/JobService.v1_0_2.json",
     "$ref": "#/definitions/JobService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2018 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this resource.",
-            "longDescription": "This type shall contain the available actions for this resource.",
+            "description": "The available actions for this Resource.",
+            "longDescription": "This type shall contain the available actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -24,18 +25,18 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "This property contains the available OEM specific actions for this resource.",
-                    "longDescription": "This property shall contain any additional OEM actions for this resource."
+                    "description": "The available OEM-specific actions for this Resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
                 }
             },
             "type": "object"
         },
         "JobService": {
             "additionalProperties": false,
-            "description": "This is the schema definition for the Job Service.  It represents the properties for the service itself and has links to the actual list of tasks.",
-            "longDescription": "This resource shall be used to represent a job service for a Redfish implementation.",
+            "description": "The Redfish Job Service enables the scheduling and execution of operations, represents the properties for the Job Service itself, and has links to the actual Resource Collection of Jobs.",
+            "longDescription": "This Resource shall represent a Job Service for a Redfish implementation.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -50,26 +51,26 @@
             },
             "properties": {
                 "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/context"
                 },
                 "@odata.etag": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/etag"
                 },
                 "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/id"
                 },
                 "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/type"
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                    "description": "The available actions for this Resource.",
+                    "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "DateTime": {
-                    "description": "The current DateTime (with offset) setting that the job service is using.",
+                    "description": "The current date and time, with UTC offset, setting that the Job Service uses.",
                     "format": "date-time",
-                    "longDescription": "The value of this property shall represent the current DateTime value for the JobService, with offset from UTC, in Redfish Timestamp format.",
+                    "longDescription": "This property shall represent the current DateTime value for the Job Service, with UTC offset, in Redfish Timestamp format.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -93,14 +94,14 @@
                 },
                 "Jobs": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/JobCollection.json#/definitions/JobCollection",
-                    "description": "References to the Jobs collection.",
-                    "longDescription": "The value of this property shall be a link to a resource of type JobCollection.",
+                    "description": "The links to the Jobs collection.",
+                    "longDescription": "This property shall contain a link to a Resource of type JobCollection.",
                     "readonly": true
                 },
                 "Log": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogService.json#/definitions/LogService",
-                    "description": "This is a reference to a Log Service used by the Job Service.",
-                    "longDescription": "The value of this property shall contain a reference to a LogService for the use by this JobService.",
+                    "description": "The link to a Log Service that the Job Service uses.  This service may be a dedicated Log Service or a pointer a Log Service under another entity, such as Manager.",
+                    "longDescription": "This property shall contain a link to a Log Service that this Job Service uses.",
                     "readonly": true
                 },
                 "Name": {
@@ -109,17 +110,17 @@
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "ServiceCapabilities": {
                     "$ref": "#/definitions/JobServiceCapabilities",
-                    "description": "This object describes the supported capabilities of this Job Service implementation.",
-                    "longDescription": "This type shall contain properties which describe the capabilities or supported features of this implementation of JobService."
+                    "description": "The supported capabilities of this Job Service implementation.",
+                    "longDescription": "This type shall contain properties that describe the capabilities or supported features of this implementation of a Job Service."
                 },
                 "ServiceEnabled": {
-                    "description": "This indicates whether this service is enabled.",
-                    "longDescription": "The value of this property shall be a boolean indicating whether this service is enabled.",
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
                     "readonly": false,
                     "type": [
                         "boolean",
@@ -128,8 +129,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "This property describes the status and health of the resource and its children.",
-                    "longDescription": "This property shall contain any status or health properties of the resource."
+                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                    "longDescription": "This property shall contain any status or health properties of the Resource."
                 }
             },
             "required": [
@@ -142,10 +143,10 @@
         },
         "JobServiceCapabilities": {
             "additionalProperties": false,
-            "description": "This object describes the supported capabilities of this Job Service implementation.",
-            "longDescription": "This type shall contain properties which describe the capabilities or supported features of this implementation of JobService.",
+            "description": "The supported capabilities of this Job Service implementation.",
+            "longDescription": "This type shall contain properties that describe the capabilities or supported features of this implementation of a Job Service.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -160,8 +161,8 @@
             },
             "properties": {
                 "MaxJobs": {
-                    "description": "Maximum number of Jobs supported.",
-                    "longDescription": "The value of this property shall be the maximum number of Job resources supported by the implementation.",
+                    "description": "The maximum number of jobs supported.",
+                    "longDescription": "This property shall contain the maximum number of jobs supported by the implementation.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -169,8 +170,8 @@
                     ]
                 },
                 "MaxSteps": {
-                    "description": "Maximum number of Job Steps supported.",
-                    "longDescription": "The value of this property shall be the maximum number of Step resources supported by a single Job instance.",
+                    "description": "The maximum number of job steps supported.",
+                    "longDescription": "This property shall contain the maximum number of steps supported by a single job instance.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -178,8 +179,8 @@
                     ]
                 },
                 "Scheduling": {
-                    "description": "Indicates whether scheduling of Jobs is supported.",
-                    "longDescription": "The value of this property shall indicate the support of scheduling of Jobs using the Schedule object within the Job resource.",
+                    "description": "An indication of whether scheduling of jobs is supported.",
+                    "longDescription": "This property shall indicate whether the Schedule property within the job supports scheduling of jobs.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -191,10 +192,10 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM specific actions for this resource.",
-            "longDescription": "This type shall contain any additional OEM actions for this resource.",
+            "description": "The available OEM-specific actions for this Resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
@@ -212,5 +213,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "title": "#JobService.v1_0_0.JobService"
+    "release": "2018.2",
+    "title": "#JobService.v1_0_2.JobService"
 }

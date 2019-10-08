@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PortCollection                                                      -->
+<!--# Redfish Schema:  PCIeFunctionCollection                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -23,18 +23,18 @@
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
   </edmx:Reference>
-  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Port_v1.xml">
-    <edmx:Include Namespace="Port"/>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
+    <edmx:Include Namespace="PCIeFunction"/>
   </edmx:Reference>
 
   <edmx:DataServices>
 
-    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortCollection">
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeFunctionCollection">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
-      <EntityType Name="PortCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The PortCollection schema describes a collection of port instances."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of Port instances for a Redfish implementation."/>
+      <EntityType Name="PCIeFunctionCollection" BaseType="Resource.v1_0_0.ResourceCollection">
+        <Annotation Term="OData.Description" String="The collection of PCIeFunction Resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of PCIeFunction instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -52,15 +52,11 @@
         </Annotation>
         <Annotation Term="Redfish.Uris">
           <Collection>
-            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports</String>
-            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
-            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
-            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/PCIeDevices/{PCIeDeviceId}/PCIeFunctions</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/PCIeDevices/{PCIeDeviceId}/PCIeFunctions</String>
           </Collection>
         </Annotation>
-        <NavigationProperty Name="Members" Type="Collection(Port.Port)">
+        <NavigationProperty Name="Members" Type="Collection(PCIeFunction.PCIeFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  VolumeCollection-->
+<!--# Redfish Schema:  VolumeCollection                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,12 +33,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="VolumeCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="A Collection of Volume resource instances."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a Resource Collection of Volume instances for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The VolumeCollection schema describes a collection of volume instances."/>
+        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of Volume instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Volumes can be created by POSTing to the Volume Collection."/>
+            <Annotation Term="OData.Description" String="Create volumes through a POST to the volume collection."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
@@ -62,8 +62,8 @@
         </Annotation>
         <NavigationProperty Name="Members" Type="Collection(Volume.Volume)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Contains the members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of references to the members of this collection."/>
+          <Annotation Term="OData.Description" String="An array of links to the members of this collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this Resource Collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>

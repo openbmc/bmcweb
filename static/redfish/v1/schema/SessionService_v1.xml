@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SessionService  v1.1.4-->
+<!--# Redfish Schema:  SessionService v1.1.6                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -38,8 +38,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="SessionService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Session Service.  It represents the properties for the service itself and has links to the actual list of sessions."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Session Service Properties for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The SessionService schema describes the Session Service and its properties, with links to the actual list of sessions."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains the Session Service properties for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -48,7 +48,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="A Session Service can be updated to change the timeout as well as enable or disable it."/>
+            <Annotation Term="OData.Description" String="The Session Service can be updated to enable or disable it and change its timeout."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -70,29 +70,27 @@
       <Annotation Term="Redfish.Release" String="1.0"/>
 
       <EntityType Name="SessionService" BaseType="SessionService.SessionService">
-        <Annotation Term="OData.Description" String="This is the schema definition for the Session Service.  It represents the properties for the service itself and has links to the actual list of sessions."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent the Session Service Properties for a Redfish implementation."/>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="This property describes the status and health of the resource and its children."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
         </Property>
         <Property Name="ServiceEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This indicates whether this service is enabled.  If set to false, the Session Service is disabled, and new sessions cannot be created, old sessions cannot be deleted, and established sessions may continue operating."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be a boolean indicating whether this service is enabled.  If disabled, new sessions shall not be created, old sessions shall not be deleted, and established sessions may continue operating."/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled.  If `true`, this service is enabled.  If `false`, it is disabled, and new sessions cannot be created, old sessions cannot be deleted, and established sessions may continue operating."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled.  If `true`, this service is enabled.  If `false`, it is disabled, and new sessions shall not be created, old sessions shall not be deleted, and established sessions may continue operating."/>
         </Property>
         <Property Name="SessionTimeout" Type="Edm.Int64" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="This is the number of seconds of inactivity that a session may have before the session service closes the session due to inactivity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall reference the threshold of time in seconds between requests on a specific session at which point the session service shall close the session due to inactivity. The session service shall support any value between the Validation.Minimum and Validation.Maximum."/>
+          <Annotation Term="OData.Description" String="The number of seconds of inactivity that a session may have before the Session Service closes the session due to inactivity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the threshold of time in seconds between requests on a specific session at which point the Session Service shall close the session due to inactivity.  The Session Service shall support any value between the Validation.Minimum and Validation.Maximum."/>
           <Annotation Term="Validation.Minimum" Int="30"/>
           <Annotation Term="Validation.Maximum" Int="86400"/>
           <Annotation Term="Measures.Unit" String="s"/>
         </Property>
         <NavigationProperty Name="Sessions" Type="SessionCollection.SessionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Link to a collection of Sessions."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a collection of Sessions."/>
+          <Annotation Term="OData.Description" String="The link to a collection of sessions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a Resource Collection of type SessionCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -100,26 +98,38 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_0.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_2.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_3.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the behavior when ServiceEnabled is set to false."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It also clarifies the behavior when ServiceEnabled is false."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_4.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_0_5.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_0_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_0_6.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_0">
@@ -127,50 +137,62 @@
       <Annotation Term="Redfish.Release" String="2016.2"/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_0_2.SessionService">
         <Property Name="Actions" Type="SessionService.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
-        <Property Name="Oem" Type="SessionService.v1_1_0.OemActions">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Property Name="Oem" Type="SessionService.v1_1_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_0.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_1.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to show annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
+      <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated.  In this case, ServiceEnabled descrtiption was updated."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_2.SessionService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the behavior when ServiceEnabled is set to false."/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It also clarifies the behavior when ServiceEnabled is false."/>
       <EntityType Name="SessionService" BaseType="SessionService.v1_1_3.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format, and to add a missing term to Oem to disallow it from being null."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_1_4.SessionService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SessionService.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="SessionService" BaseType="SessionService.v1_1_5.SessionService"/>
     </Schema>
 
   </edmx:DataServices>

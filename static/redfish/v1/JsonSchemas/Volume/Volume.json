@@ -1,95 +1,654 @@
 {
-    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema.v1_2_0.json",
-    "title": "#Volume.v1_0_3.Volume",
     "$ref": "#/definitions/Volume",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2016-2018 Storage Networking Industry Association (SNIA), USA. All rights reserved. For the full SNIA copyright policy, see http://www.snia.org/about/corporate_info/copyright",
     "definitions": {
-        "Initialize": {
+        "Actions": {
+            "additionalProperties": false,
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
                         "string"
-                    ],
-                    "description": "This property shall specify a valid odata or Redfish property."
+                    ]
                 }
             },
-            "type": "object",
-            "additionalProperties": false,
             "properties": {
-                "title": {
-                    "type": "string",
-                    "description": "Friendly action name"
+                "#Volume.CheckConsistency": {
+                    "$ref": "#/definitions/CheckConsistency"
                 },
-                "target": {
-                    "type": "string",
-                    "format": "uri",
-                    "description": "Link to invoke action"
+                "#Volume.Initialize": {
+                    "$ref": "#/definitions/Initialize"
+                },
+                "Oem": {
+                    "$ref": "#/definitions/OemActions"
                 }
             },
-            "description": "This action is used to prepare the contents of the volume for use by the system.",
-            "longDescription": "This defines the name of the custom action supported on this resource."
+            "type": "object"
+        },
+        "CheckConsistency": {
+            "additionalProperties": false,
+            "description": "This action is used to force a check of the Volume's parity or redundant data to ensure it matches calculated values.",
+            "longDescription": "This defines the name of the custom action supported on this resource.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
         },
         "EncryptionTypes": {
-            "type": "string",
             "enum": [
                 "NativeDriveEncryption",
                 "ControllerAssisted",
                 "SoftwareAssisted"
             ],
             "enumDescriptions": {
-                "NativeDriveEncryption": "The volume is utilizing the native drive encryption capabilities of the drive hardware.",
                 "ControllerAssisted": "The volume is being encrypted by the storage controller entity.",
+                "NativeDriveEncryption": "The volume is utilizing the native drive encryption capabilities of the drive hardware.",
                 "SoftwareAssisted": "The volume is being encrypted by software running on the system or the operating system."
-            }
+            },
+            "type": "string"
         },
-        "Operations": {
-            "type": "object",
+        "Initialize": {
+            "additionalProperties": false,
+            "description": "This action is used to prepare the contents of the volume for use by the system. If InitializeType is not specified in the request body, the InitializeType should be Fast.",
+            "longDescription": "This defines the name of the custom action supported on this resource. If InitializeType is not specified in the request body, the InitializeType should be Fast.",
+            "parameters": {
+                "InitializeType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/InitializeType",
+                    "description": "The type of initialization to be performed.",
+                    "longDescription": "This defines the property name for the action."
+                }
+            },
             "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
                     "type": [
                         "array",
                         "boolean",
+                        "integer",
                         "number",
                         "null",
                         "object",
                         "string"
-                    ],
-                    "description": "This property shall specify a valid odata or Redfish property."
+                    ]
                 }
             },
-            "additionalProperties": true,
             "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "InitializeType": {
+            "enum": [
+                "Fast",
+                "Slow"
+            ],
+            "enumDescriptions": {
+                "Fast": "The volume is prepared for use quickly, typically by erasing just the beginning and end of the space so that partitioning can be performed.",
+                "Slow": "The volume is prepared for use slowly, typically by completely erasing the volume."
+            },
+            "type": "string"
+        },
+        "Links": {
+            "additionalProperties": false,
+            "description": "Add ability to manage spare capacity.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ClassOfService": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ClassOfService.json#/definitions/ClassOfService"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The ClassOfService that this storage volume conforms to.",
+                    "longDescription": "This property shall contain a reference to the ClassOfService that this storage volume conforms to.",
+                    "readonly": true
+                },
+                "DedicatedSpareDrives": {
+                    "description": "An array of references to the drives which are dedicated spares for this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently assigned as a dedicated spare and are able to support this Volume.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "DedicatedSpareDrives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "Drives": {
+                    "description": "An array of references to the drives which contain this volume. This will reference Drives that either wholly or only partly contain this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
+                    },
+                    "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently members of the Volume, not hot spare Drives which are not currently a member of the volume.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "Drives@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "Oem extension object.",
+                    "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
+                },
+                "SpareResourceSets": {
+                    "description": "An array of references to SpareResourceSets.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/SpareResourceSet.json#/definitions/SpareResourceSet"
+                    },
+                    "longDescription": "Each referenced SpareResourceSet shall contain resources that may be utilized to replace the capacity provided by a failed resource having a compatible type.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "SpareResourceSets@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                }
+            },
+            "type": "object"
+        },
+        "OemActions": {
+            "additionalProperties": true,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        },
+        "Operation": {
+            "additionalProperties": false,
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AssociatedTask": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.json#/definitions/Task",
+                    "description": "A reference to the task associated with the operation if any.",
+                    "readonly": true
+                },
                 "OperationName": {
+                    "description": "The name of the operation.",
+                    "readonly": true,
                     "type": [
                         "string",
                         "null"
-                    ],
-                    "readonly": true,
-                    "description": "The name of the operation."
+                    ]
                 },
                 "PercentageComplete": {
+                    "description": "The percentage of the operation that has been completed.",
+                    "readonly": true,
                     "type": [
-                        "number",
+                        "integer",
                         "null"
-                    ],
-                    "readonly": true,
-                    "description": "The percentage of the operation that has been completed."
-                },
-                "AssociatedTask": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Task.json#/definitions/Task",
-                    "readonly": true,
-                    "description": "A reference to the task associated with the operation if any."
+                    ]
                 }
             },
-            "description": "An operation currently running on this resource.",
-            "longDescription": "This type shall describe a currently running operation on the resource."
+            "type": "object"
+        },
+        "RAIDType": {
+            "enum": [
+                "RAID0",
+                "RAID1",
+                "RAID3",
+                "RAID4",
+                "RAID5",
+                "RAID6",
+                "RAID10",
+                "RAID01",
+                "RAID6TP",
+                "RAID1E",
+                "RAID50",
+                "RAID60",
+                "RAID00",
+                "RAID10E",
+                "RAID1Triple",
+                "RAID10Triple"
+            ],
+            "enumDescriptions": {
+                "RAID0": "A placement policy where consecutive logical blocks of data are uniformly distributed across a set of independent storage devices without offering any form of redundancy.",
+                "RAID00": "A placement policy that creates a RAID 0 stripe set over two or more RAID 0 sets.",
+                "RAID01": "A data placement policy that creates a mirrored device (RAID 1) over a set of striped devices (RAID 0).",
+                "RAID1": "A placement policy where each logical block of data is stored on more than one independent storage device.",
+                "RAID10": "A placement policy that creates a striped device (RAID 0) over a set of mirrored devices (RAID 1).",
+                "RAID10E": "A placement policy that uses a RAID 0 stripe set over two or more RAID 10 sets.",
+                "RAID10Triple": "A placement policy that uses a striped device (RAID 0) over a set of triple mirrored devices (RAID 1Triple).",
+                "RAID1E": "A placement policy that uses a form of mirroring implemented over a set of independent storage devices where logical blocks are duplicated on a pair of independent storage devices so that data is uniformly distributed across the storage devices.",
+                "RAID1Triple": "A placement policy where each logical block of data is mirrored three times across a set of three independent storage devices.",
+                "RAID3": "A placement policy using parity-based protection where logical bytes of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device.",
+                "RAID4": "A placement policy using parity-based protection where logical blocks of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device.",
+                "RAID5": "A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and one logical block of parity across a set of 'n+1' independent storage devices where the parity and data blocks are interleaved across the storage devices.",
+                "RAID50": "A placement policy that uses a RAID 0 stripe set over two or more RAID 5 sets of independent storage devices.",
+                "RAID6": "A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and two logical blocks of independent parity across a set of 'n+2' independent storage devices where the parity and data blocks are interleaved across the storage devices.",
+                "RAID60": "A placement policy that uses a RAID 0 stripe set over two or more RAID 6 sets of independent storage devices.",
+                "RAID6TP": "A placement policy that uses parity-based protection for storing stripes of 'n' logical blocks of data and three logical blocks of independent parity across a set of 'n+3' independent storage devices where the parity and data blocks are interleaved across the storage devices. This is commonly referred to as Triple Parity RAID. Data stored using this form of RAID is able to survive any three independent storage device failures without data loss."
+            },
+            "enumLongDescriptions": {
+                "RAID0": "A placement policy where consecutive logical blocks of data are uniformly distributed across a set of independent storage devices without offering any form of redundancy. This is commonly referred to as data striping. This form of RAID will encounter data loss with the failure of any storage device in the set.",
+                "RAID00": "A placement policy that creates a RAID 0 stripe set over two or more RAID 0 sets. This is commonly referred to as RAID 0+0. This form of data layout is not fault tolerant; if any storage device fails there will be data loss.",
+                "RAID01": "A data placement policy that creates a mirrored device (RAID 1) over a set of striped devices (RAID 0). This is commonly referred to as RAID 0+1 or RAID 0/1. Data stored using this form of RAID is able to survive a single RAID 0 data set failure without data loss.",
+                "RAID1": "A placement policy where each logical block of data is stored on more than one independent storage device. This is commonly referred to as mirroring. Data stored using this form of RAID is able to survive a single storage device failure without data loss.",
+                "RAID10": "A placement policy that creates a striped device (RAID 0) over a set of mirrored devices (RAID 1). This is commonly referred to as RAID 1/0. Data stored using this form of RAID is able to survive storage device failures in each RAID 1 set without data loss.",
+                "RAID10E": "A placement policy that uses a RAID 0 stripe set over two or more RAID 10 sets. This is commonly referred to as Enhanced RAID 10. Data stored using this form of RAID is able to survive a single device failure within each nested RAID 1 set without data loss.",
+                "RAID10Triple": "A placement policy that uses a striped device (RAID 0) over a set of triple mirrored devices (RAID 1Triple). This form of RAID can survive up to two failures in each triple mirror set without data loss. ",
+                "RAID1E": "A placement policy that uses a form of mirroring implemented over a set of independent storage devices where logical blocks are duplicated on a pair of independent storage devices so that data is uniformly distributed across the storage devices. This is commonly referred to as RAID 1 Enhanced. Data stored using this form of RAID is able to survive a single storage device failure without data loss.",
+                "RAID1Triple": "A placement policy where each logical block of data is mirrored three times across a set of three independent storage devices. This is commonly referred to as three-way mirroring. This form of RAID can survive two device failures without data loss.",
+                "RAID3": "A placement policy using parity-based protection where logical bytes of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device. Data stored using this form of RAID is able to survive a single storage device failure without data loss. If the storage devices use rotating media, they are assumed to be rotationally synchronized, and the data stripe size should be no larger than the exported block size.",
+                "RAID4": "A placement policy using parity-based protection where logical blocks of data are uniformly distributed across a set of independent storage devices and where the parity is stored on a dedicated independent storage device. Data stored using this form of RAID is able to survive a single storage device failure without data loss.",
+                "RAID5": "A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and one logical block of parity across a set of 'n+1' independent storage devices where the parity and data blocks are interleaved across the storage devices. Data stored using this form of RAID is able to survive a single storage device failure without data loss.",
+                "RAID50": "A placement policy that uses a RAID 0 stripe set over two or more RAID 5 sets of independent storage devices. Data stored using this form of RAID is able to survive a single storage device failure within each RAID 5 set without data loss.",
+                "RAID6": "A placement policy using parity-based protection for storing stripes of 'n' logical blocks of data and two logical blocks of independent parity across a set of 'n+2' independent storage devices where the parity and data blocks are interleaved across the storage devices. Data stored using this form of RAID is able to survive any two independent storage device failures without data loss.",
+                "RAID60": "A placement policy that uses a RAID 0 stripe set over two or more RAID 6 sets of independent storage devices. Data stored using this form of RAID is able to survive two device failures within each RAID 6 set without data loss."
+            },
+            "type": "string"
+        },
+        "Volume": {
+            "additionalProperties": false,
+            "description": "Volume contains properties used to describe a volume, virtual disk, LUN, or other logical storage entity for any system.",
+            "longDescription": "This resource shall be used to represent a volume, virtual disk, logical disk, LUN, or other logical storage for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "@odata.context": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/context"
+                },
+                "@odata.etag": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/etag"
+                },
+                "@odata.id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/id"
+                },
+                "@odata.type": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/type"
+                },
+                "AccessCapabilities": {
+                    "description": "Supported IO access capabilities.",
+                    "items": {
+                        "anyOf": [
+                            {
+                                "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/DataStorageLoSCapabilities.json#/definitions/StorageAccessCapability"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    },
+                    "longDescription": "Each entry shall specify a current storage access capability.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "Actions": {
+                    "$ref": "#/definitions/Actions",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The Actions property shall contain the available actions for this resource."
+                },
+                "AllocatedPools": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection.json#/definitions/StoragePoolCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "An array of references to StoragePools allocated from this Volume.",
+                    "longDescription": "The value of this property shall contain references to all storage pools allocated from this volume.",
+                    "readonly": true
+                },
+                "BlockSizeBytes": {
+                    "description": "The size of the smallest addressable unit (Block) of this volume in bytes.",
+                    "longDescription": "This property shall contain size of the smallest addressable unit of the associated volume.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "Capacity": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Capacity.json#/definitions/Capacity"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Capacity utilization.",
+                    "longDescription": "Information about the utilization of capacity allocated to this storage volume.",
+                    "readonly": false
+                },
+                "CapacityBytes": {
+                    "description": "The size in bytes of this Volume.",
+                    "longDescription": "This property shall contain the size in bytes of the associated volume.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "CapacitySources": {
+                    "description": "An array of space allocations to this volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Capacity.json#/definitions/CapacitySource"
+                    },
+                    "longDescription": "Fully or partially consumed storage from a source resource. Each entry provides capacity allocation information from a named source resource.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "CapacitySources@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "Description": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "readonly": true
+                },
+                "Encrypted": {
+                    "description": "Is this Volume encrypted.",
+                    "longDescription": "This property shall contain a boolean indicator if the Volume is currently utilizing encryption or not.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ]
+                },
+                "EncryptionTypes": {
+                    "description": "The types of encryption used by this Volume.",
+                    "items": {
+                        "$ref": "#/definitions/EncryptionTypes"
+                    },
+                    "longDescription": "This property shall contain the types of encryption used by this Volume.",
+                    "readonly": false,
+                    "type": "array"
+                },
+                "IOStatistics": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/IOStatistics.json#/definitions/IOStatistics"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Statistics for this volume.",
+                    "longDescription": "The value shall represent IO statistics for this volume."
+                },
+                "Id": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
+                    "readonly": true
+                },
+                "Identifiers": {
+                    "description": "The Durable names for the volume.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
+                    },
+                    "longDescription": "This property shall contain a list of all known durable names for the associated volume.",
+                    "type": "array"
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "Contains references to other resources that are related to this resource.",
+                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
+                },
+                "LowSpaceWarningThresholdPercents": {
+                    "description": "Low space warning.",
+                    "items": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "longDescription": "Each time the following value is less than one of the values in the array the LOW_SPACE_THRESHOLD_WARNING event shall be triggered: Across all CapacitySources entries, percent = (SUM(AllocatedBytes) - SUM(ConsumedBytes))/SUM(AllocatedBytes).",
+                    "readonly": false,
+                    "type": "array",
+                    "units": "%"
+                },
+                "Manufacturer": {
+                    "description": "The manufacturer or OEM of this storage volume.",
+                    "longDescription": "This property shall contain a value that represents the manufacturer or implementer of the storage volume.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "MaxBlockSizeBytes": {
+                    "description": "Max Block size in bytes.",
+                    "longDescription": "This property shall contain size of the largest addressable unit of this storage volume.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "Model": {
+                    "description": "The model number for this storage volume.",
+                    "longDescription": "The value is assigned by the manufacturer and shall represents a specific storage volume implementation.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "Name": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
+                    "readonly": true
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
+                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
+                },
+                "Operations": {
+                    "description": "The operations currently running on the Volume.",
+                    "items": {
+                        "$ref": "#/definitions/Operation"
+                    },
+                    "longDescription": "This property shall contain a list of all currently running on the Volume.",
+                    "type": "array"
+                },
+                "OptimumIOSizeBytes": {
+                    "description": "The size in bytes of this Volume's optimum IO size.",
+                    "longDescription": "This property shall contain the optimum IO size to use when performing IO on this volume. For logical disks, this is the stripe size. For physical disks, this describes the physical sector size.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "By"
+                },
+                "RAIDType": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/Volume.json#/definitions/RAIDType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The RAID type of this volume.",
+                    "longDescription": "This property shall contain the RAID type of the associated Volume.",
+                    "readonly": true
+                },
+                "RecoverableCapacitySourceCount": {
+                    "description": "Current number of capacity source resources that are available as replacements.",
+                    "longDescription": "The value is the number of available capacity source resources currently available in the event that an equivalent capacity source resource fails.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "RemainingCapacityPercent": {
+                    "description": "The percentage of the capacity remaining in the StoragePool.",
+                    "longDescription": "If present, this value shall return  {[(SUM(AllocatedBytes) - SUM(ConsumedBytes)]/SUM(AllocatedBytes)}*100 represented as an integer value.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "ReplicaInfo": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo.json#/definitions/ReplicaInfo"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Describes this storage volume in its role as a target replica.",
+                    "longDescription": "This property shall describe the replica relationship between this storage volume and a corresponding source volume.",
+                    "readonly": true
+                },
+                "ReplicaTargets": {
+                    "description": "The resources that are target replicas of this source.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/idRef"
+                    },
+                    "longDescription": "The value shall reference the target replicas that are sourced by this replica.",
+                    "readonly": true,
+                    "type": "array"
+                },
+                "ReplicaTargets@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.v4_0_3.json#/definitions/count"
+                },
+                "Status": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
+                },
+                "StorageGroups": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection.json#/definitions/StorageGroupCollection"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "An array of references to Storage Groups that includes this volume.",
+                    "longDescription": "The value of this property shall contain references to all storage groups that include this volume.",
+                    "readonly": true
+                },
+                "VolumeType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/VolumeType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "deprecated": "Deprecated in favor of explicit use of RAIDType.",
+                    "description": "The type of this volume.",
+                    "longDescription": "This property shall contain the type of the associated Volume.",
+                    "readonly": true
+                }
+            },
+            "required": [
+                "@odata.id",
+                "@odata.type",
+                "Id",
+                "Name"
+            ],
+            "type": "object"
         },
         "VolumeType": {
-            "type": "string",
             "enum": [
                 "RawDevice",
                 "NonRedundant",
@@ -99,230 +658,16 @@
                 "SpannedStripesWithParity"
             ],
             "enumDescriptions": {
-                "RawDevice": "The volume is a raw physical device without any RAID or other virtualization applied.",
-                "NonRedundant": "The volume is a non-redundant storage device.",
                 "Mirrored": "The volume is a mirrored device.",
-                "StripedWithParity": "The volume is a device which uses parity to retain redundant information.",
+                "NonRedundant": "The volume is a non-redundant storage device.",
+                "RawDevice": "The volume is a raw physical device without any RAID or other virtualization applied.",
                 "SpannedMirrors": "The volume is a spanned set of mirrored devices.",
-                "SpannedStripesWithParity": "The volume is a spanned set of devices which uses parity to retain redundant information."
-            }
-        },
-        "Volume": {
-            "type": "object",
-            "patternProperties": {
-                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
-                    "type": [
-                        "array",
-                        "boolean",
-                        "number",
-                        "null",
-                        "object",
-                        "string"
-                    ],
-                    "description": "This property shall specify a valid odata or Redfish property."
-                }
+                "SpannedStripesWithParity": "The volume is a spanned set of devices which uses parity to retain redundant information.",
+                "StripedWithParity": "The volume is a device which uses parity to retain redundant information."
             },
-            "additionalProperties": false,
-            "properties": {
-                "@odata.context": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/context"
-                },
-                "@odata.id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/id"
-                },
-                "@odata.type": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/type"
-                },
-                "Oem": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                    "description": "This is the manufacturer/provider specific extension moniker used to divide the Oem object into sections.",
-                    "longDescription": "The value of this string shall be of the format for the reserved word *Oem*."
-                },
-                "Id": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
-                    "readonly": true
-                },
-                "Description": {
-                    "anyOf": [
-                        {"$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Description"},
-                        {"type": "null"}
-                    ],
-                    "readonly": true
-                },
-                "Name": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
-                    "readonly": true
-                },
-                "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status"
-                },
-                "CapacityBytes": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "units": "By",
-                    "readonly": true,
-                    "description": "The size in bytes of this Volume.",
-                    "longDescription": "This property shall contain the size in bytes of the associated volume."
-                },
-                "VolumeType": {
-                    "anyOf": [
-                        {"$ref": "#/definitions/VolumeType"},
-                        {"type": "null"}
-                    ],
-                    "readonly": true,
-                    "description": "The type of this volume.",
-                    "longDescription": "This property shall contain the type of the associated Volume."
-                },
-                "Encrypted": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "readonly": false,
-                    "description": "Is this Volume encrypted.",
-                    "longDescription": "This property shall contain a boolean indicator if the Volume is currently utilizing encryption or not."
-                },
-                "EncryptionTypes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/EncryptionTypes"
-                    },
-                    "readonly": false,
-                    "description": "The types of encryption used by this Volume.",
-                    "longDescription": "This property shall contain the types of encryption used by this Volume."
-                },
-                "Identifiers": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.v1_1_0.json#/definitions/Identifier"
-                    },
-                    "description": "The Durable names for the volume.",
-                    "longDescription": "This property shall contain a list of all known durable names for the associated volume."
-                },
-                "BlockSizeBytes": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "units": "By",
-                    "readonly": true,
-                    "description": "The size of the smallest addressible unit (Block) of this volume in bytes.",
-                    "longDescription": "This property shall contain size of the smallest addressible unit of the associated volume."
-                },
-                "Operations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Operations"
-                    },
-                    "description": "The operations currently running on the Volume.",
-                    "longDescription": "This property shall contain a list of all currently running on the Volume."
-                },
-                "OptimumIOSizeBytes": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "units": "By",
-                    "readonly": true,
-                    "description": "The size in bytes of this Volume's optimum IO size.",
-                    "longDescription": "This property shall contain the optimum IO size to use when performing IO on this volume. For logical disks, this is the stripe size. For physical disks, this describes the physical sector size."
-                },
-                "Links": {
-                    "type": "object",
-                    "patternProperties": {
-                        "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
-                            "type": [
-                                "array",
-                                "boolean",
-                                "number",
-                                "null",
-                                "object",
-                                "string"
-                            ],
-                            "description": "This property shall specify a valid odata or Redfish property."
-                        }
-                    },
-                    "additionalProperties": false,
-                    "properties": {
-                        "Oem": {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
-                            "description": "Oem extension object.",
-                            "longDescription": "This object represents the Oem property.  All values for resources described by this schema shall comply to the requirements as described in the Redfish specification."
-                        },
-                        "Drives@odata.count": {
-                            "$ref": "http://redfish.dmtf.org/schemas/v1/odata.4.0.0.json#/definitions/count"
-                        },
-                        "Drives@odata.navigationLink": {
-                            "type": "string",
-                            "format": "uri"
-                        },
-                        "Drives": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "http://redfish.dmtf.org/schemas/v1/Drive.json#/definitions/Drive"
-                            },
-                            "readonly": true,
-                            "description": "An array of references to the drives which contain this volume. This will reference Drives that either wholly or only partly contain this volume.",
-                            "longDescription": "The value of this property shall be a reference to the resources that this volume is associated with and shall reference resources of type Drive. This property shall only contain references to Drive entities which are currently members of the Volume, not hot spare Drives which are not currently a member of the volume."
-                        }
-                    },
-                    "description": "Contains references to other resources that are related to this resource.",
-                    "longDescription": "The Links property, as described by the Redfish Specification, shall contain references to resources that are related to, but not contained by (subordinate to), this resource."
-                },
-                "Actions": {
-                    "type": "object",
-                    "patternProperties": {
-                        "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
-                            "type": [
-                                "array",
-                                "boolean",
-                                "number",
-                                "null",
-                                "object",
-                                "string"
-                            ],
-                            "description": "This property shall specify a valid odata or Redfish property."
-                        }
-                    },
-                    "additionalProperties": false,
-                    "properties": {
-                        "Oem": {
-                            "type": "object",
-                            "patternProperties": {
-                                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message|Privileges)\\.[a-zA-Z_][a-zA-Z0-9_.]+$": {
-                                    "type": [
-                                        "array",
-                                        "boolean",
-                                        "number",
-                                        "null",
-                                        "object",
-                                        "string"
-                                    ],
-                                    "description": "This property shall specify a valid odata or Redfish property."
-                                }
-                            },
-                            "additionalProperties": true,
-                            "properties": {},
-                            "description": "The available OEM specific actions for this resource.",
-                            "longDescription": "This type shall contain any additional OEM actions for this resource."
-                        },
-                        "#Volume.Initialize": {
-                            "$ref": "#/definitions/Initialize"
-                        }
-                    },
-                    "description": "The available actions for this resource.",
-                    "longDescription": "The Actions property shall contain the available actions for this resource."
-                }
-            },
-            "required": [
-                "Id",
-                "Name"
-            ],
-            "description": "Volume contains properties used to describe a volume, virtual disk, LUN, or other logical storage entity for any system.",
-            "longDescription": "This resource shall be used to represent a volume, virtual disk, logical disk, LUN, or other logical storage for a Redfish implementation."
+            "type": "string"
         }
     },
-    "copyright": "Copyright 2014-2017 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright"
+    "owningEntity": "SNIA",
+    "title": "#Volume.v1_3_1.Volume"
 }

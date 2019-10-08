@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Certificate  v1.0.0-->
+<!--# Redfish Schema:  Certificate v1.1.1                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2018 DMTF.                                                            -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -30,8 +30,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Certificate" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Certificate resource describes a certificate used to prove the identify of a component, account, or service."/>
-        <Annotation Term="OData.LongDescription" String="This resource shall be used to represent a Certificate for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Certificate schema describes a certificate that proves the identify of a component, account, or service."/>
+        <Annotation Term="OData.LongDescription" String="This Resource contains a certificate for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -45,7 +45,7 @@
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
             <PropertyValue Property="Deletable" Bool="true"/>
-            <Annotation Term="OData.Description" String="Certificates can be removed by Deleting the Certificate resource."/>
+            <Annotation Term="OData.Description" String="Use the DELETE operation to remove certificates."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -59,70 +59,123 @@
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/LDAP/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/RemoteAccountService/ExternalAccountProviders/{ExternalAccountProviderId}/Certificates/{CertificateId}</String>
             <String>/redfish/v1/Managers/{ManagerId}/NetworkProtocol/HTTPS/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Boot/Certificates/{CertificateId}</String>
           </Collection>
         </Annotation>
       </EntityType>
 
       <EnumType Name="CertificateType">
         <Member Name="PEM">
-          <Annotation Term="OData.Description" String="A PEM encoded certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall be a Privacy Enhanced Mail (PEM) encoded string, containing structures specified by RFC5280."/>
+          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded certificate."/>
+          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280-defined structures."/>
         </Member>
         <Member Name="PKCS7">
-          <Annotation Term="OData.Description" String="A PEM encoded PKCS7 certificate."/>
-          <Annotation Term="OData.LongDescription" String="The format of the certificate shall be a Privacy Enhanced Mail (PEM) encoded string, containing structures specified by RFC5280 and RFC2315.  The service may discard additional certificates or other data in the structure."/>
+          <Annotation Term="OData.Description" String="A Privacy Enhanced Mail (PEM)-encoded PKCS7 certificate."/>
+          <Annotation Term="OData.LongDescription" String="The format of the certificate shall contain a Privacy Enhanced Mail (PEM)-encoded string, containing RFC5280- and RFC2315-defined structures.  The Service may discard additional certificates or other data in the structure."/>
         </Member>
       </EnumType>
 
       <EnumType Name="KeyUsage">
         <Annotation Term="OData.Description" String="The usages of a key contained within a certificate."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the usages of a key contained within a certificate as specified by the Key Usage and Extended Key Usage definitions in RFC5280."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the usages of a key within a certificate, as specified by the 'Key Usage' and 'Extended Key Usage' definitions in RFC5280."/>
         <Member Name="DigitalSignature">
-          <Annotation Term="OData.Description" String="The public key is used for verifying digital signatures, other than signatures on certificates and CRLs."/>
+          <Annotation Term="OData.Description" String="Verifies digital signatures, other than signatures on certificates and CRLs."/>
         </Member>
         <Member Name="NonRepudiation">
-          <Annotation Term="OData.Description" String="The public key is used to verify digital signatures, other than signatures on certificates and CRLs, and used to provide a non-repudiation service that protects against the signing entity falsely denying some action."/>
+          <Annotation Term="OData.Description" String="Verifies digital signatures, other than signatures on certificates and CRLs, and provides a non-repudiation service that protects against the signing entity falsely denying some action."/>
         </Member>
         <Member Name="KeyEncipherment">
-          <Annotation Term="OData.Description" String="The public key is used for enciphering private or secret keys."/>
+          <Annotation Term="OData.Description" String="Enciphers private or secret keys."/>
         </Member>
         <Member Name="DataEncipherment">
-          <Annotation Term="OData.Description" String="The public key is used for directly enciphering raw user data without the use of an intermediate symmetric cipher."/>
+          <Annotation Term="OData.Description" String="Directly enciphers raw user data without an intermediate symmetric cipher."/>
         </Member>
         <Member Name="KeyAgreement">
-          <Annotation Term="OData.Description" String="The public key is used for key agreement."/>
+          <Annotation Term="OData.Description" String="Key agreement."/>
         </Member>
         <Member Name="KeyCertSign">
-          <Annotation Term="OData.Description" String="The public key is used for verifying signatures on public key certificates."/>
+          <Annotation Term="OData.Description" String="Verifies signatures on public key certificates."/>
         </Member>
         <Member Name="CRLSigning">
-          <Annotation Term="OData.Description" String="The public key is used for verifying signatures on certificate revocation lists (CLRs)."/>
+          <Annotation Term="OData.Description" String="Verifies signatures on certificate revocation lists (CLRs)."/>
         </Member>
         <Member Name="EncipherOnly">
-          <Annotation Term="OData.Description" String="The public key could be used for enciphering data while performing key agreement."/>
+          <Annotation Term="OData.Description" String="Enciphers data while performing a key agreement."/>
         </Member>
         <Member Name="DecipherOnly">
-          <Annotation Term="OData.Description" String="The public key could be used for deciphering data while performing key agreement."/>
+          <Annotation Term="OData.Description" String="Deciphers data while performing a key agreement."/>
         </Member>
         <Member Name="ServerAuthentication">
-          <Annotation Term="OData.Description" String="The public key is used for TLS WWW server authentication."/>
+          <Annotation Term="OData.Description" String="TLS WWW server authentication."/>
         </Member>
         <Member Name="ClientAuthentication">
-          <Annotation Term="OData.Description" String="The public key is used for TLS WWW client authentication."/>
+          <Annotation Term="OData.Description" String="TLS WWW client authentication."/>
         </Member>
         <Member Name="CodeSigning">
-          <Annotation Term="OData.Description" String="The public key is used for the signing of executable code."/>
+          <Annotation Term="OData.Description" String="Signs downloadable executable code."/>
         </Member>
         <Member Name="EmailProtection">
-          <Annotation Term="OData.Description" String="The public key is used for email protection."/>
+          <Annotation Term="OData.Description" String="Email protection."/>
         </Member>
         <Member Name="Timestamping">
-          <Annotation Term="OData.Description" String="The public key is used for binding the hash of an object to a time."/>
+          <Annotation Term="OData.Description" String="Binds the hash of an object to a time."/>
         </Member>
         <Member Name="OCSPSigning">
-          <Annotation Term="OData.Description" String="The public key is used for signing OCSP responses."/>
+          <Annotation Term="OData.Description" String="Signs OCSP responses."/>
         </Member>
       </EnumType>
+
+      <Action Name="Rekey" IsBound="true">
+        <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
+        <Parameter Name="KeyPairAlgorithm" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The type of key-pair for use with signing algorithms."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of key-pair for use with signing algorithms.  The allowable values for this parameter shall be the strings in the 'Algorithm Name' field of the 'TPM_ALG_ID Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Parameter>
+        <Parameter Name="KeyBitLength" Type="Edm.Int64">
+          <Annotation Term="OData.Description" String="The length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the length of the key, in bits, if needed based on the KeyPairAlgorithm parameter value."/>
+        </Parameter>
+        <Parameter Name="KeyCurveId" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the curve ID to use with the key, if needed based on the KeyPairAlgorithm parameter value.  The allowable values for this parameter shall be the strings in the 'Name' field of the 'TPM_ECC_CURVE Constants' table within the 'Trusted Computing Group Algorithm Registry'."/>
+        </Parameter>
+        <Parameter Name="ChallengePassword" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
+        </Parameter>
+        <ReturnType Type="Certificate.v1_1_0.RekeyResponse" Nullable="false"/>
+        <Annotation Term="OData.Description" String="This action generates a new key-pair for a certificate and produces a certificate signing request."/>
+        <Annotation Term="OData.LongDescription" String="This action shall use the certificate data to generate a new key-pair for a certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that generated this request for installation of the certificate.  The private key should not be part of the response.  The private key should not be part of the response."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_1_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
+      <Action Name="Renew" IsBound="true">
+        <Parameter Name="Certificate" Type="Certificate.v1_0_0.Actions"/>
+        <Parameter Name="ChallengePassword" Type="Edm.String">
+          <Annotation Term="OData.Description" String="The challenge password to apply to the certificate for revocation requests."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the challenge password to apply to the certificate for revocation requests as defined by the RFC2985 'challengePassword' attribute."/>
+        </Parameter>
+        <ReturnType Type="Certificate.v1_1_0.RenewResponse" Nullable="false"/>
+        <Annotation Term="OData.Description" String="This action generates a certificate signing request by using the existing information and key-pair of the certificate."/>
+        <Annotation Term="OData.LongDescription" String="This action shall generate a certificate signing request using the existing information and key-pair of the certificate.  The response shall contain a signing request that a certificate authority (CA) must sign.  The Service should retain the private key that this request generates for when the certificate is installed.  The private key should not be part of the response."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_1_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_0">
@@ -133,7 +186,7 @@
         <Property Name="CertificateString" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The string for the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be the string of the certificate, and the format shall follow the requirements specified by the value of the CertificateType property.  If the certificate contains any private keys, they shall be removed from the string on GET requests.  If the private key for the certificate is not known by the service and is needed to use the certificate, the client shall provide the private key as part of the string in the POST request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the certificate, and the format shall follow the requirements specified by the CertificateType property value.  If the certificate contains any private keys, they shall be removed from the string in responses.  If the service does not know the private key for the certificate and is needed to use the certificate, the client shall provide the private key as part of the string in the POST request."/>
           <Annotation Term="Redfish.RequiredOnCreate"/>
         </Property>
         <Property Name="CertificateType" Type="Certificate.CertificateType">
@@ -144,38 +197,38 @@
         </Property>
         <Property Name="Issuer" Type="Certificate.v1_0_0.Identifier" Nullable="false">
           <Annotation Term="OData.Description" String="The issuer of the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an object containing information about the issuer of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an object containing information about the issuer of the certificate."/>
         </Property>
         <Property Name="Subject" Type="Certificate.v1_0_0.Identifier" Nullable="false">
           <Annotation Term="OData.Description" String="The subject of the certificate."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall be an object containing information about the subject of the certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an object containing information about the subject of the certificate."/>
         </Property>
         <Property Name="ValidNotBefore" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date when the certificate becomes valid."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the date on which the certificate validity period begins."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date when the certificate validity period begins."/>
         </Property>
         <Property Name="ValidNotAfter" Type="Edm.DateTimeOffset" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The date when the certificate is no longer valid."/>
-          <Annotation Term="OData.LongDescription" String="The value of this property shall indicate the date on which the certificate validity period ends."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date when the certificate validity period ends."/>
         </Property>
         <Property Name="KeyUsage" Type="Collection(Certificate.KeyUsage)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The usage of the key contained in the certificate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the usage of the key contained in the certificate."/>
+          <Annotation Term="OData.Description" String="The key usage extension, which defines the purpose of the public keys in this certificate."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key usage extension, which defines the purpose of the public keys in this certificate."/>
         </Property>
 
         <Property Name="Actions" Type="Certificate.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="The Actions property shall contain the available actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Identifier">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The identifier information about a certificate."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the properties used to identify the issuer or subject of a certificate."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties that identifies the issuer or subject of a certificate."/>
         <Property Name="CommonName" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The fully qualified domain name of the entity."/>
@@ -204,7 +257,7 @@
         <Property Name="Country" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The country of the organization of the entity."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the two letter ISO code for the country of the organization of the entity."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the two-letter ISO code for the country of the organization of the entity."/>
         </Property>
         <Property Name="Email" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -215,19 +268,80 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
         <Property Name="Oem" Type="Certificate.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="This property contains the available OEM specific actions for this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any additional OEM actions for this resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM specific actions for this resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional OEM actions for this resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_0.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_0_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the CertificateString description.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_1.Certificate"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the Renew and Rekey actions."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_0_1.Certificate"/>
+
+      <ComplexType Name="RekeyResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the Rekey action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the Rekey action."/>
+        <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the certificate being rekeyed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Resource that is replaced after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+        <Property Name="CSRString" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The string for the certificate signing request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the certificate signing request as a PEM-encoded string, containing structures specified by RFC2986.  The private key should not be part of the string."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="RenewResponse">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The response body for the Renew action."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the properties found in the response body for the Renew action."/>
+        <NavigationProperty Name="Certificate" Type="Certificate.Certificate" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the certificate being renewed."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the URI of the Certificate Resource that is replaced after the certificate authority (CA) signs the certificate."/>
+          <Annotation Term="Redfish.Required"/>
+        </NavigationProperty>
+        <Property Name="CSRString" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The string for the certificate signing request."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the certificate signing request as a PEM-encoded string, containing structures specified by RFC2986.  The private key should not be part of the string."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+      </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Certificate.v1_1_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the CertificateString description.  It was also created to update descriptions that this schema defines."/>
+      <EntityType Name="Certificate" BaseType="Certificate.v1_1_0.Certificate"/>
     </Schema>
 
   </edmx:DataServices>
