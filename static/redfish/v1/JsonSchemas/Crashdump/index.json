@@ -1,0 +1,20 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/Crashdump",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "Crashdump Schema File",
+    "Schema": "#Crashdump.Crashdump",
+    "Description": "Crashdump Schema File Location",
+    "Id": "Crashdump",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "Uri": "/redfish/v1/JsonSchemas/Crashdump/Crashdump.json"
+        }
+    ],
+    "Location@odata.count": 1
+}
