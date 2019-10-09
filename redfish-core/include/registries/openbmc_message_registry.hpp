@@ -86,6 +86,15 @@ const std::array registry = {
                      .paramTypes = {},
                      .resolution = "None.",
                  }},
+    MessageEntry{"BMCKernelPanic",
+                 {
+                     .description = "Indicates that BMC kernel panic occurred.",
+                     .message = "BMC rebooted due to kernel panic.",
+                     .severity = "OK",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
     MessageEntry{"CPUError",
                  {
                      .description = "Indicates that a CPU Error occurred of "
