@@ -508,10 +508,10 @@ class EventLogService : public Node
     }
 };
 
-class EventLogClear : public Node
+class JournalEventLogClear : public Node
 {
   public:
-    EventLogClear(CrowApp &app) :
+    JournalEventLogClear(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
                   "LogService.ClearLog/")
     {
@@ -1894,7 +1894,7 @@ class DBusLogServiceActionsClear : public Node
   public:
     DBusLogServiceActionsClear(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/EventLog/Actions/"
-                  "LogService.Reset")
+                  "LogService.ClearLog")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
