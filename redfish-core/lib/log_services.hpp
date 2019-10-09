@@ -535,6 +535,31 @@ class EventLogClear : public Node
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
+#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+        BMCWEB_LOG_DEBUG << "doClearLog Do delete all entries.";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        // Process response from Logging service.
+        auto resp_handler = [asyncResp](const boost::system::error_code ec) {
+            BMCWEB_LOG_DEBUG << "doClearLog resp_handler callback: Done";
+            if (ec)
+            {
+                // TODO Handle for specific error code
+                BMCWEB_LOG_ERROR << "doClearLog resp_handler got error " << ec;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                return;
+            }
+
+            asyncResp->res.result(boost::beast::http::status::no_content);
+        };
+
+        // Make call to Logging service to request Clear Log
+        crow::connections::systemBus->async_method_call(
+            resp_handler, "xyz.openbmc_project.Logging",
+            "/xyz/openbmc_project/logging",
+            "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
+#else
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Clear the EventLog by deleting the log files
@@ -563,6 +588,7 @@ class EventLogClear : public Node
             "org.freedesktop.systemd1", "/org/freedesktop/systemd1",
             "org.freedesktop.systemd1.Manager", "ReloadUnit", "rsyslog.service",
             "replace");
+#endif
     }
 };
 
