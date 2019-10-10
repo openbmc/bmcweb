@@ -6,8 +6,8 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 
-#include "crow/common.h"
-#include "crow/query_string.h"
+#include "common.h"
+#include "query_string.h"
 
 namespace crow
 {

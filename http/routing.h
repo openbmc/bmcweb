@@ -15,12 +15,12 @@
 #include <utility>
 #include <vector>
 
-#include "crow/common.h"
-#include "crow/http_request.h"
-#include "crow/http_response.h"
-#include "crow/logging.h"
-#include "crow/utility.h"
-#include "crow/websocket.h"
+#include "common.h"
+#include "http_request.h"
+#include "http_response.h"
+#include "logging.h"
+#include "utility.h"
+#include "websocket.h"
 
 namespace crow
 {

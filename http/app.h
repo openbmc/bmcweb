@@ -10,12 +10,12 @@
 #include <string>
 #include <utility>
 
-#include "crow/http_request.h"
-#include "crow/http_server.h"
-#include "crow/logging.h"
-#include "crow/middleware_context.h"
-#include "crow/routing.h"
-#include "crow/utility.h"
+#include "http_request.h"
+#include "http_server.h"
+#include "logging.h"
+#include "middleware_context.h"
+#include "routing.h"
+#include "utility.h"
 
 #define BMCWEB_ROUTE(app, url)                                                 \
     app.template route<crow::black_magic::get_parameter_tag(url)>(url)

@@ -22,9 +22,9 @@
 #include <utility>
 #include <vector>
 
-#include "crow/http_connection.h"
-#include "crow/logging.h"
-#include "crow/timer_queue.h"
+#include "http_connection.h"
+#include "logging.h"
+#include "timer_queue.h"
 
 namespace crow
 {
