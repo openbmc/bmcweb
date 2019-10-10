@@ -18,11 +18,11 @@
 #include <chrono>
 #include <vector>
 
-#include "crow/http_response.h"
-#include "crow/logging.h"
-#include "crow/middleware_context.h"
-#include "crow/timer_queue.h"
-#include "crow/utility.h"
+#include "http_response.h"
+#include "logging.h"
+#include "middleware_context.h"
+#include "timer_queue.h"
+#include "utility.h"
 
 namespace crow
 {
