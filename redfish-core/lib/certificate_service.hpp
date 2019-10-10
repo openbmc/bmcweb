@@ -1265,9 +1265,16 @@ class TrustStoreCertificateCollection : public Node
     void doPost(crow::Response &res, const crow::Request &req,
                 const std::vector<std::string> &params) override
     {
-        std::shared_ptr<CertificateFile> certFile =
-            std::make_shared<CertificateFile>(req.body);
         auto asyncResp = std::make_shared<AsyncResp>(res);
+        std::string certFileBody = getCertificateFromReqBody(asyncResp, req);
+
+        if (certFileBody.empty())
+        {
+            return;
+        }
+
+        std::shared_ptr<CertificateFile> certFile =
+            std::make_shared<CertificateFile>(certFileBody);
         crow::connections::systemBus->async_method_call(
             [asyncResp, certFile](const boost::system::error_code ec) {
                 if (ec)
