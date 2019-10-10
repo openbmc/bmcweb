@@ -104,6 +104,7 @@ void connectHandler(const boost::system::error_code& ec)
 void requestRoutes(CrowApp& app)
 {
     BMCWEB_ROUTE(app, "/console0")
+        .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";

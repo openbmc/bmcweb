@@ -114,6 +114,7 @@ inline int onPropertyUpdate(sd_bus_message* m, void* userdata,
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/subscribe")
+        .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([&](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
