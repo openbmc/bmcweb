@@ -159,6 +159,7 @@ inline void requestRoutes(CrowApp& app)
     sessions.reserve(maxSessions);
 
     BMCWEB_ROUTE(app, "/kvm/0")
+        .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
