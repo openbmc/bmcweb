@@ -5,7 +5,7 @@
 #include <chrono>
 #include <functional>
 
-#include "crow/logging.h"
+#include "logging.h"
 
 namespace crow
 {
