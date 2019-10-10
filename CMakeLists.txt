@@ -202,7 +202,7 @@ endif (CMAKE_BUILD_TYPE MATCHES Debug)
 if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
     add_definitions (-DBMCWEB_ENABLE_SSL)
 endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
-include_directories (${CMAKE_CURRENT_SOURCE_DIR}/crow/include)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/http)
 
 # Zlib
 find_package (ZLIB REQUIRED)

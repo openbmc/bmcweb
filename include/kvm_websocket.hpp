@@ -1,7 +1,7 @@
 #pragma once
-#include <crow/app.h>
-#include <crow/websocket.h>
+#include <app.h>
 #include <sys/socket.h>
+#include <websocket.h>
 
 #include <boost/container/flat_map.hpp>
 #include <webserver_common.hpp>

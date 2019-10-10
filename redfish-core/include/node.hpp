@@ -22,8 +22,8 @@
 #include <error_messages.hpp>
 #include <vector>
 
-#include "crow/http_request.h"
-#include "crow/http_response.h"
+#include "http_request.h"
+#include "http_response.h"
 
 namespace redfish
 {

@@ -10,7 +10,7 @@
 #include <random>
 #include <sdbusplus/bus/match.hpp>
 
-#include "crow/logging.h"
+#include "logging.h"
 
 namespace crow
 {
