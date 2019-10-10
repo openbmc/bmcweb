@@ -2219,6 +2219,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
+        .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("GET"_method,
                  "POST"_method)([](const crow::Request &req,
                                    crow::Response &res,

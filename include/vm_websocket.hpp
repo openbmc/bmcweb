@@ -160,6 +160,7 @@ static std::shared_ptr<Handler> handler;
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/vm/0/0")
+        .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
         .onopen([](crow::websocket::Connection& conn) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
