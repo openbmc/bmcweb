@@ -1,9 +1,9 @@
 #pragma once
 
-#include <crow/app.h>
-#include <crow/http_request.h>
-#include <crow/http_response.h>
-#include <crow/routing.h>
+#include <app.h>
+#include <http_request.h>
+#include <http_response.h>
+#include <routing.h>
 
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/container/flat_set.hpp>

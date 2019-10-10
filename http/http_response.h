@@ -4,8 +4,8 @@
 #include <boost/beast/http.hpp>
 #include <string>
 
-#include "crow/http_request.h"
-#include "crow/logging.h"
+#include "http_request.h"
+#include "logging.h"
 
 namespace crow
 {

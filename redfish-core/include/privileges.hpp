@@ -15,7 +15,7 @@
 */
 #pragma once
 
-#include <crow/logging.h>
+#include <logging.h>
 
 #include <array>
 #include <bitset>
