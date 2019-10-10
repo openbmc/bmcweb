@@ -5,7 +5,7 @@
 #include <boost/beast/websocket.hpp>
 #include <functional>
 
-#include "crow/http_request.h"
+#include "http_request.h"
 
 #ifdef BMCWEB_ENABLE_SSL
 #include <boost/beast/websocket/ssl.hpp>
