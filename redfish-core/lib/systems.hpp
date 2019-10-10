@@ -1176,6 +1176,37 @@ static std::string dbusToRfWatchdogAction(const std::string &dbusAction)
 }
 
 /**
+ *@brief Translates timeout action from Redfish to DBUS property value.
+ *
+ *@param[in] rfAction The timeout action in Redfish.
+ *
+ *@return Returns as a string, the time_out action as expected by DBUS.
+ *If translation cannot be done, returns an empty string.
+ */
+
+static std::string rfToDbusWDTTimeOutAct(const std::string &rfAction)
+{
+    if (rfAction == "None")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.None";
+    }
+    else if (rfAction == "PowerCycle")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.PowerCycle";
+    }
+    else if (rfAction == "PowerDown")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.PowerOff";
+    }
+    else if (rfAction == "ResetSystem")
+    {
+        return "xyz.openbmc_project.State.Watchdog.Action.HardReset";
+    }
+
+    return "";
+}
+
+/**
  * @brief Retrieves host watchdog timer properties over DBUS
  *
  * @param[in] aResp     Shared pointer for completing asynchronous calls.
@@ -1241,6 +1272,70 @@ void getHostWatchdogTimer(std::shared_ptr<AsyncResp> aResp)
         "xyz.openbmc_project.Watchdog", "/xyz/openbmc_project/watchdog/host0",
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.State.Watchdog");
+}
+
+/**
+ * @brief Sets Host WatchDog Timer properties.
+ *
+ * @param[in] aResp      Shared pointer for generating response message.
+ * @param[in] wdtEnable  The WDTimer Enable value (true/false) from incoming
+ *                       RF request.
+ * @param[in] wdtTimeOutAction The WDT Timeout action, from incoming RF request.
+ *
+ * @return None.
+ */
+static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
+                             const std::optional<bool> wdtEnable,
+                             const std::optional<std::string> &wdtTimeOutAction)
+{
+    BMCWEB_LOG_DEBUG << "Set host watchdog";
+
+    if (wdtTimeOutAction)
+    {
+        std::string wdtTimeOutActStr = rfToDbusWDTTimeOutAct(*wdtTimeOutAction);
+        // check if TimeOut Action is Valid
+        if (wdtTimeOutActStr.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Unsupported value for TimeoutAction: "
+                             << *wdtTimeOutAction;
+            messages::propertyValueNotInList(aResp->res, *wdtTimeOutAction,
+                                             "TimeoutAction");
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Watchdog",
+            "/xyz/openbmc_project/watchdog/host0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.State.Watchdog", "ExpireAction",
+            std::variant<std::string>(wdtTimeOutActStr));
+    }
+
+    if (wdtEnable)
+    {
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Watchdog",
+            "/xyz/openbmc_project/watchdog/host0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.State.Watchdog", "Enabled",
+            std::variant<bool>(*wdtEnable));
+    }
 }
 
 /**
@@ -1564,15 +1659,32 @@ class Systems : public Node
     {
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
+        std::optional<nlohmann::json> wdtTimerProps;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps))
+                                 bootProps, "WatchdogTimer", wdtTimerProps))
         {
             return;
         }
 
         res.result(boost::beast::http::status::no_content);
+
+        if (wdtTimerProps)
+        {
+            std::optional<bool> wdtEnable;
+            std::optional<std::string> wdtTimeOutAction;
+
+            if (!json_util::readJson(*wdtTimerProps, asyncResp->res,
+                                     "FunctionEnabled", wdtEnable,
+                                     "TimeoutAction", wdtTimeOutAction))
+            {
+                return;
+            }
+            setWDTProperties(asyncResp, std::move(wdtEnable),
+                             std::move(wdtTimeOutAction));
+        }
+
         if (bootProps)
         {
             std::optional<std::string> bootSource;
