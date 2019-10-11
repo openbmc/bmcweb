@@ -240,6 +240,7 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
             if (error_code)
             {
                 // not all fwtypes are updateable, this is ok
+                asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
                 return;
             }
             boost::container::flat_map<std::string, VariantType>::const_iterator
