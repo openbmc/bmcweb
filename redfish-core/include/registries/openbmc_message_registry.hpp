@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 114> registry = {
+const std::array<MessageEntry, 126> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -55,6 +55,40 @@ const std::array<MessageEntry, 114> registry = {
             {},
             "None.",
         }},
+    MessageEntry{"BIOSFirmwarePanicReason",
+                 {
+                     "Indicates the reason behind BIOS firmware panic.",
+                     "BIOS firmware panic occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason behind BIOS firmware recovery.",
+                     "BIOS firmware recovery occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "BIOS firmware.",
+                     "Error occurred in BIOS firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
@@ -82,6 +116,40 @@ const std::array<MessageEntry, 114> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"BMCFirmwarePanicReason",
+                 {
+                     "Indicates the reason behind last BMC firmware panic.",
+                     "BMC firmware panic occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason behind last BMC firmware recovery.",
+                     "BMC firmware recovery occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "BMC firmware.",
+                     "Error occurred in BMC firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"ChassisIntrusionDetected",
                  {
                      "Indicates that a physical security event "
@@ -101,7 +169,40 @@ const std::array<MessageEntry, 114> registry = {
                      {},
                      "None.",
                  }},
-
+    MessageEntry{"CPLDFirmwarePanicReason",
+                 {
+                     "Indicates the reason behind CPLD firmware panic.",
+                     "CPLD firmware panic occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason behind CPLD firmware recovery.",
+                     "CPLD firmware recovery occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "CPLD firmware.",
+                     "Error occurred in CPLD firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"CPUError",
                  {
                      "Indicates that a CPU Error occurred of "
@@ -363,6 +464,40 @@ const std::array<MessageEntry, 114> registry = {
                      "Warning",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwarePanicReason",
+                 {
+                     "Indicates the reason behind ME firmware panic.",
+                     "ME firmware panic occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason behind ME firmware recovery.",
+                     "ME firmware recovery occurred due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "ME firmware.",
+                     "Error occurred in ME firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
                      "None.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
