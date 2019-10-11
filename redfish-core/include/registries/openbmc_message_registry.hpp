@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 114> registry = {
+const std::array<MessageEntry, 117> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -954,6 +954,42 @@ const std::array<MessageEntry, 114> registry = {
             },
             "None.",
         }},
+    MessageEntry{"PlatformFirmwareError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "platform firmware.",
+                     "Error occurred in platform firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PlatformFirmwarePanicEvent",
+                 {
+                     "Indicates that the platform firmware panic event "
+                     "occurred for the specified reason.",
+                     "Platform firmware panic event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"PlatformFirmwareRecoveryEvent",
+                 {
+                     "Indicates that the platform firmware recovery event "
+                     "occurred for the specified reason.",
+                     "Platform firmware recovery event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"ChassisIntrusionDetected",
                  {
                      "Indicates that a physical security event "
