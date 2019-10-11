@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 118> registry = {
+const std::array<MessageEntry, 130> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -55,6 +55,39 @@ const std::array<MessageEntry, 118> registry = {
             {},
             "None.",
         }},
+    MessageEntry{"BIOSFirmwarePanicReason",
+                 {
+                     "Indicates the reason for BIOS firmware panic.",
+                     "BIOS firmware panic occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason for BIOS firmware recovery.",
+                     "BIOS firmware recovery occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareResiliencyError",
+                 {
+                     "Indicates BIOS firmware encountered resilience error.",
+                     "BIOS firmware resiliency error. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
@@ -82,6 +115,39 @@ const std::array<MessageEntry, 118> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"BMCFirmwarePanicReason",
+                 {
+                     "Indicates the reason for last BMC firmware panic.",
+                     "BMC firmware panic occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason for last BMC firmware recovery.",
+                     "BMC firmware recovery occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareResiliencyError",
+                 {
+                     "Indicates BMC firmware encountered resilience error.",
+                     "BMC firmware resiliency error. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"ChassisIntrusionDetected",
                  {
                      "Indicates that a physical security event "
@@ -101,7 +167,39 @@ const std::array<MessageEntry, 118> registry = {
                      {},
                      "None.",
                  }},
-
+    MessageEntry{"CPLDFirmwarePanicReason",
+                 {
+                     "Indicates the reason for CPLD firmware panic.",
+                     "CPLD firmware panic occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason for CPLD firmware recovery.",
+                     "CPLD firmware recovery occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareResiliencyError",
+                 {
+                     "Indicates CPLD firmware encountered resilience error.",
+                     "CPLD firmware resiliency error. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"CPUError",
                  {
                      "Indicates that a CPU Error occurred of "
@@ -373,6 +471,39 @@ const std::array<MessageEntry, 118> registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwarePanicReason",
+                 {
+                     "Indicates the reason for ME firmware panic.",
+                     "ME firmware panic occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareRecoveryReason",
+                 {
+                     "Indicates the reason for ME firmware recovery.",
+                     "ME firmware recovery occurred due to %1.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareResiliencyError",
+                 {
+                     "Indicates ME firmware encountered resilience error.",
+                     "ME firmware resiliency error. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
                      "None.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
