@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 114> registry = {
+const std::array<MessageEntry, 126> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -55,6 +55,42 @@ const std::array<MessageEntry, 114> registry = {
             {},
             "None.",
         }},
+    MessageEntry{"BIOSFirmwarePanicEvent",
+                 {
+                     "Indicates that the BIOS firmware panic event "
+                     "occurred for the specified reason.",
+                     "BIOS firmware panic event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareRecoveryEvent",
+                 {
+                     "Indicates that the BIOS firmware recovery event "
+                     "occurred for the specified reason.",
+                     "BIOS firmware recovery event triggered due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BIOSFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "BIOS firmware.",
+                     "Error occurred in BIOS firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"BIOSPOSTError",
                  {
                      "Indicates BIOS POST has encountered an error.",
@@ -80,6 +116,78 @@ const std::array<MessageEntry, 114> registry = {
                      "Warning",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwarePanicEvent",
+                 {
+                     "Indicates that the BMC firmware panic event "
+                     "occurred for the specified reason.",
+                     "BMC firmware panic event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareRecoveryEvent",
+                 {
+                     "Indicates that the BMC firmware recovery event "
+                     "occurred for the specified reason.",
+                     "BMC firmware recovery event triggered due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"BMCFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "BMC firmware.",
+                     "Error occurred in BMC firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwarePanicEvent",
+                 {
+                     "Indicates that the CPLD firmware panic event "
+                     "occurred for the specified reason.",
+                     "CPLD firmware panic event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareRecoveryEvent",
+                 {
+                     "Indicates that the CPLD firmware recovery event "
+                     "occurred for the specified reason.",
+                     "CPLD firmware recovery event triggered due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"CPLDFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "CPLD firmware.",
+                     "Error occurred in CPLD firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
                      "None.",
                  }},
     MessageEntry{"CPUError",
@@ -310,6 +418,42 @@ const std::array<MessageEntry, 114> registry = {
                          "number",
                          "number",
                          "number",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwarePanicEvent",
+                 {
+                     "Indicates that the ME firmware panic event "
+                     "occurred for the specified reason.",
+                     "ME firmware panic event triggered due to %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareRecoveryEvent",
+                 {
+                     "Indicates that the ME firmware recovery event "
+                     "occurred for the specified reason.",
+                     "ME firmware recovery event triggered due to %1.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"MEFirmwareResiliencyError",
+                 {
+                     "Indicates that the specific error occurred in "
+                     "ME firmware.",
+                     "Error occurred in ME firmware. Error reason: %1.",
+                     "Critical",
+                     1,
+                     {
+                         "string",
                      },
                      "None.",
                  }},
