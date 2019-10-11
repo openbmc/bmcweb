@@ -532,8 +532,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             j = &*jIt;
             jIt++;
         }
-        const int64_t *intValue = j->get_ptr<const int64_t *>();
-        const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
+
         const std::string *stringValue = j->get_ptr<const std::string *>();
         const double *doubleValue = j->get_ptr<const double *>();
         const bool *b = j->get_ptr<const bool *>();
@@ -542,20 +541,32 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
 
         // Do some basic type conversions that make sense.  uint can be
         // converted to int.  int and uint can be converted to double
-        if (uintValue != nullptr && intValue == nullptr)
+        if (intValue == nullptr)
         {
-            v = static_cast<int64_t>(*uintValue);
-            intValue = &v;
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
+            if (uintValue != nullptr)
+            {
+                v = static_cast<int64_t>(*uintValue);
+                intValue = &v;
+            }
         }
-        if (uintValue != nullptr && doubleValue == nullptr)
+        if (doubleValue == nullptr)
         {
-            d = static_cast<double>(*uintValue);
-            doubleValue = &d;
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
+            if (uintValue != nullptr)
+            {
+                d = static_cast<double>(*uintValue);
+                doubleValue = &d;
+            }
         }
-        if (intValue != nullptr && doubleValue == nullptr)
+        if (doubleValue == nullptr)
         {
-            d = static_cast<double>(*intValue);
-            doubleValue = &d;
+            const int64_t *intValue = j->get_ptr<const int64_t *>();
+            if (intValue != nullptr)
+            {
+                d = static_cast<double>(*intValue);
+                doubleValue = &d;
+            }
         }
 
         if (argCode == "s")

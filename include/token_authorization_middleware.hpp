@@ -79,9 +79,6 @@ class Middleware
             res.end();
             return;
         }
-
-        // TODO get user privileges here and propagate it via MW Context
-        // else let the request continue unharmed
     }
 
     template <typename AllContext>
@@ -227,7 +224,7 @@ class Middleware
     // checks if request can be forwarded without authentication
     bool isOnWhitelist(const crow::Request& req) const
     {
-        // it's allowed to GET root node without authentica tion
+        // it's allowed to GET root node without authentication
         if ("GET"_method == req.method())
         {
             if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
