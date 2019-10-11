@@ -160,6 +160,11 @@ class RoleCollection : public Node
                 memberArray = nlohmann::json::array();
                 const std::vector<std::string>* privList =
                     std::get_if<std::vector<std::string>>(&resp);
+                if (privList == nullptr)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
                 for (const std::string& priv : *privList)
                 {
                     std::string role = getRoleFromPrivileges(priv);
