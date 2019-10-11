@@ -902,9 +902,10 @@ class DBusEventLogEntryCollection : public Node
                         }
                         entriesArray.push_back({});
                         nlohmann::json &thisEntry = entriesArray.back();
-                        uint32_t *id;
-                        std::time_t timestamp;
-                        std::string *severity, *message;
+                        uint32_t *id = nullptr;
+                        std::time_t timestamp{};
+                        std::string *severity = nullptr;
+                        std::string *message = nullptr;
                         for (auto &propertyMap : interfaceMap.second)
                         {
                             if (propertyMap.first == "Id")
@@ -1028,9 +1029,10 @@ class DBusEventLogEntry : public Node
                     messages::internalError(asyncResp->res);
                     return;
                 }
-                uint32_t *id;
-                std::time_t timestamp;
-                std::string *severity, *message;
+                uint32_t *id = nullptr;
+                std::time_t timestamp{};
+                std::string *severity = nullptr;
+                std::string *message = nullptr;
                 for (auto &propertyMap : resp)
                 {
                     if (propertyMap.first == "Id")

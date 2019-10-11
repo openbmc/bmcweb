@@ -90,7 +90,7 @@ void introspectObjects(const std::string &processName,
 
             tinyxml2::XMLDocument doc;
 
-            doc.Parse(introspect_xml.c_str());
+            doc.Parse(introspect_xml.data(), introspect_xml.size());
             tinyxml2::XMLNode *pRoot = doc.FirstChildElement("node");
             if (pRoot == nullptr)
             {
@@ -533,7 +533,6 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
             jIt++;
         }
         const int64_t *intValue = j->get_ptr<const int64_t *>();
-        const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
         const std::string *stringValue = j->get_ptr<const std::string *>();
         const double *doubleValue = j->get_ptr<const double *>();
         const bool *b = j->get_ptr<const bool *>();
@@ -542,20 +541,31 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
 
         // Do some basic type conversions that make sense.  uint can be
         // converted to int.  int and uint can be converted to double
-        if (uintValue != nullptr && intValue == nullptr)
+        if (intValue == nullptr)
         {
-            v = static_cast<int64_t>(*uintValue);
-            intValue = &v;
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
+            if (uintValue != nullptr)
+            {
+                v = static_cast<int64_t>(*uintValue);
+                intValue = &v;
+            }
         }
-        if (uintValue != nullptr && doubleValue == nullptr)
+        if (doubleValue == nullptr)
         {
-            d = static_cast<double>(*uintValue);
-            doubleValue = &d;
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
+            if (uintValue != nullptr)
+            {
+                d = static_cast<double>(*uintValue);
+                doubleValue = &d;
+            }
         }
-        if (intValue != nullptr && doubleValue == nullptr)
+        if (doubleValue == nullptr)
         {
-            d = static_cast<double>(*intValue);
-            doubleValue = &d;
+            if (intValue != nullptr)
+            {
+                d = static_cast<double>(*intValue);
+                doubleValue = &d;
+            }
         }
 
         if (argCode == "s")
@@ -663,6 +673,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "y")
         {
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -677,6 +688,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "q")
         {
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -691,6 +703,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "u")
         {
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -705,6 +718,7 @@ int convertJsonToDbus(sd_bus_message *m, const std::string &arg_type,
         }
         else if (argCode == "t")
         {
+            const uint64_t *uintValue = j->get_ptr<const uint64_t *>();
             if (uintValue == nullptr)
             {
                 return -1;
@@ -1367,10 +1381,10 @@ void findActionOnInterface(std::shared_ptr<InProgressActionData> transaction,
                                 << " on interface " << thisInterfaceName;
                             sdbusplus::message::message m =
                                 crow::connections::systemBus->new_method_call(
-                                    connectionName.c_str(),
-                                    transaction->path.c_str(),
+                                    connectionName,
+                                    transaction->path,
                                     thisInterfaceName,
-                                    transaction->methodName.c_str());
+                                    transaction->methodName);
 
                             tinyxml2::XMLElement *argumentNode =
                                 methodNode->FirstChildElement("arg");
@@ -1688,7 +1702,7 @@ void handleGet(crow::Response &res, std::string &objectPath,
                 {
                     sdbusplus::message::message m =
                         crow::connections::systemBus->new_method_call(
-                            connection.first.c_str(), path->c_str(),
+                            connection.first, *path,
                             "org.freedesktop.DBus.Properties", "GetAll");
                     m.append(interface);
                     crow::connections::systemBus->async_send(
@@ -1855,7 +1869,7 @@ void handlePut(const crow::Request &req, crow::Response &res,
                         }
                         tinyxml2::XMLDocument doc;
 
-                        doc.Parse(introspectXml.c_str());
+                        doc.Parse(introspectXml.data(), introspectXml.size());
                         tinyxml2::XMLNode *pRoot =
                             doc.FirstChildElement("node");
                         if (pRoot == nullptr)
@@ -1890,9 +1904,9 @@ void handlePut(const crow::Request &req, crow::Response &res,
                                         sdbusplus::message::message m =
                                             crow::connections::systemBus
                                                 ->new_method_call(
-                                                    connectionName.c_str(),
+                                                    connectionName,
                                                     transaction->objectPath
-                                                        .c_str(),
+                                                        ,
                                                     "org.freedesktop.DBus."
                                                     "Properties",
                                                     "Set");
@@ -2291,7 +2305,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                         }
                         tinyxml2::XMLDocument doc;
 
-                        doc.Parse(introspect_xml.c_str());
+                        doc.Parse(introspect_xml.data(), introspect_xml.size());
                         tinyxml2::XMLNode *pRoot =
                             doc.FirstChildElement("node");
                         if (pRoot == nullptr)
@@ -2489,8 +2503,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                             {
                                 sdbusplus::message::message m =
                                     crow::connections::systemBus
-                                        ->new_method_call(processName.c_str(),
-                                                          objectPath.c_str(),
+                                        ->new_method_call(processName,
+                                                          objectPath,
                                                           "org.freedesktop."
                                                           "DBus."
                                                           "Properties",

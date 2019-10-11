@@ -1566,7 +1566,7 @@ class ManagerAccount : public Node
              asyncResp{std::move(asyncResp)}](int rc) {
                 if (!rc)
                 {
-                    messages::invalidObject(asyncResp->res, username.c_str());
+                    messages::invalidObject(asyncResp->res, username);
                     return;
                 }
                 if (enabled)
@@ -1584,7 +1584,7 @@ class ManagerAccount : public Node
                             return;
                         },
                         "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        dbusObjectPath,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes", "UserEnabled",
                         std::variant<bool>{*enabled});
@@ -1612,7 +1612,7 @@ class ManagerAccount : public Node
                             messages::success(asyncResp->res);
                         },
                         "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        dbusObjectPath,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes", "UserPrivilege",
                         std::variant<std::string>{priv});
@@ -1643,7 +1643,7 @@ class ManagerAccount : public Node
                             return;
                         },
                         "xyz.openbmc_project.User.Manager",
-                        dbusObjectPath.c_str(),
+                        dbusObjectPath,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes",
                         "UserLockedForFailedAttempt",

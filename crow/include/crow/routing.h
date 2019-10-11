@@ -476,7 +476,7 @@ class DynamicRule : public BaseRule, public RuleParameterTraits<DynamicRule>
         using function_t = utility::function_traits<Func>;
 
         if (!black_magic::isParameterTagCompatible(
-                black_magic::getParameterTagRuntime(rule.c_str()),
+                black_magic::getParameterTagRuntime(rule.data(), rule.size()),
                 black_magic::compute_parameter_tag_from_args_list<
                     typename function_t::template arg<Indices>...>::value))
         {

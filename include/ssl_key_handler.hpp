@@ -98,7 +98,7 @@ inline bool validateCertificate(X509 *const cert)
     return false;
 }
 
-inline bool verifyOpensslKeyCert(const std::string &filepath)
+inline bool verifyOpensslKeyCert(const std::filesystem::path &filepath)
 {
     bool privateKeyValid = false;
     bool certValid = false;
@@ -173,7 +173,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
     return certValid;
 }
 
-inline void generateSslCertificate(const std::string &filepath)
+inline void generateSslCertificate(const std::filesystem::path &filepath)
 {
     FILE *pFile = NULL;
     std::cout << "Generating new keys\n";
@@ -327,7 +327,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
         BMCWEB_LOG_ERROR << "Error setting tmp ecdh list\n";
     }
 
-    std::string mozillaModern = "ECDHE-ECDSA-AES256-GCM-SHA384:"
+    const char* mozillaModern = "ECDHE-ECDSA-AES256-GCM-SHA384:"
                                 "ECDHE-RSA-AES256-GCM-SHA384:"
                                 "ECDHE-ECDSA-CHACHA20-POLY1305:"
                                 "ECDHE-RSA-CHACHA20-POLY1305:"
@@ -339,7 +339,7 @@ inline std::shared_ptr<boost::asio::ssl::context>
                                 "ECDHE-RSA-AES128-SHA256";
 
     if (SSL_CTX_set_cipher_list(mSslContext->native_handle(),
-                                mozillaModern.c_str()) != 1)
+                                mozillaModern) != 1)
     {
         BMCWEB_LOG_ERROR << "Error setting cipher list\n";
     }
