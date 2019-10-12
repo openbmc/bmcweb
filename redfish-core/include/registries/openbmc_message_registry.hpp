@@ -82,6 +82,26 @@ const std::array<MessageEntry, 114> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"ChassisIntrusionDetected",
+                 {
+                     "Indicates that a physical security event "
+                     "of the chassis intrusion has occurred.",
+                     "Chassis Intrusion Detected.",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"ChassisIntrusionReset",
+                 {
+                     "Indicates that chassis intrusion status has recovered.",
+                     "Chassis Intrusion Reset.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+
     MessageEntry{"CPUError",
                  {
                      "Indicates that a CPU Error occurred of "
@@ -284,7 +304,29 @@ const std::array<MessageEntry, 114> registry = {
                      },
                      "None.",
                  }},
-
+    MessageEntry{"LanLost",
+                 {
+                     "Indicates that a physical security event "
+                     "of the LAN leash has lost.",
+                     "%1 LAN leash lost.",
+                     "Warning",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
+    MessageEntry{"LanRegained",
+                 {
+                     "Indicates that LAN link status has reconnected.",
+                     "%1 LAN leash regained.",
+                     "OK",
+                     1,
+                     {
+                         "string",
+                     },
+                     "None.",
+                 }},
     MessageEntry{"LegacyPCIPERR",
                  {
                      "Indicates a Legacy PCI PERR.",
@@ -954,50 +996,6 @@ const std::array<MessageEntry, 114> registry = {
             },
             "None.",
         }},
-    MessageEntry{"ChassisIntrusionDetected",
-                 {
-                     "Indicates that a physical security event "
-                     "of the chassis intrusion has occurred.",
-                     "Chassis Intrusion Detected.",
-                     "Warning",
-                     0,
-                     {},
-                     "None.",
-                 }},
-    MessageEntry{"ChassisIntrusionReset",
-                 {
-                     "Indicates that chassis intrusion status has recovered.",
-                     "Chassis Intrusion Reset.",
-                     "OK",
-                     0,
-                     {},
-                     "None.",
-                 }},
-    MessageEntry{"LanLost",
-                 {
-                     "Indicates that a physical security event "
-                     "of the LAN leash has lost.",
-                     "%1 LAN leash lost.",
-                     "Warning",
-                     1,
-
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
-    MessageEntry{"LanRegained",
-                 {
-                     "Indicates that LAN link status has reconnected.",
-                     "%1 LAN leash regained.",
-                     "OK",
-                     1,
-
-                     {
-                         "string",
-                     },
-                     "None.",
-                 }},
     MessageEntry{"PowerButtonPressed",
                  {
                      "Indicates that the power button was pressed.",
