@@ -263,7 +263,7 @@ class NetworkProtocol : public Node
                 }
                 asyncResp->res.jsonValue["HTTPS"]["Certificates"] = {
                     {"@odata.id", "/redfish/v1/Managers/bmc/NetworkProtocol/"
-                                  "HTTPS/Certificates/"}};
+                                  "HTTPS/Certificates"}};
 
                 for (auto& unit : r)
                 {
