@@ -1666,7 +1666,7 @@ class Systems : public Node
         getComputerSystem(asyncResp, health);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
-        getPCIeDeviceList(asyncResp);
+        getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
     }
 
