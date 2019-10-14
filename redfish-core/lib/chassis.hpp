@@ -323,13 +323,16 @@ class Chassis : public Node
                     }
 
                     asyncResp->res.jsonValue["@odata.type"] =
-                        "#Chassis.v1_9_0.Chassis";
+                        "#Chassis.v1_10_0.Chassis";
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
                     asyncResp->res.jsonValue["@odata.context"] =
                         "/redfish/v1/$metadata#Chassis.Chassis";
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
                     asyncResp->res.jsonValue["ChassisType"] = "RackMount";
+                    asyncResp->res.jsonValue["PCIeDevices"] = {
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/PCIeDevices"}};
 
                     const std::string &connectionName =
                         connectionNames[0].first;
@@ -392,7 +395,7 @@ class Chassis : public Node
 
                 // Couldn't find an object with that name.  return an error
                 messages::resourceNotFound(
-                    asyncResp->res, "#Chassis.v1_9_0.Chassis", chassisId);
+                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",

@@ -28,47 +28,84 @@ static constexpr char const *pciePath = "/xyz/openbmc_project/PCIe";
 static constexpr char const *pcieDeviceInterface =
     "xyz.openbmc_project.PCIe.Device";
 
-static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp)
+static inline void getPCIeDeviceList(std::shared_ptr<AsyncResp> asyncResp,
+                                     const std::string &name)
 {
-    auto getPCIeMapCallback =
-        [asyncResp](const boost::system::error_code ec,
-                    std::vector<std::string> &pcieDevicePaths) {
-            if (ec)
+    auto getPCIeMapCallback = [asyncResp, name](
+                                  const boost::system::error_code ec,
+                                  std::vector<std::string> &pcieDevicePaths) {
+        if (ec)
+        {
+            BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
+                             << ec.message();
+            // Not an error, system just doesn't have PCIe info
+            return;
+        }
+        nlohmann::json &pcieDeviceList = asyncResp->res.jsonValue[name];
+        pcieDeviceList = nlohmann::json::array();
+        for (const std::string &pcieDevicePath : pcieDevicePaths)
+        {
+            size_t devStart = pcieDevicePath.rfind("/");
+            if (devStart == std::string::npos)
             {
-                BMCWEB_LOG_DEBUG << "no PCIe device paths found ec: "
-                                 << ec.message();
-                // Not an error, system just doesn't have PCIe info
-                return;
+                continue;
             }
-            nlohmann::json &pcieDeviceList =
-                asyncResp->res.jsonValue["PCIeDevices"];
-            pcieDeviceList = nlohmann::json::array();
-            for (const std::string &pcieDevicePath : pcieDevicePaths)
-            {
-                size_t devStart = pcieDevicePath.rfind("/");
-                if (devStart == std::string::npos)
-                {
-                    continue;
-                }
 
-                std::string devName = pcieDevicePath.substr(devStart + 1);
-                if (devName.empty())
-                {
-                    continue;
-                }
-                pcieDeviceList.push_back(
-                    {{"@odata.id",
-                      "/redfish/v1/Systems/system/PCIeDevices/" + devName}});
+            std::string devName = pcieDevicePath.substr(devStart + 1);
+            if (devName.empty())
+            {
+                continue;
             }
-            asyncResp->res.jsonValue["PCIeDevices@odata.count"] =
-                pcieDeviceList.size();
-        };
+            pcieDeviceList.push_back(
+                {{"@odata.id",
+                  "/redfish/v1/Systems/system/PCIeDevices/" + devName}});
+        }
+        asyncResp->res.jsonValue[name + "@odata.count"] = pcieDeviceList.size();
+    };
     crow::connections::systemBus->async_method_call(
         std::move(getPCIeMapCallback), "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
         std::string(pciePath) + "/", 1, std::array<std::string, 0>());
 }
+
+class SystemPCIeDeviceCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    SystemPCIeDeviceCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/PCIeDevices/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        asyncResp->res.jsonValue = {
+            {"@odata.type", "#PCIeDeviceCollection.PCIeDeviceCollection"},
+            {"@odata.context",
+             "/redfish/v1/"
+             "$metadata#PCIeDeviceCollection.PCIeDeviceCollection"},
+            {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices"},
+            {"Name", "PCIe Device Collection"},
+            {"Description", "Collection of PCIe Devices"},
+            {"Members", nlohmann::json::array()},
+            {"Members@odata.count", 0}};
+        getPCIeDeviceList(asyncResp, "Members");
+    }
+};
 
 class SystemPCIeDevice : public Node
 {
