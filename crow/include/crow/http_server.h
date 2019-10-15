@@ -200,6 +200,14 @@ class Server
                 {
                     BMCWEB_LOG_INFO << "Receivied reload signal";
                     loadCertificate();
+                    boost::system::error_code ec;
+                    acceptor->cancel(ec);
+                    if (ec)
+                    {
+                        BMCWEB_LOG_INFO
+                            << "Error while canceling async operations:"
+                            << ec.message();
+                    }
                     this->startAsyncWaitForSignal();
                 }
                 else
