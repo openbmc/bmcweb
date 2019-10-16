@@ -37,6 +37,7 @@ constexpr char const *CrashdumpObject = "com.intel.crashdump";
 constexpr char const *CrashdumpPath = "/com/intel/crashdump";
 constexpr char const *CrashdumpOnDemandPath = "/com/intel/crashdump/OnDemand";
 constexpr char const *CrashdumpInterface = "com.intel.crashdump";
+constexpr char const *CrashdumpClearInterface = "com.intel.crashdump.Clear";
 constexpr char const *CrashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const *CrashdumpRawPECIInterface =
@@ -1505,6 +1506,9 @@ class CrashdumpService : public Node
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
+            {"#LogService.ClearLog",
+             {"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                        "Actions/LogService.ClearLog"}},
             {"Oem",
              {{"#Crashdump.OnDemand",
                {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
@@ -1516,6 +1520,43 @@ class CrashdumpService : public Node
              {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
                          "Actions/Oem/Crashdump.SendRawPeci"}}});
 #endif
+    }
+};
+
+class CrashdumpClear : public Node
+{
+  public:
+    CrashdumpClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::string &resp) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            CrashdumpObject, CrashdumpPath, CrashdumpClearInterface,
+            "ClearLogs");
     }
 };
 
