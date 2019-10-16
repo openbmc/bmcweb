@@ -102,6 +102,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<CrashdumpEntryCollection>(app));
         nodes.emplace_back(std::make_unique<CrashdumpEntry>(app));
         nodes.emplace_back(std::make_unique<CrashdumpFile>(app));
+        nodes.emplace_back(std::make_unique<CrashdumpClear>(app));
         nodes.emplace_back(std::make_unique<OnDemandCrashdump>(app));
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         nodes.emplace_back(std::make_unique<SendRawPECI>(app));
