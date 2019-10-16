@@ -16,6 +16,24 @@
       "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ee969ef_abca0f99",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2019-10-16T17:53:38Z",
+      "side": 1,
+      "message": "I didn\u0027t get your question, Can you be more specific?\n\nIf value passed to translateLinkLocalRedfishToDbus() function is other than supported values( like AutoConfig/Static/None), its returning empty string. What do you mean by backend code here???",
+      "parentUuid": "4019cd7d_9e037f2f",
+      "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
