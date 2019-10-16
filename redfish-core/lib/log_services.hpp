@@ -33,13 +33,15 @@
 namespace redfish
 {
 
-constexpr char const *CrashdumpObject = "com.intel.crashdump";
-constexpr char const *CrashdumpPath = "/com/intel/crashdump";
-constexpr char const *CrashdumpOnDemandPath = "/com/intel/crashdump/OnDemand";
-constexpr char const *CrashdumpInterface = "com.intel.crashdump";
-constexpr char const *CrashdumpOnDemandInterface =
+constexpr char const *crashdumpObject = "com.intel.crashdump";
+constexpr char const *crashdumpPath = "/com/intel/crashdump";
+constexpr char const *crashdumpOnDemandPath = "/com/intel/crashdump/OnDemand";
+constexpr char const *crashdumpInterface = "com.intel.crashdump";
+constexpr char const *deleteAllInterface =
+    "xyz.openbmc_project.Collection.DeleteAll";
+constexpr char const *crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
-constexpr char const *CrashdumpRawPECIInterface =
+constexpr char const *crashdumpRawPECIInterface =
     "com.intel.crashdump.SendRawPeci";
 
 namespace message_registries
@@ -1505,6 +1507,9 @@ class CrashdumpService : public Node
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries"}};
         asyncResp->res.jsonValue["Actions"] = {
+            {"#LogService.ClearLog",
+             {"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                        "Actions/LogService.ClearLog"}},
             {"Oem",
              {{"#Crashdump.OnDemand",
                {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
@@ -1516,6 +1521,42 @@ class CrashdumpService : public Node
              {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
                          "Actions/Oem/Crashdump.SendRawPeci"}}});
 #endif
+    }
+};
+
+class CrashdumpClear : public Node
+{
+  public:
+    CrashdumpClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::string &resp) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            crashdumpObject, crashdumpPath, deleteAllInterface, "DeleteAll");
     }
 };
 
@@ -1612,9 +1653,9 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
             {"Created", std::move(logTime)}};
     };
     crow::connections::systemBus->async_method_call(
-        std::move(getStoredLogCallback), CrashdumpObject,
-        CrashdumpPath + std::string("/") + logID,
-        "org.freedesktop.DBus.Properties", "Get", CrashdumpInterface, "Log");
+        std::move(getStoredLogCallback), crashdumpObject,
+        crashdumpPath + std::string("/") + logID,
+        "org.freedesktop.DBus.Properties", "Get", crashdumpInterface, "Log");
 }
 
 class CrashdumpEntryCollection : public Node
@@ -1674,7 +1715,7 @@ class CrashdumpEntryCollection : public Node
             for (const std::string &objpath : resp)
             {
                 // Ignore the on-demand log
-                if (objpath.compare(CrashdumpOnDemandPath) == 0)
+                if (objpath.compare(crashdumpOnDemandPath) == 0)
                 {
                     continue;
                 }
@@ -1705,7 +1746,7 @@ class CrashdumpEntryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "", 0,
-            std::array<const char *, 1>{CrashdumpInterface});
+            std::array<const char *, 1>{crashdumpInterface});
     }
 };
 
@@ -1800,9 +1841,9 @@ class CrashdumpFile : public Node
             asyncResp->res.body() = *log;
         };
         crow::connections::systemBus->async_method_call(
-            std::move(getStoredLogCallback), CrashdumpObject,
-            CrashdumpPath + std::string("/") + logID,
-            "org.freedesktop.DBus.Properties", "Get", CrashdumpInterface,
+            std::move(getStoredLogCallback), crashdumpObject,
+            crashdumpPath + std::string("/") + logID,
+            "org.freedesktop.DBus.Properties", "Get", crashdumpInterface,
             "Log");
     }
 };
@@ -1871,7 +1912,7 @@ class OnDemandCrashdump : public Node
                     interfacesAdded;
                 m.read(objPath, interfacesAdded);
                 const std::string *log = std::get_if<std::string>(
-                    &interfacesAdded[CrashdumpInterface]["Log"]);
+                    &interfacesAdded[crashdumpInterface]["Log"]);
                 if (log == nullptr)
                 {
                     messages::internalError(asyncResp->res);
@@ -1908,7 +1949,7 @@ class OnDemandCrashdump : public Node
             *crow::connections::systemBus,
             sdbusplus::bus::match::rules::interfacesAdded() +
                 sdbusplus::bus::match::rules::argNpath(0,
-                                                       CrashdumpOnDemandPath),
+                                                       crashdumpOnDemandPath),
             std::move(onDemandLogMatcherCallback));
 
         auto generateonDemandLogCallback =
@@ -1932,8 +1973,8 @@ class OnDemandCrashdump : public Node
                 }
             };
         crow::connections::systemBus->async_method_call(
-            std::move(generateonDemandLogCallback), CrashdumpObject,
-            CrashdumpPath, CrashdumpOnDemandInterface, "GenerateOnDemandLog");
+            std::move(generateonDemandLogCallback), crashdumpObject,
+            crashdumpPath, crashdumpOnDemandInterface, "GenerateOnDemandLog");
     }
 };
 
@@ -1985,8 +2026,8 @@ class SendRawPECI : public Node
             };
         // Call the SendRawPECI command with the provided data
         crow::connections::systemBus->async_method_call(
-            std::move(sendRawPECICallback), CrashdumpObject, CrashdumpPath,
-            CrashdumpRawPECIInterface, "SendRawPeci", clientAddress, readLength,
+            std::move(sendRawPECICallback), crashdumpObject, crashdumpPath,
+            crashdumpRawPECIInterface, "SendRawPeci", clientAddress, readLength,
             peciCommand);
     }
 };
