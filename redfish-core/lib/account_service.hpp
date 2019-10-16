@@ -84,7 +84,7 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     }
     else if (role == "priv-user")
     {
-        return "User";
+        return "ReadOnly";
     }
     else if (role == "priv-operator")
     {
@@ -102,7 +102,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "priv-callback";
     }
-    else if (role == "User")
+    else if (role == "ReadOnly")
     {
         return "priv-user";
     }
