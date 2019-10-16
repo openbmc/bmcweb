@@ -72,7 +72,7 @@ Fields common to all schemas
 - Description
 - Members@odata.count
 - Members
-  - By default will contain 3 roles, "Administrator", "Operator", and "User"
+  - By default will contain 3 roles, "Administrator", "Operator", and "ReadOnly"
 
 #### /redfish/v1/AccountService/Roles/{RoleId}
 ##### Role
@@ -86,8 +86,8 @@ Fields common to all schemas
     default
       - Administrator: Login, ConfigureManager, ConfigureUsers, ConfigureSelf,
         ConfigureComponents
-      - Operator: Login, ConfigureComponents
-      - User: Login
+      - Operator: Login, ConfigureComponents, ConfigureSelf
+      - ReadOnly: Login, ConfigureSelf
 
 
 #### /redfish/v1/Chassis

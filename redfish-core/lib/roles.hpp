@@ -34,7 +34,7 @@ inline std::string getRoleFromPrivileges(std::string_view priv)
     }
     else if (priv == "priv-user")
     {
-        return "User";
+        return "ReadOnly";
     }
     else if (priv == "priv-operator")
     {
@@ -55,7 +55,7 @@ inline bool getAssignedPrivFromRole(std::string_view role,
     {
         privArray = {"Login", "ConfigureSelf", "ConfigureComponents"};
     }
-    else if (role == "User")
+    else if (role == "ReadOnly")
     {
         privArray = {"Login", "ConfigureSelf"};
     }
