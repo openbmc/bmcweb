@@ -45,7 +45,7 @@ void updateDimmProperties(std::shared_ptr<AsyncResp> aResp,
         messages::internalError(aResp->res);
         return;
     }
-    BMCWEB_LOG_DEBUG << "Dimm Functional:" << *isDimmFunctional;
+    BMCWEB_LOG_DEBUG << "Dimm Functional: " << *isDimmFunctional;
 
     // Set it as Enabled if atleast one DIMM is functional
     // Update STATE only if previous State was DISABLED and current Dimm is
@@ -80,7 +80,7 @@ void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
         messages::internalError(aResp->res);
         return;
     }
-    BMCWEB_LOG_DEBUG << "Cpu Present:" << *isCpuPresent;
+    BMCWEB_LOG_DEBUG << "Cpu Present: " << *isCpuPresent;
 
     nlohmann::json &procCount =
         aResp->res.jsonValue["ProcessorSummary"]["Count"];
@@ -110,7 +110,7 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
         messages::internalError(aResp->res);
         return;
     }
-    BMCWEB_LOG_DEBUG << "Cpu Functional:" << *isCpuFunctional;
+    BMCWEB_LOG_DEBUG << "Cpu Functional: " << *isCpuFunctional;
 
     nlohmann::json &prevProcState =
         aResp->res.jsonValue["ProcessorSummary"]["Status"]["State"];
@@ -197,7 +197,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     }
                                     BMCWEB_LOG_DEBUG << "Got "
                                                      << properties.size()
-                                                     << "Dimm properties.";
+                                                     << " Dimm properties.";
 
                                     if (properties.size() > 0)
                                     {
@@ -284,7 +284,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     }
                                     BMCWEB_LOG_DEBUG << "Got "
                                                      << properties.size()
-                                                     << "Cpu properties.";
+                                                     << " Cpu properties.";
 
                                     if (properties.size() > 0)
                                     {
@@ -411,7 +411,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                     }
                                     BMCWEB_LOG_DEBUG << "Got "
                                                      << properties.size()
-                                                     << "UUID properties.";
+                                                     << " UUID properties.";
                                     for (const std::pair<std::string,
                                                          VariantType>
                                              &property : properties)
@@ -459,9 +459,9 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                         // interface
                                         return;
                                     }
-                                    BMCWEB_LOG_DEBUG << "Got "
-                                                     << propertiesList.size()
-                                                     << "properties for system";
+                                    BMCWEB_LOG_DEBUG
+                                        << "Got " << propertiesList.size()
+                                        << " properties for system";
                                     for (const std::pair<std::string,
                                                          VariantType>
                                              &property : propertiesList)
@@ -562,7 +562,7 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
                 messages::internalError(aResp->res);
                 return;
             }
-            BMCWEB_LOG_DEBUG << "Got " << resp.size() << "led group objects.";
+            BMCWEB_LOG_DEBUG << "Got " << resp.size() << " led group objects.";
             for (const auto &objPath : resp)
             {
                 const std::string &path = objPath.first;
@@ -613,7 +613,7 @@ void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
                 return;
             }
             BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                             << "led properties.";
+                             << " led properties.";
             std::string output;
             for (const auto &property : properties)
             {
