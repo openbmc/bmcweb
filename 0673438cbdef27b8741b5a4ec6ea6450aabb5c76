@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4019cd7d_9e037f2f",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2019-10-16T16:08:53Z",
+      "side": 1,
+      "message": "@Ed Tanous @AppaRao Puli\nits confusing, do we need to add string validations in bmcweb? backend code already checks and returns failure in this case.",
+      "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
