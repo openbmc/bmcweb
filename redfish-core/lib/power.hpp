@@ -40,6 +40,74 @@ class Power : public Node
   private:
     std::vector<const char*> typeList = {"/xyz/openbmc_project/sensors/voltage",
                                          "/xyz/openbmc_project/sensors/power"};
+    void setPowerCapOverride(crow::Response& res, const crow::Request& req)
+    {
+        auto valueHandler = [&req, &res](const boost::system::error_code ec,
+                                         const SensorVariant& powerCapEnable) {
+            if (ec)
+            {
+                messages::internalError(res);
+                BMCWEB_LOG_ERROR << "Power Limit Get handler: Dbus error "
+                                 << ec;
+                res.end();
+                return;
+            }
+            // Check PowerCapEnable
+            const bool* b =
+                sdbusplus::message::variant_ns::get_if<bool>(&powerCapEnable);
+
+            if (!(*b))
+            {
+                messages::unableToSetPowerCap(res);
+                BMCWEB_LOG_ERROR << "PowerCapEnable is false " << ec;
+                res.end();
+                return;
+            }
+            // Patch PowerCap
+            std::vector<nlohmann::json> powerControlCollections;
+            nlohmann::json powerLimit;
+            uint32_t value;
+            if (!json_util::readJson(req, res, "PowerControl",
+                                     powerControlCollections))
+            {
+                return;
+            }
+
+            for (auto& item : powerControlCollections)
+            {
+                if (!json_util::readJson(item, res, "PowerLimit", powerLimit))
+                {
+                    return;
+                }
+                if (!json_util::readJson(powerLimit, res, "LimitInWatts",
+                                         value))
+                {
+                    return;
+                }
+                crow::connections::systemBus->async_method_call(
+                    [&res](const boost::system::error_code ec) {
+                        res.end();
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec;
+                            messages::internalError(res);
+                            return;
+                        }
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/control/host0/power_cap",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    sdbusplus::message::variant<uint32_t>(value));
+            }
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(valueHandler), "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/control/host0/power_cap",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+    }
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -227,7 +295,31 @@ class Power : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        setSensorOverride(res, req, params, typeList, "Power");
+        nlohmann::json jsonRequest;
+
+        if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+        {
+            BMCWEB_LOG_DEBUG << "Json value not readable";
+            return;
+        }
+        if ((jsonRequest.find("PowerControl") != jsonRequest.end()) &&
+            (jsonRequest.find("Voltages") != jsonRequest.end()))
+        {
+            BMCWEB_LOG_DEBUG
+                << "Can't support PowerControl and Voltages patching together";
+            messages::unsupportedRequestBody(res);
+            res.end();
+            return;
+        }
+        if (jsonRequest.find("PowerControl") != jsonRequest.end())
+        {
+            setPowerCapOverride(res, req);
+        }
+
+        if (jsonRequest.find("Voltages") != jsonRequest.end())
+        {
+            setSensorOverride(res, req, params, typeList, "Power");
+        }
     }
 };
 
