@@ -2019,67 +2019,15 @@ bool findSensorNameUsingSensorPath(
  * @param typeList   TypeList of sensors for the resource queried
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
-void setSensorOverride(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params,
-                       const std::vector<const char*> typeList,
-                       const std::string& chassisSubNode)
+void setSensorOverride(
+    crow::Response& res,
+    std::unordered_map<std::string, std::vector<nlohmann::json>>&
+        allCollections,
+    const std::string& chassisName, const std::vector<const char*> typeList,
+    const std::string& chassisSubNode)
 {
-
-    // TODO: Need to figure out dynamic way to restrict patch (Set Sensor
-    // override) based on another d-bus announcement to be more generic.
-    if (params.size() != 1)
-    {
-        messages::internalError(res);
-        res.end();
-        return;
-    }
-
-    std::unordered_map<std::string, std::vector<nlohmann::json>> allCollections;
-    std::optional<std::vector<nlohmann::json>> temperatureCollections;
-    std::optional<std::vector<nlohmann::json>> fanCollections;
-    std::vector<nlohmann::json> voltageCollections;
     BMCWEB_LOG_INFO << "setSensorOverride for subNode" << chassisSubNode
                     << "\n";
-
-    if (chassisSubNode == "Thermal")
-    {
-        if (!json_util::readJson(req, res, "Temperatures",
-                                 temperatureCollections, "Fans",
-                                 fanCollections))
-        {
-            return;
-        }
-        if (!temperatureCollections && !fanCollections)
-        {
-            messages::resourceNotFound(res, "Thermal",
-                                       "Temperatures / Voltages");
-            res.end();
-            return;
-        }
-        if (temperatureCollections)
-        {
-            allCollections.emplace("Temperatures",
-                                   *std::move(temperatureCollections));
-        }
-        if (fanCollections)
-        {
-            allCollections.emplace("Fans", *std::move(fanCollections));
-        }
-    }
-    else if (chassisSubNode == "Power")
-    {
-        if (!json_util::readJson(req, res, "Voltages", voltageCollections))
-        {
-            return;
-        }
-        allCollections.emplace("Voltages", std::move(voltageCollections));
-    }
-    else
-    {
-        res.result(boost::beast::http::status::not_found);
-        res.end();
-        return;
-    }
 
     const char* propertyValueName;
     std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
@@ -2110,7 +2058,7 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                                 std::make_pair(value, collectionItems.first));
         }
     }
-    const std::string& chassisName = params[0];
+
     auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
         res, chassisName, typeList, chassisSubNode);
     auto getChassisSensorListCb = [sensorAsyncResp,

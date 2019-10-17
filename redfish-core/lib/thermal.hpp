@@ -60,7 +60,43 @@ class Thermal : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        setSensorOverride(res, req, params, typeList, "Thermal");
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string& chassisName = params[0];
+        std::optional<std::vector<nlohmann::json>> temperatureCollections;
+        std::optional<std::vector<nlohmann::json>> fanCollections;
+        std::unordered_map<std::string, std::vector<nlohmann::json>>
+            allCollections;
+
+        if (!json_util::readJson(req, asyncResp->res, "Temperatures",
+                                 temperatureCollections, "Fans",
+                                 fanCollections))
+        {
+            return;
+        }
+        if (!temperatureCollections && !fanCollections)
+        {
+            messages::resourceNotFound(asyncResp->res, "Thermal",
+                                       "Temperatures / Voltages");
+            return;
+        }
+        if (temperatureCollections)
+        {
+            allCollections.emplace("Temperatures",
+                                   *std::move(temperatureCollections));
+        }
+        if (fanCollections)
+        {
+            allCollections.emplace("Fans", *std::move(fanCollections));
+        }
+
+        setSensorOverride(res, allCollections, chassisName, typeList,
+                          "Thermal");
     }
 };
 
