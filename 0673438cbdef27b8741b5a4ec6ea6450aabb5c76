@@ -34,6 +34,24 @@
       "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8f346c7_afefe46e",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2019-10-17T06:33:44Z",
+      "side": 1,
+      "message": "I mean if i pass empty string to dbus call that returns error.\nas dbus allows only values: fallback,both,v4,v6,none",
+      "parentUuid": "9ee969ef_abca0f99",
+      "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
