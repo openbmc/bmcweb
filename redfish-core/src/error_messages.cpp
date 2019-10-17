@@ -243,6 +243,28 @@ void unrecognizedRequestBody(crow::Response& res)
 
 /**
  * @internal
+ * @brief Formats UnableToSetPowerCap message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void unableToSetPowerCap(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.UnableToSetPowerCap"},
+            {"Message", "PowerCapEnable is false, can't set the PowerCap."},
+            {"MessageArgs", nlohmann::json::array()},
+            {"Severity", "Warning"},
+            {"Resolution",
+             "Set PowerCapEnable to be true before setting PowerCap."}});
+}
+
+/**
+ * @internal
  * @brief Formats ResourceAtUriUnauthorized message into JSON
  *
  * See header file for more information

@@ -2025,7 +2025,6 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                        const std::vector<const char*> typeList,
                        const std::string& chassisSubNode)
 {
-
     // TODO: Need to figure out dynamic way to restrict patch (Set Sensor
     // override) based on another d-bus announcement to be more generic.
     if (params.size() != 1)
@@ -2111,6 +2110,7 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                                 std::make_pair(value, collectionItems.first));
         }
     }
+
     const std::string& chassisName = params[0];
     auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
         res, chassisName, typeList, chassisSubNode);
