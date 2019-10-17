@@ -262,6 +262,62 @@ void reduceSensorList(
 }
 
 /**
+ * @brief Retrieves valid chassis path
+ * @param asyncResp   Pointer to object holding response data
+ * @param callback  Callback for next step to get valid chassis path
+ */
+template <typename Callback>
+void getValidChassisPath(std::shared_ptr<SensorsAsyncResp> asyncResp,
+                         Callback&& callback)
+{
+    BMCWEB_LOG_DEBUG << "checkChassisId enter";
+    const std::array<const char*, 2> interfaces = {
+        "xyz.openbmc_project.Inventory.Item.Board",
+        "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+    auto respHandler =
+        [callback{std::move(callback)},
+         asyncResp](const boost::system::error_code ec,
+                    const std::vector<std::string>& chassisPaths) mutable {
+            BMCWEB_LOG_DEBUG << "getValidChassisPath respHandler enter";
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR
+                    << "getValidChassisPath respHandler DBUS error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            std::optional<std::string> chassisPath;
+            std::string chassisName;
+            for (const std::string& chassis : chassisPaths)
+            {
+                std::size_t lastPos = chassis.rfind("/");
+                if (lastPos == std::string::npos)
+                {
+                    BMCWEB_LOG_ERROR << "Failed to find '/' in " << chassis;
+                    continue;
+                }
+                chassisName = chassis.substr(lastPos + 1);
+                if (chassisName == asyncResp->chassisId)
+                {
+                    chassisPath = chassis;
+                    break;
+                }
+            }
+            callback(chassisPath);
+        };
+
+    // Get the Chassis Collection
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/inventory", 0, interfaces);
+    BMCWEB_LOG_DEBUG << "checkChassisId exit";
+}
+
+/**
  * @brief Retrieves requested chassis sensors and redundancy data from DBus .
  * @param SensorsAsyncResp   Pointer to object holding response data
  * @param callback  Callback for next step in gathered sensor processing
@@ -2329,72 +2385,18 @@ bool findSensorNameUsingSensorPath(
  * @brief Entry point for overriding sensor values of given sensor
  *
  * @param res   response object
- * @param req   request object
- * @param params   parameter passed for CRUD
+ * @param allCollections   Collections extract from sensors' request patch info
  * @param typeList   TypeList of sensors for the resource queried
  * @param chassisSubNode   Chassis Node for which the query has to happen
  */
-void setSensorOverride(crow::Response& res, const crow::Request& req,
-                       const std::vector<std::string>& params,
-                       const std::vector<const char*> typeList,
-                       const std::string& chassisSubNode)
+void setSensorOverride(
+    std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
+    std::unordered_map<std::string, std::vector<nlohmann::json>>&
+        allCollections,
+    const std::string& chassisName, const std::vector<const char*> typeList)
 {
-
-    // TODO: Need to figure out dynamic way to restrict patch (Set Sensor
-    // override) based on another d-bus announcement to be more generic.
-    if (params.size() != 1)
-    {
-        messages::internalError(res);
-        res.end();
-        return;
-    }
-
-    std::unordered_map<std::string, std::vector<nlohmann::json>> allCollections;
-    std::optional<std::vector<nlohmann::json>> temperatureCollections;
-    std::optional<std::vector<nlohmann::json>> fanCollections;
-    std::vector<nlohmann::json> voltageCollections;
-    BMCWEB_LOG_INFO << "setSensorOverride for subNode" << chassisSubNode
-                    << "\n";
-
-    if (chassisSubNode == "Thermal")
-    {
-        if (!json_util::readJson(req, res, "Temperatures",
-                                 temperatureCollections, "Fans",
-                                 fanCollections))
-        {
-            return;
-        }
-        if (!temperatureCollections && !fanCollections)
-        {
-            messages::resourceNotFound(res, "Thermal",
-                                       "Temperatures / Voltages");
-            res.end();
-            return;
-        }
-        if (temperatureCollections)
-        {
-            allCollections.emplace("Temperatures",
-                                   *std::move(temperatureCollections));
-        }
-        if (fanCollections)
-        {
-            allCollections.emplace("Fans", *std::move(fanCollections));
-        }
-    }
-    else if (chassisSubNode == "Power")
-    {
-        if (!json_util::readJson(req, res, "Voltages", voltageCollections))
-        {
-            return;
-        }
-        allCollections.emplace("Voltages", std::move(voltageCollections));
-    }
-    else
-    {
-        res.result(boost::beast::http::status::not_found);
-        res.end();
-        return;
-    }
+    BMCWEB_LOG_INFO << "setSensorOverride for subNode"
+                    << sensorAsyncResp->chassisSubNode << "\n";
 
     const char* propertyValueName;
     std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
@@ -2416,8 +2418,8 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
         }
         for (auto& item : collectionItems.second)
         {
-            if (!json_util::readJson(item, res, "MemberId", memberId,
-                                     propertyValueName, value))
+            if (!json_util::readJson(item, sensorAsyncResp->res, "MemberId",
+                                     memberId, propertyValueName, value))
             {
                 return;
             }
@@ -2425,9 +2427,7 @@ void setSensorOverride(crow::Response& res, const crow::Request& req,
                                 std::make_pair(value, collectionItems.first));
         }
     }
-    const std::string& chassisName = params[0];
-    auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-        res, chassisName, typeList, chassisSubNode);
+
     auto getChassisSensorListCb = [sensorAsyncResp,
                                    overrideMap](const std::shared_ptr<
                                                 boost::container::flat_set<
