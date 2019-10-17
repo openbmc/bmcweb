@@ -243,6 +243,52 @@ void unrecognizedRequestBody(crow::Response& res)
 
 /**
  * @internal
+ * @brief Formats UnsupportedRequestBody message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void unsupportedRequestBody(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.UnsupportedRequestBody"},
+            {"Message",
+             "The service detected a request json with different keys which "
+             "were unable to handle together."},
+            {"MessageArgs", nlohmann::json::array()},
+            {"Severity", "Warning"},
+            {"Resolution", "Correct the request body and resubmit the request "
+                           "if it failed."}});
+}
+
+/**
+ * @internal
+ * @brief Formats UnableToSetPowerCap message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void unableToSetPowerCap(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.UnableToSetPowerCap"},
+            {"Message", "PowerCapEnable is false, can't set the PowerCap."},
+            {"MessageArgs", nlohmann::json::array()},
+            {"Severity", "Warning"},
+            {"Resolution",
+             "Set PowerCapEnable to be true before setting PowerCap."}});
+}
+
+/**
+ * @internal
  * @brief Formats ResourceAtUriUnauthorized message into JSON
  *
  * See header file for more information

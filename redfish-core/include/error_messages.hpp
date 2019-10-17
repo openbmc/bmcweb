@@ -96,6 +96,23 @@ void internalError(crow::Response& res);
 void unrecognizedRequestBody(crow::Response& res);
 
 /**
+ * @brief Formats UnableToSetPowerCap message into JSON
+ * Message body: "PowerCapEnable is false, can't set the PowerCap."
+ *
+ *
+ * @returns Message UnableToSetPowerCap formatted to JSON */
+void unableToSetPowerCap(crow::Response& res);
+
+/**
+ * @brief Formats UnsupportedRequestBody message into JSON
+ * Message body: "The service detected a request json with different keys which
+ * were unable to handle together."
+ *
+ *
+ * @returns Message UnsupportedRequestBody formatted to JSON */
+void unsupportedRequestBody(crow::Response& res);
+
+/**
  * @brief Formats ResourceAtUriUnauthorized message into JSON
  * Message body: "While accessing the resource at <arg1>, the service received
  * an authorization error <arg2>."
