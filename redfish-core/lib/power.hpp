@@ -40,6 +40,106 @@ class Power : public Node
   private:
     std::vector<const char*> typeList = {"/xyz/openbmc_project/sensors/voltage",
                                          "/xyz/openbmc_project/sensors/power"};
+    void setPowerCapOverride(crow::Response& res, const crow::Request& req,
+                             const std::vector<std::string>& params,
+                             const std::vector<const char*> typeList,
+                             const std::string& chassisSubNode)
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            res.end();
+            return;
+        }
+
+        const std::string& chassisName = params[0];
+        auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
+            res, chassisName, typeList, chassisSubNode);
+
+        auto valueHandler = [&req, sensorAsyncResp](
+                                const boost::system::error_code ec,
+                                const SensorVariant& powerCapEnable) {
+            if (ec)
+            {
+                messages::internalError(sensorAsyncResp->res);
+                BMCWEB_LOG_ERROR << "Power Limit Get handler: Dbus error "
+                                 << ec;
+                return;
+            }
+            // Check PowerCapEnable
+            const bool* b =
+                sdbusplus::message::variant_ns::get_if<bool>(&powerCapEnable);
+
+            if (!(*b))
+            {
+                messages::unableToSetPowerCap(sensorAsyncResp->res);
+                BMCWEB_LOG_ERROR << "PowerCapEnable is false " << ec;
+                return;
+            }
+            // Patch PowerCap
+            std::vector<nlohmann::json> powerControlCollections;
+            nlohmann::json powerLimit;
+            uint32_t value;
+            if (!json_util::readJson(req, sensorAsyncResp->res, "PowerControl",
+                                     powerControlCollections))
+            {
+                return;
+            }
+
+            for (auto& item : powerControlCollections)
+            {
+                if (!json_util::readJson(item, sensorAsyncResp->res,
+                                         "PowerLimit", powerLimit))
+                {
+                    return;
+                }
+                if (!json_util::readJson(powerLimit, sensorAsyncResp->res,
+                                         "LimitInWatts", value))
+                {
+                    return;
+                }
+                crow::connections::systemBus->async_method_call(
+                    [value,
+                     sensorAsyncResp](const boost::system::error_code ec) {
+                        if (ec)
+                        {
+                            BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: "
+                                             << ec;
+                            messages::internalError(sensorAsyncResp->res);
+                            return;
+                        }
+                        const std::string& chassisSubNode =
+                            sensorAsyncResp->chassisSubNode;
+                        sensorAsyncResp->res.jsonValue["@odata.type"] =
+                            "#Power.v1_5_2.Power";
+                        sensorAsyncResp->res.jsonValue["@odata.id"] =
+                            "/redfish/v1/Chassis/" +
+                            sensorAsyncResp->chassisId + "/" + chassisSubNode;
+                        sensorAsyncResp->res.jsonValue["@odata.context"] =
+                            "/redfish/v1/$metadata#" + chassisSubNode + "." +
+                            chassisSubNode;
+                        sensorAsyncResp->res.jsonValue["Id"] = chassisSubNode;
+                        sensorAsyncResp->res.jsonValue["Name"] = chassisSubNode;
+                        sensorAsyncResp->res.jsonValue["PowerControl"] =
+                            nlohmann::json::array();
+                        nlohmann::json& tempArray =
+                            sensorAsyncResp->res.jsonValue["PowerControl"];
+                        tempArray.push_back(
+                            {{"PowerLimit", {{"LimitInWatts", value}}}});
+                    },
+                    "xyz.openbmc_project.Settings",
+                    "/xyz/openbmc_project/control/host0/power_cap",
+                    "org.freedesktop.DBus.Properties", "Set",
+                    "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
+                    sdbusplus::message::variant<uint32_t>(value));
+            }
+        };
+        crow::connections::systemBus->async_method_call(
+            std::move(valueHandler), "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/control/host0/power_cap",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable");
+    }
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -227,7 +327,31 @@ class Power : public Node
     void doPatch(crow::Response& res, const crow::Request& req,
                  const std::vector<std::string>& params) override
     {
-        setSensorOverride(res, req, params, typeList, "Power");
+        nlohmann::json jsonRequest;
+
+        if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+        {
+            BMCWEB_LOG_DEBUG << "Json value not readable";
+            return;
+        }
+        if ((jsonRequest.find("PowerControl") != jsonRequest.end()) &&
+            (jsonRequest.find("Voltages") != jsonRequest.end()))
+        {
+            BMCWEB_LOG_DEBUG
+                << "Don't support PowerControl and Voltages patching together";
+            messages::unsupportedRequestBody(res);
+            res.end();
+            return;
+        }
+        if (jsonRequest.find("PowerControl") != jsonRequest.end())
+        {
+            setPowerCapOverride(res, req, params, typeList, "Power");
+        }
+
+        if (jsonRequest.find("Voltages") != jsonRequest.end())
+        {
+            setSensorOverride(res, req, params, typeList, "Power");
+        }
     }
 };
 
