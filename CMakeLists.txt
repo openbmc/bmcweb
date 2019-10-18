@@ -71,6 +71,12 @@ option (
     '/redfish/v1/Systems/system/LogServices/EventLog/Entries'."
     OFF
 )
+option (
+    BMCWEB_ENABLE_REDFISH_PFR_FEATURE
+    "Enable PFR feature support in redfish. Paths are under
+    '/redfish/v1/Systems/system/'."
+    OFF
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -359,6 +365,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
     $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>:
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PFR_FEATURE}>:
+    -DBMCWEB_ENABLE_REDFISH_PFR_FEATURE>
 )
 
 # configure and install systemd unit files
