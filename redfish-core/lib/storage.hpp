@@ -241,29 +241,61 @@ class Drive : public Node
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp, path](const boost::system::error_code ec,
-                                      const std::variant<bool> present) {
-                        // this interface isn't necessary, only check it if we
-                        // get a good return
+                    [asyncResp,
+                     path](const boost::system::error_code ec,
+                           const boost::container::flat_map<
+                               std::string, std::variant<bool>> &properties) {
+                        // this interface isn't necessary, only check properties
+                        // if we get a good return
                         if (!ec)
                         {
-                            const bool *enabled = std::get_if<bool>(&present);
-                            if (enabled == nullptr)
+                            auto present = properties.find("Present");
+                            auto rebuilding = properties.find("Rebuilding");
+
+                            bool inUpdating = false;
+
+                            if (rebuilding != properties.end())
                             {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
+                                const bool *updating =
+                                    std::get_if<bool>(&(rebuilding->second));
+                                if (updating == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Illegal property present";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                if ((*updating))
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["State"] =
+                                        "Updating";
+                                    inUpdating = true;
+                                }
                             }
-                            if (!(*enabled))
+
+                            if (!inUpdating && (present != properties.end()))
                             {
-                                asyncResp->res.jsonValue["Status"]["State"] =
-                                    "Disabled";
-                                return;
+                                const bool *enabled =
+                                    std::get_if<bool>(&(present->second));
+                                if (enabled == nullptr)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "Illegal property present";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                if (!(*enabled))
+                                {
+                                    asyncResp->res
+                                        .jsonValue["Status"]["State"] =
+                                        "Disabled";
+                                    // don't populate health if disabled
+                                    return;
+                                }
                             }
                         }
 
-                        // only populate if Enabled, assume enabled unless item
-                        // interface says otherwise
                         auto health =
                             std::make_shared<HealthPopulate>(asyncResp);
                         health->inventory = std::vector<std::string>{path};
@@ -271,7 +303,7 @@ class Drive : public Node
                         health->populate();
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
-                    "Get", "xyz.openbmc_project.Inventory.Item", "Present");
+                    "GetAll", "" /* get all properties */);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
