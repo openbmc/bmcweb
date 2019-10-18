@@ -897,7 +897,7 @@ static CreatePIDRet createPidInterface(
                 return CreatePIDRet::fail;
             }
 
-            // /refish/v1/chassis/chassis_name/
+            // /redfish/v1/chassis/chassis_name/
             if (!dbus::utility::getNthStringFromPath(chassisId, 3, chassis))
             {
                 BMCWEB_LOG_ERROR << "Got invalid path " << chassisId;

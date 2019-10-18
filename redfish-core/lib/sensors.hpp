@@ -1020,7 +1020,7 @@ static void
                                         .jsonValue["Redundancy"];
                                 jResp.push_back(
                                     {{"@odata.id",
-                                      "/refish/v1/Chassis/" +
+                                      "/redfish/v1/Chassis/" +
                                           sensorsAsyncResp->chassisId + "/" +
                                           sensorsAsyncResp->chassisSubNode +
                                           "#/Redundancy/" +
