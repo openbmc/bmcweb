@@ -1,0 +1,111 @@
+{
+    "$id": "http://redfish.dmtf.org/schemas/v1/OemComputerSystem.json",
+    "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
+    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "definitions": {
+        "FirmwareProvisioning": {
+            "additionalProperties": false,
+            "description": "Configuration data for platform firmware provisioning.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "ProvisioningStatus": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/FirmwareProvisioningStatus"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "This indicates platform firmware provisioning state.",
+                    "longDescription": "The value of this property indicating provisioning status of platform firmware.",
+                    "readonly": true
+                }
+            },
+            "type": "object"
+        },
+        "FirmwareProvisioningStatus": {
+            "enum": [
+                "NotProvisioned",
+                "ProvisionedButNotLocked",
+                "ProvisionedAndLocked"
+            ],
+            "enumDescriptions": {
+                "NotProvisioned": "Platform firmware is not provisioned.",
+                "ProvisionedAndLocked": "Platform firmware is provisioned and locked.",
+                "ProvisionedButNotLocked": "Platform firmware is provisioned but not locked."
+            },
+            "enumLongDescriptions": {
+                "NotProvisioned": "Platform firmware is not provisioned.",
+                "ProvisionedAndLocked": "Platform firmware is provisioned and locked. So re-provisioning is not allowed in this state.",
+                "ProvisionedButNotLocked": "Platform firmware is provisioned but not locked. So re-provisioning is allowed in this state."
+            },
+            "type": "string"
+        },
+        "Oem": {
+            "additionalProperties": true,
+            "description": "OemComputerSystem Oem properties.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "OpenBmc": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/OpenBmc"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                }
+            },
+            "type": "object"
+        },
+        "OpenBmc": {
+            "additionalProperties": true,
+            "description": "Oem properties for OpenBmc.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {},
+            "type": "object"
+        }
+    },
+    "title": "#OemComputerSystem"
+}
