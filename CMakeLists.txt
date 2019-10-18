@@ -10,55 +10,108 @@ option (BUILD_STATIC_LIBS "Built static libraries" ON)
 
 option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
 
-option (BMCWEB_ENABLE_KVM "Enable the KVM host video WebSocket.  Path is
-       '/kvm/0'.  Video is from the BMC's '/dev/video' device." ON)
-option (BMCWEB_ENABLE_VM_WEBSOCKET "Enable the Virtual Media WebSocket. Path is
+option (
+    BMCWEB_ENABLE_KVM
+    "Enable the KVM host video WebSocket.  Path is
+       '/kvm/0'.  Video is from the BMC's '/dev/video' device."
+    ON
+)
+option (
+    BMCWEB_ENABLE_VM_WEBSOCKET
+    "Enable the Virtual Media WebSocket. Path is
         '/vm/0/0'to open the websocket. See
-        https://github.com/openbmc/jsnbd/blob/master/README." ON)
-option (BMCWEB_ENABLE_DBUS_REST "Enable Phosphor REST (D-Bus) APIs.  Paths
+        https://github.com/openbmc/jsnbd/blob/master/README."
+    ON
+)
+option (
+    BMCWEB_ENABLE_DBUS_REST
+    "Enable Phosphor REST (D-Bus) APIs.  Paths
        directly map Phosphor D-Bus object paths, for example,
        '/xyz/openbmc_project/logging/entry/enumerate'.  See
-       https://github.com/openbmc/docs/blob/master/rest-api.md." ON)
-option (BMCWEB_ENABLE_REDFISH "Enable Redfish APIs.  Paths are under
+       https://github.com/openbmc/docs/blob/master/rest-api.md."
+    ON
+)
+option (
+    BMCWEB_ENABLE_REDFISH
+    "Enable Redfish APIs.  Paths are under
        '/redfish/v1/'.  See
        https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish."
-       ON)
-option (BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET "Enable host serial console
+    ON
+)
+option (
+    BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
+    "Enable host serial console
        WebSocket.  Path is '/console0'.  See
-       https://github.com/openbmc/docs/blob/master/console.md." ON)
-option (BMCWEB_ENABLE_STATIC_HOSTING "Enable serving files from the
-       '/usr/share/www' directory as paths under '/'." ON)
-option (BMCWEB_ENABLE_REDFISH_BMC_JOURNAL "Enable BMC journal access through
+       https://github.com/openbmc/docs/blob/master/console.md."
+    ON
+)
+option (
+    BMCWEB_ENABLE_STATIC_HOSTING
+    "Enable serving files from the
+       '/usr/share/www' directory as paths under '/'."
+    ON
+)
+option (
+    BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
+    "Enable BMC journal access through
        Redfish.  Paths are under
-       '/redfish/v1/Managers/bmc/LogServices/Journal'." OFF)
-option (BMCWEB_ENABLE_REDFISH_RAW_PECI "Enable PECI transactions through
+       '/redfish/v1/Managers/bmc/LogServices/Journal'."
+    OFF
+)
+option (
+    BMCWEB_ENABLE_REDFISH_RAW_PECI
+    "Enable PECI transactions through
        Redfish.  Paths are under '/redfish/v1/Systems/system/LogServices/CpuLog/
-       Actions/Oem/CpuLog.SendRawPeci'." OFF)
-option (BMCWEB_ENABLE_REDFISH_CPU_LOG "Enable CPU log service transactions
+       Actions/Oem/CpuLog.SendRawPeci'."
+    OFF
+)
+option (
+    BMCWEB_ENABLE_REDFISH_CPU_LOG
+    "Enable CPU log service transactions
        through Redfish.  Paths are under
-       '/redfish/v1/Systems/system/LogServices/Crashdump'." OFF)
-option (BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES "Enable DBUS log service
+       '/redfish/v1/Systems/system/LogServices/Crashdump'."
+    OFF
+)
+option (
+    BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+    "Enable DBUS log service
         transactions through Redfish. Paths are under
-        '/redfish/v1/Systems/system/LogServices/EventLog/Entries'." OFF)
+        '/redfish/v1/Systems/system/LogServices/EventLog/Entries'."
+    OFF
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
 # comprehends the implications of doing so.  In general, enabling these options
 # will cause security problems of varying degrees
-option (BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION "Disable CSRF prevention checks.
-       Should be set to OFF for production systems." OFF)
+option (
+    BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
+    "Disable CSRF prevention checks.
+       Should be set to OFF for production systems."
+    OFF
+)
 
-option (BMCWEB_INSECURE_DISABLE_SSL "Disable SSL ports. Should be set to OFF for
-       production systems." OFF)
+option (BMCWEB_INSECURE_DISABLE_SSL
+        "Disable SSL ports. Should be set to OFF for
+       production systems."
+        OFF)
 
-option (BMCWEB_INSECURE_DISABLE_AUTHENTICATION "Disable authentication on all
-       ports. Should be set to OFF for production systems" OFF)
+option (
+    BMCWEB_INSECURE_DISABLE_AUTHENTICATION
+    "Disable authentication on all
+       ports. Should be set to OFF for production systems"
+    OFF
+)
 
 option (BMCWEB_INSECURE_DISABLE_XSS_PREVENTION "Disable XSS preventions" OFF)
 
-option (BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE "Enable TFTP based
+option (
+    BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE
+    "Enable TFTP based
        firmware update transactions through Redfish
-       UpdateService.SimpleUpdate." OFF)
+       UpdateService.SimpleUpdate."
+    OFF
+)
 
 include (CTest)
 
@@ -73,7 +126,9 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
     -fno-rtti \
 ")
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+set (
+    CMAKE_CXX_FLAGS
+    "${CMAKE_CXX_FLAGS} \
 -Wall \
 -Wextra \
 -Wnon-virtual-dtor \
@@ -88,12 +143,15 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
 -Wdouble-promotion \
 -Wformat=2 \
 -Wno-unused-parameter \
-")
+"
+)
 
 # only set -Werror if we're on a compiler that we know passes
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+    if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+        set (
+            CMAKE_CXX_FLAGS
+            "${CMAKE_CXX_FLAGS} \
         -Werror \
         -Wduplicated-cond \
         -Wduplicated-branches \
@@ -102,8 +160,9 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         -Wdouble-promotion \
         -Wformat=2 \
         -Wno-unused-parameter \
-        ")
-    endif(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
+        "
+        )
+    endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
@@ -112,18 +171,19 @@ set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 option (BMCWEB_BUILD_UT "Enable Unit test" OFF)
 
 # security flags
-set (SECURITY_FLAGS "\
+set (
+    SECURITY_FLAGS
+    "\
     -fstack-protector-strong \
     -fPIE \
     -fPIC \
     -D_FORTIFY_SOURCE=2 \
     -Wformat \
-    -Wformat-security")
-set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}")
-set (
-    CMAKE_CXX_FLAGS_RELWITHDEBINFO
-    "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}"
+    -Wformat-security"
 )
+set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${SECURITY_FLAGS}")
+set (CMAKE_CXX_FLAGS_RELWITHDEBINFO
+     "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}")
 set (CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 
 # Enable link time optimization This is a temporary workaround because
@@ -133,32 +193,29 @@ set (CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (NOT CMAKE_BUILD_TYPE MATCHES Debug)
         string (REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
-        string (
-            REGEX
-            REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB}
-        )
+        string (REGEX
+                REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
 
         # Reduce the binary size by removing unnecessary dynamic symbol table
         # entries
-        set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
+        set (
+            CMAKE_CXX_FLAGS
+            "${CMAKE_CXX_FLAGS} \
         -fvisibility=hidden \
         -fvisibility-inlines-hidden \
-        -Wl,--exclude-libs,ALL")
+        -Wl,--exclude-libs,ALL"
+        )
     endif (NOT CMAKE_BUILD_TYPE MATCHES Debug)
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
                                # time
     configure_file (CMakeLists.txt.in 3rdparty/CMakeLists.txt)
-    execute_process (
-        COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty
-    )
-    execute_process (
-        COMMAND ${CMAKE_COMMAND} --build .
-        WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty
-    )
+    execute_process (COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
+                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
+    execute_process (COMMAND ${CMAKE_COMMAND} --build .
+                     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
 
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
 endif ()
@@ -171,10 +228,10 @@ add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
 add_definitions (-DBOOST_SYSTEM_NO_DEPRECATED)
-message(BOOST_VERSION = ${Boost_VERSION})
+message (BOOST_VERSION = ${Boost_VERSION})
 if ("${Boost_VERSION}" STREQUAL "107100")
     add_definitions (-DBOOST_ASIO_NO_DEPRECATED)
-endif()
+endif ()
 add_definitions (-DBOOST_ALL_NO_LIB)
 add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
@@ -218,11 +275,8 @@ endif ()
 
 add_definitions ("-Wno-attributes")
 # Copy pam-webserver to etc/pam.d
-install (
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver
-    DESTINATION /etc/pam.d/
-    RENAME webserver
-)
+install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver DESTINATION /etc/pam.d/
+         RENAME webserver)
 
 # tinyxml2
 find_package (tinyxml2 REQUIRED)
@@ -235,35 +289,30 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/bmcweb)
 include_directories (${CMAKE_BINARY_DIR}/include)
 
-set (
-    SRC_FILES redfish-core/src/error_messages.cpp
-    redfish-core/src/utils/json_utils.cpp ${GENERATED_SRC_FILES}
-)
+set (SRC_FILES redfish-core/src/error_messages.cpp
+     redfish-core/src/utils/json_utils.cpp ${GENERATED_SRC_FILES})
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Unit Tests
 if (${BMCWEB_BUILD_UT})
-    set (
-        UT_FILES src/crow_test.cpp src/gtest_main.cpp
-        src/token_authorization_middleware_test.cpp
-        src/security_headers_middleware_test.cpp src/webassets_test.cpp
-        src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
-        src/kvm_websocket_test.cpp src/msan_test.cpp
-        src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
-        redfish-core/ut/privileges_test.cpp
-        ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
-    ) # big list of naughty strings
-    add_custom_command (
-        OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
-        COMMAND
-            xxd -i ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
-            ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
-    )
+    set (UT_FILES src/crow_test.cpp src/gtest_main.cpp
+         src/token_authorization_middleware_test.cpp
+         src/security_headers_middleware_test.cpp src/webassets_test.cpp
+         src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
+         src/kvm_websocket_test.cpp src/msan_test.cpp
+         src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
+         redfish-core/ut/privileges_test.cpp
+         ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
+                                                      # strings
+    add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
+                        COMMAND
+                            xxd -i
+                            ${CMAKE_CURRENT_SOURCE_DIR}/src/test_resources/blns
+                            ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp)
 
-    set_source_files_properties (
-        ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp PROPERTIES GENERATED TRUE
-    )
+    set_source_files_properties (${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
+                                 PROPERTIES GENERATED TRUE)
     enable_testing ()
 
     add_executable (webtest ${SRC_FILES} ${UT_FILES})
@@ -300,33 +349,35 @@ target_link_libraries (bmcweb tinyxml2)
 install (TARGETS bmcweb DESTINATION bin)
 
 target_compile_definitions (
-    bmcweb PRIVATE
-    $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
+    bmcweb PRIVATE $<$<BOOL:${BMCWEB_ENABLE_KVM}>: -DBMCWEB_ENABLE_KVM>
     $<$<BOOL:${BMCWEB_ENABLE_VM_WEBSOCKET}>: -DBMCWEB_ENABLE_VM_WEBSOCKET>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
     $<$<BOOL:${BMCWEB_ENABLE_STATIC_HOSTING}>: -DBMCWEB_ENABLE_STATIC_HOSTING>
-    $<$<BOOL:${BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET}>: -DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET>
-    $<$<BOOL:${BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION}>: -DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION>
+    $<$<BOOL:${BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET}>:
+    -DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET>
+    $<$<BOOL:${BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION}>:
+    -DBMCWEB_INSECURE_DISABLE_CSRF_PREVENTION>
     $<$<BOOL:${BMCWEB_INSECURE_DISABLE_SSL}>: -DBMCWEB_INSECURE_DISABLE_SSL>
-    $<$<BOOL:${BMCWEB_INSECURE_DISABLE_XSS_PREVENTION}>: -DBMCWEB_INSECURE_DISABLE_XSS_PREVENTION>
-    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_RAW_PECI}>: -DBMCWEB_ENABLE_REDFISH_RAW_PECI>
-    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>: -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
-    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>: -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
-    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>: -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
-    $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>: -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
-
+    $<$<BOOL:${BMCWEB_INSECURE_DISABLE_XSS_PREVENTION}>:
+    -DBMCWEB_INSECURE_DISABLE_XSS_PREVENTION>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_RAW_PECI}>:
+    -DBMCWEB_ENABLE_REDFISH_RAW_PECI>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>:
+    -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>:
+    -DBMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES>
+    $<$<BOOL:${BMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE}>:
+    -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
 )
 
 # configure and install systemd unit files
 configure_file (bmcweb.socket bmcweb.socket COPYONLY)
 configure_file (bmcweb.service.in bmcweb.service)
 pkg_get_variable (SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
-install (
-    FILES ${PROJECT_BINARY_DIR}/bmcweb.socket
-    DESTINATION ${SYSTEMD_SYSTEMUNITDIR}
-)
-install (
-    FILES ${PROJECT_BINARY_DIR}/bmcweb.service
-    DESTINATION ${SYSTEMD_SYSTEMUNITDIR}
-)
+install (FILES ${PROJECT_BINARY_DIR}/bmcweb.socket DESTINATION
+               ${SYSTEMD_SYSTEMUNITDIR})
+install (FILES ${PROJECT_BINARY_DIR}/bmcweb.service DESTINATION
+               ${SYSTEMD_SYSTEMUNITDIR})
