@@ -52,6 +52,24 @@
       "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6376176_08f0db41",
+        "filename": "redfish-core/lib/ethernet.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 1132,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2019-10-18T09:44:53Z",
+      "side": 1,
+      "message": "dbus might return error but why overload with dbus call in this case to know the error, if its already known here.\n\nAnyway, i see empty check is handled so looks fine.",
+      "parentUuid": "d8f346c7_afefe46e",
+      "revId": "0673438cbdef27b8741b5a4ec6ea6450aabb5c76",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
