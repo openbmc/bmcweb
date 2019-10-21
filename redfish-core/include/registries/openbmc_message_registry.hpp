@@ -82,6 +82,15 @@ const std::array<MessageEntry, 114> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"BMCKernelPanic",
+                 {
+                     .description = "Indicates that BMC kernel panic occurred.",
+                     .message = "BMC rebooted due to kernel panic.",
+                     .severity = "OK",
+                     .numberOfArgs = 0,
+                     .paramTypes = {},
+                     .resolution = "None.",
+                 }},
     MessageEntry{"ChassisIntrusionDetected",
                  {
                      "Indicates that a physical security event "
