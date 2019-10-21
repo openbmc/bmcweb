@@ -1,0 +1,11 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: AppaRao Puli <apparao.puli@linux.intel.com>
+Code-Review+1: Zbigniew Kurzynski <zbigniew.kurzynski@intel.com>
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+2: Ed Tanous <ed.tanous@intel.com>
+Submitted-by: Ed Tanous <ed.tanous@intel.com>
+Submitted-at: Mon, 21 Oct 2019 20:46:35 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/26333
+Project: openbmc/bmcweb
+Branch: refs/heads/master
