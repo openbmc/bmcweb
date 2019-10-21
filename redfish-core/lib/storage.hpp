@@ -274,6 +274,35 @@ class Drive : public Node
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
                     "Get", "xyz.openbmc_project.Inventory.Item", "Present");
+
+                crow::connections::systemBus->async_method_call(
+                    [asyncResp, path](const boost::system::error_code ec,
+                                      const std::variant<bool> rebuilding) {
+                        // this interface isn't necessary, only check it if we
+                        // get a good return
+                        if (ec)
+                        {
+                            return;
+                        }
+                        const bool *updating = std::get_if<bool>(&rebuilding);
+                        if (updating == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG << "Illegal property present";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+
+                        // updating and disabled in the backend shouldn't be
+                        // able to be set at the same time, so we don't need to
+                        // check for the race condition of these two calls
+                        if ((*updating))
+                        {
+                            asyncResp->res.jsonValue["Status"]["State"] =
+                                "Updating";
+                        }
+                    },
+                    connectionName, path, "org.freedesktop.DBus.Properties",
+                    "Get", "xyz.openbmc_project.State.Drive", "Rebuilding");
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
