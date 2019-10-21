@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 114> registry = {
+const std::array<MessageEntry, 115> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -78,6 +78,15 @@ const std::array<MessageEntry, 114> registry = {
                      "Indicates BIOS Recovery has started.",
                      "BIOS Recovery Start.",
                      "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"BMCKernelPanic",
+                 {
+                     "Indicates that BMC kernel panic occurred.",
+                     "BMC rebooted due to kernel panic.",
+                     "OK",
                      0,
                      {},
                      "None.",
