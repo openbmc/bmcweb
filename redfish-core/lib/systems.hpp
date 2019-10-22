@@ -136,12 +136,13 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
  *
  * @return None.
  */
-void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
+void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
+                       std::shared_ptr<HealthPopulate> systemHealth)
 {
     BMCWEB_LOG_DEBUG << "Get available system components.";
 
     crow::connections::systemBus->async_method_call(
-        [aResp](
+        [aResp, systemHealth](
             const boost::system::error_code ec,
             const std::vector<std::pair<
                 std::string,
@@ -168,6 +169,15 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                 {
                     continue;
                 }
+
+                auto memoryHealth = std::make_shared<HealthPopulate>(
+                    aResp, aResp->res.jsonValue["MemorySummary"]["Status"]);
+
+                auto cpuHealth = std::make_shared<HealthPopulate>(
+                    aResp, aResp->res.jsonValue["ProcessorSummary"]["Status"]);
+
+                systemHealth->children.emplace_back(memoryHealth);
+                systemHealth->children.emplace_back(cpuHealth);
 
                 // This is not system, so check if it's cpu, dimm, UUID or
                 // BiosVer
@@ -261,6 +271,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Inventory.Item.Dimm");
+
+                            memoryHealth->inventory.emplace_back(path);
                         }
                         else if (interfaceName ==
                                  "xyz.openbmc_project.Inventory.Item.Cpu")
@@ -391,6 +403,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp)
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
                                 "xyz.openbmc_project.Inventory.Item.Cpu");
+                            cpuHealth->inventory.emplace_back(path);
                         }
                         else if (interfaceName ==
                                  "xyz.openbmc_project.Common.UUID")
@@ -1452,7 +1465,7 @@ class Systems : public Node
                     aRsp->res.jsonValue["IndicatorLED"] = "Off";
                 }
             });
-        getComputerSystem(asyncResp);
+        getComputerSystem(asyncResp, health);
         getHostState(asyncResp);
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp);
