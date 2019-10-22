@@ -28,18 +28,30 @@ namespace redfish
 struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
 {
     HealthPopulate(const std::shared_ptr<AsyncResp> &asyncResp) :
-        asyncResp(asyncResp)
+        asyncResp(asyncResp), jsonStatus(asyncResp->res.jsonValue["Status"])
+    {
+    }
+
+    HealthPopulate(const std::shared_ptr<AsyncResp> &asyncResp,
+                   nlohmann::json &status) :
+        asyncResp(asyncResp),
+        jsonStatus(status)
     {
     }
 
     ~HealthPopulate()
     {
-        nlohmann::json &health = asyncResp->res.jsonValue["Status"]["Health"];
-        nlohmann::json &rollup =
-            asyncResp->res.jsonValue["Status"]["HealthRollup"];
+        nlohmann::json &health = jsonStatus["Health"];
+        nlohmann::json &rollup = jsonStatus["HealthRollup"];
 
         health = "OK";
         rollup = "OK";
+
+        for (const std::shared_ptr<HealthPopulate> &health : children)
+        {
+            health->globalInventoryPath = globalInventoryPath;
+            health->statuses = statuses;
+        }
 
         for (const auto &[path, interfaces] : statuses)
         {
@@ -132,6 +144,8 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
         }
     }
 
+    // this should only be called once per url, others should get updated by
+    // being added as children to the 'main' health object for the page
     void populate()
     {
         getAllStatusAssociations();
@@ -185,6 +199,13 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     }
 
     std::shared_ptr<AsyncResp> asyncResp;
+    nlohmann::json &jsonStatus;
+
+    // we store pointers to other HealthPopulate items so we can update their
+    // members and reduce dbus calls. As we hold a shared_ptr to them, they get
+    // destroyed last, and they need not call populate()
+    std::vector<std::shared_ptr<HealthPopulate>> children;
+
     std::vector<std::string> inventory;
     bool isManagersHealth = false;
     dbus::utility::ManagedObjectType statuses;
