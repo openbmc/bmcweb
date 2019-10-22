@@ -17,6 +17,8 @@
 
 #include "node.hpp"
 
+#include <boost/convert.hpp>
+#include <boost/convert/strtol.hpp>
 #include <variant>
 namespace redfish
 {
@@ -104,17 +106,14 @@ long getIDFromURL(const std::string_view url)
     {
         return -1;
     }
+
     if ((found + 1) < url.length())
     {
-        char *endPtr;
         std::string_view str = url.substr(found + 1);
-        long value = std::strtol(str.data(), &endPtr, 10);
-        if (endPtr != str.end())
-        {
-            return -1;
-        }
-        return value;
+
+        return boost::convert<long>(str, boost::cnv::strtol()).value_or(-1);
     }
+
     return -1;
 }
 
