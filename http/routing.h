@@ -328,9 +328,13 @@ class WebSocketRule : public BaseRule
     void handleUpgrade(const Request& req, Response&,
                        boost::asio::ip::tcp::socket&& adaptor) override
     {
-        new crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>(
-            req, std::move(adaptor), openHandler, messageHandler, closeHandler,
-            errorHandler);
+        std::shared_ptr<
+            crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>
+            myConnection = std::make_shared<
+                crow::websocket::ConnectionImpl<boost::asio::ip::tcp::socket>>(
+                req, std::move(adaptor), openHandler, messageHandler,
+                closeHandler, errorHandler);
+        myConnection->start();
     }
 #ifdef BMCWEB_ENABLE_SSL
     void handleUpgrade(const Request& req, Response&,
