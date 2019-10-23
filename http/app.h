@@ -140,7 +140,6 @@ template <typename... Middlewares> class Crow
 
     std::vector<const std::string*> getRoutes()
     {
-        // TODO(ed) Should this be /?
         const std::string root("");
         return router.getRoutes(root);
     }
