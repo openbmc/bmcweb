@@ -285,6 +285,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                               Middlewares...>::value,
         "token_authorization middleware must be enabled in app to use "
         "auth routes");
+
     BMCWEB_ROUTE(app, "/login")
         .methods(
             "POST"_method)([](const crow::Request& req, crow::Response& res) {
@@ -292,7 +293,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
             std::string_view username;
             std::string_view password;
 
-            bool looksLikeIbm = false;
+            bool looksLikePhosphorRest = false;
 
             // This object needs to be declared at this scope so the strings
             // within it are not destroyed before we can use them
@@ -346,7 +347,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                                     dataIt->begin();
                                 nlohmann::json::iterator passIt2 =
                                     dataIt->begin() + 1;
-                                looksLikeIbm = true;
+                                looksLikePhosphorRest = true;
                                 if (userIt2 != dataIt->end() &&
                                     passIt2 != dataIt->end())
                                 {
@@ -404,10 +405,11 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                     auto session = persistent_data::SessionStore::getInstance()
                                        .generateUserSession(username);
 
-                    if (looksLikeIbm)
+                    if (looksLikePhosphorRest)
                     {
-                        // IBM requires a very specific login structure, and
-                        // doesn't actually look at the status code.
+                        // Phosphor-Rest requires a very specific login
+                        // structure, and doesn't actually look at the status
+                        // code.
                         // TODO(ed).... Fix that upstream
                         res.jsonValue = {
                             {"data",
