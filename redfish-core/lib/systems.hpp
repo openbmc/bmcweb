@@ -598,60 +598,6 @@ void getLedGroupIdentify(std::shared_ptr<AsyncResp> aResp,
         "GetManagedObjects");
 }
 
-template <typename CallbackFunc>
-void getLedIdentify(std::shared_ptr<AsyncResp> aResp, CallbackFunc &&callback)
-{
-    BMCWEB_LOG_DEBUG << "Get identify led properties";
-    crow::connections::systemBus->async_method_call(
-        [aResp,
-         callback{std::move(callback)}](const boost::system::error_code ec,
-                                        const PropertiesType &properties) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
-                return;
-            }
-            BMCWEB_LOG_DEBUG << "Got " << properties.size()
-                             << " led properties.";
-            std::string output;
-            for (const auto &property : properties)
-            {
-                if (property.first == "State")
-                {
-                    const std::string *s =
-                        std::get_if<std::string>(&property.second);
-                    if (nullptr != s)
-                    {
-                        BMCWEB_LOG_DEBUG << "Identify Led State: " << *s;
-                        const auto pos = s->rfind('.');
-                        if (pos != std::string::npos)
-                        {
-                            auto led = s->substr(pos + 1);
-                            for (const std::pair<const char *, const char *>
-                                     &p :
-                                 std::array<
-                                     std::pair<const char *, const char *>, 3>{
-                                     {{"On", "Lit"},
-                                      {"Blink", "Blinking"},
-                                      {"Off", "Off"}}})
-                            {
-                                if (led == p.first)
-                                {
-                                    output = p.second;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            callback(output, aResp);
-        },
-        "xyz.openbmc_project.LED.Controller.identify",
-        "/xyz/openbmc_project/led/physical/identify",
-        "org.freedesktop.DBus.Properties", "GetAll",
-        "xyz.openbmc_project.Led.Physical");
-}
 /**
  * @brief Retrieves host state properties over dbus
  *
@@ -1436,16 +1382,7 @@ class Systems : public Node
             [](const bool &asserted, const std::shared_ptr<AsyncResp> aRsp) {
                 if (asserted)
                 {
-                    // If led group is asserted, then another call is needed to
-                    // get led status
-                    getLedIdentify(
-                        aRsp, [](const std::string &ledStatus,
-                                 const std::shared_ptr<AsyncResp> aRsp) {
-                            if (!ledStatus.empty())
-                            {
-                                aRsp->res.jsonValue["IndicatorLED"] = ledStatus;
-                            }
-                        });
+                    aRsp->res.jsonValue["IndicatorLED"] = "On";
                 }
                 else
                 {
