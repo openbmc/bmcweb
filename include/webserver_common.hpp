@@ -17,7 +17,6 @@
 
 #include "security_headers_middleware.hpp"
 #include "token_authorization_middleware.hpp"
-#include "webserver_common.hpp"
 
 using CrowApp = crow::App<crow::SecurityHeadersMiddleware,
                           crow::persistent_data::Middleware,
