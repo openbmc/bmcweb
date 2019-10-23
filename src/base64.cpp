@@ -4,15 +4,15 @@ namespace base64
 {
 bool base64_encode(const std::string &input, std::string &output)
 {
-    // This is left as a raw array (and not a range checked std::array) under
-    // the suspicion that the optimizer is not smart enough to remove the range
-    // checks that would be done below if at were called.  As is, this array is
-    // 64 bytes long, which should be greater than the max of 0b00111111 when
-    // indexed NOLINT calls below are to silence clang-tidy about this
-    // TODO(ed) this requires further investigation if a more safe method could
-    // be used without performance impact.
-    static const char encoding_data[] =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    //  As is, this array is 64 bytes long, which should be greater than the max
+    //  of 0b00111111 when indexed NOLINT calls below are to silence clang-tidy
+    //  warnings about this
+    constexpr std::array<char, 64> encoding_data = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+', '/'};
 
     size_t input_length = input.size();
 
@@ -69,9 +69,9 @@ bool base64_encode(const std::string &input, std::string &output)
 
 bool base64_decode(const std::string &input, std::string &output)
 {
-    static const char nop = -1;
+    constexpr char nop = -1;
     // See note on encoding_data[] in above function
-    static const char decoding_data[] = {
+    constexpr std::array<char, 256> decoding_data = {
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
         nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop, nop,
@@ -109,7 +109,7 @@ bool base64_decode(const std::string &input, std::string &output)
         char base64code2 = 0; // initialized to 0 to suppress warnings
         char base64code3;
 
-        base64code0 = decoding_data[static_cast<int>(input[i])]; // NOLINT
+        base64code0 = decoding_data[static_cast<size_t>(input[i])]; // NOLINT
         if (base64code0 == nop)
         { // non base64 character
             return false;
@@ -119,7 +119,7 @@ bool base64_decode(const std::string &input, std::string &output)
           // byte output
             return false;
         }
-        base64code1 = decoding_data[static_cast<int>(input[i])]; // NOLINT
+        base64code1 = decoding_data[static_cast<size_t>(input[i])]; // NOLINT
         if (base64code1 == nop)
         { // non base64 character
             return false;
@@ -134,7 +134,8 @@ bool base64_decode(const std::string &input, std::string &output)
             { // padding , end of input
                 return (base64code1 & 0x0f) == 0;
             }
-            base64code2 = decoding_data[static_cast<int>(input[i])]; // NOLINT
+            base64code2 =
+                decoding_data[static_cast<size_t>(input[i])]; // NOLINT
             if (base64code2 == nop)
             { // non base64 character
                 return false;
@@ -150,7 +151,8 @@ bool base64_decode(const std::string &input, std::string &output)
             { // padding , end of input
                 return (base64code2 & 0x03) == 0;
             }
-            base64code3 = decoding_data[static_cast<int>(input[i])]; // NOLINT
+            base64code3 =
+                decoding_data[static_cast<size_t>(input[i])]; // NOLINT
             if (base64code3 == nop)
             { // non base64 character
                 return false;
