@@ -750,10 +750,9 @@ int convertJsonToDbus(sd_bus_message* m, const std::string& arg_type,
                 return r;
             }
 
-            for (nlohmann::json::const_iterator it = j->begin(); it != j->end();
-                 ++it)
+            for (const auto &it : *j)
             {
-                r = convertJsonToDbus(m, containedType, *it);
+                r = convertJsonToDbus(m, containedType, it);
                 if (r < 0)
                 {
                     return r;
