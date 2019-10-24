@@ -488,8 +488,8 @@ inline void getLDAPConfigData(const std::string& ldapType,
                                     }
                                 }
 
-                                confData.groupRoleList.push_back(std::make_pair(
-                                    object.first.str, roleMapData));
+                                confData.groupRoleList.emplace_back(
+                                    object.first.str, roleMapData);
                             }
                         }
                     }
