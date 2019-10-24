@@ -17,12 +17,11 @@
 
 #include "node.hpp"
 
-#include <math.h>
-
 #include <boost/algorithm/string/predicate.hpp>
 #include <boost/algorithm/string/split.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/range/algorithm/replace_copy_if.hpp>
+#include <cmath>
 #include <dbus_singleton.hpp>
 #include <utils/json_utils.hpp>
 #include <variant>
