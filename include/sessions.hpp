@@ -233,9 +233,9 @@ class SessionStore
 
         OpenSSLGenerator gen;
 
-        for (size_t i = 0; i < sessionToken.size(); ++i)
+        for (char& sessionChar : sessionToken)
         {
-            sessionToken[i] = alphanum[dist(gen)];
+            sessionChar = alphanum[dist(gen)];
             if (gen.error())
             {
                 return nullptr;
@@ -244,9 +244,9 @@ class SessionStore
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
         csrfToken.resize(sessionTokenSize, '0');
-        for (size_t i = 0; i < csrfToken.size(); ++i)
+        for (char& csrfChar : csrfToken)
         {
-            csrfToken[i] = alphanum[dist(gen)];
+            csrfChar = alphanum[dist(gen)];
             if (gen.error())
             {
                 return nullptr;
@@ -255,9 +255,9 @@ class SessionStore
 
         std::string uniqueId;
         uniqueId.resize(10, '0');
-        for (size_t i = 0; i < uniqueId.size(); ++i)
+        for (char& uidChar : uniqueId)
         {
-            uniqueId[i] = alphanum[dist(gen)];
+            uidChar = alphanum[dist(gen)];
             if (gen.error())
             {
                 return nullptr;
