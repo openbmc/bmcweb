@@ -138,20 +138,20 @@ set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} \
 set (
     CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} \
--Wall \
--Wextra \
--Wnon-virtual-dtor \
--Wold-style-cast \
--Wcast-align \
--Wunused \
--Woverloaded-virtual \
--Wpedantic \
--Wconversion \
--Wsign-conversion \
--Wnull-dereference \
--Wdouble-promotion \
--Wformat=2 \
--Wno-unused-parameter \
+    -Wall \
+    -Wextra \
+    -Wnon-virtual-dtor \
+    -Wold-style-cast \
+    -Wcast-align \
+    -Wunused \
+    -Woverloaded-virtual \
+    -Wpedantic \
+    -Wconversion \
+    -Wsign-conversion \
+    -Wnull-dereference \
+    -Wdouble-promotion \
+    -Wformat=2 \
+    -Wno-unused-parameter \
 "
 )
 
@@ -161,14 +161,14 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         set (
             CMAKE_CXX_FLAGS
             "${CMAKE_CXX_FLAGS} \
-        -Werror \
-        -Wduplicated-cond \
-        -Wduplicated-branches \
-        -Wlogical-op \
-        -Wnull-dereference \
-        -Wdouble-promotion \
-        -Wformat=2 \
-        -Wno-unused-parameter \
+            -Werror \
+            -Wduplicated-cond \
+            -Wduplicated-branches \
+            -Wlogical-op \
+            -Wnull-dereference \
+            -Wdouble-promotion \
+            -Wformat=2 \
+            -Wno-unused-parameter \
         "
         )
     endif (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
