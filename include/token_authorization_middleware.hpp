@@ -69,7 +69,9 @@ class Middleware
             {
                 res.result(boost::beast::http::status::unauthorized);
                 // only send the WWW-authenticate header if this isn't a xhr
-                // from the browser.  most scripts,
+                // from the browser.  Most scripts will not require this, but
+                // some applications will automatically send a HEAD request to
+                // verify the existence of the WWW-Authenticate
                 if (req.getHeaderValue("User-Agent").empty())
                 {
                     res.addHeader("WWW-Authenticate", "Basic");
@@ -227,6 +229,7 @@ class Middleware
     // checks if request can be forwarded without authentication
     bool isOnWhitelist(const crow::Request& req) const
     {
+        auto staticRoutes = crow::webassets::getRoutes();
         // it's allowed to GET root node without authentica tion
         if ("GET"_method == req.method())
         {
@@ -237,8 +240,8 @@ class Middleware
             {
                 return true;
             }
-            else if (crow::webassets::routes.find(std::string(req.url)) !=
-                     crow::webassets::routes.end())
+            else if (staticRoutes.find(std::string(req.url)) !=
+                     staticRoutes.end())
             {
                 return true;
             }
