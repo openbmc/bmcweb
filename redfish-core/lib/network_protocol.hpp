@@ -52,24 +52,15 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path, uint32_t,
                std::string, sdbusplus::message::object_path>;
 
-struct ServiceConfiguration
-{
-    const char* serviceName;
-    const char* socketPath;
-};
-
-const static boost::container::flat_map<const char*, ServiceConfiguration>
-    protocolToDBus{
-        {"SSH",
-         {"dropbear.socket",
-          "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
-        {"HTTPS",
-         {"bmcweb.service",
-          "/org/freedesktop/systemd1/unit/"
-          "bmcweb_2esocket"}}, //"/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
-        {"IPMI",
-         {"phosphor-ipmi-net.socket", "/org/freedesktop/systemd1/unit/"
-                                      "phosphor_2dipmi_2dnet_2esocket"}}};
+// Array of Service name, socket name, and dbus path
+constexpr std::array<std::tuple<const char*, const char*, const char*>, 3>
+    protocolToDBus{{{"SSH", "dropbear.socket",
+                     "/org/freedesktop/systemd1/unit/dropbear_2esocket"},
+                    {"HTTPS", "bmcweb.service",
+                     "/org/freedesktop/systemd1/unit/bmcweb_2esocket"},
+                    {"IPMI", "phosphor-ipmi-net.socket",
+                     "/org/freedesktop/systemd1/unit/"
+                     "phosphor_2dipmi_2dnet_2esocket"}}};
 
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbus_data,
@@ -219,7 +210,8 @@ class NetworkProtocol : public Node
 
         for (auto& protocol : protocolToDBus)
         {
-            asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
+            asyncResp->res.jsonValue[std::get<0>(protocol)]["ProtocolEnabled"] =
+                false;
         }
 
         std::string hostName = getHostName();
@@ -269,13 +261,13 @@ class NetworkProtocol : public Node
                 {
                     for (auto& kv : protocolToDBus)
                     {
-                        if (kv.second.serviceName !=
+                        if (std::get<1>(kv) !=
                             std::get<NET_PROTO_UNIT_NAME>(unit))
                         {
                             continue;
                         }
-                        const char* service = kv.first;
-                        const char* socketPath = kv.second.socketPath;
+                        const char* service = std::get<0>(kv);
+                        const char* socketPath = std::get<2>(kv);
 
                         asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
                             (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
