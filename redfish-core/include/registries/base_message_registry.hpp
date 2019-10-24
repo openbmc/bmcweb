@@ -33,7 +33,7 @@ const Header header = {
     "1.4.0",
     "DMTF",
 };
-const std::array<MessageEntry, 58> registry = {
+constexpr std::array<MessageEntry, 58> registry = {
     MessageEntry{
         "AccessDenied",
         {
