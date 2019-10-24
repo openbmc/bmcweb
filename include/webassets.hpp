@@ -19,8 +19,6 @@ namespace crow
 namespace webassets
 {
 
-namespace filesystem = std::filesystem;
-
 struct CmpStr
 {
     bool operator()(const char* a, const char* b) const
@@ -54,35 +52,36 @@ void requestRoutes(Crow<Middlewares...>& app)
              // browser to show as text
              // https://stackoverflow.com/questions/19911929/what-mime-type-should-i-use-for-javascript-source-map-files
              {".map", "application/json"}}};
-    filesystem::path rootpath{"/usr/share/www/"};
-    filesystem::recursive_directory_iterator dirIter(rootpath);
+
+    std::filesystem::path rootpath{"/usr/share/www/"};
+    std::filesystem::recursive_directory_iterator dirIter(rootpath);
     // In certain cases, we might have both a gzipped version of the file AND a
     // non-gzipped version.  To avoid duplicated routes, we need to make sure we
     // get the gzipped version first.  Because the gzipped path should be longer
     // than the non gzipped path, if we sort in descending order, we should be
     // guaranteed to get the gzip version first.
-    std::vector<filesystem::directory_entry> paths(filesystem::begin(dirIter),
-                                                   filesystem::end(dirIter));
+    std::vector<std::filesystem::directory_entry> paths(
+        std::filesystem::begin(dirIter), std::filesystem::end(dirIter));
     std::sort(paths.rbegin(), paths.rend());
 
-    for (const filesystem::directory_entry& dir : paths)
+    for (const std::filesystem::directory_entry& dir : paths)
     {
-        filesystem::path absolutePath = dir.path();
-        filesystem::path relativePath{
+        std::filesystem::path absolutePath = dir.path();
+        std::filesystem::path relativePath{
             absolutePath.string().substr(rootpath.string().size() - 1)};
-        if (filesystem::is_directory(dir))
+        if (std::filesystem::is_directory(dir))
         {
             // don't recurse into hidden directories or symlinks
             if (boost::starts_with(dir.path().filename().string(), ".") ||
-                filesystem::is_symlink(dir))
+                std::filesystem::is_symlink(dir))
             {
                 dirIter.disable_recursion_pending();
             }
         }
-        else if (filesystem::is_regular_file(dir))
+        else if (std::filesystem::is_regular_file(dir))
         {
             std::string extension = relativePath.extension();
-            filesystem::path webpath = relativePath;
+            std::filesystem::path webpath = relativePath;
             const char* contentEncoding = nullptr;
 
             if (extension == ".gz")
