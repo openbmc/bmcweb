@@ -1436,6 +1436,12 @@ class BMCJournalLogEntry : public Node
         std::string idStr;
         bool firstEntry = true;
         ret = sd_journal_seek_realtime_usec(journal.get(), ts);
+        if (ret < 0)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         for (uint64_t i = 0; i <= index; i++)
         {
             sd_journal_next(journal.get());
@@ -1651,7 +1657,15 @@ class CrashdumpEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
-        const int logId = std::atoi(params[0].c_str());
+
+        char *eptr = nullptr;
+        long logId = std::strtol(params[0].data(), &eptr, 10);
+        if (eptr != params[0].data() + params[0].size())
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
         auto getStoredLogCallback = [asyncResp, logId](
                                         const boost::system::error_code ec,
                                         const std::variant<std::string> &resp) {
