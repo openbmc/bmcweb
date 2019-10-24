@@ -397,7 +397,7 @@ class QueryString
         char* element = nullptr;
 
         int count = 0;
-        while (1)
+        while (true)
         {
             element = qsK2v(plus.c_str(), keyValuePairs.data(),
                             static_cast<int>(keyValuePairs.size()), count++);
