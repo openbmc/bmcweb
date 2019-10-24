@@ -54,7 +54,7 @@ inline bool pamAuthenticateUser(const std::string_view username,
     std::string passStr(password);
     const struct pam_conv localConversation = {
         pamFunctionConversation, const_cast<char*>(passStr.c_str())};
-    pam_handle_t* localAuthHandle = NULL; // this gets set by pam_start
+    pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     if (pam_start("webserver", userStr.c_str(), &localConversation,
                   &localAuthHandle) != PAM_SUCCESS)
@@ -91,7 +91,7 @@ inline int pamUpdatePassword(const std::string& username,
 {
     const struct pam_conv localConversation = {
         pamFunctionConversation, const_cast<char*>(password.c_str())};
-    pam_handle_t* localAuthHandle = NULL; // this gets set by pam_start
+    pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("passwd", username.c_str(), &localConversation,
                            &localAuthHandle);

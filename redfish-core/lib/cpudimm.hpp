@@ -71,8 +71,8 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
-    const bool *present = NULL;
-    const bool *functional = NULL;
+    const bool *present = nullptr;
+    const bool *functional = nullptr;
     for (const auto &interface : cpuInterfacesProperties)
     {
         for (const auto &property : interface.second)

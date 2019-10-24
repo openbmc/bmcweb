@@ -27,7 +27,7 @@ class logger
     {
         std::string date;
         date.resize(32, '\0');
-        time_t t = time(0);
+        time_t t = time(nullptr);
 
         tm myTm{};
 

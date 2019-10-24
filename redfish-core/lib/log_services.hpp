@@ -190,7 +190,7 @@ static bool getEntryTimestamp(sd_journal *journal, std::string &entryTimestamp)
         static_cast<time_t>(timestamp / 1000 / 1000); // Convert from us to s
     struct tm *loctime = localtime(&t);
     char entryTime[64] = {};
-    if (NULL != loctime)
+    if (nullptr != loctime)
     {
         strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
     }
