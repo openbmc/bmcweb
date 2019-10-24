@@ -34,9 +34,7 @@ class BaseRule
     {
     }
 
-    virtual ~BaseRule()
-    {
-    }
+    virtual ~BaseRule() = default;
 
     virtual void validate() = 0;
     std::unique_ptr<BaseRule> upgrade()
@@ -998,9 +996,7 @@ class Trie
 class Router
 {
   public:
-    Router()
-    {
-    }
+    Router() = default;
 
     DynamicRule& newRuleDynamic(const std::string& rule)
     {
