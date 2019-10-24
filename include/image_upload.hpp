@@ -116,14 +116,14 @@ inline void uploadImageHandler(const crow::Request& req, crow::Response& res,
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/upload/image/<str>")
-        .methods("POST"_method,
-                 "PUT"_method)([](const crow::Request& req, crow::Response& res,
-                                  const std::string& filename) {
-            uploadImageHandler(req, res, filename);
-        });
+        .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
+            [](const crow::Request& req, crow::Response& res,
+               const std::string& filename) {
+                uploadImageHandler(req, res, filename);
+            });
 
     BMCWEB_ROUTE(app, "/upload/image")
-        .methods("POST"_method, "PUT"_method)(
+        .methods(boost::beast::http::verb::post, boost::beast::http::verb::put)(
             [](const crow::Request& req, crow::Response& res) {
                 uploadImageHandler(req, res, "");
             });

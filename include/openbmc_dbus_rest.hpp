@@ -1919,7 +1919,7 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
         objectPath = objectPath.substr(0, attrPosition);
     }
 
-    if (req.method() == "POST"_method)
+    if (req.method() == boost::beast::http::verb::post)
     {
         constexpr const char *actionSeperator = "/action/";
         size_t actionPosition = objectPath.find(actionSeperator);
@@ -1933,7 +1933,7 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
             return;
         }
     }
-    else if (req.method() == "GET"_method)
+    else if (req.method() == boost::beast::http::verb::get)
     {
         if (boost::ends_with(objectPath, "/enumerate"))
         {
@@ -1962,12 +1962,12 @@ inline void handleDBusUrl(const crow::Request &req, crow::Response &res,
         }
         return;
     }
-    else if (req.method() == "PUT"_method)
+    else if (req.method() == boost::beast::http::verb::put)
     {
         handlePut(req, res, objectPath, destProperty);
         return;
     }
-    else if (req.method() == "DELETE"_method)
+    else if (req.method() == boost::beast::http::verb::delete_)
     {
         handleDelete(req, res, objectPath);
         return;
@@ -1982,7 +1982,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
     BMCWEB_ROUTE(app, "/bus/")
         .requires({"Login"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request &req, crow::Response &res) {
                 res.jsonValue = {{"busses", {{{"name", "system"}}}},
                                  {"status", "ok"}};
@@ -1991,7 +1991,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/bus/system/")
         .requires({"Login"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request &req, crow::Response &res) {
                 auto myCallback = [&res](const boost::system::error_code ec,
                                          std::vector<std::string> &names) {
@@ -2020,22 +2020,24 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/list/")
         .requires({"Login"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request &req, crow::Response &res) {
                 handleList(res, "/");
             });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .requires({"Login"})
-        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &path) {
+        .methods(boost::beast::http::verb::get)([](const crow::Request &req,
+                                                   crow::Response &res,
+                                                   const std::string &path) {
             std::string objectPath = "/xyz/" + path;
             handleDBusUrl(req, res, objectPath);
         });
 
     BMCWEB_ROUTE(app, "/xyz/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
+        .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
+                 boost::beast::http::verb::delete_)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
                 std::string objectPath = "/xyz/" + path;
@@ -2044,15 +2046,17 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"Login"})
-        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &path) {
+        .methods(boost::beast::http::verb::get)([](const crow::Request &req,
+                                                   crow::Response &res,
+                                                   const std::string &path) {
             std::string objectPath = "/org/" + path;
             handleDBusUrl(req, res, objectPath);
         });
 
     BMCWEB_ROUTE(app, "/org/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method, "POST"_method, "DELETE"_method)(
+        .methods(boost::beast::http::verb::put, boost::beast::http::verb::post,
+                 boost::beast::http::verb::delete_)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) {
                 std::string objectPath = "/org/" + path;
@@ -2061,8 +2065,9 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/download/dump/<str>/")
         .requires({"ConfigureManager"})
-        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &dumpId) {
+        .methods(boost::beast::http::verb::get)([](const crow::Request &req,
+                                                   crow::Response &res,
+                                                   const std::string &dumpId) {
             std::regex validFilename("^[\\w\\- ]+(\\.?[\\w\\- ]*)$");
             if (!std::regex_match(dumpId, validFilename))
             {
@@ -2105,18 +2110,21 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/")
         .requires({"Login"})
-        .methods("GET"_method)([](const crow::Request &req, crow::Response &res,
-                                  const std::string &Connection) {
-            introspectObjects(Connection, "/",
-                              std::make_shared<bmcweb::AsyncResp>(res));
-        });
+        .methods(boost::beast::http::verb::get)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &Connection) {
+                introspectObjects(Connection, "/",
+                                  std::make_shared<bmcweb::AsyncResp>(res));
+            });
 
     BMCWEB_ROUTE(app, "/bus/system/<str>/<path>")
-        .methods("GET"_method,
-                 "POST"_method)([](const crow::Request &req,
-                                   crow::Response &res,
-                                   const std::string &processName,
-                                   const std::string &requestedPath) {
+        .methods(
+            boost::beast::http::verb::get,
+            boost::beast::http::verb::post)([](const crow::Request &req,
+                                               crow::Response &res,
+                                               const std::string &processName,
+                                               const std::string
+                                                   &requestedPath) {
             std::vector<std::string> strs;
             boost::split(strs, requestedPath, boost::is_any_of("/"));
             std::string objectPath;
@@ -2400,7 +2408,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             }
             else
             {
-                if (req.method() != "POST"_method)
+                if (req.method() != boost::beast::http::verb::post)
                 {
                     res.result(boost::beast::http::status::not_found);
                     res.end();
