@@ -55,7 +55,7 @@ inline bool validateCertificate(X509 *const cert)
         return false;
     }
 
-    int errCode = X509_STORE_CTX_init(storeCtx, x509Store, cert, NULL);
+    int errCode = X509_STORE_CTX_init(storeCtx, x509Store, cert, nullptr);
     if (errCode != 1)
     {
         BMCWEB_LOG_ERROR << "Error occured during X509_STORE_CTX_init call";
@@ -106,9 +106,9 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
     std::cout << "Checking certs in file " << filepath << "\n";
 
     FILE *file = fopen(filepath.c_str(), "r");
-    if (file != NULL)
+    if (file != nullptr)
     {
-        EVP_PKEY *pkey = PEM_read_PrivateKey(file, NULL, NULL, NULL);
+        EVP_PKEY *pkey = PEM_read_PrivateKey(file, nullptr, nullptr, nullptr);
         if (pkey != nullptr)
         {
             RSA *rsa = EVP_PKEY_get1_RSA(pkey);
@@ -153,7 +153,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
                 // key order issue.
                 fseek(file, 0, SEEK_SET);
 
-                X509 *x509 = PEM_read_X509(file, NULL, NULL, NULL);
+                X509 *x509 = PEM_read_X509(file, nullptr, nullptr, nullptr);
                 if (x509 == nullptr)
                 {
                     std::cout << "error getting x509 cert " << ERR_get_error()
@@ -175,7 +175,7 @@ inline bool verifyOpensslKeyCert(const std::string &filepath)
 
 inline void generateSslCertificate(const std::string &filepath)
 {
-    FILE *pFile = NULL;
+    FILE *pFile = nullptr;
     std::cout << "Generating new keys\n";
     initOpenssl();
 
@@ -232,19 +232,19 @@ inline void generateSslCertificate(const std::string &filepath)
 
             if (pFile != nullptr)
             {
-                PEM_write_PrivateKey(pFile, pRsaPrivKey, NULL, NULL, 0, 0,
-                                     NULL);
+                PEM_write_PrivateKey(pFile, pRsaPrivKey, nullptr, nullptr, 0,
+                                     nullptr, nullptr);
 
                 PEM_write_X509(pFile, x509);
                 fclose(pFile);
-                pFile = NULL;
+                pFile = nullptr;
             }
 
             X509_free(x509);
         }
 
         EVP_PKEY_free(pRsaPrivKey);
-        pRsaPrivKey = NULL;
+        pRsaPrivKey = nullptr;
     }
 
     // cleanup_openssl();
@@ -252,7 +252,7 @@ inline void generateSslCertificate(const std::string &filepath)
 
 EVP_PKEY *createEcKey()
 {
-    EVP_PKEY *pKey = NULL;
+    EVP_PKEY *pKey = nullptr;
     int eccgrp = 0;
     eccgrp = OBJ_txt2nid("prime256v1");
 

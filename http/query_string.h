@@ -138,7 +138,7 @@ inline size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size)
 
     for (i = 0; i < qs_kv_size; i++)
     {
-        qs_kv[i] = NULL;
+        qs_kv[i] = nullptr;
     }
 
     // find the beginning of the k/v substrings or the fragment
@@ -255,7 +255,7 @@ inline char* qsK2v(const char* key, char* const* qs_kv, int qs_kv_size,
     }
 #endif // _qsSORTING
 
-    return NULL;
+    return nullptr;
 }
 
 inline char* qsScanvalue(const char* key, const char* qs, char* val,
@@ -265,7 +265,7 @@ inline char* qsScanvalue(const char* key, const char* qs, char* val,
     const char* tmp;
 
     // find the beginning of the k/v substrings
-    if ((tmp = strchr(qs, '?')) != NULL)
+    if ((tmp = strchr(qs, '?')) != nullptr)
     {
         qs = tmp + 1;
     }
@@ -282,7 +282,7 @@ inline char* qsScanvalue(const char* key, const char* qs, char* val,
 
     if (qs[0] == '\0')
     {
-        return NULL;
+        return nullptr;
     }
 
     qs += strcspn(qs, "=&#");
