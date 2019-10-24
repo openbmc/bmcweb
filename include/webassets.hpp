@@ -157,6 +157,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
                 });
         }
     }
-} // namespace webassets
+}
 } // namespace webassets
 } // namespace crow
