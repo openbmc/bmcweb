@@ -1071,7 +1071,7 @@ int readStructFromMessage(const std::string &typeCode,
 int readVariantFromMessage(sdbusplus::message::message &m, nlohmann::json &data)
 {
     const char *containerType;
-    int r = sd_bus_message_peek_type(m.get(), NULL, &containerType);
+    int r = sd_bus_message_peek_type(m.get(), nullptr, &containerType);
     if (r < 0)
     {
         BMCWEB_LOG_ERROR << "sd_bus_message_peek_type failed";

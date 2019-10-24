@@ -95,7 +95,7 @@ class Server
 
     void updateDateStr()
     {
-        time_t lastTimeT = time(0);
+        time_t lastTimeT = time(nullptr);
         tm myTm{};
 
         gmtime_r(&lastTimeT, &myTm);
