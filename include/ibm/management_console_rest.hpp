@@ -253,19 +253,19 @@ void handleFileDelete(crow::Response& res, const std::string& fileID)
 inline void handleFileUrl(const crow::Request& req, crow::Response& res,
                           const std::string& fileID)
 {
-    if (req.method() == "PUT"_method)
+    if (req.method() == boost::beast::http::verb::put)
     {
         handleFilePut(req, res, fileID);
         res.end();
         return;
     }
-    if (req.method() == "GET"_method)
+    if (req.method() == boost::beast::http::verb::get)
     {
         handleFileGet(res, fileID);
         res.end();
         return;
     }
-    if (req.method() == "DELETE"_method)
+    if (req.method() == boost::beast::http::verb::delete_)
     {
         handleFileDelete(res, fileID);
         res.end();
@@ -532,7 +532,7 @@ void requestRoutes(Crow<Middlewares...>& app)
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 res.jsonValue["@odata.type"] =
                     "#ibmServiceRoot.v1_0_0.ibmServiceRoot";
@@ -548,7 +548,7 @@ void requestRoutes(Crow<Middlewares...>& app)
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 handleConfigFileList(res);
             });
@@ -556,27 +556,28 @@ void requestRoutes(Crow<Middlewares...>& app)
     BMCWEB_ROUTE(app,
                  "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("POST"_method)(
+        .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 deleteConfigFiles(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("PUT"_method, "GET"_method, "DELETE"_method)(
+        .methods(boost::beast::http::verb::put, boost::beast::http::verb::get,
+                 boost::beast::http::verb::delete_)(
             [](const crow::Request& req, crow::Response& res,
                const std::string& path) { handleFileUrl(req, res, path); });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 getLockServiceData(res);
             });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("POST"_method)(
+        .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 std::vector<nlohmann::json> body;
                 if (!redfish::json_util::readJson(req, res, "Request", body))
@@ -590,8 +591,8 @@ void requestRoutes(Crow<Middlewares...>& app)
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods(
-            "POST"_method)([](const crow::Request& req, crow::Response& res) {
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    crow::Response& res) {
             std::string type;
             std::vector<uint32_t> listTransactionIds;
 
@@ -620,7 +621,7 @@ void requestRoutes(Crow<Middlewares...>& app)
         });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("POST"_method)(
+        .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 ListOfSessionIds listSessionIds;
 

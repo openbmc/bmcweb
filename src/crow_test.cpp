@@ -324,22 +324,25 @@ TEST(Crow, http_method)
 {
     SimpleApp app;
 
-    BMCWEB_ROUTE(app, "/").methods("POST"_method,
-                                   "GET"_method)([](const Request& req) {
-        if (req.method() == "GET"_method)
-            return "2";
-        else
-            return "1";
-    });
+    BMCWEB_ROUTE(app, "/").methods(boost::beast::http::verb::post,
+                                   boost::beast::http::verb::get)(
+        [](const Request& req) {
+            if (req.method() == boost::beast::http::verb::get)
+                return "2";
+            else
+                return "1";
+        });
 
     BMCWEB_ROUTE(app, "/get_only")
-        .methods("GET"_method)([](const Request& /*req*/) { return "get"; });
+        .methods(boost::beast::http::verb::get)(
+            [](const Request& /*req*/) { return "get"; });
     BMCWEB_ROUTE(app, "/post_only")
-        .methods("POST"_method)([](const Request& /*req*/) { return "post"; });
+        .methods(boost::beast::http::verb::post)(
+            [](const Request& /*req*/) { return "post"; });
 
     // cannot have multiple handlers for the same url
     // BMCWEB_ROUTE(app, "/")
-    //.methods("GET"_method)
+    //.methods(boost::beast::http::verb::get)
     //([]{ return "2"; });
 
     {
@@ -358,7 +361,7 @@ TEST(Crow, http_method)
         Response res;
 
         req.url = "/";
-        r.method("POST"_method);
+        r.method(boost::beast::http::verb::post);
         app.handle(req, res);
 
         ASSERT_EQUAL("1", res.body());
@@ -381,7 +384,7 @@ TEST(Crow, http_method)
         Response res;
 
         req.url = "/get_only";
-        r.method("POST"_method);
+        r.method(boost::beast::http::verb::post);
         app.handle(req, res);
 
         ASSERT_NOTEQUAL("get", res.body());
@@ -421,10 +424,12 @@ TEST(Crow, multi_server)
 {
     static char buf[2048];
     SimpleApp app1, app2;
-    BMCWEB_ROUTE(app1, "/").methods("GET"_method,
-                                    "POST"_method)([] { return "A"; });
-    BMCWEB_ROUTE(app2, "/").methods("GET"_method,
-                                    "POST"_method)([] { return "B"; });
+    BMCWEB_ROUTE(app1, "/").methods(boost::beast::http::verb::get,
+                                    boost::beast::http::verb::post)(
+        [] { return "A"; });
+    BMCWEB_ROUTE(app2, "/").methods(boost::beast::http::verb::get,
+                                    boost::beast::http::verb::post)(
+        [] { return "B"; });
 
     Server<SimpleApp> server1(&app1, LOCALHOST_ADDRESS, 45451);
     Server<SimpleApp> server2(&app2, LOCALHOST_ADDRESS, 45452);
