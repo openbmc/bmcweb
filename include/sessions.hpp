@@ -363,23 +363,23 @@ class SessionStore
         std::string sessionToken;
         sessionToken.resize(20, '0');
         std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
-        for (size_t i = 0; i < sessionToken.size(); ++i)
+        for (char & i : sessionToken)
         {
-            sessionToken[i] = alphanum[dist(rd)];
+            i = alphanum[dist(rd)];
         }
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
         csrfToken.resize(20, '0');
-        for (size_t i = 0; i < csrfToken.size(); ++i)
+        for (char & i : csrfToken)
         {
-            csrfToken[i] = alphanum[dist(rd)];
+            i = alphanum[dist(rd)];
         }
 
         std::string uniqueId;
         uniqueId.resize(10, '0');
-        for (size_t i = 0; i < uniqueId.size(); ++i)
+        for (char & i : uniqueId)
         {
-            uniqueId[i] = alphanum[dist(rd)];
+            i = alphanum[dist(rd)];
         }
 
         auto session = std::make_shared<UserSession>(UserSession{
