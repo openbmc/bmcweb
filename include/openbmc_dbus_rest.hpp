@@ -466,7 +466,7 @@ std::vector<std::string> dbusArgSplit(const std::string &string)
     {
         return ret;
     }
-    ret.push_back("");
+    ret.emplace_back("");
     int containerDepth = 0;
 
     for (std::string::const_iterator character = string.begin();
@@ -488,7 +488,7 @@ std::vector<std::string> dbusArgSplit(const std::string &string)
                 {
                     if (character + 1 != string.end())
                     {
-                        ret.push_back("");
+                        ret.emplace_back("");
                     }
                 }
                 break;
@@ -497,7 +497,7 @@ std::vector<std::string> dbusArgSplit(const std::string &string)
                 {
                     if (character + 1 != string.end())
                     {
-                        ret.push_back("");
+                        ret.emplace_back("");
                     }
                 }
                 break;
