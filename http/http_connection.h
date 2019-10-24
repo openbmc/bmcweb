@@ -113,7 +113,7 @@ template <typename T> struct IsBeforeHandleArity3Impl
     template <typename C> static std::false_type f(...);
 
   public:
-    static const bool value = decltype(f<T>(nullptr))::value;
+    static constexpr bool value = decltype(f<T>(nullptr))::value;
 };
 
 template <typename T> struct IsAfterHandleArity3Impl
@@ -129,7 +129,7 @@ template <typename T> struct IsAfterHandleArity3Impl
     template <typename C> static std::false_type f(...);
 
   public:
-    static const bool value = decltype(f<T>(nullptr))::value;
+    static constexpr bool value = decltype(f<T>(nullptr))::value;
 };
 
 template <typename MW, typename Context, typename ParentContext>
