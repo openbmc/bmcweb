@@ -109,7 +109,7 @@
    implement a concrete interface.
 
 11. ### phosphor webui
-   The webserver should be capable of hosting phosphor-webui, and impelmenting
+   The webserver should be capable of hosting phosphor-webui, and implementing
    the required flows to host the application.  In general, all access methods
    should be available to the webui.
 
@@ -196,3 +196,21 @@
 
   See the [REST](https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md)
   and [Redfish](https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md) cheatsheets for valid commands.
+
+## clang-tidy
+
+clang-tidy is a tool that can be used to identify coding style violations, bad
+design patterns, and bug prone contructs.  It's not guaranteed that all tests
+pass, but ideally should be run on new code to find issues.  To run, make sure
+you have clang++-9 installed, and clang-tidy-9 installed, and run.  the -checks
+field can be modified to enable or disable which clang-tidy checks are run.
+The below enables everything in the cert namespace.
+
+```
+mkdir build
+cd build
+cmake .. -DCMAKE_CXX_COMPILER=clang++-9 -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+make -j
+run-clang-tidy-9 -p . -header-filter=".*" -checks="-*,cert-*"
+```
+
