@@ -140,7 +140,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
     }
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
     // RFC7231 defines methods that need csrf protection
-    if (req.method() != "GET"_method)
+    if (req.method() != boost::beast::http::verb::get)
     {
         std::string_view csrf = req.getHeaderValue("X-XSRF-TOKEN");
         // Make sure both tokens are filled
@@ -167,7 +167,7 @@ static const std::shared_ptr<crow::persistent_data::UserSession>
 static bool isOnWhitelist(const crow::Request& req)
 {
     // it's allowed to GET root node without authentication
-    if ("GET"_method == req.method())
+    if (req.method() != boost::beast::http::verb::get)
     {
         if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
             req.url == "/redfish" || req.url == "/redfish/" ||
@@ -184,7 +184,7 @@ static bool isOnWhitelist(const crow::Request& req)
 
     // it's allowed to POST on session collection & login without
     // authentication
-    if ("POST"_method == req.method())
+    if (boost::beast::http::verb::post == req.method())
     {
         if ((req.url == "/redfish/v1/SessionService/Sessions") ||
             (req.url == "/redfish/v1/SessionService/Sessions/") ||
