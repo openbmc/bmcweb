@@ -122,28 +122,63 @@ constexpr bool isPath(ConstStr s, unsigned i)
     return isEquN(s, i, "<path>", 0, 6);
 }
 
-template <typename T> struct parameter_tag
+template <typename T> constexpr int getParameterTag()
 {
-    static const int value = 0;
-};
-#define BMCWEB_INTERNAL_PARAMETER_TAG(t, i)                                    \
-    template <> struct parameter_tag<t>                                        \
-    {                                                                          \
-        static const int value = i;                                            \
+    if constexpr (std::is_same_v<int, T>)
+    {
+        return 1;
     }
-BMCWEB_INTERNAL_PARAMETER_TAG(int, 1);
-BMCWEB_INTERNAL_PARAMETER_TAG(char, 1);
-BMCWEB_INTERNAL_PARAMETER_TAG(short, 1);
-BMCWEB_INTERNAL_PARAMETER_TAG(long, 1);
-BMCWEB_INTERNAL_PARAMETER_TAG(long long, 1);
-BMCWEB_INTERNAL_PARAMETER_TAG(unsigned int, 2);
-BMCWEB_INTERNAL_PARAMETER_TAG(unsigned char, 2);
-BMCWEB_INTERNAL_PARAMETER_TAG(unsigned short, 2);
-BMCWEB_INTERNAL_PARAMETER_TAG(unsigned long, 2);
-BMCWEB_INTERNAL_PARAMETER_TAG(unsigned long long, 2);
-BMCWEB_INTERNAL_PARAMETER_TAG(double, 3);
-BMCWEB_INTERNAL_PARAMETER_TAG(std::string, 4);
-#undef BMCWEB_INTERNAL_PARAMETER_TAG
+    if constexpr (std::is_same_v<int, T>)
+    {
+        return 1;
+    }
+    if constexpr (std::is_same_v<char, T>)
+    {
+        return 1;
+    }
+    if constexpr (std::is_same_v<short, T>)
+    {
+        return 1;
+    }
+    if constexpr (std::is_same_v<long, T>)
+    {
+        return 1;
+    }
+    if constexpr (std::is_same_v<long long, T>)
+    {
+        return 1;
+    }
+    if constexpr (std::is_same_v<unsigned int, T>)
+    {
+        return 2;
+    }
+    if constexpr (std::is_same_v<unsigned char, T>)
+    {
+        return 2;
+    }
+    if constexpr (std::is_same_v<unsigned short, T>)
+    {
+        return 2;
+    }
+    if constexpr (std::is_same_v<unsigned long, T>)
+    {
+        return 2;
+    }
+    if constexpr (std::is_same_v<unsigned long long, T>)
+    {
+        return 2;
+    }
+    if constexpr (std::is_same_v<double, T>)
+    {
+        return 3;
+    }
+    if constexpr (std::is_same_v<std::string, T>)
+    {
+        return 4;
+    }
+    return 0;
+}
+
 template <typename... Args> struct compute_parameter_tag_from_args_list;
 
 template <> struct compute_parameter_tag_from_args_list<>
@@ -157,9 +192,8 @@ struct compute_parameter_tag_from_args_list<Arg, Args...>
     static const int subValue =
         compute_parameter_tag_from_args_list<Args...>::value;
     static const int value =
-        parameter_tag<typename std::decay<Arg>::type>::value
-            ? subValue * 6 +
-                  parameter_tag<typename std::decay<Arg>::type>::value
+        getParameterTag<typename std::decay<Arg>::type>()
+            ? subValue * 6 + getParameterTag<typename std::decay<Arg>::type>()
             : subValue;
 };
 
