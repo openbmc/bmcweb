@@ -12,11 +12,8 @@ namespace crow
 namespace obmc_kvm
 {
 
-static constexpr const uint maxSessions = 4;
-
-class KvmSession
+struct KvmSession
 {
-  public:
     explicit KvmSession(crow::websocket::Connection& conn) :
         conn(conn), hostSocket(conn.get_io_context()), doingWrite(false)
     {
@@ -64,7 +61,6 @@ class KvmSession
         doWrite();
     }
 
-  protected:
     void doRead()
     {
         std::size_t bytes = outputBuffer.capacity() - outputBuffer.size();
@@ -151,14 +147,12 @@ class KvmSession
     bool doingWrite;
 };
 
-static boost::container::flat_map<crow::websocket::Connection*,
-                                  std::unique_ptr<KvmSession>>
-    sessions;
+static constexpr const size_t maxSessions = 4;
+
+static std::array<std::optional<KvmSession>, maxSessions> sessions;
 
 inline void requestRoutes(CrowApp& app)
 {
-    sessions.reserve(maxSessions);
-
     BMCWEB_ROUTE(app, "/kvm/0")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .websocket()
@@ -166,21 +160,42 @@ inline void requestRoutes(CrowApp& app)
                    std::shared_ptr<bmcweb::AsyncResp> asyncResp) {
             BMCWEB_LOG_DEBUG << "Connection " << &conn << " opened";
 
-            if (sessions.size() == maxSessions)
+            for (std::optional<KvmSession>& s : sessions)
             {
-                conn.close("Max sessions are already connected");
-                return;
+                if (!s)
+                {
+                    s.emplace(conn);
+                    return;
+                }
             }
 
-            sessions[&conn] = std::make_unique<KvmSession>(conn);
+            conn.close("Max sessions are already connected");
         })
-        .onclose([](crow::websocket::Connection& conn,
-                    const std::string& reason) { sessions.erase(&conn); })
+        .onclose(
+            [](crow::websocket::Connection& conn, const std::string& reason) {
+                for (std::optional<KvmSession>& s : sessions)
+                {
+                    if (!s)
+                    {
+                        continue;
+                    }
+                    if (&s->conn == &conn)
+                    {
+                        s.reset();
+                        return;
+                    }
+                }
+            })
         .onmessage([](crow::websocket::Connection& conn,
                       const std::string& data, bool is_binary) {
-            if (sessions[&conn])
+            for (std::optional<KvmSession>& s : sessions)
             {
-                sessions[&conn]->onMessage(data);
+                if (&s->conn == &conn)
+                {
+                    s->onMessage(data);
+
+                    return;
+                }
             }
         });
 }
