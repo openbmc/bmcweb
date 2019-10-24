@@ -30,8 +30,7 @@ class Handler : public std::enable_shared_from_this<Handler>
     {
     }
 
-    ~Handler()
-    = default;
+    ~Handler() = default;
 
     void doClose()
     {

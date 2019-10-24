@@ -16,7 +16,7 @@ namespace redfish
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 {
     BMCWEB_ROUTE(app, "/redfish/")
-        .methods("GET"_method)(
+        .methods(boost::beast::http::verb::get)(
             [](const crow::Request& req, crow::Response& res) {
                 res.jsonValue = {{"v1", "/redfish/v1/"}};
                 res.end();
