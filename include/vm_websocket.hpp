@@ -1,11 +1,11 @@
 #pragma once
 
 #include <app.h>
-#include <signal.h>
 #include <websocket.h>
 
 #include <boost/beast/core/flat_static_buffer.hpp>
 #include <boost/process.hpp>
+#include <csignal>
 #include <webserver_common.hpp>
 
 namespace crow
