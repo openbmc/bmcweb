@@ -28,8 +28,8 @@ void requestRoutes(Crow<Middlewares...>& app)
         "auth routes");
 
     BMCWEB_ROUTE(app, "/login")
-        .methods(
-            "POST"_method)([](const crow::Request& req, crow::Response& res) {
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    crow::Response& res) {
             std::string_view contentType = req.getHeaderValue("content-type");
             std::string_view username;
             std::string_view password;
@@ -196,7 +196,7 @@ void requestRoutes(Crow<Middlewares...>& app)
         });
 
     BMCWEB_ROUTE(app, "/logout")
-        .methods("POST"_method)(
+        .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 auto& session = req.session;
                 if (session != nullptr)
