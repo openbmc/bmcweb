@@ -29,10 +29,16 @@ struct CmpStr
     }
 };
 
+static boost::container::flat_set<std::string>& getRoutes()
+{
+    static boost::container::flat_set<std::string> routes;
+    return routes;
+}
+
 template <typename... Middlewares>
 void requestRoutes(Crow<Middlewares...>& app)
 {
-    const static boost::container::flat_map<const char*, const char*, CmpStr>
+    constexpr static std::array<std::pair<const char*, const char*>, 33>
         contentTypes{
             {{".css", "text/css;charset=UTF-8"},
              {".html", "text/html;charset=UTF-8"},
@@ -100,13 +106,13 @@ void requestRoutes(Crow<Middlewares...>& app)
                     webpath.string().back() != '/')
                 {
                     // insert the non-directory version of this path
-                    webroutes::routes.insert(webpath);
+                    getRoutes().insert(webpath);
                     webpath += "/";
                 }
             }
 
             std::pair<boost::container::flat_set<std::string>::iterator, bool>
-                inserted = webroutes::routes.insert(webpath);
+                inserted = getRoutes().insert(webpath);
 
             if (!inserted.second)
             {
@@ -117,16 +123,19 @@ void requestRoutes(Crow<Middlewares...>& app)
             }
             const char* contentType = nullptr;
 
-            auto contentTypeIt = contentTypes.find(extension.c_str());
-            if (contentTypeIt == contentTypes.end())
+            for (const std::pair<const char*, const char*> ext : contentTypes)
+            {
+                if (extension == ext.first)
+                {
+                    contentType = ext.second;
+                }
+            }
+
+            if (contentType == nullptr)
             {
                 BMCWEB_LOG_ERROR << "Cannot determine content-type for "
                                  << absolutePath << " with extension "
                                  << extension;
-            }
-            else
-            {
-                contentType = contentTypeIt->second;
             }
 
             app.routeDynamic(webpath)(
