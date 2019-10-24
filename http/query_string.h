@@ -326,6 +326,9 @@ class QueryString
 
     QueryString& operator=(const QueryString& qs)
     {
+        if (this == &qs)
+            return *this;
+
         url = qs.url;
         keyValuePairs.clear();
         for (auto p : qs.keyValuePairs)
