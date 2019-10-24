@@ -59,39 +59,39 @@ class Node
     {
         crow::DynamicRule& get = app.routeDynamic(entityUrl.c_str());
         getRule = &get;
-        get.methods("GET"_method)([this](const crow::Request& req,
-                                         crow::Response& res,
-                                         Params... params) {
-            std::vector<std::string> paramVec = {params...};
-            doGet(res, req, paramVec);
-        });
+        get.methods(boost::beast::http::verb::get)(
+            [this](const crow::Request& req, crow::Response& res,
+                   Params... params) {
+                std::vector<std::string> paramVec = {params...};
+                doGet(res, req, paramVec);
+            });
 
         crow::DynamicRule& patch = app.routeDynamic(entityUrl.c_str());
         patchRule = &patch;
-        patch.methods("PATCH"_method)([this](const crow::Request& req,
-                                             crow::Response& res,
-                                             Params... params) {
-            std::vector<std::string> paramVec = {params...};
-            doPatch(res, req, paramVec);
-        });
+        patch.methods(boost::beast::http::verb::patch)(
+            [this](const crow::Request& req, crow::Response& res,
+                   Params... params) {
+                std::vector<std::string> paramVec = {params...};
+                doPatch(res, req, paramVec);
+            });
 
         crow::DynamicRule& post = app.routeDynamic(entityUrl.c_str());
         postRule = &post;
-        post.methods("POST"_method)([this](const crow::Request& req,
-                                           crow::Response& res,
-                                           Params... params) {
-            std::vector<std::string> paramVec = {params...};
-            doPost(res, req, paramVec);
-        });
+        post.methods(boost::beast::http::verb::post)(
+            [this](const crow::Request& req, crow::Response& res,
+                   Params... params) {
+                std::vector<std::string> paramVec = {params...};
+                doPost(res, req, paramVec);
+            });
 
         crow::DynamicRule& delete_ = app.routeDynamic(entityUrl.c_str());
         deleteRule = &delete_;
-        delete_.methods("DELETE"_method)([this](const crow::Request& req,
-                                                crow::Response& res,
-                                                Params... params) {
-            std::vector<std::string> paramVec = {params...};
-            doDelete(res, req, paramVec);
-        });
+        delete_.methods(boost::beast::http::verb::delete_)(
+            [this](const crow::Request& req, crow::Response& res,
+                   Params... params) {
+                std::vector<std::string> paramVec = {params...};
+                doDelete(res, req, paramVec);
+            });
     }
 
     void initPrivileges()

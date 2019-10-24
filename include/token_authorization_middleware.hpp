@@ -218,7 +218,7 @@ class Middleware
         }
 #ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
         // RFC7231 defines methods that need csrf protection
-        if (req.method() != "GET"_method)
+        if (req.method() != boost::beast::http::verb::get)
         {
             std::string_view csrf = req.getHeaderValue("X-XSRF-TOKEN");
             // Make sure both tokens are filled
@@ -247,7 +247,7 @@ class Middleware
     bool isOnWhitelist(const crow::Request& req) const
     {
         // it's allowed to GET root node without authentica tion
-        if ("GET"_method == req.method())
+        if (boost::beast::http::verb::get == req.method())
         {
             if (req.url == "/redfish/v1" || req.url == "/redfish/v1/" ||
                 req.url == "/redfish" || req.url == "/redfish/" ||
@@ -265,7 +265,7 @@ class Middleware
 
         // it's allowed to POST on session collection & login without
         // authentication
-        if ("POST"_method == req.method())
+        if (boost::beast::http::verb::post == req.method())
         {
             if ((req.url == "/redfish/v1/SessionService/Sessions") ||
                 (req.url == "/redfish/v1/SessionService/Sessions/") ||
@@ -292,8 +292,8 @@ void requestRoutes(Crow<Middlewares...>& app)
         "auth routes");
 
     BMCWEB_ROUTE(app, "/login")
-        .methods(
-            "POST"_method)([](const crow::Request& req, crow::Response& res) {
+        .methods(boost::beast::http::verb::post)([](const crow::Request& req,
+                                                    crow::Response& res) {
             std::string_view contentType = req.getHeaderValue("content-type");
             std::string_view username;
             std::string_view password;
@@ -460,7 +460,7 @@ void requestRoutes(Crow<Middlewares...>& app)
         });
 
     BMCWEB_ROUTE(app, "/logout")
-        .methods("POST"_method)(
+        .methods(boost::beast::http::verb::post)(
             [](const crow::Request& req, crow::Response& res) {
                 auto& session = req.session;
                 if (session != nullptr)
