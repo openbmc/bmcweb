@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 115> registry = {
+const std::array<MessageEntry, 118> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1379,6 +1379,38 @@ const std::array<MessageEntry, 115> registry = {
                      "Indicates that an SSB Thermal trip has been asserted.",
                      "SSB Thermal trip.",
                      "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SystemInterfaceDisabledProvisioned",
+                 {
+                     "Indicates that the system interface is in disabled "
+                     "provisioned state. All command execution are blocked "
+                     "after BIOS POST.",
+                     "System interface in disabled provisioned state.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SystemInterfaceUnprovisioned",
+                 {
+                     "Indicates that the system interface is in unprovisioned "
+                     "state.",
+                     "System interface in unprovisioned state.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SystemInterfaceWhitelistProvisioned",
+                 {
+                     "Indicates that the system interface is in whitelist "
+                     "provisioned state. Allows execution of only "
+                     "whitelisted commands after BIOS POST.",
+                     "System interface in whitelist provisioned state.",
+                     "Warning",
                      0,
                      {},
                      "None.",
