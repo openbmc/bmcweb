@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "health.hpp"
+
 #include <node.hpp>
 
 namespace redfish
@@ -74,6 +76,7 @@ class Storage : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
         res.jsonValue["Name"] = "Storage Controller";
         res.jsonValue["Id"] = "1";
+        res.jsonValue["Status"]["State"] = "Enabled";
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
@@ -83,12 +86,18 @@ class Storage : public Node
                     asyncResp->res.jsonValue["Drives"];
                 storageArray = nlohmann::json::array();
                 asyncResp->res.jsonValue["Drives@odata.count"] = 0;
+                auto health = std::make_shared<HealthPopulate>(asyncResp);
+
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Drive mapper call error";
                     messages::internalError(asyncResp->res);
                     return;
                 }
+
+                health->inventory = storageList;
+                health->populate();
+
                 for (const std::string &objpath : storageList)
                 {
                     std::size_t lastPos = objpath.rfind("/");
