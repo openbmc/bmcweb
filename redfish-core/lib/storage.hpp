@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "health.hpp"
+
 #include <node.hpp>
 
 namespace redfish
@@ -74,6 +76,7 @@ class Storage : public Node
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
         res.jsonValue["Name"] = "Storage Controller";
         res.jsonValue["Id"] = "1";
+        res.jsonValue["Status"]["State"] = "Enabled";
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         crow::connections::systemBus->async_method_call(
@@ -83,12 +86,18 @@ class Storage : public Node
                     asyncResp->res.jsonValue["Drives"];
                 storageArray = nlohmann::json::array();
                 asyncResp->res.jsonValue["Drives@odata.count"] = 0;
+                auto health = std::make_shared<HealthPopulate>(asyncResp);
+
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Drive mapper call error";
                     messages::internalError(asyncResp->res);
                     return;
                 }
+
+                health->inventory = storageList;
+                health->populate();
+
                 for (const std::string &objpath : storageList)
                 {
                     std::size_t lastPos = objpath.rfind("/");
@@ -178,6 +187,8 @@ class Drive : public Node
                     "/redfish/v1/$metadata#Drive.Drive";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Storage/1/Drives/" + driveId;
+                asyncResp->res.jsonValue["Name"] = driveId;
+                asyncResp->res.jsonValue["Id"] = driveId;
 
                 if (connectionNames.size() != 1)
                 {
@@ -197,12 +208,11 @@ class Drive : public Node
 
                 const std::string &connectionName = connectionNames[0].first;
                 crow::connections::systemBus->async_method_call(
-                    [asyncResp,
-                     driveId](const boost::system::error_code ec,
-                              const std::vector<std::pair<
-                                  std::string,
-                                  std::variant<bool, std::string, uint64_t>>>
-                                  &propertiesList) {
+                    [asyncResp](const boost::system::error_code ec,
+                                const std::vector<std::pair<
+                                    std::string,
+                                    std::variant<bool, std::string, uint64_t>>>
+                                    &propertiesList) {
                         if (ec)
                         {
                             // this interface isn't necessary
@@ -233,8 +243,6 @@ class Drive : public Node
                                 asyncResp->res.jsonValue[propertyName] = *value;
                             }
                         }
-                        asyncResp->res.jsonValue["Name"] = driveId;
-                        asyncResp->res.jsonValue["Id"] = driveId;
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
                     "GetAll", "xyz.openbmc_project.Inventory.Decorator.Asset");
@@ -242,35 +250,33 @@ class Drive : public Node
                 // default it to Enabled
                 asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
+                auto health = std::make_shared<HealthPopulate>(asyncResp);
+                health->inventory = std::vector<std::string>{path};
+
+                health->populate();
+
                 crow::connections::systemBus->async_method_call(
                     [asyncResp, path](const boost::system::error_code ec,
                                       const std::variant<bool> present) {
                         // this interface isn't necessary, only check it if we
                         // get a good return
-                        if (!ec)
+                        if (ec)
                         {
-                            const bool *enabled = std::get_if<bool>(&present);
-                            if (enabled == nullptr)
-                            {
-                                BMCWEB_LOG_DEBUG << "Illegal property present";
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            if (!(*enabled))
-                            {
-                                asyncResp->res.jsonValue["Status"]["State"] =
-                                    "Disabled";
-                                return;
-                            }
+                            return;
                         }
-
-                        // only populate if Enabled, assume enabled unless item
-                        // interface says otherwise
-                        auto health =
-                            std::make_shared<HealthPopulate>(asyncResp);
-                        health->inventory = std::vector<std::string>{path};
-
-                        health->populate();
+                        const bool *enabled = std::get_if<bool>(&present);
+                        if (enabled == nullptr)
+                        {
+                            BMCWEB_LOG_DEBUG << "Illegal property present";
+                            messages::internalError(asyncResp->res);
+                            return;
+                        }
+                        if (!(*enabled))
+                        {
+                            asyncResp->res.jsonValue["Status"]["State"] =
+                                "Disabled";
+                            return;
+                        }
                     },
                     connectionName, path, "org.freedesktop.DBus.Properties",
                     "Get", "xyz.openbmc_project.Inventory.Item", "Present");
