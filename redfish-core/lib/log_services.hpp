@@ -1723,12 +1723,6 @@ class CrashdumpEntryCollection : public Node
             // enough to hold them
             for (const std::string &objpath : resp)
             {
-                // Ignore the on-demand log
-                if (objpath.compare(crashdumpOnDemandPath) == 0)
-                {
-                    continue;
-                }
-
                 // Get the log ID
                 std::size_t lastPos = objpath.rfind("/");
                 if (lastPos == std::string::npos)
@@ -1879,86 +1873,6 @@ class OnDemandCrashdump : public Node
                 const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-        static std::unique_ptr<sdbusplus::bus::match::match> onDemandLogMatcher;
-
-        // Only allow one OnDemand Log request at a time
-        if (onDemandLogMatcher != nullptr)
-        {
-            messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
-            return;
-        }
-        // Make this static so it survives outside this method
-        static boost::asio::steady_timer timeout(*req.ioService);
-
-        timeout.expires_after(std::chrono::seconds(30));
-        timeout.async_wait([asyncResp](const boost::system::error_code &ec) {
-            onDemandLogMatcher = nullptr;
-            if (ec)
-            {
-                // operation_aborted is expected if timer is canceled before
-                // completion.
-                if (ec != boost::asio::error::operation_aborted)
-                {
-                    BMCWEB_LOG_ERROR << "Async_wait failed " << ec;
-                }
-                return;
-            }
-            BMCWEB_LOG_ERROR << "Timed out waiting for on-demand log";
-
-            messages::internalError(asyncResp->res);
-        });
-
-        auto onDemandLogMatcherCallback =
-            [asyncResp](sdbusplus::message::message &m) {
-                BMCWEB_LOG_DEBUG << "OnDemand log available match fired";
-                timeout.cancel();
-
-                sdbusplus::message::object_path objPath;
-                boost::container::flat_map<
-                    std::string, boost::container::flat_map<
-                                     std::string, std::variant<std::string>>>
-                    interfacesAdded;
-                m.read(objPath, interfacesAdded);
-                const std::string *log = std::get_if<std::string>(
-                    &interfacesAdded[crashdumpInterface]["Log"]);
-                if (log == nullptr)
-                {
-                    messages::internalError(asyncResp->res);
-                    // Careful with onDemandLogMatcher.  It is a unique_ptr to
-                    // the match object inside which this lambda is executing.
-                    // Once it is set to nullptr, the match object will be
-                    // destroyed and the lambda will lose its context, including
-                    // res, so it needs to be the last thing done.
-                    onDemandLogMatcher = nullptr;
-                    return;
-                }
-                nlohmann::json crashdumpJson =
-                    nlohmann::json::parse(*log, nullptr, false);
-                if (crashdumpJson.is_discarded())
-                {
-                    messages::internalError(asyncResp->res);
-                    // Careful with onDemandLogMatcher.  It is a unique_ptr to
-                    // the match object inside which this lambda is executing.
-                    // Once it is set to nullptr, the match object will be
-                    // destroyed and the lambda will lose its context, including
-                    // res, so it needs to be the last thing done.
-                    onDemandLogMatcher = nullptr;
-                    return;
-                }
-                asyncResp->res.jsonValue = crashdumpJson;
-                // Careful with onDemandLogMatcher.  It is a unique_ptr to the
-                // match object inside which this lambda is executing.  Once it
-                // is set to nullptr, the match object will be destroyed and the
-                // lambda will lose its context, including res, so it needs to
-                // be the last thing done.
-                onDemandLogMatcher = nullptr;
-            };
-        onDemandLogMatcher = std::make_unique<sdbusplus::bus::match::match>(
-            *crow::connections::systemBus,
-            sdbusplus::bus::match::rules::interfacesAdded() +
-                sdbusplus::bus::match::rules::argNpath(0,
-                                                       crashdumpOnDemandPath),
-            std::move(onDemandLogMatcherCallback));
 
         auto generateonDemandLogCallback =
             [asyncResp](const boost::system::error_code ec,
@@ -1980,11 +1894,9 @@ class OnDemandCrashdump : public Node
                     {
                         messages::internalError(asyncResp->res);
                     }
-
-                    timeout.cancel();
-                    onDemandLogMatcher = nullptr;
                     return;
                 }
+                asyncResp->res.result(boost::beast::http::status::no_content);
             };
         crow::connections::systemBus->async_method_call(
             std::move(generateonDemandLogCallback), crashdumpObject,
