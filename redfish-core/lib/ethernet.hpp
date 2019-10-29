@@ -97,6 +97,7 @@ struct EthernetInterfaceData
     bool NTPEnabled;
     bool HostNameEnabled;
     bool SendHostNameEnabled;
+    bool nicEnabled;
     std::string DHCPEnabled;
     std::string operatingMode;
     std::string hostname;
@@ -263,6 +264,15 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (speed != nullptr)
                             {
                                 ethData.speed = *speed;
+                            }
+                        }
+                        else if (propertyPair.first == "NICEnabled")
+                        {
+                            const bool *nicEnabled =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (nicEnabled != nullptr)
+                            {
+                                ethData.nicEnabled = *nicEnabled;
                             }
                         }
                         else if (propertyPair.first == "Nameservers")
@@ -1123,6 +1133,26 @@ class EthernetInterface : public Node
             std::variant<std::string>{dhcp});
     }
 
+    void setEthernetInterfaceBoolProperty(
+        const std::string &ifaceId, const std::string &propertyName,
+        const bool &value, const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", propertyName,
+            std::variant<bool>{value});
+    }
+
     void setDHCPv4Config(const std::string &propertyName, const bool &value,
                          const std::shared_ptr<AsyncResp> asyncResp)
     {
@@ -1613,21 +1643,21 @@ class EthernetInterface : public Node
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
-        json_response["InterfaceEnabled"] = true;
-        if (ethData.speed == 0)
-        {
-            json_response["LinkStatus"] = "NoLink";
-            json_response["Status"] = {
-                {"Health", "OK"},
-                {"State", "Disabled"},
-            };
-        }
-        else
+        json_response["InterfaceEnabled"] = ethData.nicEnabled;
+        if (ethData.nicEnabled)
         {
             json_response["LinkStatus"] = "LinkUp";
             json_response["Status"] = {
                 {"Health", "OK"},
                 {"State", "Enabled"},
+            };
+        }
+        else
+        {
+            json_response["LinkStatus"] = "NoLink";
+            json_response["Status"] = {
+                {"Health", "OK"},
+                {"State", "Disabled"},
             };
         }
         json_response["SpeedMbps"] = ethData.speed;
@@ -1781,6 +1811,7 @@ class EthernetInterface : public Node
         std::optional<std::vector<std::string>> staticNameServers;
         std::optional<nlohmann::json> dhcpv4;
         std::optional<nlohmann::json> dhcpv6;
+        std::optional<bool> interfaceEnabled;
         DHCPParameters v4dhcpParms;
         DHCPParameters v6dhcpParms;
 
@@ -1789,7 +1820,8 @@ class EthernetInterface : public Node
                 ipv4StaticAddresses, "MACAddress", macAddress,
                 "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
                 ipv6DefaultGateway, "IPv6StaticAddresses", ipv6StaticAddresses,
-                "DHCPv4", dhcpv4, "DHCPv6", dhcpv6))
+                "DHCPv4", dhcpv4, "DHCPv6", dhcpv6, "InterfaceEnabled",
+                interfaceEnabled))
         {
             return;
         }
@@ -1830,7 +1862,8 @@ class EthernetInterface : public Node
              staticNameServers = std::move(staticNameServers),
              dhcpv4 = std::move(dhcpv4), dhcpv6 = std::move(dhcpv6),
              v4dhcpParms = std::move(v4dhcpParms),
-             v6dhcpParms = std::move(v6dhcpParms)](
+             v6dhcpParms = std::move(v6dhcpParms),
+             interfaceEnabled = std::move(interfaceEnabled)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data,
                 const boost::container::flat_set<IPv6AddressData> &ipv6Data) {
@@ -1891,6 +1924,12 @@ class EthernetInterface : public Node
                     nlohmann::json ipv6Static = std::move(*ipv6StaticAddresses);
                     handleIPv6StaticAddressesPatch(iface_id, ipv6Static,
                                                    ipv6Data, asyncResp);
+                }
+
+                if (interfaceEnabled)
+                {
+                    setEthernetInterfaceBoolProperty(
+                        iface_id, "NICEnabled", *interfaceEnabled, asyncResp);
                 }
             });
     }
