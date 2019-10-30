@@ -101,7 +101,7 @@ class Storage : public Node
 
                     storageArray.push_back(
                         {{"@odata.id",
-                          "/redfish/v1/Systems/system/Storage/1/Drive/" +
+                          "/redfish/v1/Systems/system/Storage/1/Drives/" +
                               objpath.substr(lastPos + 1)}});
                 }
 
@@ -121,7 +121,7 @@ class Drive : public Node
 {
   public:
     Drive(CrowApp &app) :
-        Node(app, "/redfish/v1/Systems/system/Storage/1/Drive/<str>/",
+        Node(app, "/redfish/v1/Systems/system/Storage/1/Drives/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -177,7 +177,7 @@ class Drive : public Node
                 asyncResp->res.jsonValue["@odata.context"] =
                     "/redfish/v1/$metadata#Drive.Drive";
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Systems/system/Storage/1/Drive/" + driveId;
+                    "/redfish/v1/Systems/system/Storage/1/Drives/" + driveId;
 
                 if (connectionNames.size() != 1)
                 {
