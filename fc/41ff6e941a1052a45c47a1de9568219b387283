@@ -1,0 +1,8 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: Carol Wang <wangkair@cn.ibm.com>
+Submitted-at: Thu, 31 Oct 2019 02:14:33 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/26440
+Project: openbmc/bmcweb
+Branch: refs/heads/master
