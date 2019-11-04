@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 131> registry = {
+const std::array<MessageEntry, 134> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1366,6 +1366,33 @@ const std::array<MessageEntry, 131> registry = {
                      "Indicates that the reset button was pressed.",
                      "Reset Button Pressed.",
                      "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityBoot2ndFlashEnabled",
+                 {
+                     "Indicates that the BMC 2nd boot flash is enabled.",
+                     "BMC 2nd boot flash is enabled.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityP2aBridgeEnabled",
+                 {
+                     "Indicates that the P2A bridge is enabled.",
+                     "P2A(PCIe to AHB) bridge is enabled.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityUartPortDebugEnabled",
+                 {
+                     "Indicates that the uart port debug is enabled.",
+                     "Uart port debug is enabled.",
+                     "Critical",
                      0,
                      {},
                      "None.",
