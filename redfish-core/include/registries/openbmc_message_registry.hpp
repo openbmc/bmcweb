@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-const std::array<MessageEntry, 130> registry = {
+const std::array<MessageEntry, 131> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -236,6 +236,16 @@ const std::array<MessageEntry, 130> registry = {
                      "OK",
                      0,
                      {},
+                     "None.",
+                 }},
+    MessageEntry{"DriveError",
+                 {
+                     "Indicates that a Drive Error occurred of "
+                     "the specified type or cause.",
+                     "Drive Error Occurred: %1.",
+                     "Warning",
+                     1,
+                     {"string"},
                      "None.",
                  }},
     MessageEntry{"EventLogCleared",
