@@ -52,24 +52,10 @@ using UnitStruct =
                std::string, sdbusplus::message::object_path, uint32_t,
                std::string, sdbusplus::message::object_path>;
 
-struct ServiceConfiguration
-{
-    const char* serviceName;
-    const char* socketPath;
-};
-
-const static boost::container::flat_map<const char*, ServiceConfiguration>
-    protocolToDBus{
-        {"SSH",
-         {"dropbear.socket",
-          "/org/freedesktop/systemd1/unit/dropbear_2esocket"}},
-        {"HTTPS",
-         {"bmcweb.service",
-          "/org/freedesktop/systemd1/unit/"
-          "bmcweb_2esocket"}}, //"/org/freedesktop/systemd1/unit/phosphor_2dgevent_2esocket"}},
-        {"IPMI",
-         {"phosphor-ipmi-net.socket", "/org/freedesktop/systemd1/unit/"
-                                      "phosphor_2dipmi_2dnet_2esocket"}}};
+const static boost::container::flat_map<const char*, std::string>
+    protocolToDBus{{"SSH", "dropbear"},
+                   {"HTTPS", "bmcweb"},
+                   {"IPMI", "phosphor-ipmi-net"}};
 
 inline void
     extractNTPServersAndDomainNamesData(const GetManagedObjects& dbus_data,
@@ -267,23 +253,35 @@ class NetworkProtocol : public Node
 
                 for (auto& unit : r)
                 {
+                    /* Only traverse through <xyz>.socket units */
+                    std::string unitName = std::get<NET_PROTO_UNIT_NAME>(unit);
+                    if (!boost::ends_with(unitName, ".socket"))
+                    {
+                        continue;
+                    }
+
                     for (auto& kv : protocolToDBus)
                     {
-                        if (kv.second.serviceName !=
-                            std::get<NET_PROTO_UNIT_NAME>(unit))
+                        // We are interested in services, which starts with
+                        // mapped service name
+                        if (!boost::starts_with(unitName, kv.second))
                         {
                             continue;
                         }
-                        const char* service = kv.first;
-                        const char* socketPath = kv.second.socketPath;
+                        const char* rfServiceKey = kv.first;
+                        std::string socketPath =
+                            std::get<NET_PROTO_UNIT_OBJ_PATH>(unit);
+                        std::string unitState =
+                            std::get<NET_PROTO_UNIT_SUB_STATE>(unit);
 
-                        asyncResp->res.jsonValue[service]["ProtocolEnabled"] =
-                            (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
-                             "running") ||
-                            (std::get<NET_PROTO_UNIT_SUB_STATE>(unit) ==
-                             "listening");
+                        asyncResp->res
+                            .jsonValue[rfServiceKey]["ProtocolEnabled"] =
+                            (unitState == "running") ||
+                            (unitState == "listening");
+
                         crow::connections::systemBus->async_method_call(
-                            [asyncResp, service{std::string(service)}](
+                            [asyncResp,
+                             rfServiceKey{std::string(rfServiceKey)}](
                                 const boost::system::error_code ec,
                                 const std::variant<std::vector<std::tuple<
                                     std::string, std::string>>>& resp) {
@@ -315,27 +313,29 @@ class NetworkProtocol : public Node
                                 }
                                 std::string portStr =
                                     listenStream.substr(lastColonPos + 1);
+                                if (portStr.empty())
+                                {
+                                    return;
+                                }
                                 char* endPtr = nullptr;
+                                errno = 0;
                                 // Use strtol instead of stroi to avoid
                                 // exceptions
                                 long port =
                                     std::strtol(portStr.c_str(), &endPtr, 10);
-                                if (*endPtr != '\0' || portStr.empty())
+                                if ((errno != ERANGE) && (*endPtr == '\0'))
                                 {
-                                    // Invalid value
-                                    asyncResp->res.jsonValue[service]["Port"] =
-                                        nullptr;
+                                    asyncResp->res
+                                        .jsonValue[rfServiceKey]["Port"] = port;
                                 }
-                                else
-                                {
-                                    // Everything OK
-                                    asyncResp->res.jsonValue[service]["Port"] =
-                                        port;
-                                }
+                                return;
                             },
                             "org.freedesktop.systemd1", socketPath,
                             "org.freedesktop.DBus.Properties", "Get",
                             "org.freedesktop.systemd1.Socket", "Listen");
+
+                        // We found service, break the inner loop.
+                        break;
                     }
                 }
             },
