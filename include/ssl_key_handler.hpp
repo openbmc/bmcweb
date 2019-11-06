@@ -312,6 +312,8 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
+    SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
+
     // m_ssl_context.set_verify_mode(boost::asio::ssl::verify_peer);
     mSslContext->use_certificate_file(ssl_pem_file,
                                       boost::asio::ssl::context::pem);
