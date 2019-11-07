@@ -639,22 +639,6 @@ void objectInterfacesToJson(
         }
     }
 
-    if (sensorSchema == "Sensors")
-    {
-        // For sensors in SensorCollection we set Id instead of MemberId,
-        // including power sensors.
-        sensor_json["Id"] = sensorName;
-        sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
-    }
-    else if (sensorType != "power")
-    {
-        // Set MemberId and Name for non-power sensors.  For PowerSupplies and
-        // PowerControl, those properties have more general values because
-        // multiple sensors can be stored in the same JSON object.
-        sensor_json["MemberId"] = sensorName;
-        sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
-    }
-
     sensor_json["Status"]["State"] = getState(inventoryItem);
     sensor_json["Status"]["Health"] =
         getHealth(sensor_json, interfacesDict, inventoryItem);
@@ -668,6 +652,10 @@ void objectInterfacesToJson(
     if (sensorSchema == "Sensors")
     {
         sensor_json["@odata.type"] = "#Sensor.v1_0_0.Sensor";
+        // For sensors in SensorCollection we set Id instead of MemberId,
+        // including power sensors.
+        sensor_json["Id"] = sensorName;
+        sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
         sensor_json["@odata.context"] = "/redfish/v1/$metadata#Sensor.Sensor";
         if (sensorType == "power")
         {
@@ -680,29 +668,39 @@ void objectInterfacesToJson(
     }
     else if (sensorType == "temperature")
     {
-        unit = "/ReadingCelsius"_json_pointer;
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Temperature";
+        sensor_json["MemberId"] = sensorName;
+        sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
+        unit = "/ReadingCelsius"_json_pointer;
         // TODO(ed) Documentation says that path should be type fan_tach,
         // implementation seems to implement fan
     }
     else if (sensorType == "fan" || sensorType == "fan_tach")
     {
-        unit = "/Reading"_json_pointer;
-        sensor_json["ReadingUnits"] = "RPM";
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensor_json["MemberId"] = sensorName;
+        // Per Thermal.Fan Schema, 'FanName' used instead of 'Name'.
+        sensor_json["FanName"] = boost::replace_all_copy(sensorName, "_", " ");
+        sensor_json["ReadingUnits"] = "RPM";
+        unit = "/Reading"_json_pointer;
         forceToInt = true;
     }
     else if (sensorType == "fan_pwm")
     {
-        unit = "/Reading"_json_pointer;
-        sensor_json["ReadingUnits"] = "Percent";
         sensor_json["@odata.type"] = "#Thermal.v1_3_0.Fan";
+        sensor_json["MemberId"] = sensorName;
+        // Per Thermal.Fan Schema, 'FanName' used instead of 'Name'.
+        sensor_json["FanName"] = boost::replace_all_copy(sensorName, "_", " ");
+        sensor_json["ReadingUnits"] = "Percent";
+        unit = "/Reading"_json_pointer;
         forceToInt = true;
     }
     else if (sensorType == "voltage")
     {
-        unit = "/ReadingVolts"_json_pointer;
         sensor_json["@odata.type"] = "#Power.v1_0_0.Voltage";
+        sensor_json["MemberId"] = sensorName;
+        sensor_json["Name"] = boost::replace_all_copy(sensorName, "_", " ");
+        unit = "/ReadingVolts"_json_pointer;
     }
     else if (sensorType == "power")
     {
