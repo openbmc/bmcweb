@@ -108,7 +108,7 @@ struct AuthConfigMethods
     bool cookie = true;
     bool sessionToken = true;
     bool basic = true;
-    bool tls = true;
+    bool tls = false;
 
     void fromJson(const nlohmann::json& j)
     {
