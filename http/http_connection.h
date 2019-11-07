@@ -275,7 +275,7 @@ class Connection
             SSL_set_session_id_context(
                 adaptor.native_handle(),
                 reinterpret_cast<const unsigned char*>(serverName.c_str()),
-                serverName.length());
+                static_cast<unsigned int>(serverName.length()));
             BMCWEB_LOG_DEBUG << this << " TLS is enabled on this connection.";
         }
 
