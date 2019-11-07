@@ -86,7 +86,7 @@ option (
     BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
     "Enables authenticating users through TLS client certificates.
     The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect."
-    OFF
+    ON
 )
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
