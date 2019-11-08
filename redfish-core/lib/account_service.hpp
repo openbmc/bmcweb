@@ -90,10 +90,6 @@ inline std::string getRoleIdFromPrivilege(std::string_view role)
     {
         return "Operator";
     }
-    else if ((role == "") || (role == "priv-noaccess"))
-    {
-        return "NoAccess";
-    }
     return "";
 }
 inline std::string getPrivilegeFromRoleId(std::string_view role)
@@ -113,10 +109,6 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     else if (role == "Operator")
     {
         return "priv-operator";
-    }
-    else if (role == "NoAccess")
-    {
-        return "priv-noaccess";
     }
     return "";
 }
