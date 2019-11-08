@@ -12,7 +12,8 @@ constexpr const char *biosPurpose =
 
 /* @brief String that indicates a BMC firmware instance */
 constexpr const char *bmcPurpose =
-    "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
+    "xyz.openbmc_project.Software.Version.VersionPurpose.BMC "
+    "xyz.openbmc_project.Software.Version.VersionPurpose.System";
 
 /**
  * @brief Put fw version of input type into async response json structure
@@ -144,7 +145,18 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                     return;
                                 }
 
-                                if (*swInvPurpose != fwVersionPurpose)
+                                std::istringstream purposes(fwVersionPurpose);
+                                std::string purpose;
+                                bool match = false;
+                                while (std::getline(purposes, purpose, ' '))
+                                {
+                                    if ((*swInvPurpose).compare(purpose) == 0)
+                                    {
+                                        match = true;
+                                        break;
+                                    }
+                                }
+                                if (!match)
                                 {
                                     // Not purpose we're looking for
                                     return;
