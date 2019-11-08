@@ -7,12 +7,13 @@ namespace redfish
 namespace fw_util
 {
 /* @brief String that indicates a bios firmware instance */
-constexpr const char *biosPurpose =
-    "xyz.openbmc_project.Software.Version.VersionPurpose.Host";
+const std::vector<std::string> biosPurpose = {
+    "xyz.openbmc_project.Software.Version.VersionPurpose.Host"};
 
 /* @brief String that indicates a BMC firmware instance */
-constexpr const char *bmcPurpose =
-    "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
+const std::vector<std::string> bmcPurpose = {
+    "xyz.openbmc_project.Software.Version.VersionPurpose.BMC",
+    "xyz.openbmc_project.Software.Version.VersionPurpose.System"};
 
 /**
  * @brief Put fw version of input type into async response json structure
@@ -24,7 +25,7 @@ constexpr const char *bmcPurpose =
  * @return void
  */
 void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
-                        const std::string &fwVersionPurpose,
+                        const std::vector<std::string> &fwVersionPurpose,
                         const std::string &jsonIdxStr)
 {
     // Get active FW images
@@ -144,7 +145,16 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
                                     return;
                                 }
 
-                                if (*swInvPurpose != fwVersionPurpose)
+                                bool match = false;
+                                for (const auto &purpose : fwVersionPurpose)
+                                {
+                                    if ((*swInvPurpose).compare(purpose) == 0)
+                                    {
+                                        match = true;
+                                        break;
+                                    }
+                                }
+                                if (!match)
                                 {
                                     // Not purpose we're looking for
                                     return;

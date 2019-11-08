@@ -535,25 +535,30 @@ class SoftwareInventory : public Node
     static void getRelatedItems(std::shared_ptr<AsyncResp> aResp,
                                 const std::string &purpose)
     {
-        if (purpose == fw_util::bmcPurpose)
+        for (const auto &bmcPurpose : fw_util::bmcPurpose)
         {
-            nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
-            members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            if (purpose.compare(bmcPurpose) == 0)
+            {
+                nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+                members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
+                aResp->res.jsonValue["Members@odata.count"] = members.size();
+                return;
+            }
         }
-        else if (purpose == fw_util::biosPurpose)
+        for (const auto &biosPurpose : fw_util::biosPurpose)
         {
-            // TODO(geissonator) Need BIOS schema support added for this
-            //                   to be valid
-            // nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
-            // members.push_back(
-            //    {{"@odata.id", "/redfish/v1/Systems/system/BIOS"}});
-            // aResp->res.jsonValue["Members@odata.count"] = members.size();
+            if (purpose.compare(biosPurpose) == 0)
+            {
+                // TODO(geissonator) Need BIOS schema support added for this
+                //                   to be valid
+                // nlohmann::json &members =
+                // aResp->res.jsonValue["RelatedItem"]; members.push_back(
+                //    {{"@odata.id", "/redfish/v1/Systems/system/BIOS"}});
+                // aResp->res.jsonValue["Members@odata.count"] = members.size();
+                return;
+            }
         }
-        else
-        {
-            BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
-        }
+        BMCWEB_LOG_ERROR << "Unknown software purpose " << purpose;
     }
 
     void doGet(crow::Response &res, const crow::Request &req,
