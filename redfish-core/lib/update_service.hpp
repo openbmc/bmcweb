@@ -784,14 +784,25 @@ class SoftwareInventory : public Node
         {
             nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
             members.push_back({{"@odata.id", "/redfish/v1/Managers/bmc"}});
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            aResp->res.jsonValue["RelatedItem@odata.count"] = members.size();
         }
         else if (purpose == fw_util::biosPurpose)
         {
             nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
             members.push_back(
                 {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
-            aResp->res.jsonValue["Members@odata.count"] = members.size();
+            aResp->res.jsonValue["RelatedItem@odata.count"] = members.size();
+        }
+        else if (purpose == fw_util::systemPurpose)
+        {
+            // Currently the only supported "System" purpose images are a
+            // combined BMC + BIOS image.
+            nlohmann::json& members = aResp->res.jsonValue["RelatedItem"];
+            members.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
+            members.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/system/bmc"}});
+            aResp->res.jsonValue["RelatedItem@odata.count"] = members.size();
         }
         else
         {

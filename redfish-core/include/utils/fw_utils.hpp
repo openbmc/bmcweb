@@ -15,6 +15,10 @@ constexpr const char* biosPurpose =
 constexpr const char* bmcPurpose =
     "xyz.openbmc_project.Software.Version.VersionPurpose.BMC";
 
+/* @brief String that indicates a system firmware instance */
+constexpr const char* systemPurpose =
+    "xyz.openbmc_project.Software.Version.VersionPurpose.System";
+
 /**
  * @brief Put fw version of input type into async response json structure
  *
