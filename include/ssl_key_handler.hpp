@@ -313,7 +313,9 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+    // BIG WARNING: This needs to stay disabled, as there will always be
+    // unauthenticated endpoints
+    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
 
     SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
 
