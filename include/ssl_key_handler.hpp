@@ -313,14 +313,21 @@ inline std::shared_ptr<boost::asio::ssl::context>
                              boost::asio::ssl::context::no_tlsv1 |
                              boost::asio::ssl::context::no_tlsv1_1);
 
-    // BIG WARNING: This needs to stay disabled, as there will always be
-    // unauthenticated endpoints
-    // mSslContext->set_verify_mode(boost::asio::ssl::verify_peer);
+#ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+    if (crow::persistent_data::SessionStore::getInstance()
+            .getAuthMethodsConfig()
+            .tls)
+    {
+        mSslContext->set_verify_mode(boost::asio::ssl::verify_peer |
+                                     boost::asio::ssl::verify_client_once);
+
+        BMCWEB_LOG_DEBUG << "Using default TrustStore location: "
+                         << trustStorePath;
+        mSslContext->add_verify_path(trustStorePath);
+    }
+#endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 
     SSL_CTX_set_options(mSslContext->native_handle(), SSL_OP_NO_RENEGOTIATION);
-
-    BMCWEB_LOG_DEBUG << "Using default TrustStore location: " << trustStorePath;
-    mSslContext->add_verify_path(trustStorePath);
 
     mSslContext->use_certificate_file(ssl_pem_file,
                                       boost::asio::ssl::context::pem);
