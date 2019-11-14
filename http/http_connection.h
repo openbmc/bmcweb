@@ -265,6 +265,16 @@ class Connection
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if (crow::persistent_data::SessionStore::getInstance()
+                .getAuthMethodsConfig()
+                .tls)
+        {
+            adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
+            SSL_set_session_id_context(
+                adaptor.native_handle(),
+                reinterpret_cast<const unsigned char*>("tls"), sizeof("tls"));
+        }
+
         adaptor.set_verify_callback(
             [this](bool preverified, boost::asio::ssl::verify_context& ctx) {
                 // do nothing if TLS is disabled
@@ -402,7 +412,11 @@ class Connection
                         .generateUserSession(
                             sslUser,
                             crow::persistent_data::PersistenceType::TIMEOUT);
-
+                if (auto sp = session.lock())
+                {
+                    BMCWEB_LOG_INFO
+                        << this << " Generating TLS session: " << sp->uniqueId;
+                }
                 return true;
             });
 #endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
