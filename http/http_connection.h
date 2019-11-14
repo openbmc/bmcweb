@@ -265,6 +265,14 @@ class Connection
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        if (crow::persistent_data::SessionStore::getInstance()
+                .getAuthMethodsConfig()
+                .tls)
+        {
+            adaptor.set_verify_mode(boost::asio::ssl::verify_peer |
+                                    boost::asio::ssl::verify_client_once);
+        }
+
         adaptor.set_verify_callback(
             [this](bool preverified, boost::asio::ssl::verify_context& ctx) {
                 // do nothing if TLS is disabled
