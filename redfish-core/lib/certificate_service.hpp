@@ -17,6 +17,7 @@
 
 #include "node.hpp"
 
+#include <charconv>
 #include <variant>
 namespace redfish
 {
@@ -106,14 +107,18 @@ long getIDFromURL(const std::string_view url)
     }
     if ((found + 1) < url.length())
     {
-        char *endPtr;
         std::string_view str = url.substr(found + 1);
-        long value = std::strtol(str.data(), &endPtr, 10);
-        if (endPtr != str.end())
+        long result = -1;
+        const auto res =
+            std::from_chars(str.data(), str.data() + str.size(), result);
+        if (res.ec == std::errc() && (res.ptr == (str.data() + str.size())))
+        {
+            return result;
+        }
+        else
         {
             return -1;
         }
-        return value;
     }
     return -1;
 }
