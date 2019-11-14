@@ -4,6 +4,7 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <csignal>
 #include <dbus_singleton.hpp>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
@@ -496,6 +497,11 @@ class SessionStore
 
     void updateAuthMethodsConfig(const AuthConfigMethods& config)
     {
+        if (authMethodsConfig.tls != config.tls)
+        {
+            // recreate socket connections with new settings.
+            std::raise(SIGHUP);
+        }
         authMethodsConfig = config;
         needWrite = true;
     }
