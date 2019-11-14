@@ -395,7 +395,7 @@ class Connection
                 {
                     return true;
                 }
-                sslUser.resize(lastChar - 1);
+                sslUser.resize(lastChar);
 
                 session =
                     persistent_data::SessionStore::getInstance()
