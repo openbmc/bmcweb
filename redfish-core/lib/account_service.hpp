@@ -1332,7 +1332,7 @@ class AccountsCollection : public Node
     {
         entityPrivileges = {
             {boost::beast::http::verb::get,
-             {{"ConfigureUsers"}, {"ConfigureManager"}}},
+             {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
