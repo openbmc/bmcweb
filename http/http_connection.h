@@ -265,6 +265,19 @@ class Connection
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
+        auto ca_available = !std::filesystem::is_empty(
+            std::filesystem::path(ensuressl::trustStorePath));
+        if (ca_available && crow::persistent_data::SessionStore::getInstance()
+                                .getAuthMethodsConfig()
+                                .tls)
+        {
+            adaptor.set_verify_mode(boost::asio::ssl::verify_peer);
+            SSL_set_session_id_context(
+                adaptor.native_handle(),
+                reinterpret_cast<const unsigned char*>(serverName.c_str()),
+                serverName.length());
+        }
+
         adaptor.set_verify_callback([this](
                                         bool preverified,
                                         boost::asio::ssl::verify_context& ctx) {
@@ -404,7 +417,11 @@ class Connection
                           .generateUserSession(
                               sslUser,
                               crow::persistent_data::PersistenceType::TIMEOUT);
-
+            if (auto sp = session.lock())
+            {
+                BMCWEB_LOG_DEBUG << this
+                                 << " Generating TLS session: " << sp->uniqueId;
+            }
             return true;
         });
 #endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
@@ -494,7 +511,7 @@ class Connection
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
             if (auto sp = session.lock())
             {
-                BMCWEB_LOG_DEBUG << "TLS session: " << sp->uniqueId
+                BMCWEB_LOG_DEBUG << this << " TLS session: " << sp->uniqueId
                                  << " will be used for this request.";
                 req->session = sp;
             }
@@ -555,7 +572,8 @@ class Connection
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
             if (auto sp = session.lock())
             {
-                BMCWEB_LOG_DEBUG << "Removing TLS session: " << sp->uniqueId;
+                BMCWEB_LOG_DEBUG << this
+                                 << " Removing TLS session: " << sp->uniqueId;
                 persistent_data::SessionStore::getInstance().removeSession(sp);
             }
 #endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
