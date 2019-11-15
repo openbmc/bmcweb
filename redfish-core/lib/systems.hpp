@@ -566,51 +566,46 @@ void getIndicatorLedState(std::shared_ptr<AsyncResp> aResp)
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
                 const std::variant<bool> asserted) {
-            if (ec)
+            // Some systems may not have enclosure_identify_blink object so
+            // proceed to get enclosure_identify state.
+            if (!ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
-                return;
-            }
-
-            const bool *blinking = std::get_if<bool>(&asserted);
-            if (!blinking)
-            {
-                BMCWEB_LOG_DEBUG << "Get identity blinking LED failed";
-                messages::internalError(aResp->res);
-                return;
-            }
-            // Blinking ON, no need to check enclosure_identify assert.
-            if (*blinking)
-            {
-                aResp->res.jsonValue["IndicatorLED"] = "Blinking";
-                return;
+                const bool *blinking = std::get_if<bool>(&asserted);
+                if (!blinking)
+                {
+                    BMCWEB_LOG_DEBUG << "Get identity blinking LED failed";
+                    messages::internalError(aResp->res);
+                    return;
+                }
+                // Blinking ON, no need to check enclosure_identify assert.
+                if (*blinking)
+                {
+                    aResp->res.jsonValue["IndicatorLED"] = "Blinking";
+                    return;
+                }
             }
             crow::connections::systemBus->async_method_call(
                 [aResp](const boost::system::error_code ec,
                         const std::variant<bool> asserted) {
-                    if (ec)
+                    if (!ec)
                     {
-                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                        messages::internalError(aResp->res);
-                        return;
-                    }
+                        const bool *ledOn = std::get_if<bool>(&asserted);
+                        if (!ledOn)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Get enclosure identity led failed";
+                            messages::internalError(aResp->res);
+                            return;
+                        }
 
-                    const bool *ledOn = std::get_if<bool>(&asserted);
-                    if (!ledOn)
-                    {
-                        BMCWEB_LOG_DEBUG << "Get enclosure identity led failed";
-                        messages::internalError(aResp->res);
-                        return;
-                    }
-
-                    if (*ledOn)
-                    {
-                        aResp->res.jsonValue["IndicatorLED"] = "Lit";
-                    }
-                    else
-                    {
-                        aResp->res.jsonValue["IndicatorLED"] = "Off";
+                        if (*ledOn)
+                        {
+                            aResp->res.jsonValue["IndicatorLED"] = "Lit";
+                        }
+                        else
+                        {
+                            aResp->res.jsonValue["IndicatorLED"] = "Off";
+                        }
                     }
                     return;
                 },
@@ -654,29 +649,33 @@ void setIndicatorLedState(std::shared_ptr<AsyncResp> aResp,
     }
 
     crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
-                const std::variant<bool> asserted) {
+        [aResp, ledOn, ledBlinkng](const boost::system::error_code ec,
+                                   const std::variant<bool> asserted) mutable {
             if (ec)
             {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
-                return;
+                // Some systems may not have enclosure_identify_blink object so
+                // Lets set enclosure_identify state to true if Blinking is
+                // true.
+                if (ledBlinkng)
+                {
+                    ledOn = true;
+                }
             }
-        },
-        "xyz.openbmc_project.LED.GroupManager",
-        "/xyz/openbmc_project/led/groups/enclosure_identify",
-        "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Led.Group", "Asserted", std::variant<bool>(ledOn));
-
-    crow::connections::systemBus->async_method_call(
-        [aResp](const boost::system::error_code ec,
-                const std::variant<bool> asserted) {
-            if (ec)
-            {
-                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
-                messages::internalError(aResp->res);
-                return;
-            }
+            crow::connections::systemBus->async_method_call(
+                [aResp](const boost::system::error_code ec,
+                        const std::variant<bool> asserted) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(aResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.LED.GroupManager",
+                "/xyz/openbmc_project/led/groups/enclosure_identify",
+                "org.freedesktop.DBus.Properties", "Set",
+                "xyz.openbmc_project.Led.Group", "Asserted",
+                std::variant<bool>(ledOn));
         },
         "xyz.openbmc_project.LED.GroupManager",
         "/xyz/openbmc_project/led/groups/enclosure_identify_blink",
