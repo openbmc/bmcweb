@@ -265,146 +265,148 @@ class Connection
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
-        adaptor.set_verify_callback(
-            [this](bool preverified, boost::asio::ssl::verify_context& ctx) {
-                // do nothing if TLS is disabled
-                if (!crow::persistent_data::SessionStore::getInstance()
-                         .getAuthMethodsConfig()
-                         .tls)
-                {
-                    BMCWEB_LOG_DEBUG << "TLS auth_config is disabled";
-                    return true;
-                }
-
-                // We always return true to allow full auth flow
-                if (!preverified)
-                {
-                    return true;
-                }
-
-                X509_STORE_CTX* cts = ctx.native_handle();
-                if (cts == nullptr)
-                {
-                    return true;
-                }
-
-                // Get certificate
-                X509* peerCert =
-                    X509_STORE_CTX_get_current_cert(ctx.native_handle());
-                if (peerCert == nullptr)
-                {
-                    return true;
-                }
-
-                // Check if certificate is OK
-                int error = X509_STORE_CTX_get_error(cts);
-                if (error != X509_V_OK)
-                {
-                    return true;
-                }
-                // Check that we have reached final certificate in chain
-                int32_t depth = X509_STORE_CTX_get_error_depth(cts);
-                if (depth != 0)
-
-                {
-                    BMCWEB_LOG_DEBUG
-                        << "Certificate verification in progress (depth "
-                        << depth << "), waiting to reach final depth";
-                    return true;
-                }
-
-                BMCWEB_LOG_DEBUG << "Certificate verification of final depth";
-
-                // Verify KeyUsage
-                bool isKeyUsageDigitalSignature = false;
-                bool isKeyUsageKeyAgreement = false;
-
-                ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
-                    X509_get_ext_d2i(peerCert, NID_key_usage, NULL, NULL));
-
-                if (usage == nullptr)
-                {
-                    return true;
-                }
-
-                for (int i = 0; i < usage->length; i++)
-                {
-                    if (KU_DIGITAL_SIGNATURE & usage->data[i])
-                    {
-                        isKeyUsageDigitalSignature = true;
-                    }
-                    if (KU_KEY_AGREEMENT & usage->data[i])
-                    {
-                        isKeyUsageKeyAgreement = true;
-                    }
-                }
-
-                if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
-                {
-                    BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
-                                        "not allow provided certificate to "
-                                        "be used for user authentication";
-                    return true;
-                }
-
-                // Determine that ExtendedKeyUsage includes Client Auth
-
-                stack_st_ASN1_OBJECT* extUsage =
-                    static_cast<stack_st_ASN1_OBJECT*>(X509_get_ext_d2i(
-                        peerCert, NID_ext_key_usage, NULL, NULL));
-
-                if (extUsage == nullptr)
-                {
-                    return true;
-                }
-
-                bool isExKeyUsageClientAuth = false;
-                for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
-                {
-                    if (NID_client_auth ==
-                        OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i)))
-                    {
-                        isExKeyUsageClientAuth = true;
-                        break;
-                    }
-                }
-
-                // Certificate has to have proper key usages set
-                if (!isExKeyUsageClientAuth)
-                {
-                    BMCWEB_LOG_DEBUG << "Certificate ExtendedKeyUsage does "
-                                        "not allow provided certificate to "
-                                        "be used for user authentication";
-                    return true;
-                }
-                std::string sslUser;
-                // Extract username contained in CommonName
-                sslUser.resize(256, '\0');
-
-                int status = X509_NAME_get_text_by_NID(
-                    X509_get_subject_name(peerCert), NID_commonName,
-                    sslUser.data(), static_cast<int>(sslUser.size()));
-
-                if (status == -1)
-                {
-                    return true;
-                }
-
-                size_t lastChar = sslUser.find('\0');
-                if (lastChar == std::string::npos || lastChar == 0)
-                {
-                    return true;
-                }
-                sslUser.resize(lastChar);
-
-                session =
-                    persistent_data::SessionStore::getInstance()
-                        .generateUserSession(
-                            sslUser,
-                            crow::persistent_data::PersistenceType::TIMEOUT);
-
+        adaptor.set_verify_callback([this](
+                                        bool preverified,
+                                        boost::asio::ssl::verify_context& ctx) {
+            // do nothing if TLS is disabled
+            if (!crow::persistent_data::SessionStore::getInstance()
+                     .getAuthMethodsConfig()
+                     .tls)
+            {
+                BMCWEB_LOG_DEBUG << this << " TLS auth_config is disabled";
                 return true;
-            });
+            }
+
+            // We always return true to allow full auth flow
+            if (!preverified)
+            {
+                return true;
+            }
+
+            X509_STORE_CTX* cts = ctx.native_handle();
+            if (cts == nullptr)
+            {
+                return true;
+            }
+
+            // Get certificate
+            X509* peerCert =
+                X509_STORE_CTX_get_current_cert(ctx.native_handle());
+            if (peerCert == nullptr)
+            {
+                return true;
+            }
+
+            // Check if certificate is OK
+            int error = X509_STORE_CTX_get_error(cts);
+            if (error != X509_V_OK)
+            {
+                return true;
+            }
+            // Check that we have reached final certificate in chain
+            int32_t depth = X509_STORE_CTX_get_error_depth(cts);
+            if (depth != 0)
+
+            {
+                BMCWEB_LOG_DEBUG
+                    << this << " Certificate verification in progress (depth "
+                    << depth << "), waiting to reach final depth";
+                return true;
+            }
+
+            BMCWEB_LOG_DEBUG << this
+                             << " Certificate verification of final depth";
+
+            // Verify KeyUsage
+            bool isKeyUsageDigitalSignature = false;
+            bool isKeyUsageKeyAgreement = false;
+
+            ASN1_BIT_STRING* usage = static_cast<ASN1_BIT_STRING*>(
+                X509_get_ext_d2i(peerCert, NID_key_usage, NULL, NULL));
+
+            if (usage == nullptr)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < usage->length; i++)
+            {
+                if (KU_DIGITAL_SIGNATURE & usage->data[i])
+                {
+                    isKeyUsageDigitalSignature = true;
+                }
+                if (KU_KEY_AGREEMENT & usage->data[i])
+                {
+                    isKeyUsageKeyAgreement = true;
+                }
+            }
+
+            if (!isKeyUsageDigitalSignature || !isKeyUsageKeyAgreement)
+            {
+                BMCWEB_LOG_DEBUG << this
+                                 << " Certificate ExtendedKeyUsage does "
+                                    "not allow provided certificate to "
+                                    "be used for user authentication";
+                return true;
+            }
+
+            // Determine that ExtendedKeyUsage includes Client Auth
+
+            stack_st_ASN1_OBJECT* extUsage = static_cast<stack_st_ASN1_OBJECT*>(
+                X509_get_ext_d2i(peerCert, NID_ext_key_usage, NULL, NULL));
+
+            if (extUsage == nullptr)
+            {
+                return true;
+            }
+
+            bool isExKeyUsageClientAuth = false;
+            for (int i = 0; i < sk_ASN1_OBJECT_num(extUsage); i++)
+            {
+                if (NID_client_auth ==
+                    OBJ_obj2nid(sk_ASN1_OBJECT_value(extUsage, i)))
+                {
+                    isExKeyUsageClientAuth = true;
+                    break;
+                }
+            }
+
+            // Certificate has to have proper key usages set
+            if (!isExKeyUsageClientAuth)
+            {
+                BMCWEB_LOG_DEBUG << this
+                                 << " Certificate ExtendedKeyUsage does "
+                                    "not allow provided certificate to "
+                                    "be used for user authentication";
+                return true;
+            }
+            std::string sslUser;
+            // Extract username contained in CommonName
+            sslUser.resize(256, '\0');
+
+            int status = X509_NAME_get_text_by_NID(
+                X509_get_subject_name(peerCert), NID_commonName, sslUser.data(),
+                static_cast<int>(sslUser.size()));
+
+            if (status == -1)
+            {
+                return true;
+            }
+
+            size_t lastChar = sslUser.find('\0');
+            if (lastChar == std::string::npos || lastChar == 0)
+            {
+                return true;
+            }
+            sslUser.resize(lastChar);
+
+            session = persistent_data::SessionStore::getInstance()
+                          .generateUserSession(
+                              sslUser,
+                              crow::persistent_data::PersistenceType::TIMEOUT);
+
+            return true;
+        });
 #endif // BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
 
 #ifdef BMCWEB_ENABLE_DEBUG
@@ -614,8 +616,8 @@ class Connection
             // Boost beast throws if content is provided on a no-content
             // response.  Ideally, this would never happen, but in the case that
             // it does, we don't want to throw.
-            BMCWEB_LOG_CRITICAL
-                << "Response content provided but code was no-content";
+            BMCWEB_LOG_CRITICAL << this <<
+                << " Response content provided but code was no-content";
             res.body().clear();
         }
 
@@ -690,14 +692,14 @@ class Connection
             adaptor, buffer, *parser,
             [this](const boost::system::error_code& ec,
                    std::size_t bytes_transferred) {
-                BMCWEB_LOG_ERROR << this << " async_read " << bytes_transferred
+                BMCWEB_LOG_DEBUG << this << " async_read " << bytes_transferred
                                  << " Bytes";
                 isReading = false;
 
                 bool errorWhileReading = false;
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Error while reading: " << ec.message();
+                    BMCWEB_LOG_ERROR << this << " Error while reading: " << ec.message();
                     errorWhileReading = true;
                 }
                 else
@@ -723,7 +725,7 @@ class Connection
     {
         // auto self = this->shared_from_this();
         isWriting = true;
-        BMCWEB_LOG_DEBUG << "Doing Write";
+        BMCWEB_LOG_DEBUG << this << " doWrite";
         res.preparePayload();
         serializer.emplace(*res.stringResponse);
         boost::beast::http::async_write(
@@ -731,7 +733,7 @@ class Connection
             [&](const boost::system::error_code& ec,
                 std::size_t bytes_transferred) {
                 isWriting = false;
-                BMCWEB_LOG_DEBUG << this << " Wrote " << bytes_transferred
+                BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
                                  << " bytes";
 
                 if (ec)
