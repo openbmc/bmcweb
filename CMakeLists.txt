@@ -8,7 +8,7 @@ set (CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 option (BUILD_STATIC_LIBS "Built static libraries" ON)
 
-option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" OFF)
+option (YOCTO_DEPENDENCIES "Use YOCTO dependencies system" ON)
 
 option (
     BMCWEB_ENABLE_KVM

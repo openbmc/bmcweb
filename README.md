@@ -34,3 +34,14 @@ certificate
  - has a random serial number, and
  - is signed using the `SHA-256` algorithm.
 
+## Dependencies
+
+BMCWeb has dependencies on several 3rd-party libraries described in
+`CMakeLists.txt.in`.
+
+By default, the dependencies are not downloaded and compiled because
+YOCTO_DEPENDENCIES is enabled, which provides the dependent libraries.
+Typically this refers to OpenBMC's build and CI environment.
+
+To build bmcweb without OpenBMC, add `-DYOCTO_DEPENDENCIES=NO` flag so the
+3rd-party libraries will be downloaded and compiled before building bmcweb.
