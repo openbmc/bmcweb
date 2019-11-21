@@ -1700,10 +1700,11 @@ class Systems : public Node
         };
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        constexpr const std::array<const char *, 3> inventoryForSystems = {
+        constexpr const std::array<const char *, 4> inventoryForSystems = {
             "xyz.openbmc_project.Inventory.Item.Dimm",
             "xyz.openbmc_project.Inventory.Item.Cpu",
-            "xyz.openbmc_project.Inventory.Item.Drive"};
+            "xyz.openbmc_project.Inventory.Item.Drive",
+            "xyz.openbmc_project.Inventory.Item.StorageController"};
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
         crow::connections::systemBus->async_method_call(
