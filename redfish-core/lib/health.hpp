@@ -148,6 +148,11 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     // being added as children to the 'main' health object for the page
     void populate()
     {
+        if (populated)
+        {
+            return;
+        }
+        populated = true;
         getAllStatusAssociations();
         getGlobalPath();
     }
@@ -210,5 +215,6 @@ struct HealthPopulate : std::enable_shared_from_this<HealthPopulate>
     bool isManagersHealth = false;
     dbus::utility::ManagedObjectType statuses;
     std::string globalInventoryPath = "-"; // default to illegal dbus path
+    bool populated = false;
 };
 } // namespace redfish
