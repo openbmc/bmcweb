@@ -400,6 +400,7 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
     $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
     -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
+
 )
 
 # configure and install systemd unit files
