@@ -113,7 +113,20 @@
    the required flows to host the application.  In general, all access methods
    should be available to the webui.
 
-12. ### Developing and Testing
+12. ### Redfish
+   bmcweb's Redfish implementation, including Redfish OEM Resources, shall
+   conform to the Redfish specification. Please keep bmcweb's [Redfish support
+   document](https://github.com/openbmc/bmcweb/blob/master/Redfish.md) updated.
+   Before adding a Redfish OEM schema or property first engage the DMTF's
+   Redfish working group to see if they are interested in adding the new
+   feature. The [Redfish Specification Forum](https://redfishforum.com/) is a
+   public Redfish forum to ask questions and request features. Redfish
+   "Supporter" and "Promoter" companies, which many companies working on OpenBMC
+   are, can request features via the Redfish code repository or via Redfish
+   meetings. For more information on Redfish and supported schemas visit
+   [Redfish.md](https://github.com/openbmc/bmcweb/blob/master/Redfish.md).
+
+13. ### Developing and Testing
   There are a variety of ways to develop and test bmcweb software changes.
   Here are the steps for using the SDK and QEMU.
 
