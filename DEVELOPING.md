@@ -197,6 +197,12 @@
   See the [REST](https://github.com/openbmc/docs/blob/master/REST-cheatsheet.md)
   and [Redfish](https://github.com/openbmc/docs/blob/master/REDFISH-cheatsheet.md) cheatsheets for valid commands.
 
+  Please test all Redfish changes with the
+  [Redfish Service Validator](https://github.com/DMTF/Redfish-Service-Validator).
+  Your change should not introduce any new validator errors. Please include
+  the Redfish Service Validator results as part of the commit message
+  ["Tested" field](https://github.com/openbmc/docs/blob/master/CONTRIBUTING.md#testing).
+
 ## clang-tidy
 
 clang-tidy is a tool that can be used to identify coding style violations, bad
