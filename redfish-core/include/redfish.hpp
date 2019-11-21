@@ -16,6 +16,7 @@
 #pragma once
 
 #include "../lib/account_service.hpp"
+#include "../lib/bios.hpp"
 #include "../lib/certificate_service.hpp"
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
@@ -121,6 +122,8 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+        nodes.emplace_back(std::make_unique<BiosService>(app));
+        nodes.emplace_back(std::make_unique<BiosReset>(app));
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntryCollection>(app));
