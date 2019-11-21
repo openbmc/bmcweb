@@ -1710,6 +1710,9 @@ class Systems : public Node
         res.jsonValue["LogServices"] = {
             {"@odata.id", "/redfish/v1/Systems/system/LogServices"}};
 
+        res.jsonValue["Bios"] = {
+            {"@odata.id", "/redfish/v1/Systems/system/Bios"}};
+
         res.jsonValue["Links"]["ManagedBy"] = {
             {{"@odata.id", "/redfish/v1/Managers/bmc"}}};
 
