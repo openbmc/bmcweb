@@ -6,6 +6,17 @@
 #include <cstring>
 #include <memory>
 
+/**
+   @brief Format of the appdata passed into the PAM conversation function.
+   @field password The password value.
+   @field messagesFromPamPtr Collected responses from PAM.
+ **/
+struct PamConvAppData
+{
+    const char* password;
+    std::vector<std::string>* messagesFromPamPtr;
+};
+
 // function used to get user input
 inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
                                    struct pam_response** resp, void* appdataPtr)
@@ -14,7 +25,12 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     {
         return PAM_AUTH_ERR;
     }
-    char* appPass = reinterpret_cast<char*>(appdataPtr);
+
+    PamConvAppData* pamConvAppData =
+        reinterpret_cast<PamConvAppData*>(appdataPtr);
+    const char* appPass = pamConvAppData->password;
+    std::vector<std::string>* messagesFromPamPtr =
+        pamConvAppData->messagesFromPamPtr;
     size_t appPassSize = std::strlen(appPass);
     char* pass = reinterpret_cast<char*>(malloc(appPassSize + 1));
     if (pass == nullptr)
@@ -34,14 +50,23 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
 
     for (int i = 0; i < numMsg; ++i)
     {
-        /* Ignore all PAM messages except prompting for hidden input */
-        if (msg[i]->msg_style != PAM_PROMPT_ECHO_OFF)
+        switch (msg[i]->msg_style)
         {
-            continue;
+            case PAM_PROMPT_ECHO_OFF:
+                /* Assume PAM is prompting for the password */
+                resp[i]->resp = pass;
+                break;
+            case PAM_ERROR_MSG:
+            case PAM_TEXT_INFO:
+                /* Capture messages from PAM */
+                if (messagesFromPamPtr)
+                {
+                    messagesFromPamPtr->push_back(msg[i]->msg);
+                }
+                break;
+            default:
+                break;
         }
-
-        /* Assume PAM is only prompting for the password as hidden input */
-        resp[i]->resp = pass;
     }
 
     return PAM_SUCCESS;
@@ -52,8 +77,9 @@ inline bool pamAuthenticateUser(const std::string_view username,
 {
     std::string userStr(username);
     std::string passStr(password);
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(passStr.c_str())};
+    PamConvAppData pamConvAppData = {passStr.c_str(), nullptr};
+    struct pam_conv localConversation = {
+        pamFunctionConversation, reinterpret_cast<char*>(&pamConvAppData)};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     if (pam_start("webserver", userStr.c_str(), &localConversation,
@@ -87,10 +113,13 @@ inline bool pamAuthenticateUser(const std::string_view username,
 }
 
 inline int pamUpdatePassword(const std::string& username,
-                             const std::string& password)
+                             const std::string& password,
+                             std::vector<std::string>& diagnosticInfo)
 {
-    const struct pam_conv localConversation = {
-        pamFunctionConversation, const_cast<char*>(password.c_str())};
+    diagnosticInfo.clear();
+    PamConvAppData pamConvAppData = {password.c_str(), &diagnosticInfo};
+    struct pam_conv localConversation = {
+        pamFunctionConversation, reinterpret_cast<char*>(&pamConvAppData)};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
     int retval = pam_start("passwd", username.c_str(), &localConversation,
@@ -101,7 +130,7 @@ inline int pamUpdatePassword(const std::string& username,
         return retval;
     }
 
-    retval = pam_chauthtok(localAuthHandle, PAM_SILENT);
+    retval = pam_chauthtok(localAuthHandle, 0);
     if (retval != PAM_SUCCESS)
     {
         pam_end(localAuthHandle, PAM_SUCCESS);
