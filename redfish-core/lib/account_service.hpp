@@ -1446,7 +1446,9 @@ class AccountsCollection : public Node
                             return;
                         }
 
-                        if (pamUpdatePassword(username, password) !=
+                        std::vector<std::string> diagnosticInfo;
+                        if (pamUpdatePassword(username, password,
+                                              diagnosticInfo) !=
                             PAM_SUCCESS)
                         {
                             // At this point we have a user that's been created,
@@ -1470,6 +1472,11 @@ class AccountsCollection : public Node
                                 "xyz.openbmc_project.Object.Delete", "Delete");
 
                             BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                            for (const std::string& msg: diagnosticInfo)
+                            {
+                                BMCWEB_LOG_INFO << "PAM info: " << msg;
+                            }
+
                             return;
                         }
 
@@ -1715,20 +1722,46 @@ class ManagerAccount : public Node
 
                 if (password)
                 {
-                    int retval = pamUpdatePassword(username, *password);
+                    std::vector<std::string> diagnosticMessagesFromPam;
+                    int retval = pamUpdatePassword(username, *password,
+                                                   diagnosticMessagesFromPam);
+                    for (const std::string& msg: diagnosticMessagesFromPam)
+                    {
+                        BMCWEB_LOG_INFO << "PAM info: " << msg;
+                    }
 
                     if (retval == PAM_USER_UNKNOWN)
                     {
                         messages::resourceNotFound(
                             asyncResp->res,
                             "#ManagerAccount.v1_0_3.ManagerAccount", username);
+                        return;
                     }
                     else if (retval == PAM_AUTHTOK_ERR)
                     {
-                        // If password is invalid
+                        // New password was not accepted.
+                        // https://redfishforum.com/thread/246/
+                        //     message-send-patch-password-failure
                         messages::propertyValueFormatError(
                             asyncResp->res, *password, "Password");
+                        if (!diagnosticMessagesFromPam.empty())
+                        {
+                            asyncResp->res.jsonValue
+                                ["Password@Message.ExtendedInfo"][0]["Oem"] =
+                                {{"OpenBMC",
+                                  {{"diagnosticMessages",
+                                    nlohmann::json::array()}}}};
+                            auto &diags = asyncResp->res.jsonValue
+                                ["Password@Message.ExtendedInfo"][0]["Oem"]
+                                ["OpenBMC"]["diagnosticMessages"];
+                            for (const std::string& msg: diagnosticMessagesFromPam)
+                            {
+                                diags.push_back(msg);
+                            }
+
+                        }
                         BMCWEB_LOG_ERROR << "pamUpdatePassword Failed";
+                        return;
                     }
                     else if (retval != PAM_SUCCESS)
                     {
