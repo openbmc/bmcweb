@@ -124,7 +124,7 @@
   directions in the gerrit setup document.
   - Clone bmcweb from gerrit
   ```
-  git clone ssh://openbmc.gerrit/bmcweb/
+  git clone ssh://openbmc.gerrit/openbmc/bmcweb/
   ```
 
   - Ensure it compiles
