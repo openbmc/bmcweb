@@ -22,6 +22,53 @@
       "revId": "617bd8e2f4c962b930c7eca70fa0f1649cb47954",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7bb2ce24_0d26fb4c",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2019-11-23T21:36:44Z",
+      "side": 1,
+      "message": "Ywah, I might want to log this after the \"pamUpdatePassword Failed\" message.  Should this be logged always, that is, regardless of the retVal?",
+      "parentUuid": "5a5a1a69_30b5fb72",
+      "range": {
+        "startLine": 1727,
+        "startChar": 19,
+        "endLine": 1731,
+        "endChar": 0
+      },
+      "revId": "617bd8e2f4c962b930c7eca70fa0f1649cb47954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0386dcf7_78fe8565",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1737,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2019-11-23T21:36:44Z",
+      "side": 1,
+      "message": "I\u0027ll add this to my tests and the commit message.\nI think this is a bug fix.",
+      "range": {
+        "startLine": 1737,
+        "startChar": 24,
+        "endLine": 1737,
+        "endChar": 30
+      },
+      "revId": "617bd8e2f4c962b930c7eca70fa0f1649cb47954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
