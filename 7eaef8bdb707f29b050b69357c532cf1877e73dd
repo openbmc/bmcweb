@@ -22,6 +22,30 @@
       "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7a1c747_9207d96d",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1741,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2019-11-25T22:10:09Z",
+      "side": 1,
+      "message": "I understand that transport layer is secure, but I think someone could be logging the responses, so I prefer to redact the password value.  In the Redfish forum I articulated my case for a new message for this situation. https://redfishforum.com/post/832/thread",
+      "parentUuid": "393d3805_e0d84e43",
+      "range": {
+        "startLine": 1741,
+        "startChar": 23,
+        "endLine": 1741,
+        "endChar": 70
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
