@@ -1499,7 +1499,7 @@ class ManagerAccount : public Node
             {boost::beast::http::verb::get,
              {{"ConfigureUsers"}, {"ConfigureManager"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureUsers"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::post, {{"ConfigureUsers"}}}};
@@ -1509,13 +1509,27 @@ class ManagerAccount : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (params.size() != 1)
         {
             messages::internalError(asyncResp->res);
             return;
+        }
+
+        // Perform a proper ConfigureSelf authority check.  If the
+        // user is operating on an account not their own, then their
+        // ConfigureSelf privilege does not apply.  In this case,
+        // remove the user's ConfigureSelf privilege and perform the
+        // authority check again.
+        if (req.session->username != params[0])
+        {
+            if (!isAllowedWithoutConfigureSelf(req))
+            {
+                BMCWEB_LOG_DEBUG << "GET Account denied access";
+                messages::insufficientPrivilege(asyncResp->res);
+                return;
+            }
         }
 
         crow::connections::systemBus->async_method_call(
@@ -1654,6 +1668,25 @@ class ManagerAccount : public Node
         }
 
         const std::string& username = params[0];
+
+        // Perform a proper ConfigureSelf authority check.  If the
+        // session is being used to PATCH a property other than
+        // Password, then the ConfigureSelf privilege does not apply.
+        // If the user is operating on an account not their own, then
+        // their ConfigureSelf privilege does not apply.  In either
+        // case, remove the user's ConfigureSelf privilege and perform
+        // the authority check again.
+        if ((username != req.session->username) or
+            (newUserName or enabled or roleId or locked))
+        {
+            if (!isAllowedWithoutConfigureSelf(req))
+            {
+                BMCWEB_LOG_WARNING << "PATCH Password denied access";
+                asyncResp->res.clear();
+                messages::insufficientPrivilege(asyncResp->res);
+                return;
+            }
+        }
 
         // if user name is not provided in the patch method or if it
         // matches the user name in the URI, then we are treating it as updating
