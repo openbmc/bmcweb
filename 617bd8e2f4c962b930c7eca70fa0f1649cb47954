@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1e8dc0aa_3bf5a550",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1731,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2019-11-25T18:44:59Z",
+      "side": 1,
+      "message": "It\u0027s a nit, I think it\u0027s probably safe as is as you\u0027re using a range based loop? Author\u0027s choice on this one.",
+      "parentUuid": "7bb2ce24_0d26fb4c",
+      "range": {
+        "startLine": 1727,
+        "startChar": 19,
+        "endLine": 1731,
+        "endChar": 0
+      },
+      "revId": "617bd8e2f4c962b930c7eca70fa0f1649cb47954",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0386dcf7_78fe8565",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 3
