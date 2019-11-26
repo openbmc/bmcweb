@@ -215,6 +215,33 @@ std::string getRedfishFWState(const std::string &fwState)
 }
 
 /**
+ * @brief Translate input fwState to Redfish health state
+ *
+ * This function will return the corresponding Redfish health state
+ *
+ * @param[i]   fwState  The OpenBMC firmware state
+ *
+ * @return The corresponding Redfish health state
+ */
+std::string getRedfishFWHealth(const std::string &fwState)
+{
+    if ((fwState ==
+         "xyz.openbmc_project.Software.Activation.Activations.Active") ||
+        (fwState ==
+         "xyz.openbmc_project.Software.Activation.Activations.Activating") ||
+        (fwState ==
+         "xyz.openbmc_project.Software.Activation.Activations.Ready"))
+    {
+        return "OK";
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "FW state " << fwState << " to Warning";
+        return "Warning";
+    }
+}
+
+/**
  * @brief Put status of input swId into json response
  *
  * This function will put the appropriate Redfish state of the input
@@ -263,6 +290,8 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
             BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
             asyncResp->res.jsonValue["Status"]["State"] =
                 getRedfishFWState(*swInvActivation);
+            asyncResp->res.jsonValue["Status"]["Health"] =
+                getRedfishFWHealth(*swInvActivation);
         },
         dbusSvc, "/xyz/openbmc_project/software/" + *swId,
         "org.freedesktop.DBus.Properties", "GetAll",
