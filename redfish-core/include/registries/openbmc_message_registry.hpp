@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 134> registry = {
+constexpr std::array<MessageEntry, 142> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1393,6 +1393,81 @@ constexpr std::array<MessageEntry, 134> registry = {
                      "Indicates that the uart port debug is enabled.",
                      "Uart port debug is enabled.",
                      "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{
+        "SecurityASDFeatureEnabledAtHardware",
+        {
+            "Indicates that At-Scale Debug enable is detected in hardware.",
+            "At-Scale Debug Feature is enabled in hardware.",
+            "Critical",
+            0,
+            {},
+            "None.",
+        }},
+    MessageEntry{
+        "SecurityASDFeatureDisabledAtHardware",
+        {
+            "Indicates that At-Scale Debug disable is detected in hardware.",
+            "At-Scale Debug Feature is disabled in hardware..",
+            "OK",
+            0,
+            {},
+            "None.",
+        }},
+    MessageEntry{"SecurityASDFeatureEnabled",
+                 {
+                     "Indicates that At-Scale Debug service is started.",
+                     "At-Scale Debug service is started.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityASDFeatureDisabled",
+                 {
+                     "Indicates that At-Scale Debug service is stopped.",
+                     "At-Scale Debug service is stopped.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityASDSessionEstablished",
+                 {
+                     "Indicates that At-Scale Debug session established.",
+                     "At-Scale Debug session is established.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+
+    MessageEntry{"SecurityASDSessionClosed",
+                 {
+                     "Indicates that At-Scale Debug session closed.",
+                     "At-Scale Debug session is closed.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityASDSpecialUserEnabled",
+                 {
+                     "Indicates that special user asdbg is enabled.",
+                     "At-Scale Debug special user is enabled",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityASDSpecialUserDisabled",
+                 {
+                     "Indicates that special user asdbg is disabled.",
+                     "At-Scale Debug special user is disabled",
+                     "OK",
                      0,
                      {},
                      "None.",
