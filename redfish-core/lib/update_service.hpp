@@ -772,7 +772,6 @@ class SoftwareInventory : public Node
                     "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
                 asyncResp->res.jsonValue["Name"] = "Software Inventory";
                 asyncResp->res.jsonValue["Updateable"] = false;
-                asyncResp->res.jsonValue["Status"]["Health"] = "OK";
                 asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
             },
             "xyz.openbmc_project.ObjectMapper",
