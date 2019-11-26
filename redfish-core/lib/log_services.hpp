@@ -1970,6 +1970,12 @@ class OnDemandCrashdump : public Node
                     {
                         messages::resourceInStandby(asyncResp->res);
                     }
+                    else if (ec.value() ==
+                             boost::system::errc::device_or_resource_busy)
+                    {
+                        messages::serviceTemporarilyUnavailable(asyncResp->res,
+                                                                "60");
+                    }
                     else
                     {
                         messages::internalError(asyncResp->res);
