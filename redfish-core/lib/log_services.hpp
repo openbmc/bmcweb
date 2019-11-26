@@ -25,6 +25,7 @@
 #include <boost/algorithm/string/split.hpp>
 #include <boost/beast/core/span.hpp>
 #include <boost/container/flat_map.hpp>
+#include <boost/system/linux_error.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
 #include <string_view>
@@ -1625,7 +1626,15 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
         if (ec)
         {
             BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
-            messages::internalError(asyncResp->res);
+            if (ec.value() ==
+                boost::system::linux_error::bad_request_descriptor)
+            {
+                messages::resourceNotFound(asyncResp->res, "LogEntry", logID);
+            }
+            else
+            {
+                messages::internalError(asyncResp->res);
+            }
             return;
         }
         const std::string *log = std::get_if<std::string>(&resp);
