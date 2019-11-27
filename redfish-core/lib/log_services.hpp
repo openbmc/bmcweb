@@ -1875,7 +1875,6 @@ class OnDemandCrashdump : public Node
         // Only allow one OnDemand Log request at a time
         if (onDemandLogMatcher != nullptr)
         {
-            asyncResp->res.addHeader("Retry-After", "30");
             messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
             return;
         }

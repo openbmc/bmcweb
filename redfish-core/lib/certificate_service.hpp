@@ -421,7 +421,6 @@ class CertificateActionGenerateCSR : public Node
         static const int TIME_OUT = 10;
         if (csrMatcher)
         {
-            res.addHeader("Retry-After", std::to_string(TIME_OUT));
             messages::serviceTemporarilyUnavailable(asyncResp->res,
                                                     std::to_string(TIME_OUT));
             return;

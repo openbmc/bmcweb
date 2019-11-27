@@ -141,7 +141,6 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
     {
         if (asyncResp)
         {
-            asyncResp->res.addHeader("Retry-After", "30");
             messages::serviceTemporarilyUnavailable(asyncResp->res, "30");
         }
         return;
