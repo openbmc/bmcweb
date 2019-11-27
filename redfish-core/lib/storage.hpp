@@ -134,7 +134,7 @@ class Storage : public Node
                      const crow::openbmc_mapper::GetSubTreeType &subtree) {
                 if (ec || !subtree.size())
                 {
-                    messages::internalError(asyncResp->res);
+                    // doesn't have to be there
                     return;
                 }
 
