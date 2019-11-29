@@ -251,7 +251,7 @@ void unrecognizedRequestBody(crow::Response& res)
 void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
                                const std::string& arg2)
 {
-    res.result(boost::beast::http::status::forbidden);
+    res.result(boost::beast::http::status::unauthorized);
     addMessageToErrorJson(
         res.jsonValue,
         nlohmann::json{
