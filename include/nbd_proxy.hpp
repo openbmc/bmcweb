@@ -52,16 +52,6 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
     {
         BMCWEB_LOG_DEBUG << "NbdProxyServer destructor";
         close();
-        connection.close();
-
-        if (peerSocket)
-        {
-            BMCWEB_LOG_DEBUG << "peerSocket->close()";
-            peerSocket->close();
-            peerSocket.reset();
-            BMCWEB_LOG_DEBUG << "std::remove(" << socketId << ")";
-            std::remove(socketId.c_str());
-        }
     }
 
     std::string getEndpointId() const
@@ -76,7 +66,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                                              stream_protocol::socket socket) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "Cannot accept new connection: " << ec;
+                    BMCWEB_LOG_ERROR << "UNIX socket: async_accept error = "
+                                     << ec.message();
                     return;
                 }
                 if (peerSocket)
@@ -101,8 +92,8 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                                const bool status) {
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "DBus error: " << ec
-                                 << ", cannot call mount method";
+                BMCWEB_LOG_ERROR << "DBus error: cannot call mount method = "
+                                 << ec.message();
                 return;
             }
         };
@@ -122,6 +113,15 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
 
     void close()
     {
+        acceptor.close();
+        if (peerSocket)
+        {
+            BMCWEB_LOG_DEBUG << "peerSocket->close()";
+            peerSocket->close();
+            peerSocket.reset();
+            BMCWEB_LOG_DEBUG << "std::remove(" << socketId << ")";
+            std::remove(socketId.c_str());
+        }
         // The reference to session should exists until unmount is
         // called
         auto unmountHandler = [](const boost::system::error_code ec) {
@@ -156,7 +156,7 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "UNIX socket: async_read_some error = "
-                                     << ec;
+                                     << ec.message();
                     // UNIX socket has been closed by peer, best we can do is to
                     // break all connections
                     close();
@@ -208,11 +208,15 @@ struct NbdProxyServer : std::enable_shared_from_this<NbdProxyServer>
                 uxWriteInProgress = false;
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "UNIX: async_write error = " << ec;
+                    BMCWEB_LOG_ERROR << "UNIX: async_write error = "
+                                     << ec.message();
                     return;
                 }
                 // Retrigger doWrite if there is something in buffer
-                doWrite();
+                if (ws2uxBuf.size() > 0)
+                {
+                    doWrite();
+                }
             });
     }
 
@@ -269,7 +273,7 @@ void requestRoutes(CrowApp& app)
 
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR << "DBus error: " << ec;
+                    BMCWEB_LOG_ERROR << "DBus error: " << ec.message();
                     return;
                 }
 
@@ -356,8 +360,8 @@ void requestRoutes(CrowApp& app)
                     BMCWEB_LOG_DEBUG << "No session to close";
                     return;
                 }
-                // Remove reference to session in global map
                 session->second->close();
+                // Remove reference to session in global map
                 sessions.erase(session);
             })
         .onmessage([](crow::websocket::Connection& conn,
