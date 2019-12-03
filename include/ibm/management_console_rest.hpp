@@ -7,10 +7,21 @@
 #include <boost/container/flat_set.hpp>
 #include <filesystem>
 #include <fstream>
+#include <ibm/locks.hpp>
+#include <nlohmann/json.hpp>
 #include <regex>
 #include <sdbusplus/message/types.hpp>
+#include <utils/json_utils.hpp>
 
 #define MAX_SAVE_AREA_FILESIZE 200000
+using SType = std::string;
+using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
+using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
+using LockRequests = std::vector<LockRequest>;
+using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
+using RcGetLockList = std::pair<
+    bool,
+    std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>>;
 
 namespace crow
 {
@@ -259,6 +270,142 @@ inline void handleFileUrl(const crow::Request &req, crow::Response &res,
     }
 }
 
+void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
+                          std::vector<nlohmann::json> body)
+{
+    LockRequests lockRequestStructure;
+    for (auto element : body)
+    {
+        std::string lockType;
+        uint64_t resourceId;
+
+        SegmentFlags segInfo;
+        std::vector<nlohmann::json> segmentFlags;
+
+        if (!redfish::json_util::readJson(element, res, "LockType", lockType,
+                                          "ResourceID", resourceId,
+                                          "SegmentFlags", segmentFlags))
+        {
+            BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+            res.result(boost::beast::http::status::bad_request);
+            res.end();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << lockType;
+        BMCWEB_LOG_DEBUG << resourceId;
+
+        BMCWEB_LOG_DEBUG << "Segment Flags are present";
+
+        for (auto e : segmentFlags)
+        {
+            std::string lockFlags;
+            uint32_t segmentLength;
+
+            if (!redfish::json_util::readJson(e, res, "LockFlag", lockFlags,
+                                              "SegmentLength", segmentLength))
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Lockflag : " << lockFlags;
+            BMCWEB_LOG_DEBUG << "SegmentLength : " << segmentLength;
+
+            segInfo.push_back(std::make_pair(lockFlags, segmentLength));
+        }
+        lockRequestStructure.push_back(make_tuple(
+            req.session->uniqueId, "hmc-id", lockType, resourceId, segInfo));
+    }
+
+    // print lock request into journal
+
+    for (uint32_t i = 0; i < lockRequestStructure.size(); i++)
+    {
+        BMCWEB_LOG_DEBUG << std::get<0>(lockRequestStructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<1>(lockRequestStructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<2>(lockRequestStructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<3>(lockRequestStructure[i]);
+
+        for (const auto &p : std::get<4>(lockRequestStructure[i]))
+        {
+            BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
+        }
+    }
+
+    const LockRequests &t = lockRequestStructure;
+
+    auto varAcquireLock = crow::ibm_mc_lock::lockObject.acquireLock(t);
+
+    if (varAcquireLock.first)
+    {
+        // Either validity failure of there is a conflict with itself
+
+        auto validityStatus =
+            std::get<std::pair<bool, int>>(varAcquireLock.second);
+
+        if ((!validityStatus.first) && (validityStatus.second == 0))
+        {
+            BMCWEB_LOG_DEBUG << "Not a Valid record";
+            BMCWEB_LOG_DEBUG << "Bad json in request";
+            res.result(boost::beast::http::status::bad_request);
+            res.end();
+            return;
+        }
+        if (validityStatus.first && (validityStatus.second == 1))
+        {
+            BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+            res.result(boost::beast::http::status::bad_request);
+            res.end();
+            return;
+        }
+    }
+    else
+    {
+        auto conflictStatus =
+            std::get<crow::ibm_mc_lock::Rc>(varAcquireLock.second);
+        if (!conflictStatus.first)
+        {
+            BMCWEB_LOG_DEBUG << "There is no conflict with the locktable";
+            res.result(boost::beast::http::status::ok);
+
+            auto var = std::get<uint32_t>(conflictStatus.second);
+            nlohmann::json returnJson;
+            returnJson["id"] = var;
+            res.jsonValue["TransactionID"] = var;
+            res.end();
+            return;
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "There is a conflict with the lock table";
+            res.result(boost::beast::http::status::conflict);
+            auto var = std::get<std::pair<uint32_t, LockRequest>>(
+                conflictStatus.second);
+            nlohmann::json returnJson, segments;
+            nlohmann::json myarray = nlohmann::json::array();
+            returnJson["TransactionID"] = var.first;
+            returnJson["SessionID"] = std::get<0>(var.second);
+            returnJson["HMCID"] = std::get<1>(var.second);
+            returnJson["LockType"] = std::get<2>(var.second);
+            returnJson["ResourceID"] = std::get<3>(var.second);
+
+            for (uint32_t i = 0; i < std::get<4>(var.second).size(); i++)
+            {
+                segments["LockFlag"] = std::get<4>(var.second)[i].first;
+                segments["SegmentLength"] = std::get<4>(var.second)[i].second;
+                myarray.push_back(segments);
+            }
+
+            returnJson["SegmentFlags"] = myarray;
+
+            res.jsonValue["Record"] = returnJson;
+            res.end();
+            return;
+        }
+    }
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
 
@@ -305,6 +452,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("GET"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 getLockServiceData(res);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                std::vector<nlohmann::json> body;
+
+                if (!redfish::json_util::readJson(req, res, "Request", body))
+                {
+                    BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                handleAcquireLockAPI(req, res, body);
             });
 }
 
