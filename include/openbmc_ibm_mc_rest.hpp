@@ -7,10 +7,20 @@
 #include <boost/container/flat_set.hpp>
 #include <filesystem>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include <regex>
 #include <sdbusplus/message/types.hpp>
+#include <utils/json_utils.hpp>
 
 #define MAX_SAVE_AREA_FILESIZE 20000
+using stype = std::string;
+using segmentflags = std::vector<std::pair<std::string, uint32_t>>;
+using lockrecord = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
+using lockrequest = std::vector<lockrecord>;
+using rc = std::pair<bool, std::variant<uint32_t, lockrecord>>;
+using rcgetlocklist = std::pair<
+    bool,
+    std::variant<std::string, std::vector<std::pair<uint32_t, lockrequest>>>>;
 
 namespace crow
 {
@@ -20,6 +30,292 @@ constexpr const char *methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char *resourceNotFoundMsg = "Resource Not Found";
 constexpr const char *contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char *internalServerError = "Internal Server Error";
+
+class lock
+{
+    uint32_t rid;
+    std::map<uint32_t, lockrequest> locktable;
+
+  public:
+    bool isvalidlockrecord(lockrecord *);
+    bool isconflictrequest(lockrequest *);
+    bool isconflictrecord(lockrecord *, lockrecord *);
+    rc isconflictwithtable(lockrequest *);
+    bool checkbyte(uint64_t, uint64_t, uint32_t);
+    void printmymap();
+
+    uint32_t getmyrequestid();
+
+  public:
+    lock()
+    {
+        rid = 0;
+    }
+
+    // friend class locktest;
+    template <typename... Middlewares>
+    friend void requestRoutes(Crow<Middlewares...> &app);
+
+} lockobject;
+/*
+void lock::printmymap()
+{
+
+    BMCWEB_LOG_DEBUG << "Printing the locktable";
+
+    for (auto it = locktable.begin(); it != locktable.end(); it++)
+    {
+        BMCWEB_LOG_DEBUG << it->first;
+        BMCWEB_LOG_DEBUG << std::get<0>(it->second);
+        BMCWEB_LOG_DEBUG << std::get<1>(it->second);
+        BMCWEB_LOG_DEBUG << std::get<2>(it->second);
+        BMCWEB_LOG_DEBUG << std::get<3>(it->second);
+
+        for (const auto &p : std::get<4>(it->second))
+        {
+            BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
+        }
+    }
+}
+*/
+bool lock::isvalidlockrecord(lockrecord *reflockrecord)
+{
+
+    // validate the locktype
+
+    if (!((boost::iequals(std::get<2>(*reflockrecord), "read") ||
+           (boost::iequals(std::get<2>(*reflockrecord), "write")))))
+    {
+        BMCWEB_LOG_DEBUG << "Locktype : " << std::get<2>(*reflockrecord);
+        return false;
+    }
+
+    // validate the resource id
+
+    // validate the lockflags & segment length
+
+    for (const auto &p : std::get<4>(*reflockrecord))
+    {
+
+        // validate the lock flags
+        if (!((boost::iequals(p.first, "locksame") ||
+               (boost::iequals(p.first, "lockall")) ||
+               (boost::iequals(p.first, "dontlock")))))
+        {
+            BMCWEB_LOG_DEBUG << p.first;
+            return false;
+        }
+
+        // validate the segment length
+        if (p.second < 1 || p.second > 4)
+        {
+            BMCWEB_LOG_DEBUG << p.second;
+            return false;
+        }
+    }
+
+    // validate the segment length
+    return true;
+}
+
+rc lock::isconflictwithtable(lockrequest *reflockrequeststructure)
+{
+
+    uint32_t transactionID;
+    // std::vector<uint32_t> vrid;
+
+    if (locktable.empty())
+    {
+        transactionID = getmyrequestid();
+        // for (uint32_t i = 0; i < reflockrequeststructure->size(); i++)
+        //{
+        // Lock table is empty, so we are safe to add the lockrecords
+        // as there will be no conflict
+        BMCWEB_LOG_DEBUG << "Lock table is empty, so adding the lockrecords";
+        // rid = getmyrequestid();
+        locktable.emplace(std::pair<uint32_t, lockrequest>(
+            transactionID, *reflockrequeststructure));
+        // vrid.push_back(rid);
+        // }
+        return std::make_pair(false, transactionID);
+    }
+
+    else
+    {
+        BMCWEB_LOG_DEBUG
+            << "Lock table is not empty, check for conflict with lock table";
+        // Lock table is not empty, compare the lockrequest entries with
+        // the entries in the lock table
+
+        for (uint32_t i = 0; i < reflockrequeststructure->size(); i++)
+        {
+            for (auto it = locktable.begin(); it != locktable.end(); it++)
+            {
+                for (uint32_t j = 0; j < it->second.size(); j++)
+                {
+                    bool status = isconflictrecord(
+                        &reflockrequeststructure->at(i), &it->second[j]);
+                    if (status)
+                    {
+                        return std::make_pair(true, it->second.at(j));
+                    }
+                    else
+                    {
+                        // No conflict , we can proceed to another record
+                    }
+                }
+            }
+        }
+
+        // Reached here, so no conflict with the locktable, so we are safe to
+        // add the request records into the lock table
+
+        // for (uint32_t i = 0; i < reflockrequeststructure->size(); i++)
+        //{
+        // Lock table is empty, so we are safe to add the lockrecords
+        // as there will be no conflict
+        BMCWEB_LOG_DEBUG << " Adding elements into lock table";
+        transactionID = getmyrequestid();
+        locktable.emplace(
+            std::make_pair(transactionID, *reflockrequeststructure));
+        // vrid.push_back(rid);
+        //}
+    }
+    return std::make_pair(false, transactionID);
+}
+
+bool lock::isconflictrequest(lockrequest *reflockrequeststructure)
+{
+    // check for all the locks coming in as a part of single request
+    // return conflict if any two lock requests are conflicting
+
+    if (reflockrequeststructure->size() == 1)
+    {
+        BMCWEB_LOG_DEBUG << "Only single lock request, so there is no conflict";
+        // This means , we have only one lock request in the current
+        // request , so no conflict within the request
+        return false;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG
+            << "There are multiple lock requests coming in a single request";
+
+        // There are multiple requests a part of one request
+        for (uint32_t i = 0; i < reflockrequeststructure->size(); i++)
+        {
+            for (uint32_t j = i + 1; j < reflockrequeststructure->size(); j++)
+            {
+                bool status = isconflictrecord(&reflockrequeststructure->at(i),
+                                               &reflockrequeststructure->at(j));
+
+                if (status)
+                {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool lock::checkbyte(uint64_t resourceid1, uint64_t resourceid2, uint32_t j)
+{
+    uint8_t *p = reinterpret_cast<uint8_t *>(&resourceid1);
+    uint8_t *q = reinterpret_cast<uint8_t *>(&resourceid2);
+
+    // uint8_t result[8];
+    // for(uint32_t i = 0; i < j; i++)
+    // {
+    BMCWEB_LOG_DEBUG << "Comparing bytes " << std::to_string(p[j]) << ","
+                     << std::to_string(q[j]);
+    if (p[j] != q[j])
+    {
+        return false;
+    }
+
+    else
+    {
+        return true;
+    }
+
+    //}
+    return true;
+}
+
+bool lock::isconflictrecord(lockrecord *reflockrecord1,
+                            lockrecord *reflockrecord2)
+{
+    // No conflict if both are read locks
+
+    if (boost::iequals(std::get<2>(*reflockrecord1), "read") &&
+        boost::iequals(std::get<2>(*reflockrecord2), "read"))
+    {
+        BMCWEB_LOG_DEBUG << "Both are read locks, no conflict";
+        return false;
+    }
+
+    uint32_t i = 0;
+    for (const auto &p : std::get<4>(*reflockrecord1))
+    {
+
+        // return conflict when any of them is try to lock all resources under
+        // the current resource level.
+        if (boost::iequals(p.first, "lockall") ||
+            boost::iequals(std::get<4>(*reflockrecord2)[i].first, "lockall"))
+        {
+            BMCWEB_LOG_DEBUG
+                << "Either of the Comparing locks are trying to lock all "
+                   "resources under the current resource level";
+            return true;
+        }
+
+        // determine if there is a lock-all-with-same-segment-size.
+        // If the current segment sizes are the same,then we should fail.
+
+        if ((boost::iequals(p.first, "locksame") ||
+             boost::iequals(std::get<4>(*reflockrecord2)[i].first,
+                            "locksame")) &&
+            (p.second == std::get<4>(*reflockrecord2)[i].second))
+        {
+            return true;
+        }
+
+        // if segment lengths are not the same, it means two different locks
+        // So no conflict
+        if (p.second != std::get<4>(*reflockrecord2)[i].second)
+        {
+            BMCWEB_LOG_DEBUG << "Segment lengths are not same";
+            BMCWEB_LOG_DEBUG << "Segment 1 length : " << p.second;
+            BMCWEB_LOG_DEBUG << "Segment 2 length : "
+                             << std::get<4>(*reflockrecord2)[i].second;
+            return false;
+        }
+
+        // compare segment data
+
+        for (uint32_t i = 0; i < p.second; i++)
+        {
+            // if the segment data is different , then the locks is on a
+            // different resource So no conflict between the lock records
+            if (!(checkbyte(std::get<3>(*reflockrecord1),
+                            std::get<3>(*reflockrecord2), i)))
+            {
+                return false;
+            }
+        }
+
+        ++i;
+    }
+
+    return false;
+}
+
+uint32_t lock::getmyrequestid()
+{
+    ++rid;
+    return rid;
+}
 
 bool createSaveAreaPath(crow::Response &res)
 {
@@ -111,7 +407,7 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
         {
             BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
             res.result(boost::beast::http::status::internal_server_error);
-            res.jsonValue["Description"] = "Error while creating the file";
+            res.jsonValue["Description"] = internalServerError;
             return;
         }
         else
@@ -306,6 +602,167 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 std::string objectPath = "/ibm/v1/Host/" + path;
                 handleFileUrl(req, res, objectPath);
             });
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/AcquireLock")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "POST"_method)([](const crow::Request &req, crow::Response &res) {
+            std::vector<nlohmann::json> body;
+
+            if (!redfish::json_util::readJson(req, res, "Request", body))
+            {
+                return;
+            }
+            BMCWEB_LOG_DEBUG << body.size();
+            BMCWEB_LOG_DEBUG << "Data is present";
+
+            lockrequest lockrequeststructure;
+            for (auto element : body)
+            {
+                std::string locktype;
+                uint64_t resourceid;
+
+                segmentflags seginfo;
+                std::vector<nlohmann::json> segmentflags;
+
+                if (!redfish::json_util::readJson(
+                        element, res, "LockType", locktype, "ResourceID",
+                        resourceid, "SegmentFlags", segmentflags))
+                {
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << locktype;
+                BMCWEB_LOG_DEBUG << resourceid;
+
+                BMCWEB_LOG_DEBUG << "Segment Flags are present";
+
+                for (auto e : segmentflags)
+                {
+                    std::string lockflags;
+                    uint32_t segmentlength;
+
+                    if (!redfish::json_util::readJson(
+                            e, res, "LockFlag", lockflags, "SegmentLength",
+                            segmentlength))
+                    {
+                        return;
+                    }
+
+                    BMCWEB_LOG_DEBUG << "Lockflag : " << lockflags;
+                    BMCWEB_LOG_DEBUG << "SegmentLength : " << segmentlength;
+
+                    seginfo.push_back(std::make_pair(lockflags, segmentlength));
+                }
+                lockrequeststructure.push_back(make_tuple(req.session->uniqueId,
+                                                          "hmc-id", locktype,
+                                                          resourceid, seginfo));
+            }
+
+            // print lock request
+
+            for (uint32_t i = 0; i < lockrequeststructure.size(); i++)
+            {
+                BMCWEB_LOG_DEBUG << std::get<0>(lockrequeststructure[i]);
+                BMCWEB_LOG_DEBUG << std::get<1>(lockrequeststructure[i]);
+                BMCWEB_LOG_DEBUG << std::get<2>(lockrequeststructure[i]);
+                BMCWEB_LOG_DEBUG << std::get<3>(lockrequeststructure[i]);
+
+                for (const auto &p : std::get<4>(lockrequeststructure[i]))
+                {
+                    BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
+                    // std::cout << std::get<0>(p) << ", " << std::get<1>(p) <<
+                    // std::endl;
+                }
+            }
+
+            // Validate the lock record
+
+            for (uint32_t i = 0; i < lockrequeststructure.size(); i++)
+            {
+                bool status =
+                    lockobject.isvalidlockrecord(&lockrequeststructure[i]);
+
+                if (!status)
+                {
+                    BMCWEB_LOG_DEBUG << "Not a Valid record";
+                    BMCWEB_LOG_DEBUG << "Bad json in request";
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+            }
+
+            // check for conflict record
+
+            bool status = lockobject.isconflictrequest(&lockrequeststructure);
+
+            if (status)
+            {
+                BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG
+                    << "The request is not conflicting within itself";
+
+                // Need to check for conflict with the locktable entries.
+
+                auto status =
+                    lockobject.isconflictwithtable(&lockrequeststructure);
+
+                // print my map
+
+                // lockobject.printmymap();
+
+                if (!status.first)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "There is no conflict with the locktable";
+                    res.result(boost::beast::http::status::ok);
+
+                    // nlohmann::json myarray = nlohmann::json::array();
+                    auto var = std::get<uint32_t>(status.second);
+                    // for (uint32_t i = 0; i < var.size(); i++)
+                    //{
+                    nlohmann::json returnjson;
+                    returnjson["id"] = var;
+                    // myarray.push_back(returnjson);
+                    //}
+                    res.jsonValue["TransactionID"] = var;
+                    res.end();
+                    return;
+                }
+                else
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "There is a conflict with the lock table";
+                    res.result(boost::beast::http::status::conflict);
+                    auto var = std::get<lockrecord>(status.second);
+                    nlohmann::json returnjson, segments;
+                    nlohmann::json myarray = nlohmann::json::array();
+                    returnjson["SessionID"] = std::get<0>(var);
+                    returnjson["HMCID"] = std::get<1>(var);
+                    returnjson["LockType"] = std::get<2>(var);
+                    returnjson["ResourceID"] = std::get<3>(var);
+
+                    for (uint32_t i = 0; i < std::get<4>(var).size(); i++)
+                    {
+                        segments["LockFlag"] = std::get<4>(var)[i].first;
+                        segments["SegmentLength"] = std::get<4>(var)[i].second;
+                        myarray.push_back(segments);
+                    }
+
+                    returnjson["SegmentFlags"] = myarray;
+
+                    res.jsonValue["Record"] = returnjson;
+                    res.end();
+                    return;
+                }
+            }
+        });
+ 
 }
 } // namespace openbmc_ibm_mc
 } // namespace crow
