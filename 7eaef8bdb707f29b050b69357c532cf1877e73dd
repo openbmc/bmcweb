@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7928424f_6804cd57",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1733,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2019-12-03T19:06:01Z",
+      "side": 1,
+      "message": "Fine with me as is",
+      "parentUuid": "eaff69b0_08b7ac68",
+      "range": {
+        "startLine": 1733,
+        "startChar": 24,
+        "endLine": 1733,
+        "endChar": 31
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "393d3805_e0d84e43",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
@@ -135,6 +159,54 @@
         "startChar": 44,
         "endLine": 1748,
         "endChar": 55
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "297982b9_19571f38",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2019-12-03T19:06:01Z",
+      "side": 1,
+      "message": "It looks like from my reading it\u0027s just should be an array of messages, so it could just have a Description field and longDescription, and probably doesn\u0027t need the Oem part. Just needs to be added to the OpenBmc registry redfish-core/include/registries/openbmc_message_registry.hpp\n\n\nsomething like (from error_messages.cpp):\nmessages::addMessageToJson(res.jsonValue, nlohmann::json{  {\"@odata.type\", \"/redfish/v1/$metadata#Message.v1_0_0.Message\"},\n             {\"MessageId\", \"OpenBmc.PasswordRejected\"}, ....}, \"Password);\n\n\n\nReference:\n\nhttps://github.com/openbmc/bmcweb/blob/5fd7ba65ac0e49dff95e4a0b334c9a314e870918/static/redfish/v1/JsonSchemas/redfish-error/redfish-error.json#L41\nhttp://redfish.dmtf.org/schemas/v1/Message.v1_0_8.json#/definitions/Message",
+      "parentUuid": "7a745d48_96903b89",
+      "range": {
+        "startLine": 1746,
+        "startChar": 44,
+        "endLine": 1748,
+        "endChar": 55
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5744b0c0_3d682456",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2019-12-03T19:06:01Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "05aa4674_341dc350",
+      "range": {
+        "startLine": 1748,
+        "startChar": 36,
+        "endLine": 1748,
+        "endChar": 37
       },
       "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
