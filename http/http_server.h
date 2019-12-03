@@ -44,7 +44,8 @@ class Server
         ioService(std::move(io)),
         acceptor(std::move(acceptor)),
         signals(*ioService, SIGINT, SIGTERM, SIGHUP), tickTimer(*ioService),
-        handler(handler), middlewares(middlewares), adaptorCtx(adaptor_ctx)
+        timer(*ioService), handler(handler), middlewares(middlewares),
+        adaptorCtx(adaptor_ctx)
     {
     }
 
@@ -123,10 +124,7 @@ class Server
             return this->dateStr;
         };
 
-        boost::asio::steady_timer timer(*ioService);
         timer.expires_after(std::chrono::seconds(1));
-
-        std::function<void(const boost::system::error_code& ec)> timerHandler;
         timerHandler = [&](const boost::system::error_code& ec) {
             if (ec)
             {
@@ -231,8 +229,8 @@ class Server
                                        boost::asio::ip::tcp::socket>>::value)
         {
             adaptorTemp = Adaptor(*ioService, *adaptorCtx);
-            Connection<Adaptor, Handler, Middlewares...>* p =
-                new Connection<Adaptor, Handler, Middlewares...>(
+            auto p =
+                std::make_shared<Connection<Adaptor, Handler, Middlewares...>>(
                     *ioService, handler, serverName, middlewares,
                     getCachedDateStr, timerQueue,
                     std::move(adaptorTemp.value()));
@@ -245,18 +243,14 @@ class Server
                                                *this->ioService,
                                                [p] { p->start(); });
                                        }
-                                       else
-                                       {
-                                           delete p;
-                                       }
                                        doAccept();
                                    });
         }
         else
         {
             adaptorTemp = Adaptor(*ioService);
-            Connection<Adaptor, Handler, Middlewares...>* p =
-                new Connection<Adaptor, Handler, Middlewares...>(
+            auto p =
+                std::make_shared<Connection<Adaptor, Handler, Middlewares...>>(
                     *ioService, handler, serverName, middlewares,
                     getCachedDateStr, timerQueue,
                     std::move(adaptorTemp.value()));
@@ -267,10 +261,6 @@ class Server
                     {
                         boost::asio::post(*this->ioService,
                                           [p] { p->start(); });
-                    }
-                    else
-                    {
-                        delete p;
                     }
                     doAccept();
                 });
@@ -284,6 +274,7 @@ class Server
     std::unique_ptr<tcp::acceptor> acceptor;
     boost::asio::signal_set signals;
     boost::asio::steady_timer tickTimer;
+    boost::asio::steady_timer timer;
 
     std::string dateStr;
 
@@ -292,6 +283,7 @@ class Server
 
     std::chrono::milliseconds tickInterval{};
     std::function<void()> tickFunction;
+    std::function<void(const boost::system::error_code& ec)> timerHandler;
 
     std::tuple<Middlewares...>* middlewares;
 
