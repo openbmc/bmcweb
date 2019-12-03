@@ -2,15 +2,26 @@
 #include <app.h>
 #include <tinyxml2.h>
 
+#include <IBM/locks.hpp>
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
 #include <filesystem>
 #include <fstream>
+#include <nlohmann/json.hpp>
 #include <regex>
 #include <sdbusplus/message/types.hpp>
+#include <utils/json_utils.hpp>
 
 #define MAX_SAVE_AREA_FILESIZE 20000
+using stype = std::string;
+using segmentflags = std::vector<std::pair<std::string, uint32_t>>;
+using lockrequest = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
+using lockrequests = std::vector<lockrequest>;
+using rc = std::pair<bool, std::variant<uint32_t, lockrequest>>;
+using rcgetlocklist = std::pair<
+    bool,
+    std::variant<std::string, std::vector<std::pair<uint32_t, lockrequests>>>>;
 
 namespace crow
 {
@@ -147,7 +158,7 @@ void deleteConfigFiles(crow::Response &res)
 {
     std::vector<std::string> pathObjList;
     std::error_code ec;
-    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    std::filesystem::path loc(" /var/lib/obmc/bmc-console-mgmt/save-area");
     if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
     {
         std::filesystem::remove_all(loc, ec);
@@ -263,6 +274,147 @@ inline void handleFileUrl(const crow::Request &req, crow::Response &res,
     }
 }
 
+void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
+                          std::vector<nlohmann::json> body)
+{
+    lockrequests lockrequeststructure;
+    for (auto element : body)
+    {
+        std::string locktype;
+        uint64_t resourceid;
+
+        segmentflags seginfo;
+        std::vector<nlohmann::json> segmentflags;
+
+        if (!redfish::json_util::readJson(element, res, "LockType", locktype,
+                                          "ResourceID", resourceid,
+                                          "SegmentFlags", segmentflags))
+        {
+            BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+            res.result(boost::beast::http::status::bad_request);
+            res.end();
+            return;
+        }
+        BMCWEB_LOG_DEBUG << locktype;
+        BMCWEB_LOG_DEBUG << resourceid;
+
+        BMCWEB_LOG_DEBUG << "Segment Flags are present";
+
+        for (auto e : segmentflags)
+        {
+            std::string lockflags;
+            uint32_t segmentlength;
+
+            if (!redfish::json_util::readJson(e, res, "LockFlag", lockflags,
+                                              "SegmentLength", segmentlength))
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+
+            BMCWEB_LOG_DEBUG << "Lockflag : " << lockflags;
+            BMCWEB_LOG_DEBUG << "SegmentLength : " << segmentlength;
+
+            seginfo.push_back(std::make_pair(lockflags, segmentlength));
+        }
+        lockrequeststructure.push_back(make_tuple(
+            req.session->uniqueId, "hmc-id", locktype, resourceid, seginfo));
+    }
+
+    // print lock request
+
+    for (uint32_t i = 0; i < lockrequeststructure.size(); i++)
+    {
+        BMCWEB_LOG_DEBUG << std::get<0>(lockrequeststructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<1>(lockrequeststructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<2>(lockrequeststructure[i]);
+        BMCWEB_LOG_DEBUG << std::get<3>(lockrequeststructure[i]);
+
+        for (const auto &p : std::get<4>(lockrequeststructure[i]))
+        {
+            BMCWEB_LOG_DEBUG << p.first << ", " << p.second;
+        }
+    }
+
+    // Validate the lock record
+
+    for (auto i : lockrequeststructure)
+    {
+        const lockrequest &j = i;
+        bool status = crow::ibm_mc_lock::lockobject.isvalidlockrequest(j);
+        if (!status)
+        {
+            BMCWEB_LOG_DEBUG << "Not a Valid record";
+            BMCWEB_LOG_DEBUG << "Bad json in request";
+            res.result(boost::beast::http::status::bad_request);
+            res.end();
+            return;
+        }
+    }
+
+    // check for conflict record
+
+    const lockrequests &k = lockrequeststructure;
+    bool status = crow::ibm_mc_lock::lockobject.isconflictrequest(k);
+
+    if (status)
+    {
+        BMCWEB_LOG_DEBUG << "There is a conflict within itself";
+        res.result(boost::beast::http::status::bad_request);
+        res.end();
+        return;
+    }
+    else
+    {
+        BMCWEB_LOG_DEBUG << "The request is not conflicting within itself";
+
+        // Need to check for conflict with the locktable entries.
+
+        auto status = crow::ibm_mc_lock::lockobject.isconflictwithtable(k);
+
+        if (!status.first)
+        {
+            BMCWEB_LOG_DEBUG << "There is no conflict with the locktable";
+            res.result(boost::beast::http::status::ok);
+
+            auto var = std::get<uint32_t>(status.second);
+            nlohmann::json returnjson;
+            returnjson["id"] = var;
+            res.jsonValue["TransactionID"] = var;
+            res.end();
+            return;
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "There is a conflict with the lock table";
+            res.result(boost::beast::http::status::conflict);
+            auto var =
+                std::get<std::pair<uint32_t, lockrequest>>(status.second);
+            nlohmann::json returnjson, segments;
+            nlohmann::json myarray = nlohmann::json::array();
+            returnjson["TransactionID"] = var.first;
+            returnjson["SessionID"] = std::get<0>(var.second);
+            returnjson["HMCID"] = std::get<1>(var.second);
+            returnjson["LockType"] = std::get<2>(var.second);
+            returnjson["ResourceID"] = std::get<3>(var.second);
+
+            for (uint32_t i = 0; i < std::get<4>(var.second).size(); i++)
+            {
+                segments["LockFlag"] = std::get<4>(var.second)[i].first;
+                segments["SegmentLength"] = std::get<4>(var.second)[i].second;
+                myarray.push_back(segments);
+            }
+
+            returnjson["SegmentFlags"] = myarray;
+
+            res.jsonValue["Record"] = returnjson;
+            res.end();
+            return;
+        }
+    }
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
 
@@ -310,6 +462,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("GET"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 getLockServiceData(res);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                std::vector<nlohmann::json> body;
+
+                if (!redfish::json_util::readJson(req, res, "Request", body))
+                {
+                    BMCWEB_LOG_DEBUG << "Not a Valid JSON";
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+                handleAcquireLockAPI(req, res, body);
             });
 }
 
