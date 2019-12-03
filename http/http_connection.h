@@ -245,7 +245,8 @@ static std::atomic<int> connectionCount;
 constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 30;
 
 template <typename Adaptor, typename Handler, typename... Middlewares>
-class Connection
+class Connection : public std::enable_shared_from_this<
+                       Connection<Adaptor, Handler, Middlewares...>>
 {
   public:
     Connection(boost::asio::io_context& ioService, Handler* handlerIn,
@@ -470,16 +471,15 @@ class Connection
                                      boost::beast::ssl_stream<
                                          boost::asio::ip::tcp::socket>>)
         {
-            adaptor.async_handshake(
-                boost::asio::ssl::stream_base::server,
-                [this](const boost::system::error_code& ec) {
-                    if (ec)
-                    {
-                        checkDestroy();
-                        return;
-                    }
-                    doReadHeaders();
-                });
+            adaptor.async_handshake(boost::asio::ssl::stream_base::server,
+                                    [this, self(shared_from_this())](
+                                        const boost::system::error_code& ec) {
+                                        if (ec)
+                                        {
+                                            return;
+                                        }
+                                        doReadHeaders();
+                                    });
         }
         else
         {
@@ -557,18 +557,21 @@ class Connection
 
             if (!res.completed)
             {
+                needToCallAfterHandlers = true;
+                res.completeRequestHandler = [self(shared_from_this())] {
+                    self->completeRequest();
+                };
                 if (req->isUpgrade() &&
                     boost::iequals(
                         req->getHeaderValue(boost::beast::http::field::upgrade),
                         "websocket"))
                 {
                     handler->handleUpgrade(*req, res, std::move(adaptor));
+                    // delete lambda with self shared_ptr
+                    // to enable connection destruction
+                    res.completeRequestHandler = nullptr;
                     return;
                 }
-                res.completeRequestHandler = [this] {
-                    this->completeRequest();
-                };
-                needToCallAfterHandlers = true;
                 handler->handle(*req, res);
             }
             else
@@ -634,15 +637,16 @@ class Connection
                 *middlewares, ctx, *req, res);
         }
 
-        // auto self = this->shared_from_this();
-        res.completeRequestHandler = res.completeRequestHandler = [] {};
-
         if (!isAlive())
         {
             // BMCWEB_LOG_DEBUG << this << " delete (socket is closed) " <<
             // isReading
             // << ' ' << isWriting;
             // delete this;
+
+            // delete lambda with self shared_ptr
+            // to enable connection destruction
+            res.completeRequestHandler = nullptr;
             return;
         }
         if (res.body().empty() && !res.jsonValue.empty())
@@ -679,21 +683,23 @@ class Connection
         res.keepAlive(req->keepAlive());
 
         doWrite();
+
+        // delete lambda with self shared_ptr
+        // to enable connection destruction
+        res.completeRequestHandler = nullptr;
     }
 
   private:
     void doReadHeaders()
     {
-        // auto self = this->shared_from_this();
-        isReading = true;
         BMCWEB_LOG_DEBUG << this << " doReadHeaders";
 
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
             adaptor, buffer, *parser,
-            [this](const boost::system::error_code& ec,
-                   std::size_t bytes_transferred) {
-                isReading = false;
+            [this,
+             self(shared_from_this())](const boost::system::error_code& ec,
+                                       std::size_t bytes_transferred) {
                 BMCWEB_LOG_ERROR << this << " async_read_header "
                                  << bytes_transferred << " Bytes";
                 bool errorWhileReading = false;
@@ -718,7 +724,6 @@ class Connection
                     cancelDeadlineTimer();
                     close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    checkDestroy();
                     return;
                 }
 
@@ -736,17 +741,15 @@ class Connection
 
     void doRead()
     {
-        // auto self = this->shared_from_this();
-        isReading = true;
         BMCWEB_LOG_DEBUG << this << " doRead";
 
         boost::beast::http::async_read(
             adaptor, buffer, *parser,
-            [this](const boost::system::error_code& ec,
-                   std::size_t bytes_transferred) {
+            [this,
+             self(shared_from_this())](const boost::system::error_code& ec,
+                                       std::size_t bytes_transferred) {
                 BMCWEB_LOG_DEBUG << this << " async_read " << bytes_transferred
                                  << " Bytes";
-                isReading = false;
 
                 bool errorWhileReading = false;
                 if (ec)
@@ -767,7 +770,6 @@ class Connection
                     cancelDeadlineTimer();
                     close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
-                    checkDestroy();
                     return;
                 }
                 handle();
@@ -776,30 +778,26 @@ class Connection
 
     void doWrite()
     {
-        // auto self = this->shared_from_this();
-        isWriting = true;
         BMCWEB_LOG_DEBUG << this << " doWrite";
         res.preparePayload();
         serializer.emplace(*res.stringResponse);
         boost::beast::http::async_write(
             adaptor, *serializer,
-            [&](const boost::system::error_code& ec,
-                std::size_t bytes_transferred) {
-                isWriting = false;
+            [this,
+             self(shared_from_this())](const boost::system::error_code& ec,
+                                       std::size_t bytes_transferred) {
                 BMCWEB_LOG_DEBUG << this << " async_write " << bytes_transferred
                                  << " bytes";
 
                 if (ec)
                 {
                     BMCWEB_LOG_DEBUG << this << " from write(2)";
-                    checkDestroy();
                     return;
                 }
                 if (!res.keepAlive())
                 {
                     close();
                     BMCWEB_LOG_DEBUG << this << " from write(1)";
-                    checkDestroy();
                     return;
                 }
 
@@ -816,29 +814,25 @@ class Connection
             });
     }
 
-    void checkDestroy()
-    {
-        BMCWEB_LOG_DEBUG << this << " isReading " << isReading << " isWriting "
-                         << isWriting;
-        if (!isReading && !isWriting)
-        {
-            BMCWEB_LOG_DEBUG << this << " delete (idle) ";
-            delete this;
-        }
-    }
-
     void cancelDeadlineTimer()
     {
-        BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue << ' '
-                         << timerCancelKey;
-        timerQueue.cancel(timerCancelKey);
+        if (timerCancelKey)
+        {
+            BMCWEB_LOG_DEBUG << this << " timer cancelled: " << &timerQueue
+                             << ' ' << *timerCancelKey;
+            timerQueue.cancel(*timerCancelKey);
+            timerCancelKey.reset();
+        }
     }
 
     void startDeadline()
     {
         cancelDeadlineTimer();
 
-        timerCancelKey = timerQueue.add([this] {
+        timerCancelKey = timerQueue.add([this, self(shared_from_this())] {
+            // Mark timer as not active to avoid canceling it during
+            // Connection destructor which leads to double free issue
+            timerCancelKey.reset();
             if (!isAlive())
             {
                 return;
@@ -846,7 +840,7 @@ class Connection
             close();
         });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
-                         << timerCancelKey;
+                         << *timerCancelKey;
     }
 
   private:
@@ -873,10 +867,8 @@ class Connection
 
     const std::string& serverName;
 
-    size_t timerCancelKey = 0;
+    std::optional<size_t> timerCancelKey;
 
-    bool isReading{};
-    bool isWriting{};
     bool needToCallAfterHandlers{};
     bool needToStartReadAfterComplete{};
 
@@ -885,5 +877,8 @@ class Connection
 
     std::function<std::string()>& getCachedDateStr;
     detail::TimerQueue& timerQueue;
+
+    using std::enable_shared_from_this<
+        Connection<Adaptor, Handler, Middlewares...>>::shared_from_this;
 };
 } // namespace crow
