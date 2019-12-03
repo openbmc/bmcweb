@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "eaff69b0_08b7ac68",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1733,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2019-12-03T12:02:05Z",
+      "side": 1,
+      "message": "@jfei --\u003e Are you ok with this? Earlier based on our discussion,  we will not \"return\" from PATCH if it is not internal error, i.e. take action on next subsequent things.\ni.e. if new password and user disable is given, we will still proceed for user disable.\nthis changes the behavior.\nSame @1776",
+      "range": {
+        "startLine": 1733,
+        "startChar": 24,
+        "endLine": 1733,
+        "endChar": 31
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "393d3805_e0d84e43",
         "filename": "redfish-core/lib/account_service.hpp",
         "patchSetId": 4
@@ -66,6 +89,52 @@
         "startChar": 23,
         "endLine": 1741,
         "endChar": 70
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05aa4674_341dc350",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2019-12-03T12:02:05Z",
+      "side": 1,
+      "message": "nit: DiagnosticMessages",
+      "range": {
+        "startLine": 1748,
+        "startChar": 36,
+        "endLine": 1748,
+        "endChar": 37
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a745d48_96903b89",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000168
+      },
+      "writtenOn": "2019-12-03T12:02:05Z",
+      "side": 1,
+      "message": "this requires update in the schema files right?",
+      "range": {
+        "startLine": 1746,
+        "startChar": 44,
+        "endLine": 1748,
+        "endChar": 55
       },
       "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
