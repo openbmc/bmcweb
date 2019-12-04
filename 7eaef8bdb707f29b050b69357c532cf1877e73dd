@@ -211,6 +211,30 @@
       "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1088f038_a4936fdc",
+        "filename": "redfish-core/lib/account_service.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 1748,
+      "author": {
+        "id": 1000235
+      },
+      "writtenOn": "2019-12-04T20:21:19Z",
+      "side": 1,
+      "message": "I was struggling for what message to use or adapt.  Thanks for your help.  Having a new message (like \"OpenBmc.PasswordRejected\") in the @Message.ExtendedInfo seems much closer to correct.  I\u0027ll try it here and propose something for the Redfish standard.",
+      "parentUuid": "297982b9_19571f38",
+      "range": {
+        "startLine": 1746,
+        "startChar": 44,
+        "endLine": 1748,
+        "endChar": 55
+      },
+      "revId": "7eaef8bdb707f29b050b69357c532cf1877e73dd",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
