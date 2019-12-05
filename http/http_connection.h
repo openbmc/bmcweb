@@ -241,8 +241,9 @@ typename std::enable_if<(N > 0)>::type
 static std::atomic<int> connectionCount;
 #endif
 
-// request body limit size: 30M
-constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 30;
+// request body limit size: 128M. Arbitrary size based on the biggest NOR flash
+// chip currently supported.
+constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 128;
 
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection
@@ -259,8 +260,6 @@ class Connection
         timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        // Temporarily changed to 30MB; Need to modify uploading/authentication
-        // mechanism
         parser->body_limit(httpReqBodyLimit);
         req.emplace(parser->get());
 
