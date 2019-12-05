@@ -196,21 +196,17 @@ void getActiveFwVersion(std::shared_ptr<AsyncResp> aResp,
  *
  * @return The corresponding Redfish state
  */
-std::string getRedfishFWState(const std::string &fwState)
+std::string getRedfishFWState(const std::string &fwState,
+                              const uint8_t priority)
 {
     if (fwState == "xyz.openbmc_project.Software.Activation.Activations.Active")
     {
-        return "Enabled";
+        return (priority ? ("StanbySpare") : ("Enabled"));
     }
     else if (fwState ==
              "xyz.openbmc_project.Software.Activation.Activations.Activating")
     {
         return "Updating";
-    }
-    else if (fwState ==
-             "xyz.openbmc_project.Software.Activation.Activations.StandbySpare")
-    {
-        return "StandbySpare";
     }
     else
     {
@@ -265,7 +261,7 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
     BMCWEB_LOG_DEBUG << "getFwStatus: swId " << *swId << " svc " << dbusSvc;
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp,
+        [dbusSvc, asyncResp,
          swId](const boost::system::error_code error_code,
                const boost::container::flat_map<std::string, VariantType>
                    &propertiesList) {
@@ -293,8 +289,42 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
                 return;
             }
             BMCWEB_LOG_DEBUG << "getFwStatus: Activation " << *swInvActivation;
-            asyncResp->res.jsonValue["Status"]["State"] =
-                getRedfishFWState(*swInvActivation);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, swId, activation(*swInvActivation)](
+                    const boost::system::error_code error_code,
+                    const boost::container::flat_map<
+                        std::string, std::variant<uint8_t>> &propertiesList) {
+                    if (error_code)
+                    {
+                        BMCWEB_LOG_DEBUG << "Error in getting prioirty";
+                        return;
+                    }
+                    boost::container::flat_map<
+                        std::string, std::variant<uint8_t>>::const_iterator it =
+                        propertiesList.find("Priority");
+                    if (it == propertiesList.end())
+                    {
+                        BMCWEB_LOG_DEBUG << "Can't find property \"Priority\"!";
+                        messages::propertyMissing(asyncResp->res, "Priority");
+                        return;
+                    }
+                    const uint8_t *priority = std::get_if<uint8_t>(&it->second);
+                    if (priority == nullptr)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "wrong types for property\"Priority\"!";
+                        messages::propertyValueTypeError(asyncResp->res, "",
+                                                         "Priority");
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["Status"]["State"] =
+                        getRedfishFWState(activation, *priority);
+                },
+                dbusSvc, "/xyz/openbmc_project/software/" + *swId,
+                "org.freedesktop.DBus.Properties", "GetAll",
+                "xyz.openbmc_project.Software.RedundancyPriority");
             asyncResp->res.jsonValue["Status"]["Health"] =
                 getRedfishFWHealth(*swInvActivation);
         },
