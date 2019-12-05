@@ -207,6 +207,11 @@ std::string getRedfishFWState(const std::string &fwState)
     {
         return "Updating";
     }
+    else if (fwState ==
+		    "xyz.openbmc_project.Software.Activation.Activations.StandbySpare")
+    {
+	return "StandbySpare";
+    }
     else
     {
         BMCWEB_LOG_DEBUG << "Default fw state " << fwState << " to Disabled";
