@@ -30,6 +30,17 @@ static std::unique_ptr<sdbusplus::bus::match::match> fwUpdateMatcher;
 static bool fwUpdateInProgress = false;
 // Timer for software available
 static std::unique_ptr<boost::asio::steady_timer> fwAvailableTimer;
+static constexpr const char *versionIntf =
+    "xyz.openbmc_project.Software.Version";
+static constexpr const char *activationIntf =
+    "xyz.openbmc_project.Software.Activation";
+static constexpr const char *reqActivationPropName = "RequestedActivation";
+static constexpr const char *reqActivationsActive =
+    "xyz.openbmc_project.Software.Activation.RequestedActivations.Active";
+static constexpr const char *reqActivationsStandBySpare =
+    "xyz.openbmc_project.Software.Activation.RequestedActivations.StandbySpare";
+static constexpr const char *activationsStandBySpare =
+    "xyz.openbmc_project.Software.Activation.Activations.StandbySpare";
 
 static void cleanUp()
 {
@@ -37,27 +48,117 @@ static void cleanUp()
     fwUpdateMatcher = nullptr;
 }
 static void activateImage(const std::string &objPath,
-                          const std::string &service)
+                          const std::string &service,
+                          const std::vector<std::string> &imgUriTargets)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
+
+    // If targets is empty, it will apply to the active.
+    if (imgUriTargets.size() == 0)
+    {
+        crow::connections::systemBus->async_method_call(
+            [](const boost::system::error_code error_code) {
+                if (error_code)
+                {
+                    BMCWEB_LOG_DEBUG << "RequestedActivation failed: ec = "
+                                     << error_code;
+                }
+            },
+            service, objPath, "org.freedesktop.DBus.Properties", "Set",
+            activationIntf, reqActivationPropName,
+            std::variant<std::string>(reqActivationsActive));
+        return;
+    }
+
+    // TODO: Now we support only one target becuase software-manager
+    // code support one activation per object. It will be enhanced
+    // to multiple targets for single image in future. For now,
+    // consider first target alone.
     crow::connections::systemBus->async_method_call(
-        [](const boost::system::error_code error_code) {
-            if (error_code)
+        [objPath, service, imgTarget{imgUriTargets[0]}](
+            const boost::system::error_code ec,
+            const crow::openbmc_mapper::GetSubTreeType &subtree) {
+            if (ec || !subtree.size())
             {
-                BMCWEB_LOG_DEBUG << "error_code = " << error_code;
-                BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
+                return;
+            }
+
+            for (const auto &[invObjPath, invDict] : subtree)
+            {
+                std::size_t idPos;
+                if ((idPos = invObjPath.rfind("/")) == std::string::npos)
+                {
+                    BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
+                    return;
+                }
+                std::string swId = invObjPath.substr(idPos + 1);
+
+                if (swId != imgTarget)
+                {
+                    continue;
+                }
+
+                if (invDict.size() < 1)
+                {
+                    continue;
+                }
+                BMCWEB_LOG_DEBUG << "Image target matched with object "
+                                 << invObjPath;
+                crow::connections::systemBus->async_method_call(
+                    [objPath,
+                     service](const boost::system::error_code error_code,
+                              const std::variant<std::string> value) {
+                        if (error_code)
+                        {
+                            BMCWEB_LOG_DEBUG
+                                << "Error in querying activation value";
+                            // not all fwtypes are updateable,
+                            // this is ok
+                            return;
+                        }
+                        std::string activationValue =
+                            std::get<std::string>(value);
+                        BMCWEB_LOG_DEBUG << "Activation Value: "
+                                         << activationValue;
+                        std::string reqActivation = reqActivationsActive;
+                        if (activationValue == activationsStandBySpare)
+                        {
+                            reqActivation = reqActivationsStandBySpare;
+                        }
+                        BMCWEB_LOG_DEBUG
+                            << "Setting RequestedActivation value as "
+                            << reqActivation << " for " << service << " "
+                            << objPath;
+                        crow::connections::systemBus->async_method_call(
+                            [](const boost::system::error_code error_code) {
+                                if (error_code)
+                                {
+                                    BMCWEB_LOG_DEBUG
+                                        << "RequestedActivation failed: ec = "
+                                        << error_code;
+                                }
+                                return;
+                            },
+                            service, objPath, "org.freedesktop.DBus.Properties",
+                            "Set", activationIntf, reqActivationPropName,
+                            std::variant<std::string>(reqActivation));
+                    },
+                    invDict[0].first,
+                    "/xyz/openbmc_project/software/" + imgTarget,
+                    "org.freedesktop.DBus.Properties", "Get", activationIntf,
+                    "Activation");
             }
         },
-        service, objPath, "org.freedesktop.DBus.Properties", "Set",
-        "xyz.openbmc_project.Software.Activation", "RequestedActivation",
-        std::variant<std::string>(
-            "xyz.openbmc_project.Software.Activation.RequestedActivations."
-            "Active"));
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
+        static_cast<int32_t>(0), std::array<const char *, 1>{versionIntf});
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
 static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
+                                   const std::vector<std::string> imgUriTargets,
                                    sdbusplus::message::message &m)
 {
     std::vector<std::pair<
@@ -69,27 +170,24 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
     m.read(objPath, interfacesProperties);
 
-    BMCWEB_LOG_DEBUG << "obj path = " << objPath.str;
+    BMCWEB_LOG_DEBUG << "Software Interface Added. objPath = " << objPath.str;
     for (auto &interface : interfacesProperties)
     {
-        BMCWEB_LOG_DEBUG << "interface = " << interface.first;
-
-        if (interface.first == "xyz.openbmc_project.Software.Activation")
+        if (interface.first == activationIntf)
         {
             // Found our interface, disable callbacks
             fwUpdateMatcher = nullptr;
-
             // Retrieve service and activate
             crow::connections::systemBus->async_method_call(
-                [objPath, asyncResp](
+                [objPath, asyncResp, imgTargets{std::move(imgUriTargets)}](
                     const boost::system::error_code error_code,
                     const std::vector<std::pair<
                         std::string, std::vector<std::string>>> &objInfo) {
                     if (error_code)
                     {
-                        BMCWEB_LOG_DEBUG << "error_code = " << error_code;
-                        BMCWEB_LOG_DEBUG << "error msg = "
-                                         << error_code.message();
+                        BMCWEB_LOG_DEBUG
+                            << "GetSoftwareObject path failed: ec = "
+                            << error_code;
                         if (asyncResp)
                         {
                             messages::internalError(asyncResp->res);
@@ -113,8 +211,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                     // xyz.openbmc_project.Software.Activation interface
                     // is added
                     fwAvailableTimer = nullptr;
-
-                    activateImage(objPath.str, objInfo[0].first);
+                    activateImage(objPath.str, objInfo[0].first, imgTargets);
                     if (asyncResp)
                     {
                         redfish::messages::success(asyncResp->res);
@@ -124,17 +221,16 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                 "xyz.openbmc_project.ObjectMapper",
                 "/xyz/openbmc_project/object_mapper",
                 "xyz.openbmc_project.ObjectMapper", "GetObject", objPath.str,
-                std::array<const char *, 1>{
-                    "xyz.openbmc_project.Software.Activation"});
+                std::array<const char *, 1>{activationIntf});
         }
     }
 }
 
 // Note that asyncResp can be either a valid pointer or nullptr. If nullptr
 // then no asyncResp updates will occur
-static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
-                                        const crow::Request &req,
-                                        int timeoutTimeSeconds = 5)
+static void monitorForSoftwareAvailable(
+    std::shared_ptr<AsyncResp> asyncResp, const crow::Request &req,
+    const std::vector<std::string> &imgUriTargets, int timeoutTimeSeconds = 5)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
@@ -145,7 +241,6 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
         }
         return;
     }
-
     fwAvailableTimer =
         std::make_unique<boost::asio::steady_timer>(*req.ioService);
 
@@ -174,9 +269,9 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
             }
         });
 
-    auto callback = [asyncResp](sdbusplus::message::message &m) {
-        BMCWEB_LOG_DEBUG << "Match fired";
-        softwareInterfaceAdded(asyncResp, m);
+    auto callback = [asyncResp, imgTargets{std::move(imgUriTargets)}](
+                        sdbusplus::message::message &m) {
+        softwareInterfaceAdded(asyncResp, imgTargets, m);
     };
 
     fwUpdateInProgress = true;
@@ -286,9 +381,12 @@ class UpdateServiceActionsSimpleUpdate : public Node
         std::string fwFile = imageURI.substr(separator + 1);
         BMCWEB_LOG_DEBUG << "Server: " << tftpServer + " File: " << fwFile;
 
+        // We will pass empty targets and its handled in activation.
+        std::vector<std::string> httpUriTargets;
+
         // Setup callback for when new software detected
         // Give TFTP 2 minutes to complete
-        monitorForSoftwareAvailable(nullptr, req, 120);
+        monitorForSoftwareAvailable(nullptr, req, httpUriTargets, 120);
 
         // TFTP can take up to 2 minutes depending on image size and
         // connection speed. Return to caller as soon as the TFTP operation
@@ -322,7 +420,8 @@ class UpdateServiceActionsSimpleUpdate : public Node
 class UpdateService : public Node
 {
   public:
-    UpdateService(CrowApp &app) : Node(app, "/redfish/v1/UpdateService/")
+    UpdateService(CrowApp &app) :
+        Node(app, "/redfish/v1/UpdateService/"), httpPushUriTargetBusy(false)
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -334,6 +433,9 @@ class UpdateService : public Node
     }
 
   private:
+    std::vector<std::string> httpPushUriTargets;
+    bool httpPushUriTargetBusy;
+
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
@@ -346,6 +448,8 @@ class UpdateService : public Node
         res.jsonValue["Description"] = "Service for Software Update";
         res.jsonValue["Name"] = "Update Service";
         res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        res.jsonValue["HttpPushUriTargets"] = httpPushUriTargets;
+        res.jsonValue["HttpPushUriTargetsBusy"] = httpPushUriTargetBusy;
         // UpdateService cannot be disabled
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
@@ -405,9 +509,14 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
-                                 pushUriOptions))
+        std::optional<std::vector<std::string>> imgTargets;
+        std::optional<bool> imgTargetBusy;
+
+        if (!json_util::readJson(req, res, "HttpPushUriOptions", pushUriOptions,
+                                 "HttpPushUriTargets", imgTargets,
+                                 "HttpPushUriTargetsBusy", imgTargetBusy))
         {
+            BMCWEB_LOG_DEBUG << "UpdateService doPatch: Invalid request body";
             return;
         }
 
@@ -464,7 +573,6 @@ class UpdateService : public Node
                                 messages::internalError(asyncResp->res);
                                 return;
                             }
-                            messages::success(asyncResp->res);
                         },
                         "xyz.openbmc_project.Settings",
                         "/xyz/openbmc_project/software/apply_time",
@@ -473,6 +581,88 @@ class UpdateService : public Node
                         "RequestedApplyTime",
                         std::variant<std::string>{applyTimeNewVal});
                 }
+            }
+        }
+
+        if (imgTargetBusy)
+        {
+            if ((httpPushUriTargetBusy) && (*imgTargetBusy))
+            {
+                BMCWEB_LOG_DEBUG << "UpdateService doPatch: "
+                                    "httpPushUriTargetBusy is already set";
+                messages::resourceInUse(asyncResp->res);
+                return;
+            }
+
+            httpPushUriTargetBusy = *imgTargetBusy;
+        }
+
+        if (imgTargets)
+        {
+            if (!httpPushUriTargetBusy)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "UpdateService doPatch: httpPushUriTargetBusy should be "
+                       "true before setting httpPushUriTargets";
+                messages::invalidObject(asyncResp->res, "HttpPushUriTargets");
+                return;
+            }
+            if ((*imgTargets).size() != 0)
+            {
+                // TODO: Now we support max one target becuase software-manager
+                // code support one activation per object. It will be enhanced
+                // to multiple targets for single image in future. For now,
+                // consider first target alone.
+                if ((*imgTargets).size() != 1)
+                {
+                    messages::invalidObject(asyncResp->res,
+                                            "HttpPushUriTargets");
+                    return;
+                }
+                crow::connections::systemBus->async_method_call(
+                    [this, asyncResp, uriTargets{*imgTargets}](
+                        const boost::system::error_code ec,
+                        const std::vector<std::string> swInvPaths) {
+                        if (ec)
+                        {
+                            return;
+                        }
+
+                        bool swInvObjFound = false;
+                        for (const std::string &path : swInvPaths)
+                        {
+                            std::size_t idPos;
+                            if ((idPos = path.rfind("/")) == std::string::npos)
+                            {
+                                messages::internalError(asyncResp->res);
+                                BMCWEB_LOG_DEBUG << "Can't parse firmware ID!!";
+                                return;
+                            }
+                            std::string swId = path.substr(idPos + 1);
+
+                            if (swId == uriTargets[0])
+                            {
+                                swInvObjFound = true;
+                                break;
+                            }
+                        }
+                        if (!swInvObjFound)
+                        {
+                            messages::invalidObject(asyncResp->res,
+                                                    "HttpPushUriTargets");
+                            return;
+                        }
+                        this->httpPushUriTargets = uriTargets;
+                    },
+                    "xyz.openbmc_project.ObjectMapper",
+                    "/xyz/openbmc_project/object_mapper",
+                    "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", "/",
+                    static_cast<int32_t>(0),
+                    std::array<const char *, 1>{versionIntf});
+            }
+            else
+            {
+                httpPushUriTargets = *imgTargets;
             }
         }
     }
@@ -484,8 +674,9 @@ class UpdateService : public Node
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
+        std::vector<std::string> httpUriTargets = httpPushUriTargets;
         // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req);
+        monitorForSoftwareAvailable(asyncResp, req, httpUriTargets);
 
         std::string filepath(
             "/tmp/images/" +
@@ -569,9 +760,7 @@ class SoftwareInventoryCollection : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
-            static_cast<int32_t>(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Software.Version"});
+            static_cast<int32_t>(0), std::array<const char *, 1>{versionIntf});
     }
 };
 
@@ -756,7 +945,7 @@ class SoftwareInventory : public Node
                         },
                         obj.second[0].first, obj.first,
                         "org.freedesktop.DBus.Properties", "GetAll",
-                        "xyz.openbmc_project.Software.Version");
+                        versionIntf);
                 }
                 if (!found)
                 {
@@ -778,9 +967,7 @@ class SoftwareInventory : public Node
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
-            static_cast<int32_t>(0),
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Software.Version"});
+            static_cast<int32_t>(0), std::array<const char *, 1>{versionIntf});
     }
 };
 
