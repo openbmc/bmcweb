@@ -82,13 +82,18 @@ void modifyCpuPresenceState(std::shared_ptr<AsyncResp> aResp,
     }
     BMCWEB_LOG_DEBUG << "Cpu Present: " << *isCpuPresent;
 
-    nlohmann::json &procCount =
-        aResp->res.jsonValue["ProcessorSummary"]["Count"];
     if (*isCpuPresent == true)
     {
-        procCount = procCount.get<int>() + 1;
+        nlohmann::json &procCount =
+            aResp->res.jsonValue["ProcessorSummary"]["Count"];
+        auto procCountPtr =
+            procCount.get_ptr<nlohmann::json::number_integer_t *>();
+        if (procCountPtr != nullptr)
+        {
+            // shouldn't be possible to be nullptr
+            *procCountPtr += 1;
+        }
     }
-    aResp->res.jsonValue["ProcessorSummary"]["Count"] = procCount;
 }
 
 /*
@@ -338,9 +343,18 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                                  "ary"];
                                                     nlohmann::json &procCount =
                                                         procSummary["Count"];
-                                                    procCount =
-                                                        procCount.get<int>() +
-                                                        1;
+
+                                                    auto procCountPtr =
+                                                        procCount.get_ptr<
+                                                            nlohmann::json::
+                                                                number_integer_t
+                                                                    *>();
+                                                    if (procCountPtr != nullptr)
+                                                    {
+                                                        // shouldn't be possible
+                                                        // to be nullptr
+                                                        *procCountPtr += 1;
+                                                    }
                                                     procSummary["Status"]
                                                                ["State"] =
                                                                    "Enabled";
