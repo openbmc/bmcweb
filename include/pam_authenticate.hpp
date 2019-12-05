@@ -93,7 +93,7 @@ inline int pamUpdatePassword(const std::string& username,
         pamFunctionConversation, const_cast<char*>(password.c_str())};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
-    int retval = pam_start("passwd", username.c_str(), &localConversation,
+    int retval = pam_start("webserver", username.c_str(), &localConversation,
                            &localAuthHandle);
 
     if (retval != PAM_SUCCESS)
