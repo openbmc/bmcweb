@@ -1,4 +1,6 @@
 #pragma once
+#include "config.h"
+
 #include "http_utility.hpp"
 
 #include <atomic>
@@ -241,8 +243,9 @@ typename std::enable_if<(N > 0)>::type
 static std::atomic<int> connectionCount;
 #endif
 
-// request body limit size: 30M
-constexpr unsigned int httpReqBodyLimit = 1024 * 1024 * 30;
+// request body limit size set by the BMCWEB_HTTP_REQ_BODY_LIMIT_MB option
+constexpr unsigned int httpReqBodyLimit =
+    1024 * 1024 * BMCWEB_HTTP_REQ_BODY_LIMIT_MB;
 
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection : public std::enable_shared_from_this<
@@ -260,8 +263,9 @@ class Connection : public std::enable_shared_from_this<
         timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        // Temporarily changed to 30MB; Need to modify uploading/authentication
-        // mechanism
+        // Temporarily set by the BMCWEB_HTTP_REQ_BODY_LIMIT_MB variable; Need
+        // to modify uploading/authentication mechanism to a better method that
+        // disallows a DOS attack based on a large file size.
         parser->body_limit(httpReqBodyLimit);
         req.emplace(parser->get());
 

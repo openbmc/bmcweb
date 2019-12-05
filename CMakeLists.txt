@@ -119,7 +119,10 @@ option (
     OFF
 )
 
+set (BMCWEB_HTTP_REQ_BODY_LIMIT_MB "30" CACHE STRING
+     "The max HTTP request body size in MB")
 
+configure_file(config.h.in ${CMAKE_CURRENT_SOURCE_DIR}/include/config.h)
 
 if (BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION AND BMCWEB_INSECURE_DISABLE_SSL)
     message("SSL Must be enabled to allow SSL authentication")
