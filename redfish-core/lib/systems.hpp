@@ -133,6 +133,37 @@ void modifyCpuFunctionalState(std::shared_ptr<AsyncResp> aResp,
     }
 }
 
+/**
+ * @brief Retrieves BIOS ID property over dbus
+ *
+ * @param[in] aResp     Shared pointer for completing asynchronous calls.
+ *
+ * @return None.
+ */
+void getBIOSId(std::shared_ptr<AsyncResp> aResp, const std::string &jsonIdxStr)
+{
+    BMCWEB_LOG_DEBUG << "Get BIOS ID property.";
+    crow::connections::systemBus->async_method_call(
+        [aResp, jsonIdxStr](const boost::system::error_code ec,
+                            const std::variant<std::string> &biosIdStr) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            const std::string *s = std::get_if<std::string>(&biosIdStr);
+            if (s != nullptr)
+            {
+                aResp->res.jsonValue[jsonIdxStr] = *s;
+            }
+        },
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/bios",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Inventory.Item.Bios", "BiosId");
+}
+
 /*
  * @brief Retrieves computer system properties over dbus
  *
@@ -538,6 +569,12 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                     fw_util::getActiveFwVersion(
                                         aResp, fw_util::biosPurpose,
                                         "BiosVersion");
+
+                                    if (aResp->res.jsonValue["BiosVersion"] ==
+                                        nullptr)
+                                    {
+                                        getBIOSId(aResp, "BiosVersion");
+                                    }
                                 },
                                 connection.first, path,
                                 "org.freedesktop.DBus.Properties", "GetAll",
