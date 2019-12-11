@@ -525,6 +525,12 @@ class Connection
                 // set cookie only if this is req from the browser.
                 if (req->getHeaderValue("User-Agent").empty())
                 {
+                    res.addHeader("Set-Cookie",
+                                  "XSRF-TOKEN=" + sp->csrfToken +
+                                      "; Secure\r\nSet-Cookie: SESSION=" +
+                                      sp->sessionToken +
+                                      "; Secure; HttpOnly\r\nSet-Cookie: "
+                                      "IsAuthenticated=true; Secure");
                     BMCWEB_LOG_DEBUG << this << " TLS session: " << sp->uniqueId
                                      << " will be used for this request.";
                     req->session = sp;
