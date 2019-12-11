@@ -540,7 +540,8 @@ class Connection
                                       "XSRF-TOKEN=" + sp->csrfToken +
                                           "; Secure\r\nSet-Cookie: SESSION=" +
                                           sp->sessionToken +
-                                          "; Secure; HttpOnly");
+                                          "; Secure; HttpOnly\r\nSet-Cookie: "
+                                          "IsAuthenticated=true; Secure");
                         BMCWEB_LOG_DEBUG
                             << this << " TLS session: " << sp->uniqueId
                             << " with cookie will be used for this request.";
