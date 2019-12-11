@@ -738,18 +738,11 @@ inline void escapeHtml(std::string& data)
 
 inline void convertToLinks(std::string& s)
 {
-    const static std::regex r{"(&quot;@odata\\.((id)|(Context))&quot;[ \\n]*:[ "
-                              "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, r, "$1<a href=\"$6\">$5</a>");
-
-    const static std::regex nextLink{
-        "(&quot;Members@odata\\.((nextLink))&quot;[ \\n]*:[ "
-        "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, nextLink, "$1<a href=\"$5\">$4</a>");
-
-    const static std::regex uri{"(&quot;((Uri))&quot;[ \\n]*:[ "
-                                "\\n]*)(&quot;((?!&quot;).*)&quot;)"};
-    s = std::regex_replace(s, uri, "$1<a href=\"$5\">$4</a>");
+    // Convert anything with a redfish path into a link
+    const static std::regex redfishPath{
+        "(&quot;((.*))&quot;[ \\n]*:[ "
+        "\\n]*)(&quot;((?!&quot;)/redfish/.*)&quot;)"};
+    s = std::regex_replace(s, redfishPath, "$1<a href=\"$5\">$4</a>");
 }
 
 /**
