@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 143> registry = {
+constexpr std::array<MessageEntry, 151> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1481,6 +1481,86 @@ constexpr std::array<MessageEntry, 143> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"SecurityUserNonRootUidZeroAssigned",
+                 {
+                     "Indicates that non root user assigned with uid zero.",
+                     "uid Zero is assigned with non-root user",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityUserNonRootUidZeroRemoved",
+                 {
+                     "Indicates that non root user uid is removed",
+                     "non root user assigned with uid zero is removed.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+
+    MessageEntry{"SecurityUserRootEnabled",
+                 {
+                     "Indicates that system root user is enabled.",
+                     "root user is enabled.",
+                     "Critical",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"SecurityUserRootDisabled",
+                 {
+                     "Indicates that system root user is disabled.",
+                     "root user is disabled.",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+
+    MessageEntry{
+        "SecurityUserHashAlgoChanged",
+        {
+            "Indicates that password computing hash algorithm changed.",
+            "password computing hash algorithm is changed to sha256/sha512.",
+            "OK",
+            0,
+            {},
+            "None.",
+        }},
+
+    MessageEntry{
+        "SecurityUserUnsupportedShellEnabled",
+        {
+            "Indicates that unsupported shell is enabled.",
+            "other than /bin/bash,/bin/sh, Unsupported shell is enabled",
+            "Critical",
+            0,
+            {},
+            "None.",
+        }},
+    MessageEntry{"SecurityUserUnsupportedShellRemoved",
+                 {
+                     "Indicates that unsupported shell is removed.",
+                     "Unsupported shell is removed",
+                     "OK",
+                     0,
+                     {},
+                     "None.",
+                 }},
+
+    MessageEntry{
+        "SecurityUserWeakHashAlgoEnabled",
+        {
+            "Indicates that weak password computing hash algorithm is enabled.",
+            "weak password computing hash algorithm is enabled = %1 .",
+            "Critical",
+            1,
+            {"string"},
+            "None.",
+        }},
+
     MessageEntry{"SELEntryAdded",
                  {
                      "Indicates a SEL entry was added using the "
