@@ -19,6 +19,7 @@ using segmentflags = std::vector<std::pair<std::string, uint32_t>>;
 using lockrequest = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
 using lockrequests = std::vector<lockrequest>;
 using rc = std::pair<bool, std::variant<uint32_t, lockrequest>>;
+using rcrelaselock = std::pair<bool, lockrequest>;
 using rcgetlocklist = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, lockrequests>>>>;
@@ -488,6 +489,75 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
      }*/
 }
 
+void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
+                          std::vector<uint32_t> listtransactionIDs)
+{
+    BMCWEB_LOG_DEBUG << listtransactionIDs.size();
+    BMCWEB_LOG_DEBUG << "Data is present";
+    for (uint32_t i = 0; i < listtransactionIDs.size(); i++)
+    {
+        BMCWEB_LOG_DEBUG << listtransactionIDs[i];
+    }
+
+    std::string clientid = "hmc-id";
+    std::string sessionid = req.session->uniqueId;
+
+    // validate the request ids
+
+    const std::vector<uint32_t> &p = listtransactionIDs;
+    auto var_releaselock = crow::ibm_mc_lock::lockobject.Releaselock(
+        p, std::make_pair(clientid, sessionid));
+
+    if (!var_releaselock.first)
+    {
+        // validation Failed
+        res.result(boost::beast::http::status::bad_request);
+        res.end();
+        return;
+    }
+    else
+    {
+        auto status_release =
+            std::get<crow::ibm_mc_lock::rcrelaselock>(var_releaselock.second);
+        if (status_release.first)
+        {
+            // The current hmc owns all the locks, so we already released
+            // them
+            res.result(boost::beast::http::status::ok);
+            res.end();
+            return;
+        }
+
+        else
+        {
+            // valid rid, but the current hmc does not own all the locks
+            BMCWEB_LOG_DEBUG << "Current HMC does not own all the locks";
+            res.result(boost::beast::http::status::unauthorized);
+
+            auto var = status_release.second;
+            nlohmann::json returnjson, segments;
+            nlohmann::json myarray = nlohmann::json::array();
+            returnjson["TransactionID"] = var.first;
+            returnjson["SessionID"] = std::get<0>(var.second);
+            returnjson["HMCID"] = std::get<1>(var.second);
+            returnjson["LockType"] = std::get<2>(var.second);
+            returnjson["ResourceID"] = std::get<3>(var.second);
+
+            for (uint32_t i = 0; i < std::get<4>(var.second).size(); i++)
+            {
+                segments["LockFlag"] = std::get<4>(var.second)[i].first;
+                segments["SegmentLength"] = std::get<4>(var.second)[i].second;
+                myarray.push_back(segments);
+            }
+
+            returnjson["SegmentFlags"] = myarray;
+            res.jsonValue["Record"] = returnjson;
+            res.end();
+            return;
+        }
+    }
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
 
@@ -551,6 +621,23 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     return;
                 }
                 handleAcquireLockAPI(req, res, body);
+            });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                std::vector<uint32_t> listtransactionIDs;
+
+                if (!redfish::json_util::readJson(req, res, "TransactionIDs",
+                                                  listtransactionIDs))
+                {
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+
+                handleReleaseLockAPI(req, res, listtransactionIDs);
             });
 }
 
