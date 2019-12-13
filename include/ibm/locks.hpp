@@ -27,7 +27,7 @@ using LockRequests = std::vector<LockRequest>;
 using Rc =
     std::pair<bool, std::variant<uint32_t, std::pair<uint32_t, LockRequest>>>;
 using RcRelaseLock = std::pair<bool, std::pair<uint32_t, LockRequest>>;
-using RcGetLocklist = std::pair<
+using RcGetLockList = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>>;
 using ListOfTransactionIds = std::vector<uint32_t>;
@@ -141,12 +141,67 @@ class Lock
     RcReleaseLockApi releaseLock(const ListOfTransactionIds,
                                  std::pair<SType, SType>);
 
+    /*
+     * This function implements the logic for getting the list of locks obtained
+     * by a particular management console.
+     */
+    RcGetLockList getLockList(const std::vector<std::string>);
+
     Lock()
     {
         transactionId = 0;
     }
 
 } lockObject;
+
+RcGetLockList Lock::getLockList(const std::vector<std::string> listSessionId)
+{
+
+    std::vector<std::pair<uint32_t, LockRequests>> lockList;
+
+    if (!lockTable.empty())
+    {
+        std::vector<std::pair<uint32_t, LockRequests>> tempList;
+
+        for (auto i : listSessionId)
+        {
+            auto it = lockTable.begin();
+            while (it != lockTable.end())
+            {
+                // Check if session id of this entry matches with session id
+                // given
+                if (std::get<0>(it->second[0]) == i)
+                {
+                    BMCWEB_LOG_DEBUG << "Session id is found in the locktable";
+
+                    // Push the whole lock record into a vector for returning
+                    // the json
+                    lockList.push_back(std::make_pair(it->first, it->second));
+                    tempList.push_back(std::make_pair(it->first, it->second));
+                }
+                // Go to next entry in map
+                it++;
+            }
+        }
+        if (tempList.size() == 0)
+        {
+            // The session id is not found in the lock table
+            // return an empty list
+            return std::make_pair(true, lockList);
+        }
+
+        // we found at least one entry with the given session id
+        // return the json list of lock records pertaining to the
+        // given session id
+        return std::make_pair(true, lockList);
+    }
+    else
+    {
+        // if lock table is empty , the return the empty lock list
+        return std::make_pair(true, lockList);
+    }
+    return std::make_pair(true, listSessionId[0]);
+}
 
 RcReleaseLockApi Lock::releaseLock(ListOfTransactionIds p,
                                    std::pair<SType, SType> ids)
