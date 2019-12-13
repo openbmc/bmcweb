@@ -22,7 +22,7 @@ using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
 using RcGetLockList = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>>;
-
+using ListOfSessionIds = std::vector<std::string>;
 namespace crow
 {
 namespace ibm_mc
@@ -474,6 +474,52 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     }
 }
 
+void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
+                          const ListOfSessionIds &listSessionIds)
+{
+    BMCWEB_LOG_DEBUG << listSessionIds.size();
+
+    auto status = crow::ibm_mc_lock::lockObject.getLockList(listSessionIds);
+    if (status.first)
+    {
+        res.result(boost::beast::http::status::ok);
+
+        auto var = std::get<std::vector<std::pair<uint32_t, LockRequests>>>(
+            status.second);
+
+        nlohmann::json lockRecords = nlohmann::json::array();
+
+        for (const auto &transactionId : var)
+        {
+            for (const auto &lockRecord : transactionId.second)
+            {
+                nlohmann::json returnJson, segments;
+                nlohmann::json myArray = nlohmann::json::array();
+
+                returnJson["TransactionID"] = transactionId.first;
+                returnJson["SessionID"] = std::get<0>(lockRecord);
+                returnJson["HMCID"] = std::get<1>(lockRecord);
+                returnJson["LockType"] = std::get<2>(lockRecord);
+                returnJson["ResourceID"] = std::get<3>(lockRecord);
+                auto elements = std::get<4>(lockRecord);
+
+                for (auto element : elements)
+                {
+                    segments["LockFlag"] = element.first;
+                    segments["SegmentLength"] = element.second;
+                    myArray.push_back(segments);
+                }
+
+                returnJson["SegmentFlags"] = myArray;
+                lockRecords.push_back(returnJson);
+            }
+        }
+        res.jsonValue["Records"] = lockRecords;
+        res.end();
+        return;
+    }
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
 
@@ -553,6 +599,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
 
                 handleReleaseLockAPI(req, res, listTransactionIds);
+            });
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                ListOfSessionIds listSessionIds;
+
+                if (!redfish::json_util::readJson(req, res, "SessionIDs",
+                                                  listSessionIds))
+                {
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+
+                handleGetLockListAPI(req, res, listSessionIds);
             });
 }
 
