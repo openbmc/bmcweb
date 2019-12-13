@@ -27,15 +27,18 @@ using lockrequest = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
 using lockrequests = std::vector<lockrequest>;
 using rc =
     std::pair<bool, std::variant<uint32_t, std::pair<uint32_t, lockrequest>>>;
-using rcrelaselock = std::pair<bool, lockrequest>;
+using rcrelaselock = std::pair<bool, std::pair<uint32_t, lockrequest>>;
 using rcgetlocklist = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, lockrequests>>>>;
-
+using listoftransactionIDs = std::vector<uint32_t>;
 using rcacquirelock = std::pair<bool, std::variant<rc, std::pair<bool, int>>>;
+using rcreleaselockapi = std::pair<bool, std::variant<bool, rcrelaselock>>;
 
 class lock
 {
+
+  private:
     uint32_t transactionID;
     std::map<uint32_t, lockrequests> locktable;
 
@@ -78,12 +81,35 @@ class lock
      */
 
     rc isconflictwithtable(const lockrequests);
+    /*
+     * This function implements the logic of checking the ownership of the
+     * lock from the releaselock request.
+     *
+     * Returns : True (if the requesting HMC & Session owns the lock(s))
+     * Returns : False (if the request HMC or Session does not own the lock(s))
+     */
+
+    rcrelaselock isitmylock(const listoftransactionIDs,
+                            std::pair<stype, stype>);
+
+    /*
+     * This function validates the the list of transactionID's and returns false
+     * if the transaction ID is not valid & not present in the lock table
+     */
+
+    bool validaterids(const listoftransactionIDs);
+
+    /*
+     * This function releases the locks that are already obtained by the
+     * requesting Management console.
+     */
+
+    void releaselock(const listoftransactionIDs);
 
     /*
      * This function implements the algorithm for checking the respective
      * bytes of the resource id based on the lock management algorithm.
      */
-
     bool checkbyte(uint64_t, uint64_t, uint32_t);
 
     /*
@@ -104,13 +130,54 @@ class lock
 
     rcacquirelock Acquirelock(const lockrequests);
 
-  public:
+    /*
+     * This function implements the logic for releasing the lock that are
+     * owned by a management console session.
+     *
+     * The locks can be released by two ways
+     *  - Using list of transaction ID's
+     *  - Using a Session ID
+     *
+     * Client can choose either of the ways by using `Type` JSON key.
+     *
+     */
+    rcreleaselockapi Releaselock(const listoftransactionIDs,
+                                 std::pair<stype, stype>);
+
     lock()
     {
         transactionID = 0;
     }
 
 } lockobject;
+
+rcreleaselockapi lock::Releaselock(listoftransactionIDs p,
+                                   std::pair<stype, stype> ids)
+{
+
+    bool status = validaterids(p);
+
+    if (!status)
+    {
+        // Validation of rids failed
+        BMCWEB_LOG_DEBUG << "Not a Valid request id";
+        return std::make_pair(false, status);
+    }
+    else
+    {
+        // Validation passed, check if all the locks are owned by the
+        // requesting HMC
+        auto status = isitmylock(p, std::make_pair(ids.first, ids.second));
+        if (status.first)
+        {
+            // The current hmc owns all the locks, so we can release
+            // them
+            releaselock(p);
+        }
+        return std::make_pair(true, status);
+    }
+    return std::make_pair(false, status);
+}
 
 rcacquirelock lock::Acquirelock(const lockrequests lockrequeststructure)
 {
@@ -151,6 +218,61 @@ rcacquirelock lock::Acquirelock(const lockrequests lockrequeststructure)
     }
 
     return std::make_pair(true, std::make_pair(true, 1));
+}
+
+void lock::releaselock(const std::vector<uint32_t> refrids)
+{
+    for (auto id : refrids)
+    {
+        locktable.erase(id);
+    }
+}
+
+rcrelaselock lock::isitmylock(const std::vector<uint32_t> refrids,
+                              std::pair<stype, stype> ids)
+{
+    for (auto id : refrids)
+    {
+        // Just need to compare the client id of the first lock records in the
+        // complete lock row(in the map), because the rest of the lock records
+        // would have the same client id
+
+        std::string expectedclientid = std::get<1>(locktable[id][0]);
+        std::string expectedsessionid = std::get<0>(locktable[id][0]);
+
+        if ((expectedclientid == ids.first) &&
+            (expectedsessionid == ids.second))
+        {
+            // It is owned by the currently request hmc
+            BMCWEB_LOG_DEBUG << "Lock is owned  by the current hmc";
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Lock is not owned by the current hmc";
+            return std::make_pair(false, std::make_pair(id, locktable[id][0]));
+        }
+    }
+    return std::make_pair(true, std::make_pair(0, lockrequest()));
+}
+
+bool lock::validaterids(const std::vector<uint32_t> refrids)
+{
+    for (auto id : refrids)
+    {
+        auto search = locktable.find(id);
+
+        if (search != locktable.end())
+        {
+            BMCWEB_LOG_DEBUG << "Valid Transaction id";
+            //  continue for the next rid
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Atleast 1 inValid Request id";
+            return false;
+        }
+    }
+    return true;
 }
 
 bool lock::isvalidlockrequest(const lockrequest reflockrecord)
