@@ -11,6 +11,7 @@
 #include <regex>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
+#include <persistent_ibm_mc_locks.hpp>
 
 #define MAX_SAVE_AREA_FILESIZE 20000
 using stype = std::string;
@@ -55,6 +56,7 @@ class lock
     lock()
     {
         rid = 0;
+        crow::persistent_ibm_mc_lock::LockPersistence::loadLocks(locktable);
     }
 
     // friend class locktest;
@@ -248,6 +250,13 @@ rc lock::isconflictwithtable(lockrequest *reflockrequeststructure)
         // rid = getmyrequestid();
         locktable.emplace(std::pair<uint32_t, lockrequest>(
             transactionID, *reflockrequeststructure));
+        //save the lock in the persistent file
+        bool isSaved = crow::persistent_ibm_mc_lock::LockPersistence::saveLocks(locktable);
+        if(!isSaved)
+        {
+            BMCWEB_LOG_DEBUG << "Error saving the locks in persistent";
+        }
+
         // vrid.push_back(rid);
         // }
         return std::make_pair(false, transactionID);
@@ -291,6 +300,13 @@ rc lock::isconflictwithtable(lockrequest *reflockrequeststructure)
         transactionID = getmyrequestid();
         locktable.emplace(
             std::make_pair(transactionID, *reflockrequeststructure));
+        //save the lock in the persistent file
+        bool isSaved = crow::persistent_ibm_mc_lock::LockPersistence::saveLocks(locktable);
+        if(!isSaved)
+        {
+            BMCWEB_LOG_DEBUG << "Error saving the locks in persistent";
+        }
+
         // vrid.push_back(rid);
         //}
     }
