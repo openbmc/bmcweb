@@ -1,5 +1,7 @@
 #pragma once
 
+#include <logging.h>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <filesystem>
@@ -43,6 +45,7 @@ class Lock
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
+  protected:
     Lock()
     {
         loadLocks();
@@ -153,6 +156,7 @@ class Lock
         return true;
     }
 
+  protected:
     /*
      * This function implements the logic of checking the ownership of the
      * lock from the releaselock request.
@@ -161,8 +165,8 @@ class Lock
      * Returns : False (if the request HMC or Session does not own the lock(s))
      */
 
-    RcRelaseLock isItMyLock(const ListOfTransactionIds &refRids,
-                            const SessionFlags &ids)
+    virtual RcRelaseLock isItMyLock(const ListOfTransactionIds &refRids,
+                                    const SessionFlags &ids)
     {
         for (const auto &i : refRids)
         {
@@ -194,7 +198,7 @@ class Lock
      * if the transaction ID is not valid & not present in the lock table
      */
 
-    bool validateRids(const ListOfTransactionIds &refRids)
+    virtual bool validateRids(const ListOfTransactionIds &refRids)
     {
         for (const auto &id : refRids)
         {
@@ -222,7 +226,7 @@ class Lock
      * Returns : False (if not a Valid lock request)
      */
 
-    bool isValidLockRequest(const LockRequest refLockRecord)
+    virtual bool isValidLockRequest(const LockRequest refLockRecord)
     {
 
         // validate the locktype
@@ -297,7 +301,7 @@ class Lock
      *
      */
 
-    Rc isConflictWithTable(const LockRequests refLockRequestStructure)
+    virtual Rc isConflictWithTable(const LockRequests refLockRequestStructure)
     {
 
         uint32_t transactionId;
@@ -367,7 +371,7 @@ class Lock
      * Returns : False (if not conflicting)
      */
 
-    bool isConflictRequest(const LockRequests refLockRequestStructure)
+    virtual bool isConflictRequest(const LockRequests refLockRequestStructure)
     {
         // check for all the locks coming in as a part of single request
         // return conflict if any two lock requests are conflicting
@@ -550,7 +554,7 @@ class Lock
      * the Management Console for debug.
      */
 
-    uint32_t generateTransactionId()
+    virtual uint32_t generateTransactionId()
     {
         ++transactionId;
         return transactionId;
@@ -716,6 +720,10 @@ class Lock
         }
 
         return std::make_pair(true, std::make_pair(true, 1));
+    }
+
+    virtual ~Lock()
+    {
     }
 };
 } // namespace ibm_mc_lock
