@@ -9,6 +9,7 @@
 #include <filesystem>
 #include <fstream>
 #include <nlohmann/json.hpp>
+#include <persistent_ibm_mc_locks.hpp>
 #include <regex>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
