@@ -338,6 +338,7 @@ if (${BMCWEB_BUILD_UT})
          src/kvm_websocket_test.cpp src/msan_test.cpp
          src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
          redfish-core/ut/privileges_test.cpp
+	 redfish-core/ut/lock_test.cpp
          ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
                                                       # strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
