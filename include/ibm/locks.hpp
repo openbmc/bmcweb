@@ -5,6 +5,7 @@
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <filesystem>
+#include <fstream>
 #include <nlohmann/json.hpp>
 
 namespace crow
@@ -34,6 +35,8 @@ using rcgetlocklist = std::pair<
 using listoftransactionIDs = std::vector<uint32_t>;
 using rcacquirelock = std::pair<bool, std::variant<rc, std::pair<bool, int>>>;
 using rcreleaselockapi = std::pair<bool, std::variant<bool, rcrelaselock>>;
+static constexpr const char *filename =
+    "/var/lib/obmc/bmc-console-mgmt/locks/ibm_mc_persistent_lock_data.json";
 
 class lock
 {
@@ -46,8 +49,13 @@ class lock
     rcrelaselock isitmylock(listoftransactionIDs, std::pair<stype, stype>);
     bool validaterids(listoftransactionIDs);
     void releaselock(listoftransactionIDs);
+    bool saveLocks();
+    void loadLocks();
     bool checkbyte(uint64_t, uint64_t, uint32_t);
     uint32_t generateTransactionID();
+
+  private:
+    bool createPersistentLockFilePath();
 
   public:
     rcacquirelock Acquirelock(lockrequests);
@@ -57,10 +65,95 @@ class lock
   public:
     lock()
     {
-        transactionID = 0;
+        loadLocks();
+        transactionID = locktable.empty() ? 0 : locktable.end()->first;
     }
 
 } lockobject;
+
+bool lock::createPersistentLockFilePath()
+{
+    // The path /var/lib/obmc will be created by initrdscripts
+    // Create the directories for the persistent lock file
+    std::error_code ec;
+    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt"))
+    {
+        std::filesystem::create_directory("/var/lib/obmc/bmc-console-mgmt", ec);
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG << "handleIbmPost: Failed to prepare bmc-console-mgmt "
+                            "directory. ec : "
+                         << ec;
+        return false;
+    }
+
+    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks"))
+    {
+        std::filesystem::create_directory(
+            "/var/lib/obmc/bmc-console-mgmt/locks", ec);
+    }
+    if (ec)
+    {
+        BMCWEB_LOG_DEBUG << "handleIbmPost: Failed to prepare persistent lock "
+                            "file directory. ec : "
+                         << ec;
+        return false;
+    }
+    return true;
+}
+
+void lock::loadLocks()
+{
+    std::ifstream persistentFile(filename);
+    if (persistentFile.is_open())
+    {
+        auto data = nlohmann::json::parse(persistentFile, nullptr, false);
+        if (data.is_discarded())
+        {
+            BMCWEB_LOG_ERROR << "Error parsing persistent data in json file.";
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "The persistent lock data is available";
+            for (const auto &item : data.items())
+            {
+                BMCWEB_LOG_DEBUG << item.key();
+                BMCWEB_LOG_DEBUG << item.value();
+                lockrequests locks = item.value();
+                locktable.insert(std::pair<uint32_t, lockrequests>(
+                    std::stoul(item.key()), locks));
+                BMCWEB_LOG_DEBUG << "The persistent lock data loaded";
+            }
+        }
+    }
+}
+
+bool lock::saveLocks()
+{
+    if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks"))
+    {
+        if (!createPersistentLockFilePath())
+        {
+            BMCWEB_LOG_DEBUG << "Failed to create lock persistent path";
+            return false;
+        }
+    }
+    std::ofstream persistentFile(filename);
+    // set the permission of the file to 640
+    fs::perms permission =
+        fs::perms::owner_read | fs::perms::owner_write | fs::perms::group_read;
+    fs::permissions(filename, permission);
+    nlohmann::json data;
+    std::map<uint32_t, lockrequests>::iterator it;
+    for (it = locktable.begin(); it != locktable.end(); ++it)
+    {
+        data[std::to_string(it->first)] = it->second;
+    }
+    BMCWEB_LOG_DEBUG << "data is " << data;
+    persistentFile << data;
+    return true;
+}
 
 rcgetlocklist lock::getlocklist(std::vector<std::string> listsessionid)
 {
@@ -187,6 +280,7 @@ void lock::releaselock(std::vector<uint32_t> refrids)
     {
         locktable.erase(id);
     }
+    saveLocks();
 }
 
 rcrelaselock lock::isitmylock(std::vector<uint32_t> refrids,
@@ -309,7 +403,12 @@ rc lock::isconflictwithtable(lockrequests reflockrequeststructure)
         BMCWEB_LOG_DEBUG << "Lock table is empty, so adding the lockrecords";
         locktable.emplace(std::pair<uint32_t, lockrequests>(
             transactionID, reflockrequeststructure));
-
+        // save the lock in the persistent file
+        bool isSaved = saveLocks();
+        if (!isSaved)
+        {
+            BMCWEB_LOG_DEBUG << "Error saving the locks in persistent";
+        }
         return std::make_pair(false, transactionID);
     }
 
@@ -347,6 +446,13 @@ rc lock::isconflictwithtable(lockrequests reflockrequeststructure)
         transactionID = generateTransactionID();
         locktable.emplace(
             std::make_pair(transactionID, reflockrequeststructure));
+
+        // save the lock in the persistent file
+        bool isSaved = saveLocks();
+        if (!isSaved)
+        {
+            BMCWEB_LOG_DEBUG << "Error saving the locks in persistent";
+        }
     }
     return std::make_pair(false, transactionID);
 }
