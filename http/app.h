@@ -54,7 +54,7 @@ template <typename... Middlewares> class Crow
         router.handleUpgrade(req, res, std::move(adaptor));
     }
 
-    void handle(const Request& req, Response& res)
+    void handle(Request& req, Response& res)
     {
         router.handle(req, res);
     }

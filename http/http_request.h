@@ -26,6 +26,8 @@ struct Request
 
     std::shared_ptr<crow::persistent_data::UserSession> session;
 
+    std::string userRole{};
+
     Request(
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
         req(reqIn),
