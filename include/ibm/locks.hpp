@@ -1,5 +1,7 @@
 #pragma once
 
+#include <logging.h>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
@@ -40,6 +42,13 @@ static constexpr const char *fileName =
 class Lock
 {
   private:
+    Lock()
+    {
+        loadLocks();
+        transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
+    }
+
+  protected:
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
@@ -51,7 +60,7 @@ class Lock
      * Returns : False (if not a Valid lock request)
      */
 
-    bool isValidLockRequest(const LockRequest);
+    virtual bool isValidLockRequest(const LockRequest);
 
     /*
      * This function implements the logic of checking if the incoming
@@ -61,7 +70,7 @@ class Lock
      * Returns : False (if not conflicting)
      */
 
-    bool isConflictRequest(const LockRequests);
+    virtual bool isConflictRequest(const LockRequests);
     /*
      * Implements the core algorithm to find the conflicting
      * lock requests.
@@ -72,7 +81,7 @@ class Lock
      * Returns : True (if conflicting)
      * Returns : False (if not conflicting)
      */
-    bool isConflictRecord(const LockRequest, const LockRequest);
+    virtual bool isConflictRecord(const LockRequest, const LockRequest);
 
     /*
      * This function implements the logic of checking the conflicting
@@ -81,7 +90,7 @@ class Lock
      *
      */
 
-    Rc isConflictWithTable(const LockRequests);
+    virtual Rc isConflictWithTable(const LockRequests);
     /*
      * This function implements the logic of checking the ownership of the
      * lock from the releaselock request.
@@ -90,49 +99,50 @@ class Lock
      * Returns : False (if the request HMC or Session does not own the lock(s))
      */
 
-    RcRelaseLock isItMyLock(const ListOfTransactionIds &, const SessionFlags &);
+    virtual RcRelaseLock isItMyLock(const ListOfTransactionIds &,
+                                    const SessionFlags &);
 
     /*
      * This function validates the the list of transactionID's and returns false
      * if the transaction ID is not valid & not present in the lock table
      */
 
-    bool validateRids(const ListOfTransactionIds &);
+    virtual bool validateRids(const ListOfTransactionIds &);
 
     /*
      * This function releases the locks that are already obtained by the
      * requesting Management console.
      */
 
-    void releaseLock(const ListOfTransactionIds &);
+    virtual void releaseLock(const ListOfTransactionIds &);
 
     /*
      * This API implements the logic to persist the locks that are contained in
      * the lock table into a json file.
      */
-    void saveLocks();
+    virtual void saveLocks();
 
     /*
      * This API implements the logic to load the locks that are present in the
      * json file into the lock table.
      */
-    void loadLocks();
+    virtual void loadLocks();
 
     /*
      * This function implements the algorithm for checking the respective
      * bytes of the resource id based on the lock management algorithm.
      */
 
-    bool checkByte(uint64_t, uint64_t, uint32_t);
+    virtual bool checkByte(uint64_t, uint64_t, uint32_t);
 
     /*
      * This functions implements a counter that generates a unique 32 bit
      * number for every successful transaction. This number will be used by
      * the Management Console for debug.
      */
-    uint32_t generateTransactionId();
+    virtual uint32_t generateTransactionId();
 
-    bool createPersistentLockFilePath();
+    virtual bool createPersistentLockFilePath();
 
   public:
     /*
@@ -165,16 +175,14 @@ class Lock
      */
     RcGetLockList getLockList(const ListOfSessionIds &);
 
-    Lock()
-    {
-        loadLocks();
-        transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
-    }
-
     static Lock &getInstance()
     {
         static Lock lockObject;
         return lockObject;
+    }
+
+    virtual ~Lock()
+    {
     }
 };
 
