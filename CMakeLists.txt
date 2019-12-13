@@ -343,7 +343,7 @@ if (${BMCWEB_BUILD_UT})
          src/kvm_websocket_test.cpp src/msan_test.cpp
          src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
          redfish-core/ut/privileges_test.cpp
-         ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
+	 ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
                                                       # strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
                         COMMAND
@@ -354,8 +354,13 @@ if (${BMCWEB_BUILD_UT})
     set_source_files_properties (${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
                                  PROPERTIES GENERATED TRUE)
     enable_testing ()
-
-    add_executable (webtest ${SRC_FILES} ${UT_FILES})
+ 
+    if(${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE})
+	set(IBM_UT_FILES src/gtest_main.cpp redfish-core/ut/lock_test.cpp)
+	add_executable(webtest ${SRC_FILES} ${IBM_UT_FILES})
+    else()
+	add_executable (webtest ${SRC_FILES} ${UT_FILES})
+    endif(${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE})
 
     find_package (GTest REQUIRED)
     find_package (GMock REQUIRED)
