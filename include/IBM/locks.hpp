@@ -26,7 +26,7 @@ using lockrequest = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
 using lockrequests = std::vector<lockrequest>;
 using rc =
     std::pair<bool, std::variant<uint32_t, std::pair<uint32_t, lockrequest>>>;
-using rcrelaselock = std::pair<bool, lockrequest>;
+using rcrelaselock = std::pair<bool, std::pair<uint32_t, lockrequest>>;
 using rcgetlocklist = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, lockrequests>>>>;
@@ -41,6 +41,9 @@ class lock
     bool isconflictrequest(lockrequests);
     bool isconflictrecord(lockrequest, lockrequest);
     rc isconflictwithtable(lockrequests);
+    rcrelaselock isitmylock(std::vector<uint32_t> *, std::pair<stype, stype>);
+    bool validaterids(std::vector<uint32_t> *);
+    void releaselock(std::vector<uint32_t> *);
     bool checkbyte(uint64_t, uint64_t, uint32_t);
     uint32_t generateTransactionID();
 
@@ -51,6 +54,65 @@ class lock
     }
 
 } lockobject;
+
+void lock::releaselock(std::vector<uint32_t> *refrids)
+{
+    for (uint32_t i = 0; i < refrids->size(); i++)
+    {
+        locktable.erase(refrids->at(i));
+    }
+}
+
+rcrelaselock lock::isitmylock(std::vector<uint32_t> *refrids,
+                              std::pair<stype, stype> ids)
+{
+    for (uint32_t i = 0; i < refrids->size(); i++)
+    {
+        // Just need to compare the client id of the first lock records in the
+        // complete lock row(in the map), because the rest of the lock records
+        // would have the same client id
+
+        std::string expectedclientid =
+            std::get<1>(locktable[refrids->at(i)][0]);
+        std::string expectedsessionid =
+            std::get<0>(locktable[refrids->at(i)][0]);
+
+        if ((expectedclientid == ids.first) &&
+            (expectedsessionid == ids.second))
+        {
+            // It is owned by the currently request hmc
+            BMCWEB_LOG_DEBUG << "Lock is owned  by the current hmc";
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Lock is not owned by the current hmc";
+            return std::make_pair(
+                false,
+                std::make_pair(refrids->at(i), locktable[refrids->at(i)][0]));
+        }
+    }
+    return std::make_pair(true, std::make_pair(0, lockrequest()));
+}
+
+bool lock::validaterids(std::vector<uint32_t> *refrids)
+{
+    for (uint32_t i = 0; i < refrids->size(); i++)
+    {
+        auto search = locktable.find(refrids->at(i));
+
+        if (search != locktable.end())
+        {
+            BMCWEB_LOG_DEBUG << "Valid Transaction id";
+            //  continue for the next rid
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Atleast 1 inValid Request id";
+            return false;
+        }
+    }
+    return true;
+}
 
 bool lock::isvalidlockrequest(lockrequest reflockrecord)
 {
