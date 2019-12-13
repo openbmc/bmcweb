@@ -178,9 +178,9 @@ class Node
      */
     inline bool isAllowedWithoutConfigureSelf(const crow::Request& req)
     {
-        const std::string& userRole =
-            crow::persistent_data::UserRoleMap::getInstance().getUserRole(
-                req.session->username);
+        const std::string& userRole = req.userRole;
+        BMCWEB_LOG_DEBUG << "isAllowedWithoutConfigureSelf for the role " 
+                        << req.userRole;
         Privileges effectiveUserPrivileges =
             redfish::getUserPrivileges(userRole);
         effectiveUserPrivileges.resetSinglePrivilege("ConfigureSelf");
