@@ -19,6 +19,7 @@ using segmentflags = std::vector<std::pair<std::string, uint32_t>>;
 using lockrecord = std::tuple<stype, stype, stype, uint64_t, segmentflags>;
 using lockrequest = std::vector<lockrecord>;
 using rc = std::pair<bool, std::variant<uint32_t, lockrecord>>;
+using rcrelaselock = std::pair<bool, lockrecord>;
 using rcgetlocklist = std::pair<
     bool,
     std::variant<std::string, std::vector<std::pair<uint32_t, lockrequest>>>>;
@@ -478,6 +479,100 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
                     returnjson["SegmentFlags"] = myarray;
 
+                    res.jsonValue["Record"] = returnjson;
+                    res.end();
+                    return;
+                }
+            }
+        });
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "POST"_method)([](const crow::Request &req, crow::Response &res) {
+            std::vector<uint32_t> listtransactionIDs;
+
+            if (!redfish::json_util::readJson(req, res, "TransactionIDs",
+                                              listtransactionIDs))
+            {
+                return;
+            }
+            BMCWEB_LOG_DEBUG << listtransactionIDs.size();
+            BMCWEB_LOG_DEBUG << "Data is present";
+
+            /*std::vector<uint32_t> transactionIDs;
+
+            for (auto e : body)
+            {
+                uint32_t requestid;
+                if (!redfish::json_util::readJson(e, res, "id", requestid))
+                {
+                    return;
+                }
+                requestids.push_back(requestid);
+            }
+            */
+            for (uint32_t i = 0; i < listtransactionIDs.size(); i++)
+            {
+                BMCWEB_LOG_DEBUG << listtransactionIDs[i];
+            }
+
+            std::string clientid = "hmc-id";
+            std::string sessionid = req.session->uniqueId;
+            // validate the request ids
+
+            bool status =
+                crow::ibm_mc_lock::lockobject.validaterids(&listtransactionIDs);
+
+            if (!status)
+            {
+                // Validation of rids failed
+                BMCWEB_LOG_DEBUG << "Not a Valid request id";
+                res.result(boost::beast::http::status::bad_request);
+                // res.jsonValue = {{"Record", {{"id","Atleast 1 Invalid id"}}},
+                //                       {"message", "msg"},
+                //                        {"status", "error"}};
+                res.end();
+                return;
+            }
+            else
+            {
+                // Validation passed, check if all the locks are owned by the
+                // requesting HMC
+                auto status = crow::ibm_mc_lock::lockobject.isitmylock(
+                    &listtransactionIDs, std::make_pair(clientid, sessionid));
+                if (status.first)
+                {
+                    // The current hmc owns all the locks, so we can release
+                    // them
+                    crow::ibm_mc_lock::lockobject.releaselock(
+                        &listtransactionIDs);
+                    res.result(boost::beast::http::status::ok);
+                    res.end();
+                    return;
+                }
+                else
+                {
+                    // valid rid, but the current hmc does not own all the locks
+                    BMCWEB_LOG_DEBUG
+                        << "Current HMC does not own all the locks";
+                    res.result(boost::beast::http::status::unauthorized);
+
+                    auto var = status.second;
+                    nlohmann::json returnjson, segments;
+                    nlohmann::json myarray = nlohmann::json::array();
+                    returnjson["SessionID"] = std::get<0>(var);
+                    returnjson["HMCID"] = std::get<1>(var);
+                    returnjson["LockType"] = std::get<2>(var);
+                    returnjson["ResourceID"] = std::get<3>(var);
+
+                    for (uint32_t i = 0; i < std::get<4>(var).size(); i++)
+                    {
+                        segments["LockFlag"] = std::get<4>(var)[i].first;
+                        segments["SegmentLength"] = std::get<4>(var)[i].second;
+                        myarray.push_back(segments);
+                    }
+
+                    returnjson["SegmentFlags"] = myarray;
                     res.jsonValue["Record"] = returnjson;
                     res.end();
                     return;
