@@ -41,7 +41,7 @@ class lock
     uint32_t transactionID;
     std::map<uint32_t, lockrequests> locktable;
 
-  private:
+  protected:
     lock()
     {
         loadLocks();
@@ -145,7 +145,8 @@ class lock
         return true;
     }
 
-    rcrelaselock isitmylock(std::vector<uint32_t> refrids,
+protected:
+    virtual rcrelaselock isitmylock(std::vector<uint32_t> refrids,
                             std::pair<stype, stype> ids)
     {
         for (auto i : refrids)
@@ -173,7 +174,7 @@ class lock
         return std::make_pair(true, std::make_pair(0, lockrequest()));
     }
 
-    bool validaterids(std::vector<uint32_t> refrids)
+    virtual bool validaterids(std::vector<uint32_t> refrids)
     {
         for (auto id : refrids)
         {
@@ -258,7 +259,7 @@ class lock
         return true;
     }
 
-    rc isconflictwithtable(lockrequests reflockrequeststructure)
+    virtual rc isconflictwithtable(lockrequests reflockrequeststructure)
     {
 
         uint32_t transactionID;
@@ -321,7 +322,7 @@ class lock
         return std::make_pair(false, transactionID);
     }
 
-    bool isconflictrequest(lockrequests reflockrequeststructure)
+    virtual bool isconflictrequest(lockrequests reflockrequeststructure)
     {
         // check for all the locks coming in as a part of single request
         // return conflict if any two lock requests are conflicting
@@ -465,7 +466,7 @@ class lock
         return false;
     }
 
-    uint32_t generateTransactionID()
+    virtual uint32_t generateTransactionID()
     {
         ++transactionID;
         return transactionID;
@@ -622,6 +623,11 @@ class lock
         }
 
         return std::make_pair(true, std::make_pair(true, 1));
+    }
+
+    virtual ~lock()
+    {
+
     }
 
 }; // namespace ibm_mc_lock
