@@ -1,5 +1,7 @@
 #pragma once
 
+#include <logging.h>
+
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/endian/conversion.hpp>
@@ -43,69 +45,6 @@ class Lock
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
     /*
-     * This function implements the logic for validating an incoming
-     * lock request/requests.
-     *
-     * Returns : True (if Valid)
-     * Returns : False (if not a Valid lock request)
-     */
-
-    bool isValidLockRequest(const LockRequest);
-
-    /*
-     * This function implements the logic of checking if the incoming
-     * multi-lock request is not having conflicting requirements.
-     *
-     * Returns : True (if conflicting)
-     * Returns : False (if not conflicting)
-     */
-
-    bool isConflictRequest(const LockRequests);
-    /*
-     * Implements the core algorithm to find the conflicting
-     * lock requests.
-     *
-     * This functions takes two lock requests and check if both
-     * are conflicting to each other.
-     *
-     * Returns : True (if conflicting)
-     * Returns : False (if not conflicting)
-     */
-    bool isConflictRecord(const LockRequest, const LockRequest);
-
-    /*
-     * This function implements the logic of checking the conflicting
-     * locks from a incoming single/multi lock requests with the already
-     * existing lock request in the lock table.
-     *
-     */
-
-    Rc isConflictWithTable(const LockRequests);
-    /*
-     * This function implements the logic of checking the ownership of the
-     * lock from the releaselock request.
-     *
-     * Returns : True (if the requesting HMC & Session owns the lock(s))
-     * Returns : False (if the request HMC or Session does not own the lock(s))
-     */
-
-    RcRelaseLock isItMyLock(const ListOfTransactionIds &, const SessionFlags &);
-
-    /*
-     * This function validates the the list of transactionID's and returns false
-     * if the transaction ID is not valid & not present in the lock table
-     */
-
-    bool validateRids(const ListOfTransactionIds &);
-
-    /*
-     * This function releases the locks that are already obtained by the
-     * requesting Management console.
-     */
-
-    void releaseLock(const ListOfTransactionIds &);
-
-    /*
      * This API implements the logic to persist the locks that are contained in
      * the lock table into a json file.
      */
@@ -116,6 +55,79 @@ class Lock
      * json file into the lock table.
      */
     void loadLocks();
+
+    bool createPersistentLockFilePath();
+
+  protected:
+    /*
+     * This function implements the logic for validating an incoming
+     * lock request/requests.
+     *
+     * Returns : True (if Valid)
+     * Returns : False (if not a Valid lock request)
+     */
+
+    virtual bool isValidLockRequest(const LockRequest);
+
+    /*
+     * This function implements the logic of checking if the incoming
+     * multi-lock request is not having conflicting requirements.
+     *
+     * Returns : True (if conflicting)
+     * Returns : False (if not conflicting)
+     */
+
+    virtual bool isConflictRequest(const LockRequests);
+    /*
+     * Implements the core algorithm to find the conflicting
+     * lock requests.
+     *
+     * This functions takes two lock requests and check if both
+     * are conflicting to each other.
+     *
+     * Returns : True (if conflicting)
+     * Returns : False (if not conflicting)
+     */
+    virtual bool isConflictRecord(const LockRequest, const LockRequest);
+
+    /*
+     * This function implements the logic of checking the conflicting
+     * locks from a incoming single/multi lock requests with the already
+     * existing lock request in the lock table.
+     *
+     */
+
+    virtual Rc isConflictWithTable(const LockRequests);
+    /*
+     * This function implements the logic of checking the ownership of the
+     * lock from the releaselock request.
+     *
+     * Returns : True (if the requesting HMC & Session owns the lock(s))
+     * Returns : False (if the request HMC or Session does not own the lock(s))
+     */
+
+    virtual RcRelaseLock isItMyLock(const ListOfTransactionIds &,
+                                    const SessionFlags &);
+
+    /*
+     * This function validates the the list of transactionID's and returns false
+     * if the transaction ID is not valid & not present in the lock table
+     */
+
+    virtual bool validateRids(const ListOfTransactionIds &);
+
+    /*
+     * This function releases the locks that are already obtained by the
+     * requesting Management console.
+     */
+
+    void releaseLock(const ListOfTransactionIds &);
+
+    Lock()
+    {
+        loadLocks();
+        transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
+    }
 
     /*
      * This function implements the algorithm for checking the respective
@@ -129,9 +141,7 @@ class Lock
      * number for every successful transaction. This number will be used by
      * the Management Console for debug.
      */
-    uint32_t generateTransactionId();
-
-    bool createPersistentLockFilePath();
+    virtual uint32_t generateTransactionId();
 
   public:
     /*
@@ -171,16 +181,14 @@ class Lock
 
     void releaseLock(const std::string &);
 
-    Lock()
-    {
-        loadLocks();
-        transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
-    }
-
     static Lock &getInstance()
     {
         static Lock lockObject;
         return lockObject;
+    }
+
+    virtual ~Lock()
+    {
     }
 };
 

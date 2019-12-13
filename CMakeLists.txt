@@ -288,6 +288,12 @@ if (NOT ${YOCTO_DEPENDENCIES})
     link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/.libs)
 endif ()
 
+# Its an Out of tree build,enabling ibm management console for
+# unit-test purpose.
+if (NOT ${YOCTO_DEPENDENCIES})
+    add_definitions(-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE)
+endif(NOT ${YOCTO_DEPENDENCIES})
+
 # Openssl
 find_package (OpenSSL REQUIRED)
 include_directories (SYSTEM ${OPENSSL_INCLUDE_DIR})
@@ -342,13 +348,9 @@ file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 # Unit Tests
 if (${BMCWEB_BUILD_UT})
-    set (UT_FILES src/crow_test.cpp src/gtest_main.cpp
-         src/token_authorization_middleware_test.cpp
-         src/security_headers_middleware_test.cpp src/webassets_test.cpp
-         src/crow_getroutes_test.cpp src/ast_jpeg_decoder_test.cpp
-         src/kvm_websocket_test.cpp src/msan_test.cpp
-         src/ast_video_puller_test.cpp src/openbmc_jtag_rest_test.cpp
+    set (UT_FILES src/gtest_main.cpp src/msan_test.cpp
          redfish-core/ut/privileges_test.cpp
+	 redfish-core/ut/lock_test.cpp
          ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
                                                       # strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
@@ -360,7 +362,6 @@ if (${BMCWEB_BUILD_UT})
     set_source_files_properties (${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
                                  PROPERTIES GENERATED TRUE)
     enable_testing ()
-
     add_executable (webtest ${SRC_FILES} ${UT_FILES})
 
     find_package (GTest REQUIRED)
