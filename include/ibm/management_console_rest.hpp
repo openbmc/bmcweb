@@ -19,10 +19,9 @@ using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
 using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
 using LockRequests = std::vector<LockRequest>;
 using Rc = std::pair<bool, std::variant<uint32_t, LockRequest>>;
-using RcGetLockList = std::pair<
-    bool,
-    std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>>;
-
+using RcGetLockList =
+    std::variant<std::string, std::vector<std::pair<uint32_t, LockRequests>>>;
+using ListOfSessionIds = std::vector<std::string>;
 namespace crow
 {
 namespace ibm_mc
@@ -474,6 +473,47 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     }
 }
 
+void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
+                          const ListOfSessionIds &listSessionIds)
+{
+    BMCWEB_LOG_DEBUG << listSessionIds.size();
+
+    auto status = crow::ibm_mc_lock::lockObject.getLockList(listSessionIds);
+    auto var = std::get<std::vector<std::pair<uint32_t, LockRequests>>>(status);
+
+    nlohmann::json lockRecords = nlohmann::json::array();
+
+    for (const auto &transactionId : var)
+    {
+        for (const auto &lockRecord : transactionId.second)
+        {
+            nlohmann::json returnJson;
+
+            returnJson["TransactionID"] = transactionId.first;
+            returnJson["SessionID"] = std::get<0>(lockRecord);
+            returnJson["HMCID"] = std::get<1>(lockRecord);
+            returnJson["LockType"] = std::get<2>(lockRecord);
+            returnJson["ResourceID"] = std::get<3>(lockRecord);
+
+            nlohmann::json segments;
+            nlohmann::json segmentInfoArray = nlohmann::json::array();
+
+            for (const auto &segment : std::get<4>(lockRecord))
+            {
+                segments["LockFlag"] = segment.first;
+                segments["SegmentLength"] = segment.second;
+                segmentInfoArray.push_back(segments);
+            }
+
+            returnJson["SegmentFlags"] = segmentInfoArray;
+            lockRecords.push_back(returnJson);
+        }
+    }
+    res.result(boost::beast::http::status::ok);
+    res.jsonValue["Records"] = lockRecords;
+    res.end();
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
 
@@ -553,6 +593,22 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
 
                 handleReleaseLockAPI(req, res, listTransactionIds);
+            });
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                ListOfSessionIds listSessionIds;
+
+                if (!redfish::json_util::readJson(req, res, "SessionIDs",
+                                                  listSessionIds))
+                {
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
+
+                handleGetLockListAPI(req, res, listSessionIds);
             });
 }
 
