@@ -99,6 +99,7 @@ int main(int argc, char** argv)
 
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
     crow::ibm_mc::requestRoutes(app);
+    crow::ibm_mc_lock::Lock::getInstance();
 #endif
 
     crow::token_authorization::requestRoutes(app);
