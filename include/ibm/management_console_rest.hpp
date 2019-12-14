@@ -335,7 +335,7 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
 
     const LockRequests &t = lockRequestStructure;
 
-    auto varAcquireLock = crow::ibm_mc_lock::lockObject.acquireLock(t);
+    auto varAcquireLock = crow::ibm_mc_lock::Lock::getInstance().acquireLock(t);
 
     if (varAcquireLock.first)
     {
@@ -422,7 +422,7 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     // validate the request ids
 
     const std::vector<uint32_t> &p = listTransactionIds;
-    auto varReleaselock = crow::ibm_mc_lock::lockObject.releaseLock(
+    auto varReleaselock = crow::ibm_mc_lock::Lock::getInstance().releaseLock(
         p, std::make_pair(clientId, sessionId));
 
     if (!varReleaselock.first)
@@ -480,7 +480,8 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
 {
     BMCWEB_LOG_DEBUG << listSessionIds.size();
 
-    auto status = crow::ibm_mc_lock::lockObject.getLockList(listSessionIds);
+    auto status =
+        crow::ibm_mc_lock::Lock::getInstance().getLockList(listSessionIds);
     if (status.first)
     {
         res.result(boost::beast::http::status::ok);
@@ -574,7 +575,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 std::vector<nlohmann::json> body;
-
                 if (!redfish::json_util::readJson(req, res, "Request", body))
                 {
                     BMCWEB_LOG_DEBUG << "Not a Valid JSON";
@@ -584,7 +584,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
                 handleAcquireLockAPI(req, res, body);
             });
-
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
@@ -598,7 +597,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     res.end();
                     return;
                 }
-
                 handleReleaseLockAPI(req, res, listTransactionIds);
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
@@ -614,7 +612,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     res.end();
                     return;
                 }
-
                 handleGetLockListAPI(req, res, listSessionIds);
             });
 }
