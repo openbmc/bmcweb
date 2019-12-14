@@ -1,7 +1,5 @@
 #pragma once
 
-#include <app.h>
-
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <filesystem>
@@ -165,15 +163,27 @@ class Lock
      */
     RcGetLockList getLockList(const ListOfSessionIds &);
 
+    /*
+     * This function is releases all the locks obtained by a particular
+     * session.
+     */
+
+    void releaseLock(const std::string &);
+
     Lock()
     {
         loadLocks();
         transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
     }
 
-} lockObject;
+    static Lock &getInstance()
+    {
+        static Lock lockObject;
+        return lockObject;
+    }
+};
 
-bool Lock::createPersistentLockFilePath()
+inline bool Lock::createPersistentLockFilePath()
 {
     // The path /var/lib/obmc will be created by initrdscripts
     // Create the directories for the persistent lock file
@@ -204,7 +214,7 @@ bool Lock::createPersistentLockFilePath()
     return true;
 }
 
-void Lock::loadLocks()
+inline void Lock::loadLocks()
 {
     std::ifstream persistentFile(fileName);
     if (persistentFile.is_open())
@@ -221,14 +231,14 @@ void Lock::loadLocks()
             BMCWEB_LOG_DEBUG << item.key();
             BMCWEB_LOG_DEBUG << item.value();
             LockRequests locks = item.value();
-            lockTable.insert(std::pair<uint32_t, LockRequests>(
+            lockTable.emplace(std::pair<uint32_t, LockRequests>(
                 std::stoul(item.key()), locks));
             BMCWEB_LOG_DEBUG << "The persistent lock data loaded";
         }
     }
 }
 
-void Lock::saveLocks()
+inline void Lock::saveLocks()
 {
     std::error_code ec;
     if (!std::filesystem::is_directory("/var/lib/obmc/bmc-console-mgmt/locks",
@@ -254,7 +264,7 @@ void Lock::saveLocks()
     persistentFile << data;
 }
 
-RcGetLockList Lock::getLockList(const ListOfSessionIds &listSessionId)
+inline RcGetLockList Lock::getLockList(const ListOfSessionIds &listSessionId)
 {
 
     std::vector<std::pair<uint32_t, LockRequests>> lockList;
@@ -287,8 +297,8 @@ RcGetLockList Lock::getLockList(const ListOfSessionIds &listSessionId)
     return lockList;
 }
 
-RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds &p,
-                                   const SessionFlags &ids)
+inline RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds &p,
+                                          const SessionFlags &ids)
 {
 
     bool status = validateRids(p);
@@ -315,7 +325,7 @@ RcReleaseLockApi Lock::releaseLock(const ListOfTransactionIds &p,
     return std::make_pair(false, status);
 }
 
-RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
+inline RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
 {
 
     // validate the lock request
@@ -355,7 +365,7 @@ RcAcquireLock Lock::acquireLock(const LockRequests lockRequestStructure)
     return std::make_pair(true, std::make_pair(true, 1));
 }
 
-void Lock::releaseLock(const ListOfTransactionIds &refRids)
+inline void Lock::releaseLock(const ListOfTransactionIds &refRids)
 {
     for (const auto &id : refRids)
     {
@@ -376,8 +386,39 @@ void Lock::releaseLock(const ListOfTransactionIds &refRids)
     saveLocks();
 }
 
-RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds &refRids,
-                              const SessionFlags &ids)
+inline void Lock::releaseLock(const std::string &sessionId)
+{
+    bool isErased = false;
+    if (!lockTable.empty())
+    {
+        auto it = lockTable.begin();
+        while (it != lockTable.end())
+        {
+            // Check if session id of this entry matches with session id
+            // given
+            if (std::get<0>(it->second[0]) == sessionId)
+            {
+                BMCWEB_LOG_DEBUG << "Remove the lock from the locktable "
+                                    "having sessionID="
+                                 << sessionId;
+                BMCWEB_LOG_DEBUG << "TransactionID =" << it->first;
+                it = lockTable.erase(it);
+                isErased = true;
+            }
+            else
+            {
+                it++;
+            }
+        }
+        if (isErased)
+        {
+            // save the lock in the persistent file
+            saveLocks();
+        }
+    }
+}
+inline RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds &refRids,
+                                     const SessionFlags &ids)
 {
     for (const auto &id : refRids)
     {
@@ -403,7 +444,7 @@ RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds &refRids,
     return std::make_pair(true, std::make_pair(0, LockRequest()));
 }
 
-bool Lock::validateRids(const ListOfTransactionIds &refRids)
+inline bool Lock::validateRids(const ListOfTransactionIds &refRids)
 {
     for (const auto &id : refRids)
     {
@@ -423,7 +464,7 @@ bool Lock::validateRids(const ListOfTransactionIds &refRids)
     return true;
 }
 
-bool Lock::isValidLockRequest(const LockRequest refLockRecord)
+inline bool Lock::isValidLockRequest(const LockRequest refLockRecord)
 {
 
     // validate the locktype
@@ -491,7 +532,7 @@ bool Lock::isValidLockRequest(const LockRequest refLockRecord)
     return true;
 }
 
-Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
+inline Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
 {
 
     uint32_t transactionId;
@@ -550,7 +591,7 @@ Rc Lock::isConflictWithTable(const LockRequests refLockRequestStructure)
     return std::make_pair(false, transactionId);
 }
 
-bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
+inline bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
 {
     // check for all the locks coming in as a part of single request
     // return conflict if any two lock requests are conflicting
@@ -596,8 +637,8 @@ bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
 // are same, then the last comparision would be to check for the respective
 // bytes in the resourceid based on the segment length.
 
-bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
-                     uint32_t position)
+inline bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
+                            uint32_t position)
 {
     uint8_t *p = reinterpret_cast<uint8_t *>(&resourceId1);
     uint8_t *q = reinterpret_cast<uint8_t *>(&resourceId2);
@@ -613,11 +654,12 @@ bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
     {
         return true;
     }
+
     return true;
 }
 
-bool Lock::isConflictRecord(const LockRequest refLockRecord1,
-                            const LockRequest refLockRecord2)
+inline bool Lock::isConflictRecord(const LockRequest refLockRecord1,
+                                   const LockRequest refLockRecord2)
 {
     // No conflict if both are read locks
 
@@ -687,7 +729,7 @@ bool Lock::isConflictRecord(const LockRequest refLockRecord1,
     return false;
 }
 
-uint32_t Lock::generateTransactionId()
+inline uint32_t Lock::generateTransactionId()
 {
     ++transactionId;
     return transactionId;
