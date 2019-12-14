@@ -163,6 +163,24 @@ void deleteConfigFiles(crow::Response &res)
     res.end();
 }
 
+void getLockServiceData(crow::Response &res)
+{
+    res.jsonValue["@odata.type"] = "#LockService.v1_0_0.LockService";
+    res.jsonValue["@odata.id"] = "/ibm/v1/HMC/LockService/";
+    res.jsonValue["@odata.context"] =
+        "/ibm/v1/$metadata#LockService.LockService";
+    res.jsonValue["Id"] = "LockService";
+    res.jsonValue["Name"] = "LockService";
+
+    res.jsonValue["Actions"]["#LockService.AcquireLock"] = {
+        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.AcquireLock"}};
+    res.jsonValue["Actions"]["#LockService.ReleaseLock"] = {
+        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock"}};
+    res.jsonValue["Actions"]["#LockService.GetLockList"] = {
+        {"target", "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList"}};
+    res.end();
+}
+
 void handleFileGet(crow::Response &res, const std::string &fileID)
 {
     BMCWEB_LOG_DEBUG << "HandleGet on SaveArea files on path: " << fileID;
@@ -286,6 +304,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("PUT"_method, "GET"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) { handleFileUrl(req, res, path); });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("GET"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                getLockServiceData(res);
+            });
 }
 
 } // namespace openbmc_ibm_mc
