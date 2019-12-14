@@ -343,7 +343,8 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
     for (auto i : lockrequeststructure)
     {
         const lockrequest &j = i;
-        bool status = crow::ibm_mc_lock::lockobject.isvalidlockrequest(j);
+        bool status =
+            crow::ibm_mc_lock::lock::getInstance().isvalidlockrequest(j);
         if (!status)
         {
             BMCWEB_LOG_DEBUG << "Not a Valid record";
@@ -357,7 +358,7 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
     // check for conflict record
 
     const lockrequests &k = lockrequeststructure;
-    bool status = crow::ibm_mc_lock::lockobject.isconflictrequest(k);
+    bool status = crow::ibm_mc_lock::lock::getInstance().isconflictrequest(k);
 
     if (status)
     {
@@ -372,7 +373,8 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
 
         // Need to check for conflict with the locktable entries.
 
-        auto status = crow::ibm_mc_lock::lockobject.isconflictwithtable(k);
+        auto status =
+            crow::ibm_mc_lock::lock::getInstance().isconflictwithtable(k);
 
         if (!status.first)
         {
@@ -430,8 +432,8 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     std::string sessionid = req.session->uniqueId;
     // validate the request ids
 
-    bool status =
-        crow::ibm_mc_lock::lockobject.validaterids(&listtransactionIDs);
+    bool status = crow::ibm_mc_lock::lock::getInstance().validaterids(
+        &listtransactionIDs);
 
     if (!status)
     {
@@ -445,13 +447,14 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     {
         // Validation passed, check if all the locks are owned by the
         // requesting HMC
-        auto status = crow::ibm_mc_lock::lockobject.isitmylock(
+        auto status = crow::ibm_mc_lock::lock::getInstance().isitmylock(
             &listtransactionIDs, std::make_pair(clientid, sessionid));
         if (status.first)
         {
             // The current hmc owns all the locks, so we can release
             // them
-            crow::ibm_mc_lock::lockobject.releaselock(&listtransactionIDs);
+            crow::ibm_mc_lock::lock::getInstance().releaselock(
+                &listtransactionIDs);
             res.result(boost::beast::http::status::ok);
             res.end();
             return;
@@ -493,7 +496,8 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
     BMCWEB_LOG_DEBUG << "Data is present";
     std::string sessionid;
 
-    auto status = crow::ibm_mc_lock::lockobject.getlocklist(listSessionIDs);
+    auto status =
+        crow::ibm_mc_lock::lock::getInstance().getlocklist(listSessionIDs);
     if (status.first)
     {
         res.result(boost::beast::http::status::ok);
@@ -589,7 +593,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 std::vector<nlohmann::json> body;
-
                 if (!redfish::json_util::readJson(req, res, "Request", body))
                 {
                     BMCWEB_LOG_DEBUG << "Not a Valid JSON";
@@ -599,7 +602,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
                 handleAcquireLockAPI(req, res, body);
             });
-
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
@@ -608,6 +610,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
                 if (!redfish::json_util::readJson(req, res, "TransactionIDs",
                                                   listtransactionIDs))
+
                 {
                     res.result(boost::beast::http::status::bad_request);
                     res.end();
@@ -620,7 +623,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 std::vector<std::string> listSessionIDs;
-
                 if (!redfish::json_util::readJson(req, res, "SessionIDs",
                                                   listSessionIDs))
                 {
@@ -628,7 +630,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     res.end();
                     return;
                 }
-
                 handleGetLockListAPI(req, res, listSessionIDs);
             });
 }
