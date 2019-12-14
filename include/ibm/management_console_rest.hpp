@@ -336,12 +336,12 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
 
     const lockrequests &t = lockrequeststructure;
 
-    auto var_acquirelock = crow::ibm_mc_lock::lockobject.Acquirelock(t);
+    auto var_acquirelock =
+        crow::ibm_mc_lock::lock::getInstance().Acquirelock(t);
 
     if (var_acquirelock.first)
     {
         // Either validity failure of there is a conflict with itself
-
         auto validity_status =
             std::get<std::pair<bool, int>>(var_acquirelock.second);
 
@@ -421,9 +421,8 @@ void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
     std::string sessionid = req.session->uniqueId;
 
     // validate the request ids
-
     const std::vector<uint32_t> &p = listtransactionIDs;
-    auto var_releaselock = crow::ibm_mc_lock::lockobject.Releaselock(
+    auto var_releaselock = crow::ibm_mc_lock::lock::getInstance().Releaselock(
         p, std::make_pair(clientid, sessionid));
 
     if (!var_releaselock.first)
@@ -481,7 +480,8 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
 {
     BMCWEB_LOG_DEBUG << listSessionIDs.size();
 
-    auto status = crow::ibm_mc_lock::lockobject.getlocklist(listSessionIDs);
+    auto status =
+        crow::ibm_mc_lock::lock::getInstance().getlocklist(listSessionIDs);
     if (status.first)
     {
         res.result(boost::beast::http::status::ok);
@@ -575,7 +575,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 std::vector<nlohmann::json> body;
-
                 if (!redfish::json_util::readJson(req, res, "Request", body))
                 {
                     BMCWEB_LOG_DEBUG << "Not a Valid JSON";
@@ -585,7 +584,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
                 handleAcquireLockAPI(req, res, body);
             });
-
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
@@ -594,6 +592,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
                 if (!redfish::json_util::readJson(req, res, "TransactionIDs",
                                                   listtransactionIDs))
+
                 {
                     res.result(boost::beast::http::status::bad_request);
                     res.end();
@@ -606,7 +605,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
                 std::vector<std::string> listSessionIDs;
-
                 if (!redfish::json_util::readJson(req, res, "SessionIDs",
                                                   listSessionIDs))
                 {
@@ -614,7 +612,6 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                     res.end();
                     return;
                 }
-
                 handleGetLockListAPI(req, res, listSessionIDs);
             });
 }
