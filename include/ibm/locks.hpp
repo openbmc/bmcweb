@@ -1,7 +1,5 @@
 #pragma once
 
-#include <app.h>
-
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <filesystem>
@@ -40,6 +38,7 @@ static constexpr const char *fileName =
 
 class Lock
 {
+  private:
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
@@ -165,13 +164,25 @@ class Lock
      */
     RcGetLockList getLockList(const ListOfSessionIds &);
 
+    /*
+     * This function is releases all the locks obtained by a particular
+     * session.
+     */
+
+    void releaseLock(const std::string &);
+
     Lock()
     {
         loadLocks();
         transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
     }
 
-} lockObject;
+    static Lock &getInstance()
+    {
+        static Lock lockObject;
+        return lockObject;
+    }
+};
 
 bool Lock::createPersistentLockFilePath()
 {
@@ -221,7 +232,7 @@ void Lock::loadLocks()
             BMCWEB_LOG_DEBUG << item.key();
             BMCWEB_LOG_DEBUG << item.value();
             LockRequests locks = item.value();
-            lockTable.insert(std::pair<uint32_t, LockRequests>(
+            lockTable.emplace(std::pair<uint32_t, LockRequests>(
                 std::stoul(item.key()), locks));
             BMCWEB_LOG_DEBUG << "The persistent lock data loaded";
         }
@@ -376,6 +387,37 @@ void Lock::releaseLock(const ListOfTransactionIds &refRids)
     saveLocks();
 }
 
+void Lock::releaseLock(const std::string &sessionId)
+{
+    bool isErased = false;
+    if (!lockTable.empty())
+    {
+        auto it = lockTable.begin();
+        while (it != lockTable.end())
+        {
+            // Check if session id of this entry matches with session id
+            // given
+            if (std::get<0>(it->second[0]) == sessionId)
+            {
+                BMCWEB_LOG_DEBUG << "Remove the lock from the locktable "
+                                    "having sessionID="
+                                 << sessionId;
+                BMCWEB_LOG_DEBUG << "TransactionID =" << it->first;
+                it = lockTable.erase(it);
+                isErased = true;
+                // save the lock in the persistent file
+            }
+            else
+            {
+                it++;
+            }
+        }
+        if (isErased)
+        {
+            saveLocks();
+        }
+    }
+}
 RcRelaseLock Lock::isItMyLock(const ListOfTransactionIds &refRids,
                               const SessionFlags &ids)
 {
@@ -613,6 +655,7 @@ bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
     {
         return true;
     }
+
     return true;
 }
 
