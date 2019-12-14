@@ -88,6 +88,12 @@ option (
     The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect."
     ON
 )
+option (
+    BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    "Enable the IBMs management console specific functionalities"
+    OFF
+)
+
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -392,6 +398,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE}>:
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
+    $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
+    -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
 )
 
 # configure and install systemd unit files
