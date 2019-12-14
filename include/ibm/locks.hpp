@@ -1,7 +1,5 @@
 #pragma once
 
-#include <app.h>
-
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_map.hpp>
 #include <filesystem>
@@ -40,6 +38,7 @@ static constexpr const char *fileName =
 
 class Lock
 {
+  private:
     uint32_t transactionId;
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
@@ -171,7 +170,12 @@ class Lock
         transactionId = lockTable.empty() ? 0 : prev(lockTable.end())->first;
     }
 
-} lockObject;
+    static Lock &getInstance()
+    {
+        static Lock lockObject;
+        return lockObject;
+    }
+};
 
 bool Lock::createPersistentLockFilePath()
 {
@@ -221,7 +225,7 @@ void Lock::loadLocks()
             BMCWEB_LOG_DEBUG << item.key();
             BMCWEB_LOG_DEBUG << item.value();
             LockRequests locks = item.value();
-            lockTable.insert(std::pair<uint32_t, LockRequests>(
+            lockTable.emplace(std::pair<uint32_t, LockRequests>(
                 std::stoul(item.key()), locks));
             BMCWEB_LOG_DEBUG << "The persistent lock data loaded";
         }
@@ -588,6 +592,31 @@ bool Lock::isConflictRequest(const LockRequests refLockRequestStructure)
     return false;
 }
 
+/*
+ * This function releases the locks that are already obtained by the
+ * requesting Management console.
+ */
+
+void Lock::releaseLock(const ListOfTransactionIds &refRids)
+{
+    for (const auto &id : refRids)
+    {
+        if (lockTable.erase(id))
+        {
+            BMCWEB_LOG_DEBUG << "Removing the locks with transaction ID : "
+                             << id;
+        }
+
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Removing the locks from the lock table "
+                                "failed, tranasction ID: "
+                             << id;
+        }
+    }
+    saveLocks();
+}
+
 // This function converts the provided uint64_t resource id's from the two
 // lock requests subjected for comparision, and this function also compares
 // the content by bytes mentioned by a uint32_t number.
@@ -613,6 +642,7 @@ bool Lock::checkByte(uint64_t resourceId1, uint64_t resourceId2,
     {
         return true;
     }
+
     return true;
 }
 
