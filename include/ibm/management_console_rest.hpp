@@ -99,7 +99,6 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
             "File size exceeds 200KB. Maximum allowed size is 200KB";
         return;
     }
-
     BMCWEB_LOG_DEBUG << "Creating file " << loc;
     file.open(loc, std::ofstream::out);
     if (file.fail())
@@ -115,8 +114,51 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
         BMCWEB_LOG_DEBUG << "save-area file is created";
         res.jsonValue["Description"] = "File Created";
     }
+}
 
-    return;
+void handleConfigFileList(crow::Response &res)
+{
+    std::vector<std::string> pathObjList;
+    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
+    {
+        for (const auto &file : std::filesystem::directory_iterator(loc))
+        {
+            std::filesystem::path pathObj(file.path());
+            pathObjList.push_back("/ibm/v1/Host/ConfigFiles/" +
+                                  pathObj.filename().string());
+        }
+    }
+    res.jsonValue["@odata.type"] = "#FileCollection.v1_0_0.FileCollection";
+    res.jsonValue["@odata.id"] = "/ibm/v1/Host/ConfigFiles/";
+    res.jsonValue["Id"] = "ConfigFiles";
+    res.jsonValue["Name"] = "ConfigFiles";
+
+    res.jsonValue["Members"] = std::move(pathObjList);
+    res.jsonValue["Actions"]["#FileCollection.DeleteAll"] = {
+        {"target",
+         "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll"}};
+    res.end();
+}
+
+void deleteConfigFiles(crow::Response &res)
+{
+    std::vector<std::string> pathObjList;
+    std::error_code ec;
+    std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+    if (std::filesystem::exists(loc) && std::filesystem::is_directory(loc))
+    {
+        std::filesystem::remove_all(loc, ec);
+        if (ec)
+        {
+            res.result(boost::beast::http::status::internal_server_error);
+            res.jsonValue["Description"] = internalServerError;
+            BMCWEB_LOG_DEBUG << "deleteConfigFiles: Failed to delete the "
+                                "config files directory. ec : "
+                             << ec;
+        }
+    }
+    res.end();
 }
 
 void handleFileGet(crow::Response &res, const std::string &fileID)
@@ -219,6 +261,21 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 {"@odata.id", "/ibm/v1/HMC/LockService"}};
             res.end();
         });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("GET"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                handleConfigFileList(res);
+            });
+
+    BMCWEB_ROUTE(app,
+                 "/ibm/v1/Host/ConfigFiles/Actions/FileCollection.DeleteAll")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res) {
+                deleteConfigFiles(res);
+            });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
