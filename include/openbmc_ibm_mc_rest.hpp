@@ -401,8 +401,9 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
             for (uint32_t i = 0; i < lockrequeststructure.size(); i++)
             {
-                bool status = crow::ibm_mc_lock::lockobject.isvalidlockrecord(
-                    &lockrequeststructure[i]);
+                bool status =
+                    crow::ibm_mc_lock::lock::getInstance().isvalidlockrecord(
+                        &lockrequeststructure[i]);
 
                 if (!status)
                 {
@@ -416,8 +417,9 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
             // check for conflict record
 
-            bool status = crow::ibm_mc_lock::lockobject.isconflictrequest(
-                &lockrequeststructure);
+            bool status =
+                crow::ibm_mc_lock::lock::getInstance().isconflictrequest(
+                    &lockrequeststructure);
 
             if (status)
             {
@@ -433,12 +435,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 
                 // Need to check for conflict with the locktable entries.
 
-                auto status = crow::ibm_mc_lock::lockobject.isconflictwithtable(
-                    &lockrequeststructure);
+                auto status =
+                    crow::ibm_mc_lock::lock::getInstance().isconflictwithtable(
+                        &lockrequeststructure);
 
                 // print my map
 
-                // lockobject.printmymap();
+                // crow::ibm_mc_lock::lock::getInstance().printmymap();
 
                 if (!status.first)
                 {
@@ -521,8 +524,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             std::string sessionid = req.session->uniqueId;
             // validate the request ids
 
-            bool status =
-                crow::ibm_mc_lock::lockobject.validaterids(&listtransactionIDs);
+            bool status = crow::ibm_mc_lock::lock::getInstance().validaterids(
+                &listtransactionIDs);
 
             if (!status)
             {
@@ -539,13 +542,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             {
                 // Validation passed, check if all the locks are owned by the
                 // requesting HMC
-                auto status = crow::ibm_mc_lock::lockobject.isitmylock(
+                auto status = crow::ibm_mc_lock::lock::getInstance().isitmylock(
                     &listtransactionIDs, std::make_pair(clientid, sessionid));
                 if (status.first)
                 {
                     // The current hmc owns all the locks, so we can release
                     // them
-                    crow::ibm_mc_lock::lockobject.releaselock(
+                    crow::ibm_mc_lock::lock::getInstance().releaselock(
                         &listtransactionIDs);
                     res.result(boost::beast::http::status::ok);
                     res.end();
@@ -604,8 +607,8 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             // check if the given session ids are present
             // in the lock table
 
-            auto status =
-                crow::ibm_mc_lock::lockobject.getlocklist(listSessionIDs);
+            auto status = crow::ibm_mc_lock::lock::getInstance().getlocklist(
+                listSessionIDs);
             if (status.first)
             {
                 res.result(boost::beast::http::status::ok);
