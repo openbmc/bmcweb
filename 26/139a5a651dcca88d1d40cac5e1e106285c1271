@@ -1,0 +1,10 @@
+Code-Review+1: Zbigniew Lukwinski <zbigniew.lukwinski@linux.intel.com>
+Code-Review+1: Maciej Jusza
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Submitted-by: Zbigniew Kurzynski <zbigniew.kurzynski@intel.com>
+Submitted-at: Mon, 16 Dec 2019 08:15:11 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/27881
+Project: openbmc/bmcweb
+Branch: refs/heads/master
