@@ -129,6 +129,11 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                 jsonPtr = &helper;
             }
         }
+        if (jsonPtr == nullptr)
+        {
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
+            return false;
+        }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
             return false;
@@ -141,6 +146,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
         int64_t* jsonPtr = jsonValue.get_ptr<int64_t*>();
         if (jsonPtr == nullptr)
         {
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
             return false;
         }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
@@ -156,6 +162,7 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (jsonPtr == nullptr)
         {
+            messages::propertyValueTypeError(res, jsonValue.dump(), key);
             return false;
         }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
