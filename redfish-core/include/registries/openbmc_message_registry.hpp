@@ -1254,7 +1254,7 @@ constexpr std::array<MessageEntry, 143> registry = {
                  {
                      "Indicates an error in power supply configuration.",
                      "Power supply %1 configuration error.",
-                     "Critical",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -1264,7 +1264,7 @@ constexpr std::array<MessageEntry, 143> registry = {
         {
             "Indicates that the specified power supply fan has failed.",
             "Power supply %1 fan %2 failed.",
-            "Critical",
+            "Warning",
             2,
             {"string", "string"},
             "None.",
@@ -1283,7 +1283,7 @@ constexpr std::array<MessageEntry, 143> registry = {
                  {
                      "Indicates that a power supply has failed.",
                      "Power supply %1 failed.",
-                     "Critical",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
@@ -1321,7 +1321,7 @@ constexpr std::array<MessageEntry, 143> registry = {
                  {
                      "Indicates that a power supply has lost input power.",
                      "Power supply %1 power lost.",
-                     "Critical",
+                     "Warning",
                      1,
                      {"string"},
                      "None.",
