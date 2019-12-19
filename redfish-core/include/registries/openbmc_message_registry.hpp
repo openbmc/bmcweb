@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 143> registry = {
+constexpr std::array<MessageEntry, 144> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -1259,6 +1259,17 @@ constexpr std::array<MessageEntry, 143> registry = {
                      {"string"},
                      "None.",
                  }},
+    MessageEntry{
+        "PowerSupplyConfigurationErrorRecovered",
+        {
+            "Indicates that power supply configuration error recovered "
+            "from a failure.",
+            "Power supply %1 configuration error recovered.",
+            "OK",
+            1,
+            {"string"},
+            "None.",
+        }},
     MessageEntry{
         "PowerSupplyFanFailed",
         {
