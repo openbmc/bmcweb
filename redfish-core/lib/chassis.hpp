@@ -16,6 +16,7 @@
 #pragma once
 
 #include "health.hpp"
+#include "led.hpp"
 #include "node.hpp"
 
 #include <boost/container/flat_map.hpp>
@@ -264,10 +265,7 @@ class Chassis : public Node
         crow::connections::systemBus->async_method_call(
             [asyncResp, chassisId(std::string(chassisId))](
                 const boost::system::error_code ec,
-                const std::vector<std::pair<
-                    std::string, std::vector<std::pair<
-                                     std::string, std::vector<std::string>>>>>
-                    &subtree) {
+                const crow::openbmc_mapper::GetSubTreeType &subtree) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -316,9 +314,7 @@ class Chassis : public Node
 
                     if (connectionNames.size() < 1)
                     {
-                        BMCWEB_LOG_ERROR << "Only got "
-                                         << connectionNames.size()
-                                         << " Connection names";
+                        BMCWEB_LOG_ERROR << "Got 0 Connection names";
                         continue;
                     }
 
@@ -336,6 +332,23 @@ class Chassis : public Node
 
                     const std::string &connectionName =
                         connectionNames[0].first;
+
+                    const std::vector<std::string> &interfaces =
+                        connectionNames[0].second;
+                    const std::array<const char *, 2> hasIndicatorLed = {
+                        "xyz.openbmc_project.Inventory.Item.Panel",
+                        "xyz.openbmc_project.Inventory.Item.Board.Motherboard"};
+
+                    for (const char *interface : hasIndicatorLed)
+                    {
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      interface) != interfaces.end())
+                        {
+                            getIndicatorLedState(asyncResp);
+                            break;
+                        }
+                    }
+
                     crow::connections::systemBus->async_method_call(
                         [asyncResp, chassisId(std::string(chassisId))](
                             const boost::system::error_code ec,
@@ -403,6 +416,108 @@ class Chassis : public Node
             "/xyz/openbmc_project/inventory", 0, interfaces);
 
         getPhysicalSecurityData(asyncResp);
+    }
+
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        std::optional<std::string> indicatorLed;
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            return;
+        }
+
+        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed))
+        {
+            return;
+        }
+
+        if (!indicatorLed)
+        {
+            return; // delete this when we support more patch properties
+        }
+
+        const std::array<const char *, 2> interfaces = {
+            "xyz.openbmc_project.Inventory.Item.Board",
+            "xyz.openbmc_project.Inventory.Item.Chassis"};
+
+        const std::string &chassisId = params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, chassisId, indicatorLed](
+                const boost::system::error_code ec,
+                const crow::openbmc_mapper::GetSubTreeType &subtree) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                // Iterate over all retrieved ObjectPaths.
+                for (const std::pair<
+                         std::string,
+                         std::vector<
+                             std::pair<std::string, std::vector<std::string>>>>
+                         &object : subtree)
+                {
+                    const std::string &path = object.first;
+                    const std::vector<
+                        std::pair<std::string, std::vector<std::string>>>
+                        &connectionNames = object.second;
+
+                    if (!boost::ends_with(path, chassisId))
+                    {
+                        continue;
+                    }
+
+                    if (connectionNames.size() < 1)
+                    {
+                        BMCWEB_LOG_ERROR << "Got 0 Connection names";
+                        continue;
+                    }
+
+                    const std::vector<std::string> &interfaces =
+                        connectionNames[0].second;
+
+                    if (indicatorLed)
+                    {
+                        const std::array<const char *, 2> hasIndicatorLed = {
+                            "xyz.openbmc_project.Inventory.Item.Panel",
+                            "xyz.openbmc_project.Inventory.Item.Board."
+                            "Motherboard"};
+                        bool indicatorChassis = false;
+                        for (const char *interface : hasIndicatorLed)
+                        {
+                            if (std::find(interfaces.begin(), interfaces.end(),
+                                          interface) != interfaces.end())
+                            {
+                                indicatorChassis = true;
+                                break;
+                            }
+                        }
+                        if (indicatorChassis)
+                        {
+                            setIndicatorLedState(asyncResp,
+                                                 std::move(*indicatorLed));
+                        }
+                        else
+                        {
+                            messages::propertyUnknown(asyncResp->res,
+                                                      "IndicatorLED");
+                        }
+                    }
+                    return;
+                }
+
+                messages::resourceNotFound(
+                    asyncResp->res, "#Chassis.v1_10_0.Chassis", chassisId);
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/inventory", 0, interfaces);
     }
 };
 } // namespace redfish
