@@ -722,11 +722,12 @@ constexpr std::array<MessageEntry, 152> registry = {
                  }},
     MessageEntry{"MemoryThermTrip",
                  {
-                     "Indicates that the system memory ThermTrip is asserted.",
-                     "Memory ThermTrip asserted.",
+                     "Indicates that the system memory ThermTrip is asserted "
+                     "by the specified component.",
+                     "Memory ThermTrip asserted: %1.",
                      "Critical",
-                     0,
-                     {},
+                     1,
+                     {"string"},
                      "None.",
                  }},
     MessageEntry{"MirroringRedundancyDegraded",
