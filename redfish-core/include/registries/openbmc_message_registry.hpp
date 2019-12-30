@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 144> registry = {
+constexpr std::array<MessageEntry, 145> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -300,6 +300,16 @@ constexpr std::array<MessageEntry, 144> registry = {
                      "trip has been asserted.",
                      "CPU %1 Thermal Trip.",
                      "Critical",
+                     1,
+                     {"number"},
+                     "None.",
+                 }},
+    MessageEntry{"CPUThermalTripDeAssert",
+                 {
+                     "Indicates that the specified CPU thermal "
+                     "trip has been deasserted.",
+                     "CPU %1 Thermal Trip deassert.",
+                     "OK",
                      1,
                      {"number"},
                      "None.",
