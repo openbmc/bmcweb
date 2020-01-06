@@ -566,10 +566,14 @@ class SoftwareInventoryCollection : public Node
                         members.size();
                 }
             },
+            // Note that only firmware levels associated with a device are
+            // stored under /xyz/openbmc_project/software therefore to ensure
+            // only real FirmwareInventory items are returned, this full object
+            // path must be used here as input to mapper
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/",
-            static_cast<int32_t>(0),
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/software", static_cast<int32_t>(0),
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Software.Version"});
     }
