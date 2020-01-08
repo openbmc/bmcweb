@@ -97,6 +97,7 @@ struct EthernetInterfaceData
     bool NTPEnabled;
     bool HostNameEnabled;
     bool SendHostNameEnabled;
+    bool linkUp;
     std::string DHCPEnabled;
     std::string operatingMode;
     std::string hostname;
@@ -263,6 +264,15 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                             if (speed != nullptr)
                             {
                                 ethData.speed = *speed;
+                            }
+                        }
+                        else if (propertyPair.first == "LinkUp")
+                        {
+                            const bool *linkUp =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (linkUp != nullptr)
+                            {
+                                ethData.linkUp = *linkUp;
                             }
                         }
                         else if (propertyPair.first == "Nameservers")
@@ -1616,7 +1626,6 @@ class EthernetInterface : public Node
         json_response["InterfaceEnabled"] = true;
         if (ethData.speed == 0)
         {
-            json_response["LinkStatus"] = "NoLink";
             json_response["Status"] = {
                 {"Health", "OK"},
                 {"State", "Disabled"},
@@ -1624,12 +1633,13 @@ class EthernetInterface : public Node
         }
         else
         {
-            json_response["LinkStatus"] = "LinkUp";
             json_response["Status"] = {
                 {"Health", "OK"},
                 {"State", "Enabled"},
             };
         }
+
+        json_response["LinkStatus"] = ethData.linkUp ? "LinkUp" : "LinkDown";
         json_response["SpeedMbps"] = ethData.speed;
         json_response["MACAddress"] = ethData.mac_address;
         json_response["DHCPv4"]["DHCPEnabled"] =
