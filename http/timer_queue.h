@@ -45,12 +45,15 @@ class TimerQueue
         while (!dq.empty())
         {
             auto& x = dq.front();
-            if (now - x.first < std::chrono::seconds(5))
-            {
-                break;
-            }
+            // Check expiration time only for active handlers,
+            // remove canceled ones immediately
             if (x.second)
             {
+                if (now - x.first < std::chrono::seconds(5))
+                {
+                    break;
+                }
+
                 BMCWEB_LOG_DEBUG << "timer call: " << this << ' ' << step;
                 // we know that timer handlers are very simple currenty; call
                 // here

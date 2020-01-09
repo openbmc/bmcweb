@@ -833,16 +833,30 @@ class Connection : public std::enable_shared_from_this<
     {
         cancelDeadlineTimer();
 
-        timerCancelKey = timerQueue.add([this, self(shared_from_this())] {
-            // Mark timer as not active to avoid canceling it during
-            // Connection destructor which leads to double free issue
-            timerCancelKey.reset();
-            if (!isAlive())
-            {
-                return;
-            }
-            close();
-        });
+        timerCancelKey =
+            timerQueue.add([this, self(shared_from_this()),
+                            readCount{parser->get().body().size()}] {
+                // Mark timer as not active to avoid canceling it during
+                // Connection destructor which leads to double free issue
+                timerCancelKey.reset();
+                if (!isAlive())
+                {
+                    return;
+                }
+
+                // Restart timer if read is in progress.
+                // With threshold can be used to drop slow connections
+                // to protect against slow-rate DoS attack
+                if (parser->get().body().size() > readCount)
+                {
+                    BMCWEB_LOG_DEBUG << this
+                                     << " restart timer - read in progress";
+                    startDeadline();
+                    return;
+                }
+
+                close();
+            });
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
                          << *timerCancelKey;
     }
