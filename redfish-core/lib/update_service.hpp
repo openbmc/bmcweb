@@ -331,7 +331,13 @@ class UpdateService : public Node
             {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+
+        // Default clearCOnfig is 'False'
+        clearCfg = false;
     }
+
+    // Flag to hold the ClearConfig property
+    bool clearCfg;
 
   private:
     void doGet(crow::Response &res, const crow::Request &req,
@@ -395,6 +401,9 @@ class UpdateService : public Node
             "/xyz/openbmc_project/software/apply_time",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
+
+        // Get the ApplyOptions value
+        aResp->res.jsonValue["Oem"]["ApplyOptions"]["ClearConfig"] = clearCfg;
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -405,10 +414,39 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
-                                 pushUriOptions))
+        std::optional<nlohmann::json> oemProps;
+        if (!json_util::readJson(req, res, "HttpPushUriOptions", pushUriOptions,
+                                 "Oem", oemProps))
         {
+            BMCWEB_LOG_DEBUG << "UpdateService doPatch: Invalid request body";
             return;
+        }
+
+        if (oemProps)
+        {
+            std::optional<nlohmann::json> applyOptions;
+
+            if (!json_util::readJson(*oemProps, res, "ApplyOptions",
+                                     applyOptions))
+            {
+                return;
+            }
+
+            if (applyOptions)
+            {
+                std::optional<bool> clearConfig;
+                if (!json_util::readJson(*applyOptions, res, "ClearConfig",
+                                         clearConfig))
+                {
+                    return;
+                }
+
+                if (clearConfig)
+                {
+                    // Set the requested ClearConfig value
+                    clearCfg = *clearConfig;
+                }
+            }
         }
 
         if (pushUriOptions)
