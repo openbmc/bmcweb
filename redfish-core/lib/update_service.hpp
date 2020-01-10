@@ -37,9 +37,26 @@ static void cleanUp()
     fwUpdateMatcher = nullptr;
 }
 static void activateImage(const std::string &objPath,
-                          const std::string &service)
+                          const std::string &service, bool clearConfig = false)
 {
     BMCWEB_LOG_DEBUG << "Activate image for " << objPath << " " << service;
+
+    if (clearConfig)
+    {
+        crow::connections::systemBus->async_method_call(
+            [](const boost::system::error_code error_code) {
+                if (error_code)
+                {
+                    BMCWEB_LOG_DEBUG << "error_code = " << error_code;
+                    BMCWEB_LOG_DEBUG << "error msg = " << error_code.message();
+                }
+            },
+            service, objPath, "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Software.ApplyOptions", "ClearConfig",
+            std::variant<bool>(clearConfig));
+        return;
+    }
+
     crow::connections::systemBus->async_method_call(
         [](const boost::system::error_code error_code) {
             if (error_code)
@@ -59,7 +76,8 @@ static void activateImage(const std::string &objPath,
 // then no asyncResp updates will occur
 static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                    sdbusplus::message::message &m,
-                                   const crow::Request &req)
+                                   const crow::Request &req,
+                                   bool clearConfig = false)
 {
     std::vector<std::pair<
         std::string,
@@ -82,10 +100,10 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 
             // Retrieve service and activate
             crow::connections::systemBus->async_method_call(
-                [objPath, asyncResp,
-                 req](const boost::system::error_code error_code,
-                      const std::vector<std::pair<
-                          std::string, std::vector<std::string>>> &objInfo) {
+                [objPath, asyncResp, req, clearConfig](
+                    const boost::system::error_code error_code,
+                    const std::vector<std::pair<
+                        std::string, std::vector<std::string>>> &objInfo) {
                     if (error_code)
                     {
                         BMCWEB_LOG_DEBUG << "error_code = " << error_code;
@@ -115,7 +133,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                     // is added
                     fwAvailableTimer = nullptr;
 
-                    activateImage(objPath.str, objInfo[0].first);
+                    activateImage(objPath.str, objInfo[0].first, clearConfig);
                     if (asyncResp)
                     {
                         std::shared_ptr<task::TaskData> task =
@@ -255,7 +273,8 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
 // then no asyncResp updates will occur
 static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
                                         const crow::Request &req,
-                                        int timeoutTimeSeconds = 5)
+                                        int timeoutTimeSeconds = 5,
+                                        bool clearConfig = false)
 {
     // Only allow one FW update at a time
     if (fwUpdateInProgress != false)
@@ -295,9 +314,10 @@ static void monitorForSoftwareAvailable(std::shared_ptr<AsyncResp> asyncResp,
             }
         });
 
-    auto callback = [asyncResp, req](sdbusplus::message::message &m) {
+    auto callback = [asyncResp, req,
+                     clearConfig](sdbusplus::message::message &m) {
         BMCWEB_LOG_DEBUG << "Match fired";
-        softwareInterfaceAdded(asyncResp, m, req);
+        softwareInterfaceAdded(asyncResp, m, req, clearConfig);
     };
 
     fwUpdateInProgress = true;
@@ -452,7 +472,13 @@ class UpdateService : public Node
             {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+
+        // Default clearCOnfig is 'False'
+        clearCfg = false;
     }
+
+    // Flag to hold the ClearConfig property
+    bool clearCfg;
 
   private:
     void doGet(crow::Response &res, const crow::Request &req,
@@ -514,6 +540,9 @@ class UpdateService : public Node
             "/xyz/openbmc_project/software/apply_time",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
+
+        // Get the ApplyOptions value
+        aResp->res.jsonValue["Oem"]["ApplyOptions"]["ClearConfig"] = clearCfg;
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -524,10 +553,39 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
-                                 pushUriOptions))
+        std::optional<nlohmann::json> oemProps;
+        if (!json_util::readJson(req, res, "HttpPushUriOptions", pushUriOptions,
+                                 "Oem", oemProps))
         {
+            BMCWEB_LOG_DEBUG << "UpdateService doPatch: Invalid request body";
             return;
+        }
+
+        if (oemProps)
+        {
+            std::optional<nlohmann::json> applyOptions;
+
+            if (!json_util::readJson(*oemProps, res, "ApplyOptions",
+                                     applyOptions))
+            {
+                return;
+            }
+
+            if (applyOptions)
+            {
+                std::optional<bool> clearConfig;
+                if (!json_util::readJson(*applyOptions, res, "ClearConfig",
+                                         clearConfig))
+                {
+                    return;
+                }
+
+                if (clearConfig)
+                {
+                    // Set the requested ClearConfig value
+                    clearCfg = *clearConfig;
+                }
+            }
         }
 
         if (pushUriOptions)
@@ -604,7 +662,7 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         // Setup callback for when new software detected
-        monitorForSoftwareAvailable(asyncResp, req);
+        monitorForSoftwareAvailable(asyncResp, req, this->clearCfg);
 
         std::string filepath(
             "/tmp/images/" +
