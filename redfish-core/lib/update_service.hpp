@@ -395,6 +395,29 @@ class UpdateService : public Node
             "/xyz/openbmc_project/software/apply_time",
             "org.freedesktop.DBus.Properties", "Get",
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
+
+        // Get the ApplyOptions value
+        crow::connections::systemBus->async_method_call(
+            [aResp](const boost::system::error_code ec,
+                    const std::variant<bool> &applyOption) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    messages::internalError(aResp->res);
+                    return;
+                }
+
+                const bool *b = std::get_if<bool>(&applyOption);
+
+                if (b)
+                {
+                    aResp->res.jsonValue["Oem"]["ApplyOptions"]["ClearConfig"] =
+                        *b;
+                }
+            },
+            "xyz.openbmc_project.Software.BMC.Updater",
+            "/xyz/openbmc_project/software", "org.freedesktop.DBus.Properties",
+            "Get", "xyz.openbmc_project.Software.ApplyOptions", "ClearConfig");
     }
 
     void doPatch(crow::Response &res, const crow::Request &req,
@@ -405,10 +428,54 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
         std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
-                                 pushUriOptions))
+        std::optional<nlohmann::json> oemProps;
+        if (!json_util::readJson(req, res, "HttpPushUriOptions", pushUriOptions,
+                                 "Oem", oemProps))
         {
+            BMCWEB_LOG_DEBUG << "UpdateService doPatch: Invalid request body";
             return;
+        }
+
+        if (oemProps)
+        {
+            std::optional<nlohmann::json> applyOptions;
+
+            if (!json_util::readJson(*oemProps, res, "ApplyOptions",
+                                     applyOptions))
+            {
+                return;
+            }
+
+            if (applyOptions)
+            {
+                std::optional<bool> clearConfig;
+                if (!json_util::readJson(*applyOptions, res, "ClearConfig",
+                                         clearConfig))
+                {
+                    return;
+                }
+
+                if (clearConfig)
+                {
+                    // Set the requested image apply time value
+                    crow::connections::systemBus->async_method_call(
+                        [asyncResp](const boost::system::error_code ec) {
+                            if (ec)
+                            {
+                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
+                                                 << ec;
+                                messages::internalError(asyncResp->res);
+                                return;
+                            }
+                            messages::success(asyncResp->res);
+                        },
+                        "xyz.openbmc_project.Software.BMC.Updater",
+                        "/xyz/openbmc_project/software",
+                        "org.freedesktop.DBus.Properties", "Set",
+                        "xyz.openbmc_project.Software.ApplyOptions",
+                        "ClearConfig", std::variant<bool>{*clearConfig});
+                }
+            }
         }
 
         if (pushUriOptions)
