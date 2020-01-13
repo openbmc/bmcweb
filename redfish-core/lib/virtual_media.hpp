@@ -347,10 +347,13 @@ class VirtualMediaActionInsertMedia : public Node
                                 {
                                     // Legacy mode
                                     std::string imageUrl;
+                                    bool writeProtected;
 
                                     // Read obligatory paramters (url of image)
-                                    if (!json_util::readJson(req, aResp->res,
-                                                             "Image", imageUrl))
+                                    if (!json_util::readJson(
+                                            req, aResp->res, "Image", imageUrl,
+                                            "WriteProtected", writeProtected))
+
                                     {
                                         BMCWEB_LOG_DEBUG
                                             << "Image is not provided";
@@ -371,8 +374,9 @@ class VirtualMediaActionInsertMedia : public Node
 
                                     // manager is irrelevant for VirtualMedia
                                     // dbus calls
-                                    doVmAction(std::move(aResp), service,
-                                               resName, true, imageUrl);
+                                    doMountVmLegacy(std::move(aResp), service,
+                                                    resName, imageUrl,
+                                                    !writeProtected);
 
                                     return;
                                 }
@@ -396,42 +400,25 @@ class VirtualMediaActionInsertMedia : public Node
      *
      * All BMC state properties will be retrieved before sending reset request.
      */
-    void doVmAction(std::shared_ptr<AsyncResp> asyncResp,
-                    const std::string &service, const std::string &name,
-                    bool legacy, const std::string &imageUrl)
+    void doMountVmLegacy(std::shared_ptr<AsyncResp> asyncResp,
+                         const std::string &service, const std::string &name,
+                         const std::string &imageUrl, const bool rw)
     {
-
-        // Legacy mount requires parameter with image
-        if (legacy)
-        {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-                        messages::internalError(asyncResp->res);
-
-                        return;
-                    }
-                },
-                service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-                "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl);
-        }
-        else // proxy
-        {
-            crow::connections::systemBus->async_method_call(
-                [asyncResp](const boost::system::error_code ec) {
-                    if (ec)
-                    {
-                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
-                        messages::internalError(asyncResp->res);
-
-                        return;
-                    }
-                },
-                service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
-                "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
-        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec, bool success) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+                    messages::internalError(asyncResp->res);
+                }
+                else if (!success)
+                {
+                    BMCWEB_LOG_ERROR << "Service responded with error";
+                    messages::generalError(asyncResp->res);
+                }
+            },
+            service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
+            "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw);
     }
 };
 
