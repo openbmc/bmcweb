@@ -939,7 +939,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe ACS Violation Error.",
 
                      "PCIe Fatal ACS Violation. Bus=%1 Device=%2 Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -954,7 +954,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe Atomic Egress Blocked Error.",
                      "PCIe Fatal Atomic Egress Blocked. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -970,7 +970,7 @@ constexpr std::array<MessageEntry, 152> registry = {
             "Indicates a PCIe Completer Abort Error.",
 
             "PCIe Fatal Completer Abort. Bus=%1 Device=%2 Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -986,7 +986,7 @@ constexpr std::array<MessageEntry, 152> registry = {
             "Indicates a PCIe Completion Timeout Error.",
 
             "PCIe Fatal Completion Timeout. Bus=%1 Device=%2 Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1003,7 +1003,7 @@ constexpr std::array<MessageEntry, 152> registry = {
 
             "PCIe Fatal Data Link Layer Protocol Error. Bus=%1 Device=%2 "
             "Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1017,7 +1017,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                  {
                      "Indicates a PCIe ECRC Error.",
                      "PCIe Fatal ECRC Error. Bus=%1 Device=%2 Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1033,7 +1033,7 @@ constexpr std::array<MessageEntry, 152> registry = {
 
                      "PCIe Fatal Flow Control Protocol Error. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1049,7 +1049,7 @@ constexpr std::array<MessageEntry, 152> registry = {
             "Indicates a PCIe Malformed TLP Error.",
 
             "PCIe Fatal Malformed TLP Error. Bus=%1 Device=%2 Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1064,7 +1064,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe MC Blocked TLP Error.",
                      "PCIe Fatal MC Blocked TLP Error. Bus=%1 "
                      "Device=%2 Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1080,7 +1080,7 @@ constexpr std::array<MessageEntry, 152> registry = {
             "Indicates a PCIe Poisoned TLP Error.",
 
             "PCIe Fatal Poisoned TLP Error. Bus=%1 Device=%2 Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1095,7 +1095,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe Receiver Buffer Overflow Error.",
                      "PCIe Fatal Receiver Buffer Overflow. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1112,7 +1112,7 @@ constexpr std::array<MessageEntry, 152> registry = {
 
             "PCIe Fatal Received ERR_NONFATAL Message. Bus=%1 Device=%2 "
             "Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1129,7 +1129,7 @@ constexpr std::array<MessageEntry, 152> registry = {
 
                      "PCIe Fatal Received Fatal Message From Downstream. "
                      "Bus=%1 Device=%2 Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1144,7 +1144,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe Surprise Link Down Error.",
                      "PCIe Fatal Surprise Link Down Error. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1159,7 +1159,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe TLP Prefix Blocked Error.",
                      "PCIe Fatal TLP Prefix Blocked Error. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1176,7 +1176,7 @@ constexpr std::array<MessageEntry, 152> registry = {
 
             "PCIe Fatal Uncorrectable Internal Error. Bus=%1 Device=%2 "
             "Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1191,7 +1191,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe Unexpected Completion Error.",
                      "PCIe Fatal Unexpected Completion. Bus=%1 Device=%2 "
                      "Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1206,7 +1206,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates a PCIe Unspecified Non-AER Fatal Error.",
                      "PCIe Fatal Unspecified Non-AER Fatal Error. Bus=%1 "
                      "Device=%2 Function=%3.",
-                     "Error",
+                     "Critical",
                      3,
 
                      {
@@ -1222,7 +1222,7 @@ constexpr std::array<MessageEntry, 152> registry = {
             "Indicates a PCIe Unsupported Request Error.",
 
             "PCIe Fatal Unsupported Request. Bus=%1 Device=%2 Function=%3.",
-            "Error",
+            "Critical",
             3,
 
             {
@@ -1422,7 +1422,7 @@ constexpr std::array<MessageEntry, 152> registry = {
                      "Indicates that power unit do not have sufficient "
                      "power to support redundancy.",
                      "Power Unit NonRedundant and has insufficient resource.",
-                     "Error",
+                     "Critical",
                      0,
                      {},
                      "None.",
