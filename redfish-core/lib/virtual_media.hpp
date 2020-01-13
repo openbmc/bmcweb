@@ -16,6 +16,8 @@
 #pragma once
 
 #include <boost/container/flat_map.hpp>
+#include <boost/process/async_pipe.hpp>
+#include <boost/type_traits/has_dereference.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
 // for GetObjectType and ManagedObjectType
@@ -347,13 +349,15 @@ class VirtualMediaActionInsertMedia : public Node
                                 if (lastIndex != std::string::npos)
                                 {
                                     // Legacy mode
-                                    std::string imageUrl;
+                                    std::string imageUrl, userName, password;
                                     bool writeProtected;
 
                                     // Read obligatory paramters (url of image)
                                     if (!json_util::readJson(
                                             req, aResp->res, "Image", imageUrl,
-                                            "WriteProtected", writeProtected))
+                                            "WriteProtected", writeProtected,
+                                            "UserName", userName, "Password",
+                                            password))
 
                                     {
                                         BMCWEB_LOG_DEBUG
@@ -377,7 +381,9 @@ class VirtualMediaActionInsertMedia : public Node
                                     // dbus calls
                                     doMountVmLegacy(std::move(aResp), service,
                                                     resName, imageUrl,
-                                                    !writeProtected);
+                                                    !writeProtected,
+                                                    std::move(userName),
+                                                    std::move(password));
 
                                     return;
                                 }
@@ -396,6 +402,155 @@ class VirtualMediaActionInsertMedia : public Node
             "/xyz/openbmc_project/VirtualMedia", std::array<const char *, 0>());
     }
 
+    template <typename T> static void secureCleanup(T &value)
+    {
+        auto raw = const_cast<typename T::value_type *>(&value[0]);
+        explicit_bzero(raw, value.size() * sizeof(*raw));
+    }
+
+    class Credentials
+    {
+      public:
+        Credentials(std::string &&user, std::string &&password) :
+            userBuf(std::move(user)), passBuf(std::move(password))
+        {
+        }
+
+        ~Credentials()
+        {
+            secureCleanup(userBuf);
+            secureCleanup(passBuf);
+        }
+
+        const std::string &user()
+        {
+            return userBuf;
+        }
+
+        const std::string &password()
+        {
+            return passBuf;
+        }
+
+      private:
+        Credentials() = delete;
+        Credentials(const Credentials &) = delete;
+        Credentials &operator=(const Credentials &) = delete;
+
+        std::string userBuf;
+        std::string passBuf;
+    };
+
+    class CredentialsProvider
+    {
+      public:
+        template <typename T> struct Deleter
+        {
+            void operator()(T *buff) const
+            {
+                if (buff)
+                {
+                    secureCleanup(*buff);
+                    delete buff;
+                }
+            }
+        };
+
+        using Buffer = std::vector<char>;
+        using SecureBuffer = std::unique_ptr<Buffer, Deleter<Buffer>>;
+        // Using explicit definition instead of std::function to avoid implicit
+        // conversions eg. stack copy instead of reference
+        using FormatterFunc = void(const std::string &username,
+                                   const std::string &password, Buffer &dest);
+
+        CredentialsProvider(std::string &&user, std::string &&password) :
+            credentials(std::move(user), std::move(password))
+        {
+        }
+
+        const std::string &user()
+        {
+            return credentials.user();
+        }
+
+        const std::string &password()
+        {
+            return credentials.password();
+        }
+
+        SecureBuffer pack(const FormatterFunc formatter)
+        {
+            SecureBuffer packed{new Buffer{}};
+            if (formatter)
+            {
+                formatter(credentials.user(), credentials.password(), *packed);
+            }
+            return packed;
+        }
+
+      private:
+        Credentials credentials;
+    };
+
+    // Wrapper for boost::async_pipe ensuring proper pipe cleanup
+    template <typename Buffer> class NamedPipe
+    {
+      public:
+        using unix_fd = sdbusplus::message::unix_fd;
+
+        NamedPipe(boost::asio::io_context &io, const std::string name,
+                  Buffer &&buffer) :
+            name(name),
+            impl(io, name), buffer{std::move(buffer)}
+        {
+        }
+
+        ~NamedPipe()
+        {
+            // Named pipe needs to be explicitly removed
+            impl.close();
+            ::unlink(name.c_str());
+        }
+
+        unix_fd fd()
+        {
+            return unix_fd{impl.native_sink()};
+        }
+
+        const std::string &file()
+        {
+            return name;
+        }
+
+        template <typename WriteHandler>
+        void async_write(WriteHandler &&handler)
+        {
+            impl.async_write_some(data(), std::forward<WriteHandler>(handler));
+        }
+
+      private:
+        // Specialization for pointer types
+        template <typename B = Buffer>
+        typename std::enable_if<boost::has_dereference<B>::value,
+                                boost::asio::const_buffer>::type
+            data()
+        {
+            return boost::asio::buffer(*buffer);
+        }
+
+        template <typename B = Buffer>
+        typename std::enable_if<!boost::has_dereference<B>::value,
+                                boost::asio::const_buffer>::type
+            data()
+        {
+            return boost::asio::buffer(buffer);
+        }
+
+        const std::string name;
+        boost::process::async_pipe impl;
+        Buffer buffer;
+    };
+
     /**
      * @brief Function transceives data with dbus directly.
      *
@@ -403,10 +558,61 @@ class VirtualMediaActionInsertMedia : public Node
      */
     void doMountVmLegacy(std::shared_ptr<AsyncResp> asyncResp,
                          const std::string &service, const std::string &name,
-                         const std::string &imageUrl, const bool rw)
+                         const std::string &imageUrl, const bool rw,
+                         std::string &&userName, std::string &&password)
     {
+        using SecurePipe = NamedPipe<CredentialsProvider::SecureBuffer>;
+        constexpr const size_t SECRET_LIMIT = 1024;
+
+        std::shared_ptr<SecurePipe> secretPipe;
+        std::variant<int, SecurePipe::unix_fd> unixFd = -1;
+
+        if (!userName.empty() || !password.empty())
+        {
+            // Encapsulate in safe buffer
+            CredentialsProvider credentials(std::move(userName),
+                                            std::move(password));
+
+            // Payload must contain data + NULL delimiters
+            if (credentials.user().size() + credentials.password().size() + 2 >
+                SECRET_LIMIT)
+            {
+                BMCWEB_LOG_ERROR << "Credentials too long to handle";
+                messages::unrecognizedRequestBody(asyncResp->res);
+                return;
+            }
+
+            // Pack secret
+            auto secret = credentials.pack([](const auto &user,
+                                              const auto &pass, auto &buff) {
+                std::copy(user.begin(), user.end(), std::back_inserter(buff));
+                buff.push_back('\0');
+                std::copy(pass.begin(), pass.end(), std::back_inserter(buff));
+                buff.push_back('\0');
+            });
+
+            // Open pipe
+            secretPipe = std::make_shared<SecurePipe>(
+                crow::connections::systemBus->get_io_context(),
+                fs::temp_directory_path() / std::tmpnam(nullptr),
+                std::move(secret));
+            unixFd = secretPipe->fd();
+
+            // Pass secret over pipe
+            secretPipe->async_write(
+                [asyncResp](const boost::system::error_code &ec,
+                            std::size_t size) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to pass secret: " << ec;
+                        messages::internalError(asyncResp->res);
+                    }
+                });
+        }
+
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec, bool success) {
+            [asyncResp, secretPipe](const boost::system::error_code ec,
+                                    bool success) {
                 if (ec)
                 {
                     BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
@@ -419,7 +625,8 @@ class VirtualMediaActionInsertMedia : public Node
                 }
             },
             service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
-            "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw);
+            "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw,
+            unixFd);
     }
 };
 
