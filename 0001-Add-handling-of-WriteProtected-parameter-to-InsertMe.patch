@@ -1,0 +1,123 @@
+From f7668a0e3722ef555f89c54994de6bbb904f6a83 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Adrian=20Ambro=C5=BCewicz?=
+ <adrian.ambrozewicz@linux.intel.com>
+Date: Mon, 13 Jan 2020 18:31:01 +0100
+Subject: [PATCH] Add handling of WriteProtected parameter to InsertMedia
+ action.
+
+As continuation for VirtualMedia Redfish support, this patch adds
+handling and passing WriteProtected parameter to Virtual Media
+'Mount' D-Bus call.
+
+WriteProtected parameter determines Read-Only mode for both
+USB Gadget and NBD stack.
+
+Tested:
+Manual and automated tests on WilsonCity platform:
+- mounting and unmounting images over CIFS and HTTPS (single, multiple
+  at the same time etc)
+- positive and negative tests for D-Bus calls
+- ensuring proper information is exposed on D-Bus
+
+Signed-off-by: Agata Olender <agata.olender@intel.com>
+Change-Id: I5920c389785f5568754803f3c4989c188f9e0826
+---
+ redfish-core/lib/virtual_media.hpp | 65 ++++++++++++------------------
+ 1 file changed, 26 insertions(+), 39 deletions(-)
+
+diff --git a/redfish-core/lib/virtual_media.hpp b/redfish-core/lib/virtual_media.hpp
+index f95e91d..7ef7237 100644
+--- a/redfish-core/lib/virtual_media.hpp
++++ b/redfish-core/lib/virtual_media.hpp
+@@ -348,10 +348,13 @@ class VirtualMediaActionInsertMedia : public Node
+                                 {
+                                     // Legacy mode
+                                     std::string imageUrl;
++                                    bool writeProtected;
+ 
+                                     // Read obligatory paramters (url of image)
+-                                    if (!json_util::readJson(req, aResp->res,
+-                                                             "Image", imageUrl))
++                                    if (!json_util::readJson(
++                                            req, aResp->res, "Image", imageUrl,
++                                            "WriteProtected", writeProtected))
++
+                                     {
+                                         BMCWEB_LOG_DEBUG
+                                             << "Image is not provided";
+@@ -372,8 +375,9 @@ class VirtualMediaActionInsertMedia : public Node
+ 
+                                     // manager is irrelevant for VirtualMedia
+                                     // dbus calls
+-                                    doVmAction(std::move(aResp), service,
+-                                               resName, true, imageUrl);
++                                    doMountVmLegacy(std::move(aResp), service,
++                                                    resName, imageUrl,
++                                                    !writeProtected);
+ 
+                                     return;
+                                 }
+@@ -397,42 +401,25 @@ class VirtualMediaActionInsertMedia : public Node
+      *
+      * All BMC state properties will be retrieved before sending reset request.
+      */
+-    void doVmAction(std::shared_ptr<AsyncResp> asyncResp,
+-                    const std::string &service, const std::string &name,
+-                    bool legacy, const std::string &imageUrl)
++    void doMountVmLegacy(std::shared_ptr<AsyncResp> asyncResp,
++                         const std::string &service, const std::string &name,
++                         const std::string &imageUrl, const bool rw)
+     {
+-
+-        // Legacy mount requires parameter with image
+-        if (legacy)
+-        {
+-            crow::connections::systemBus->async_method_call(
+-                [asyncResp](const boost::system::error_code ec) {
+-                    if (ec)
+-                    {
+-                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+-                        messages::internalError(asyncResp->res);
+-
+-                        return;
+-                    }
+-                },
+-                service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
+-                "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl);
+-        }
+-        else // proxy
+-        {
+-            crow::connections::systemBus->async_method_call(
+-                [asyncResp](const boost::system::error_code ec) {
+-                    if (ec)
+-                    {
+-                        BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
+-                        messages::internalError(asyncResp->res);
+-
+-                        return;
+-                    }
+-                },
+-                service, "/xyz/openbmc_project/VirtualMedia/Proxy/" + name,
+-                "xyz.openbmc_project.VirtualMedia.Proxy", "Mount");
+-        }
++        crow::connections::systemBus->async_method_call(
++            [asyncResp](const boost::system::error_code ec, bool success) {
++                if (ec)
++                {
++                    BMCWEB_LOG_ERROR << "Bad D-Bus request error: " << ec;
++                    messages::internalError(asyncResp->res);
++                }
++                else if (!success)
++                {
++                    BMCWEB_LOG_ERROR << "Service responded with error";
++                    messages::generalError(asyncResp->res);
++                }
++            },
++            service, "/xyz/openbmc_project/VirtualMedia/Legacy/" + name,
++            "xyz.openbmc_project.VirtualMedia.Legacy", "Mount", imageUrl, rw);
+     }
+ };
+ 
+-- 
+2.17.1
+
