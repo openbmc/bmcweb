@@ -138,7 +138,7 @@ class Middleware
 
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 
-        if (!pamAuthenticateUser(user, pass))
+        if (pamAuthenticateUser(user, pass) != PAM_SUCCESS)
         {
             return nullptr;
         }
@@ -395,7 +395,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
-                if (!pamAuthenticateUser(username, password))
+                if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
                 {
                     res.result(boost::beast::http::status::unauthorized);
                 }

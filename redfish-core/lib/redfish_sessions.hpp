@@ -196,7 +196,7 @@ class SessionCollection : public Node
             return;
         }
 
-        if (!pamAuthenticateUser(username, password))
+        if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
