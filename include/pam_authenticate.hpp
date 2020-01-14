@@ -47,8 +47,13 @@ inline int pamFunctionConversation(int numMsg, const struct pam_message** msg,
     return PAM_SUCCESS;
 }
 
-inline bool pamAuthenticateUser(const std::string_view username,
-                                const std::string_view password)
+/**
+ * @brief Attempt username/password authentication via PAM.
+ * @param username The provided username aka account name.
+ * @param password The provided password.
+ * @returns PAM error code or PAM_SUCCESS for success. */
+inline int pamAuthenticateUser(const std::string_view username,
+                               const std::string_view password)
 {
     std::string userStr(username);
     std::string passStr(password);
@@ -56,34 +61,30 @@ inline bool pamAuthenticateUser(const std::string_view username,
         pamFunctionConversation, const_cast<char*>(passStr.c_str())};
     pam_handle_t* localAuthHandle = nullptr; // this gets set by pam_start
 
-    if (pam_start("webserver", userStr.c_str(), &localConversation,
-                  &localAuthHandle) != PAM_SUCCESS)
-    {
-        return false;
-    }
-    int retval = pam_authenticate(localAuthHandle,
-                                  PAM_SILENT | PAM_DISALLOW_NULL_AUTHTOK);
-
+    int retval = pam_start("webserver", userStr.c_str(), &localConversation,
+                           &localAuthHandle);
     if (retval != PAM_SUCCESS)
     {
-        pam_end(localAuthHandle, PAM_SUCCESS);
-        return false;
+        return retval;
+    }
+
+    retval = pam_authenticate(localAuthHandle,
+                              PAM_SILENT | PAM_DISALLOW_NULL_AUTHTOK);
+    if (retval != PAM_SUCCESS)
+    {
+        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
+        return retval;
     }
 
     /* check that the account is healthy */
-    if (pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK) !=
-        PAM_SUCCESS)
+    retval = pam_acct_mgmt(localAuthHandle, PAM_DISALLOW_NULL_AUTHTOK);
+    if (retval != PAM_SUCCESS)
     {
-        pam_end(localAuthHandle, PAM_SUCCESS);
-        return false;
+        pam_end(localAuthHandle, PAM_SUCCESS); // ignore retval
+        return retval;
     }
 
-    if (pam_end(localAuthHandle, PAM_SUCCESS) != PAM_SUCCESS)
-    {
-        return false;
-    }
-
-    return true;
+    return pam_end(localAuthHandle, PAM_SUCCESS);
 }
 
 inline int pamUpdatePassword(const std::string& username,
