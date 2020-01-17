@@ -1928,52 +1928,31 @@ class SendRawPECI : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         std::vector<std::vector<uint8_t>> peciCommands;
 
-        nlohmann::json reqJson =
-            nlohmann::json::parse(req.body, nullptr, false);
-        if (reqJson.find("PECICommands") != reqJson.end())
+        if (!json_util::readJson(req, res, "PECICommands", peciCommands))
         {
-            if (!json_util::readJson(req, res, "PECICommands", peciCommands))
-            {
-                return;
-            }
-            uint32_t idx = 0;
-            for (auto const &cmd : peciCommands)
-            {
-                if (cmd.size() < 3)
-                {
-                    std::string s("[");
-                    for (auto const &val : cmd)
-                    {
-                        if (val != *cmd.begin())
-                        {
-                            s += ",";
-                        }
-                        s += std::to_string(val);
-                    }
-                    s += "]";
-                    messages::actionParameterValueFormatError(
-                        res, s, "PECICommands[" + std::to_string(idx) + "]",
-                        "SendRawPeci");
-                    return;
-                }
-                idx++;
-            }
+            return;
         }
-        else
+        uint32_t idx = 0;
+        for (auto const &cmd : peciCommands)
         {
-            /* This interface is deprecated */
-            uint8_t clientAddress = 0;
-            uint8_t readLength = 0;
-            std::vector<uint8_t> peciCommand;
-            if (!json_util::readJson(req, res, "ClientAddress", clientAddress,
-                                     "ReadLength", readLength, "PECICommand",
-                                     peciCommand))
+            if (cmd.size() < 3)
             {
+                std::string s("[");
+                for (auto const &val : cmd)
+                {
+                    if (val != *cmd.begin())
+                    {
+                        s += ",";
+                    }
+                    s += std::to_string(val);
+                }
+                s += "]";
+                messages::actionParameterValueFormatError(
+                    res, s, "PECICommands[" + std::to_string(idx) + "]",
+                    "SendRawPeci");
                 return;
             }
-            peciCommands.push_back({clientAddress, 0, readLength});
-            peciCommands[0].insert(peciCommands[0].end(), peciCommand.begin(),
-                                   peciCommand.end());
+            idx++;
         }
         // Callback to return the Raw PECI response
         auto sendRawPECICallback =
