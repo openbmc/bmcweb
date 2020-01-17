@@ -20,6 +20,7 @@
 #include <utils/json_utils.hpp>
 // for GetObjectType and ManagedObjectType
 #include <account_service.hpp>
+#include <cstring>
 
 namespace redfish
 
@@ -68,6 +69,7 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
         return;
     }
 
+    BMCWEB_LOG_DEBUG << "All necessary information has been found";
     const std::string *endpointIdValue =
         std::get_if<std::string>(&endpointIdProperty->second);
     if (endpointIdValue)
@@ -94,11 +96,36 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
                     std::get_if<std::string>(&imageUrlProperty->second);
                 if (imageUrlValue && !imageUrlValue->empty())
                 {
-                    aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    size_t index = (*imageUrlValue).rfind("/");
+                    if (index == std::string::npos)
+                    {
+                        aResp->res.jsonValue["ImageName"] = *imageUrlValue;
+                    }
+                    else
+                    {
+                        aResp->res.jsonValue["ImageName"] =
+                            (*imageUrlValue).substr(index + 1);
+                    }
+                    aResp->res.jsonValue["Image"] = *imageUrlValue;
                     aResp->res.jsonValue["Inserted"] = *activeValue;
                     if (*activeValue == true)
                     {
                         aResp->res.jsonValue["ConnectedVia"] = "URI";
+                    }
+
+                    // looking for protocol type suffix
+                    index = (*imageUrlValue).find("://");
+                    if (index == std::string::npos)
+                    {
+                        // malformedParameter
+                    }
+                    else if (strncmp((*imageUrlValue).substr(0, index).c_str(), "https", sizeof("https")) == 0)
+                    {
+                        aResp->res.jsonValue["TransferProtocolType"] = "HTTPS";
+                    }
+                    else if (strncmp((*imageUrlValue).substr(0, index).c_str(), "smb", sizeof("smb")) == 0)
+                    {
+                        aResp->res.jsonValue["TransferProtocolType"] = "CIFS";
                     }
                 }
             }
@@ -193,6 +220,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
 
                 return;
             }
+            BMCWEB_LOG_DEBUG << "Start";
 
             for (auto &item : subtree)
             {
@@ -221,6 +249,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
                         resName + "/Actions/VirtualMedia.InsertMedia";
                 }
 
+                BMCWEB_LOG_DEBUG << "before vmParseInterfaceObject";
                 vmParseInterfaceObject(item.second, aResp);
 
                 aResp->res.jsonValue["Actions"]["#VirtualMedia.EjectMedia"]
