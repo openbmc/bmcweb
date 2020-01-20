@@ -43,7 +43,7 @@ class Lock
     boost::container::flat_map<uint32_t, LockRequests> lockTable;
 
     /*
-     * This function implements the logic for validating an incomming
+     * This function implements the logic for validating an incoming
      * lock request/requests.
      *
      * Returns : True (if Valid)
@@ -53,7 +53,7 @@ class Lock
     bool isValidLockRequest(const LockRequest);
 
     /*
-     * This function implements the logic of checking if the incomming
+     * This function implements the logic of checking if the incoming
      * multi-lock request is not having conflicting requirements.
      *
      * Returns : True (if conflicting)
@@ -75,7 +75,7 @@ class Lock
 
     /*
      * This function implements the logic of checking the conflicting
-     * locks from a incomming single/multi lock requests with the already
+     * locks from a incoming single/multi lock requests with the already
      * existing lock request in the lock table.
      *
      */
@@ -136,7 +136,7 @@ class Lock
   public:
     /*
      * This function implements the logic for acquiring a lock on a
-     * resource if the incomming request is legitimate without any
+     * resource if the incoming request is legitimate without any
      * conflicting requirements & without any conflicting requirement
      * with the exsiting locks in the lock table.
      *
