@@ -145,9 +145,9 @@ class lock
         return true;
     }
 
-protected:
+  protected:
     virtual rcrelaselock isitmylock(std::vector<uint32_t> refrids,
-                            std::pair<stype, stype> ids)
+                                    std::pair<stype, stype> ids)
     {
         for (auto i : refrids)
         {
@@ -198,7 +198,7 @@ protected:
     {
         for (auto i : refrids)
         {
-            locktable.erase(refrids[i]);
+            locktable.erase(i);
         }
         saveLocks();
     }
@@ -627,7 +627,6 @@ protected:
 
     virtual ~lock()
     {
-
     }
 
 }; // namespace ibm_mc_lock
