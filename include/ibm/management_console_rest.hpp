@@ -405,6 +405,15 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
         }
     }
 }
+void handleRelaseAllApi(const crow::Request &req, crow::Response &res)
+{
+
+    std::string sessionid = req.session->uniqueId;
+    crow::ibm_mc_lock::Lock::getInstance().releaseLock(sessionid);
+    res.result(boost::beast::http::status::ok);
+    res.end();
+    return;
+}
 
 void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
                           const std::vector<uint32_t> &listTransactionIds)
@@ -587,16 +596,33 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
             [](const crow::Request &req, crow::Response &res) {
+                std::string type;
                 std::vector<uint32_t> listTransactionIds;
 
-                if (!redfish::json_util::readJson(req, res, "TransactionIDs",
+                if (!redfish::json_util::readJson(req, res, "Type", type,
+                                                  "TransactionIDs",
                                                   listTransactionIds))
+
                 {
                     res.result(boost::beast::http::status::bad_request);
                     res.end();
                     return;
                 }
-                handleReleaseLockAPI(req, res, listTransactionIds);
+                if (type == "Transaction")
+                {
+                    handleReleaseLockAPI(req, res, listTransactionIds);
+                }
+                else if (type == "Session")
+                {
+                    handleRelaseAllApi(req, res);
+                }
+                else
+                {
+                    // Type Validation has been failed
+                    res.result(boost::beast::http::status::bad_request);
+                    res.end();
+                    return;
+                }
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .requires({"ConfigureComponents", "ConfigureManager"})
