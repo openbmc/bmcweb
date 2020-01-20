@@ -226,7 +226,7 @@ class lock
     {
         for (auto i : refrids)
         {
-            locktable.erase(refrids[i]);
+            locktable.erase(i);
         }
         saveLocks();
     }
