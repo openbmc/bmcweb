@@ -5,6 +5,7 @@
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
+#include <error_messages.hpp>
 #include <filesystem>
 #include <fstream>
 #include <ibm/locks.hpp>
@@ -404,6 +405,15 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
         }
     }
 }
+void handleRelaseAllAPI(const crow::Request &req, crow::Response &res)
+{
+
+    std::string sessionId = req.session->uniqueId;
+    crow::ibm_mc_lock::Lock::getInstance().releaseLock(sessionId);
+    res.result(boost::beast::http::status::ok);
+    res.end();
+    return;
+}
 
 void handleReleaseLockAPI(const crow::Request &req, crow::Response &res,
                           const std::vector<uint32_t> &listTransactionIds)
@@ -579,19 +589,34 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.ReleaseLock")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("POST"_method)(
-            [](const crow::Request &req, crow::Response &res) {
-                std::vector<uint32_t> listTransactionIds;
+        .methods(
+            "POST"_method)([](const crow::Request &req, crow::Response &res) {
+            std::string type;
+            std::vector<uint32_t> listTransactionIds;
 
-                if (!redfish::json_util::readJson(req, res, "TransactionIDs",
-                                                  listTransactionIds))
-                {
-                    res.result(boost::beast::http::status::bad_request);
-                    res.end();
-                    return;
-                }
+            if (!redfish::json_util::readJson(req, res, "Type", type,
+                                              "TransactionIDs",
+                                              listTransactionIds))
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+            if (type == "Transaction")
+            {
                 handleReleaseLockAPI(req, res, listTransactionIds);
-            });
+            }
+            else if (type == "Session")
+            {
+                handleRelaseAllAPI(req, res);
+            }
+            else
+            {
+                BMCWEB_LOG_DEBUG << " Value of Type : " << type
+                                 << "is Not a Valid key";
+                redfish::messages::propertyValueNotInList(res, type, "Type");
+            }
+        });
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService/Actions/LockService.GetLockList")
         .requires({"ConfigureComponents", "ConfigureManager"})
         .methods("POST"_method)(
