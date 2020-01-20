@@ -146,6 +146,7 @@ class lock
     }
 
 protected:
+
     virtual rcrelaselock isitmylock(std::vector<uint32_t> refrids,
                             std::pair<stype, stype> ids)
     {
@@ -198,7 +199,7 @@ protected:
     {
         for (auto i : refrids)
         {
-            locktable.erase(refrids[i]);
+            locktable.erase(i);
         }
         saveLocks();
     }
@@ -574,6 +575,7 @@ protected:
         }
         return std::make_pair(true, listsessionid[0]);
     }
+
 
     rcreleaselockapi Releaselock(listoftransactionIDs p,
                                  std::pair<stype, stype> ids)
