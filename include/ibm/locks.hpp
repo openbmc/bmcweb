@@ -218,8 +218,7 @@ class Lock
         return true;
     }
 
-    /*
-     * This function implements the logic for validating an incomming
+    /* This function implements the logic for validating an incomming
      * lock request/requests.
      *
      * Returns : True (if Valid)
