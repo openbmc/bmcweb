@@ -1808,6 +1808,10 @@
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMediaCollection_v1.xml">
         <edmx:Include Namespace="VirtualMediaCollection"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemVirtualMedia_v1.xml">
+        <edmx:Include Namespace="OemVirtualMedia"/>
+        <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>
+    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/VLanNetworkInterface_v1.xml">
         <edmx:Include Namespace="VLanNetworkInterface"/>
         <edmx:Include Namespace="VLanNetworkInterface.v1_0_0"/>
