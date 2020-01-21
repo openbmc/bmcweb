@@ -2603,16 +2603,16 @@ bool findSensorNameUsingSensorPath(
  *
  * @param res   response object
  * @param allCollections   Collections extract from sensors' request patch info
+ * @param chassisName  Chassis Node for which the query has to happen
  * @param typeList   TypeList of sensors for the resource queried
- * @param chassisSubNode   Chassis Node for which the query has to happen
  */
-void setSensorOverride(
+void setSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
     std::unordered_map<std::string, std::vector<nlohmann::json>>&
         allCollections,
     const std::string& chassisName, const std::vector<const char*> typeList)
 {
-    BMCWEB_LOG_INFO << "setSensorOverride for subNode"
+    BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
                     << sensorAsyncResp->chassisSubNode << "\n";
 
     const char* propertyValueName;
@@ -2730,6 +2730,130 @@ void setSensorOverride(
     };
     // get full sensor list for the given chassisId and cross verify the sensor.
     getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
+}
+
+bool isOverridingAllowed(const std::string& manufacturingModeStatus)
+{
+    if (manufacturingModeStatus ==
+        "xyz.openbmc_project.Control.Security.SpecialMode.Modes.Manufacturing")
+    {
+        return true;
+    }
+
+#ifdef BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
+    if (manufacturingModeStatus == "xyz.openbmc_project.Control.Security."
+                                   "SpecialMode.Modes.ValidationUnsecure")
+    {
+        return true;
+    }
+
+#endif
+
+    return false;
+}
+
+/**
+ * @brief Entry point for Checking the manufacturing mode before doing sensor
+ * override values of given sensor
+ *
+ * @param res   response object
+ * @param allCollections   Collections extract from sensors' request patch info
+ * @param typeList   TypeList of sensors for the resource queried
+ * @param chassisName Chassis Node for which the query has to happen
+ */
+void checkAndDoSensorsOverride(
+    std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
+    std::unordered_map<std::string, std::vector<nlohmann::json>>& allCollect,
+    const std::string& chassisName, const std::vector<const char*> typeList)
+{
+    BMCWEB_LOG_INFO << "checkAndDoSensorsOverride for subnode"
+                    << sensorAsyncResp->chassisSubNode << "\n";
+
+    const std::array<std::string, 1> interfaces = {
+        "xyz.openbmc_project.Security.SpecialMode"};
+
+    crow::connections::systemBus->async_method_call(
+        [sensorAsyncResp, allCollect, chassisName,
+         typeList](const boost::system::error_code ec,
+                   const GetSubTreeType& resp) mutable {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Error in querying GetSubTree with Object Mapper. "
+                    << ec;
+                messages::internalError(sensorAsyncResp->res);
+                return;
+            }
+
+            if (resp.size() != 1)
+            {
+                BMCWEB_LOG_DEBUG << "Queried object count mismatch. ";
+                messages::internalError(sensorAsyncResp->res);
+                return;
+            }
+            const std::string& path = resp[0].first;
+            const std::string& serviceName = resp[0].second.begin()->first;
+
+            if (path.empty() || serviceName.empty())
+            {
+                BMCWEB_LOG_DEBUG
+                    << "Path or service name is returned as empty. ";
+                messages::internalError(sensorAsyncResp->res);
+                return;
+            }
+
+            // Sensor override is allowed only in manufacturing mode or
+            // validation unsecure mode .
+            crow::connections::systemBus->async_method_call(
+                [sensorAsyncResp, allCollect, chassisName, typeList,
+                 path](const boost::system::error_code ec,
+                       std::variant<std::string>& getManufactMode) mutable {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "Error in querying Special mode property " << ec;
+                        messages::internalError(sensorAsyncResp->res);
+                        return;
+                    }
+
+                    const std::string* manufacturingModeStatus =
+                        std::get_if<std::string>(&getManufactMode);
+
+                    if (nullptr == manufacturingModeStatus)
+                    {
+                        BMCWEB_LOG_DEBUG << "Sensor override mode is not "
+                                            "Enabled. Returning ... ";
+                        messages::internalError(sensorAsyncResp->res);
+                        return;
+                    }
+
+                    if (isOverridingAllowed(*manufacturingModeStatus))
+                    {
+                        BMCWEB_LOG_INFO << "Manufacturing mode is Enabled. "
+                                           "Proceeding further... ";
+                        setSensorsOverride(sensorAsyncResp, allCollect,
+                                           chassisName, typeList);
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_WARNING
+                            << "Manufacturing mode is not Enabled...can't "
+                               "Override the sensor value. ";
+
+                        messages::actionNotSupported(
+                            sensorAsyncResp->res,
+                            "Overriding of Sensor Value for non "
+                            "manufacturing mode");
+                        return;
+                    }
+                },
+                serviceName, path, "org.freedesktop.DBus.Properties", "Get",
+                "xyz.openbmc_project.Security.SpecialMode", "SpecialMode");
+        },
+
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 5, interfaces);
 }
 
 class SensorCollection : public Node
