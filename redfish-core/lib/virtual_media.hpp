@@ -75,7 +75,8 @@ static void vmParseInterfaceObject(const DbusInterfaceType &interface,
         if (!endpointIdValue->empty())
         {
             // Proxy mode
-            aResp->res.jsonValue["Oem"]["WebSocketEndpoint"] = *endpointIdValue;
+            aResp->res.jsonValue["Oem"]["OpenBMC"]["WebSocketEndpoint"] =
+                *endpointIdValue;
             aResp->res.jsonValue["TransferProtocolType"] = "OEM";
             aResp->res.jsonValue["Inserted"] = *activeValue;
             if (*activeValue == true)
@@ -115,7 +116,7 @@ static nlohmann::json vmItemTemplate(const std::string &name,
     nlohmann::json item;
     item["@odata.id"] =
         "/redfish/v1/Managers/" + name + "/VirtualMedia/" + resName;
-    item["@odata.type"] = "#VirtualMedia.v1_1_0.VirtualMedia";
+    item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
     item["@odata.context"] = "/redfish/v1/$metadata#VirtualMedia.VirtualMedia";
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
@@ -127,7 +128,9 @@ static nlohmann::json vmItemTemplate(const std::string &name,
     item["MediaTypes"] = {"CD", "USBStick"};
     item["TransferMethod"] = "Stream";
     item["TransferProtocolType"] = nullptr;
-    item["Oem"]["WebSocketEndpoint"] = nullptr;
+    item["Oem"]["OpenBmc"]["WebSocketEndpoint"] = nullptr;
+    item["Oem"]["OpenBMC"]["@odata.type"] =
+        "#OemVirtualMedia.v1_0_0.VirtualMedia";
 
     return item;
 }
@@ -232,7 +235,7 @@ static void getVmData(std::shared_ptr<AsyncResp> aResp,
             }
 
             messages::resourceNotFound(
-                aResp->res, "#VirtualMedia.v1_1_0.VirtualMedia", resName);
+                aResp->res, "#VirtualMedia.v1_3_0.VirtualMedia", resName);
         },
         service, "/xyz/openbmc_project/VirtualMedia",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
