@@ -2391,128 +2391,184 @@ bool findSensorNameUsingSensorPath(
  */
 void setSensorOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
-    std::unordered_map<std::string, std::vector<nlohmann::json>>&
-        allCollections,
+    std::unordered_map<std::string, std::vector<nlohmann::json>>& allCollect,
     const std::string& chassisName, const std::vector<const char*> typeList)
 {
     BMCWEB_LOG_INFO << "setSensorOverride for subNode"
                     << sensorAsyncResp->chassisSubNode << "\n";
 
-    const char* propertyValueName;
-    std::unordered_map<std::string, std::pair<double, std::string>> overrideMap;
-    std::string memberId;
-    double value;
-    for (auto& collectionItems : allCollections)
-    {
-        if (collectionItems.first == "Temperatures")
-        {
-            propertyValueName = "ReadingCelsius";
-        }
-        else if (collectionItems.first == "Fans")
-        {
-            propertyValueName = "Reading";
-        }
-        else
-        {
-            propertyValueName = "ReadingVolts";
-        }
-        for (auto& item : collectionItems.second)
-        {
-            if (!json_util::readJson(item, sensorAsyncResp->res, "MemberId",
-                                     memberId, propertyValueName, value))
+    // changes for overriding sensor values in manufacturing mode
+    std::unordered_map<std::string, std::vector<nlohmann::json>>
+        allCollections = allCollect;
+    crow::connections::systemBus->async_method_call(
+        [sensorAsyncResp, allCollections, chassisName,
+         typeList](const boost::system::error_code ec,
+                   std::variant<std::string> getManufactMode) mutable {
+            if (ec)
             {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(sensorAsyncResp->res);
                 return;
             }
-            overrideMap.emplace(memberId,
-                                std::make_pair(value, collectionItems.first));
-        }
-    }
 
-    auto getChassisSensorListCb = [sensorAsyncResp,
-                                   overrideMap](const std::shared_ptr<
-                                                boost::container::flat_set<
-                                                    std::string>>
-                                                    sensorsList) {
-        // Match sensor names in the PATCH request to those managed by the
-        // chassis node
-        const std::shared_ptr<boost::container::flat_set<std::string>>
-            sensorNames =
-                std::make_shared<boost::container::flat_set<std::string>>();
-        for (const auto& item : overrideMap)
-        {
-            const auto& sensor = item.first;
-            if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
-                                               *sensorNames))
+            std::string manufacturingModeStatus =
+                std::get<std::string>(getManufactMode);
+            std::string chkSubstr = "ValidationUnsecure";
+
+            if (manufacturingModeStatus.find(chkSubstr) != std::string::npos)
             {
-                BMCWEB_LOG_INFO << "Unable to find memberId " << item.first;
-                messages::resourceNotFound(sensorAsyncResp->res,
-                                           item.second.second, item.first);
-                return;
-            }
-        }
-        // Get the connection to which the memberId belongs
-        auto getObjectsWithConnectionCb =
-            [sensorAsyncResp, overrideMap](
-                const boost::container::flat_set<std::string>& connections,
-                const std::set<std::pair<std::string, std::string>>&
-                    objectsWithConnection) {
-                if (objectsWithConnection.size() != overrideMap.size())
+                BMCWEB_LOG_INFO
+                    << "Manufacturing mode is ON .Proceeding further.."
+                    << "\n";
+                const char* propertyValueName;
+                std::unordered_map<std::string, std::pair<double, std::string>>
+                    overrideMap;
+                std::string memberId;
+                double value;
+                for (auto& collectionItems : allCollections)
                 {
-                    BMCWEB_LOG_INFO
-                        << "Unable to find all objects with proper connection "
-                        << objectsWithConnection.size() << " requested "
-                        << overrideMap.size() << "\n";
-                    messages::resourceNotFound(
-                        sensorAsyncResp->res,
-                        sensorAsyncResp->chassisSubNode == "Thermal"
-                            ? "Temperatures"
-                            : "Voltages",
-                        "Count");
-                    return;
+                    if (collectionItems.first == "Temperatures")
+                    {
+                        propertyValueName = "ReadingCelsius";
+                    }
+                    else if (collectionItems.first == "Fans")
+                    {
+                        propertyValueName = "Reading";
+                    }
+                    else
+                    {
+                        propertyValueName = "ReadingVolts";
+                    }
+                    for (auto& item : collectionItems.second)
+                    {
+                        if (!json_util::readJson(item, sensorAsyncResp->res,
+                                                 "MemberId", memberId,
+                                                 propertyValueName, value))
+                        {
+                            return;
+                        }
+                        overrideMap.emplace(
+                            memberId,
+                            std::make_pair(value, collectionItems.first));
+                    }
                 }
-                for (const auto& item : objectsWithConnection)
-                {
 
-                    auto lastPos = item.first.rfind('/');
-                    if (lastPos == std::string::npos)
-                    {
-                        messages::internalError(sensorAsyncResp->res);
-                        return;
-                    }
-                    std::string sensorName = item.first.substr(lastPos + 1);
+                auto getChassisSensorListCb = [sensorAsyncResp, overrideMap](
+                                                  const std::shared_ptr<
+                                                      boost::container::
+                                                          flat_set<std::string>>
+                                                      sensorsList) {
+                    // Match sensor names in the PATCH request to those managed
+                    // by the chassis node
+                    const std::shared_ptr<
+                        boost::container::flat_set<std::string>>
+                        sensorNames = std::make_shared<
+                            boost::container::flat_set<std::string>>();
 
-                    const auto& iterator = overrideMap.find(sensorName);
-                    if (iterator == overrideMap.end())
+                    for (const auto& item : overrideMap)
                     {
-                        BMCWEB_LOG_INFO << "Unable to find sensor object"
-                                        << item.first << "\n";
-                        messages::internalError(sensorAsyncResp->res);
-                        return;
+                        const auto& sensor = item.first;
+                        if (!findSensorNameUsingSensorPath(sensor, *sensorsList,
+                                                           *sensorNames))
+                        {
+                            BMCWEB_LOG_INFO << "Unable to find memberId "
+                                            << item.first;
+                            messages::resourceNotFound(sensorAsyncResp->res,
+                                                       item.second.second,
+                                                       item.first);
+                            return;
+                        }
                     }
-                    crow::connections::systemBus->async_method_call(
-                        [sensorAsyncResp](const boost::system::error_code ec) {
-                            if (ec)
+                    // Get the connection to which the memberId belongs
+                    auto getObjectsWithConnectionCb =
+                        [sensorAsyncResp, overrideMap](
+                            const boost::container::flat_set<std::string>&
+                                connections,
+                            const std::set<std::pair<std::string, std::string>>&
+                                objectsWithConnection) {
+                            if (objectsWithConnection.size() !=
+                                overrideMap.size())
                             {
-                                BMCWEB_LOG_DEBUG
-                                    << "setOverrideValueStatus DBUS error: "
-                                    << ec;
-                                messages::internalError(sensorAsyncResp->res);
+                                BMCWEB_LOG_INFO << "Unable to find all objects "
+                                                   "with proper connection "
+                                                << objectsWithConnection.size()
+                                                << " requested "
+                                                << overrideMap.size() << "\n";
+                                messages::resourceNotFound(
+                                    sensorAsyncResp->res,
+                                    sensorAsyncResp->chassisSubNode == "Thermal"
+                                        ? "Temperatures"
+                                        : "Voltages",
+                                    "Count");
                                 return;
                             }
-                        },
-                        item.second, item.first,
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Sensor.Value", "Value",
-                        sdbusplus::message::variant<double>(
-                            iterator->second.first));
-                }
-            };
-        // Get object with connection for the given sensor name
-        getObjectsWithConnection(sensorAsyncResp, sensorNames,
-                                 std::move(getObjectsWithConnectionCb));
-    };
-    // get full sensor list for the given chassisId and cross verify the sensor.
-    getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
+                            for (const auto& item : objectsWithConnection)
+                            {
+
+                                auto lastPos = item.first.rfind('/');
+                                if (lastPos == std::string::npos)
+                                {
+                                    messages::internalError(
+                                        sensorAsyncResp->res);
+                                    return;
+                                }
+                                std::string sensorName =
+                                    item.first.substr(lastPos + 1);
+
+                                const auto& iterator =
+                                    overrideMap.find(sensorName);
+                                if (iterator == overrideMap.end())
+                                {
+                                    BMCWEB_LOG_INFO
+                                        << "Unable to find sensor object"
+                                        << item.first << "\n";
+                                    messages::internalError(
+                                        sensorAsyncResp->res);
+                                    return;
+                                }
+                                crow::connections::systemBus->async_method_call(
+                                    [sensorAsyncResp](
+                                        const boost::system::error_code ec) {
+                                        if (ec)
+                                        {
+                                            BMCWEB_LOG_DEBUG
+                                                << "setOverrideValueStatus "
+                                                   "DBUS error: "
+                                                << ec;
+                                            messages::internalError(
+                                                sensorAsyncResp->res);
+                                            return;
+                                        }
+                                    },
+                                    item.second, item.first,
+                                    "org.freedesktop.DBus.Properties", "Set",
+                                    "xyz.openbmc_project.Sensor.Value", "Value",
+                                    sdbusplus::message::variant<double>(
+                                        iterator->second.first));
+                            }
+                        };
+                    // Get object with connection for the given sensor name
+                    getObjectsWithConnection(
+                        sensorAsyncResp, sensorNames,
+                        std::move(getObjectsWithConnectionCb));
+                };
+                // get full sensor list for the given chassisId and cross verify
+                // the sensor.
+                getChassis(sensorAsyncResp, std::move(getChassisSensorListCb));
+            }
+
+            else
+            {
+                BMCWEB_LOG_INFO << "Manufacturing mode is OFF ...con't"
+                                   "override the sensor value."
+                                << "\n";
+                return;
+            }
+        },
+        "xyz.openbmc_project.SpecialMode",
+        "/xyz/openbmc_project/security/special_mode",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Security.SpecialMode", "SpecialMode");
 }
 
 class SensorCollection : public Node
