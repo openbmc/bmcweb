@@ -360,7 +360,8 @@ class Power : public Node
             std::unordered_map<std::string, std::vector<nlohmann::json>>
                 allCollections;
             allCollections.emplace("Voltages", *std::move(voltageCollections));
-            setSensorOverride(asyncResp, allCollections, chassisName, typeList);
+            checkAndDoSensorOverride(asyncResp, allCollections, chassisName,
+                                     typeList);
         }
     }
 };
