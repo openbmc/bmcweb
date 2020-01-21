@@ -119,6 +119,11 @@ option (
     OFF
 )
 
+option (BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
+        "Enables unsecure features required by validation. Note: must
+        be turned off for production images."
+        OFF)
+
 set (BMCWEB_HTTP_REQ_BODY_LIMIT_MB "30" CACHE STRING
      "The max HTTP request body size in MB")
 
@@ -301,6 +306,7 @@ set (WEBSERVER_MAIN src/webserver_main.cpp)
 
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/include)
+include_directories (${CMAKE_CURRENT_SOURCE_DIR}/redfish-core/lib)
 
 file (MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/include/bmcweb)
 include_directories (${CMAKE_BINARY_DIR}/include)
@@ -391,6 +397,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE}>:
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
+    $<$<BOOL:${BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE}>:
+    -DBMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE>
 )
 
 # configure and install systemd unit files

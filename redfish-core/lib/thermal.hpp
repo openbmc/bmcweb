@@ -98,7 +98,7 @@ class Thermal : public Node
             allCollections.emplace("Fans", *std::move(fanCollections));
         }
 
-        setSensorOverride(asyncResp, allCollections, chassisName, typeList);
+        checkAndDoSensorOverride(asyncResp, allCollections, chassisName, typeList);
     }
 };
 
