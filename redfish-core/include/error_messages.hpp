@@ -625,6 +625,49 @@ void accountModified(crow::Response& res);
 void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
                               const std::string& arg2, const std::string& arg3);
 
+/**
+ * @brief Formats DelayInActionCompletion message into JSON
+ * Message body: " The Media has been initiated with instance <arg1>,
+ * and we can check the redirection status with URI <arg2>."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ * @param[in] arg2 Parameter of message that will replace %2 in its body.
+ *
+ * @returns Message DelayInActionCompletion formatted to JSON */
+void delayInActionCompletion(crow::Response& res, const std::string& arg1,
+			      const std::string& arg2);
+
+/**
+ * @brief Formats NoContent message into JSON
+ * Message body: " No Content"
+ *
+ *
+ * @returns Message NoContent formatted to JSON */
+void noContent(crow::Response& res);
+
+
+/**
+ * @brief Formats instanceInUse message into JSON
+ * Message body: "Virtual Media Redirection for Instance <arg1>
+ * is already in running state."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message InstanceInUse formatted to JSON */
+void instanceInUse(crow::Response& res,const std::string& arg1);
+
+
+/**
+ * @brief Formats instanceNotInUse message into JSON
+ * Message body: "Eject Media Action has been failed because 
+ * Virtual Media Redirection is not running for the requested Instance <arg1>
+ * Please Check the Status for <arg1> using /redfish/v1/Managers/Self/VirtualMedia/<arg1>."
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message InstanceNotInUse formatted to JSON */
+void instanceNotInUse(crow::Response& res,const std::string& arg1);
+
 } // namespace messages
 
 } // namespace redfish

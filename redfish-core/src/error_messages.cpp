@@ -1505,6 +1505,88 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
              "is within the range of valid pages."}});
 }
 
+/**
+ * @internal
+ * @brief Formats DelayInActionCompletion message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void delayInActionCompletion(crow::Response& res,const std::string& arg1,const std::string& arg2)
+{
+    res.result(boost::beast::http::status::ok);
+    addMessageToJsonRoot(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.DelayInActionCompletion"},
+            {"Message", arg1 + " InsertMedia action has been initiated successfully."
+                "Please allow upto 4-5 secs and verify the value of Redirection Status property in "
+                +arg2},
+            {"MessageArgs", {arg1, arg2}},
+            {"Severity", "OK"},
+            {"Resolution", "Check the property value update after 4-5 seconds"}});
+}
+
+/**
+ * @internal
+ * @brief Formats NoContent message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void noContent(crow::Response& res)
+{
+    res.result(boost::beast::http::status::no_content);
+    addMessageToJsonRoot(
+        res.jsonValue,nlohmann::json{0,0,0,0,0,0});
+}
+
+/**
+ * @internal
+ * @brief Formats InstanceInUse message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void instanceInUse(crow::Response& res,const std::string& arg1)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    addMessageToErrorJson(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.InstanceInUse"},
+            {"Message", "Virtual Media Redirection for Instance " +arg1+ " is already in running state."},
+            {"MessageArgs", {arg1}},
+            {"Severity", "Warning"},
+            {"Resolution", "Please try with another Instnace or"
+			   "Eject the Media for " +arg1+ " and try again."}});
+}
+
+/**
+ * @internal
+ * @brief Formats InstanceNotInUse message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void instanceNotInUse(crow::Response& res,const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    addMessageToErrorJson(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+            {"MessageId", "Base.1.4.0.InstanceIsNotInUse"},
+            {"Message", "Eject Media Action has been failed because "
+			"Virtual Media Redirection is not running for the requested Instance " +arg1+
+			". Please Check the Status for " +arg1+ " using /redfish/v1/Managers/Self/VirtualMedia/" +arg1},
+            {"MessageArgs", {arg1}},
+            {"Severity", "Warning"},
+            {"Resolution", "Please try with another Instnace or first perform InsertMedia Action and try again"}});
+}
+
 } // namespace messages
 
 } // namespace redfish

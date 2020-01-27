@@ -33,7 +33,7 @@ const Header header = {
     "1.4.0",
     "DMTF",
 };
-constexpr std::array<MessageEntry, 58> registry = {
+const std::array<MessageEntry, 62> registry = {
     MessageEntry{
         "AccessDenied",
         {
@@ -837,6 +837,55 @@ constexpr std::array<MessageEntry, 58> registry = {
             0,
             {},
             "Correct the request body and resubmit the request if it failed.",
+        }},
+    MessageEntry{
+        "DelayInActionCompletion",
+        {
+            "Indicates that Media has been initiated successfully" 
+	    "with requested instance. ",
+            "The media has successfully mounted to Host machine.",
+            "OK",
+            0,
+            {},
+            "None",
+        }},
+    MessageEntry{
+        "NoContent",
+        {
+            "Indicates that Media has been ejected successfully",
+            "The media has successfully unmounted to Host machine.",
+            "OK",
+            0,
+            {},
+            "None",
+        }},
+    MessageEntry{
+        "InstanceInUse",
+        {
+            "Indicates that a change was requested to a Instance but "
+            "the change was rejected due to the Instance being in use "
+            "or transition.",
+            "The change to the requested Instance failed because the "
+            "Instance is in use or in transition.",
+            "Warning",
+            0,
+            {},
+            "Try with another Instance or Eject the Media for this "
+	    "Instance and try again ",
+        }},
+    MessageEntry{
+        "InstanceNotInUse",
+        {
+            "Indicates that a change was requested to a Instance but "
+            "the change was rejected due to the Instance is not being"
+	    " used or not in transition.",
+            "The change to the requested Instance failed because the "
+            "Instance is not in use or not in transition.",
+            "Warning",
+            0,
+            {},
+            "Try with another Instance or Check the Status for this "
+            "Instance and try again ",
         }},
 };
 } // namespace redfish::message_registries::base
