@@ -1,5 +1,6 @@
 #%PAM-1.0
 
 auth     include  common-auth
+auth     required pam_succeed_if.so user ingroup redfish
 account  include  common-account
 password include  common-password
