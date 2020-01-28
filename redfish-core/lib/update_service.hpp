@@ -775,8 +775,8 @@ class SoftwareInventory : public Node
                 asyncResp->res.jsonValue["@odata.context"] =
                     "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
                 asyncResp->res.jsonValue["Name"] = "Software Inventory";
-                asyncResp->res.jsonValue["Updateable"] = false;
                 asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
+                fw_util::getFwUpdateableStatus(asyncResp, swId);
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
