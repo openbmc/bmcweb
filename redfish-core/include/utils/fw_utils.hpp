@@ -202,13 +202,13 @@ std::string getRedfishFWState(const std::string &fwState)
     {
         return "Enabled";
     }
-    else if (fwState ==
-             "xyz.openbmc_project.Software.Activation.Activations.Activating")
+    else if (fwState == "xyz.openbmc_project.Software.Activation."
+                        "Activations.Activating")
     {
         return "Updating";
     }
-    else if (fwState ==
-             "xyz.openbmc_project.Software.Activation.Activations.StandbySpare")
+    else if (fwState == "xyz.openbmc_project.Software.Activation."
+                        "Activations.StandbySpare")
     {
         return "StandbySpare";
     }
@@ -232,8 +232,8 @@ std::string getRedfishFWHealth(const std::string &fwState)
 {
     if ((fwState ==
          "xyz.openbmc_project.Software.Activation.Activations.Active") ||
-        (fwState ==
-         "xyz.openbmc_project.Software.Activation.Activations.Activating") ||
+        (fwState == "xyz.openbmc_project.Software.Activation.Activations."
+                    "Activating") ||
         (fwState ==
          "xyz.openbmc_project.Software.Activation.Activations.Ready"))
     {
@@ -302,5 +302,54 @@ void getFwStatus(std::shared_ptr<AsyncResp> asyncResp,
         "org.freedesktop.DBus.Properties", "GetAll",
         "xyz.openbmc_project.Software.Activation");
 }
+
+/**
+ * @brief Updates programmable status of input swId into json response
+ *
+ * This function checks whether firmware inventory component
+ * can be programable or not and fill's the "Updateable"
+ * Property.
+ *
+ * @param[i,o] asyncResp  Async response object
+ * @param[i]   fwId       The firmware ID
+ */
+void getFwUpdateableStatus(std::shared_ptr<AsyncResp> asyncResp,
+                           const std::shared_ptr<std::string> fwId)
+{
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, fwId](const boost::system::error_code ec,
+                          const std::variant<std::vector<std::string>> &resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << __FUNCTION__ << " error_code = " << ec
+                                 << " error msg =  " << ec.message();
+                // System can exist with no updateable firmware,
+                // so don't throw error here.
+                return;
+            }
+            const std::vector<std::string> *objPaths =
+                std::get_if<std::vector<std::string>>(&resp);
+            if (objPaths)
+            {
+                std::string reqFwObjPath =
+                    "/xyz/openbmc_project/software/" + *fwId;
+
+                if (std::find((*objPaths).begin(), (*objPaths).end(),
+                              reqFwObjPath) != (*objPaths).end())
+                {
+                    asyncResp->res.jsonValue["Updateable"] = true;
+                    return;
+                }
+            }
+            return;
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/software/updateable",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Association", "endpoints");
+
+    return;
+}
+
 } // namespace fw_util
 } // namespace redfish
