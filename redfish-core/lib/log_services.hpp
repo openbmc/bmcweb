@@ -459,6 +459,9 @@ class SystemLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
         logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
+        logServiceArray.push_back(
+            {{"@odata.id",
+              "/redfish/v1/Systems/system/LogServices/PostCodes"}});
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
             {{"@odata.id",
@@ -533,7 +536,6 @@ class JournalEventLogClear : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        // Clear the EventLog by deleting the log files
         std::vector<std::filesystem::path> redfishLogFiles;
         if (getRedfishLogFiles(redfishLogFiles))
         {
@@ -1109,7 +1111,6 @@ class DBusEventLogEntry : public Node
             "org.freedesktop.DBus.Properties", "GetAll",
             "xyz.openbmc_project.Logging.Entry");
     }
-
     void doDelete(crow::Response &res, const crow::Request &req,
                   const std::vector<std::string> &params) override
     {
@@ -2049,4 +2050,535 @@ class DBusLogServiceActionsClear : public Node
             "xyz.openbmc_project.Collection.DeleteAll", "DeleteAll");
     }
 };
+
+/****************************************************
+ * new functions to supoort post code
+ ******************************************************/
+class PostCodesLogService : public Node
+{
+  public:
+    template <typename CrowApp>
+    PostCodesLogService(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/PostCodes";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogService.LogService";
+        asyncResp->res.jsonValue["Name"] = "POST Code Log Service";
+        asyncResp->res.jsonValue["Description"] = "POST Code Log Service";
+        asyncResp->res.jsonValue["Id"] = "BIOS POST Code Log";
+        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries"}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+
+            {"target", "/redfish/v1/Systems/system/LogServices/PostCodes/"
+                       "Actions/LogService.ClearLog"}};
+    }
+};
+
+/*****************************************
+ * Redfish PostCode interfaces
+ * using DBUS interface: getPostCodesTS
+ *****************************************/
+class JournalPostCodesClear : public Node
+{
+  public:
+    JournalPostCodesClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "Do delete all postcodes entries.";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        // Make call to post-code service to request clear all
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    // TODO Handle for specific error code
+                    BMCWEB_LOG_ERROR
+                        << "doClearPostCodes resp_handler got error " << ec;
+                    asyncResp->res.result(
+                        boost::beast::http::status::internal_server_error);
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                asyncResp->res.result(boost::beast::http::status::no_content);
+            },
+            "xyz.openbmc_project.State.Boot.PostCode",
+            "/xyz/openbmc_project/State/Boot/PostCode",
+            "xyz.openbmc_project.State.Boot.PostCode", "DeleteAll");
+    }
+};
+
+static void getPostCodeForEntry(std::shared_ptr<AsyncResp> aResp,
+                                const uint16_t bootIndex,
+                                const uint64_t codeIndex)
+{
+    std::map<std::string, uint64_t> myPostcodes;
+
+    std::cerr << "Get postcode from State.Boot Index " << bootIndex
+              << " code index " << codeIndex << std::endl;
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, bootIndex, codeIndex](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<std::string, uint64_t> &postcode) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS POST CODE PostCode response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            // skip the empty postcode boots
+            if (!postcode.empty())
+            {
+                // Get the Message from the MessageRegistry
+                const message_registries::Message *message =
+                    message_registries::getMessage("OpenBMC.0.1.BIOSPOSTCode");
+
+                uint64_t currentCodeIndex = 1;
+                nlohmann::json &logEntryArray = aResp->res.jsonValue["Members"];
+
+                for (const auto &code : postcode)
+                {
+                    std::cerr << "Post code B" << bootIndex << "-" << codeIndex
+                              << " " << code.first << ", " << code.second
+                              << std::endl;
+                    std::string postcodeEntryID =
+                        "B" + std::to_string(bootIndex) + "-" +
+                        std::to_string(currentCodeIndex);
+
+                    // code.first format: timestamp, time offset in
+                    // microseconds. example: 2018-11-05T16:09:58.645262+0000,
+                    // 12509664
+                    std::vector<std::string> fields;
+                    boost::split(fields, code.first, boost::is_any_of(", "),
+                                 boost::token_compress_on);
+                    // skipped the malformated code
+                    if (fields.size() != 2)
+                    {
+                        std::cerr << "Malformed postcode record skipping ("
+                                  << code.first << ")" << std::endl;
+                        continue;
+                    }
+
+                    if (currentCodeIndex++ != codeIndex)
+                    {
+                        continue;
+                    }
+
+                    // assemble messageArgs: TimeOffset(us), post code
+                    std::stringstream hexCode;
+                    hexCode << "0x" << std::setfill('0') << std::setw(2)
+                            << std::hex << code.second;
+                    std::vector<std::string> messageArgs = {
+                        std::to_string(bootIndex), fields[1], hexCode.str()};
+
+                    // Get MessageArgs template from message registry
+                    std::string msg;
+                    std::string severity;
+                    if (message != nullptr)
+                    {
+                        msg = message->message;
+                        severity = message->severity;
+                    }
+                    // fill in this post code value
+                    int i = 0;
+                    for (const std::string &messageArg : messageArgs)
+                    {
+                        std::string argStr = "%" + std::to_string(++i);
+                        size_t argPos = msg.find(argStr);
+                        if (argPos != std::string::npos)
+                        {
+                            msg.replace(argPos, argStr.length(), messageArg);
+                        }
+                    }
+
+                    // add to AsyncResp
+                    logEntryArray.push_back({});
+                    nlohmann::json &bmcLogEntry = logEntryArray.back();
+                    bmcLogEntry = {
+                        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                        {"@odata.context",
+                         "/redfish/v1/$metadata#LogEntry.LogEntry"},
+                        {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
+                                      "PostCodes/Entries/" +
+                                          postcodeEntryID},
+                        {"Name", "POST Code Log Entry"},
+                        {"Id", postcodeEntryID},
+                        {"Message", std::move(msg)},
+                        {"MessageId", "OpenBMC.0.1.BIOSPOSTCode"},
+                        {"MessageArgs", std::move(messageArgs)},
+                        {"EntryType", "POST Code"},
+                        {"Severity", std::move(severity)},
+                        {"Created", std::move(fields[0])}};
+                }
+                aResp->res.jsonValue["Members@odata.count"] = 1;
+            }
+        },
+        "xyz.openbmc_project.State.Boot.PostCode",
+        "/xyz/openbmc_project/State/Boot/PostCode",
+        "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesTS", bootIndex);
+}
+
+static uint16_t getPrevBootIdnex(const uint16_t bootIndex)
+{
+    if (bootIndex > 1)
+    {
+        return static_cast<uint16_t>(bootIndex -
+                                     1); // continue to previous bootIndex
+    }
+    else
+    {
+        return static_cast<uint16_t>(0);
+    }
+}
+
+static void getPostCodeForBoot(std::shared_ptr<AsyncResp> aResp,
+                               const uint16_t bootIndex, const uint64_t skip,
+                               const uint64_t top)
+{
+    std::map<std::string, uint64_t> myPostcodes;
+
+    std::cerr << "Get postcode from State.Boot. Index " << bootIndex
+              << std::endl;
+    uint64_t entryCount =
+        aResp->res.jsonValue["Members@odata.count"].get<uint64_t>();
+
+    crow::connections::systemBus->async_method_call(
+        [aResp, bootIndex, entryCount, skip, top](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<std::string, uint64_t> &postcode) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS POST CODE PostCode response error";
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            uint64_t currentEntryCount = entryCount;
+            // skip the empty postcode boots
+            if (!postcode.empty())
+            {
+                // Get the Message from the MessageRegistry
+                const message_registries::Message *message =
+                    message_registries::getMessage("OpenBMC.0.1.BIOSPOSTCode");
+
+                int codeIndex = 1;
+                nlohmann::json &logEntryArray = aResp->res.jsonValue["Members"];
+
+                for (const auto &code : postcode)
+                {
+                    std::cerr << "Post code B" << bootIndex << "-" << codeIndex
+                              << " " << code.first << ", " << code.second
+                              << std::endl;
+                    std::string postcodeEntryID =
+                        "B" + std::to_string(bootIndex) + "-" +
+                        std::to_string(codeIndex++);
+
+                    // code.first format: timestamp, time offset in
+                    // microseconds. example: 2018-11-05T16:09:58.645262+0000,
+                    // 12509664
+                    std::vector<std::string> fields;
+                    boost::split(fields, code.first, boost::is_any_of(", "),
+                                 boost::token_compress_on);
+                    // skipped the malformated code
+                    if (fields.size() != 2)
+                    {
+                        std::cerr << "Malformed postcode record skipping ("
+                                  << code.first << ")" << std::endl;
+                        continue;
+                    }
+
+                    // Handle paging using skip (number of entries to skip from
+                    // the start) and top (number of entries to display)
+                    currentEntryCount++;
+                    if (currentEntryCount <= skip ||
+                        currentEntryCount > (skip + top))
+                    {
+                        continue;
+                    }
+
+                    // assemble messageArgs: TimeOffset(us), post code
+                    std::stringstream hexCode;
+                    hexCode << "0x" << std::setfill('0') << std::setw(2)
+                            << std::hex << code.second;
+                    std::vector<std::string> messageArgs = {
+                        std::to_string(bootIndex), fields[1], hexCode.str()};
+
+                    // Get MessageArgs template from message registry
+                    std::string msg;
+                    std::string severity;
+                    if (message != nullptr)
+                    {
+                        msg = message->message;
+                        severity = message->severity;
+                    }
+                    // fill in this post code value
+                    int i = 0;
+                    for (const std::string &messageArg : messageArgs)
+                    {
+                        std::string argStr = "%" + std::to_string(++i);
+                        size_t argPos = msg.find(argStr);
+                        if (argPos != std::string::npos)
+                        {
+                            msg.replace(argPos, argStr.length(), messageArg);
+                        }
+                    }
+
+                    // add to AsyncResp
+                    logEntryArray.push_back({});
+                    nlohmann::json &bmcLogEntry = logEntryArray.back();
+                    bmcLogEntry = {
+                        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                        {"@odata.context",
+                         "/redfish/v1/$metadata#LogEntry.LogEntry"},
+                        {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
+                                      "PostCodes/Entries/" +
+                                          postcodeEntryID},
+                        {"Name", "POST Code Log Entry"},
+                        {"Id", postcodeEntryID},
+                        {"Message", std::move(msg)},
+                        {"MessageId", "OpenBMC.0.1.BIOSPOSTCode"},
+                        {"MessageArgs", std::move(messageArgs)},
+                        {"EntryType", "POST Code"},
+                        {"Severity", std::move(severity)},
+                        {"Created", std::move(fields[0])}};
+                }
+                aResp->res.jsonValue["Members@odata.count"] = currentEntryCount;
+            }
+
+            // continue to previous bootIndex
+            uint16_t prevBootIndex = getPrevBootIdnex(bootIndex);
+            if (prevBootIndex > 0)
+            {
+                getPostCodeForBoot(aResp, prevBootIndex, skip, top);
+            }
+            else
+            {
+                aResp->res.jsonValue["Members@odata.nextLink"] =
+                    "/redfish/v1/Systems/system/LogServices/PostCodes/"
+                    "Entries?$skip=" +
+                    std::to_string(skip + top);
+            }
+        },
+        "xyz.openbmc_project.State.Boot.PostCode",
+        "/xyz/openbmc_project/State/Boot/PostCode",
+        "xyz.openbmc_project.State.Boot.PostCode", "GetPostCodesTS", bootIndex);
+}
+
+static void getCurrentBootNumber(std::shared_ptr<AsyncResp> aResp,
+                                 const uint64_t skip, const uint64_t top)
+{
+    BMCWEB_LOG_DEBUG << "Get host information.";
+    crow::connections::systemBus->async_method_call(
+        [aResp, skip, top](const boost::system::error_code ec,
+                           std::variant<uint64_t, uint16_t> &currentBootIndex) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                std::cerr << "Host state DBUS ERROR " << ec;
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            auto pVal = std::get_if<uint16_t>(&currentBootIndex);
+            // BMCWEB_LOG_DEBUG << "Post code boot index: " << *pVal;
+            if (pVal)
+            {
+                std::cerr << "Post code boot index: " << *pVal
+                          << " start getting post codes" << std::endl;
+                getPostCodeForBoot(aResp, *pVal, skip, top);
+            }
+            else
+            {
+                std::cerr << "Post code boot index failed\n";
+            }
+        },
+        "xyz.openbmc_project.State.Boot.PostCode",
+        "/xyz/openbmc_project/State/Boot/PostCode",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.Boot.PostCode", "CurrentBootCycleIndex");
+}
+
+class JournalPostCodesEntryCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    JournalPostCodesEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#PostCodesEntryCollection.PostCodesEntryCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/"
+            "$metadata#PostCodesEntryCollection.PostCodesEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/PostCodes/Entries";
+        asyncResp->res.jsonValue["Name"] = "BIOS POST Code Log Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of POST Code Log Entries";
+        asyncResp->res.jsonValue["Members"] = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] =
+            asyncResp->res.jsonValue["Members"].size();
+
+        uint64_t skip = 0;
+        uint64_t top = maxEntriesPerPage; // Show max entries by default
+        if (!getSkipParam(asyncResp->res, req, skip))
+        {
+            return;
+        }
+        if (!getTopParam(asyncResp->res, req, top))
+        {
+            return;
+        }
+        std::cerr << "get post codes skip = " << skip << " end " << (skip + top)
+                  << std::endl;
+        getCurrentBootNumber(asyncResp, skip, top);
+    }
+};
+
+class JournalPostCodesEntry : public Node
+{
+  public:
+    JournalPostCodesEntry(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/PostCodes/Entries/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &targetID = params[0];
+
+        size_t bootPos = targetID.find('B');
+        if (bootPos != std::string::npos)
+        {
+            std::string_view bootIndexStr(targetID);
+            bootIndexStr.remove_prefix(bootPos + 1);
+            uint16_t bootIndex = 0;
+            uint64_t codeIndex = 0;
+            size_t dashPos = bootIndexStr.find('-');
+            {
+                if (dashPos != std::string::npos)
+                {
+                    std::string_view codeIndexStr(bootIndexStr);
+                    bootIndexStr.remove_suffix(dashPos);
+                    codeIndexStr.remove_prefix(dashPos + 1);
+
+                    std::size_t pos;
+                    try
+                    {
+                        std::cerr << "Get post code for boot " << bootIndexStr
+                                  << " code index " << codeIndexStr
+                                  << std::endl;
+                        bootIndex = static_cast<uint16_t>(
+                            std::stoi(std::string(bootIndexStr), &pos));
+                        codeIndex =
+                            std::stoull(std::string(codeIndexStr), &pos);
+                    }
+                    catch (...)
+                    {
+                        std::cerr << "Get Post Code invalid entry string-"
+                                  << params[0] << std::endl;
+                        return;
+                    }
+
+                    asyncResp->res.jsonValue["@odata.type"] =
+                        "#PostCodesEntryCollection.PostCodesEntryCollection";
+                    asyncResp->res.jsonValue["@odata.context"] =
+                        "/redfish/v1/"
+                        "$metadata#PostCodesEntryCollection."
+                        "PostCodesEntryCollection";
+                    asyncResp->res.jsonValue["@odata.id"] =
+                        "/redfish/v1/Systems/system/LogServices/PostCodes/"
+                        "Entries";
+                    asyncResp->res.jsonValue["Name"] =
+                        "BIOS POST Code Log Entries";
+                    asyncResp->res.jsonValue["Description"] =
+                        "Collection of POST Code Log Entries";
+                    asyncResp->res.jsonValue["Members"] =
+                        nlohmann::json::array();
+                    asyncResp->res.jsonValue["Members@odata.count"] =
+                        asyncResp->res.jsonValue["Members"].size();
+
+                    getPostCodeForEntry(asyncResp, bootIndex, codeIndex);
+                }
+            }
+        }
+        else
+        {
+            // Requested ID was not found
+            messages::resourceMissingAtURI(asyncResp->res, targetID);
+        }
+    }
+};
+
 } // namespace redfish
