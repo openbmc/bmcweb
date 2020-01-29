@@ -1330,8 +1330,7 @@ class AccountsCollection : public Node
         Node(app, "/redfish/v1/AccountService/Accounts/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get,
-             {{"ConfigureUsers"}, {"ConfigureManager"}}},
+            {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
