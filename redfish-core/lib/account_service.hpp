@@ -1323,8 +1323,14 @@ class AccountsCollection : public Node
         Node(app, "/redfish/v1/AccountService/Accounts/")
     {
         entityPrivileges = {
+            // According to the PrivilegeRegistry, GET should actually be
+            // "Login". A "Login" only privilege would return an empty "Members"
+            // list. Not going to worry about this since none of the defined
+            // roles are just "Login". E.g. Readonly is {"Login",
+            // "ConfigureSelf"}. In the rare event anyone defines a role that
+            // has Login but not ConfigureSelf, implement this.
             {boost::beast::http::verb::get,
-             {{"ConfigureUsers"}, {"ConfigureManager"}}},
+             {{"ConfigureUsers"}, {"ConfigureSelf"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
             {boost::beast::http::verb::patch, {{"ConfigureUsers"}}},
             {boost::beast::http::verb::put, {{"ConfigureUsers"}}},
@@ -1344,8 +1350,8 @@ class AccountsCollection : public Node
                          {"Description", "BMC User Accounts"}};
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const ManagedObjectType& users) {
+            [asyncResp, &req, this](const boost::system::error_code ec,
+                                    const ManagedObjectType& users) {
                 if (ec)
                 {
                     messages::internalError(asyncResp->res);
@@ -1356,7 +1362,6 @@ class AccountsCollection : public Node
                     asyncResp->res.jsonValue["Members"];
                 memberArray = nlohmann::json::array();
 
-                asyncResp->res.jsonValue["Members@odata.count"] = users.size();
                 for (auto& user : users)
                 {
                     const std::string& path =
@@ -1370,10 +1375,22 @@ class AccountsCollection : public Node
                     {
                         lastIndex += 1;
                     }
-                    memberArray.push_back(
-                        {{"@odata.id", "/redfish/v1/AccountService/Accounts/" +
-                                           path.substr(lastIndex)}});
+
+                    // As clarified by Redfish here:
+                    // https://redfishforum.com/thread/281/manageraccountcollection-change-allows-account-enumeration
+                    // Users without ConfigureUsers, only see their own account.
+                    // Users with ConfigureUsers, see all accounts.
+                    if (req.session->username == path.substr(lastIndex) ||
+                        isAllowedWithoutConfigureSelf(req))
+                    {
+                        memberArray.push_back(
+                            {{"@odata.id",
+                              "/redfish/v1/AccountService/Accounts/" +
+                                  path.substr(lastIndex)}});
+                    }
                 }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    memberArray.size();
             },
             "xyz.openbmc_project.User.Manager", "/xyz/openbmc_project/user",
             "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
