@@ -35,9 +35,6 @@
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-#include "../lib/virtual_media.hpp"
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -91,6 +88,14 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));
+
+        nodes.emplace_back(std::make_unique<SystemDumpService>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpCreate>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(
             std::make_unique<JournalEventLogEntryCollection>(app));
@@ -127,13 +132,6 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
         nodes.emplace_back(std::make_unique<BiosService>(app));
         nodes.emplace_back(std::make_unique<BiosReset>(app));
-#ifdef BMCWEB_ENABLE_VM_NBDPROXY
-        nodes.emplace_back(std::make_unique<VirtualMedia>(app));
-        nodes.emplace_back(std::make_unique<VirtualMediaCollection>(app));
-        nodes.emplace_back(
-            std::make_unique<VirtualMediaActionInsertMedia>(app));
-        nodes.emplace_back(std::make_unique<VirtualMediaActionEjectMedia>(app));
-#endif // BMCWEB_ENABLE_VM_NBDPROXY
 #ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntryCollection>(app));

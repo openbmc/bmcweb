@@ -4,6 +4,7 @@
 #include <boost/asio/io_context.hpp>
 #include <dbus_monitor.hpp>
 #include <dbus_singleton.hpp>
+#include <dump_offload.hpp>
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
 #include <memory>
@@ -22,7 +23,6 @@
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
-
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include <nbd_proxy.hpp>
 #endif
@@ -93,7 +93,6 @@ int main(int argc, char** argv)
 #ifdef BMCWEB_ENABLE_VM_WEBSOCKET
     crow::obmc_vm::requestRoutes(app);
 #endif
-
     crow::token_authorization::requestRoutes(app);
 
     BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
