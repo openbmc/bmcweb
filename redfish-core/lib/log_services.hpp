@@ -141,6 +141,30 @@ inline std::string translateSeverityDbusToRedfish(const std::string &s)
     return "";
 }
 
+inline void deleteSystemDumpEntry(crow::Response &res,
+                                  const std::string &entryID)
+{
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+    auto respHandler = [asyncResp](const boost::system::error_code ec) {
+        BMCWEB_LOG_DEBUG << "System Dump Entry doDelete callback: Done";
+        if (ec)
+        {
+            BMCWEB_LOG_ERROR
+                << "System Dump (DBus) doDelete respHandler got error " << ec;
+            asyncResp->res.result(
+                boost::beast::http::status::internal_server_error);
+            return;
+        }
+
+        asyncResp->res.result(boost::beast::http::status::ok);
+    };
+    crow::connections::systemBus->async_method_call(
+        respHandler, "xyz.openbmc_project.Dump.Manager",
+        "/xyz/openbmc_project/dump/entry/" + entryID,
+        "xyz.openbmc_project.Object.Delete", "Delete");
+}
+
 static int getJournalMetadata(sd_journal *journal,
                               const std::string_view &field,
                               std::string_view &contents)
@@ -458,6 +482,9 @@ class SystemLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
         logServiceArray.push_back(
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
+        logServiceArray.push_back(
+            {{"@odata.id", "/redfish/v1/Systems/system/LogServices/System"}});
+
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
             {{"@odata.id",
@@ -1446,6 +1473,333 @@ class BMCJournalLogEntry : public Node
             messages::internalError(asyncResp->res);
             return;
         }
+    }
+};
+
+class SystemDumpService : public Node
+{
+  public:
+    template <typename CrowApp>
+    SystemDumpService(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/System/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/System";
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogService.v1_1_0.LogService";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogService.LogService";
+        asyncResp->res.jsonValue["Name"] = "Dump Log Service";
+        asyncResp->res.jsonValue["Description"] = "System Dump Log Service";
+        asyncResp->res.jsonValue["Id"] = "System";
+        asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+        asyncResp->res.jsonValue["LogEntryTypes"] = "Dump";
+        asyncResp->res.jsonValue["Oem"]["DumpType"] = "System";
+
+        asyncResp->res.jsonValue["Entries"] = {
+            {"@odata.id",
+             "/redfish/v1/Systems/system/LogServices/System/Entries"}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
+
+            {"target", "/redfish/v1/Systems/system/LogServices/System/"
+                       "Actions/LogService.ClearLog"}};
+        asyncResp->res.jsonValue["Actions"]["#LogService.CreateLog"] = {
+            {"target", "/redfish/v1/Systems/system/LogServices/System/"
+                       "Actions/LogService.CreateLog"}};
+    }
+};
+
+class SystemDumpEntryCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    SystemDumpEntryCollection(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/System/Entries/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/System/Entries";
+        asyncResp->res.jsonValue["Name"] = "System Dump Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of System Dump Entries";
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const crow::openbmc_mapper::GetSubTreeType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                nlohmann::json &logArray = asyncResp->res.jsonValue["Members"];
+                logArray = nlohmann::json::array();
+                for (auto &object : resp)
+                {
+                    const std::string &path =
+                        static_cast<const std::string &>(object.first);
+
+                    std::size_t pos = path.rfind("/");
+
+                    std::string logID;
+                    logID = path.substr(pos + 1);
+                    logArray.push_back(
+                        {{"@odata.id", "/redfish/v1/Systems/system/LogServices/"
+                                       "System/Entries/" +
+                                           logID}});
+                }
+                asyncResp->res.jsonValue["Members@odata.count"] =
+                    logArray.size();
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTree",
+            "/xyz/openbmc_project/dump", 0,
+            std::array<const char *, 1>{
+                "xyz.openbmc_project.Dump.Entry.System"});
+    }
+};
+
+class SystemDumpEntry : public Node
+{
+  public:
+    SystemDumpEntry(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        const std::string &entryID = params[0];
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryID](const boost::system::error_code ec,
+                                 GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "SystemDumpEntry resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                for (auto &objectPath : resp)
+                {
+                    if (objectPath.first.str.find(
+                            "/xyz/openbmc_project/dump/entry/" + entryID) ==
+                        std::string::npos)
+                    {
+                        continue;
+                    }
+
+                    bool foundSystemDumpEntry = false;
+                    for (auto &interfaceMap : objectPath.second)
+                    {
+                        if (interfaceMap.first ==
+                            "xyz.openbmc_project.Dump.Entry.System")
+                        {
+                            foundSystemDumpEntry = true;
+                            break;
+                        }
+                    }
+                    if (foundSystemDumpEntry == false)
+                    {
+                        BMCWEB_LOG_DEBUG << "Can't find System Dump Entry";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+
+                    std::time_t timestamp{};
+                    uint64_t *size = nullptr;
+
+                    for (auto &interfaceMap : objectPath.second)
+                    {
+                        if (interfaceMap.first ==
+                            "xyz.openbmc_project.Dump.Entry")
+                        {
+
+                            for (auto &propertyMap : interfaceMap.second)
+                            {
+                                if (propertyMap.first == "Size")
+                                {
+                                    size = std::get_if<uint64_t>(
+                                        &propertyMap.second);
+                                    if (size == nullptr)
+                                    {
+                                        messages::propertyMissing(
+                                            asyncResp->res, "Size");
+                                    }
+                                }
+                            }
+                        }
+                        else if (interfaceMap.first ==
+                                 "xyz.openbmc_project.Time.EpochTime")
+                        {
+
+                            for (auto &propertyMap : interfaceMap.second)
+                            {
+                                if (propertyMap.first == "Elapsed")
+                                {
+                                    const uint64_t *secsTimeStamp =
+                                        std::get_if<uint64_t>(
+                                            &propertyMap.second);
+                                    if (secsTimeStamp == nullptr)
+                                    {
+                                        messages::propertyMissing(
+                                            asyncResp->res, "Elapsed");
+                                        continue;
+                                    }
+                                    std::chrono::seconds chronoTimeStamp(
+                                        *secsTimeStamp);
+                                    timestamp = std::chrono::duration_cast<
+                                                    std::chrono::duration<int>>(
+                                                    chronoTimeStamp)
+                                                    .count();
+                                }
+                            }
+                        }
+                    }
+                    asyncResp->res.jsonValue = {
+                        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+                        {"@odata.context", "/redfish/v1/"
+                                           "$metadata#LogEntry.LogEntry"},
+                        {"@odata.id",
+                         "/redfish/v1/Systems/system/LogServices/System/"
+                         "Entries/" +
+                             entryID},
+                        {"Name", "System Dump Entry"},
+                        {"Id", entryID},
+                        {"SizeInB", *size},
+                        {"EntryType", "Dump"},
+                        {"EntryCode", "User generated dump"},
+                        {"Created", crow::utility::getDateTime(timestamp)}};
+
+                    asyncResp->res
+                        .jsonValue["Actions"]["#LogEntry.DownloadLog"] = {
+                        {"target",
+                         "/redfish/v1/Systems/system/LogServices/System/"
+                         "Entries/" +
+                             entryID + "/Actions/LogEntry.DownloadLog"}};
+                }
+            },
+            "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+
+    void doDelete(crow::Response &res, const crow::Request &req,
+                  const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "Do delete single dump entry";
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+        std::string entryID = params[0];
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, entryID](const boost::system::error_code ec,
+                                 GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::vector<std::string> logIDs;
+
+                bool systemDump = false;
+                for (auto &object : resp)
+                {
+
+                    const std::string &path =
+                        static_cast<const std::string &>(object.first);
+                    std::size_t pos = path.rfind(
+                        "/xyz/openbmc_project/dump/entry/" + entryID);
+                    if (pos == std::string::npos)
+                    {
+                        continue;
+                    }
+                    for (auto &interfaceMap : object.second)
+                    {
+                        if (interfaceMap.first ==
+                            "xyz.openbmc_project.Dump.Entry.System")
+                        {
+                            systemDump = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (systemDump)
+                {
+                    deleteSystemDumpEntry(asyncResp->res, entryID);
+                }
+                else
+                {
+                    messages::resourceMissingAtURI(asyncResp->res, entryID);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 };
 
