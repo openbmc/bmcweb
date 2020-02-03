@@ -19,7 +19,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
-
+#include <dump_offload.hpp>
 #include <systemd/sd-journal.h>
 
 #include <boost/algorithm/string/split.hpp>
@@ -1759,6 +1759,34 @@ class SystemDumpEntry : public Node
             respHandler, "xyz.openbmc_project.Dump.Manager",
             "/xyz/openbmc_project/Dump/Entry/System" + entryID,
             "xyz.openbmc_project.Object.Delete", "Delete");
+    }
+};
+
+class SystemDumpEntryDownload : public Node
+{
+  public:
+    SystemDumpEntryDownload(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
+             "Actions/"
+             "LogEntry.DownloadLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        const std::string &entryID = params[0];
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
     }
 };
 
