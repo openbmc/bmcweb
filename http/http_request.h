@@ -9,11 +9,23 @@
 #include "common.h"
 #include "query_string.h"
 
+#if BOOST_VERSION >= 107000
+#include <boost/beast/ssl/ssl_stream.hpp>
+#else
+#include <boost/beast/experimental/core/ssl_stream.hpp>
+#endif
+
 namespace crow
 {
 
 struct Request
 {
+#ifdef BMCWEB_ENABLE_SSL
+    using Adaptor = boost::beast::ssl_stream<boost::asio::ip::tcp::socket>;
+#else
+    using Adaptor = boost::asio::ip::tcp::socket;
+#endif
+
     boost::beast::http::request<boost::beast::http::string_body>& req;
     boost::beast::http::fields& fields;
     std::string_view url{};
@@ -28,7 +40,7 @@ struct Request
     std::shared_ptr<crow::persistent_data::UserSession> session;
 
     std::string userRole{};
-
+    std::function<Adaptor&()> socket;
     Request(
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
         req(reqIn),
