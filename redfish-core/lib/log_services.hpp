@@ -27,6 +27,7 @@
 #include <boost/beast/core/span.hpp>
 #include <boost/container/flat_map.hpp>
 #include <boost/system/linux_error.hpp>
+#include <dump_offload.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
 #include <string_view>
@@ -1851,6 +1852,36 @@ class SystemDumpEntry : public Node
             "/xyz/openbmc_project/dump", 0,
             std::array<const char *, 1>{
                 "xyz.openbmc_project.Dump.Entry.System"});
+    }
+};
+
+class SystemDumpEntryDownload : public Node
+{
+  public:
+    SystemDumpEntryDownload(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
+             "Actions/"
+             "LogEntry.DownloadLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        const std::string &entryID = params[0];
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
     }
 };
 
