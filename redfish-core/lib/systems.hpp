@@ -1427,8 +1427,9 @@ class SystemActionsReset : public Node
         }
         else if (resetType == "ForceRestart")
         {
-            command = "xyz.openbmc_project.State.Chassis.Transition.Reset";
-            hostCommand = false;
+            command =
+                "xyz.openbmc_project.State.Host.Transition.ForceWarmReboot";
+            hostCommand = true;
         }
         else if (resetType == "GracefulShutdown")
         {
@@ -1437,13 +1438,14 @@ class SystemActionsReset : public Node
         }
         else if (resetType == "GracefulRestart")
         {
-            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+            command =
+                "xyz.openbmc_project.State.Host.Transition.GracefulWarmReboot";
             hostCommand = true;
         }
         else if (resetType == "PowerCycle")
         {
-            command = "xyz.openbmc_project.State.Chassis.Transition.PowerCycle";
-            hostCommand = false;
+            command = "xyz.openbmc_project.State.Host.Transition.Reboot";
+            hostCommand = true;
         }
         else if (resetType == "Nmi")
         {
