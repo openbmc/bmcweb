@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.3.1                                               -->
+<!--# Redfish Schema:  ManagerAccount v1.4.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -19,6 +19,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -115,7 +116,6 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_0_2">
@@ -264,6 +264,99 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the Password description.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_3_0.ManagerAccount">
+        <Property Name="SNMP" Type="ManagerAccount.v1_4_0.SNMPUserInfo">
+          <Annotation Term="OData.Description" String="The SNMP settings for this account."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP settings for this account when AccountTypes contains `SNMP`."/>
+        </Property>
+        <Property Name="AccountTypes" Type="Collection(ManagerAccount.v1_4_0.AccountTypes)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The account types."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the various account types that apply to the account.  If this property is not provided by the client, the default value shall be an array with the single value `Redfish`."/>
+          <Annotation Term="Redfish.Required"/>
+        </Property>
+        <Property Name="OEMAccountTypes" Type="Collection(Edm.String)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The OEM account types."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of the OEM account types for this account.  This property shall be valid when AccountTypes contains `OEM`."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SNMPUserInfo">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The SNMP settings for an account."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain the SNMP settings for an account."/>
+        <Property Name="AuthenticationKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses."/>
+          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+        </Property>
+        <Property Name="AuthenticationProtocol" Type="ManagerAccount.v1_4_0.SNMPAuthenticationProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The authentication protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 authentication protocol."/>
+        </Property>
+        <Property Name="EncryptionKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key used in SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses."/>
+          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+        </Property>
+        <Property Name="EncryptionProtocol" Type="ManagerAccount.v1_4_0.SNMPEncryptionProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The encryption protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 encryption protocol."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="AccountTypes">
+        <Member Name="Redfish">
+          <Annotation Term="OData.Description" String="Allow access to the Redfish Service."/>
+        </Member>
+        <Member Name="SNMP">
+          <Annotation Term="OData.Description" String="Allow access to SNMP services."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="OEM account type."/>
+        </Member> 
+      </EnumType>
+
+      <EnumType Name="SNMPAuthenticationProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is not required."/>
+        </Member>
+        <Member Name="HMAC_MD5">
+          <Annotation Term="OData.Description" String="HMAC-MD5-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol."/>
+        </Member>
+        <Member Name="HMAC_SHA96">
+          <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SNMPEncryptionProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate there is no encryption."/>
+        </Member>
+        <Member Name="CBC_DES">
+          <Annotation Term="OData.Description" String="CBC-DES encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES128">
+          <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

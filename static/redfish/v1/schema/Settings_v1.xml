@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Settings v1.2.2                                                     -->
+<!--# Redfish Schema:  Settings v1.3.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -61,6 +61,18 @@
         <Member Name="InMaintenanceWindowOnReset">
           <Annotation Term="OData.Description" String="The requested operation is applied after a reset but within the administrator-specified maintenance window."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied during the maintenance window that the MaintenanceWindowStartTime and MaintenanceWindowDurationInSeconds properties specify, and if a reset occurs within the maintenance window."/>
+        </Member>
+        <Member Name="OnStartUpdateRequest">
+          <Annotation Term="OData.Description" String="The requested operation is applied when the StartUpdate action of the Update Service is invoked."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the requested create, delete, or action operation is applied when the StartUpdate action of the Update Service is invoked."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Member>
       </EnumType>
     </Schema>
@@ -271,6 +283,16 @@
       <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_1.PreferredApplyTime"/>
       <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_1.OperationApplyTimeSupport"/>
       <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_1.MaintenanceWindow"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Settings.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the OnStartUpdateRequest value to the OperationApplyTime enumeration."/>
+      <ComplexType Name="Settings" BaseType="Settings.v1_2_2.Settings"/>
+      <ComplexType Name="PreferredApplyTime" BaseType="Settings.v1_2_2.PreferredApplyTime"/>
+      <ComplexType Name="OperationApplyTimeSupport" BaseType="Settings.v1_2_2.OperationApplyTimeSupport"/>
+      <ComplexType Name="MaintenanceWindow" BaseType="Settings.v1_2_2.MaintenanceWindow"/>
     </Schema>
 
   </edmx:DataServices>

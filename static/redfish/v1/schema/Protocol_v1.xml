@@ -169,6 +169,42 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="TCP">
+          <Annotation Term="OData.Description" String="Transmission Control Protocol (TCP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined Tranmission Control Protocol (TCP).  For example, RFC7414 defines the roadmap of the TCP specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="UDP">
+          <Annotation Term="OData.Description" String="User Datagram Protocol (UDP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined User Datagram Protocol (UDP).  For example, RFC768 defines the core UDP specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="TFTP">
+          <Annotation Term="OData.Description" String="Trivial File Transfer Protocol (TFTP)."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the IETF-defined Trivial File Transfer Protocol (TFTP).  For example, RFC1350 defines the core TFTP version 2 specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.3"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM-specific."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to an OEM-specific architecture and additional information may be included in the OEM section."/>

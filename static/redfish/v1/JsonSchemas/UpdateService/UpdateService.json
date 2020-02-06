@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_7_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -25,6 +25,9 @@
             "properties": {
                 "#UpdateService.SimpleUpdate": {
                     "$ref": "#/definitions/SimpleUpdate"
+                },
+                "#UpdateService.StartUpdate": {
+                    "$ref": "#/definitions/StartUpdate"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -215,6 +218,39 @@
                 }
             },
             "type": "object"
+        },
+        "StartUpdate": {
+            "additionalProperties": false,
+            "description": "This action starts an update of software components.",
+            "longDescription": "This action shall start an update of software component that have been scheduled with the OperationApplyTime value of `OnStartUpdateRequest`.",
+            "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_7_0"
         },
         "TransferProtocolType": {
             "enum": [
@@ -453,6 +489,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#UpdateService.v1_6_0.UpdateService"
+    "release": "2019.3",
+    "title": "#UpdateService.v1_7_0.UpdateService"
 }

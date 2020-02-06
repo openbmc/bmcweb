@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
-<!--################################################################################       -->
-<!--# Redfish Schema:  Storage v1.7.1                                                      -->
-<!--#                                                                                      -->
-<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
-<!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
-<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
-<!--################################################################################       -->
+<!--################################################################################                   -->
+<!--# Redfish Schema:  Storage v1.8.0                                                                  -->
+<!--#                                                                                                  -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
+<!--# available at http://www.dmtf.org/standards/redfish                                               -->
+<!--# Copyright 2014-2019 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
+<!--################################################################################                   -->
 <!---->
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
@@ -63,6 +63,21 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/Volume_v1.xml">
     <edmx:Include Namespace="Volume"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/FileSystemCollection_v1.xml">
+    <edmx:Include Namespace="FileSystemCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection_v1.xml">
+    <edmx:Include Namespace="StoragePoolCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection_v1.xml">
+    <edmx:Include Namespace="StorageGroupCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/EndpointGroupCollection_v1.xml">
+    <edmx:Include Namespace="EndpointGroupCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroupCollection_v1.xml">
+    <edmx:Include Namespace="ConsistencyGroupCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -654,6 +669,44 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Storage" BaseType="Storage.v1_7_0.Storage"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Storage.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+
+      <EntityType Name="Storage" BaseType="Storage.v1_7_1.Storage">
+        <NavigationProperty Name="FileSystems" Type="FileSystemCollection.FileSystemCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="All filesystems that are allocated by this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type FileSystemCollection.  This property shall be used when file systems are shared or exported by the storage subsystem."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="StoragePools" Type="StoragePoolCollection.StoragePoolCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The set of all storage pools that are allocated by this storage subsystem.  A storage pool is the set of storage capacity that can be used to produce volumes or other storage pools."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type StoragePoolCollection.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="StorageGroups" Type="StorageGroupCollection.StorageGroupCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="EndpointGroups" Type="EndpointGroupCollection.EndpointGroupCollection" Nullable="false" ContainsTarget="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking and zoning operations."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="ConsistencyGroups" Type="ConsistencyGroupCollection.ConsistencyGroupCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The consistency groups, each of which contains a set of volumes that are treated by an application or set of applications as a single resource, that are managed by this storage subsystem."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type ConsistencyGroupCollection.  The property shall be used when groups of volumes are treated as a single resource by an application or set of applications."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

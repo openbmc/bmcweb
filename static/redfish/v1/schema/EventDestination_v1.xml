@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.6.0                                             -->
+<!--# Redfish Schema:  EventDestination v1.7.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -19,6 +19,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
     <edmx:Include Namespace="Resource"/>
@@ -97,7 +98,7 @@
           <Annotation Term="Redfish.RequiredOnCreate"/>
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The URI of the destination event receiver."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to the destination where the events are sent."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a URI to the destination where the events are sent.  If Protocol is `SMTP`, the URI shall follow the RFC6068-described format.  SNMP URIs shall be consistent with RFC4088.  Specifically, for SNMPv3, if a username is specified in the SNMP URI, the SNMPv3 authentication and encryption configuration associated with that user shall be utilized in the SNMPv3 traps.  For other URIs, such as HTTP or HTTPS, they shall be consistent with RFC3986."/>
           <Annotation Term="OData.IsURL"/>
         </Property>
         <Property Name="EventTypes" Type="Collection(Event.EventType)" Nullable="false">
@@ -136,12 +137,60 @@
         <Member Name="Redfish">
           <Annotation Term="OData.Description" String="The destination follows the Redfish Specification for event notifications."/>
         </Member>
+        <Member Name="SNMPv1">
+          <Annotation Term="OData.Description" String="The destination follows the SNMPv1 protocol for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the RFC1157-defined SNMPv1 protocol."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPv2c">
+          <Annotation Term="OData.Description" String="The destination follows the SNMPv2c protocol for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the SNMPv2c protocol as defined by RFC1441 and RFC1452."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPv3">
+          <Annotation Term="OData.Description" String="The destination follows the SNMPv3 protocol for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the SNMPv3 protocol as defined by RFC3411 and RFC3418."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SMTP">
+          <Annotation Term="OData.Description" String="The destination follows the SMTP specification for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the destination follows the RFC5321-defined SMTP specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <ComplexType Name="HttpHeaderProperty">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The HTTP header value is the property value.  The header name is the property name."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the HTTP header name and value to include with every event POST to the event eestination."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the HTTP header name and value to include with every event POST to the event destination."/>
         <Annotation Term="Redfish.DynamicPropertyPatterns">
           <Collection>
             <Record>
@@ -331,6 +380,30 @@
         <Member Name="SSE">
           <Annotation Term="OData.Description" String="The subscription follows the HTML5 Server-Sent Event definition for event notifications."/>
         </Member>
+        <Member Name="SNMPTrap">
+          <Annotation Term="OData.Description" String="The subscription follows the various versions of SNMP Traps for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription follows the various versions of SNMP Traps for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="SNMPInform">
+          <Annotation Term="OData.Description" String="The subscription follows versions 2 and 3 of SNMP Inform for event notifications."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the subscription follows versions 2 and 3 of SNMP Inform for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_7_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
     </Schema>
 
@@ -409,6 +482,7 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
       <Annotation Term="OData.Description" String="This version was created to add DeliveryRetryPolicy."/>
+
       <EntityType Name="EventDestination" BaseType="EventDestination.v1_5_0.EventDestination">
         <Property Name="DeliveryRetryPolicy" Type="EventDestination.v1_6_0.DeliveryRetryPolicy">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -435,6 +509,86 @@
         </Member>
         <Member Name="RetryForever">
           <Annotation Term="OData.Description" String="The subscription is not suspended or terminated, and attempts at delivery of future events shall continue even after the after the maximum number of retries is reached."/>
+        </Member>
+      </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add SMTP and SNMP to EventDestinationProtocol, and SNMP to SubscriptionType."/>
+
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_6_0.EventDestination">
+        <Property Name="SNMP" Type="EventDestination.v1_7_0.SNMPSettings" Nullable="false">
+          <Annotation Term="OData.Description" String="Settings for an SNMP event destination."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the settings for an SNMP event destination."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SNMPSettings">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Settings for an SNMP event destination."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the settings for an SNMP event destination."/>
+        <Property Name="TrapCommunity" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The SNMP trap community string."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMP trap community string.  The value shall be `null` in responses."/>
+        </Property>
+        <Property Name="AuthenticationKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key used for SNMPv3 authentication.  The value shall be `null` in responses."/>
+          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+        </Property>
+        <Property Name="AuthenticationProtocol" Type="EventDestination.v1_7_0.SNMPAuthenticationProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The authentication protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 authentication protocol."/>
+        </Property>
+        <Property Name="EncryptionKey" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses."/>
+          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+        </Property>
+        <Property Name="EncryptionProtocol" Type="EventDestination.v1_7_0.SNMPEncryptionProtocols">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The encryption protocol for SNMPv3."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the SNMPv3 encryption protocol."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SNMPAuthenticationProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is not required."/>
+        </Member>
+        <Member Name="CommunityString">
+          <Annotation Term="OData.Description" String="Trap community string authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication using SNMP community strings and the value of TrapCommunity."/>
+        </Member>
+        <Member Name="HMAC_MD5">
+          <Annotation Term="OData.Description" String="HMAC-MD5-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol."/>
+        </Member>
+        <Member Name="HMAC_SHA96">
+          <Annotation Term="OData.Description" String="HMAC-SHA-96 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SNMPEncryptionProtocols">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate there is no encryption."/>
+        </Member>
+        <Member Name="CBC_DES">
+          <Annotation Term="OData.Description" String="CBC-DES encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol."/>
+        </Member>
+        <Member Name="CFB128_AES128">
+          <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
         </Member>
       </EnumType>
     </Schema>

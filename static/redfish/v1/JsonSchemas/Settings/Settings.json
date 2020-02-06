@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Settings.v1_2_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Settings.v1_3_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
@@ -246,6 +246,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.1",
-    "title": "#Settings.v1_2_2"
+    "release": "2019.3",
+    "title": "#Settings.v1_3_0"
 }
