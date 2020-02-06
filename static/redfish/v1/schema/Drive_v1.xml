@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
-<!--################################################################################       -->
-<!--# Redfish Schema:  Drive v1.7.0                                                        -->
-<!--#                                                                                      -->
-<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
-<!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
-<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
-<!--################################################################################       -->
+<!--################################################################################                   -->
+<!--# Redfish Schema:  Drive v1.8.0                                                                    -->
+<!--#                                                                                                  -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,                  -->
+<!--# available at http://www.dmtf.org/standards/redfish                                               -->
+<!--# Copyright 2014-2019 DMTF in cooperation with the Storage Networking Industry Association (SNIA). -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright             -->
+<!--################################################################################                   -->
 <!---->
 <edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
 
@@ -47,6 +47,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/PCIeFunction_v1.xml">
     <edmx:Include Namespace="PCIeFunction"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StoragePool_v1.xml">
+    <edmx:Include Namespace="StoragePool"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -708,6 +711,22 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether the drive write cache is enabled."/>
         </Property>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Drive.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+
+      <EntityType Name="Drive" BaseType="Drive.v1_7_0.Drive"/>
+
+      <ComplexType Name="Links" BaseType="Drive.v1_6_0.Links">
+        <NavigationProperty Name="StoragePools" Type="Collection(StoragePool.StoragePool)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the storage pools to which this drive belongs."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of type StoragePool to which this drive belongs."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

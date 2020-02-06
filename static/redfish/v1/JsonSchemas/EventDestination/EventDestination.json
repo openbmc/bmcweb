@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventDestination.v1_7_0.json",
     "$ref": "#/definitions/EventDestination",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -122,7 +122,7 @@
                 "Destination": {
                     "description": "The URI of the destination event receiver.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain a URI to the destination where the events are sent.",
+                    "longDescription": "This property shall contain a URI to the destination where the events are sent.  If Protocol is `SMTP`, the URI shall follow the RFC6068-described format.  SNMP URIs shall be consistent with RFC4088.  Specifically, for SNMPv3, if a username is specified in the SNMP URI, the SNMPv3 authentication and encryption configuration associated with that user shall be utilized in the SNMPv3 traps.  For other URIs, such as HTTP or HTTPS, they shall be consistent with RFC3986.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -243,6 +243,12 @@
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
+                "SNMP": {
+                    "$ref": "#/definitions/SNMPSettings",
+                    "description": "Settings for an SNMP event destination.",
+                    "longDescription": "This property shall contain the settings for an SNMP event destination.",
+                    "versionAdded": "v1_7_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "This property shall contain the status of the subscription.",
@@ -290,17 +296,37 @@
         },
         "EventDestinationProtocol": {
             "enum": [
-                "Redfish"
+                "Redfish",
+                "SNMPv1",
+                "SNMPv2c",
+                "SNMPv3",
+                "SMTP"
             ],
             "enumDescriptions": {
-                "Redfish": "The destination follows the Redfish Specification for event notifications."
+                "Redfish": "The destination follows the Redfish Specification for event notifications.",
+                "SMTP": "The destination follows the SMTP specification for event notifications.",
+                "SNMPv1": "The destination follows the SNMPv1 protocol for event notifications.",
+                "SNMPv2c": "The destination follows the SNMPv2c protocol for event notifications.",
+                "SNMPv3": "The destination follows the SNMPv3 protocol for event notifications."
+            },
+            "enumLongDescriptions": {
+                "SMTP": "This value shall indicate the destination follows the RFC5321-defined SMTP specification.",
+                "SNMPv1": "This value shall indicate the destination follows the RFC1157-defined SNMPv1 protocol.",
+                "SNMPv2c": "This value shall indicate the destination follows the SNMPv2c protocol as defined by RFC1441 and RFC1452.",
+                "SNMPv3": "This value shall indicate the destination follows the SNMPv3 protocol as defined by RFC3411 and RFC3418."
+            },
+            "enumVersionAdded": {
+                "SMTP": "v1_7_0",
+                "SNMPv1": "v1_7_0",
+                "SNMPv2c": "v1_7_0",
+                "SNMPv3": "v1_7_0"
             },
             "type": "string"
         },
         "HttpHeaderProperty": {
             "additionalProperties": false,
             "description": "The HTTP header value is the property value.  The header name is the property name.",
-            "longDescription": "This type shall contain the HTTP header name and value to include with every event POST to the event eestination.",
+            "longDescription": "This type shall contain the HTTP header name and value to include with every event POST to the event destination.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -374,19 +400,152 @@
             },
             "type": "object"
         },
+        "SNMPAuthenticationProtocols": {
+            "enum": [
+                "None",
+                "CommunityString",
+                "HMAC_MD5",
+                "HMAC_SHA96"
+            ],
+            "enumDescriptions": {
+                "CommunityString": "Trap community string authentication.",
+                "HMAC_MD5": "HMAC-MD5-96 authentication.",
+                "HMAC_SHA96": "HMAC-SHA-96 authentication.",
+                "None": "No authentication."
+            },
+            "enumLongDescriptions": {
+                "CommunityString": "This value shall indicate authentication using SNMP community strings and the value of TrapCommunity.",
+                "HMAC_MD5": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-MD5-96 authentication protocol.",
+                "HMAC_SHA96": "This value shall indicate authentication conforms to the RFC3414-defined HMAC-SHA-96 authentication protocol.",
+                "None": "This value shall indicate authentication is not required."
+            },
+            "type": "string"
+        },
+        "SNMPEncryptionProtocols": {
+            "enum": [
+                "None",
+                "CBC_DES",
+                "CFB128_AES128"
+            ],
+            "enumDescriptions": {
+                "CBC_DES": "CBC-DES encryption.",
+                "CFB128_AES128": "CFB128-AES-128 encryption.",
+                "None": "No encryption."
+            },
+            "enumLongDescriptions": {
+                "CBC_DES": "This value shall indicate encryption conforms to the RFC3414-defined CBC-DES encryption protocol.",
+                "CFB128_AES128": "This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol.",
+                "None": "This value shall indicate there is no encryption."
+            },
+            "type": "string"
+        },
+        "SNMPSettings": {
+            "additionalProperties": false,
+            "description": "Settings for an SNMP event destination.",
+            "longDescription": "This type shall contain the settings for an SNMP event destination.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AuthenticationKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key used for SNMPv3 authentication.  The value shall be `null` in responses.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "AuthenticationProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPAuthenticationProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 authentication protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
+                "EncryptionKey": {
+                    "description": "The secret authentication key for SNMPv3.",
+                    "longDescription": "This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.",
+                    "pattern": "(^[A-Za-z0-9]+$)|(^\\*+$)",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
+                "EncryptionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SNMPEncryptionProtocols"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The encryption protocol for SNMPv3.",
+                    "longDescription": "This property shall contain the SNMPv3 encryption protocol.",
+                    "readonly": false,
+                    "versionAdded": "v1_7_0"
+                },
+                "TrapCommunity": {
+                    "description": "The SNMP trap community string.",
+                    "longDescription": "This property shall contain the SNMP trap community string.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
         "SubscriptionType": {
             "enum": [
                 "RedfishEvent",
-                "SSE"
+                "SSE",
+                "SNMPTrap",
+                "SNMPInform"
             ],
             "enumDescriptions": {
                 "RedfishEvent": "The subscription follows the Redfish Specification for event notifications.  To send an event notification, a service sends an HTTP POST to the subscriber's destination URI.",
+                "SNMPInform": "The subscription follows versions 2 and 3 of SNMP Inform for event notifications.",
+                "SNMPTrap": "The subscription follows the various versions of SNMP Traps for event notifications.",
                 "SSE": "The subscription follows the HTML5 Server-Sent Event definition for event notifications."
+            },
+            "enumLongDescriptions": {
+                "SNMPInform": "This value shall indicate the subscription follows versions 2 and 3 of SNMP Inform for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP.",
+                "SNMPTrap": "This value shall indicate the subscription follows the various versions of SNMP Traps for event notifications.  EventDestinationProtocol shall specify the appropriate version of SNMP."
+            },
+            "enumVersionAdded": {
+                "SNMPInform": "v1_7_0",
+                "SNMPTrap": "v1_7_0"
             },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#EventDestination.v1_6_0.EventDestination"
+    "release": "2019.3",
+    "title": "#EventDestination.v1_7_0.EventDestination"
 }

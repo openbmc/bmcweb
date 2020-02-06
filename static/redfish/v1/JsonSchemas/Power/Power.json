@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Power.v1_5_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Power.v1_6_0.json",
     "$ref": "#/definitions/Power",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -23,6 +23,9 @@
                 }
             },
             "properties": {
+                "#Power.PowerSupplyReset": {
+                    "$ref": "#/definitions/PowerSupplyReset"
+                },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this Resource.",
@@ -985,6 +988,51 @@
             "properties": {},
             "type": "object"
         },
+        "PowerSupplyReset": {
+            "additionalProperties": false,
+            "description": "This action resets the targeted power supply.",
+            "longDescription": "This action shall reset a power supply specified by the MemberId from the PowerSupplies array.  A `GracefulRestart` ResetType shall reset the power supply but shall not affect the power output.  A `ForceRestart` ResetType may affect the power supply output.",
+            "parameters": {
+                "MemberId": {
+                    "description": "The MemberId of the power supply within the PowerSupplies array on which to perform the reset.",
+                    "longDescription": "This parameter shall contain the identifier of the member within the PowerSupplies array on which to perform the reset.",
+                    "requiredParameter": true,
+                    "type": "string"
+                },
+                "ResetType": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
+                    "description": "The type of reset.",
+                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and shall perform a `GracefulRestart`."
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_6_0"
+        },
         "PowerSupplyType": {
             "enum": [
                 "Unknown",
@@ -1226,6 +1274,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2017.3",
-    "title": "#Power.v1_5_4.Power"
+    "release": "2019.3",
+    "title": "#Power.v1_6_0.Power"
 }

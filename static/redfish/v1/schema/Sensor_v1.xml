@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Sensor v1.0.2                                                       -->
+<!--# Redfish Schema:  Sensor v1.0.3                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -111,19 +111,18 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The area or device to which this sensor measurement applies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a description of the affected component or region within the equipment to which this sensor measurement applies."/>
-          <Annotation Term="Redfish.Excerpt"/>
+          <Annotation Term="Redfish.Excerpt" String="Array"/>
         </Property>
         <Property Name="PhysicalSubContext" Type="PhysicalContext.PhysicalSubContext">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The usage or location within a device to which this sensor measurement applies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a description of the usage or sub-region within the equipment to which this sensor measurement applies.  This property generally differentiates multiple sensors within the same PhysicalContext instance."/>
-          <Annotation Term="Redfish.Excerpt"/>
+          <Annotation Term="Redfish.Excerpt" String="Array"/>
         </Property>
         <Property Name="PeakReading" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The peak sensor value."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the peak sensor value since the last ResetStatistics action was performed or the service last reset the time-based property values."/>
-          <Annotation Term="Redfish.Excerpt"/>
         </Property>
 
         <Property Name="MaxAllowableOperatingValue" Type="Edm.Decimal">
@@ -149,14 +148,16 @@
 
         <Property Name="ApparentVA" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in Volt-Amperes units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  PowerApparentVA is expressed in Volt-Amperes units by using the ReadingUnits `V` value.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="OData.Description" String="The product of voltage and current for an AC circuit, in Volt-Ampere units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the product of VoltageRMS multiplied by CurrentRMS for a circuit.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="Measures.Unit" String="V.A"/>
           <Annotation Term="Redfish.Excerpt" String="Power"/>
         </Property>
         <Property Name="ReactiveVAR" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in VAR units."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  PowerReactiveVAR is expressed in VAR units by using the ReadingUnits `V` value.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="OData.Description" String="The square root of the difference term of squared ApparentVA and squared Power (Reading) for a circuit, in var units."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the arithmetic mean of product terms of instantaneous voltage and quadrature current measurements calculated over an integer number of line cycles for a circuit.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
+          <Annotation Term="Measures.Unit" String="V.A"/>
           <Annotation Term="Redfish.Excerpt" String="Power"/>
         </Property>
         <Property Name="PowerFactor" Type="Edm.Decimal">
@@ -172,7 +173,6 @@
           <Annotation Term="OData.Description" String="The power load utilization for this sensor."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate the power load utilization percent for this sensor.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values."/>
           <Annotation Term="Measures.Unit" String="%"/>
-          <Annotation Term="Redfish.Excerpt" String="Power"/>
         </Property>
 
         <Property Name="Location" Type="Resource.Location" Nullable="false">
@@ -475,6 +475,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Sensor" BaseType="Sensor.v1_0_1.Sensor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Sensor.v1_0_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to remove the excerpt annotation from the LoadPercent and PeakReading properties, and to provide a specific excerpt type for PhysicalContext and PhysicalSubContext.  It was also created to add unit annotations for ApparentVA and ReactiveVAR properties."/>
+      <EntityType Name="Sensor" BaseType="Sensor.v1_0_2.Sensor"/>
     </Schema>
 
   </edmx:DataServices>

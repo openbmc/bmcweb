@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_8_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_9_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -219,6 +219,17 @@
                     "longDescription": "This property shall contain a link to a Resource Collection of type CertificateCollection.",
                     "readonly": true,
                     "versionAdded": "v1_7_0"
+                },
+                "HttpBootUri": {
+                    "description": "The URI to boot from when BootSourceOverrideTarget is set to `UefiHttp`.",
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain the URI to perform an HTTP or HTTPS boot when BootSourceOverrideTarget is set to `UefiHttp`.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_9_0"
                 },
                 "UefiTargetBootSourceOverride": {
                     "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
@@ -1414,6 +1425,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#ComputerSystem.v1_8_0.ComputerSystem"
+    "release": "2019.3",
+    "title": "#ComputerSystem.v1_9_0.ComputerSystem"
 }

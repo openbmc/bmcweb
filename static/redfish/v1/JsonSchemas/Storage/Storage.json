@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_7_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Storage.v1_8_0.json",
     "$ref": "#/definitions/Storage",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -282,6 +282,13 @@
                     "description": "The available actions for this Resource.",
                     "longDescription": "This property shall contain the available actions for this Resource."
                 },
+                "ConsistencyGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/ConsistencyGroupCollection.json#/definitions/ConsistencyGroupCollection",
+                    "description": "The consistency groups, each of which contains a set of volumes that are treated by an application or set of applications as a single resource, that are managed by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a Resource of type ConsistencyGroupCollection.  The property shall be used when groups of volumes are treated as a single resource by an application or set of applications.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -304,6 +311,20 @@
                 },
                 "Drives@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "EndpointGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/EndpointGroupCollection.json#/definitions/EndpointGroupCollection",
+                    "description": "All of the endpoint groups, each of which contains a set of endpoints that are used for a common purpose such as an ACL or logical identification, that belong to this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a Resource of type EndpointGroupCollection.  This property shall be implemented when atomic control is needed to perform mapping, masking and zoning operations.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "FileSystems": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/FileSystemCollection.json#/definitions/FileSystemCollection",
+                    "description": "All filesystems that are allocated by this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a Resource of type FileSystemCollection.  This property shall be used when file systems are shared or exported by the storage subsystem.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -352,6 +373,20 @@
                 },
                 "StorageControllers@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "StorageGroups": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StorageGroupCollection.json#/definitions/StorageGroupCollection",
+                    "description": "All of the storage groups, each of which contains a set of volumes and endpoints that are managed as a group for mapping and masking, that belong to this storage subsystem.",
+                    "longDescription": "This property shall contain a link to a Resource of type StorageGroupsCollection.  This property shall be used when implementing mapping and masking.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
+                },
+                "StoragePools": {
+                    "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePoolCollection.json#/definitions/StoragePoolCollection",
+                    "description": "The set of all storage pools that are allocated by this storage subsystem.  A storage pool is the set of storage capacity that can be used to produce volumes or other storage pools.",
+                    "longDescription": "This property shall contain a link to a Resource of type StoragePoolCollection.  This property shall be used when an abstraction of media, rather than references to individual media, are used as the storage data source.",
+                    "readonly": true,
+                    "versionAdded": "v1_8_0"
                 },
                 "Volumes": {
                     "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/VolumeCollection.json#/definitions/VolumeCollection",
@@ -704,6 +739,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.1",
-    "title": "#Storage.v1_7_1.Storage"
+    "release": "2019.3",
+    "title": "#Storage.v1_8_0.Storage"
 }
