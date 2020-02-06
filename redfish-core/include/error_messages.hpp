@@ -764,6 +764,17 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
 void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
                               const std::string& arg2, const std::string& arg3);
 
+/**
+ * @brief Formats PasswordChangeRequired message into JSON
+ * Message body: The password provided for this account must be changed
+ * before access is granted.  PATCH the 'Password' property for this
+ * account located at the target URI '%1' to complete this process.
+ *
+ * @param[in] arg1 Parameter of message that will replace %1 in its body.
+ *
+ * @returns Message PasswordChangeRequired formatted to JSON */
+void passwordChangeRequired(crow::Response& res, const std::string& arg1);
+
 } // namespace messages
 
 } // namespace redfish
