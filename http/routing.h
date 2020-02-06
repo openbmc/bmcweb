@@ -1,5 +1,6 @@
 #pragma once
 
+#include "error_messages.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
 
@@ -1291,9 +1292,21 @@ class Router
                 redfish::Privileges userPrivileges =
                     redfish::getUserPrivileges(userRole);
 
+                if (req.session->isConfigureSelfOnly)
+                {
+                    userPrivileges = redfish::Privileges{"ConfigureSelf"};
+                    BMCWEB_LOG_DEBUG << "Session limited to ConfigureSelf";
+                }
+
                 if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
                 {
                     res.result(boost::beast::http::status::forbidden);
+                    if (req.session->isConfigureSelfOnly)
+                    {
+                        redfish::messages::passwordChangeRequired(
+                            res, "/redfish/v1/AccountService/Accounts/" +
+                                     req.session->username);
+                    }
                     res.end();
                     return;
                 }

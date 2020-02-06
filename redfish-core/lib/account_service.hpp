@@ -1636,6 +1636,23 @@ class ManagerAccount : public Node
                                                   "Roles/" +
                                                       role}};
                             }
+                            else if (property.first ==
+                                     "UserPasswordExpired")
+                            {
+                                const bool* userPasswordExpired =
+                                    std::get_if<bool>(&property.second);
+                                if (userPasswordExpired == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR << "UserPassword"
+                                                        "Expired "
+                                                        "wasn't a bool";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res.jsonValue
+                                    ["PasswordChangeRequired"] =
+                                    *userPasswordExpired;
+                            }
                         }
                     }
                 }
