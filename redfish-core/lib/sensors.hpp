@@ -2603,14 +2603,12 @@ bool findSensorNameUsingSensorPath(
  *
  * @param res   response object
  * @param allCollections   Collections extract from sensors' request patch info
- * @param typeList   TypeList of sensors for the resource queried
  * @param chassisSubNode  Chassis Node for which the query has to happen
  */
 void setSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
     std::unordered_map<std::string, std::vector<nlohmann::json>>&
-        allCollections,
-    const std::string& chassisName, const std::vector<const char*> typeList)
+        allCollections)
 {
     BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
                     << sensorAsyncResp->chassisSubNode << "\n";
@@ -2758,13 +2756,12 @@ bool isOverridingAllowed(const std::string& manufacturingModeStatus)
  *
  * @param res   response object
  * @param allCollections   Collections extract from sensors' request patch info
- * @param typeList   TypeList of sensors for the resource queried
- * @param chassisSubNode  Chassis Node for which the query has to happen
+ * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 void checkAndDoSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
-    std::unordered_map<std::string, std::vector<nlohmann::json>>& allCollect,
-    const std::string& chassisName, const std::vector<const char*> typeList)
+    std::unordered_map<std::string, std::vector<nlohmann::json>>&
+        allCollections)
 {
     BMCWEB_LOG_INFO << "checkAndDoSensorsOverride for subnode"
                     << sensorAsyncResp->chassisSubNode << "\n";
@@ -2773,9 +2770,8 @@ void checkAndDoSensorsOverride(
         "xyz.openbmc_project.Security.SpecialMode"};
 
     crow::connections::systemBus->async_method_call(
-        [sensorAsyncResp, allCollect, chassisName,
-         typeList](const boost::system::error_code ec,
-                   const GetSubTreeType& resp) mutable {
+        [sensorAsyncResp, allCollections](const boost::system::error_code ec,
+                                          const GetSubTreeType& resp) mutable {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -2805,7 +2801,7 @@ void checkAndDoSensorsOverride(
             // Sensor override is allowed only in manufacturing mode or
             // validation unsecure mode .
             crow::connections::systemBus->async_method_call(
-                [sensorAsyncResp, allCollect, chassisName, typeList,
+                [sensorAsyncResp, allCollections,
                  path](const boost::system::error_code ec,
                        std::variant<std::string>& getManufactMode) mutable {
                     if (ec)
@@ -2831,8 +2827,7 @@ void checkAndDoSensorsOverride(
                     {
                         BMCWEB_LOG_INFO << "Manufacturing mode is Enabled. "
                                            "Proceeding further... ";
-                        setSensorsOverride(sensorAsyncResp, allCollect,
-                                           chassisName, typeList);
+                        setSensorsOverride(sensorAsyncResp, allCollections);
                     }
                     else
                     {
