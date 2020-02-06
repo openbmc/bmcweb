@@ -196,7 +196,25 @@ class Privileges
         return (privilegeBitset & p.privilegeBitset) == p.privilegeBitset;
     }
 
+    /**
+     * @brief Returns the intersection of two Privilege sets.
+     *
+     * @param[in] privilege  Privilege set to intersect with.
+     *
+     * @return               The new Privilege set.
+     *
+     */
+    Privileges intersection(const Privileges& p) const
+    {
+        Privileges newp;
+        newp.privilegeBitset = privilegeBitset & p.privilegeBitset;
+        return newp;
+    }
+
   private:
+    Privileges(const std::bitset<maxPrivilegeCount>& p) : privilegeBitset{p}
+    {
+    }
     std::bitset<maxPrivilegeCount> privilegeBitset = 0;
 };
 
