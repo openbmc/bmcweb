@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.5.1                                                    -->
+<!--# Redfish Schema:  Processor v1.6.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -95,6 +95,24 @@
         </Annotation>
       </EntityType>
 
+      <Action Name="Reset" IsBound="true">
+        <Parameter Name="Processor" Type="Processor.v1_1_0.Actions"/>
+        <Parameter Name="ResetType" Type="Resource.ResetType">
+          <Annotation Term="OData.Description" String="The type of reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="This action resets the processor."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the processor."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_6_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
+      </Action>
+
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_0">
@@ -170,8 +188,8 @@
         </Property>
         <Property Name="IdentificationRegisters" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The raw manufacturer-provided CPUID instruction output for this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the raw manufacturer-provided CPUID instruction output for this processor."/>
+          <Annotation Term="OData.Description" String="The raw manufacturer-provided processor identification registers for this processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the raw manufacturer-provided processor-specific identification registers of this processor's features."/>
         </Property>
         <Property Name="EffectiveFamily" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -372,6 +390,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_0_7.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_0_8.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -438,6 +462,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_1_3.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_1_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_1_4.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -479,6 +509,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_2_3.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_2_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_2_4.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
@@ -514,6 +550,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Processor" BaseType="Processor.v1_3_3.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_3_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_3_4.Processor"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_0">
@@ -860,6 +902,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_4_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -872,12 +920,25 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate the total count of enabled independent processor cores contained within this processor."/>
         </Property>
       </EntityType>
-   </Schema>
+    </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description of IdentificationRegisters."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_1.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add a reset action for a processor."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_2.Processor"/>
     </Schema>
 
   </edmx:DataServices>

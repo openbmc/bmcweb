@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_5_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -172,6 +172,12 @@
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
+                "SMTP": {
+                    "$ref": "#/definitions/SMTP",
+                    "description": "Settings for SMTP event delivery.",
+                    "longDescription": "This property shall contain settings for SMTP event delivery.",
+                    "versionAdded": "v1_5_0"
+                },
                 "SSEFilterPropertiesSupported": {
                     "$ref": "#/definitions/SSEFilterPropertiesSupported",
                     "description": "The set of properties that are supported in the $filter query parameter for the ServerSentEventUri.",
@@ -245,6 +251,163 @@
             },
             "properties": {},
             "type": "object"
+        },
+        "SMTP": {
+            "additionalProperties": false,
+            "description": "Settings for SMTP event delivery.",
+            "longDescription": "This type shall contain settings for SMTP event delivery.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Authentication": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SMTPAuthenticationMethods"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The authentication method for the SMTP server.",
+                    "longDescription": "This property shall contain the authentication method for the SMTP server.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "ConnectionProtocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/SMTPConnectionProtocol"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The connection type to the outgoing SMTP server.",
+                    "longDescription": "This property shall contain the connection type to the outgoing SMTP server.",
+                    "readonly": false,
+                    "versionAdded": "v1_5_0"
+                },
+                "FromAddress": {
+                    "description": "The 'from' email address of the outgoing email.",
+                    "longDescription": "This property shall contain the email address to use for the 'from' field in an outgoing email.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "Password": {
+                    "description": "The password for authentication with the SMTP server.  The value is `null` in responses.",
+                    "longDescription": "This property shall contain the password for authentication with the SMTP server.  The value shall be `null` in responses.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "Port": {
+                    "description": "The destination SMTP port.",
+                    "longDescription": "This property shall contain the destination port for the SMTP server.",
+                    "maximum": 65535,
+                    "minimum": 0,
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "ServerAddress": {
+                    "description": "The address of the SMTP server.",
+                    "longDescription": "This property shall contain the address of the SMTP server for outgoing email.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "ServiceEnabled": {
+                    "description": "An indication if SMTP for event delivery is enabled.",
+                    "longDescription": "This property shall indicate if SMTP for event delivery is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "Username": {
+                    "description": "The username for authentication with the SMTP server.",
+                    "longDescription": "This property shall contain the username for authentication with the SMTP server.",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                }
+            },
+            "type": "object"
+        },
+        "SMTPAuthenticationMethods": {
+            "enum": [
+                "None",
+                "AutoDetect",
+                "Plain",
+                "Login",
+                "CRAM_MD5"
+            ],
+            "enumDescriptions": {
+                "AutoDetect": "Auto-detect.",
+                "CRAM_MD5": "CRAM-MD5 authentication.",
+                "Login": "LOGIN authentication.",
+                "None": "No authentication.",
+                "Plain": "PLAIN authentication."
+            },
+            "enumLongDescriptions": {
+                "AutoDetect": "This value shall indicate authentication is auto-detected.",
+                "CRAM_MD5": "This value shall indicate authentication conforms to the RFC4954-defined AUTH CRAM-MD5 mechanism.",
+                "Login": "This value shall indicate authentication conforms to the RFC4954-defined AUTH LOGIN mechanism.",
+                "None": "This value shall indicate authentication is not required.",
+                "Plain": "This value shall indicate authentication conforms to the RFC4954-defined AUTH PLAIN mechanism."
+            },
+            "type": "string"
+        },
+        "SMTPConnectionProtocol": {
+            "enum": [
+                "None",
+                "AutoDetect",
+                "StartTLS",
+                "TLS_SSL"
+            ],
+            "enumDescriptions": {
+                "AutoDetect": "Auto-detect.",
+                "None": "Clear text.",
+                "StartTLS": "StartTLS.",
+                "TLS_SSL": "TLS/SSL."
+            },
+            "enumLongDescriptions": {
+                "AutoDetect": "This value shall indicate the connection is auto-detected.",
+                "None": "This value shall indicate the connection is in clear text.",
+                "StartTLS": "This value shall indicate the connection conforms to the RFC3207-defined StartTLS extension.",
+                "TLS_SSL": "This value shall indicate the connection is TLS/SSL."
+            },
+            "type": "string"
         },
         "SSEFilterPropertiesSupported": {
             "additionalProperties": false,
@@ -415,6 +578,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#EventService.v1_4_0.EventService"
+    "release": "2019.3",
+    "title": "#EventService.v1_5_0.EventService"
 }

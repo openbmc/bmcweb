@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Drive.v1_8_0.json",
     "$ref": "#/definitions/Drive",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -524,6 +524,19 @@
                 "PCIeFunctions@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "StoragePools": {
+                    "description": "An array of links to the storage pools to which this drive belongs.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/swordfish/v1/StoragePool.json#/definitions/StoragePool"
+                    },
+                    "longDescription": "This property shall contain an array of links of type StoragePool to which this drive belongs.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_8_0"
+                },
+                "StoragePools@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "Volumes": {
                     "description": "An array of links to the volumes that this drive either wholly or only partially contains.",
                     "items": {
@@ -717,6 +730,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#Drive.v1_7_0.Drive"
+    "release": "2019.3",
+    "title": "#Drive.v1_8_0.Drive"
 }

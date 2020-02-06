@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.6.0                                                -->
+<!--# Redfish Schema:  UpdateService v1.7.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -114,6 +114,20 @@
             </Collection>
           </Annotation>
         </Parameter>
+      </Action>
+
+      <Action Name="StartUpdate" IsBound="true">
+        <Annotation Term="OData.Description" String="This action starts an update of software components."/>
+        <Annotation Term="OData.LongDescription" String="This action shall start an update of software component that have been scheduled with the OperationApplyTime value of `OnStartUpdateRequest`."/>
+        <Parameter Name="UpdateService" Type="UpdateService.v1_0_0.Actions"/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_7_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
     </Schema>
 
@@ -513,6 +527,13 @@
           <Annotation Term="OData.IsURL"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+      <Annotation Term="OData.Description" String="This version was created to add the StartUpdate action."/>
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_0.UpdateService"/>
     </Schema>
 
   </edmx:DataServices>

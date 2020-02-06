@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.4.0                                                 -->
+<!--# Redfish Schema:  EventService v1.5.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -26,6 +26,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
     <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Event_v1.xml">
     <edmx:Include Namespace="Event"/>
@@ -414,6 +415,108 @@
           <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the SubordinateResources property in the $filter query parameter, as described by the Redfish Specification."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.3"/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_4_0.EventService">
+        <Property Name="SMTP" Type="EventService.v1_5_0.SMTP" Nullable="false">
+          <Annotation Term="OData.Description" String="Settings for SMTP event delivery."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain settings for SMTP event delivery."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="SMTP">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="Settings for SMTP event delivery."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain settings for SMTP event delivery."/>
+        <Property Name="ServiceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication if SMTP for event delivery is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate if SMTP for event delivery is enabled."/>
+        </Property>
+        <Property Name="Port" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The destination SMTP port."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the destination port for the SMTP server."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+          <Annotation Term="Validation.Maximum" Int="65535"/>
+        </Property> 
+        <Property Name="ServerAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The address of the SMTP server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the address of the SMTP server for outgoing email."/>
+        </Property>
+        <Property Name="FromAddress" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The 'from' email address of the outgoing email."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address to use for the 'from' field in an outgoing email."/>
+        </Property>
+        <Property Name="ConnectionProtocol" Type="EventService.v1_5_0.SMTPConnectionProtocol">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The connection type to the outgoing SMTP server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the connection type to the outgoing SMTP server."/>
+        </Property>
+        <Property Name="Authentication" Type="EventService.v1_5_0.SMTPAuthenticationMethods">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The authentication method for the SMTP server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the authentication method for the SMTP server."/>
+        </Property>
+        <Property Name="Username" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The username for authentication with the SMTP server."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the username for authentication with the SMTP server."/>
+        </Property>
+        <Property Name="Password" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The password for authentication with the SMTP server.  The value is `null` in responses."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the password for authentication with the SMTP server.  The value shall be `null` in responses."/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="SMTPConnectionProtocol">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="Clear text."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection is in clear text."/>
+        </Member>
+        <Member Name="AutoDetect">
+          <Annotation Term="OData.Description" String="Auto-detect."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection is auto-detected."/>
+        </Member>
+        <Member Name="StartTLS">
+          <Annotation Term="OData.Description" String="StartTLS."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection conforms to the RFC3207-defined StartTLS extension."/>
+        </Member>
+        <Member Name="TLS_SSL">
+          <Annotation Term="OData.Description" String="TLS/SSL."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate the connection is TLS/SSL."/>
+        </Member>
+      </EnumType>
+
+      <EnumType Name="SMTPAuthenticationMethods">
+        <Member Name="None">
+          <Annotation Term="OData.Description" String="No authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is not required."/>
+        </Member>
+        <Member Name="AutoDetect">
+          <Annotation Term="OData.Description" String="Auto-detect."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication is auto-detected."/>
+        </Member>
+        <Member Name="Plain">
+          <Annotation Term="OData.Description" String="PLAIN authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC4954-defined AUTH PLAIN mechanism."/>
+        </Member>
+        <Member Name="Login">
+          <Annotation Term="OData.Description" String="LOGIN authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC4954-defined AUTH LOGIN mechanism."/>
+        </Member>
+        <Member Name="CRAM_MD5">
+          <Annotation Term="OData.Description" String="CRAM-MD5 authentication."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC4954-defined AUTH CRAM-MD5 mechanism."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>
