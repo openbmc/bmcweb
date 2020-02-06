@@ -42,6 +42,15 @@ struct UserSession
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
     bool cookieAuth = false;
+    bool isConfigureSelfOnly = false;
+
+    // There are two sources of truth for isConfigureSelfOnly:
+    //  1. When pamAuthenticateUser() returns PAM_NEW_AUTHTOK_REQD.
+    //  2. D-Bus User.Manager.GetUserInfo property UserPasswordExpired.
+    // These should be in sync, but the underlying condition can change at any
+    // time.  For example, a password can expire or be changed outside of
+    // bmcweb.  The value stored here is updated at the start of each
+    // operation and used as the truth within bmcweb.
 
     /**
      * @brief Fills object with data from UserSession's JSON representation
@@ -193,7 +202,8 @@ class SessionStore
   public:
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
-        PersistenceType persistence = PersistenceType::TIMEOUT)
+        PersistenceType persistence = PersistenceType::TIMEOUT,
+        bool isConfigureSelfOnly = false)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
         // persistence is set to SINGLE_REQUEST
@@ -241,9 +251,10 @@ class SessionStore
             }
         }
 
-        auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
-            std::chrono::steady_clock::now(), persistence});
+        auto session = std::make_shared<UserSession>(
+            UserSession{uniqueId, sessionToken, std::string(username),
+                        csrfToken, std::chrono::steady_clock::now(),
+                        persistence, false, isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;

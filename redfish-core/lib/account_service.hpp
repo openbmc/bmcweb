@@ -1618,7 +1618,7 @@ class ManagerAccount : public Node
                                     *userLocked;
                                 asyncResp->res.jsonValue
                                     ["Locked@Redfish.AllowableValues"] = {
-                                    "false"};
+                                    "false"}; // can only unlock accounts
                             }
                             else if (property.first == "UserPrivilege")
                             {
@@ -1646,6 +1646,22 @@ class ManagerAccount : public Node
                                     {"@odata.id", "/redfish/v1/AccountService/"
                                                   "Roles/" +
                                                       role}};
+                            }
+                            else if (property.first == "UserPasswordExpired")
+                            {
+                                const bool* userPasswordExpired =
+                                    std::get_if<bool>(&property.second);
+                                if (userPasswordExpired == nullptr)
+                                {
+                                    BMCWEB_LOG_ERROR << "UserPassword"
+                                                        "Expired "
+                                                        "wasn't a bool";
+                                    messages::internalError(asyncResp->res);
+                                    return;
+                                }
+                                asyncResp->res
+                                    .jsonValue["PasswordChangeRequired"] =
+                                    *userPasswordExpired;
                             }
                         }
                     }
