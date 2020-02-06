@@ -1499,9 +1499,9 @@ class CrashdumpService : public Node
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#LogService.LogService";
-        asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Service";
-        asyncResp->res.jsonValue["Description"] = "Crashdump Service";
-        asyncResp->res.jsonValue["Id"] = "Crashdump";
+        asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
+        asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
+        asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["MaxNumberOfRecords"] = 3;
         asyncResp->res.jsonValue["Entries"] = {
