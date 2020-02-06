@@ -39,6 +39,7 @@ struct UserSession
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
+    bool isConfigureSelfOnly;
 
     /**
      * @brief Fills object with data from UserSession's JSON representation
@@ -77,6 +78,10 @@ struct UserSession
                 userSession->csrfToken = *thisValue;
             }
             else if (element.key() == "username")
+            {
+                userSession->username = *thisValue;
+            }
+            else if (element.key() == "is_configureselfonly")
             {
                 userSession->username = *thisValue;
             }
@@ -151,7 +156,8 @@ class SessionStore
   public:
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
-        PersistenceType persistence = PersistenceType::TIMEOUT)
+        PersistenceType persistence = PersistenceType::TIMEOUT,
+        bool isConfigureSelfOnly = false)
     {
         // TODO(ed) find a secure way to not generate session identifiers if
         // persistence is set to SINGLE_REQUEST
@@ -184,9 +190,10 @@ class SessionStore
             uniqueId[i] = alphanum[dist(rd)];
         }
 
-        auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
-            std::chrono::steady_clock::now(), persistence});
+        auto session = std::make_shared<UserSession>(
+            UserSession{uniqueId, sessionToken, std::string(username),
+                        csrfToken, std::chrono::steady_clock::now(),
+                        persistence, isConfigureSelfOnly});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
@@ -345,10 +352,12 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
         if (p->persistence !=
             crow::persistent_data::PersistenceType::SINGLE_REQUEST)
         {
-            j = nlohmann::json{{"unique_id", p->uniqueId},
-                               {"session_token", p->sessionToken},
-                               {"username", p->username},
-                               {"csrf_token", p->csrfToken}};
+            j = nlohmann::json{
+                {"unique_id", p->uniqueId},
+                {"session_token", p->sessionToken},
+                {"username", p->username},
+                {"csrf_token", p->csrfToken},
+                {"is_configureselfonly", p->isConfigureSelfOnly}};
         }
     }
 };

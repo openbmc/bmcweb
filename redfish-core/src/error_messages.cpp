@@ -1505,6 +1505,32 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
              "is within the range of valid pages."}});
 }
 
+/**
+ * @internal
+ * @brief Formats PasswordChangeRequired message into JSON
+ *
+ * See header file for more information
+ * @endinternal
+ */
+void passwordChangeRequired(crow::Response& res, const std::string& arg1)
+{
+    messages::addMessageToJsonRoot(
+        res.jsonValue,
+        nlohmann::json{
+            {"@odata.type", "/redfish/v1/$metadata#Message.v1_5_0.Message"},
+            {"MessageId", "Base.1.5.0.PasswordChangeRequired"},
+            {"Message", "The password provided for this account must be "
+                        "changed before access is granted.  PATCH the "
+                        "'Password' property for this account located at "
+                        "the target URI '" +
+                            arg1 + "' to complete this process."},
+            {"MessageArgs", {arg1}},
+            {"Severity", "Critical"},
+            {"Resolution", "Change the password for this account using "
+                           "a PATCH to the 'Password' property at the URI "
+                           "provided."}});
+}
+
 } // namespace messages
 
 } // namespace redfish

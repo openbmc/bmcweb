@@ -196,7 +196,9 @@ class SessionCollection : public Node
             return;
         }
 
-        if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
+        int pamrc = pamAuthenticateUser(username, password);
+        bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+        if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
@@ -208,11 +210,19 @@ class SessionCollection : public Node
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(username);
+                .generateUserSession(
+                    username, crow::persistent_data::PersistenceType::TIMEOUT,
+                    isConfigureSelfOnly);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
         res.result(boost::beast::http::status::created);
+        if (session->isConfigureSelfOnly)
+        {
+            messages::passwordChangeRequired(
+                res,
+                "/redfish/v1/AccountService/Accounts/" + session->username);
+        }
         memberSession.doGet(res, req, {session->uniqueId});
     }
 
