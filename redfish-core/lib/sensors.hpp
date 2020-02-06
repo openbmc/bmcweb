@@ -2384,8 +2384,7 @@ bool findSensorNameUsingSensorPath(
 void setSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
     std::unordered_map<std::string, std::vector<nlohmann::json>>&
-        allCollections,
-    const std::string& chassisName, const std::vector<const char*> typeList)
+        allCollections)
 {
     BMCWEB_LOG_INFO << "setSensorsOverride for subNode"
                     << sensorAsyncResp->chassisSubNode << "\n";
@@ -2537,8 +2536,7 @@ bool isOverridingAllowed(const std::string& manufacturingModeStatus)
  */
 void checkAndDoSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
-    std::unordered_map<std::string, std::vector<nlohmann::json>>& allCollect,
-    const std::string& chassisName, const std::vector<const char*> typeList)
+    std::unordered_map<std::string, std::vector<nlohmann::json>>& allCollect)
 {
     BMCWEB_LOG_INFO << "checkAndDoSensorsOverride for subnode"
                     << sensorAsyncResp->chassisSubNode << "\n";
@@ -2547,8 +2545,8 @@ void checkAndDoSensorsOverride(
         "xyz.openbmc_project.Security.SpecialMode"};
 
     crow::connections::systemBus->async_method_call(
-        [sensorAsyncResp, allCollect, chassisName, typeList](
-            const boost::system::error_code ec, const GetSubTreeType& resp) {
+        [sensorAsyncResp, allCollect](const boost::system::error_code ec,
+                                      const GetSubTreeType& resp) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG
@@ -2578,7 +2576,7 @@ void checkAndDoSensorsOverride(
             // Sensor override is allowed only in manufacturing mode or
             // validation unsecure mode .
             crow::connections::systemBus->async_method_call(
-                [sensorAsyncResp, allCollect, chassisName, typeList,
+                [sensorAsyncResp, allCollect,
                  path](const boost::system::error_code ec,
                        std::variant<std::string>& getManufactMode) {
                     if (ec)
@@ -2607,8 +2605,7 @@ void checkAndDoSensorsOverride(
                         std::unordered_map<std::string,
                                            std::vector<nlohmann::json>>
                             allCollections = allCollect;
-                        setSensorsOverride(sensorAsyncResp, allCollections,
-                                           chassisName, typeList);
+                        setSensorsOverride(sensorAsyncResp, allCollections);
                     }
                     else
                     {
