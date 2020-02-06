@@ -1045,10 +1045,6 @@
         <edmx:Include Namespace="NetworkPort.v1_2_2"/>
         <edmx:Include Namespace="NetworkPort.v1_2_3"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/redfish/v1/schema/OemAccountService_v1.xml">
-        <edmx:Include Namespace="OemAccountService"/>
-        <edmx:Include Namespace="OemAccountService.v1_0_0"/>
-    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/NetworkPortCollection_v1.xml">
         <edmx:Include Namespace="NetworkPortCollection"/>
     </edmx:Reference>
@@ -1808,10 +1804,6 @@
     <edmx:Reference Uri="/redfish/v1/schema/VirtualMediaCollection_v1.xml">
         <edmx:Include Namespace="VirtualMediaCollection"/>
     </edmx:Reference>
-    <edmx:Reference Uri="/redfish/v1/schema/OemVirtualMedia_v1.xml">
-        <edmx:Include Namespace="OemVirtualMedia"/>
-        <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>
-    </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/VLanNetworkInterface_v1.xml">
         <edmx:Include Namespace="VLanNetworkInterface"/>
         <edmx:Include Namespace="VLanNetworkInterface.v1_0_0"/>
@@ -1888,5 +1880,13 @@
     </edmx:Reference>
     <edmx:Reference Uri="/redfish/v1/schema/OemComputerSystem_v1.xml">
         <edmx:Include Namespace="OemComputerSystem"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemVirtualMedia_v1.xml">
+        <edmx:Include Namespace="OemVirtualMedia"/>
+        <edmx:Include Namespace="OemVirtualMedia.v1_0_0"/>
+    </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemAccountService_v1.xml">
+        <edmx:Include Namespace="OemAccountService"/>
+        <edmx:Include Namespace="OemAccountService.v1_0_0"/>
     </edmx:Reference>
 </edmx:Edmx>

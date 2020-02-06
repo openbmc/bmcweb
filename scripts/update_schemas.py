@@ -107,13 +107,36 @@ with open(metadata_index_path, 'w') as metadata_index:
     </edmx:DataServices>
 """)
     # TODO:Issue#32 There's a bug in the script that currently deletes this
-    # schema (because it's an OEM schema). Because it's the only one, and we
+    # schema (because it's an OEM schema). Because it's the only five, and we
     # don't update schemas very often, we just manually fix it. Need a
     # permanent fix to the script.
     metadata_index.write(
         "    <edmx:Reference Uri=\"/redfish/v1/schema/OemManager_v1.xml\">\n")
     metadata_index.write("        <edmx:Include Namespace=\"OemManager\"/>\n")
     metadata_index.write("    </edmx:Reference>\n")
+
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemCrashdump_v1.xml\">\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemCrashdump.v1_0_0\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
+
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemComputerSystem_v1.xml\">\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemComputerSystem\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
+
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemVirtualMedia_v1.xml\">\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemVirtualMedia\"/>\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemVirtualMedia.v1_0_0\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
+
+    metadata_index.write(
+        "    <edmx:Reference Uri=\"/redfish/v1/schema/OemAccountService_v1.xml\">\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemAccountService\"/>\n")
+    metadata_index.write("        <edmx:Include Namespace=\"OemAccountService.v1_0_0\"/>\n")
+    metadata_index.write("    </edmx:Reference>\n")
+
     metadata_index.write("</edmx:Edmx>\n")
 
 schema_files = {}
