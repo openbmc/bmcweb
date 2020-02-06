@@ -1,5 +1,6 @@
 #pragma once
 
+#include "error_messages.hpp"
 #include "privileges.hpp"
 #include "sessions.hpp"
 
@@ -1287,13 +1288,77 @@ class Router
                                      << " userRole = " << *userRolePtr;
                 }
 
+                bool* remoteUserPtr = nullptr;
+                auto remoteUserIter = userInfo.find("RemoteUser");
+                if (remoteUserIter != userInfo.end())
+                {
+                    remoteUserPtr = std::get_if<bool>(&remoteUserIter->second);
+                }
+                if (remoteUserPtr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "RemoteUser property missing or wrong type";
+                    res.result(
+                        boost::beast::http::status::internal_server_error);
+                    res.end();
+                    return;
+                }
+                bool remoteUser = *remoteUserPtr;
+
+                bool passwordExpired = false; // default for remote user
+                if (!remoteUser)
+                {
+                    bool* passwordExpiredPtr = nullptr;
+                    auto passwordExpiredIter =
+                        userInfo.find("UserPasswordExpired");
+                    if (passwordExpiredIter != userInfo.end())
+                    {
+                        passwordExpiredPtr =
+                            std::get_if<bool>(&passwordExpiredIter->second);
+                    }
+                    if (passwordExpiredPtr != nullptr)
+                    {
+                        passwordExpired = *passwordExpiredPtr;
+                    }
+                    else
+                    {
+                        BMCWEB_LOG_ERROR
+                            << "UserPasswordExpired property is expected for"
+                               " local user but is missing or wrong type";
+                        res.result(
+                            boost::beast::http::status::internal_server_error);
+                        res.end();
+                        return;
+                    }
+                }
+
                 // Get the user privileges from the role
                 redfish::Privileges userPrivileges =
                     redfish::getUserPrivileges(userRole);
 
+                // Set isConfigureSelfOnly based on D-Bus results.  This
+                // ignores the results from both pamAuthenticateUser and the
+                // value from any previous use of this session.
+                req.session->isConfigureSelfOnly = passwordExpired;
+
+                // Modify privileges if isConfigureSelfOnly.
+                if (req.session->isConfigureSelfOnly)
+                {
+                    // Remove all privileges except ConfigureSelf
+                    userPrivileges = userPrivileges.intersection(
+                        redfish::Privileges{"ConfigureSelf"});
+                    BMCWEB_LOG_DEBUG << "Operation limited to ConfigureSelf";
+                }
+
                 if (!rules[ruleIndex]->checkPrivileges(userPrivileges))
                 {
                     res.result(boost::beast::http::status::forbidden);
+                    if (req.session->isConfigureSelfOnly)
+                    {
+                        redfish::messages::passwordChangeRequired(
+                            res, "/redfish/v1/AccountService/Accounts/" +
+                                     req.session->username);
+                    }
                     res.end();
                     return;
                 }
