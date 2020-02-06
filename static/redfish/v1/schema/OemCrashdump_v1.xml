@@ -9,7 +9,7 @@
     </edmx:Reference>
 
     <edmx:DataServices>
-        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Crashdump.v1_0_0">
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemCrashdump.v1_0_0">
             <Action Name="OnDemand" IsBound="true">
                 <Parameter Name="LogService" Type="LogService.v1_0_0.OemActions"/>
                 <Annotation Term="OData.Description" String="This action is used to trigger a new on-demand crashdump." />

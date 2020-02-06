@@ -1,11 +1,11 @@
 {
     "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
-    "@odata.id": "/redfish/v1/JsonSchemas/Crashdump",
+    "@odata.id": "/redfish/v1/JsonSchemas/OemCrashdump",
     "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
-    "Name": "Crashdump Schema File",
-    "Schema": "#Crashdump.Crashdump",
-    "Description": "Crashdump Schema File Location",
-    "Id": "Crashdump",
+    "Name": "Oem Crashdump Schema File",
+    "Schema": "#OemCrashdump.OemCrashdump",
+    "Description": "Oem Crashdump Schema File Location",
+    "Id": "OemCrashdump",
     "Languages": [
         "en"
     ],
@@ -13,7 +13,7 @@
     "Location": [
         {
             "Language": "en",
-            "Uri": "/redfish/v1/JsonSchemas/Crashdump/Crashdump.json"
+            "Uri": "/redfish/v1/JsonSchemas/OemCrashdump/OemCrashdump.json"
         }
     ],
     "Location@odata.count": 1
