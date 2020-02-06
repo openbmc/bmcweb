@@ -138,7 +138,9 @@ class Middleware
 
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 
-        if (pamAuthenticateUser(user, pass) != PAM_SUCCESS)
+        int pamrc = pamAuthenticateUser(user, pass);
+        bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+        if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
         {
             return nullptr;
         }
@@ -150,7 +152,8 @@ class Middleware
         // This whole flow needs to be revisited anyway, as we can't be
         // calling directly into pam for every request
         return persistent_data::SessionStore::getInstance().generateUserSession(
-            user, crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+            user, crow::persistent_data::PersistenceType::SINGLE_REQUEST,
+            isConfigureSelfOnly);
     }
 
     const std::shared_ptr<crow::persistent_data::UserSession>
@@ -396,14 +399,18 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
-                if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
+                int pamrc = pamAuthenticateUser(username, password);
+                bool isConfigureSelfOnly = pamrc == PAM_NEW_AUTHTOK_REQD;
+                if ((pamrc != PAM_SUCCESS) && !isConfigureSelfOnly)
                 {
                     res.result(boost::beast::http::status::unauthorized);
                 }
                 else
                 {
                     auto session = persistent_data::SessionStore::getInstance()
-                                       .generateUserSession(username);
+                                       .generateUserSession(username,
+                                                            crow::persistent_data::PersistenceType::TIMEOUT,
+                                                            isConfigureSelfOnly);
 
                     if (looksLikePhosphorRest)
                     {
