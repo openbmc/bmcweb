@@ -1,0 +1,11 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: AppaRao Puli <apparao.puli@linux.intel.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Code-Review+1: Bruce Mitchell <Bruce_Mitchell@Phoenix.com>
+Code-Review+1: Suryakanth Sekar <suryakanth.sekar@linux.intel.com>
+Submitted-by: Richard Marian Thomaiyar <richard.marian.thomaiyar@linux.intel.com>
+Submitted-at: Fri, 07 Feb 2020 09:58:13 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/28821
+Project: openbmc/bmcweb
+Branch: refs/heads/master
