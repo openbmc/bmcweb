@@ -1240,6 +1240,30 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     messages::internalError(self->asyncResp->res);
                     return;
                 }
+                const std::array<const char*, 3> configurations = {
+                    pidConfigurationIface, pidZoneConfigurationIface,
+                    stepwiseConfigurationIface};
+
+                // erase the paths we don't care about
+                for (auto it = mObj.begin(); it != mObj.end();)
+                {
+                    bool found = false;
+                    for (const auto& [interface, _] : it->second)
+                    {
+                        if (std::find(configurations.begin(),
+                                      configurations.end(),
+                                      interface) != configurations.end())
+                        {
+                            found = true;
+                            it++;
+                            break;
+                        }
+                    }
+                    if (!found)
+                    {
+                        it = mObj.erase(it);
+                    }
+                }
                 self->managedObj = std::move(mObj);
             },
             "xyz.openbmc_project.EntityManager", "/", objectManagerIface,
@@ -1446,6 +1470,15 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 }
 
                 BMCWEB_LOG_DEBUG << "Create new = " << createNewObject << "\n";
+
+                // arbitrary limit to avoid attacks
+                constexpr const size_t controllerLimit = 500;
+                if (createNewObject && managedObj.size() >= controllerLimit)
+                {
+                    messages::resourceExhaustion(response->res, type);
+                    continue;
+                }
+
                 output["Name"] = boost::replace_all_copy(name, "_", " ");
 
                 std::string chassis;
