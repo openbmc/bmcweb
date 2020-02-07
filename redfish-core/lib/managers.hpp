@@ -666,6 +666,8 @@ static CreatePIDRet createPidInterface(
             messages::propertyUnknown(response->res, type);
             return CreatePIDRet::fail;
         }
+
+        BMCWEB_LOG_DEBUG << "del " << path << " " << iface << "\n";
         // delete interface
         crow::connections::systemBus->async_method_call(
             [response, path](const boost::system::error_code ec) {
@@ -1370,12 +1372,16 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
             {
                 continue;
             }
+            BMCWEB_LOG_DEBUG << *container;
+
             std::string& type = containerPair.first;
 
             for (nlohmann::json::iterator it = container->begin();
                  it != container->end(); it++)
             {
                 const auto& name = it.key();
+                BMCWEB_LOG_DEBUG << "looking for " << name;
+
                 auto pathItr =
                     std::find_if(managedObj.begin(), managedObj.end(),
                                  [&name](const auto& obj) {
@@ -1391,6 +1397,8 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                 // determines if we're patching entity-manager or
                 // creating a new object
                 bool createNewObject = (pathItr == managedObj.end());
+                BMCWEB_LOG_DEBUG << "Found = " << !createNewObject;
+
                 std::string iface;
                 if (type == "PidControllers" || type == "FanControllers")
                 {
@@ -1423,13 +1431,27 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                         createNewObject = true;
                     }
                 }
+
+                if (createNewObject && it.value() == nullptr)
+                {
+                    // can't delete an non-existant object
+                    messages::invalidObject(response->res, name);
+                    continue;
+                }
+
+                std::string path;
+                if (pathItr != managedObj.end())
+                {
+                    path = pathItr->first.str;
+                }
+
                 BMCWEB_LOG_DEBUG << "Create new = " << createNewObject << "\n";
                 output["Name"] = boost::replace_all_copy(name, "_", " ");
 
                 std::string chassis;
                 CreatePIDRet ret = createPidInterface(
-                    response, type, it, pathItr->first.str, managedObj,
-                    createNewObject, output, chassis, currentProfile);
+                    response, type, it, path, managedObj, createNewObject,
+                    output, chassis, currentProfile);
                 if (ret == CreatePIDRet::fail)
                 {
                     return;
@@ -1458,7 +1480,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                                 messages::success(response->res);
                             },
                             "xyz.openbmc_project.EntityManager",
-                            pathItr->first.str,
+                            path,
                             "org.freedesktop.DBus.Properties", "Set", iface,
                             property.first, property.second);
                     }
