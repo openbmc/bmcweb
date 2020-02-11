@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Processor v1.6.0                                                    -->
+<!--# Redfish Schema:  Processor v1.7.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -587,8 +587,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain a universal unique identifier number for the processor.  RFC4122 describes methods to use to create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID."/>
         </Property>
         <Property Name="ProcessorMemory" Type="Collection(Processor.v1_4_0.ProcessorMemory)" Nullable="false">
-          <Annotation Term="OData.Description" String="The memory directly attached or integrated witin this Procesor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the memory directly attached or integrated witin this Processor."/>
+          <Annotation Term="OData.Description" String="The memory directly attached or integrated within this Procesor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the memory directly attached or integrated within this Processor."/>
         </Property>
         <Property Name="FPGA" Type="Processor.v1_4_0.FPGA" Nullable="false">
           <Annotation Term="OData.Description" String="The properties for processors of the FPGA type."/>
@@ -606,7 +606,7 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this processor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the Endpoint type that represent endpoints accociated with this Processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the Endpoint type that represent endpoints associated with this Processor."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ConnectedProcessors" Type="Collection(Processor.Processor)">
@@ -632,7 +632,7 @@
       <ComplexType Name="ProcessorMemory">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="This type describes the memory directly attached or integrated within a processor."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain information about memory directly attached or integratied within a processor."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain information about memory directly attached or integrated within a processor."/>
         <Property Name="IntegratedMemory" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this memory is integrated within the processor."/>
@@ -757,17 +757,17 @@
         <Property Name="FirmwareId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The FPGA firmware identifier."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a string decsribing the FPGA firmware identifier."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string describing the FPGA firmware identifier."/>
         </Property>
         <Property Name="FirmwareManufacturer" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The FPGA firmware manufacturer."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a string decsribing the FPGA firmware manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string describing the FPGA firmware manufacturer."/>
         </Property>
         <Property Name="FirmwareVersion" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The FPGA firmware version."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a string decsribing the FPGA firmware version."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string describing the FPGA firmware version."/>
         </Property>
         <Property Name="HostInterface" Type="Processor.v1_4_0.FpgaInterface" Nullable="false">
           <Annotation Term="OData.Description" String="The FPGA interface to the host."/>
@@ -825,7 +825,7 @@
 
       <EnumType Name="FpgaType">
         <Member Name="Integrated">
-          <Annotation Term="OData.Description" String="The FPGA device integrasted with other processor in the single chip."/>
+          <Annotation Term="OData.Description" String="The FPGA device integrated with other processor in the single chip."/>
         </Member>
         <Member Name="Discrete">
           <Annotation Term="OData.Description" String="The discrete FPGA device."/>
@@ -908,6 +908,12 @@
       <EntityType Name="Processor" BaseType="Processor.v1_4_2.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_4_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in several properties."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_4_3.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -934,11 +940,52 @@
       <EntityType Name="Processor" BaseType="Processor.v1_5_1.Processor"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_5_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in several properties."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_5_2.Processor"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
       <Annotation Term="OData.Description" String="This version was created to add a reset action for a processor."/>
       <EntityType Name="Processor" BaseType="Processor.v1_5_2.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_6_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to fix typos in several properties."/>
+      <EntityType Name="Processor" BaseType="Processor.v1_6_0.Processor"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Processor.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add SerialNumber, PartNumber, FirmwareVersion, and Version properties.  It also corrected several typographical errors in descriptions."/>
+
+      <EntityType Name="Processor" BaseType="Processor.v1_6_0.Processor">
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the processor."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the processor."/>
+        </Property>
+        <Property Name="Version" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The hardware version of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the hardware version of the processor as determined by the vendor or supplier."/>
+        </Property>
+        <Property Name="FirmwareVersion" Type="Edm.String" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The firmware version of the processor."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a string describing the firmware version of the processor as provided by the manufacturer."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.10.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.11.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -75,6 +75,18 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/SensorCollection_v1.xml">
     <edmx:Include Namespace="SensorCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Facility_v1.xml">
+    <edmx:Include Namespace="Facility"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryCollection_v1.xml">
+    <edmx:Include Namespace="MemoryCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryDomainCollection_v1.xml">
+    <edmx:Include Namespace="MemoryDomainCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MediaControllerCollection_v1.xml">
+    <edmx:Include Namespace="MediaControllerCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -1034,6 +1046,41 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_10_0.Chassis">
+        <NavigationProperty Name="MediaControllers" Type="MediaControllerCollection.MediaControllerCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of media controllers located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MediaControllerCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="Memory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of memory located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+        <NavigationProperty Name="MemoryDomains" Type="MemoryDomainCollection.MemoryDomainCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of memory domains located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryDomainCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Chassis.v1_9_0.Links">
+        <NavigationProperty Name="Facility" Type="Facility.Facility" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The link to the facility that contains this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type Facility and shall represent the smallest facility that contains this chassis.  This property shall not appear in resources that include a ContainedBy property within the Links property."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

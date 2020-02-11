@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.9.0                                               -->
+<!--# Redfish Schema:  ComputerSystem v1.10.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -93,6 +93,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/MemoryMetrics_v1.xml">
     <edmx:Include Namespace="MemoryMetrics"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/FabricAdapterCollection_v1.xml">
+    <edmx:Include Namespace="FabricAdapterCollection"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -542,7 +545,7 @@
         <Property Name="UefiTargetBootSourceOverride" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  The Redfish.AllowableValues annotation specifies the values for this property.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the UEFI device path of the override boot target.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration."/>
         </Property>
       </ComplexType>
 
@@ -662,6 +665,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_10.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_12">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_11.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
@@ -831,6 +840,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -892,6 +907,50 @@
         <Member Name="Switch">
           <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a switch."/>
         </Member>
+        <Member Name="Appliance">
+          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as an appliance."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="BareMetalServer">
+          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a bare metal server."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="VirtualMachineServer">
+          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a virtual machine server."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="ContainerServer">
+          <Annotation Term="OData.Description" String="The system hosts functionality that supports the system acting as a container server."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_10_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <ComplexType Name="Links" BaseType="ComputerSystem.v1_0_0.Links">
@@ -950,6 +1009,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_7.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_8.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
@@ -1037,6 +1102,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_6.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_7.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1096,6 +1167,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_5.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_6.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1259,6 +1336,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_3.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_4.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -1319,6 +1402,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1348,6 +1437,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1362,6 +1457,12 @@
       </ComplexType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_0.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -1374,6 +1475,26 @@
           <Annotation Term="OData.IsURL"/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add new values to HostingRole."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_1.ComputerSystem">
+        <NavigationProperty Name="FabricAdapters" Type="FabricAdapterCollection.FabricAdapterCollection" ContainsTarget="true" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The link to the collection of fabric adapters associated with this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type FabricAdapterCollection."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

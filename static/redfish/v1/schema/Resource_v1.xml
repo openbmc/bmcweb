@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.8.3                                                     -->
+<!--# Redfish Schema:  Resource v1.9.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -128,7 +128,7 @@
           <Annotation Term="OData.Description" String="This function or Resource is part of a redundancy set and awaits a failover or other external action to activate it."/>
         </Member>
         <Member Name="InTest">
-          <Annotation Term="OData.Description" String="This function or Resource is undergoing testing."/>
+          <Annotation Term="OData.Description" String="This function or Resource is undergoing testing, or is in the process of capturing information for debugging."/>
         </Member>
         <Member Name="Starting">
           <Annotation Term="OData.Description" String="This function or Resource is starting."/>
@@ -176,6 +176,17 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
                 <PropertyValue Property="Version" String="v1_2_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="Qualified">
+          <Annotation Term="OData.Description" String="The element quality is within the acceptable range of operation."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
               </Record>
             </Collection>
           </Annotation>
@@ -1149,6 +1160,12 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the Redfish Excerpt annotation from the Name property, prior to the first publication of schemas containing Excerpt usage."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add the `Qualified` enumeration to State within Status."/>
     </Schema>
 
   </edmx:DataServices>

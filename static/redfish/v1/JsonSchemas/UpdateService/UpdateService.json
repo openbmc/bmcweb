@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/UpdateService.v1_8_0.json",
     "$ref": "#/definitions/UpdateService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -308,6 +308,12 @@
                 }
             },
             "properties": {
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements.",
+                    "versionAdded": "v1_8_0"
+                },
                 "Targets": {
                     "description": "An array of URIs that indicate where to apply the update image.",
                     "format": "uri-reference",
@@ -489,6 +495,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#UpdateService.v1_7_0.UpdateService"
+    "release": "2019.4",
+    "title": "#UpdateService.v1_8_0.UpdateService"
 }

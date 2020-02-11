@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Processor.v1_7_0.json",
     "$ref": "#/definitions/Processor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -114,21 +114,21 @@
                 },
                 "FirmwareId": {
                     "description": "The FPGA firmware identifier.",
-                    "longDescription": "This property shall contain a string decsribing the FPGA firmware identifier.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware identifier.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_4_0"
                 },
                 "FirmwareManufacturer": {
                     "description": "The FPGA firmware manufacturer.",
-                    "longDescription": "This property shall contain a string decsribing the FPGA firmware manufacturer.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware manufacturer.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_4_0"
                 },
                 "FirmwareVersion": {
                     "description": "The FPGA firmware version.",
-                    "longDescription": "This property shall contain a string decsribing the FPGA firmware version.",
+                    "longDescription": "This property shall contain a string describing the FPGA firmware version.",
                     "readonly": true,
                     "type": "string",
                     "versionAdded": "v1_4_0"
@@ -323,7 +323,7 @@
             ],
             "enumDescriptions": {
                 "Discrete": "The discrete FPGA device.",
-                "Integrated": "The FPGA device integrasted with other processor in the single chip."
+                "Integrated": "The FPGA device integrated with other processor in the single chip."
             },
             "type": "string"
         },
@@ -399,7 +399,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain an array of links of the Endpoint type that represent endpoints accociated with this Processor.",
+                    "longDescription": "This property shall contain an array of links of the Endpoint type that represent endpoints associated with this Processor.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -524,6 +524,13 @@
                     "longDescription": "This property shall contain an object containing properties for processors of the FPGA type.",
                     "versionAdded": "v1_4_0"
                 },
+                "FirmwareVersion": {
+                    "description": "The firmware version of the processor.",
+                    "longDescription": "This property shall contain a string describing the firmware version of the processor as provided by the manufacturer.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_7_0"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -608,6 +615,16 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "PartNumber": {
+                    "description": "The part number of the processor.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "ProcessorArchitecture": {
                     "anyOf": [
                         {
@@ -627,11 +644,11 @@
                     "longDescription": "This object shall contain identification information for this processor."
                 },
                 "ProcessorMemory": {
-                    "description": "The memory directly attached or integrated witin this Procesor.",
+                    "description": "The memory directly attached or integrated within this Procesor.",
                     "items": {
                         "$ref": "#/definitions/ProcessorMemory"
                     },
-                    "longDescription": "This property shall contain the memory directly attached or integrated witin this Processor.",
+                    "longDescription": "This property shall contain the memory directly attached or integrated within this Processor.",
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
@@ -647,6 +664,16 @@
                     "description": "The type of processor.",
                     "longDescription": "This property shall contain the string that identifies the type of processor contained in this Socket.",
                     "readonly": true
+                },
+                "SerialNumber": {
+                    "description": "The serial number of the processor.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the processor.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "Socket": {
                     "description": "The socket or location of the processor.",
@@ -721,6 +748,16 @@
                     "longDescription": "This property shall contain a universal unique identifier number for the processor.  RFC4122 describes methods to use to create the value.  The value should be considered to be opaque.  Client software should only treat the overall value as a universally unique identifier and should not interpret any sub-fields within the UUID.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
+                },
+                "Version": {
+                    "description": "The hardware version of the processor.",
+                    "longDescription": "This property shall contain the hardware version of the processor as determined by the vendor or supplier.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 }
             },
             "required": [
@@ -832,7 +869,7 @@
         "ProcessorMemory": {
             "additionalProperties": false,
             "description": "This type describes the memory directly attached or integrated within a processor.",
-            "longDescription": "This type shall contain information about memory directly attached or integratied within a processor.",
+            "longDescription": "This type shall contain information about memory directly attached or integrated within a processor.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1025,6 +1062,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#Processor.v1_6_0.Processor"
+    "release": "2019.4",
+    "title": "#Processor.v1_7_0.Processor"
 }

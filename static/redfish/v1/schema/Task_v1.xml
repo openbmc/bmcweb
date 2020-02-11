@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Task v1.4.2                                                         -->
+<!--# Redfish Schema:  Task v1.4.3                                                         -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -320,13 +320,13 @@
 
       <EntityType Name="Task" BaseType="Task.v1_2_1.Task">
         <Property Name="Payload" Type="Task.v1_3_0.Payload" Nullable="false">
-          <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this task."/>
+          <Annotation Term="OData.Description" String="The HTTP and JSON payload details for this task, unless they are hidden from view by the service."/>
           <Annotation Term="OData.LongDescription" String="This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This object shall not be included in the response if the HidePayload property is `true`."/>
         </Property>
         <Property Name="HidePayload" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the task is created, the default is `false`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses shall not return the Payload property.  If `false`, responses shall return the Payload property.  If this property is not present when the task is created, the default is `false`."/>
+          <Annotation Term="OData.Description" String="An indication of whether the contents of the payload are hidden from view after the task has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the task is created, the default is `false`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses shall not return the Payload property.  If `false`, responses shall return the Payload property.  If this property is not present when the task is created, the default is `false`.  This property shall be supported if the Payload property is supported."/>
         </Property>
       </EntityType>
 
@@ -377,6 +377,12 @@
       <EntityType Name="Task" BaseType="Task.v1_3_2.Task"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_3_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_3_3.Task"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -402,6 +408,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload, StartTime, and EndTime properties.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="Task" BaseType="Task.v1_4_1.Task"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Task.v1_4_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update the descriptions of the HidePayload property."/>
+      <EntityType Name="Task" BaseType="Task.v1_4_2.Task"/>
     </Schema>
 
   </edmx:DataServices>

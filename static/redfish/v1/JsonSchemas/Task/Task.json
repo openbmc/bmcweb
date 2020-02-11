@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_4_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Task.v1_4_3.json",
     "$ref": "#/definitions/Task",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -163,8 +163,8 @@
                     "type": "string"
                 },
                 "HidePayload": {
-                    "description": "An indication of whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the task is created, the default is `false`.",
-                    "longDescription": "This property shall indicate whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses shall not return the Payload property.  If `false`, responses shall return the Payload property.  If this property is not present when the task is created, the default is `false`.",
+                    "description": "An indication of whether the contents of the payload are hidden from view after the task has been created.  If `true`, responses do not return the payload.  If `false`, responses return the payload.  If this property is not present when the task is created, the default is `false`.",
+                    "longDescription": "This property shall indicate whether the contents of the payload should be hidden from view after the task has been created.  If `true`, responses shall not return the Payload property.  If `false`, responses shall return the Payload property.  If this property is not present when the task is created, the default is `false`.  This property shall be supported if the Payload property is supported.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_3_0"
@@ -192,7 +192,7 @@
                 },
                 "Payload": {
                     "$ref": "#/definitions/Payload",
-                    "description": "The HTTP and JSON payload details for this task.",
+                    "description": "The HTTP and JSON payload details for this task, unless they are hidden from view by the service.",
                     "longDescription": "This object shall contain information detailing the HTTP and JSON payload information for executing this task.  This object shall not be included in the response if the HidePayload property is `true`.",
                     "versionAdded": "v1_3_0"
                 },
@@ -304,5 +304,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.3",
-    "title": "#Task.v1_4_2.Task"
+    "title": "#Task.v1_4_3.Task"
 }

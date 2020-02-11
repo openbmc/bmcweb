@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerAccount.v1_5_0.json",
     "$ref": "#/definitions/ManagerAccount",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -151,8 +151,8 @@
                     "readonly": true
                 },
                 "Enabled": {
-                    "description": "An indication of whether an account is enabled.  An administrator can disable it without deleting the user information.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.  This property overrides the Locked property.",
-                    "longDescription": "This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.  This property overrides the Locked property.",
+                    "description": "An indication of whether an account is enabled.  An administrator can disable it without deleting the user information.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.",
+                    "longDescription": "This property shall indicate whether an account is enabled.  If `true`, the account is enabled and the user can log in.  If `false`, the account is disabled and, in the future, the user cannot log in.",
                     "readonly": false,
                     "type": "boolean"
                 },
@@ -339,6 +339,13 @@
                     ],
                     "versionAdded": "v1_4_0"
                 },
+                "AuthenticationKeySet": {
+                    "description": "Indicates if the AuthenticationKey property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the AuthenticationKey property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_5_0"
+                },
                 "AuthenticationProtocol": {
                     "anyOf": [
                         {
@@ -364,6 +371,13 @@
                     ],
                     "versionAdded": "v1_4_0"
                 },
+                "EncryptionKeySet": {
+                    "description": "Indicates if the EncryptionKey property is set.",
+                    "longDescription": "This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_5_0"
+                },
                 "EncryptionProtocol": {
                     "anyOf": [
                         {
@@ -383,6 +397,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#ManagerAccount.v1_4_0.ManagerAccount"
+    "release": "2019.4",
+    "title": "#ManagerAccount.v1_5_0.ManagerAccount"
 }

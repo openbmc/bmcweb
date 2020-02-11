@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.5.0                                                     -->
+<!--# Redfish Schema:  LogEntry v1.5.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -59,6 +59,7 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/LogServices/{LogServiceId}/Entries/{LogEntryId}</String>
             <String>/redfish/v1/JobService/Log/Entries/{LogEntryId}</String>
             <String>/redfish/v1/TelemetryService/LogService/Entries/{LogEntryId}</String>
           </Collection>
@@ -97,12 +98,12 @@
         <Property Name="EntryCode" Type="LogEntry.v1_0_0.LogEntryCode">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The entry code for the log entry if the entry type is `SEL`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification describe these enumerations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification v2.0 revision 1.1 describe these enumerations."/>
         </Property>
         <Property Name="SensorType" Type="LogEntry.v1_0_0.SensorType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The sensor type to which the log entry pertains if the entry type is `SEL`."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3 in the IPMI Specification describes these enumerations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3, Sensor Type Codes, in the IPMI Specification v2.0 revision 1.1 describes these enumerations."/>
         </Property>
         <Property Name="SensorNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -112,7 +113,7 @@
         <Property Name="Message" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry."/>
         </Property>
         <Property Name="MessageId" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -667,6 +668,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_9.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_0_10.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
@@ -746,6 +753,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_7.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_1_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_1_8.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -809,6 +822,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_5.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_2_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_2_6.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -857,6 +876,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_4.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_3_5.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -894,6 +919,12 @@
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_3.LogEntry"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_4_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_4_4.LogEntry"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
@@ -909,6 +940,11 @@
       </EntityType>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_0.LogEntry"/>
+    </Schema>
 
   </edmx:DataServices>
 </edmx:Edmx>

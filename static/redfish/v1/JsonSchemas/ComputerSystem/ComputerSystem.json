@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ComputerSystem.v1_10_0.json",
     "$ref": "#/definitions/ComputerSystem",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -233,7 +233,7 @@
                 },
                 "UefiTargetBootSourceOverride": {
                     "description": "The UEFI device path of the device from which to boot when BootSourceOverrideTarget is `UefiTarget`.",
-                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  The Redfish.AllowableValues annotation specifies the values for this property.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration.",
+                    "longDescription": "This property shall contain the UEFI device path of the override boot target.  The `Continuous` value is not supported for the BootSourceOverrideEnabled property for UEFI boot source override because UEFI supports one-time boot only.  Changes to this property do not alter the BIOS persistent boot order configuration.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -361,6 +361,13 @@
                     "description": "The link to the collection of Ethernet interfaces associated with this system.",
                     "longDescription": "This property shall contain a link to a Resource Collection of type EthernetInterfaceCollection.",
                     "readonly": true
+                },
+                "FabricAdapters": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/FabricAdapterCollection.json#/definitions/FabricAdapterCollection",
+                    "description": "The link to the collection of fabric adapters associated with this system.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type FabricAdapterCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_10_0"
                 },
                 "HostName": {
                     "description": "The DNS host name, without any domain information.",
@@ -684,12 +691,26 @@
             "enum": [
                 "ApplicationServer",
                 "StorageServer",
-                "Switch"
+                "Switch",
+                "Appliance",
+                "BareMetalServer",
+                "VirtualMachineServer",
+                "ContainerServer"
             ],
             "enumDescriptions": {
+                "Appliance": "The system hosts functionality that supports the system acting as an appliance.",
                 "ApplicationServer": "The system hosts functionality that supports general purpose applications.",
+                "BareMetalServer": "The system hosts functionality that supports the system acting as a bare metal server.",
+                "ContainerServer": "The system hosts functionality that supports the system acting as a container server.",
                 "StorageServer": "The system hosts functionality that supports the system acting as a storage server.",
-                "Switch": "The system hosts functionality that supports the system acting as a switch."
+                "Switch": "The system hosts functionality that supports the system acting as a switch.",
+                "VirtualMachineServer": "The system hosts functionality that supports the system acting as a virtual machine server."
+            },
+            "enumVersionAdded": {
+                "Appliance": "v1_10_0",
+                "BareMetalServer": "v1_10_0",
+                "ContainerServer": "v1_10_0",
+                "VirtualMachineServer": "v1_10_0"
             },
             "type": "string"
         },
@@ -1425,6 +1446,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#ComputerSystem.v1_9_0.ComputerSystem"
+    "release": "2019.4",
+    "title": "#ComputerSystem.v1_10_0.ComputerSystem"
 }

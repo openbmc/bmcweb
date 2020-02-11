@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_0_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/redfish-payload-annotations.v1_1_0.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 Distributed Management Task Force, Inc. (DMTF). For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "properties": {
@@ -33,6 +33,37 @@
             "description": "The link to the Resource that represents the POST capabilities of a collection.",
             "$ref": "http://redfish.dmtf.org/schemas/v1/CollectionCapabilities.json#/definitions/CollectionCapabilities"
         },
+        "@Redfish.RequestedCount": {
+            "type": "integer",
+            "description": "The term is used by a client to specify a request for a quantity of items."
+        },
+        "@Redfish.RequestedCountRequired": {
+            "type": "boolean",
+            "readonly": true,
+            "description": "The term specifies that a client is required to provide the @Redfish.RequestedCount term as part of the payload to specify a quantity of items."
+        },
+        "@Redfish.AllowOverprovisioning": {
+            "type": "boolean",
+            "description": "The term specifies that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.",
+            "longDescription": "The term shall specify that a client allows the Service to provide more Resources than requested, which includes, but is not limited to, a larger quantity of items, larger capacity, and faster devices.  If not specified by the client, the Service shall treat this as `false`."
+        },
+        "@Redfish.ZoneAffinity": {
+            "type": "string",
+            "description": "The term specifies that a client requests that the Service fulfills a request with Resources available within a specific Zone Resource.  The term value is the Id property of the Zone Resource.",
+            "longDescription": "The term shall specify that a client requests that the Service fulfills a request with Resources available in a specific Zone Resource.  The term value shall contain the Id property of the Zone Resource.  This term shall only be at the root level of the request payload."
+        },
+        "@Redfish.ResourceBlockLimits": {
+            "description": "The term specifies the allowable quantities of types of Resource Blocks for a composition request.",
+            "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlockLimits"
+        },
+        "@Redfish.SupportedCertificates": {
+            "description": "The term specifies the supported certificate formats for a given certificate collection.",
+            "type": "array",
+            "items": {
+                "$ref": "http://redfish.dmtf.org/schemas/v1/Certificate.json#/definitions/CertificateType"
+            },
+            "readonly": true
+        },
         "@odata.context": {
             "type": "string",
             "format": "uri-reference",
@@ -62,7 +93,7 @@
     },
     "patternProperties": {
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.AllowableValues$": {
-            "description": "The set of allowable values for a parameter.",
+            "description": "The set of allowable values for an action parameter or property.",
             "type": "array",
             "items": {
                 "type": "string"
@@ -87,6 +118,11 @@
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.UpdatableAfterCreate$": {
             "description": "The term specifies that a property may be set by a client that uses PATCH after it creates an instance of a Resource through POST.",
             "type": "boolean",
+            "readonly": true
+        },
+        "^([a-zA-Z_][a-zA-Z0-9_]*)?@Redfish.Deprecated$": {
+            "description": "The term shall be applied to a property or value to specify that the property or value is deprecated.  The string value should explain the deprecation, including new property or properties or value to use.  The property or value can be supported in new and existing implementations, but usage in new implementations is discouraged.  Deprecated properties and values are likely to be removed in a future major version of the schema.",
+            "type": "string",
             "readonly": true
         },
         "^([a-zA-Z_][a-zA-Z0-9_]*)?@Message.ExtendedInfo$": {

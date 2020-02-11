@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  IPAddresses v1.1.1                                                  -->
+<!--# Redfish Schema:  IPAddresses v1.1.2                                                  -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -150,7 +150,7 @@
       </TypeDefinition>
 
       <TypeDefinition Name="PrefixLength" UnderlyingType="Edm.Int64">
-        <Annotation Term="Validation.Minimum" Int="1"/>
+        <Annotation Term="Validation.Minimum" Int="0"/>
         <Annotation Term="Validation.Maximum" Int="128"/>
       </TypeDefinition>
 
@@ -225,6 +225,11 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the minimum value allowed for PrefixLength."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -252,6 +257,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="IPAddresses.v1_1_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the minimum value allowed for PrefixLength."/>
     </Schema>
 
   </edmx:DataServices>

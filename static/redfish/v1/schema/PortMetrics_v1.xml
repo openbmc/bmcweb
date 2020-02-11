@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!---->
+<!--################################################################################       -->
+<!--# Redfish Schema:  PortMetrics v1.0.0                                                  -->
+<!--#                                                                                      -->
+<!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
+<!--# available at http://www.dmtf.org/standards/redfish                                   -->
+<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
+<!--################################################################################       -->
+<!---->
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Capabilities.V1.xml">
+    <edmx:Include Namespace="Org.OData.Capabilities.V1" Alias="Capabilities"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+    <edmx:Include Namespace="Validation.v1_0_0" Alias="Validation"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+
+      <EntityType Name="PortMetrics" BaseType="Resource.v1_0_0.Resource" Abstract="true">
+        <Annotation Term="OData.Description" String="The usage and health statistics for a switch device or component port summary."/>
+        <Annotation Term="OData.LongDescription" String="The PortMetrics Schema shall contain the port metrics for a switch device or component port summary in a Redfish implementation."/>
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="Capabilities.InsertRestrictions">
+          <Record>
+            <PropertyValue Property="Insertable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.UpdateRestrictions">
+          <Record>
+            <PropertyValue Property="Updatable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Capabilities.DeleteRestrictions">
+          <Record>
+            <PropertyValue Property="Deletable" Bool="false"/>
+          </Record>
+        </Annotation>
+        <Annotation Term="Redfish.Uris">
+          <Collection>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
+            <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerId}/Ports/{PortId}/Metrics</String>
+          </Collection>
+        </Annotation>
+      </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PortMetrics.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="PortMetrics" BaseType="PortMetrics.PortMetrics">
+        <Property Name="GenZ" Type="PortMetrics.v1_0_0.GenZ" Nullable="false">
+          <Annotation Term="OData.Description" String="The port metrics specific to Gen-Z ports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the port metrics specific to Gen-Z ports."/>
+        </Property>
+        <Property Name="Actions" Type="PortMetrics.v1_0_0.Actions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="GenZ">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The port metrics for a Gen-Z interface."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the Gen-Z related port metrics."/>
+        <Property Name="PacketCRCErrors" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of PCRC transient errors detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of PCRC transient errors detected in received link-local and end-to-ent packets."/>
+        </Property>
+        <Property Name="EndToEndCRCErrors" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of ECRC transient errors detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain total number of ECRC transient errors detected in received link-local and end-to-end packets."/>
+        </Property>
+        <Property Name="RXStompedECRC" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of packets received with a stomped ECRC field."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of packets that thsi interface received with a stomped ECRC field."/>
+        </Property>
+        <Property Name="TXStompedECRC" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of packets that this interface stomped the ECRC field."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of packets that this interfaced stomped the ECRC field."/>
+        </Property>
+        <Property Name="NonCRCTransientErrors" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number transient errors detected that are unrelated to CRC validation."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of transient errors detected that are unrelated to CRC validation, which covers link-local and end-to-end packets, such as malformed Link Idle packets or PLA signal errors."/>
+        </Property>
+        <Property Name="LLRRecovery" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of times Link-Level Reliability (LLR) recovery has been initiated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of times Link-level Reliability (LLR) recovery has been initiated by this interface.  This is not to be confused with the number of packets retransmitted due to initiating LLR recovery."/>
+        </Property>
+        <Property Name="MarkedECN" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of packets with the Congestion ECN bit set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of packets that the component set the Congestion ECN bit prior to transmission through this interface."/>
+        </Property>
+        <Property Name="PacketDeadlineDiscards" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of packets discarded due to the Congestion Deadline sub-field reaching zero."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of packets discarded by this interface due to the Congestion Deadline sub-field reaching zero prior to packet transmission."/>
+        </Property>
+        <Property Name="AccessKeyViolations" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of Access Key Violations detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of Access Key Violations detected for packets received or transmitted on this interface."/>
+        </Property>
+        <Property Name="LinkNTE" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The total number of link-local non-transient errors detected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the total number of link-local non-transient errors detected on this interface."/>
+        </Property>
+        <Property Name="ReceivedECN" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of packets received on this interface with the Congestion ECN bit set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of packets received on this interface with the Congestion ECN bit set."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="Actions">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
+        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Property Name="Oem" Type="PortMetrics.v1_0_0.OemActions" Nullable="false">
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+        </Property>
+      </ComplexType>
+
+      <ComplexType Name="OemActions">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+      </ComplexType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>

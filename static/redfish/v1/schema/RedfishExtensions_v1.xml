@@ -34,7 +34,7 @@
       <Annotation Term="RedfishExtensions.v1_0_0.OwningEntity" String="DMTF"/>
 
       <Term Name="AllowableValues" Type="Collection(Edm.String)" Nullable="false">
-        <Annotation Term="OData.Description" String="The set of allowable values for a parameter."/>
+        <Annotation Term="OData.Description" String="The set of allowable values for an action parameter or property."/>
       </Term>
       <Term Name="Required" Type="Edm.Boolean" DefaultValue="true">
         <Annotation Term="OData.Description" String="This term specifies that a property is required to be supported by Services.  Properties not annotated as required are optional."/>
@@ -106,7 +106,7 @@
       <Term Name="Uris" Type="Collection(Edm.String)">
         <Annotation Term="OData.Description" String="The term specifies the URIs that a Service can use for the Resource."/>
       </Term>
-      <Term Name="RequestedCount" Type="Edm.Boolean" DefaultValue="true">
+      <Term Name="RequestedCount" Type="Edm.Int64">
         <Annotation Term="OData.Description" String="The term is used by a client to specify a request for a quantity of items."/>
       </Term>
       <Term Name="RequestedCountRequired" Type="Edm.Boolean" DefaultValue="true">

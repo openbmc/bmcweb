@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Switch.v1_3_0.json",
     "$ref": "#/definitions/Switch",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -58,6 +58,19 @@
                     "description": "The link to the chassis that contains this switch.",
                     "longDescription": "This property shall contain a link to the Resource of type Chassis with which this switch is associated.",
                     "readonly": true
+                },
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this switch.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain a link to the Resources of type Endpoint with which this switch is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "ManagedBy": {
                     "description": "An array of links to the managers that manage this switch.",
@@ -346,6 +359,16 @@
                     "description": "The status and health of the Resource and its subordinate or dependent Resources.",
                     "longDescription": "This property shall contain any status or health properties of the Resource."
                 },
+                "SupportedProtocols": {
+                    "description": "The protocols this switch supports.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Protocol.json#/definitions/Protocol"
+                    },
+                    "longDescription": "The property shall contain an array of protocols this switch supports.  If the value of SwitchType is `MultiProtocol`, this property shall be required.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
                 "SwitchType": {
                     "anyOf": [
                         {
@@ -355,8 +378,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The type of switch.",
-                    "longDescription": "This property shall contain the type of switch.",
+                    "description": "The protocol being sent over this switch.",
+                    "longDescription": "This property shall contain the protocol being sent over this switch.  For a switch that supports multiple protocols, the value should be `MultiProtocol` and the SupportedProtocols property should be used to describe the supported protocols.",
                     "readonly": true
                 },
                 "TotalSwitchWidth": {
@@ -367,6 +390,20 @@
                         "integer",
                         "null"
                     ]
+                },
+                "UUID": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/UUID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The UUID for this switch.",
+                    "longDescription": "This property shall contain a universal unique identifier number for the switch.",
+                    "readonly": true,
+                    "versionAdded": "v1_3_0"
                 }
             },
             "required": [
@@ -379,6 +416,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#Switch.v1_2_0.Switch"
+    "release": "2019.4",
+    "title": "#Switch.v1_3_0.Switch"
 }

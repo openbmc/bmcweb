@@ -36,7 +36,7 @@
         <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of Zone instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
-            <PropertyValue Property="Insertable" Bool="false"/>
+            <PropertyValue Property="Insertable" Bool="true"/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">

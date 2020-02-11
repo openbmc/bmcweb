@@ -205,6 +205,30 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="GenZ">
+          <Annotation Term="OData.Description" String="GenZ."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to the Gen-Z Core Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
+        <Member Name="MultiProtocol">
+          <Annotation Term="OData.Description" String="Multiple Protocols."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to multiple protocols."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="2019.4"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
         <Member Name="OEM">
           <Annotation Term="OData.Description" String="OEM-specific."/>
           <Annotation Term="OData.LongDescription" String="This value shall indicate conformance to an OEM-specific architecture and additional information may be included in the OEM section."/>

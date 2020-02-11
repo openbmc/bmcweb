@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_2_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryChunks.v1_3_0.json",
     "$ref": "#/definitions/MemoryChunks",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -111,6 +111,46 @@
             },
             "type": "object"
         },
+        "Links": {
+            "additionalProperties": false,
+            "description": "The links to other Resources that are related to this Resource.",
+            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "Endpoints": {
+                    "description": "An array of links to the endpoints that connect to this memory chunk.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
+                    },
+                    "longDescription": "This property shall contain a link to the Resources of type Endpoint with which this memory chunk is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_3_0"
+                },
+                "Endpoints@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "Oem": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
+                    "description": "The OEM extension property.",
+                    "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
+                }
+            },
+            "type": "object"
+        },
         "MemoryChunks": {
             "additionalProperties": false,
             "description": "The schema definition of a memory chunk and its configuration.",
@@ -147,6 +187,17 @@
                     "description": "The available actions for this Resource.",
                     "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_1_0"
+                },
+                "AddressRangeOffsetMiB": {
+                    "description": "Offset of the memory chunk in the address range in MiB.",
+                    "longDescription": "The value of this property shall be the offset of the memory chunk in the address range in MiB.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MiBy",
+                    "versionAdded": "v1_3_0"
                 },
                 "AddressRangeType": {
                     "anyOf": [
@@ -201,6 +252,12 @@
                         "boolean",
                         "null"
                     ]
+                },
+                "Links": {
+                    "$ref": "#/definitions/Links",
+                    "description": "The links to other Resources that are related to this Resource.",
+                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource.",
+                    "versionAdded": "v1_3_0"
                 },
                 "MemoryChunkSizeMiB": {
                     "description": "Size of the memory chunk measured in mebibytes (MiB).",
@@ -259,6 +316,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2017.3",
-    "title": "#MemoryChunks.v1_2_4.MemoryChunks"
+    "release": "2019.4",
+    "title": "#MemoryChunks.v1_3_0.MemoryChunks"
 }

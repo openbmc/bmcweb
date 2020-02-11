@@ -59,6 +59,7 @@
             <String>/redfish/v1/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/LogServices/{LogServiceId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/LogServices/{LogServiceId}</String>
             <String>/redfish/v1/JobService/Log</String>
             <String>/redfish/v1/TelemetryService/LogService</String>
           </Collection>

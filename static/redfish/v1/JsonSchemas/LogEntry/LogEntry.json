@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_5_1.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -143,7 +143,7 @@
                         }
                     ],
                     "description": "The entry code for the log entry if the entry type is `SEL`.",
-                    "longDescription": "This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification describe these enumerations.",
+                    "longDescription": "This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification v2.0 revision 1.1 describe these enumerations.",
                     "readonly": true
                 },
                 "EntryType": {
@@ -208,7 +208,7 @@
                 },
                 "Message": {
                     "description": "The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
-                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
+                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -287,7 +287,7 @@
                         }
                     ],
                     "description": "The sensor type to which the log entry pertains if the entry type is `SEL`.",
-                    "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3 in the IPMI Specification describes these enumerations.",
+                    "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3, Sensor Type Codes, in the IPMI Specification v2.0 revision 1.1 describes these enumerations.",
                     "readonly": true
                 },
                 "Severity": {
@@ -581,5 +581,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.3",
-    "title": "#LogEntry.v1_5_0.LogEntry"
+    "title": "#LogEntry.v1_5_1.LogEntry"
 }
