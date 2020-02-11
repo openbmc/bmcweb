@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_0_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Sensor.v1_1_0.json",
     "$ref": "#/definitions/Sensor",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -23,8 +23,8 @@
                 }
             },
             "properties": {
-                "#Sensor.ResetStatistics": {
-                    "$ref": "#/definitions/ResetStatistics"
+                "#Sensor.ResetMetrics": {
+                    "$ref": "#/definitions/ResetMetrics"
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
@@ -34,63 +34,16 @@
             },
             "type": "object"
         },
-        "ElectricalContext": {
+        "ImplementationType": {
             "enum": [
-                "Line1",
-                "Line2",
-                "Line3",
-                "Neutral",
-                "LineToLine",
-                "Line1ToLine2",
-                "Line2ToLine3",
-                "Line3ToLine1",
-                "LineToNeutral",
-                "Line1ToNeutral",
-                "Line2ToNeutral",
-                "Line3ToNeutral",
-                "Line1ToNeutralAndL1L2",
-                "Line2ToNeutralAndL1L2",
-                "Line2ToNeutralAndL2L3",
-                "Line3ToNeutralAndL3L1",
-                "Total"
+                "PhysicalSensor",
+                "Synthesized",
+                "Reported"
             ],
             "enumDescriptions": {
-                "Line1": "The circuits that share the L1 current-carrying conductor.",
-                "Line1ToLine2": "The circuit formed by L1 and L2 current-carrying conductors when PhaseWiringType.TwoPhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Line1ToNeutral": "The circuit formed by L1 and Neutral current-carrying conductors when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Line1ToNeutralAndL1L2": "The circuits formed by L1, L2, and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2": "The circuits that share the L2 current-carrying conductor when PhaseWiringType.ThreePhase4Wire, TwoPhase4Wire, or ThreePhase5Wire.",
-                "Line2ToLine3": "The circuit formed by L2 and L3 current-carrying conductors when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutral": "The circuit formed by L2 and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutralAndL1L2": "The circuits formed by L1, L2, and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutralAndL2L3": "The circuits formed by L2, L3, and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "Line3": "The circuits that share the L3 current-carrying conductor when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line3ToLine1": "The circuit formed by L3 and L1 current-carrying conductors when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line3ToNeutral": "The circuit formed by L3 and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "Line3ToNeutralAndL3L1": "The circuits formed by L3, L1, and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "LineToLine": "The circuit formed by two current-carrying conductors when PhaseWiringType.TwoPhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "LineToNeutral": "The circuit formed by a line and Neutral current-carrying conductor when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Neutral": "The grounded current-carrying return circuit of current-carrying conductors when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, or ThreePhase5Wire.",
-                "Total": "The circuits formed by all current-carrying conductors for any PhaseWiringType."
-            },
-            "enumLongDescriptions": {
-                "Line1": "This property shall contain the circuits that share the L1 current-carrying conductor when PhaseWiringType.TwoPhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Line1ToLine2": "This property shall contain the circuit formed by L1 and L2 current-carrying conductors when PhaseWiringType.TwoPhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Line1ToNeutral": "This property shall contain the circuit formed by L1 and Neutral current-carrying conductors when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Line1ToNeutralAndL1L2": "This property shall contain the circuits formed by L1, L2, and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2": "This property shall contain the circuits that share the L2 current-carrying conductor when PhaseWiringType.ThreePhase4Wire, TwoPhase4Wire, or ThreePhase5Wire.",
-                "Line2ToLine3": "This property shall contain the circuit formed by L2 and L3 current-carrying conductors when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutral": "This property shall contain the circuit formed by L2 and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutralAndL1L2": "This property shall contain the circuits formed by L1, L2, and Neutral current-carrying conductors when PhaseWiringType.TwoPhase4Wire or ThreePhase5Wire.",
-                "Line2ToNeutralAndL2L3": "This property shall contain the circuits formed by L2, L3, and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "Line3": "This property shall contain the circuits that share the L3 current-carrying conductor when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line3ToLine1": "This property shall contain the circuit formed by L3 and L1 current-carrying conductors when PhaseWiringType.ThreePhase4Wire or ThreePhase5Wire.",
-                "Line3ToNeutral": "This property shall contain the circuit formed by L3 and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "Line3ToNeutralAndL3L1": "This property shall contain the circuits formed by L3, L1, and Neutral current-carrying conductors when PhaseWiringType.ThreePhase5Wire.",
-                "LineToLine": "This property shall contain the circuit formed by two current-carrying conductors when PhaseWiringType.TwoPhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "LineToNeutral": "This property shall contain the circuit formed by a line and Neutral current-carrying conductor when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, ThreePhase4Wire, or ThreePhase5Wire.",
-                "Neutral": "This property shall contain the grounded current-carrying return circuit of current-carrying conductors when PhaseWiringType.OnePhase3Wire, TwoPhase4Wire, or ThreePhase5Wire.",
-                "Total": "This property shall contain the circuits formed by all current-carrying conductors for any PhaseWiringType."
+                "PhysicalSensor": "The reading is acquired from a physical sensor.",
+                "Reported": "The reading is obtained from software or a device.",
+                "Synthesized": "The reading is obtained by applying a calculation on one or more properties.  The calculation is not provided."
             },
             "type": "string"
         },
@@ -131,7 +84,8 @@
                 "AirFlow",
                 "LiquidFlow",
                 "Barometric",
-                "Altitude"
+                "Altitude",
+                "Percent"
             ],
             "enumDescriptions": {
                 "AirFlow": "Airflow.",
@@ -144,6 +98,7 @@
                 "Humidity": "Relative Humidity.",
                 "LiquidFlow": "Liquid flow.",
                 "LiquidLevel": "Liquid level.",
+                "Percent": "Percent.",
                 "Power": "Power.",
                 "Pressure": "Pressure.",
                 "Rotational": "Rotational.",
@@ -155,24 +110,28 @@
                 "Altitude": "This value shall indicate a measurement of altitude, in meter units, and the ReadingUnits value shall be `m`.",
                 "Barometric": "This value shall indicate a measurement of barometric pressure, in millimeters, of a mercury column, and the ReadingUnits value shall be `mm[Hg]`.",
                 "Current": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous current calculated over an integer number of line cycles for a circuit.  Current is expressed in Amperes units and the ReadingUnits value shall be `A`.",
-                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor statistics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
-                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor statistics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules is used for device-level consumption measurements.",
+                "EnergyJoules": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in Joule units and the ReadingUnits value shall be `J`.  This value is used for device-level energy consumption measurements, while EnergykWh is used for large-scale consumption measurements.",
+                "EnergykWh": "This value shall indicate the energy, integral of real power over time, of the monitored item since the sensor metrics were last reset.  The value of the Reading property shall be in kilowatt-hour units and the ReadingUnits value shall be `kW.h`.  This value is used for large-scale energy consumption measurements, while EnergyJoules is used for device-level consumption measurements.",
                 "Frequency": "This value shall indicate a frequency measurement, in Hertz units, and the ReadingUnits value shall be `Hz`.",
                 "Humidity": "This value shall indicate a relative humidity measurement, in percent units, and the ReadingUnits value shall be '%'.",
                 "LiquidFlow": "This value shall indicate a measurement of a volume of liquid per unit of time that flows through a particular junction.  The ReadingUnits shall be `L/s`.",
                 "LiquidLevel": "This value shall indicate a measurement of fluid height relative to a specified vertical datum and the ReadingUnits value shall be `cm`.",
+                "Percent": "This value shall indicate a percentage measurement, in percent units, and the ReadingUnits value shall be `%`.",
                 "Power": "This value shall indicate the arithmetic mean of product terms of instantaneous voltage and current values measured over integer number of line cycles for a circuit, in Watt units, and the ReadingUnits value shall be 'W'.",
                 "Pressure": "This value shall indicate a measurement of force applied perpendicular to the surface of an object per unit area over which that force is distributed.  The ReadingUnits shall be `Pa`.",
                 "Rotational": "This value shall indicate a measurement of rotational frequency, in revolutions per minute unit, and the ReadingUnits value shall be `RPM`.",
                 "Temperature": "This value shall indicate a temperature measurement, in degrees Celsius units, and the ReadingUnits value shall be 'Cel'.",
                 "Voltage": "This value shall indicate a measurement of the root mean square (RMS) of instantaneous voltage calculated over an integer number of line cycles for a circuit.  Voltage is expressed in Volts units and the ReadingUnits value shall be `V`."
             },
+            "enumVersionAdded": {
+                "Percent": "v1_1_0"
+            },
             "type": "string"
         },
-        "ResetStatistics": {
+        "ResetMetrics": {
             "additionalProperties": false,
-            "description": "Resets statistics related to this sensor.",
-            "longDescription": "This action shall reset any time intervals or counted values for this sensor.",
+            "description": "Resets metrics related to this sensor.",
+            "longDescription": "This action shall reset any time intervals or counted values for this sensor.  The SensorResetTime property shall be updated to reflect the time that this action was performed.",
             "parameters": {},
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
@@ -276,6 +235,17 @@
                     ],
                     "units": "V.A"
                 },
+                "CrestFactor": {
+                    "description": "The crest factor for this sensor.",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the ratio of the peak measurement divided by the RMS measurement and calculated over same N line cycles.  A sine wave would have a value of 1.414.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -290,7 +260,7 @@
                 "ElectricalContext": {
                     "anyOf": [
                         {
-                            "$ref": "#/definitions/ElectricalContext"
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/ElectricalContext"
                         },
                         {
                             "type": "null"
@@ -304,7 +274,33 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "Implementation": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ImplementationType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The implementation of the sensor.",
+                    "longDescription": "This property shall contain the implementation of the sensor.",
+                    "readonly": true,
+                    "versionAdded": "v1_1_0"
+                },
+                "LifetimeReading": {
+                    "description": "The total accumulation value for this sensor.",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetStatistics action.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
                 "LoadPercent": {
+                    "deprecated": "This property has been deprecated in favor of using a Sensor instance with a ReadingType of `Percent` to show utilization values when needed.",
                     "description": "The power load utilization for this sensor.",
                     "longDescription": "This property shall indicate the power load utilization percent for this sensor.  This property may appear in sensors of the Power ReadingType, and shall not appear in sensors of other ReadingType values.",
                     "readonly": true,
@@ -312,7 +308,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "%"
+                    "units": "%",
+                    "versionDeprecated": "v1_1_0"
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
@@ -453,6 +450,17 @@
                         "null"
                     ]
                 },
+                "ReadingTime": {
+                    "description": "The date and time that the reading was acquired from the sensor.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and timetime that the reading data was acquired from the sensor.  This value is used to synchronize readings from multiple sensors, and does not represent the time at which the resource was accessed.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
                 "ReadingType": {
                     "anyOf": [
                         {
@@ -468,7 +476,6 @@
                 },
                 "ReadingUnits": {
                     "description": "The units of the reading and thresholds.",
-                    "excerpt": "Sensor",
                     "longDescription": "This property shall contain the units of the sensor's reading and thresholds.",
                     "readonly": true,
                     "type": [
@@ -477,16 +484,30 @@
                     ]
                 },
                 "SensingFrequency": {
+                    "deprecated": "This property has been deprecated in favor of the SensingInterval property, which uses the duration time format for interoperability.",
                     "description": "The time interval between readings of the physical sensor.",
                     "longDescription": "This property shall contain the time interval between readings of the physical sensor.",
                     "readonly": true,
                     "type": [
                         "number",
                         "null"
-                    ]
+                    ],
+                    "versionDeprecated": "v1_1_0"
+                },
+                "SensingInterval": {
+                    "description": "The time interval between readings of the sensor.",
+                    "longDescription": "This property shall contain the time interval between readings of data from the sensor.",
+                    "pattern": "-?P(\\d+D)?(T(\\d+H)?(\\d+M)?(\\d+(.\\d+)?S)?)?",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "SensorResetTime": {
                     "description": "The date and time when the time-based properties were last reset.",
+                    "excerpt": "SensorEnergykWh",
                     "format": "date-time",
                     "longDescription": "This property shall contain the date and time when the ResetStatistics action was last performed or the service last reset the time-based property values.",
                     "readonly": true,
@@ -498,8 +519,18 @@
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "excerpt": "Sensor",
                     "longDescription": "This property shall contain the status and health of the Resource and its children."
+                },
+                "THDPercent": {
+                    "description": "The total harmonic distortion (THD).",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
                 "Thresholds": {
                     "$ref": "#/definitions/Thresholds",
@@ -509,7 +540,7 @@
                 "VoltageType": {
                     "anyOf": [
                         {
-                            "$ref": "#/definitions/VoltageType"
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Sensor.json#/definitions/VoltageType"
                         },
                         {
                             "type": "null"
@@ -596,25 +627,140 @@
                         "number",
                         "null"
                     ]
+                }
+            },
+            "type": "object"
+        },
+        "SensorCurrentExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorCurrent",
+            "longDescription": "This Resource represents a Sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CrestFactor": {
+                    "description": "The crest factor for this sensor.",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the ratio of the peak measurement divided by the RMS measurement and calculated over same N line cycles.  A sine wave would have a value of 1.414.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
-                "ReadingUnits": {
-                    "description": "The units of the reading and thresholds.",
-                    "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.",
+                "DataSourceUri": {
+                    "description": "The link to the Resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the Resource that provides the source of the Excerpt contained within this copy.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                "Reading": {
+                    "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the status and health of the Resource and its children."
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "THDPercent": {
+                    "description": "The total harmonic distortion (THD).",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 }
             },
-            "required": [],
+            "type": "object"
+        },
+        "SensorEnergykWhExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorEnergykWh",
+            "longDescription": "This Resource represents a Sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DataSourceUri": {
+                    "description": "The link to the Resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the Resource that provides the source of the Excerpt contained within this copy.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "LifetimeReading": {
+                    "description": "The total accumulation value for this sensor.",
+                    "excerpt": "SensorEnergykWh",
+                    "longDescription": "This property shall contain the total accumulation of the Reading property over the sensor's life time.  This value shall not be reset by the ResetStatistics action.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
+                },
+                "Reading": {
+                    "description": "The sensor value.",
+                    "excerpt": "Sensor",
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "SensorResetTime": {
+                    "description": "The date and time when the time-based properties were last reset.",
+                    "excerpt": "SensorEnergykWh",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the ResetStatistics action was last performed or the service last reset the time-based property values.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
             "type": "object"
         },
         "SensorExcerpt": {
@@ -657,25 +803,8 @@
                         "number",
                         "null"
                     ]
-                },
-                "ReadingUnits": {
-                    "description": "The units of the reading and thresholds.",
-                    "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.",
-                    "readonly": true,
-                    "type": [
-                        "string",
-                        "null"
-                    ]
-                },
-                "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the status and health of the Resource and its children."
                 }
             },
-            "required": [],
             "type": "object"
         },
         "SensorPowerExcerpt": {
@@ -752,25 +881,74 @@
                         "number",
                         "null"
                     ]
+                }
+            },
+            "type": "object"
+        },
+        "SensorVoltageExcerpt": {
+            "additionalProperties": false,
+            "description": "The Sensor schema describes a sensor and its properties.",
+            "excerpt": "SensorVoltage",
+            "longDescription": "This Resource represents a Sensor for a Redfish implementation.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CrestFactor": {
+                    "description": "The crest factor for this sensor.",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the ratio of the peak measurement divided by the RMS measurement and calculated over same N line cycles.  A sine wave would have a value of 1.414.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 },
-                "ReadingUnits": {
-                    "description": "The units of the reading and thresholds.",
-                    "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the units of the sensor's reading and thresholds.",
+                "DataSourceUri": {
+                    "description": "The link to the Resource that provides the data for this sensor.",
+                    "excerptCopyOnly": true,
+                    "format": "uri-reference",
+                    "longDescription": "This property shall contain a URI to the Resource that provides the source of the Excerpt contained within this copy.",
                     "readonly": true,
                     "type": [
                         "string",
                         "null"
                     ]
                 },
-                "Status": {
-                    "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
+                "Reading": {
+                    "description": "The sensor value.",
                     "excerpt": "Sensor",
-                    "longDescription": "This property shall contain the status and health of the Resource and its children."
+                    "longDescription": "This property shall contain the sensor value.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "THDPercent": {
+                    "description": "The total harmonic distortion (THD).",
+                    "excerpt": "SensorCurrent,SensorVoltage",
+                    "longDescription": "This property shall contain the total harmonic distortion of the Reading property in percent units.",
+                    "readonly": true,
+                    "type": [
+                        "number",
+                        "null"
+                    ],
+                    "versionAdded": "v1_1_0"
                 }
             },
-            "required": [],
             "type": "object"
         },
         "Threshold": {
@@ -896,20 +1074,9 @@
                 }
             },
             "type": "object"
-        },
-        "VoltageType": {
-            "enum": [
-                "AC",
-                "DC"
-            ],
-            "enumDescriptions": {
-                "AC": "Alternating current.",
-                "DC": "Direct durrent."
-            },
-            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#Sensor.v1_0_3.Sensor"
+    "release": "2019.4",
+    "title": "#Sensor.v1_1_0.Sensor"
 }

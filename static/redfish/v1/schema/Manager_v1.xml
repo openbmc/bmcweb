@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Manager v1.6.0                                                      -->
+<!--# Redfish Schema:  Manager v1.7.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -721,6 +721,29 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Manager.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="Manager" BaseType="Manager.v1_6_0.Manager">
+        <Property Name="Manufacturer" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The manufacturer of this manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of the organization responsible for producing the manager.  This organization might be the entity from whom the manager is purchased, but this is not necessarily true."/>
+        </Property>
+        <Property Name="SerialNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The serial number of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a manufacturer-allocated number that identifies the manager."/>
+        </Property>
+        <Property Name="PartNumber" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The part number of the manager."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the manager."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

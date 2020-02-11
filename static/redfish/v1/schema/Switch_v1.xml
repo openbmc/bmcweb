@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Switch v1.2.0                                                       -->
+<!--# Redfish Schema:  Switch v1.3.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -41,6 +41,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Protocol_v1.xml">
     <edmx:Include Namespace="Protocol"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Endpoint_v1.xml">
+    <edmx:Include Namespace="Endpoint"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -93,8 +96,8 @@
       <EntityType Name="Switch" BaseType="Switch.Switch">
         <Property Name="SwitchType" Type="Protocol.Protocol">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of switch."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of switch."/>
+          <Annotation Term="OData.Description" String="The protocol being sent over this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the protocol being sent over this switch.  For a switch that supports multiple protocols, the value should be `MultiProtocol` and the SupportedProtocols property should be used to describe the supported protocols."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
           <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
@@ -285,6 +288,7 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
+
       <EntityType Name="Switch" BaseType="Switch.v1_1_3.Switch">
         <Property Name="FirmwareVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -293,6 +297,33 @@
         </Property>
       </EntityType>
     </Schema>
-    
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Switch.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="Switch" BaseType="Switch.v1_2_0.Switch">
+        <Property Name="SupportedProtocols" Type="Collection(Protocol.Protocol)" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The protocols this switch supports."/>
+          <Annotation Term="OData.LongDescription" String="The property shall contain an array of protocols this switch supports.  If the value of SwitchType is `MultiProtocol`, this property shall be required."/>
+        </Property>
+        <Property Name="UUID" Type="Resource.UUID">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The UUID for this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a universal unique identifier number for the switch."/>
+        </Property>
+      </EntityType>
+
+      <ComplexType Name="Links" BaseType="Switch.v1_0_0.Links">
+        <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this switch."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resources of type Endpoint with which this switch is associated."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

@@ -54,6 +54,8 @@
           <Collection>
             <String>/redfish/v1/Fabrics/{FabricId}/Switches/{SwitchId}/Ports</String>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
+            <String>/redfish/v1/Systems/{ComputerSystemId}/FabricAdapters/{FabricAdapterId}/Ports</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/MediaControllers/{MediaControllerId}/Ports</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Storage/{StorageId}/StorageControllers/{StorageControllerMemberId}/Ports</String>

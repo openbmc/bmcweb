@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/PowerEquipment",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "PowerEquipment Schema File",
+    "Schema": "#PowerEquipment.PowerEquipment",
+    "Description": "PowerEquipment Schema File Location",
+    "Id": "PowerEquipment",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/PowerEquipment.json",
+            "Uri": "/redfish/v1/JsonSchemas/PowerEquipment/PowerEquipment.json"
+        }
+    ],
+    "Location@odata.count": 1
+}

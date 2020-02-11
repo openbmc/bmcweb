@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/Circuit",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "Circuit Schema File",
+    "Schema": "#Circuit.Circuit",
+    "Description": "Circuit Schema File Location",
+    "Id": "Circuit",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/Circuit.json",
+            "Uri": "/redfish/v1/JsonSchemas/Circuit/Circuit.json"
+        }
+    ],
+    "Location@odata.count": 1
+}

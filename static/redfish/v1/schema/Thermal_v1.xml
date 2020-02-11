@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Thermal v1.5.3                                                      -->
+<!--# Redfish Schema:  Thermal v1.6.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -705,6 +705,28 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Thermal" BaseType="Thermal.v1_5_2.Thermal"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Thermal.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="Thermal" BaseType="Thermal.v1_5_3.Thermal"/>
+
+      <EntityType Name="Temperature" BaseType="Thermal.v1_4_0.Temperature">
+        <Property Name="UpperThresholdUser" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The value at which the reading is above the user-defined range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the ReadingCelsius property is above the user-defined range.  The value of the property shall use the same units as the ReadingCelsius property.  The value shall be equal to the value of UpperThresholdNonCritical, UpperThresholdCritical, or UpperThresholdFatal, unless set by a user."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+        <Property Name="LowerThresholdUser" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The value at which the reading is below the user-defined range."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the value at which the ReadingCelsius property is below the user-defined range.  The value of the property shall use the same units as the ReadingCelsius property.  The value shall be equal to the value of LowerThresholdNonCritical, LowerThresholdCritical, or LowerThresholdFatal, unless set by a user."/>
+          <Annotation Term="Measures.Unit" String="Cel"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

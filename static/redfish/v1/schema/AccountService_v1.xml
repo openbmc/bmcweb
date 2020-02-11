@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  AccountService v1.6.0                                               -->
+<!--# Redfish Schema:  AccountService v1.7.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -582,6 +582,22 @@
       <Annotation Term="OData.Description" String="This version was created to add LocalFirst to the LocalAccountAuth enum."/>
 
       <EntityType Name="AccountService" BaseType="AccountService.v1_5_1.AccountService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="AccountService.v1_7_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+      <Annotation Term="OData.Description" String="This version was created to add LocalFirst to the LocalAccountAuth enum."/>
+
+      <EntityType Name="AccountService" BaseType="AccountService.v1_6_0.AccountService"/>
+
+      <ComplexType Name="ExternalAccountProvider" BaseType="AccountService.v1_4_0.ExternalAccountProvider">
+        <Property Name="PasswordSet" Type="Edm.Boolean" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Indicates if the Password property is set."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the Password property.  Otherwise, the property shall contain `false`."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

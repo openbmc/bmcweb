@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_3_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_0.json",
     "$ref": "#/definitions/Endpoint",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -86,6 +86,19 @@
                     "description": "The type of the connected entity.",
                     "longDescription": "This property shall indicate if type of connected entity.",
                     "readonly": true
+                },
+                "GenZ": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GenZ"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Gen-Z related properties for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z related properties for the entity.",
+                    "versionAdded": "v1_4_0"
                 },
                 "Identifiers": {
                     "description": "Identifiers for the remote entity.",
@@ -294,25 +307,138 @@
                 "Bridge",
                 "Processor",
                 "Volume",
-                "AccelerationFunction"
+                "AccelerationFunction",
+                "MediaController",
+                "MemoryChunk",
+                "Switch",
+                "FabricBridge"
             ],
             "enumDescriptions": {
                 "AccelerationFunction": "The entity is an acceleration function realized through a device, such as an FPGA.  The EntityLink property, if present, should be an AccelerationFunction type.",
                 "Bridge": "The entity is a PCI(e) bridge.",
                 "DisplayController": "The entity is a display controller.",
                 "Drive": "The entity is a disk drive.  The EntityLink property, if present, should be a Drive type.",
+                "FabricBridge": "The entity is a fabric bridge.  The EntityLink property, if present, should be a FabricAdapter type.",
+                "MediaController": "The entity is a media controller.  The EntityLink property, if present, should be a MediaController type.",
+                "MemoryChunk": "The entity is a memory chunk.  The EntityLink property, if present, should be a MemoryChunk type.",
                 "NetworkController": "The entity is a network controller.  The EntityLink property, if present, should contain an EthernetInterface type.",
                 "Processor": "The entity is a processor device.",
                 "RootComplex": "The entity is a PCI(e) root complex.  The EntityLink property, if present, should be a ComputerSystem type.",
                 "StorageExpander": "The entity is a storage expander.  The EntityLink property, if present, should be a Chassis type.",
                 "StorageInitiator": "The entity is a storage initator.  The EntityLink property, if present, should be a StorageController type.",
+                "Switch": "The entity is a switch, not an expander.  Use `Expander` for expanders.  The EntityLink property, if present, should be a Switch type.",
                 "Volume": "The entity is a volume.  The EntityLink property, if present, should be a Volume type."
             },
             "enumVersionAdded": {
                 "AccelerationFunction": "v1_3_0",
+                "FabricBridge": "v1_4_0",
+                "MediaController": "v1_4_0",
+                "MemoryChunk": "v1_4_0",
+                "Switch": "v1_4_0",
                 "Volume": "v1_1_0"
             },
             "type": "string"
+        },
+        "GCID": {
+            "additionalProperties": false,
+            "description": "The Global Component ID (GCID).",
+            "longDescription": "This type shall contain the Gen-Z Core Specification-defined Global Component ID.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "CID": {
+                    "description": "The component identifier portion of the GCID for the entity.",
+                    "longDescription": "This property shall contain the 12 bit component identifier portion of the GCID of the entity.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){3}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "SID": {
+                    "description": "The subnet identifier portion of the GCID for the entity.",
+                    "longDescription": "This property shall contain the 16 bit subnet identifier portion of the GCID of the entity.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
+        },
+        "GenZ": {
+            "additionalProperties": false,
+            "description": "The Gen-Z related properties for an entity.",
+            "longDescription": "This type shall contain the Gen-Z related properties for an entity.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "AccessKey": {
+                    "description": "The Access Key for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined 6 bit Access Key for the entity.",
+                    "pattern": "^0[xX]([a-fA-F]|[0-9]){2}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
+                "GCID": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/GCID"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The Global Component ID (GCID) for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined Global Component ID for the entity.",
+                    "versionAdded": "v1_4_0"
+                },
+                "RegionKey": {
+                    "description": "The Region Key for the entity.",
+                    "longDescription": "This property shall contain the Gen-Z Core Specification-defined 32 bit Region Key for the entity.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){4}$",
+                    "readonly": false,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                }
+            },
+            "type": "object"
         },
         "IPTransportDetails": {
             "additionalProperties": false,
@@ -383,6 +509,32 @@
                 }
             },
             "properties": {
+                "AddressPools": {
+                    "description": "An array of links to the address pools associated with this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of type AddressPool with which this endpoint is associated.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "AddressPools@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ConnectedPorts": {
+                    "description": "An array of links to the ports that connect to this endpoint.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of type Port that represent ports associated with this endpoint.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ConnectedPorts@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "MutuallyExclusiveEndpoints": {
                     "description": "An array of links to the endpoints that may not be used in zones if this endpoint is in a zone.",
                     "items": {
@@ -534,6 +686,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#Endpoint.v1_3_2.Endpoint"
+    "release": "2019.4",
+    "title": "#Endpoint.v1_4_0.Endpoint"
 }

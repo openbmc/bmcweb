@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  UpdateService v1.7.0                                                -->
+<!--# Redfish Schema:  UpdateService v1.8.0                                                -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -518,6 +518,7 @@
       </EntityType>
 
       <ComplexType Name="UpdateParameters" BaseType="UpdateService.UpdateParameters">
+        <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="The update parameters used with MultipartHttpPushUri software update."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the update parameters when passing the update image when using the URI specified by the MultipartHttpPushUri property to push a software image."/>
         <Property Name="Targets" Type="Collection(Edm.String)">
@@ -534,6 +535,20 @@
       <Annotation Term="Redfish.Release" String="2019.3"/>
       <Annotation Term="OData.Description" String="This version was created to add the StartUpdate action."/>
       <EntityType Name="UpdateService" BaseType="UpdateService.v1_6_0.UpdateService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="UpdateService.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="UpdateService" BaseType="UpdateService.v1_7_0.UpdateService"/>
+
+      <ComplexType Name="UpdateParameters" BaseType="UpdateService.v1_6_0.UpdateParameters">
+        <Property Name="Oem" Type="Resource.Oem" Nullable="false">
+          <Annotation Term="OData.Description" String="The OEM extension property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

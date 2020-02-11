@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  TelemetryService v1.1.2                                             -->
+<!--# Redfish Schema:  TelemetryService v1.2.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -268,6 +268,19 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description of the LogService property.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_1.TelemetryService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="TelemetryService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+
+      <EntityType Name="TelemetryService" BaseType="TelemetryService.v1_1_2.TelemetryService">
+        <Property Name="ServiceEnabled" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="An indication of whether this service is enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service is enabled."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

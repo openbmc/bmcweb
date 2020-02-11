@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 86,
+  "Members@odata.count": 101,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
@@ -14,6 +14,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/ActionInfo"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/AddressPool"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Assembly"
@@ -38,6 +41,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Chassis"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Circuit"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/CollectionCapabilities"
@@ -73,6 +79,12 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Fabric"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/FabricAdapter"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Facility"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/HostInterface"
     },
     {
@@ -101,6 +113,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/ManagerNetworkProtocol"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/MediaController"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Memory"
@@ -145,6 +160,12 @@
       "@odata.id": "/redfish/v1/JsonSchemas/NetworkPort"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/Outlet"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/OutletGroup"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/PCIeDevice"
     },
     {
@@ -160,7 +181,22 @@
       "@odata.id": "/redfish/v1/JsonSchemas/Port"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/PortMetrics"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/Power"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerDistribution"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerDistributionMetrics"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerDomain"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/PowerEquipment"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/PrivilegeRegistry"
@@ -185,6 +221,12 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Role"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/RouteEntry"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/RouteSetEntry"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Schedule"
@@ -239,6 +281,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/UpdateService"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/VCATEntry"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/VLanNetworkInterface"

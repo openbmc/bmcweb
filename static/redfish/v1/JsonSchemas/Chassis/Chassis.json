@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_10_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Chassis.v1_11_0.json",
     "$ref": "#/definitions/Chassis",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -183,6 +183,27 @@
                         "string",
                         "null"
                     ]
+                },
+                "MediaControllers": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MediaControllerCollection.json#/definitions/MediaControllerCollection",
+                    "description": "The link to the collection of media controllers located in this chassis.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type MediaControllerCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "Memory": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryCollection.json#/definitions/MemoryCollection",
+                    "description": "The link to the collection of memory located in this chassis.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type MemoryCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
+                },
+                "MemoryDomains": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/MemoryDomainCollection.json#/definitions/MemoryDomainCollection",
+                    "description": "The link to the collection of memory domains located in this chassis.",
+                    "longDescription": "This property shall contain a link to a Resource Collection of type MemoryDomainCollection.",
+                    "readonly": true,
+                    "versionAdded": "v1_11_0"
                 },
                 "Model": {
                     "description": "The model number of the chassis.",
@@ -536,6 +557,13 @@
                 "Drives@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
+                "Facility": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/Facility.json#/definitions/Facility",
+                    "description": "The link to the facility that contains this chassis.",
+                    "longDescription": "This property shall contain a link to the resource of type Facility and shall represent the smallest facility that contains this chassis.  This property shall not appear in resources that include a ContainedBy property within the Links property.",
+                    "readonly": false,
+                    "versionAdded": "v1_11_0"
+                },
                 "ManagedBy": {
                     "description": "An array of links to the Managers responsible for managing this chassis.",
                     "items": {
@@ -784,6 +812,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#Chassis.v1_10_0.Chassis"
+    "release": "2019.4",
+    "title": "#Chassis.v1_11_0.Chassis"
 }

@@ -1,0 +1,21 @@
+{
+    "@odata.context": "/redfish/v1/$metadata#JsonSchemaFile.JsonSchemaFile",
+    "@odata.id": "/redfish/v1/JsonSchemas/RouteSetEntry",
+    "@odata.type": "#JsonSchemaFile.v1_0_2.JsonSchemaFile",
+    "Name": "RouteSetEntry Schema File",
+    "Schema": "#RouteSetEntry.RouteSetEntry",
+    "Description": "RouteSetEntry Schema File Location",
+    "Id": "RouteSetEntry",
+    "Languages": [
+        "en"
+    ],
+    "Languages@odata.count": 1,
+    "Location": [
+        {
+            "Language": "en",
+            "PublicationUri": "http://redfish.dmtf.org/schemas/v1/RouteSetEntry.json",
+            "Uri": "/redfish/v1/JsonSchemas/RouteSetEntry/RouteSetEntry.json"
+        }
+    ],
+    "Location@odata.count": 1
+}

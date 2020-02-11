@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_5_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_6_0.json",
     "$ref": "#/definitions/Thermal",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -451,6 +451,17 @@
                     ],
                     "units": "Cel"
                 },
+                "LowerThresholdUser": {
+                    "description": "The value at which the reading is below the user-defined range.",
+                    "longDescription": "This property shall contain the value at which the ReadingCelsius property is below the user-defined range.  The value of the property shall use the same units as the ReadingCelsius property.  The value shall be equal to the value of LowerThresholdNonCritical, LowerThresholdCritical, or LowerThresholdFatal, unless set by a user.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "Cel",
+                    "versionAdded": "v1_6_0"
+                },
                 "MaxAllowableOperatingValue": {
                     "description": "Maximum allowable operating temperature for this equipment.",
                     "longDescription": "This property shall indicate the maximum allowable operating temperature for the equipment monitored by this temperature sensor, as specified by a standards body, manufacturer, or a combination.",
@@ -584,6 +595,17 @@
                         "null"
                     ],
                     "units": "Cel"
+                },
+                "UpperThresholdUser": {
+                    "description": "The value at which the reading is above the user-defined range.",
+                    "longDescription": "This property shall contain the value at which the ReadingCelsius property is above the user-defined range.  The value of the property shall use the same units as the ReadingCelsius property.  The value shall be equal to the value of UpperThresholdNonCritical, UpperThresholdCritical, or UpperThresholdFatal, unless set by a user.",
+                    "readonly": false,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "Cel",
+                    "versionAdded": "v1_6_0"
                 }
             },
             "required": [
@@ -805,6 +827,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#Thermal.v1_5_3.Thermal"
+    "release": "2019.4",
+    "title": "#Thermal.v1_6_0.Thermal"
 }

@@ -52,6 +52,7 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Memory</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory</String>
           </Collection>

@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_1_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/TelemetryService.v1_2_0.json",
     "$ref": "#/definitions/TelemetryService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -302,6 +302,16 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "ServiceEnabled": {
+                    "description": "An indication of whether this service is enabled.",
+                    "longDescription": "This property shall indicate whether this service is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
+                },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the Resource and its subordinate or dependent Resources.",
@@ -340,6 +350,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#TelemetryService.v1_1_2.TelemetryService"
+    "release": "2019.4",
+    "title": "#TelemetryService.v1_2_0.TelemetryService"
 }

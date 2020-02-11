@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_4_0.json",
     "$ref": "#/definitions/Zone",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -69,6 +69,45 @@
                 }
             },
             "properties": {
+                "AddressPools": {
+                    "description": "An array of links to the address pools associated with this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of type AddressPool with which this zone is associated.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "AddressPools@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ContainedByZones": {
+                    "description": "An array of links to the zone that contain this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of type Zone that represent the zones that contain this zone.  The zones referenced by this property shall not be contained by other zones.",
+                    "readonly": true,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ContainedByZones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "ContainsZones": {
+                    "description": "An array of links to the zones that are contained by this zone.",
+                    "items": {
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
+                    },
+                    "longDescription": "This property shall contain an array of links to Resources of type Zone that represent the zones that are contained by this zone.  The zones referenced by this property shall not contain other zones.",
+                    "readonly": false,
+                    "type": "array",
+                    "versionAdded": "v1_4_0"
+                },
+                "ContainsZones@odata.count": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
                 "Endpoints": {
                     "description": "The links to the endpoints that this zone contains.",
                     "items": {
@@ -172,6 +211,16 @@
                     "longDescription": "This property shall contain the available actions for this Resource.",
                     "versionAdded": "v1_1_0"
                 },
+                "DefaultRoutingEnabled": {
+                    "description": "This property indicates whether routing within this zone is enabled.",
+                    "longDescription": "This property shall indicate whether routing within this zone is enabled.",
+                    "readonly": false,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_4_0"
+                },
                 "Description": {
                     "anyOf": [
                         {
@@ -235,6 +284,20 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
                     "description": "The status and health of the Resource and its subordinate or dependent Resources.",
                     "longDescription": "This property shall contain the status and health properties of the Resource and its children."
+                },
+                "ZoneType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/ZoneType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of zone.",
+                    "longDescription": "This property shall contain the type of zone that this zone represents.",
+                    "readonly": false,
+                    "versionAdded": "v1_4_0"
                 }
             },
             "required": [
@@ -244,9 +307,27 @@
                 "Name"
             ],
             "type": "object"
+        },
+        "ZoneType": {
+            "enum": [
+                "Default",
+                "ZoneOfEndpoints",
+                "ZoneOfZones"
+            ],
+            "enumDescriptions": {
+                "Default": "The zone in which all endpoints are added by default when instantiated.",
+                "ZoneOfEndpoints": "A zone that contains endpoints.",
+                "ZoneOfZones": "A zone that contains zones."
+            },
+            "enumLongDescriptions": {
+                "Default": "This value shall indicate a zone in which all endpoints are added by default when instantiated.",
+                "ZoneOfEndpoints": "This value shall indicate a zone that contains Resources of type Endpoint.",
+                "ZoneOfZones": "This value shall indicate a zone that contains Resources of type Zone."
+            },
+            "type": "string"
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.1",
-    "title": "#Zone.v1_3_1.Zone"
+    "release": "2019.4",
+    "title": "#Zone.v1_4_0.Zone"
 }

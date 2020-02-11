@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.8.0                                                       -->
+<!--# Redfish Schema:  Memory v1.9.0                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -65,6 +65,7 @@
         <Annotation Term="Redfish.Uris">
           <Collection>
             <String>/redfish/v1/Systems/{ComputerSystemId}/Memory/{MemoryId}</String>
+            <String>/redfish/v1/Chassis/{ChassisId}/Memory/{MemoryId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}</String>
             <String>/redfish/v1/CompositionService/ResourceBlocks/{ResourceBlockId}/Systems/{ComputerSystemId}/Memory/{MemoryId}</String>
             <String>/redfish/v1/ResourceBlocks/{ResourceBlockId}/Memory/{MemoryId}</String>
@@ -339,6 +340,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Location of the memory in the platform."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain location of the memory in the platform, typically marked in the silk screen."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_9_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the ServiceLabel property within Location."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="MemoryLocation" Type="Memory.v1_0_0.MemoryLocation" Nullable="false">
           <Annotation Term="OData.Description" String="Memory connection information to sockets and memory controllers."/>
@@ -830,7 +840,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMhz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_2.Memory"/>
     </Schema>
 
@@ -877,7 +887,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMhz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_1.Memory"/>
     </Schema>
 
@@ -963,7 +973,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMhz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_0.Memory"/>
     </Schema>
 
@@ -1024,7 +1034,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMHz."/>
+      <Annotation Term="OData.Description" String="This version was created to add requirements on the action parameters to show they are mandatory through Nullable=false.  It was also created to update the description of OperatingSpeedMhz."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_0.Memory"/>
     </Schema>
 
@@ -1240,5 +1250,13 @@
       <Annotation Term="OData.Description" String="This version was created to add a Reset action."/>
       <EntityType Name="Memory" BaseType="Memory.v1_7_2.Memory"/>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2019.4"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the DeviceLocator property in favor of the common ServiceLabel property within Location."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_8_0.Memory"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

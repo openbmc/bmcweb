@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_7_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -411,6 +411,16 @@
                     "longDescription": "This property shall describe the function of this manager.  The `ManagementController` value shall be used if none of the other enumerations apply.",
                     "readonly": true
                 },
+                "Manufacturer": {
+                    "description": "The manufacturer of this manager.",
+                    "longDescription": "This property shall contain the name of the organization responsible for producing the manager.  This organization might be the entity from whom the manager is purchased, but this is not necessarily true.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
+                },
                 "Model": {
                     "description": "The model information of this manager, as defined by the manufacturer.",
                     "longDescription": "This property shall contain the information about how the manufacturer refers to this manager.",
@@ -434,6 +444,16 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "PartNumber": {
+                    "description": "The part number of the manager.",
+                    "longDescription": "This property shall contain a part number assigned by the organization that is responsible for producing or manufacturing the manager.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "PowerState": {
                     "anyOf": [
@@ -489,6 +509,16 @@
                     "description": "The link to a collection of serial interfaces that this manager uses for serial and console communication.",
                     "longDescription": "This property shall contain a link to a Resource Collection of type SerialInterfaceCollection, which this manager uses.",
                     "readonly": true
+                },
+                "SerialNumber": {
+                    "description": "The serial number of the manager.",
+                    "longDescription": "This property shall contain a manufacturer-allocated number that identifies the manager.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_7_0"
                 },
                 "ServiceEntryPointUUID": {
                     "anyOf": [
@@ -761,6 +791,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#Manager.v1_6_0.Manager"
+    "release": "2019.4",
+    "title": "#Manager.v1_7_0.Manager"
 }
