@@ -32,7 +32,7 @@ option (
     "Enable Phosphor REST (D-Bus) APIs.  Paths directly map Phosphor D-Bus
     object paths, for example, '/xyz/openbmc_project/logging/entry/enumerate'.
     See https://github.com/openbmc/docs/blob/master/rest-api.md."
-    ON
+    OFF
 )
 option (
     BMCWEB_ENABLE_REDFISH
