@@ -10,7 +10,7 @@ option('vm-websocket', type : 'feature', value : 'enabled', description : '''Ena
 # removing it, it has been disabled to try to give those that use it the
 # opportunity to upstream their backend implementation
 #option('vm-nbdproxy', type: 'feature', value : 'disabled', description : 'Enable the Virtual Media WebSocket.')
-option('rest', type : 'feature', value : 'enabled', description : '''Enable Phosphor REST (D-Bus) APIs. Paths directly map Phosphor D-Bus object paths, for example, \'/xyz/openbmc_project/logging/entry/enumerate\'. See https://github.com/openbmc/docs/blob/master/rest-api.md.''')
+option('rest', type : 'feature', value : 'disabled', description : '''Enable Phosphor REST (D-Bus) APIs. Paths directly map Phosphor D-Bus object paths, for example, \'/xyz/openbmc_project/logging/entry/enumerate\'. See https://github.com/openbmc/docs/blob/master/rest-api.md.''')
 option('redfish', type : 'feature',value : 'enabled', description: 'Enable Redfish APIs.  Paths are under \'/redfish/v1/\'. See https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish.')
 option('host-serial-socket', type : 'feature', value : 'enabled', description : 'Enable host serial console WebSocket. Path is \'/console0\'.  See https://github.com/openbmc/docs/blob/master/console.md.')
 option('static-hosting', type : 'feature', value : 'enabled', description : 'Enable serving files from the \'/usr/share/www\' directory as paths under \'/\'.')
