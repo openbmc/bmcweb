@@ -1244,24 +1244,17 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
                     pidConfigurationIface, pidZoneConfigurationIface,
                     stepwiseConfigurationIface};
 
-                // erase the paths we don't care about
-                for (auto it = mObj.begin(); it != mObj.end();)
+                for (const auto& [path, object] : mObj)
                 {
-                    bool found = false;
-                    for (const auto& [interface, _] : it->second)
+                    for (const auto& [interface, _] : object)
                     {
                         if (std::find(configurations.begin(),
                                       configurations.end(),
                                       interface) != configurations.end())
                         {
-                            found = true;
-                            it++;
+                            self->objectCount++;
                             break;
                         }
-                    }
-                    if (!found)
-                    {
-                        it = mObj.erase(it);
                     }
                 }
                 self->managedObj = std::move(mObj);
@@ -1473,7 +1466,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
 
                 // arbitrary limit to avoid attacks
                 constexpr const size_t controllerLimit = 500;
-                if (createNewObject && managedObj.size() >= controllerLimit)
+                if (createNewObject && objectCount >= controllerLimit)
                 {
                     messages::resourceExhaustion(response->res, type);
                     continue;
@@ -1570,6 +1563,7 @@ struct SetPIDValues : std::enable_shared_from_this<SetPIDValues>
     std::string currentProfile;
     std::string profileConnection;
     std::string profilePath;
+    size_t objectCount = 0;
 };
 
 class Manager : public Node
