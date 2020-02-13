@@ -122,6 +122,7 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
                     }
                 }
             }
+
             else if (property.first == "ProcessorMaxSpeed")
             {
                 aResp->res.jsonValue["MaxSpeedMHz"] = property.second;
@@ -138,6 +139,18 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
                 {
                     aResp->res.jsonValue["Model"] = *value;
                 }
+            }
+            else if (property.first == "PartNumber")
+            {
+                aResp->res.jsonValue["PartNumber"] = property.second;
+            }
+            else if (property.first == "SerialNumber")
+            {
+                aResp->res.jsonValue["SerialNumber"] = property.second;
+            }
+            else if (property.first == "Version")
+            {
+                aResp->res.jsonValue["Version"] = property.second;
             }
             else if (property.first == "Present")
             {
@@ -560,7 +573,7 @@ class Processor : public Node
             return;
         }
         const std::string &processorId = params[0];
-        res.jsonValue["@odata.type"] = "#Processor.v1_3_1.Processor";
+        res.jsonValue["@odata.type"] = "#Processor.v1_7_0.Processor";
         res.jsonValue["@odata.context"] =
             "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
