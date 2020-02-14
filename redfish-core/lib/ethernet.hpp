@@ -1005,9 +1005,6 @@ class EthernetCollection : public Node
     {
         res.jsonValue["@odata.type"] =
             "#EthernetInterfaceCollection.EthernetInterfaceCollection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#EthernetInterfaceCollection.EthernetInterfaceCollection";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/EthernetInterfaces";
         res.jsonValue["Name"] = "Ethernet Network Interface Collection";
@@ -1759,9 +1756,6 @@ class EthernetInterface : public Node
 
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#EthernetInterface.v1_4_1.EthernetInterface";
-                asyncResp->res.jsonValue["@odata.context"] =
-                    "/redfish/v1/"
-                    "$metadata#EthernetInterface.EthernetInterface";
                 asyncResp->res.jsonValue["Name"] = "Manager Ethernet Interface";
                 asyncResp->res.jsonValue["Description"] =
                     "Management Network Interface";
@@ -1985,9 +1979,6 @@ class VlanNetworkInterface : public Node
         const std::string &iface_id = params[1];
         res.jsonValue["@odata.type"] =
             "#VLanNetworkInterface.v1_1_0.VLanNetworkInterface";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#VLanNetworkInterface.VLanNetworkInterface";
         res.jsonValue["Name"] = "VLAN Network Interface";
 
         if (!verifyNames(parent_iface_id, iface_id))
@@ -2214,10 +2205,6 @@ class VlanNetworkInterfaceCollection : public Node
                 }
 
                 asyncResp->res.jsonValue["@odata.type"] =
-                    "#VLanNetworkInterfaceCollection."
-                    "VLanNetworkInterfaceCollection";
-                asyncResp->res.jsonValue["@odata.context"] =
-                    "/redfish/v1/$metadata"
                     "#VLanNetworkInterfaceCollection."
                     "VLanNetworkInterfaceCollection";
                 asyncResp->res.jsonValue["Name"] =
