@@ -1138,8 +1138,6 @@ class AccountService : public Node
 
         auto asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue = {
-            {"@odata.context", "/redfish/v1/"
-                               "$metadata#AccountService.AccountService"},
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
                             "v1_4_0.AccountService"},
@@ -1347,11 +1345,7 @@ class AccountsCollection : public Node
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {{"@odata.context",
-                          "/redfish/v1/"
-                          "$metadata#ManagerAccountCollection."
-                          "ManagerAccountCollection"},
-                         {"@odata.id", "/redfish/v1/AccountService/Accounts"},
+        res.jsonValue = {{"@odata.id", "/redfish/v1/AccountService/Accounts"},
                          {"@odata.type", "#ManagerAccountCollection."
                                          "ManagerAccountCollection"},
                          {"Name", "Accounts Collection"},
@@ -1561,8 +1555,6 @@ class ManagerAccount : public Node
                 }
 
                 asyncResp->res.jsonValue = {
-                    {"@odata.context",
-                     "/redfish/v1/$metadata#ManagerAccount.ManagerAccount"},
                     {"@odata.type", "#ManagerAccount.v1_0_3.ManagerAccount"},
                     {"Name", "User Account"},
                     {"Description", "User Account"},
