@@ -164,7 +164,8 @@ inline size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size)
         substrPtr += j + 1;
         i++;
     }
-    i++; // x &'s -> means x iterations of this loop -> means *x+1* k/v pairs
+    i = std::min(i + 1, qs_kv_size); // x &'s -> means x iterations of this loop
+                                     // -> means *x+1* k/v pairs
 
     // we only decode the values in place, the keys could have '='s in them
     // which will hose our ability to distinguish keys from values later
