@@ -179,8 +179,6 @@ class ChassisCollection : public Node
     {
         res.jsonValue["@odata.type"] = "#ChassisCollection.ChassisCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Chassis";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#ChassisCollection.ChassisCollection";
         res.jsonValue["Name"] = "Chassis Collection";
 
         const std::array<const char *, 2> interfaces = {
@@ -322,8 +320,6 @@ class Chassis : public Node
                         "#Chassis.v1_10_0.Chassis";
                     asyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + chassisId;
-                    asyncResp->res.jsonValue["@odata.context"] =
-                        "/redfish/v1/$metadata#Chassis.Chassis";
                     asyncResp->res.jsonValue["Name"] = "Chassis Collection";
                     asyncResp->res.jsonValue["ChassisType"] = "RackMount";
                     asyncResp->res.jsonValue["PCIeDevices"] = {
