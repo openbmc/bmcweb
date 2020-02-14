@@ -525,8 +525,6 @@ class ProcessorCollection : public Node
         res.jsonValue["@odata.type"] =
             "#ProcessorCollection.ProcessorCollection";
         res.jsonValue["Name"] = "Processor Collection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#ProcessorCollection.ProcessorCollection";
 
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Processors/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -573,8 +571,6 @@ class Processor : public Node
         }
         const std::string &processorId = params[0];
         res.jsonValue["@odata.type"] = "#Processor.v1_7_0.Processor";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Processor.Processor";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Processors/" + processorId;
 
@@ -613,8 +609,6 @@ class MemoryCollection : public Node
     {
         res.jsonValue["@odata.type"] = "#MemoryCollection.MemoryCollection";
         res.jsonValue["Name"] = "Memory Module Collection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#MemoryCollection.MemoryCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Memory/";
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
@@ -659,7 +653,6 @@ class Memory : public Node
         const std::string &dimmId = params[0];
 
         res.jsonValue["@odata.type"] = "#Memory.v1_6_0.Memory";
-        res.jsonValue["@odata.context"] = "/redfish/v1/$metadata#Memory.Memory";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/Memory/" + dimmId;
         auto asyncResp = std::make_shared<AsyncResp>(res);
