@@ -448,8 +448,6 @@ class SystemLogServiceCollection : public Node
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogServiceCollection.LogServiceCollection";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogServiceCollection.LogServiceCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices";
         asyncResp->res.jsonValue["Name"] = "System Log Services Collection";
@@ -495,8 +493,6 @@ class EventLogService : public Node
             "/redfish/v1/Systems/system/LogServices/EventLog";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogService.LogService";
         asyncResp->res.jsonValue["Name"] = "Event Log Service";
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "Event Log";
@@ -645,7 +641,6 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
     // Fill in the log entry with the gathered data
     logEntryJson = {
         {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-        {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id",
          "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
              logEntryID},
@@ -695,8 +690,6 @@ class JournalEventLogEntryCollection : public Node
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
@@ -867,8 +860,6 @@ class DBusEventLogEntryCollection : public Node
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogEntryCollection.LogEntryCollection";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Systems/system/LogServices/EventLog/Entries";
         asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
@@ -963,8 +954,6 @@ class DBusEventLogEntryCollection : public Node
                         }
                         thisEntry = {
                             {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-                            {"@odata.context", "/redfish/v1/"
-                                               "$metadata#LogEntry.LogEntry"},
                             {"@odata.id",
                              "/redfish/v1/Systems/system/LogServices/EventLog/"
                              "Entries/" +
@@ -1091,8 +1080,6 @@ class DBusEventLogEntry : public Node
                 }
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-                    {"@odata.context", "/redfish/v1/"
-                                       "$metadata#LogEntry.LogEntry"},
                     {"@odata.id",
                      "/redfish/v1/Systems/system/LogServices/EventLog/"
                      "Entries/" +
@@ -1180,8 +1167,6 @@ class BMCLogServiceCollection : public Node
         // it has a duplicate entry for members
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogServiceCollection.LogServiceCollection";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogServiceCollection.LogServiceCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices";
         asyncResp->res.jsonValue["Name"] = "Open BMC Log Services Collection";
@@ -1223,8 +1208,6 @@ class BMCJournalLogService : public Node
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogService.LogService";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Log Service";
         asyncResp->res.jsonValue["Description"] = "BMC Journal Log Service";
         asyncResp->res.jsonValue["Id"] = "BMC Journal";
@@ -1268,7 +1251,6 @@ static int fillBMCJournalLogEntryJson(const std::string &bmcJournalLogEntryID,
     // Fill in the log entry with the gathered data
     bmcJournalLogEntryJson = {
         {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-        {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
         {"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal/Entries/" +
                           bmcJournalLogEntryID},
         {"Name", "BMC Journal Entry"},
@@ -1320,8 +1302,6 @@ class BMCJournalLogEntryCollection : public Node
             "#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/LogServices/Journal/Entries";
         asyncResp->res.jsonValue["Name"] = "Open BMC Journal Entries";
@@ -1497,8 +1477,6 @@ class CrashdumpService : public Node
             "/redfish/v1/Systems/system/LogServices/Crashdump";
         asyncResp->res.jsonValue["@odata.type"] =
             "#LogService.v1_1_0.LogService";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#LogService.LogService";
         asyncResp->res.jsonValue["Name"] = "Open BMC Oem Crashdump Service";
         asyncResp->res.jsonValue["Description"] = "Oem Crashdump Service";
         asyncResp->res.jsonValue["Id"] = "Oem Crashdump";
@@ -1648,7 +1626,6 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
 
         logEntryJson = {
             {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-            {"@odata.context", "/redfish/v1/$metadata#LogEntry.LogEntry"},
             {"@odata.id",
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
                  logID},
@@ -1711,8 +1688,6 @@ class CrashdumpEntryCollection : public Node
                 "#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["@odata.id"] =
                 "/redfish/v1/Systems/system/LogServices/Crashdump/Entries";
-            asyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
             asyncResp->res.jsonValue["Name"] = "Open BMC Crashdump Entries";
             asyncResp->res.jsonValue["Description"] =
                 "Collection of Crashdump Entries";
