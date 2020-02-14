@@ -155,16 +155,14 @@ inline size_t qsParse(char* qs, char* qs_kv[], size_t qs_kv_size)
     i = 0;
     while (i < qs_kv_size)
     {
-        qs_kv[i] = substrPtr;
+        qs_kv[i++] = substrPtr;
         j = strcspn(substrPtr, "&");
         if (substrPtr[j] == '\0')
         {
             break;
         }
         substrPtr += j + 1;
-        i++;
     }
-    i++; // x &'s -> means x iterations of this loop -> means *x+1* k/v pairs
 
     // we only decode the values in place, the keys could have '='s in them
     // which will hose our ability to distinguish keys from values later
