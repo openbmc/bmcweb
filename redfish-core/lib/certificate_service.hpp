@@ -74,8 +74,6 @@ class CertificateService : public Node
         res.jsonValue = {
             {"@odata.type", "#CertificateService.v1_0_0.CertificateService"},
             {"@odata.id", "/redfish/v1/CertificateService"},
-            {"@odata.context",
-             "/redfish/v1/$metadata#CertificateService.CertificateService"},
             {"Id", "CertificateService"},
             {"Name", "Certificate Service"},
             {"Description", "Actions available to manage certificates"}};
@@ -600,8 +598,6 @@ static void getCertificateProperties(
             asyncResp->res.jsonValue = {
                 {"@odata.id", certURL},
                 {"@odata.type", "#Certificate.v1_0_0.Certificate"},
-                {"@odata.context",
-                 "/redfish/v1/$metadata#Certificate.Certificate"},
                 {"Id", std::to_string(certId)},
                 {"Name", name},
                 {"Description", name}};
@@ -881,9 +877,6 @@ class HTTPSCertificateCollection : public Node
             {"@odata.id",
              "/redfish/v1/Managers/bmc/NetworkProtocol/HTTPS/Certificates"},
             {"@odata.type", "#CertificateCollection.CertificateCollection"},
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#CertificateCollection.CertificateCollection"},
             {"Name", "HTTPS Certificates Collection"},
             {"Description", "A Collection of HTTPS certificate instances"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -998,8 +991,6 @@ class CertificateLocations : public Node
              "/redfish/v1/CertificateService/CertificateLocations"},
             {"@odata.type",
              "#CertificateLocations.v1_0_0.CertificateLocations"},
-            {"@odata.context",
-             "/redfish/v1/$metadata#CertificateLocations.CertificateLocations"},
             {"Name", "Certificate Locations"},
             {"Id", "CertificateLocations"},
             {"Description",
@@ -1087,9 +1078,6 @@ class LDAPCertificateCollection : public Node
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService/LDAP/Certificates"},
             {"@odata.type", "#CertificateCollection.CertificateCollection"},
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#CertificateCollection.CertificateCollection"},
             {"Name", "LDAP Certificates Collection"},
             {"Description", "A Collection of LDAP certificate instances"}};
         auto asyncResp = std::make_shared<AsyncResp>(res);
@@ -1235,9 +1223,6 @@ class TrustStoreCertificateCollection : public Node
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates/"},
             {"@odata.type", "#CertificateCollection.CertificateCollection"},
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#CertificateCollection.CertificateCollection"},
             {"Name", "TrustStore Certificates Collection"},
             {"Description",
              "A Collection of TrustStore certificate instances"}};
