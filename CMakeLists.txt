@@ -41,6 +41,12 @@ option (
     ON
 )
 option (
+    BMCWEB_ENABLE_REDFISH_EVENTS
+    "Enable Redfish EventService
+    https://github.com/openbmc/bmcweb/blob/master/DEVELOPING.md#redfish."
+    ON
+)
+option (
     BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET
     "Enable host serial console WebSocket.  Path is '/console0'.  See
     https://github.com/openbmc/docs/blob/master/console.md."
@@ -371,6 +377,7 @@ target_compile_definitions (
     $<$<BOOL:${BMCWEB_ENABLE_VM_NBDPROXY}>: -DBMCWEB_ENABLE_VM_NBDPROXY>
     $<$<BOOL:${BMCWEB_ENABLE_DBUS_REST}>: -DBMCWEB_ENABLE_DBUS_REST>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH}>: -DBMCWEB_ENABLE_REDFISH>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_EVENTS}>: -DBMCWEB_ENABLE_REDFISH_EVENTS>
     $<$<BOOL:${BMCWEB_ENABLE_STATIC_HOSTING}>: -DBMCWEB_ENABLE_STATIC_HOSTING>
     $<$<BOOL:${BMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET}>:
     -DBMCWEB_ENABLE_HOST_SERIAL_WEBSOCKET>
