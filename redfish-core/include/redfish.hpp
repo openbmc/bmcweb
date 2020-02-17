@@ -31,6 +31,7 @@
 #include "../lib/roles.hpp"
 #include "../lib/sensors.hpp"
 #include "../lib/service_root.hpp"
+#include "../lib/ssevents.hpp"
 #include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
 #include "../lib/thermal.hpp"
@@ -155,6 +156,10 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SensorCollection>(app));
         nodes.emplace_back(std::make_unique<Sensor>(app));
+
+#ifdef BMCWEB_ENABLE_REDFISH_EVENTS
+        nodes.emplace_back(std::make_unique<SSEvents>(app));
+#endif
         for (const auto& node : nodes)
         {
             node->initPrivileges();
