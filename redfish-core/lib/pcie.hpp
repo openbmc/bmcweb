@@ -95,9 +95,6 @@ class SystemPCIeDeviceCollection : public Node
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         asyncResp->res.jsonValue = {
             {"@odata.type", "#PCIeDeviceCollection.PCIeDeviceCollection"},
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#PCIeDeviceCollection.PCIeDeviceCollection"},
             {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices"},
             {"Name", "PCIe Device Collection"},
             {"Description", "Collection of PCIe Devices"},
@@ -161,8 +158,6 @@ class SystemPCIeDevice : public Node
 
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#PCIeDevice.v1_4_0.PCIeDevice"},
-                    {"@odata.context",
-                     "/redfish/v1/$metadata#PCIeDevice.v1_4_0.PCIeDevice"},
                     {"@odata.id",
                      "/redfish/v1/Systems/system/PCIeDevices/" + device},
                     {"Name", "PCIe Device"},
@@ -229,9 +224,6 @@ class SystemPCIeFunctionCollection : public Node
         const std::string &device = params[0];
         asyncResp->res.jsonValue = {
             {"@odata.type", "#PCIeFunctionCollection.PCIeFunctionCollection"},
-            {"@odata.context",
-             "/redfish/v1/"
-             "$metadata#PCIeFunctionCollection.PCIeFunctionCollection"},
             {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" + device +
                               "/PCIeFunctions"},
             {"Name", "PCIe Function Collection"},
@@ -364,8 +356,6 @@ class SystemPCIeFunction : public Node
 
                 asyncResp->res.jsonValue = {
                     {"@odata.type", "#PCIeFunction.v1_2_0.PCIeFunction"},
-                    {"@odata.context",
-                     "/redfish/v1/$metadata#PCIeFunction.PCIeFunction"},
                     {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
                                       device + "/PCIeFunctions/" + function},
                     {"Name", "PCIe Function"},
