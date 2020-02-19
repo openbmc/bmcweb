@@ -384,8 +384,6 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#SensorCollection.SensorCollection";
-            sensorsAsyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/$metadata#SensorCollection.SensorCollection";
             sensorsAsyncResp->res.jsonValue["Description"] =
                 "Collection of Sensors for this Chassis";
             sensorsAsyncResp->res.jsonValue["Members"] =
@@ -396,9 +394,6 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         if (chassisSubNode != "Sensors")
         {
             sensorsAsyncResp->res.jsonValue["Id"] = chassisSubNode;
-            sensorsAsyncResp->res.jsonValue["@odata.context"] =
-                "/redfish/v1/$metadata#" + chassisSubNode + "." +
-                chassisSubNode;
         }
 
         sensorsAsyncResp->res.jsonValue["@odata.id"] =
@@ -761,7 +756,6 @@ void objectInterfacesToJson(
     if (sensorSchema == "Sensors")
     {
         sensor_json["@odata.type"] = "#Sensor.v1_0_0.Sensor";
-        sensor_json["@odata.context"] = "/redfish/v1/$metadata#Sensor.Sensor";
         if (sensorType == "power")
         {
             sensor_json["ReadingUnits"] = "Watts";
