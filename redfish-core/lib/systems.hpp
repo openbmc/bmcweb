@@ -1369,14 +1369,48 @@ class SystemsCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         res.jsonValue["Name"] = "Computer System Collection";
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
-        res.jsonValue["Members@odata.count"] = 1;
-        res.end();
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const GetManagedObjects &dbus_data) {
+                bool isFound = false;
+                nlohmann::json &iface_array =
+                    asyncResp->res.jsonValue["Members"];
+                iface_array = nlohmann::json::array();
+                auto &count = asyncResp->res.jsonValue["Members@odata.count"];
+                count = 0;
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "GetManagedObjects call error";
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                for (const auto &objpath : dbus_data)
+                {
+                    if (objpath.first == "/xyz/openbmc_project/network/vmi")
+                    {
+                        isFound = true;
+                        BMCWEB_LOG_DEBUG << "Hypervisor is available";
+                        iface_array.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/system"}});
+                        iface_array.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
+                    }
+                }
+                if (isFound == false)
+                {
+                    iface_array.push_back(
+                        {{"@odata.id", "/redfish/v1/Systems/system"}});
+                }
+                count = iface_array.size();
+            },
+            "xyz.openbmc_project.Settings", "/",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
     }
 };
 
