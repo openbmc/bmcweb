@@ -52,9 +52,6 @@ class MessageRegistryFileCollection : public Node
         res.jsonValue = {
             {"@odata.type",
              "#MessageRegistryFileCollection.MessageRegistryFileCollection"},
-            {"@odata.context", "/redfish/v1/"
-                               "$metadata#MessageRegistryFileCollection."
-                               "MessageRegistryFileCollection"},
             {"@odata.id", "/redfish/v1/Registries"},
             {"Name", "MessageRegistryFile Collection"},
             {"Description", "Collection of MessageRegistryFiles"},
@@ -90,8 +87,6 @@ class BaseMessageRegistryFile : public Node
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/Registries/Base"},
             {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
-            {"@odata.context",
-             "/redfish/v1/$metadata#MessageRegistryFile.MessageRegistryFile"},
             {"Name", "Base Message Registry File"},
             {"Description", "DMTF Base Message Registry File Location"},
             {"Id", message_registries::base::header.registryPrefix},
@@ -192,8 +187,6 @@ class OpenBMCMessageRegistryFile : public Node
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/Registries/OpenBMC"},
             {"@odata.type", "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
-            {"@odata.context",
-             "/redfish/v1/$metadata#MessageRegistryFile.MessageRegistryFile"},
             {"Name", "Open BMC Message Registry File"},
             {"Description", "Open BMC Message Registry File Location"},
             {"Id", message_registries::openbmc::header.registryPrefix},
