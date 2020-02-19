@@ -38,6 +38,9 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+#include "../lib/hypervisor_ethernet.hpp"
+#endif // BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -165,6 +168,12 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SensorCollection>(app));
         nodes.emplace_back(std::make_unique<Sensor>(app));
+
+#ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+        nodes.emplace_back(
+            std::make_unique<HypervisorInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
+#endif // BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         for (const auto& node : nodes)
         {
             node->initPrivileges();
