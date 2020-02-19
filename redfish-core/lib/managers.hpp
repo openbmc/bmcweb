@@ -147,22 +147,16 @@ static void asyncPopulatePid(const std::string& connection,
                 asyncResp->res.jsonValue["Oem"]["OpenBmc"]["Fan"];
             nlohmann::json& fans = configRoot["FanControllers"];
             fans["@odata.type"] = "#OemManager.FanControllers";
-            fans["@odata.context"] =
-                "/redfish/v1/$metadata#OemManager.FanControllers";
             fans["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc/"
                                 "Fan/FanControllers";
 
             nlohmann::json& pids = configRoot["PidControllers"];
             pids["@odata.type"] = "#OemManager.PidControllers";
-            pids["@odata.context"] =
-                "/redfish/v1/$metadata#OemManager.PidControllers";
             pids["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/PidControllers";
 
             nlohmann::json& stepwise = configRoot["StepwiseControllers"];
             stepwise["@odata.type"] = "#OemManager.StepwiseControllers";
-            stepwise["@odata.context"] =
-                "/redfish/v1/$metadata#OemManager.StepwiseControllers";
             stepwise["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/StepwiseControllers";
 
@@ -170,13 +164,9 @@ static void asyncPopulatePid(const std::string& connection,
             zones["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan/FanZones";
             zones["@odata.type"] = "#OemManager.FanZones";
-            zones["@odata.context"] =
-                "/redfish/v1/$metadata#OemManager.FanZones";
             configRoot["@odata.id"] =
                 "/redfish/v1/Managers/bmc#/Oem/OpenBmc/Fan";
             configRoot["@odata.type"] = "#OemManager.Fan";
-            configRoot["@odata.context"] =
-                "/redfish/v1/$metadata#OemManager.Fan";
             configRoot["Profile@Redfish.AllowableValues"] = supportedProfiles;
 
             if (!currentProfile.empty())
@@ -258,8 +248,6 @@ static void asyncPopulatePid(const std::string& connection,
                                             "OpenBmc/Fan/FanZones/" +
                                             name;
                         zone["@odata.type"] = "#OemManager.FanZone";
-                        zone["@odata.context"] =
-                            "/redfish/v1/$metadata#OemManager.FanZone";
                         config = &zone;
                     }
 
@@ -282,9 +270,6 @@ static void asyncPopulatePid(const std::string& connection,
                         controller["@odata.type"] =
                             "#OemManager.StepwiseController";
 
-                        controller["@odata.context"] =
-                            "/redfish/v1/"
-                            "$metadata#OemManager.StepwiseController";
                         controller["Direction"] = *classPtr;
                     }
 
@@ -310,10 +295,6 @@ static void asyncPopulatePid(const std::string& connection,
                                 name;
                             element["@odata.type"] =
                                 "#OemManager.FanController";
-
-                            element["@odata.context"] =
-                                "/redfish/v1/"
-                                "$metadata#OemManager.FanController";
                         }
                         else
                         {
@@ -322,9 +303,6 @@ static void asyncPopulatePid(const std::string& connection,
                                 "OpenBmc/Fan/PidControllers/" +
                                 name;
                             element["@odata.type"] =
-                                "#OemManager.PidController";
-                            element["@odata.context"] =
-                                "/redfish/v1/$metadata"
                                 "#OemManager.PidController";
                         }
                     }
@@ -1588,8 +1566,6 @@ class Manager : public Node
     {
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers/bmc";
         res.jsonValue["@odata.type"] = "#Manager.v1_3_0.Manager";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Manager.Manager";
         res.jsonValue["Id"] = "bmc";
         res.jsonValue["Name"] = "OpenBmc Manager";
         res.jsonValue["Description"] = "Baseboard Management Controller";
@@ -1619,11 +1595,8 @@ class Manager : public Node
         nlohmann::json& oemOpenbmc = oem["OpenBmc"];
         oem["@odata.type"] = "#OemManager.Oem";
         oem["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem";
-        oem["@odata.context"] = "/redfish/v1/$metadata#OemManager.Oem";
         oemOpenbmc["@odata.type"] = "#OemManager.OpenBmc";
         oemOpenbmc["@odata.id"] = "/redfish/v1/Managers/bmc#/Oem/OpenBmc";
-        oemOpenbmc["@odata.context"] =
-            "/redfish/v1/$metadata#OemManager.OpenBmc";
         oemOpenbmc["Certificates"] = {
             {"@odata.id", "/redfish/v1/Managers/bmc/Truststore/Certificates"}};
 
@@ -1829,8 +1802,6 @@ class ManagerCollection : public Node
         // because it has a duplicate entry for members
         res.jsonValue["@odata.id"] = "/redfish/v1/Managers";
         res.jsonValue["@odata.type"] = "#ManagerCollection.ManagerCollection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#ManagerCollection.ManagerCollection";
         res.jsonValue["Name"] = "Manager Collection";
         res.jsonValue["Members@odata.count"] = 1;
         res.jsonValue["Members"] = {
