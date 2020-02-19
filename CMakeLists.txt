@@ -119,6 +119,12 @@ option (
     OFF
 )
 
+option (
+    BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+    "Enable the IBM management console specific functionalities"
+    OFF
+)
+
 set (BMCWEB_HTTP_REQ_BODY_LIMIT_MB "30" CACHE STRING
      "The max HTTP request body size in MB")
 
@@ -392,6 +398,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE}>:
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
+    $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
+    -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
 )
 
 # configure and install systemd unit files
