@@ -1,0 +1,9 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Ok-To-Test+1: James Feist <james.feist@linux.intel.com>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Submitted-by: Gunnar Mills <gmills@us.ibm.com>
+Submitted-at: Wed, 19 Feb 2020 18:54:56 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/29432
+Project: openbmc/bmcweb
+Branch: refs/heads/master
