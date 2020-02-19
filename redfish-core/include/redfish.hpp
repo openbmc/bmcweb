@@ -38,6 +38,7 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+#include "../lib/host.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -165,6 +166,11 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SensorCollection>(app));
         nodes.emplace_back(std::make_unique<Sensor>(app));
+
+        nodes.emplace_back(std::make_unique<VmiInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<VmiInterface>(app));
+        nodes.emplace_back(std::make_unique<VmiSystems>(app));
+
         for (const auto& node : nodes)
         {
             node->initPrivileges();
