@@ -340,8 +340,6 @@ class UpdateService : public Node
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#UpdateService.UpdateService";
         res.jsonValue["Id"] = "UpdateService";
         res.jsonValue["Description"] = "Service for Software Update";
         res.jsonValue["Name"] = "Update Service";
@@ -524,9 +522,6 @@ class SoftwareInventoryCollection : public Node
             "#SoftwareInventoryCollection.SoftwareInventoryCollection";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/UpdateService/FirmwareInventory";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#SoftwareInventoryCollection.SoftwareInventoryCollection";
         res.jsonValue["Name"] = "Software Inventory Collection";
 
         crow::connections::systemBus->async_method_call(
@@ -772,8 +767,6 @@ class SoftwareInventory : public Node
                 }
                 asyncResp->res.jsonValue["@odata.type"] =
                     "#SoftwareInventory.v1_1_0.SoftwareInventory";
-                asyncResp->res.jsonValue["@odata.context"] =
-                    "/redfish/v1/$metadata#SoftwareInventory.SoftwareInventory";
                 asyncResp->res.jsonValue["Name"] = "Software Inventory";
                 asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
 
