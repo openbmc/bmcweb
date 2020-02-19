@@ -66,6 +66,7 @@ class ServiceRoot : public Node
         res.jsonValue["UUID"] = uuid;
         res.jsonValue["CertificateService"] = {
             {"@odata.id", "/redfish/v1/CertificateService"}};
+        res.jsonValue["Tasks"] = {{"@odata.id", "/redfish/v1/TaskService"}};
         res.end();
     }
 
