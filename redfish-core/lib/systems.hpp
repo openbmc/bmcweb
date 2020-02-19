@@ -1370,9 +1370,14 @@ class SystemsCollection : public Node
             "/redfish/v1/"
             "$metadata#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["Name"] = "Computer System Collection";
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
+        nlohmann::json &iface_array = res.jsonValue["Members"];
+        iface_array.push_back({{"@odata.id", "/redfish/v1/Systems/system"}});
+        #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
+        iface_array.push_back({{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
+        res.jsonValue["Members@odata.count"] = 2;
+        #else
         res.jsonValue["Members@odata.count"] = 1;
+        #endif
         res.end();
     }
 };
