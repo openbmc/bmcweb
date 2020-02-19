@@ -117,7 +117,6 @@ static nlohmann::json vmItemTemplate(const std::string &name,
     item["@odata.id"] =
         "/redfish/v1/Managers/" + name + "/VirtualMedia/" + resName;
     item["@odata.type"] = "#VirtualMedia.v1_3_0.VirtualMedia";
-    item["@odata.context"] = "/redfish/v1/$metadata#VirtualMedia.VirtualMedia";
     item["Name"] = "Virtual Removable Media";
     item["Id"] = resName;
     item["Image"] = nullptr;
@@ -649,9 +648,6 @@ class VirtualMediaCollection : public Node
         res.jsonValue["@odata.type"] =
             "#VirtualMediaCollection.VirtualMediaCollection";
         res.jsonValue["Name"] = "Virtual Media Services";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#VirtualMediaCollection.VirtualMediaCollection";
         res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/" + name + "/VirtualMedia/";
 
