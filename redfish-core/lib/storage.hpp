@@ -42,8 +42,6 @@ class StorageCollection : public Node
                const std::vector<std::string> &params) override
     {
         res.jsonValue["@odata.type"] = "#StorageCollection.StorageCollection";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#StorageCollection.StorageCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage";
         res.jsonValue["Name"] = "Storage Collection";
         res.jsonValue["Members"] = {
@@ -72,8 +70,6 @@ class Storage : public Node
                const std::vector<std::string> &params) override
     {
         res.jsonValue["@odata.type"] = "#Storage.v1_7_1.Storage";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Storage.Storage";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems/system/Storage/1";
         res.jsonValue["Name"] = "Storage";
         res.jsonValue["Id"] = "1";
@@ -171,8 +167,6 @@ class Storage : public Node
 
                     storageController["@odata.type"] =
                         "#Storage.v1_7_0.StorageController";
-                    storageController["@odata.context"] =
-                        "/redfish/v1/$metadata#Storage.StorageController";
                     storageController["@odata.id"] =
                         "/redfish/v1/Systems/system/Storage/1"
                         "#/StorageControllers/" +
@@ -336,8 +330,6 @@ class Drive : public Node
                     &connectionNames = object->second;
 
                 asyncResp->res.jsonValue["@odata.type"] = "#Drive.v1_7_0.Drive";
-                asyncResp->res.jsonValue["@odata.context"] =
-                    "/redfish/v1/$metadata#Drive.Drive";
                 asyncResp->res.jsonValue["@odata.id"] =
                     "/redfish/v1/Systems/system/Storage/1/Drives/" + driveId;
                 asyncResp->res.jsonValue["Name"] = driveId;
