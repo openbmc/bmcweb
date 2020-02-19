@@ -61,8 +61,6 @@ class Sessions : public Node
         res.jsonValue["@odata.id"] =
             "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
         res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#Session.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
 
@@ -160,8 +158,6 @@ class SessionCollection : public Node
         res.jsonValue["Members@odata.count"] = sessionIds.size();
         res.jsonValue["@odata.type"] = "#SessionCollection.SessionCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/Sessions/";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#SessionCollection.SessionCollection";
         res.jsonValue["Name"] = "Session Collection";
         res.jsonValue["Description"] = "Session Collection";
         res.end();
@@ -244,8 +240,6 @@ class SessionService : public Node
     {
         res.jsonValue["@odata.type"] = "#SessionService.v1_0_2.SessionService";
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#SessionService.SessionService";
         res.jsonValue["Name"] = "Session Service";
         res.jsonValue["Id"] = "SessionService";
         res.jsonValue["Description"] = "Session Service";
