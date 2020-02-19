@@ -40,6 +40,7 @@
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
 #include "../lib/virtual_media.hpp"
 #endif // BMCWEB_ENABLE_VM_NBDPROXY
+#include "../lib/hypervisor_ethernet.hpp"
 #include "webserver_common.hpp"
 
 namespace redfish
@@ -171,6 +172,7 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SensorCollection>(app));
         nodes.emplace_back(std::make_unique<Sensor>(app));
+
         nodes.emplace_back(std::make_unique<TaskMonitor>(app));
         nodes.emplace_back(std::make_unique<TaskService>(app));
         nodes.emplace_back(std::make_unique<TaskCollection>(app));
@@ -178,6 +180,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<EventService>(app));
         nodes.emplace_back(std::make_unique<EventDestinationCollection>(app));
         nodes.emplace_back(std::make_unique<EventDestination>(app));
+
+        nodes.emplace_back(
+            std::make_unique<HypervisorInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
+
         for (const auto& node : nodes)
         {
             node->initPrivileges();
