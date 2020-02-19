@@ -33,6 +33,7 @@
 #include "../lib/service_root.hpp"
 #include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
+#include "../lib/task.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
@@ -165,6 +166,11 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SensorCollection>(app));
         nodes.emplace_back(std::make_unique<Sensor>(app));
+        nodes.emplace_back(std::make_unique<TaskMonitor>(app));
+        nodes.emplace_back(std::make_unique<TaskService>(app));
+        nodes.emplace_back(std::make_unique<TaskCollection>(app));
+        nodes.emplace_back(std::make_unique<Task>(app));
+
         for (const auto& node : nodes)
         {
             node->initPrivileges();

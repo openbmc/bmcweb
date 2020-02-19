@@ -19,6 +19,7 @@
 #include "registries.hpp"
 #include "registries/base_message_registry.hpp"
 #include "registries/openbmc_message_registry.hpp"
+#include "task.hpp"
 
 #include <systemd/sd-journal.h>
 
@@ -1849,30 +1850,37 @@ class OnDemandCrashdump : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        auto generateonDemandLogCallback =
-            [asyncResp](const boost::system::error_code ec,
-                        const std::string &resp) {
-                if (ec)
+        auto generateonDemandLogCallback = [asyncResp](
+                                               const boost::system::error_code
+                                                   ec,
+                                               const std::string &resp) {
+            if (ec)
+            {
+                if (ec.value() == boost::system::errc::operation_not_supported)
                 {
-                    if (ec.value() ==
-                        boost::system::errc::operation_not_supported)
-                    {
-                        messages::resourceInStandby(asyncResp->res);
-                    }
-                    else if (ec.value() ==
-                             boost::system::errc::device_or_resource_busy)
-                    {
-                        messages::serviceTemporarilyUnavailable(asyncResp->res,
-                                                                "60");
-                    }
-                    else
-                    {
-                        messages::internalError(asyncResp->res);
-                    }
-                    return;
+                    messages::resourceInStandby(asyncResp->res);
                 }
-                asyncResp->res.result(boost::beast::http::status::no_content);
-            };
+                else if (ec.value() ==
+                         boost::system::errc::device_or_resource_busy)
+                {
+                    messages::serviceTemporarilyUnavailable(asyncResp->res,
+                                                            "60");
+                }
+                else
+                {
+                    messages::internalError(asyncResp->res);
+                }
+                return;
+            }
+            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+                [](boost::system::error_code, sdbusplus::message::message &,
+                   const std::shared_ptr<task::TaskData> &) { return true; },
+                "type='signal',interface='org.freedesktop.DBus.Properties',"
+                "member='PropertiesChanged',arg0namespace='com.intel."
+                "crashdump'");
+            task->startTimer(std::chrono::minutes(5));
+            task->populateResp(asyncResp->res);
+        };
         crow::connections::systemBus->async_method_call(
             std::move(generateonDemandLogCallback), crashdumpObject,
             crashdumpPath, crashdumpOnDemandInterface, "GenerateOnDemandLog");
