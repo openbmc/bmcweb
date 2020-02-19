@@ -1372,9 +1372,6 @@ class SystemsCollection : public Node
         res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["Name"] = "Computer System Collection";
         res.jsonValue["Members"] = {
             {{"@odata.id", "/redfish/v1/Systems/system"}}};
@@ -1572,8 +1569,6 @@ class Systems : public Node
                const std::vector<std::string> &params) override
     {
         res.jsonValue["@odata.type"] = "#ComputerSystem.v1_6_0.ComputerSystem";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#ComputerSystem.ComputerSystem";
         res.jsonValue["Name"] = "Computer System";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
