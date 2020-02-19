@@ -44,8 +44,6 @@ class ServiceRoot : public Node
     {
         res.jsonValue["@odata.type"] = "#ServiceRoot.v1_5_0.ServiceRoot";
         res.jsonValue["@odata.id"] = "/redfish/v1";
-        res.jsonValue["@odata.context"] =
-            "/redfish/v1/$metadata#ServiceRoot.ServiceRoot";
         res.jsonValue["Id"] = "RootService";
         res.jsonValue["Name"] = "Root Service";
         res.jsonValue["RedfishVersion"] = "1.9.0";
