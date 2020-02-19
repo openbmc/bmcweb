@@ -193,9 +193,6 @@ class NetworkProtocol : public Node
             "#ManagerNetworkProtocol.v1_4_0.ManagerNetworkProtocol";
         asyncResp->res.jsonValue["@odata.id"] =
             "/redfish/v1/Managers/bmc/NetworkProtocol";
-        asyncResp->res.jsonValue["@odata.context"] =
-            "/redfish/v1/"
-            "$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol";
         asyncResp->res.jsonValue["Id"] = "NetworkProtocol";
         asyncResp->res.jsonValue["Name"] = "Manager Network Protocol";
         asyncResp->res.jsonValue["Description"] = "Manager Network Service";
