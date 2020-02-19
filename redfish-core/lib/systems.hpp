@@ -1348,6 +1348,23 @@ static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
 }
 
 /**
+ * This is a helper function to check if the hypervisor system is
+ * available
+ */
+inline bool isHypervisorAvailable(const GetManagedObjects &dbus_data)
+{
+    bool idFound = false;
+    for (const auto &objpath : dbus_data)
+    {
+        if (objpath.first == "/xyz/openbmc_project/network/vmi/")
+        {
+            idFound = true;
+        }
+    }
+    return idFound;
+}
+
+/**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
  */
@@ -1373,9 +1390,19 @@ class SystemsCollection : public Node
             "#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         res.jsonValue["Name"] = "Computer System Collection";
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
-        res.jsonValue["Members@odata.count"] = 1;
+        nlohmann::json &iface_array = res.jsonValue["Members"];
+        iface_array.push_back({{"@odata.id", "/redfish/v1/Systems/system"}});
+        if (isHypervisorAvailable)
+        {
+            BMCWEB_LOG_DEBUG << "Hypervisor is available";
+            iface_array.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
+            res.jsonValue["Members@odata.count"] = 2;
+        }
+        else
+        {
+            res.jsonValue["Members@odata.count"] = 1;
+        }
         res.end();
     }
 };
