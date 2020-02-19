@@ -106,7 +106,6 @@ class Roles : public Node
 
         res.jsonValue = {
             {"@odata.type", "#Role.v1_2_2.Role"},
-            {"@odata.context", "/redfish/v1/$metadata#Role.Role"},
             {"Name", "User Role"},
             {"Description", roleId + " User Role"},
             {"OemPrivileges", nlohmann::json::array()},
@@ -139,10 +138,7 @@ class RoleCollection : public Node
                const std::vector<std::string>& params) override
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue = {{"@odata.context",
-                          "/redfish/v1/"
-                          "$metadata#RoleCollection.RoleCollection"},
-                         {"@odata.id", "/redfish/v1/AccountService/Roles"},
+        res.jsonValue = {{"@odata.id", "/redfish/v1/AccountService/Roles"},
                          {"@odata.type", "#RoleCollection.RoleCollection"},
                          {"Name", "Roles Collection"},
                          {"Description", "BMC User Roles"}};
