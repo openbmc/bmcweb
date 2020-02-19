@@ -1367,14 +1367,37 @@ class SystemsCollection : public Node
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         res.jsonValue["@odata.type"] =
             "#ComputerSystemCollection.ComputerSystemCollection";
         res.jsonValue["@odata.id"] = "/redfish/v1/Systems";
         res.jsonValue["Name"] = "Computer System Collection";
-        res.jsonValue["Members"] = {
-            {{"@odata.id", "/redfish/v1/Systems/system"}}};
-        res.jsonValue["Members@odata.count"] = 1;
-        res.end();
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string> &hostName) {
+                nlohmann::json &iface_array =
+                    asyncResp->res.jsonValue["Members"];
+                iface_array = nlohmann::json::array();
+                auto &count = asyncResp->res.jsonValue["Members@odata.count"];
+                count = 0;
+                if (ec)
+                {
+                    iface_array.push_back(
+                        {{"@odata.id", "/redfish/v1/Systems/system"}});
+                    count = iface_array.size();
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Hypervisor is available";
+                iface_array.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/system"}});
+                iface_array.push_back(
+                    {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
+                count = iface_array.size();
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Get",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName");
     }
 };
 
