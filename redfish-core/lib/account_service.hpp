@@ -171,7 +171,6 @@ void parseLDAPConfigData(nlohmann::json& json_response,
     std::string service =
         (ldapType == "LDAP") ? "LDAPService" : "ActiveDirectoryService";
     nlohmann::json ldap = {
-        {"AccountProviderType", service},
         {"ServiceEnabled", confData.serviceEnabled},
         {"ServiceAddresses", nlohmann::json::array({confData.uri})},
         {"Authentication",
@@ -982,7 +981,6 @@ class AccountService : public Node
 
         std::optional<nlohmann::json> authentication;
         std::optional<nlohmann::json> ldapService;
-        std::optional<std::string> accountProviderType;
         std::optional<std::vector<std::string>> serviceAddressList;
         std::optional<bool> serviceEnabled;
         std::optional<std::vector<std::string>> baseDNList;
@@ -995,7 +993,6 @@ class AccountService : public Node
         if (!json_util::readJson(input, asyncResp->res, "Authentication",
                                  authentication, "LDAPService", ldapService,
                                  "ServiceAddresses", serviceAddressList,
-                                 "AccountProviderType", accountProviderType,
                                  "ServiceEnabled", serviceEnabled,
                                  "RemoteRoleMapping", remoteRoleMapData))
         {
@@ -1011,11 +1008,6 @@ class AccountService : public Node
         {
             parseLDAPServiceJson(*ldapService, asyncResp, baseDNList,
                                  userNameAttribute, groupsAttribute);
-        }
-        if (accountProviderType)
-        {
-            messages::propertyNotWritable(asyncResp->res,
-                                          "AccountProviderType");
         }
         if (serviceAddressList)
         {
@@ -1048,9 +1040,9 @@ class AccountService : public Node
         // whenever any property gets updated.
         getLDAPConfigData(serverType, [this, asyncResp, userName, password,
                                        baseDNList, userNameAttribute,
-                                       groupsAttribute, accountProviderType,
-                                       serviceAddressList, serviceEnabled,
-                                       dbusObjectPath, remoteRoleMapData](
+                                       groupsAttribute, serviceAddressList,
+                                       serviceEnabled, dbusObjectPath,
+                                       remoteRoleMapData](
                                           bool success, LDAPConfigData confData,
                                           const std::string& serverType) {
             if (!success)
@@ -1140,7 +1132,7 @@ class AccountService : public Node
         res.jsonValue = {
             {"@odata.id", "/redfish/v1/AccountService"},
             {"@odata.type", "#AccountService."
-                            "v1_4_0.AccountService"},
+                            "v1_5_0.AccountService"},
             {"Id", "AccountService"},
             {"Name", "Account Service"},
             {"Description", "Account Service"},
