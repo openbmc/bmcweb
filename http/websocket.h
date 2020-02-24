@@ -23,6 +23,9 @@ struct Connection : std::enable_shared_from_this<Connection>
     explicit Connection(const crow::Request& reqIn) :
         req(reqIn.req), userdataPtr(nullptr){};
 
+    explicit Connection(const crow::Request& reqIn, std::string user) :
+        req(reqIn.req), userName{std::move(user)}, userdataPtr(nullptr){};
+
     virtual void sendBinary(const std::string_view msg) = 0;
     virtual void sendBinary(std::string&& msg) = 0;
     virtual void sendText(const std::string_view msg) = 0;
@@ -40,10 +43,16 @@ struct Connection : std::enable_shared_from_this<Connection>
         return userdataPtr;
     }
 
+    const std::string& getUserName() const
+    {
+        return userName;
+    }
+
     boost::beast::http::request<boost::beast::http::string_body> req;
     crow::Response res;
 
   private:
+    std::string userName{};
     void* userdataPtr;
 };
 
@@ -58,7 +67,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
             message_handler,
         std::function<void(Connection&, const std::string&)> close_handler,
         std::function<void(Connection&)> error_handler) :
-        Connection(reqIn),
+        Connection(reqIn, reqIn.session->username),
         ws(std::move(adaptorIn)), inString(), inBuffer(inString, 131088),
         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
