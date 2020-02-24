@@ -275,8 +275,8 @@ inline void extractHypervisorIPv4Data(
 }
 
 /**
- * Function that retrieves all properties for given VMI Ethernet Interface
- * Object from Settings Manager
+ * Function that retrieves all properties for given Hypervisor Ethernet
+ * Interface Object from Settings Manager
  * @param ethiface_id a eth interface id to query on DBus
  * @param callback a function that shall be called to convert Dbus output
  * into JSON
@@ -311,6 +311,149 @@ void getHypervisorIfaceData(const std::string &ethiface_id,
         },
         "xyz.openbmc_project.Settings", "/",
         "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+/**
+ * @brief Sets the Hypervisor Interface IPAddress DBUS
+ *
+ * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] ipv4_address   Address from the incoming request
+ * @param[in] ethiface_id    Hypervisor Interface Id
+ *
+ * @return None.
+ */
+inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
+                                     const std::string &ethiface_id,
+                                     const std::string &ipv4_address)
+{
+    BMCWEB_LOG_DEBUG << "Setting the Hypervisor IPaddress : " << ipv4_address
+                     << " on Iface: " << ethiface_id;
+    std::string path =
+        "/xyz/openbmc_project/network/vmi/" + ethiface_id + "/ipv4/addr0";
+    const char *vmiObj = path.c_str();
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Hypervisor IPaddress is Set";
+        },
+        "xyz.openbmc_project.Settings", vmiObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "Address",
+        std::variant<std::string>(ipv4_address));
+}
+
+/**
+ * @brief Sets the Hypervisor Interface SubnetMask DBUS
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] subnet    SubnetMask from the incoming request
+ * @param[in] ethiface_id    Hypervisor Interface Id
+ *
+ * @return None.
+ */
+inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
+                                    const std::string &ethiface_id,
+                                    const uint8_t &subnet)
+{
+    BMCWEB_LOG_DEBUG << "Setting the Hypervisor subnet : " << subnet
+                     << " on Iface: " << ethiface_id;
+    std::string path =
+        "/xyz/openbmc_project/network/vmi/" + ethiface_id + "/ipv4/addr0";
+    const char *vmiObj = path.c_str();
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "SubnetMask is Set";
+        },
+        "xyz.openbmc_project.Settings", vmiObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "PrefixLength",
+        std::variant<uint8_t>(subnet));
+}
+
+/**
+ * @brief Sets the Hypervisor Interface Gateway DBUS
+ *
+ * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] gateway        Gateway from the incoming request
+ * @param[in] ethiface_id    Hypervisor Interface Id
+ *
+ * @return None.
+ */
+inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
+                                     const std::string &ethiface_id,
+                                     const std::string &gateway)
+{
+    BMCWEB_LOG_DEBUG
+        << "Setting the DefaultGateway to the last configured gateway";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Default Gateway is Set";
+        },
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
+        std::variant<std::string>(gateway));
+}
+
+/**
+ * @brief Creates a static IPv4 entry
+ *
+ * @param[in] ifaceId      Id of interface upon which to create the IPv4 entry
+ * @param[in] prefixLength IPv4 prefix syntax for the subnet mask
+ * @param[in] gateway      IPv4 address of this interfaces gateway
+ * @param[in] address      IPv4 address to assign to this interface
+ * @param[io] asyncResp    Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void createHypervisorIPv4(const std::string &ifaceId,
+                                 uint8_t prefixLength,
+                                 const std::string &gateway,
+                                 const std::string &address,
+                                 std::shared_ptr<AsyncResp> asyncResp)
+{
+    setHypervisorIPv4Address(asyncResp, ifaceId, address);
+    setHypervisorIPv4Gateway(asyncResp, ifaceId, gateway);
+    setHypervisorIPv4Subnet(asyncResp, ifaceId, prefixLength);
+}
+
+/**
+ * @brief Deletes given IPv4 interface
+ *
+ * @param[in] ifaceId     Id of interface whose IP should be deleted
+ * @param[io] asyncResp   Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void deleteHypervisorIPv4(const std::string &ifaceId,
+                                 const std::shared_ptr<AsyncResp> asyncResp)
+{
+    std::string address = "0.0.0.0";
+    std::string gateway = "0.0.0.0";
+    const uint8_t prefixLength = 0;
+    setHypervisorIPv4Address(asyncResp, ifaceId, address);
+    setHypervisorIPv4Gateway(asyncResp, ifaceId, gateway);
+    setHypervisorIPv4Subnet(asyncResp, ifaceId, prefixLength);
 }
 
 /**
@@ -372,6 +515,113 @@ class HypervisorInterface : public Node
         }
     }
 
+    void handleHypervisorIPv4StaticPatch(
+        const std::string &ifaceId, nlohmann::json &input,
+        const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        if ((!input.is_array()) || input.empty())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "IPv4StaticAddresses");
+            return;
+        }
+
+        unsigned entryIdx = 1;
+
+        for (nlohmann::json &thisJson : input)
+        {
+            std::string pathString =
+                "IPv4StaticAddresses/" + std::to_string(entryIdx);
+
+            if (!thisJson.is_null() && !thisJson.empty())
+            {
+                std::optional<std::string> address;
+                std::optional<std::string> subnetMask;
+                std::optional<std::string> gateway;
+
+                if (!json_util::readJson(thisJson, asyncResp->res, "Address",
+                                         address, "SubnetMask", subnetMask,
+                                         "Gateway", gateway))
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, thisJson.dump(), pathString);
+                    return;
+                }
+
+                uint8_t prefixLength = 0;
+                bool errorInEntry = false;
+                if (address)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*address))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *address, pathString + "/Address");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    errorInEntry = true;
+                }
+
+                if (subnetMask)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*subnetMask, &prefixLength))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *subnetMask,
+                            pathString + "/SubnetMask");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/SubnetMask");
+                    errorInEntry = true;
+                }
+
+                if (gateway)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*gateway))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *gateway, pathString + "/Gateway");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Gateway");
+                    errorInEntry = true;
+                }
+
+                if (errorInEntry)
+                {
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG
+                    << "Calling createHypervisorIPv4 on : " << ifaceId << ","
+                    << *address;
+                createHypervisorIPv4(ifaceId, prefixLength, *gateway, *address,
+                                     asyncResp);
+            }
+            else
+            {
+                if (thisJson.is_null())
+                {
+                    deleteHypervisorIPv4(ifaceId, asyncResp);
+                }
+            }
+            break; // Hypervisor considers the first IP address in the array
+                   // list.Thus break here.
+        }
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -405,6 +655,38 @@ class HypervisorInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
             });
+    }
+
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &iface_id = params[0];
+
+        std::optional<nlohmann::json> ipv4StaticAddresses;
+
+        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
+                                 ipv4StaticAddresses))
+        {
+            return;
+        }
+
+        if (ipv4StaticAddresses)
+        {
+            nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
+            handleHypervisorIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
+        }
+
+        // TODO : Task will be created for monitoring the hypervisor interface
+        // Hypervisor will notify once the IP is applied to the hypervisor.
+        // The status will be sent over to the client.
+        res.result(boost::beast::http::status::accepted);
     }
 };
 } // namespace redfish
