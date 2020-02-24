@@ -635,6 +635,23 @@ class HypervisorInterface : public Node
         }
     }
 
+    void handleHostnamePatch(const std::string &hostname,
+                             const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        asyncResp->res.jsonValue["HostName"] = hostname;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostname));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -682,10 +699,11 @@ class HypervisorInterface : public Node
 
         const std::string &iface_id = params[0];
 
+        std::optional<std::string> hostname;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 
-        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
-                                 ipv4StaticAddresses))
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
         {
             return;
         }
@@ -696,8 +714,12 @@ class HypervisorInterface : public Node
             handleHypervisorIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
         }
 
-        // TODO : Task will be created for monitoring the hypervisor interface
-        // Hypervisor will notify once the IP is applied to the hypervisor.
+        if (hostname)
+        {
+            handleHostnamePatch(*hostname, asyncResp);
+        }
+        // TODO : Task will be created for monitoring the Hypervisor interface
+        // Phyp will notify once the IP is applied to the Hypervisor.
         // The status will be sent over to the client.
         res.result(boost::beast::http::status::accepted);
     }
