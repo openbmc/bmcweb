@@ -610,6 +610,23 @@ class HypervisorInterface : public Node
         }
     }
 
+    void handleHostnamePatch(const std::string &hostname,
+                             const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        asyncResp->res.jsonValue["HostName"] = hostname;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostname));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -660,8 +677,8 @@ class HypervisorInterface : public Node
         std::optional<std::string> hostname;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 
-        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
-                                 ipv4StaticAddresses))
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
         {
             return;
         }
@@ -670,6 +687,11 @@ class HypervisorInterface : public Node
         {
             nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
             handleVmiIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
+        }
+
+        if (hostname)
+        {
+            handleHostnamePatch(*hostname, asyncResp);
         }
     }
 };
