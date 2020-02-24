@@ -2,6 +2,8 @@
 
 #include "node.hpp"
 
+#include <tinyxml2.h>
+
 namespace redfish
 {
 /**
@@ -16,6 +18,8 @@ class BiosService : public Node
     }
 
   private:
+    static constexpr const char* biosAttributeFilePath =
+        "/tmp/BIOSConfig/BiosAttribute.json";
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
@@ -30,6 +34,29 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+        asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
+        getBiosAttributes(asyncResp);
+    }
+
+    void getBiosAttributes(std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "getBiosAttributes DBUS error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json &attributeArray =
+                    asyncResp->res.jsonValue["Attributes"];
+                std::ifstream file(biosAttributeFilePath);
+                attributeArray = nlohmann::json::parse(file);
+            },
+            "xyz.openbmc_project.biosconfig_manager",
+            "/xyz/openbmc_project/BIOSConfig/BIOSConfigMgr",
+            "xyz.openbmc_project.BIOSConfig.BIOSConfigMgr", "GetAllAttributes",
+            static_cast<uint8_t>(0));
     }
 };
 /**
