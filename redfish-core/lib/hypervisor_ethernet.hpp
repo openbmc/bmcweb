@@ -234,12 +234,12 @@ inline bool extractHypervisorInterfaceData(
                     {
                         if (propertyPair.first == "HostName")
                         {
-                            const std::string *hostname =
+                            const std::string *hostName =
                                 sdbusplus::message::variant_ns::get_if<
                                     std::string>(&propertyPair.second);
-                            if (hostname != nullptr)
+                            if (hostName != nullptr)
                             {
-                                ethData.hostname = *hostname;
+                                ethData.hostname = *hostName;
                             }
                         }
                         else if (propertyPair.first == "DefaultGateway")
@@ -469,10 +469,7 @@ class HypervisorInterface : public Node
         jsonResponse["InterfaceEnabled"] = true;
         jsonResponse["MACAddress"] = ethData.mac_address;
 
-        if (!ethData.hostname.empty())
-        {
-            jsonResponse["HostName"] = ethData.hostname;
-        }
+        jsonResponse["HostName"] = ethData.hostname;
 
         nlohmann::json &ipv4Array = jsonResponse["IPv4Addresses"];
         nlohmann::json &ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
@@ -599,6 +596,49 @@ class HypervisorInterface : public Node
         }
     }
 
+    bool isHostnameValid(const std::string &hostName)
+    {
+        // A valid host name can never have the dotted-decimal form
+        if (std::all_of(hostName.begin(), hostName.end(), ::isdigit))
+        {
+            return false;
+        }
+        // Allow up to 255 characters
+        if (hostName.length() > 255)
+        {
+            return false;
+        }
+        // Validate the regex
+        const std::regex pattern(
+            "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
+
+        return std::regex_match(hostName, pattern);
+    }
+
+    void handleHostnamePatch(const std::string &hostName,
+                             const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        if (!isHostnameValid(hostName))
+        {
+            messages::propertyValueFormatError(asyncResp->res, hostName,
+                                               "HostName");
+            return;
+        }
+
+        asyncResp->res.jsonValue["HostName"] = hostName;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostName));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -645,10 +685,11 @@ class HypervisorInterface : public Node
         }
 
         const std::string &ifaceId = params[0];
+        std::optional<std::string> hostName;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 
-        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
-                                 ipv4StaticAddresses))
+        if (!json_util::readJson(req, res, "HostName", hostName,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
         {
             return;
         }
@@ -659,8 +700,12 @@ class HypervisorInterface : public Node
             handleHypervisorIPv4StaticPatch(ifaceId, ipv4Static, asyncResp);
         }
 
-        // TODO : Task will be created for monitoring the hypervisor interface
-        // Hypervisor will notify once the IP is applied to the hypervisor.
+        if (hostName)
+        {
+            handleHostnamePatch(*hostName, asyncResp);
+        }
+        // TODO : Task will be created for monitoring the Hypervisor interface
+        // Hypervisor will notify once the IP is applied to the Hypervisor.
         // The status will be sent over to the client.
         res.result(boost::beast::http::status::accepted);
     }
