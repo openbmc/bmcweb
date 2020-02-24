@@ -1373,8 +1373,7 @@ class SystemsCollection : public Node
         nlohmann::json &iface_array = res.jsonValue["Members"];
         iface_array.push_back({{"@odata.id", "/redfish/v1/Systems/system"}});
         iface_array.push_back(
-            {{ "@odata.id",
-               "/redfish/v1/Systems/hypervisor" }});
+            {{"@odata.id", "/redfish/v1/Systems/hypervisor"}});
         res.jsonValue["Members@odata.count"] = 2;
         res.end();
     }
