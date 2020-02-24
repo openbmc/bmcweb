@@ -469,10 +469,7 @@ class HypervisorInterface : public Node
         jsonResponse["InterfaceEnabled"] = true;
         jsonResponse["MACAddress"] = ethData.mac_address;
 
-        if (!ethData.hostname.empty())
-        {
-            jsonResponse["HostName"] = ethData.hostname;
-        }
+        jsonResponse["HostName"] = ethData.hostname;
 
         nlohmann::json &ipv4Array = jsonResponse["IPv4Addresses"];
         nlohmann::json &ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
@@ -599,6 +596,49 @@ class HypervisorInterface : public Node
         }
     }
 
+    bool isHostnameValid(const std::string &hostname)
+    {
+        // A valid host name can never have the dotted-decimal form
+        if (std::all_of(hostname.begin(), hostname.end(), ::isdigit))
+        {
+            return false;
+        }
+        // Allow up to 255 characters
+        if (hostname.length() > 255)
+        {
+            return false;
+        }
+        // Validate the regex
+        const std::regex pattern(
+            "^[a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9\\-]{0,61}[a-zA-Z0-9]$");
+
+        return std::regex_match(hostname, pattern);
+    }
+
+    void handleHostnamePatch(const std::string &hostname,
+                             const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        if (!isHostnameValid(hostname))
+        {
+            messages::propertyValueFormatError(asyncResp->res, hostname,
+                                               "HostName");
+            return;
+        }
+
+        asyncResp->res.jsonValue["HostName"] = hostname;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostname));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -646,10 +686,11 @@ class HypervisorInterface : public Node
 
         const std::string &iface_id = params[0];
 
+        std::optional<std::string> hostname;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 
-        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
-                                 ipv4StaticAddresses))
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
         {
             return;
         }
@@ -660,8 +701,12 @@ class HypervisorInterface : public Node
             handleHypervisorIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
         }
 
-        // TODO : Task will be created for monitoring the hypervisor interface
-        // Hypervisor will notify once the IP is applied to the hypervisor.
+        if (hostname)
+        {
+            handleHostnamePatch(*hostname, asyncResp);
+        }
+        // TODO : Task will be created for monitoring the Hypervisor interface
+        // Phyp will notify once the IP is applied to the Hypervisor.
         // The status will be sent over to the client.
         res.result(boost::beast::http::status::accepted);
     }
