@@ -46,6 +46,30 @@
       "revId": "816e844ba781d3f12259040cc91a7541ebe78f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6599d4ee_8b94cd2b",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-24T16:48:14Z",
+      "side": 1,
+      "message": "I think bmcweb should read BIOS attributes via D-Bus. On D-Bus they would be stored as per the D-Bus interfaces you\u0027re proposing, Surya. Bmcweb would then have to convert from D-Bus to whatever Redfish expects. Do you have the same understanding Surya?",
+      "parentUuid": "e7b6de27_5f67d600",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "816e844ba781d3f12259040cc91a7541ebe78f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
