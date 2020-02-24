@@ -179,6 +179,7 @@ class RedfishService
 
         nodes.emplace_back(
             std::make_unique<HypervisorInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<HypervisorInterface>(app));
         nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
 
         for (const auto& node : nodes)

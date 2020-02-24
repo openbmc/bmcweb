@@ -98,9 +98,9 @@ class HypervisorInterfaceCollection : public Node
             "xyz.openbmc_project.Network.EthernetInterface"};
 
         crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code error_code,
-                        const std::vector<std::string> &iface_list) {
-                if (error_code)
+            [asyncResp](const boost::system::error_code error,
+                        const std::vector<std::string> &ifaceList) {
+                if (error)
                 {
                     messages::resourceNotFound(asyncResp->res, "System",
                                                "hypervisor");
@@ -118,23 +118,22 @@ class HypervisorInterfaceCollection : public Node
                     "Collection of Virtual Management "
                     "Interfaces for the hypervisor";
 
-                nlohmann::json &iface_array =
+                nlohmann::json &ifaceArray =
                     asyncResp->res.jsonValue["Members"];
-                iface_array = nlohmann::json::array();
-                for (const std::string &iface_item : iface_list)
+                ifaceArray = nlohmann::json::array();
+                for (const std::string &iface : ifaceList)
                 {
-                    std::size_t last_pos = iface_item.rfind("/");
+                    std::size_t last_pos = iface.rfind("/");
                     if (last_pos != std::string::npos)
                     {
-                        iface_array.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Systems/hypervisor/"
-                              "EthernetInterfaces/" +
-                                  iface_item.substr(last_pos + 1)}});
+                        ifaceArray.push_back(
+                            {{"@odata.id", "/redfish/v1/Systems/hypervisor/"
+                                           "EthernetInterfaces/" +
+                                               iface.substr(last_pos + 1)}});
                     }
                 }
                 asyncResp->res.jsonValue["Members@odata.count"] =
-                    iface_array.size();
+                    ifaceArray.size();
             },
             "xyz.openbmc_project.ObjectMapper",
             "/xyz/openbmc_project/object_mapper",
@@ -143,4 +142,259 @@ class HypervisorInterfaceCollection : public Node
     }
 };
 
+inline bool extractHypervisorInterfaceData(
+    const std::string &ethifaceId, const GetManagedObjects &dbusData,
+    EthernetInterfaceData &ethData,
+    boost::container::flat_set<IPv4AddressData> &ipv4Config)
+{
+    bool idFound = false;
+    for (const auto &objpath : dbusData)
+    {
+        for (const auto &ifacePair : objpath.second)
+        {
+            if (objpath.first ==
+                "/xyz/openbmc_project/network/vmi/" + ethifaceId)
+            {
+                idFound = true;
+                if (ifacePair.first == "xyz.openbmc_project.Network.MACAddress")
+                {
+                    for (const auto &propertyPair : ifacePair.second)
+                    {
+                        if (propertyPair.first == "MACAddress")
+                        {
+                            const std::string *mac =
+                                std::get_if<std::string>(&propertyPair.second);
+                            if (mac != nullptr)
+                            {
+                                ethData.mac_address = *mac;
+                            }
+                        }
+                    }
+                }
+            }
+            if (objpath.first == "/xyz/openbmc_project/network/vmi/" +
+                                     ethifaceId + "/ipv4/addr0")
+            {
+                if (ifacePair.first == "xyz.openbmc_project.Network.IP")
+                {
+                    // Instance IPv4AddressData structure, and set as
+                    // appropriate
+                    const std::string ipv4PathStart =
+                        "/xyz/openbmc_project/network/vmi/" + ethifaceId +
+                        "/ipv4/addr0";
+                    std::pair<
+                        boost::container::flat_set<IPv4AddressData>::iterator,
+                        bool>
+                        it = ipv4Config.insert(IPv4AddressData{});
+                    IPv4AddressData &ipv4Address = *it.first;
+                    ipv4Address.id =
+                        objpath.first.str.substr(ipv4PathStart.size());
+                    for (auto &property : ifacePair.second)
+                    {
+                        if (property.first == "Address")
+                        {
+                            const std::string *address =
+                                std::get_if<std::string>(&property.second);
+                            if (address != nullptr)
+                            {
+                                ipv4Address.address = *address;
+                            }
+                        }
+                        else if (property.first == "Origin")
+                        {
+                            const std::string *origin =
+                                std::get_if<std::string>(&property.second);
+                            if (origin != nullptr)
+                            {
+                                ipv4Address.origin =
+                                    translateAddressOriginDbusToRedfish(*origin,
+                                                                        true);
+                            }
+                        }
+                        else if (property.first == "PrefixLength")
+                        {
+                            const uint8_t *mask =
+                                std::get_if<uint8_t>(&property.second);
+                            if (mask != nullptr)
+                            {
+                                // convert it to the string
+                                ipv4Address.netmask = getNetmask(*mask);
+                            }
+                        }
+                        else
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "Got extra property: " << property.first
+                                << " on the " << objpath.first.str << " object";
+                        }
+                    }
+                }
+            }
+            if (objpath.first == "/xyz/openbmc_project/network/vmi")
+            {
+                // System configuration shows up in the global namespace, so no
+                // need to check eth number
+                if (ifacePair.first ==
+                    "xyz.openbmc_project.Network.SystemConfiguration")
+                {
+                    for (const auto &propertyPair : ifacePair.second)
+                    {
+                        if (propertyPair.first == "HostName")
+                        {
+                            const std::string *hostname =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::string>(&propertyPair.second);
+                            if (hostname != nullptr)
+                            {
+                                ethData.hostname = *hostname;
+                            }
+                        }
+                        else if (propertyPair.first == "DefaultGateway")
+                        {
+                            const std::string *defaultGateway =
+                                sdbusplus::message::variant_ns::get_if<
+                                    std::string>(&propertyPair.second);
+                            if (defaultGateway != nullptr)
+                            {
+                                ethData.default_gateway = *defaultGateway;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return idFound;
+}
+/**
+ * Function that retrieves all properties for given VMI Ethernet Interface
+ * Object from Settings Manager
+ * @param ethifaceId a eth interface id to query on DBus
+ * @param callback a function that shall be called to convert Dbus output
+ * into JSON
+ */
+template <typename CallbackFunc>
+void getHypervisorIfaceData(const std::string &ethifaceId,
+                            CallbackFunc &&callback)
+{
+    crow::connections::systemBus->async_method_call(
+        [ethifaceId{std::string{ethifaceId}},
+         callback{std::move(callback)}](const boost::system::error_code error,
+                                        const GetManagedObjects &resp) {
+            EthernetInterfaceData ethData{};
+            boost::container::flat_set<IPv4AddressData> ipv4Data;
+            if (error)
+            {
+                callback(false, ethData, ipv4Data);
+                return;
+            }
+
+            bool found = extractHypervisorInterfaceData(ethifaceId, resp,
+                                                        ethData, ipv4Data);
+            if (!found)
+            {
+                BMCWEB_LOG_DEBUG << "Not found";
+                callback(false, ethData, ipv4Data);
+                return;
+            }
+            // Finally make a callback with usefull data
+            callback(true, ethData, ipv4Data);
+        },
+        "xyz.openbmc_project.Settings", "/",
+        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+}
+
+/**
+ * HypervisorInterface derived class for delivering Ethernet Schema
+ */
+class HypervisorInterface : public Node
+{
+  public:
+    /*
+     * Default Constructor
+     */
+    template <typename CrowApp>
+    HypervisorInterface(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void parseInterfaceData(
+        nlohmann::json &jsonResponse, const std::string &ifaceId,
+        const EthernetInterfaceData &ethData,
+        const boost::container::flat_set<IPv4AddressData> &ipv4Data)
+    {
+        jsonResponse["Id"] = ifaceId;
+        jsonResponse["@odata.id"] =
+            "/redfish/v1/Systems/hypervisor/EthernetInterfaces/" + ifaceId;
+        jsonResponse["InterfaceEnabled"] = true;
+        jsonResponse["MACAddress"] = ethData.mac_address;
+
+        if (!ethData.hostname.empty())
+        {
+            jsonResponse["HostName"] = ethData.hostname;
+        }
+
+        nlohmann::json &ipv4Array = jsonResponse["IPv4Addresses"];
+        nlohmann::json &ipv4StaticArray = jsonResponse["IPv4StaticAddresses"];
+        ipv4Array = nlohmann::json::array();
+        ipv4StaticArray = nlohmann::json::array();
+        for (auto &ipv4Config : ipv4Data)
+        {
+            ipv4Array.push_back({{"AddressOrigin", ipv4Config.origin},
+                                 {"SubnetMask", ipv4Config.netmask},
+                                 {"Address", ipv4Config.address},
+                                 {"Gateway", ethData.default_gateway}});
+            if (ipv4Config.origin == "Static")
+            {
+                ipv4StaticArray.push_back(
+                    {{"AddressOrigin", ipv4Config.origin},
+                     {"SubnetMask", ipv4Config.netmask},
+                     {"Address", ipv4Config.address},
+                     {"Gateway", ethData.default_gateway}});
+            }
+        }
+    }
+
+    /**
+     * Functions triggers appropriate requests on DBus
+     */
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        getHypervisorIfaceData(
+            params[0],
+            [this, asyncResp, ifaceId{std::string(params[0])}](
+                const bool &success, const EthernetInterfaceData &ethData,
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                if (!success)
+                {
+                    messages::resourceNotFound(
+                        asyncResp->res, "HostEthernetInterface", ifaceId);
+                    return;
+                }
+                asyncResp->res.jsonValue["@odata.type"] =
+                    "#EthernetInterface.v1_5_1.EthernetInterface";
+                asyncResp->res.jsonValue["Name"] =
+                    "Virtual Management Ethernet Interface";
+                asyncResp->res.jsonValue["Description"] =
+                    "Virtual Interface Management Network Interface";
+                parseInterfaceData(asyncResp->res.jsonValue, ifaceId, ethData,
+                                   ipv4Data);
+            });
+    }
+};
 } // namespace redfish
