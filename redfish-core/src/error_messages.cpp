@@ -105,11 +105,10 @@ static void addMessageToJson(nlohmann::json& target,
  * See header file for more information
  * @endinternal
  */
-void resourceInUse(crow::Response& res)
+void resourceInUse(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceInUse"},
@@ -121,6 +120,12 @@ void resourceInUse(crow::Response& res)
                            "the operation failed."}});
 }
 
+void resourceInUse(crow::Response& res)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    resourceInUse(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats MalformedJSON message into JSON
@@ -128,11 +133,10 @@ void resourceInUse(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void malformedJSON(crow::Response& res)
+void malformedJSON(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.MalformedJSON"},
@@ -144,6 +148,12 @@ void malformedJSON(crow::Response& res)
                            "resubmit the request."}});
 }
 
+void malformedJSON(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    malformedJSON(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ResourceMissingAtURI message into JSON
@@ -151,11 +161,10 @@ void malformedJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
+void resourceMissingAtURI(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceMissingAtURI"},
@@ -166,6 +175,12 @@ void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
                            "URI and resubmit the request."}});
 }
 
+void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    resourceMissingAtURI(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterValueFormatError message into JSON
@@ -173,14 +188,13 @@ void resourceMissingAtURI(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void actionParameterValueFormatError(crow::Response& res,
+void actionParameterValueFormatError(nlohmann::json& json,
                                      const std::string& arg1,
                                      const std::string& arg2,
                                      const std::string& arg3)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterValueFormatError"},
@@ -195,6 +209,15 @@ void actionParameterValueFormatError(crow::Response& res,
              "resubmit the request if the operation failed."}});
 }
 
+void actionParameterValueFormatError(crow::Response& res,
+                                     const std::string& arg1,
+                                     const std::string& arg2,
+                                     const std::string& arg3)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterValueFormatError(res.jsonValue, arg1, arg2, arg3);
+}
+
 /**
  * @internal
  * @brief Formats InternalError message into JSON
@@ -202,11 +225,10 @@ void actionParameterValueFormatError(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-void internalError(crow::Response& res)
+void internalError(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.InternalError"},
@@ -218,6 +240,12 @@ void internalError(crow::Response& res)
                            "consider resetting the service."}});
 }
 
+void internalError(crow::Response& res)
+{
+    res.result(boost::beast::http::status::internal_server_error);
+    internalError(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats UnrecognizedRequestBody message into JSON
@@ -225,11 +253,10 @@ void internalError(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void unrecognizedRequestBody(crow::Response& res)
+void unrecognizedRequestBody(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.UnrecognizedRequestBody"},
@@ -241,6 +268,12 @@ void unrecognizedRequestBody(crow::Response& res)
                            "if it failed."}});
 }
 
+void unrecognizedRequestBody(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    unrecognizedRequestBody(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ResourceAtUriUnauthorized message into JSON
@@ -248,12 +281,11 @@ void unrecognizedRequestBody(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
+void resourceAtUriUnauthorized(nlohmann::json& json, const std::string& arg1,
                                const std::string& arg2)
 {
-    res.result(boost::beast::http::status::unauthorized);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceAtUriUnauthorized"},
@@ -266,6 +298,13 @@ void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
                            "the service in order for it to access the URI."}});
 }
 
+void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
+                               const std::string& arg2)
+{
+    res.result(boost::beast::http::status::unauthorized);
+    resourceAtUriUnauthorized(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterUnknown message into JSON
@@ -273,12 +312,11 @@ void resourceAtUriUnauthorized(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void actionParameterUnknown(crow::Response& res, const std::string& arg1,
+void actionParameterUnknown(nlohmann::json& json, const std::string& arg1,
                             const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterUnknown"},
@@ -291,6 +329,13 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
                            "request if the operation failed."}});
 }
 
+void actionParameterUnknown(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterUnknown(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ResourceCannotBeDeleted message into JSON
@@ -298,11 +343,10 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void resourceCannotBeDeleted(crow::Response& res)
+void resourceCannotBeDeleted(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceCannotBeDeleted"},
@@ -314,6 +358,12 @@ void resourceCannotBeDeleted(crow::Response& res)
              "Do not attempt to delete a non-deletable resource."}});
 }
 
+void resourceCannotBeDeleted(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    resourceCannotBeDeleted(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats PropertyDuplicate message into JSON
@@ -321,11 +371,10 @@ void resourceCannotBeDeleted(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void propertyDuplicate(crow::Response& res, const std::string& arg1)
+void propertyDuplicate(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyDuplicate"},
@@ -339,6 +388,12 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
         arg1);
 }
 
+void propertyDuplicate(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyDuplicate(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ServiceTemporarilyUnavailable message into JSON
@@ -346,12 +401,11 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
+void serviceTemporarilyUnavailable(nlohmann::json& json,
+                                   const std::string& arg1)
 {
-    res.addHeader("Retry-After", arg1);
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ServiceTemporarilyUnavailable"},
@@ -363,6 +417,13 @@ void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
                            "the operation."}});
 }
 
+void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
+{
+    res.addHeader("Retry-After", arg1);
+    res.result(boost::beast::http::status::service_unavailable);
+    serviceTemporarilyUnavailable(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ResourceAlreadyExists message into JSON
@@ -370,12 +431,11 @@ void serviceTemporarilyUnavailable(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
+void resourceAlreadyExists(nlohmann::json& json, const std::string& arg1,
                            const std::string& arg2, const std::string& arg3)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceAlreadyExists"},
@@ -389,6 +449,13 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
         arg2);
 }
 
+void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
+                           const std::string& arg2, const std::string& arg3)
+{
+    res.result(boost::beast::http::status::bad_request);
+    resourceAlreadyExists(res.jsonValue, arg1, arg2, arg3);
+}
+
 /**
  * @internal
  * @brief Formats AccountForSessionNoLongerExists message into JSON
@@ -396,11 +463,10 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void accountForSessionNoLongerExists(crow::Response& res)
+void accountForSessionNoLongerExists(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccountForSessionNoLongerExists"},
@@ -411,6 +477,12 @@ void accountForSessionNoLongerExists(crow::Response& res)
             {"Resolution", "Attempt to connect with a valid account."}});
 }
 
+void accountForSessionNoLongerExists(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    accountForSessionNoLongerExists(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats CreateFailedMissingReqProperties message into JSON
@@ -418,12 +490,11 @@ void accountForSessionNoLongerExists(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void createFailedMissingReqProperties(crow::Response& res,
+void createFailedMissingReqProperties(nlohmann::json& json,
                                       const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.CreateFailedMissingReqProperties"},
@@ -438,6 +509,13 @@ void createFailedMissingReqProperties(crow::Response& res,
         arg1);
 }
 
+void createFailedMissingReqProperties(crow::Response& res,
+                                      const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    createFailedMissingReqProperties(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats PropertyValueFormatError message into JSON for the specified
@@ -446,12 +524,11 @@ void createFailedMissingReqProperties(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-void propertyValueFormatError(crow::Response& res, const std::string& arg1,
+void propertyValueFormatError(nlohmann::json& json, const std::string& arg1,
                               const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyValueFormatError"},
@@ -466,6 +543,13 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
         arg2);
 }
 
+void propertyValueFormatError(crow::Response& res, const std::string& arg1,
+                              const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyValueFormatError(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats PropertyValueNotInList message into JSON for the specified
@@ -474,12 +558,11 @@ void propertyValueFormatError(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void propertyValueNotInList(crow::Response& res, const std::string& arg1,
+void propertyValueNotInList(nlohmann::json& json, const std::string& arg1,
                             const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyValueNotInList"},
@@ -493,6 +576,13 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
         arg2);
 }
 
+void propertyValueNotInList(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyValueNotInList(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ResourceAtUriInUnknownFormat message into JSON
@@ -500,11 +590,10 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
+void resourceAtUriInUnknownFormat(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceAtUriInUnknownFormat"},
@@ -516,6 +605,12 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
                            "recognized by the service at the URI."}});
 }
 
+void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    resourceAtUriInUnknownFormat(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ServiceInUnknownState message into JSON
@@ -523,11 +618,10 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void serviceInUnknownState(crow::Response& res)
+void serviceInUnknownState(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ServiceInUnknownState"},
@@ -540,6 +634,12 @@ void serviceInUnknownState(crow::Response& res)
                            "the operation failed."}});
 }
 
+void serviceInUnknownState(crow::Response& res)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    serviceInUnknownState(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats EventSubscriptionLimitExceeded message into JSON
@@ -547,11 +647,10 @@ void serviceInUnknownState(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void eventSubscriptionLimitExceeded(crow::Response& res)
+void eventSubscriptionLimitExceeded(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.EventSubscriptionLimitExceeded"},
@@ -566,6 +665,12 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
              "simultaneous subscriptions (if supported)."}});
 }
 
+void eventSubscriptionLimitExceeded(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    eventSubscriptionLimitExceeded(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterMissing message into JSON
@@ -573,12 +678,11 @@ void eventSubscriptionLimitExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void actionParameterMissing(crow::Response& res, const std::string& arg1,
+void actionParameterMissing(nlohmann::json& json, const std::string& arg1,
                             const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterMissing"},
@@ -591,6 +695,13 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
              "body when the request is resubmitted."}});
 }
 
+void actionParameterMissing(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterMissing(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats StringValueTooLong message into JSON
@@ -598,12 +709,11 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void stringValueTooLong(crow::Response& res, const std::string& arg1,
+void stringValueTooLong(nlohmann::json& json, const std::string& arg1,
                         const int& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.StringValueTooLong"},
@@ -615,6 +725,13 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
              "Resubmit the request with an appropriate string length."}});
 }
 
+void stringValueTooLong(crow::Response& res, const std::string& arg1,
+                        const int& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    stringValueTooLong(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats SessionTerminated message into JSON
@@ -622,11 +739,10 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void sessionTerminated(crow::Response& res)
+void sessionTerminated(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::ok);
     addMessageToJsonRoot(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.SessionTerminated"},
@@ -636,6 +752,12 @@ void sessionTerminated(crow::Response& res)
             {"Resolution", "No resolution is required."}});
 }
 
+void sessionTerminated(crow::Response& res)
+{
+    res.result(boost::beast::http::status::ok);
+    sessionTerminated(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ResourceTypeIncompatible message into JSON
@@ -643,12 +765,11 @@ void sessionTerminated(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
+void resourceTypeIncompatible(nlohmann::json& json, const std::string& arg1,
                               const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceTypeIncompatible"},
@@ -662,6 +783,13 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
                            "with the resource's schema."}});
 }
 
+void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
+                              const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    resourceTypeIncompatible(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats PropertyValueTypeError message into JSON for the specified
@@ -670,12 +798,11 @@ void resourceTypeIncompatible(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void propertyValueTypeError(crow::Response& res, const std::string& arg1,
+void propertyValueTypeError(nlohmann::json& json, const std::string& arg1,
                             const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyValueTypeError"},
@@ -690,6 +817,13 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
         arg2);
 }
 
+void propertyValueTypeError(crow::Response& res, const std::string& arg1,
+                            const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyValueTypeError(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ResourceNotFound message into JSON
@@ -697,12 +831,11 @@ void propertyValueTypeError(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void resourceNotFound(crow::Response& res, const std::string& arg1,
+void resourceNotFound(nlohmann::json& json, const std::string& arg1,
                       const std::string& arg2)
 {
-    res.result(boost::beast::http::status::not_found);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceNotFound"},
@@ -714,6 +847,13 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
              "Provide a valid resource identifier and resubmit the request."}});
 }
 
+void resourceNotFound(crow::Response& res, const std::string& arg1,
+                      const std::string& arg2)
+{
+    res.result(boost::beast::http::status::not_found);
+    resourceNotFound(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats CouldNotEstablishConnection message into JSON
@@ -721,11 +861,10 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
+void couldNotEstablishConnection(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::not_found);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.CouldNotEstablishConnection"},
@@ -739,6 +878,12 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
              "protocol information and other URI components."}});
 }
 
+void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::not_found);
+    couldNotEstablishConnection(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats PropertyNotWritable message into JSON for the specified
@@ -747,11 +892,10 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void propertyNotWritable(crow::Response& res, const std::string& arg1)
+void propertyNotWritable(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyNotWritable"},
@@ -765,6 +909,12 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1)
         arg1);
 }
 
+void propertyNotWritable(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::forbidden);
+    propertyNotWritable(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats QueryParameterValueTypeError message into JSON
@@ -772,12 +922,11 @@ void propertyNotWritable(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
+void queryParameterValueTypeError(nlohmann::json& json, const std::string& arg1,
                                   const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.QueryParameterValueTypeError"},
@@ -791,6 +940,13 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
              "resubmit the request if the operation failed."}});
 }
 
+void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
+                                  const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    queryParameterValueTypeError(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ServiceShuttingDown message into JSON
@@ -798,11 +954,10 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void serviceShuttingDown(crow::Response& res)
+void serviceShuttingDown(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ServiceShuttingDown"},
@@ -814,6 +969,12 @@ void serviceShuttingDown(crow::Response& res)
                            "request if the operation failed."}});
 }
 
+void serviceShuttingDown(crow::Response& res)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    serviceShuttingDown(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterDuplicate message into JSON
@@ -821,12 +982,11 @@ void serviceShuttingDown(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
+void actionParameterDuplicate(nlohmann::json& json, const std::string& arg1,
                               const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterDuplicate"},
@@ -841,6 +1001,13 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
              "the request body if the operation failed."}});
 }
 
+void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
+                              const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterDuplicate(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterNotSupported message into JSON
@@ -848,12 +1015,11 @@ void actionParameterDuplicate(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
+void actionParameterNotSupported(nlohmann::json& json, const std::string& arg1,
                                  const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterNotSupported"},
@@ -865,6 +1031,13 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
                            "request if the operation failed."}});
 }
 
+void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
+                                 const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterNotSupported(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats SourceDoesNotSupportProtocol message into JSON
@@ -872,12 +1045,11 @@ void actionParameterNotSupported(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
+void sourceDoesNotSupportProtocol(nlohmann::json& json, const std::string& arg1,
                                   const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.SourceDoesNotSupportProtocol"},
@@ -889,6 +1061,13 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
             {"Resolution", "Change protocols or URIs. "}});
 }
 
+void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
+                                  const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    sourceDoesNotSupportProtocol(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats AccountRemoved message into JSON
@@ -896,11 +1075,10 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void accountRemoved(crow::Response& res)
+void accountRemoved(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::ok);
     addMessageToJsonRoot(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccountRemoved"},
@@ -910,6 +1088,12 @@ void accountRemoved(crow::Response& res)
             {"Resolution", "No resolution is required."}});
 }
 
+void accountRemoved(crow::Response& res)
+{
+    res.result(boost::beast::http::status::ok);
+    accountRemoved(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats AccessDenied message into JSON
@@ -917,11 +1101,10 @@ void accountRemoved(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void accessDenied(crow::Response& res, const std::string& arg1)
+void accessDenied(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccessDenied"},
@@ -933,6 +1116,12 @@ void accessDenied(crow::Response& res, const std::string& arg1)
                            "the service has the appropriate credentials."}});
 }
 
+void accessDenied(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::forbidden);
+    accessDenied(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats QueryNotSupported message into JSON
@@ -940,11 +1129,10 @@ void accessDenied(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void queryNotSupported(crow::Response& res)
+void queryNotSupported(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.QueryNotSupported"},
@@ -955,6 +1143,12 @@ void queryNotSupported(crow::Response& res)
                            "request if the operation failed."}});
 }
 
+void queryNotSupported(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    queryNotSupported(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats CreateLimitReachedForResource message into JSON
@@ -962,11 +1156,10 @@ void queryNotSupported(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void createLimitReachedForResource(crow::Response& res)
+void createLimitReachedForResource(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.CreateLimitReachedForResource"},
@@ -979,6 +1172,12 @@ void createLimitReachedForResource(crow::Response& res)
              "operation failed or do not resubmit the request."}});
 }
 
+void createLimitReachedForResource(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    createLimitReachedForResource(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats GeneralError message into JSON
@@ -986,11 +1185,10 @@ void createLimitReachedForResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void generalError(crow::Response& res)
+void generalError(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::internal_server_error);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.GeneralError"},
@@ -1001,6 +1199,12 @@ void generalError(crow::Response& res)
             {"Resolution", "None."}});
 }
 
+void generalError(crow::Response& res)
+{
+    res.result(boost::beast::http::status::internal_server_error);
+    generalError(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats Success message into JSON
@@ -1008,19 +1212,23 @@ void generalError(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void success(crow::Response& res)
+void success(nlohmann::json& json)
 {
     // don't set res.result here because success is the default and any error
     // should overwrite the default
     addMessageToJsonRoot(
-        res.jsonValue,
-        nlohmann::json{
-            {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-            {"MessageId", "Base.1.4.0.Success"},
-            {"Message", "Successfully Completed Request"},
-            {"MessageArgs", nlohmann::json::array()},
-            {"Severity", "OK"},
-            {"Resolution", "None"}});
+        json, nlohmann::json{{"@odata.type",
+                              "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+                             {"MessageId", "Base.1.4.0.Success"},
+                             {"Message", "Successfully Completed Request"},
+                             {"MessageArgs", nlohmann::json::array()},
+                             {"Severity", "OK"},
+                             {"Resolution", "None"}});
+}
+
+void success(crow::Response& res)
+{
+    success(res.jsonValue);
 }
 
 /**
@@ -1030,11 +1238,10 @@ void success(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void created(crow::Response& res)
+void created(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::created);
     addMessageToJsonRoot(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.Created"},
@@ -1044,6 +1251,12 @@ void created(crow::Response& res)
             {"Resolution", "None"}});
 }
 
+void created(crow::Response& res)
+{
+    res.result(boost::beast::http::status::created);
+    created(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats NoOperation message into JSON
@@ -1051,11 +1264,10 @@ void created(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void noOperation(crow::Response& res)
+void noOperation(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.NoOperation"},
@@ -1067,6 +1279,12 @@ void noOperation(crow::Response& res)
              "Add properties in the JSON object and resubmit the request."}});
 }
 
+void noOperation(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    noOperation(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats PropertyUnknown message into JSON for the specified property
@@ -1074,11 +1292,10 @@ void noOperation(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void propertyUnknown(crow::Response& res, const std::string& arg1)
+void propertyUnknown(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyUnknown"},
@@ -1093,6 +1310,12 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
         arg1);
 }
 
+void propertyUnknown(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyUnknown(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats NoValidSession message into JSON
@@ -1100,11 +1323,10 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void noValidSession(crow::Response& res)
+void noValidSession(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.NoValidSession"},
@@ -1116,6 +1338,12 @@ void noValidSession(crow::Response& res)
              "Establish as session before attempting any operations."}});
 }
 
+void noValidSession(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    noValidSession(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats InvalidObject message into JSON
@@ -1123,11 +1351,10 @@ void noValidSession(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void invalidObject(crow::Response& res, const std::string& arg1)
+void invalidObject(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.InvalidObject"},
@@ -1139,6 +1366,12 @@ void invalidObject(crow::Response& res, const std::string& arg1)
              "Correct the condition and resubmit the request if it failed."}});
 }
 
+void invalidObject(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    invalidObject(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ResourceInStandby message into JSON
@@ -1146,11 +1379,10 @@ void invalidObject(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void resourceInStandby(crow::Response& res)
+void resourceInStandby(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceInStandby"},
@@ -1162,6 +1394,12 @@ void resourceInStandby(crow::Response& res)
                            "state and resubmit the request."}});
 }
 
+void resourceInStandby(crow::Response& res)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    resourceInStandby(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ActionParameterValueTypeError message into JSON
@@ -1169,13 +1407,13 @@ void resourceInStandby(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
+void actionParameterValueTypeError(nlohmann::json& json,
+                                   const std::string& arg1,
                                    const std::string& arg2,
                                    const std::string& arg3)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionParameterValueTypeError"},
@@ -1190,6 +1428,14 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
              "resubmit the request if the operation failed."}});
 }
 
+void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
+                                   const std::string& arg2,
+                                   const std::string& arg3)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionParameterValueTypeError(res.jsonValue, arg1, arg2, arg3);
+}
+
 /**
  * @internal
  * @brief Formats SessionLimitExceeded message into JSON
@@ -1197,11 +1443,10 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void sessionLimitExceeded(crow::Response& res)
+void sessionLimitExceeded(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.SessionLimitExceeded"},
@@ -1215,6 +1460,12 @@ void sessionLimitExceeded(crow::Response& res)
                            "simultaneous sessions (if supported)."}});
 }
 
+void sessionLimitExceeded(crow::Response& res)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    sessionLimitExceeded(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats ActionNotSupported message into JSON
@@ -1222,11 +1473,10 @@ void sessionLimitExceeded(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void actionNotSupported(crow::Response& res, const std::string& arg1)
+void actionNotSupported(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ActionNotSupported"},
@@ -1241,6 +1491,12 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
              "assistance."}});
 }
 
+void actionNotSupported(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    actionNotSupported(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats InvalidIndex message into JSON
@@ -1248,11 +1504,10 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void invalidIndex(crow::Response& res, const int& arg1)
+void invalidIndex(nlohmann::json& json, const int& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.InvalidIndex"},
@@ -1264,6 +1519,12 @@ void invalidIndex(crow::Response& res, const int& arg1)
                            "bounds of the array."}});
 }
 
+void invalidIndex(crow::Response& res, const int& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    invalidIndex(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats EmptyJSON message into JSON
@@ -1271,11 +1532,10 @@ void invalidIndex(crow::Response& res, const int& arg1)
  * See header file for more information
  * @endinternal
  */
-void emptyJSON(crow::Response& res)
+void emptyJSON(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.EmptyJSON"},
@@ -1287,6 +1547,12 @@ void emptyJSON(crow::Response& res)
              "Add properties in the JSON object and resubmit the request."}});
 }
 
+void emptyJSON(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    emptyJSON(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats QueryNotSupportedOnResource message into JSON
@@ -1294,11 +1560,10 @@ void emptyJSON(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void queryNotSupportedOnResource(crow::Response& res)
+void queryNotSupportedOnResource(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.QueryNotSupportedOnResource"},
@@ -1309,6 +1574,12 @@ void queryNotSupportedOnResource(crow::Response& res)
                            "request if the operation failed."}});
 }
 
+void queryNotSupportedOnResource(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    queryNotSupportedOnResource(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats InsufficientPrivilege message into JSON
@@ -1316,11 +1587,10 @@ void queryNotSupportedOnResource(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void insufficientPrivilege(crow::Response& res)
+void insufficientPrivilege(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::forbidden);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.InsufficientPrivilege"},
@@ -1334,6 +1604,12 @@ void insufficientPrivilege(crow::Response& res)
              "rights and resubmit the request if the operation failed."}});
 }
 
+void insufficientPrivilege(crow::Response& res)
+{
+    res.result(boost::beast::http::status::forbidden);
+    insufficientPrivilege(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats PropertyValueModified message into JSON
@@ -1341,12 +1617,11 @@ void insufficientPrivilege(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void propertyValueModified(crow::Response& res, const std::string& arg1,
+void propertyValueModified(nlohmann::json& json, const std::string& arg1,
                            const std::string& arg2)
 {
-    res.result(boost::beast::http::status::ok);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyValueModified"},
@@ -1358,6 +1633,13 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
         arg1);
 }
 
+void propertyValueModified(crow::Response& res, const std::string& arg1,
+                           const std::string& arg2)
+{
+    res.result(boost::beast::http::status::ok);
+    propertyValueModified(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats AccountNotModified message into JSON
@@ -1365,11 +1647,10 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
  * See header file for more information
  * @endinternal
  */
-void accountNotModified(crow::Response& res)
+void accountNotModified(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccountNotModified"},
@@ -1380,6 +1661,12 @@ void accountNotModified(crow::Response& res)
                            "issues or issues with the request body."}});
 }
 
+void accountNotModified(crow::Response& res)
+{
+    res.result(boost::beast::http::status::bad_request);
+    accountNotModified(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats QueryParameterValueFormatError message into JSON
@@ -1387,13 +1674,12 @@ void accountNotModified(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void queryParameterValueFormatError(crow::Response& res,
+void queryParameterValueFormatError(nlohmann::json& json,
                                     const std::string& arg1,
                                     const std::string& arg2)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.QueryParameterValueFormatError"},
@@ -1407,6 +1693,14 @@ void queryParameterValueFormatError(crow::Response& res,
              "resubmit the request if the operation failed."}});
 }
 
+void queryParameterValueFormatError(crow::Response& res,
+                                    const std::string& arg1,
+                                    const std::string& arg2)
+{
+    res.result(boost::beast::http::status::bad_request);
+    queryParameterValueFormatError(res.jsonValue, arg1, arg2);
+}
+
 /**
  * @internal
  * @brief Formats PropertyMissing message into JSON for the specified property
@@ -1414,11 +1708,10 @@ void queryParameterValueFormatError(crow::Response& res,
  * See header file for more information
  * @endinternal
  */
-void propertyMissing(crow::Response& res, const std::string& arg1)
+void propertyMissing(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.PropertyMissing"},
@@ -1433,6 +1726,12 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
         arg1);
 }
 
+void propertyMissing(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::bad_request);
+    propertyMissing(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats ResourceExhaustion message into JSON
@@ -1440,11 +1739,10 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void resourceExhaustion(crow::Response& res, const std::string& arg1)
+void resourceExhaustion(nlohmann::json& json, const std::string& arg1)
 {
-    res.result(boost::beast::http::status::service_unavailable);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.ResourceExhaustion"},
@@ -1457,6 +1755,12 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
                            "resubmit the request."}});
 }
 
+void resourceExhaustion(crow::Response& res, const std::string& arg1)
+{
+    res.result(boost::beast::http::status::service_unavailable);
+    resourceExhaustion(res.jsonValue, arg1);
+}
+
 /**
  * @internal
  * @brief Formats AccountModified message into JSON
@@ -1464,11 +1768,10 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
  * See header file for more information
  * @endinternal
  */
-void accountModified(crow::Response& res)
+void accountModified(nlohmann::json& json)
 {
-    res.result(boost::beast::http::status::ok);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.AccountModified"},
@@ -1478,6 +1781,12 @@ void accountModified(crow::Response& res)
             {"Resolution", "No resolution is required."}});
 }
 
+void accountModified(crow::Response& res)
+{
+    res.result(boost::beast::http::status::ok);
+    accountModified(res.jsonValue);
+}
+
 /**
  * @internal
  * @brief Formats QueryParameterOutOfRange message into JSON
@@ -1485,12 +1794,11 @@ void accountModified(crow::Response& res)
  * See header file for more information
  * @endinternal
  */
-void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
+void queryParameterOutOfRange(nlohmann::json& json, const std::string& arg1,
                               const std::string& arg2, const std::string& arg3)
 {
-    res.result(boost::beast::http::status::bad_request);
     addMessageToErrorJson(
-        res.jsonValue,
+        json,
         nlohmann::json{
             {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
             {"MessageId", "Base.1.4.0.QueryParameterOutOfRange"},
@@ -1503,6 +1811,13 @@ void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
              "within range, such as a start or count value that is within "
              "bounds of the number of resources in a collection or a page that "
              "is within the range of valid pages."}});
+}
+
+void queryParameterOutOfRange(crow::Response& res, const std::string& arg1,
+                              const std::string& arg2, const std::string& arg3)
+{
+    res.result(boost::beast::http::status::bad_request);
+    queryParameterOutOfRange(res.jsonValue, arg1, arg2, arg3);
 }
 
 } // namespace messages
