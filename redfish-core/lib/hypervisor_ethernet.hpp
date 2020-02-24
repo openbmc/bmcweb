@@ -13,30 +13,28 @@ namespace redfish
 {
 
 /**
- *  * Hypervisor Systems derived class for delivering Computer Systems Schema.
- *   */
+ * Hypervisor Systems derived class for delivering Computer Systems Schema.
+ */
 class HypervisorSystem : public Node
 {
   public:
     /*
-     *      * Default Constructor
-     *           */
+     * Default Constructor
+     */
     HypervisorSystem(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/hypervisor/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch,
+             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
     }
 
   private:
     /**
-     *      * Functions triggers appropriate requests on DBus
-     *           */
+     * Functions triggers appropriate requests on DBus
+     */
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
@@ -54,7 +52,7 @@ class HypervisorSystem : public Node
 };
 
 /**
- *  * HypervisorInterfaceCollection class to handle the GET and PATCH on VMI
+ * HypervisorInterfaceCollection class to handle the GET and PATCH on VMI
  * Interface
  *   */
 class HypervisorInterfaceCollection : public Node
@@ -65,12 +63,10 @@ class HypervisorInterfaceCollection : public Node
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch,
+             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
     }
 
   private:
@@ -292,6 +288,148 @@ void getVmiIfaceData(const std::string &ethiface_id, CallbackFunc &&callback)
 }
 
 /**
+ * @brief Sets the VMI Interface IPAddress DBUS
+ *
+ * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] ipv4_address   Address from the incoming request
+ * @param[in] ethiface_id    VMI Interface Id
+ *
+ * @return None.
+ */
+inline void setVmiIPv4Address(std::shared_ptr<AsyncResp> aResp,
+                              const std::string &ethiface_id,
+                              const std::string &ipv4_address)
+{
+    BMCWEB_LOG_DEBUG << "Setting the VMI IPaddress : " << ipv4_address
+                     << " on Iface: " << ethiface_id;
+    std::string path =
+        "/xyz/openbmc_project/network/vmi/" + ethiface_id + "/ipv4/addr0";
+    const char *vmiObj = path.c_str();
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "VMI IPaddress is Set";
+        },
+        "xyz.openbmc_project.Settings", vmiObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "Address",
+        std::variant<std::string>(ipv4_address));
+}
+
+/**
+ * @brief Sets the VMI Interface SubnetMask DBUS
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ * @param[in] subnet    SubnetMask from the incoming request
+ * @param[in] ethiface_id    VMI Interface Id
+ *
+ * @return None.
+ */
+inline void setVmiIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
+                             const std::string &ethiface_id,
+                             const uint8_t &subnet)
+{
+    BMCWEB_LOG_DEBUG << "Setting the VMI subnet : " << subnet
+                     << " on Iface: " << ethiface_id;
+    std::string path =
+        "/xyz/openbmc_project/network/vmi/" + ethiface_id + "/ipv4/addr0";
+    const char *vmiObj = path.c_str();
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "VMI SubnetMask is Set";
+        },
+        "xyz.openbmc_project.Settings", vmiObj,
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.IP", "PrefixLength",
+        std::variant<uint8_t>(subnet));
+}
+
+/**
+ * @brief Sets the VMI Interface Gateway DBUS
+ *
+ * @param[in] aResp          Shared pointer for generating response message.
+ * @param[in] gateway        Gateway from the incoming request
+ * @param[in] ethiface_id    VMI Interface Id
+ *
+ * @return None.
+ */
+inline void setVmiIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
+                              const std::string &ethiface_id,
+                              const std::string &gateway)
+{
+    BMCWEB_LOG_DEBUG
+        << "Setting the DefaultGateway to the last configured gateway";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                // not an error, don't have to have the interface
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "VMI Default Gateway is Set";
+        },
+        "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Network.SystemConfiguration", "DefaultGateway",
+        std::variant<std::string>(gateway));
+}
+
+/**
+ * @brief Creates a static IPv4 entry
+ *
+ * @param[in] ifaceId      Id of interface upon which to create the IPv4 entry
+ * @param[in] prefixLength IPv4 prefix syntax for the subnet mask
+ * @param[in] gateway      IPv4 address of this interfaces gateway
+ * @param[in] address      IPv4 address to assign to this interface
+ * @param[io] asyncResp    Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void createVmiIPv4(const std::string &ifaceId, uint8_t prefixLength,
+                          const std::string &gateway,
+                          const std::string &address,
+                          std::shared_ptr<AsyncResp> asyncResp)
+{
+    setVmiIPv4Address(asyncResp, ifaceId, address);
+    setVmiIPv4Gateway(asyncResp, ifaceId, gateway);
+    setVmiIPv4Subnet(asyncResp, ifaceId, prefixLength);
+}
+
+/**
+ * @brief Deletes given IPv4 interface
+ *
+ * @param[in] ifaceId     Id of interface whose IP should be deleted
+ * @param[io] asyncResp   Response object that will be returned to client
+ *
+ * @return None
+ */
+inline void deleteVmiIPv4(const std::string &ifaceId,
+                          const std::shared_ptr<AsyncResp> asyncResp)
+{
+    std::string address = "0.0.0.0";
+    std::string gateway = "0.0.0.0";
+    const uint8_t prefixLength = 0;
+    setVmiIPv4Address(asyncResp, ifaceId, address);
+    setVmiIPv4Gateway(asyncResp, ifaceId, gateway);
+    setVmiIPv4Subnet(asyncResp, ifaceId, prefixLength);
+}
+
+/**
  * HypervisorInterface derived class for delivering Ethernet Schema
  */
 class HypervisorInterface : public Node
@@ -306,12 +444,10 @@ class HypervisorInterface : public Node
              std::string())
     {
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"Login"}, {"ConfigureManager"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
-            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+            {boost::beast::http::verb::patch,
+             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
     }
 
   private:
@@ -353,6 +489,112 @@ class HypervisorInterface : public Node
         }
     }
 
+    void handleVmiIPv4StaticPatch(const std::string &ifaceId,
+                                  nlohmann::json &input,
+                                  const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        if ((!input.is_array()) || input.empty())
+        {
+            messages::propertyValueTypeError(asyncResp->res, input.dump(),
+                                             "IPv4StaticAddresses");
+            return;
+        }
+
+        unsigned entryIdx = 1;
+
+        for (nlohmann::json &thisJson : input)
+        {
+            std::string pathString =
+                "IPv4StaticAddresses/" + std::to_string(entryIdx);
+
+            if (!thisJson.is_null() && !thisJson.empty())
+            {
+                std::optional<std::string> address;
+                std::optional<std::string> subnetMask;
+                std::optional<std::string> gateway;
+
+                if (!json_util::readJson(thisJson, asyncResp->res, "Address",
+                                         address, "SubnetMask", subnetMask,
+                                         "Gateway", gateway))
+                {
+                    messages::propertyValueFormatError(
+                        asyncResp->res, thisJson.dump(), pathString);
+                    return;
+                }
+
+                uint8_t prefixLength = 0;
+                bool errorInEntry = false;
+                if (address)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*address))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *address, pathString + "/Address");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Address");
+                    errorInEntry = true;
+                }
+
+                if (subnetMask)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*subnetMask, &prefixLength))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *subnetMask,
+                            pathString + "/SubnetMask");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/SubnetMask");
+                    errorInEntry = true;
+                }
+
+                if (gateway)
+                {
+                    if (!ipv4VerifyIpAndGetBitcount(*gateway))
+                    {
+                        messages::propertyValueFormatError(
+                            asyncResp->res, *gateway, pathString + "/Gateway");
+                        errorInEntry = true;
+                    }
+                }
+                else
+                {
+                    messages::propertyMissing(asyncResp->res,
+                                              pathString + "/Gateway");
+                    errorInEntry = true;
+                }
+
+                if (errorInEntry)
+                {
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG << "Calling createVmiIPv4 on : " << ifaceId
+                                 << "," << *address;
+                createVmiIPv4(ifaceId, prefixLength, *gateway, *address,
+                              asyncResp);
+            }
+            else
+            {
+                if (thisJson.is_null())
+                {
+                    deleteVmiIPv4(ifaceId, asyncResp);
+                }
+            }
+            break; // VMI considers the first IP address in the array list.Thus
+                   // break here.
+        }
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -386,6 +628,38 @@ class HypervisorInterface : public Node
                 parseInterfaceData(asyncResp->res.jsonValue, iface_id, ethData,
                                    ipv4Data);
             });
+    }
+
+    void doPatch(crow::Response &res, const crow::Request &req,
+                 const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &iface_id = params[0];
+
+        std::optional<std::string> hostname;
+        std::optional<nlohmann::json> ipv4StaticAddresses;
+
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
+        {
+            return;
+        }
+
+        if (ipv4StaticAddresses)
+        {
+            nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
+            handleVmiIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
+        }
+        // TODO : Task will be created for monitoring the VMI interface
+        // Phyp will notify once the IP is applied to the VMI.
+        // The status will be sent over to the client.
+        res.result(boost::beast::http::status::accepted);
     }
 };
 } // namespace redfish
