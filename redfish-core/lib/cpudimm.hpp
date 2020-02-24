@@ -283,7 +283,6 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Name"] = "Processor";
             const bool *accPresent = nullptr;
             const bool *accFunctional = nullptr;
-            std::string state = "";
 
             for (const auto &property : properties)
             {
@@ -296,29 +295,34 @@ void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
                     accPresent = std::get_if<bool>(&property.second);
                 }
             }
-
-            if (!accPresent || !accFunctional)
+            if (accPresent == nullptr)
             {
-                BMCWEB_LOG_DEBUG << "Required properties missing in DBUS "
+                // Important property not found
+                BMCWEB_LOG_DEBUG << "Required property missing in DBUS "
                                     "response";
                 messages::internalError(aResp->res);
                 return;
             }
 
-            if (*accPresent && *accFunctional)
+            if (*accPresent == false)
             {
-                state = "Enabled";
-            }
-            else if (*accPresent)
-            {
-                state = "UnavailableOffline";
+                aResp->res.jsonValue["Status"]["State"] = "Absent";
+                aResp->res.jsonValue["Status"]["Health"] = "OK";
             }
             else
             {
-                state = "Absent";
+                aResp->res.jsonValue["Status"]["State"] = "Enabled";
+
+                if ((accFunctional != nullptr) && (*accFunctional == true))
+                {
+                    aResp->res.jsonValue["Status"]["Health"] = "OK";
+                }
+                else
+                {
+                    // accFunctional is NULL i.e. *Functional*  not found
+                    aResp->res.jsonValue["Status"]["Health"] = "Critical";
+                }
             }
-            aResp->res.jsonValue["Status"]["State"] = state;
-            aResp->res.jsonValue["Status"]["Health"] = "OK";
             aResp->res.jsonValue["ProcessorType"] = "Accelerator";
         },
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
