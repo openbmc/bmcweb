@@ -172,6 +172,7 @@ class RedfishService
 #ifdef BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         nodes.emplace_back(
             std::make_unique<HypervisorInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<HypervisorInterface>(app));
         nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
 #endif // BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE
         for (const auto& node : nodes)
