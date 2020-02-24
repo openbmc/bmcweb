@@ -40,3 +40,19 @@ struct Message
 };
 using MessageEntry = std::pair<const char*, const Message>;
 } // namespace redfish::message_registries
+
+namespace redfish::message_registries::bios
+{
+const Header header = {
+    "Copyright 2014-2018 DMTF in cooperation with the Storage Networking "
+    "Industry Association (SNIA). All rights reserved.",
+    "#MessageRegistry.v1_2_0.MessageRegistry",
+    "BiosAttributeRegistry.1.0.0",
+    "Bios Attribute Registry",
+    "en",
+    "This registry defines the messages for bios attribute registry.",
+    "BiosAttributeRegistry",
+    "1.0.0",
+    "DMTF",
+};
+} // namespace redfish::message_registries::bios
