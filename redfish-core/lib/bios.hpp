@@ -1,6 +1,7 @@
 #pragma once
 
 #include "node.hpp"
+#include <tinyxml2.h>
 
 namespace redfish
 {
@@ -30,6 +31,30 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+        asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
+        getBiosAttributes(asyncResp);
+    }
+
+    void getBiosAttributes(std::shared_ptr<AsyncResp> asyncResp)
+    {
+
+        nlohmann::json& jResp = asyncResp->res.jsonValue["Attributes"];
+        tinyxml2::XMLDocument xmlDoc;
+        xmlDoc.LoadFile("/tmp/bios.xml");
+        tinyxml2::XMLNode *pRoot = xmlDoc.FirstChild();
+        if (pRoot == nullptr) return;
+        tinyxml2::XMLElement *pElement = pRoot->FirstChildElement("biosknobs");
+        if (pElement == nullptr) return;
+        tinyxml2::XMLElement *pKnobsElement = pElement->FirstChildElement("knob");
+        while (pKnobsElement != nullptr)
+        {
+            std::string name = pKnobsElement->Attribute("name");
+            std::string value = pKnobsElement->Attribute("CurrentVal");
+            jResp.push_back({name, value});
+            pKnobsElement = pKnobsElement->NextSiblingElement("knob");
+        }
+
+        return;
     }
 };
 /**
