@@ -1873,8 +1873,14 @@ class OnDemandCrashdump : public Node
                 return;
             }
             std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
-                [](boost::system::error_code, sdbusplus::message::message &,
-                   const std::shared_ptr<task::TaskData> &) { return true; },
+                [](boost::system::error_code err, sdbusplus::message::message &,
+                   const std::shared_ptr<task::TaskData> &taskData) {
+                    if (!err)
+                    {
+                        taskData->messages.emplace_back(messages::success());
+                    }
+                    return true;
+                },
                 "type='signal',interface='org.freedesktop.DBus.Properties',"
                 "member='PropertiesChanged',arg0namespace='com.intel."
                 "crashdump'");
