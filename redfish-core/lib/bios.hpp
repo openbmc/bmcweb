@@ -2,6 +2,8 @@
 
 #include "node.hpp"
 
+#include <tinyxml2.h>
+
 namespace redfish
 {
 /**
@@ -30,6 +32,34 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
+        asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
+        getBiosAttributes(asyncResp);
+    }
+
+    void getBiosAttributes(std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::variant<std::string> &attributeString) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "getBiosAttributes DBUS error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                nlohmann::json &attributeArray =
+                    asyncResp->res.jsonValue["Attributes"];
+                const std::string *attrStr =
+                    std::get_if<std::string>(&attributeString);
+                if (attrStr != nullptr)
+                {
+                    attributeArray = nlohmann::json::parse(attrStr->c_str());
+                }
+            },
+            "xyz.openbmc_project.biosconfig_manager",
+            "/xyz/openbmc_project/BIOSConfig/BIOSConfigMgr",
+            "xyz.openbmc_project.BIOSConfig.BIOSConfigMgr", "GetAllAttributes",
+            static_cast<uint8_t>(0));
     }
 };
 /**
