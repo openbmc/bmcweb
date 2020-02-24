@@ -56,10 +56,11 @@ class MessageRegistryFileCollection : public Node
             {"@odata.id", "/redfish/v1/Registries"},
             {"Name", "MessageRegistryFile Collection"},
             {"Description", "Collection of MessageRegistryFiles"},
-            {"Members@odata.count", 3},
+            {"Members@odata.count", 4},
             {"Members",
              {{{"@odata.id", "/redfish/v1/Registries/Base"}},
               {{"@odata.id", "/redfish/v1/Registries/TaskEvent"}},
+              {{"@odata.id", "/redfish/v1/Registries/Bios"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 
         res.end();
@@ -112,6 +113,29 @@ class MessageRegistryFile : public Node
         {
             header = &message_registries::openbmc::header;
             dmtf.clear();
+        }
+        else if (registry == "Bios")
+        {
+            header = &message_registries::bios::header;
+            dmtf.clear();
+            res.jsonValue = {
+                {"@odata.id", "/redfish/v1/Registries/" + registry},
+                {"@odata.type",
+                 "#MessageRegistryFile.v1_1_0.MessageRegistryFile"},
+                {"Name", registry + " Message Registry File"},
+                {"Description",
+                 dmtf + registry + " Message Registry File Location"},
+                {"Id", header->registryPrefix},
+                {"Registry", header->id},
+                {"Languages", {"en"}},
+                {"Languages@odata.count", 1},
+                {"Location",
+                 {{{"Language", "en"},
+                   {"Uri", "/redfish/v1/RegistryStore/AttributeRegistries/"
+                           "BiosAttributeRegistry.v1_0_0.json"}}}},
+                {"Location@odata.count", 1}};
+            res.end();
+            return;
         }
         else
         {
