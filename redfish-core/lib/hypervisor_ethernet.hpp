@@ -13,33 +13,27 @@ namespace redfish
 {
 
 /**
- *  * Hypervisor Systems derived class for delivering Computer Systems Schema.
- *   */
+ * Hypervisor Systems derived class for delivering Computer Systems Schema.
+ */
 class HypervisorSystem : public Node
 {
   public:
     /*
-     *      * Default Constructor
-     *           */
+     * Default Constructor
+     */
     HypervisorSystem(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/hypervisor/")
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                            {boost::beast::http::verb::head, {{"Login"}}},
-                            {boost::beast::http::verb::patch,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::put,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::delete_,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::post,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
     }
 
   private:
     /**
-     *      * Functions triggers appropriate requests on DBus
-     *           */
+     * Functions triggers appropriate requests on DBus
+     */
     void doGet(crow::Response &res, const crow::Request &req,
                const std::vector<std::string> &params) override
     {
@@ -57,9 +51,9 @@ class HypervisorSystem : public Node
 };
 
 /**
- *  * HypervisorInterfaceCollection class to handle the GET and PATCH on VMI
+ * HypervisorInterfaceCollection class to handle the GET and PATCH on VMI
  * Interface
- *   */
+ */
 class HypervisorInterfaceCollection : public Node
 {
   public:
@@ -67,16 +61,10 @@ class HypervisorInterfaceCollection : public Node
     HypervisorInterfaceCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/")
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                            {boost::beast::http::verb::head, {{"Login"}}},
-                            {boost::beast::http::verb::patch,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::put,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::delete_,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::post,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -453,16 +441,10 @@ class HypervisorInterface : public Node
         Node(app, "/redfish/v1/Systems/hypervisor/EthernetInterfaces/<str>/",
              std::string())
     {
-        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
-                            {boost::beast::http::verb::head, {{"Login"}}},
-                            {boost::beast::http::verb::patch,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::put,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::delete_,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}},
-                            {boost::beast::http::verb::post,
-                             {{"ConfigureManager"}, {"ConfigureComponents"}}}};
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -610,6 +592,23 @@ class HypervisorInterface : public Node
         }
     }
 
+    void handleHostnamePatch(const std::string &hostname,
+                             const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        asyncResp->res.jsonValue["HostName"] = hostname;
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Settings", "/xyz/openbmc_project/network/vmi",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
+            std::variant<std::string>(hostname));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -660,8 +659,8 @@ class HypervisorInterface : public Node
         std::optional<std::string> hostname;
         std::optional<nlohmann::json> ipv4StaticAddresses;
 
-        if (!json_util::readJson(req, res, "IPv4StaticAddresses",
-                                 ipv4StaticAddresses))
+        if (!json_util::readJson(req, res, "HostName", hostname,
+                                 "IPv4StaticAddresses", ipv4StaticAddresses))
         {
             return;
         }
@@ -671,9 +670,14 @@ class HypervisorInterface : public Node
             nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
             handleVmiIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
         }
-        //TODO : Task will be created for monitoring the VMI interface
-        //Phyp will notify once the IP is applied to the VMI.
-        //The status will be sent over to the client.
+
+        if (hostname)
+        {
+            handleHostnamePatch(*hostname, asyncResp);
+        }
+        // TODO : Task will be created for monitoring the VMI interface
+        // Phyp will notify once the IP is applied to the VMI.
+        // The status will be sent over to the client.
         res.result(boost::beast::http::status::accepted);
     }
 };
