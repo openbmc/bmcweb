@@ -108,7 +108,7 @@ static void addMessageToJson(nlohmann::json& target,
 nlohmann::json resourceInUse(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceInUse"},
         {"Message", "The change to the requested resource failed because "
                     "the resource is in use or in transition."},
@@ -134,7 +134,7 @@ void resourceInUse(crow::Response& res)
 nlohmann::json malformedJSON(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.MalformedJSON"},
         {"Message", "The request body submitted was malformed JSON and "
                     "could not be parsed by the receiving service."},
@@ -160,7 +160,7 @@ void malformedJSON(crow::Response& res)
 nlohmann::json resourceMissingAtURI(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceMissingAtURI"},
         {"Message", "The resource at the URI " + arg1 + " was not found."},
         {"MessageArgs", {arg1}},
@@ -187,7 +187,7 @@ nlohmann::json actionParameterValueFormatError(const std::string& arg1,
                                                const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -220,7 +220,7 @@ void actionParameterValueFormatError(crow::Response& res,
 nlohmann::json internalError(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.InternalError"},
         {"Message", "The request failed due to an internal service error.  "
                     "The service is still operational."},
@@ -246,7 +246,7 @@ void internalError(crow::Response& res)
 nlohmann::json unrecognizedRequestBody(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.UnrecognizedRequestBody"},
         {"Message", "The service detected a malformed request body that it "
                     "was unable to interpret."},
@@ -273,7 +273,7 @@ nlohmann::json resourceAtUriUnauthorized(const std::string& arg1,
                                          const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceAtUriUnauthorized"},
         {"Message", "While accessing the resource at " + arg1 +
                         ", the service received an authorization error " +
@@ -302,7 +302,7 @@ nlohmann::json actionParameterUnknown(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterUnknown"},
         {"Message", "The action " + arg1 +
                         " was submitted with the invalid parameter " + arg2 +
@@ -330,7 +330,7 @@ void actionParameterUnknown(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceCannotBeDeleted(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceCannotBeDeleted"},
         {"Message", "The delete request failed because the resource "
                     "requested cannot be deleted."},
@@ -355,7 +355,7 @@ void resourceCannotBeDeleted(crow::Response& res)
 nlohmann::json propertyDuplicate(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyDuplicate"},
         {"Message", "The property " + arg1 + " was duplicated in the request."},
         {"MessageArgs", {arg1}},
@@ -381,7 +381,7 @@ void propertyDuplicate(crow::Response& res, const std::string& arg1)
 nlohmann::json serviceTemporarilyUnavailable(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ServiceTemporarilyUnavailable"},
         {"Message", "The service is temporarily unavailable.  Retry in " +
                         arg1 + " seconds."},
@@ -410,7 +410,7 @@ nlohmann::json resourceAlreadyExists(const std::string& arg1,
                                      const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceAlreadyExists"},
         {"Message", "The requested resource of type " + arg1 +
                         " with the property " + arg2 + " with the value " +
@@ -439,7 +439,7 @@ void resourceAlreadyExists(crow::Response& res, const std::string& arg1,
 nlohmann::json accountForSessionNoLongerExists(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.AccountForSessionNoLongerExists"},
         {"Message", "The account for the current session has been removed, "
                     "thus the current session has been removed as well."},
@@ -464,7 +464,7 @@ void accountForSessionNoLongerExists(crow::Response& res)
 nlohmann::json createFailedMissingReqProperties(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.CreateFailedMissingReqProperties"},
         {"Message",
          "The create operation failed because the required property " + arg1 +
@@ -496,7 +496,7 @@ nlohmann::json propertyValueFormatError(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the property " + arg2 +
@@ -527,7 +527,7 @@ nlohmann::json propertyValueNotInList(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyValueNotInList"},
         {"Message", "The value " + arg1 + " for the property " + arg2 +
                         " is not in the list of acceptable values."},
@@ -556,7 +556,7 @@ void propertyValueNotInList(crow::Response& res, const std::string& arg1,
 nlohmann::json resourceAtUriInUnknownFormat(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceAtUriInUnknownFormat"},
         {"Message", "The resource at " + arg1 +
                         " is in a format not recognized by the service."},
@@ -582,7 +582,7 @@ void resourceAtUriInUnknownFormat(crow::Response& res, const std::string& arg1)
 nlohmann::json serviceInUnknownState(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ServiceInUnknownState"},
         {"Message",
          "The operation failed because the service is in an unknown state "
@@ -609,7 +609,7 @@ void serviceInUnknownState(crow::Response& res)
 nlohmann::json eventSubscriptionLimitExceeded(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.EventSubscriptionLimitExceeded"},
         {"Message",
          "The event subscription failed due to the number of simultaneous "
@@ -639,7 +639,7 @@ nlohmann::json actionParameterMissing(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterMissing"},
         {"Message", "The action " + arg1 + " requires the parameter " + arg2 +
                         " to be present in the request body."},
@@ -667,7 +667,7 @@ void actionParameterMissing(crow::Response& res, const std::string& arg1,
 nlohmann::json stringValueTooLong(const std::string& arg1, const int& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.StringValueTooLong"},
         {"Message", "The string " + arg1 + " exceeds the length limit " +
                         std::to_string(arg2) + "."},
@@ -694,7 +694,7 @@ void stringValueTooLong(crow::Response& res, const std::string& arg1,
 nlohmann::json sessionTerminated(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.SessionTerminated"},
         {"Message", "The session was successfully terminated."},
         {"MessageArgs", nlohmann::json::array()},
@@ -719,7 +719,7 @@ nlohmann::json resourceTypeIncompatible(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceTypeIncompatible"},
         {"Message", "The @odata.type of the request body " + arg1 +
                         " is incompatible with the @odata.type of the "
@@ -750,7 +750,7 @@ nlohmann::json propertyValueTypeError(const std::string& arg1,
                                       const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the property " + arg2 +
@@ -780,7 +780,7 @@ nlohmann::json resourceNotFound(const std::string& arg1,
                                 const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceNotFound"},
         {"Message", "The requested resource of type " + arg1 + " named " +
                         arg2 + " was not found."},
@@ -807,7 +807,7 @@ void resourceNotFound(crow::Response& res, const std::string& arg1,
 nlohmann::json couldNotEstablishConnection(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.CouldNotEstablishConnection"},
         {"Message",
          "The service failed to establish a Connection with the URI " + arg1 +
@@ -836,7 +836,7 @@ void couldNotEstablishConnection(crow::Response& res, const std::string& arg1)
 nlohmann::json propertyNotWritable(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyNotWritable"},
         {"Message", "The property " + arg1 +
                         " is a read only property and cannot be "
@@ -864,7 +864,7 @@ nlohmann::json queryParameterValueTypeError(const std::string& arg1,
                                             const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.QueryParameterValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the query parameter " + arg2 +
@@ -894,7 +894,7 @@ void queryParameterValueTypeError(crow::Response& res, const std::string& arg1,
 nlohmann::json serviceShuttingDown(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ServiceShuttingDown"},
         {"Message", "The operation failed because the service is shutting "
                     "down and can no longer take incoming requests."},
@@ -921,7 +921,7 @@ nlohmann::json actionParameterDuplicate(const std::string& arg1,
                                         const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterDuplicate"},
         {"Message",
          "The action " + arg1 +
@@ -952,7 +952,7 @@ nlohmann::json actionParameterNotSupported(const std::string& arg1,
                                            const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterNotSupported"},
         {"Message", "The parameter " + arg1 + " for the action " + arg2 +
                         " is not supported on the target resource."},
@@ -981,7 +981,7 @@ nlohmann::json sourceDoesNotSupportProtocol(const std::string& arg1,
                                             const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.SourceDoesNotSupportProtocol"},
         {"Message", "The other end of the Connection at " + arg1 +
                         " does not support the specified protocol " + arg2 +
@@ -1008,13 +1008,12 @@ void sourceDoesNotSupportProtocol(crow::Response& res, const std::string& arg1,
  */
 nlohmann::json accountRemoved(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-        {"MessageId", "Base.1.4.0.AccountRemoved"},
-        {"Message", "The account was successfully removed."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"Severity", "OK"},
-        {"Resolution", "No resolution is required."}};
+    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+                          {"MessageId", "Base.1.4.0.AccountRemoved"},
+                          {"Message", "The account was successfully removed."},
+                          {"MessageArgs", nlohmann::json::array()},
+                          {"Severity", "OK"},
+                          {"Resolution", "No resolution is required."}};
 }
 
 void accountRemoved(crow::Response& res)
@@ -1033,7 +1032,7 @@ void accountRemoved(crow::Response& res)
 nlohmann::json accessDenied(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.AccessDenied"},
         {"Message", "While attempting to establish a Connection to " + arg1 +
                         ", the service denied access."},
@@ -1059,7 +1058,7 @@ void accessDenied(crow::Response& res, const std::string& arg1)
 nlohmann::json queryNotSupported(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.QueryNotSupported"},
         {"Message", "Querying is not supported by the implementation."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1084,7 +1083,7 @@ void queryNotSupported(crow::Response& res)
 nlohmann::json createLimitReachedForResource(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.CreateLimitReachedForResource"},
         {"Message", "The create operation failed because the resource has "
                     "reached the limit of possible resources."},
@@ -1110,14 +1109,14 @@ void createLimitReachedForResource(crow::Response& res)
  */
 nlohmann::json generalError(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-        {"MessageId", "Base.1.4.0.GeneralError"},
-        {"Message", "A general error has occurred. See Resolution for "
-                    "information on how to resolve the error."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"Severity", "Critical"},
-        {"Resolution", "None."}};
+    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+                          {"MessageId", "Base.1.4.0.GeneralError"},
+                          {"Message",
+                           "A general error has occurred. See Resolution for "
+                           "information on how to resolve the error."},
+                          {"MessageArgs", nlohmann::json::array()},
+                          {"Severity", "Critical"},
+                          {"Resolution", "None."}};
 }
 
 void generalError(crow::Response& res)
@@ -1135,13 +1134,12 @@ void generalError(crow::Response& res)
  */
 nlohmann::json success(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-        {"MessageId", "Base.1.4.0.Success"},
-        {"Message", "Successfully Completed Request"},
-        {"MessageArgs", nlohmann::json::array()},
-        {"Severity", "OK"},
-        {"Resolution", "None"}};
+    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+                          {"MessageId", "Base.1.4.0.Success"},
+                          {"Message", "Successfully Completed Request"},
+                          {"MessageArgs", nlohmann::json::array()},
+                          {"Severity", "OK"},
+                          {"Resolution", "None"}};
 }
 
 void success(crow::Response& res)
@@ -1161,7 +1159,7 @@ void success(crow::Response& res)
 nlohmann::json created(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.Created"},
         {"Message", "The resource has been created successfully"},
         {"MessageArgs", nlohmann::json::array()},
@@ -1185,7 +1183,7 @@ void created(crow::Response& res)
 nlohmann::json noOperation(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.NoOperation"},
         {"Message", "The request body submitted contain no data to act "
                     "upon and no changes to the resource took place."},
@@ -1212,7 +1210,7 @@ void noOperation(crow::Response& res)
 nlohmann::json propertyUnknown(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyUnknown"},
         {"Message", "The property " + arg1 +
                         " is not in the list of valid properties for "
@@ -1240,7 +1238,7 @@ void propertyUnknown(crow::Response& res, const std::string& arg1)
 nlohmann::json noValidSession(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.NoValidSession"},
         {"Message",
          "There is no valid session established with the implementation."},
@@ -1266,7 +1264,7 @@ void noValidSession(crow::Response& res)
 nlohmann::json invalidObject(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.InvalidObject"},
         {"Message", "The object at " + arg1 + " is invalid."},
         {"MessageArgs", {arg1}},
@@ -1292,7 +1290,7 @@ void invalidObject(crow::Response& res, const std::string& arg1)
 nlohmann::json resourceInStandby(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceInStandby"},
         {"Message", "The request could not be performed because the "
                     "resource is in standby."},
@@ -1320,7 +1318,7 @@ nlohmann::json actionParameterValueTypeError(const std::string& arg1,
                                              const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionParameterValueTypeError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -1352,7 +1350,7 @@ void actionParameterValueTypeError(crow::Response& res, const std::string& arg1,
 nlohmann::json sessionLimitExceeded(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.SessionLimitExceeded"},
         {"Message", "The session establishment failed due to the number of "
                     "simultaneous sessions exceeding the limit of the "
@@ -1380,7 +1378,7 @@ void sessionLimitExceeded(crow::Response& res)
 nlohmann::json actionNotSupported(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ActionNotSupported"},
         {"Message",
          "The action " + arg1 + " is not supported by the resource."},
@@ -1409,7 +1407,7 @@ void actionNotSupported(crow::Response& res, const std::string& arg1)
 nlohmann::json invalidIndex(const int& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.InvalidIndex"},
         {"Message", "The index " + std::to_string(arg1) +
                         " is not a valid offset into the array."},
@@ -1435,7 +1433,7 @@ void invalidIndex(crow::Response& res, const int& arg1)
 nlohmann::json emptyJSON(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.EmptyJSON"},
         {"Message", "The request body submitted contained an empty JSON "
                     "object and the service is unable to process it."},
@@ -1461,7 +1459,7 @@ void emptyJSON(crow::Response& res)
 nlohmann::json queryNotSupportedOnResource(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.QueryNotSupportedOnResource"},
         {"Message", "Querying is not supported on the requested resource."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1486,7 +1484,7 @@ void queryNotSupportedOnResource(crow::Response& res)
 nlohmann::json insufficientPrivilege(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.InsufficientPrivilege"},
         {"Message", "There are insufficient privileges for the account or "
                     "credentials associated with the current session to "
@@ -1515,7 +1513,7 @@ nlohmann::json propertyValueModified(const std::string& arg1,
                                      const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyValueModified"},
         {"Message", "The property " + arg1 + " was assigned the value " + arg2 +
                         " due to modification by the service."},
@@ -1541,7 +1539,7 @@ void propertyValueModified(crow::Response& res, const std::string& arg1,
 nlohmann::json accountNotModified(void)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.AccountNotModified"},
         {"Message", "The account modification request failed."},
         {"MessageArgs", nlohmann::json::array()},
@@ -1567,7 +1565,7 @@ nlohmann::json queryParameterValueFormatError(const std::string& arg1,
                                               const std::string& arg2)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.QueryParameterValueFormatError"},
         {"Message",
          "The value " + arg1 + " for the parameter " + arg2 +
@@ -1599,7 +1597,7 @@ void queryParameterValueFormatError(crow::Response& res,
 nlohmann::json propertyMissing(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.PropertyMissing"},
         {"Message", "The property " + arg1 +
                         " is a required property and must be included in "
@@ -1628,7 +1626,7 @@ void propertyMissing(crow::Response& res, const std::string& arg1)
 nlohmann::json resourceExhaustion(const std::string& arg1)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.ResourceExhaustion"},
         {"Message", "The resource " + arg1 +
                         " was unable to satisfy the request due to "
@@ -1654,13 +1652,12 @@ void resourceExhaustion(crow::Response& res, const std::string& arg1)
  */
 nlohmann::json accountModified(void)
 {
-    return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
-        {"MessageId", "Base.1.4.0.AccountModified"},
-        {"Message", "The account was successfully modified."},
-        {"MessageArgs", nlohmann::json::array()},
-        {"Severity", "OK"},
-        {"Resolution", "No resolution is required."}};
+    return nlohmann::json{{"@odata.type", "#Message.v1_0_0.Message"},
+                          {"MessageId", "Base.1.4.0.AccountModified"},
+                          {"Message", "The account was successfully modified."},
+                          {"MessageArgs", nlohmann::json::array()},
+                          {"Severity", "OK"},
+                          {"Resolution", "No resolution is required."}};
 }
 
 void accountModified(crow::Response& res)
@@ -1681,7 +1678,7 @@ nlohmann::json queryParameterOutOfRange(const std::string& arg1,
                                         const std::string& arg3)
 {
     return nlohmann::json{
-        {"@odata.type", "/redfish/v1/$metadata#Message.v1_0_0.Message"},
+        {"@odata.type", "#Message.v1_0_0.Message"},
         {"MessageId", "Base.1.4.0.QueryParameterOutOfRange"},
         {"Message", "The value " + arg1 + " for the query parameter " + arg2 +
                         " is out of range " + arg3 + "."},
