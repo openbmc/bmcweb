@@ -94,6 +94,30 @@
       "revId": "816e844ba781d3f12259040cc91a7541ebe78f59",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "596bc37c_1b8d1ecf",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-02-25T03:50:27Z",
+      "side": 1,
+      "message": "1. ipmid get bios config file (type0) through oem command\n2. And then save all the information to the d-bus properties\n3. bios service in the redfish(bmcweb) format all the d-bus properties to answer bios get request.\n\nThis looks fine.\n\nThe current solution - bmcweb directly parsing bios.xml is OEM and should be an OEM layer in bmcweb.",
+      "parentUuid": "8e640aa9_c9a65c1b",
+      "range": {
+        "startLine": 43,
+        "startChar": 25,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "816e844ba781d3f12259040cc91a7541ebe78f59",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
