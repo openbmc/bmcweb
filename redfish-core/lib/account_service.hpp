@@ -111,7 +111,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     }
     else if (role == "NoAccess")
     {
-        return "priv-noaccess";
+        return "";
     }
     return "";
 }
