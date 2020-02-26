@@ -604,12 +604,10 @@ class SoftwareInventory : public Node
         }
         else if (purpose == fw_util::biosPurpose)
         {
-            // TODO(geissonator) Need BIOS schema support added for this
-            //                   to be valid
-            // nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
-            // members.push_back(
-            //    {{"@odata.id", "/redfish/v1/Systems/system/BIOS"}});
-            // aResp->res.jsonValue["Members@odata.count"] = members.size();
+            nlohmann::json &members = aResp->res.jsonValue["RelatedItem"];
+            members.push_back(
+                {{"@odata.id", "/redfish/v1/Systems/system/Bios"}});
+            aResp->res.jsonValue["Members@odata.count"] = members.size();
         }
         else
         {
