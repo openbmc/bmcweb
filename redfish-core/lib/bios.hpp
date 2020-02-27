@@ -1,6 +1,9 @@
 #pragma once
 
 #include "node.hpp"
+#include <tinyxml2.h>
+#include <fstream>
+
 
 namespace redfish
 {
@@ -30,6 +33,119 @@ class BiosService : public Node
         asyncResp->res.jsonValue["Actions"]["#Bios.ResetBios"] = {
             {"target",
              "/redfish/v1/Systems/system/Bios/Actions/Bios.ResetBios"}};
++        asyncResp->res.jsonValue["AttributeRegistry"] =
++            "BiosAttributeRegistryV1_0_0";
++        asyncResp->res.jsonValue["Attributes"] = nlohmann::json::object();
++        getBiosAttributes(asyncResp);
++        generateBiosAttributeRegistry();
++    }
++
++    void getBiosAttributes(std::shared_ptr<AsyncResp> asyncResp)
++    {
++        nlohmann::json &jResp = asyncResp->res.jsonValue["Attributes"];
++        tinyxml2::XMLDocument xmlDoc;
++        xmlDoc.LoadFile("/tmp/bios.xml");
++        tinyxml2::XMLNode *pRoot = xmlDoc.FirstChild();
++        if (pRoot == nullptr)
++            return;
++        tinyxml2::XMLElement *pElement = pRoot->FirstChildElement("biosknobs");
++        if (pElement == nullptr)
++            return;
++        tinyxml2::XMLElement *pKnobsElement =
++            pElement->FirstChildElement("knob");
++        while (pKnobsElement != nullptr)
++        {
++            std::string name = pKnobsElement->Attribute("name");
++            std::string value = pKnobsElement->Attribute("CurrentVal");
++            jResp.push_back({name, value});
++            pKnobsElement = pKnobsElement->NextSiblingElement("knob");
++        }
++
++        return;
++    }
++
++    void generateBiosAttributeRegistry()
++    {
++        nlohmann::json biosAttributeRegistry;
++        biosAttributeRegistry["@odata.context"] =
++            "/redfish/v1/$metadata#AttributeRegistry.AttributeRegistry";
++        biosAttributeRegistry["@odata.type"] =
++            "#AttributeRegistry.v1_1_0.AttributeRegistry";
++        biosAttributeRegistry["Name"] = "Bios Attribute Registry Version 1";
++        biosAttributeRegistry["OwningEntity"] = "Intel";
++        biosAttributeRegistry["Id"] = "BiosAttributeRegistryV1_0_0";
++        biosAttributeRegistry["RegistryVersion"] = "1.0.0";
++        biosAttributeRegistry["Language"] = "en";
++
++        tinyxml2::XMLDocument xmlDoc;
++        xmlDoc.LoadFile("/tmp/bios.xml");
++        tinyxml2::XMLNode *pRoot = xmlDoc.FirstChild();
++        if (pRoot == nullptr)
++            return;
++        tinyxml2::XMLElement *pElement = pRoot->FirstChildElement("biosknobs");
++        if (pElement == nullptr)
++            return;
++        tinyxml2::XMLElement *pKnobsElement =
++            pElement->FirstChildElement("knob");
++
++        nlohmann::json &attributeArray =
++            biosAttributeRegistry["RegistryEntries"]["Attributes"];
++        attributeArray = nlohmann::json::array();
++        while (pKnobsElement != nullptr)
++        {
++            const char *name = pKnobsElement->Attribute("name");
++            const char *value = pKnobsElement->Attribute("CurrentVal");
++            const char *dname = pKnobsElement->Attribute("prompt");
++            const char *type = pKnobsElement->Attribute("type");
++            const char *setuptype = pKnobsElement->Attribute("setupType");
++            const char *disc = pKnobsElement->Attribute("CurrentVal");
++            const char *menupath = pKnobsElement->Attribute("SetupPgPtr");
++            const char *size = pKnobsElement->Attribute("size");
++            const char *offset = pKnobsElement->Attribute("offset");
++            const char *defaultv = pKnobsElement->Attribute("default");
++
++            if (name != nullptr && value != nullptr && dname != nullptr &&
++                type != nullptr && setuptype != nullptr && disc != nullptr &&
++                menupath != nullptr && size != nullptr && offset != nullptr &&
++                defaultv != nullptr)
++            {
++                tinyxml2::XMLElement *pOptionsElement =
++                    pKnobsElement->FirstChildElement("options");
++                nlohmann::json optionsArray = nlohmann::json::array();
++                if (pOptionsElement != nullptr)
++                {
++                    tinyxml2::XMLElement *pOptionElement =
++                        pOptionsElement->FirstChildElement("option");
++                    while (pOptionElement != nullptr)
++                    {
++                        const char *text = pOptionElement->Attribute("text");
++                        const char *value = pOptionElement->Attribute("value");
++                        if (text != nullptr && value != nullptr)
++                        {
++                            optionsArray.push_back({text, value});
++                        }
++                        pOptionElement =
++                            pOptionElement->NextSiblingElement("option");
++                    }
++                }
++
++                attributeArray.push_back({{"AttributeName", name},
++                                          {"CurrentValue", value},
++                                          {"DisplayName", dname},
++                                          {"Type", type},
++                                          {"SetupType", setuptype},
++                                          {"Discription", disc},
++                                          {"MenuPath", menupath},
++                                          {"Size", size},
++                                          {"Offset", offset},
++                                          {"DefaultValue", defaultv},
++                                          {"Options", optionsArray}});
++            }
++            pKnobsElement = pKnobsElement->NextSiblingElement("knob");
++        }
++
++        std::ofstream file("/tmp/BiosAttributeRegistry.json");
++        file << biosAttributeRegistry.dump(4) << std::endl;
     }
 };
 /**
