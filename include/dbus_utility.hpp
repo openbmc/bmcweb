@@ -30,11 +30,12 @@ using DbusVariantType =
                  int64_t, uint64_t, double, int32_t, uint32_t, int16_t,
                  uint16_t, uint8_t, bool>;
 
-using ManagedObjectType = std::vector<
-    std::pair<sdbusplus::message::object_path,
-              boost::container::flat_map<
-                  std::string,
-                  boost::container::flat_map<std::string, DbusVariantType>>>>;
+using DBusPropertiesMap =
+    boost::container::flat_map<std::string, DbusVariantType>;
+using DBusInteracesMap =
+    boost::container::flat_map<std::string, DBusPropertiesMap>;
+using ManagedObjectType =
+    std::vector<std::pair<sdbusplus::message::object_path, DBusInteracesMap>>;
 
 using ManagedItem = std::pair<
     sdbusplus::message::object_path,
