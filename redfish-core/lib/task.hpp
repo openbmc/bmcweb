@@ -158,6 +158,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->finishTask();
                 self->state = "Cancelled";
                 self->status = "Warning";
+                self->messages.emplace_back(messages::internalError());
                 self->callback(ec, msg, self);
             });
     }
