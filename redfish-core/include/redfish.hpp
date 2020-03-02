@@ -125,6 +125,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemsCollection>(app));
         nodes.emplace_back(std::make_unique<Systems>(app));
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
+        nodes.emplace_back(std::make_unique<BiosAttributeRegistry>(app));
         nodes.emplace_back(std::make_unique<BiosService>(app));
         nodes.emplace_back(std::make_unique<BiosReset>(app));
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
