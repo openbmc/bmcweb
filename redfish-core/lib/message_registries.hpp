@@ -58,6 +58,7 @@ class MessageRegistryFileCollection : public Node
             {"Members@odata.count", 2},
             {"Members",
              {{{"@odata.id", "/redfish/v1/Registries/Base"}},
+              {{"@odata.id", "/redfish/v1/Registries/Bios"}},
               {{"@odata.id", "/redfish/v1/Registries/OpenBMC"}}}}};
 
         res.end();
