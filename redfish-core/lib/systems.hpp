@@ -22,9 +22,11 @@
 
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
+#include <numeric>
 #include <utils/fw_utils.hpp>
 #include <utils/json_utils.hpp>
 #include <variant>
+#include <vector>
 
 namespace redfish
 {
@@ -1347,6 +1349,210 @@ static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
     }
 }
 
+static std::vector<uint8_t> writeChecksum(std::vector<uint8_t> newFruData,
+                                          unsigned int fruDataSize,
+                                          unsigned int checksumLoc)
+{
+    constexpr uint8_t endLength = 193, typeLenMask = 63;
+    uint8_t typeLength =
+        static_cast<unsigned int>(newFruData[checksumLoc] & typeLenMask);
+    if (!typeLength)
+        typeLength++;
+
+    // New Checksum Location
+    for (checksumLoc += typeLength; checksumLoc < fruDataSize; checksumLoc++)
+    {
+        if (newFruData[checksumLoc] == endLength ||
+            newFruData[checksumLoc] == 0)
+        {
+            checksumLoc++;
+        }
+        else
+            break;
+    }
+
+    // creating vector of new product fru data
+    // to calculate checksum of product fru data
+    unsigned int toNewProdFru = 0;
+    constexpr unsigned int prodOffset = 4;
+    uint8_t prodOffsetValue = newFruData[prodOffset];
+    constexpr unsigned int startOffset = 8; // in multiple of 8 bytes
+    std::vector<uint8_t> newProdFru;
+
+    for (unsigned int i = 1; i < fruDataSize; i++)
+    {
+        if (prodOffsetValue > 0)
+        {
+            toNewProdFru = i * startOffset;
+            prodOffsetValue--;
+        }
+        else
+        {
+            newProdFru.push_back(newFruData[toNewProdFru]);
+            if (newFruData[toNewProdFru] == endLength)
+            {
+                break;
+            }
+            toNewProdFru++;
+        }
+    }
+
+    // Calculate and write new Checksum
+    constexpr int checksumMod = 256;
+    int sum = std::accumulate(newProdFru.begin(), newProdFru.end(), 0);
+    size_t checksumVal = static_cast<uint8_t>((checksumMod - sum) & 0xff);
+    newFruData[checksumLoc] = static_cast<uint8_t>(checksumVal);
+
+    return newFruData;
+}
+
+static std::vector<uint8_t> writeAssetName(std::vector<uint8_t> fruData,
+                                           unsigned int pointToProdFru,
+                                           unsigned int fruDataSize,
+                                           std::vector<uint8_t> aTagVals,
+                                           unsigned int aTagLen)
+{
+    constexpr uint8_t typeLenMask = 63, newTypeLenMask = 192;
+    uint8_t typeLength;
+    bool flag = false;
+    std::vector<uint8_t> postATagVals;
+    unsigned int aTagIter, aTagLoc = 0, afterATag = 0, skipToAssetTag = 5;
+
+    // Iterating to AssetTag Offset
+    for (aTagIter = pointToProdFru; aTagIter < fruDataSize; aTagIter++)
+    {
+        if (skipToAssetTag > 0)
+        {
+            typeLength =
+                static_cast<unsigned int>(fruData[aTagIter] & typeLenMask);
+            if (!typeLength)
+                typeLength++;
+            aTagIter += typeLength;
+            skipToAssetTag--;
+            flag = true;
+        }
+        else
+        {
+            if (flag)
+            {
+                aTagLoc = aTagIter;
+                typeLength =
+                    static_cast<unsigned int>(fruData[aTagIter] & typeLenMask);
+                if (!typeLength)
+                    typeLength++;
+                afterATag = aTagIter + typeLength;
+                flag = false;
+            }
+            else
+            {
+                // Vector of post AssetTag values
+                afterATag++;
+                postATagVals.push_back(fruData[afterATag]);
+            }
+        }
+    }
+
+    fruData[aTagLoc] = static_cast<uint8_t>(aTagLen);
+    fruData[aTagLoc] = fruData[aTagLoc] | newTypeLenMask;
+    aTagLoc++;
+
+    // Writing New AssetTag
+    for (unsigned int i = 0; i < aTagLen; i++)
+    {
+        fruData[aTagLoc] = aTagVals[i];
+        aTagLoc++;
+    }
+
+    unsigned int getChecksumLoc = aTagLoc;
+    // Appending post AssetTag values vector after new AssetTag
+    for (unsigned int j = 0; j < static_cast<unsigned int>(postATagVals.size());
+         j++)
+    {
+        fruData[aTagLoc] = postATagVals[j];
+        aTagLoc++;
+    }
+
+    std::vector<uint8_t> newFruData;
+    newFruData = writeChecksum(std::move(fruData), std::move(fruDataSize),
+                               std::move(getChecksumLoc));
+
+    return newFruData;
+}
+
+static void setAssetTagProperty(std::shared_ptr<AsyncResp> asyncResp,
+                                const std::string &assetTag)
+{
+    BMCWEB_LOG_DEBUG << "Set AssetTag";
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, assetTag](const boost::system::error_code ec,
+                              std::vector<uint8_t> fruData) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            if (fruData.empty())
+                return;
+
+            unsigned int assetNameLen = assetTag.length();
+            std::vector<uint8_t> asciiATagVals(assetTag.begin(),
+                                               assetTag.end());
+
+            unsigned int fruDataSize =
+                static_cast<unsigned int>(fruData.size());
+            constexpr unsigned int prodOffset = 4;
+            uint8_t prodOffsetValue = fruData[prodOffset];
+            unsigned int toProdFru, skipBytes = 0;
+            constexpr unsigned int startOffset = 8; // in multiple of 8 bytes
+            constexpr unsigned int skipProdFruBytes = 3;
+
+            // Point to product info area
+            for (toProdFru = 1; toProdFru < fruDataSize; toProdFru++)
+            {
+                if (prodOffsetValue > 0)
+                {
+                    skipBytes = toProdFru * startOffset;
+                    prodOffsetValue--;
+                }
+                else
+                {
+                    toProdFru =
+                        skipBytes +
+                        skipProdFruBytes; // skip first 3 bytes of product info:
+                                          // version, area length, lang code
+                    break;
+                }
+            }
+
+            std::vector<uint8_t> finalFruData;
+            finalFruData =
+                writeAssetName(std::move(fruData), toProdFru, fruDataSize,
+                               std::move(asciiATagVals), assetNameLen);
+
+            if (finalFruData.empty())
+                return;
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.FruDevice",
+                "/xyz/openbmc_project/FruDevice",
+                "xyz.openbmc_project.FruDeviceManager", "WriteFru",
+                static_cast<uint8_t>(0), static_cast<uint8_t>(0), finalFruData);
+        },
+        "xyz.openbmc_project.FruDevice", "/xyz/openbmc_project/FruDevice",
+        "xyz.openbmc_project.FruDeviceManager", "GetRawFru",
+        static_cast<uint8_t>(0), static_cast<uint8_t>(0));
+}
+
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
@@ -1657,15 +1863,22 @@ class Systems : public Node
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
+        std::optional<std::string> newAssetTag;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps, "WatchdogTimer", wdtTimerProps))
+                                 bootProps, "WatchdogTimer", wdtTimerProps,
+                                 "AssetTag", newAssetTag))
         {
             return;
         }
 
         res.result(boost::beast::http::status::no_content);
+
+        if (newAssetTag)
+        {
+            setAssetTagProperty(asyncResp, std::move(*newAssetTag));
+        }
 
         if (wdtTimerProps)
         {
