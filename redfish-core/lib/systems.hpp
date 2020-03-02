@@ -1347,6 +1347,174 @@ static void setWDTProperties(std::shared_ptr<AsyncResp> aResp,
     }
 }
 
+void handleAssetnamePatch(std::shared_ptr<AsyncResp> asyncResp,
+                          const std::string &assetName)
+{
+    BMCWEB_LOG_DEBUG << "Set AssetTag";
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, assetName](const boost::system::error_code ec,
+                               std::vector<uint8_t> fruData) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            std::vector<uint8_t> asciivals;
+            uint8_t ascChar = 0;
+            for (uint8_t i = 0; i < assetName.length(); i++)
+            {
+                ascChar = assetName[i];
+                asciivals.push_back(ascChar);
+            }
+
+            unsigned int fruDataSize =
+                static_cast<unsigned int>(fruData.size());
+            uint8_t prodOffset = fruData[4];
+            unsigned int i, ii = 0;
+
+            // Point to product info area
+            for (i = 1; i < fruDataSize; i++)
+            {
+                if (prodOffset > 0)
+                {
+                    ii = i * 8; // in multiple of 8 bytes
+                    prodOffset--;
+                }
+                else
+                {
+                    i = ii + 3; // skip first 3 bytes of product info
+                    break;
+                }
+            }
+
+            uint8_t skipToAssetTag = 5, typeLength;
+            uint8_t bitwiseAnd = 63, bitwiseOr = 192, flag = 0;
+            std::vector<uint8_t> postATagVals;
+            unsigned int aTag, aTagLoc = 0, j = 0;
+
+            // Iterating to AssetTag Offset
+            for (aTag = i; aTag < fruDataSize; aTag++)
+            {
+                if (skipToAssetTag > 0)
+                {
+                    typeLength =
+                        static_cast<unsigned int>(fruData[aTag] & bitwiseAnd);
+                    if (typeLength == 0)
+                        typeLength++;
+                    aTag = (aTag + typeLength);
+                    skipToAssetTag--;
+                    flag = 1;
+                }
+                else
+                {
+                    if (flag)
+                    {
+                        aTagLoc = aTag;
+                        typeLength = static_cast<unsigned int>(fruData[aTag] &
+                                                               bitwiseAnd);
+                        if (typeLength == 0)
+                            typeLength++;
+                        j = (aTag + typeLength);
+                        flag = 0;
+                    }
+                    else
+                    {
+                        // Vector of post AssetTag values
+                        j++;
+                        postATagVals.push_back(fruData[j]);
+                    }
+                }
+            }
+
+            fruData[aTagLoc] = static_cast<uint8_t>(assetName.length());
+            fruData[aTagLoc] = fruData[aTagLoc] | bitwiseOr;
+            aTagLoc++;
+
+            // Writing New AssetName
+            for (unsigned int k = 0; k < assetName.length(); k++)
+            {
+                fruData[aTagLoc] = asciivals[k];
+                aTagLoc++;
+            }
+
+            unsigned int checksumLoc = aTagLoc;
+            // Appending post AssetTag values vector after new AssetName
+            for (unsigned int i = 0;
+                 i < static_cast<unsigned int>(postATagVals.size()); i++)
+            {
+                fruData[aTagLoc] = postATagVals[i];
+                aTagLoc++;
+            }
+
+            uint8_t endLength = 193;
+            typeLength =
+                static_cast<unsigned int>(fruData[checksumLoc] & bitwiseAnd);
+            if (typeLength == 0)
+                typeLength++;
+
+            // New Checksum Location
+            for (checksumLoc = (checksumLoc + typeLength);
+                 checksumLoc < fruDataSize; checksumLoc++)
+            {
+                if (fruData[checksumLoc] == endLength ||
+                    fruData[checksumLoc] == 0)
+                {
+                    checksumLoc++;
+                }
+                else
+                    break;
+            }
+
+            // creating vector of new product fru data
+            // to calculate checksum of product fru data
+            unsigned int jj = 0;
+            prodOffset = fruData[4];
+            std::vector<uint8_t> prodFru;
+            for (unsigned int i = 1; i < fruDataSize; i++)
+            {
+                if (prodOffset > 0)
+                {
+                    jj = i * 8;
+                    prodOffset--;
+                }
+                else
+                {
+                    prodFru.push_back(fruData[jj]);
+                    if (fruData[jj] == endLength)
+                    {
+                        prodFru.push_back(fruData[jj]);
+                        break;
+                    }
+                    jj++;
+                }
+            }
+
+            // Calculate and write new Checksum
+            int sum = std::accumulate(prodFru.begin(), prodFru.end(), 0);
+            size_t checksumVal = static_cast<uint8_t>((256 - sum) & 0xff);
+            fruData[checksumLoc] = static_cast<uint8_t>(checksumVal);
+
+            crow::connections::systemBus->async_method_call(
+                [asyncResp](const boost::system::error_code ec) {
+                    if (ec)
+                    {
+                        BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                },
+                "xyz.openbmc_project.FruDevice",
+                "/xyz/openbmc_project/FruDevice",
+                "xyz.openbmc_project.FruDeviceManager", "WriteFru",
+                static_cast<uint8_t>(0), static_cast<uint8_t>(0), fruData);
+        },
+        "xyz.openbmc_project.FruDevice", "/xyz/openbmc_project/FruDevice",
+        "xyz.openbmc_project.FruDeviceManager", "GetRawFru",
+        static_cast<uint8_t>(0), static_cast<uint8_t>(0));
+}
+
 /**
  * SystemsCollection derived class for delivering ComputerSystems Collection
  * Schema
@@ -1655,17 +1823,25 @@ class Systems : public Node
                  const std::vector<std::string> &params) override
     {
         std::optional<std::string> indicatorLed;
+        std::optional<std::string> newAssetName;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
+        if (!json_util::readJson(req, res, "AssetTag", newAssetName,
+                                 "IndicatorLED", indicatorLed, "Boot",
                                  bootProps, "WatchdogTimer", wdtTimerProps))
         {
             return;
         }
 
         res.result(boost::beast::http::status::no_content);
+
+        if (newAssetName)
+        {
+            BMCWEB_LOG_DEBUG << "Name:" << *newAssetName;
+            handleAssetnamePatch(asyncResp, std::move(*newAssetName));
+        }
 
         if (wdtTimerProps)
         {
