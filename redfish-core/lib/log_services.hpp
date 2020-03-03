@@ -1853,6 +1853,81 @@ class SystemDumpEntryDownload : public Node
     }
 };
 
+class SystemDumpClear : public Node
+{
+  public:
+    SystemDumpClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
+                  "Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        GetManagedObjectsType &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                std::vector<std::string> logIDs;
+                for (auto &object : resp)
+                {
+                    bool found = false;
+                    for (auto &interfaceMap : object.second)
+                    {
+                        if (interfaceMap.first ==
+                            "xyz.openbmc_project.Dump.Entry.System")
+
+                        {
+                            found = true;
+                        }
+                    }
+                    if (found)
+                    {
+                        const std::string &path =
+                            static_cast<const std::string &>(object.first);
+                        std::size_t lastPos =
+                            path.rfind("/xyz/openbmc_project/dump/entry/");
+                        if (lastPos == std::string::npos)
+                        {
+                            continue;
+                        }
+                        std::size_t pos = path.rfind("/");
+
+                        logIDs.emplace_back(path.substr(pos + 1));
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                for (const std::string &logID : logIDs)
+                {
+                    deleteSystemDumpEntry(asyncResp->res, logID);
+                }
+            },
+            "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+            "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+    }
+};
+
 class CrashdumpService : public Node
 {
   public:
