@@ -156,8 +156,6 @@ inline void deleteSystemDumpEntry(crow::Response &res,
                 boost::beast::http::status::internal_server_error);
             return;
         }
-
-        asyncResp->res.result(boost::beast::http::status::ok);
     };
     crow::connections::systemBus->async_method_call(
         respHandler, "xyz.openbmc_project.Dump.Manager",
@@ -1877,6 +1875,54 @@ class SystemDumpEntryDownload : public Node
         }
         const std::string &entryID = params[0];
         crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
+    }
+};
+
+class SystemDumpClear : public Node
+{
+  public:
+    SystemDumpClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
+                  "Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string> &dumpList) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                for (const std::string &objectPath : dumpList)
+                {
+                    std::size_t pos = objectPath.rfind("/");
+                    if (pos != std::string::npos)
+                    {
+                        std::string logID = objectPath.substr(pos + 1);
+                        deleteSystemDumpEntry(asyncResp->res, logID);
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+            "/xyz/openbmc_project/dump", 0,
+            std::array<const char *, 1>{
+                "xyz.openbmc_project.Dump.Entry.System"});
     }
 };
 
