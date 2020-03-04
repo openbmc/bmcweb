@@ -2597,7 +2597,7 @@ bool findSensorNameUsingSensorPath(
  *
  * @param res   response object
  * @param allCollections   Collections extract from sensors' request patch info
- * @param chassisSubNode  Chassis Node for which the query has to happen
+ * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 void setSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
@@ -2774,18 +2774,25 @@ void checkAndDoSensorsOverride(
                 messages::internalError(sensorAsyncResp->res);
                 return;
             }
-            if (!resp.size())
-            {
-                // Special mode manager doesn't exist, proceed with sensor
-                // override
-                setSensorsOverride(sensorAsyncResp, allCollections);
-                return;
-            }
+#ifdef BMCWEB_RESTRICT_SENSOR_OVERRIDE
+            // Special mode manager doesn't exist, proceed with sensor override
+            BMCWEB_LOG_INFO << "Overriding sensor values of given sensorSet. "
+                               "Proceeding further... ";
+            setSensorsOverride(sensorAsyncResp, allCollections);
+            return;
+#endif
 
             if (resp.size() != 1)
             {
-                BMCWEB_LOG_DEBUG << "Queried object count mismatch. ";
-                messages::internalError(sensorAsyncResp->res);
+                BMCWEB_LOG_WARNING
+                    << "Overriding of Sensor Value is not allowed as Special "
+                       "mode manager service is not active or crashed.";
+
+                messages::actionNotSupported(
+                    sensorAsyncResp->res,
+                    "Overriding of Sensor Value is not allowed as Special mode "
+                    "manager service is not active or crashed. So Overriding "
+                    "of the sensor value");
                 return;
             }
             const std::string& path = resp[0].first;
