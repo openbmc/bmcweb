@@ -2597,7 +2597,7 @@ bool findSensorNameUsingSensorPath(
  *
  * @param res   response object
  * @param allCollections   Collections extract from sensors' request patch info
- * @param chassisSubNode  Chassis Node for which the query has to happen
+ * @param chassisSubNode   Chassis Node for which the query has to happen
  */
 void setSensorsOverride(
     std::shared_ptr<SensorsAsyncResp> sensorAsyncResp,
@@ -2774,17 +2774,17 @@ void checkAndDoSensorsOverride(
                 messages::internalError(sensorAsyncResp->res);
                 return;
             }
-            if (!resp.size())
-            {
-                // Special mode manager doesn't exist, proceed with sensor
-                // override
-                setSensorsOverride(sensorAsyncResp, allCollections);
-                return;
-            }
+#ifdef BMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE
+            // Proceed with sensor override
+            setSensorsOverride(sensorAsyncResp, allCollections);
+            return;
+#endif
 
             if (resp.size() != 1)
             {
-                BMCWEB_LOG_DEBUG << "Queried object count mismatch. ";
+                BMCWEB_LOG_WARNING
+                    << "Overriding sensor value is not allowed - Internal "
+                       "error in querying SpecialMode property.";
                 messages::internalError(sensorAsyncResp->res);
                 return;
             }
