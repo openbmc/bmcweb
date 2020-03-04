@@ -119,10 +119,16 @@ option (
     OFF
 )
 
-option (BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
-        "Enables unsecure features required by validation. Note: must
-        be turned off for production images."
-        OFF)
+option (
+    BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
+    "Enables unsecure features required by validation. Note: must
+    be turned off for production images."
+    OFF)
+
+option (
+    BMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE
+    "Enables Sensor override feature without any check."
+    OFF)
 
 set (BMCWEB_HTTP_REQ_BODY_LIMIT_MB "30" CACHE STRING
      "The max HTTP request body size in MB")
@@ -399,6 +405,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
     $<$<BOOL:${BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE}>:
     -DBMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE>
+    $<$<BOOL:${BMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE}>:
+    -DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE>
 )
 
 # configure and install systemd unit files
