@@ -180,12 +180,9 @@ inline void generateSslCertificate(const std::string &filepath)
     std::cout << "Generating new keys\n";
     initOpenssl();
 
-    // std::cerr << "Generating RSA key";
-    // EVP_PKEY *pRsaPrivKey = create_rsa_key();
-
     std::cerr << "Generating EC key\n";
-    EVP_PKEY *pRsaPrivKey = createEcKey();
-    if (pRsaPrivKey != nullptr)
+    EVP_PKEY *pPrivKey = createEcKey();
+    if (pPrivKey != nullptr)
     {
         std::cerr << "Generating x509 Certificate\n";
         // Use this code to directly generate a certificate
@@ -208,7 +205,7 @@ inline void generateSslCertificate(const std::string &filepath)
                             60L * 60L * 24L * 365L * 10L);
 
             // set the public key to the key we just generated
-            X509_set_pubkey(x509, pRsaPrivKey);
+            X509_set_pubkey(x509, pPrivKey);
 
             // get the subject name
             X509_NAME *name;
@@ -227,13 +224,13 @@ inline void generateSslCertificate(const std::string &filepath)
             X509_set_issuer_name(x509, name);
 
             // Sign the certificate with our private key
-            X509_sign(x509, pRsaPrivKey, EVP_sha256());
+            X509_sign(x509, pPrivKey, EVP_sha256());
 
             pFile = fopen(filepath.c_str(), "wt");
 
             if (pFile != nullptr)
             {
-                PEM_write_PrivateKey(pFile, pRsaPrivKey, nullptr, nullptr, 0,
+                PEM_write_PrivateKey(pFile, pPrivKey, nullptr, nullptr, 0,
                                      nullptr, nullptr);
 
                 PEM_write_X509(pFile, x509);
@@ -244,8 +241,8 @@ inline void generateSslCertificate(const std::string &filepath)
             X509_free(x509);
         }
 
-        EVP_PKEY_free(pRsaPrivKey);
-        pRsaPrivKey = nullptr;
+        EVP_PKEY_free(pPrivKey);
+        pPrivKey = nullptr;
     }
 
     // cleanup_openssl();
@@ -267,7 +264,7 @@ EVP_PKEY *createEcKey()
         {
             if (EVP_PKEY_assign_EC_KEY(pKey, myecc))
             {
-                /* pKey owns pRSA from now */
+                /* pKey owns myecc from now */
                 if (EC_KEY_check_key(myecc) <= 0)
                 {
                     fprintf(stderr, "EC_check_key failed.\n");
