@@ -255,7 +255,7 @@ EVP_PKEY *createEcKey()
 {
     EVP_PKEY *pKey = nullptr;
     int eccgrp = 0;
-    eccgrp = OBJ_txt2nid("prime256v1");
+    eccgrp = OBJ_txt2nid("secp384r1");
 
     EC_KEY *myecc = EC_KEY_new_by_curve_name(eccgrp);
     if (myecc != nullptr)

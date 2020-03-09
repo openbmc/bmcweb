@@ -285,7 +285,7 @@ class CertificateActionGenerateCSR : public Node
         std::optional<std::string> optGivenName = "";
         std::optional<std::string> optInitials = "";
         std::optional<int64_t> optKeyBitLength = RSA_KEY_BIT_LENGTH;
-        std::optional<std::string> optKeyCurveId = "prime256v1";
+        std::optional<std::string> optKeyCurveId = "secp384r1";
         std::optional<std::string> optKeyPairAlgorithm = "EC";
         std::optional<std::vector<std::string>> optKeyUsage =
             std::vector<std::string>();
