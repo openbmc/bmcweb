@@ -1878,8 +1878,9 @@ class OnDemandCrashdump : public Node
                     if (!err)
                     {
                         taskData->messages.emplace_back(messages::success());
+                        taskData->status = "Completed";
                     }
-                    return true;
+                    return task::completed;
                 },
                 "type='signal',interface='org.freedesktop.DBus.Properties',"
                 "member='PropertiesChanged',arg0namespace='com.intel."

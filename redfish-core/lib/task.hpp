@@ -30,6 +30,8 @@ constexpr size_t maxTaskCount = 100; // arbitrary limit
 
 static std::deque<std::shared_ptr<struct TaskData>> tasks;
 
+constexpr bool completed = true;
+
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
@@ -120,13 +122,9 @@ struct TaskData : std::enable_shared_from_this<TaskData>
             [self = shared_from_this()](sdbusplus::message::message &message) {
                 boost::system::error_code ec;
 
-                // set to complete before callback incase user wants a different
-                // status
-                self->state = "Completed";
-
                 // callback to return True if callback is done, callback needs
                 // to update status itself if needed
-                if (self->callback(ec, message, self))
+                if (self->callback(ec, message, self) == task::completed)
                 {
                     self->timer.cancel();
                     self->finishTask();
@@ -136,10 +134,6 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                         [self] { self->match.reset(); });
                     return;
                 }
-
-                // set back to running if callback returns false to keep
-                // callback alive
-                self->state = "Running";
             });
         timer.expires_after(timeout);
         timer.async_wait(
