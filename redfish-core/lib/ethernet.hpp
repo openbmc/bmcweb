@@ -21,6 +21,7 @@
 #include <error_messages.hpp>
 #include <node.hpp>
 #include <optional>
+#include <regex>
 #include <utils/json_utils.hpp>
 #include <variant>
 
@@ -1099,6 +1100,24 @@ class EthernetInterface : public Node
             std::variant<std::string>(hostname));
     }
 
+    void handleDomainnamePatch(const std::string &ifaceId,
+                               const std::vector<std::string> &domainname,
+                               const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    messages::internalError(asyncResp->res);
+                }
+            },
+            "xyz.openbmc_project.Network",
+            "/xyz/openbmc_project/network/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "DomainName",
+            std::variant<std::vector<std::string>>{domainname});
+    }
+
     void handleMACAddressPatch(const std::string &ifaceId,
                                const std::string &macAddress,
                                const std::shared_ptr<AsyncResp> &asyncResp)
@@ -1641,6 +1660,21 @@ class EthernetInterface : public Node
         }
     }
 
+    bool isHostnameValid(const std::string &hostname)
+    {
+        const std::regex pattern("^[a-zA-Z0-9][a-zA-Z0-9-]{1,254}[a-zA-Z0-9]$");
+
+        return std::regex_match(hostname, pattern);
+    }
+
+    bool isDomainnameValid(const std::string &domainname)
+    {
+        const std::regex pattern(
+            "[a-zA-Z0-9\\-]{1,61}|[a-zA-Z0-9-]{1,30}\\.[a-zA-Z]{2,}$");
+
+        return std::regex_match(domainname, pattern);
+    }
+
     void parseInterfaceData(
         std::shared_ptr<AsyncResp> asyncResp, const std::string &iface_id,
         const EthernetInterfaceData &ethData,
@@ -1705,11 +1739,16 @@ class EthernetInterface : public Node
         if (!ethData.hostname.empty())
         {
             json_response["HostName"] = ethData.hostname;
+
+            // When domain name is empty then it means, that it is a network
+            // without domain names, and the host name itself must be treated as
+            // FQDN
+            std::string FQDN = std::move(ethData.hostname);
             if (!ethData.domainnames.empty())
             {
-                json_response["FQDN"] =
-                    ethData.hostname + "." + ethData.domainnames[0];
+                FQDN += "." + ethData.domainnames[0];
             }
+            json_response["FQDN"] = std::move(FQDN);
         }
 
         json_response["VLANs"] = {
@@ -1828,6 +1867,7 @@ class EthernetInterface : public Node
         const std::string &iface_id = params[0];
 
         std::optional<std::string> hostname;
+        std::optional<std::string> fqdn;
         std::optional<std::string> macAddress;
         std::optional<std::string> ipv6DefaultGateway;
         std::optional<nlohmann::json> ipv4StaticAddresses;
@@ -1840,12 +1880,12 @@ class EthernetInterface : public Node
         DHCPParameters v6dhcpParms;
 
         if (!json_util::readJson(
-                req, res, "HostName", hostname, "IPv4StaticAddresses",
-                ipv4StaticAddresses, "MACAddress", macAddress,
-                "StaticNameServers", staticNameServers, "IPv6DefaultGateway",
-                ipv6DefaultGateway, "IPv6StaticAddresses", ipv6StaticAddresses,
-                "DHCPv4", dhcpv4, "DHCPv6", dhcpv6, "InterfaceEnabled",
-                interfaceEnabled))
+                req, res, "HostName", hostname, "FQDN", fqdn,
+                "IPv4StaticAddresses", ipv4StaticAddresses, "MACAddress",
+                macAddress, "StaticNameServers", staticNameServers,
+                "IPv6DefaultGateway", ipv6DefaultGateway, "IPv6StaticAddresses",
+                ipv6StaticAddresses, "DHCPv4", dhcpv4, "DHCPv6", dhcpv6,
+                "InterfaceEnabled", interfaceEnabled))
         {
             return;
         }
@@ -1879,7 +1919,7 @@ class EthernetInterface : public Node
         getEthernetIfaceData(
             iface_id,
             [this, asyncResp, iface_id, hostname = std::move(hostname),
-             macAddress = std::move(macAddress),
+             fqdn = std::move(fqdn), macAddress = std::move(macAddress),
              ipv4StaticAddresses = std::move(ipv4StaticAddresses),
              ipv6DefaultGateway = std::move(ipv6DefaultGateway),
              ipv6StaticAddresses = std::move(ipv6StaticAddresses),
@@ -1910,6 +1950,32 @@ class EthernetInterface : public Node
                 if (hostname)
                 {
                     handleHostnamePatch(*hostname, asyncResp);
+                }
+
+                if (fqdn)
+                {
+                    std::string hostname;
+                    std::string domainname;
+                    size_t pos = (*fqdn).find('.');
+                    if (pos != std::string::npos)
+                    {
+                        domainname = (*fqdn).substr(pos + 1);
+                        hostname = (*fqdn).substr(0, pos);
+                    }
+
+                    if (!isHostnameValid(hostname) ||
+                        !isDomainnameValid(domainname))
+                    {
+                        messages::queryParameterValueFormatError(asyncResp->res,
+                                                                 "FQDN", *fqdn);
+                        return;
+                    }
+
+                    handleHostnamePatch(hostname, asyncResp);
+                    std::vector<std::string> vectorDomainname;
+                    vectorDomainname.emplace_back(domainname);
+                    handleDomainnamePatch(iface_id, vectorDomainname,
+                                          asyncResp);
                 }
 
                 if (macAddress)
