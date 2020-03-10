@@ -117,7 +117,77 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                     activateImage(objPath.str, objInfo[0].first);
                     if (asyncResp)
                     {
-                        redfish::messages::success(asyncResp->res);
+                        std::shared_ptr<task::TaskData> task =
+                            task::TaskData::createTask(
+                                [](boost::system::error_code ec,
+                                   sdbusplus::message::message &msg,
+                                   const std::shared_ptr<task::TaskData>
+                                       &taskData) {
+                                    if (ec)
+                                    {
+                                        return task::completed;
+                                    }
+
+                                    std::string iface;
+                                    boost::container::flat_map<
+                                        std::string, std::variant<std::string>>
+                                        values;
+                                    msg.read(iface, values);
+                                    auto findActivation =
+                                        values.find("Activation");
+                                    if (findActivation == values.end())
+                                    {
+                                        return !task::completed;
+                                    }
+                                    std::string *state =
+                                        std::get_if<std::string>(
+                                            &(findActivation->second));
+
+                                    if (state == nullptr)
+                                    {
+                                        taskData->messages.emplace_back(
+                                            messages::internalError());
+                                        return task::completed;
+                                    }
+
+                                    if (boost::ends_with(*state, "Invalid") ||
+                                        boost::ends_with(*state, "Failed"))
+                                    {
+                                        taskData->state = "Exception";
+                                        taskData->status = "Warning";
+                                        taskData->messages.emplace_back(
+                                            messages::invalidObject(
+                                                "/redfish/v1/UpdateService/"));
+                                        return task::completed;
+                                    }
+
+                                    if (boost::ends_with(*state, "Staged"))
+                                    {
+                                        taskData->state = "Pending";
+                                        return !task::completed;
+                                    }
+
+                                    if (boost::ends_with(*state, "Active"))
+                                    {
+                                        taskData->messages.emplace_back(
+                                            messages::success());
+                                        taskData->state = "Completed";
+                                        return task::completed;
+                                    }
+
+                                    // as firmware update often results in a
+                                    // reboot, the task  may never "complete"
+                                    // unless it is an error
+
+                                    return !task::completed;
+                                },
+                                "type='signal',interface='org.freedesktop.DBus."
+                                "Properties',"
+                                "member='PropertiesChanged',arg0='xyz.openbmc_"
+                                "project.Software.Activation',path='" +
+                                    objPath.str + "'");
+                        task->startTimer(std::chrono::minutes(5));
+                        task->populateResp(asyncResp->res);
                     }
                     fwUpdateInProgress = false;
                 },
