@@ -67,8 +67,10 @@ class RedfishService
         nodes.emplace_back(std::make_unique<ServiceRoot>(app));
         nodes.emplace_back(std::make_unique<NetworkProtocol>(app));
         nodes.emplace_back(std::make_unique<SessionService>(app));
-        nodes.emplace_back(std::make_unique<EthernetCollection>(app));
-        nodes.emplace_back(std::make_unique<EthernetInterface>(app));
+        nodes.emplace_back(std::make_unique<ManagersEthernetCollection>(app));
+        nodes.emplace_back(std::make_unique<SystemsEthernetCollection>(app));
+        nodes.emplace_back(std::make_unique<ManagersEthernetInterface>(app));
+        nodes.emplace_back(std::make_unique<SystemsEthernetInterface>(app));
         nodes.emplace_back(std::make_unique<Thermal>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
@@ -87,8 +89,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SoftwareInventoryCollection>(app));
         nodes.emplace_back(std::make_unique<SoftwareInventory>(app));
         nodes.emplace_back(
-            std::make_unique<VlanNetworkInterfaceCollection>(app));
-        nodes.emplace_back(std::make_unique<VlanNetworkInterface>(app));
+            std::make_unique<ManagersVlanNetworkInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<ManagersVlanNetworkInterface>(app));
+        nodes.emplace_back(
+            std::make_unique<SystemsVlanNetworkInterfaceCollection>(app));
+        nodes.emplace_back(std::make_unique<SystemsVlanNetworkInterface>(app));
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));

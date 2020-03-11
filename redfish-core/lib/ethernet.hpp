@@ -990,12 +990,13 @@ void getEthernetIfaceList(CallbackFunc &&callback)
 /**
  * EthernetCollection derived class for delivering Ethernet Collection Schema
  */
+
 class EthernetCollection : public Node
 {
   public:
     template <typename CrowApp>
-    EthernetCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    EthernetCollection(CrowApp &app, std::string &&rootUrl) :
+        Node(app, std::move(std::string(rootUrl))), rootPath(std::move(rootUrl))
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1007,6 +1008,7 @@ class EthernetCollection : public Node
     }
 
   private:
+    std::string rootPath;
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -1015,45 +1017,58 @@ class EthernetCollection : public Node
     {
         res.jsonValue["@odata.type"] =
             "#EthernetInterfaceCollection.EthernetInterfaceCollection";
-        res.jsonValue["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces";
+        res.jsonValue["@odata.id"] = rootPath;
         res.jsonValue["Name"] = "Ethernet Network Interface Collection";
-        res.jsonValue["Description"] =
-            "Collection of EthernetInterfaces for this Manager";
+        res.jsonValue["Description"] = "Collection of EthernetInterfaces";
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
         // Get eth interface list, and call the below callback for JSON
         // preparation
-        getEthernetIfaceList(
-            [asyncResp](
-                const bool &success,
-                const boost::container::flat_set<std::string> &iface_list) {
-                if (!success)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
+        getEthernetIfaceList([asyncResp, root = rootPath](
+                                 const bool &success,
+                                 const boost::container::flat_set<std::string>
+                                     &iface_list) {
+            if (!success)
+            {
+                messages::internalError(asyncResp->res);
+                return;
+            }
 
-                nlohmann::json &iface_array =
-                    asyncResp->res.jsonValue["Members"];
-                iface_array = nlohmann::json::array();
-                std::string tag = "_";
-                for (const std::string &iface_item : iface_list)
+            nlohmann::json &iface_array = asyncResp->res.jsonValue["Members"];
+            iface_array = nlohmann::json::array();
+            std::string tag = "_";
+            for (const std::string &iface_item : iface_list)
+            {
+                std::size_t found = iface_item.find(tag);
+                if (found == std::string::npos)
                 {
-                    std::size_t found = iface_item.find(tag);
-                    if (found == std::string::npos)
-                    {
-                        iface_array.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                                  iface_item}});
-                    }
+                    iface_array.push_back({{"@odata.id", root + iface_item}});
                 }
+            }
 
-                asyncResp->res.jsonValue["Members@odata.count"] =
-                    iface_array.size();
-                asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/EthernetInterfaces";
-            });
+            asyncResp->res.jsonValue["Members@odata.count"] =
+                iface_array.size();
+        });
+    }
+};
+
+class SystemsEthernetCollection : public EthernetCollection
+{
+  public:
+    template <typename CrowApp>
+    SystemsEthernetCollection(CrowApp &app) :
+        EthernetCollection(app,
+                           "/redfish/v1/Systems/system/EthernetInterfaces/")
+    {
+    }
+};
+
+class ManagersEthernetCollection : public EthernetCollection
+{
+  public:
+    template <typename CrowApp>
+    ManagersEthernetCollection(CrowApp &app) :
+        EthernetCollection(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    {
     }
 };
 
@@ -1067,9 +1082,9 @@ class EthernetInterface : public Node
      * Default Constructor
      */
     template <typename CrowApp>
-    EthernetInterface(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/",
-             std::string())
+    EthernetInterface(CrowApp &app, std::string &&rootUrl) :
+        Node(app, std::move(rootUrl + "<str>/"), std::string()),
+        rootPath(std::move(rootUrl))
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1081,6 +1096,7 @@ class EthernetInterface : public Node
     }
 
   private:
+    std::string rootPath;
     void handleHostnamePatch(const std::string &hostname,
                              const std::shared_ptr<AsyncResp> asyncResp)
     {
@@ -1652,8 +1668,7 @@ class EthernetInterface : public Node
 
         nlohmann::json &json_response = asyncResp->res.jsonValue;
         json_response["Id"] = iface_id;
-        json_response["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + iface_id;
+        json_response["@odata.id"] = rootPath + iface_id;
         json_response["InterfaceEnabled"] = ethData.nicEnabled;
 
         auto health = std::make_shared<HealthPopulate>(asyncResp);
@@ -1713,8 +1728,7 @@ class EthernetInterface : public Node
         }
 
         json_response["VLANs"] = {
-            {"@odata.id", "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                              iface_id + "/VLANs"}};
+            {"@odata.id", rootPath + iface_id + "/VLANs"}};
 
         if (translateDHCPEnabledToBool(ethData.DHCPEnabled, true) &&
             ethData.DNSEnabled)
@@ -1959,6 +1973,26 @@ class EthernetInterface : public Node
     }
 };
 
+class SystemsEthernetInterface : public EthernetInterface
+{
+  public:
+    template <typename CrowApp>
+    SystemsEthernetInterface(CrowApp &app) :
+        EthernetInterface(app, "/redfish/v1/Systems/system/EthernetInterfaces/")
+    {
+    }
+};
+
+class ManagersEthernetInterface : public EthernetInterface
+{
+  public:
+    template <typename CrowApp>
+    ManagersEthernetInterface(CrowApp &app) :
+        EthernetInterface(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    {
+    }
+};
+
 /**
  * VlanNetworkInterface derived class for delivering VLANNetworkInterface
  * Schema
@@ -1970,10 +2004,10 @@ class VlanNetworkInterface : public Node
      * Default Constructor
      */
     template <typename CrowApp>
-    VlanNetworkInterface(CrowApp &app) :
-        Node(app,
-             "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>",
-             std::string(), std::string())
+    VlanNetworkInterface(CrowApp &app, std::string &&rootUrl) :
+        Node(app, std::move(rootUrl + "<str>/VLANs/<str>"), std::string(),
+             std::string()),
+        rootPath(std::move(rootUrl))
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -1985,6 +2019,7 @@ class VlanNetworkInterface : public Node
     }
 
   private:
+    std::string rootPath;
     void parseInterfaceData(
         nlohmann::json &json_response, const std::string &parent_iface_id,
         const std::string &iface_id, const EthernetInterfaceData &ethData,
@@ -1994,8 +2029,7 @@ class VlanNetworkInterface : public Node
         // Fill out obvious data...
         json_response["Id"] = iface_id;
         json_response["@odata.id"] =
-            "/redfish/v1/Managers/bmc/EthernetInterfaces/" + parent_iface_id +
-            "/VLANs/" + iface_id;
+            rootPath + parent_iface_id + "/VLANs/" + iface_id;
 
         json_response["VLANEnable"] = true;
         if (!ethData.vlan_id.empty())
@@ -2205,6 +2239,28 @@ class VlanNetworkInterface : public Node
     }
 };
 
+class SystemsVlanNetworkInterface : public VlanNetworkInterface
+{
+  public:
+    template <typename CrowApp>
+    SystemsVlanNetworkInterface(CrowApp &app) :
+        VlanNetworkInterface(app,
+                             "/redfish/v1/Systems/system/EthernetInterfaces/")
+    {
+    }
+};
+
+class ManagersVlanNetworkInterface : public VlanNetworkInterface
+{
+  public:
+    template <typename CrowApp>
+    ManagersVlanNetworkInterface(CrowApp &app) :
+        VlanNetworkInterface(app,
+                             "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    {
+    }
+};
+
 /**
  * VlanNetworkInterfaceCollection derived class for delivering
  * VLANNetworkInterface Collection Schema
@@ -2213,9 +2269,9 @@ class VlanNetworkInterfaceCollection : public Node
 {
   public:
     template <typename CrowApp>
-    VlanNetworkInterfaceCollection(CrowApp &app) :
-        Node(app, "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/",
-             std::string())
+    VlanNetworkInterfaceCollection(CrowApp &app, std::string &&rootUrl) :
+        Node(app, std::move(rootUrl + "<str>/VLANs/"), std::string()),
+        rootPath(std::move(rootUrl))
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -2227,6 +2283,7 @@ class VlanNetworkInterfaceCollection : public Node
     }
 
   private:
+    std::string rootPath;
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -2246,7 +2303,8 @@ class VlanNetworkInterfaceCollection : public Node
         // Get eth interface list, and call the below callback for JSON
         // preparation
         getEthernetIfaceList(
-            [asyncResp, rootInterfaceName{std::string(rootInterfaceName)}](
+            [asyncResp, rootInterfaceName{std::string(rootInterfaceName)},
+             root = rootPath](
                 const bool &success,
                 const boost::container::flat_set<std::string> &iface_list) {
                 if (!success)
@@ -2276,9 +2334,8 @@ class VlanNetworkInterfaceCollection : public Node
                     if (boost::starts_with(iface_item, rootInterfaceName + "_"))
                     {
                         iface_array.push_back(
-                            {{"@odata.id",
-                              "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                                  rootInterfaceName + "/VLANs/" + iface_item}});
+                            {{"@odata.id", root + rootInterfaceName +
+                                               "/VLANs/" + iface_item}});
                     }
                 }
 
@@ -2286,8 +2343,7 @@ class VlanNetworkInterfaceCollection : public Node
                     iface_array.size();
                 asyncResp->res.jsonValue["Members"] = std::move(iface_array);
                 asyncResp->res.jsonValue["@odata.id"] =
-                    "/redfish/v1/Managers/bmc/EthernetInterfaces/" +
-                    rootInterfaceName + "/VLANs";
+                    root + rootInterfaceName + "/VLANs";
             });
     }
 
@@ -2339,4 +2395,29 @@ class VlanNetworkInterfaceCollection : public Node
             rootInterfaceName, vlanId);
     }
 };
+
+class SystemsVlanNetworkInterfaceCollection
+    : public VlanNetworkInterfaceCollection
+{
+  public:
+    template <typename CrowApp>
+    SystemsVlanNetworkInterfaceCollection(CrowApp &app) :
+        VlanNetworkInterfaceCollection(
+            app, "/redfish/v1/Systems/system/EthernetInterfaces/")
+    {
+    }
+};
+
+class ManagersVlanNetworkInterfaceCollection
+    : public VlanNetworkInterfaceCollection
+{
+  public:
+    template <typename CrowApp>
+    ManagersVlanNetworkInterfaceCollection(CrowApp &app) :
+        VlanNetworkInterfaceCollection(
+            app, "/redfish/v1/Managers/bmc/EthernetInterfaces/")
+    {
+    }
+};
+
 } // namespace redfish
