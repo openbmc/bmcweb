@@ -4,6 +4,7 @@
 *.key
 
 **/CMakeFiles/*
+/include/config.h
 
 
 
