@@ -200,6 +200,13 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
 
+        // HTTP is Mandatory attribute as per OCP Baseline Profile – v1.0.0,
+        // but from security perspective it is not recommended to use.
+        // Hence using protocolEnabled as false to make it OCP and security-wise
+        // compliant
+        asyncResp->res.jsonValue["HTTP"]["Port"] = 0;
+        asyncResp->res.jsonValue["HTTP"]["ProtocolEnabled"] = false;
+
         for (auto& protocol : protocolToDBus)
         {
             asyncResp->res.jsonValue[protocol.first]["ProtocolEnabled"] = false;
