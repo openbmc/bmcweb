@@ -45,6 +45,7 @@ constexpr char const *crashdumpOnDemandInterface =
     "com.intel.crashdump.OnDemand";
 constexpr char const *crashdumpRawPECIInterface =
     "com.intel.crashdump.SendRawPeci";
+constexpr unsigned int crashdumpMaxFilesize = (2 * 1024 * 1024);
 
 namespace message_registries
 {
@@ -1540,61 +1541,6 @@ class CrashdumpClear : public Node
     }
 };
 
-std::string getLogCreatedTime(const std::string &crashdump)
-{
-    nlohmann::json crashdumpJson =
-        nlohmann::json::parse(crashdump, nullptr, false);
-    if (crashdumpJson.is_discarded())
-    {
-        return std::string();
-    }
-
-    nlohmann::json::const_iterator cdIt = crashdumpJson.find("crash_data");
-    if (cdIt == crashdumpJson.end())
-    {
-        return std::string();
-    }
-
-    nlohmann::json::const_iterator siIt = cdIt->find("METADATA");
-    if (siIt == cdIt->end())
-    {
-        return std::string();
-    }
-
-    nlohmann::json::const_iterator tsIt = siIt->find("timestamp");
-    if (tsIt == siIt->end())
-    {
-        return std::string();
-    }
-
-    const std::string *logTime = tsIt->get_ptr<const std::string *>();
-    if (logTime == nullptr)
-    {
-        return std::string();
-    }
-
-    std::string redfishDateTime = *logTime;
-    if (redfishDateTime.length() > 2)
-    {
-        redfishDateTime.insert(redfishDateTime.end() - 2, ':');
-    }
-
-    return redfishDateTime;
-}
-
-std::string getLogFileName(const std::string &logTime)
-{
-    // Set the crashdump file name to "crashdump_<logTime>.json" using the
-    // created time without the timezone info
-    std::string fileTime = logTime;
-    size_t plusPos = fileTime.rfind('+');
-    if (plusPos != std::string::npos)
-    {
-        fileTime.erase(plusPos);
-    }
-    return "crashdump_" + fileTime + ".json";
-}
-
 static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
                               const std::string &logID,
                               nlohmann::json &logEntryJson)
@@ -1622,9 +1568,6 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
             messages::internalError(asyncResp->res);
             return;
         }
-        std::string logTime = getLogCreatedTime(*log);
-        std::string fileName = getLogFileName(logTime);
-
         logEntryJson = {
             {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
             {"@odata.id",
@@ -1636,8 +1579,7 @@ static void logCrashdumpEntry(std::shared_ptr<AsyncResp> asyncResp,
             {"OemRecordFormat", "Crashdump URI"},
             {"Message",
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/" +
-                 logID + "/" + fileName},
-            {"Created", std::move(logTime)}};
+                 logID + "/" + *log + ".json"}};
     };
     crow::connections::systemBus->async_method_call(
         std::move(getStoredLogCallback), crashdumpObject,
@@ -1790,40 +1732,48 @@ class CrashdumpFile : public Node
             return;
         }
         const std::string &logID = params[0];
-        const std::string &fileName = params[1];
-
-        auto getStoredLogCallback = [asyncResp, logID, fileName](
-                                        const boost::system::error_code ec,
-                                        const std::variant<std::string> &resp) {
-            if (ec)
+        if (logID != "OnDemand")
+        {
+            try
             {
-                BMCWEB_LOG_DEBUG << "failed to get log ec: " << ec.message();
-                messages::internalError(asyncResp->res);
+                std::stoull(logID);
+            }
+            catch (std::out_of_range &)
+            {
+                messages::generalError(asyncResp->res);
                 return;
             }
-            const std::string *log = std::get_if<std::string>(&resp);
-            if (log == nullptr)
-            {
-                messages::internalError(asyncResp->res);
-                return;
-            }
+        }
 
-            // Verify the file name parameter is correct
-            if (fileName != getLogFileName(getLogCreatedTime(*log)))
-            {
-                messages::resourceMissingAtURI(asyncResp->res, fileName);
-                return;
-            }
+        std::string fileName = params[1];
+        std::string::size_type dotPos = fileName.rfind(".json");
+        if (dotPos == std::string::npos)
+        {
+            messages::generalError(asyncResp->res);
+            return;
+        }
+        unsigned int extensionLen = (sizeof(".json") - 1);
+        fileName.erase(dotPos, extensionLen);
+        fileName = "/tmp/crashdumps/" + fileName;
 
-            // Configure this to be a file download when accessed from a browser
-            asyncResp->res.addHeader("Content-Disposition", "attachment");
-            asyncResp->res.body() = *log;
-        };
-        crow::connections::systemBus->async_method_call(
-            std::move(getStoredLogCallback), crashdumpObject,
-            crashdumpPath + std::string("/") + logID,
-            "org.freedesktop.DBus.Properties", "Get", crashdumpInterface,
-            "Log");
+        std::ifstream ifs(fileName,
+                          std::ios::in | std::ios::binary | std::ios::ate);
+        std::ifstream::pos_type fileSize = ifs.tellg();
+        if ((fileSize < 0) || (fileSize > crashdumpMaxFilesize))
+        {
+            messages::generalError(asyncResp->res);
+            return;
+        }
+        std::streamsize dumpSize = static_cast<std::streamsize>(fileSize);
+        ifs.seekg(0, std::ios::beg);
+
+        std::string dumpData;
+        dumpData.reserve(static_cast<unsigned int>(dumpSize));
+        ifs.read(dumpData.data(), dumpSize);
+
+        // Configure this to be a file download when accessed from a browser
+        asyncResp->res.addHeader("Content-Disposition", "attachment");
+        asyncResp->res.body() = dumpData.data();
     }
 };
 
