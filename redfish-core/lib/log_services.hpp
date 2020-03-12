@@ -1878,7 +1878,7 @@ class OnDemandCrashdump : public Node
                     if (!err)
                     {
                         taskData->messages.emplace_back(messages::success());
-                        taskData->status = "Completed";
+                        taskData->state = "Completed";
                     }
                     return task::completed;
                 },
