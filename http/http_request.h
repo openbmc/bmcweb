@@ -15,6 +15,7 @@ namespace crow
 struct Request
 {
     boost::beast::http::request<boost::beast::http::string_body>& req;
+    boost::beast::http::fields& fields;
     std::string_view url{};
     QueryString urlParams{};
     bool isSecure{false};
@@ -31,7 +32,7 @@ struct Request
     Request(
         boost::beast::http::request<boost::beast::http::string_body>& reqIn) :
         req(reqIn),
-        body(reqIn.body())
+        fields(reqIn.base()), body(reqIn.body())
     {
     }
 

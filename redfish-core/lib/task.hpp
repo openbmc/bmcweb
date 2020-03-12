@@ -32,6 +32,58 @@ static std::deque<std::shared_ptr<struct TaskData>> tasks;
 
 constexpr bool completed = true;
 
+struct Payload
+{
+    Payload(const crow::Request &req) :
+        targetUri(req.url), httpOperation(req.methodString()),
+        httpHeaders(nlohmann::json::array())
+
+    {
+        using field_ns = boost::beast::http::field;
+        constexpr const std::array<boost::beast::http::field, 7>
+            headerWhitelist = {field_ns::accept,     field_ns::accept_encoding,
+                               field_ns::user_agent, field_ns::host,
+                               field_ns::connection, field_ns::content_length,
+                               field_ns::upgrade};
+
+        jsonBody = nlohmann::json::parse(req.body, nullptr, false);
+        if (jsonBody.is_discarded())
+        {
+            jsonBody = nullptr;
+        }
+
+        for (const auto &field : req.fields)
+        {
+            if (std::find(headerWhitelist.begin(), headerWhitelist.end(),
+                          field.name()) == headerWhitelist.end())
+            {
+                continue;
+            }
+            std::string header;
+            header.reserve(field.name_string().size() + 2 +
+                           field.value().size());
+            header += field.name_string();
+            header += ": ";
+            header += field.value();
+            httpHeaders.emplace_back(std::move(header));
+        }
+    }
+    Payload() = delete;
+
+    std::string targetUri;
+    std::string httpOperation;
+    nlohmann::json httpHeaders;
+    nlohmann::json jsonBody;
+};
+
+inline void to_json(nlohmann::json &j, const Payload &p)
+{
+    j = {{"TargetUri", p.targetUri},
+         {"HttpOperation", p.httpOperation},
+         {"HttpHeaders", p.httpHeaders},
+         {"JsonBody", p.jsonBody.dump()}};
+}
+
 struct TaskData : std::enable_shared_from_this<TaskData>
 {
   private:
@@ -169,6 +221,7 @@ struct TaskData : std::enable_shared_from_this<TaskData>
     boost::asio::steady_timer timer;
     std::unique_ptr<sdbusplus::bus::match::match> match;
     std::optional<time_t> endTime;
+    std::optional<Payload> payload;
     bool gave204 = false;
 };
 
@@ -298,6 +351,10 @@ class Task : public Node
         {
             asyncResp->res.jsonValue["TaskMonitor"] =
                 "/redfish/v1/TaskService/Tasks/" + strParam + "/Monitor";
+        }
+        if (ptr->payload)
+        {
+            asyncResp->res.jsonValue["Payload"] = *(ptr->payload);
         }
     }
 };
