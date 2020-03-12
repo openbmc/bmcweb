@@ -1850,10 +1850,10 @@ class OnDemandCrashdump : public Node
     {
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
-        auto generateonDemandLogCallback = [asyncResp](
-                                               const boost::system::error_code
-                                                   ec,
-                                               const std::string &resp) {
+        auto generateonDemandLogCallback = [asyncResp,
+                                            req](const boost::system::error_code
+                                                     ec,
+                                                 const std::string &resp) {
             if (ec)
             {
                 if (ec.value() == boost::system::errc::operation_not_supported)
@@ -1887,6 +1887,7 @@ class OnDemandCrashdump : public Node
                 "crashdump'");
             task->startTimer(std::chrono::minutes(5));
             task->populateResp(asyncResp->res);
+            task->payload.emplace(req);
         };
         crow::connections::systemBus->async_method_call(
             std::move(generateonDemandLogCallback), crashdumpObject,
