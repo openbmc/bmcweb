@@ -57,7 +57,8 @@ void getMainChassisId(std::shared_ptr<AsyncResp> asyncResp,
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 1>{
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Board",
             "xyz.openbmc_project.Inventory.Item.Chassis"});
 }
 } // namespace redfish

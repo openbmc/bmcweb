@@ -324,7 +324,8 @@ class Power : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
             "/xyz/openbmc_project/inventory", 0,
-            std::array<const char*, 1>{
+            std::array<const char*, 2>{
+                "xyz.openbmc_project.Inventory.Item.Board",
                 "xyz.openbmc_project.Inventory.Item.Chassis"});
     }
     void doPatch(crow::Response& res, const crow::Request& req,
