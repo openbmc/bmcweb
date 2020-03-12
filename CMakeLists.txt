@@ -88,6 +88,12 @@ option (
     The BMCWEB_INSECURE_DISABLE_SSL must be OFF for this option to take effect."
     ON
 )
+option (
+    BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+    "Enables modular system redfish log.
+    Master BMC will show all logs from slave"
+    OFF
+)
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
 # not be enabled by default for any platform, unless the author fully
@@ -391,6 +397,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_ENABLE_REDFISH_FW_TFTP_UPDATE>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE}>:
     -DBMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_MODULAR_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_MODULAR_LOG>
 )
 
 # configure and install systemd unit files
