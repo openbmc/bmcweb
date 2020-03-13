@@ -304,6 +304,14 @@ class Power : public Node
                     nlohmann::json& value =
                         sensorJson["PowerLimit"]["LimitInWatts"];
 
+                    nlohmann::json& exceptionVal =
+                        sensorJson["PowerLimit"]["LimitException"];
+
+                    // LimitException is Mandatory attribute as per OCP Baseline
+                    // Profile - v1.0.0, so currently making it as "NoAction"
+                    // until support is added to make it OCP Compliant.
+                    exceptionVal = "NoAction";
+
                     if (enabled)
                     {
                         // Redfish specification indicates PowerLimit should be
