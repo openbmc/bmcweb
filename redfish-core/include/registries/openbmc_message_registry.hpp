@@ -312,6 +312,16 @@ constexpr std::array<MessageEntry, 154> registry = {
                      {"string"},
                      "None.",
                  }},
+    MessageEntry{"CPUMismatch",
+                 {
+                     "Indicates that the specified CPU power/current "
+                     "rating is incompatible with the board.",
+                     "CPU %1 Mismatch.",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "Install the supported CPU.",
+                 }},
     MessageEntry{"CPUThermalTrip",
                  {
                      "Indicates that the specified CPU thermal "
