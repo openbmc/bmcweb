@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 153> registry = {
+constexpr std::array<MessageEntry, 154> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -302,6 +302,16 @@ constexpr std::array<MessageEntry, 153> registry = {
                      1,
                      {"string"},
                      "None.",
+                 }},
+    MessageEntry{"CPUMismatch",
+                 {
+                     "Indicates that the specified CPU power/current "
+                     "rating is incompatible with the board.",
+                     "CPU %1 Mismatch.",
+                     "Critical",
+                     1,
+                     {"number"},
+                     "Install the supported CPU.",
                  }},
     MessageEntry{"CPUThermalTrip",
                  {
