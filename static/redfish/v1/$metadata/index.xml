@@ -2074,4 +2074,13 @@
         <edmx:Include Namespace="OemAccountService"/>
         <edmx:Include Namespace="OemAccountService.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemLogService_v1.xml">
+        <edmx:Include Namespace="OemLogService"/>
+        <edmx:Include Namespace="OemLogService.v1_0_0"/>
+    </edmx:Reference>
+     <edmx:Reference Uri="/redfish/v1/schema/OemLogEntry_v1.xml">
+        <edmx:Include Namespace="OemLogEntry"/>
+        <edmx:Include Namespace="OemLogEntry.v1_0_0"/>
+    </edmx:Reference>
+ 
 </edmx:Edmx>
