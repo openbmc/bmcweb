@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Core.V1.xml">
+    <edmx:Include Namespace="Org.OData.Core.V1" Alias="OData"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://docs.oasis-open.org/odata/odata/v4.0/errata03/csd01/complete/vocabularies/Org.OData.Measures.V1.xml">
+    <edmx:Include Namespace="Org.OData.Measures.V1" Alias="Measures"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/RedfishExtensions_v1.xml">
+    <edmx:Include Namespace="RedfishExtensions.v1_0_0" Alias="Redfish"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/Resource_v1.xml">
+    <edmx:Include Namespace="Resource"/>
+    <edmx:Include Namespace="Resource.v1_0_0"/>
+  </edmx:Reference>
+
+  <edmx:DataServices>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogEntry">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="OemLogEntry.v1_0_0">
+      <Annotation Term="Redfish.OwningEntity" String="OpenBMC"/>
+      <Annotation Term="Redfish.Release" String="1.0"/>
+
+      <ComplexType Name="OpenBmc" BaseType="Resource.OemObject">
+        <Annotation Term="OData.AdditionalProperties" Bool="true"/>
+        <Annotation Term="OData.Description" String="Oem properties for OpenBmc." />
+            <Action Name="DownloadLog" IsBound="true">
+                <Parameter Name="LogEntry" Type="LogEntry.v1_2_0.OemActions"/>
+                <Annotation Term="OData.Description" String="The action to download the system dump log entry for this Log Service."/>
+                <Annotation Term="OData.LongDescription" String="This action shall download system dump for this Log Service."/>
+            </Action>
+            <Property Name="SizeInB" Type="Edm.String">
+                <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+                <Annotation Term="OData.Description" String="The size for the log entry if the entry type is `DUMP`."/>
+                <Annotation Term="OData.LongDescription" String="This property shall contain the size for the log entry if the EntryType is `DUMP`."/>
+            </Property>
+      </ComplexType>
+
+        <EntityType Name="LogEntry" BaseType="Resource.OemObject" Abstract="true">
+          <Annotation Term="OData.Description" String="OEM Extension for LogEntry"/>
+          <Annotation Term="OData.LongDescription" String="OEM Extension of LogEntry for dump"/>
+        </EntityType>
+    </Schema>
+
+  </edmx:DataServices>
+</edmx:Edmx>
+
