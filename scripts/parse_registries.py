@@ -14,7 +14,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 REGISTRY_HEADER = '''/*
-// Copyright (c) 2019 Intel Corporation
+// Copyright (c) 2020 Intel Corporation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -53,14 +53,21 @@ proxies = {
     'https': os.environ.get("https_proxy", None)
 }
 
-base_file = requests.get(
-    'https://redfish.dmtf.org/registries/Base.1.4.0.json',
-    proxies=proxies)
-base_file.raise_for_status()
-base_json = json.loads(base_file.text)
-base_path = os.path.join(include_path, "base_message_registry.hpp")
 
-files = [(base_path, base_json, "base")]
+def make_getter(dmtf_name, header_name, type_name):
+    dmtf = requests.get(
+        'https://redfish.dmtf.org/registries/{}'.format(dmtf_name), proxies=proxies)
+    dmtf.raise_for_status()
+    json_file = json.loads(dmtf.text)
+    path = os.path.join(include_path, header_name)
+    return (path, json_file, type_name)
+
+
+files = []
+files.append(make_getter('Base.1.4.0.json',
+                         'base_message_registry.hpp', 'base'))
+files.append(make_getter('TaskEvent.1.0.1.json',
+                         'task_event_message_registry.hpp', 'task_event'))
 
 # Remove the old files
 for file, json, namespace in files:
