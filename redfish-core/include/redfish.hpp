@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
+#include "../lib/event_service.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/message_registries.hpp"
@@ -174,7 +175,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<TaskService>(app));
         nodes.emplace_back(std::make_unique<TaskCollection>(app));
         nodes.emplace_back(std::make_unique<Task>(app));
-
+        nodes.emplace_back(std::make_unique<EventService>(app));
+        nodes.emplace_back(std::make_unique<EventDestinationCollection>(app));
+        nodes.emplace_back(std::make_unique<EventDestination>(app));
         for (const auto& node : nodes)
         {
             node->initPrivileges();
