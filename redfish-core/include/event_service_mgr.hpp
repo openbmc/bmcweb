@@ -90,6 +90,58 @@ class Subscription
         }
     }
 
+    void telemetryFormatter(sdbusplus::message::message m)
+    {
+        std::string intfName;
+        std::map<std::string,
+                 std::variant<std::vector<std::tuple<std::string, std::string,
+                                                     double, std::string>>>>
+            properties;
+        m.read(intfName, properties);
+
+        const auto propNode = properties.find("Readings");
+        if (propNode != properties.end())
+        {
+            std::string path = m.get_path();
+            std::size_t found = path.find_last_of("/");
+            std::string idStr = path.substr(found + 1);
+
+            const std::vector<std::tuple<std::string, std::string, double,
+                                         std::string>>* propsPtr =
+                std::get_if<std::vector<
+                    std::tuple<std::string, std::string, double, std::string>>>(
+                    &propNode->second);
+            nlohmann::json metricValuesArray = nlohmann::json::array();
+            if (propsPtr)
+            {
+                for (auto& it : *propsPtr)
+                {
+                    metricValuesArray.push_back({});
+                    nlohmann::json& entry = metricValuesArray.back();
+
+                    entry = {{"MetricId", std::get<0>(it)},
+                             {"MetricProperty", std::get<1>(it)},
+                             {"MetricValue", std::to_string(std::get<2>(it))},
+                             {"Timestamp", std::get<3>(it)}};
+                }
+            }
+            nlohmann::json msg = {
+                {"@odata.id",
+                 "/redfish/v1/TelemetryService/MetricReports/" + idStr},
+                {"@odata.type", "#MetricReport.v1_0_0.MetricReport"},
+                {"Id", idStr},
+                {"Name", "Platform " + idStr + " usage metric report"},
+                {"ReportSequence", "0"},
+                {"MetricReportDefinition",
+                 {{"@odata.id", "/redfish/v1/TelemetryService/"
+                                "MetricReportDefinitions/" +
+                                    idStr}}},
+                {"MetricValues", metricValuesArray}};
+
+            sendEvent(msg.dump());
+        }
+    }
+
   private:
     std::string host;
     std::string port;
@@ -105,7 +157,7 @@ class EventSrvManager
     uint32_t retryAttempts;
     uint32_t retryTimeoutInterval;
 
-    EventSrvManager()
+    EventSrvManager() : telemetryMonitorRunning(false)
     {
         // TODO: Read the persistent data from store and populate
         // Poulating with default.
@@ -134,6 +186,15 @@ class EventSrvManager
         std::string id = std::to_string(std::rand());
         subscriptionsList.insert(std::pair(id, subValue));
 
+        if (subValue->eventFormatType == "MetricReport")
+        {
+            metricSubscribers.insert(std::pair(id, subValue));
+            if (!metricSubscribers.empty() && !telemetryMonitorRunning)
+            {
+                startTelemetryMonitor();
+            }
+        }
+
         updateSubscriptionData();
         return id;
     }
@@ -153,6 +214,16 @@ class EventSrvManager
         {
             subscriptionsList.erase(obj);
             updateSubscriptionData();
+        }
+
+        auto metricObj = metricSubscribers.find(id);
+        if (metricObj != metricSubscribers.end())
+        {
+            metricSubscribers.erase(metricObj);
+            if (metricSubscribers.empty() && telemetryMonitorRunning)
+            {
+                stopTelemetryMonitor();
+            }
         }
     }
     std::vector<std::string> getAllIDs()
@@ -187,6 +258,39 @@ class EventSrvManager
         return;
     }
 
+    void stopTelemetryMonitor()
+    {
+        BMCWEB_LOG_DEBUG << "stopTelemetryMonitor()";
+        telemetryMonitorRunning = false;
+        matchTelemetryMonitor.reset();
+    }
+    void startTelemetryMonitor()
+    {
+        BMCWEB_LOG_DEBUG << "startTelemetryMonitor()";
+        telemetryMonitorRunning = true;
+        std::string matchStr(
+            "type='signal',member='PropertiesChanged', "
+            "interface='org.freedesktop.DBus.Properties', "
+            "arg0namespace='xyz.openbmc_project.MonitoringService.Report'");
+
+        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr,
+            [&](sdbusplus::message::message& m) {
+                if (m.is_method_error())
+                {
+                    BMCWEB_LOG_ERROR << "TelemetryMonitor Signal error";
+                    return;
+                }
+                for (auto& it : metricSubscribers)
+                {
+                    auto subscriber = it.second;
+                    subscriber->telemetryFormatter(m);
+                }
+            });
+    }
+
+    std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
+    bool telemetryMonitorRunning;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsList;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
