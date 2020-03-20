@@ -99,6 +99,7 @@ struct EthernetInterfaceData
     bool SendHostNameEnabled;
     bool linkUp;
     bool nicEnabled;
+    bool hypervisorDHCPEnabled;
     std::string DHCPEnabled;
     std::string operatingMode;
     std::string hostname;
