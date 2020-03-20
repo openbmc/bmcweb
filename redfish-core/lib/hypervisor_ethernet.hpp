@@ -171,6 +171,22 @@ inline bool extractHypervisorInterfaceData(const std::string &ethiface_id,
                         }
                     }
                 }
+                else if (ifacePair.first ==
+                         "xyz.openbmc_project.Network.EthernetInterface")
+                {
+                    for (const auto &propertyPair : ifacePair.second)
+                    {
+                        if (propertyPair.first == "DHCPEnabled")
+                        {
+                            const bool *dhcp =
+                                std::get_if<bool>(&propertyPair.second);
+                            if (dhcp != nullptr)
+                            {
+                                ethData.hypervisorDHCPEnabled = *dhcp;
+                            }
+                        }
+                    }
+                }
             }
             if (objpath.first == "/xyz/openbmc_project/network/vmi")
             {
@@ -226,17 +242,32 @@ inline void extractHypervisorIPv4Data(
         {
             for (auto &interface : objpath.second)
             {
+                // Instance IPv4AddressData structure, and set as
+                // appropriate
+                std::pair<boost::container::flat_set<IPv4AddressData>::iterator,
+                          bool>
+                    it = ipv4_config.insert(IPv4AddressData{});
+                IPv4AddressData &ipv4_address = *it.first;
+                ipv4_address.id =
+                    objpath.first.str.substr(ipv4PathStart.size());
+
+                if (interface.first == "xyz.openbmc_project.Object.Enable")
+                {
+                    for (auto &property : interface.second)
+                    {
+                        if (property.first == "Enabled")
+                        {
+                            const bool *intfEnable =
+                                std::get_if<bool>(&property.second);
+                            if (intfEnable != nullptr)
+                            {
+                                ipv4_address.isActive = *intfEnable;
+                            }
+                        }
+                    }
+                }
                 if (interface.first == "xyz.openbmc_project.Network.IP")
                 {
-                    // Instance IPv4AddressData structure, and set as
-                    // appropriate
-                    std::pair<
-                        boost::container::flat_set<IPv4AddressData>::iterator,
-                        bool>
-                        it = ipv4_config.insert(IPv4AddressData{});
-                    IPv4AddressData &ipv4_address = *it.first;
-                    ipv4_address.id =
-                        objpath.first.str.substr(ipv4PathStart.size());
                     for (auto &property : interface.second)
                     {
                         if (property.first == "Address")
@@ -498,6 +529,8 @@ class HypervisorInterface : public Node
 
         json_response["HostName"] = ethData.hostname;
 
+        json_response["DHCPv4"]["DHCPEnabled"] = ethData.hypervisorDHCPEnabled;
+
         nlohmann::json &ipv4_array = json_response["IPv4Addresses"];
         nlohmann::json &ipv4_static_array =
             json_response["IPv4StaticAddresses"];
@@ -505,17 +538,39 @@ class HypervisorInterface : public Node
         ipv4_static_array = nlohmann::json::array();
         for (auto &ipv4_config : ipv4Data)
         {
-            ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
-                                  {"SubnetMask", ipv4_config.netmask},
-                                  {"Address", ipv4_config.address},
-                                  {"Gateway", ethData.default_gateway}});
-            if (ipv4_config.origin == "Static")
+            if (ipv4_config.isActive)
             {
-                ipv4_static_array.push_back(
-                    {{"AddressOrigin", ipv4_config.origin},
-                     {"SubnetMask", ipv4_config.netmask},
-                     {"Address", ipv4_config.address},
-                     {"Gateway", ethData.default_gateway}});
+                // Virtual management Inteface has applied the IP settings.
+                // Thus display the active IP details to the user
+                ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
+                                      {"SubnetMask", ipv4_config.netmask},
+                                      {"Address", ipv4_config.address},
+                                      {"Gateway", ethData.default_gateway}});
+                if (ipv4_config.origin == "Static")
+                {
+                    ipv4_static_array.push_back(
+                        {{"AddressOrigin", ipv4_config.origin},
+                         {"SubnetMask", ipv4_config.netmask},
+                         {"Address", ipv4_config.address},
+                         {"Gateway", ethData.default_gateway}});
+                }
+            }
+            else
+            {
+                // The virtual management interface has not applied the settings
+                // Dont show the IP details.
+                ipv4_array.push_back({{"AddressOrigin", ipv4_config.origin},
+                                      {"SubnetMask", "0.0.0.0"},
+                                      {"Address", "0.0.0.0"},
+                                      {"Gateway", "0.0.0.0"}});
+                if (ipv4_config.origin == "Static")
+                {
+                    ipv4_static_array.push_back(
+                        {{"AddressOrigin", ipv4_config.origin},
+                         {"SubnetMask", "0.0.0.0"},
+                         {"Address", "0.0.0.0"},
+                         {"Gateway", "0.0.0.0"}});
+                }
             }
         }
     }
@@ -690,8 +745,8 @@ class HypervisorInterface : public Node
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
                 {
-                    messages::resourceNotFound(
-                        asyncResp->res, "HostEthernetInterface", iface_id);
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", iface_id);
                     return;
                 }
                 asyncResp->res.jsonValue["@odata.type"] =
@@ -726,18 +781,33 @@ class HypervisorInterface : public Node
             return;
         }
 
-        if (ipv4StaticAddresses)
-        {
-            nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
-            handleHypervisorIPv4StaticPatch(iface_id, ipv4Static, asyncResp);
-        }
+        getHypervisorIfaceData(
+            iface_id,
+            [this, asyncResp, iface_id, hostname = std::move(hostname),
+             ipv4StaticAddresses = std::move(ipv4StaticAddresses)](
+                const bool &success, const EthernetInterfaceData &ethData,
+                const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
+                if (!success)
+                {
+                    messages::resourceNotFound(asyncResp->res,
+                                               "EthernetInterface", iface_id);
+                    return;
+                }
+                if (ipv4StaticAddresses)
+                {
+                    nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
+                    handleHypervisorIPv4StaticPatch(iface_id, ipv4Static,
+                                                    asyncResp);
+                }
 
-        if (hostname)
-        {
-            handleHostnamePatch(*hostname, asyncResp);
-        }
+                if (hostname)
+                {
+                    handleHostnamePatch(*hostname, asyncResp);
+                }
+            });
+
         // TODO : Task will be created for monitoring the Hypervisor interface
-        // Phyp will notify once the IP is applied to the Hypervisor.
+        // Hypervisor will notify once the IP is applied to the Hypervisor.
         // The status will be sent over to the client.
         res.result(boost::beast::http::status::accepted);
     }
