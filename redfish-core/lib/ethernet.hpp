@@ -63,6 +63,7 @@ struct IPv4AddressData
     std::string netmask;
     std::string origin;
     LinkType linktype;
+    bool isActive;
 
     bool operator<(const IPv4AddressData &obj) const
     {
@@ -99,6 +100,7 @@ struct EthernetInterfaceData
     bool SendHostNameEnabled;
     bool linkUp;
     bool nicEnabled;
+    bool hypervisorDHCPEnabled;
     std::string DHCPEnabled;
     std::string operatingMode;
     std::string hostname;
