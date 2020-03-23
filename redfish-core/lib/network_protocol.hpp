@@ -199,6 +199,27 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["Health"] = "OK";
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["SNMP"]["ProtocolEnabled"] = true;
+        asyncResp->res.jsonValue["SNMP"]["Port"] = 161;
+        asyncResp->res.jsonValue["SNMP"]["AuthenticationProtocol"] =
+            "CommunityString";
+        asyncResp->res.jsonValue["SNMP"]["CommunityAccessMode"] = "Full";
+        asyncResp->res.jsonValue["SNMP"]["HideCommunityStrings"] = true;
+        asyncResp->res
+            .jsonValue["SNMP"]["EngineId"]["EnterpriseSpecificMethod"] =
+            nullptr;
+        asyncResp->res.jsonValue["SNMP"]["EngineId"]["PrivateEnterpriseId"] =
+            nullptr;
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv1"] = false;
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv2c"] = true;
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv3"] = false;
+        asyncResp->res.jsonValue["SNMP"]["EncryptionProtocol"] = "None";
+        nlohmann::json& memberArray =
+            asyncResp->res.jsonValue["SNMP"]["CommunityStrings"];
+        memberArray = nlohmann::json::array();
+        memberArray.push_back({{"AccessMode", "Full"}});
+        memberArray.push_back({{"CommunityString", ""}});
+        memberArray.push_back({{"Name", ""}});
 
         for (auto& protocol : protocolToDBus)
         {
