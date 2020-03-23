@@ -199,6 +199,18 @@ class NetworkProtocol : public Node
         asyncResp->res.jsonValue["Status"]["Health"] = "OK";
         asyncResp->res.jsonValue["Status"]["HealthRollup"] = "OK";
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
+        asyncResp->res.jsonValue["SNMP"]["AuthenticationProtocol"] =
+            "CommunityString";
+        asyncResp->res.jsonValue["SNMP"]["CommunityAccessMode"] = "Full";
+        asyncResp->res.jsonValue["SNMP"]["CommunityStrings"] = {
+            {"AccessMode", "Full"}, {"CommunityString", ""}, {"Name", ""}};
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv1"] = false;
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv2"] = true;
+        asyncResp->res.jsonValue["SNMP"]["EnableSNMPv3"] = false;
+        asyncResp->res.jsonValue["SNMP"]["EncryptionProtocol"] = false;
+        asyncResp->res.jsonValue["SNMP"]["HideCommunityString"] = true;
+        asyncResp->res.jsonValue["SNMP"]["EngineId"][""] = "";
+        asyncResp->res.jsonValue["SNMP"]["ProtocolEnable"] = true;
 
         for (auto& protocol : protocolToDBus)
         {
