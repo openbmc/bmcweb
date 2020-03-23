@@ -43,6 +43,11 @@
         },
         {
             "kind": "Singleton",
+            "name": "EventService",
+            "url": "/redfish/v1/EventService"
+        },
+        {
+            "kind": "Singleton",
             "name": "SessionService",
             "url": "/redfish/v1/SessionService"
         },

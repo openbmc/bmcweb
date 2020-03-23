@@ -21,6 +21,7 @@
 #include "../lib/chassis.hpp"
 #include "../lib/cpudimm.hpp"
 #include "../lib/ethernet.hpp"
+#include "../lib/event_service.hpp"
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/message_registries.hpp"
@@ -72,6 +73,9 @@ class RedfishService
         nodes.emplace_back(std::make_unique<Thermal>(app));
         nodes.emplace_back(std::make_unique<ManagerCollection>(app));
         nodes.emplace_back(std::make_unique<Manager>(app));
+        nodes.emplace_back(std::make_unique<EventService>(app));
+        nodes.emplace_back(std::make_unique<EventDestination>(app));
+        nodes.emplace_back(std::make_unique<EventDestinationCollection>(app));
         nodes.emplace_back(std::make_unique<ManagerActionsReset>(app));
         nodes.emplace_back(std::make_unique<Power>(app));
         nodes.emplace_back(std::make_unique<ChassisCollection>(app));
