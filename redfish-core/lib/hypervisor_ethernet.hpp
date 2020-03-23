@@ -654,6 +654,27 @@ class HypervisorInterface : public Node
             std::variant<std::string>(hostname));
     }
 
+    void setDHCPEnabled(const std::string &ifaceId, const bool &v4Value,
+                        const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        asyncResp->res.jsonValue["DHCPEnabled"] = v4Value;
+        // TODO : Passing the ipv6 value instead of false
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/vmi/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
+            std::variant<bool>(v4Value));
+    }
+
     /**
      * Functions triggers appropriate requests on DBus
      */
@@ -703,17 +724,29 @@ class HypervisorInterface : public Node
 
         std::optional<std::string> hostname;
         std::optional<nlohmann::json> ipv4StaticAddresses;
+        std::optional<nlohmann::json> dhcpv4;
+        std::optional<bool> v4Value;
 
         if (!json_util::readJson(req, res, "HostName", hostname,
-                                 "IPv4StaticAddresses", ipv4StaticAddresses))
+                                 "IPv4StaticAddresses", ipv4StaticAddresses,
+                                 "DHCPv4", dhcpv4))
         {
             return;
+        }
+
+        if (dhcpv4)
+        {
+            if (!json_util::readJson(*dhcpv4, res, "DHCPEnabled", v4Value))
+            {
+                return;
+            }
         }
 
         getHypervisorIfaceData(
             iface_id,
             [this, asyncResp, iface_id, hostname = std::move(hostname),
-             ipv4StaticAddresses = std::move(ipv4StaticAddresses)](
+             ipv4StaticAddresses = std::move(ipv4StaticAddresses),
+             v4Value = std::move(v4Value), dhcpv4 = std::move(dhcpv4)](
                 const bool &success, const EthernetInterfaceData &ethData,
                 const boost::container::flat_set<IPv4AddressData> &ipv4Data) {
                 if (!success)
@@ -732,6 +765,11 @@ class HypervisorInterface : public Node
                 if (hostname)
                 {
                     handleHostnamePatch(*hostname, asyncResp);
+                }
+
+                if (dhcpv4)
+                {
+                    setDHCPEnabled(iface_id, *v4Value, asyncResp);
                 }
             });
 
