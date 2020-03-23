@@ -347,7 +347,6 @@ inline void setHypervisorIPv4Address(std::shared_ptr<AsyncResp> aResp,
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec;
-                // not an error, don't have to have the interface
                 return;
             }
             BMCWEB_LOG_DEBUG << "Hypervisor IPaddress is Set";
@@ -382,7 +381,6 @@ inline void setHypervisorIPv4Subnet(std::shared_ptr<AsyncResp> aResp,
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec;
-                // not an error, don't have to have the interface
                 return;
             }
             BMCWEB_LOG_DEBUG << "SubnetMask is Set";
@@ -414,7 +412,6 @@ inline void setHypervisorIPv4Gateway(std::shared_ptr<AsyncResp> aResp,
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "DBUS response error " << ec;
-                // not an error, don't have to have the interface
                 return;
             }
             BMCWEB_LOG_DEBUG << "Default Gateway is Set";
@@ -622,6 +619,8 @@ class HypervisorInterface : public Node
                              << "," << *address;
             createHypervisorIPv4(ifaceId, prefixLength, *gateway, *address,
                                  asyncResp);
+            // Set the DHCPEnabled to false since the Static IPv4 is set
+            setDHCPEnabled(ifaceId, false, asyncResp);
         }
         else
         {
@@ -670,6 +669,78 @@ class HypervisorInterface : public Node
             "org.freedesktop.DBus.Properties", "Set",
             "xyz.openbmc_project.Network.SystemConfiguration", "HostName",
             std::variant<std::string>(hostName));
+    }
+
+    void setIPv4InterfaceEnabled(const std::string& ifaceId,
+                                 const bool& isActive,
+                                 const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor/" + ifaceId +
+                "/ipv4/addr0",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Object.Enable", "Enabled",
+            std::variant<bool>(isActive));
+    }
+
+    void setDHCPEnabled(const std::string& ifaceId, const bool& ipv4DHCPEnabled,
+                        const std::shared_ptr<AsyncResp> asyncResp)
+    {
+        const std::string dhcp =
+            GetDHCPEnabledEnumeration(ipv4DHCPEnabled, false);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/network/hypervisor/" + ifaceId,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.EthernetInterface", "DHCPEnabled",
+            std::variant<std::string>{dhcp});
+
+        // Set the IPv4 address origin to the DHCP / Static as per the new value
+        // of the DHCPEnabled property
+        std::string path = "/xyz/openbmc_project/network/hypervisor/" +
+                           ifaceId + "/ipv4/addr0";
+        const char* hypervisorObj = path.c_str();
+        std::string origin;
+        if (ipv4DHCPEnabled == false)
+        {
+            origin = "xyz.openbmc_project.Network.IP.AddressOrigin.Static";
+        }
+        else
+        {
+            // DHCPEnabled is set to true. Delete the current IPv4 settings
+            // to receive the new values from DHCP server.
+            deleteHypervisorIPv4(ifaceId, asyncResp);
+            origin = "xyz.openbmc_project.Network.IP.AddressOrigin.DHCP";
+        }
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "Hypervisor IPaddress Origin is Set";
+            },
+            "xyz.openbmc_project.Settings", hypervisorObj,
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Network.IP", "Origin",
+            std::variant<std::string>(origin));
     }
 
     /**
@@ -721,10 +792,13 @@ class HypervisorInterface : public Node
         std::optional<std::string> hostName;
         std::optional<nlohmann::json> ipv4StaticAddresses;
         std::optional<nlohmann::json> ipv4Addresses;
+        std::optional<nlohmann::json> dhcpv4;
+        std::optional<bool> ipv4DHCPEnabled;
 
         if (!json_util::readJson(req, res, "HostName", hostName,
                                  "IPv4StaticAddresses", ipv4StaticAddresses,
-                                 "IPv4Addresses", ipv4Addresses))
+                                 "IPv4Addresses", ipv4Addresses, "DHCPv4",
+                                 dhcpv4))
         {
             return;
         }
@@ -734,10 +808,21 @@ class HypervisorInterface : public Node
             messages::propertyNotWritable(asyncResp->res, "IPv4Addresses");
         }
 
+        if (dhcpv4)
+        {
+            if (!json_util::readJson(*dhcpv4, res, "DHCPEnabled",
+                                     ipv4DHCPEnabled))
+            {
+                return;
+            }
+        }
+
         getHypervisorIfaceData(
             ifaceId,
             [this, asyncResp, ifaceId, hostName = std::move(hostName),
-             ipv4StaticAddresses = std::move(ipv4StaticAddresses)](
+             ipv4StaticAddresses = std::move(ipv4StaticAddresses),
+             ipv4DHCPEnabled = std::move(ipv4DHCPEnabled),
+             dhcpv4 = std::move(dhcpv4)](
                 const bool& success, const EthernetInterfaceData& ethData,
                 const boost::container::flat_set<IPv4AddressData>& ipv4Data) {
                 if (!success)
@@ -746,6 +831,7 @@ class HypervisorInterface : public Node
                                                "EthernetInterface", ifaceId);
                     return;
                 }
+
                 if (ipv4StaticAddresses)
                 {
                     nlohmann::json ipv4Static = std::move(*ipv4StaticAddresses);
@@ -757,6 +843,16 @@ class HypervisorInterface : public Node
                 {
                     handleHostnamePatch(*hostName, asyncResp);
                 }
+
+                if (dhcpv4)
+                {
+                    setDHCPEnabled(ifaceId, *ipv4DHCPEnabled, asyncResp);
+                }
+
+                // Set this interface to disabled/inactive. This will be set to
+                // enabled/active by the pldm once the hypervisor consumes the
+                // updated settings from the user.
+                setIPv4InterfaceEnabled(ifaceId, false, asyncResp);
             });
 
         // TODO : Task will be created for monitoring the Hypervisor interface
