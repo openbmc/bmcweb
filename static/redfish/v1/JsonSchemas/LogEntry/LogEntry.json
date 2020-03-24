@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_6_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -258,6 +258,33 @@
                         "null"
                     ]
                 },
+                "OffloadURL": {
+                    "description": "Offload URL ",
+                    "longDescription": "This property shall contain offload URL.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
+                "SizeInB": {
+                    "description": "Size of dump entry ",
+                    "longDescription": "This property shall contain size of dump.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
+                "DumpType": {
+                    "$ref": "#/definitions/LogDumpType",
+                    "description": "Type of dump",
+                    "longDescription": "This property shall contain type of dump.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
                 "OemSensorType": {
                     "description": "The OEM-specific sensor type if the sensor type is `OEM`.",
                     "longDescription": "This property shall represent the OEM-specific sensor type of the entry.  This property shall only be used if EntryType is `SEL` and SensorType is `OEM`.",
@@ -450,12 +477,28 @@
             "enum": [
                 "Event",
                 "SEL",
+                "Dump",
                 "Oem"
             ],
             "enumDescriptions": {
                 "Event": "A Redfish-defined message.",
                 "Oem": "An entry in an OEM-defined format.",
                 "SEL": "A legacy IPMI System Event Log (SEL) entry."
+            },
+            "type": "string"
+        },
+        "LogDumpType": {
+            "enum": [
+                "SBE",
+                "HostBoot",
+                "HostFirmware",
+                "OEM"
+            ],
+            "enumDescriptions": {
+                "SBE": "SBE is the first processor that runs when the CPU is powered up and is responsible for initializing the chip.",
+                "HostBoot": "Hostboot firmware initializes all processor, bus, and memory.",
+                "HostFirmware": "Host firmware",
+                "OEM": "OEM type"
             },
             "type": "string"
         },
@@ -581,5 +624,6 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.3",
-    "title": "#LogEntry.v1_5_1.LogEntry"
+    "title": "#LogEntry.v1_6_0.LogEntry"
 }
+

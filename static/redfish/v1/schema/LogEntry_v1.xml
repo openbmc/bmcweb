@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.5.1                                                     -->
+<!--# Redfish Schema:  LogEntry v1.6.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -160,6 +160,9 @@
         </Member>
         <Member Name="SEL">
           <Annotation Term="OData.Description" String="A legacy IPMI System Event Log (SEL) entry."/>
+        </Member>
+        <Member Name="Dump">
+          <Annotation Term="OData.Description" String="A dump(debug data) entry"/>
         </Member>
         <Member Name="Oem">
           <Annotation Term="OData.Description" String="An entry in an OEM-defined format."/>
@@ -945,6 +948,42 @@
       <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_0.LogEntry"/>
     </Schema>
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to add the offload url and size for the log entry."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_1.LogEntry">
+        <Property Name="SizeInB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size for the log entry."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size for the log entry."/>
+        </Property>
+        <Property Name="OffloadURL" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Dump offload URL."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain dump offload URL."/>
+        </Property>
+        <Property Name="DumpType" Type="LogEntry.v1_6_0.LogDumpType">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Type of dump"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain dump type."/>
+        </Property>
+      </EntityType>
 
+      <EnumType Name="LogDumpType">
+        <Member Name="HostFirmware">
+          <Annotation Term="OData.Description" String="Host firmware"/>
+        </Member>
+        <Member Name="SBE">
+          <Annotation Term="OData.Description" String="SBE is the first processor that runs when the CPU is powered up and is responsible for initializing the chip."/>
+        </Member>
+        <Member Name="HostBoot">
+          <Annotation Term="OData.Description" String="Hostboot firmware initializes all processor, bus, and memory."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="oem type"/>
+        </Member>
+      </EnumType>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
+
