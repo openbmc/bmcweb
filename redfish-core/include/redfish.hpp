@@ -88,19 +88,30 @@ class RedfishService
 
         nodes.emplace_back(std::make_unique<SystemLogServiceCollection>(app));
         nodes.emplace_back(std::make_unique<EventLogService>(app));
+
+        //nodes.emplace_back(std::make_unique<SystemDumpService>(app));
+        //nodes.emplace_back(std::make_unique<SystemDumpEntryCollection>(app));
+        //nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
+        //nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpCreate>(app));
+        nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
+
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
-        nodes.emplace_back(
-            std::make_unique<JournalEventLogEntryCollection>(app));
-        nodes.emplace_back(std::make_unique<JournalEventLogEntry>(app));
-        nodes.emplace_back(std::make_unique<JournalEventLogClear>(app));
+        //nodes.emplace_back(
+        //    std::make_unique<JournalEventLogEntryCollection>(app));
+        //nodes.emplace_back(std::make_unique<JournalEventLogEntry>(app));
+        //nodes.emplace_back(std::make_unique<JournalEventLogClear>(app));
 #endif
 
         nodes.emplace_back(std::make_unique<BMCLogServiceCollection>(app));
-#ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         nodes.emplace_back(std::make_unique<BMCJournalLogService>(app));
         nodes.emplace_back(std::make_unique<BMCJournalLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<BMCJournalLogEntry>(app));
-#endif
+        nodes.emplace_back(std::make_unique<BMCDumpCreate>(app));
+        nodes.emplace_back(std::make_unique<BMCDumpEntryDownload>(app));
+
+
 
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         nodes.emplace_back(std::make_unique<CrashdumpService>(app));
@@ -124,11 +135,10 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemActionsReset>(app));
         nodes.emplace_back(std::make_unique<BiosService>(app));
         nodes.emplace_back(std::make_unique<BiosReset>(app));
-#ifdef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+
         nodes.emplace_back(std::make_unique<DBusLogServiceActionsClear>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntryCollection>(app));
         nodes.emplace_back(std::make_unique<DBusEventLogEntry>(app));
-#endif
 
         nodes.emplace_back(
             std::make_unique<MessageRegistryFileCollection>(app));

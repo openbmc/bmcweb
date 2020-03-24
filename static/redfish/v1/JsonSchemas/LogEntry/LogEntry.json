@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_4_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_5_2.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -143,7 +143,7 @@
                         }
                     ],
                     "description": "The entry code for the log entry if the entry type is `SEL`.",
-                    "longDescription": "This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification describe these enumerations.",
+                    "longDescription": "This property shall contain the entry code for the log entry if the EntryType is `SEL`.  Tables 42-1 and 42-2 of the IPMI Specification v2.0 revision 1.1 describe these enumerations.",
                     "readonly": true
                 },
                 "EntryType": {
@@ -186,6 +186,37 @@
                     "versionAdded": "v1_1_0",
                     "versionDeprecated": "v1_4_0"
                 },
+                "GeneratorId": {
+                    "description": "An identifier of the device that has generated the IPMI SEL Event Record.",
+                    "longDescription": "If EntryType is `SEL`, this property shall contain the 'Generator ID' field of the IPMI SEL Event Record.  If EntryType is not `SEL`, this property should not be present.",
+                    "pattern": "^0[xX](([a-fA-F]|[0-9]){2}){2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_0"
+                },
+                "OffloadURL": {
+                    "description": "Offload URL ",
+                    "longDescription": "This property shall contain offload URL.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_2"
+                },
+                "SizeInB": {
+                    "description": "size of dump entry ",
+                    "longDescription": "This property shall contain size of dump.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_2"
+                },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
@@ -197,7 +228,7 @@
                 },
                 "Message": {
                     "description": "The message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
-                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
+                    "longDescription": "This property shall contain the message of the log entry.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a message.  If the entry type is `SEL`, this property contains an SEL-specific message, following the format specified in Table 32-1, SEL Event Records, in the IPMI Specification v2.0 revision 1.1.  Otherwise, this property contains an OEM-specific log entry.  In most cases, this property contains the actual log entry.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -215,7 +246,7 @@
                 },
                 "MessageId": {
                     "description": "The MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId.  If the entry type is `SEL`, this property contains the Event Data.  Otherwise, this property contains OEM-specific information.",
-                    "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, this property contains the three IPMI Event Data bytes.  In this case, the format should follow the `^0[xX](([a-fA-F]|[0-9]){2}){3}$` pattern, where Event Data 1 is the first byte in the string, Event Data 2 is the second byte in the string, and Event Data 3 is the third byte in the string.  Otherwise, this property contains OEM-specific information.",
+                    "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){4}$', which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  Otherwise, this property contains OEM-specific information.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -247,6 +278,26 @@
                         "null"
                     ]
                 },
+                "OffloadURL": {
+                    "description": "Offload URL ",
+                    "longDescription": "This property shall contain offload URL.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_2"
+                },
+                "SizeInB": {
+                    "description": "size of dump entry ",
+                    "longDescription": "This property shall contain size of dump.",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_5_2"
+                },
                 "OemSensorType": {
                     "description": "The OEM-specific sensor type if the sensor type is `OEM`.",
                     "longDescription": "This property shall represent the OEM-specific sensor type of the entry.  This property shall only be used if EntryType is `SEL` and SensorType is `OEM`.",
@@ -276,7 +327,7 @@
                         }
                     ],
                     "description": "The sensor type to which the log entry pertains if the entry type is `SEL`.",
-                    "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3 in the IPMI Specification describes these enumerations.",
+                    "longDescription": "This property shall contain the sensor type to which the log entry pertains if the entry type is `SEL`.  Table 42-3, Sensor Type Codes, in the IPMI Specification v2.0 revision 1.1 describes these enumerations.",
                     "readonly": true
                 },
                 "Severity": {
@@ -439,6 +490,7 @@
             "enum": [
                 "Event",
                 "SEL",
+                "Dump",
                 "Oem"
             ],
             "enumDescriptions": {
@@ -569,6 +621,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#LogEntry.v1_4_3.LogEntry"
+    "release": "2019.3",
+    "title": "#LogEntry.v1_5_2.LogEntry"
 }
