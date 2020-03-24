@@ -1,5 +1,5 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_1_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogService.v1_2_0.json",
     "$ref": "#/definitions/LogService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
     "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
@@ -26,6 +26,10 @@
                 "#LogService.ClearLog": {
                     "$ref": "#/definitions/ClearLog"
                 },
+                "#LogService.CollectDebugData": {
+                    "$ref": "#/definitions/CollectDebugData"
+                },
+
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
                     "description": "The available OEM-specific actions for this Resource.",
@@ -39,6 +43,30 @@
             "description": "The action to clear the log for this Log Service.",
             "longDescription": "This action shall delete all entries found in the Entries collection for this Log Service.",
             "parameters": {},
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+         "CollectDebugData": {
+            "additionalProperties": false,
+            "description": "The action to collect dump for this Log Service.",
+            "longDescription": "This action shall to collect dump for this Log Service.",
+            "parameters": {
+                "DumpType": {
+                    "description": "Dump type to invoke action",
+                    "type": "string"
+                },
+            },
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -71,6 +99,7 @@
                 "Event",
                 "SEL",
                 "Multiple",
+                "Dump",
                 "OEM"
             ],
             "enumDescriptions": {
@@ -254,5 +283,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.3",
-    "title": "#LogService.v1_1_3.LogService"
+    "title": "#LogService.v1_2_0.LogService"
 }
