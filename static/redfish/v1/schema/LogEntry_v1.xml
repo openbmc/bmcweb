@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.5.1                                                     -->
+<!--# Redfish Schema:  LogEntry v1.6.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -945,6 +945,22 @@
       <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_0.LogEntry"/>
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_1.LogEntry">
+        <Property Name="SizeInB" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The size for the log entry if the entry type is `Dump`."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the size for the log entry if the EntryType is `DUMP`."/>
+        </Property>
+        <Property Name="OffloadURL" Type="Edm.String">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Dump offload URL."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain dump offload URL."/>
+        </Property>
+      <\EntityType>
 
   </edmx:DataServices>
 </edmx:Edmx>
