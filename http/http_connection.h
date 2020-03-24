@@ -268,6 +268,10 @@ class Connection : public std::enable_shared_from_this<
         // disallows a DOS attack based on a large file size.
         parser->body_limit(httpReqBodyLimit);
         req.emplace(parser->get());
+        if ( req )
+        {
+          req->socket = [this] () -> Adaptor& { return this->socket(); };
+        }
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
         auto ca_available = !std::filesystem::is_empty(

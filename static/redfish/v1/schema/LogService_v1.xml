@@ -240,5 +240,15 @@
       <EntityType Name="LogService" BaseType="LogService.v1_1_2.LogService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_1_4">
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService"/>
+        <Action Name="CollectDebugData" IsBound="true">
+          <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
+          <Annotation Term="OData.Description" String="The action to create the log for this Log Service."/>
+          <Annotation Term="OData.LongDescription" String="This action shall create the log for this Log Service."/>
+        </Action>
+      </EntityType>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
