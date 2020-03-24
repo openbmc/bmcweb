@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogService v1.1.3                                                   -->
+<!--# Redfish Schema:  LogService v1.2.0                                                   -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
@@ -71,7 +71,15 @@
         <Annotation Term="OData.Description" String="The action to clear the log for this Log Service."/>
         <Annotation Term="OData.LongDescription" String="This action shall delete all entries found in the Entries collection for this Log Service."/>
       </Action>
-
+      <Action Name="CollectDebugData" IsBound="true">
+        <Parameter Name="LogService" Type="LogService.v1_0_0.Actions"/>
+        <Parameter Name="DumpType" Type="LogServie.v1_2_0.DumpTypesEnum">
+          <Annotation Term="OData.Description" String="The action to create the log for this Log Service."/>
+          <Annotation Term="OData.LongDescription" String="This action shall create the log for this Log Service."/>
+        </Parameter>
+        <Annotation Term="OData.Description" String="The action to create the log for this Log Service."/>
+        <Annotation Term="OData.LongDescription" String="This action shall create the log for this Log Service."/>
+      </Action>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_0_0">
@@ -239,6 +247,24 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="LogService" BaseType="LogService.v1_1_2.LogService"/>
     </Schema>
-
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogService.v1_2_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+      <EntityType Name="LogService" BaseType="LogService.v1_1_3.LogService"/>
+      <EnumType Name="DumpTypesEnum">
+        <Member Name="HostFirmware">
+          <Annotation Term="OData.Description" String="Host firmware"/>
+        </Member>
+        <Member Name="SBE">
+          <Annotation Term="OData.Description" String="SBE is the first processor that runs when the CPU is powered up and is responsible for initializing the chip."/>
+        </Member>
+        <Member Name="HostBoot">
+          <Annotation Term="OData.Description" String="Hostboot firmware initializes all processor, bus, and memory."/>
+        </Member>
+        <Member Name="OEM">
+          <Annotation Term="OData.Description" String="oem"/>
+        </Member>
+      </EnumType>
+    </Schema>
   </edmx:DataServices>
 </edmx:Edmx>
