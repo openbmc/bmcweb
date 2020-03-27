@@ -11,6 +11,9 @@ namespace crow
 {
 namespace detail
 {
+
+constexpr const size_t timerQueueTimeoutSeconds = 5;
+
 // fast timer queue for fixed tick value.
 class TimerQueue
 {
@@ -49,7 +52,8 @@ class TimerQueue
             // remove canceled ones immediately
             if (x.second)
             {
-                if (now - x.first < std::chrono::seconds(5))
+                if (now - x.first <
+                    std::chrono::seconds(timerQueueTimeoutSeconds))
                 {
                     break;
                 }
