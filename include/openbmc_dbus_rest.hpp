@@ -2282,6 +2282,7 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 // if there is more levels past the method name, something
                 // went wrong, return not found
                 res.result(boost::beast::http::status::not_found);
+                res.end();
                 return;
             }
             if (interfaceName.empty())
