@@ -374,6 +374,7 @@ class Connection : public std::enable_shared_from_this<
                                     "be used for user authentication";
                 return true;
             }
+            ASN1_BIT_STRING_free(usage);
 
             // Determine that ExtendedKeyUsage includes Client Auth
 
@@ -396,6 +397,7 @@ class Connection : public std::enable_shared_from_this<
                     break;
                 }
             }
+            sk_ASN1_OBJECT_free(extUsage);
 
             // Certificate has to have proper key usages set
             if (!isExKeyUsageClientAuth)
