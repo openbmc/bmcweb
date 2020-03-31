@@ -66,7 +66,7 @@ class Handler : public std::enable_shared_from_this<Handler>
             },
             "xyz.openbmc_project.Dump.Manager",
             "/xyz/openbmc_project/dump/entry/" + entryID,
-            "xyz.openbmc_project.Dump.Entry", "InitiateOffload");
+            "xyz.openbmc_project.Dump.Entry", "InitiateOffload", "/dev/nbd1");
     }
 
     /**
