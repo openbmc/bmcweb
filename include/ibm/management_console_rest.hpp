@@ -1,6 +1,13 @@
 #pragma once
 #include <app.h>
+#include <libpldm/base.h>
+#include <libpldm/file_io.h>
+#include <libpldm/platform.h>
+#include <libpldm/pldm.h>
+#include <poll.h>
+#include <sys/inotify.h>
 #include <tinyxml2.h>
+#include <unistd.h>
 
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
@@ -32,6 +39,8 @@ constexpr const char *methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char *resourceNotFoundMsg = "Resource Not Found";
 constexpr const char *contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char *internalServerError = "Internal Server Error";
+constexpr auto eidPath = "/usr/share/pldm/host_eid";
+constexpr mctp_eid_t defaultEIDValue = 9;
 
 bool createSaveAreaPath(crow::Response &res)
 {
@@ -531,9 +540,166 @@ void handleGetLockListAPI(const crow::Request &req, crow::Response &res,
     }
 }
 
+mctp_eid_t readEID()
+{
+    mctp_eid_t mctpEid = defaultEIDValue;
+    std::ifstream eidFile{eidPath};
+    if (!eidFile.good())
+    {
+        BMCWEB_LOG_ERROR << "Could not open host EID file";
+    }
+    else
+    {
+        std::string eid;
+        eidFile >> eid;
+        if (!eid.empty())
+        {
+            mctpEid = static_cast<mctp_eid_t>(atoi(eid.c_str()));
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "EID file was empty";
+        }
+    }
+    return mctpEid;
+}
+
+void handleCsrRequest(const crow::Request &req, crow::Response &res,
+                      const std::string &csrString)
+{
+    std::error_code ec;
+    if (!std::filesystem::is_directory("/var/lib/bmcweb"))
+
+    {
+        std::filesystem::create_directory("/var/lib/bmcweb", ec);
+    }
+
+    // write CSR string to CSR file
+    std::ofstream CSRFile, certFile;
+    CSRFile.open("/var/lib/bmcweb/CSR");
+    CSRFile << csrString;
+    CSRFile.close();
+
+    certFile.open("/var/lib/bmcweb/ClientCert");
+    certFile.close();
+
+    uint32_t length = csrString.length();
+
+    mctp_eid_t mctpEid = readEID();
+
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, length, mctpEid, &res](const boost::system::error_code ec,
+                                           std::variant<uint8_t> value) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "GetInstanceId failed. ec : " << ec;
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            auto instanceId = std::get<uint8_t>(value);
+            uint16_t fileType = 4; // PLDM_FILE_TYPE_CERT_SIGNING_REQUEST
+            uint32_t fileHandle = 0;
+            auto wd = -1;
+            int fd = pldm_open();
+            if (-1 == fd)
+            {
+                BMCWEB_LOG_DEBUG << "handleCertificatePost: pldm_open() failed";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            std::array<uint8_t, sizeof(pldm_msg_hdr) + sizeof(fileType) +
+                                    sizeof(fileHandle) + sizeof(uint64_t)>
+                requestMsg;
+
+            auto request = reinterpret_cast<pldm_msg *>(requestMsg.data());
+
+            auto rc = encode_new_file_req(instanceId, fileType, fileHandle,
+                                          length, request);
+
+            if (rc != PLDM_SUCCESS)
+            {
+                BMCWEB_LOG_ERROR << "encode_new_file_req failed.rc = " << rc;
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            rc = pldm_send(mctpEid, fd, requestMsg.data(), requestMsg.size());
+            if (rc < 0)
+            {
+                BMCWEB_LOG_ERROR << "pldm_send failed. rc = " << rc;
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            fd = inotify_init1(IN_NONBLOCK | IN_CLOEXEC);
+            if (fd < 0)
+            {
+                BMCWEB_LOG_ERROR << "Failed to create inotify watch.";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            constexpr auto CLIENT_CERT_PATH = "/var/lib/bmcweb/ClientCert";
+            wd = inotify_add_watch(fd, CLIENT_CERT_PATH, IN_MODIFY);
+            if (wd < 0)
+            {
+                BMCWEB_LOG_ERROR << "Failed to watch ClientCert file.";
+                close(fd);
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            struct pollfd fds;
+            fds.fd = fd;
+            fds.events = POLLIN;
+
+            constexpr auto pollTimeout = 30;
+            rc = poll(&fds, 1, pollTimeout * 1000);
+            if (rc < 0)
+            {
+                BMCWEB_LOG_ERROR << "Failed to add event.";
+                inotify_rm_watch(fd, wd);
+                close(fd);
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            else if (rc == 0)
+            {
+                BMCWEB_LOG_ERROR << "Poll timed out  " << pollTimeout;
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+
+            std::ifstream inFile;
+            inFile.open("/var/lib/bmcweb/ClientCert");
+
+            std::stringstream strStream;
+            strStream << inFile.rdbuf(); // read the file
+            std::string str = strStream.str();
+            inFile.close();
+            res.jsonValue["Certificate"] = str;
+
+            remove("/var/lib/bmcweb/ClientCert");
+            remove("/var/lib/bmcweb/CSR");
+            res.end();
+        },
+        "xyz.openbmc_project.PLDM", "/xyz/openbmc_project/pldm",
+        "xyz.openbmc_project.PLDM.Requester", "GetInstanceId", mctpEid);
+}
+
 template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
 {
-
     // allowed only for admin
     BMCWEB_ROUTE(app, "/ibm/v1/")
         .requires({"ConfigureComponents", "ConfigureManager"})
@@ -571,6 +737,42 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
         .methods("PUT"_method, "GET"_method, "DELETE"_method)(
             [](const crow::Request &req, crow::Response &res,
                const std::string &path) { handleFileUrl(req, res, path); });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Actions/SignCSR")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "POST"_method)([](const crow::Request &req, crow::Response &res) {
+            std::string csrString;
+            if (!redfish::json_util::readJson(req, res, "CsrString", csrString))
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+            handleCsrRequest(req, res, csrString);
+        });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/Certificate/root")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods(
+            "GET"_method)([](const crow::Request &req, crow::Response &res) {
+            std::filesystem::path rootCert = "/var/lib/bmcweb/RootCert";
+            if (!std::filesystem::exists(rootCert))
+            {
+                BMCWEB_LOG_ERROR << "RootCert file does not exist";
+                res.result(boost::beast::http::status::internal_server_error);
+                res.jsonValue["Description"] = internalServerError;
+                return;
+            }
+            std::ifstream inFile;
+            inFile.open("/var/lib/bmcweb/RootCert");
+            std::stringstream strStream;
+            strStream << inFile.rdbuf();
+            std::string certStr = strStream.str();
+            inFile.close();
+            res.jsonValue["Certificate"] = certStr;
+            res.end();
+        });
 
     BMCWEB_ROUTE(app, "/ibm/v1/HMC/LockService")
         .requires({"ConfigureComponents", "ConfigureManager"})
@@ -640,6 +842,13 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 }
                 handleGetLockListAPI(req, res, listSessionIDs);
             });
+
+    FILE *fp = fopen("/var/lib/bmcweb/RootCert", "w");
+    if (fp == NULL)
+    {
+        return;
+    }
+    fclose(fp);
 }
 
 } // namespace ibm_mc
