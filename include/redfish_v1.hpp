@@ -5,7 +5,6 @@
 #include <boost/algorithm/string.hpp>
 #include <dbus_singleton.hpp>
 #include <persistent_data_middleware.hpp>
-#include <token_authorization_middleware.hpp>
 
 #include <fstream>
 #include <streambuf>
