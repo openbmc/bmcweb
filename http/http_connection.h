@@ -7,6 +7,7 @@
 #include "timer_queue.h"
 #include "utility.h"
 
+#include "authorization.hpp"
 #include "http_utility.hpp"
 
 #include <boost/algorithm/string.hpp>
@@ -248,6 +249,18 @@ static std::atomic<int> connectionCount;
 constexpr unsigned int httpReqBodyLimit =
     1024 * 1024 * BMCWEB_HTTP_REQ_BODY_LIMIT_MB;
 
+constexpr uint64_t loggedOutBodyLimit = 4096;
+
+constexpr uint32_t httpHeaderLimit = 4096;
+
+// drop all connections after 1 minute, this time limit was chosen
+// arbitrarily and can be adjusted later if needed
+static constexpr const size_t maxReadAttempts =
+    (60 / detail::timerQueueTimeoutSeconds);
+
+static constexpr const size_t loggedOutAttempts =
+    (15 / detail::timerQueueTimeoutSeconds);
+
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection :
     public std::enable_shared_from_this<
@@ -265,10 +278,8 @@ class Connection :
         timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        // Temporarily set by the BMCWEB_HTTP_REQ_BODY_LIMIT_MB variable; Need
-        // to modify uploading/authentication mechanism to a better method that
-        // disallows a DOS attack based on a large file size.
         parser->body_limit(httpReqBodyLimit);
+        parser->header_limit(httpHeaderLimit);
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
@@ -472,7 +483,7 @@ class Connection :
     void start()
     {
 
-        startDeadline();
+        startDeadline(0);
         // TODO(ed) Abstract this to a more clever class with the idea of an
         // asynchronous "start"
         if constexpr (std::is_same_v<Adaptor,
@@ -497,7 +508,6 @@ class Connection :
 
     void handle()
     {
-        cancelDeadlineTimer();
         bool isInvalidRequest = false;
 
         // Check for HTTP version 1.1.
@@ -647,6 +657,8 @@ class Connection :
                                             decltype(ctx),
                                             decltype(*middlewares)>(
                 *middlewares, ctx, *req, res);
+
+            crow::authorization::cleanupTempSession(*req);
         }
 
         if (!isAlive())
@@ -706,6 +718,9 @@ class Connection :
     {
         BMCWEB_LOG_DEBUG << this << " doReadHeaders";
 
+        parser->header_limit(httpHeaderLimit);
+        parser->body_limit(httpReqBodyLimit);
+
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
             adaptor, buffer, *parser,
@@ -731,22 +746,53 @@ class Connection :
                     }
                 }
 
+                cancelDeadlineTimer();
+
                 if (errorWhileReading)
                 {
-                    cancelDeadlineTimer();
                     close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
                 }
 
                 // Compute the url parameters for the request
-                req->url = req->target();
-                std::size_t index = req->url.find("?");
-                if (index != std::string_view::npos)
+                if (req)
                 {
-                    req->url = req->url.substr(0, index);
+                    req->url = req->target();
+                    std::size_t index = req->url.find("?");
+                    if (index != std::string_view::npos)
+                    {
+                        req->url = req->url.substr(0, index);
+                    }
+                    crow::authorization::authenticate(*req, res);
                 }
-                req->urlParams = QueryString(std::string(req->target()));
+                uint64_t contentLength =
+                    parser->content_length() ? *(parser->content_length()) : 0;
+                BMCWEB_LOG_DEBUG << contentLength << " Content Length";
+
+                if (req && req->session)
+                {
+                    startDeadline(maxReadAttempts);
+                    BMCWEB_LOG_DEBUG << "Starting slow deadline";
+                }
+                else
+                {
+                    if (contentLength > loggedOutBodyLimit)
+                    {
+                        // todo(james) try to return 401 instead of just closing
+                        close();
+                        return;
+                    }
+
+                    parser->body_limit(loggedOutBodyLimit);
+
+                    startDeadline(loggedOutAttempts);
+                    BMCWEB_LOG_DEBUG << "Starting quick deadline";
+                }
+                if (req)
+                {
+                    req->urlParams = QueryString(std::string(req->target()));
+                }
                 doRead();
             });
     }
@@ -772,7 +818,15 @@ class Connection :
                 }
                 else
                 {
-                    if (!isAlive())
+                    if (isAlive())
+                    {
+                        cancelDeadlineTimer();
+                        size_t readAttempts = req && req->session
+                                                  ? maxReadAttempts
+                                                  : loggedOutAttempts;
+                        startDeadline(readAttempts);
+                    }
+                    else
                     {
                         errorWhileReading = true;
                     }
@@ -817,8 +871,6 @@ class Connection :
                 BMCWEB_LOG_DEBUG << this << " Clearing response";
                 res.clear();
                 parser.emplace(std::piecewise_construct, std::make_tuple());
-                parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                                      // newly created parser
                 buffer.consume(buffer.size());
 
                 req.emplace(parser->get());
@@ -837,39 +889,37 @@ class Connection :
         }
     }
 
-    void startDeadline(size_t timerIterations = 0)
+    void startDeadline(size_t timerIterations)
     {
-        // drop all connections after 1 minute, this time limit was chosen
-        // arbitrarily and can be adjusted later if needed
-        constexpr const size_t maxReadAttempts =
-            (60 / detail::timerQueueTimeoutSeconds);
-
         cancelDeadlineTimer();
 
-        timerCancelKey = timerQueue.add([this, self(shared_from_this()),
-                                         readCount{parser->get().body().size()},
-                                         timerIterations{timerIterations + 1}] {
-            // Mark timer as not active to avoid canceling it during
-            // Connection destructor which leads to double free issue
-            timerCancelKey.reset();
-            if (!isAlive())
-            {
-                return;
-            }
+        if (timerIterations)
+        {
+            timerIterations--;
+        }
 
-            // Restart timer if read is in progress.
-            // With threshold can be used to drop slow connections
-            // to protect against slow-rate DoS attack
-            if ((parser->get().body().size() > readCount) &&
-                (timerIterations < maxReadAttempts))
-            {
-                BMCWEB_LOG_DEBUG << this << " restart timer - read in progress";
-                startDeadline(timerIterations);
-                return;
-            }
+        timerCancelKey =
+            timerQueue.add([this, self(shared_from_this()), timerIterations] {
+                // Mark timer as not active to avoid canceling it during
+                // Connection destructor which leads to double free issue
+                timerCancelKey.reset();
+                if (!isAlive())
+                {
+                    return;
+                }
 
-            close();
-        });
+                // Threshold can be used to drop slow connections
+                // to protect against slow-rate DoS attack
+                if (timerIterations)
+                {
+                    BMCWEB_LOG_DEBUG << this
+                                     << " restart timer - read in progress";
+                    startDeadline(timerIterations);
+                    return;
+                }
+
+                close();
+            });
 
         if (!timerCancelKey)
         {

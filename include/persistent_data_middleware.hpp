@@ -11,9 +11,9 @@
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <sessions.hpp>
-#include <webassets.hpp>
 
 #include <filesystem>
+#include <fstream>
 #include <random>
 
 namespace crow
