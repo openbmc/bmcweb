@@ -9,11 +9,11 @@
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 #include <filesystem>
+#include <fstream>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <random>
 #include <sessions.hpp>
-#include <webassets.hpp>
 
 namespace crow
 {

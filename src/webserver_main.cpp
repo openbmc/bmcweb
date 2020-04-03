@@ -6,6 +6,7 @@
 #include <dbus_singleton.hpp>
 #include <image_upload.hpp>
 #include <kvm_websocket.hpp>
+#include <login_routes.hpp>
 #include <memory>
 #include <obmc_console.hpp>
 #include <openbmc_dbus_rest.hpp>
@@ -21,7 +22,6 @@
 #include <security_headers_middleware.hpp>
 #include <ssl_key_handler.hpp>
 #include <string>
-#include <token_authorization_middleware.hpp>
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
@@ -101,7 +101,7 @@ int main(int argc, char** argv)
     crow::ibm_mc::requestRoutes(app);
 #endif
 
-    crow::token_authorization::requestRoutes(app);
+    crow::login_routes::requestRoutes(app);
 
     BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
     setupSocket(app);

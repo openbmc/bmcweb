@@ -15,6 +15,8 @@
 #else
 #include <boost/beast/experimental/core/ssl_stream.hpp>
 #endif
+#include "authorization.hpp"
+
 #include <boost/beast/http.hpp>
 #include <boost/beast/websocket.hpp>
 #include <chrono>
@@ -247,6 +249,18 @@ static std::atomic<int> connectionCount;
 constexpr unsigned int httpReqBodyLimit =
     1024 * 1024 * BMCWEB_HTTP_REQ_BODY_LIMIT_MB;
 
+constexpr unsigned int loggedOutBodyLimit = 4096;
+
+constexpr unsigned int httpHeaderLimit = 4096;
+
+// drop all connections after 1 minute, this time limit was chosen
+// arbitrarily and can be adjusted later if needed
+static constexpr const size_t maxReadAttempts =
+    (60 / detail::timerQueueTimeoutSeconds);
+
+static constexpr const size_t loggedOutAttempts =
+    (15 / detail::timerQueueTimeoutSeconds);
+
 template <typename Adaptor, typename Handler, typename... Middlewares>
 class Connection : public std::enable_shared_from_this<
                        Connection<Adaptor, Handler, Middlewares...>>
@@ -263,10 +277,8 @@ class Connection : public std::enable_shared_from_this<
         timerQueue(timerQueueIn)
     {
         parser.emplace(std::piecewise_construct, std::make_tuple());
-        // Temporarily set by the BMCWEB_HTTP_REQ_BODY_LIMIT_MB variable; Need
-        // to modify uploading/authentication mechanism to a better method that
-        // disallows a DOS attack based on a large file size.
         parser->body_limit(httpReqBodyLimit);
+        parser->header_limit(httpHeaderLimit);
         req.emplace(parser->get());
 
 #ifdef BMCWEB_ENABLE_MUTUAL_TLS_AUTHENTICATION
@@ -470,7 +482,7 @@ class Connection : public std::enable_shared_from_this<
     void start()
     {
 
-        startDeadline();
+        startDeadline(0);
         // TODO(ed) Abstract this to a more clever class with the idea of an
         // asynchronous "start"
         if constexpr (std::is_same_v<Adaptor,
@@ -641,6 +653,8 @@ class Connection : public std::enable_shared_from_this<
                                             decltype(ctx),
                                             decltype(*middlewares)>(
                 *middlewares, ctx, *req, res);
+
+            crow::authorization::cleanupTempSession(*req);
         }
 
         if (!isAlive())
@@ -700,6 +714,9 @@ class Connection : public std::enable_shared_from_this<
     {
         BMCWEB_LOG_DEBUG << this << " doReadHeaders";
 
+        parser->header_limit(httpHeaderLimit);
+        parser->body_limit(httpReqBodyLimit);
+
         // Clean up any previous Connection.
         boost::beast::http::async_read_header(
             adaptor, buffer, *parser,
@@ -725,9 +742,10 @@ class Connection : public std::enable_shared_from_this<
                     }
                 }
 
+                cancelDeadlineTimer();
+
                 if (errorWhileReading)
                 {
-                    cancelDeadlineTimer();
                     close();
                     BMCWEB_LOG_DEBUG << this << " from read(1)";
                     return;
@@ -740,6 +758,36 @@ class Connection : public std::enable_shared_from_this<
                 {
                     req->url = req->url.substr(0, index);
                 }
+
+                crow::authorization::authenticate(*req, res);
+
+                if (res.completed)
+                {
+                    BMCWEB_LOG_DEBUG << "Failed to authenticate";
+                    completeRequest();
+                    return;
+                }
+
+                BMCWEB_LOG_DEBUG << *(parser->content_length())
+                                 << " Content Length";
+
+                if (req->session)
+                {
+                    startDeadline(maxReadAttempts);
+                    BMCWEB_LOG_DEBUG << "Starting slow deadline";
+                }
+                else
+                {
+                    if (*(parser->content_length()) > loggedOutBodyLimit)
+                    {
+                        close();
+                        return;
+                    }
+
+                    startDeadline(loggedOutAttempts);
+                    BMCWEB_LOG_DEBUG << "Starting quick deadline";
+                }
+
                 req->urlParams = QueryString(std::string(req->target()));
                 doRead();
             });
@@ -811,8 +859,6 @@ class Connection : public std::enable_shared_from_this<
                 BMCWEB_LOG_DEBUG << this << " Clearing response";
                 res.clear();
                 parser.emplace(std::piecewise_construct, std::make_tuple());
-                parser->body_limit(httpReqBodyLimit); // reset body limit for
-                                                      // newly created parser
                 buffer.consume(buffer.size());
 
                 req.emplace(parser->get());
@@ -831,39 +877,38 @@ class Connection : public std::enable_shared_from_this<
         }
     }
 
-    void startDeadline(size_t timerIterations = 0)
+    void startDeadline(size_t timerIterations)
     {
-        // drop all connections after 1 minute, this time limit was chosen
-        // arbitrarily and can be adjusted later if needed
-        constexpr const size_t maxReadAttempts =
-            (60 / detail::timerQueueTimeoutSeconds);
-
         cancelDeadlineTimer();
 
-        timerCancelKey = timerQueue.add([this, self(shared_from_this()),
-                                         readCount{parser->get().body().size()},
-                                         timerIterations{timerIterations + 1}] {
-            // Mark timer as not active to avoid canceling it during
-            // Connection destructor which leads to double free issue
-            timerCancelKey.reset();
-            if (!isAlive())
-            {
-                return;
-            }
+        if (timerIterations)
+        {
+            timerIterations--;
+        }
 
-            // Restart timer if read is in progress.
-            // With threshold can be used to drop slow connections
-            // to protect against slow-rate DoS attack
-            if ((parser->get().body().size() > readCount) &&
-                (timerIterations < maxReadAttempts))
-            {
-                BMCWEB_LOG_DEBUG << this << " restart timer - read in progress";
-                startDeadline(timerIterations);
-                return;
-            }
+        timerCancelKey =
+            timerQueue.add([this, self(shared_from_this()), timerIterations] {
+                // Mark timer as not active to avoid canceling it during
+                // Connection destructor which leads to double free issue
+                timerCancelKey.reset();
+                if (!isAlive())
+                {
+                    return;
+                }
 
-            close();
-        });
+                // Restart timer if read is in progress.
+                // With threshold can be used to drop slow connections
+                // to protect against slow-rate DoS attack
+                if (!parser->is_done() && timerIterations)
+                {
+                    BMCWEB_LOG_DEBUG << this
+                                     << " restart timer - read in progress";
+                    startDeadline(timerIterations);
+                    return;
+                }
+
+                close();
+            });
 
         if (!timerCancelKey)
         {
