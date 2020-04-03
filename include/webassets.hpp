@@ -1,5 +1,7 @@
 #pragma once
 
+#include "webroutes.hpp"
+
 #include <app.h>
 #include <http_request.h>
 #include <http_response.h>
@@ -26,8 +28,6 @@ struct CmpStr
         return std::strcmp(a, b) < 0;
     }
 };
-
-static boost::container::flat_set<std::string> routes;
 
 template <typename... Middlewares>
 void requestRoutes(Crow<Middlewares...>& app)
@@ -100,13 +100,13 @@ void requestRoutes(Crow<Middlewares...>& app)
                     webpath.string().back() != '/')
                 {
                     // insert the non-directory version of this path
-                    routes.insert(webpath);
+                    webroutes::routes.insert(webpath);
                     webpath += "/";
                 }
             }
 
             std::pair<boost::container::flat_set<std::string>::iterator, bool>
-                inserted = routes.insert(webpath);
+                inserted = webroutes::routes.insert(webpath);
 
             if (!inserted.second)
             {
