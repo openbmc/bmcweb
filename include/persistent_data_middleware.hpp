@@ -8,10 +8,10 @@
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include <fstream>
 #include <nlohmann/json.hpp>
 #include <pam_authenticate.hpp>
 #include <sessions.hpp>
-#include <webassets.hpp>
 
 #include <filesystem>
 #include <random>
