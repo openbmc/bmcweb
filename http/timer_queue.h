@@ -13,14 +13,14 @@ namespace detail
 {
 
 constexpr const size_t timerQueueTimeoutSeconds = 5;
-
+constexpr const size_t maxSize = 100;
 // fast timer queue for fixed tick value.
 class TimerQueue
 {
   public:
     TimerQueue()
     {
-        dq.set_capacity(100);
+        dq.set_capacity(maxSize);
     }
 
     void cancel(size_t k)
@@ -32,8 +32,13 @@ class TimerQueue
         }
     }
 
-    size_t add(std::function<void()> f)
+    std::optional<size_t> add(std::function<void()> f)
     {
+        if (dq.size() == maxSize)
+        {
+            return std::nullopt;
+        }
+
         dq.push_back(
             std::make_pair(std::chrono::steady_clock::now(), std::move(f)));
         size_t ret = step + dq.size() - 1;
