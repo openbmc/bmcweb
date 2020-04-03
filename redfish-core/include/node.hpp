@@ -19,7 +19,6 @@
 #include "http_response.h"
 
 #include "privileges.hpp"
-#include "token_authorization_middleware.hpp"
 #include "webserver_common.hpp"
 
 #include <error_messages.hpp>
