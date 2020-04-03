@@ -18,7 +18,7 @@
 #include <security_headers_middleware.hpp>
 #include <ssl_key_handler.hpp>
 #include <string>
-#include <token_authorization_middleware.hpp>
+#include <login_routes.hpp>
 #include <vm_websocket.hpp>
 #include <webassets.hpp>
 #include <webserver_common.hpp>
@@ -94,7 +94,7 @@ int main(int argc, char** argv)
     crow::obmc_vm::requestRoutes(app);
 #endif
 
-    crow::token_authorization::requestRoutes(app);
+    crow::login_routes::requestRoutes(app);
 
     BMCWEB_LOG_INFO << "bmcweb (" << __DATE__ << ": " << __TIME__ << ')';
     setupSocket(app);
