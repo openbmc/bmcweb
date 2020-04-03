@@ -864,6 +864,12 @@ class Connection : public std::enable_shared_from_this<
 
             close();
         });
+
+        if (!timerCancelKey)
+        {
+            close();
+            return;
+        }
         BMCWEB_LOG_DEBUG << this << " timer added: " << &timerQueue << ' '
                          << *timerCancelKey;
     }
