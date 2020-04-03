@@ -8,7 +8,6 @@
 #include <persistent_data_middleware.hpp>
 #include <streambuf>
 #include <string>
-#include <token_authorization_middleware.hpp>
 namespace crow
 {
 namespace redfish
