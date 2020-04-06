@@ -1,5 +1,6 @@
 #pragma once
 #include <app.h>
+#include <mimetic/mimetic.h>
 #include <tinyxml2.h>
 
 #include <async_resp.hpp>
@@ -15,8 +16,10 @@
 #include <fstream>
 #include <regex>
 
-// Allow save area file size to 500KB
+// Maximum save area file size - 500KB
 #define MAX_SAVE_AREA_FILESIZE 500000
+// Maximum save area directory size - 10MB
+#define MAX_SAVE_AREA_DIRSIZE 10000000
 
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
@@ -30,10 +33,16 @@ namespace crow
 {
 namespace ibm_mc
 {
+using namespace mimetic;
+using json = nlohmann::json;
+
 constexpr const char* methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char* resourceNotFoundMsg = "Resource Not Found";
 constexpr const char* contentNotAcceptableMsg = "Content Not Acceptable";
 constexpr const char* internalServerError = "Internal Server Error";
+
+const char* saveAreaDirPath = "/var/lib/obmc/bmc-console-mgmt/save-area";
+const char* saveAreaTempDirPath = "/tmp/save-area";
 
 bool createSaveAreaPath(crow::Response& res)
 {
@@ -72,6 +81,170 @@ bool createSaveAreaPath(crow::Response& res)
     }
     return true;
 }
+
+bool createMultiConfigFiles(crow::Response& res, const MimeEntity& mimeticObj,
+                            int& saveAreaFileCount)
+{
+
+    if (mimeticObj.body().capacity() > MAX_SAVE_AREA_FILESIZE)
+    {
+        BMCWEB_LOG_ERROR << "File size is huge. Maximum allowed size is 500KB";
+        res.jsonValue["Description"] =
+            "File size is huge. Maximum allowed size is 500KB";
+        return false;
+    }
+
+    const Header& mimeHeader = mimeticObj.header();
+
+    // create the save area files in /tmp/savearea
+    std::string fileId =
+        mimeHeader.contentDisposition().ContentDisposition::param("name");
+
+    if (!fileId.empty())
+    {
+        std::ofstream saFile;
+        std::filesystem::path loc(saveAreaTempDirPath);
+        loc /= fileId;
+
+        saFile.open(loc, std::ofstream::out);
+        if (saFile.fail())
+        {
+            BMCWEB_LOG_ERROR
+                << "Error while opening the save-area file for writing: "
+                << fileId;
+            saFile.close();
+            return false;
+        }
+        saFile << mimeticObj.body();
+        saFile.close();
+        BMCWEB_LOG_DEBUG << "Created save-area file: " << loc;
+    }
+    else if ((mimeHeader.contentType().type()).compare("multipart") != 0)
+    {
+        BMCWEB_LOG_ERROR << "File Id in position: " << saveAreaFileCount
+                         << " is empty! Stopping the file upload";
+        return false;
+    }
+    // Iterate over the data to create the following files
+    for (const auto& BodyItr : mimeticObj.body().parts())
+    {
+        saveAreaFileCount++;
+        if (!createMultiConfigFiles(res, *BodyItr, saveAreaFileCount))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+void handleFilePost(const crow::Request& req, crow::Response& res)
+{
+    BMCWEB_LOG_DEBUG
+        << "handleFilePost: Request for multipart upload of config files";
+    if (!createSaveAreaPath(res))
+    {
+        redfish::messages::internalError(res);
+        BMCWEB_LOG_ERROR
+            << "handleFilePost: Creation of config file path failed";
+        return;
+    }
+
+    // Check the content-type of the request
+    std::string_view contentType = req.getHeaderValue("content-type");
+
+    if (boost::starts_with(contentType, "multipart/form-data"))
+    {
+        BMCWEB_LOG_DEBUG << "This is multipart/form-data. Continue parsing";
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "handleFilePost: Not a multipart/form-data. Wrong "
+                            "content-type sent";
+        redfish::messages::propertyValueTypeError(res, std::string(contentType),
+                                                  "Content-Type");
+        return;
+    }
+
+    // Using the req.body and the req header, prepare the mimetic parsable data
+    std::string data = std::move(req.body);
+
+    // Append content-type to the req body
+    std::string contentLine = "Content-Type: " + std::string(contentType);
+    data.insert(0, (contentLine + ";"));
+
+    std::istringstream inpDataStream(data);
+    MimeEntity mimeticObj(inpDataStream);
+
+    BMCWEB_LOG_DEBUG << "Creating files from a multipart request data of size: "
+                     << mimeticObj.size();
+
+    // Create a temporary directory /tmp/savearea to copy files from savearea
+    // dir and modify all the files in the req
+    std::error_code ec;
+    std::filesystem::create_directory(saveAreaTempDirPath, ec);
+    if (ec)
+    {
+        redfish::messages::internalError(res);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_ERROR << "handleFilePost: Failed to prepare tmp save-area "
+                            "directory. ec : "
+                         << ec;
+        return;
+    }
+
+    int saveAreaFileCount = 0; // To keep track of the file position in the req
+                               // body in case of an error
+
+    // Copy the files from save-area path to /tmp
+    std::filesystem::copy(saveAreaDirPath, saveAreaTempDirPath,
+                          std::filesystem::copy_options::none, ec);
+
+    if (ec)
+    {
+        redfish::messages::internalError(res);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_ERROR << "handleFilePost: Failed to copy the save-area "
+                            "directory to. ec : "
+                         << ec;
+        return;
+    }
+
+    if (createMultiConfigFiles(res, mimeticObj, saveAreaFileCount))
+    {
+        // Retrieve the savearea directory size in /tmp
+        std::uintmax_t saveAreaTempDirSize = 0;
+        for (const auto& file :
+             std::filesystem::directory_iterator(saveAreaTempDirPath))
+        {
+            saveAreaTempDirSize += std::filesystem::file_size(file.path());
+        }
+
+        if (saveAreaTempDirSize > MAX_SAVE_AREA_DIRSIZE)
+        {
+            redfish::messages::internalError(res);
+            res.jsonValue["Description"] =
+                "Directory size is huge. Maximum allowed size is 10MB.";
+            BMCWEB_LOG_ERROR << "Directory size is huge. Maximum allowed size "
+                                "is 10MB. Stopping the file upload";
+            return;
+        }
+        std::filesystem::copy(
+            saveAreaTempDirPath, saveAreaDirPath,
+            std::filesystem::copy_options::overwrite_existing |
+                std::filesystem::copy_options::recursive);
+        res.jsonValue["Description"] = "Config files created";
+    }
+    else
+    {
+        redfish::messages::internalError(res);
+        BMCWEB_LOG_ERROR << "handleFilePost: Failed to create config files";
+    }
+
+    // Remove the directory in /tmp
+    std::filesystem::remove_all(saveAreaTempDirPath);
+    std::filesystem::remove(saveAreaTempDirPath);
+}
+
 void handleFilePut(const crow::Request& req, crow::Response& res,
                    const std::string& fileID)
 {
@@ -120,11 +293,13 @@ void handleFilePut(const crow::Request& req, crow::Response& res,
         BMCWEB_LOG_DEBUG << "Error while opening the file for writing";
         res.result(boost::beast::http::status::internal_server_error);
         res.jsonValue["Description"] = "Error while creating the file";
+        file.close();
         return;
     }
     else
     {
         file << data;
+        file.close();
         BMCWEB_LOG_DEBUG << "save-area file is created";
         res.jsonValue["Description"] = "File Created";
     }
@@ -268,6 +443,12 @@ inline void handleFileUrl(const crow::Request& req, crow::Response& res,
     if (req.method() == "DELETE"_method)
     {
         handleFileDelete(res, fileID);
+        res.end();
+        return;
+    }
+    if (req.method() == "POST"_method)
+    {
+        handleFilePost(req, res);
         res.end();
         return;
     }
@@ -548,9 +729,16 @@ void requestRoutes(Crow<Middlewares...>& app)
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles")
         .requires({"ConfigureComponents", "ConfigureManager"})
-        .methods("GET"_method)(
+        .methods("GET"_method, "POST"_method)(
             [](const crow::Request& req, crow::Response& res) {
-                handleConfigFileList(res);
+                if (req.method() == "GET"_method)
+                {
+                    handleConfigFileList(res);
+                }
+                else
+                {
+                    handleFileUrl(req, res, std::string());
+                }
             });
 
     BMCWEB_ROUTE(app,
