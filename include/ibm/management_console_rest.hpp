@@ -17,6 +17,8 @@
 #include <regex>
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
+#include <error_messages.hpp>
+#include <mimetic/mimetic.h>
 
 #define MAX_SAVE_AREA_FILESIZE 200000
 using stype = std::string;
@@ -33,6 +35,9 @@ namespace crow
 {
 namespace ibm_mc
 {
+using namespace mimetic;
+using json = nlohmann::json;
+
 constexpr const char *methodNotAllowedMsg = "Method Not Allowed";
 constexpr const char *resourceNotFoundMsg = "Resource Not Found";
 constexpr const char *contentNotAcceptableMsg = "Content Not Acceptable";
@@ -80,6 +85,99 @@ bool createSaveAreaPath(crow::Response &res)
     }
     return true;
 }
+
+bool createMultipartFiles(MimeEntity *mimeticObj)
+{
+    Header &h = mimeticObj->header();
+
+    // create the file
+    std::string fileId =
+        h.contentDisposition().ContentDisposition::param("name");
+
+    if (!fileId.empty())
+    {
+        std::ofstream sa_file;
+        std::filesystem::path loc("/var/lib/obmc/bmc-console-mgmt/save-area");
+        sa_file.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+        loc /= fileId;
+
+        sa_file.open(loc, std::ofstream::out);
+        if (sa_file.fail())
+        {
+            BMCWEB_LOG_DEBUG << "Error while opening the save-area file for writing: " << fileId;
+            return false;
+        }
+        else
+        {
+            sa_file << mimeticObj->body();
+            sa_file.close();
+            BMCWEB_LOG_DEBUG << "Created save-area file: " << loc;
+        }
+    }
+    // Iterate over the data to create next files
+    MimeEntityList &parts = mimeticObj->body().parts(); // list of sub entities obj
+    MimeEntityList::iterator mbit = parts.begin(), meit = parts.end();
+    for (; mbit != meit; ++mbit)
+    {
+        if (createMultipartFiles(*mbit)) {
+            continue;
+        } else {
+            return false;
+        }
+    }
+    return true;
+}
+
+void handleFilePost(const crow::Request &req, crow::Response &res,
+                   const std::string &fileID)
+{
+    BMCWEB_LOG_DEBUG
+        << "handleIbmPost: Request for multipart upload of save-area files";
+    if (!createSaveAreaPath(res))
+    {
+        res.result(boost::beast::http::status::not_found);
+        res.jsonValue["Description"] = resourceNotFoundMsg;
+        return;
+    }
+
+    // Using the req.body and the req header, prepare the mimetic parsable data
+    std::string data = std::move(req.body);
+
+    json j_data = json::parse(data, nullptr, false);
+    if ( j_data.is_discarded() ) {
+        BMCWEB_LOG_ERROR << "Ill-formed JSON";
+        redfish::messages::malformedJSON(res);
+        return;
+    }
+
+    data = j_data["filedata"];
+
+    // create a temporary file, which will become the input to the mimetic
+    // constructor
+    std::ofstream out("tmp.txt");
+    out << data;
+    out.close();
+    std::ifstream fin("tmp.txt");
+
+    // Get input stream and end of stream iterators
+    std::istreambuf_iterator<char> fin_it(fin);
+    std::istreambuf_iterator<char> eos;
+
+    MimeEntity mimetic_obj(fin_it, eos);
+    BMCWEB_LOG_DEBUG << "Creating files from a multipart request data of size: " << mimetic_obj.size();
+
+    if (createMultipartFiles(&mimetic_obj)) {
+        res.jsonValue["Description"] = "Save-area files created";
+    } else {
+        res.result(boost::beast::http::status::internal_server_error);
+        res.jsonValue["Description"] = internalServerError;
+        BMCWEB_LOG_DEBUG
+            << "handleFilePost: Failed to create save-area files";
+    }
+    fin.close();
+    return;
+}
+
 void handleFilePut(const crow::Request &req, crow::Response &res,
                    const std::string &fileID)
 {
@@ -133,6 +231,7 @@ void handleFilePut(const crow::Request &req, crow::Response &res,
     else
     {
         file << data;
+        file.close();
         BMCWEB_LOG_DEBUG << "save-area file is created";
         res.jsonValue["Description"] = "File Created";
     }
@@ -276,6 +375,18 @@ inline void handleFileUrl(const crow::Request &req, crow::Response &res,
     if (req.method() == "DELETE"_method)
     {
         handleFileDelete(res, fileID);
+        res.end();
+        return;
+    }
+    if (req.method() == "POST"_method)
+    {
+        if (fileID.compare("ConfigFiles") == 0 || fileID.compare("ConfigFiles/") == 0) {
+            handleFilePost(req, res, fileID);
+        } else {
+            BMCWEB_LOG_DEBUG << "Invalid Path";
+            res.result(boost::beast::http::status::not_found);
+            res.jsonValue["Description"] = resourceNotFoundMsg;
+        }
         res.end();
         return;
     }
@@ -741,6 +852,12 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
             [](const crow::Request &req, crow::Response &res) {
                 deleteConfigFiles(res);
             });
+
+    BMCWEB_ROUTE(app, "/ibm/v1/Host/<path>")
+        .requires({"ConfigureComponents", "ConfigureManager"})
+        .methods("POST"_method)(
+            [](const crow::Request &req, crow::Response &res,
+               const std::string &path) { handleFileUrl(req, res, path); });
 
     BMCWEB_ROUTE(app, "/ibm/v1/Host/ConfigFiles/<path>")
         .requires({"ConfigureComponents", "ConfigureManager"})
