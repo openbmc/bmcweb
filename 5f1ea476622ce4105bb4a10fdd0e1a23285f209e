@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba5b6970_2bb89085",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "why this include is needed ? Its there in line :16",
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c897c088_095a5445",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "try-catch is not allowed in bmcweb. Please use the no-throw versions of the API, which receives any error from the OS during the file operations",
+      "range": {
+        "startLine": 103,
+        "startChar": 2,
+        "endLine": 114,
+        "endChar": 9
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "36b30246_412b1ba6",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "return property_value_format_error",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 149,
+        "endChar": 59
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "043c438c_047fffc9",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "please use some meaningful variable name",
+      "range": {
+        "startLine": 166,
+        "startChar": 15,
+        "endLine": 166,
+        "endChar": 17
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55c722af_442fb487",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 167,
+        "startChar": 57,
+        "endLine": 167,
+        "endChar": 65
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "12aecfa8_9074bc8f",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "extra space",
+      "range": {
+        "startLine": 177,
+        "startChar": 16,
+        "endLine": 177,
+        "endChar": 20
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "aa067545_913f142c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 844,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-06T11:10:56Z",
+      "side": 1,
+      "message": "Its better to move it along with the PUT method route at line: 861",
+      "range": {
+        "startLine": 840,
+        "startChar": 0,
+        "endLine": 844,
+        "endChar": 76
+      },
+      "revId": "5f1ea476622ce4105bb4a10fdd0e1a23285f209e",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
