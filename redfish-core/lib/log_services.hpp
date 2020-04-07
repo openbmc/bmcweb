@@ -1530,9 +1530,11 @@ class CrashdumpService : public Node
     CrashdumpService(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/")
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
@@ -1585,9 +1587,11 @@ class CrashdumpClear : public Node
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/"
                   "LogService.ClearLog/")
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
@@ -1676,9 +1680,11 @@ class CrashdumpEntryCollection : public Node
     CrashdumpEntryCollection(CrowApp &app) :
         Node(app, "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/")
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
@@ -1761,9 +1767,11 @@ class CrashdumpEntry : public Node
              "/redfish/v1/Systems/system/LogServices/Crashdump/Entries/<str>/",
              std::string())
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
@@ -1794,9 +1802,11 @@ class CrashdumpFile : public Node
              "<str>/",
              std::string(), std::string())
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
             {boost::beast::http::verb::put, {{"ConfigureManager"}}},
             {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
@@ -1894,13 +1904,15 @@ class OnDemandCrashdump : public Node
              "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
              "Crashdump.OnDemand/")
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
-            {boost::beast::http::verb::get, {{"Login"}}},
-            {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+            {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
   private:
@@ -1962,6 +1974,8 @@ class SendRawPECI : public Node
              "/redfish/v1/Systems/system/LogServices/Crashdump/Actions/Oem/"
              "Crashdump.SendRawPeci/")
     {
+        // Note: Deviated from redfish privilege registry for GET & HEAD
+        // method for security reasons.
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"ConfigureComponents"}}},
             {boost::beast::http::verb::head, {{"ConfigureComponents"}}},
@@ -2152,10 +2166,10 @@ class PostCodesClear : public Node
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
-            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
-            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
     }
 
   private:
