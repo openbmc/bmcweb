@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa913df_e2046b17",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-08T15:43:05Z",
+      "side": 1,
+      "message": "Need to run validator",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 6
+      },
+      "revId": "e5216cb9c9239e97eca8e57e7aec189ea54421c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00dc7035_83649e1e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-08T15:43:05Z",
+      "side": 1,
+      "message": "UpperCamelCase?",
+      "range": {
+        "startLine": 58,
+        "startChar": 33,
+        "endLine": 58,
+        "endChar": 51
+      },
+      "revId": "e5216cb9c9239e97eca8e57e7aec189ea54421c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d8b3c7c_8f4ecd8e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-08T15:43:05Z",
+      "side": 1,
+      "message": "magic number?",
+      "range": {
+        "startLine": 61,
+        "startChar": 11,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "e5216cb9c9239e97eca8e57e7aec189ea54421c7",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
