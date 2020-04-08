@@ -109,7 +109,7 @@ inline std::string getPrivilegeFromRoleId(std::string_view role)
     {
         return "priv-operator";
     }
-    else if (role == "NoAccess")
+    else if ((role == "NoAccess") || (role == ""))
     {
         return "priv-noaccess";
     }
@@ -1417,7 +1417,15 @@ class AccountsCollection : public Node
             messages::propertyValueNotInList(asyncResp->res, *roleId, "RoleId");
             return;
         }
-        roleId = priv;
+        if (priv == "priv-noaccess")
+        {
+            roleId = "";
+            enabled = false;
+        }
+        else
+        {
+            roleId = priv;
+        }
 
         // Reading AllGroups property
         crow::connections::systemBus->async_method_call(
@@ -1803,6 +1811,10 @@ class ManagerAccount : public Node
                         messages::propertyValueNotInList(asyncResp->res,
                                                          *roleId, "RoleId");
                         return;
+                    }
+                    if (priv == "priv-noaccess")
+                    {
+                        priv = "";
                     }
 
                     crow::connections::systemBus->async_method_call(
