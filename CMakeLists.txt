@@ -127,6 +127,11 @@ option (
 )
 
 option (
+    BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+    "Enable HTTP push style eventing feature" OFF
+)
+
+option (
     BMCWEB_ENABLE_VALIDATION_UNSECURE_FEATURE
     "Enables unsecure features required by validation. Note: must
     be turned off for production images."
@@ -416,6 +421,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE>
     $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
     -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
+    $<$<BOOL:${BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING}>:
+    -DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING>
 )
 
 # configure and install systemd unit files
