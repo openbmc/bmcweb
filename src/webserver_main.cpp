@@ -16,6 +16,7 @@
 #include <redfish.hpp>
 #include <redfish_v1.hpp>
 #include <sdbusplus/asio/connection.hpp>
+#include <sdbusplus/asio/sd_event.hpp>
 #include <sdbusplus/bus.hpp>
 #include <sdbusplus/server.hpp>
 #include <security_headers_middleware.hpp>
@@ -114,6 +115,15 @@ int main(int argc, char** argv)
 #endif
 
     redfish::RedfishService redfish(app);
+
+#ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
+    int rc = redfish::EventServiceManager::startEventLogMonitor(*io);
+    if (rc)
+    {
+        BMCWEB_LOG_ERROR << "Redfish event handler setup failed...";
+        return rc;
+    }
+#endif
 
     app.run();
     io->run();
