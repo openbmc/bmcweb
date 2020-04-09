@@ -236,6 +236,7 @@ class Middleware
             }
         }
 #endif
+        session->cookieAuth = true;
         return session;
     }
 
