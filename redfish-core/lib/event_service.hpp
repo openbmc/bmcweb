@@ -14,12 +14,7 @@
 // limitations under the License.
 */
 #pragma once
-#include "node.hpp"
-
-#include <boost/container/flat_map.hpp>
-#include <error_messages.hpp>
-#include <utils/json_utils.hpp>
-#include <variant>
+#include "event_service_manager.hpp"
 
 namespace redfish
 {
@@ -33,52 +28,11 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
 
-struct EventSrvConfig
-{
-    bool enabled;
-    uint32_t retryAttempts;
-    uint32_t retryTimeoutInterval;
-};
-
-struct EventSrvSubscription
-{
-    std::string destinationUrl;
-    std::string protocol;
-    std::string retryPolicy;
-    std::string customText;
-    std::string eventFormatType;
-    std::string subscriptionType;
-    std::vector<std::string> registryMsgIds;
-    std::vector<std::string> registryPrefixes;
-    std::vector<nlohmann::json> httpHeaders; // key-value pair
-};
-
-EventSrvConfig configData;
-boost::container::flat_map<std::string, EventSrvSubscription> subscriptionsMap;
-
-inline void initEventSrvStore()
-{
-    // TODO: Read the persistent data from store and populate.
-    // Populating with default.
-    configData.enabled = true;
-    configData.retryAttempts = 3;
-    configData.retryTimeoutInterval = 30; // seconds
-}
-
-inline void updateSubscriptionData()
-{
-    // Persist the config and subscription data.
-    // TODO: subscriptionsMap & configData need to be
-    // written to Persist store.
-    return;
-}
 class EventService : public Node
 {
   public:
     EventService(CrowApp& app) : Node(app, "/redfish/v1/EventService/")
     {
-        initEventSrvStore();
-
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
@@ -104,11 +58,12 @@ class EventService : public Node
             {"@odata.id", "/redfish/v1/EventService"}};
 
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
-        asyncResp->res.jsonValue["ServiceEnabled"] = configData.enabled;
+        asyncResp->res.jsonValue["ServiceEnabled"] =
+            EventServiceManager::getInstance().enabled;
         asyncResp->res.jsonValue["DeliveryRetryAttempts"] =
-            configData.retryAttempts;
+            EventServiceManager::getInstance().retryAttempts;
         asyncResp->res.jsonValue["DeliveryRetryIntervalSeconds"] =
-            configData.retryTimeoutInterval;
+            EventServiceManager::getInstance().retryTimeoutInterval;
         asyncResp->res.jsonValue["EventFormatTypes"] = supportedEvtFormatTypes;
         asyncResp->res.jsonValue["RegistryPrefixes"] = supportedRegPrefixes;
     }
@@ -131,7 +86,7 @@ class EventService : public Node
 
         if (serviceEnabled)
         {
-            configData.enabled = *serviceEnabled;
+            EventServiceManager::getInstance().enabled = *serviceEnabled;
         }
 
         if (retryAttemps)
@@ -145,7 +100,8 @@ class EventService : public Node
             }
             else
             {
-                configData.retryAttempts = *retryAttemps;
+                EventServiceManager::getInstance().retryAttempts =
+                    *retryAttemps;
             }
         }
 
@@ -160,11 +116,12 @@ class EventService : public Node
             }
             else
             {
-                configData.retryTimeoutInterval = *retryInterval;
+                EventServiceManager::getInstance().retryTimeoutInterval =
+                    *retryInterval;
             }
         }
 
-        updateSubscriptionData();
+        EventServiceManager::getInstance().updateSubscriptionData();
     }
 };
 
@@ -196,15 +153,17 @@ class EventDestinationCollection : public Node
             {"Name", "Event Destination Collections"}};
 
         nlohmann::json& memberArray = asyncResp->res.jsonValue["Members"];
-        memberArray = nlohmann::json::array();
-        asyncResp->res.jsonValue["Members@odata.count"] =
-            subscriptionsMap.size();
 
-        for (auto& it : subscriptionsMap)
+        std::vector<std::string> subscripIds =
+            EventServiceManager::getInstance().getAllIDs();
+        memberArray = nlohmann::json::array();
+        asyncResp->res.jsonValue["Members@odata.count"] = subscripIds.size();
+
+        for (const std::string& id : subscripIds)
         {
             memberArray.push_back(
                 {{"@odata.id",
-                  "/redfish/v1/EventService/Subscriptions/" + it.first}});
+                  "/redfish/v1/EventService/Subscriptions/" + id}});
         }
     }
 
@@ -213,7 +172,8 @@ class EventDestinationCollection : public Node
     {
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
-        if (subscriptionsMap.size() >= maxNoOfSubscriptions)
+        if (EventServiceManager::getInstance().getNumberOfSubscriptions() >=
+            maxNoOfSubscriptions)
         {
             messages::eventSubscriptionLimitExceeded(asyncResp->res);
             return;
@@ -238,19 +198,52 @@ class EventDestinationCollection : public Node
             return;
         }
 
-        EventSrvSubscription subValue;
-
         // Validate the URL using regex expression
-        // Format: <protocol>://<host>:<port>/uri
-        // protocol: http/https, uri: can include params.
-        const std::regex urlRegex("(http|https)://([^/ :]+):?.*");
-        if (!std::regex_match(destUrl, urlRegex))
+        // Format: <protocol>://<host>:<port>/<uri>
+        // protocol: http/https, uri: can include query params.
+        const std::regex urlRegex(
+            "(http|https)://([^/ :]+):?([0-9]*)(/([^ #?]*\\x3f?([^ #])*)?)");
+        std::cmatch match;
+        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
         {
             messages::propertyValueFormatError(asyncResp->res, destUrl,
                                                "Destination");
             return;
         }
-        subValue.destinationUrl = destUrl;
+
+        std::string uriProto = std::string(match[1].first, match[1].second);
+        if (uriProto == "http")
+        {
+#ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+            messages::propertyValueFormatError(asyncResp->res, destUrl,
+                                               "Destination");
+            return;
+#endif
+        }
+
+        std::string host = std::string(match[2].first, match[2].second);
+        std::string port = std::string(match[3].first, match[3].second);
+        std::string path = std::string(match[4].first, match[4].second);
+        if (port.empty())
+        {
+            if (uriProto == "http")
+            {
+                port = "80";
+            }
+            if (uriProto == "https")
+            {
+                port = "443";
+            }
+        }
+        if (path.empty())
+        {
+            path = "/";
+        }
+
+        std::shared_ptr<Subscription> subValue =
+            std::make_shared<Subscription>(host, port, path, uriProto);
+
+        subValue->destinationUrl = destUrl;
 
         if (subscriptionType)
         {
@@ -260,11 +253,11 @@ class EventDestinationCollection : public Node
                     asyncResp->res, *subscriptionType, "SubscriptionType");
                 return;
             }
-            subValue.subscriptionType = *subscriptionType;
+            subValue->subscriptionType = *subscriptionType;
         }
         else
         {
-            subValue.subscriptionType = "RedfishEvent"; // Default
+            subValue->subscriptionType = "RedfishEvent"; // Default
         }
 
         if (protocol != "Redfish")
@@ -273,7 +266,7 @@ class EventDestinationCollection : public Node
                                              "Protocol");
             return;
         }
-        subValue.protocol = protocol;
+        subValue->protocol = protocol;
 
         if (eventFormatType)
         {
@@ -285,22 +278,22 @@ class EventDestinationCollection : public Node
                     asyncResp->res, *eventFormatType, "EventFormatType");
                 return;
             }
-            subValue.eventFormatType = *eventFormatType;
+            subValue->eventFormatType = *eventFormatType;
         }
         else
         {
             // If not specified, use default "Event"
-            subValue.eventFormatType.assign({"Event"});
+            subValue->eventFormatType.assign({"Event"});
         }
 
         if (context)
         {
-            subValue.customText = *context;
+            subValue->customText = *context;
         }
 
         if (headers)
         {
-            subValue.httpHeaders = *headers;
+            subValue->httpHeaders = *headers;
         }
 
         if (regPrefixes)
@@ -316,14 +309,14 @@ class EventDestinationCollection : public Node
                     return;
                 }
             }
-            subValue.registryPrefixes = *regPrefixes;
+            subValue->registryPrefixes = *regPrefixes;
         }
 
         if (msgIds)
         {
             // Do we need to loop-up MessageRegistry and validate
             // data for authenticity??? Not mandate, i believe.
-            subValue.registryMsgIds = *msgIds;
+            subValue->registryMsgIds = *msgIds;
         }
 
         if (retryPolicy)
@@ -336,36 +329,16 @@ class EventDestinationCollection : public Node
                                                  "DeliveryRetryPolicy");
                 return;
             }
-            subValue.retryPolicy = *retryPolicy;
+            subValue->retryPolicy = *retryPolicy;
         }
         else
         {
             // Default "TerminateAfterRetries"
-            subValue.retryPolicy = "TerminateAfterRetries";
+            subValue->retryPolicy = "TerminateAfterRetries";
         }
 
-        std::srand(static_cast<uint32_t>(std::time(0)));
-        std::string id;
-
-        int retry = 3;
-        while (retry)
-        {
-            id = std::to_string(std::rand());
-            auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
-            if (inserted.second)
-            {
-                break;
-            }
-            retry--;
-        };
-
-        if (retry <= 0)
-        {
-            messages::internalError(asyncResp->res);
-            return;
-        }
-
-        updateSubscriptionData();
+        std::string id =
+            EventServiceManager::getInstance().addSubscription(subValue);
 
         messages::created(asyncResp->res);
         asyncResp->res.addHeader(
@@ -400,16 +373,15 @@ class EventDestination : public Node
             return;
         }
 
-        const std::string& id = params[0];
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
+        std::shared_ptr<Subscription> subValue =
+            EventServiceManager::getInstance().getSubscription(params[0]);
+        if (subValue == nullptr)
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
-
-        EventSrvSubscription& subValue = obj->second;
+        const std::string& id = params[0];
 
         res.jsonValue = {
             {"@odata.type", "#EventDestination.v1_7_0.EventDestination"},
@@ -418,16 +390,16 @@ class EventDestination : public Node
             "/redfish/v1/EventService/Subscriptions/" + id;
         asyncResp->res.jsonValue["Id"] = id;
         asyncResp->res.jsonValue["Name"] = "Event Destination " + id;
-        asyncResp->res.jsonValue["Destination"] = subValue.destinationUrl;
-        asyncResp->res.jsonValue["Context"] = subValue.customText;
+        asyncResp->res.jsonValue["Destination"] = subValue->destinationUrl;
+        asyncResp->res.jsonValue["Context"] = subValue->customText;
         asyncResp->res.jsonValue["SubscriptionType"] =
-            subValue.subscriptionType;
-        asyncResp->res.jsonValue["HttpHeaders"] = subValue.httpHeaders;
-        asyncResp->res.jsonValue["EventFormatType"] = subValue.eventFormatType;
+            subValue->subscriptionType;
+        asyncResp->res.jsonValue["HttpHeaders"] = subValue->httpHeaders;
+        asyncResp->res.jsonValue["EventFormatType"] = subValue->eventFormatType;
         asyncResp->res.jsonValue["RegistryPrefixes"] =
-            subValue.registryPrefixes;
-        asyncResp->res.jsonValue["MessageIds"] = subValue.registryMsgIds;
-        asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue.retryPolicy;
+            subValue->registryPrefixes;
+        asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
+        asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
@@ -440,9 +412,9 @@ class EventDestination : public Node
             return;
         }
 
-        const std::string& id = params[0];
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
+        std::shared_ptr<Subscription> subValue =
+            EventServiceManager::getInstance().getSubscription(params[0]);
+        if (subValue == nullptr)
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
@@ -460,16 +432,14 @@ class EventDestination : public Node
             return;
         }
 
-        EventSrvSubscription& subValue = obj->second;
-
         if (context)
         {
-            subValue.customText = *context;
+            subValue->customText = *context;
         }
 
         if (headers)
         {
-            subValue.httpHeaders = *headers;
+            subValue->httpHeaders = *headers;
         }
 
         if (retryPolicy)
@@ -482,10 +452,10 @@ class EventDestination : public Node
                                                  "DeliveryRetryPolicy");
                 return;
             }
-            subValue.retryPolicy = *retryPolicy;
+            subValue->retryPolicy = *retryPolicy;
         }
 
-        updateSubscriptionData();
+        EventServiceManager::getInstance().updateSubscriptionData();
     }
 
     void doDelete(crow::Response& res, const crow::Request& req,
@@ -499,18 +469,13 @@ class EventDestination : public Node
             return;
         }
 
-        const std::string& id = params[0];
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
+        if (!EventServiceManager::getInstance().isSubscriptionExist(params[0]))
         {
             res.result(boost::beast::http::status::not_found);
             res.end();
             return;
         }
-
-        subscriptionsMap.erase(obj);
-
-        updateSubscriptionData();
+        EventServiceManager::getInstance().deleteSubscription(params[0]);
     }
 };
 
