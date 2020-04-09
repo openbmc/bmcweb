@@ -39,6 +39,7 @@ struct UserSession
     std::string csrfToken;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
+    bool cookieAuth = false;
 
     /**
      * @brief Fills object with data from UserSession's JSON representation
