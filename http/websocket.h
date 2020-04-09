@@ -72,7 +72,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         openHandler(std::move(open_handler)),
         messageHandler(std::move(message_handler)),
         closeHandler(std::move(close_handler)),
-        errorHandler(std::move(error_handler))
+        errorHandler(std::move(error_handler)), request(reqIn)
     {
         BMCWEB_LOG_DEBUG << "Creating new connection " << this;
     }
@@ -94,8 +94,23 @@ template <typename Adaptor> class ConnectionImpl : public Connection
         // Perform the websocket upgrade
         ws.async_accept_ex(
             req,
-            [protocol{std::string(protocol)}](
+            [this, protocol{std::string(protocol)}](
                 boost::beast::websocket::response_type& m) {
+
+#ifndef BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
+                // use protocol for csrf checking
+                if (request.session->cookieAuth &&
+                    (protocol.empty() ||
+                     !crow::utility::constantTimeStringCompare(
+                         protocol, request.session->csrfToken)))
+                {
+                    BMCWEB_LOG_ERROR << "Websocket CSRF error";
+                    m.result(boost::beast::http::status::unauthorized);
+                    close("CSRF error");
+                    return;
+                }
+#endif
+
                 if (!protocol.empty())
                 {
                     m.insert(bf::sec_websocket_protocol, protocol);
@@ -262,6 +277,7 @@ template <typename Adaptor> class ConnectionImpl : public Connection
     std::function<void(Connection&, const std::string&, bool)> messageHandler;
     std::function<void(Connection&, const std::string&)> closeHandler;
     std::function<void(Connection&)> errorHandler;
+    const crow::Request request;
 };
 } // namespace websocket
 } // namespace crow
