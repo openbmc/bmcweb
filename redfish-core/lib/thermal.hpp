@@ -37,10 +37,6 @@ class Thermal : public Node
     }
 
   private:
-    std::vector<const char*> typeList = {
-        "/xyz/openbmc_project/sensors/fan_tach",
-        "/xyz/openbmc_project/sensors/temperature",
-        "/xyz/openbmc_project/sensors/fan_pwm"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -52,7 +48,8 @@ class Thermal : public Node
         }
         const std::string& chassisName = params[0];
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, typeList, "Thermal");
+            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+            sensors::node::thermal);
 
         // TODO Need to get Chassis Redundancy information.
         getChassisData(sensorAsyncResp);
@@ -74,7 +71,8 @@ class Thermal : public Node
             allCollections;
 
         auto asyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassisName, typeList, "Thermal");
+            res, chassisName, sensors::dbus::types.at(sensors::node::thermal),
+            sensors::node::thermal);
 
         if (!json_util::readJson(req, asyncResp->res, "Temperatures",
                                  temperatureCollections, "Fans",
