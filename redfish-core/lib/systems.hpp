@@ -917,6 +917,62 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 }
 
 /**
+ * @brief Retrieves power restore policy over DBUS.
+ *
+ * @param[in] aResp     Shared pointer for generating response message.
+ *
+ * @return None.
+ */
+void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
+{
+    BMCWEB_LOG_DEBUG << "Get power restore policy";
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec,
+                sdbusplus::message::variant<std::string> &policy) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
+                return;
+            }
+
+            const boost::container::flat_map<std::string, std::string>
+                policyMaps = {
+                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                     "AlwaysOn",
+                     "AlwaysOn"},
+                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                     "AlwaysOff",
+                     "AlwaysOff"},
+                    {"xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                     "LastState",
+                     "LastState"}};
+
+            const std::string *policyPtr = std::get_if<std::string>(&policy);
+
+            if (!policyPtr)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            auto policyMapsIt = policyMaps.find(*policyPtr);
+            if (policyMapsIt == policyMaps.end())
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+
+            aResp->res.jsonValue["PowerRestorePolicy"] = policyMapsIt->second;
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_restore_policy",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.Control.Power.RestorePolicy",
+        "PowerRestorePolicy");
+}
+
+/**
  * @brief Sets boot properties into DBUS object(s).
  *
  * @param[in] aResp           Shared pointer for generating response message.
@@ -1082,6 +1138,53 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
         "/xyz/openbmc_project/control/host0/boot/one_time",
         "org.freedesktop.DBus.Properties", "Get",
         "xyz.openbmc_project.Object.Enable", "Enabled");
+}
+
+/**
+ * @brief Sets power restore policy properties.
+ *
+ * @param[in] aResp   Shared pointer for generating response message.
+ * @param[in] policy  power restore policy properties from request.
+ *
+ * @return None.
+ */
+static void setPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp,
+                                  std::optional<std::string> policy)
+{
+    BMCWEB_LOG_DEBUG << "Set power restore policy.";
+
+    const boost::container::flat_map<std::string, std::string> policyMaps = {
+        {"AlwaysOn", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                     "AlwaysOn"},
+        {"AlwaysOff", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                      "AlwaysOff"},
+        {"LastState", "xyz.openbmc_project.Control.Power.RestorePolicy.Policy."
+                      "LastState"}};
+
+    std::string powerRestorPolicy;
+
+    auto policyMapsIt = policyMaps.find(*policy);
+    if (policyMapsIt == policyMaps.end())
+    {
+        messages::internalError(aResp->res);
+        return;
+    }
+
+    powerRestorPolicy = policyMapsIt->second;
+
+    crow::connections::systemBus->async_method_call(
+        [aResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                messages::internalError(aResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/control/host0/power_restore_policy",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Control.Power.RestorePolicy", "PowerRestorePolicy",
+        std::variant<std::string>(powerRestorPolicy));
 }
 
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
@@ -1646,6 +1749,7 @@ class Systems : public Node
         getBootProperties(asyncResp);
         getPCIeDeviceList(asyncResp, "PCIeDevices");
         getHostWatchdogTimer(asyncResp);
+        getPowerRestorePolicy(asyncResp);
 #ifdef BMCWEB_ENABLE_REDFISH_PROVISIONING_FEATURE
         getProvisioningStatus(asyncResp);
 #endif
@@ -1657,10 +1761,12 @@ class Systems : public Node
         std::optional<std::string> indicatorLed;
         std::optional<nlohmann::json> bootProps;
         std::optional<nlohmann::json> wdtTimerProps;
+        std::optional<std::string> powerRestorePolicy;
         auto asyncResp = std::make_shared<AsyncResp>(res);
 
         if (!json_util::readJson(req, res, "IndicatorLED", indicatorLed, "Boot",
-                                 bootProps, "WatchdogTimer", wdtTimerProps))
+                                 bootProps, "WatchdogTimer", wdtTimerProps,
+                                 "PowerRestorePolicy", powerRestorePolicy))
         {
             return;
         }
@@ -1700,6 +1806,11 @@ class Systems : public Node
         if (indicatorLed)
         {
             setIndicatorLedState(asyncResp, std::move(*indicatorLed));
+        }
+
+        if (powerRestorePolicy)
+        {
+            setPowerRestorePolicy(asyncResp, std::move(*powerRestorePolicy));
         }
     }
 };
