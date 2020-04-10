@@ -41,6 +41,32 @@ using ManagedObjectsVectorType = std::vector<std::pair<
     boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, SensorVariant>>>>;
 
+namespace sensors
+{
+namespace node
+{
+static constexpr std::string_view power = "Power";
+static constexpr std::string_view sensors = "Sensors";
+static constexpr std::string_view thermal = "Thermal";
+} // namespace node
+
+namespace dbus
+{
+static const boost::container::flat_map<std::string_view,
+                                        std::vector<const char*>>
+    types = {{node::power,
+              {"/xyz/openbmc_project/sensors/voltage",
+               "/xyz/openbmc_project/sensors/power"}},
+             {node::sensors,
+              {"/xyz/openbmc_project/sensors/power",
+               "/xyz/openbmc_project/sensors/current"}},
+             {node::thermal,
+              {"/xyz/openbmc_project/sensors/fan_tach",
+               "/xyz/openbmc_project/sensors/temperature",
+               "/xyz/openbmc_project/sensors/fan_pwm"}}};
+}
+} // namespace sensors
+
 /**
  * SensorsAsyncResp
  * Gathers data needed for response processing after async calls are done
@@ -48,11 +74,67 @@ using ManagedObjectsVectorType = std::vector<std::pair<
 class SensorsAsyncResp
 {
   public:
+    using DataCompleteCb = std::function<void(
+        const boost::beast::http::status status,
+        const boost::container::flat_map<std::string, std::string>& uriToDbus)>;
+
+    struct SensorData
+    {
+        const std::variant<const std::string*, const std::string> id;
+        const std::string valueKey;
+        const std::string dbusPath;
+
+        SensorData(const std::string* id, const std::string& valueKey,
+                   const std::string& dbusPath) :
+            id(id),
+            valueKey(valueKey), dbusPath(dbusPath)
+        {
+        }
+
+        SensorData(const std::string& id, const std::string& valueKey,
+                   const std::string& dbusPath) :
+            id(id),
+            valueKey(valueKey), dbusPath(dbusPath)
+        {
+        }
+
+        std::string uri()
+        {
+            if (auto str = std::get_if<const std::string>(&id))
+            {
+                return *str;
+            }
+            else if (auto ptr = std::get_if<const std::string*>(&id))
+            {
+                if (*ptr == nullptr)
+                {
+                    BMCWEB_LOG_ERROR << "Null URI";
+                    return "";
+                }
+                return **ptr;
+            }
+
+            return "";
+        }
+    };
+
     SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
                      const std::vector<const char*> typesIn,
-                     const std::string& subNode) :
+                     const std::string_view& subNode) :
         res(response),
         chassisId(chassisIdIn), types(typesIn), chassisSubNode(subNode)
+    {
+    }
+
+    // Store extra data about sensor mapping and return it in callback
+    SensorsAsyncResp(crow::Response& response, const std::string& chassisIdIn,
+                     const std::vector<const char*> typesIn,
+                     const std::string_view& subNode,
+                     DataCompleteCb&& creationComplete) :
+        res(response),
+        chassisId(chassisIdIn), types(typesIn),
+        chassisSubNode(subNode), metadata{std::vector<SensorData>()},
+        dataComplete{std::move(creationComplete)}
     {
     }
 
@@ -65,13 +147,66 @@ class SensorsAsyncResp
             // proper code
             res.jsonValue = nlohmann::json::object();
         }
+
+        if (dataComplete && metadata)
+        {
+            boost::container::flat_map<std::string, std::string> map;
+            if (res.result() == boost::beast::http::status::ok)
+            {
+                for (auto& data : *metadata)
+                {
+                    std::string uri = data.uri();
+                    if (uri.empty())
+                    {
+                        BMCWEB_LOG_ERROR << "Invalid URI for sensor: "
+                                         << data.dbusPath;
+                        continue;
+                    }
+
+                    map.insert(
+                        std::make_pair(uri + data.valueKey, data.dbusPath));
+                }
+            }
+            dataComplete(res.result(), map);
+        }
+
         res.end();
     }
 
+    void addMetadata(const nlohmann::json& sensorObject,
+                     const std::string& valueKey, const std::string& dbusPath)
+    {
+        if (metadata)
+        {
+            if (chassisSubNode == sensors::node::sensors)
+            {
+                // Each sensor have it's final @odata.id so take it right away
+                // We cannot use pointer, as for Sensors, the json node is being
+                // overwritten and shared among all sensors
+                metadata->emplace_back(sensorObject["@odata.id"], valueKey,
+                                       dbusPath);
+            }
+            else if (chassisSubNode == sensors::node::power ||
+                     chassisSubNode == sensors::node::thermal)
+            {
+                // @odata.id is updated after whole array is populated.
+                // We need to keep pointers to  underlying data to dereference
+                // it after response is complete
+                metadata->emplace_back(
+                    sensorObject["@odata.id"].get_ptr<const std::string*>(),
+                    valueKey, dbusPath);
+            }
+        }
+    }
+
     crow::Response& res;
-    std::string chassisId{};
+    const std::string chassisId;
     const std::vector<const char*> types;
-    std::string chassisSubNode{};
+    const std::string chassisSubNode;
+
+  private:
+    std::optional<std::vector<SensorData>> metadata;
+    DataCompleteCb dataComplete;
 };
 
 /**
@@ -239,8 +374,9 @@ void reduceSensorList(
     {
         messages::resourceNotFound(
             SensorsAsyncResp->res, SensorsAsyncResp->chassisSubNode,
-            SensorsAsyncResp->chassisSubNode == "Thermal" ? "Temperatures"
-                                                          : "Voltages");
+            SensorsAsyncResp->chassisSubNode == sensors::node::thermal
+                ? "Temperatures"
+                : "Voltages");
 
         return;
     }
@@ -367,12 +503,12 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
         }
 
         const std::string& chassisSubNode = sensorsAsyncResp->chassisSubNode;
-        if (chassisSubNode == "Power")
+        if (chassisSubNode == sensors::node::power)
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#Power.v1_5_2.Power";
         }
-        else if (chassisSubNode == "Thermal")
+        else if (chassisSubNode == sensors::node::thermal)
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#Thermal.v1_4_0.Thermal";
@@ -380,7 +516,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
             sensorsAsyncResp->res.jsonValue["Temperatures"] =
                 nlohmann::json::array();
         }
-        else if (chassisSubNode == "Sensors")
+        else if (chassisSubNode == sensors::node::sensors)
         {
             sensorsAsyncResp->res.jsonValue["@odata.type"] =
                 "#SensorCollection.SensorCollection";
@@ -391,7 +527,7 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
             sensorsAsyncResp->res.jsonValue["Members@odata.count"] = 0;
         }
 
-        if (chassisSubNode != "Sensors")
+        if (chassisSubNode != sensors::node::sensors)
         {
             sensorsAsyncResp->res.jsonValue["Id"] = chassisSubNode;
         }
@@ -422,9 +558,11 @@ void getChassis(std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
                 {
                     messages::resourceNotFound(
                         sensorsAsyncResp->res, sensorsAsyncResp->chassisSubNode,
-                        sensorsAsyncResp->chassisSubNode == "Thermal"
+                        sensorsAsyncResp->chassisSubNode ==
+                                sensors::node::thermal
                             ? "Temperatures"
-                            : sensorsAsyncResp->chassisSubNode == "Power"
+                            : sensorsAsyncResp->chassisSubNode ==
+                                      sensors::node::power
                                   ? "Voltages"
                                   : "Sensors");
                     return;
@@ -689,8 +827,7 @@ static void setLedState(nlohmann::json& sensorJson,
  * @param sensorName  The name of the sensor to be built
  * @param sensorType  The type (temperature, fan_tach, etc) of the sensor to
  * build
- * @param sensorSchema  The schema (Power, Thermal, etc) being associated with
- * the sensor to build
+ * @param sensorsAsyncResp  Sensor metadata
  * @param interfacesDict  A dictionary of the interfaces and properties of said
  * interfaces to be built from
  * @param sensor_json  The json object to fill
@@ -699,7 +836,7 @@ static void setLedState(nlohmann::json& sensorJson,
  */
 void objectInterfacesToJson(
     const std::string& sensorName, const std::string& sensorType,
-    const std::string& sensorSchema,
+    std::shared_ptr<SensorsAsyncResp> sensorsAsyncResp,
     const boost::container::flat_map<
         std::string, boost::container::flat_map<std::string, SensorVariant>>&
         interfacesDict,
@@ -727,7 +864,7 @@ void objectInterfacesToJson(
         }
     }
 
-    if (sensorSchema == "Sensors")
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
         // For sensors in SensorCollection we set Id instead of MemberId,
         // including power sensors.
@@ -753,7 +890,7 @@ void objectInterfacesToJson(
     bool forceToInt = false;
 
     nlohmann::json::json_pointer unit("/Reading");
-    if (sensorSchema == "Sensors")
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
         sensor_json["@odata.type"] = "#Sensor.v1_0_0.Sensor";
         if (sensorType == "power")
@@ -829,7 +966,7 @@ void objectInterfacesToJson(
 
     properties.emplace_back("xyz.openbmc_project.Sensor.Value", "Value", unit);
 
-    if (sensorSchema == "Sensors")
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
         properties.emplace_back(
             "xyz.openbmc_project.Sensor.Threshold.Warning", "WarningHigh",
@@ -862,7 +999,7 @@ void objectInterfacesToJson(
 
     // TODO Need to get UpperThresholdFatal and LowerThresholdFatal
 
-    if (sensorSchema == "Sensors")
+    if (sensorsAsyncResp->chassisSubNode == sensors::node::sensors)
     {
         properties.emplace_back("xyz.openbmc_project.Sensor.Value", "MinValue",
                                 "/ReadingRangeMin"_json_pointer);
@@ -935,6 +1072,11 @@ void objectInterfacesToJson(
             }
         }
     }
+
+    sensorsAsyncResp->addMetadata(sensor_json, unit.to_string(),
+                                  "/xyz/openbmc_project/sensors/" + sensorType +
+                                      "/" + sensorName);
+
     BMCWEB_LOG_DEBUG << "Added sensor " << sensorName;
 }
 
@@ -1146,7 +1288,7 @@ void sortJSONResponse(std::shared_ptr<SensorsAsyncResp> SensorsAsyncResp)
 {
     nlohmann::json& response = SensorsAsyncResp->res.jsonValue;
     std::array<std::string, 2> sensorHeaders{"Temperatures", "Fans"};
-    if (SensorsAsyncResp->chassisSubNode == "Power")
+    if (SensorsAsyncResp->chassisSubNode == sensors::node::power)
     {
         sensorHeaders = {"Voltages", "PowerSupplies"};
     }
@@ -2068,7 +2210,7 @@ void getPowerSupplyAttributes(
     BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes enter";
 
     // Only need the power supply attributes when the Power Schema
-    if (sensorsAsyncResp->chassisSubNode != "Power")
+    if (sensorsAsyncResp->chassisSubNode != sensors::node::power)
     {
         BMCWEB_LOG_DEBUG << "getPowerSupplyAttributes exit since not Power";
         callback(inventoryItems);
@@ -2371,7 +2513,7 @@ void getSensorData(
 
                 nlohmann::json* sensorJson = nullptr;
 
-                if (sensorSchema == "Sensors")
+                if (sensorSchema == sensors::node::sensors)
                 {
                     SensorsAsyncResp->res.jsonValue["@odata.id"] =
                         "/redfish/v1/Chassis/" + SensorsAsyncResp->chassisId +
@@ -2460,16 +2602,15 @@ void getSensorData(
 
                 if (sensorJson != nullptr)
                 {
-                    objectInterfacesToJson(sensorName, sensorType,
-                                           SensorsAsyncResp->chassisSubNode,
-                                           objDictEntry.second, *sensorJson,
-                                           inventoryItem);
+                    objectInterfacesToJson(
+                        sensorName, sensorType, SensorsAsyncResp,
+                        objDictEntry.second, *sensorJson, inventoryItem);
                 }
             }
             if (SensorsAsyncResp.use_count() == 1)
             {
                 sortJSONResponse(SensorsAsyncResp);
-                if (SensorsAsyncResp->chassisSubNode == "Thermal")
+                if (SensorsAsyncResp->chassisSubNode == sensors::node::thermal)
                 {
                     populateFanRedundancy(SensorsAsyncResp);
                 }
@@ -2673,7 +2814,8 @@ void setSensorsOverride(
                         << overrideMap.size() << "\n";
                     messages::resourceNotFound(
                         sensorAsyncResp->res,
-                        sensorAsyncResp->chassisSubNode == "Thermal"
+                        sensorAsyncResp->chassisSubNode ==
+                                sensors::node::thermal
                             ? "Temperatures"
                             : "Voltages",
                         "Count");
@@ -2852,6 +2994,41 @@ void checkAndDoSensorsOverride(
         "xyz.openbmc_project.ObjectMapper", "GetSubTree", "/", 5, interfaces);
 }
 
+/**
+ * @brief Retrieves mapping of Redfish URIs to sensor value property to D-Bus
+ * path of the sensor.
+ *
+ * Function builds valid Redfish response for sensor query of given chassis and
+ * node. It then builds metadata about Redfish<->D-Bus correlations and provides
+ * it to caller in a callback.
+ *
+ * @param chassis   Chassis for which retrieval should be performed
+ * @param node  Node (group) of sensors. See sensors::node for supported values
+ * @param mapComplete   Callback to be called with retrieval result
+ */
+void retrieveUriToDbusMap(const std::string& chassis, const std::string& node,
+                          SensorsAsyncResp::DataCompleteCb&& mapComplete)
+{
+    auto typesIt = sensors::dbus::types.find(node);
+    if (typesIt == sensors::dbus::types.end())
+    {
+        BMCWEB_LOG_ERROR << "Wrong node provided : " << node;
+        mapComplete(boost::beast::http::status::bad_request, {});
+        return;
+    }
+
+    auto respBuffer = std::make_shared<crow::Response>();
+    auto callback =
+        [respBuffer, mapCompleteCb{std::move(mapComplete)}](
+            const boost::beast::http::status status,
+            const boost::container::flat_map<std::string, std::string>&
+                uriToDbus) { mapCompleteCb(status, uriToDbus); };
+
+    auto resp = std::make_shared<SensorsAsyncResp>(
+        *respBuffer, chassis, typesIt->second, node, std::move(callback));
+    getChassisData(resp);
+}
+
 class SensorCollection : public Node
 {
   public:
@@ -2868,9 +3045,6 @@ class SensorCollection : public Node
     }
 
   private:
-    std::vector<const char*> typeList = {
-        "/xyz/openbmc_project/sensors/power",
-        "/xyz/openbmc_project/sensors/current"};
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
@@ -2885,8 +3059,9 @@ class SensorCollection : public Node
 
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
-            std::make_shared<SensorsAsyncResp>(res, chassisId, typeList,
-                                               "Sensors");
+            std::make_shared<SensorsAsyncResp>(
+                res, chassisId, sensors::dbus::types.at(sensors::node::sensors),
+                sensors::node::sensors);
 
         auto getChassisCb =
             [asyncResp](std::shared_ptr<boost::container::flat_set<std::string>>
@@ -2955,8 +3130,9 @@ class Sensor : public Node
         }
         const std::string& chassisId = params[0];
         std::shared_ptr<SensorsAsyncResp> asyncResp =
-            std::make_shared<SensorsAsyncResp>(
-                res, chassisId, std::vector<const char*>(), "Sensors");
+            std::make_shared<SensorsAsyncResp>(res, chassisId,
+                                               std::vector<const char*>(),
+                                               sensors::node::sensors);
 
         const std::string& sensorName = params[1];
         const std::array<const char*, 1> interfaces = {

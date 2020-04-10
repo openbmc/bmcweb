@@ -38,8 +38,6 @@ class Power : public Node
     }
 
   private:
-    std::vector<const char*> typeList = {"/xyz/openbmc_project/sensors/voltage",
-                                         "/xyz/openbmc_project/sensors/power"};
     void setPowerCapOverride(
         std::shared_ptr<SensorsAsyncResp> asyncResp,
         std::vector<nlohmann::json>& powerControlCollections)
@@ -157,7 +155,8 @@ class Power : public Node
         res.jsonValue["PowerControl"] = nlohmann::json::array();
 
         auto sensorAsyncResp = std::make_shared<SensorsAsyncResp>(
-            res, chassis_name, typeList, "Power");
+            res, chassis_name, sensors::dbus::types.at(sensors::node::power),
+            sensors::node::power);
 
         getChassisData(sensorAsyncResp);
 
@@ -344,8 +343,9 @@ class Power : public Node
         }
 
         const std::string& chassisName = params[0];
-        auto asyncResp = std::make_shared<SensorsAsyncResp>(res, chassisName,
-                                                            typeList, "Power");
+        auto asyncResp = std::make_shared<SensorsAsyncResp>(
+            res, chassisName, sensors::dbus::types.at(sensors::node::power),
+            sensors::node::power);
 
         std::optional<std::vector<nlohmann::json>> voltageCollections;
         std::optional<std::vector<nlohmann::json>> powerCtlCollections;
