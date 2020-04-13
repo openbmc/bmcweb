@@ -384,8 +384,8 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         [dimmId, aResp{std::move(aResp)}](
             const boost::system::error_code ec,
             const boost::container::flat_map<
-                std::string, std::variant<std::string, uint32_t, uint16_t>>
-                &properties) {
+                std::string, std::variant<std::string, uint32_t, uint16_t,
+                                          uint8_t>> &properties) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error";
@@ -439,6 +439,107 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                 {
                     aResp->res.jsonValue["Manufacturer"] = property.second;
                 }
+                else if (property.first == "RevisionCode")
+                {
+                    const uint16_t *value =
+                        std::get_if<uint16_t>(&property.second);
+
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for RevisionCode";
+                        continue;
+                    }
+                    aResp->res.jsonValue["FirmwareRevision"] =
+                        std::to_string(*value);
+                }
+                else if (property.first == "MemoryTotalWidth")
+                {
+                    aResp->res.jsonValue["BusWidthBits"] = property.second;
+                }
+                else if (property.first == "ECC")
+                {
+                    const std::string *value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG << "Invalid property type for ECC";
+                        continue;
+                    }
+                    constexpr const std::array<const char *, 4> values{
+                        "NoECC", "SingleBitECC", "MultiBitECC",
+                        "AddressParity"};
+
+                    for (const char *v : values)
+                    {
+                        if (boost::ends_with(*value, v))
+                        {
+                            aResp->res.jsonValue["ErrorCorrection"] = v;
+                            break;
+                        }
+                    }
+                }
+                else if (property.first == "FormFactor")
+                {
+                    const std::string *value =
+                        std::get_if<std::string>(&property.second);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for FormFactor";
+                        continue;
+                    }
+                    constexpr const std::array<const char *, 11> values{
+                        "RDIMM",        "UDIMM",        "SO_DIMM",
+                        "LRDIMM",       "Mini_RDIMM",   "Mini_UDIMM",
+                        "SO_RDIMM_72b", "SO_UDIMM_72b", "SO_DIMM_16b",
+                        "SO_DIMM_32b",  "Die"};
+
+                    for (const char *v : values)
+                    {
+                        if (boost::ends_with(*value, v))
+                        {
+                            aResp->res.jsonValue["BaseModuleType"] = v;
+                            break;
+                        }
+                    }
+                }
+                else if (property.first == "MemoryAttributes")
+                {
+                    const uint8_t *value =
+                        std::get_if<uint8_t>(&property.second);
+
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for MemoryAttributes";
+                        continue;
+                    }
+                    aResp->res.jsonValue["RankCount"] =
+                        static_cast<uint64_t>(*value);
+                }
+                else if (property.first == "MemoryConfiguredSpeedInMhz")
+                {
+                    aResp->res.jsonValue["OperatingSpeedMhz"] = property.second;
+                }
+                else if (property.first == "VolatileSizeInKiB")
+                {
+                    const uint32_t *value =
+                        std::get_if<uint32_t>(&property.second);
+
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for VolatileSizeInKiB";
+                        continue;
+                    }
+                    aResp->res.jsonValue["VolatileSizeMiB"] = (*value) >> 10;
+                }
                 else if (property.first == "MemoryType")
                 {
                     const auto *value =
@@ -446,9 +547,13 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
                     if (value != nullptr)
                     {
                         aResp->res.jsonValue["MemoryDeviceType"] = *value;
-                        if (boost::starts_with(*value, "DDR"))
+                        if (value->find("DDR") != std::string::npos)
                         {
                             aResp->res.jsonValue["MemoryType"] = "DRAM";
+                        }
+                        else if (boost::ends_with(*value, "Logical"))
+                        {
+                            aResp->res.jsonValue["MemoryType"] = "IntelOptane";
                         }
                     }
                 }
