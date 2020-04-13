@@ -682,11 +682,18 @@ class HypervisorInterface : public Node
         const std::string& ifaceId = params[0];
         std::optional<std::string> hostName;
         std::optional<nlohmann::json> ipv4StaticAddresses;
+        std::optional<nlohmann::json> ipv4Addresses;
 
         if (!json_util::readJson(req, res, "HostName", hostName,
-                                 "IPv4StaticAddresses", ipv4StaticAddresses))
+                                 "IPv4StaticAddresses", ipv4StaticAddresses,
+                                 "IPv4Addresses", ipv4Addresses))
         {
             return;
+        }
+
+        if (ipv4Addresses)
+        {
+            messages::propertyNotWritable(asyncResp->res, "IPv4Addresses");
         }
 
         if (ipv4StaticAddresses)
