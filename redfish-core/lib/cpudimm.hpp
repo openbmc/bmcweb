@@ -15,6 +15,8 @@
 */
 #pragma once
 
+#include "health.hpp"
+
 #include <boost/container/flat_map.hpp>
 #include <node.hpp>
 #include <utils/json_utils.hpp>
@@ -71,8 +73,11 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
 {
     BMCWEB_LOG_DEBUG << "Get CPU resources by interface.";
 
-    const bool *present = nullptr;
-    const bool *functional = nullptr;
+    bool present = true;
+    bool functional = true;
+    auto health = std::make_shared<HealthPopulate>(aResp);
+    health->populate();
+
     for (const auto &interface : cpuInterfacesProperties)
     {
         for (const auto &property : interface.second)
@@ -91,24 +96,28 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
                 {
                     // Slot is not populated, set status end return
                     aResp->res.jsonValue["Status"]["State"] = "Absent";
-                    aResp->res.jsonValue["Status"]["Health"] = "OK";
                     // HTTP Code will be set up automatically, just return
                     return;
                 }
+                else
+                {
+                    aResp->res.jsonValue["Status"]["State"] = "Enabled";
+                }
 
-                aResp->res.jsonValue["TotalCores"] = *coresCount;
+                aResp->res.jsonValue["ProcessorCoreCount"] = *coresCount;
             }
             else if (property.first == "ProcessorType")
             {
-                aResp->res.jsonValue["Name"] = property.second;
+                aResp->res.jsonValue["ProcessorType"] = property.second;
             }
-            else if (property.first == "Manufacturer")
+            else if (property.first == "ProcessorManufacturer")
             {
                 const std::string *value =
                     std::get_if<std::string>(&property.second);
                 if (value != nullptr)
                 {
-                    aResp->res.jsonValue["Manufacturer"] = property.second;
+                    aResp->res.jsonValue["ProcessorManufacturer"] =
+                        property.second;
                     // Otherwise would be unexpected.
                     if (value->find("Intel") != std::string::npos)
                     {
@@ -124,19 +133,28 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
             }
             else if (property.first == "ProcessorMaxSpeed")
             {
-                aResp->res.jsonValue["MaxSpeedMHz"] = property.second;
+                aResp->res.jsonValue["ProcessorMaxSpeedMHz"] = property.second;
             }
-            else if (property.first == "ProcessorThreadCount")
-            {
-                aResp->res.jsonValue["TotalThreads"] = property.second;
-            }
-            else if (property.first == "Model")
+            else if (property.first == "ProcessorSocket")
             {
                 const std::string *value =
                     std::get_if<std::string>(&property.second);
                 if (value != nullptr)
                 {
-                    aResp->res.jsonValue["Model"] = *value;
+                    aResp->res.jsonValue["ProcessorSocket"] = *value;
+                }
+            }
+            else if (property.first == "ProcessorThreadCount")
+            {
+                aResp->res.jsonValue["ProcessorThreadCount"] = property.second;
+            }
+            else if (property.first == "ProcessorFamily")
+            {
+                const std::string *value =
+                    std::get_if<std::string>(&property.second);
+                if (value != nullptr)
+                {
+                    aResp->res.jsonValue["ProcessorFamily"] = *value;
                 }
             }
             else if (property.first == "PartNumber")
@@ -147,29 +165,26 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
             {
                 aResp->res.jsonValue["SerialNumber"] = property.second;
             }
-            else if (property.first == "Version")
+            else if (property.first == "ProcessorVersion")
             {
-                aResp->res.jsonValue["Version"] = property.second;
+                aResp->res.jsonValue["ProcessorVersion"] = property.second;
+            }
+            else if (property.first == "ProcessorId")
+            {
+                aResp->res.jsonValue["ProcessorId"] = property.second;
             }
             else if (property.first == "Present")
             {
-                present = std::get_if<bool>(&property.second);
+                present = std::get<bool>(property.second);
             }
             else if (property.first == "Functional")
             {
-                functional = std::get_if<bool>(&property.second);
+                functional = std::get<bool>(property.second);
             }
         }
     }
 
-    if ((present == nullptr) || (functional == nullptr))
-    {
-        // Important property not in desired type
-        messages::internalError(aResp->res);
-        return;
-    }
-
-    if (*present == false)
+    if (present == false)
     {
         aResp->res.jsonValue["Status"]["State"] = "Absent";
         aResp->res.jsonValue["Status"]["Health"] = "OK";
@@ -177,7 +192,7 @@ void getCpuDataByInterface(std::shared_ptr<AsyncResp> aResp,
     else
     {
         aResp->res.jsonValue["Status"]["State"] = "Enabled";
-        if (*functional == true)
+        if (functional == true)
         {
             aResp->res.jsonValue["Status"]["Health"] = "OK";
         }
@@ -210,6 +225,7 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
             aResp->res.jsonValue["Name"] = "Processor";
             aResp->res.jsonValue["ProcessorType"] = "CPU";
 
+            bool presentFlag = false;
             std::string corePath = objPath + "/core";
             size_t totalCores = 0;
             for (const auto &object : dbusData)
@@ -235,6 +251,7 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
                                     {
                                         if (*present == true)
                                         {
+                                            presentFlag = true;
                                             totalCores++;
                                         }
                                     }
@@ -247,17 +264,20 @@ void getCpuDataByService(std::shared_ptr<AsyncResp> aResp,
             // In getCpuDataByInterface(), state and health are set
             // based on the present and functional status. If core
             // count is zero, then it has a higher precedence.
-            if (totalCores == 0)
+            if (presentFlag)
             {
-                // Slot is not populated, set status end return
-                aResp->res.jsonValue["Status"]["State"] = "Absent";
-                aResp->res.jsonValue["Status"]["Health"] = "OK";
+                if (totalCores == 0)
+                {
+                    aResp->res.jsonValue["Status"]["State"] = "Absent";
+                    aResp->res.jsonValue["Status"]["Health"] = "OK";
+                }
+                aResp->res.jsonValue["TotalCores"] = totalCores;
             }
-            aResp->res.jsonValue["TotalCores"] = totalCores;
+            // Slot is not populated, set status end return
             return;
         },
-        service, "/xyz/openbmc_project/inventory",
-        "org.freedesktop.DBus.ObjectManager", "GetManagedObjects");
+        service, "/xyz/openbmc_project", "org.freedesktop.DBus.ObjectManager",
+        "GetManagedObjects");
 }
 
 void getAcceleratorDataByService(std::shared_ptr<AsyncResp> aResp,
