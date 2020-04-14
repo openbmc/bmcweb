@@ -570,7 +570,7 @@ class EventLogService : public Node
             "#LogService.v1_1_0.LogService";
         asyncResp->res.jsonValue["Name"] = "Event Log Service";
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
-        asyncResp->res.jsonValue["Id"] = "Event Log";
+        asyncResp->res.jsonValue["Id"] = "EventLog";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
         asyncResp->res.jsonValue["Entries"] = {
             {"@odata.id",
