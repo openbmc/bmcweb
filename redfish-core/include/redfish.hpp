@@ -180,6 +180,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<EventService>(app));
         nodes.emplace_back(std::make_unique<EventDestinationCollection>(app));
         nodes.emplace_back(std::make_unique<EventDestination>(app));
+        nodes.emplace_back(std::make_unique<SubmitTestEvent>(app));
 
         nodes.emplace_back(
             std::make_unique<HypervisorInterfaceCollection>(app));
