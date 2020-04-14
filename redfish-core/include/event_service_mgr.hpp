@@ -385,6 +385,38 @@ class Subscription
 
         return;
     }
+
+    void sendTestEventLog()
+    {
+        nlohmann::json logEntryArray;
+        logEntryArray.push_back({});
+        nlohmann::json& logEntryJson = logEntryArray.back();
+        std::time_t now = std::chrono::system_clock::to_time_t(
+            std::chrono::system_clock::now());
+        struct tm* loctime = localtime(&now);
+        char entryTime[64] = {};
+        if (nullptr != loctime)
+        {
+            strftime(entryTime, sizeof(entryTime), "%FT%T%z", loctime);
+        }
+
+        logEntryJson = {{"EventId", "TestID"},
+                        {"EventType", "Event"},
+                        {"Severity", "OK"},
+                        {"Message", "Generated test event"},
+                        {"MessageId", "OpenBMC.0.1.TestEventLog"},
+                        {"MessageArgs", nlohmann::json::array()},
+                        {"EventTimestamp", entryTime},
+                        {"Context", customText}};
+
+        nlohmann::json msg = {{"@odata.type", "#Event.v1_4_0.Event"},
+                              {"Id", std::to_string(eventSeqNum)},
+                              {"Name", "Event Log"},
+                              {"Events", logEntryArray}};
+
+        this->sendEvent(msg.dump());
+    }
+
 #endif
 
   private:
@@ -528,6 +560,15 @@ class EventSrvManager
             }
         }
         return false;
+    }
+
+    void sendTestEventLog()
+    {
+        for (const auto& it : this->subscriptionsMap)
+        {
+            std::shared_ptr<Subscription> entry = it.second;
+            entry->sendTestEventLog();
+        }
     }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES

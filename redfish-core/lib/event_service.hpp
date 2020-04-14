@@ -55,6 +55,10 @@ class EventService : public Node
              "/redfish/v1/EventService/Subscriptions/SSE"},
             {"Subscriptions",
              {{"@odata.id", "/redfish/v1/EventService/Subscriptions"}}},
+            {"Actions",
+             {{"#EventService.SubmitTestEvent",
+               {{"target", "/redfish/v1/EventService/Actions/"
+                           "EventService.SubmitTestEvent"}}}}},
             {"@odata.id", "/redfish/v1/EventService"}};
 
         asyncResp->res.jsonValue["Status"]["State"] = "Enabled";
@@ -121,6 +125,32 @@ class EventService : public Node
         }
 
         EventSrvManager::getInstance().updateSubscriptionData();
+    }
+};
+
+class SubmitTestEvent : public Node
+{
+  public:
+    SubmitTestEvent(CrowApp& app) :
+        Node(app,
+             "/redfish/v1/EventService/Actions/EventService.SubmitTestEvent")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        EventSrvManager::getInstance().sendTestEventLog();
+        res.result(boost::beast::http::status::no_content);
+        res.end();
     }
 };
 
