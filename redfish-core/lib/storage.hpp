@@ -54,7 +54,7 @@ class StorageCollection : public Node
 class Storage : public Node
 {
   public:
-    Storage(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/Storage/1")
+    Storage(CrowApp &app) : Node(app, "/redfish/v1/Systems/system/Storage/1/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
