@@ -131,7 +131,7 @@ class NetworkProtocol : public Node
 {
   public:
     NetworkProtocol(CrowApp& app) :
-        Node(app, "/redfish/v1/Managers/bmc/NetworkProtocol")
+        Node(app, "/redfish/v1/Managers/bmc/NetworkProtocol/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},

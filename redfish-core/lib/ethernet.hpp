@@ -2075,7 +2075,7 @@ class VlanNetworkInterface : public Node
     template <typename CrowApp>
     VlanNetworkInterface(CrowApp &app) :
         Node(app,
-             "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>",
+             "/redfish/v1/Managers/bmc/EthernetInterfaces/<str>/VLANs/<str>/",
              std::string(), std::string())
     {
         entityPrivileges = {

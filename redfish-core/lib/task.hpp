@@ -231,7 +231,7 @@ class TaskMonitor : public Node
 {
   public:
     TaskMonitor(CrowApp &app) :
-        Node((app), "/redfish/v1/TaskService/Tasks/<str>/Monitor",
+        Node((app), "/redfish/v1/TaskService/Tasks/<str>/Monitor/",
              std::string())
     {
         entityPrivileges = {
@@ -288,7 +288,7 @@ class Task : public Node
 {
   public:
     Task(CrowApp &app) :
-        Node((app), "/redfish/v1/TaskService/Tasks/<str>", std::string())
+        Node((app), "/redfish/v1/TaskService/Tasks/<str>/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -362,7 +362,7 @@ class Task : public Node
 class TaskCollection : public Node
 {
   public:
-    TaskCollection(CrowApp &app) : Node(app, "/redfish/v1/TaskService/Tasks")
+    TaskCollection(CrowApp &app) : Node(app, "/redfish/v1/TaskService/Tasks/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
@@ -402,7 +402,7 @@ class TaskCollection : public Node
 class TaskService : public Node
 {
   public:
-    TaskService(CrowApp &app) : Node(app, "/redfish/v1/TaskService")
+    TaskService(CrowApp &app) : Node(app, "/redfish/v1/TaskService/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
