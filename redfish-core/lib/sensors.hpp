@@ -2856,7 +2856,7 @@ class SensorCollection : public Node
 {
   public:
     SensorCollection(CrowApp& app) :
-        Node(app, "/redfish/v1/Chassis/<str>/Sensors", std::string())
+        Node(app, "/redfish/v1/Chassis/<str>/Sensors/", std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
