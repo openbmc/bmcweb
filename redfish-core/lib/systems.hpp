@@ -532,7 +532,6 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             }
                                         }
                                     }
-                                    aResp->res.jsonValue["Name"] = "system";
                                     aResp->res.jsonValue["Id"] =
                                         aResp->res.jsonValue["SerialNumber"];
                                     // Grab the bios version
@@ -1569,7 +1568,7 @@ class Systems : public Node
                const std::vector<std::string> &params) override
     {
         res.jsonValue["@odata.type"] = "#ComputerSystem.v1_6_0.ComputerSystem";
-        res.jsonValue["Name"] = "Computer System";
+        res.jsonValue["Name"] = "system";
         res.jsonValue["Id"] = "system";
         res.jsonValue["SystemType"] = "Physical";
         res.jsonValue["Description"] = "Computer System";
