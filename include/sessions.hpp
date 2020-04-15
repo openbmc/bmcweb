@@ -1,5 +1,7 @@
 #pragma once
 
+#include <openssl/rand.h>
+
 #include <boost/container/flat_map.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
@@ -165,24 +167,50 @@ class SessionStore
 
         std::string sessionToken;
         sessionToken.resize(sessionTokenSize, '0');
-        std::uniform_int_distribution<size_t> dist(0, alphanum.size() - 1);
+
         for (size_t i = 0; i < sessionToken.size(); ++i)
         {
-            sessionToken[i] = alphanum[dist(rd)];
+            size_t index = 0;
+            int rc =
+                RAND_bytes(reinterpret_cast<uint8_t*>(&index), sizeof(index));
+            if (rc != 1)
+            {
+                std::cerr << "Cannot get random number\n";
+                return nullptr;
+            }
+            sessionToken[i] = alphanum[index % alphanum.size()];
         }
         // Only need csrf tokens for cookie based auth, token doesn't matter
         std::string csrfToken;
         csrfToken.resize(sessionTokenSize, '0');
         for (size_t i = 0; i < csrfToken.size(); ++i)
         {
-            csrfToken[i] = alphanum[dist(rd)];
+            size_t index = 0;
+            int rc =
+                RAND_bytes(reinterpret_cast<uint8_t*>(&index), sizeof(index));
+            if (rc != 1)
+            {
+                std::cerr << "Cannot get random number\n";
+                return nullptr;
+            }
+
+            csrfToken[i] = alphanum[index % alphanum.size()];
         }
 
         std::string uniqueId;
         uniqueId.resize(10, '0');
         for (size_t i = 0; i < uniqueId.size(); ++i)
         {
-            uniqueId[i] = alphanum[dist(rd)];
+            size_t index = 0;
+            int rc =
+                RAND_bytes(reinterpret_cast<uint8_t*>(&index), sizeof(index));
+            if (rc != 1)
+            {
+                std::cerr << "Cannot get random number\n";
+                return nullptr;
+            }
+
+            uniqueId[i] = alphanum[index % alphanum.size()];
         }
 
         auto session = std::make_shared<UserSession>(UserSession{
@@ -324,7 +352,6 @@ class SessionStore
                        std::hash<std::string>,
                        crow::utility::ConstantTimeCompare>
         authTokens;
-    std::random_device rd;
     bool needWrite{false};
     std::chrono::minutes timeoutInMinutes;
     AuthConfigMethods authMethodsConfig;
