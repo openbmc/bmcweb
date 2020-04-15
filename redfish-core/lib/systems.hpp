@@ -532,8 +532,7 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                             }
                                         }
                                     }
-                                    aResp->res.jsonValue["Id"] =
-                                        aResp->res.jsonValue["SerialNumber"];
+
                                     // Grab the bios version
                                     fw_util::getActiveFwVersion(
                                         aResp, fw_util::biosPurpose,
