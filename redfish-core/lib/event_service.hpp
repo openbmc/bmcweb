@@ -18,6 +18,7 @@
 
 #include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
+#include <fstream>
 #include <utils/json_utils.hpp>
 #include <variant>
 
@@ -32,6 +33,9 @@ static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
     "TerminateAfterRetries", "SuspendRetries", "RetryForever"};
 
 static constexpr const uint8_t maxNoOfSubscriptions = 20;
+
+static constexpr const char* eventServiceFile =
+    "/var/lib/bmcweb/eventservice_config.json";
 
 struct EventSrvConfig
 {
@@ -58,18 +62,138 @@ boost::container::flat_map<std::string, EventSrvSubscription> subscriptionsMap;
 
 inline void initEventSrvStore()
 {
-    // TODO: Read the persistent data from store and populate.
-    // Populating with default.
-    configData.enabled = true;
-    configData.retryAttempts = 3;
-    configData.retryTimeoutInterval = 30; // seconds
+    // Read the persistent data from store and populate
+    // config & subscription info with default
+
+    std::ifstream eventConfigFile(eventServiceFile);
+    if (!eventConfigFile.good())
+    {
+        BMCWEB_LOG_ERROR << "Cannot find eventService json file";
+        return;
+    }
+    try
+    {
+        auto data = nlohmann::json::parse(eventConfigFile, nullptr);
+        const auto& eventConfig = data["Configurations"];
+
+        configData.enabled = eventConfig["ServiceEnabled"].get<bool>();
+        configData.retryAttempts =
+            eventConfig["DeliveryRetryAttempts"].get<uint32_t>();
+        configData.retryTimeoutInterval =
+            eventConfig["DeliveryRetryIntervalSeconds"].get<uint32_t>();
+
+        std::srand(static_cast<uint32_t>(std::time(0)));
+
+        for (const auto& subscriptionObj : data["Subscriptions"])
+        {
+            EventSrvSubscription subValue;
+
+            subValue.destinationUrl =
+                subscriptionObj["Destination"].get<std::string>();
+            subValue.protocol = subscriptionObj["Protocol"].get<std::string>();
+            subValue.retryPolicy =
+                subscriptionObj["DeliveryRetryPolicy"].get<std::string>();
+            subValue.customText = subscriptionObj["Context"].get<std::string>();
+            subValue.eventFormatType =
+                subscriptionObj["EventFormatType"].get<std::string>();
+            subValue.subscriptionType =
+                subscriptionObj["SubscriptionType"].get<std::string>();
+            subValue.registryMsgIds =
+                subscriptionObj["MessageIds"].get<std::vector<std::string>>();
+            subValue.registryPrefixes = subscriptionObj["RegistryPrefixes"]
+                                            .get<std::vector<std::string>>();
+            subValue.httpHeaders = subscriptionObj["HttpHeaders"]
+                                       .get<std::vector<nlohmann::json>>();
+
+            int retry = 3;
+            while (retry)
+            {
+                std::string id = std::to_string(std::rand());
+                auto inserted =
+                    subscriptionsMap.insert(std::pair(id, subValue));
+                if (inserted.second)
+                {
+                    break;
+                }
+                retry--;
+            };
+
+            if (retry <= 0)
+            {
+                BMCWEB_LOG_ERROR << "Error in map value insertion";
+                return;
+            }
+        }
+    }
+    catch (const nlohmann::json::exception& e)
+    {
+        BMCWEB_LOG_ERROR << "Error parsing eventService json file";
+        return;
+    }
+    return;
 }
 
 inline void updateSubscriptionData()
 {
     // Persist the config and subscription data.
-    // TODO: subscriptionsMap & configData need to be
+    // subscriptionsMap & configData need to be
     // written to Persist store.
+
+    nlohmann::json jsonData;
+
+    nlohmann::json& configObj = jsonData["Configurations"];
+    configObj["ServiceEnabled"] = configData.enabled;
+    configObj["DeliveryRetryAttempts"] = configData.retryAttempts;
+    configObj["DeliveryRetryIntervalSeconds"] = configData.retryTimeoutInterval;
+
+    nlohmann::json& subListArray = jsonData["Subscriptions"];
+    subListArray = nlohmann::json::array();
+
+    for (const auto& it : subscriptionsMap)
+    {
+        nlohmann::json entry;
+        EventSrvSubscription subValue = it.second;
+
+        entry["Context"] = subValue.customText;
+        entry["DeliveryRetryPolicy"] = subValue.retryPolicy;
+        entry["Destination"] = subValue.destinationUrl;
+        entry["EventFormatType"] = subValue.eventFormatType;
+        entry["HttpHeaders"] = subValue.httpHeaders;
+        entry["MessageIds"] = subValue.registryMsgIds;
+        entry["Protocol"] = subValue.protocol;
+        entry["RegistryPrefixes"] = subValue.registryPrefixes;
+        entry["SubscriptionType"] = subValue.subscriptionType;
+
+        subListArray.push_back(entry);
+    }
+
+    const std::string tmpFile{std::string(eventServiceFile) + "_tmp"};
+
+    int fd = open(tmpFile.c_str(), O_CREAT | O_WRONLY | O_TRUNC | O_SYNC,
+                  S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+    if (fd < 0)
+    {
+        BMCWEB_LOG_ERROR << "Error in creating eventService json file: "
+                         << tmpFile.c_str();
+        return;
+    }
+    const auto& writeData = jsonData.dump();
+    if (write(fd, writeData.c_str(), writeData.size()) !=
+        static_cast<ssize_t>(writeData.size()))
+    {
+        close(fd);
+        BMCWEB_LOG_ERROR << "Error in writing eventService json file: "
+                         << tmpFile.c_str();
+        return;
+    }
+    close(fd);
+
+    if (std::rename(tmpFile.c_str(), eventServiceFile) != 0)
+    {
+        BMCWEB_LOG_ERROR << "Error in renaming temporary data file: "
+                         << tmpFile.c_str();
+        return;
+    }
     return;
 }
 class EventService : public Node
