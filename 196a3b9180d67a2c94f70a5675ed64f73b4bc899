@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1e7b5ba2_f2104a0c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-17T08:42:05Z",
+      "side": 1,
+      "message": "i dont think any description required",
+      "parentUuid": "e796f313_54ce3458",
+      "range": {
+        "startLine": 919,
+        "startChar": 12,
+        "endLine": 919,
+        "endChar": 50
+      },
+      "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3fc988b_ffdfb565",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 18
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-16T10:52:04Z",
       "side": 1,
       "message": "why this code is in requestRoutes? This code need not be executed if other /ibm/v1 urls are invoked.\n\nThis code can be a method outside the requestRoutes and can be invoked at the beginning of the handleCsrRequest.",
+      "range": {
+        "startLine": 1049,
+        "startChar": 1,
+        "endLine": 1073,
+        "endChar": 5
+      },
+      "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5b06e36_ab19bdaf",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-17T08:42:05Z",
+      "side": 1,
+      "message": "intent is to run this code while registering routes,so that rootCert file will created.\nthis file will be populated as soon as vmi boots\nwe cant do this in our handles",
+      "parentUuid": "b3fc988b_ffdfb565",
       "range": {
         "startLine": 1049,
         "startChar": 1,
