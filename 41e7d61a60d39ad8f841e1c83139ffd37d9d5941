@@ -1,0 +1,152 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e30a6b63_f8b3bfde",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "DMTF ???",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 11
+      },
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de8d386d_901cc9ca",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Please get the fd from GetAllAtributes and use it. \nDont hard the file path.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8359f32_86862afd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Pass the enum string to the Method. and do the type casting in RBC daemon.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f96fb33_2427088c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Please get the fd from GetAllAtributes and use it. \nDont hard the file path.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6881406d_113b7900",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Pass the enum string to the Method. and do the type casting in RBC daemon.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ea32fef_67fad6f0",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Same here. \nPlease get the fd from GetAllAtributes and use it. \nDont hard the file path.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "779f1399_99b2066c",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "DMTF ???",
+      "range": {
+        "startLine": 293,
+        "startChar": 51,
+        "endLine": 293,
+        "endChar": 59
+      },
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62099efc_eba4df33",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 16
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-18T03:12:36Z",
+      "side": 1,
+      "message": "Pass the enum string to the Method. and do the type casting in RBC daemon.",
+      "revId": "41e7d61a60d39ad8f841e1c83139ffd37d9d5941",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
