@@ -22,6 +22,30 @@
       "revId": "ff3bab6f000b3079e8f75825a38e3ec60a876a6d",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf738709_955b9ba1",
+        "filename": "CMakeLists.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-04-20T06:18:00Z",
+      "side": 1,
+      "message": "There is a flag to remove the unused static library. Since my code is included within IBM namespace, and if the flag is not set, this library will be forcefully removed if not in use.\n\nSo I think this would not be an issue.\n\nI have checked the existence of the library in both cases - when the flag is enabled/disabled.",
+      "parentUuid": "04fc5ab6_1d668b23",
+      "range": {
+        "startLine": 386,
+        "startChar": 22,
+        "endLine": 386,
+        "endChar": 40
+      },
+      "revId": "ff3bab6f000b3079e8f75825a38e3ec60a876a6d",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
