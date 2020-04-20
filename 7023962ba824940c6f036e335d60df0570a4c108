@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c4c174d_61075ba5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-20T07:14:35Z",
+      "side": 1,
+      "message": "This is not needed. no exception handling",
+      "range": {
+        "startLine": 112,
+        "startChar": 9,
+        "endLine": 112,
+        "endChar": 74
+      },
+      "revId": "7023962ba824940c6f036e335d60df0570a4c108",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
