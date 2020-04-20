@@ -29,6 +29,8 @@
 #include <boost/system/linux_error.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
 #include <string_view>
 #include <variant>
 
@@ -465,6 +467,25 @@ static void ParseCrashdumpParameters(
     }
 }
 
+#ifdef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+static constexpr const uint8_t maxNodeCount = 4;
+static std::vector<uint8_t> getSlaveNodeId()
+{
+    std::vector<uint8_t> ret;
+    for (uint8_t i = 0; i < maxNodeCount; i++)
+    {
+        std::string nodeLog =
+            "/var/log/nodeLog/redfishNode" + std::to_string(i);
+        std::ifstream logFile(nodeLog);
+        if (logFile.good())
+        {
+            ret.emplace_back(i);
+        }
+    }
+    return ret;
+}
+#endif
+
 constexpr char const *postCodeIface = "xyz.openbmc_project.State.Boot.PostCode";
 class SystemLogServiceCollection : public Node
 {
@@ -505,8 +526,8 @@ class SystemLogServiceCollection : public Node
             {{"@odata.id", "/redfish/v1/Systems/system/LogServices/EventLog"}});
 #ifdef BMCWEB_ENABLE_REDFISH_CPU_LOG
         logServiceArray.push_back(
-            {{"@odata.id",
-              "/redfish/v1/Systems/system/LogServices/Crashdump"}});
+            {{ "@odata.id",
+               "/redfish/v1/Systems/system/LogServices/Crashdump" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -572,9 +593,27 @@ class EventLogService : public Node
         asyncResp->res.jsonValue["Description"] = "System Event Log Service";
         asyncResp->res.jsonValue["Id"] = "EventLog";
         asyncResp->res.jsonValue["OverWritePolicy"] = "WrapsWhenFull";
+#ifndef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
         asyncResp->res.jsonValue["Entries"] = {
-            {"@odata.id",
-             "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}};
+            { "@odata.id",
+              "/redfish/v1/Systems/system/LogServices/EventLog/Entries" }};
+#else
+        nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Entries"];
+        logEntryArray = nlohmann::json::array();
+        logEntryArray.push_back(
+            {{"@odata.id",
+              "/redfish/v1/Systems/system/LogServices/EventLog/Entries"}});
+        std::vector<uint8_t> slaveId = getSlaveNodeId();
+        for (const uint8_t id : slaveId)
+        {
+            logEntryArray.push_back({});
+            nlohmann::json &thisEntry = logEntryArray.back();
+            thisEntry = {
+                {"@odata.id",
+                 "/redfish/v1/Systems/system/LogServices/EventLog/EntriesNode" +
+                     std::to_string(id)}};
+        }
+#endif
         asyncResp->res.jsonValue["Actions"]["#LogService.ClearLog"] = {
 
             {"target", "/redfish/v1/Systems/system/LogServices/EventLog/"
@@ -633,9 +672,16 @@ class JournalEventLogClear : public Node
     }
 };
 
+#ifdef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+static int fillEventLogEntryJson(const std::string &logEntryID,
+                                 const std::string logEntry,
+                                 nlohmann::json &logEntryJson,
+                                 std::string nodeID = std::string())
+#else
 static int fillEventLogEntryJson(const std::string &logEntryID,
                                  const std::string logEntry,
                                  nlohmann::json &logEntryJson)
+#endif
 {
     // The redfish log format is "<Timestamp> <MessageId>,<MessageArgs>"
     // First get the Timestamp
@@ -714,21 +760,138 @@ static int fillEventLogEntryJson(const std::string &logEntryID,
     }
 
     // Fill in the log entry with the gathered data
-    logEntryJson = {
-        {"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
-        {"@odata.id",
-         "/redfish/v1/Systems/system/LogServices/EventLog/Entries/" +
-             logEntryID},
-        {"Name", "System Event Log Entry"},
-        {"Id", logEntryID},
-        {"Message", std::move(msg)},
-        {"MessageId", std::move(messageID)},
-        {"MessageArgs", std::move(messageArgs)},
-        {"EntryType", "Event"},
-        {"Severity", std::move(severity)},
-        {"Created", std::move(timestamp)}};
+    logEntryJson = {{"@odata.type", "#LogEntry.v1_4_0.LogEntry"},
+#ifdef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+                    {"@odata.id",
+                     "/redfish/v1/Systems/system/LogServices/EventLog/Entries" +
+                         nodeID + "/" + logEntryID},
+#else
+                    {"@odata.id", "/redfish/v1/Systems/system/LogServices/"
+                                  "EventLog/Entries/" +
+                                      logEntryID},
+#endif
+                    {"Name", "System Event Log Entry"},
+                    {"Id", logEntryID},
+                    {"Message", std::move(msg)},
+                    {"MessageId", std::move(messageID)},
+                    {"MessageArgs", std::move(messageArgs)},
+                    {"EntryType", "Event"},
+                    {"Severity", std::move(severity)},
+                    {"Created", std::move(timestamp)}};
     return 0;
 }
+
+#ifdef BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+class JournalNodeEventLogEntryCollection : public Node
+{
+  public:
+    template <typename CrowApp>
+    JournalNodeEventLogEntryCollection(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Systems/system/LogServices/EventLog/Entries<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+        uint64_t skip = 0;
+        uint64_t top = maxEntriesPerPage; // Show max entries by default
+        if (!getSkipParam(asyncResp->res, req, skip))
+        {
+            return;
+        }
+        if (!getTopParam(asyncResp->res, req, top))
+        {
+            return;
+        }
+        const std::string &nodeID = params[0];
+        // Collections don't include the static data added by SubRoute because
+        // it has a duplicate entry for members
+        asyncResp->res.jsonValue["@odata.type"] =
+            "#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.context"] =
+            "/redfish/v1/$metadata#LogEntryCollection.LogEntryCollection";
+        asyncResp->res.jsonValue["@odata.id"] =
+            "/redfish/v1/Systems/system/LogServices/EventLog/Entries" + nodeID;
+        asyncResp->res.jsonValue["Name"] = "System Event Log Entries";
+        asyncResp->res.jsonValue["Description"] =
+            "Collection of System Event Log Entries";
+
+        nlohmann::json &logEntryArray = asyncResp->res.jsonValue["Members"];
+        logEntryArray = nlohmann::json::array();
+        // Go through the log files and create a unique ID for each entry
+        std::vector<std::filesystem::path> redfishLogFiles;
+        const std::filesystem::path redfishLogDir =
+            "/var/log/nodeLog/redfish" + nodeID;
+        redfishLogFiles.emplace_back(redfishLogDir);
+        uint64_t entryCount = 0;
+        std::string logEntry;
+
+        // Oldest logs are in the last file, so start there and loop backwards
+        for (auto it = redfishLogFiles.rbegin(); it < redfishLogFiles.rend();
+             it++)
+        {
+            std::ifstream logStream(*it);
+            if (!logStream.is_open())
+            {
+                continue;
+            }
+
+            // Reset the unique ID on the first entry
+            bool firstEntry = true;
+            while (std::getline(logStream, logEntry))
+            {
+                entryCount++;
+                // Handle paging using skip (number of entries to skip from the
+                // start) and top (number of entries to display)
+                if (entryCount <= skip || entryCount > skip + top)
+                {
+                    continue;
+                }
+
+                std::string idStr;
+                if (!getUniqueEntryID(logEntry, idStr, firstEntry))
+                {
+                    continue;
+                }
+
+                if (firstEntry)
+                {
+                    firstEntry = false;
+                }
+
+                logEntryArray.push_back({});
+                nlohmann::json &bmcLogEntry = logEntryArray.back();
+                if (fillEventLogEntryJson(idStr, logEntry, bmcLogEntry,
+                                          nodeID) != 0)
+                {
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            }
+        }
+        asyncResp->res.jsonValue["Members@odata.count"] = entryCount;
+        if (skip + top < entryCount)
+        {
+            asyncResp->res.jsonValue["Members@odata.nextLink"] =
+                "/redfish/v1/Systems/system/LogServices/EventLog/"
+                "Entries?$skip=" +
+                std::to_string(skip + top);
+        }
+    }
+};
+#endif
 
 class JournalEventLogEntryCollection : public Node
 {
@@ -1251,7 +1414,8 @@ class BMCLogServiceCollection : public Node
         logServiceArray = nlohmann::json::array();
 #ifdef BMCWEB_ENABLE_REDFISH_BMC_JOURNAL
         logServiceArray.push_back(
-            {{"@odata.id", "/redfish/v1/Managers/bmc/LogServices/Journal"}});
+            {{ "@odata.id",
+               "/redfish/v1/Managers/bmc/LogServices/Journal" }});
 #endif
         asyncResp->res.jsonValue["Members@odata.count"] =
             logServiceArray.size();
@@ -1572,8 +1736,9 @@ class CrashdumpService : public Node
 #ifdef BMCWEB_ENABLE_REDFISH_RAW_PECI
         asyncResp->res.jsonValue["Actions"]["Oem"].push_back(
             {"#Crashdump.SendRawPeci",
-             {{"target", "/redfish/v1/Systems/system/LogServices/Crashdump/"
-                         "Actions/Oem/Crashdump.SendRawPeci"}}});
+             { { "target",
+                 "/redfish/v1/Systems/system/LogServices/Crashdump/"
+                 "Actions/Oem/Crashdump.SendRawPeci" } }});
 #endif
     }
 };

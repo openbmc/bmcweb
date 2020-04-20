@@ -94,6 +94,12 @@ option (
     '/ibm/v1/'."
     OFF
 )
+option (
+    BMCWEB_ENABLE_REDFISH_MODULAR_LOG
+    "Enables modular system redfish log.
+    Master BMC will show all logs from slave"
+    OFF
+)
 
 
 # Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
@@ -416,6 +422,8 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_UNRESTRICTED_SENSOR_OVERRIDE>
     $<$<BOOL:${BMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE}>:
     -DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_MODULAR_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_MODULAR_LOG>
 )
 
 # configure and install systemd unit files
