@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "0ce54802_4a021a4e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-20T02:47:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e7b5ba2_f2104a0c",
+      "range": {
+        "startLine": 919,
+        "startChar": 12,
+        "endLine": 919,
+        "endChar": 50
+      },
+      "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b3fc988b_ffdfb565",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 18
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "intent is to run this code while registering routes,so that rootCert file will created.\nthis file will be populated as soon as vmi boots\nwe cant do this in our handles",
       "parentUuid": "b3fc988b_ffdfb565",
+      "range": {
+        "startLine": 1049,
+        "startChar": 1,
+        "endLine": 1073,
+        "endChar": 5
+      },
+      "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd22ce96_dece90c2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-20T02:47:23Z",
+      "side": 1,
+      "message": "Ok. Please put this into a method and invoke tht method wherever is needed.",
+      "parentUuid": "a5b06e36_ab19bdaf",
       "range": {
         "startLine": 1049,
         "startChar": 1,
