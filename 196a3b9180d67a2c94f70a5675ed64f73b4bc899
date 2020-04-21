@@ -165,6 +165,30 @@
       "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "341a059f_f8c339fa",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 18
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-21T14:43:35Z",
+      "side": 1,
+      "message": "Yes. Something like initializeHostCertPath() and invoke that at the beginning of the requestRoutes. This would be a cleaner way of doing it",
+      "parentUuid": "55e18ee5_b2f20c0f",
+      "range": {
+        "startLine": 1049,
+        "startChar": 1,
+        "endLine": 1073,
+        "endChar": 5
+      },
+      "revId": "196a3b9180d67a2c94f70a5675ed64f73b4bc899",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
