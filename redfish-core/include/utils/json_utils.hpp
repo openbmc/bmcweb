@@ -161,6 +161,16 @@ UnpackErrorCode unpackValueWithErrorCode(nlohmann::json& jsonValue,
     else if constexpr ((std::is_unsigned_v<Type>)&&(
                            !std::is_same_v<bool, Type>))
     {
+
+        // null is an accepted value in some cases, like disabling power capping
+        // Do not return false on null, instead use a special value, uint32
+        // min to indicate null
+        if (jsonValue.is_null())
+        {
+            value = static_cast<Type>(std::numeric_limits<uint32_t>::lowest());
+            return ret;
+        }
+
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
         if (jsonPtr == nullptr)
         {
