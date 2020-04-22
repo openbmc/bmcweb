@@ -42,6 +42,7 @@ constexpr auto ROOT_CERT_PATH = "/var/lib/bmcweb/RootCert";
 constexpr auto eidPath = "/usr/share/pldm/host_eid";
 constexpr mctp_eid_t defaultEIDValue = 9;
 constexpr int pollTimeout = 5; // 5 seconds
+bool CSRHandlerRunning = false;
 
 /**
  * @brief Return codes from the pldm command response
@@ -577,221 +578,291 @@ mctp_eid_t readEID()
 void handleCsrRequest(const crow::Request &req, crow::Response &res,
                       const std::string &csrString)
 {
-    std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
-    {
-        std::filesystem::create_directory("/var/lib/bmcweb", ec);
-    }
-    if (ec)
-    {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_DEBUG << "handleCsrRequest: Failed to prepare certificate "
-                            "directory. ec : "
-                         << ec;
-        return;
-    }
-
-    // write CSR string to CSR file
-    std::ofstream CSRFile;
-    CSRFile.open(CSR_CERT_PATH);
-    if (CSRFile.fail())
-    {
-        BMCWEB_LOG_DEBUG << "Error while opening the CSR file for writing";
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        return;
-    }
-    CSRFile << csrString;
-    CSRFile.close();
-
-    std::fstream certFile;
-    std::filesystem::path clientCert = CLIENT_CERT_PATH;
-    certFile.open(clientCert, std::ios::out);
-    if (certFile.fail())
-    {
-        BMCWEB_LOG_DEBUG << "Error while opening the client certificate file";
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        return;
-    }
-    certFile.close();
-
-    uint32_t length = csrString.length();
-    uint8_t mctpEid = readEID();
     std::shared_ptr<bmcweb::AsyncResp> asyncResp =
         std::make_shared<bmcweb::AsyncResp>(res);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, length, mctpEid](const boost::system::error_code ec,
-                                     const uint8_t &instanceId) {
+        [asyncResp, req, csrString](const boost::system::error_code errorCode,
+                                    const std::variant<std::string> &value) {
+            if (errorCode)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error in getting OperatingSystemState. ec : "
+                    << errorCode;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
+                return;
+            }
+            const std::string *status = std::get_if<std::string>(&value);
+            if ((*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.BootComplete") &&
+                (*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.Standby"))
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = "Invalid HOST State";
+                CSRHandlerRunning = false;
+                return;
+            }
+
+            std::error_code ec;
+            if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
+            {
+                std::filesystem::create_directory("/var/lib/bmcweb", ec);
+            }
             if (ec)
             {
-                BMCWEB_LOG_ERROR << "GetInstanceId failed. ec : " << ec;
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                BMCWEB_LOG_DEBUG << "handleCsrRequest: Failed to prepare "
+                                    "certificate directory. ec : "
+                                 << ec;
+                CSRHandlerRunning = false;
                 return;
             }
-            pldm_fileio_file_type fileType =
-                PLDM_FILE_TYPE_CERT_SIGNING_REQUEST;
-            // uint16_t fileType = 4; // PLDM_FILE_TYPE_CERT_SIGNING_REQUEST
-            uint32_t fileHandle = 0;
-            auto wd = -1;
-            int fd = pldm_open();
-            if (fd < 0)
+            // write CSR string to CSR file
+            std::ofstream CSRFile;
+            CSRFile.open(CSR_CERT_PATH);
+            if (CSRFile.fail())
             {
-                BMCWEB_LOG_DEBUG << "handleCertificatePost: pldm_open() failed";
+                BMCWEB_LOG_DEBUG
+                    << "Error while opening the CSR file for writing";
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
+            CSRFile << csrString;
+            CSRFile.close();
 
-            std::array<uint8_t, sizeof(pldm_msg_hdr) + sizeof(fileType) +
-                                    sizeof(fileHandle) + sizeof(uint64_t)>
-                requestMsg;
-
-            auto request = reinterpret_cast<pldm_msg *>(requestMsg.data());
-
-            auto rc = encode_new_file_req(instanceId, fileType, fileHandle,
-                                          length, request);
-
-            if (rc != PLDM_SUCCESS)
+            std::fstream certFile;
+            std::filesystem::path clientCert = CLIENT_CERT_PATH;
+            certFile.open(clientCert, std::ios::out);
+            if (certFile.fail())
             {
-                BMCWEB_LOG_ERROR << "encode_new_file_req failed.rc = " << rc;
+                BMCWEB_LOG_DEBUG
+                    << "Error while opening the client certificate file";
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
+            certFile.close();
 
-            uint8_t *responseMsg = nullptr;
-            size_t responseMsgSize{};
+            uint32_t length = csrString.length();
+            uint8_t mctpEid = readEID();
 
-            ResponseStatus status = ResponseStatus::success;
-            rc = pldm_send_recv(mctpEid, fd, requestMsg.data(),
-                                requestMsg.size(), &responseMsg,
-                                &responseMsgSize);
-            if (rc < 0)
-            {
-                BMCWEB_LOG_ERROR << "pldm_send_recv failed. rc = " << rc;
-                status = ResponseStatus::failure;
-                responseMsg = nullptr;
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
-
-            if (status == ResponseStatus::success)
-            {
-                uint8_t completionCode = 0;
-                auto response = reinterpret_cast<pldm_msg *>(responseMsg);
-
-                auto decodeRC = decode_new_file_resp(
-                    response, PLDM_NEW_FILE_RESP_BYTES, &completionCode);
-                if (decodeRC < 0)
-                {
-                    BMCWEB_LOG_ERROR << "decode_new_file_resp failed. rc = "
-                                     << decodeRC;
-                    status = ResponseStatus::failure;
-                    asyncResp->res.result(
-                        boost::beast::http::status::internal_server_error);
-                    asyncResp->res.jsonValue["Description"] =
-                        internalServerError;
-                    return;
-                }
-                else
-                {
-                    if (completionCode != PLDM_SUCCESS)
+            crow::connections::systemBus->async_method_call(
+                [asyncResp, length, mctpEid](const boost::system::error_code ec,
+                                             const uint8_t &instanceId) {
+                    if (ec)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Bad PLDM completion code COMPLETION_CODE="
-                            << completionCode;
+                        BMCWEB_LOG_ERROR << "GetInstanceId failed. ec : " << ec;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
+
+                    pldm_fileio_file_type fileType =
+                        PLDM_FILE_TYPE_CERT_SIGNING_REQUEST;
+                    uint32_t fileHandle = 0;
+                    auto wd = -1;
+                    int fd = pldm_open();
+                    if (fd < 0)
+                    {
+                        BMCWEB_LOG_DEBUG
+                            << "handleCertificatePost: pldm_open() failed";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
+
+                    std::array<uint8_t,
+                               sizeof(pldm_msg_hdr) + sizeof(fileType) +
+                                   sizeof(fileHandle) + sizeof(uint64_t)>
+                        requestMsg;
+
+                    auto request =
+                        reinterpret_cast<pldm_msg *>(requestMsg.data());
+
+                    auto rc = encode_new_file_req(instanceId, fileType,
+                                                  fileHandle, length, request);
+
+                    if (rc != PLDM_SUCCESS)
+                    {
+                        BMCWEB_LOG_ERROR << "encode_new_file_req failed.rc = "
+                                         << rc;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
+
+                    uint8_t *responseMsg = nullptr;
+                    size_t responseMsgSize{};
+
+                    ResponseStatus status = ResponseStatus::success;
+
+                    rc = pldm_send_recv(mctpEid, fd, requestMsg.data(),
+                                        requestMsg.size(), &responseMsg,
+                                        &responseMsgSize);
+                    if (rc < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "pldm_send_recv failed. rc = "
+                                         << rc;
                         status = ResponseStatus::failure;
+                        responseMsg = nullptr;
                         asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
                         asyncResp->res.jsonValue["Description"] =
                             internalServerError;
                         return;
                     }
-                }
-            }
 
-            fd = inotify_init1(IN_NONBLOCK | IN_CLOEXEC);
-            if (fd < 0)
-            {
-                BMCWEB_LOG_ERROR << "Failed to create inotify watch.";
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
+                    if (status == ResponseStatus::success)
+                    {
+                        uint8_t completionCode = 0;
+                        auto response =
+                            reinterpret_cast<pldm_msg *>(responseMsg);
 
-            wd = inotify_add_watch(fd, CLIENT_CERT_PATH, IN_CLOSE_WRITE);
-            if (wd < 0)
-            {
-                BMCWEB_LOG_ERROR << "Failed to watch ClientCert file.";
-                close(fd);
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
+                        auto decodeRC = decode_new_file_resp(
+                            response, PLDM_NEW_FILE_RESP_BYTES,
+                            &completionCode);
+                        if (decodeRC < 0)
+                        {
+                            BMCWEB_LOG_ERROR
+                                << "decode_new_file_resp failed. rc = "
+                                << decodeRC;
+                            status = ResponseStatus::failure;
+                            asyncResp->res.result(boost::beast::http::status::
+                                                      internal_server_error);
+                            asyncResp->res.jsonValue["Description"] =
+                                internalServerError;
+                            CSRHandlerRunning = false;
+                            return;
+                        }
+                        else
+                        {
+                            if (completionCode != PLDM_SUCCESS)
+                            {
+                                BMCWEB_LOG_ERROR << "Bad PLDM completion code "
+                                                    "COMPLETION_CODE="
+                                                 << completionCode;
+                                status = ResponseStatus::failure;
+                                asyncResp->res.result(
+                                    boost::beast::http::status::
+                                        internal_server_error);
+                                asyncResp->res.jsonValue["Description"] =
+                                    internalServerError;
+                                CSRHandlerRunning = false;
+                                return;
+                            }
+                        }
+                    }
 
-            struct pollfd fds;
-            fds.fd = fd;
-            fds.events = POLLIN;
+                    fd = inotify_init1(IN_NONBLOCK | IN_CLOEXEC);
+                    if (fd < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to create inotify watch.";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
 
-            rc = poll(&fds, 1, pollTimeout * 1000);
-            if (rc < 0)
-            {
-                BMCWEB_LOG_ERROR << "Failed to add event.";
-                inotify_rm_watch(fd, wd);
-                close(fd);
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
-            else if (rc == 0)
-            {
-                BMCWEB_LOG_ERROR << "Poll timed out  " << pollTimeout;
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
+                    wd =
+                        inotify_add_watch(fd, CLIENT_CERT_PATH, IN_CLOSE_WRITE);
+                    if (wd < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to watch ClientCert file.";
+                        close(fd);
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
 
-            std::ifstream inFile;
-            inFile.open(CLIENT_CERT_PATH);
-            if (inFile.fail())
-            {
-                BMCWEB_LOG_DEBUG << "Error while opening the client "
-                                    "certificate file for reading";
-                asyncResp->res.result(
-                    boost::beast::http::status::internal_server_error);
-                asyncResp->res.jsonValue["Description"] = internalServerError;
-                return;
-            }
+                    struct pollfd fds;
+                    fds.fd = fd;
+                    fds.events = POLLIN;
 
-            std::stringstream strStream;
-            strStream << inFile.rdbuf();
-            std::string str = strStream.str();
-            inFile.close();
+                    rc = poll(&fds, 1, pollTimeout * 1000);
+                    if (rc < 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to add event.";
+                        inotify_rm_watch(fd, wd);
+                        close(fd);
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
+                    else if (rc == 0)
+                    {
+                        BMCWEB_LOG_ERROR << "Poll timed out  " << pollTimeout;
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
 
-            remove(CLIENT_CERT_PATH);
-            remove(CSR_CERT_PATH);
-            if (responseMsg)
-            {
-                free(responseMsg);
-            }
-            asyncResp->res.jsonValue["Certificate"] = str;
+                    std::ifstream inFile;
+                    inFile.open(CLIENT_CERT_PATH);
+                    if (inFile.fail())
+                    {
+                        BMCWEB_LOG_DEBUG << "Error while opening the client "
+                                            "certificate file for reading";
+                        asyncResp->res.result(
+                            boost::beast::http::status::internal_server_error);
+                        asyncResp->res.jsonValue["Description"] =
+                            internalServerError;
+                        CSRHandlerRunning = false;
+                        return;
+                    }
+
+                    std::stringstream strStream;
+                    strStream << inFile.rdbuf();
+                    std::string str = strStream.str();
+                    inFile.close();
+
+                    remove(CLIENT_CERT_PATH);
+                    remove(CSR_CERT_PATH);
+                    if (responseMsg)
+                    {
+                        free(responseMsg);
+                    }
+                    CSRHandlerRunning = false;
+                    asyncResp->res.jsonValue["Certificate"] = str;
+                },
+                "xyz.openbmc_project.PLDM", "/xyz/openbmc_project/pldm",
+                "xyz.openbmc_project.PLDM.Requester", "GetInstanceId", mctpEid);
         },
-        "xyz.openbmc_project.PLDM", "/xyz/openbmc_project/pldm",
-        "xyz.openbmc_project.PLDM.Requester", "GetInstanceId", mctpEid);
-}
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.OperatingSystem.Status",
+        "OperatingSystemState");
 
 void createRootCertFile()
 {
@@ -920,6 +991,15 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...> &app)
                 res.end();
                 return;
             }
+            if (CSRHandlerRunning)
+            {
+                BMCWEB_LOG_ERROR << "Handler already running";
+                res.result(boost::beast::http::status::service_unavailable);
+                res.jsonValue["Description"] = "Resource In Use";
+                res.end();
+                return;
+            }
+            CSRHandlerRunning = true;
             handleCsrRequest(req, res, csrString);
         });
 
