@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee311ee8_459056e8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "please put this in a registry file, like the rest of the registries",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34e988e0_bc1aea62",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "I believe this is to come from the interface",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43aa0c8b_467e3c07",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "doesn\u0027t this need some sort of validation to make sure its valid? we shouldn\u0027t just be accepting any user input.",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 177,
+        "endChar": 9
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4bec63f1_8b96ffc5",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "use nothrow, theres examples in this repo",
+      "range": {
+        "startLine": 187,
+        "startChar": 47,
+        "endLine": 187,
+        "endChar": 52
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7d83031_29a87efd",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "unneeded, RAII",
+      "range": {
+        "startLine": 189,
+        "startChar": 12,
+        "endLine": 189,
+        "endChar": 26
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bdc35fd3_8bbee1d8",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 193,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "why is the endl needed? also should use \"\\n\" to avoid unnecessary flush",
+      "range": {
+        "startLine": 193,
+        "startChar": 48,
+        "endLine": 193,
+        "endChar": 58
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10cb5a44_76be0d80",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "Can these be merged? they look the same",
+      "range": {
+        "startLine": 191,
+        "startChar": 11,
+        "endLine": 201,
+        "endChar": 26
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0b1ed7b8_13ad0ea6",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "no throw",
+      "range": {
+        "startLine": 324,
+        "startChar": 65,
+        "endLine": 324,
+        "endChar": 70
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3162c9a1_c31c0534",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "raii",
+      "range": {
+        "startLine": 326,
+        "startChar": 16,
+        "endLine": 326,
+        "endChar": 20
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aed34351_4a9dc7d4",
+        "filename": "redfish-core/lib/message_registries.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-22T18:10:50Z",
+      "side": 1,
+      "message": "This will all be filled in by the below at line 149, this isn\u0027t needed",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 137,
+        "endChar": 22
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
