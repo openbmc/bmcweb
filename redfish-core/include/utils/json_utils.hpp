@@ -160,10 +160,11 @@ bool unpackValue(nlohmann::json& jsonValue, const std::string& key,
                            !std::is_same_v<bool, Type>))
     {
         uint64_t* jsonPtr = jsonValue.get_ptr<uint64_t*>();
+        // null is an accepted value in some cases, like disabling power capping
+        // Do not return false on a nullptr.
         if (jsonPtr == nullptr)
         {
-            messages::propertyValueTypeError(res, jsonValue.dump(), key);
-            return false;
+            return ret;
         }
         if (!checkRange<Type>(*jsonPtr, key, jsonValue, res))
         {
