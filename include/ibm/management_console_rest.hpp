@@ -45,7 +45,8 @@ constexpr auto ROOT_CERT_PATH = "/var/lib/bmcweb/RootCert";
 constexpr auto eidPath = "/usr/share/pldm/host_eid";
 constexpr mctp_eid_t defaultEIDValue = 9;
 constexpr int pollTimeout = 5; // 5 seconds
-
+constexpr uint32_t maxCSRLength = 4096;
+bool CSRHandlerRunning = false;
 /**
  * @brief Return codes from the pldm command response
  */
@@ -569,65 +570,24 @@ mctp_eid_t readEID()
     return mctpEid;
 }
 
-void handleCsrRequest(const crow::Request& req, crow::Response& res,
-                      const std::string& csrString)
+void sendPLDMRequest(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                     const size_t& csrLength)
 {
-    std::error_code ec;
-    if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
-    {
-        std::filesystem::create_directory("/var/lib/bmcweb", ec);
-    }
-    if (ec)
-    {
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        BMCWEB_LOG_ERROR << "handleCsrRequest: Failed to prepare certificate "
-                            "directory. ec : "
-                         << ec;
-        return;
-    }
-
-    // write CSR string to CSR file
-    std::ofstream CSRFile;
-    CSRFile.open(CSR_CERT_PATH);
-    if (CSRFile.fail())
-    {
-        BMCWEB_LOG_ERROR << "Error while opening the CSR file for writing";
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        return;
-    }
-    CSRFile << csrString;
-    CSRFile.close();
-
-    std::fstream certFile;
-    std::filesystem::path clientCert = CLIENT_CERT_PATH;
-    certFile.open(clientCert, std::ios::out);
-    if (certFile.fail())
-    {
-        BMCWEB_LOG_ERROR << "Error while opening the client certificate file";
-        res.result(boost::beast::http::status::internal_server_error);
-        res.jsonValue["Description"] = internalServerError;
-        return;
-    }
-    certFile.close();
-
-    auto length = csrString.length();
     uint8_t mctpEid = readEID();
-    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
-        std::make_shared<bmcweb::AsyncResp>(res);
 
     crow::connections::systemBus->async_method_call(
-        [asyncResp, length, mctpEid](const boost::system::error_code ec,
-                                     const uint8_t& instanceId) {
+        [asyncResp, csrLength, mctpEid](const boost::system::error_code ec,
+                                        const uint8_t& instanceId) {
             if (ec)
             {
                 BMCWEB_LOG_ERROR << "GetInstanceId failed. ec : " << ec;
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
+
             pldm_fileio_file_type fileType =
                 PLDM_FILE_TYPE_CERT_SIGNING_REQUEST;
             uint32_t fileHandle = 0;
@@ -639,6 +599,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -649,7 +610,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
             auto request = reinterpret_cast<pldm_msg*>(requestMsg.data());
 
             auto rc = encode_new_file_req(instanceId, fileType, fileHandle,
-                                          length, request);
+                                          csrLength, request);
 
             if (rc != PLDM_SUCCESS)
             {
@@ -657,6 +618,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -664,6 +626,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
             size_t responseMsgSize{};
 
             ResponseStatus status = ResponseStatus::success;
+
             rc = pldm_send_recv(mctpEid, fd, requestMsg.data(),
                                 requestMsg.size(), &responseMsg,
                                 &responseMsgSize);
@@ -694,20 +657,22 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                         boost::beast::http::status::internal_server_error);
                     asyncResp->res.jsonValue["Description"] =
                         internalServerError;
+                    CSRHandlerRunning = false;
                     return;
                 }
                 else
                 {
                     if (completionCode != PLDM_SUCCESS)
                     {
-                        BMCWEB_LOG_ERROR
-                            << "Bad PLDM completion code COMPLETION_CODE="
-                            << completionCode;
+                        BMCWEB_LOG_ERROR << "Bad PLDM completion code "
+                                            "COMPLETION_CODE="
+                                         << completionCode;
                         status = ResponseStatus::failure;
                         asyncResp->res.result(
                             boost::beast::http::status::internal_server_error);
                         asyncResp->res.jsonValue["Description"] =
                             internalServerError;
+                        CSRHandlerRunning = false;
                         return;
                     }
                 }
@@ -720,6 +685,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -731,6 +697,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -747,6 +714,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
             else if (rc == 0)
@@ -757,6 +725,7 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -764,11 +733,12 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
             inFile.open(CLIENT_CERT_PATH);
             if (inFile.fail())
             {
-                BMCWEB_LOG_ERROR << "Error while opening the client "
+                BMCWEB_LOG_DEBUG << "Error while opening the client "
                                     "certificate file for reading";
                 asyncResp->res.result(
                     boost::beast::http::status::internal_server_error);
                 asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
                 return;
             }
 
@@ -791,10 +761,100 @@ void handleCsrRequest(const crow::Request& req, crow::Response& res,
                 }
                 close(fd);
             }
+            CSRHandlerRunning = false;
             asyncResp->res.jsonValue["Certificate"] = str;
         },
         "xyz.openbmc_project.PLDM", "/xyz/openbmc_project/pldm",
         "xyz.openbmc_project.PLDM.Requester", "GetInstanceId", mctpEid);
+}
+
+void handleCsrRequest(const crow::Request& req, crow::Response& res,
+                      const std::string& csrString)
+{
+    std::shared_ptr<bmcweb::AsyncResp> asyncResp =
+        std::make_shared<bmcweb::AsyncResp>(res);
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, req, csrString](const boost::system::error_code errorCode,
+                                    const std::variant<std::string>& value) {
+            if (errorCode)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error in getting OperatingSystemState. ec : "
+                    << errorCode;
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
+                return;
+            }
+            const std::string* status = std::get_if<std::string>(&value);
+            if ((*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.BootComplete") &&
+                (*status != "xyz.openbmc_project.State.OperatingSystem.Status."
+                            "OSStatus.Standby"))
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = "Invalid HOST State";
+                CSRHandlerRunning = false;
+                return;
+            }
+
+            std::error_code ec;
+            if (!std::filesystem::is_directory("/var/lib/bmcweb", ec))
+            {
+                std::filesystem::create_directory("/var/lib/bmcweb", ec);
+            }
+            if (ec)
+            {
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                BMCWEB_LOG_ERROR << "handleCsrRequest: Failed to prepare "
+                                    "certificate directory. ec : "
+                                 << ec;
+                CSRHandlerRunning = false;
+                return;
+            }
+            // write CSR string to CSR file
+            std::ofstream CSRFile;
+            CSRFile.open(CSR_CERT_PATH);
+            if (CSRFile.fail())
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error while opening the CSR file for writing";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
+                return;
+            }
+            CSRFile << csrString;
+            CSRFile.close();
+
+            std::fstream certFile;
+            std::filesystem::path clientCert = CLIENT_CERT_PATH;
+            certFile.open(clientCert, std::ios::out);
+            if (certFile.fail())
+            {
+                BMCWEB_LOG_ERROR
+                    << "Error while opening the client certificate file";
+                asyncResp->res.result(
+                    boost::beast::http::status::internal_server_error);
+                asyncResp->res.jsonValue["Description"] = internalServerError;
+                CSRHandlerRunning = false;
+                return;
+            }
+            certFile.close();
+
+            size_t length = csrString.length();
+            sendPLDMRequest(asyncResp, length);
+        },
+        "xyz.openbmc_project.State.Host", "/xyz/openbmc_project/state/host0",
+        "org.freedesktop.DBus.Properties", "Get",
+        "xyz.openbmc_project.State.OperatingSystem.Status",
+        "OperatingSystemState");
 }
 
 void createRootCertFile()
@@ -811,7 +871,8 @@ void createRootCertFile()
                          << ec;
         return;
     }
-
+    // Creating an empty root certificate file for the PLDM to write the root
+    // certificate. PLDM gets VMI root certificate when the VMI partition boots.
     std::filesystem::path rootCert = ROOT_CERT_PATH;
     if (!std::filesystem::exists(rootCert))
     {
@@ -926,6 +987,25 @@ void requestRoutes(Crow<Middlewares...>& app)
                 res.end();
                 return;
             }
+            // Return error if CsrString is bigger than 4K
+            // Usually CSR size is aroung 1-2K
+            // so added max length check for 4K
+            if (csrString.length() > maxCSRLength)
+            {
+                res.result(boost::beast::http::status::bad_request);
+                res.end();
+                return;
+            }
+
+            if (CSRHandlerRunning)
+            {
+                BMCWEB_LOG_ERROR << "Handler already running";
+                res.result(boost::beast::http::status::service_unavailable);
+                res.jsonValue["Description"] = "Resource In Use";
+                res.end();
+                return;
+            }
+            CSRHandlerRunning = true;
             handleCsrRequest(req, res, csrString);
         });
 
@@ -995,7 +1075,9 @@ void requestRoutes(Crow<Middlewares...>& app)
                 }
                 handleGetLockListAPI(req, res, listSessionIds);
             });
-
+    // Calling this function here to create RootCert file duing registering
+    // requestRoutes so that pldm writes to this file as soon as it receives VMI
+    // root certificate.
     createRootCertFile();
 }
 
