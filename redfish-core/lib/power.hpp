@@ -40,13 +40,33 @@ class Power : public Node
   private:
     std::vector<const char*> typeList = {"/xyz/openbmc_project/sensors/voltage",
                                          "/xyz/openbmc_project/sensors/power"};
+    void setPowerCapEnable(std::shared_ptr<SensorsAsyncResp> asyncResp,
+                           bool powerCapEnabled)
+    {
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG << "Power Limit Set: Dbus error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/control/host0/power_cap",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Control.Power.Cap", "PowerCapEnable",
+            sdbusplus::message::variant<bool>(powerCapEnabled));
+    }
+
     void setPowerCapOverride(
         std::shared_ptr<SensorsAsyncResp> asyncResp,
         std::vector<nlohmann::json>& powerControlCollections)
     {
         auto getChassisPath =
-            [asyncResp, powerControlCollections](
-                const std::optional<std::string>& chassisPath) mutable {
+            [asyncResp, powerControlCollections,
+             this](const std::optional<std::string>& chassisPath) mutable {
+                std::cout << "Gunnar here here here";
                 if (!chassisPath)
                 {
                     BMCWEB_LOG_ERROR << "Don't find valid chassis path ";
@@ -82,11 +102,12 @@ class Power : public Node
                 {
                     return;
                 }
-                if (!value)
-                {
-                    return;
-                }
-                auto valueHandler = [value, asyncResp](
+
+                // Redfish defines one property for power capping, LimitInWatts.
+                // If LimitInWatts is null, power capping is disabled.
+                // OpenBMC's D-Bus interface has both a "PowerCapEnable"
+                // boolean and a uint32 "PowerCap".
+                auto valueHandler = [value, asyncResp, this](
                                         const boost::system::error_code ec,
                                         const SensorVariant& powerCapEnable) {
                     if (ec)
@@ -107,14 +128,24 @@ class Power : public Node
                             << "Fail to get PowerCapEnable status ";
                         return;
                     }
-                    if (!(*b))
+
+                    if (!(*value))
                     {
-                        messages::actionNotSupported(
-                            asyncResp->res,
-                            "Setting LimitInWatts when PowerLimit "
-                            "feature is disabled");
-                        BMCWEB_LOG_ERROR << "PowerLimit feature is disabled ";
+                        // LimitInWatts is null, so disable power capping.
+                        // Make sure PowerCapEnable is False
+                        if (*b)
+                        {
+                            setPowerCapEnable(asyncResp, false);
+                        }
                         return;
+                    }
+
+                    if (!(*b) && (*value))
+                    {
+                        // PowerCapEnable is false and LimitInWatts was set so
+                        // set PowerCapEnable to true, then continue on setting
+                        // the PowerCap
+                        setPowerCapEnable(asyncResp, true);
                     }
 
                     crow::connections::systemBus->async_method_call(
