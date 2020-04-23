@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10855dcd_301e6bec",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "This is not needed since its already done at the requestRoutes.",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cb5195e_8cc0410d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "What is the difference between the mctpEid and instanceId",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 627,
+        "endChar": 65
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "650c6438_370a7473",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "commented line .. please remove this",
+      "range": {
+        "startLine": 638,
+        "startChar": 12,
+        "endLine": 638,
+        "endChar": 44
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "43c52e09_007fd5b5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "This block keeps repeating at many places. I think this can be a inline function and can be called where ever needed",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 23
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd023cc0_cfb4bf74",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "Is this not needed when poll times out ?",
+      "range": {
+        "startLine": 751,
+        "startChar": 16,
+        "endLine": 751,
+        "endChar": 41
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f59490a8_9b9019d4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "close(fd)?",
+      "range": {
+        "startLine": 764,
+        "startChar": 16,
+        "endLine": 764,
+        "endChar": 22
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59a4ffd6_da8866af",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "close(fd);",
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "abe16b97_17f7754d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "Please add a comment as: As part of initialization, a blank Root certificate file file will be created for the pldm to write the same. pldm will write it when the VMI partition boots.",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "51c93e74_7f992dfc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "Do we have any limitation on the string length ? and the regex validation?",
+      "range": {
+        "startLine": 919,
+        "startChar": 55,
+        "endLine": 919,
+        "endChar": 66
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fb72e74a_1442456a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-23T04:43:09Z",
+      "side": 1,
+      "message": "Add a comment as why this is needed and why its at the bottom of the function",
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
