@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6186f271_dca68438",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-23T19:26:52Z",
+      "side": 1,
+      "message": "Done. Doing this made a ton of format changes and now the diff for this commit looks a lot larger than it really is. :( The changes between patch 2 and 3 are only related to this comment, b -\u003e powerCapEnabled and value -\u003e requestedPowerCap.",
+      "parentUuid": "ccd126fc_c9754adf",
+      "range": {
+        "startLine": 142,
+        "startChar": 23,
+        "endLine": 142,
+        "endChar": 42
+      },
+      "revId": "69e88c625b054ebe73b7309ccac9e74ca4dcf523",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fe0c20f9_164bedc8",
         "filename": "redfish-core/lib/power.hpp",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-23T14:06:50Z",
       "side": 1,
       "message": "Shouldn\u0027t we enable the power cap after setting a valid one?",
+      "range": {
+        "startLine": 145,
+        "startChar": 55,
+        "endLine": 146,
+        "endChar": 39
+      },
+      "revId": "69e88c625b054ebe73b7309ccac9e74ca4dcf523",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b77ebeeb_e0e1cb1c",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-23T19:26:52Z",
+      "side": 1,
+      "message": "That is done below. Line 150 - 166.",
+      "parentUuid": "fe0c20f9_164bedc8",
       "range": {
         "startLine": 145,
         "startChar": 55,
