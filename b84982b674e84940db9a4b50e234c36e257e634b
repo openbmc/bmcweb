@@ -34,6 +34,24 @@
       "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab650122_8e2d445d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2020-04-23T20:46:25Z",
+      "side": 1,
+      "message": "You are assuming the caller is initializing it to nullptr? That can be somewhat dangerous if so.",
+      "parentUuid": "2235989a_e0453b2d",
+      "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
