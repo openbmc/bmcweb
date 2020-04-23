@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7e4ec9e8_7dfb3a08",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-04-23T07:28:57Z",
+      "side": 1,
+      "message": "no, it is created in bmcweb and save the settings data from user and then send the file name to the bios config daemon but not the whole data.",
+      "parentUuid": "34e988e0_bc1aea62",
+      "range": {
+        "startLine": 147,
+        "startChar": 8,
+        "endLine": 147,
+        "endChar": 47
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "43aa0c8b_467e3c07",
         "filename": "redfish-core/lib/bios.hpp",
         "patchSetId": 17
@@ -59,6 +83,30 @@
       "writtenOn": "2020-04-22T18:10:50Z",
       "side": 1,
       "message": "doesn\u0027t this need some sort of validation to make sure its valid? we shouldn\u0027t just be accepting any user input.",
+      "range": {
+        "startLine": 174,
+        "startChar": 7,
+        "endLine": 177,
+        "endChar": 9
+      },
+      "revId": "e89d101f90fc3024c088f9dada422098bee47a97",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b591ca8b_c2e59d2e",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 17
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000218
+      },
+      "writtenOn": "2020-04-23T07:28:57Z",
+      "side": 1,
+      "message": "we have valid check in bios config daemon.",
+      "parentUuid": "43aa0c8b_467e3c07",
       "range": {
         "startLine": 174,
         "startChar": 7,
