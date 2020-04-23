@@ -16,6 +16,24 @@
       "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2235989a_e0453b2d",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-23T14:34:09Z",
+      "side": 1,
+      "message": "The return is here so the value is not static_cast to the nullptr on line 173.\nvalue is already nullptr.",
+      "parentUuid": "f351ef50_101c4c73",
+      "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
