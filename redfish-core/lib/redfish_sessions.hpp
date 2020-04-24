@@ -192,13 +192,25 @@ class SessionCollection : public Node
             return;
         }
 
-        if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
+        int pamrc = pamAuthenticateUser(username, password);
+        switch (pamrc)
         {
+        case PAM_SUCCESS:
+            break;
+        case PSEUDO_PAM_RATE_LIMITING:
+            BMCWEB_LOG_WARNING << "Authorization rate limiting applied";
+            res.result(boost::beast::http::status::too_many_requests);
+            res.addHeader(
+                "Retry-After",
+                std::to_string(pam_auth::rate_limiter::PeriodInSeconds));
+            res.end();
+            return;
+        default:
             messages::resourceAtUriUnauthorized(res, std::string(req.url),
                                                 "Invalid username or password");
             res.end();
-
             return;
+            break;
         }
 
         // User is authenticated - create session

@@ -57,34 +57,43 @@ class Middleware
                 else if (boost::starts_with(authHeader, "Basic ") &&
                          authMethodsConfig.basic)
                 {
-                    req.session = performBasicAuth(authHeader);
+                    performBasicAuth(req, res, authHeader);
                 }
             }
         }
 
         if (req.session == nullptr)
         {
-            BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
-
-            // If it's a browser connecting, don't send the HTTP authenticate
-            // header, to avoid possible CSRF attacks with basic auth
-            if (http_helpers::requestPrefersHtml(req))
+            if (res.result() == boost::beast::http::status::too_many_requests)
             {
-                res.result(boost::beast::http::status::temporary_redirect);
-                res.addHeader("Location", "/#/login?next=" +
-                                              http_helpers::urlEncode(req.url));
+                BMCWEB_LOG_WARNING <<
+                    "[AuthMiddleware] Authorization rate limiting applied";
+                res.addHeader(
+                    "Retry-After",
+                    std::to_string(pam_auth::rate_limiter::PeriodInSeconds));
             }
             else
             {
-                res.result(boost::beast::http::status::unauthorized);
-                // only send the WWW-authenticate header if this isn't a xhr
-                // from the browser.  most scripts,
-                if (req.getHeaderValue("User-Agent").empty())
+                BMCWEB_LOG_WARNING << "[AuthMiddleware] authorization failed";
+                // If it's a browser connecting, don't send the HTTP authenticate
+                // header, to avoid possible CSRF attacks with basic auth
+                if (http_helpers::requestPrefersHtml(req))
                 {
-                    res.addHeader("WWW-Authenticate", "Basic");
+                    res.result(boost::beast::http::status::temporary_redirect);
+                    res.addHeader("Location", "/#/login?next=" +
+                                  http_helpers::urlEncode(req.url));
+                }
+                else
+                {
+                    res.result(boost::beast::http::status::unauthorized);
+                    // only send the WWW-authenticate header if this isn't a xhr
+                    // from the browser.  most scripts,
+                    if (req.getHeaderValue("User-Agent").empty())
+                    {
+                        res.addHeader("WWW-Authenticate", "Basic");
+                    }
                 }
             }
-
             res.end();
             return;
         }
@@ -111,8 +120,8 @@ class Middleware
     }
 
   private:
-    const std::shared_ptr<crow::persistent_data::UserSession>
-        performBasicAuth(std::string_view auth_header) const
+    void performBasicAuth(crow::Request& req, Response& res,
+                          std::string_view auth_header) const
     {
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Basic authentication";
 
@@ -120,27 +129,35 @@ class Middleware
         std::string_view param = auth_header.substr(strlen("Basic "));
         if (!crow::utility::base64Decode(param, authData))
         {
-            return nullptr;
+            return;
         }
         std::size_t separator = authData.find(':');
         if (separator == std::string::npos)
         {
-            return nullptr;
+            return;
         }
 
         std::string user = authData.substr(0, separator);
         separator += 1;
         if (separator > authData.size())
         {
-            return nullptr;
+            return;
         }
         std::string pass = authData.substr(separator);
 
         BMCWEB_LOG_DEBUG << "[AuthMiddleware] Authenticating user: " << user;
 
-        if (pamAuthenticateUser(user, pass) != PAM_SUCCESS)
+        int pamrc = pamAuthenticateUser(user, pass);
+        switch (pamrc)
         {
-            return nullptr;
+        case PAM_SUCCESS:
+            break;
+        case PSEUDO_PAM_RATE_LIMITING:
+            res.result(boost::beast::http::status::too_many_requests);
+            return;
+        default:
+            return;
+            break;
         }
 
         // TODO(ed) generateUserSession is a little expensive for basic
@@ -149,8 +166,9 @@ class Middleware
         // needed.
         // This whole flow needs to be revisited anyway, as we can't be
         // calling directly into pam for every request
-        return persistent_data::SessionStore::getInstance().generateUserSession(
-            user, crow::persistent_data::PersistenceType::SINGLE_REQUEST);
+        req.session =
+            persistent_data::SessionStore::getInstance().generateUserSession(
+                user, crow::persistent_data::PersistenceType::SINGLE_REQUEST);
     }
 
     const std::shared_ptr<crow::persistent_data::UserSession>
@@ -397,11 +415,19 @@ template <typename... Middlewares> void requestRoutes(Crow<Middlewares...>& app)
 
             if (!username.empty() && !password.empty())
             {
-                if (pamAuthenticateUser(username, password) != PAM_SUCCESS)
+                int pamrc = pamAuthenticateUser(username, password);
+                switch (pamrc)
                 {
+                case PAM_SUCCESS:
+                    break;
+                case PSEUDO_PAM_RATE_LIMITING:
+                    res.result(boost::beast::http::status::too_many_requests);
+                    break;
+                default:
                     res.result(boost::beast::http::status::unauthorized);
+                    break;
                 }
-                else
+                if (pamrc == PAM_SUCCESS)
                 {
                     auto session = persistent_data::SessionStore::getInstance()
                                        .generateUserSession(username);
