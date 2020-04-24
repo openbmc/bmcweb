@@ -52,6 +52,24 @@
       "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "184898d1_1e9c78aa",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2020-04-24T21:16:47Z",
+      "side": 1,
+      "message": "* Could we just call jsonValue.is_null() on line 162 to find out more directly if the value is null?\n* How does the caller know that the value was null?  We return true but don\u0027t set the \u0027value\u0027 parameter to any value.  So it will contain whatever it had before the call.  Is the caller required to set \u0027value\u0027 to some special value that (if not changed) indicates null was found?\n\nSorry, I don\u0027t know this code so I might be way off-base with my comments.",
+      "parentUuid": "ab650122_8e2d445d",
+      "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
