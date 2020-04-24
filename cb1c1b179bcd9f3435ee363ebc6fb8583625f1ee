@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7ba6f874_aba52463",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "yeah,but here i need to create CSR file in same path\ni think its better to check if directory exist otherwise create.\n\nin any case if directory is removed, we don\u0027t need to fails for that.",
+      "parentUuid": "10855dcd_301e6bec",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cb5195e_8cc0410d",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -36,6 +60,30 @@
       "writtenOn": "2020-04-23T04:43:09Z",
       "side": 1,
       "message": "What is the difference between the mctpEid and instanceId",
+      "range": {
+        "startLine": 626,
+        "startChar": 0,
+        "endLine": 627,
+        "endChar": 65
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f6134c3_ded65e40",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 627,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "there will one PLDM instance id associated with each request.\nseems pldm can handle max of 32 instances simultaneously.\nfor each pldm request, we need to get pldm instance id and use.\n\nmctpEid is destination MCTP eid, mctp allocates an ID for each mctp destination,\nhost/bmc will be given mctp ids.\n\nthis pldm request needs to be sent to host so we use host mctp id.",
+      "parentUuid": "1cb5195e_8cc0410d",
       "range": {
         "startLine": 626,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "33478ad7_1cf7da92",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 638,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "650c6438_370a7473",
+      "range": {
+        "startLine": 638,
+        "startChar": 12,
+        "endLine": 638,
+        "endChar": 44
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "43c52e09_007fd5b5",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -82,6 +154,30 @@
       "writtenOn": "2020-04-23T04:43:09Z",
       "side": 1,
       "message": "This block keeps repeating at many places. I think this can be a inline function and can be called where ever needed",
+      "range": {
+        "startLine": 681,
+        "startChar": 0,
+        "endLine": 684,
+        "endChar": 23
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "26096a3b_5a955fcd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "this is followed all over this file, i dont think function required here.",
+      "parentUuid": "43c52e09_007fd5b5",
       "range": {
         "startLine": 681,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5938e41b_47926d13",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "yes.its required, added",
+      "parentUuid": "dd023cc0_cfb4bf74",
+      "range": {
+        "startLine": 751,
+        "startChar": 16,
+        "endLine": 751,
+        "endChar": 41
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f59490a8_9b9019d4",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -128,6 +248,30 @@
       "writtenOn": "2020-04-23T04:43:09Z",
       "side": 1,
       "message": "close(fd)?",
+      "range": {
+        "startLine": 764,
+        "startChar": 16,
+        "endLine": 764,
+        "endChar": 22
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b38aba85_63e55bba",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 764,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f59490a8_9b9019d4",
       "range": {
         "startLine": 764,
         "startChar": 16,
@@ -157,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "1cda89f6_9ff5b86e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59a4ffd6_da8866af",
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "abe16b97_17f7754d",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "3042901d_a542b1b9",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "abe16b97_17f7754d",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c93e74_7f992dfc",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -191,6 +377,30 @@
       "writtenOn": "2020-04-23T04:43:09Z",
       "side": 1,
       "message": "Do we have any limitation on the string length ? and the regex validation?",
+      "range": {
+        "startLine": 919,
+        "startChar": 55,
+        "endLine": 919,
+        "endChar": 66
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62a975c6_390ea436",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 919,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-24T14:30:22Z",
+      "side": 1,
+      "message": "no, we dont have any limitation on string length.",
+      "parentUuid": "51c93e74_7f992dfc",
       "range": {
         "startLine": 919,
         "startChar": 55,
