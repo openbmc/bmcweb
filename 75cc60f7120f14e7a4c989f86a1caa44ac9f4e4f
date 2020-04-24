@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09d372c6_e21f1a74",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000331
+      },
+      "writtenOn": "2020-04-24T21:43:15Z",
+      "side": 1,
+      "message": "Since requestedPowerCap is a std::optional, shouldn\u0027t you check if it has a value before dereferencing it?  Otherwise the behavior is undefined.",
+      "revId": "75cc60f7120f14e7a4c989f86a1caa44ac9f4e4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
