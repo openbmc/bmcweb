@@ -22,6 +22,30 @@
       "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "919f9875_deebe523",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000056
+      },
+      "writtenOn": "2020-04-24T05:17:38Z",
+      "side": 1,
+      "message": "I believe that is yet to be upstreamed. The D-Bus interface is also under active review, so I think we should note that this code here will likely change.",
+      "parentUuid": "3d23a169_ea923ec2",
+      "range": {
+        "startLine": 292,
+        "startChar": 12,
+        "endLine": 292,
+        "endChar": 53
+      },
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
