@@ -46,6 +46,30 @@
       "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b2965fc8_00fc1553",
+        "filename": "redfish-core/lib/bios.hpp",
+        "patchSetId": 19
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1000295
+      },
+      "writtenOn": "2020-04-24T05:41:29Z",
+      "side": 1,
+      "message": "yes once design doc is cleared.it will be upstreamed in new repo",
+      "parentUuid": "919f9875_deebe523",
+      "range": {
+        "startLine": 292,
+        "startChar": 12,
+        "endLine": 292,
+        "endChar": 53
+      },
+      "revId": "2286fc77bcfa17840d901f457fc650300bfd4313",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
