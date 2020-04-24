@@ -1,0 +1,11 @@
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+1: Gunnar Mills <gmills@us.ibm.com>
+Code-Review+1: Johnathan Mantey <johnathanx.mantey@intel.com>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Code-Review-1: Ratan Gupta <ratagupt@linux.vnet.ibm.com>
+Submitted-by: Xiaochao Ma <maxiaochao@inspur.com>
+Submitted-at: Fri, 24 Apr 2020 10:23:02 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/30575
+Project: openbmc/bmcweb
+Branch: refs/heads/master
