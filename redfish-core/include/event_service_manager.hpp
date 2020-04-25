@@ -32,6 +32,13 @@
 
 namespace redfish
 {
+
+using ReadingsObjType =
+    std::vector<std::tuple<std::string, std::string, double, std::string>>;
+
+static constexpr const char* eventFormatType = "Event";
+static constexpr const char* metricReportFormatType = "MetricReport";
+
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 constexpr const char* redfishEventLogFile = "/var/log/redfish";
 constexpr const uint32_t inotifyFileAction = IN_MODIFY;
@@ -263,6 +270,7 @@ class Subscription
     std::vector<std::string> registryMsgIds;
     std::vector<std::string> registryPrefixes;
     std::vector<nlohmann::json> httpHeaders; // key-value pair
+    std::vector<nlohmann::json> metricReportDefinitions;
 
     Subscription(const Subscription&) = delete;
     Subscription& operator=(const Subscription&) = delete;
@@ -387,6 +395,48 @@ class Subscription
     }
 #endif
 
+    void filterAndSendReports(const std::string& id,
+                              const std::string& readingsTs,
+                              const ReadingsObjType& readings)
+    {
+        std::string metricReportDef =
+            "/redfish/v1/TelemetryService/MetricReportDefinitions/" + id;
+
+        // Empty list means no filter. Send everything.
+        if (metricReportDefinitions.size())
+        {
+            if (std::find(metricReportDefinitions.begin(),
+                          metricReportDefinitions.end(),
+                          metricReportDef) == metricReportDefinitions.end())
+            {
+                return;
+            }
+        }
+
+        nlohmann::json metricValuesArray = nlohmann::json::array();
+        for (const auto& it : readings)
+        {
+            metricValuesArray.push_back({});
+            nlohmann::json& entry = metricValuesArray.back();
+
+            entry = {{"MetricId", std::get<0>(it)},
+                     {"MetricProperty", std::get<1>(it)},
+                     {"MetricValue", std::to_string(std::get<2>(it))},
+                     {"Timestamp", std::get<3>(it)}};
+        }
+
+        nlohmann::json msg = {
+            {"@odata.id", "/redfish/v1/TelemetryService/MetricReports/" + id},
+            {"@odata.type", "#MetricReport.v1_3_0.MetricReport"},
+            {"Id", id},
+            {"Name", id},
+            {"Timestamp", readingsTs},
+            {"MetricReportDefinition", {{"@odata.id", metricReportDef}}},
+            {"MetricValues", metricValuesArray}};
+
+        this->sendEvent(msg.dump());
+    }
+
   private:
     uint64_t eventSeqNum;
     std::string host;
@@ -404,7 +454,7 @@ class EventServiceManager
     EventServiceManager(EventServiceManager&&) = delete;
     EventServiceManager& operator=(EventServiceManager&&) = delete;
 
-    EventServiceManager()
+    EventServiceManager() : noOfMetricReportSubscribers(0)
     {
         // TODO: Read the persistent data from store and populate.
         // Populating with default.
@@ -414,6 +464,8 @@ class EventServiceManager
     }
 
     std::string lastEventTStr;
+    size_t noOfMetricReportSubscribers;
+    std::shared_ptr<sdbusplus::bus::match::match> matchTelemetryMonitor;
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
         subscriptionsMap;
 
@@ -471,6 +523,15 @@ class EventServiceManager
             return std::string("");
         }
 
+        if (subValue->eventFormatType == metricReportFormatType)
+        {
+            // If it is first entry,  Register Metrics report signal.
+            if ((++noOfMetricReportSubscribers == 1))
+            {
+                registerMetricReportSignal();
+            }
+        }
+
         updateSubscriptionData();
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
@@ -497,6 +558,15 @@ class EventServiceManager
         auto obj = subscriptionsMap.find(id);
         if (obj != subscriptionsMap.end())
         {
+            std::shared_ptr<Subscription> entry = obj->second;
+            if (entry->eventFormatType == metricReportFormatType)
+            {
+                if ((--noOfMetricReportSubscribers == 0))
+                {
+                    unregisterMetricReportSignal();
+                }
+            }
+
             subscriptionsMap.erase(obj);
             updateSubscriptionData();
         }
@@ -699,6 +769,109 @@ class EventServiceManager
     }
 
 #endif
+
+    void getMetricReading(const std::string& service,
+                          const std::string& objPath, const std::string& intf)
+    {
+        std::size_t found = objPath.find_last_of("/");
+        if (found == std::string::npos)
+        {
+            BMCWEB_LOG_DEBUG << "Invalid objPath received";
+            return;
+        }
+
+        std::string idStr = objPath.substr(found + 1);
+        if (idStr.empty())
+        {
+            BMCWEB_LOG_DEBUG << "Invalid ID in objPath";
+            return;
+        }
+
+        crow::connections::systemBus->async_method_call(
+            [idStr{std::move(idStr)}](
+                const boost::system::error_code ec,
+                boost::container::flat_map<
+                    std::string, std::variant<std::string, ReadingsObjType>>&
+                    resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_DEBUG
+                        << "D-Bus call failed to GetAll metric readings.";
+                    return;
+                }
+
+                const std::string* timestampPtr =
+                    std::get_if<std::string>(&resp["Timestamp"]);
+                if (!timestampPtr)
+                {
+                    BMCWEB_LOG_DEBUG << "Failed to Get timestamp.";
+                    return;
+                }
+
+                ReadingsObjType* readingsPtr =
+                    std::get_if<ReadingsObjType>(&resp["Readings"]);
+                if (!readingsPtr)
+                {
+                    BMCWEB_LOG_DEBUG << "Failed to Get Readings property.";
+                    return;
+                }
+
+                if (!readingsPtr->size())
+                {
+                    BMCWEB_LOG_DEBUG << "No metrics report to be transferred";
+                    return;
+                }
+
+                for (const auto& it :
+                     EventServiceManager::getInstance().subscriptionsMap)
+                {
+                    std::shared_ptr<Subscription> entry = it.second;
+                    if (entry->eventFormatType == metricReportFormatType)
+                    {
+                        entry->filterAndSendReports(idStr, *timestampPtr,
+                                                    *readingsPtr);
+                    }
+                }
+            },
+            service, objPath, "org.freedesktop.DBus.Properties", "GetAll",
+            intf);
+    }
+
+    void unregisterMetricReportSignal()
+    {
+        BMCWEB_LOG_DEBUG << "Metrics report signal - Unregister";
+        matchTelemetryMonitor.reset();
+        matchTelemetryMonitor = nullptr;
+    }
+
+    void registerMetricReportSignal()
+    {
+        if (matchTelemetryMonitor)
+        {
+            BMCWEB_LOG_DEBUG << "Metrics report signal - Already registered.";
+            return;
+        }
+
+        BMCWEB_LOG_DEBUG << "Metrics report signal - Register";
+        std::string matchStr(
+            "type='signal',member='ReportUpdate', "
+            "interface='xyz.openbmc_project.MonitoringService.Report'");
+
+        matchTelemetryMonitor = std::make_shared<sdbusplus::bus::match::match>(
+            *crow::connections::systemBus, matchStr,
+            [this](sdbusplus::message::message& msg) {
+                if (msg.is_method_error())
+                {
+                    BMCWEB_LOG_ERROR << "TelemetryMonitor Signal error";
+                    return;
+                }
+
+                std::string service = msg.get_sender();
+                std::string objPath = msg.get_path();
+                std::string intf = msg.get_interface();
+                getMetricReading(service, objPath, intf);
+            });
+    }
 };
 
 } // namespace redfish
