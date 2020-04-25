@@ -19,8 +19,8 @@
 namespace redfish
 {
 
-static constexpr const std::array<const char*, 1> supportedEvtFormatTypes = {
-    "Event"};
+static constexpr const std::array<const char*, 2> supportedEvtFormatTypes = {
+    "Event", "MetricReport"};
 static constexpr const std::array<const char*, 3> supportedRegPrefixes = {
     "Base", "OpenBMC", "Task"};
 static constexpr const std::array<const char*, 3> supportedRetryPolicies = {
@@ -187,13 +187,15 @@ class EventDestinationCollection : public Node
         std::optional<std::vector<std::string>> msgIds;
         std::optional<std::vector<std::string>> regPrefixes;
         std::optional<std::vector<nlohmann::json>> headers;
+        std::optional<std::vector<nlohmann::json>> metricReportDefinitions;
 
         if (!json_util::readJson(
                 req, res, "Destination", destUrl, "Context", context,
                 "Protocol", protocol, "SubscriptionType", subscriptionType,
                 "EventFormatType", eventFormatType, "HttpHeaders", headers,
                 "RegistryPrefixes", regPrefixes, "MessageIds", msgIds,
-                "DeliveryRetryPolicy", retryPolicy))
+                "DeliveryRetryPolicy", retryPolicy, "MetricReportDefinitions",
+                metricReportDefinitions))
         {
             return;
         }
@@ -343,6 +345,11 @@ class EventDestinationCollection : public Node
             subValue->retryPolicy = "TerminateAfterRetries";
         }
 
+        if (metricReportDefinitions)
+        {
+            subValue->metricReportDefinitions = *metricReportDefinitions;
+        }
+
         std::string id =
             EventServiceManager::getInstance().addSubscription(subValue);
         if (id.empty())
@@ -411,6 +418,8 @@ class EventDestination : public Node
             subValue->registryPrefixes;
         asyncResp->res.jsonValue["MessageIds"] = subValue->registryMsgIds;
         asyncResp->res.jsonValue["DeliveryRetryPolicy"] = subValue->retryPolicy;
+        asyncResp->res.jsonValue["MetricReportDefinitions"] =
+            subValue->metricReportDefinitions;
     }
 
     void doPatch(crow::Response& res, const crow::Request& req,
