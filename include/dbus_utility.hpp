@@ -109,5 +109,143 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+template <typename OnError, typename OnSuccess>
+inline void getAllProperties(const std::string& service,
+                             const std::string& path,
+                             const std::string& interface, OnError&& onError,
+                             OnSuccess&& onSuccess)
+{
+    using FunctionTuple = boost::callable_traits::args_t<OnSuccess>;
+    using FunctionTupleType =
+        typename sdbusplus::utility::decay_tuple<FunctionTuple>::type;
+
+    crow::connections::systemBus->async_method_call(
+        [onError = std::move(onError), onSuccess = std::move(onSuccess)](
+            const boost::system::error_code& ec,
+            const std::tuple_element_t<0, FunctionTupleType>& ret) {
+            if (ec)
+            {
+                onError(ec);
+                return;
+            }
+
+            onSuccess(ret);
+        },
+        service, path, "org.freedesktop.DBus.Properties", "GetAll", interface);
+}
+
+namespace detail
+{
+template <typename T>
+struct IsOptional
+{
+    static constexpr bool value = false;
+};
+
+template <typename T>
+struct IsOptional<std::optional<T>>
+{
+    static constexpr bool value = true;
+};
+
+template <typename T>
+constexpr bool IsOptional_v = IsOptional<T>::value;
+
+template <typename T, typename... V, typename ValueType>
+uint8_t getIf(const std::variant<V...>& variant, ValueType& outValue)
+{
+    if constexpr (std::is_pointer_v<T>)
+    {
+        using GetType = std::remove_const_t<std::remove_pointer_t<T>>;
+        if (auto value = std::get_if<GetType>(&variant))
+        {
+            outValue = value;
+            return 1u;
+        }
+    }
+    else
+    {
+        if (auto value = std::get_if<T>(&variant))
+        {
+            outValue = *value;
+            return 1u;
+        }
+    }
+
+    return 0u;
+}
+
+template <size_t Index, typename... V, size_t N, typename ValueType,
+          typename... Args>
+void readSingleProperty(const std::string& key,
+                        const std::variant<V...>& variant,
+                        std::array<uint8_t, N>& assigned,
+                        const std::string& expectedKey, ValueType& outValue,
+                        Args&&... args)
+{
+    static_assert(Index < N);
+
+    if (key == expectedKey)
+    {
+        if constexpr (IsOptional_v<ValueType>)
+        {
+            assigned[Index] +=
+                getIf<typename ValueType::value_type>(variant, outValue);
+        }
+        else
+        {
+            assigned[Index] += getIf<ValueType>(variant, outValue);
+        }
+    }
+    else if constexpr (sizeof...(Args) > 0)
+    {
+        readSingleProperty<Index + 1>(key, variant, assigned,
+                                      std::forward<Args>(args)...);
+    }
+}
+
+template <size_t Index, typename... V, size_t N, typename ValueType,
+          typename... Args>
+void ignoreUnassignedForOptionals(std::array<uint8_t, N>& assigned,
+                                  const std::string&, ValueType& outValue,
+                                  Args&&... args)
+{
+    static_assert(Index < N);
+
+    if constexpr (IsOptional_v<ValueType>)
+    {
+        assigned[Index] = 1u;
+    }
+
+    if constexpr (sizeof...(Args) > 0)
+    {
+        ignoreUnassignedForOptionals<Index + 1>(assigned,
+                                                std::forward<Args>(args)...);
+    }
+}
+} // namespace detail
+
+template <typename... V, typename... Args>
+bool readProperties(
+    const std::vector<std::pair<std::string, std::variant<V...>>>& ret,
+    Args&&... args)
+{
+    static_assert(sizeof...(Args) % 2 == 0);
+
+    auto assigned = std::array<uint8_t, sizeof...(Args) / 2>();
+
+    for (const auto& [key, value] : ret)
+    {
+        detail::readSingleProperty<0>(key, value, assigned,
+                                      std::forward<Args>(args)...);
+    }
+
+    detail::ignoreUnassignedForOptionals<0>(assigned,
+                                            std::forward<Args>(args)...);
+
+    return std::all_of(assigned.begin(), assigned.end(),
+                       [](uint8_t x) { return x == 1u; });
+}
+
 } // namespace utility
 } // namespace dbus
