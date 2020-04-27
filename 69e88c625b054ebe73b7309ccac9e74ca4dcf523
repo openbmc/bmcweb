@@ -117,6 +117,30 @@
       "revId": "69e88c625b054ebe73b7309ccac9e74ca4dcf523",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe4e0aed_c90bd065",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-27T01:47:35Z",
+      "side": 1,
+      "message": "Done. This is how the GUI does it (enable and set the powercap at the same time), but sure sounds resonable, set the powerCap first then enable it. \nhttps://github.com/openbmc/phosphor-webui/blob/c652ed1889599da3ca2a0e0d36979e099f9b3b8c/app/server-control/controllers/power-usage-controller.js#L58\nI went with a simpler design here, just blindly set the PowerCap and PowerCapEnable, this is how I see other d-bus calls work in bmcweb (i.e. you don\u0027t read first and then decide if it should be set, just set it.).",
+      "parentUuid": "bfacad05_ff34cd33",
+      "range": {
+        "startLine": 145,
+        "startChar": 55,
+        "endLine": 146,
+        "endChar": 39
+      },
+      "revId": "69e88c625b054ebe73b7309ccac9e74ca4dcf523",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
