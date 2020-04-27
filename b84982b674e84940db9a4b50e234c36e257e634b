@@ -70,6 +70,24 @@
       "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e8ac1ed2_06c7b87f",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-27T01:46:02Z",
+      "side": 1,
+      "message": "Done. Use is_null and then set a special value. Thanks for the suggestions!",
+      "parentUuid": "184898d1_1e9c78aa",
+      "revId": "b84982b674e84940db9a4b50e234c36e257e634b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
