@@ -109,5 +109,78 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+namespace detail
+{
+
+template <typename T, typename... V, typename ValueType>
+bool getIf(const std::variant<V...>& variant, ValueType& outValue)
+{
+    if constexpr (std::is_pointer_v<T>)
+    {
+        using GetType = std::remove_const_t<std::remove_pointer_t<T>>;
+        if (const GetType* value = std::get_if<GetType>(&variant))
+        {
+            outValue = value;
+            return true;
+        }
+    }
+    else
+    {
+        if (const T* value = std::get_if<T>(&variant))
+        {
+            outValue = std::move(*value);
+            return true;
+        }
+    }
+    return false;
+}
+
+template <size_t Index, typename... V, size_t N, typename ValueType,
+          typename... Args>
+void unpackSingleProperty(const std::string& key,
+                          const std::variant<V...>& variant,
+                          std::bitset<N>& assigned,
+                          const std::string& expectedKey, ValueType& outValue,
+                          Args&&... args)
+{
+    if (key == expectedKey)
+    {
+        if (getIf<ValueType>(variant, outValue))
+        {
+            assigned.set(Index);
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Invalid type for mapped value to key " << key;
+        }
+    }
+    else if constexpr (Index + 1 < N)
+    {
+        unpackSingleProperty<Index + 1>(key, variant, assigned,
+                                        std::forward<Args>(args)...);
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "Missing property mapped to key " << key;
+    }
+}
+} // namespace detail
+
+template <typename... V, typename... Args>
+bool unpackProperties(
+    const std::vector<std::pair<std::string, std::variant<V...>>>& ret,
+    Args&&... args)
+{
+    static_assert(sizeof...(Args) % 2 == 0);
+    std::bitset<sizeof...(Args) / 2> assigned;
+
+    for (const auto& [key, value] : ret)
+    {
+        detail::unpackSingleProperty<0>(key, value, assigned,
+                                        std::forward<Args>(args)...);
+    }
+    return assigned.all();
+}
+
 } // namespace utility
 } // namespace dbus
