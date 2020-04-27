@@ -13,6 +13,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
+
 #pragma once
 
 #include <http_request.h>
@@ -22,6 +23,7 @@
 #include <nlohmann/json.hpp>
 
 #include <bitset>
+#include <string>
 
 namespace redfish
 {
@@ -433,6 +435,38 @@ bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
     }
 
     return details::unpackValue(jsonValue, key, value);
+}
+
+/**
+ * @brief Translate dbusPaths received from ObjectMapper into Redfish
+ *        collection members and fill http response with those information.
+ */
+inline void dbusPathsToMembersArray(crow::Response& res,
+                                    const std::vector<std::string>& dbusPaths,
+                                    const std::string& uri)
+{
+    nlohmann::json& members = res.jsonValue["Members"];
+    members = nlohmann::json::array();
+
+    for (const std::string& path : dbusPaths)
+    {
+        std::size_t pos = path.rfind("/");
+        if (pos == std::string::npos)
+        {
+            BMCWEB_LOG_ERROR << "Failed to find '/' in " << path;
+            continue;
+        }
+
+        if (path.size() <= (pos + 1))
+        {
+            BMCWEB_LOG_ERROR << "Failed to parse path " << path;
+            continue;
+        }
+
+        members.push_back({{"@odata.id", uri + path.substr(pos + 1)}});
+    }
+
+    res.jsonValue["Members@odata.count"] = members.size();
 }
 
 } // namespace json_util
