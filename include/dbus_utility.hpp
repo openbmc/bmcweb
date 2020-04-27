@@ -108,5 +108,16 @@ inline void checkDbusPathExists(const std::string& path, Callback&& callback)
         std::array<std::string, 0>());
 }
 
+template <typename Array, typename Callback>
+inline void getSubTreePaths(Callback&& callback, const std::string& path,
+                            int depth, Array& interfaces)
+{
+    crow::connections::systemBus->async_method_call(
+        callback, "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths", path, depth,
+        interfaces);
+}
+
 } // namespace utility
 } // namespace dbus
