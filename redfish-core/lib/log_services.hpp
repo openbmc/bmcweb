@@ -2208,11 +2208,6 @@ static void fillPostCodeEntry(
     // Get the Message from the MessageRegistry
     const message_registries::Message *message =
         message_registries::getMessage("OpenBMC.0.1.BIOSPOSTCode");
-    std::string severity;
-    if (message != nullptr)
-    {
-        severity = message->severity;
-    }
 
     uint64_t currentCodeIndex = 0;
     nlohmann::json &logEntryArray = aResp->res.jsonValue["Members"];
@@ -2296,6 +2291,13 @@ static void fillPostCodeEntry(
                     msg.replace(argPos, argStr.length(), messageArg);
                 }
             }
+        }
+
+        // Get Severity template from message registry
+        std::string severity;
+        if (message != nullptr)
+        {
+            severity = message->severity;
         }
 
         // add to AsyncResp
