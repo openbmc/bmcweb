@@ -16,6 +16,24 @@
       "revId": "75cc60f7120f14e7a4c989f86a1caa44ac9f4e4f",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b4bb9049_e39e5033",
+        "filename": "redfish-core/lib/power.hpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-04-27T01:47:35Z",
+      "side": 1,
+      "message": "Done. Used your suggestion from below of using a special value.",
+      "parentUuid": "09d372c6_e21f1a74",
+      "revId": "75cc60f7120f14e7a4c989f86a1caa44ac9f4e4f",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
