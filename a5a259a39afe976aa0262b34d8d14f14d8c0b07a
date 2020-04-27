@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "0e6c5d6a_e06ed198",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-04-27T17:32:45Z",
+      "side": 1,
+      "message": "lowest \u003d\u003d 0 right? It\u0027s not a very special value.",
+      "range": {
+        "startLine": 164,
+        "startChar": 68,
+        "endLine": 165,
+        "endChar": 31
+      },
+      "revId": "a5a259a39afe976aa0262b34d8d14f14d8c0b07a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccdb00a3_11fef127",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 2
