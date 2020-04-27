@@ -13,14 +13,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 */
+
 #pragma once
 
 #include <http_request.h>
 #include <http_response.h>
 
 #include <bitset>
+#include <boost/container/flat_map.hpp>
 #include <error_messages.hpp>
 #include <nlohmann/json.hpp>
+#include <string>
+#include <variant>
 
 namespace redfish
 {
@@ -434,6 +438,100 @@ bool getValueFromJsonObject(nlohmann::json& jsonData, const std::string& key,
     }
 
     return details::unpackValue(jsonValue, key, value);
+}
+
+template <class T> struct IsStdFunction
+{
+    static constexpr bool value = false;
+};
+
+template <class T> struct IsStdFunction<std::function<T>>
+{
+    static constexpr bool value = true;
+};
+
+template <class T> constexpr bool is_std_function_v = IsStdFunction<T>::value;
+
+/**
+ * @brief Assign dbus property to http response attribute if property is stored
+ *        on the map.
+ */
+template <typename T, typename S, typename... V>
+bool assignIfPresent(
+    const boost::container::flat_map<std::string, std::variant<V...>>& ret,
+    const char* propertyName, nlohmann::json& attribute, const S& convert)
+{
+    if constexpr (is_std_function_v<S>)
+    {
+        if (!convert)
+        {
+            BMCWEB_LOG_ERROR << "Passed empty target as convert argument";
+            return false;
+        }
+    }
+
+    auto found = ret.find(propertyName);
+    if (found != ret.end())
+    {
+        auto property = std::get_if<T>(&found->second);
+        if (property)
+        {
+            attribute = convert(*property);
+            return true;
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Variant does not contain this type";
+        }
+    }
+    else
+    {
+        BMCWEB_LOG_ERROR << "Element not found in map";
+    }
+
+    return false;
+}
+
+template <typename T, typename... V>
+bool assignIfPresent(
+    const boost::container::flat_map<std::string, std::variant<V...>>& ret,
+    const char* propertyName, nlohmann::json& attribute)
+{
+    return assignIfPresent<T>(ret, propertyName, attribute,
+                              [](const T& v) -> T { return v; });
+}
+
+template <typename T, typename... V>
+bool assignIfPresent(
+    const boost::container::flat_map<std::string, std::variant<V...>>& ret,
+    const char* attributeName, crow::Response& res)
+{
+    return assignIfPresent<T>(ret, attributeName, res.jsonValue[attributeName]);
+}
+
+/**
+ * @brief Translate dbusPaths received from ObjectMapper into Redfish
+ *        collection members and fill http response with those information.
+ */
+inline void dbusPathsToMembersArray(crow::Response& res,
+                                    const std::vector<std::string>& reports,
+                                    const char* path)
+{
+    nlohmann::json& members = res.jsonValue["Members"];
+    members = nlohmann::json::array();
+
+    for (const std::string& objpath : reports)
+    {
+        std::size_t lastPos = objpath.rfind("/");
+        if (lastPos == std::string::npos)
+        {
+            BMCWEB_LOG_ERROR << "Failed to find '/' in " << objpath;
+            continue;
+        }
+        members.push_back({{"@odata.id", path + objpath.substr(lastPos + 1)}});
+    }
+
+    res.jsonValue["Members@odata.count"] = members.size();
 }
 
 } // namespace json_util
