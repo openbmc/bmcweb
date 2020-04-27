@@ -25,6 +25,8 @@
 #include "../lib/log_services.hpp"
 #include "../lib/managers.hpp"
 #include "../lib/message_registries.hpp"
+#include "../lib/metric_report.hpp"
+#include "../lib/metric_report_definition.hpp"
 #include "../lib/network_protocol.hpp"
 #include "../lib/pcie.hpp"
 #include "../lib/power.hpp"
@@ -35,6 +37,7 @@
 #include "../lib/storage.hpp"
 #include "../lib/systems.hpp"
 #include "../lib/task.hpp"
+#include "../lib/telemetry_service.hpp"
 #include "../lib/thermal.hpp"
 #include "../lib/update_service.hpp"
 #ifdef BMCWEB_ENABLE_VM_NBDPROXY
@@ -192,6 +195,13 @@ class RedfishService
             std::make_unique<HypervisorInterfaceCollection>(app));
         nodes.emplace_back(std::make_unique<HypervisorInterface>(app));
         nodes.emplace_back(std::make_unique<HypervisorSystem>(app));
+
+        nodes.emplace_back(std::make_unique<TelemetryService>(app));
+        nodes.emplace_back(
+            std::make_unique<MetricReportDefinitionCollection>(app));
+        nodes.emplace_back(std::make_unique<MetricReportDefinition>(app));
+        nodes.emplace_back(std::make_unique<MetricReportCollection>(app));
+        nodes.emplace_back(std::make_unique<MetricReport>(app));
 
         for (const auto& node : nodes)
         {
