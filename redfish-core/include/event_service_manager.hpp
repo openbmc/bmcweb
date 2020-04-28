@@ -20,7 +20,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <error_messages.hpp>
-#include <http_client.hpp>
+#include <https_client.hpp>
 #include <memory>
 #include <utils/json_utils.hpp>
 #include <variant>
@@ -51,8 +51,9 @@ class Subscription
         host(inHost),
         port(inPort), path(inPath), uriProto(inUriProto)
     {
-        conn = std::make_shared<crow::HttpClient>(
-            crow::connections::systemBus->get_io_context(), host, port);
+        boost::asio::ssl::context ctx = crow::getSSLCtx("/etc/ssl/certs/https/server.pem");
+        conn = std::make_shared<crow::HttpsClient>(
+            crow::connections::systemBus->get_io_context(), ctx, host, port, path);
         eventSeqNum = 1;
     }
     ~Subscription()
@@ -72,7 +73,7 @@ class Subscription
             }
         }
         conn->setHeaders(reqHeaders);
-        conn->doConnectAndSend(path, msg);
+        conn->sendData(msg);
     }
 
     void sendTestEventLog()
@@ -113,7 +114,7 @@ class Subscription
     std::string port;
     std::string path;
     std::string uriProto;
-    std::shared_ptr<crow::HttpClient> conn;
+    std::shared_ptr<crow::HttpsClient> conn;
 };
 
 class EventServiceManager
