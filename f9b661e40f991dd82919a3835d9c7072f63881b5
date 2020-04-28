@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa72e4ac_cc2c85f8",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 9
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1000382
+      },
+      "writtenOn": "2020-04-28T12:21:56Z",
+      "side": 1,
+      "message": "This is now too big function. Can you please break it ?",
+      "range": {
+        "startLine": 573,
+        "startChar": 5,
+        "endLine": 573,
+        "endChar": 21
+      },
+      "revId": "f9b661e40f991dd82919a3835d9c7072f63881b5",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    }
+  ]
+}
