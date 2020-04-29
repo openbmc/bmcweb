@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <error_messages.hpp>
+#include <fstream>
 #include <http_client.hpp>
 #include <memory>
 #include <utils/json_utils.hpp>
@@ -27,6 +28,10 @@
 
 namespace redfish
 {
+
+static constexpr const char* eventServiceFile =
+    "/var/lib/bmcweb/eventservice_config.json";
+
 class Subscription
 {
   public:
@@ -92,11 +97,87 @@ class EventServiceManager
 
     EventServiceManager()
     {
-        // TODO: Read the persistent data from store and populate.
-        // Populating with default.
-        enabled = true;
-        retryAttempts = 3;
-        retryTimeoutInterval = 30; // seconds
+        // Read the persistent data from store and populate
+        // config & subscription info with default
+
+        std::ifstream eventConfigFile(eventServiceFile);
+        if (!eventConfigFile.good())
+        {
+            BMCWEB_LOG_ERROR << "Cannot find eventService json file";
+            return;
+        }
+        try
+        {
+            auto data = nlohmann::json::parse(eventConfigFile, nullptr);
+            const auto& eventConfig = data["Configurations"];
+
+            enabled = eventConfig["ServiceEnabled"].get<bool>();
+            retryAttempts =
+                eventConfig["DeliveryRetryAttempts"].get<uint32_t>();
+            retryTimeoutInterval =
+                eventConfig["DeliveryRetryIntervalSeconds"].get<uint32_t>();
+
+            for (const auto& subscriptionObj : data["Subscriptions"])
+            {
+                const std::regex urlRegex(
+                    "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
+                    "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
+
+                std::cmatch matchTok;
+                std::string dest = subscriptionObj["Destination"];
+                if (!std::regex_match(dest.c_str(), matchTok, urlRegex))
+                {
+                    BMCWEB_LOG_INFO << "Dest. url did not match "
+                                    << subscriptionObj["Destination"];
+                    return;
+                }
+
+                std::string uriProto =
+                    std::string(matchTok[1].first, matchTok[1].second);
+                std::string host =
+                    std::string(matchTok[2].first, matchTok[2].second);
+                std::string port =
+                    std::string(matchTok[3].first, matchTok[3].second);
+                std::string path =
+                    std::string(matchTok[4].first, matchTok[4].second);
+
+                std::shared_ptr<Subscription> subValue =
+                    std::make_shared<Subscription>(host, port, path, uriProto);
+
+                subValue->destinationUrl =
+                    subscriptionObj["Destination"].get<std::string>();
+                subValue->protocol =
+                    subscriptionObj["Protocol"].get<std::string>();
+                subValue->retryPolicy =
+                    subscriptionObj["DeliveryRetryPolicy"].get<std::string>();
+                subValue->customText =
+                    subscriptionObj["Context"].get<std::string>();
+                subValue->eventFormatType =
+                    subscriptionObj["EventFormatType"].get<std::string>();
+                subValue->subscriptionType =
+                    subscriptionObj["SubscriptionType"].get<std::string>();
+                subValue->registryMsgIds = subscriptionObj["MessageIds"]
+                                               .get<std::vector<std::string>>();
+                subValue->registryPrefixes =
+                    subscriptionObj["RegistryPrefixes"]
+                        .get<std::vector<std::string>>();
+                subValue->httpHeaders = subscriptionObj["HttpHeaders"]
+                                            .get<std::vector<nlohmann::json>>();
+
+                std::string id = addSubscription(subValue);
+                if (id.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Failed to add subscription";
+                    return;
+                }
+            }
+        }
+        catch (const nlohmann::json::exception& e)
+        {
+            BMCWEB_LOG_ERROR << "Error parsing eventService json file";
+            return;
+        }
+        return;
     }
 
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
@@ -116,8 +197,64 @@ class EventServiceManager
     void updateSubscriptionData()
     {
         // Persist the config and subscription data.
-        // TODO: subscriptionsMap & configData need to be
+        // subscriptionsMap & configData need to be
         // written to Persist store.
+
+        nlohmann::json jsonData;
+
+        nlohmann::json& configObj = jsonData["Configurations"];
+        configObj["ServiceEnabled"] = enabled;
+        configObj["DeliveryRetryAttempts"] = retryAttempts;
+        configObj["DeliveryRetryIntervalSeconds"] = retryTimeoutInterval;
+
+        nlohmann::json& subListArray = jsonData["Subscriptions"];
+        subListArray = nlohmann::json::array();
+
+        for (const auto& it : subscriptionsMap)
+        {
+            nlohmann::json entry;
+            std::shared_ptr<Subscription> subValue = it.second;
+
+            entry["Context"] = subValue->customText;
+            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            entry["Destination"] = subValue->destinationUrl;
+            entry["EventFormatType"] = subValue->eventFormatType;
+            entry["HttpHeaders"] = subValue->httpHeaders;
+            entry["MessageIds"] = subValue->registryMsgIds;
+            entry["Protocol"] = subValue->protocol;
+            entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["SubscriptionType"] = subValue->subscriptionType;
+
+            subListArray.push_back(entry);
+        }
+
+        const std::string tmpFile{std::string(eventServiceFile) + "_tmp"};
+
+        int fd = open(tmpFile.c_str(), O_CREAT | O_WRONLY | O_TRUNC | O_SYNC,
+                      S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+        if (fd < 0)
+        {
+            BMCWEB_LOG_ERROR << "Error in creating eventService json file: "
+                             << tmpFile.c_str();
+            return;
+        }
+        const auto& writeData = jsonData.dump();
+        if (write(fd, writeData.c_str(), writeData.size()) !=
+            static_cast<ssize_t>(writeData.size()))
+        {
+            close(fd);
+            BMCWEB_LOG_ERROR << "Error in writing eventService json file: "
+                             << tmpFile.c_str();
+            return;
+        }
+        close(fd);
+
+        if (std::rename(tmpFile.c_str(), eventServiceFile) != 0)
+        {
+            BMCWEB_LOG_ERROR << "Error in renaming temporary data file: "
+                             << tmpFile.c_str();
+            return;
+        }
         return;
     }
 
