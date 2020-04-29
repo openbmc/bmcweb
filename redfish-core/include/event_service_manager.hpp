@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <error_messages.hpp>
+#include <fstream>
 #include <http_client.hpp>
 #include <memory>
 #include <utils/json_utils.hpp>
@@ -27,6 +28,10 @@
 
 namespace redfish
 {
+
+static constexpr const char* eventServiceFile =
+    "/var/lib/bmcweb/eventservice_config.json";
+
 class Subscription
 {
   public:
@@ -92,122 +97,296 @@ class EventServiceManager
 
     EventServiceManager()
     {
-        // TODO: Read the persistent data from store and populate.
-        // Populating with default.
-        enabled = true;
-        retryAttempts = 3;
-        retryTimeoutInterval = 30; // seconds
-    }
+        // Read the persistent data from store and populate
+        // config & subscription info with default
 
-    boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
-        subscriptionsMap;
-
-  public:
-    bool enabled;
-    uint32_t retryAttempts;
-    uint32_t retryTimeoutInterval;
-
-    static EventServiceManager& getInstance()
-    {
-        static EventServiceManager handler;
-        return handler;
-    }
-
-    void updateSubscriptionData()
-    {
-        // Persist the config and subscription data.
-        // TODO: subscriptionsMap & configData need to be
-        // written to Persist store.
-        return;
-    }
-
-    std::shared_ptr<Subscription> getSubscription(const std::string& id)
-    {
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
+        std::ifstream eventConfigFile(eventServiceFile);
+        if (!eventConfigFile.good())
         {
-            BMCWEB_LOG_ERROR << "No subscription exist with ID:" << id;
-            return nullptr;
+            loadDefaultValues();
+            BMCWEB_LOG_ERROR << "Cannot find eventService json file";
+            return;
         }
-        std::shared_ptr<Subscription> subValue = obj->second;
-        return subValue;
+
+        nlohmann::json configJson;
+        nlohmann::json subscriptionJson;
+
+        auto data = nlohmann::json::parse(eventConfigFile, nullptr, false);
+
+        if (data.contains("Configuration"))
+        {
+            configJson = data["Configuration"];
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Loading default configuration values";
+            loadDefaultValues();
+        }
+
+        if (data.contains("Subscription"))
+        {
+            subscriptionJson = data["Subscription"];
+        }
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription> subValue)
+    try
     {
-        std::srand(static_cast<uint32_t>(std::time(0)));
-        std::string id;
+        enabled = configJson["ServiceEnabled"].get<bool>();
+        retryAttempts = configJson["DeliveryRetryAttempts"].get<uint32_t>();
+        retryTimeoutInterval =
+            configJson["DeliveryRetryIntervalSeconds"].get<uint32_t>();
 
-        int retry = 3;
-        while (retry)
+        for (const auto& subscriptionObj : subscriptionJson)
         {
-            id = std::to_string(std::rand());
-            auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
-            if (inserted.second)
+            std::string host;
+            std::string urlProto;
+            std::string port;
+            std::string path;
+            bool status = validateAndSplitUrl(subscriptionObj["Destination"],
+                                              urlProto, host, port, path);
+
+            if (status)
             {
-                break;
+                std::shared_ptr<Subscription> subValue =
+                    std::make_shared<Subscription>(host, port, path, urlProto);
+
+                subValue->destinationUrl =
+                    subscriptionObj["Destination"].get<std::string>();
+                subValue->protocol =
+                    subscriptionObj["Protocol"].get<std::string>();
+                subValue->retryPolicy =
+                    subscriptionObj["DeliveryRetryPolicy"].get<std::string>();
+                subValue->customText =
+                    subscriptionObj["Context"].get<std::string>();
+                subValue->eventFormatType =
+                    subscriptionObj["EventFormatType"].get<std::string>();
+                subValue->subscriptionType =
+                    subscriptionObj["SubscriptionType"].get<std::string>();
+                subValue->registryMsgIds = subscriptionObj["MessageIds"]
+                                               .get<std::vector<std::string>>();
+                subValue->registryPrefixes =
+                    subscriptionObj["RegistryPrefixes"]
+                        .get<std::vector<std::string>>();
+                subValue->httpHeaders = subscriptionObj["HttpHeaders"]
+                                            .get<std::vector<nlohmann::json>>();
+
+                std::string id = addSubscription(subValue);
+                if (id.empty())
+                {
+                    BMCWEB_LOG_ERROR << "Failed to add subscription";
+                }
             }
-            --retry;
-        };
-
-        if (retry <= 0)
-        {
-            BMCWEB_LOG_ERROR << "Failed to generate random number";
-            return std::string("");
-        }
-
-        updateSubscriptionData();
-        return id;
-    }
-
-    bool isSubscriptionExist(const std::string& id)
-    {
-        auto obj = subscriptionsMap.find(id);
-        if (obj == subscriptionsMap.end())
-        {
-            return false;
-        }
-        return true;
-    }
-
-    void deleteSubscription(const std::string& id)
-    {
-        auto obj = subscriptionsMap.find(id);
-        if (obj != subscriptionsMap.end())
-        {
-            subscriptionsMap.erase(obj);
-            updateSubscriptionData();
-        }
-    }
-
-    size_t getNumberOfSubscriptions()
-    {
-        return subscriptionsMap.size();
-    }
-
-    std::vector<std::string> getAllIDs()
-    {
-        std::vector<std::string> idList;
-        for (const auto& it : subscriptionsMap)
-        {
-            idList.emplace_back(it.first);
-        }
-        return idList;
-    }
-
-    bool isDestinationExist(const std::string& destUrl)
-    {
-        for (const auto& it : subscriptionsMap)
-        {
-            std::shared_ptr<Subscription> entry = it.second;
-            if (entry->destinationUrl == destUrl)
+            else
             {
-                BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
-                return true;
+                BMCWEB_LOG_ERROR
+                    << "Failed to validate and split destination url";
+                return;
             }
         }
+    }
+    catch (const nlohmann::json::exception& e)
+    {
+        BMCWEB_LOG_ERROR << "Error parsing eventService json file";
+        loadDefaultValues();
+    }
+    return;
+}
+
+boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
+    subscriptionsMap;
+
+public:
+bool enabled;
+uint32_t retryAttempts;
+uint32_t retryTimeoutInterval;
+
+static EventServiceManager& getInstance()
+{
+    static EventServiceManager handler;
+    return handler;
+}
+
+void updateSubscriptionData()
+{
+    // Persist the config and subscription data.
+    // subscriptionsMap & configData need to be
+    // written to Persist store.
+
+    nlohmann::json jsonData;
+
+    nlohmann::json& configObj = jsonData["Configuration"];
+    configObj["ServiceEnabled"] = enabled;
+    configObj["DeliveryRetryAttempts"] = retryAttempts;
+    configObj["DeliveryRetryIntervalSeconds"] = retryTimeoutInterval;
+
+    nlohmann::json& subListArray = jsonData["Subscription"];
+    subListArray = nlohmann::json::array();
+
+    for (const auto& it : subscriptionsMap)
+    {
+        nlohmann::json entry;
+        std::shared_ptr<Subscription> subValue = it.second;
+
+        entry["Context"] = subValue->customText;
+        entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+        entry["Destination"] = subValue->destinationUrl;
+        entry["EventFormatType"] = subValue->eventFormatType;
+        entry["HttpHeaders"] = subValue->httpHeaders;
+        entry["MessageIds"] = subValue->registryMsgIds;
+        entry["Protocol"] = subValue->protocol;
+        entry["RegistryPrefixes"] = subValue->registryPrefixes;
+        entry["SubscriptionType"] = subValue->subscriptionType;
+
+        subListArray.push_back(entry);
+    }
+
+    std::ofstream ofstream_ob;
+    const std::string tmpFile{std::string(eventServiceFile)};
+    ofstream_ob.open(tmpFile, std::ios::out);
+
+    const auto& writeData = jsonData.dump();
+
+    ofstream_ob << writeData;
+    BMCWEB_LOG_ERROR << "Data is successfully written to the file";
+
+    // Closing the output stream
+    ofstream_ob.close();
+    return;
+}
+
+std::shared_ptr<Subscription> getSubscription(const std::string& id)
+{
+    auto obj = subscriptionsMap.find(id);
+    if (obj == subscriptionsMap.end())
+    {
+        BMCWEB_LOG_ERROR << "No subscription exist with ID:" << id;
+        return nullptr;
+    }
+    std::shared_ptr<Subscription> subValue = obj->second;
+    return subValue;
+}
+
+std::string addSubscription(const std::shared_ptr<Subscription> subValue)
+{
+    std::srand(static_cast<uint32_t>(std::time(0)));
+    std::string id;
+
+    int retry = 3;
+    while (retry)
+    {
+        id = std::to_string(std::rand());
+        auto inserted = subscriptionsMap.insert(std::pair(id, subValue));
+        if (inserted.second)
+        {
+            break;
+        }
+        --retry;
+    };
+
+    if (retry <= 0)
+    {
+        BMCWEB_LOG_ERROR << "Failed to generate random number";
+        return std::string("");
+    }
+
+    updateSubscriptionData();
+    return id;
+}
+
+bool isSubscriptionExist(const std::string& id)
+{
+    auto obj = subscriptionsMap.find(id);
+    if (obj == subscriptionsMap.end())
+    {
         return false;
     }
-};
+    return true;
+}
+
+void deleteSubscription(const std::string& id)
+{
+    auto obj = subscriptionsMap.find(id);
+    if (obj != subscriptionsMap.end())
+    {
+        subscriptionsMap.erase(obj);
+        updateSubscriptionData();
+    }
+}
+
+size_t getNumberOfSubscriptions()
+{
+    return subscriptionsMap.size();
+}
+
+std::vector<std::string> getAllIDs()
+{
+    std::vector<std::string> idList;
+    for (const auto& it : subscriptionsMap)
+    {
+        idList.emplace_back(it.first);
+    }
+    return idList;
+}
+
+bool isDestinationExist(const std::string& destUrl)
+{
+    for (const auto& it : subscriptionsMap)
+    {
+        std::shared_ptr<Subscription> entry = it.second;
+        if (entry->destinationUrl == destUrl)
+        {
+            BMCWEB_LOG_ERROR << "Destination exist already" << destUrl;
+            return true;
+        }
+    }
+    return false;
+}
+
+void loadDefaultValues()
+{
+    enabled = true;
+    retryAttempts = 3;
+    retryTimeoutInterval = 30; // seconds
+}
+
+bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
+                         std::string& host, std::string& port,
+                         std::string& path)
+{
+    // Validate URL using regex expression
+    // Format: <protocol>://<host>:<port>/<path>
+    // protocol: http/https
+    const std::regex urlRegex(
+        "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
+        "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
+    std::cmatch match;
+    if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+    {
+        BMCWEB_LOG_INFO << "Dest. url did not match ";
+        return false;
+    }
+
+    urlProto = std::string(match[1].first, match[1].second);
+    host = std::string(match[2].first, match[2].second);
+    port = std::string(match[3].first, match[3].second);
+    path = std::string(match[4].first, match[4].second);
+    if (port.empty())
+    {
+        if (urlProto == "http")
+        {
+            port = "80";
+        }
+        else
+        {
+            port = "443";
+        }
+    }
+    if (path.empty())
+    {
+        path = "/";
+    }
+    return true;
+}
+}; // namespace redfish
 
 } // namespace redfish
