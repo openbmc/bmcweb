@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42245d46_b5f3ef19",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-04-29T07:30:01Z",
+      "side": 1,
+      "message": "As this is used only by TelemetryService class maybe it could be part of it?",
+      "revId": "a9e46a41bb3899868a5f31e686db49abd59e21ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06c3f0dd_eb8d1350",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-04-29T07:30:01Z",
+      "side": 1,
+      "message": "toReportActions and getReportDefinitionProperties also could be closed inside its only user class",
+      "revId": "a9e46a41bb3899868a5f31e686db49abd59e21ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a20b99_26ff20da",
+        "filename": "redfish-core/lib/telemetry_service.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-04-29T07:30:01Z",
+      "side": 1,
+      "message": "The same story - getReportProperties and toMetricValues used only by one class",
+      "revId": "a9e46a41bb3899868a5f31e686db49abd59e21ce",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
