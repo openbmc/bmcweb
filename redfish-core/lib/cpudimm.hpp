@@ -509,6 +509,73 @@ void getDimmDataByService(std::shared_ptr<AsyncResp> aResp,
         service, objPath, "org.freedesktop.DBus.Properties", "GetAll", "");
 }
 
+void getDimmPartitionData(std::shared_ptr<AsyncResp> aResp,
+                          const std::string& service, const std::string& path)
+{
+    crow::connections::systemBus->async_method_call(
+        [aResp{std::move(aResp)}](
+            const boost::system::error_code ec,
+            const boost::container::flat_map<
+                std::string, std::variant<std::string, uint64_t, uint32_t,
+                                          bool>>& properties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG << "DBUS response error";
+                messages::internalError(aResp->res);
+
+                return;
+            }
+
+            nlohmann::json& partition =
+                aResp->res.jsonValue["Regions"].emplace_back(
+                    nlohmann::json::object());
+            for (const auto& [key, val] : properties)
+            {
+                if (key == "MemoryClassification")
+                {
+                    partition[key] = val;
+                }
+                else if (key == "OffsetInKiB")
+                {
+                    const uint64_t* value = std::get_if<uint64_t>(&val);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for OffsetInKiB";
+                        continue;
+                    }
+
+                    partition["OffsetMiB"] = (*value >> 10);
+                }
+                else if (key == "PartitionId")
+                {
+                    partition["RegionId"] = val;
+                }
+
+                else if (key == "PassphraseState")
+                {
+                    partition["PassphraseEnabled"] = val;
+                }
+                else if (key == "SizeInKiB")
+                {
+                    const uint64_t* value = std::get_if<uint64_t>(&val);
+                    if (value == nullptr)
+                    {
+                        messages::internalError(aResp->res);
+                        BMCWEB_LOG_DEBUG
+                            << "Invalid property type for SizeInKiB";
+                        continue;
+                    }
+                    partition["SizeMiB"] = (*value >> 10);
+                }
+            }
+        },
+
+        service, path, "org.freedesktop.DBus.Properties", "GetAll",
+        "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition");
+}
+
 void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string& dimmId)
 {
     BMCWEB_LOG_DEBUG << "Get available system dimm resources.";
@@ -526,27 +593,51 @@ void getDimmData(std::shared_ptr<AsyncResp> aResp, const std::string& dimmId)
 
                 return;
             }
-            for (const auto& object : subtree)
+            bool found = false;
+            for (const auto& [path, object] : subtree)
             {
-                if (boost::ends_with(object.first, dimmId))
+                if (path.find(dimmId) != std::string::npos)
                 {
-                    for (const auto& service : object.second)
+                    for (const auto& [service, interfaces] : object)
                     {
-                        getDimmDataByService(aResp, dimmId, service.first,
-                                             object.first);
-                        return;
+                        if (!found &&
+                            (std::find(
+                                 interfaces.begin(), interfaces.end(),
+                                 "xyz.openbmc_project.Inventory.Item.Dimm") !=
+                             interfaces.end()))
+                        {
+                            getDimmDataByService(aResp, dimmId, service, path);
+                            found = true;
+                        }
+
+                        // partitions are separate as there can be multiple per
+                        // dimm, i.e.
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition1
+                        // /xyz/openbmc_project/Inventory/Item/Dimm1/Partition2
+                        if (std::find(interfaces.begin(), interfaces.end(),
+                                      "xyz.openbmc_project.Inventory.Item."
+                                      "PersistentMemory.Partition") !=
+                            interfaces.end())
+                        {
+                            getDimmPartitionData(aResp, service, path);
+                        }
                     }
                 }
             }
             // Object not found
-            messages::resourceNotFound(aResp->res, "Memory", dimmId);
+            if (!found)
+            {
+                messages::resourceNotFound(aResp->res, "Memory", dimmId);
+            }
             return;
         },
         "xyz.openbmc_project.ObjectMapper",
         "/xyz/openbmc_project/object_mapper",
         "xyz.openbmc_project.ObjectMapper", "GetSubTree",
         "/xyz/openbmc_project/inventory", 0,
-        std::array<const char*, 1>{"xyz.openbmc_project.Inventory.Item.Dimm"});
+        std::array<const char*, 2>{
+            "xyz.openbmc_project.Inventory.Item.Dimm",
+            "xyz.openbmc_project.Inventory.Item.PersistentMemory.Partition"});
 }
 
 class ProcessorCollection : public Node
