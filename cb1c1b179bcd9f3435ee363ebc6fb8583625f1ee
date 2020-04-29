@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "77dc7bb9_a9fc70ff",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 593,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-29T09:51:50Z",
+      "side": 1,
+      "message": "requestRoutes run while bmcweb starting and handleCsrRequest can be called at any time later.\nwe can take other\u0027s opinion here.",
+      "parentUuid": "6795e307_11b79499",
+      "range": {
+        "startLine": 580,
+        "startChar": 0,
+        "endLine": 593,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cb5195e_8cc0410d",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -462,6 +486,30 @@
     },
     {
       "key": {
+        "uuid": "15028b6d_817154fb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 822,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-29T09:51:50Z",
+      "side": 1,
+      "message": "added comment, that\u0027s part of above commit",
+      "parentUuid": "3d695727_e948e1ea",
+      "range": {
+        "startLine": 811,
+        "startChar": 0,
+        "endLine": 822,
+        "endChar": 5
+      },
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "51c93e74_7f992dfc",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 20
@@ -562,6 +610,24 @@
       "side": 1,
       "message": "not done",
       "parentUuid": "fb72e74a_1442456a",
+      "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80f49398_e5157f47",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 20
+      },
+      "lineNbr": 995,
+      "author": {
+        "id": 1000350
+      },
+      "writtenOn": "2020-04-29T09:51:50Z",
+      "side": 1,
+      "message": "added comment that\u0027s part of above commit",
+      "parentUuid": "fd860dee_6b7ffa47",
       "revId": "cb1c1b179bcd9f3435ee363ebc6fb8583625f1ee",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
