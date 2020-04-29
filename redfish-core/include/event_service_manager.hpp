@@ -52,7 +52,7 @@ class Subscription
         port(inPort), path(inPath), uriProto(inUriProto)
     {
         conn = std::make_shared<crow::HttpClient>(
-            crow::connections::systemBus->get_io_context(), host, port);
+            crow::connections::systemBus->get_io_context(), host, port, path);
     }
     ~Subscription()
     {
@@ -71,7 +71,7 @@ class Subscription
             }
         }
         conn->setHeaders(reqHeaders);
-        conn->doConnectAndSend(path, msg);
+        conn->sendData(msg);
     }
 
   private:
