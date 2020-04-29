@@ -20,6 +20,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <error_messages.hpp>
+#include <fstream>
 #include <http_client.hpp>
 #include <memory>
 #include <utils/json_utils.hpp>
@@ -27,6 +28,10 @@
 
 namespace redfish
 {
+
+static constexpr const char* eventServiceFile =
+    "/var/lib/bmcweb/eventservice_config.json";
+
 class Subscription
 {
   public:
@@ -117,11 +122,101 @@ class EventServiceManager
 
     EventServiceManager()
     {
-        // TODO: Read the persistent data from store and populate.
-        // Populating with default.
-        enabled = true;
-        retryAttempts = 3;
-        retryTimeoutInterval = 30; // seconds
+        // Read the persistent data from store and populate
+        // config & subscription info with default
+
+        std::ifstream eventConfigFile(eventServiceFile);
+        if (!eventConfigFile.good())
+        {
+            loadDefaultValues();
+            BMCWEB_LOG_ERROR << "Cannot find eventService json file";
+            return;
+        }
+
+        nlohmann::json configJson;
+        nlohmann::json subscriptionJson;
+        auto data = nlohmann::json::parse(eventConfigFile, nullptr, false);
+
+        if (data.contains("Configuration"))
+        {
+            configJson = data["Configuration"];
+        }
+        else
+        {
+            BMCWEB_LOG_DEBUG << "Loading default configuration values";
+            loadDefaultValues();
+        }
+
+        if (data.contains("Subscription"))
+        {
+            subscriptionJson = data["Subscription"];
+        }
+
+        try
+        {
+            enabled = configJson["ServiceEnabled"].get<bool>();
+            retryAttempts = configJson["DeliveryRetryAttempts"].get<uint32_t>();
+            retryTimeoutInterval =
+                configJson["DeliveryRetryIntervalSeconds"].get<uint32_t>();
+
+            for (const auto& subscriptionObj : subscriptionJson)
+            {
+                std::string host;
+                std::string urlProto;
+                std::string port;
+                std::string path;
+                bool status = validateAndSplitUrl(
+                    subscriptionObj["Destination"], urlProto, host, port, path);
+
+                if (!status)
+                {
+                    BMCWEB_LOG_ERROR
+                        << "Failed to validate and split destination url";
+                    continue;
+                }
+                else
+                {
+                    std::shared_ptr<Subscription> subValue =
+                        std::make_shared<Subscription>(host, port, path,
+                                                       urlProto);
+
+                    subValue->destinationUrl =
+                        subscriptionObj["Destination"].get<std::string>();
+                    subValue->protocol =
+                        subscriptionObj["Protocol"].get<std::string>();
+                    subValue->retryPolicy =
+                        subscriptionObj["DeliveryRetryPolicy"]
+                            .get<std::string>();
+                    subValue->customText =
+                        subscriptionObj["Context"].get<std::string>();
+                    subValue->eventFormatType =
+                        subscriptionObj["EventFormatType"].get<std::string>();
+                    subValue->subscriptionType =
+                        subscriptionObj["SubscriptionType"].get<std::string>();
+                    subValue->registryMsgIds =
+                        subscriptionObj["MessageIds"]
+                            .get<std::vector<std::string>>();
+                    subValue->registryPrefixes =
+                        subscriptionObj["RegistryPrefixes"]
+                            .get<std::vector<std::string>>();
+                    subValue->httpHeaders =
+                        subscriptionObj["HttpHeaders"]
+                            .get<std::vector<nlohmann::json>>();
+
+                    std::string id = addSubscription(subValue);
+                    if (id.empty())
+                    {
+                        BMCWEB_LOG_ERROR << "Failed to add subscription";
+                    }
+                }
+            }
+        }
+        catch (const nlohmann::json::exception& e)
+        {
+            BMCWEB_LOG_ERROR << "Error parsing eventService json file";
+            loadDefaultValues();
+        }
+        return;
     }
 
     boost::container::flat_map<std::string, std::shared_ptr<Subscription>>
@@ -141,8 +236,56 @@ class EventServiceManager
     void updateSubscriptionData()
     {
         // Persist the config and subscription data.
-        // TODO: subscriptionsMap & configData need to be
+        // subscriptionsMap & configData need to be
         // written to Persist store.
+
+        nlohmann::json jsonData;
+
+        nlohmann::json& configObj = jsonData["Configuration"];
+        configObj["ServiceEnabled"] = enabled;
+        configObj["DeliveryRetryAttempts"] = retryAttempts;
+        configObj["DeliveryRetryIntervalSeconds"] = retryTimeoutInterval;
+
+        nlohmann::json& subListArray = jsonData["Subscription"];
+        subListArray = nlohmann::json::array();
+
+        for (const auto& it : subscriptionsMap)
+        {
+            nlohmann::json entry;
+            std::shared_ptr<Subscription> subValue = it.second;
+
+            entry["Context"] = subValue->customText;
+            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            entry["Destination"] = subValue->destinationUrl;
+            entry["EventFormatType"] = subValue->eventFormatType;
+            entry["HttpHeaders"] = subValue->httpHeaders;
+            entry["MessageIds"] = subValue->registryMsgIds;
+            entry["Protocol"] = subValue->protocol;
+            entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["SubscriptionType"] = subValue->subscriptionType;
+
+            subListArray.push_back(entry);
+        }
+
+        std::ofstream ofs;
+        const std::string tmpFile{std::string(eventServiceFile) + "_tmp"};
+
+        ofs.open(tmpFile, std::ios::out);
+
+        const auto& writeData = jsonData.dump();
+
+        ofs << writeData;
+        BMCWEB_LOG_ERROR << "Data is successfully written to the file";
+
+        // Closing the output stream
+        ofs.close();
+
+        if (std::rename(tmpFile.c_str(), eventServiceFile) != 0)
+        {
+            BMCWEB_LOG_ERROR << "Error in renaming temporary data file"
+                             << tmpFile.c_str();
+            return;
+        }
         return;
     }
 
@@ -241,6 +384,52 @@ class EventServiceManager
             std::shared_ptr<Subscription> entry = it.second;
             entry->sendTestEventLog();
         }
+    }
+
+    void loadDefaultValues()
+    {
+        enabled = true;
+        retryAttempts = 3;
+        retryTimeoutInterval = 30; // seconds
+    }
+
+    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
+                             std::string& host, std::string& port,
+                             std::string& path)
+    {
+        // Validate URL using regex expression
+        // Format: <protocol>://<host>:<port>/<path>
+        // protocol: http/https
+        const std::regex urlRegex(
+            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
+            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
+        std::cmatch match;
+        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+        {
+            BMCWEB_LOG_INFO << "Dest. url did not match ";
+            return false;
+        }
+
+        urlProto = std::string(match[1].first, match[1].second);
+        host = std::string(match[2].first, match[2].second);
+        port = std::string(match[3].first, match[3].second);
+        path = std::string(match[4].first, match[4].second);
+        if (port.empty())
+        {
+            if (urlProto == "http")
+            {
+                port = "80";
+            }
+            else
+            {
+                port = "443";
+            }
+        }
+        if (path.empty())
+        {
+            path = "/";
+        }
+        return true;
     }
 };
 
