@@ -11,6 +11,7 @@
 #include <async_resp.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/container/flat_set.hpp>
+#include <boost/endian/conversion.hpp>
 #include <error_messages.hpp>
 #include <filesystem>
 #include <fstream>
@@ -438,6 +439,15 @@ void handleAcquireLockAPI(const crow::Request &req, crow::Response &res,
         }
         BMCWEB_LOG_DEBUG << lockType;
         BMCWEB_LOG_DEBUG << resourceId;
+
+        // BMC is little endian , but the resourceID is formed by the
+        // Managament Console in such a way that, the first byte from the
+        // MSB Position corresponds to the First Segment Data.
+        //
+        // Therefore we need to convert the in-comming resourceID into
+        // Big Endian before processing further.
+
+        resourceId = boost::endian::endian_reverse(resourceId);
 
         BMCWEB_LOG_DEBUG << "Segment Flags are present";
 
