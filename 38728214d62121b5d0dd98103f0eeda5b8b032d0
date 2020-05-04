@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "b0bc73d1_9ed07b9c",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-04T07:56:36Z",
+      "side": 1,
+      "message": "std::function is not constexpr so you are not able to use in static_assert.\nstd::is_void is useless because compiler see that convert function requires return type that is acceptable by attribute object (line 376). I can add this as an extra hint for developer",
+      "parentUuid": "fa917c70_db564455",
+      "range": {
+        "startLine": 362,
+        "startChar": 7,
+        "endLine": 366,
+        "endChar": 9
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "acebf687_044d2ff2",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 4
