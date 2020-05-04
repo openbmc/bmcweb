@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "a49ff0f8_3675eaec",
+        "filename": "redfish-core/lib/metric_report.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-04T14:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "acebf687_044d2ff2",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 27
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f020649c_e87a3dd5",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "d9aca417_e9928073",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-04T14:19:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f020649c_e87a3dd5",
+      "range": {
+        "startLine": 33,
+        "startChar": 48,
+        "endLine": 33,
+        "endChar": 71
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "552139f6_a404efca",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 4
@@ -130,6 +178,24 @@
       "writtenOn": "2020-05-04T07:09:11Z",
       "side": 1,
       "message": "This looks like it is duplication in other classes. This could be const.\n\nentryPrivileges \u003d ENTRY_PRIVILEGES;",
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0bb1587b_fcddea0a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-04T14:19:42Z",
+      "side": 1,
+      "message": "Privileges for TelemetryService, MetricDefinitionReport and MetricReport are the same because they have not been defined in Privilege Registry map yet.\nhttps://redfish.dmtf.org/registries/Redfish_1.0.4_PrivilegeRegistry.json\nThose privileges might change in the future.\nI can only placed them as a global const value, because it is a flat_map. I am not able to make it as a static class variable. Is it ok to keep TelemetryPrivilegeRegistry as global in header?",
+      "parentUuid": "552139f6_a404efca",
       "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
