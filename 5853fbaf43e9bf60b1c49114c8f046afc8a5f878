@@ -22,6 +22,30 @@
       "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ef20b44_3a9c5986",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-04T16:33:59Z",
+      "side": 1,
+      "message": "All thanks to Krzysztof Grobelny",
+      "parentUuid": "875e7d1c_8f7aab94",
+      "range": {
+        "startLine": 370,
+        "startChar": 18,
+        "endLine": 370,
+        "endChar": 35
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
