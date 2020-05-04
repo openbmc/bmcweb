@@ -46,6 +46,109 @@
       "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e365f0c_3cac09c6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-04T17:59:33Z",
+      "side": 1,
+      "message": "nit: Remove extra lines",
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a43d77e7_6504b01f",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-04T17:59:33Z",
+      "side": 1,
+      "message": "This is specific to telemetry right? Why do we need it in helper function?\n\nAlso do you think, Is this standard and will not change tomorrow if any requirement comes?",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 3
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "68940864_2a3441c4",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-04T17:59:33Z",
+      "side": 1,
+      "message": "In success case, Where are we filling \"Members@odata.count\" value? That is mandatory property.",
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b277c36a_dbb4e465",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-04T17:59:33Z",
+      "side": 1,
+      "message": "nit: Inverse the condition for consistency. i.e  if (path \u003d\u003d std::end(reports)) return error. Else continue the remaining execution.",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 46
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "28f7263c_9487f2a3",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-04T17:59:33Z",
+      "side": 1,
+      "message": "This should be 1 right? To be specific.",
+      "range": {
+        "startLine": 153,
+        "startChar": 11,
+        "endLine": 153,
+        "endChar": 14
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
