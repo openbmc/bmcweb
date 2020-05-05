@@ -17,6 +17,7 @@
 
 #include "node.hpp"
 
+#include <boost/asio.hpp>
 #include <boost/container/flat_map.hpp>
 #include <chrono>
 #include <variant>
@@ -182,8 +183,10 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                     self->finishTask();
 
                     // reset the match after the callback was successful
-                    crow::connections::systemBus->get_io_context().post(
-                        [self] { self->match.reset(); });
+                    boost::asio::post(
+                        crow::connections::systemBus->get_io_context(),
+                        [self] { self->match.reset(); }
+                    );
                     return;
                 }
             });
