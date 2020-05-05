@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "df84e712_d426caaa",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000164
+      },
+      "writtenOn": "2020-05-05T17:14:29Z",
+      "side": 1,
+      "message": "oh, ok so you allow it in some cases and not others.. ok no problem\n\nDone.",
+      "parentUuid": "f7391b76_1212565b",
+      "range": {
+        "startLine": 362,
+        "startChar": 7,
+        "endLine": 366,
+        "endChar": 9
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "186bb1a8_c3029060",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 4
