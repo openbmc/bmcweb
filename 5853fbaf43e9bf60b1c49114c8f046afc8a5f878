@@ -152,6 +152,30 @@
     },
     {
       "key": {
+        "uuid": "0ab87ca8_84c23689",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000534
+      },
+      "writtenOn": "2020-05-05T08:06:56Z",
+      "side": 1,
+      "message": "+1 \ncould be \u0027static constexpr std::string_view\u0027 member for all classes.",
+      "parentUuid": "3c36c094_111b70fb",
+      "range": {
+        "startLine": 149,
+        "startChar": 20,
+        "endLine": 149,
+        "endChar": 62
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "28f7263c_9487f2a3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
