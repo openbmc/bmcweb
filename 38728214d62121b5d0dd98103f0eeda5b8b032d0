@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "3565b058_734179c1",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e0b84df3_cda2d911",
+      "range": {
+        "startLine": 362,
+        "startChar": 7,
+        "endLine": 366,
+        "endChar": 9
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "186bb1a8_c3029060",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 4
@@ -132,6 +156,30 @@
       "writtenOn": "2020-05-04T17:59:33Z",
       "side": 1,
       "message": "This helper util functions can be pushed as separate commit . Don\u0027t mix with telemetry implementation code change( May be you can push telemetry on top of this helper commit).",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 1
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "45d94cc2_5478ea5e",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "I do not feel confident to separate assignIfPresent generic function. In separate commit reviewers may have a problem with understanding use of this code. If this stay in this commit, you have few example how this is used. Let me know if this is enough. If not I will separate it.",
+      "parentUuid": "186bb1a8_c3029060",
       "range": {
         "startLine": 349,
         "startChar": 0,
