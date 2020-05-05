@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "4a868a2e_2597f7de",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ef20b44_3a9c5986",
+      "range": {
+        "startLine": 370,
+        "startChar": 18,
+        "endLine": 370,
+        "endChar": 35
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e365f0c_3cac09c6",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 6
@@ -60,6 +84,24 @@
       "writtenOn": "2020-05-04T17:59:33Z",
       "side": 1,
       "message": "nit: Remove extra lines",
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "16311e15_39b71e64",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e365f0c_3cac09c6",
       "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
@@ -89,6 +131,30 @@
     },
     {
       "key": {
+        "uuid": "a26f134f_59ea6973",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "I added it here because it seems like other nodes create member list in similar way, for example: doGet in ChassisCollection in redfish-core/lib/chassis.hpp\nI would like to keep this generic here so other would use it for their collections. If new changes are required than we can extend this function with some callback or sth similar.",
+      "parentUuid": "a43d77e7_6504b01f",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 3
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "68940864_2a3441c4",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
@@ -106,6 +172,24 @@
     },
     {
       "key": {
+        "uuid": "e476c78e_f5c4cd1a",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "It is inside dbusPathsToMembersArray() function. Please, let me know if this is enough.",
+      "parentUuid": "68940864_2a3441c4",
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b277c36a_dbb4e465",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
@@ -117,6 +201,30 @@
       "writtenOn": "2020-05-04T17:59:33Z",
       "side": 1,
       "message": "nit: Inverse the condition for consistency. i.e  if (path \u003d\u003d std::end(reports)) return error. Else continue the remaining execution.",
+      "range": {
+        "startLine": 141,
+        "startChar": 16,
+        "endLine": 141,
+        "endChar": 46
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71b95c95_a059ad76",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b277c36a_dbb4e465",
       "range": {
         "startLine": 141,
         "startChar": 16,
@@ -176,6 +284,30 @@
     },
     {
       "key": {
+        "uuid": "6859bbd3_74809812",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ab87ca8_84c23689",
+      "range": {
+        "startLine": 149,
+        "startChar": 20,
+        "endLine": 149,
+        "endChar": 62
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28f7263c_9487f2a3",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
@@ -187,6 +319,30 @@
       "writtenOn": "2020-05-04T17:59:33Z",
       "side": 1,
       "message": "This should be 1 right? To be specific.",
+      "range": {
+        "startLine": 153,
+        "startChar": 11,
+        "endLine": 153,
+        "endChar": 14
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d051c9f_0080a265",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28f7263c_9487f2a3",
       "range": {
         "startLine": 153,
         "startChar": 11,
@@ -219,6 +375,30 @@
       "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7aba856_02eb8e33",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-05T13:26:04Z",
+      "side": 1,
+      "message": "Yes, but my fear is that all \"GetAll\" method should be changed in bmcweb. Not only in TelemetryService MetricReportDefinition and MetricReport.",
+      "parentUuid": "3b1083d3_eaf304ef",
+      "range": {
+        "startLine": 246,
+        "startChar": 12,
+        "endLine": 248,
+        "endChar": 60
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
