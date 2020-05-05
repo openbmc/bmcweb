@@ -270,6 +270,24 @@
       "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6347bf1c_f08b31bc",
+        "filename": "redfish-core/lib/metric_report_definition.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2020-05-05T07:10:53Z",
+      "side": 1,
+      "message": "Ok, I understand now. We can get back to it when it will be defined in that json file.",
+      "parentUuid": "0bb1587b_fcddea0a",
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
