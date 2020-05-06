@@ -29,7 +29,7 @@ const Header header = {
     "0.1.0",
     "OpenBMC",
 };
-constexpr std::array<MessageEntry, 155> registry = {
+constexpr std::array<MessageEntry, 181> registry = {
     MessageEntry{
         "ADDDCCorrectable",
         {
@@ -595,6 +595,126 @@ constexpr std::array<MessageEntry, 155> registry = {
                      {},
                      "None.",
                  }},
+    MessageEntry{"MEAutoConfigFailed",
+                 {
+                     "Indicates that Intel ME power sensor "
+                     "auto-configuration has failed.",
+                     "Intel ME power sensor auto-configuration failed. Power "
+                     "monitoring, limiting and HW protection features might "
+                     "be unavailable. Failure reason: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "Ensure that Intel ME configuration for power "
+                     "sources is correct.",
+                 }},
+    MessageEntry{
+        "MEAutoConfigSuccess",
+        {
+            "Indicates that Intel ME has performed successful "
+            "power sensor auto-configuration.",
+
+            "Intel ME power sensor auto-configuration succeeded. "
+            "Determined sources for domain readings are: DC Power: %1 ; "
+            "Chassis Power: %2 ; PSU Efficiency: %3 ; Unamanaged power: %4",
+            "OK",
+            4,
+            {"string", "string", "string", "string"},
+            "None.",
+        }},
+    MessageEntry{"MEBootGuardHealthEvent",
+                 {
+                     "Indicates that Intel ME has detected error during "
+                     "operations of Intel Boot Guard",
+                     "Intel ME has detected following issue with Intel Boot "
+                     "Guard: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{"MECpuDebugCapabilityDisabled",
+                 {
+                     "Indicates that Intel ME has detected situation in "
+                     "which CPU Debug Capability is disabled.",
+                     "CPU Debug Capability disabled",
+                     "Warning",
+                     0,
+                     {},
+                     "None.",
+                 }},
+    MessageEntry{"MEDirectFlashUpdateRequested",
+                 {
+                     "Indicates that BIOS has requested Direct Flash "
+                     "Update (DFU) of Intel ME",
+                     "Intel ME Firmware switched to recovery mode to perform "
+                     "full update from BIOS.",
+                     "OK",
+                     0,
+                     {},
+                     "This is transient state. Intel ME Firmware should "
+                     "return to operational mode after successful image "
+                     "update performed by the BIOS.",
+                 }},
+    MessageEntry{
+        "MEExceptionDuringShutdown",
+        {
+            "Indicates that Intel ME could not successfully "
+            "perform emergency host shutdown.",
+
+            "Power Down command triggered by Intel Node Manager policy "
+            "failure action and Intel ME forced shutdown. BMC probably did "
+            "not respond correctly to Chassis Control.",
+            "Warning",
+            0,
+            {},
+            "Verify the Intel Node Manager policy configuration.",
+        }},
+    MessageEntry{
+        "MEFactoryResetError",
+        {
+
+            "Indicates that Intel ME has ben restored to factory preset.",
+            "Intel ME has performed automatic reset to factory "
+            "presets due to following reason: %1",
+            "Critical",
+            1,
+            {"string"},
+
+            "If error is persistent the Flash device must be replaced.",
+        }},
+    MessageEntry{
+        "MEFactoryRestore",
+        {
+
+            "Indicates that Intel ME has ben restored to factory preset.",
+            "Intel ME has performed automatic reset to factory "
+            "presets due to following reason: %1",
+            "OK",
+            1,
+            {"string"},
+
+            "If error is persistent the Flash device must be replaced.",
+        }},
+    MessageEntry{
+        "MEFirmwareException",
+        {
+            "Indicates that Intel ME has encountered firmware "
+            "exception during execution.",
+
+            "Intel ME has encountered firmware exception. Error code = %1",
+            "Warning",
+            1,
+            {"string"},
+
+            "Restore factory presets using Force ME Recovery IPMI "
+            "command or by doing AC power cycle with Recovery jumper "
+            "asserted. If this does not clear the issue, reflash the SPI "
+            "flash. If the issue persists, provide the content of error "
+            "code to Intel support team for interpretation. (Error codes "
+            "are not documented because they only provide clues that must "
+            "be interpreted individually..",
+        }},
     MessageEntry{"MEFirmwarePanicReason",
                  {
                      "Indicates the reason for ME firmware panic.",
@@ -627,6 +747,126 @@ constexpr std::array<MessageEntry, 155> registry = {
                          "string",
                      },
                      "None.",
+                 }},
+
+    MessageEntry{"MEFlashEraseError",
+                 {
+                     "Indicates that Intel ME was unable to finish flash "
+                     "erase procedure.",
+                     "Intel ME has encountered an error during Flash erasure "
+                     "procedure probably due to Flash part corruption.",
+                     "Critical",
+                     0,
+                     {},
+                     "The Flash device must be replaced.",
+                 }},
+    MessageEntry{"MEFlashStateInformation",
+                 {
+                     "Indicates that Intel ME has encountered a problem "
+                     "during IO to flash device.",
+                     "Intel ME has encountered problem during IO to flash "
+                     "device. Reason: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "If flash wear-out protection occurred wait until it "
+                     "expires. Otherwise - flash device must be replaced.",
+                 }},
+    MessageEntry{"MEFlashStateInformationWritingEnabled",
+                 {
+                     "Indicates that Intel ME has encountered a problem "
+                     "during IO to flash device.",
+                     "Intel ME has encountered problem during IO to flash "
+                     "device. Reason: %1",
+                     "OK",
+                     1,
+                     {"string"},
+                     "If flash wear-out protection occurred wait until it "
+                     "expires. Otherwise - flash device must be replaced.",
+                 }},
+    MessageEntry{"MEFlashVerificationError",
+                 {
+                     "Indicates that Intel ME encountered invalid flash "
+                     "descriptor region.",
+                     "Intel ME has detected invalid flash descriptor region. "
+                     "Following error is detected: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "Flash Descriptor Region must be created correctly.",
+                 }},
+    MessageEntry{
+        "MEFlashWearOutWarning",
+        {
+            "Indicates that Intel ME has reached certain "
+            "threshold of flash write operations.",
+
+            "Warning threshold for number of flash operations has been "
+            "exceeded. Current percentage of write operations capacity: %1",
+            "Warning",
+            1,
+            {"number"},
+            "No immediate repair action needed.",
+        }},
+
+    MessageEntry{
+        "MEImageExecutionFailed",
+        {
+
+            "Indicates that Intel ME could not load primary FW image.",
+            "Intel ME Recovery Image or backup operational image "
+            "loaded because operational image is corrupted. This "
+            "may be either caused by Flash device corruption or "
+            "failed upgrade procedure.",
+            "Critical",
+            0,
+            {},
+
+            "Either the Flash device must be replaced (if error is "
+            "persistent) or the upgrade procedure must be started again.",
+        }},
+
+    MessageEntry{
+        "MEInternalError",
+        {
+            "Indicates that Intel ME encountered "
+            "internal error leading to watchdog reset.",
+            "Error during Intel ME execution. Watchdog "
+            "timeout has expired.",
+            "Critical",
+            0,
+            {},
+            "Firmware should automatically recover from error state. "
+            "If error is persistent then operational image shall be updated "
+            "or hardware board repair is needed.",
+        }},
+    MessageEntry{"MEManufacturingError",
+                 {
+                     "Indicates that Intel ME is unable to start in "
+                     "operational mode due to wrong configuration.",
+                     "Wrong manufacturing configuration detected by Intel ME "
+                     "Firmware. Unable to start operational mode. Reason: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     " If error is persistent the Flash device must be "
+                     "replaced or FW configuration must be updated. Trace "
+                     "logs might be gathered for detailed information.",
+                 }},
+    MessageEntry{"MEMctpInterfaceError",
+                 {
+                     "Indicates that Intel ME has encountered an error "
+                     "in MCTP protocol.",
+                     "Intel ME has detected MCTP interface failure and it is "
+                     "not functional any more. It may indicate the situation "
+                     "when MCTP was not configured by BIOS or a defect which "
+                     "may need a Host reset to recover from. Details: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "Recovery via CPU Host reset or platform reset. If error "
+                     "is persistent, deep-dive platform-level debugging is "
+                     "required.",
                  }},
     MessageEntry{"MemoryECCCorrectable",
                  {
@@ -757,6 +997,112 @@ constexpr std::array<MessageEntry, 155> registry = {
                      1,
                      {"string"},
                      "None.",
+                 }},
+    MessageEntry{"MEMultiPchModeMisconfig",
+                 {
+                     "Indicates that Intel ME has encountered "
+                     "problems in initializing Multi-PCH mode.",
+                     "Intel ME error in Multi-PCH mode: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{
+        "MEPeciOverDmiError",
+        {
+            "Indicates that Intel ME is unable to communicate "
+            "using PECI over DMI.",
+            "Intel ME has detected  PECI over DMI interface failure "
+            "and it is not functional any more. It may indicate the "
+            "situation when PECI over DMI was not configured by "
+            "BIOS or a defect which may require a CPU Host reset to "
+            "recover from. Details: %1",
+            "Critical",
+            1,
+            {"string"},
+            "Recovery via CPU Host reset or platform reset. If error is "
+            "persistent, deep-dive platform-level debugging is required.",
+        }},
+    MessageEntry{
+        "MEPttHealthEvent",
+        {
+
+            "Indicates that Intel ME has encountered issue with Intel PTT",
+
+            "Intel ME has detected following issue with Intel PTT: %1",
+            "Warning",
+            1,
+            {"string"},
+            "None.",
+        }},
+    MessageEntry{
+        "MERecoveryGpioForced",
+        {
+            "Indicates that Intel ME image is booted in "
+            "recovery mode due to GPIO assertion.",
+            "Intel ME Recovery Image loaded due to recovery MGPIO "
+            "pin asserted. Pin number is configurable in factory "
+            "presets, Default recovery pin is MGPIO1.",
+            "OK",
+            0,
+            {},
+            "Deassert recovery GPIO and reset the Intel ME back to "
+            "operational mode. If Recovery Jumper is in legacy behavior, "
+            "a ME reset (eg. Cold Reset IPMI cmd) is needed to have ME "
+            "back in operational mode.",
+        }},
+    MessageEntry{"MERestrictedMode",
+                 {
+
+                     "Indicates events related to Intel ME restricted mode.",
+                     "Intel ME restricted mode information: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "None.",
+                 }},
+    MessageEntry{
+        "MESmbusLinkFailure",
+        {
+            "Indicate that Intel ME encountered SMBus link error.",
+            "Intel ME has detected SMBus link error. "
+            "Sensor Bus: %1 , MUX Address: %2 ",
+            "Critical",
+            2,
+            {"string", "string"},
+
+            "Devices connected to given SMLINK might cause communication "
+            "corruption. See error code and refer to Intel ME External "
+            "Interfaces Specification for details.",
+        }},
+    MessageEntry{
+        "MEUmaError",
+        {
+
+            "Indicates that Intel ME has encountered UMA operation error.",
+
+            "Intel ME has encountered UMA operation error. Details: %1",
+            "Critical",
+            1,
+            {"string"},
+
+            "Platform reset when UMA not configured correctly, or when "
+            "error occurred during normal operation on correctly "
+            "configured UMA multiple times leading to Intel ME entering "
+            "Recovery or restricted operational mode.",
+        }},
+    MessageEntry{"MEUnsupportedFeature",
+                 {
+                     "Indicates that Intel ME is configuration with "
+                     "feature which is not supported on this platform.",
+                     "Feature not supported in current segment detected by "
+                     "Intel ME Firmware. Details: %1",
+                     "Critical",
+                     1,
+                     {"string"},
+                     "Proper FW configuration must be updated or use the "
+                     "Flash device with proper FW configuration",
                  }},
     MessageEntry{"MirroringRedundancyDegraded",
                  {
@@ -1599,7 +1945,6 @@ constexpr std::array<MessageEntry, 155> registry = {
             {},
             "None.",
         }},
-
     MessageEntry{"SELEntryAdded",
                  {
                      "Indicates a SEL entry was added using the "
@@ -1838,5 +2183,6 @@ constexpr std::array<MessageEntry, 155> registry = {
             {"string"},
             "None.",
         }},
+
 };
 } // namespace redfish::message_registries::openbmc
