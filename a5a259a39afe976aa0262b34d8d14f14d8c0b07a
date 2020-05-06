@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "028b100f_58e95fad",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-05-06T18:05:51Z",
+      "side": 1,
+      "message": "Yeah, so 0 worked fine in my case but maybe something more unique like \nstd::numeric_limits\u003cuint32_t\u003e::max ?",
+      "parentUuid": "0e6c5d6a_e06ed198",
+      "range": {
+        "startLine": 164,
+        "startChar": 68,
+        "endLine": 165,
+        "endChar": 31
+      },
+      "revId": "a5a259a39afe976aa0262b34d8d14f14d8c0b07a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ccdb00a3_11fef127",
         "filename": "redfish-core/include/utils/json_utils.hpp",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "a5a259a39afe976aa0262b34d8d14f14d8c0b07a",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00a1d112_340733b6",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000020
+      },
+      "writtenOn": "2020-05-06T18:05:51Z",
+      "side": 1,
+      "message": "But how do I know it is \"null\" and not just not passed?\n\nI.e.\ncurl -k -v https://${bmc}/redfish/v1/Chassis/chassis/Power -X PATCH \\\n-d \u0027{\"PowerControl\":[{\"PowerLimit\":{\"PowerLimitException\":NoAction}}]}\u0027 \n\nHow do I distinguish \"null\" from the above case where we are trying to set \"PowerLimitException\" (and not this property)?\n\nI could return true here and not populate std::optional\u003cT\u003e, but then in the commit above I have to parse the JSON and find if the value was null or not passed.\n\nE.g. in redfish-core/lib/power.hpp would be something like:\nif (!requestedPowerCap)\n{\n    // determine if \"null\" was passed to disable the power capping\n    // search for key in PowerLimit\n    for ....\n    {\n       found key\n       if ...\n       {\n          // if key is \"null\"\n          if jsonValue.is_null()\n          {\n             // LimitInWatts is null, so disable power capping.\n             setPowerCapEnable(asyncResp, false);\n           }\n        }\n    }\n    return;\n}\n\nAnd the parsing is something I don\u0027t see in redfish-core/lib/*, it is instead done here.",
+      "parentUuid": "ccdb00a3_11fef127",
+      "range": {
+        "startLine": 168,
+        "startChar": 11,
+        "endLine": 168,
+        "endChar": 79
+      },
+      "revId": "a5a259a39afe976aa0262b34d8d14f14d8c0b07a",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
