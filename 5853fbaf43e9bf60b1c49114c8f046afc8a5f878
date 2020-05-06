@@ -179,6 +179,30 @@
     },
     {
       "key": {
+        "uuid": "e5d9c51c_2da77f13",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-06T09:15:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6abfab09_77c95aac",
+      "range": {
+        "startLine": 419,
+        "startChar": 0,
+        "endLine": 422,
+        "endChar": 3
+      },
+      "revId": "5853fbaf43e9bf60b1c49114c8f046afc8a5f878",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "68940864_2a3441c4",
         "filename": "redfish-core/lib/metric_report_definition.hpp",
         "patchSetId": 6
