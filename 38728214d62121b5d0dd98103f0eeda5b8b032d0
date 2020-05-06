@@ -240,6 +240,30 @@
     },
     {
       "key": {
+        "uuid": "618cb130_d87b9e06",
+        "filename": "redfish-core/include/utils/json_utils.hpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 1000269
+      },
+      "writtenOn": "2020-05-06T08:15:44Z",
+      "side": 1,
+      "message": "That is reason you should make telemetry commit as dependent on this helper commit. That way reviewer will be aware of both and reviews both. That is generic practice followed to make scope of changes isolated.\n\nProblem with this approach are:\n1) Change is big which is in general misses multiple eyes(Reviewers).\n2) Helper function alone can be used for other commits( Example: EventService can use them now).\n3) Context isolation.",
+      "parentUuid": "45d94cc2_5478ea5e",
+      "range": {
+        "startLine": 349,
+        "startChar": 0,
+        "endLine": 432,
+        "endChar": 1
+      },
+      "revId": "38728214d62121b5d0dd98103f0eeda5b8b032d0",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "acebf687_044d2ff2",
         "filename": "redfish-core/lib/metric_report.hpp",
         "patchSetId": 4
