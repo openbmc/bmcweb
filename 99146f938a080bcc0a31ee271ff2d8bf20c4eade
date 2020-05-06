@@ -22,6 +22,30 @@
       "revId": "99146f938a080bcc0a31ee271ff2d8bf20c4eade",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60e83126_db3beca1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000677
+      },
+      "writtenOn": "2020-05-06T09:15:17Z",
+      "side": 1,
+      "message": "Yes, I ran it with existings MetricReport and MetricReportDefinition.",
+      "parentUuid": "886acfdf_45f7ff84",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 49
+      },
+      "revId": "99146f938a080bcc0a31ee271ff2d8bf20c4eade",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
