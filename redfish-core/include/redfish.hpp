@@ -51,23 +51,27 @@ namespace redfish
 
 #ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
 
-constexpr char bmcDumpInterface[] = "xyz.openbmc_project.Dump.Entry.BMC";
+constexpr char bmcDumpClearPath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/LogService.ClearLog/";
+constexpr char bmcDumpCreatePath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/Oem/"
+    "OemLogService.CollectDiagnosticData/";
 constexpr char bmcDumpEntryCollectionPath[] =
     "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
 constexpr char bmcDumpEntryPath[] =
     "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>";
-constexpr char bmcDumpCreatePath[] =
-    "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/Oem/"
-    "OemLogService.CollectDiagnosticData/";
+constexpr char bmcDumpInterface[] = "xyz.openbmc_project.Dump.Entry.BMC";
 
-constexpr char systemDumpInterface[] = "xyz.openbmc_project.Dump.Entry.System";
+constexpr char systemDumpClearPath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/Actions/LogService.ClearLog/";
+constexpr char systemDumpCreatePath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/Actions/Oem/"
+    "OemLogService.CollectDiagnosticData/";
 constexpr char systemDumpEntryCollectionPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
 constexpr char systemDumpEntryPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>";
-constexpr char systemDumpCreatePath[] =
-    "/redfish/v1/Systems/system/LogServices/Dump/Actions/Oem/"
-    "OemLogService.CollectDiagnosticData/";
+constexpr char systemDumpInterface[] = "xyz.openbmc_project.Dump.Entry.System";
 
 #endif
 
@@ -152,6 +156,14 @@ class RedfishService
         nodes.emplace_back(std::make_unique<
                            DumpCreate<systemDumpCreatePath, systemDumpInterface,
                                       systemDumpEntryCollectionPath>>(app));
+
+        nodes.emplace_back(
+            std::make_unique<DumpClear<bmcDumpClearPath, bmcDumpInterface>>(
+                app));
+        nodes.emplace_back(
+            std::make_unique<
+                DumpClear<systemDumpClearPath, systemDumpInterface>>(app));
+
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
