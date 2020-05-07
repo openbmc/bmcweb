@@ -2130,6 +2130,30 @@ class DumpClear : public Node
     }
 };
 
+template <const char* PATH>
+class DumpEntryDownload : public Node
+{
+  public:
+    DumpEntryDownload(CrowApp& app) : Node(app, PATH, std::string())
+    {
+        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                            {boost::beast::http::verb::head, {{"Login"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        const std::string& entryID = params[0];
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
+    }
+};
+
 class SystemDumpService : public Node
 {
   public:
