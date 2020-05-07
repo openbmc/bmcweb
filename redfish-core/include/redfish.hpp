@@ -48,6 +48,19 @@ namespace redfish
 /*
  * @brief Top level class installing and providing Redfish services
  */
+
+constexpr char bmcDumpInterface[] = "xyz.openbmc_project.Dump.Entry.BMC";
+constexpr char bmcDumpEntryCollectionPath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
+constexpr char bmcDumpEntryPath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>";
+
+constexpr char systemDumpInterface[] = "xyz.openbmc_project.Dump.Entry.System";
+constexpr char systemDumpEntryCollectionPath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
+constexpr char systemDumpEntryPath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>";
+
 class RedfishService
 {
   public:
@@ -102,12 +115,26 @@ class RedfishService
         nodes.emplace_back(std::make_unique<PostCodesEntry>(app));
         nodes.emplace_back(std::make_unique<PostCodesEntryCollection>(app));
 
-#ifdef BMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG
+#ifdef BMCWEB_ENABLE_REDFISH_DUMP_LOG
         nodes.emplace_back(std::make_unique<SystemDumpService>(app));
-        nodes.emplace_back(std::make_unique<SystemDumpEntryCollection>(app));
-        nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
         nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
         nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
+
+        nodes.emplace_back(std::make_unique<BMCDumpService>(app));
+
+        nodes.emplace_back(
+            std::make_unique<DumpEntryCollection<bmcDumpEntryCollectionPath,
+                                                 bmcDumpInterface>>(app));
+        nodes.emplace_back(
+            std::make_unique<DumpEntryCollection<systemDumpEntryCollectionPath,
+                                                 systemDumpInterface>>(app));
+
+        nodes.emplace_back(
+            std::make_unique<DumpEntry<bmcDumpEntryPath, bmcDumpInterface>>(
+                app));
+        nodes.emplace_back(
+            std::make_unique<
+                DumpEntry<systemDumpEntryPath, systemDumpInterface>>(app));
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
