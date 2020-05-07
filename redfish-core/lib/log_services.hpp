@@ -2050,6 +2050,31 @@ class BMCDumpCreate : public Node
     }
 };
 
+class BMCDumpEntryDownload : public Node
+{
+  public:
+    BMCDumpEntryDownload(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/attachment/<str>/",
+             std::string())
+    {
+        entityPrivileges = {{boost::beast::http::verb::get, {{"Login"}}},
+                            {boost::beast::http::verb::head, {{"Login"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        const std::string& entryID = params[0];
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
+    }
+};
+
 class BMCDumpClear : public Node
 {
   public:
