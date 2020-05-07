@@ -71,9 +71,10 @@ option (
     OFF
 )
 option (
-    BMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG
-    "Enable System dump log service transactions through Redfish.  Paths are under
-    '/redfish/v1/Systems/system/LogServices/SystemDump'."
+    BMCWEB_ENABLE_REDFISH_DUMP_LOG
+    "Enable System and BMC dump log service transactions through Redfish. For BMC dump, paths
+    are under '/redfish/v1/Managers/bmc/LogServices/Dump' and for System dump,
+    paths are under '/redfish/v1/Systems/system/LogServices/Dump'."
     OFF
 )
 option (
@@ -101,11 +102,10 @@ option (
     OFF
 )
 
-
-# Insecure options.  Every option that starts with a BMCWEB_INSECURE flag should
-# not be enabled by default for any platform, unless the author fully
-# comprehends the implications of doing so.  In general, enabling these options
-# will cause security problems of varying degrees
+#Insecure options.Every option that starts with a BMCWEB_INSECURE flag should
+#not be enabled by default for any platform, unless the author fully
+#comprehends the implications of doing so.In general, enabling these options
+#will cause security problems of varying degrees
 option (
     BMCWEB_INSECURE_DISABLE_CSRF_PREVENTION
     "Disable CSRF prevention checks. Should be set to OFF for production
@@ -192,7 +192,7 @@ set (
 "
 )
 
-# only set -Werror if we're on a compiler that we know passes
+#only set - Werror if we're on a compiler that we know passes
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8.0)
         set (
@@ -213,10 +213,10 @@ endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
 
-# general
+#general
 option (BMCWEB_BUILD_UT "Enable Unit test" OFF)
 
-# security flags
+#security flags
 set (
     SECURITY_FLAGS
     "-fstack-protector-strong \
@@ -231,10 +231,10 @@ set (CMAKE_CXX_FLAGS_RELWITHDEBINFO
      "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} ${SECURITY_FLAGS}")
 set (CMAKE_C_FLAGS_MINSIZEREL "${CMAKE_C_FLAGS_MINSIZEREL} ${SECURITY_FLAGS}")
 
-# Enable link time optimization This is a temporary workaround because
-# INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9. gcc-ar and gcc-
-# ranlib are wrappers around ar and ranlib which add the lto plugin to the
-# command line.
+#Enable link time optimization This is a temporary workaround because
+#INTERPROCEDURAL_OPTIMIZATION isn't available until cmake 3.9. gcc-ar and gcc-
+#ranlib are wrappers around ar and ranlib which add the lto plugin to the
+#command line.
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     if (NOT CMAKE_BUILD_TYPE MATCHES Debug)
         string (REGEX REPLACE "ar$" "gcc-ar" CMAKE_AR ${CMAKE_AR})
@@ -242,8 +242,8 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
                 REPLACE "ranlib$" "gcc-ranlib" CMAKE_RANLIB ${CMAKE_RANLIB})
         set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -flto -fno-fat-lto-objects")
 
-        # Reduce the binary size by removing unnecessary dynamic symbol table
-        # entries
+#Reduce the binary size by removing unnecessary dynamic symbol table
+#entries
         set (
             CMAKE_CXX_FLAGS
             "${CMAKE_CXX_FLAGS} \
@@ -255,11 +255,12 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 endif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
 
 if (NOT ${YOCTO_DEPENDENCIES}) # Download and unpack googletest at configure
-                               # time
+#time
     configure_file (CMakeLists.txt.in 3rdparty/CMakeLists.txt)
     execute_process (COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
                      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
-    execute_process (COMMAND ${CMAKE_COMMAND} --build .
+    execute_process (COMMAND ${
+    CMAKE_COMMAND} --build .
                      WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/3rdparty)
 
     set (CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR}/prefix ${CMAKE_PREFIX_PATH})
@@ -269,7 +270,7 @@ find_package (Boost 1.73 REQUIRED)
 message (BOOST_VERSION = ${Boost_VERSION})
 include_directories (SYSTEM ${BOOST_SRC_DIR})
 
-# add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
+#add_definitions(-DBOOST_ASIO_ENABLE_HANDLER_TRACKING)
 add_definitions (-DBOOST_ASIO_DISABLE_THREADS)
 add_definitions (-DBOOST_BEAST_USE_STD_STRING_VIEW)
 add_definitions (-DBOOST_ERROR_CODE_HEADER_ONLY)
@@ -280,24 +281,24 @@ add_definitions (-DBOOST_NO_RTTI)
 add_definitions (-DBOOST_NO_TYPEID)
 add_definitions (-DBOOST_COROUTINES_NO_DEPRECATION_WARNING)
 
-# sdbusplus
+#sdbusplus
 if (NOT ${YOCTO_DEPENDENCIES})
     include_directories (SYSTEM ${CMAKE_BINARY_DIR}/sdbusplus-src)
     link_directories (${CMAKE_BINARY_DIR}/sdbusplus-src/build)
 endif ()
 
-# Its an Out of tree build,enabling ibm management console for
-# unit-test purpose.
+#Its an Out of tree build, enabling ibm management console for
+#unit - test purpose.
 if (NOT ${YOCTO_DEPENDENCIES})
     add_definitions(-DBMCWEB_ENABLE_IBM_MANAGEMENT_CONSOLE)
 endif(NOT ${YOCTO_DEPENDENCIES})
 
-# Openssl
+#Openssl
 find_package (OpenSSL REQUIRED)
 include_directories (SYSTEM ${OPENSSL_INCLUDE_DIR})
 message ("OPENSSL_INCLUDE_DIR ${OPENSSL_INCLUDE_DIR}")
 
-# bmcweb
+#bmcweb
 message ("CMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}")
 if (CMAKE_BUILD_TYPE MATCHES Debug)
     message ("Logging disabled")
@@ -310,11 +311,11 @@ if (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
 endif (NOT "${BMCWEB_INSECURE_DISABLE_SSL}")
 include_directories (${CMAKE_CURRENT_SOURCE_DIR}/http)
 
-# Zlib
+#Zlib
 find_package (ZLIB REQUIRED)
 include_directories (SYSTEM ${ZLIB_INCLUDE_DIRS})
 
-# PAM
+#PAM
 option (WEBSERVER_ENABLE_PAM "enable pam authentication" ON)
 if ("${WEBSERVER_ENABLE_PAM}")
     find_package (PAM REQUIRED)
@@ -323,11 +324,11 @@ else ()
 endif ()
 
 add_definitions ("-Wno-attributes")
-# Copy pam-webserver to etc/pam.d
+#Copy pam - webserver to etc / pam.d
 install (FILES ${CMAKE_CURRENT_SOURCE_DIR}/pam-webserver DESTINATION /etc/pam.d/
          RENAME webserver)
 
-# tinyxml2
+#tinyxml2
 find_package (tinyxml2 REQUIRED)
 
 set (WEBSERVER_MAIN src/webserver_main.cpp)
@@ -344,13 +345,13 @@ set (SRC_FILES redfish-core/src/error_messages.cpp
 
 file (COPY src/test_resources DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
-# Unit Tests
+#Unit Tests
 if (NOT ${YOCTO_DEPENDENCIES})
     set (UT_FILES src/gtest_main.cpp src/msan_test.cpp
          redfish-core/ut/privileges_test.cpp
          redfish-core/ut/lock_test.cpp
          ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp) # big list of naughty
-                                                      # strings
+#strings
     add_custom_command (OUTPUT ${CMAKE_BINARY_DIR}/include/bmcweb/blns.hpp
                         COMMAND
                             xxd -i
@@ -382,7 +383,7 @@ endif (NOT ${YOCTO_DEPENDENCIES})
 
 install (DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/static/ DESTINATION share/www)
 
-# bmcweb
+#bmcweb
 add_executable (bmcweb ${WEBSERVER_MAIN} ${HDR_FILES} ${SRC_FILES})
 target_link_libraries (bmcweb ${OPENSSL_LIBRARIES})
 target_link_libraries (bmcweb ${ZLIB_LIBRARIES})
@@ -413,8 +414,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_RAW_PECI>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_CPU_LOG}>:
     -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
-    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG}>:
-    -DBMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DUMP_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_DUMP_LOG>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>:
     -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>:
@@ -433,7 +434,7 @@ target_compile_definitions (
     -DBMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING>
 )
 
-# configure and install systemd unit files
+#configure and install systemd unit files
 configure_file (bmcweb.socket bmcweb.socket COPYONLY)
 configure_file (bmcweb.service.in bmcweb.service)
 pkg_get_variable (SYSTEMD_SYSTEMUNITDIR systemd systemdsystemunitdir)
