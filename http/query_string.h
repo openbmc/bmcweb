@@ -203,7 +203,7 @@ inline int qsDecode(char* qs)
                 qs[i] = '\0';
                 return i;
             }
-            qs[i] = static_cast<char>(BMCWEB_QS_HEX2DEC(qs[j + 1] * 16) +
+            qs[i] = static_cast<char>((BMCWEB_QS_HEX2DEC(qs[j + 1]) * 16) +
                                       BMCWEB_QS_HEX2DEC(qs[j + 2]));
             j += 2;
         }
