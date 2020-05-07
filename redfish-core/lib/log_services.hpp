@@ -550,7 +550,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                     thisEntry["Oem"]["OpenBmc"]["DiagnosticDataType"] =
                         "Manager";
                     thisEntry["Oem"]["OpenBmc"]["AdditionalDataURI"] =
-                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                        "/Managers/bmc/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
@@ -560,7 +560,7 @@ inline void getDumpEntryCollection(std::shared_ptr<AsyncResp>& asyncResp,
                     thisEntry["Oem"]["OpenBmc"]["OEMDiagnosticDataType"] =
                         "System";
                     thisEntry["Oem"]["OpenBmc"]["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/Dump/"
+                        "/Systems/system/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
@@ -695,7 +695,7 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                         "Manager";
                     asyncResp->res
                         .jsonValue["Oem"]["OpenBmc"]["AdditionalDataURI"] =
-                        "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                        "/Managers/bmc/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
@@ -709,7 +709,7 @@ inline void getDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
                         "System";
                     asyncResp->res
                         .jsonValue["Oem"]["OpenBmc"]["AdditionalDataURI"] =
-                        "/redfish/v1/Systems/system/LogServices/Dump/"
+                        "/Systems/system/LogServices/Dump/"
                         "attachment/" +
                         entryID;
                 }
@@ -2163,6 +2163,36 @@ class BMCDumpCreate : public Node
     }
 };
 
+class BMCDumpEntryDownload : public Node
+{
+  public:
+    BMCDumpEntryDownload(CrowApp& app) :
+        Node(app, "/Managers/bmc/LogServices/Dump/attachment/<str>/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
+    {
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+        const std::string& entryID = params[0];
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
+    }
+};
+
 class BMCDumpClear : public Node
 {
   public:
@@ -2341,21 +2371,21 @@ class SystemDumpEntryDownload : public Node
 {
   public:
     SystemDumpEntryDownload(CrowApp& app) :
-        Node(app,
-             "/redfish/v1/Systems/system/LogServices/System/Entries/<str>/"
-             "Actions/"
-             "LogEntry.DownloadLog/",
+        Node(app, "/Systems/system/LogServices/Dump/attachment/<str>/",
              std::string())
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
   private:
-    void doPost(crow::Response& res, const crow::Request& req,
-                const std::vector<std::string>& params) override
+    void doGet(crow::Response& res, const crow::Request& req,
+               const std::vector<std::string>& params) override
     {
         if (params.size() != 1)
         {
