@@ -875,6 +875,36 @@ inline void createDump(crow::Response& res, const crow::Request& req,
         "xyz.openbmc_project.Dump.Create", "CreateDump");
 }
 
+inline void clearDump(crow::Response& res, const std::string& dumpInterface)
+{
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec,
+                    const std::vector<std::string>& subTreePaths) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+
+            for (const std::string& path : subTreePaths)
+            {
+                std::size_t pos = path.rfind("/");
+                if (pos != std::string::npos)
+                {
+                    std::string logID = path.substr(pos + 1);
+                    deleteDumpEntry(asyncResp->res, logID);
+                }
+            }
+        },
+        "xyz.openbmc_project.ObjectMapper",
+        "/xyz/openbmc_project/object_mapper",
+        "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+        "/xyz/openbmc_project/dump", 0,
+        std::array<std::string, 1>{dumpInterface});
+}
+
 static void ParseCrashdumpParameters(
     const std::vector<std::pair<std::string, VariantType>>& params,
     std::string& filename, std::string& timestamp, std::string& logfile)
@@ -2132,6 +2162,31 @@ class BMCDumpCreate : public Node
     }
 };
 
+class BMCDumpClear : public Node
+{
+  public:
+    BMCDumpClear(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                  "Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        clearDump(res, "xyz.openbmc_project.Dump.Entry.BMC");
+    }
+};
+
 class SystemDumpService : public Node
 {
   public:
@@ -2315,13 +2370,16 @@ class SystemDumpClear : public Node
 {
   public:
     SystemDumpClear(CrowApp& app) :
-        Node(app, "/redfish/v1/Systems/system/LogServices/System/"
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/"
                   "Actions/"
                   "LogService.ClearLog/")
     {
         entityPrivileges = {
             {boost::beast::http::verb::get, {{"Login"}}},
             {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
             {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
     }
 
@@ -2329,33 +2387,7 @@ class SystemDumpClear : public Node
     void doPost(crow::Response& res, const crow::Request& req,
                 const std::vector<std::string>& params) override
     {
-
-        auto asyncResp = std::make_shared<AsyncResp>(res);
-        crow::connections::systemBus->async_method_call(
-            [asyncResp](const boost::system::error_code ec,
-                        const std::vector<std::string>& dumpList) {
-                if (ec)
-                {
-                    messages::internalError(asyncResp->res);
-                    return;
-                }
-
-                for (const std::string& objectPath : dumpList)
-                {
-                    std::size_t pos = objectPath.rfind("/");
-                    if (pos != std::string::npos)
-                    {
-                        std::string logID = objectPath.substr(pos + 1);
-                        deleteDumpEntry(asyncResp->res, logID);
-                    }
-                }
-            },
-            "xyz.openbmc_project.ObjectMapper",
-            "/xyz/openbmc_project/object_mapper",
-            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
-            "/xyz/openbmc_project/dump", 0,
-            std::array<const char*, 1>{
-                "xyz.openbmc_project.Dump.Entry.System"});
+        clearDump(res, "xyz.openbmc_project.Dump.Entry.System");
     }
 };
 
