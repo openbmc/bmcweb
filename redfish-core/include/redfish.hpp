@@ -56,12 +56,18 @@ constexpr char bmcDumpEntryCollectionPath[] =
     "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
 constexpr char bmcDumpEntryPath[] =
     "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/<str>";
+constexpr char bmcDumpCreatePath[] =
+    "/redfish/v1/Managers/bmc/LogServices/Dump/Actions/Oem/"
+    "OemLogService.CollectDiagnosticData/";
 
 constexpr char systemDumpInterface[] = "xyz.openbmc_project.Dump.Entry.System";
 constexpr char systemDumpEntryCollectionPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
 constexpr char systemDumpEntryPath[] =
     "/redfish/v1/Systems/system/LogServices/Dump/Entries/<str>";
+constexpr char systemDumpCreatePath[] =
+    "/redfish/v1/Systems/system/LogServices/Dump/Actions/Oem/"
+    "OemLogService.CollectDiagnosticData/";
 
 #endif
 
@@ -139,6 +145,13 @@ class RedfishService
         nodes.emplace_back(
             std::make_unique<
                 DumpEntry<systemDumpEntryPath, systemDumpInterface>>(app));
+
+        nodes.emplace_back(
+            std::make_unique<DumpCreate<bmcDumpCreatePath, bmcDumpInterface,
+                                        bmcDumpEntryCollectionPath>>(app));
+        nodes.emplace_back(std::make_unique<
+                           DumpCreate<systemDumpCreatePath, systemDumpInterface,
+                                      systemDumpEntryCollectionPath>>(app));
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
