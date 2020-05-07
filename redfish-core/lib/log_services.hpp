@@ -141,8 +141,7 @@ inline std::string translateSeverityDbusToRedfish(const std::string &s)
     return "";
 }
 
-inline void deleteBMCDumpEntry(crow::Response &res,
-                                  const std::string &entryID)
+inline void deleteBMCDumpEntry(crow::Response &res, const std::string &entryID)
 {
     std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
     auto respHandler = [asyncResp](const boost::system::error_code ec) {
@@ -1638,8 +1637,8 @@ class BMCDumpEntryCollection : public Node
                         GetManagedObjectsType &resp) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "BMCDumpEntry resp_handler got error " << ec;
+                    BMCWEB_LOG_ERROR << "BMCDumpEntry resp_handler got error "
+                                     << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -1685,7 +1684,7 @@ class BMCDumpEntryCollection : public Node
                             "xyz.openbmc_project.Dump.Entry")
                         {
 
-                               for (auto &propertyMap : interfaceMap.second)
+                            for (auto &propertyMap : interfaceMap.second)
                             {
                                 if (propertyMap.first == "Size")
                                 {
@@ -1762,8 +1761,7 @@ class BMCDumpEntry : public Node
 {
   public:
     BMCDumpEntry(CrowApp &app) :
-        Node(app,
-             "/redfish/v1/Managers/bmc/LogServices/BMCDump/Entries/<str>/",
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/BMCDump/Entries/<str>/",
              std::string())
     {
         entityPrivileges = {
@@ -1791,8 +1789,8 @@ class BMCDumpEntry : public Node
                                  GetManagedObjectsType &resp) {
                 if (ec)
                 {
-                    BMCWEB_LOG_ERROR
-                        << "BMCDumpEntry resp_handler got error " << ec;
+                    BMCWEB_LOG_ERROR << "BMCDumpEntry resp_handler got error "
+                                     << ec;
                     messages::internalError(asyncResp->res);
                     return;
                 }
@@ -1942,8 +1940,74 @@ class BMCDumpEntry : public Node
             "/xyz/openbmc_project/object_mapper",
             "xyz.openbmc_project.ObjectMapper", "GetSubTree",
             "/xyz/openbmc_project/dump", 0,
-            std::array<const char *, 1>{
-                "xyz.openbmc_project.Dump.Entry.BMC"});
+            std::array<const char *, 1>{"xyz.openbmc_project.Dump.Entry.BMC"});
+    }
+};
+
+class BMCDumpCreate : public Node
+{
+  public:
+    BMCDumpCreate(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/BMCDump/"
+                  "Actions/Oem/OpenBmc/"
+                  "LogService.CreateLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const uint32_t &resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "BMCDump Created. Id: " << resp;
+
+                std::shared_ptr<task::TaskData> task =
+                    task::TaskData::createTask(
+                        [resp](
+                            boost::system::error_code err,
+                            sdbusplus::message::message &,
+                            const std::shared_ptr<task::TaskData> &taskData) {
+                            if (!err)
+                            {
+                                nlohmann::json retMessage = messages::success();
+                                retMessage.emplace(
+                                    "CreatedDumpID",
+                                    "/redfish/v1/Managers/bmc/LogServices/"
+                                    "BMCDump/Entries/" +
+                                        std::to_string(resp));
+                                taskData->messages.emplace_back(retMessage);
+                                taskData->state = "Completed";
+                            }
+                            return task::completed;
+                        },
+                        "type='signal',interface='org.freedesktop.DBus."
+                        "ObjectManager',"
+                        "member='InterfacesAdded', "
+                        "path='/xyz/openbmc_project/dump'");
+
+                task->startTimer(std::chrono::minutes(2));
+                task->populateResp(asyncResp->res);
+                task->payload.emplace(req);
+            },
+            "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+            "xyz.openbmc_project.Dump.Create", "CreateDump");
     }
 };
 
