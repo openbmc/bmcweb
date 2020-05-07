@@ -104,6 +104,7 @@ class RedfishService
         nodes.emplace_back(std::make_unique<BMCDumpService>(app));
         nodes.emplace_back(std::make_unique<BMCDumpEntryCollection>(app));
         nodes.emplace_back(std::make_unique<BMCDumpEntry>(app));
+        nodes.emplace_back(std::make_unique<BMCDumpEntryDownload>(app));
         nodes.emplace_back(std::make_unique<BMCDumpCreate>(app));
 #endif
 
