@@ -2011,6 +2011,41 @@ class BMCDumpCreate : public Node
     }
 };
 
+class BMCDumpEntryDownload : public Node
+{
+  public:
+    BMCDumpEntryDownload(CrowApp &app) :
+        Node(app,
+             "/redfish/v1/Managers/bmc/LogServices/BMCDump/Entries/<str>/"
+             "Actions/Oem/OpenBmc/"
+             "LogEntry.DownloadLog/",
+             std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        const std::string &entryID = params[0];
+
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+            return;
+        }
+
+        crow::obmc_dump::handleDumpOffloadUrl(req, res, entryID);
+    }
+};
+
 class BMCDumpClear : public Node
 {
   public:
