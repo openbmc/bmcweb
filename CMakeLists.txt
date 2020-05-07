@@ -77,6 +77,12 @@ option (
     OFF
 )
 option (
+    BMCWEB_ENABLE_REDFISH_BMCDUMP_LOG
+    "Enable BMC dump log service transactions through Redfish.  Paths are under
+    '/redfish/v1/Managers/bmc/LogServices/EventLog'."
+    OFF
+)
+option (
     BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
     "Enable DBUS log service transactions through Redfish. Paths are under
     '/redfish/v1/Systems/system/LogServices/EventLog/Entries'."
@@ -415,6 +421,8 @@ target_compile_definitions (
     -DBMCWEB_ENABLE_REDFISH_CPU_LOG>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG}>:
     -DBMCWEB_ENABLE_REDFISH_SYSTEMDUMP_LOG>
+    $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMCDUMP_LOG}>:
+    -DBMCWEB_ENABLE_REDFISH_BMCDUMP_LOG>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_BMC_JOURNAL}>:
     -DBMCWEB_ENABLE_REDFISH_BMC_JOURNAL>
     $<$<BOOL:${BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES}>:
