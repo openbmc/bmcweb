@@ -2039,6 +2039,54 @@ class BMCDumpCreate : public Node
     }
 };
 
+class BMCDumpClear : public Node
+{
+  public:
+    BMCDumpClear(CrowApp &app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                  "Actions/"
+                  "LogService.ClearLog/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+
+        auto asyncResp = std::make_shared<AsyncResp>(res);
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec,
+                        const std::vector<std::string> &subTreePaths) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                for (const std::string &path : subTreePaths)
+                {
+                    std::size_t pos = path.rfind("/");
+                    if (pos != std::string::npos)
+                    {
+                        std::string logID = path.substr(pos + 1);
+                        deleteSystemDumpEntry(asyncResp->res, logID);
+                    }
+                }
+            },
+            "xyz.openbmc_project.ObjectMapper",
+            "/xyz/openbmc_project/object_mapper",
+            "xyz.openbmc_project.ObjectMapper", "GetSubTreePaths",
+            "/xyz/openbmc_project/dump", 0,
+            std::array<const char *, 1>{"xyz.openbmc_project.Dump.Entry.BMC"});
+    }
+};
+
 class SystemDumpService : public Node
 {
   public:
