@@ -1961,6 +1961,86 @@ class BMCDumpEntry : public Node
     }
 };
 
+class BMCDumpCreate : public Node
+{
+  public:
+    BMCDumpCreate(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                  "Actions/Oem/"
+                  "OemLogService.CollectDiagnosticData/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        crow::connections::systemBus->async_method_call(
+            [asyncResp, &req](const boost::system::error_code ec,
+                              const uint32_t& resp) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << " resp_handler got error " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                BMCWEB_LOG_DEBUG << "BMCDump Created. Id: " << resp;
+
+                std::shared_ptr<task::TaskData> task =
+                    task::TaskData::createTask(
+                        [resp](
+                            boost::system::error_code err,
+                            sdbusplus::message::message& m,
+                            const std::shared_ptr<task::TaskData>& taskData) {
+                            std::vector<std::pair<
+                                std::string,
+                                std::vector<std::pair<
+                                    std::string, std::variant<std::string>>>>>
+                                interfacesList;
+
+                            sdbusplus::message::object_path objPath;
+
+                            m.read(objPath, interfacesList);
+
+                            for (auto& interface : interfacesList)
+                            {
+                                if (interface.first ==
+                                    "xyz.openbmc_project.Dump.Entry.BMC")
+                                {
+                                    nlohmann::json retMessage =
+                                        messages::success();
+                                    retMessage.emplace(
+                                        "CreatedDumpID",
+                                        "/redfish/v1/Managers/bmc/LogServices/"
+                                        "Dump/Entries/" +
+                                            std::to_string(resp));
+                                    taskData->messages.emplace_back(retMessage);
+                                    taskData->state = "Completed";
+                                    return task::completed;
+                                }
+                            }
+                            return !task::completed;
+                        },
+                        "type='signal',interface='org.freedesktop.DBus."
+                        "ObjectManager',"
+                        "member='InterfacesAdded', "
+                        "path='/xyz/openbmc_project/dump'");
+
+                task->startTimer(std::chrono::minutes(3));
+                task->populateResp(asyncResp->res);
+                task->payload.emplace(req);
+            },
+            "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+            "xyz.openbmc_project.Dump.Create", "CreateDump");
+    }
+};
+
 class SystemDumpService : public Node
 {
   public:
