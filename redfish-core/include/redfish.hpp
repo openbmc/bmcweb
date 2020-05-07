@@ -106,6 +106,11 @@ class RedfishService
         nodes.emplace_back(std::make_unique<SystemDumpEntry>(app));
         nodes.emplace_back(std::make_unique<SystemDumpEntryDownload>(app));
         nodes.emplace_back(std::make_unique<SystemDumpClear>(app));
+
+#ifdef BMCWEB_ENABLE_REDFISH_BMCDUMP_LOG
+        nodes.emplace_back(std::make_unique<BMCDumpService>(app));
+        nodes.emplace_back(std::make_unique<BMCDumpEntryCollection>(app));
+        nodes.emplace_back(std::make_unique<BMCDumpEntry>(app));
 #endif
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
