@@ -766,6 +766,143 @@ inline void deleteDumpEntryById(std::shared_ptr<AsyncResp>& asyncResp,
             ("xyz.openbmc_project.Dump.Entry." + dumpType).c_str()});
 }
 
+inline void createDump(crow::Response& res, const crow::Request& req,
+                       const std::string& dumpType)
+{
+    std::string dumpPath;
+    if (dumpType == "BMC")
+    {
+        dumpPath = "/redfish/v1/Managers/bmc/LogServices/Dump/Entries/";
+    }
+    else if (dumpType == "System")
+    {
+        dumpPath = "/redfish/v1/Systems/system/LogServices/Dump/Entries/";
+    }
+
+    std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+    std::string diagnosticDataType, oemDiagnosticDataType;
+
+    nlohmann::json createParams =
+        nlohmann::json::parse(req.body, nullptr, false);
+
+    for (const auto& parameter : createParams.items())
+    {
+        if (parameter.key() == "DiagnosticDataType")
+        {
+            diagnosticDataType = parameter.value();
+        }
+        else if (parameter.key() == "OEMDiagnosticDataType")
+        {
+            oemDiagnosticDataType = parameter.value();
+        }
+        else
+        {
+            BMCWEB_LOG_ERROR << "Invalid parameter: " << parameter.key();
+            messages::actionParameterUnknown(res, "CollectDiagnosticData",
+                                             parameter.key());
+            return;
+        }
+    }
+
+    if (dumpType == "System")
+    {
+        if (oemDiagnosticDataType.empty() || diagnosticDataType.empty())
+        {
+            BMCWEB_LOG_ERROR << "CreateDump action parameter "
+                                "'DiagnosticDataType'/"
+                                "'OEMDiagnosticDataType' value not found!";
+            messages::actionParameterMissing(
+                res, "CollectDiagnosticData",
+                "DiagnosticDataType & OEMDiagnosticDataType");
+            return;
+        }
+        else if ((oemDiagnosticDataType.compare("System") != 0) ||
+                 (diagnosticDataType.compare("OEM") != 0))
+        {
+            BMCWEB_LOG_ERROR << "Wrong parameter values passed";
+            messages::invalidObject(res, "System Dump creation parameters");
+            return;
+        }
+    }
+    else if (dumpType == "BMC")
+    {
+        if (diagnosticDataType.empty())
+        {
+            BMCWEB_LOG_ERROR << "CreateDump action parameter "
+                                "'DiagnosticDataType' not found!";
+            messages::actionParameterMissing(res, "CollectDiagnosticData",
+                                             "DiagnosticDataType");
+            return;
+        }
+        else if (diagnosticDataType.compare("Manager") != 0)
+        {
+            BMCWEB_LOG_ERROR
+                << "Wrong parameter value passed for 'DiagnosticDataType'";
+            messages::invalidObject(res, "BMC Dump creation parameters");
+            return;
+        }
+    }
+
+    crow::connections::systemBus->async_method_call(
+        [asyncResp, &req, dumpPath,
+         dumpType](const boost::system::error_code ec, const uint32_t& resp) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "resp_handler got error " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+            BMCWEB_LOG_DEBUG << "Dump Created. Id: " << resp;
+
+            std::shared_ptr<task::TaskData> task = task::TaskData::createTask(
+                [resp, dumpPath,
+                 dumpType](boost::system::error_code err,
+                           sdbusplus::message::message& m,
+                           const std::shared_ptr<task::TaskData>& taskData) {
+                    std::vector<
+                        std::pair<std::string,
+                                  std::vector<std::pair<
+                                      std::string, std::variant<std::string>>>>>
+                        interfacesList;
+
+                    sdbusplus::message::object_path objPath;
+
+                    m.read(objPath, interfacesList);
+
+                    for (auto& interface : interfacesList)
+                    {
+                        if (interface.first ==
+                            ("xyz.openbmc_project.Dump.Entry." + dumpType))
+                        {
+                            nlohmann::json retMessage = messages::success();
+                            taskData->messages.emplace_back(retMessage);
+
+                            std::string headerLoc = "Location: " + dumpPath +
+                                                    "attachment/" +
+                                                    std::to_string(resp);
+                            taskData->payload->httpHeaders.emplace_back(
+                                std::move(headerLoc));
+
+                            taskData->state = "Completed";
+                            return task::completed;
+                        }
+                    }
+                    return !task::completed;
+                },
+                "type='signal',interface='org.freedesktop.DBus."
+                "ObjectManager',"
+                "member='InterfacesAdded', "
+                "path='/xyz/openbmc_project/dump'");
+
+            task->startTimer(std::chrono::minutes(3));
+            task->populateResp(asyncResp->res);
+            task->payload.emplace(req);
+        },
+        "xyz.openbmc_project.Dump.Manager", "/xyz/openbmc_project/dump",
+        "xyz.openbmc_project.Dump.Create", "CreateDump");
+}
+
 static void ParseCrashdumpParameters(
     const std::vector<std::pair<std::string, VariantType>>& params,
     std::string& filename, std::string& timestamp, std::string& logfile)
@@ -2000,6 +2137,31 @@ class BMCDumpEntry : public Node
     }
 };
 
+class BMCDumpCreate : public Node
+{
+  public:
+    BMCDumpCreate(CrowApp& app) :
+        Node(app, "/redfish/v1/Managers/bmc/LogServices/Dump/"
+                  "Actions/Oem/"
+                  "OemLogService.CollectDiagnosticData/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        createDump(res, req, "BMC");
+    }
+};
+
 class SystemDumpService : public Node
 {
   public:
@@ -2123,6 +2285,31 @@ class SystemDumpEntry : public Node
         }
         std::string entryID = params[0];
         deleteDumpEntryById(asyncResp, entryID, "System");
+    }
+};
+
+class SystemDumpCreate : public Node
+{
+  public:
+    SystemDumpCreate(CrowApp& app) :
+        Node(app, "/redfish/v1/Systems/system/LogServices/Dump/"
+                  "Actions/Oem/"
+                  "OemLogService.CollectDiagnosticData/")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::put, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureManager"}}},
+            {boost::beast::http::verb::post, {{"ConfigureManager"}}}};
+    }
+
+  private:
+    void doPost(crow::Response& res, const crow::Request& req,
+                const std::vector<std::string>& params) override
+    {
+        createDump(res, req, "System");
     }
 };
 
