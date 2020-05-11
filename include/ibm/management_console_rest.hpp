@@ -13,7 +13,9 @@
 #include <sdbusplus/message/types.hpp>
 #include <utils/json_utils.hpp>
 
-#define MAX_SAVE_AREA_FILESIZE 200000
+// Allow save area file size to 500KB
+#define MAX_SAVE_AREA_FILESIZE 500000
+
 using SType = std::string;
 using SegmentFlags = std::vector<std::pair<std::string, uint32_t>>;
 using LockRequest = std::tuple<SType, SType, SType, uint64_t, SegmentFlags>;
