@@ -2260,4 +2260,8 @@
         <edmx:Include Namespace="OemLogEntry"/>
         <edmx:Include Namespace="OemLogEntry.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/OemSession_v1.xml">
+        <edmx:Include Namespace="OemSession"/>
+        <edmx:Include Namespace="OemSession.v1_0_0"/>
+    </edmx:Reference>
 </edmx:Edmx>
