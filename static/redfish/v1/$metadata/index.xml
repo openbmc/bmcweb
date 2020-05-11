@@ -2074,4 +2074,8 @@
         <edmx:Include Namespace="OemAccountService"/>
         <edmx:Include Namespace="OemAccountService.v1_0_0"/>
     </edmx:Reference>
+    <edmx:Reference Uri="/redfish/v1/schema/IBMOemSession_v1.xml">
+        <edmx:Include Namespace="IBMOemSession"/>
+        <edmx:Include Namespace="IBMOemSession.v1_0_0"/>
+    </edmx:Reference>
 </edmx:Edmx>
