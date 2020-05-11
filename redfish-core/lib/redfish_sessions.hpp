@@ -60,7 +60,7 @@ class Sessions : public Node
         res.jsonValue["UserName"] = session->username;
         res.jsonValue["@odata.id"] =
             "/redfish/v1/SessionService/Sessions/" + session->uniqueId;
-        res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
+        res.jsonValue["@odata.type"] = "#Session.v1_2_1.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
 
@@ -238,7 +238,7 @@ class SessionService : public Node
     void doGet(crow::Response& res, const crow::Request& req,
                const std::vector<std::string>& params) override
     {
-        res.jsonValue["@odata.type"] = "#SessionService.v1_0_2.SessionService";
+        res.jsonValue["@odata.type"] = "#SessionService.v1_1_6.SessionService";
         res.jsonValue["@odata.id"] = "/redfish/v1/SessionService/";
         res.jsonValue["Name"] = "Session Service";
         res.jsonValue["Id"] = "SessionService";
