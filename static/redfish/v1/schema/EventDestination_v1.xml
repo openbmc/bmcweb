@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventDestination v1.7.0                                             -->
+<!--# Redfish Schema:  EventDestination v1.8.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -592,6 +592,20 @@
         </Member>
       </EnumType>
     </Schema>
+	
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventDestination.v1_8_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the IncludeOriginOfCondition property."/>
 
+      <EntityType Name="EventDestination" BaseType="EventDestination.v1_7_0.EventDestination">
+        <Property Name="IncludeOriginOfCondition" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the events subscribed to will also include the entire resource or object referenced the OriginOfCondition property in the event payload."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the event payload sent to the subscription destination will expand the OriginOfCondition property to include the resource or object referenced by the OriginOfCondition property."/>
+        </Property>
+      </EntityType>
+    </Schema>
+	
   </edmx:DataServices>
 </edmx:Edmx>

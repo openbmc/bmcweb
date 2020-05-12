@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  EventService v1.5.0                                                 -->
+<!--# Redfish Schema:  EventService v1.6.0                                                 -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -44,8 +44,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="EventService" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The EventService schema contains properties for managing event subcriptions and generates the events sent to subscribers.  The Resource has links to the actual collection of subscriptions, which are called event destinations."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent an Event Service for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The EventService schema contains properties for managing event subscriptions and generates the events sent to subscribers.  The resource has links to the actual collection of subscriptions, which are called event destinations."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent an event service for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -54,7 +54,7 @@
         <Annotation Term="Capabilities.UpdateRestrictions">
           <Record>
             <PropertyValue Property="Updatable" Bool="true"/>
-            <Annotation Term="OData.Description" String="The Event Service can be updated to enable and disable the service."/>
+            <Annotation Term="OData.Description" String="The event service can be updated to enable and disable the service."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
@@ -71,7 +71,7 @@
 
       <Action Name="SubmitTestEvent" IsBound="true">
         <Annotation Term="OData.Description" String="This action generates a test event."/>
-        <Annotation Term="OData.LongDescription" String="This action shall add a test event to the Event Service with the event data specified in the action parameters.  Then, this message should be sent to any appropriate event destinations."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add a test event to the event service with the event data specified in the action parameters.  Then, this message should be sent to any appropriate event destinations."/>
         <Parameter Name="EventService" Type="EventService.v1_0_0.Actions"/>
         <Parameter Name="EventType" Type="Event.EventType">
           <Annotation Term="OData.Description" String="The type for the event to add."/>
@@ -91,8 +91,8 @@
           <Annotation Term="OData.LongDescription" String="This parameter shall have the same semantics as the EventId property in the Event schema for Redfish.  A service may ignore this value and replace it with its own."/>
         </Parameter>
         <Parameter Name="EventTimestamp" Type="Edm.DateTimeOffset">
-          <Annotation Term="OData.Description" String="The date and time stamp for the event to add."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the date and time stamp for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish."/>
+          <Annotation Term="OData.Description" String="The date and time for the event to add."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the date and time for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish."/>
         </Parameter>
         <Parameter Name="Severity" Type="Edm.String">
           <Annotation Term="OData.Description" String="The severity for the event to add."/>
@@ -116,8 +116,8 @@
           <Annotation Term="OData.IsURL"/>
         </Parameter>
         <Parameter Name="EventGroupId" Type="Edm.Int64">
-          <Annotation Term="OData.Description" String="The group ID for the event."/>
-          <Annotation Term="OData.LongDescription" String="The parameter shall contain the group ID for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish."/>
+          <Annotation Term="OData.Description" String="The group identifier for the event."/>
+          <Annotation Term="OData.LongDescription" String="The parameter shall contain the group identifier for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -128,7 +128,6 @@
           </Annotation>
         </Parameter>
       </Action>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_0">
@@ -167,37 +166,36 @@
           </Annotation>
         </Property>
         <Property Name="Actions" Type="EventService.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
         <NavigationProperty Name="Subscriptions" Type="EventDestinationCollection.EventDestinationCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to a collection of event destination Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a Resource Collection of type EventDestinationCollection."/>
+          <Annotation Term="OData.Description" String="The link to a collection of event destinations."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the link to a resource collection of type EventDestinationCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="EventService.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_2">
@@ -208,7 +206,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="EventService" BaseType="EventService.v1_0_2.EventService"/>
     </Schema>
 
@@ -226,7 +224,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change EventType to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change EventType to use the unversioned definition.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="EventService" BaseType="EventService.v1_0_5.EventService"/>
     </Schema>
 
@@ -254,9 +252,16 @@
       <EntityType Name="EventService" BaseType="EventService.v1_0_9.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_0_10.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="EventService" BaseType="EventService.v1_0_7.EventService">
         <Property Name="ServerSentEventUri" Type="Edm.String" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -285,6 +290,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_1_2.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_1_3.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -293,12 +304,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_1_1.EventService">
         <Property Name="RegistryPrefixes" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The list of the prefixes of the Message Registries that can be used for the RegistryPrefix property on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the array of the prefixes of the Message Registries that shall be allowed for an event subscription."/>
+          <Annotation Term="OData.Description" String="The list of the prefixes of the message registries that can be used for the RegistryPrefix property on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the array of the prefixes of the message registries that shall be allowed for an event subscription."/>
         </Property>
         <Property Name="ResourceTypes" Type="Collection(Edm.String)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The list of @odata.type values, or Schema names, that can be specified in the ResourceTypes array in a subscription.  If this property is absent or contains an empty array, the service does not support Resource type-based subscriptions."/>
+          <Annotation Term="OData.Description" String="The list of @odata.type values, or schema names, that can be specified in the ResourceTypes array in a subscription.  If this property is absent or contains an empty array, the service does not support resource type-based subscriptions."/>
           <Annotation Term="OData.LongDescription" String="This property shall specify an array of the valid @odata.type values that can be used for an event subscription."/>
         </Property>
         <Property Name="SubordinateResourcesSupported" Type="Edm.Boolean">
@@ -312,19 +323,19 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the content types of the message that this service can send to the event destination.  If this property is not present, the EventFormatType shall be assumed to be `Event`."/>
         </Property>
         <Property Name="SSEFilterPropertiesSupported" Type="EventService.v1_2_0.SSEFilterPropertiesSupported" Nullable="false">
-          <Annotation Term="OData.Description" String="The set of properties that are supported in the $filter query parameter for the ServerSentEventUri."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the properties that are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property."/>
+          <Annotation Term="OData.Description" String="The set of properties that are supported in the `$filter` query parameter for the ServerSentEventUri."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the properties that are supported in the `$filter` query parameter for the URI indicated by the ServerSentEventUri property, as described by the Redfish Specification."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="SSEFilterPropertiesSupported">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The set of properties that are supported in the $filter query parameter for the ServerSentEventUri."/>
-        <Annotation Term="OData.LongDescription" String="The type shall contain a set of properties that are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property."/>
+        <Annotation Term="OData.Description" String="The set of properties that are supported in the `$filter` query parameter for the ServerSentEventUri."/>
+        <Annotation Term="OData.LongDescription" String="The type shall contain a set of properties that are supported in the `$filter` query parameter for the URI indicated by the ServerSentEventUri property, as described by the Redfish Specification."/>
         <Property Name="EventType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the EventType property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the EventType property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the EventType property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the EventType property."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -337,42 +348,42 @@
         </Property>
         <Property Name="MetricReportDefinition" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the MetricReportDefinition property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the MetricReportDefinition property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MetricReportDefinition property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MetricReportDefinition property."/>
         </Property>
         <Property Name="RegistryPrefix" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the RegistryPrefix property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the RegistryPrefix property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the RegistryPrefix property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the RegistryPrefix property."/>
         </Property>
         <Property Name="ResourceType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the ResourceType property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the ResourceType property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the ResourceType property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the ResourceType property."/>
         </Property>
         <Property Name="EventFormatType" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the EventFormatType property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the EventFormatType property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the EventFormatType property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the EventFormatType property."/>
         </Property>
         <Property Name="MessageId" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the MessageId property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the MessageId property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the MessageId property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the MessageId property."/>
         </Property>
         <Property Name="OriginResource" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the OriginResource property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the OriginResource property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the OriginResource property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the OriginResource property."/>
         </Property>
       </ComplexType>
 
       <EnumType Name="EventFormatType">
         <Member Name="Event">
-          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of the Event type."/>
+          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of type Event."/>
         </Member>
         <Member Name="MetricReport">
-          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of the MetricReport type."/>
+          <Annotation Term="OData.Description" String="The subscription destination receives JSON bodies of type MetricReport."/>
         </Member>
       </EnumType>
     </Schema>
@@ -389,6 +400,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_2_1.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_2_2.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -402,6 +419,12 @@
       <EntityType Name="EventService" BaseType="EventService.v1_3_0.EventService"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_3_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_3_1.EventService"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -411,10 +434,16 @@
       <ComplexType Name="SSEFilterPropertiesSupported" BaseType="EventService.v1_2_0.SSEFilterPropertiesSupported">
         <Property Name="SubordinateResources" Type="Edm.Boolean" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An indication of whether the service supports the SubordinateResources property in the $filter query parameter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports the SubordinateResources property in the $filter query parameter, as described by the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports filtering by the SubordinateResources property."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether this service supports filtering by the SubordinateResources property."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_4_0.EventService"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_0">
@@ -517,6 +546,25 @@
           <Annotation Term="OData.LongDescription" String="This value shall indicate authentication conforms to the RFC4954-defined AUTH CRAM-MD5 mechanism."/>
         </Member>
       </EnumType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="EventService" BaseType="EventService.v1_5_0.EventService"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="EventService.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+
+      <EntityType Name="EventService" BaseType="EventService.v1_5_1.EventService">
+        <Property Name="IncludeOriginOfConditionSupported" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="An indication of whether the service supports including the resource payload of the origin of condition in the event payload."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the service supports including the resource payload of the origin of condition in the event payload.  If `true`, event subscriptions are allowed to specify the IncludeOriginOfCondition property."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

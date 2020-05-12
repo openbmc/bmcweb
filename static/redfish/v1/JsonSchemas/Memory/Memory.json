@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Memory.v1_9_1.json",
     "$ref": "#/definitions/Memory",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -43,8 +43,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -143,8 +143,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -163,7 +163,7 @@
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this memory.",
-                    "longDescription": "This property shall contain a link to a Resource of type Chassis that represent the physical container associated with this memory.",
+                    "longDescription": "This property shall contain a link to a resource of type Chassis that represents the physical container associated with this memory.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
                 },
@@ -178,7 +178,7 @@
         "Memory": {
             "additionalProperties": false,
             "description": "The schema for definition of a memory and its configuration.",
-            "longDescription": "This Resource contains the memory in a Redfish implementation.",
+            "longDescription": "This resource contains the memory in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -208,8 +208,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "AllocationAlignmentMiB": {
                     "description": "The boundary that memory regions are allocated on, measured in mebibytes (MiB).",
@@ -245,8 +245,8 @@
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
-                    "description": "The link to the assembly Resource associated with this memory.",
-                    "longDescription": "This property shall contain a link to a Resource of type assembly.",
+                    "description": "The link to the assembly resource associated with this memory.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -377,7 +377,7 @@
                     ]
                 },
                 "FunctionClasses": {
-                    "deprecated": "This property has been deprecated in favor of OperatingMemoryModes at the root of the Resource, or MemoryClassification found within RegionSet.",
+                    "deprecated": "This property has been deprecated in favor of OperatingMemoryModes at the root of the resource, or MemoryClassification found within RegionSet.",
                     "description": "Function classes by the memory.",
                     "items": {
                         "type": "string"
@@ -411,8 +411,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource.",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource.",
                     "versionAdded": "v1_2_0"
                 },
                 "Location": {
@@ -510,7 +510,7 @@
                         }
                     ],
                     "description": "The type of memory.",
-                    "longDescription": "This property shall contain the type of memory that this Resource represents.",
+                    "longDescription": "This property shall contain the type of memory that this resource represents.",
                     "readonly": true
                 },
                 "Metrics": {
@@ -572,7 +572,7 @@
                 },
                 "OperatingSpeedMhz": {
                     "description": "Operating speed of memory in MHz or MT/s as appropriate.",
-                    "longDescription": "This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  In any case, the reported value shall match the conventionally reported values for the technology used by the memory device.",
+                    "longDescription": "This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -623,7 +623,7 @@
                 "PowerManagementPolicy": {
                     "$ref": "#/definitions/PowerManagementPolicy",
                     "description": "Power management policy information.",
-                    "longDescription": "This object shall contain properties that describe the power management policy for this Resource."
+                    "longDescription": "This object shall contain properties that describe the power management policy for this resource."
                 },
                 "RankCount": {
                     "description": "Number of ranks available in the memory.",
@@ -681,8 +681,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource.",
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "SubsystemDeviceID": {
@@ -750,7 +750,7 @@
                     "versionAdded": "v1_2_0"
                 },
                 "VolatileSizeMiB": {
-                    "description": "Total size of the volitile portion memory in MiB.",
+                    "description": "Total size of the volatile portion memory in MiB.",
                     "longDescription": "This property shall contain the total size of the volatile portion memory in MiB.",
                     "readonly": true,
                     "type": [
@@ -776,7 +776,7 @@
                 "Block"
             ],
             "enumDescriptions": {
-                "Block": "Block-accesible memory.",
+                "Block": "Block-accessible memory.",
                 "ByteAccessiblePersistent": "Byte-accessible persistent memory.",
                 "Volatile": "Volatile memory."
             },
@@ -943,8 +943,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -970,7 +970,7 @@
             ],
             "enumDescriptions": {
                 "Block": "Block-accessible system memory.",
-                "PMEM": "Persistent memory, byte-accesible through system address space.",
+                "PMEM": "Persistent memory, byte-accessible through system address space.",
                 "Volatile": "Volatile memory."
             },
             "type": "string"
@@ -1024,7 +1024,7 @@
         "PowerManagementPolicy": {
             "additionalProperties": false,
             "description": "Power management policy information.",
-            "longDescription": "This type shall contain properties that describe the power management policy for this Resource.",
+            "longDescription": "This type shall contain properties that describe the power management policy for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1175,7 +1175,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."
                 }
             },
             "patternProperties": {
@@ -1208,7 +1208,7 @@
         },
         "SecureEraseUnit": {
             "additionalProperties": false,
-            "description": "This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase.",
+            "description": "This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptographic Erase.",
             "longDescription": "This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase.  Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite.",
             "parameters": {
                 "Passphrase": {
@@ -1310,7 +1310,7 @@
                 },
                 "PassphraseLockLimit": {
                     "description": "The maximum number of incorrect passphrase attempts allowed before memory is locked.",
-                    "longDescription": "This property shall contain the maximum number of incorrect passphase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite.",
+                    "longDescription": "This property shall contain the maximum number of incorrect passphrase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -1452,5 +1452,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Memory.v1_9_0.Memory"
+    "title": "#Memory.v1_9_1.Memory"
 }

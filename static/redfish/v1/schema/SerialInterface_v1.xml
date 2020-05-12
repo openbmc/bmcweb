@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -31,7 +31,7 @@
 
       <EntityType Name="SerialInterface" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The SerialInterface schema describes an asynchronous serial interface, such as an RS-232 interface, available to a system or device."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains SerialInterface Resources as part of the Redfish Specification."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains SerialInterface resources as part of the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -74,7 +74,7 @@
         </Property>
         <Property Name="BitRate" Type="SerialInterface.v1_0_0.BitRate" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The receive and transmit rate of data flow, typically in bits-per-second (bps), over the serial connection."/>
+          <Annotation Term="OData.Description" String="The receive and transmit rate of data flow, typically in bits per second (bit/s), over the serial connection."/>
           <Annotation Term="OData.LongDescription" String="This property shall indicate the transmit and receive speed of the serial connection."/>
         </Property>
         <Property Name="Parity" Type="SerialInterface.v1_0_0.Parity" Nullable="false">
@@ -123,39 +123,39 @@
           <Collection>
             <Record>
               <PropertyValue Property="Member" String="1200"/>
-              <Annotation Term="OData.Description" String="A bit rate of 1200bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 1200 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="2400"/>
-              <Annotation Term="OData.Description" String="A bit rate of 2400bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 2400 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="4800"/>
-              <Annotation Term="OData.Description" String="A bit rate of 4800bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 4800 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="9600"/>
-              <Annotation Term="OData.Description" String="A bit rate of 9600bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 9600 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="19200"/>
-              <Annotation Term="OData.Description" String="A bit rate of 19200bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 19200 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="38400"/>
-              <Annotation Term="OData.Description" String="A bit rate of 38400bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 38400 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="57600"/>
-              <Annotation Term="OData.Description" String="A bit rate of 57600bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 57600 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="115200"/>
-              <Annotation Term="OData.Description" String="A bit rate of 115200bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 115200 bit/s."/>
             </Record>
             <Record>
               <PropertyValue Property="Member" String="230400"/>
-              <Annotation Term="OData.Description" String="A bit rate of 230400bps."/>
+              <Annotation Term="OData.Description" String="A bit rate of 230400 bit/s."/>
             </Record>
           </Collection>
         </Annotation>
@@ -283,7 +283,6 @@
           </Collection>
         </Annotation>
       </TypeDefinition>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_2">
@@ -328,30 +327,37 @@
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_7.SerialInterface"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_8.SerialInterface"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_0_3.SerialInterface">
         <Property Name="Actions" Type="SerialInterface.v1_1_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="SerialInterface.v1_1_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
     </Schema>
 
@@ -383,6 +389,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_4.SerialInterface"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SerialInterface.v1_1_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="SerialInterface" BaseType="SerialInterface.v1_1_5.SerialInterface"/>
     </Schema>
 
   </edmx:DataServices>

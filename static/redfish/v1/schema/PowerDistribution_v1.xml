@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PowerDistribution v1.0.0                                            -->
+<!--# Redfish Schema:  PowerDistribution v1.0.1                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2018-2019 DMTF.                                                            -->
+<!--# Copyright 2018-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -226,7 +226,7 @@
 
         <Property Name="Links" Type="PowerDistribution.v1_0_0.Links" Nullable="false">
           <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
 
         <Property Name="Actions" Type="PowerDistribution.v1_0_0.Actions" Nullable="false">
@@ -237,7 +237,7 @@
 
       <ComplexType Name="Links" BaseType="Resource.Links">
         <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the chassis that contain this equipment."/>
@@ -260,7 +260,7 @@
 
       <EnumType Name="PowerEquipmentType">
         <Member Name="RackPDU">
-          <Annotation Term="OData.Description" String="A power distribution unit providing outlets for a rack or similiar quantity of devices."/>
+          <Annotation Term="OData.Description" String="A power distribution unit providing outlets for a rack or similar quantity of devices."/>
         </Member>
         <Member Name="FloorPDU">
           <Annotation Term="OData.Description" String="A power distribution unit providing feeder circuits for further power distribution."/>
@@ -389,6 +389,12 @@
         <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PowerDistribution.v1_0_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="PowerDistribution" BaseType="PowerDistribution.v1_0_0.PowerDistribution"/>
     </Schema>
 
   </edmx:DataServices>

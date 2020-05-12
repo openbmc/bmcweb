@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_3_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MessageRegistry.v1_4_0.json",
     "$ref": "#/definitions/MessageRegistry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -174,6 +174,20 @@
                     "readonly": true,
                     "type": "string"
                 },
+                "MessageSeverity": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Health"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The severity of the message.",
+                    "longDescription": "This property shall contain the severity of the message.",
+                    "readonly": true,
+                    "versionAdded": "v1_4_0"
+                },
                 "NumberOfArgs": {
                     "description": "The number of arguments in the message.",
                     "longDescription": "This property shall contain the number of arguments that are substituted for the locations marked with %<integer> in the message.",
@@ -202,10 +216,12 @@
                     "type": "string"
                 },
                 "Severity": {
+                    "deprecated": "This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status.",
                     "description": "The severity of the message.",
                     "longDescription": "This property shall contain the severity of the condition resulting in the message, as defined in the Status clause of the Redfish Specification.",
                     "readonly": true,
-                    "type": "string"
+                    "type": "string",
+                    "versionDeprecated": "v1_4_0"
                 }
             },
             "required": [
@@ -213,7 +229,8 @@
                 "Message",
                 "Severity",
                 "NumberOfArgs",
-                "Resolution"
+                "Resolution",
+                "MessageSeverity"
             ],
             "type": "object"
         },
@@ -370,6 +387,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.1",
-    "title": "#MessageRegistry.v1_3_1.MessageRegistry"
+    "release": "2020.1",
+    "title": "#MessageRegistry.v1_4_0.MessageRegistry"
 }
