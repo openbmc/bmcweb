@@ -5,6 +5,7 @@
 
 #include "sessions.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>
@@ -80,6 +81,11 @@ struct Request
     bool keepAlive()
     {
         return req.keep_alive();
+    }
+
+    bool isMultipart(std::string_view type) const
+    {
+        return boost::starts_with(type, "multipart/form-data");
     }
 };
 
