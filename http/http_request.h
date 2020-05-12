@@ -5,6 +5,7 @@
 
 #include "sessions.hpp"
 
+#include <boost/algorithm/string.hpp>
 #include <boost/asio/io_context.hpp>
 #include <boost/beast/http.hpp>
 #include <boost/beast/ssl/ssl_stream.hpp>

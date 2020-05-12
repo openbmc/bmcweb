@@ -38,5 +38,22 @@ bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
     return true;
 }
 
+bool processJsonFromData(crow::Response& res, const std::string& data,
+                         nlohmann::json& reqJson)
+{
+    reqJson = nlohmann::json::parse(data, nullptr, false);
+
+    if (reqJson.is_discarded())
+    {
+        messages::malformedJSON(res);
+
+        res.end();
+
+        return false;
+    }
+
+    return true;
+}
+
 } // namespace json_util
 } // namespace redfish

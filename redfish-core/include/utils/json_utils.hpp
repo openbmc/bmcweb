@@ -42,6 +42,20 @@ namespace json_util
  */
 bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
                             nlohmann::json& reqJson);
+
+/**
+ * @brief Processes string data to extract JSON. If it fails, adds MalformedJSON
+ *        message to response and ends it.
+ *
+ * @param[io]  res       Response object
+ * @param[in]  data      string data
+ * @param[out] reqJson   JSON object extracted from string data
+ *
+ * @return true if JSON is valid, false when JSON is invalid and response has
+ *         been filled with message and ended.
+ */
+bool processJsonFromData(crow::Response& res, const std::string& data,
+                         nlohmann::json& reqJson);
 namespace details
 {
 
@@ -419,6 +433,20 @@ bool readJson(const crow::Request& req, crow::Response& res, const char* key,
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;
     }
+    return readJson(jsonRequest, res, key, in...);
+}
+
+template <typename... UnpackTypes>
+bool readJson(const std::string& data, crow::Response& res, const char* key,
+              UnpackTypes&... in)
+{
+    nlohmann::json jsonRequest;
+    if (!json_util::processJsonFromData(res, data, jsonRequest))
+    {
+        BMCWEB_LOG_DEBUG << "Json value not readable";
+        return false;
+    }
+
     return readJson(jsonRequest, res, key, in...);
 }
 
