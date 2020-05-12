@@ -1354,6 +1354,7 @@ const static auto& patchUpdateService = privilegeSetConfigureComponents;
 const static auto& postUpdateService = privilegeSetConfigureComponents;
 const static auto& putUpdateService = privilegeSetConfigureComponents;
 const static auto& deleteUpdateService = privilegeSetConfigureComponents;
+const static auto& postUpdateServiceMultipart = privilegeSetConfigureComponents;
 
 // VCATEntry
 const static auto& getVCATEntry = privilegeSetLogin;
