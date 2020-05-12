@@ -93,6 +93,7 @@ class RedfishService
         requestRoutesChassisDrive(app);
         requestRoutesChassisDriveName(app);
         requestRoutesUpdateService(app);
+        requestRoutesUpdateServiceMultipart(app);
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
