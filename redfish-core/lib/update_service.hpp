@@ -410,12 +410,13 @@ class UpdateService : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         res.jsonValue["Id"] = "UpdateService";
         res.jsonValue["Description"] = "Service for Software Update";
         res.jsonValue["Name"] = "Update Service";
-        res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        res.jsonValue["MultipartHttpPushUri"] =
+            "/redfish/v1/UpdateService/upload";
         // UpdateService cannot be disabled
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
@@ -429,6 +430,43 @@ class UpdateService : public Node
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
             "TFTP"};
 #endif
+    }
+};
+
+class UpdateServiceInventory : public Node
+{
+  public:
+    UpdateServiceInventory(CrowApp &app) :
+        Node(app, "/redfish/v1/UpdateService/<str>", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+
+            return;
+        }
+
+        const std::string &Id = params[0];
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
+        res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService/" + Id;
+
+        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
+
         // Get the current ApplyTime value
         crow::connections::systemBus->async_method_call(
             [aResp](const boost::system::error_code ec,
@@ -467,82 +505,133 @@ class UpdateService : public Node
             "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime");
     }
 
-    void doPatch(crow::Response &res, const crow::Request &req,
-                 const std::vector<std::string> &params) override
+    void setApplyTime(std::shared_ptr<AsyncResp> asyncResp,
+                      std::string applyTime)
     {
-        BMCWEB_LOG_DEBUG << "doPatch...";
-
-        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
-
-        std::optional<nlohmann::json> pushUriOptions;
-        if (!json_util::readJson(req, res, "HttpPushUriOptions",
-                                 pushUriOptions))
+        std::string applyTimeNewVal;
+        if (applyTime == "Immediate")
         {
+            applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.Immediate";
+        }
+        else if (applyTime == "OnReset")
+        {
+            applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.OnReset";
+        }
+        else
+        {
+            BMCWEB_LOG_INFO << "ApplyTime value is not in the list of "
+                               "acceptable values";
             return;
         }
 
-        if (pushUriOptions)
-        {
-            std::optional<nlohmann::json> pushUriApplyTime;
-            if (!json_util::readJson(*pushUriOptions, res,
-                                     "HttpPushUriApplyTime", pushUriApplyTime))
-            {
-                return;
-            }
-
-            if (pushUriApplyTime)
-            {
-                std::optional<std::string> applyTime;
-                if (!json_util::readJson(*pushUriApplyTime, res, "ApplyTime",
-                                         applyTime))
+        // Set the requested image apply time value
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
                 {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
                     return;
                 }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
+            std::variant<std::string>{applyTimeNewVal});
+    }
 
-                if (applyTime)
+    std::string getApplyTimeFromReq(std::string data)
+    {
+        auto updateParamterJson = nlohmann::json::parse(data, nullptr, false);
+        if (updateParamterJson.is_discarded())
+        {
+            BMCWEB_LOG_DEBUG << "Bad json in request";
+            return "";
+        }
+
+        nlohmann::json::iterator applyTimeIt =
+            updateParamterJson.find("@Redfish.OperationApplyTime");
+        if (applyTimeIt != updateParamterJson.end())
+        {
+            return *(applyTimeIt->get_ptr<std::string *>());
+        }
+
+        return "";
+    }
+
+    void populateMapping(
+        const std::string boundary, std::string reqBody,
+        boost::container::flat_map<std::string, std::string> &multipartMaps)
+    {
+        std::string key = "";
+        std::string value = "";
+        std::string type = "";
+        std::string::size_type pos = 0;
+        std::string::size_type prev = 0;
+        bool firstLine = false;
+        for (; (pos = reqBody.find("\n", prev)) != std::string::npos;
+             prev = pos + 1)
+        {
+            if (firstLine)
+            {
+                firstLine = !firstLine;
+                continue;
+            }
+
+            auto this_string = reqBody.substr(prev, pos - prev + 1);
+            if (this_string.find(boundary) != std::string::npos)
+            {
+                if (key != "" && value != "")
                 {
-                    std::string applyTimeNewVal;
-                    if (applyTime == "Immediate")
-                    {
-                        applyTimeNewVal =
-                            "xyz.openbmc_project.Software.ApplyTime."
-                            "RequestedApplyTimes.Immediate";
-                    }
-                    else if (applyTime == "OnReset")
-                    {
-                        applyTimeNewVal =
-                            "xyz.openbmc_project.Software.ApplyTime."
-                            "RequestedApplyTimes.OnReset";
-                    }
-                    else
-                    {
-                        BMCWEB_LOG_INFO
-                            << "ApplyTime value is not in the list of "
-                               "acceptable values";
-                        messages::propertyValueNotInList(
-                            asyncResp->res, *applyTime, "ApplyTime");
-                        return;
-                    }
-
-                    // Set the requested image apply time value
-                    crow::connections::systemBus->async_method_call(
-                        [asyncResp](const boost::system::error_code ec) {
-                            if (ec)
-                            {
-                                BMCWEB_LOG_ERROR << "D-Bus responses error: "
-                                                 << ec;
-                                messages::internalError(asyncResp->res);
-                                return;
-                            }
-                            messages::success(asyncResp->res);
-                        },
-                        "xyz.openbmc_project.Settings",
-                        "/xyz/openbmc_project/software/apply_time",
-                        "org.freedesktop.DBus.Properties", "Set",
-                        "xyz.openbmc_project.Software.ApplyTime",
-                        "RequestedApplyTime",
-                        std::variant<std::string>{applyTimeNewVal});
+                    multipartMaps.emplace(key, value);
+                    key = "";
+                    value = "";
+                    type = "";
                 }
+                continue;
+            }
+
+            if (key == "" &&
+                this_string.find("Content-Disposition: form-data") !=
+                    std::string::npos)
+            {
+                if (this_string.find("UpdateParameters") != std::string::npos)
+                {
+                    key = "UpdateParameters";
+                }
+                else if (this_string.find("UpdateFile") != std::string::npos)
+                {
+                    key = "UpdateFile";
+                }
+
+                continue;
+            }
+
+            if (type == "" &&
+                this_string.find("Content-Type") != std::string::npos)
+            {
+                firstLine = true;
+
+                if (this_string.find("application/json") != std::string::npos)
+                {
+                    type = "application/json";
+                }
+                else if (this_string.find("application/octet-stream") !=
+                         std::string::npos)
+                {
+                    type = "application/octet-stream";
+                }
+
+                continue;
+            }
+
+            if (key != "" && type != "")
+            {
+                value += this_string;
             }
         }
     }
@@ -554,6 +643,47 @@ class UpdateService : public Node
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
 
+        std::string reqHeader = std::string(req.getHeaderValue("Content-Type"));
+        if (reqHeader.find("multipart/form-data") == std::string::npos)
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::size_t index = reqHeader.find("=");
+        if (index == std::string::npos)
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::string boundary = reqHeader.substr(index + 1);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &updateStr = params[0];
+
+        if (updateStr != "upload")
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::string reqBody = req.body;
+        boost::container::flat_map<std::string, std::string> multipartMaps;
+        populateMapping(boundary, reqBody, multipartMaps);
+
+        auto updateParameters = multipartMaps.at("UpdateParameters");
+        auto applyTime = getApplyTimeFromReq(updateParameters);
+        setApplyTime(asyncResp, applyTime);
+
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req);
 
@@ -563,7 +693,7 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
         std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                         std::ofstream::trunc);
-        out << req.body;
+        out << multipartMaps.at("UpdateFile");
         out.close();
         BMCWEB_LOG_DEBUG << "file upload complete!!";
     }
