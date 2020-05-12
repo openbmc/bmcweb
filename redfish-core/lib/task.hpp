@@ -20,6 +20,7 @@
 #include <boost/asio.hpp>
 #include <boost/container/flat_map.hpp>
 #include <chrono>
+#include <task_messages.hpp>
 #include <variant>
 
 namespace redfish
@@ -206,9 +207,11 @@ struct TaskData : std::enable_shared_from_this<TaskData>
                 self->finishTask();
                 self->state = "Cancelled";
                 self->status = "Warning";
-                self->messages.emplace_back(messages::internalError());
+                self->messages.emplace_back(
+                    messages::taskAborted(std::to_string(self->index)));
                 self->callback(ec, msg, self);
             });
+        messages.emplace_back(messages::taskStarted(std::to_string(index)));
     }
 
     std::function<bool(boost::system::error_code, sdbusplus::message::message &,

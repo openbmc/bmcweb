@@ -2279,7 +2279,9 @@ class OnDemandCrashdump : public Node
                    const std::shared_ptr<task::TaskData> &taskData) {
                     if (!err)
                     {
-                        taskData->messages.emplace_back(messages::success());
+                        taskData->messages.emplace_back(
+                            messages::taskCompletedOK(
+                                std::to_string(taskData->index)));
                         taskData->state = "Completed";
                     }
                     return task::completed;
