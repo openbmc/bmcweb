@@ -95,6 +95,7 @@ class RedfishService
         requestRoutesChassisDrive(app);
         requestRoutesChassisDriveName(app);
         requestRoutesUpdateService(app);
+        requestRoutesUpdateServiceMultipart(app); //added support for multipart
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
