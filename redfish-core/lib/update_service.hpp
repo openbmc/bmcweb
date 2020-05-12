@@ -410,12 +410,13 @@ class UpdateService : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         res.jsonValue["Id"] = "UpdateService";
         res.jsonValue["Description"] = "Service for Software Update";
         res.jsonValue["Name"] = "Update Service";
-        res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        res.jsonValue["MultipartHttpPushUri"] =
+            "/redfish/v1/UpdateService/upload";
         // UpdateService cannot be disabled
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
@@ -429,6 +430,43 @@ class UpdateService : public Node
         updateSvcSimpleUpdate["TransferProtocol@Redfish.AllowableValues"] = {
             "TFTP"};
 #endif
+    }
+};
+
+class UpdateServiceInventory : public Node
+{
+  public:
+    UpdateServiceInventory(CrowApp &app) :
+        Node(app, "/redfish/v1/UpdateService/<str>", std::string())
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        // Check if there is required param, truly entering this shall be
+        // impossible
+        if (params.size() != 1)
+        {
+            messages::internalError(res);
+
+            return;
+        }
+
+        const std::string &Id = params[0];
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
+        res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService/" + Id;
+
+        std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
+
         // Get the current ApplyTime value
         crow::connections::systemBus->async_method_call(
             [aResp](const boost::system::error_code ec,
@@ -473,6 +511,21 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "doPatch...";
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &updateStr = params[0];
+
+        if (updateStr != "upload")
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
 
         std::optional<nlohmann::json> pushUriOptions;
         if (!json_util::readJson(req, res, "HttpPushUriOptions",
@@ -553,6 +606,21 @@ class UpdateService : public Node
         BMCWEB_LOG_DEBUG << "doPost...";
 
         std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        if (params.size() != 1)
+        {
+            messages::internalError(asyncResp->res);
+            return;
+        }
+
+        const std::string &updateStr = params[0];
+
+        if (updateStr != "upload")
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
 
         // Setup callback for when new software detected
         monitorForSoftwareAvailable(asyncResp, req);
