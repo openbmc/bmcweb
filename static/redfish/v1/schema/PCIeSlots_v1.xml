@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  PCIeSlots v1.2.0                                                    -->
+<!--# Redfish Schema:  PCIeSlots v1.3.0                                                    -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -166,6 +166,17 @@
             </Collection>
           </Annotation>
         </Member>
+        <Member Name="U2">
+          <Annotation Term="OData.Description" String="U.2 / SFF-8639 slot or bay."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+                <PropertyValue Property="Version" String="v1_3_0"/>
+              </Record>
+            </Collection>
+          </Annotation>
+        </Member>
       </EnumType>
 
       <ComplexType Name="Actions">
@@ -234,6 +245,13 @@
       <Annotation Term="Redfish.Release" String="2019.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the Open Compute Project 3.0 form factors to PCIeSlotType."/>
       <EntityType Name="PCIeSlots" BaseType="PCIeSlots.v1_1_2.PCIeSlots"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="PCIeSlots.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the U.2 form factor to PCIeSlotType."/>
+      <EntityType Name="PCIeSlots" BaseType="PCIeSlots.v1_2_0.PCIeSlots"/>
     </Schema>
 
   </edmx:DataServices>

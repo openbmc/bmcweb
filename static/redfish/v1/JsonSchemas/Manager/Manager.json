@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_7_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Manager.v1_8_0.json",
     "$ref": "#/definitions/Manager",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -32,10 +32,13 @@
                 "#Manager.Reset": {
                     "$ref": "#/definitions/Reset"
                 },
+                "#Manager.ResetToDefaults": {
+                    "$ref": "#/definitions/ResetToDefaults"
+                },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -195,8 +198,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are related to but not contained by or subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -214,8 +217,8 @@
             "properties": {
                 "ActiveSoftwareImage": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory",
-                    "description": "The link to the SoftwareInventory Resource that represents the active firmware image for this manager.",
-                    "longDescription": "This property shall contain a link to the SoftwareInventory Resource that represent the active firmware image for this manager.",
+                    "description": "The link to the software inventory resource that represents the active firmware image for this manager.",
+                    "longDescription": "This property shall contain a link to a resource of type SoftwareInventory that represents the active firmware image for this manager.",
                     "readonly": false,
                     "versionAdded": "v1_6_0"
                 },
@@ -273,7 +276,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/SoftwareInventory.json#/definitions/SoftwareInventory"
                     },
-                    "longDescription": "This property shall contain an array of links to the SoftwareInventory Resources that represent the firmware images that apply to this manager.",
+                    "longDescription": "This property shall contain an array of links to resource of type SoftwareInventory that represent the firmware images that apply to this manager.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_6_0"
@@ -286,8 +289,8 @@
         },
         "Manager": {
             "additionalProperties": false,
-            "description": "In Redfish, a manager is a systems management entity that may implement or provide access to a Redfish Service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned managability functions.  An implementation may have multiple managers, which may or may not be directly accessible through a Redfish-defined interface.",
-            "longDescription": "This Resource shall represent a management subsystem for a Redfish implementation.",
+            "description": "In Redfish, a manager is a systems management entity that may implement or provide access to a Redfish service.  Examples of managers are BMCs, enclosure managers, management controllers, and other subsystems that are assigned manageability functions.  An implementation may have multiple managers, which may or may not be directly accessible through a Redfish-defined interface.",
+            "longDescription": "This resource shall represent a management subsystem for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -317,8 +320,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "The actions property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "The actions property shall contain the available actions for this resource."
                 },
                 "AutoDSTEnabled": {
                     "description": "An indication of whether the manager is configured for automatic Daylight Saving Time (DST) adjustment.",
@@ -366,7 +369,7 @@
                 "EthernetInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterfaceCollection.json#/definitions/EthernetInterfaceCollection",
                     "description": "The link to a collection of NICs that this manager uses for network communication.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type EthernetInterfaceCollection.",
+                    "longDescription": "This property shall contain a link to a resource collection of type EthernetInterfaceCollection.",
                     "readonly": true
                 },
                 "FirmwareVersion": {
@@ -385,8 +388,8 @@
                 },
                 "HostInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/HostInterfaceCollection.json#/definitions/HostInterfaceCollection",
-                    "description": "The link to a collection of Host Interfaces that this manager uses for local host communication.  Clients can find Host Interface configuration options and settings in this navigation property.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type HostInterfaceCollection.",
+                    "description": "The link to a collection of host interfaces that this manager uses for local host communication.  Clients can find host interface configuration options and settings in this navigation property.",
+                    "longDescription": "This property shall contain a link to a resource collection of type HostInterfaceCollection.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
                 },
@@ -396,18 +399,18 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."
                 },
                 "LogServices": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/LogServiceCollection.json#/definitions/LogServiceCollection",
                     "description": "The link to a collection of logs that the manager uses.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type LogServiceCollection that this manager uses.",
+                    "longDescription": "This property shall contain a link to a resource collection of type LogServiceCollection that this manager uses.",
                     "readonly": true
                 },
                 "ManagerType": {
                     "$ref": "#/definitions/ManagerType",
-                    "description": "The type of manager that this Resource represents.",
+                    "description": "The type of manager that this resource represents.",
                     "longDescription": "This property shall describe the function of this manager.  The `ManagementController` value shall be used if none of the other enumerations apply.",
                     "readonly": true
                 },
@@ -437,7 +440,7 @@
                 "NetworkProtocol": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.json#/definitions/ManagerNetworkProtocol",
                     "description": "The link to the network services and their settings that the manager controls.",
-                    "longDescription": "This property shall contain a link to a Resource of the ManagerNetworkProtocol, which represents the network services for this manager.",
+                    "longDescription": "This property shall contain a link to a resource of type ManagerNetworkProtocol, which represents the network services for this manager.",
                     "readonly": true
                 },
                 "Oem": {
@@ -483,15 +486,15 @@
                 },
                 "RemoteAccountService": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/AccountService.json#/definitions/AccountService",
-                    "description": "The link to the AccountService Resource for the remote manager that this Resource represents.",
-                    "longDescription": "This property shall contain a link to the AccountService Resource for the remote manager that this Resource represents.  This property shall only be present when providing aggregation of Redfish Services.",
+                    "description": "The link to the account service resource for the remote manager that this resource represents.",
+                    "longDescription": "This property shall contain a link to the account service resource for the remote manager that this resource represents.  This property shall only be present when providing aggregation of Redfish services.",
                     "readonly": true,
                     "versionAdded": "v1_5_0"
                 },
                 "RemoteRedfishServiceUri": {
-                    "description": "The URI of the Redfish Service Root for the remote manager that this Resource represents.",
+                    "description": "The URI of the Redfish service root for the remote manager that this resource represents.",
                     "format": "uri-reference",
-                    "longDescription": "This property shall contain the URI of the Redfish Service Root for the remote manager that this Resource represents.  This property shall only be present when providing aggregation of Redfish Services.",
+                    "longDescription": "This property shall contain the URI of the Redfish service root for the remote manager that this resource represents.  This property shall only be present when providing aggregation of Redfish services.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -507,7 +510,7 @@
                 "SerialInterfaces": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/SerialInterfaceCollection.json#/definitions/SerialInterfaceCollection",
                     "description": "The link to a collection of serial interfaces that this manager uses for serial and console communication.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type SerialInterfaceCollection, which this manager uses.",
+                    "longDescription": "This property shall contain a link to a resource collection of type SerialInterfaceCollection, which this manager uses.",
                     "readonly": true
                 },
                 "SerialNumber": {
@@ -529,14 +532,14 @@
                             "type": "null"
                         }
                     ],
-                    "description": "The UUID of the Redfish Service that is hosted by this manager.",
-                    "longDescription": "This property shall contain the UUID of the Redfish Service that is hosted by this manager.  Each manager providing an entry point to the same Redfish Service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish Service entry point.",
+                    "description": "The UUID of the Redfish service that is hosted by this manager.",
+                    "longDescription": "This property shall contain the UUID of the Redfish service that is hosted by this manager.  Each manager providing an entry point to the same Redfish service shall report the same UUID value, even though the name of the property may imply otherwise.  This property shall not be present if this manager does not provide a Redfish service entry point.",
                     "readonly": true
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UUID": {
                     "anyOf": [
@@ -554,7 +557,7 @@
                 "VirtualMedia": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VirtualMediaCollection.json#/definitions/VirtualMediaCollection",
                     "description": "The link to the Virtual Media services for this particular manager.",
-                    "longDescription": "This property shall contain a link to a Resource Collection of type VirtualMediaCollection, which this manager uses.",
+                    "longDescription": "This property shall contain a link to a resource collection of type VirtualMediaCollection, which this manager uses.",
                     "readonly": true
                 }
             },
@@ -673,8 +676,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -700,7 +703,7 @@
                 "ResetType": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/ResetType",
                     "description": "The type of reset.",
-                    "longDescription": "This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."
+                    "longDescription": "This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."
                 }
             },
             "patternProperties": {
@@ -729,6 +732,59 @@
                 }
             },
             "type": "object"
+        },
+        "ResetToDefaults": {
+            "additionalProperties": false,
+            "description": "The reset action resets the manager settings to factory defaults.  This may cause the manager to reset.",
+            "longDescription": "This action shall reset the manager settings.  This action may impact other resources.",
+            "parameters": {
+                "ResetType": {
+                    "$ref": "#/definitions/ResetToDefaultsType",
+                    "description": "The type of reset to defaults.",
+                    "longDescription": "This parameter shall contain the type of reset to defaults.",
+                    "requiredParameter": true
+                }
+            },
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "target": {
+                    "description": "Link to invoke action",
+                    "format": "uri-reference",
+                    "type": "string"
+                },
+                "title": {
+                    "description": "Friendly action name",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "versionAdded": "v1_8_0"
+        },
+        "ResetToDefaultsType": {
+            "enum": [
+                "ResetAll",
+                "PreserveNetworkAndUsers",
+                "PreserveNetwork"
+            ],
+            "enumDescriptions": {
+                "PreserveNetwork": "Reset all settings except network settings to factory defaults.",
+                "PreserveNetworkAndUsers": "Reset all settings except network and local user names/passwords to factory defaults.",
+                "ResetAll": "Reset all settings to factory defaults."
+            },
+            "type": "string"
         },
         "SerialConnectTypesSupported": {
             "enum": [
@@ -791,6 +847,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#Manager.v1_7_0.Manager"
+    "release": "2020.1",
+    "title": "#Manager.v1_8_0.Manager"
 }

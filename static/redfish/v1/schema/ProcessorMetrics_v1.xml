@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ProcessorMetrics v1.0.2                                             -->
+<!--# Redfish Schema:  ProcessorMetrics v1.1.0                                             -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -89,6 +89,15 @@
           <Annotation Term="OData.Description" String="The average frequency of the processor."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of OperatingSpeedMHz property."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="ThrottlingCelsius" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -273,6 +282,21 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions to give guidance to the usage of certain properties when the metrics is used for a summary of all processors in a system.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_1.ProcessorMetrics"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ProcessorMetrics.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate AverageFrequencyMHz in favor of OperatingSpeedMHz property."/>
+
+      <EntityType Name="ProcessorMetrics" BaseType="ProcessorMetrics.v1_0_2.ProcessorMetrics">
+        <Property Name="OperatingSpeedMHz" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="Operating speed of the processor in MHz."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor."/>
+          <Annotation Term="Measures.Unit" String="MHz"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

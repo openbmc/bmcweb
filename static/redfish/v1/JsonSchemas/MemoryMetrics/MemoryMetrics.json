@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_2_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/MemoryMetrics.v1_3_0.json",
     "$ref": "#/definitions/MemoryMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -28,8 +28,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -154,7 +154,7 @@
             "properties": {
                 "BlocksRead": {
                     "description": "The number of blocks read since reset.",
-                    "longDescription": "This property shall contain the number of blocks read since reset.  When this Resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory.",
+                    "longDescription": "This property shall contain the number of blocks read since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -163,7 +163,7 @@
                 },
                 "BlocksWritten": {
                     "description": "The number of blocks written since reset.",
-                    "longDescription": "This property shall contain the number of blocks written since reset.  When this Resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory.",
+                    "longDescription": "This property shall contain the number of blocks written since reset.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -176,7 +176,7 @@
         "HealthData": {
             "additionalProperties": false,
             "description": "The health information of the memory.",
-            "longDescription": "This type shall contain properties that describe the HealthData metrics for this Resource.",
+            "longDescription": "This type shall contain properties that describe the HealthData metrics for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -195,11 +195,11 @@
                 "AlarmTrips": {
                     "$ref": "#/definitions/AlarmTrips",
                     "description": "Alarm trip information about the memory.",
-                    "longDescription": "This object shall contain properties describe the types of alarms that have been raised by the memory.  When this Resource is subordinate to the MemorySummary object, this property shall indicate whether an alarm of a given type have been raised by any area of memory."
+                    "longDescription": "This object shall contain properties describe the types of alarms that have been raised by the memory.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether an alarm of a given type have been raised by any area of memory."
                 },
                 "DataLossDetected": {
                     "description": "An indication of whether data loss was detected.",
-                    "longDescription": "This property shall indicate whether data loss was detected.  When this Resource is subordinate to the MemorySummary object, this property shall indicate whether any data loss was detected in any area of memory.",
+                    "longDescription": "This property shall indicate whether data loss was detected.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether any data loss was detected in any area of memory.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -217,7 +217,7 @@
                 },
                 "PerformanceDegraded": {
                     "description": "An indication of whether performance has degraded.",
-                    "longDescription": "This property shall indicate whether performance has degraded.  When this Resource is subordinate to the MemorySummary object, this property shall indicate whether degraded performance mode status is detected in any area of memory.",
+                    "longDescription": "This property shall indicate whether performance has degraded.  When this resource is subordinate to the MemorySummary object, this property shall indicate whether degraded performance mode status is detected in any area of memory.",
                     "readonly": true,
                     "type": [
                         "boolean",
@@ -237,7 +237,7 @@
                 },
                 "RemainingSpareBlockPercentage": {
                     "description": "The remaining spare blocks, as a percentage.",
-                    "longDescription": "This property shall contain the remaining spare blocks as a percentage.  When this Resource is subordinate to the MemorySummary object, this property shall be the RemainingSpareBlockPercentage over all memory.",
+                    "longDescription": "This property shall contain the remaining spare blocks as a percentage.  When this resource is subordinate to the MemorySummary object, this property shall be the RemainingSpareBlockPercentage over all memory.",
                     "readonly": true,
                     "type": [
                         "number",
@@ -269,7 +269,7 @@
             "properties": {
                 "BlocksRead": {
                     "description": "The number of blocks read for the lifetime of the memory.",
-                    "longDescription": "This property shall contain the number of blocks read for the lifetime of the Memory.  When this Resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory.",
+                    "longDescription": "This property shall contain the number of blocks read for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksRead over all memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -278,7 +278,7 @@
                 },
                 "BlocksWritten": {
                     "description": "The number of blocks written for the lifetime of the memory.",
-                    "longDescription": "This property shall contain the number of blocks written for the lifetime of the Memory.  When this Resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory.",
+                    "longDescription": "This property shall contain the number of blocks written for the lifetime of the memory.  When this resource is subordinate to the MemorySummary object, this property shall be the sum of BlocksWritten over all memory.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -291,7 +291,7 @@
         "MemoryMetrics": {
             "additionalProperties": false,
             "description": "The usage and health statistics for a memory device or system memory summary.",
-            "longDescription": "The MemoryMetrics Schema shall contain the memory metrics for a memory device or system memory summary in a Redfish implementation.",
+            "longDescription": "The MemoryMetrics schema shall contain the memory metrics for a memory device or system memory summary in a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -321,12 +321,12 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "BandwidthPercent": {
                     "description": "The memory bandwidth utilization as a percentage.",
-                    "longDescription": "This property shall contain memory bandwidth utilization as a percentage.  When this Resource is subordinate to the MemorySummary object, this property shall be the memory bandwidth utilization over all memory as a percentage.",
+                    "longDescription": "This property shall contain memory bandwidth utilization as a percentage.  When this resource is subordinate to the MemorySummary object, this property shall be the memory bandwidth utilization over all memory as a percentage.",
                     "minimum": 0,
                     "readonly": true,
                     "type": [
@@ -338,7 +338,7 @@
                 },
                 "BlockSizeBytes": {
                     "description": "The block size, in bytes.",
-                    "longDescription": "This property shall contain the block size, in bytes, of all stucture elements.  When this Resource is subordinate to the MemorySummary object, this property is not applicable.",
+                    "longDescription": "This property shall contain the block size, in bytes, of all stucture elements.  When this resource is subordinate to the MemorySummary object, this property is not applicable.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -365,7 +365,7 @@
                 "HealthData": {
                     "$ref": "#/definitions/HealthData",
                     "description": "The health information of the memory.",
-                    "longDescription": "This property shall contain properties that describe the health data memory metrics for the memory.  When this Resource is subordinate to the MemorySummary object, this property is not applicable."
+                    "longDescription": "This property shall contain properties that describe the health data memory metrics for the memory."
                 },
                 "Id": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
@@ -384,6 +384,17 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
+                },
+                "OperatingSpeedMHz": {
+                    "description": "Operating speed of memory in MHz or MT/s as appropriate.",
+                    "longDescription": "This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_3_0"
                 }
             },
             "required": [
@@ -396,8 +407,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -417,6 +428,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.2",
-    "title": "#MemoryMetrics.v1_2_0.MemoryMetrics"
+    "release": "2020.1",
+    "title": "#MemoryMetrics.v1_3_0.MemoryMetrics"
 }

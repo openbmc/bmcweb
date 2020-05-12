@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Endpoint.v1_4_1.json",
     "$ref": "#/definitions/Endpoint",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,16 +25,16 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
         },
         "ConnectedEntity": {
             "additionalProperties": false,
-            "description": "Represents a remote Resource that is connected to the network accessible to this endpoint.",
-            "longDescription": "This type shall represent a remote Resource that is connected to a network accessible to an endpoint.",
+            "description": "Represents a remote resource that is connected to the network accessible to this endpoint.",
+            "longDescription": "This type shall represent a remote resource that is connected to a network accessible to an endpoint.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -105,7 +105,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
                     },
-                    "longDescription": "Identifiers for the remote entity shall be unique in the context of other Resources that can reached over the connected network.",
+                    "longDescription": "Identifiers for the remote entity shall be unique in the context of other resources that can reached over the connected network.",
                     "type": "array"
                 },
                 "Oem": {
@@ -141,8 +141,8 @@
         },
         "Endpoint": {
             "additionalProperties": false,
-            "description": "The Endpoint schema contains the properties of an Endpoint Resource that represents the properties of an entity that sends or receives protocol-defined messages over a transport.",
-            "longDescription": "This Resource contains a fabric endpoint for a Redfish implementation.",
+            "description": "The Endpoint schema contains the properties of an endpoint resource that represents the properties of an entity that sends or receives protocol-defined messages over a transport.",
+            "longDescription": "This resource contains a fabric endpoint for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -172,8 +172,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "ConnectedEntities": {
                     "description": "All the entities connected to this endpoint.",
@@ -240,8 +240,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -271,8 +271,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
@@ -325,7 +325,7 @@
                 "Processor": "The entity is a processor device.",
                 "RootComplex": "The entity is a PCI(e) root complex.  The EntityLink property, if present, should be a ComputerSystem type.",
                 "StorageExpander": "The entity is a storage expander.  The EntityLink property, if present, should be a Chassis type.",
-                "StorageInitiator": "The entity is a storage initator.  The EntityLink property, if present, should be a StorageController type.",
+                "StorageInitiator": "The entity is a storage initiator.  The EntityLink property, if present, should be a StorageController type.",
                 "Switch": "The entity is a switch, not an expander.  Use `Expander` for expanders.  The EntityLink property, if present, should be a Switch type.",
                 "Volume": "The entity is a volume.  The EntityLink property, if present, should be a Volume type."
             },
@@ -492,8 +492,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -514,7 +514,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type AddressPool with which this endpoint is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type AddressPool with which this endpoint is associated.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -527,7 +527,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type Port that represent ports associated with this endpoint.",
+                    "longDescription": "This property shall contain an array of links to resources of type Port that represent ports associated with this endpoint.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -540,7 +540,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain an array of links of the Endpoint type that cannot be used in a zone if this endpoint is in a zone.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that cannot be used in a zone if this endpoint is in a zone.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -548,11 +548,11 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "NetworkDeviceFunction": {
-                    "description": "When NetworkDeviceFunction Resources are present, this array contains links to the network device functions that connect to this endpoint.",
+                    "description": "When NetworkDeviceFunction resources are present, this array contains links to the network device functions that connect to this endpoint.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
                     },
-                    "longDescription": "This property shall contain a link to a NetworkDeviceFunction Resource, with which this endpoint is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type NetworkDeviceFunction with which this endpoint is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_1_0"
@@ -570,7 +570,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Port.json#/definitions/Port"
                     },
-                    "longDescription": "This property shall contain an array of links of the Port type that are utilized by this endpoint.",
+                    "longDescription": "This property shall contain an array of links to resources of type Port that are utilized by this endpoint.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -582,8 +582,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -687,5 +687,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Endpoint.v1_4_0.Endpoint"
+    "title": "#Endpoint.v1_4_1.Endpoint"
 }

@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -217,29 +217,34 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_1.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_2.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_2.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_3.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_3.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="Assembly" BaseType="Assembly.v1_0_0.Assembly"/>
 
       <EntityType Name="AssemblyData" BaseType="Assembly.v1_0_0.AssemblyData">
@@ -254,33 +259,38 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  It was also created to clarify the time of day portion of the ProductionDate property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_0.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_2.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_2.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_3.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_3.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
       <Annotation Term="OData.Description" String="This version was created to add the SerialNumber and PhysicalContext properties."/>
+
       <EntityType Name="Assembly" BaseType="Assembly.v1_1_1.Assembly"/>
 
-      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_0.AssemblyData">
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_1_1.AssemblyData">
         <Property Name="SerialNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The serial number of the assembly."/>
@@ -298,18 +308,21 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_0.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_0.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines.  It was also created to update the description of the BinaryDataUri property."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_1.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_1.AssemblyData"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Assembly.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify the description for Version."/>
       <EntityType Name="Assembly" BaseType="Assembly.v1_2_2.Assembly"/>
+      <EntityType Name="AssemblyData" BaseType="Assembly.v1_2_2.AssemblyData"/>
     </Schema>
 
   </edmx:DataServices>

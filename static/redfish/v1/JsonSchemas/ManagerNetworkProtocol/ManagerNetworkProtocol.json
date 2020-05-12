@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ManagerNetworkProtocol.v1_6_0.json",
     "$ref": "#/definitions/ManagerNetworkProtocol",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -51,11 +51,22 @@
                 }
             },
             "properties": {
+                "ArchitectureId": {
+                    "description": "The architecture identifier.",
+                    "longDescription": "This property shall contain the architecture identifier as described in item 3 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to zero, this property shall not be present.",
+                    "pattern": "^([A-Fa-f0-9]{2} ){0,27}[A-Fa-f0-9]{2}$",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
                 "EnterpriseSpecificMethod": {
                     "description": "The enterprise specific method.",
-                    "longDescription": "This property shall contain an RFC3411-defined enterprise specific method.",
+                    "longDescription": "This property shall contain the enterprise specific method as described in item 2 of the snmpEngineID syntax of RFC3411.  The full RFC3411-defined snmpEngineID is form from the concatenation of the value in the PrivateEnterpriseId property and the value in this property.  If the most significant bit in PrivateEnterpriseId is set to one, this property shall not be present.",
                     "pattern": "^([A-Fa-f0-9]{2} ){7}[A-Fa-f0-9]{2}$",
-                    "readonly": false,
+                    "readonly": true,
                     "type": [
                         "string",
                         "null"
@@ -66,7 +77,7 @@
                     "description": "The private enterprise ID.",
                     "longDescription": "This property shall contain an RFC3411-defined private enterprise ID.",
                     "pattern": "^([A-Fa-f0-9]{2} ){3}[A-Fa-f0-9]{2}$",
-                    "readonly": false,
+                    "readonly": true,
                     "type": [
                         "string",
                         "null"
@@ -763,6 +774,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#ManagerNetworkProtocol.v1_5_0.ManagerNetworkProtocol"
+    "release": "2020.1",
+    "title": "#ManagerNetworkProtocol.v1_6_0.ManagerNetworkProtocol"
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Memory v1.9.0                                                       -->
+<!--# Redfish Schema:  Memory v1.9.1                                                       -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -45,7 +45,7 @@
 
       <EntityType Name="Memory" BaseType="Resource.v1_0_0.Resource" Abstract="true">
         <Annotation Term="OData.Description" String="The schema definition of the memory and its configuration."/>
-        <Annotation Term="OData.LongDescription" String="This Resource contains the memory in a Redfish implementation."/>
+        <Annotation Term="OData.LongDescription" String="This resource contains the memory in a Redfish implementation."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
@@ -89,7 +89,7 @@
       </Action>
 
       <Action Name="SecureEraseUnit" IsBound="true">
-        <Annotation Term="OData.Description" String="This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptograhic Erase."/>
+        <Annotation Term="OData.Description" String="This contains the action for securely erasing given regions using the NIST SP800-88 Purge: Cryptographic Erase."/>
         <Annotation Term="OData.LongDescription" String="This action shall securely erase the supplied region provided the supplied passphrase matches that of the given region using the NIST SP800-88 Purge: Cryptographic Erase.  Use the OverwriteUnit method to perform NIST SP800-88 Purge: Overwrite."/>
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="RegionId" Type="Edm.String" Nullable="false">
@@ -156,7 +156,7 @@
         <Parameter Name="Memory" Type="Memory.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation specific default reset."/>
         </Parameter>
         <Annotation Term="OData.Description" String="This action resets this memory."/>
         <Annotation Term="OData.LongDescription" String="This action shall reset this memory."/>
@@ -182,7 +182,7 @@
         <Property Name="MemoryType" Type="Memory.v1_0_0.MemoryType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of memory."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the type of memory that this Resource represents."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the type of memory that this resource represents."/>
         </Property>
         <Property Name="MemoryDeviceType" Type="Memory.v1_0_0.MemoryDeviceType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -255,7 +255,7 @@
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_3_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of OperatingMemoryModes at the root of the Resource, or MemoryClassification found within RegionSet."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of OperatingMemoryModes at the root of the resource, or MemoryClassification found within RegionSet."/>
               </Record>
             </Collection>
           </Annotation>
@@ -362,7 +362,7 @@
         <Property Name="OperatingSpeedMhz" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="Operating speed of memory in MHz or MT/s as appropriate."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  In any case, the reported value shall match the conventionally reported values for the technology used by the memory device."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the operating speed of memory in MHz or MT/s (mega-transfers per second) as reported by the memory device.  Memory devices that operate at their bus speed shall report the operating speed in MHz (bus speed), while memory devices that transfer data faster than their bus speed, such as DDR memory, shall report the operating speed in MT/s (mega-transfers/second).  The reported value shall match the conventionally reported values for the technology used by the memory device."/>
           <Annotation Term="Measures.Unit" String="MHz"/>
         </Property>
         <Property Name="VolatileRegionSizeLimitMiB" Type="Edm.Int64">
@@ -388,7 +388,7 @@
         </Property>
         <Property Name="PowerManagementPolicy" Type="Memory.v1_0_0.PowerManagementPolicy" Nullable="false">
           <Annotation Term="OData.Description" String="Power management policy information."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain properties that describe the power management policy for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain properties that describe the power management policy for this resource."/>
         </Property>
         <Property Name="IsSpareDeviceEnabled" Type="Edm.Boolean" DefaultValue="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -407,8 +407,8 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Actions" Type="Memory.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
@@ -763,7 +763,7 @@
           <Annotation Term="OData.Description" String="Byte-accessible persistent memory."/>
         </Member>
         <Member Name="Block">
-          <Annotation Term="OData.Description" String="Block-accesible memory."/>
+          <Annotation Term="OData.Description" String="Block-accessible memory."/>
         </Member>
       </EnumType>
 
@@ -772,7 +772,7 @@
           <Annotation Term="OData.Description" String="Volatile memory."/>
         </Member>
         <Member Name="PMEM">
-          <Annotation Term="OData.Description" String="Persistent memory, byte-accesible through system address space."/>
+          <Annotation Term="OData.Description" String="Persistent memory, byte-accessible through system address space."/>
         </Member>
         <Member Name="Block">
           <Annotation Term="OData.Description" String="Block-accessible system memory."/>
@@ -782,7 +782,7 @@
       <ComplexType Name="PowerManagementPolicy">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
         <Annotation Term="OData.Description" String="Power management policy information."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the power management policy for this Resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe the power management policy for this resource."/>
         <Property Name="PolicyEnabled" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether the power management policy is enabled."/>
@@ -810,20 +810,19 @@
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Memory.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_1">
@@ -846,13 +845,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_3.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_0_4.Memory"/>
     </Schema>
 
@@ -868,13 +867,20 @@
       <EntityType Name="Memory" BaseType="Memory.v1_0_6.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_0_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_0_7.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_0_1.Memory">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
     </Schema>
@@ -893,13 +899,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_2.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_1_3.Memory"/>
     </Schema>
 
@@ -915,9 +921,16 @@
       <EntityType Name="Memory" BaseType="Memory.v1_1_5.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_1_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_1_6.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_1_1.Memory">
         <Property Name="VolatileRegionNumberLimit" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -954,18 +967,18 @@
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
         <Property Name="Links" Type="Memory.v1_2_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Chassis" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this memory."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Chassis that represent the physical container associated with this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represents the physical container associated with this memory."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -979,13 +992,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_2_2.Memory"/>
     </Schema>
 
@@ -1001,9 +1014,16 @@
       <EntityType Name="Memory" BaseType="Memory.v1_2_4.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_2_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_2_5.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_2_0.Memory">
         <Property Name="ModuleManufacturerID" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -1040,13 +1060,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_3_2.Memory"/>
     </Schema>
 
@@ -1062,13 +1082,20 @@
       <EntityType Name="Memory" BaseType="Memory.v1_3_4.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_3_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_3_5.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_3_1.Memory">
         <Property Name="VolatileSizeMiB" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="Total size of the volitile portion memory in MiB."/>
+          <Annotation Term="OData.Description" String="Total size of the volatile portion memory in MiB."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the total size of the volatile portion memory in MiB."/>
           <Annotation Term="Measures.Unit" String="MiBy"/>
         </Property>
@@ -1096,8 +1123,8 @@
         </Property>
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the assembly Resource associated with this memory."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly resource associated with this memory."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1111,13 +1138,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_4_1.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_4_2.Memory"/>
     </Schema>
 
@@ -1133,9 +1160,16 @@
       <EntityType Name="Memory" BaseType="Memory.v1_4_4.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_4_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_4_5.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_4_1.Memory"/>
 
       <ComplexType Name="RegionSet" BaseType="Memory.v1_0_0.RegionSet">
@@ -1149,13 +1183,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on various properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Memory" BaseType="Memory.v1_5_0.Memory"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_5_1.Memory"/>
     </Schema>
 
@@ -1171,6 +1205,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_5_3.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_5_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_5_4.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1180,7 +1220,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Memory" BaseType="Memory.v1_6_0.Memory"/>
     </Schema>
 
@@ -1196,10 +1236,17 @@
       <EntityType Name="Memory" BaseType="Memory.v1_6_2.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_6_3.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
       <Annotation Term="OData.Description" String="This version was created to add 3DXPoint to the MediaType enum.  It was also created to add SecurityState, add ConfigurationLocked, add 3DXPoint to the MediaType enumerations, and to replace SecurityStates with individual capability properties."/>
+
       <EntityType Name="Memory" BaseType="Memory.v1_6_1.Memory">
         <Property Name="SecurityState" Type="Memory.v1_0_0.SecurityStates">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -1227,7 +1274,7 @@
         <Property Name="PassphraseLockLimit" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of incorrect passphrase attempts allowed before memory is locked."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of incorrect passphase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the maximum number of incorrect passphrase access attempts allowed before access to data is locked.  If 0, the number of attempts is infinite."/>
         </Property>
       </ComplexType>
     </Schema>
@@ -1244,6 +1291,12 @@
       <EntityType Name="Memory" BaseType="Memory.v1_7_1.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_7_2.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1251,11 +1304,23 @@
       <EntityType Name="Memory" BaseType="Memory.v1_7_2.Memory"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_8_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_8_0.Memory"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
       <Annotation Term="OData.Description" String="This version was created to deprecate the DeviceLocator property in favor of the common ServiceLabel property within Location."/>
       <EntityType Name="Memory" BaseType="Memory.v1_8_0.Memory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Memory.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Memory" BaseType="Memory.v1_9_0.Memory"/>
     </Schema>
 
   </edmx:DataServices>

@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.v1_3_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.v1_4_0.json",
     "$ref": "#/definitions/NetworkDeviceFunction",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -344,6 +344,12 @@
                 },
                 "Endpoints@odata.count": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
+                },
+                "EthernetInterface": {
+                    "$ref": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.json#/definitions/EthernetInterface",
+                    "description": "The link to a virtual Ethernet interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.",
+                    "longDescription": "This property shall contain a link to a resource of type EthernetInterface that represents a virtual interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.  The EthernetInterfaceType property of that resource shall contain the value `Virtual`.",
+                    "versionAdded": "v1_4_0"
                 },
                 "PCIeFunction": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/PCIeFunction.json#/definitions/PCIeFunction",
@@ -872,6 +878,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.2",
-    "title": "#NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"
+    "release": "2020.1",
+    "title": "#NetworkDeviceFunction.v1_4_0.NetworkDeviceFunction"
 }
