@@ -1,12 +1,12 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_3_4.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Redundancy.v1_3_5.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -24,8 +24,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_2_0"
                 }
             },
@@ -33,8 +33,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -76,8 +76,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_2_0"
                 },
                 "MaxNumSupported": {
@@ -96,7 +96,7 @@
                     "type": "string"
                 },
                 "MinNumNeeded": {
-                    "description": "The minumum number of members needed for this group to be redundant.",
+                    "description": "The minimum number of members needed for this group to be redundant.",
                     "longDescription": "This property shall contain the minimum number of members allowed in the redundancy group for the current redundancy mode to still be fault tolerant.",
                     "readonly": true,
                     "type": [
@@ -118,8 +118,8 @@
                     "readonly": false
                 },
                 "Name": {
-                    "description": "The name of the Resource or array member.",
-                    "longDescription": "This object represents the name of this Resource or array member.  The Resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format.",
+                    "description": "The name of the resource or array member.",
+                    "longDescription": "This object represents the name of this resource or array member.  The resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format.",
                     "readonly": true,
                     "type": "string"
                 },
@@ -152,8 +152,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 }
             },
             "required": [
@@ -190,5 +190,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2017.3",
-    "title": "#Redundancy.v1_3_4"
+    "title": "#Redundancy.v1_3_5"
 }

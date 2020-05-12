@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_5_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EventService.v1_6_0.json",
     "$ref": "#/definitions/EventService",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -28,8 +28,8 @@
                 },
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource."
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource."
                 }
             },
             "type": "object"
@@ -40,15 +40,15 @@
                 "MetricReport"
             ],
             "enumDescriptions": {
-                "Event": "The subscription destination receives JSON bodies of the Event type.",
-                "MetricReport": "The subscription destination receives JSON bodies of the MetricReport type."
+                "Event": "The subscription destination receives JSON bodies of type Event.",
+                "MetricReport": "The subscription destination receives JSON bodies of type MetricReport."
             },
             "type": "string"
         },
         "EventService": {
             "additionalProperties": false,
-            "description": "The EventService schema contains properties for managing event subcriptions and generates the events sent to subscribers.  The Resource has links to the actual collection of subscriptions, which are called event destinations.",
-            "longDescription": "This Resource shall represent an Event Service for a Redfish implementation.",
+            "description": "The EventService schema contains properties for managing event subscriptions and generates the events sent to subscribers.  The resource has links to the actual collection of subscriptions, which are called event destinations.",
+            "longDescription": "This resource shall represent an event service for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -78,8 +78,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource."
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource."
                 },
                 "DeliveryRetryAttempts": {
                     "description": "The number of times that the POST of an event is retried before the subscription terminates.  This retry occurs at the service level, which means that the HTTP POST to the event destination fails with an HTTP `4XX` or `5XX` status code or an HTTP timeout occurs this many times before the event destination subscription terminates.",
@@ -137,6 +137,16 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Id",
                     "readonly": true
                 },
+                "IncludeOriginOfConditionSupported": {
+                    "description": "An indication of whether the service supports including the resource payload of the origin of condition in the event payload.",
+                    "longDescription": "This property shall indicate whether the service supports including the resource payload of the origin of condition in the event payload.  If `true`, event subscriptions are allowed to specify the IncludeOriginOfCondition property.",
+                    "readonly": true,
+                    "type": [
+                        "boolean",
+                        "null"
+                    ],
+                    "versionAdded": "v1_6_0"
+                },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
                     "readonly": true
@@ -147,20 +157,20 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
                 "RegistryPrefixes": {
-                    "description": "The list of the prefixes of the Message Registries that can be used for the RegistryPrefix property on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions.",
+                    "description": "The list of the prefixes of the message registries that can be used for the RegistryPrefix property on a subscription.  If this property is absent or contains an empty array, the service does not support RegistryPrefix-based subscriptions.",
                     "items": {
                         "type": [
                             "string",
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain the array of the prefixes of the Message Registries that shall be allowed for an event subscription.",
+                    "longDescription": "This property shall contain the array of the prefixes of the message registries that shall be allowed for an event subscription.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "ResourceTypes": {
-                    "description": "The list of @odata.type values, or Schema names, that can be specified in the ResourceTypes array in a subscription.  If this property is absent or contains an empty array, the service does not support Resource type-based subscriptions.",
+                    "description": "The list of @odata.type values, or schema names, that can be specified in the ResourceTypes array in a subscription.  If this property is absent or contains an empty array, the service does not support resource type-based subscriptions.",
                     "items": {
                         "type": [
                             "string",
@@ -180,8 +190,8 @@
                 },
                 "SSEFilterPropertiesSupported": {
                     "$ref": "#/definitions/SSEFilterPropertiesSupported",
-                    "description": "The set of properties that are supported in the $filter query parameter for the ServerSentEventUri.",
-                    "longDescription": "This property shall contain the properties that are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property.",
+                    "description": "The set of properties that are supported in the `$filter` query parameter for the ServerSentEventUri.",
+                    "longDescription": "This property shall contain the properties that are supported in the `$filter` query parameter for the URI indicated by the ServerSentEventUri property, as described by the Redfish Specification.",
                     "versionAdded": "v1_2_0"
                 },
                 "ServerSentEventUri": {
@@ -203,8 +213,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SubordinateResourcesSupported": {
                     "description": "An indication of whether the service supports the SubordinateResource property on both event subscriptions and generated events.",
@@ -218,8 +228,8 @@
                 },
                 "Subscriptions": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/EventDestinationCollection.json#/definitions/EventDestinationCollection",
-                    "description": "The link to a collection of event destination Resources.",
-                    "longDescription": "This property shall contain the link to a Resource Collection of type EventDestinationCollection.",
+                    "description": "The link to a collection of event destinations.",
+                    "longDescription": "This property shall contain the link to a resource collection of type EventDestinationCollection.",
                     "readonly": true
                 }
             },
@@ -233,8 +243,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -411,8 +421,8 @@
         },
         "SSEFilterPropertiesSupported": {
             "additionalProperties": false,
-            "description": "The set of properties that are supported in the $filter query parameter for the ServerSentEventUri.",
-            "longDescription": "The type shall contain a set of properties that are supported in the $filter query parameter for the URI indicated by the ServerSentEventUri property.",
+            "description": "The set of properties that are supported in the `$filter` query parameter for the ServerSentEventUri.",
+            "longDescription": "The type shall contain a set of properties that are supported in the `$filter` query parameter for the URI indicated by the ServerSentEventUri property, as described by the Redfish Specification.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -429,59 +439,59 @@
             },
             "properties": {
                 "EventFormatType": {
-                    "description": "An indication of whether the service supports the EventFormatType property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the EventFormatType property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the EventFormatType property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the EventFormatType property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "EventType": {
                     "deprecated": "This property has been deprecated.  Starting with Redfish Specification v1.6 (Event v1.3), subscriptions are based on the RegistryPrefix and ResourceType properties and not on the EventType property.",
-                    "description": "An indication of whether the service supports the EventType property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the EventType property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the EventType property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the EventType property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0",
                     "versionDeprecated": "v1_3_0"
                 },
                 "MessageId": {
-                    "description": "An indication of whether the service supports the MessageId property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the MessageId property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the MessageId property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the MessageId property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "MetricReportDefinition": {
-                    "description": "An indication of whether the service supports the MetricReportDefinition property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the MetricReportDefinition property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the MetricReportDefinition property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the MetricReportDefinition property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "OriginResource": {
-                    "description": "An indication of whether the service supports the OriginResource property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the OriginResource property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the OriginResource property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the OriginResource property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "RegistryPrefix": {
-                    "description": "An indication of whether the service supports the RegistryPrefix property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the RegistryPrefix property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the RegistryPrefix property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the RegistryPrefix property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "ResourceType": {
-                    "description": "An indication of whether the service supports the ResourceType property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the ResourceType property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the ResourceType property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the ResourceType property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_2_0"
                 },
                 "SubordinateResources": {
-                    "description": "An indication of whether the service supports the SubordinateResources property in the $filter query parameter.",
-                    "longDescription": "This property shall indicate whether this service supports the SubordinateResources property in the $filter query parameter, as described by the Redfish Specification.",
+                    "description": "An indication of whether the service supports filtering by the SubordinateResources property.",
+                    "longDescription": "This property shall indicate whether this service supports filtering by the SubordinateResources property.",
                     "readonly": true,
                     "type": "boolean",
                     "versionAdded": "v1_4_0"
@@ -492,11 +502,11 @@
         "SubmitTestEvent": {
             "additionalProperties": false,
             "description": "This action generates a test event.",
-            "longDescription": "This action shall add a test event to the Event Service with the event data specified in the action parameters.  Then, this message should be sent to any appropriate event destinations.",
+            "longDescription": "This action shall add a test event to the event service with the event data specified in the action parameters.  Then, this message should be sent to any appropriate event destinations.",
             "parameters": {
                 "EventGroupId": {
-                    "description": "The group ID for the event.",
-                    "longDescription": "The parameter shall contain the group ID for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish.",
+                    "description": "The group identifier for the event.",
+                    "longDescription": "The parameter shall contain the group identifier for the event.  It has the same semantics as the EventGroupId property in the Event schema for Redfish.",
                     "type": "integer",
                     "versionAdded": "v1_3_0"
                 },
@@ -506,9 +516,9 @@
                     "type": "string"
                 },
                 "EventTimestamp": {
-                    "description": "The date and time stamp for the event to add.",
+                    "description": "The date and time for the event to add.",
                     "format": "date-time",
-                    "longDescription": "This parameter shall contain the date and time stamp for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish.",
+                    "longDescription": "This parameter shall contain the date and time for the event to add and have the same semantics as the EventTimestamp property in the Event schema for Redfish.",
                     "type": "string"
                 },
                 "EventType": {
@@ -578,6 +588,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#EventService.v1_5_0.EventService"
+    "release": "2020.1",
+    "title": "#EventService.v1_6_0.EventService"
 }

@@ -1,9 +1,54 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ServiceRoot.v1_7_0.json",
     "$ref": "#/definitions/ServiceRoot",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
+        "DeepOperations": {
+            "additionalProperties": false,
+            "description": "The information about deep operations that the service supports.",
+            "longDescription": "This type shall contain information about deep operations that the service supports.",
+            "patternProperties": {
+                "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
+                    "description": "This property shall specify a valid odata or Redfish property.",
+                    "type": [
+                        "array",
+                        "boolean",
+                        "integer",
+                        "number",
+                        "null",
+                        "object",
+                        "string"
+                    ]
+                }
+            },
+            "properties": {
+                "DeepPATCH": {
+                    "description": "An indication of whether the service supports the deep PATCH operation.",
+                    "longDescription": "This property shall indicate whether this service supports the Redfish Specification-defined deep PATCH operation.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_7_0"
+                },
+                "DeepPOST": {
+                    "description": "An indication of whether the service supports the deep POST operation.",
+                    "longDescription": "This property shall indicate whether this service supports the Redfish Specification-defined deep POST operation.",
+                    "readonly": true,
+                    "type": "boolean",
+                    "versionAdded": "v1_7_0"
+                },
+                "MaxLevels": {
+                    "description": "The maximum levels of resources allowed in deep operations.",
+                    "longDescription": "This property shall contain the maximum levels of resources allowed in deep operations.",
+                    "maximum": 6,
+                    "minimum": 1,
+                    "readonly": true,
+                    "type": "integer",
+                    "versionAdded": "v1_7_0"
+                }
+            },
+            "type": "object"
+        },
         "Expand": {
             "additionalProperties": false,
             "description": "The information about the use of $expand in the service.",
@@ -118,6 +163,12 @@
                 }
             },
             "properties": {
+                "DeepOperations": {
+                    "$ref": "#/definitions/DeepOperations",
+                    "description": "The information about deep operations that the service supports.",
+                    "longDescription": "This property shall contain information about deep operations that the service supports.",
+                    "versionAdded": "v1_7_0"
+                },
                 "ExcerptQuery": {
                     "description": "An indication of whether the service supports the excerpt query parameter.",
                     "longDescription": "This property shall indicate whether this service supports the excerpt query parameter.",
@@ -404,6 +455,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.4",
-    "title": "#ServiceRoot.v1_6_0.ServiceRoot"
+    "release": "2020.1",
+    "title": "#ServiceRoot.v1_7_0.ServiceRoot"
 }

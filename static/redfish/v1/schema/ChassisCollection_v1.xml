@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -33,11 +33,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ChassisCollection" BaseType="Resource.v1_0_0.ResourceCollection">
-        <Annotation Term="OData.Description" String="The ChassisCollection schema describes a collection of Chassis Resource instances."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a Resource Collection of Chassis instances for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The collection of Chassis resource instances."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a resource collection of Chassis instances for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
-            <PropertyValue Property="Insertable" Bool="false"/>
+            <PropertyValue Property="Insertable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Implementations may allow creation and deletion of chassis resources to show containment relationships, such as a rack enclosure."/>
           </Record>
         </Annotation>
         <Annotation Term="Capabilities.UpdateRestrictions">
@@ -58,12 +59,12 @@
         <NavigationProperty Name="Members" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The members of this collection."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this Resource Collection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to the members of this collection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Required"/>
         </NavigationProperty>
       </EntityType>
-
     </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

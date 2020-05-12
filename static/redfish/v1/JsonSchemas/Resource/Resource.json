@@ -1,12 +1,12 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Resource.v1_9_1.json",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "ContactInfo": {
             "additionalProperties": false,
-            "description": "Contact information for this Resource.",
-            "longDescription": "This object shall contain contact information for an individual or organization responsible for this Resource.",
+            "description": "Contact information for this resource.",
+            "longDescription": "This object shall contain contact information for an individual or organization responsible for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -24,7 +24,7 @@
             "properties": {
                 "ContactName": {
                     "description": "Name of this contact.",
-                    "longDescription": "This property shall contain the name of a person or organization to contact for information about this Resource.",
+                    "longDescription": "This property shall contain the name of a person or organization to contact for information about this resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -34,7 +34,7 @@
                 },
                 "EmailAddress": {
                     "description": "Email address for this contact.",
-                    "longDescription": "This property shall contain the email address for a person or organization to contact for information about this Resource.",
+                    "longDescription": "This property shall contain the email address for a person or organization to contact for information about this resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -44,7 +44,7 @@
                 },
                 "PhoneNumber": {
                     "description": "Phone number for this contact.",
-                    "longDescription": "This property shall contain the phone number for a person or organization to contact for information about this Resource.",
+                    "longDescription": "This property shall contain the phone number for a person or organization to contact for information about this resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -91,8 +91,8 @@
         },
         "Identifier": {
             "additionalProperties": false,
-            "description": "Any additional identifiers for a Resource.",
-            "longDescription": "This type shall contain any additional identifiers for a Resource.",
+            "description": "Any additional identifiers for a resource.",
+            "longDescription": "This type shall contain any additional identifiers for a resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -109,8 +109,8 @@
             },
             "properties": {
                 "DurableName": {
-                    "description": "The world-wide, persistent name of the Resource.",
-                    "longDescription": "This property shall contain the world-wide unique identifier for the Resource.  The string shall be in the Identifier.DurableNameFormat property value format.",
+                    "description": "The world-wide, persistent name of the resource.",
+                    "longDescription": "This property shall contain the world-wide unique identifier for the resource.  The string shall be in the Identifier.DurableNameFormat property value format.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -137,8 +137,8 @@
         },
         "Location": {
             "additionalProperties": false,
-            "description": "The location of a Resource.",
-            "longDescription": "This type shall describe the location of a Resource.",
+            "description": "The location of a resource.",
+            "longDescription": "This type shall describe the location of a resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -155,8 +155,8 @@
             },
             "properties": {
                 "AltitudeMeters": {
-                    "description": "The altitude of the Resource in meters.",
-                    "longDescription": "This property shall contain the altitude of the Resource in meters.",
+                    "description": "The altitude of the resource in meters.",
+                    "longDescription": "This property shall contain the altitude of the resource in meters.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -177,14 +177,14 @@
                             }
                         ]
                     },
-                    "longDescription": "This property shall contain an array of contact information for an individual or organization responsible for this Resource.",
+                    "longDescription": "This property shall contain an array of contact information for an individual or organization responsible for this resource.",
                     "type": "array",
                     "versionAdded": "v1_7_0"
                 },
                 "Info": {
                     "deprecated": "This property has been deprecated in favor of the PostalAddress, Placement, and PartLocation properties.",
-                    "description": "The location of the Resource.",
-                    "longDescription": "This property shall represent the location of the Resource.",
+                    "description": "The location of the resource.",
+                    "longDescription": "This property shall represent the location of the resource.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -206,8 +206,8 @@
                     "versionDeprecated": "v1_5_0"
                 },
                 "Latitude": {
-                    "description": "The latitude of the Resource.",
-                    "longDescription": "This property shall contain the latitude of the Resource specified in degrees using a decimal format and not minutes or seconds.",
+                    "description": "The latitude of the resource.",
+                    "longDescription": "This property shall contain the latitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -217,8 +217,8 @@
                     "versionAdded": "v1_6_0"
                 },
                 "Longitude": {
-                    "description": "The longitude of the Resource in degrees.",
-                    "longDescription": "This property shall contain the longitude of the Resource specified in degrees using a decimal format and not minutes or seconds.",
+                    "description": "The longitude of the resource in degrees.",
+                    "longDescription": "This property shall contain the longitude of the resource specified in degrees using a decimal format and not minutes or seconds.",
                     "readonly": false,
                     "type": [
                         "number",
@@ -236,7 +236,7 @@
                 "PartLocation": {
                     "$ref": "#/definitions/PartLocation",
                     "description": "The part location within the placement.",
-                    "longDescription": "The location within a Resource.  This representation shall indicate the location within the Placement.",
+                    "longDescription": "The location within a resource.  This representation shall indicate the location within the Placement.",
                     "versionAdded": "v1_5_0"
                 },
                 "Placement": {
@@ -247,8 +247,8 @@
                 },
                 "PostalAddress": {
                     "$ref": "#/definitions/PostalAddress",
-                    "description": "The postal address of the addressed Resource.",
-                    "longDescription": "This property shall contain a postal address of the Resource.",
+                    "description": "The postal address of the addressed resource.",
+                    "longDescription": "This property shall contain a postal address of the resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -309,7 +309,7 @@
         "PartLocation": {
             "additionalProperties": false,
             "description": "The part location within the placement.",
-            "longDescription": "This type shall describe a location within a Resource.  This representation shall indicate the location within the Placement.",
+            "longDescription": "This type shall describe a location within a resource.  This representation shall indicate the location within the Placement.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -393,7 +393,7 @@
         "Placement": {
             "additionalProperties": false,
             "description": "The placement within the addressed location.",
-            "longDescription": "The value shall describe a location within a Resource.  Examples include a shelf in a rack.",
+            "longDescription": "The value shall describe a location within a resource.  Examples include a shelf in a rack.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -468,8 +468,8 @@
         },
         "PostalAddress": {
             "additionalProperties": false,
-            "description": "The postal address for a Resource.",
-            "longDescription": "Instances shall describe a postal address for a Resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location.",
+            "description": "The postal address for a resource.",
+            "longDescription": "Instances shall describe a postal address for a resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -556,8 +556,8 @@
                     "versionAdded": "v1_3_0"
                 },
                 "Division": {
-                    "description": "City division, borough, dity district, ward, or chou (JP).",
-                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the A4 field.  Names a city division, borough, dity district, ward, or chou (JP).",
+                    "description": "City division, borough, city district, ward, or chou (JP).",
+                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the A4 field.  Names a city division, borough, city district, ward, or chou (JP).",
                     "readonly": false,
                     "type": [
                         "string",
@@ -751,7 +751,7 @@
                 },
                 "Room": {
                     "description": "The name or number of the room.",
-                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the ROOM field.  A name or number of a room to locate the Resource within the unit.",
+                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the ROOM field.  A name or number of a room to locate the resource within the unit.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -811,7 +811,7 @@
                 },
                 "Unit": {
                     "description": "The name or number of the apartment unit or suite.",
-                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the UNIT field.  The name or number of a unit, such as the apartment or suite, to locate the Resource.",
+                    "longDescription": "The value shall conform to the RFC5139-defined requirements of the UNIT field.  The name or number of a unit, such as the apartment or suite, to locate the resource.",
                     "readonly": false,
                     "type": [
                         "string",
@@ -834,7 +834,7 @@
             },
             "enumLongDescriptions": {
                 "EIA_310": "Rack units shall conform to the EIA-310 standard.",
-                "OpenU": "Rack units shall be specified in terms of the Open Compute Open Rack specification."
+                "OpenU": "Rack units shall be specified in terms of the Open Compute Open Rack Specification."
             },
             "longDescription": "Enumeration literals shall name the type of rack unit in use.",
             "type": "string"
@@ -913,7 +913,7 @@
         },
         "Resource": {
             "additionalProperties": false,
-            "description": "The base type for Resources and members that can be linked to.",
+            "description": "The base type for resources and members that can be linked to.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -1034,5 +1034,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Resource.v1_9_0"
+    "title": "#Resource.v1_9_1"
 }

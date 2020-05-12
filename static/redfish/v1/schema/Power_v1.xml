@@ -5,7 +5,7 @@
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -548,60 +548,90 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Power" BaseType="Power.v1_0_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to show that annotations in previous namespaces were updated."/>
       <EntityType Name="Power" BaseType="Power.v1_0_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
       <EntityType Name="Power" BaseType="Power.v1_0_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
       <EntityType Name="Power" BaseType="Power.v1_0_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the AutoExpand annotation for the Redundancy property inside PowerSupply."/>
       <EntityType Name="Power" BaseType="Power.v1_0_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_4.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change PhysicalContext to use the unversioned definition."/>
       <EntityType Name="Power" BaseType="Power.v1_0_5.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_5.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_5.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_5.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_0_6.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_6.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_6.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_6.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_0_7.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_7.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_7.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_7.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_0_8.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_8.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_8.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_8.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_0_10">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_0_9.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_9.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_0_9.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_9.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_0">
@@ -609,7 +639,12 @@
       <Annotation Term="Redfish.Release" String="2016.1"/>
 
       <EntityType Name="Power" BaseType="Power.v1_0_2.Power"/>
-      <EntityType Name="PowerSupply" BaseType="Power.v1_0_0.PowerSupply">
+
+      <EntityType Name="PowerControl" BaseType="Power.v1_0_2.PowerControl"/>
+
+      <EntityType Name="Voltage" BaseType="Power.v1_0_2.Voltage"/>
+
+      <EntityType Name="PowerSupply" BaseType="Power.v1_0_2.PowerSupply">
         <Property Name="Manufacturer" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The manufacturer of this power supply."/>
@@ -677,61 +712,89 @@
           <Annotation Term="OData.Description" String="Direct Current (DC) input range."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
       <EntityType Name="Power" BaseType="Power.v1_1_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
       <EntityType Name="Power" BaseType="Power.v1_1_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the AutoExpand annotation for the Redundancy property inside PowerSupply."/>
       <EntityType Name="Power" BaseType="Power.v1_1_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change PhysicalContext to use the unversioned definition."/>
       <EntityType Name="Power" BaseType="Power.v1_1_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_1_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_4.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_1_5.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_5.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_5.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_5.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_1_6.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_6.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_6.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_6.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_1_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_1_7.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_7.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_1_7.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_1_7.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
+
       <EntityType Name="Power" BaseType="Power.v1_1_0.Power"/>
+
+      <EntityType Name="PowerControl" BaseType="Power.v1_1_0.PowerControl"/>
+
+      <EntityType Name="Voltage" BaseType="Power.v1_1_0.Voltage"/>
 
       <EntityType Name="PowerSupply" BaseType="Power.v1_1_0.PowerSupply">
         <Property Name="IndicatorLED" Type="Resource.IndicatorLED">
@@ -747,53 +810,78 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
       <EntityType Name="Power" BaseType="Power.v1_2_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the Nullable facet on NavigationProperties of the Collection type and to use Redfish.Deprecated on certain enumerated values."/>
       <EntityType Name="Power" BaseType="Power.v1_2_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the AutoExpand annotation for the Redundancy property inside PowerSupply."/>
       <EntityType Name="Power" BaseType="Power.v1_2_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change PhysicalContext and IndicatorLED to use the unversioned definition."/>
       <EntityType Name="Power" BaseType="Power.v1_2_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_2_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_4.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_2_5.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_5.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_5.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_5.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_2_6.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_6.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_6.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_6.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_2_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_2_7.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_7.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_2_7.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_7.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Power" BaseType="Power.v1_2_2.Power">
         <Property Name="Actions" Type="Power.v1_3_0.Actions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
@@ -801,21 +889,21 @@
         </Property>
       </EntityType>
 
-      <EntityType Name="PowerControl" BaseType="Power.v1_0_0.PowerControl">
+      <EntityType Name="PowerControl" BaseType="Power.v1_2_2.PowerControl">
         <Property Name="Actions" Type="Power.v1_3_0.PowerControlActions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
-      <EntityType Name="Voltage" BaseType="Power.v1_0_0.Voltage">
+      <EntityType Name="Voltage" BaseType="Power.v1_2_2.Voltage">
         <Property Name="Actions" Type="Power.v1_3_0.VoltageActions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
         </Property>
       </EntityType>
 
-      <EntityType Name="PowerSupply" BaseType="Power.v1_2_0.PowerSupply">
+      <EntityType Name="PowerSupply" BaseType="Power.v1_2_2.PowerSupply">
         <Property Name="Actions" Type="Power.v1_3_0.PowerSupplyActions" Nullable="false">
           <Annotation Term="OData.Description" String="The available actions for this Resource."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
@@ -891,88 +979,131 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to remove the AutoExpand annotation for the Redundancy property inside PowerSupply."/>
       <EntityType Name="Power" BaseType="Power.v1_3_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change PhysicalContext and IndicatorLED to use the unversioned definition."/>
       <EntityType Name="Power" BaseType="Power.v1_3_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_3_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_3_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_3_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_4.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_3_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_3_5.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_5.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_3_5.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_5.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.2"/>
+
       <EntityType Name="Power" BaseType="Power.v1_3_1.Power"/>
 
-      <EntityType Name="PowerControl" BaseType="Power.v1_3_0.PowerControl">
+      <EntityType Name="PowerControl" BaseType="Power.v1_3_1.PowerControl">
         <Property Name="PhysicalContext" Type="PhysicalContext.PhysicalContext" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The area, device, or set of devices to which this power control applies."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a description of the affected device(s) or region within the chassis to which this power control applies."/>
         </Property>
       </EntityType>
+
+      <EntityType Name="Voltage" BaseType="Power.v1_3_1.Voltage"/>
+
+      <EntityType Name="PowerSupply" BaseType="Power.v1_3_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to change PhysicalContext and IndicatorLED to use the unversioned definition."/>
       <EntityType Name="Power" BaseType="Power.v1_4_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_4_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_4_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_4_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_4_4.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_4.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_4_4.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_4.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
+
       <EntityType Name="Power" BaseType="Power.v1_4_1.Power"/>
 
-      <EntityType Name="PowerSupply" BaseType="Power.v1_3_0.PowerSupply">
+      <EntityType Name="PowerControl" BaseType="Power.v1_4_1.PowerControl"/>
+
+      <EntityType Name="Voltage" BaseType="Power.v1_4_1.Voltage"/>
+
+      <EntityType Name="PowerSupply" BaseType="Power.v1_4_1.PowerSupply">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the power supply."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain location information of the associated power supply."/>
@@ -1017,31 +1148,50 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="Power" BaseType="Power.v1_5_0.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_0.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_0.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_0.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation.  It was also created to fix PowerMetrics/PowerMetric description, not to use abbreviated terms."/>
       <EntityType Name="Power" BaseType="Power.v1_5_1.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_1.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_1.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_1.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to force the regeneration of JSON Schema so that URI properties use the uri-reference format."/>
       <EntityType Name="Power" BaseType="Power.v1_5_2.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_2.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_2.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_2.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_5_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Power" BaseType="Power.v1_5_3.Power"/>
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_3.PowerControl"/>
+      <EntityType Name="Voltage" BaseType="Power.v1_5_3.Voltage"/>
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_3.PowerSupply"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Power.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.3"/>
-      <EntityType Name="Power" BaseType="Power.v1_5_4.Power"/>
       <Annotation Term="OData.Description" String="This version was created to add a reset action for individual power supplies."/>
+
+      <EntityType Name="Power" BaseType="Power.v1_5_4.Power"/>
+
+      <EntityType Name="PowerControl" BaseType="Power.v1_5_4.PowerControl"/>
+
+      <EntityType Name="Voltage" BaseType="Power.v1_5_4.Voltage"/>
+
+      <EntityType Name="PowerSupply" BaseType="Power.v1_5_4.PowerSupply"/>
     </Schema>
 
   </edmx:DataServices>

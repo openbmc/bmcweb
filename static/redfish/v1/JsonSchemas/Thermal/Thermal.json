@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_6_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Thermal.v1_6_1.json",
     "$ref": "#/definitions/Thermal",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Fan": {
             "additionalProperties": false,
@@ -26,14 +26,14 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/FanActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "Assembly": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Assembly.json#/definitions/Assembly",
                     "description": "The link to the assembly associated with this fan.",
-                    "longDescription": "This property shall contain a link to a Resource of type Assembly.",
+                    "longDescription": "This property shall contain a link to a resource of type Assembly.",
                     "readonly": true,
                     "versionAdded": "v1_4_0"
                 },
@@ -215,11 +215,11 @@
                     "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/count"
                 },
                 "RelatedItem": {
-                    "description": "An array of IDs of the Resources that this fan services.",
+                    "description": "An array of links to resources or objects that this fan services.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This property shall contain an array of IDs for pointers consistent with JSON Pointer syntax to the Resources that this fan services.",
+                    "longDescription": "This property shall contain an array of links to resources or objects that this fan services.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -228,7 +228,7 @@
                 },
                 "SensorNumber": {
                     "description": "The numerical identifier for this fan speed sensor.",
-                    "longDescription": "This property shall contain a numerical identifier for this fan speed sensor that is unique within this Resource.",
+                    "longDescription": "This property shall contain a numerical identifier for this fan speed sensor that is unique within this resource.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -258,8 +258,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UpperThresholdCritical": {
                     "description": "The value at which the reading is above normal range but not yet fatal.",
@@ -297,8 +297,8 @@
         },
         "FanActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -316,8 +316,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/FanOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -325,8 +325,8 @@
         },
         "FanOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -377,8 +377,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/TemperatureActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "AdjustedMaxAllowableOperatingValue": {
@@ -411,7 +411,7 @@
                     "versionAdded": "v1_4_0"
                 },
                 "DeltaReadingCelsius": {
-                    "description": "Delta Temperature reading.",
+                    "description": "The delta temperature reading.",
                     "longDescription": "This property shall contain the delta of the values of the temperature readings across this sensor and the sensor at DeltaPhysicalContext.",
                     "readonly": true,
                     "type": [
@@ -541,11 +541,11 @@
                     "units": "Cel"
                 },
                 "RelatedItem": {
-                    "description": "The areas or devices to which this temperature applies.",
+                    "description": "An array of links to resources or objects that represent areas or devices to which this temperature applies.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/odata-v4.json#/definitions/idRef"
                     },
-                    "longDescription": "This array property shall contain the IDs of areas or devices to which this temperature applies.",
+                    "longDescription": "This property shall contain an array of links to resources or objects that represent areas or devices to which this temperature applies.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -554,7 +554,7 @@
                 },
                 "SensorNumber": {
                     "description": "The numerical identifier of the temperature sensor.",
-                    "longDescription": "This property shall contain a numerical identifier for this temperature sensor that is unique within this Resource.",
+                    "longDescription": "This property shall contain a numerical identifier for this temperature sensor that is unique within this resource.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -563,8 +563,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UpperThresholdCritical": {
                     "description": "The value at which the reading is above normal range but not yet fatal.",
@@ -616,8 +616,8 @@
         },
         "TemperatureActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -635,8 +635,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/TemperatureOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -644,8 +644,8 @@
         },
         "TemperatureOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -665,8 +665,8 @@
         },
         "Thermal": {
             "additionalProperties": false,
-            "description": "The Thermal schema describes temperature monitoring and thermal management subsystems, such as cooling fans, for a computer system or similiar devices contained within a chassis.",
-            "longDescription": "This Resource shall contain the thermal management properties for temperature monitoring and management of cooling fans for a Redfish implementation.",
+            "description": "The Thermal schema describes temperature monitoring and thermal management subsystems, such as cooling fans, for a computer system or similar devices contained within a chassis.",
+            "longDescription": "This resource shall contain the thermal management properties for temperature monitoring and management of cooling fans for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -696,8 +696,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/ThermalActions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "Description": {
@@ -751,8 +751,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "Temperatures": {
                     "autoExpand": true,
@@ -778,8 +778,8 @@
         },
         "ThermalActions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -797,8 +797,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/ThermalOemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -806,8 +806,8 @@
         },
         "ThermalOemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -828,5 +828,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Thermal.v1_6_0.Thermal"
+    "title": "#Thermal.v1_6_1.Thermal"
 }

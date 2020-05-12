@@ -4,7 +4,7 @@
   "@odata.type": "#JsonSchemaFileCollection.JsonSchemaFileCollection",
   "Name": "JsonSchemaFile Collection",
   "Description": "Collection of JsonSchemaFiles",
-  "Members@odata.count": 101,
+  "Members@odata.count": 103,
   "Members": [
     {
       "@odata.id": "/redfish/v1/JsonSchemas/AccelerationFunction"
@@ -235,6 +235,9 @@
       "@odata.id": "/redfish/v1/JsonSchemas/SecureBoot"
     },
     {
+      "@odata.id": "/redfish/v1/JsonSchemas/SecureBootDatabase"
+    },
+    {
       "@odata.id": "/redfish/v1/JsonSchemas/Sensor"
     },
     {
@@ -251,6 +254,9 @@
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/Settings"
+    },
+    {
+      "@odata.id": "/redfish/v1/JsonSchemas/Signature"
     },
     {
       "@odata.id": "/redfish/v1/JsonSchemas/SimpleStorage"

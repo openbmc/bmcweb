@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ComputerSystem v1.10.0                                              -->
+<!--# Redfish Schema:  ComputerSystem v1.11.0                                              -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -104,8 +104,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="ComputerSystem" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The ComputerSystem schema represents a computer or system instance and the software-visible Resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those Resources or subsystems are also linked through this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a computing system in the Redfish Specification."/>
+        <Annotation Term="OData.Description" String="The ComputerSystem schema represents a computer or system instance and the software-visible resources, or items within the data plane, such as memory, CPU, and other devices that it can access.  Details of those resources or subsystems are also linked through this resource."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a computing system in the Redfish Specification."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -136,10 +136,10 @@
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and perform an implementation-specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and perform an implementation-specific default reset."/>
         </Parameter>
         <Annotation Term="OData.Description" String="This action resets the system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the Resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the system represented by the resource.  For systems that implement ACPI Power Button functionality, the PushPowerButton value shall perform or emulate an ACPI Power Button Push.  The ForceOff value shall remove power from the system or perform an ACPI Power Button Override, commonly known as a four-second hold of the Power Button.  The ForceRestart value shall perform a ForceOff action, followed by an On action."/>
       </Action>
 
       <Action Name="SetDefaultBootOrder" IsBound="true">
@@ -159,19 +159,19 @@
       <Action Name="AddResourceBlock" IsBound="true">
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
-          <Annotation Term="OData.Description" String="The Resource Block to add to the system."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified Resource Block to add to the system."/>
+          <Annotation Term="OData.Description" String="The resource block to add to the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified resource block to add to the system."/>
         </Parameter>
         <Parameter Name="ResourceBlockETag" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The current ETag of the Resource Block to add to the system."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the Resource Block to add to the system.  If the client-provided ETag does not match the current ETag of the Resource Block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+          <Annotation Term="OData.Description" String="The current ETag of the resource block to add to the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the resource block to add to the system.  If the client-provided ETag does not match the current ETag of the resource block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
         <Parameter Name="ComputerSystemETag" Type="Edm.String">
           <Annotation Term="OData.Description" String="The current ETag of the system."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action adds a Resource Block to a system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall add a Resource Block to a system."/>
+        <Annotation Term="OData.Description" String="This action adds a resource block to a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall add a resource block to a system."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -185,19 +185,19 @@
       <Action Name="RemoveResourceBlock" IsBound="true">
         <Parameter Name="ComputerSystem" Type="ComputerSystem.v1_0_0.Actions"/>
         <Parameter Name="ResourceBlock" Type="ResourceBlock.ResourceBlock" Nullable="false">
-          <Annotation Term="OData.Description" String="The Resource Block to remove from the system."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified Resource Block to remove from the system."/>
+          <Annotation Term="OData.Description" String="The resource block to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain a link to the specified resource block to remove from the system."/>
         </Parameter>
         <Parameter Name="ResourceBlockETag" Type="Edm.String">
-          <Annotation Term="OData.Description" String="The current ETag of the Resource Block to remove from the system."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the Resource Block to remove from the system.  If the client-provided ETag does not match the current ETag of the Resource Block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
+          <Annotation Term="OData.Description" String="The current ETag of the resource block to remove from the system."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the resource block to remove from the system.  If the client-provided ETag does not match the current ETag of the resource block that the ResourceBlock parameter specifies, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
         <Parameter Name="ComputerSystemETag" Type="Edm.String">
           <Annotation Term="OData.Description" String="The current ETag of the system."/>
           <Annotation Term="OData.LongDescription" String="This parameter shall contain the current ETag of the system.  If the client-provided ETag does not match the current ETag of the system, the service shall return the HTTP 428 (Precondition Required) status code to reject the request."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action removes a Resource Block from a system."/>
-        <Annotation Term="OData.LongDescription" String="This action shall remove a Resource Block from a system."/>
+        <Annotation Term="OData.Description" String="This action removes a resource block from a system."/>
+        <Annotation Term="OData.LongDescription" String="This action shall remove a resource block from a system."/>
         <Annotation Term="Redfish.Revisions">
           <Collection>
             <Record>
@@ -287,7 +287,6 @@
           </Annotation>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_0">
@@ -297,12 +296,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.ComputerSystem">
         <Property Name="SystemType" Type="ComputerSystem.v1_0_0.SystemType" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The type of computer system that this Resource represents."/>
-          <Annotation Term="OData.LongDescription" String="An enumeration that indicates the kind of system that this Resource represents."/>
+          <Annotation Term="OData.Description" String="The type of computer system that this resource represents."/>
+          <Annotation Term="OData.LongDescription" String="An enumeration that indicates the kind of system that this resource represents."/>
         </Property>
         <Property Name="Links" Type="ComputerSystem.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-          <Annotation Term="OData.LongDescription" String="The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="AssetTag" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -337,7 +336,7 @@
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The UUID for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the UUID for the system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the universal unique identifier number for this system.  RFC4122 describes methods to create this value.  The value should be considered to be opaque.  Client software should only treat the overall value as a UUID and should not interpret any sub-fields within the UUID.  If the system supports SMBIOS, the property value should follow the SMBIOS 2.6 and later recommendation for converting the SMBIOS 16-byte UUID structure into the Redfish canonical `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx` string format, so that the property value matches the byte order presented by current OS APIs, such as WMI and dmidecode."/>
         </Property>
         <Property Name="HostName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -365,89 +364,89 @@
         </Property>
         <Property Name="ProcessorSummary" Type="ComputerSystem.v1_0_0.ProcessorSummary"  Nullable="false">
           <Annotation Term="OData.Description" String="The central processors of the system in general detail."/>
-          <Annotation Term="OData.LongDescription" String="This property shall describe the central processors for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the central processors for this resource."/>
         </Property>
         <Property Name="MemorySummary" Type="ComputerSystem.v1_0_0.MemorySummary"  Nullable="false">
           <Annotation Term="OData.Description" String="The central memory of the system in general detail."/>
-          <Annotation Term="OData.LongDescription" String="This property shall describe the central memory for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall describe the central memory for this resource."/>
         </Property>
         <Property Name="Actions" Type="ComputerSystem.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
         <NavigationProperty Name="Processors" Type="ProcessorCollection.ProcessorCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of processors associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type ProcessorCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type ProcessorCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="EthernetInterfaces" Type="EthernetInterfaceCollection.EthernetInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of Ethernet interfaces associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type EthernetInterfaceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type EthernetInterfaceCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="SimpleStorage" Type="SimpleStorageCollection.SimpleStorageCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of storage devices associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type SimpleStorageCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SimpleStorageCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="LogServices" Type="LogServiceCollection.LogServiceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the collection of Log Services associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type LogServiceCollection."/>
+          <Annotation Term="OData.Description" String="The link to the collection of log services associated with this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogServiceCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="Chassis" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the chassis that contains this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to a Resource of type Chassis that represents the physical container associated with this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the physical containers associated with this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers responsible for this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to a Resource of type Manager that represents the Resource with management responsibility for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of link to resources of type Manager that represent the resources with management responsibility for this resource."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PoweredBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of one or more IDs for Resources that power this computer system.  Normally, the ID is for either a chassis or a specific set of power supplies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs that contain pointers consistent with JSON Pointer syntax to the Resource that powers this computer system."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that power this computer system.  Normally, the link is for either a chassis or a specific set of power supplies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that power this computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="CooledBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of one or more IDs for Resources that cool this computer system.  Normally, the ID is for either a chassis or a specific set of fans."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of IDs that contain pointers consistent with JSON Pointer syntax to the Resource that powers this computer system."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that that cool this computer system.  Normally, the link is for either a chassis or a specific set of fans."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that cool this computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="ComputerSystem.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="SystemType">
@@ -472,8 +471,8 @@
           <Annotation Term="OData.LongDescription" String="A SystemType of VirtuallyPartition typically represents a single system constructed from one or more virtual systems through a software-based service."/>
         </Member>
         <Member Name="Composed">
-          <Annotation Term="OData.Description" String="A computer system constructed by binding Resource Blocks together."/>
-          <Annotation Term="OData.LongDescription" String="A SystemType of Composed typically represents a single system constructed from disaggregated Resources through the Redfish Composition Service."/>
+          <Annotation Term="OData.Description" String="A computer system constructed by binding resource blocks together."/>
+          <Annotation Term="OData.LongDescription" String="A SystemType of Composed typically represents a single system constructed from disaggregated resources through the Redfish composition service."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -488,7 +487,7 @@
       <EnumType Name="IndicatorLED">
         <Member Name="Unknown">
           <Annotation Term="OData.Description" String="The state of the indicator LED cannot be determined."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in an unknown state.  The Service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent that the indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -530,7 +529,7 @@
 
       <ComplexType Name="Boot">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The boot information for this Resource."/>
+        <Annotation Term="OData.Description" String="The boot information for this resource."/>
         <Annotation Term="OData.LongDescription" String="This type shall contain properties that describe boot information for a system."/>
         <Property Name="BootSourceOverrideTarget" Type="ComputerSystem.BootSource">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -577,8 +576,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the processor model for the central processors in the system, per the description in the Processor Information - Processor Family section of the SMBIOS Specification DSP0134 2.8 or later."/>
         </Property>
         <Property Name="Status" Type="Resource.Status"  Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </ComplexType>
 
@@ -594,11 +593,10 @@
           <Annotation Term="Measures.Unit" String="GiBy"/>
         </Property>
         <Property Name="Status" Type="Resource.Status"  Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
       </ComplexType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_1">
@@ -645,13 +643,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations to MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations to MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_8.ComputerSystem"/>
     </Schema>
 
@@ -673,6 +671,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_11.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_0_13">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_12.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -680,30 +684,30 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_0_2.ComputerSystem">
         <Property Name="TrustedModules" Type="Collection(ComputerSystem.v1_1_0.TrustedModules)" Nullable="false">
           <Annotation Term="OData.Description" String="An array of trusted modules in the system."/>
-          <Annotation Term="OData.LongDescription" String="This object shall contain an array of objects with properties that describe the trusted modules for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This object shall contain an array of objects with properties that describe the trusted modules for this resource."/>
         </Property>
         <NavigationProperty Name="SecureBoot" Type="SecureBoot.SecureBoot" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the UEFI Secure Boot associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type SecureBoot."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type SecureBoot."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Bios" Type="Bios.Bios" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the BIOS settings associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Bios that lists the BIOS settings for this system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Bios that lists the BIOS settings for this system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Memory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Storage" Type="StorageCollection.StorageCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of storage devices associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type StorageCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type StorageCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -712,7 +716,7 @@
         <Property Name="MemoryMirroring" Type="ComputerSystem.v1_1_0.MemoryMirroring">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The ability and type of memory mirroring that this computer system supports."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the ability and type of memory mirring that this computer system supports."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the ability and type of memory mirroring that this computer system supports."/>
         </Property>
       </ComplexType>
 
@@ -763,8 +767,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the interface type of the installed Trusted Module."/>
         </Property>
         <Property Name="Status" Type="Resource.Status"  Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -783,7 +787,6 @@
           <Annotation Term="OData.Description" String="Trusted Cryptography Module (TCM) 1.0."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_1">
@@ -818,13 +821,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_6.ComputerSystem"/>
     </Schema>
 
@@ -844,6 +847,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_9.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_1_10.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_0">
@@ -875,7 +884,7 @@
         <NavigationProperty Name="MemoryDomains" Type="MemoryDomainCollection.MemoryDomainCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory domains associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryDomainCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryDomainCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -887,7 +896,7 @@
         <NavigationProperty Name="StorageServices" Type="HostedStorageServices.HostedStorageServices" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of storage services that this computer system supports."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type HostedStorageServices."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type HostedStorageServices."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
@@ -957,7 +966,7 @@
         <NavigationProperty Name="Endpoints" Type="Collection(Endpoint.Endpoint)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the endpoints that connect to this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resources of the Endpoint type with which this system is associated."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Endpoint with which this system is associated."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -989,13 +998,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_4.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_5.ComputerSystem"/>
     </Schema>
 
@@ -1017,6 +1026,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_8.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_2_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_2_9.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -1024,7 +1039,7 @@
         <NavigationProperty Name="NetworkInterfaces" Type="NetworkInterfaceCollection.NetworkInterfaceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of Network Interfaces associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkInterfaceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkInterfaceCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1080,13 +1095,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_3.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_4.ComputerSystem"/>
     </Schema>
 
@@ -1108,6 +1123,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_7.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_3_8.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
@@ -1126,8 +1147,8 @@
       <ComplexType Name="Links" BaseType="ComputerSystem.v1_2_0.Links">
         <NavigationProperty Name="ResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="An array of links to the Resource Blocks that are used in this computer system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the ResourceBlock type that show the Resource Blocks that are used in this computer system."/>
+          <Annotation Term="OData.Description" String="An array of links to the resource blocks that are used in this computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ResourceBlock that show the resource blocks that are used in this computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1147,13 +1168,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_2.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_3.ComputerSystem"/>
     </Schema>
 
@@ -1173,6 +1194,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_6.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_4_7.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_0">
@@ -1200,7 +1227,7 @@
         <NavigationProperty Name="BootOptions" Type="BootOptionCollection.BootOptionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of the UEFI boot options associated with this computer system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type BootOptionCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type BootOptionCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="BootNext" Type="Edm.String">
@@ -1261,8 +1288,8 @@
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -1314,13 +1341,13 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add Units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  Additionally, it was created to update the longDescription of several Boot Override properties."/>
+      <Annotation Term="OData.Description" String="This version was created to add units annotations on MemorySummary properties.  It was also created to force the regeneration of JSON Schema so that OData properties are marked as required, and integer properties are marked as integer rather than number.  Additionally, it was created to update the longDescription of several Boot Override properties."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_0.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_1.ComputerSystem"/>
     </Schema>
 
@@ -1340,6 +1367,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_4.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_5_5.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_0">
@@ -1408,6 +1441,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_2.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_6_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_6_3.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.1"/>
@@ -1417,7 +1456,7 @@
         <NavigationProperty Name="Certificates" Type="CertificateCollection.CertificateCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to a collection of certificates used for booting through HTTPS by this computer system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type CertificateCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type CertificateCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1443,6 +1482,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_1.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_7_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_7_2.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1461,6 +1506,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update the description for UefiTargetBootSourceOverride."/>
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_8_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_8_1.ComputerSystem"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_0">
@@ -1483,6 +1534,12 @@
       <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_0.ComputerSystem"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_9_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_9_1.ComputerSystem"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
@@ -1491,10 +1548,59 @@
         <NavigationProperty Name="FabricAdapters" Type="FabricAdapterCollection.FabricAdapterCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of fabric adapters associated with this system."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type FabricAdapterCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type FabricAdapterCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_0.ComputerSystem"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ComputerSystem.v1_11_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the AutomaticRetry and RemainingAutomaticRetryAttempts properties to Boot."/>
+
+      <EntityType Name="ComputerSystem" BaseType="ComputerSystem.v1_10_1.ComputerSystem"/>
+
+      <ComplexType Name="Boot" BaseType="ComputerSystem.v1_9_0.Boot">
+        <Property Name="AutomaticRetryConfig" Type="ComputerSystem.v1_11_0.AutomaticRetryConfig">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The configuration of how the system retries booting automatically."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the configuration of how the system retry booting automatically."/>
+        </Property>
+        <Property Name="AutomaticRetryAttempts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="The number of attempts the system will automatically retry booting."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of attempts the system will automatically retry booting in the event the system enters an error state on boot."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+        <Property Name="RemainingAutomaticRetryAttempts" Type="Edm.Int64">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The number of remaining automatic retry boots."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the number of attempts remaining the system will retry booting in the event the system enters an error state on boot.  If `0`, the system has no remaining automatic boot retry attempts and shall not automatically retry booting if the system enters an error state.  This property shall be reset to the value of AutomaticRetryAttempts upon a successful boot attempt."/>
+          <Annotation Term="Validation.Minimum" Int="0"/>
+        </Property>
+      </ComplexType>
+
+      <EnumType Name="AutomaticRetryConfig">
+        <Member Name="Disabled">
+          <Annotation Term="OData.Description" String="Disable automatic retrying of booting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that automatic retrying of booting is disabled."/>
+        </Member>
+        <Member Name="RetryAttempts">
+          <Annotation Term="OData.Description" String="Automatic retrying of booting is based on a specified retry count."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the number of retries of booting is based on the AutomaticRetryAttempts property, and the RemainingAutomaticRetryAttempts property indicates the number of remaining attempts."/>
+        </Member>
+        <Member Name="RetryAlways">
+          <Annotation Term="OData.Description" String="Always automatically retry booting."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate that the system will always automatically retry booting."/>
+        </Member>
+      </EnumType>
     </Schema>
 
   </edmx:DataServices>

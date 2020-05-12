@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Chassis v1.11.0                                                     -->
+<!--# Redfish Schema:  Chassis v1.12.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -95,8 +95,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="Chassis" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="The Chassis schema represents the physical components of a system.  This Resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this Resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system."/>
-        <Annotation Term="OData.LongDescription" String="This Resource shall represent a chassis or other physical enclosure for a Redfish implementation."/>
+        <Annotation Term="OData.Description" String="The Chassis schema represents the physical components of a system.  This resource represents the sheet-metal confined spaces and logical zones such as racks, enclosures, chassis and all other containers.  Subsystems, such as sensors, that operate outside of a system's data plane are linked either directly or indirectly through this resource.  A subsystem that operates outside of a system's data plane are not accessible to software that runs on the system."/>
+        <Annotation Term="OData.LongDescription" String="This resource shall represent a chassis or other physical enclosure for a Redfish implementation."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -110,7 +110,8 @@
         </Annotation>
         <Annotation Term="Capabilities.DeleteRestrictions">
           <Record>
-            <PropertyValue Property="Deletable" Bool="false"/>
+            <PropertyValue Property="Deletable" Bool="true"/>
+            <Annotation Term="OData.Description" String="Implementations may allow creation and deletion of chassis resources to show containment relationships, such as a rack enclosure."/>
           </Record>
         </Annotation>
         <Annotation Term="Redfish.Uris">
@@ -121,13 +122,13 @@
       </EntityType>
 
       <Action Name="Reset" IsBound="true">
+        <Annotation Term="OData.Description" String="This action resets the chassis but does not reset systems or other contained resources, although side effects may occur that affect those resources."/>
+        <Annotation Term="OData.LongDescription" String="This action shall reset the chassis but shall not reset systems or other contained resources, although side effects may occur that affect those resources."/>
         <Parameter Name="Chassis" Type="Chassis.v1_0_0.Actions"/>
         <Parameter Name="ResetType" Type="Resource.ResetType">
           <Annotation Term="OData.Description" String="The type of reset."/>
-          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The Service may accept a request without the parameter and complete an implementation-specific default reset."/>
+          <Annotation Term="OData.LongDescription" String="This parameter shall contain the type of reset.  The service may accept a request without the parameter and complete an implementation-specific default reset."/>
         </Parameter>
-        <Annotation Term="OData.Description" String="This action resets the chassis but does not reset systems or other contained Resources, although side effects may occur that affect those Resources."/>
-        <Annotation Term="OData.LongDescription" String="This action shall reset the chassis but shall not reset systems or other contained Resources, although side effects may occur that affect those Resources."/>
       </Action>
 
     </Schema>
@@ -140,7 +141,7 @@
         <Property Name="ChassisType" Nullable="false" Type="Chassis.v1_0_0.ChassisType">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The type of physical form factor of the chassis."/>
-          <Annotation Term="OData.LongDescription" String="ChassisType shall indicate the physical form factor for the type of chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate the physical form factor for the type of chassis."/>
           <Annotation Term="Redfish.Required"/>
         </Property>
         <Property Name="Manufacturer" Type="Edm.String">
@@ -179,92 +180,92 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain the indicator light state for the indicator light associated with this system."/>
         </Property>
         <Property Name="Links" Type="Chassis.v1_0_0.Links" Nullable="false">
-          <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         </Property>
         <Property Name="Actions" Type="Chassis.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="LogServices" Type="LogServiceCollection.LogServiceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the logs for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type LogServiceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type LogServiceCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Thermal" Type="Thermal.Thermal" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the thermal properties, such as fans, cooling, and sensors, for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource that represents the thermal characteristics of this chassis and shall be of the Thermal type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Thermal that represents the thermal characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Power" Type="Power.Power" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the power properties, or power supplies, power policies, and sensors, for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource that represents the power characteristics of this chassis and shall be of the Power type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Power that represents the power characteristics of this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to Resources that are related to but are not contained by or subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="ComputerSystems" Type="Collection(ComputerSystem.ComputerSystem)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the computer systems that this chassis directly and wholly contains."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource of type ComputerSystem with which this physical container is associated.  If a chassis also links to a computer system to which this Resource also links, this chassis shall not link to that computer system."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type ComputerSystem with which this physical container is associated.  If a chassis also links to a computer system to which this resource also links, this chassis shall not link to that computer system."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ManagedBy" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the Managers responsible for managing this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource of type Manager that manages this chassis."/>
+          <Annotation Term="OData.Description" String="An array of links to the managers responsible for managing this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that manage this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="ContainedBy" Type="Chassis.Chassis" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the chassis that contains this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource that represents the chassis that contains this chassis and shall be of the Chassis type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Chassis that represents the chassis that contains this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Contains" Type="Collection(Chassis.Chassis)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to any other chassis that this chassis has in it."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource that represents the chassis that this chassis contains and shall be of the Chassis type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Chassis that represent the chassis instances that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="PoweredBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of one or more IDs of Resources that power this chassis.  Normally, the ID is for either a chassis or a specific set of power supplies."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of one or more IDs that contain pointers consistent with JSON Pointer syntax to the Resource that powers this chassis."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that power this chassis.  Normally, the link is for either a chassis or a specific set of power supplies."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that power this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="CooledBy" Type="Collection(Resource.Item)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of one or more IDs of Resources that cool this chassis.  Normally, the ID is for either a chassis or a specific set of fans."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of one or more IDs that contain pointers consistent with JSON Pointer syntax to the Resource that cools this chassis."/>
+          <Annotation Term="OData.Description" String="An array of links to resources or objects that cool this chassis.  Normally, the link is for either a chassis or a specific set of fans."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources or objects that cool this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="Chassis.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <EnumType Name="ChassisType">
@@ -361,7 +362,7 @@
       <EnumType Name="IndicatorLED">
         <Member Name="Unknown">
           <Annotation Term="OData.Description" String="The state of the indicator LED cannot be determined."/>
-          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in an unknown state.  The Service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
+          <Annotation Term="OData.LongDescription" String="This value shall represent the indicator LED is in an unknown state.  The service shall reject PATCH or PUT requests containing this value by returning the HTTP 400 (Bad Request) status code."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -413,7 +414,6 @@
           <Annotation Term="OData.Description" String="A temporary state between on and off.  The components within the chassis can take time to process the power off action."/>
         </Member>
       </EnumType>
-
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_2">
@@ -424,7 +424,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_2.Chassis"/>
     </Schema>
 
@@ -442,7 +442,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_5.Chassis"/>
     </Schema>
 
@@ -454,7 +454,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_7.Chassis"/>
     </Schema>
 
@@ -468,6 +468,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_0_9.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_0_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_0_10.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_0">
@@ -488,7 +494,7 @@
         <Property Name="IntrusionSensorNumber" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="A numerical identifier to represent the physical security sensor."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a numerical identifier for this physical security sensor that is unique within this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a numerical identifier for this physical security sensor that is unique within this resource."/>
         </Property>
         <Property Name="IntrusionSensor" Type="Chassis.v1_1_0.IntrusionSensor">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -532,7 +538,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_2.Chassis"/>
     </Schema>
 
@@ -550,7 +556,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_5.Chassis"/>
     </Schema>
 
@@ -562,7 +568,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_8">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_7.Chassis"/>
     </Schema>
 
@@ -578,9 +584,16 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_9.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_1_11">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_1_10.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_1_2.Chassis">
         <Property Name="Location" Type="Resource.Location" Nullable="false">
           <Annotation Term="OData.Description" String="The location of the chassis."/>
@@ -592,19 +605,19 @@
         <NavigationProperty Name="ManagersInChassis" Type="Collection(Manager.Manager)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the managers located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to one or more Resources of the Manager type that are in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Manager that are in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Drives" Type="Collection(Drive.Drive)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the drives located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to one or more Resources of the Drive type that are in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Drive that are in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Storage" Type="Collection(Storage.Storage)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the storage subsystems connected to or inside this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall link to one or more Resources of the Storage type that are connected to or contained in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Storage that are connected to or contained in this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -612,7 +625,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_0.Chassis"/>
     </Schema>
 
@@ -630,7 +643,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_3.Chassis"/>
     </Schema>
 
@@ -642,7 +655,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_5.Chassis"/>
     </Schema>
 
@@ -658,16 +671,23 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_7.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_2_8.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.2"/>
       <Annotation Term="OData.Description" String="This version was created to show the ChassisType enumerated list was updated."/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_2_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to add explicit Permissions annotations to all properties for clarity."/>
+      <Annotation Term="OData.Description" String="This version was created to add explicit permissions annotations to all properties for clarity."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_0.Chassis"/>
     </Schema>
 
@@ -685,7 +705,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_3.Chassis"/>
     </Schema>
 
@@ -697,7 +717,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_5.Chassis"/>
     </Schema>
 
@@ -713,42 +733,49 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_7.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_3_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_3_8.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_3_1.Chassis">
         <Property Name="HeightMm" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The height of the chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the height of the chassis (in millimeters) as specified by the manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the height of the chassis, in millimeters, as specified by the manufacturer."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="mm"/>
         </Property>
         <Property Name="WidthMm" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The width of the chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the width of the chassis (in millimeters) as specified by the manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the width of the chassis, in millimeters, as specified by the manufacturer."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="mm"/>
         </Property>
         <Property Name="DepthMm" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The depth of the chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the depth (length) of the chassis (in millimeters) as specified by the manufacturer."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the depth (length) of the chassis, in millimeters, as specified by the manufacturer."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="mm"/>
         </Property>
         <Property Name="WeightKg" Type="Edm.Decimal">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The weight of the chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the published mass (commonly referred to as weight) of the chassis (in kilograms)."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the published mass, commonly referred to as weight, of the chassis, in kilograms."/>
           <Annotation Term="Validation.Minimum" Int="0"/>
           <Annotation Term="Measures.Unit" String="kg"/>
         </Property>
         <NavigationProperty Name="NetworkAdapters" Type="NetworkAdapterCollection.NetworkAdapterCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the collection of Network Adapters associated with this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkAdapterCollection."/>
+          <Annotation Term="OData.Description" String="The link to the collection of network adapters associated with this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkAdapterCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -757,14 +784,14 @@
         <NavigationProperty Name="PCIeDevices" Type="Collection(PCIeDevice.PCIeDevice)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the PCIe devices located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to one or more Resources of the PCIeDevices type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeDevice."/>
           <Annotation Term="OData.AutoExpandReferences"/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
                 <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
                 <PropertyValue Property="Version" String="v1_10_0"/>
-                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeDevices Resource Collection in the root of this Resource."/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of the PCIeDevices resource collection in the root of this resource."/>
               </Record>
             </Collection>
           </Annotation>
@@ -786,7 +813,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_2.Chassis"/>
     </Schema>
 
@@ -798,7 +825,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_4.Chassis"/>
     </Schema>
 
@@ -814,16 +841,23 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_6.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_4_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_4_7.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.1"/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_4_1.Chassis"/>
 
       <ComplexType Name="Links" BaseType="Chassis.v1_4_0.Links">
         <NavigationProperty Name="ResourceBlocks" Type="Collection(ResourceBlock.ResourceBlock)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the Resource Blocks located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the ResourceBlock type that this chassis contains."/>
+          <Annotation Term="OData.Description" String="An array of links to the resource blocks located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of to resources of type ResourceBlock that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -837,7 +871,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined Actions."/>
+      <Annotation Term="OData.Description" String="This version was created to change Location to its abstract base type.  It was also created to correct the short and long descriptions in the defined actions."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_1.Chassis"/>
     </Schema>
 
@@ -849,7 +883,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_3.Chassis"/>
     </Schema>
 
@@ -865,15 +899,22 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_5.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_5_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_5_6.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
-      <Annotation Term="OData.Description" String="This version was created to add a link to an Assembly Resource."/>
+      <Annotation Term="OData.Description" String="This version was created to add a link to an Assembly resource."/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_5_2.Chassis">
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the Assembly associated with this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type Assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly associated with this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -887,7 +928,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_1.Chassis"/>
     </Schema>
 
@@ -903,22 +944,29 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_3.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_6_4.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.1"/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_6_0.Chassis">
         <Property Name="UUID" Type="Resource.UUID">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The Universal Unique Identifier (UUID) for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the universal unique identifier number for the chassis."/>
+          <Annotation Term="OData.Description" String="The UUID for this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the universal unique identifier number for this chassis."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Links" BaseType="Chassis.v1_5_0.Links">
         <NavigationProperty Name="Switches" Type="Collection(Switch.Switch)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the Switches located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the Switch type that this chassis contains."/>
+          <Annotation Term="OData.Description" String="An array of links to the switches located in this chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Switch that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -932,7 +980,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_1.Chassis"/>
     </Schema>
 
@@ -948,14 +996,21 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_3.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_7_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_7_4.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
+
       <EntityType Name="Chassis" BaseType="Chassis.v1_7_1.Chassis">
         <NavigationProperty Name="PCIeSlots" Type="PCIeSlots.PCIeSlots" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the PCIe slot properties for this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the Resource that represents the PCIe slot information for this chassis and shall be of the PCIeSlot type."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to the resource of type PCIeSlots that represents the PCIe slot information for this chassis."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -963,7 +1018,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_0.Chassis"/>
     </Schema>
 
@@ -979,6 +1034,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_8_2.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_8_3.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.3"/>
@@ -991,8 +1052,8 @@
         </Property>
         <NavigationProperty Name="Sensors" Type="SensorCollection.SensorCollection" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The naivgation pointer to the collection of sensors located in the equipment and sub-components."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type SensorCollection that contains the sensors located in the chassis and sub-components."/>
+          <Annotation Term="OData.Description" String="The link to the collection of sensors located in the equipment and sub-components."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type SensorCollection that contains the sensors located in the chassis and sub-components."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1016,7 +1077,7 @@
         <NavigationProperty Name="Processors" Type="Collection(Processor.Processor)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An array of links to the processors located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the Processor type that this chassis contains."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type Processor type that this chassis contains."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
@@ -1034,6 +1095,12 @@
       <EntityType Name="Chassis" BaseType="Chassis.v1_9_1.Chassis"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_9_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_9_2.Chassis"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -1042,10 +1109,16 @@
         <NavigationProperty Name="PCIeDevices" Type="PCIeDeviceCollection.PCIeDeviceCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of PCIe devices located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type PCIeDeviceCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type PCIeDeviceCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_10_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_10_0.Chassis"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_0">
@@ -1056,19 +1129,19 @@
         <NavigationProperty Name="MediaControllers" Type="MediaControllerCollection.MediaControllerCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of media controllers located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MediaControllerCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MediaControllerCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="Memory" Type="MemoryCollection.MemoryCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="MemoryDomains" Type="MemoryDomainCollection.MemoryDomainCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The link to the collection of memory domains located in this chassis."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type MemoryDomainCollection."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type MemoryDomainCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -1081,6 +1154,33 @@
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_11_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="Chassis" BaseType="Chassis.v1_11_0.Chassis"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Chassis.v1_12_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add MaxPowerWatts and MinPowerWatts properties."/>
+
+      <EntityType Name="Chassis" BaseType="Chassis.v1_11_1.Chassis">
+        <Property Name="MaxPowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The upper bound of the total power consumed by the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the upper bound of the total power consumed by the chassis."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+        </Property>
+        <Property Name="MinPowerWatts" Type="Edm.Decimal">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The lower bound of the total power consumed by the chassis."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the lower bound of the total power consumed by the chassis."/>
+          <Annotation Term="Measures.Unit" String="W"/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>
