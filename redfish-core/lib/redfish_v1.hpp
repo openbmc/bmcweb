@@ -153,9 +153,9 @@ inline void requestRoutesRedfish(App& app)
         .methods(boost::beast::http::verb::get)(
             std::bind_front(jsonSchemaGet, std::ref(app)));
 
-    BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
-        .methods(boost::beast::http::verb::get)(
-            std::bind_front(jsonSchemaIndexGet, std::ref(app)));
+    // BMCWEB_ROUTE(app, "/redfish/v1/JsonSchemas/")
+    //     .methods(boost::beast::http::verb::get)(
+    //         std::bind_front(jsonSchemaIndexGet, std::ref(app)));
 
     // Note, this route must always be registered last
     BMCWEB_ROUTE(app, "/redfish/<path>")
