@@ -12,7 +12,7 @@ import glob
 
 import xml.etree.ElementTree as ET
 
-VERSION = "DSP8010_2019.4"
+VERSION = "DSP8010_2020.1"
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -65,12 +65,8 @@ with open(metadata_index_path, 'w') as metadata_index:
 
     for zip_filepath in zip_ref.namelist():
         if zip_filepath.startswith(VERSION +
-                                   '/' +
-                                   VERSION +
                                    '/csdl/') & (zip_filepath != VERSION +
                                                 "/csdl/") & (zip_filepath != VERSION +
-                                                             '/' +
-                                                             VERSION +
                                                              "/csdl/"):
             filename = os.path.basename(zip_filepath)
             with open(os.path.join(schema_path, filename), 'wb') as schema_file:
@@ -141,7 +137,7 @@ with open(metadata_index_path, 'w') as metadata_index:
 
 schema_files = {}
 for zip_filepath in zip_ref.namelist():
-    if zip_filepath.startswith(os.path.join(VERSION, VERSION, 'json-schema/')):
+    if zip_filepath.startswith(os.path.join(VERSION, 'json-schema/')):
         filename = os.path.basename(zip_filepath)
         filenamesplit = filename.split(".")
         if len(filenamesplit) == 3:
@@ -157,7 +153,7 @@ for zip_filepath in zip_ref.namelist():
 
 for schema, version in schema_files.items():
     basename = schema + "." + version + ".json"
-    zip_filepath = os.path.join(VERSION, VERSION, "json-schema", basename)
+    zip_filepath = os.path.join(VERSION, "json-schema", basename)
     schemadir = os.path.join(json_schema_path, schema)
     os.makedirs(schemadir)
     location_json = OrderedDict()

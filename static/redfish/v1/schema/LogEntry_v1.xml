@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  LogEntry v1.5.1                                                     -->
+<!--# Redfish Schema:  LogEntry v1.6.0                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -944,6 +944,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to clarify references to the IPMI Specification in the descriptions of EntryCode, SensorType, and Message."/>
       <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_0.LogEntry"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="LogEntry.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the Modified property."/>
+
+      <EntityType Name="LogEntry" BaseType="LogEntry.v1_5_1.LogEntry">
+        <Property Name="Modified" Type="Edm.DateTimeOffset" Nullable="false">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The date and time when the log entry was last modified."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when the log entry was last modified.  This property shall not appear if the log entry has not been modified since it was created."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

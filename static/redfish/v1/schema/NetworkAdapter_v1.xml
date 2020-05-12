@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkAdapter v1.3.0                                               -->
+<!--# Redfish Schema:  NetworkAdapter v1.3.1                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -49,8 +49,8 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <EntityType Name="NetworkAdapter" BaseType="Resource.v1_0_0.Resource" Abstract="true">
-        <Annotation Term="OData.Description" String="A NetworkAdapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
-        <Annotation Term="OData.LongDescription" String="A NetworkAdapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
+        <Annotation Term="OData.Description" String="A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
+        <Annotation Term="OData.LongDescription" String="A network adapter represents the physical network adapter capable of connecting to a computer network.  Examples include but are not limited to Ethernet, Fibre Channel, and converged network adapters."/>
         <Annotation Term="Capabilities.InsertRestrictions">
           <Record>
             <PropertyValue Property="Insertable" Bool="false"/>
@@ -87,19 +87,19 @@
 
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.NetworkAdapter">
         <Property Name="Status" Type="Resource.Status" Nullable="false">
-          <Annotation Term="OData.Description" String="The status and health of the Resource and its subordinate or dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the Resource."/>
+          <Annotation Term="OData.Description" String="The status and health of the resource and its subordinate or dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain any status or health properties of the resource."/>
         </Property>
         <NavigationProperty Name="NetworkPorts" Type="NetworkPortCollection.NetworkPortCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the collection of NetworkPorts associated with this NetworkAdapter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkPortCollection."/>
+          <Annotation Term="OData.Description" String="The link to the collection of network ports associated with this network adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkPortCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="NetworkDeviceFunctionCollection.NetworkDeviceFunctionCollection" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the collection of NetworkDeviceFunctions associated with this NetworkAdapter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource Collection of type NetworkDeviceFunctionCollection."/>
+          <Annotation Term="OData.Description" String="The link to the collection of network device functions associated with this network adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource collection of type NetworkDeviceFunctionCollection."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <Property Name="Manufacturer" Type="Edm.String">
@@ -129,41 +129,41 @@
         </Property>
         <Property Name="Controllers" Type="Collection(NetworkAdapter.v1_0_0.Controllers)" Nullable="false">
           <Annotation Term="OData.Description" String="The set of network controllers ASICs that make up this NetworkAdapter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the set of network controllers ASICs that make up this NetworkAdapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the set of network controllers ASICs that make up this network adapter."/>
         </Property>
         <Property Name="Actions" Type="NetworkAdapter.v1_0_0.Actions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available actions for this resource."/>
         </Property>
       </EntityType>
 
       <ComplexType Name="Actions">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The available actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available actions for this resource."/>
         <Property Name="Oem" Type="NetworkAdapter.v1_0_0.OemActions" Nullable="false">
-          <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this Resource."/>
+          <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the available OEM-specific actions for this resource."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="OemActions">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
-        <Annotation Term="OData.Description" String="The available OEM-specific actions for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this Resource."/>
+        <Annotation Term="OData.Description" String="The available OEM-specific actions for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain the available OEM-specific actions for this resource."/>
       </ComplexType>
 
       <ComplexType Name="Controllers">
-        <Annotation Term="OData.Description" String="A network controller ASIC that makes up part of a NetworkAdapter."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a network controller ASIC that makes up part of a NetworkAdapter."/>
+        <Annotation Term="OData.Description" String="A network controller ASIC that makes up part of a network adapter."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a network controller ASIC that makes up part of a network adapter."/>
         <Property Name="FirmwarePackageVersion" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The version of the user-facing firmware package."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the version number of the user-facing firmware package."/>
         </Property>
         <Property Name="Links" Type="NetworkAdapter.v1_0_0.ControllerLinks" Nullable="false">
-          <Annotation Term="OData.Description" String="The links."/>
-          <Annotation Term="OData.LongDescription" String="Links for this controller."/>
+          <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."/>
         </Property>
         <Property Name="ControllerCapabilities" Type="NetworkAdapter.v1_0_0.ControllerCapabilities" Nullable="false">
           <Annotation Term="OData.Description" String="The capabilities of this controller."/>
@@ -193,8 +193,8 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain capability, status, and configuration values related to virtualization offload for this controller."/>
         </Property>
         <Property Name="NPIV" Type="NetworkAdapter.v1_0_0.NPIV" Nullable="false">
-          <Annotation Term="OData.Description" String="N_Port ID Virtualization (NPIV) capabilties for this controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain N_Port ID Virtualization (NPIV) capabilties for this controller."/>
+          <Annotation Term="OData.Description" String="N_Port ID Virtualization (NPIV) capabilities for this controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain N_Port ID Virtualization (NPIV) capabilities for this controller."/>
         </Property>
       </ComplexType>
 
@@ -229,31 +229,31 @@
       </ComplexType>
 
       <ComplexType Name="ControllerLinks" BaseType="Resource.Links">
-        <Annotation Term="OData.Description" String="The links to other Resources that are related to this Resource."/>
-        <Annotation Term="OData.LongDescription" String="The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource."/>
+        <Annotation Term="OData.Description" String="The links to other resources that are related to this resource."/>
+        <Annotation Term="OData.LongDescription" String="This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."/>
         <NavigationProperty Name="PCIeDevices" Type="Collection(PCIeDevice.PCIeDevice)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the PCIeDevices associated with this Network Controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the PCIeDevice type that represent the PCIe devices associated with this Network Controller."/>
+          <Annotation Term="OData.Description" String="An array of links to the PCIe devices associated with this network controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type PCIeDevice that represent the PCIe devices associated with this network controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="NetworkPorts" Type="Collection(NetworkPort.NetworkPort)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the NetworkPorts associated with this Network Controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the NetworkPort type that represent the Network Ports associated with this Network Controller."/>
+          <Annotation Term="OData.Description" String="An array of links to the network ports associated with this network controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkPort that represent the network ports associated with this network controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
         <NavigationProperty Name="NetworkDeviceFunctions" Type="Collection(NetworkDeviceFunction.NetworkDeviceFunction)">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="An array of links to the NetworkDeviceFunctions associated with this Network Controller."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links of the NetworkDeviceFunction type that represent the network device functions associated with this Network Controller."/>
+          <Annotation Term="OData.Description" String="An array of links to the network device functions associated with this network controller."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of links to resources of type NetworkDeviceFunction that represent the network device functions associated with this network controller."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </ComplexType>
 
       <ComplexType Name="SRIOV">
-        <Annotation Term="OData.Description" String="Single-Root Input/Output Virtualization (SR-IOV) capabilities."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain Single-Root Input/Output Virtualization (SR-IOV) capabilities."/>
+        <Annotation Term="OData.Description" String="Single-root input/output virtualization (SR-IOV) capabilities."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain single-root input/output virtualization (SR-IOV) capabilities."/>
         <Property Name="SRIOVVEPACapable" Type="Edm.Boolean">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="An indication of whether this controller supports single root input/output virtualization (SR-IOV) in Virtual Ethernet Port Aggregator (VEPA) mode."/>
@@ -269,14 +269,14 @@
           <Annotation Term="OData.LongDescription" String="This property shall describe the capability, status, and configuration values related to the virtual function for this controller."/>
         </Property>
         <Property Name="SRIOV" Type="NetworkAdapter.v1_0_0.SRIOV" Nullable="false">
-          <Annotation Term="OData.Description" String="Single-Root Input/Output Virtualization (SR-IOV) capabilities."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain Single-Root Input/Output Virtualization (SR-IOV) capabilities."/>
+          <Annotation Term="OData.Description" String="Single-root input/output virtualization (SR-IOV) capabilities."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain single-root input/output virtualization (SR-IOV) capabilities."/>
         </Property>
       </ComplexType>
 
       <ComplexType Name="NPIV">
-        <Annotation Term="OData.Description" String="N_Port ID Virtualization (NPIV) capabilties for a controller."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain N_Port ID Virtualization (NPIV) capabilties for a controller."/>
+        <Annotation Term="OData.Description" String="N_Port ID Virtualization (NPIV) capabilities for a controller."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain N_Port ID Virtualization (NPIV) capabilities for a controller."/>
         <Property Name="MaxDeviceLogins" Type="Edm.Int64">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The maximum number of N_Port ID Virtualization (NPIV) logins allowed simultaneously from all ports on this controller."/>
@@ -315,14 +315,20 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_3.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_0_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_4.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_0_1.NetworkAdapter">
         <NavigationProperty Name="Assembly" Type="Assembly.Assembly" ContainsTarget="true" Nullable="false">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The link to the assembly Resource associated with this adapter."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a Resource of type assembly."/>
+          <Annotation Term="OData.Description" String="The link to the assembly resource associated with this adapter."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type Assembly."/>
           <Annotation Term="OData.AutoExpandReferences"/>
         </NavigationProperty>
       </EntityType>
@@ -351,6 +357,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_2.NetworkAdapter"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_1_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_1_3.NetworkAdapter"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_0">
@@ -400,6 +412,12 @@
       <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_1.NetworkAdapter"/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_2_3">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_2_2.NetworkAdapter"/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.2"/>
@@ -407,10 +425,16 @@
 
       <ComplexType Name="Controllers" BaseType="NetworkAdapter.v1_2_0.Controllers">
         <Property Name="Identifiers" Type="Collection(Resource.Identifier)" Nullable="false">
-          <Annotation Term="OData.Description" String="The Durable names for the network adapter."/>
+          <Annotation Term="OData.Description" String="The durable names for the network adapter."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain a list of all known durable names for the associated network adapter."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkAdapter.v1_3_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+      <EntityType Name="NetworkAdapter" BaseType="NetworkAdapter.v1_3_0.NetworkAdapter"/>
     </Schema>
 
   </edmx:DataServices>

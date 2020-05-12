@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_1_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Certificate.v1_2_0.json",
     "$ref": "#/definitions/Certificate",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -144,6 +144,17 @@
                     "$ref": "#/definitions/Identifier",
                     "description": "The subject of the certificate.",
                     "longDescription": "This property shall contain an object containing information about the subject of the certificate."
+                },
+                "UefiSignatureOwner": {
+                    "description": "The UEFI signature owner for this certificate.",
+                    "longDescription": "The value of this property shall contain the GUID of the UEFI signature owner for this certificate as defined by the UEFI Specification.  This property shall only be present for secure boot database certificates.",
+                    "pattern": "([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})",
+                    "readonly": true,
+                    "type": [
+                        "string",
+                        "null"
+                    ],
+                    "versionAdded": "v1_2_0"
                 },
                 "ValidNotAfter": {
                     "description": "The date when the certificate is no longer valid.",
@@ -441,6 +452,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.1",
-    "title": "#Certificate.v1_1_1.Certificate"
+    "release": "2020.1",
+    "title": "#Certificate.v1_2_0.Certificate"
 }

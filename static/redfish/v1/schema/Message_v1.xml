@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Message v1.0.8                                                      -->
+<!--# Redfish Schema:  Message v1.1.0                                                      -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -68,6 +68,15 @@
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The severity of the errors."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the error, as defined in the Status section of the Redfish Specification."/>
+          <Annotation Term="Redfish.Revisions">
+            <Collection>
+              <Record>
+                <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Deprecated"/>
+                <PropertyValue Property="Version" String="v1_1_0"/>
+                <PropertyValue Property="Description" String="This property has been deprecated in favor of MessageSeverity, which ties the values to the enumerations defined for the Health property within Status."/>
+              </Record>
+            </Collection>
+          </Annotation>
         </Property>
         <Property Name="Resolution" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -122,6 +131,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <ComplexType Name="Message" BaseType="Message.v1_0_7.Message"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Message.v1_1_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to deprecate the Severity property and replace it with the MessageSeverity property, in order to tie the values to those used for the Health property within Status."/>
+
+      <ComplexType Name="Message" BaseType="Message.v1_0_8.Message">
+        <Property Name="MessageSeverity" Type="Resource.Health">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
+          <Annotation Term="OData.Description" String="The severity of the message."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the severity of the message."/>
+        </Property>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>

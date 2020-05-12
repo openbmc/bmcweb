@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  ManagerAccount v1.5.0                                               -->
+<!--# Redfish Schema:  ManagerAccount v1.6.0                                               -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -319,8 +319,8 @@
         <Property Name="AuthenticationKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret authentication key for SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses."/>
-          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 authentication.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase may contain any printable characters except for the double quotation mark."/>
+          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{24})|(^\*+$)"/>
         </Property>
         <Property Name="AuthenticationProtocol" Type="ManagerAccount.v1_4_0.SNMPAuthenticationProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -330,8 +330,8 @@
         <Property Name="EncryptionKey" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The secret authentication key used in SNMPv3."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses."/>
-          <Annotation Term="Validation.Pattern" String="(^[A-Za-z0-9]+$)|(^\*+$)"/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the key for SNMPv3 encryption.  The value shall be `null` in responses.  This property accepts a passphrase or a hex-encoded key.  If the string starts with `Passphrase:`, the remainder of the string shall be the passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  If the string starts with `Hex:`, then the remainder of the string shall be the key encoded in hexadecimal notation.  If the string starts with neither, the full string shall be a passphrase and shall be converted to the key as described in the 'Password to Key Algorithm' section of RFC3414.  The passphrase may contain any printable characters except for the double quotation mark."/>
+          <Annotation Term="Validation.Pattern" String="(^[ !#-~]+$)|(^Passphrase:[ ^[ !#-~]+$)|(^Hex:[0-9A-Fa-f]{32})|(^\*+$)"/>
         </Property>
         <Property Name="EncryptionProtocol" Type="ManagerAccount.v1_4_0.SNMPEncryptionProtocols">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -378,7 +378,7 @@
         </Member>
         <Member Name="CFB128_AES128">
           <Annotation Term="OData.Description" String="CFB128-AES-128 encryption."/>
-          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3414-defined CFB128-AES-128 encryption protocol."/>
+          <Annotation Term="OData.LongDescription" String="This value shall indicate encryption conforms to the RFC3826-defined CFB128-AES-128 encryption protocol."/>
         </Member>
       </EnumType>
     </Schema>
@@ -387,6 +387,12 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to correct the description for Enabled to remove the tie with Locked."/>
       <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_4_2">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for AuthenticationKey, EncryptionKey, and CFB128_AES128."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_4_1.ManagerAccount"/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_0">
@@ -407,6 +413,26 @@
           <Annotation Term="OData.LongDescription" String="This property shall contain `true` if a valid value was provided for the EncryptionKey property.  Otherwise, the property shall contain `false`."/>
         </Property>
       </ComplexType>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_5_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct the description for AuthenticationKey, EncryptionKey, and CFB128_AES128."/>
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_0.ManagerAccount"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="ManagerAccount.v1_6_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the PasswordExpiration property."/>
+
+      <EntityType Name="ManagerAccount" BaseType="ManagerAccount.v1_5_1.ManagerAccount">
+        <Property Name="PasswordExpiration" Type="Edm.DateTimeOffset" Nullable="true">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates the date and time when this account password expires.  If `null`, the account password never expires."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the date and time when this account password expires.  If the value is `null`, the account password never expires."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

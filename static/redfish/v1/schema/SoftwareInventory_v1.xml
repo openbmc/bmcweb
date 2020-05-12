@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  SoftwareInventory v1.2.3                                            -->
+<!--# Redfish Schema:  SoftwareInventory v1.3.0                                            -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -217,6 +217,20 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
       <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_2_2.SoftwareInventory"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="SoftwareInventory.v1_3_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add WriteProtected property."/>
+
+      <EntityType Name="SoftwareInventory" BaseType="SoftwareInventory.v1_2_3.SoftwareInventory">
+        <Property Name="WriteProtected" Type="Edm.Boolean">
+          <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
+          <Annotation Term="OData.Description" String="Indicates if the software is write-protected."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether the software image can be overwritten, where a value `true` shall indicate that the software cannot be altered or overwritten."/>
+        </Property>
+      </EntityType>
     </Schema>
 
   </edmx:DataServices>

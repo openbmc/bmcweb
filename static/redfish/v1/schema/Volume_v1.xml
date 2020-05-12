@@ -57,7 +57,7 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/StorageReplicaInfo_v1.xml">
     <edmx:Include Namespace="StorageReplicaInfo"/>
-    <edmx:Include Namespace="StorageReplicaInfo.v1_2_0"/>
+    <edmx:Include Namespace="StorageReplicaInfo.v1_3_0"/>
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/swordfish/v1/IOStatistics_v1.xml">
     <edmx:Include Namespace="IOStatistics"/>
@@ -109,7 +109,7 @@
             <String>/redfish/v1/StorageServices/{StorageServiceId}/StoragePools/{StoragePoolId}/AllocatedVolumes/{VolumeId}</String>
             <String>/redfish/v1/StorageServices/{StorageServiceId}/StoragePools/{StoragePoolId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes/{VolumeId}</String>
             <String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}</String>
-            <String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes/{VolumeId}</String>
+            <String>/redfish/v1/StorageServices/{StorageServiceId}/Volumes/{VolumeId}/CapacitySources/{CapacitySourceId}/ProvidingVolumes/{ProvidingVolumeId}</String>
           </Collection>
         </Annotation>
       </EntityType>
@@ -446,7 +446,7 @@
           <Annotation Term="OData.Description" String="The model number for this storage volume."/>
           <Annotation Term="OData.LongDescription" String="The value is assigned by the manufacturer and shall represents a specific storage volume implementation."/>
         </Property>
-        <Property Name="ReplicaInfo" Type="StorageReplicaInfo.v1_2_0.ReplicaInfo" Nullable="false">
+        <Property Name="ReplicaInfo" Type="StorageReplicaInfo.v1_3_0.ReplicaInfo" Nullable="false">
           <Annotation Term="OData.Description" String="Describes this storage volume in its role as a target replica."/>
           <Annotation Term="OData.LongDescription" String="This property shall describe the replica relationship between this storage volume and a corresponding source volume."/>
         </Property>
@@ -502,6 +502,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_2_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.0.5"/>
       <Annotation Term="OData.Description" String="This version was created to add IO Statistics, and adds the RemainingCapacityPercent property."/>
       <EntityType Name="Volume" BaseType="Volume.v1_1_1.Volume">
         <Annotation Term="OData.Description" String="Add volume statistics."/>
@@ -551,6 +552,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="TP v1.0.6a"/>
       <Annotation
         Term="OData.Description"
         String="This version was created to add RecoverableCapacitySourceCount and SpareResourceSets. This also replaces collection StorageReplicaInfos with scalar StorageReplicaInfo, and adds a ReplicaTargets collection. It also adds the RAIDType enum, which replaces the use of VolumeType for direct Volume characterization."/>
@@ -603,6 +605,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_4_0">
       <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="Redfish.Release" String="WIP v1.1.0"/>
       <Annotation
         Term="OData.Description"
         String="This version was created to add collection of references to Endpoints, StorageGroups and ConsistencyGroups associated with this Volume, and adds a LongDescription to RAID6TP. It also adds AutoExpand to CapacitySources and changes the MaxBlockSizeBytes to 64 bytes. Additionally the following properties have been added: ProvisioningPolicy, OwningStorageService, StripSizeBytes, ReadAheadPolicy, VolumeUsage, WritePolicy, CacheState, LogicalUnitNumber, MediaSpanCount, Deduplicated, Compressed, WriteHoleProtectionPolicy, and DisplayName. This version also adds the following Actions: AssignReplicaTarget, CreateReplicaTarget, RemoveReplicaRelationship, ResumeReplication, ReverseReplicationRelationship, SplitReplication, and SuspendReplication. This version also adds both Redfish Uris and Capability Annotations and fixes CSDL errors."/>
@@ -774,6 +777,18 @@
           <Annotation Term="OData.Description" String="A caching technique in which the completion of a write request is signaled as soon as the data is in cache; actual writing to non-volatile media is not guaranteed to occur at a later time."/>
           <Annotation Term="OData.LongDescription" String="A caching technique in which the completion of a write request is signaled as soon as the data is in cache; actual writing to non-volatile media is not guaranteed to occur at a later time."/>
         </Member>
+        <Member Name="Off">
+          <Annotation Term="OData.Description" String="The write cache is disabled."/>
+          <Annotation Term="OData.LongDescription" String="Indicates that the write cache shall be disabled."/>
+                  <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_1"/>
+            </Record>
+          </Collection>
+        </Annotation>
+        </Member>
       </EnumType>
 
       <EnumType Name="WriteCacheStateType">
@@ -807,6 +822,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to establish a replication relationship by assigning an existing volume to serve as a target replica for an existing source volume."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to establish a replication relationship by assigning an existing volume to serve as a target replica for an existing source volume."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="CreateReplicaTarget" IsBound="true">
@@ -829,6 +852,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to create a new volume resource to provide expanded data protection through a replica relationship with the specified source volume."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to create a new volume resource to provide expanded data protection through a replica relationship with the specified source volume."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="RemoveReplicaRelationship" IsBound="true">
@@ -843,6 +874,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to disable data synchronization between a source and target volume, remove the replication relationship, and optionally delete the target volume."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to disable data synchronization between a source and target volume, remove the replication relationship, and optionally delete the target volume."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="ResumeReplication" IsBound="true">
@@ -853,6 +892,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to resume the active data synchronization between a source and target volume, without otherwise altering the replication relationship."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to resume the active data synchronization between a source and target volume, without otherwise altering the replication relationship."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="ReverseReplicationRelationship" IsBound="true">
@@ -863,6 +910,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to reverse the replication relationship between a source and target volume."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to reverse the replication relationship between a source and target volume."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="SplitReplication" IsBound="true">
@@ -873,6 +928,14 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to split the replication relationship and suspend data synchronization between a source and target volume."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to split the replication relationship and suspend data synchronization between a source and target volume."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
       <Action Name="SuspendReplication" IsBound="true">
@@ -883,8 +946,23 @@
         </Parameter>
         <Annotation Term="OData.Description" String="This action is used to suspend active data synchronization between a source and target volume, without otherwise altering the replication relationship."/>
         <Annotation Term="OData.LongDescription" String="This action shall be used to suspend active data synchronization between a source and target volume, without otherwise altering the replication relationship."/>
+        <Annotation Term="Redfish.Revisions">
+          <Collection>
+            <Record>
+              <PropertyValue Property="Kind" EnumMember="Redfish.RevisionKind/Added"/>
+              <PropertyValue Property="Version" String="v1_4_0"/>
+            </Record>
+          </Collection>
+        </Annotation>
       </Action>
 
     </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Volume.v1_4_1">
+      <Annotation Term="Redfish.OwningEntity" String="SNIA"/>
+      <Annotation Term="OData.Description" String="This version was created to update the reference to StorageReplicaInfo to version 1.3.0. It also adds Redfish.Release and RevisionKind/Added annotations, adds 'Off' to the WriteCachePolicy, and fixes Redfish Uris issues."/>
+      <EntityType Name="Volume" BaseType="Volume.v1_4_0.Volume"/>
+    </Schema>
+
   </edmx:DataServices>
 </edmx:Edmx>

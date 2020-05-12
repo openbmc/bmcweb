@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/EthernetInterface.v1_6_0.json",
     "$ref": "#/definitions/EthernetInterface",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_3_0"
                 }
             },
@@ -240,10 +240,25 @@
             },
             "type": "string"
         },
+        "EthernetDeviceType": {
+            "enum": [
+                "Physical",
+                "Virtual"
+            ],
+            "enumDescriptions": {
+                "Physical": "A physical Ethernet interface.",
+                "Virtual": "A virtual Ethernet interface."
+            },
+            "enumLongDescriptions": {
+                "Physical": "This value shall indicate a physical traditional network interface.",
+                "Virtual": "This value shall indicate a network device function has multiple VLANs and is representing one of them as a virtual Ethernet interface.  The NetworkDeviceFunction property within Links shall contain the locator for the parent network device function."
+            },
+            "type": "string"
+        },
         "EthernetInterface": {
             "additionalProperties": false,
             "description": "The EthernetInterface schema represents a single, logical Ethernet interface or network interface controller (NIC).",
-            "longDescription": "This Resource contains NIC Resources as part of the Redfish Specification.",
+            "longDescription": "This resource contains NIC resources as part of the Redfish Specification.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -273,8 +288,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_3_0"
                 },
                 "AutoNeg": {
@@ -309,6 +324,20 @@
                     ],
                     "readonly": true
                 },
+                "EthernetInterfaceType": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/EthernetDeviceType"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The type of interface.",
+                    "longDescription": "This property shall contain the type of interface.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
+                },
                 "FQDN": {
                     "description": "The complete, fully qualified domain name that DNS obtains for this interface.",
                     "longDescription": "This property shall contain the fully qualified domain name that DNS obtains for this interface.",
@@ -341,7 +370,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/IPAddresses.json#/definitions/IPv4Address"
                     },
-                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddessses.  Services may reject updates to this array for this reason.",
+                    "longDescription": "This property shall contain an array of objects that represent the IPv4 connection characteristics for this interface.  It is recommended that this property be regarded as read-only with configuration of static addresses performed by updating the values within IPv4StaticAddresses.  Services may reject updates to this array for this reason.",
                     "type": "array"
                 },
                 "IPv4StaticAddresses": {
@@ -452,8 +481,8 @@
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to other Resources that are related to this Resource.",
-                    "longDescription": "The Redfish Specification-described Links Property shall contain links to Resources related to but not subordinate to this Resource.",
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "MACAddress": {
@@ -519,8 +548,8 @@
                     "readonly": true
                 },
                 "SpeedMbps": {
-                    "description": "The current speed, in Mbps, of this interface.",
-                    "longDescription": "This property shall contain the link speed of the interface, in Mbps.  This property shall be writable only when the AutoNeg property is `false`.",
+                    "description": "The current speed, in Mbit/s, of this interface.",
+                    "longDescription": "This property shall contain the link speed of the interface, in Mbit/s.  This property shall be writable only when the AutoNeg property is `false`.",
                     "readonly": false,
                     "type": [
                         "integer",
@@ -542,15 +571,15 @@
                             "null"
                         ]
                     },
-                    "longDescription": "This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they may also be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assigments.",
+                    "longDescription": "This property shall contain the statically-defined set of DNS server IP addresses to use when DHCP provisioning is not enabled for name server configuration.  As an implementation option, they may also be used in addition to DHCP-provided addresses, or in cases where the DHCP server provides no DNS assignments.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "UefiDevicePath": {
                     "description": "The UEFI device path for this interface.",
@@ -563,13 +592,13 @@
                 },
                 "VLAN": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterface.json#/definitions/VLAN",
-                    "description": "If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the Link section of this Resource.",
+                    "description": "If this network interface supports more than one VLAN, this property is absent.  VLAN collections appear in the Links property of this resource.",
                     "longDescription": "This property shall contain the VLAN for this interface.  If this interface supports more than one VLAN, the VLAN property shall be absent and, instead, the VLAN collection link shall be present."
                 },
                 "VLANs": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection.json#/definitions/VLanNetworkInterfaceCollection",
                     "description": "The link to a collection of VLANs, which applies only if the interface supports more than one VLAN.  If this property applies, the VLANEnabled and VLANId properties do not apply.",
-                    "longDescription": "This property shall contain a link to a collection of VLAN Resources, which applies only if the interface supports more than one VLAN.  If this property is present, the VLANEnabled and VLANId properties shall not be present.",
+                    "longDescription": "This property shall contain a link to a resource collection of type VLanNetworkInterfaceCollection, which applies only if the interface supports more than one VLAN.  If this property is present, the VLANEnabled and VLANId properties shall not be present.",
                     "readonly": true
                 }
             },
@@ -649,8 +678,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "The Redfish Specification-described type shall contain links to Resources related to but not subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -669,7 +698,7 @@
                 "Chassis": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Chassis.json#/definitions/Chassis",
                     "description": "The link to the chassis that contains this Ethernet interface.",
-                    "longDescription": "This property shall contain a link to a Resource of type Chassis that represent the physical container associated with this Ethernet interface.",
+                    "longDescription": "This property shall contain a link to a resource of type Chassis that represent the physical container associated with this Ethernet interface.",
                     "readonly": true,
                     "versionAdded": "v1_3_0"
                 },
@@ -678,7 +707,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain a link to the Resources of the Endpoint type with which this Ethernet interface is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint with which this Ethernet interface is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_1_0"
@@ -689,9 +718,23 @@
                 "HostInterface": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/HostInterface.json#/definitions/HostInterface",
                     "description": "The link to a Host Interface that is associated with this Ethernet interface.",
-                    "longDescription": "This property shall contain a link to a Resource of type HostInterface that represents the interface that a host uses to communicate with a manager.",
+                    "longDescription": "This property shall contain a link to a resource of type HostInterface that represents the interface that a host uses to communicate with a manager.",
                     "readonly": true,
                     "versionAdded": "v1_2_0"
+                },
+                "NetworkDeviceFunction": {
+                    "anyOf": [
+                        {
+                            "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "The link to the parent network device function and is only used when representing one of the VLANs on that network device function, such as is done in Unix.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkDeviceFunction and only be populated with the EthernetInterfaceType property is `Virtual`.",
+                    "readonly": true,
+                    "versionAdded": "v1_6_0"
                 },
                 "Oem": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Oem",
@@ -707,8 +750,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -770,6 +813,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.1",
-    "title": "#EthernetInterface.v1_5_1.EthernetInterface"
+    "release": "2020.1",
+    "title": "#EthernetInterface.v1_6_0.EthernetInterface"
 }

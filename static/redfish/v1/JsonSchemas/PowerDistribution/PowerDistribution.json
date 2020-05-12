@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.v1_0_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/PowerDistribution.v1_0_1.json",
     "$ref": "#/definitions/PowerDistribution",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -37,7 +37,7 @@
         "Links": {
             "additionalProperties": false,
             "description": "The links to other resources that are related to this resource.",
-            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by or subordinate to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -199,7 +199,7 @@
                 "Links": {
                     "$ref": "#/definitions/Links",
                     "description": "The links to other resources that are related to this resource.",
-                    "longDescription": "This property shall contain links to resources that are related to but are not contained by or subordinate to this resource."
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Location": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Location",
@@ -370,7 +370,7 @@
                 "AutomaticTransferSwitch": "An automatic power transfer switch.",
                 "FloorPDU": "A power distribution unit providing feeder circuits for further power distribution.",
                 "ManualTransferSwitch": "A manual power transfer switch.",
-                "RackPDU": "A power distribution unit providing outlets for a rack or similiar quantity of devices.",
+                "RackPDU": "A power distribution unit providing outlets for a rack or similar quantity of devices.",
                 "Switchgear": "Electrical switchgear."
             },
             "type": "string"
@@ -601,5 +601,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#PowerDistribution.v1_0_0.PowerDistribution"
+    "title": "#PowerDistribution.v1_0_1.PowerDistribution"
 }

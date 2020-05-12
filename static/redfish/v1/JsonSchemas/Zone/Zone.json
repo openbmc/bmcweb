@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_4_0.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/Zone.v1_4_1.json",
     "$ref": "#/definitions/Zone",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -52,8 +52,8 @@
         },
         "Links": {
             "additionalProperties": false,
-            "description": "The links to other Resources that are related to this Resource.",
-            "longDescription": "This Redfish Specification-described type shall contain links to Resources that are not contained in or subordinate to this Resource.",
+            "description": "The links to other resources that are related to this resource.",
+            "longDescription": "This Redfish Specification-described type shall contain links to resources that are related to but are not contained by, or subordinate to, this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -74,7 +74,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/AddressPool.json#/definitions/AddressPool"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type AddressPool with which this zone is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type AddressPool with which this zone is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -87,7 +87,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type Zone that represent the zones that contain this zone.  The zones referenced by this property shall not be contained by other zones.",
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that represent the zones that contain this zone.  The zones referenced by this property shall not be contained by other zones.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -100,7 +100,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Zone.json#/definitions/Zone"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of type Zone that represent the zones that are contained by this zone.  The zones referenced by this property shall not contain other zones.",
+                    "longDescription": "This property shall contain an array of links to resources of type Zone that represent the zones that are contained by this zone.  The zones referenced by this property shall not contain other zones.",
                     "readonly": false,
                     "type": "array",
                     "versionAdded": "v1_4_0"
@@ -113,7 +113,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Endpoint.json#/definitions/Endpoint"
                     },
-                    "longDescription": "This property shall contain a link to the Resources of the Endpoint type that this zone contains.",
+                    "longDescription": "This property shall contain an array of links to resources of type Endpoint that this zone contains.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -125,7 +125,7 @@
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/Switch.json#/definitions/Switch"
                     },
-                    "longDescription": "This property shall contain the links to the Resource Collection of type Switch in this zone.",
+                    "longDescription": "This property shall contain an array of links to resources of type Switch in this zone.",
                     "readonly": true,
                     "type": "array"
                 },
@@ -138,11 +138,11 @@
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties contained in this object shall conform to the Redfish Specification-described requirements."
                 },
                 "ResourceBlocks": {
-                    "description": "The links to the Resource Blocks with which this zone is associated.",
+                    "description": "The links to the resource blocks with which this zone is associated.",
                     "items": {
                         "$ref": "http://redfish.dmtf.org/schemas/v1/ResourceBlock.json#/definitions/ResourceBlock"
                     },
-                    "longDescription": "This property shall contain an array of links to Resources of the ResourceBlock type with which this zone is associated.",
+                    "longDescription": "This property shall contain an array of links to resources of type ResourceBlock with which this zone is associated.",
                     "readonly": true,
                     "type": "array",
                     "versionAdded": "v1_1_0"
@@ -155,8 +155,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -177,7 +177,7 @@
         "Zone": {
             "additionalProperties": false,
             "description": "The Zone schema describes a simple fabric zone for a Redfish implementation.",
-            "longDescription": "This Resource shall represent a simple fabric zone for a Redfish implementation.",
+            "longDescription": "This resource shall represent a simple fabric zone for a Redfish implementation.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -207,8 +207,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "DefaultRoutingEnabled": {
@@ -241,8 +241,8 @@
                             "type": "null"
                         }
                     ],
-                    "description": "Indicates accessiblity of endpoints in this zone to endpoints outside of this zone.",
-                    "longDescription": "This property shall contain and indication of accessiblity of endpoints in this zone to endpoints outside of this zone.",
+                    "description": "Indicates accessibility of endpoints in this zone to endpoints outside of this zone.",
+                    "longDescription": "This property shall contain and indication of accessibility of endpoints in this zone to endpoints outside of this zone.",
                     "readonly": false,
                     "versionAdded": "v1_3_0"
                 },
@@ -251,25 +251,18 @@
                     "readonly": true
                 },
                 "Identifiers": {
-                    "description": "The identifiers for this zone.",
+                    "description": "The durable names for the zone.",
                     "items": {
-                        "anyOf": [
-                            {
-                                "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
-                            },
-                            {
-                                "type": "null"
-                            }
-                        ]
+                        "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Identifier"
                     },
-                    "longDescription": "This property shall contain a Resource Collection of identifiers for this zone, which shall be unique in the context of other zones.",
+                    "longDescription": "This property shall contain a list of all known durable names for the associated zone.",
                     "type": "array",
                     "versionAdded": "v1_2_0"
                 },
                 "Links": {
                     "$ref": "#/definitions/Links",
-                    "description": "The links to Resources related to but not subordinate to this Resource.",
-                    "longDescription": "This Redfish Specification-described property shall contain links to Resources related to but not subordinate to this Resource."
+                    "description": "The links to other resources that are related to this resource.",
+                    "longDescription": "This property shall contain links to resources that are related to but are not contained by, or subordinate to, this resource."
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -282,8 +275,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain the status and health properties of the Resource and its children."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "ZoneType": {
                     "anyOf": [
@@ -321,13 +314,13 @@
             },
             "enumLongDescriptions": {
                 "Default": "This value shall indicate a zone in which all endpoints are added by default when instantiated.",
-                "ZoneOfEndpoints": "This value shall indicate a zone that contains Resources of type Endpoint.",
-                "ZoneOfZones": "This value shall indicate a zone that contains Resources of type Zone."
+                "ZoneOfEndpoints": "This value shall indicate a zone that contains resources of type Endpoint.",
+                "ZoneOfZones": "This value shall indicate a zone that contains resources of type Zone."
             },
             "type": "string"
         }
     },
     "owningEntity": "DMTF",
     "release": "2019.4",
-    "title": "#Zone.v1_4_0.Zone"
+    "title": "#Zone.v1_4_1.Zone"
 }
