@@ -63,7 +63,13 @@ class Sessions : public Node
         res.jsonValue["@odata.type"] = "#Session.v1_2_1.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
-
+        if (!session->clientId.empty())
+        {
+            res.jsonValue["Oem"] = {
+                {"OpenBMC",
+                 {{"@odata.type", "#OemSession.v1_0_0.Session"},
+                  {"Vendor", {{"ClientID", session->clientId}}}}}};
+        }
         res.end();
     }
 
@@ -168,8 +174,10 @@ class SessionCollection : public Node
     {
         std::string username;
         std::string password;
+        std::optional<nlohmann::json> oemObject;
+        std::string clientId;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password))
+                                 password, "Oem", oemObject))
         {
             res.end();
             return;
@@ -200,11 +208,34 @@ class SessionCollection : public Node
 
             return;
         }
-
+        if (oemObject)
+        {
+            std::optional<nlohmann::json> bmcOem;
+            if (json_util::readJson(*oemObject, res, "OpenBMC", bmcOem))
+            {
+                std::optional<nlohmann::json> vendorObj;
+                if (json_util::readJson(*bmcOem, res, "Vendor", vendorObj))
+                {
+                    if (json_util::readJson(*vendorObj, res, "ClientID",
+                                            clientId))
+                    {
+                        if (clientId.empty())
+                        {
+                            // Return the PropertyMissing error.
+                            // No need to stop creating the session as this is
+                            // an Oem optional property for session creation
+                            messages::propertyMissing(res, "ClientID");
+                        }
+                    }
+                }
+            }
+        }
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
-                .generateUserSession(username);
+                .generateUserSession(
+                    username, crow::persistent_data::PersistenceType::TIMEOUT,
+                    clientId);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);

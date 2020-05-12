@@ -39,6 +39,7 @@ struct UserSession
     std::string sessionToken;
     std::string username;
     std::string csrfToken;
+    std::string clientId;
     std::chrono::time_point<std::chrono::steady_clock> lastUpdated;
     PersistenceType persistence;
     bool cookieAuth = false;
@@ -82,6 +83,10 @@ struct UserSession
             else if (element.key() == "username")
             {
                 userSession->username = *thisValue;
+            }
+            else if (element.key() == "client_id")
+            {
+                userSession->clientId = *thisValue;
             }
             else
             {
@@ -193,7 +198,8 @@ class SessionStore
   public:
     std::shared_ptr<UserSession> generateUserSession(
         const std::string_view username,
-        PersistenceType persistence = PersistenceType::TIMEOUT)
+        PersistenceType persistence = PersistenceType::TIMEOUT,
+        const std::string_view clientId = "")
     {
         // TODO(ed) find a secure way to not generate session identifiers if
         // persistence is set to SINGLE_REQUEST
@@ -240,10 +246,10 @@ class SessionStore
                 return nullptr;
             }
         }
-
-        auto session = std::make_shared<UserSession>(UserSession{
-            uniqueId, sessionToken, std::string(username), csrfToken,
-            std::chrono::steady_clock::now(), persistence});
+        auto session = std::make_shared<UserSession>(
+            UserSession{uniqueId, sessionToken, std::string(username),
+                        csrfToken, std::string(clientId),
+                        std::chrono::steady_clock::now(), persistence});
         auto it = authTokens.emplace(std::make_pair(sessionToken, session));
         // Only need to write to disk if session isn't about to be destroyed.
         needWrite = persistence == PersistenceType::TIMEOUT;
@@ -404,7 +410,8 @@ struct adl_serializer<std::shared_ptr<crow::persistent_data::UserSession>>
             j = nlohmann::json{{"unique_id", p->uniqueId},
                                {"session_token", p->sessionToken},
                                {"username", p->username},
-                               {"csrf_token", p->csrfToken}};
+                               {"csrf_token", p->csrfToken},
+                               {"client_id", p->clientId}};
         }
     }
 };
