@@ -63,7 +63,9 @@ class Sessions : public Node
         res.jsonValue["@odata.type"] = "#Session.v1_0_2.Session";
         res.jsonValue["Name"] = "User Session";
         res.jsonValue["Description"] = "Manager User Session";
-
+        res.jsonValue["Oem"]["OpenBMC"]["@odata.type"] =
+            "#OemSession.v1_0_0.Session";
+        res.jsonValue["Oem"]["OpenBMC"]["ClientID"] = session->clientId;
         res.end();
     }
 
@@ -168,8 +170,10 @@ class SessionCollection : public Node
     {
         std::string username;
         std::string password;
+        std::optional<nlohmann::json> oemObject;
+        std::string clientId;
         if (!json_util::readJson(req, res, "UserName", username, "Password",
-                                 password))
+                                 password, "Oem", oemObject))
         {
             res.end();
             return;
@@ -202,13 +206,27 @@ class SessionCollection : public Node
 
             return;
         }
-
+        if (oemObject)
+        {
+            std::optional<nlohmann::json> bmcOem;
+            if (!json_util::readJson(*oemObject, res, "OpenBMC", bmcOem))
+            {
+                res.end();
+                return;
+            }
+            if (!json_util::readJson(*bmcOem, res, "ClientID", clientId))
+            {
+                BMCWEB_LOG_ERROR << "Could not read ClientId";
+                res.end();
+                return;
+            }
+        }
         // User is authenticated - create session
         std::shared_ptr<crow::persistent_data::UserSession> session =
             crow::persistent_data::SessionStore::getInstance()
                 .generateUserSession(
                     username, crow::persistent_data::PersistenceType::TIMEOUT,
-                    isConfigureSelfOnly);
+                    isConfigureSelfOnly, clientId);
         res.addHeader("X-Auth-Token", session->sessionToken);
         res.addHeader("Location", "/redfish/v1/SessionService/Sessions/" +
                                       session->uniqueId);
