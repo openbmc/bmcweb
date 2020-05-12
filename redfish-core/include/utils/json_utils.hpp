@@ -29,18 +29,18 @@ namespace json_util
 {
 
 /**
- * @brief Processes request to extract JSON from its body. If it fails, adds
- *       MalformedJSON message to response and ends it.
+ * @brief Processes string data to extract JSON. If it fails, adds MalformedJSON
+ *        message to response and ends it.
  *
  * @param[io]  res       Response object
- * @param[in]  req       Request object
- * @param[out] reqJson   JSON object extracted from request's body
+ * @param[in]  data      string data
+ * @param[out] reqJson   JSON object extracted from string data
  *
  * @return true if JSON is valid, false when JSON is invalid and response has
  *         been filled with message and ended.
  */
-bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
-                            nlohmann::json& reqJson);
+bool processJsonFromData(crow::Response& res, std::string_view data,
+                         nlohmann::json& reqJson);
 namespace details
 {
 
@@ -419,16 +419,23 @@ bool readJson(nlohmann::json& jsonRequest, crow::Response& res, const char* key,
 }
 
 template <typename... UnpackTypes>
-bool readJson(const crow::Request& req, crow::Response& res, const char* key,
+bool readJson(std::string_view data, crow::Response& res, const char* key,
               UnpackTypes&... in)
 {
     nlohmann::json jsonRequest;
-    if (!json_util::processJsonFromRequest(res, req, jsonRequest))
+    if (!json_util::processJsonFromData(res, data, jsonRequest))
     {
         BMCWEB_LOG_DEBUG << "Json value not readable";
         return false;
     }
     return readJson(jsonRequest, res, key, in...);
+}
+
+template <typename... UnpackTypes>
+bool readJson(const crow::Request& req, crow::Response& res, const char* key,
+              UnpackTypes&... in)
+{
+    return readJson(req.body, res, key, in...);
 }
 
 template <typename Type>

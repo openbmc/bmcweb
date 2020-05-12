@@ -21,10 +21,10 @@ namespace redfish
 namespace json_util
 {
 
-bool processJsonFromRequest(crow::Response& res, const crow::Request& req,
-                            nlohmann::json& reqJson)
+bool processJsonFromData(crow::Response& res, std::string_view data,
+                         nlohmann::json& reqJson)
 {
-    reqJson = nlohmann::json::parse(req.body, nullptr, false);
+    reqJson = nlohmann::json::parse(data, nullptr, false);
 
     if (reqJson.is_discarded())
     {
