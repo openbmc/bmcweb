@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  Resource v1.9.0                                                     -->
+<!--# Redfish Schema:  Resource v1.9.1                                                     -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -27,18 +27,18 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
 
       <TypeDefinition Name="Id" UnderlyingType="Edm.String">
-        <Annotation Term="OData.Description" String="The identifier that uniquely identifies the Resource within the collection of similar Resources."/>
-        <Annotation Term="OData.LongDescription" String="This property represents an identifier for the Resource.  The Resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.Description" String="The identifier that uniquely identifies the resource within the collection of similar resources."/>
+        <Annotation Term="OData.LongDescription" String="This property represents an identifier for the resource.  The resource values shall comply with the Redfish Specification-described requirements."/>
       </TypeDefinition>
 
       <TypeDefinition Name="Description" UnderlyingType="Edm.String">
-        <Annotation Term="OData.Description" String="The description of this Resource.  Used for commonality in the schema definitions."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the description of this Resource.  The Resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.Description" String="The description of this resource.  Used for commonality in the schema definitions."/>
+        <Annotation Term="OData.LongDescription" String="This object represents the description of this resource.  The resource values shall comply with the Redfish Specification-described requirements."/>
       </TypeDefinition>
 
       <TypeDefinition Name="Name" UnderlyingType="Edm.String">
-        <Annotation Term="OData.Description"  String="The name of the Resource or array member."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the name of this Resource or array member.  The Resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
+        <Annotation Term="OData.Description"  String="The name of the resource or array member."/>
+        <Annotation Term="OData.LongDescription" String="This object represents the name of this resource or array member.  The resource values shall comply with the Redfish Specification-described requirements.  This string value shall be of the 'Name' reserved word format."/>
       </TypeDefinition>
 
       <TypeDefinition Name="UUID" UnderlyingType="Edm.Guid"/>
@@ -62,20 +62,20 @@
           </Collection>
         </Annotation>
         <Annotation Term="OData.Description" String="The OEM extension."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the OEM properties.  The Resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.LongDescription" String="This object represents the OEM properties.  The resource values shall comply with the Redfish Specification-described requirements."/>
       </ComplexType>
 
       <ComplexType Name="OemObject">
         <Annotation Term="OData.AdditionalProperties" Bool="true"/>
         <Annotation Term="OData.Description" String="The base type for an OEM extension."/>
-        <Annotation Term="OData.LongDescription" String="This object represents the base type for an OEM object.  The Resource values shall comply with the Redfish Specification-described requirements."/>
+        <Annotation Term="OData.LongDescription" String="This object represents the base type for an OEM object.  The resource values shall comply with the Redfish Specification-described requirements."/>
       </ComplexType>
 
       <EntityType Name="ItemOrCollection" Abstract="true"/>
 
       <EntityType Name="Item" BaseType="Resource.ItemOrCollection" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The base type for Resources and members that can be linked to."/>
+        <Annotation Term="OData.Description" String="The base type for resources and members that can be linked to."/>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
           <Annotation Term="OData.LongDescription" String="This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."/>
@@ -91,22 +91,22 @@
       <ComplexType Name="Status">
         <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The status and health of a Resource and its children."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any status or health properties of a Resource."/>
+        <Annotation Term="OData.Description" String="The status and health of a resource and its children."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any status or health properties of a resource."/>
         <Property Name="State" Type="Resource.State">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The known state of the Resource, such as, enabled."/>
-          <Annotation Term="OData.LongDescription" String="This property shall indicate whether and why this component is available.  Enabled indicates the Resource is available.  Disabled indicates the Resource has been intentionally made unavailable but it can be enabled.  Offline indicates the Resource is unavailable intentionally and requires action to make it available.  InTest indicates that the component is undergoing testing.  Starting indicates that the Resource is becoming available.  Absent indicates the Resource is physically unavailable."/>
+          <Annotation Term="OData.Description" String="The known state of the resource, such as, enabled."/>
+          <Annotation Term="OData.LongDescription" String="This property shall indicate whether and why this component is available.  Enabled indicates the resource is available.  Disabled indicates the resource has been intentionally made unavailable but it can be enabled.  Offline indicates the resource is unavailable intentionally and requires action to make it available.  InTest indicates that the component is undergoing testing.  Starting indicates that the resource is becoming available.  Absent indicates the resource is physically unavailable."/>
         </Property>
         <Property Name="HealthRollup" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The overall health state from the view of this Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the health state of the Resource and its dependent Resources.  The values shall conform to those defined in the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="The overall health state from the view of this resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the health state of the resource and its dependent resources.  The values shall conform to those defined in the Redfish Specification."/>
         </Property>
         <Property Name="Health" Type="Resource.Health">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The health state of this Resource in the absence of its dependent Resources."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the health state of the Resource without considering its dependent Resources.  The values shall conform to those defined in the Redfish Specification."/>
+          <Annotation Term="OData.Description" String="The health state of this resource in the absence of its dependent resources."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the health state of the resource without considering its dependent resources.  The values shall conform to those defined in the Redfish Specification."/>
         </Property>
         <Property Name="Oem" Type="Resource.Oem" Nullable="false">
           <Annotation Term="OData.Description" String="The OEM extension property."/>
@@ -116,28 +116,28 @@
 
       <EnumType Name="State">
         <Member Name="Enabled">
-          <Annotation Term="OData.Description" String="This function or Resource is enabled."/>
+          <Annotation Term="OData.Description" String="This function or resource is enabled."/>
         </Member>
         <Member Name="Disabled">
-          <Annotation Term="OData.Description" String="This function or Resource is disabled."/>
+          <Annotation Term="OData.Description" String="This function or resource is disabled."/>
         </Member>
         <Member Name="StandbyOffline">
-          <Annotation Term="OData.Description" String="This function or Resource is enabled but awaits an external action to activate it."/>
+          <Annotation Term="OData.Description" String="This function or resource is enabled but awaits an external action to activate it."/>
         </Member>
         <Member Name="StandbySpare">
-          <Annotation Term="OData.Description" String="This function or Resource is part of a redundancy set and awaits a failover or other external action to activate it."/>
+          <Annotation Term="OData.Description" String="This function or resource is part of a redundancy set and awaits a failover or other external action to activate it."/>
         </Member>
         <Member Name="InTest">
-          <Annotation Term="OData.Description" String="This function or Resource is undergoing testing, or is in the process of capturing information for debugging."/>
+          <Annotation Term="OData.Description" String="This function or resource is undergoing testing, or is in the process of capturing information for debugging."/>
         </Member>
         <Member Name="Starting">
-          <Annotation Term="OData.Description" String="This function or Resource is starting."/>
+          <Annotation Term="OData.Description" String="This function or resource is starting."/>
         </Member>
         <Member Name="Absent">
-          <Annotation Term="OData.Description" String="This function or Resource is either not present or detected."/>
+          <Annotation Term="OData.Description" String="This function or resource is either not present or detected."/>
         </Member>
         <Member Name="UnavailableOffline">
-          <Annotation Term="OData.Description" String="This function or Resource is present but cannot be used."/>
+          <Annotation Term="OData.Description" String="This function or resource is present but cannot be used."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -244,15 +244,15 @@
       </EnumType>
 
       <ComplexType Name="Identifier" Abstract="true">
-        <Annotation Term="OData.Description" String="Any additional identifiers for a Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall contain any additional identifiers for a Resource."/>
+        <Annotation Term="OData.Description" String="Any additional identifiers for a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall contain any additional identifiers for a resource."/>
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
       </ComplexType>
 
       <ComplexType Name="Location" Abstract="true">
         <Annotation Term="OData.AdditionalProperties" Bool="false"/>
-        <Annotation Term="OData.Description" String="The location of a Resource."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe the location of a Resource."/>
+        <Annotation Term="OData.Description" String="The location of a resource."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe the location of a resource."/>
       </ComplexType>
 
       <EnumType Name="IndicatorLED">
@@ -364,7 +364,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_7">
@@ -377,6 +377,11 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_0_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.1"/>
@@ -384,8 +389,8 @@
       <ComplexType Name="Identifier" BaseType="Resource.Identifier">
         <Property Name="DurableName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The world-wide, persistent name of the Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the world-wide unique identifier for the Resource.  The string shall be in the Identifier.DurableNameFormat property value format."/>
+          <Annotation Term="OData.Description" String="The world-wide, persistent name of the resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the world-wide unique identifier for the resource.  The string shall be in the Identifier.DurableNameFormat property value format."/>
         </Property>
         <Property Name="DurableNameFormat" Type="Resource.v1_1_0.DurableNameFormat">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
@@ -397,8 +402,8 @@
       <ComplexType Name="Location" BaseType="Resource.Location">
         <Property Name="Info" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
-          <Annotation Term="OData.Description" String="The location of the Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall represent the location of the Resource."/>
+          <Annotation Term="OData.Description" String="The location of the resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall represent the location of the resource."/>
           <Annotation Term="Redfish.Revisions">
             <Collection>
               <Record>
@@ -509,7 +514,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_8">
@@ -520,6 +525,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_9">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_1_10">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_0">
@@ -555,7 +565,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_7">
@@ -568,6 +578,11 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_2_9">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2016.3"/>
@@ -576,7 +591,7 @@
         <Annotation Term="OData.LongDescription" String="Enumeration literals shall name the type of rack unit in use."/>
         <Member Name="OpenU">
           <Annotation Term="OData.Description" String="A rack unit that is equal to 48 mm (1.89 in)."/>
-          <Annotation Term="OData.LongDescription" String="Rack units shall be specified in terms of the Open Compute Open Rack specification."/>
+          <Annotation Term="OData.LongDescription" String="Rack units shall be specified in terms of the Open Compute Open Rack Specification."/>
         </Member>
         <Member Name="EIA_310">
           <Annotation Term="OData.Description" String="A rack unit that is equal to 1.75 in (44.45 mm)."/>
@@ -585,8 +600,8 @@
       </EnumType>
 
       <ComplexType Name="PostalAddress">
-        <Annotation Term="OData.Description" String="The postal address for a Resource."/>
-        <Annotation Term="OData.LongDescription" String="Instances shall describe a postal address for a Resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location."/>
+        <Annotation Term="OData.Description" String="The postal address for a resource."/>
+        <Annotation Term="OData.LongDescription" String="Instances shall describe a postal address for a resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location."/>
         <Property Name="Country" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The country."/>
@@ -609,8 +624,8 @@
         </Property>
         <Property Name="Division" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="City division, borough, dity district, ward, or chou (JP)."/>
-          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the A4 field.  Names a city division, borough, dity district, ward, or chou (JP)."/>
+          <Annotation Term="OData.Description" String="City division, borough, city district, ward, or chou (JP)."/>
+          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the A4 field.  Names a city division, borough, city district, ward, or chou (JP)."/>
         </Property>
         <Property Name="Neighborhood" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -689,12 +704,12 @@
         <Property Name="Unit" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The name or number of the apartment unit or suite."/>
-          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the UNIT field.  The name or number of a unit, such as the apartment or suite, to locate the Resource."/>
+          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the UNIT field.  The name or number of a unit, such as the apartment or suite, to locate the resource."/>
         </Property>
         <Property Name="Room" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The name or number of the room."/>
-          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the ROOM field.  A name or number of a room to locate the Resource within the unit."/>
+          <Annotation Term="OData.LongDescription" String="The value shall conform to the RFC5139-defined requirements of the ROOM field.  A name or number of a room to locate the resource within the unit."/>
         </Property>
         <Property Name="Seat" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
@@ -769,7 +784,7 @@
 
       <ComplexType Name="Placement">
         <Annotation Term="OData.Description" String="The placement within the addressed location."/>
-        <Annotation Term="OData.LongDescription" String="The value shall describe a location within a Resource.  Examples include a shelf in a rack."/>
+        <Annotation Term="OData.LongDescription" String="The value shall describe a location within a resource.  Examples include a shelf in a rack."/>
         <Property Name="Row" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="The name of the row."/>
@@ -793,11 +808,11 @@
       </ComplexType>
 
       <ComplexType Name="Location" BaseType="Resource.v1_1_0.Location">
-        <Annotation Term="OData.Description" String="The location of a Resource."/>
-        <Annotation Term="OData.LongDescription" String="Instances shall describe a location for a Resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location."/>
+        <Annotation Term="OData.Description" String="The location of a resource."/>
+        <Annotation Term="OData.LongDescription" String="Instances shall describe a location for a resource.  For more information, see RFC5139.  Depending on use, the instance may represent a past, current, or future location."/>
         <Property Name="PostalAddress" Type="Resource.v1_3_0.PostalAddress" Nullable="false">
-          <Annotation Term="OData.Description" String="The postal address of the addressed Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain a postal address of the Resource."/>
+          <Annotation Term="OData.Description" String="The postal address of the addressed resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a postal address of the resource."/>
         </Property>
         <Property Name="Placement" Type="Resource.v1_3_0.Placement" Nullable="false">
           <Annotation Term="OData.Description" String="A place within the addressed location."/>
@@ -829,7 +844,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_5">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_6">
@@ -840,6 +855,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_7">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_3_8">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_0">
@@ -865,7 +885,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_4">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_5">
@@ -876,6 +896,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_6">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_4_7">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_0">
@@ -968,7 +993,7 @@
 
       <ComplexType Name="PartLocation">
         <Annotation Term="OData.Description" String="The part location within the placement."/>
-        <Annotation Term="OData.LongDescription" String="This type shall describe a location within a Resource.  This representation shall indicate the location within the Placement."/>
+        <Annotation Term="OData.LongDescription" String="This type shall describe a location within a resource.  This representation shall indicate the location within the Placement."/>
         <Property Name="ServiceLabel" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/Read"/>
           <Annotation Term="OData.Description" String="The label of the part location, such as a silk-screened name or a printed label."/>
@@ -999,7 +1024,7 @@
       <ComplexType Name="Location" BaseType="Resource.v1_3_0.Location">
         <Property Name="PartLocation" Type="Resource.v1_5_0.PartLocation" Nullable="false">
           <Annotation Term="OData.Description" String="The part location within the placement."/>
-          <Annotation Term="OData.LongDescription" String="The location within a Resource.  This representation shall indicate the location within the Placement."/>
+          <Annotation Term="OData.LongDescription" String="The location within a resource.  This representation shall indicate the location within the Placement."/>
         </Property>
       </ComplexType>
 
@@ -1017,7 +1042,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_4">
@@ -1030,6 +1055,11 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_5_6">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2017.3"/>
@@ -1038,20 +1068,20 @@
       <ComplexType Name="Location" BaseType="Resource.v1_5_0.Location">
         <Property Name="Longitude" Type="Edm.Decimal" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The longitude of the Resource in degrees."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the longitude of the Resource specified in degrees using a decimal format and not minutes or seconds."/>
+          <Annotation Term="OData.Description" String="The longitude of the resource in degrees."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the longitude of the resource specified in degrees using a decimal format and not minutes or seconds."/>
           <Annotation Term="Measures.Unit" String="deg"/>
         </Property>
         <Property Name="Latitude" Type="Edm.Decimal" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The latitude of the Resource."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the latitude of the Resource specified in degrees using a decimal format and not minutes or seconds."/>
+          <Annotation Term="OData.Description" String="The latitude of the resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the latitude of the resource specified in degrees using a decimal format and not minutes or seconds."/>
           <Annotation Term="Measures.Unit" String="deg"/>
         </Property>
         <Property Name="AltitudeMeters" Type="Edm.Decimal" DefaultValue="0">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
-          <Annotation Term="OData.Description" String="The altitude of the Resource in meters."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the altitude of the Resource in meters."/>
+          <Annotation Term="OData.Description" String="The altitude of the resource in meters."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the altitude of the resource in meters."/>
           <Annotation Term="Measures.Unit" String="m"/>
         </Property>
       </ComplexType>
@@ -1064,7 +1094,7 @@
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_2">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_3">
@@ -1077,6 +1107,11 @@
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_6_5">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2018.2"/>
@@ -1085,7 +1120,7 @@
       <ComplexType Name="Location" BaseType="Resource.v1_6_0.Location">
         <Property Name="Contacts" Type="Collection(Resource.v1_7_0.ContactInfo)">
           <Annotation Term="OData.Description" String="An array of contact information."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain an array of contact information for an individual or organization responsible for this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain an array of contact information for an individual or organization responsible for this resource."/>
         </Property>
       </ComplexType>
 
@@ -1106,29 +1141,29 @@
       </ComplexType>
 
       <ComplexType Name="ContactInfo">
-        <Annotation Term="OData.Description" String="Contact information for this Resource."/>
-        <Annotation Term="OData.LongDescription" String="This object shall contain contact information for an individual or organization responsible for this Resource."/>
+        <Annotation Term="OData.Description" String="Contact information for this resource."/>
+        <Annotation Term="OData.LongDescription" String="This object shall contain contact information for an individual or organization responsible for this resource."/>
         <Property Name="ContactName" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Name of this contact."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the name of a person or organization to contact for information about this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the name of a person or organization to contact for information about this resource."/>
         </Property>
         <Property Name="PhoneNumber" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Phone number for this contact."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the phone number for a person or organization to contact for information about this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the phone number for a person or organization to contact for information about this resource."/>
         </Property>
         <Property Name="EmailAddress" Type="Edm.String">
           <Annotation Term="OData.Permissions" EnumMember="OData.Permission/ReadWrite"/>
           <Annotation Term="OData.Description" String="Email address for this contact."/>
-          <Annotation Term="OData.LongDescription" String="This property shall contain the email address for a person or organization to contact for information about this Resource."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain the email address for a person or organization to contact for information about this resource."/>
         </Property>
       </ComplexType>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_1">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
-      <Annotation Term="OData.Description" String="This version was created to use the new Revisions annotation."/>
+      <Annotation Term="OData.Description" String="This version was created to use the new revisions annotation."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_2">
@@ -1139,6 +1174,11 @@
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_3">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to update descriptions that this schema defines."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_7_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
 
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_0">
@@ -1162,10 +1202,20 @@
       <Annotation Term="OData.Description" String="This version was created to remove the Redfish Excerpt annotation from the Name property, prior to the first publication of schemas containing Excerpt usage."/>
     </Schema>
 
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_8_4">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
+    </Schema>
+
     <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_0">
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="Redfish.Release" String="2019.4"/>
       <Annotation Term="OData.Description" String="This version was created to add the `Qualified` enumeration to State within Status."/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Resource.v1_9_1">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="OData.Description" String="This version was created to correct various typographical errors."/>
     </Schema>
 
   </edmx:DataServices>

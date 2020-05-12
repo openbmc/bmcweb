@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_5_1.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/LogEntry.v1_6_0.json",
     "$ref": "#/definitions/LogEntry",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -229,6 +229,14 @@
                     "longDescription": "This property shall contain the MessageId, event data, or OEM-specific information.  This property decodes from the entry type.  If the entry type is `Event`, this property contains a Redfish Specification-defined MessageId property of the event.  If the entry type is `SEL`, the format should follow the pattern '^0[xX](([a-fA-F]|[0-9]){2}){4}$', which results in a string in the form '0xNNaabbcc', where 'NN' is the EventDir/EventType byte, 'aa' is the Event Data 1 byte, 'bb' is Event Data 2 byte, 'cc' is Event Data 3 byte, corresponding with bytes 13-16 in the IPMI SEL Event Record.  Otherwise, this property contains OEM-specific information.",
                     "readonly": true,
                     "type": "string"
+                },
+                "Modified": {
+                    "description": "The date and time when the log entry was last modified.",
+                    "format": "date-time",
+                    "longDescription": "This property shall contain the date and time when the log entry was last modified.  This property shall not appear if the log entry has not been modified since it was created.",
+                    "readonly": true,
+                    "type": "string",
+                    "versionAdded": "v1_6_0"
                 },
                 "Name": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Name",
@@ -580,6 +588,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2019.3",
-    "title": "#LogEntry.v1_5_1.LogEntry"
+    "release": "2020.1",
+    "title": "#LogEntry.v1_6_0.LogEntry"
 }

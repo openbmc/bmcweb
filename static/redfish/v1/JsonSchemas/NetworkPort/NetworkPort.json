@@ -1,13 +1,13 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_2_3.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/NetworkPort.v1_2_4.json",
     "$ref": "#/definitions/NetworkPort",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
-            "description": "The available actions for this Resource.",
-            "longDescription": "This type shall contain the available actions for this Resource.",
+            "description": "The available actions for this resource.",
+            "longDescription": "This type shall contain the available actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -25,8 +25,8 @@
             "properties": {
                 "Oem": {
                     "$ref": "#/definitions/OemActions",
-                    "description": "The available OEM-specific actions for this Resource.",
-                    "longDescription": "This property shall contain the available OEM-specific actions for this Resource.",
+                    "description": "The available OEM-specific actions for this resource.",
+                    "longDescription": "This property shall contain the available OEM-specific actions for this resource.",
                     "versionAdded": "v1_1_0"
                 }
             },
@@ -102,8 +102,8 @@
                 },
                 "NetworkDeviceFunction": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction",
-                    "description": "The link to the NetworkDeviceFunction associated with this bandwidth setting of this network port.",
-                    "longDescription": "This property shall contain a link of the NetworkDeviceFunction type that represents the network device function associated with this bandwidth setting of this network port.",
+                    "description": "The link to the network device function associated with this bandwidth setting of this network port.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkDeviceFunction that represents the network device function associated with this bandwidth setting of this network port.",
                     "readonly": true
                 }
             },
@@ -140,8 +140,8 @@
                 },
                 "NetworkDeviceFunction": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/NetworkDeviceFunction.json#/definitions/NetworkDeviceFunction",
-                    "description": "The link to the NetworkDeviceFunction associated with this bandwidth setting of this network port.",
-                    "longDescription": "This property shall contain a link of the NetworkDeviceFunction type that represents the network device function associated with this bandwidth setting of this network port.",
+                    "description": "The link to the network device function associated with this bandwidth setting of this network port.",
+                    "longDescription": "This property shall contain a link to a resource of type NetworkDeviceFunction that represents the network device function associated with this bandwidth setting of this network port.",
                     "readonly": true
                 }
             },
@@ -180,8 +180,8 @@
                 },
                 "Actions": {
                     "$ref": "#/definitions/Actions",
-                    "description": "The available actions for this Resource.",
-                    "longDescription": "This property shall contain the available actions for this Resource.",
+                    "description": "The available actions for this resource.",
+                    "longDescription": "This property shall contain the available actions for this resource.",
                     "versionAdded": "v1_1_0"
                 },
                 "ActiveLinkTechnology": {
@@ -382,8 +382,8 @@
                 },
                 "Status": {
                     "$ref": "http://redfish.dmtf.org/schemas/v1/Resource.json#/definitions/Status",
-                    "description": "The status and health of the Resource and its subordinate or dependent Resources.",
-                    "longDescription": "This property shall contain any status or health properties of the Resource."
+                    "description": "The status and health of the resource and its subordinate or dependent resources.",
+                    "longDescription": "This property shall contain any status or health properties of the resource."
                 },
                 "SupportedEthernetCapabilities": {
                     "description": "The set of Ethernet capabilities that this port supports.",
@@ -406,12 +406,12 @@
                     "items": {
                         "$ref": "#/definitions/SupportedLinkCapabilities"
                     },
-                    "longDescription": "This property shall describe the static capabilities of the port, irrespective of transient conditions such as cabling, interface module presence, or remote link parter status or configuration.",
+                    "longDescription": "This property shall describe the static capabilities of the port, irrespective of transient conditions such as cabling, interface module presence, or remote link partner status or configuration.",
                     "type": "array"
                 },
                 "VendorId": {
                     "description": "The vendor Identification for this port.",
-                    "longDescription": "This property shall indicate the vendor Identification string information as provided by the manufacturer of this port.",
+                    "longDescription": "This property shall indicate the vendor identification string information as provided by the manufacturer of this port.",
                     "readonly": true,
                     "type": [
                         "string",
@@ -439,8 +439,8 @@
         },
         "OemActions": {
             "additionalProperties": true,
-            "description": "The available OEM-specific actions for this Resource.",
-            "longDescription": "This type shall contain the available OEM-specific actions for this Resource.",
+            "description": "The available OEM-specific actions for this resource.",
+            "longDescription": "This type shall contain the available OEM-specific actions for this resource.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -471,9 +471,9 @@
             "enumDescriptions": {
                 "ExtenderFabric": "This port connection type is an extender fabric port.",
                 "Generic": "This port connection type is a generic fabric port.",
-                "NPort": "This port connects through an N-Port to a switch.",
+                "NPort": "This port connects through an N-port to a switch.",
                 "NotConnected": "This port is not connected.",
-                "PointToPoint": "This port connects in a Point-to-point configuration.",
+                "PointToPoint": "This port connects in a point-to-point configuration.",
                 "PrivateLoop": "This port connects in a private loop configuration.",
                 "PublicLoop": "This port connects in a public configuration."
             },
@@ -493,7 +493,7 @@
         "SupportedLinkCapabilities": {
             "additionalProperties": false,
             "description": "The link capabilities of an assocaited port.",
-            "longDescription": "This type shall describe the static capabilities of an associated port, irrespective of transient conditions such as cabling, interface module presence, or remote link parter status or configuration.",
+            "longDescription": "This type shall describe the static capabilities of an associated port, irrespective of transient conditions such as cabling, interface module presence, or remote link partner status or configuration.",
             "patternProperties": {
                 "^([a-zA-Z_][a-zA-Z0-9_]*)?@(odata|Redfish|Message)\\.[a-zA-Z_][a-zA-Z0-9_]*$": {
                     "description": "This property shall specify a valid odata or Redfish property.",
@@ -547,8 +547,8 @@
                 },
                 "LinkSpeedMbps": {
                     "deprecated": "This property has been deprecated in favor of the CapableLinkSpeedMbps.",
-                    "description": "The speed of the link in Mbps when this link network technology is active.",
-                    "longDescription": "This property shall contain the speed of the link in megabits per second (Mbps) for this port when this link network technology is active.",
+                    "description": "The speed of the link in Mbit/s when this link network technology is active.",
+                    "longDescription": "This property shall contain the speed of the link in megabits per second (Mbit/s) for this port when this link network technology is active.",
                     "readonly": true,
                     "type": [
                         "integer",
@@ -563,5 +563,5 @@
     },
     "owningEntity": "DMTF",
     "release": "2018.2",
-    "title": "#NetworkPort.v1_2_3.NetworkPort"
+    "title": "#NetworkPort.v1_2_4.NetworkPort"
 }

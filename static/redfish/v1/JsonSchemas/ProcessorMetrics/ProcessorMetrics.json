@@ -1,8 +1,8 @@
 {
-    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_0_2.json",
+    "$id": "http://redfish.dmtf.org/schemas/v1/ProcessorMetrics.v1_1_0.json",
     "$ref": "#/definitions/ProcessorMetrics",
     "$schema": "http://redfish.dmtf.org/schemas/v1/redfish-schema-v1.json",
-    "copyright": "Copyright 2014-2019 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
+    "copyright": "Copyright 2014-2020 DMTF. For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright",
     "definitions": {
         "Actions": {
             "additionalProperties": false,
@@ -293,6 +293,7 @@
                     "longDescription": "This property shall contain the available actions for this Resource."
                 },
                 "AverageFrequencyMHz": {
+                    "deprecated": "This property has been deprecated in favor of OperatingSpeedMHz property.",
                     "description": "The average frequency of the processor.",
                     "longDescription": "This property shall contain average frequency in MHz, across all enabled cores in the processor.  When this Resource is subordinate to the ProcessorSummary object, this property is not applicable.",
                     "readonly": true,
@@ -300,7 +301,8 @@
                         "number",
                         "null"
                     ],
-                    "units": "MHz"
+                    "units": "MHz",
+                    "versionDeprecated": "v1_1_0"
                 },
                 "BandwidthPercent": {
                     "description": "The CPU bandwidth as a percentage.",
@@ -393,6 +395,17 @@
                     "description": "The OEM extension property.",
                     "longDescription": "This property shall contain the OEM extensions.  All values for properties that this object contains shall conform to the Redfish Specification-described requirements."
                 },
+                "OperatingSpeedMHz": {
+                    "description": "Operating speed of the processor in MHz.",
+                    "longDescription": "This property shall contain the operating speed of the processor in MHz.  The operating speed of the processor may change more frequently than the manager is able to monitor.",
+                    "readonly": true,
+                    "type": [
+                        "integer",
+                        "null"
+                    ],
+                    "units": "MHz",
+                    "versionAdded": "v1_1_0"
+                },
                 "RemoteMemoryBandwidthBytes": {
                     "description": "The remote memory bandwidth usage in bytes.",
                     "longDescription": "This property shall contain the remote memory bandwidth usage of this processor in bytes.  When this Resource is subordinate to the ProcessorSummary object, this property shall be the sum of RemoteMemoryBandwidthBytes over all processors.",
@@ -445,6 +458,6 @@
         }
     },
     "owningEntity": "DMTF",
-    "release": "2018.3",
-    "title": "#ProcessorMetrics.v1_0_2.ProcessorMetrics"
+    "release": "2020.1",
+    "title": "#ProcessorMetrics.v1_1_0.ProcessorMetrics"
 }

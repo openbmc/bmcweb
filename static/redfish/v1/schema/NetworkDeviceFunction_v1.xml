@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!---->
 <!--################################################################################       -->
-<!--# Redfish Schema:  NetworkDeviceFunction v1.3.3                                        -->
+<!--# Redfish Schema:  NetworkDeviceFunction v1.4.0                                        -->
 <!--#                                                                                      -->
 <!--# For a detailed change log, see the README file contained in the DSP8010 bundle,      -->
 <!--# available at http://www.dmtf.org/standards/redfish                                   -->
-<!--# Copyright 2014-2019 DMTF.                                                            -->
+<!--# Copyright 2014-2020 DMTF.                                                            -->
 <!--# For the full DMTF copyright policy, see http://www.dmtf.org/about/policies/copyright -->
 <!--################################################################################       -->
 <!---->
@@ -39,6 +39,9 @@
   </edmx:Reference>
   <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/VLanNetworkInterfaceCollection_v1.xml">
     <edmx:Include Namespace="VLanNetworkInterfaceCollection"/>
+  </edmx:Reference>
+  <edmx:Reference Uri="http://redfish.dmtf.org/schemas/v1/EthernetInterface_v1.xml">
+    <edmx:Include Namespace="EthernetInterface"/>
   </edmx:Reference>
 
   <edmx:DataServices>
@@ -660,6 +663,21 @@
       <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
       <Annotation Term="OData.Description" String="This version was created to add a missing pattern term to MAC address properties.  It was also created to update descriptions that this schema defines."/>
       <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_2.NetworkDeviceFunction"/>
+    </Schema>
+
+    <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="NetworkDeviceFunction.v1_4_0">
+      <Annotation Term="Redfish.OwningEntity" String="DMTF"/>
+      <Annotation Term="Redfish.Release" String="2020.1"/>
+      <Annotation Term="OData.Description" String="This version was created to add the link to EthernetInterface when one of the NetworkDeviceFunction VLANs has been represented as a virtual NIC for the purpose of showing the IP Address associated with that VLAN."/>
+
+      <EntityType Name="NetworkDeviceFunction" BaseType="NetworkDeviceFunction.v1_3_3.NetworkDeviceFunction"/>
+      <ComplexType Name="Links" BaseType="NetworkDeviceFunction.v1_3_0.Links">
+        <NavigationProperty Name="EthernetInterface" Type="EthernetInterface.EthernetInterface" Nullable="false">
+          <Annotation Term="OData.Description" String="The link to a virtual Ethernet interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN."/>
+          <Annotation Term="OData.LongDescription" String="This property shall contain a link to a resource of type EthernetInterface that represents a virtual interface that was created when one of the network device function VLANs is represented as a virtual NIC for the purpose of showing the IP address associated with that VLAN.  The EthernetInterfaceType property of that resource shall contain the value `Virtual`."/>
+          <Annotation Term="OData.AutoExpandReferences"/>
+        </NavigationProperty>
+      </ComplexType>
     </Schema>
 
   </edmx:DataServices>
