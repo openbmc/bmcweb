@@ -17,10 +17,14 @@
 
 #include "bmcweb_config.h"
 
+#include "multipart_parser.hpp"
+
 #include <app.hpp>
+#include <boost/beast/http/rfc7230.hpp>
 #include <boost/container/flat_map.hpp>
 #include <utils/fw_utils.hpp>
 
+#include <filesystem>
 #include <variant>
 
 namespace redfish
@@ -380,6 +384,63 @@ static void monitorForSoftwareAvailable(
         });
 }
 
+static bool uploadImageFile(const std::string& body)
+{
+    std::filesystem::path filepath(
+        "/tmp/images/" +
+        boost::uuids::to_string(boost::uuids::random_generator()()));
+    BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
+    std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                    std::ofstream::trunc);
+    if (!out.is_open())
+    {
+        return false;
+    }
+    out << body;
+
+    return true;
+}
+
+static void setApplyTime(const std::shared_ptr<bmcweb::AsyncResp>& asyncResp,
+                         const std::string& applyTime)
+{
+    std::string applyTimeNewVal;
+    if (applyTime == "Immediate")
+    {
+        applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                          "RequestedApplyTimes.Immediate";
+    }
+    else if (applyTime == "OnReset")
+    {
+        applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                          "RequestedApplyTimes.OnReset";
+    }
+    else
+    {
+        BMCWEB_LOG_INFO << "ApplyTime value is not in the list of "
+                           "acceptable values";
+        messages::propertyValueNotInList(asyncResp->res, applyTime,
+                                         "ApplyTime");
+        return;
+    }
+
+    // Set the requested image apply time value
+    crow::connections::systemBus->async_method_call(
+        [asyncResp](const boost::system::error_code ec) {
+            if (ec)
+            {
+                BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                messages::internalError(asyncResp->res);
+                return;
+            }
+        },
+        "xyz.openbmc_project.Settings",
+        "/xyz/openbmc_project/software/apply_time",
+        "org.freedesktop.DBus.Properties", "Set",
+        "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
+        std::variant<std::string>{applyTimeNewVal});
+}
+
 /**
  * UpdateServiceActionsSimpleUpdate class supports handle POST method for
  * SimpleUpdate action.
@@ -521,6 +582,8 @@ inline void requestRoutesUpdateService(App& app)
             asyncResp->res.jsonValue["Name"] = "Update Service";
             asyncResp->res.jsonValue["HttpPushUri"] =
                 "/redfish/v1/UpdateService";
+            asyncResp->res.jsonValue["MultipartHttpPushUri"] =
+                "/redfish/v1/UpdateService/upload";
             // UpdateService cannot be disabled
             asyncResp->res.jsonValue["ServiceEnabled"] = true;
             asyncResp->res.jsonValue["FirmwareInventory"] = {
@@ -614,48 +677,7 @@ inline void requestRoutesUpdateService(App& app)
 
                         if (applyTime)
                         {
-                            std::string applyTimeNewVal;
-                            if (applyTime == "Immediate")
-                            {
-                                applyTimeNewVal =
-                                    "xyz.openbmc_project.Software.ApplyTime."
-                                    "RequestedApplyTimes.Immediate";
-                            }
-                            else if (applyTime == "OnReset")
-                            {
-                                applyTimeNewVal =
-                                    "xyz.openbmc_project.Software.ApplyTime."
-                                    "RequestedApplyTimes.OnReset";
-                            }
-                            else
-                            {
-                                BMCWEB_LOG_INFO
-                                    << "ApplyTime value is not in the list of "
-                                       "acceptable values";
-                                messages::propertyValueNotInList(
-                                    asyncResp->res, *applyTime, "ApplyTime");
-                                return;
-                            }
-
-                            // Set the requested image apply time value
-                            crow::connections::systemBus->async_method_call(
-                                [asyncResp](
-                                    const boost::system::error_code ec) {
-                                    if (ec)
-                                    {
-                                        BMCWEB_LOG_ERROR
-                                            << "D-Bus responses error: " << ec;
-                                        messages::internalError(asyncResp->res);
-                                        return;
-                                    }
-                                    messages::success(asyncResp->res);
-                                },
-                                "xyz.openbmc_project.Settings",
-                                "/xyz/openbmc_project/software/apply_time",
-                                "org.freedesktop.DBus.Properties", "Set",
-                                "xyz.openbmc_project.Software.ApplyTime",
-                                "RequestedApplyTime",
-                                std::variant<std::string>{applyTimeNewVal});
+                            setApplyTime(asyncResp, *applyTime);
                         }
                     }
                 }
@@ -671,16 +693,104 @@ inline void requestRoutesUpdateService(App& app)
                 monitorForSoftwareAvailable(asyncResp, req,
                                             "/redfish/v1/UpdateService");
 
-                std::string filepath("/tmp/images/" +
-                                     boost::uuids::to_string(
-                                         boost::uuids::random_generator()()));
-                BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
-                std::ofstream out(filepath, std::ofstream::out |
-                                                std::ofstream::binary |
-                                                std::ofstream::trunc);
-                out << req.body;
-                out.close();
-                BMCWEB_LOG_DEBUG << "file upload complete!!";
+                if (uploadImageFile(req.body))
+                {
+                    BMCWEB_LOG_DEBUG << "file upload complete!!";
+                    return;
+                }
+
+                BMCWEB_LOG_ERROR << "file upload failed!!";
+            });
+}
+
+inline void requestRoutesUpdateServiceMultipart(App& app)
+{
+    BMCWEB_ROUTE(app, "/redfish/v1/UpdateService/upload")
+        .privileges({"ConfigureComponents"})
+        .methods(boost::beast::http::verb::post)(
+            [](const crow::Request& req,
+               const std::shared_ptr<bmcweb::AsyncResp>& asyncResp) {
+                BMCWEB_LOG_DEBUG << "doPost Multipart update...";
+
+                std::error_code ec;
+                MultipartParser parser(req, ec);
+                if (ec)
+                {
+                    // handle error
+                    BMCWEB_LOG_ERROR << "MIME parse failed, ec : " << ec.value()
+                                     << " , ec message : " << ec.message();
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+
+                monitorForSoftwareAvailable(asyncResp, req,
+                                            "/redfish/v1/UpdateService/upload");
+
+                const std::string* uploadData = nullptr;
+                std::optional<std::string> applyTime = "OnReset";
+                for (const FormPart& formpart : parser.mime_fields)
+                {
+                    boost::beast::http::fields::const_iterator it =
+                        formpart.fields.find("Content-Disposition");
+                    if (it == formpart.fields.end())
+                    {
+                        BMCWEB_LOG_ERROR << "Couldn't find Content-Disposition";
+                        messages::internalError(asyncResp->res);
+                        return;
+                    }
+                    BMCWEB_LOG_INFO << "Parsing value " << it->value();
+
+                    // The construction parameters of param_list must start with
+                    // `;`
+                    size_t index = it->value().find(';');
+                    if (index == std::string::npos)
+                    {
+                        BMCWEB_LOG_ERROR << "Parsing value failed"
+                                         << it->value();
+                        continue;
+                    }
+
+                    for (auto const& param : boost::beast::http::param_list{
+                             it->value().substr(index)})
+                    {
+                        if (param.first != "name" || param.second.empty())
+                        {
+                            continue;
+                        }
+
+                        if (param.second == "UpdateParameters")
+                        {
+                            std::vector<std::string> targets;
+                            if (!json_util::readJson(
+                                    formpart.content, asyncResp->res, "Targets",
+                                    targets, "@Redfish.OperationApplyTime",
+                                    applyTime))
+                            {
+                                return;
+                            }
+                        }
+                        else if (param.second == "UpdateFile")
+                        {
+                            uploadData = &(formpart.content);
+                        }
+                    }
+                }
+
+                if (!uploadData)
+                {
+                    BMCWEB_LOG_ERROR << "Upload data is NULL";
+                    messages::propertyMissing(asyncResp->res, "UpdateFile");
+                    return;
+                }
+
+                setApplyTime(asyncResp, *applyTime);
+                if (uploadImageFile(*uploadData))
+                {
+                    BMCWEB_LOG_DEBUG << "file upload complete!!";
+                    return;
+                }
+
+                BMCWEB_LOG_ERROR << "file upload failed!!";
             });
 }
 

@@ -80,6 +80,7 @@ class RedfishService
         requestRoutesChassisResetAction(app);
         requestRoutesChassisResetActionInfo(app);
         requestRoutesUpdateService(app);
+        requestRoutesUpdateServiceMultipart(app);
         requestRoutesStorageCollection(app);
         requestRoutesStorage(app);
         requestRoutesDrive(app);
