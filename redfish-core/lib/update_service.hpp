@@ -151,14 +151,16 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                         return task::completed;
                                     }
 
+                                    std::string index =
+                                        std::to_string(taskData->index);
+
                                     if (boost::ends_with(*state, "Invalid") ||
                                         boost::ends_with(*state, "Failed"))
                                     {
                                         taskData->state = "Exception";
                                         taskData->status = "Warning";
                                         taskData->messages.emplace_back(
-                                            messages::invalidObject(
-                                                "/redfish/v1/UpdateService/"));
+                                            messages::taskAborted(index));
                                         return task::completed;
                                     }
 
@@ -171,7 +173,7 @@ static void softwareInterfaceAdded(std::shared_ptr<AsyncResp> asyncResp,
                                     if (boost::ends_with(*state, "Active"))
                                     {
                                         taskData->messages.emplace_back(
-                                            messages::success());
+                                            messages::taskCompletedOK(index));
                                         taskData->state = "Completed";
                                         return task::completed;
                                     }
