@@ -412,12 +412,14 @@ class UpdateService : public Node
                const std::vector<std::string> &params) override
     {
         std::shared_ptr<AsyncResp> aResp = std::make_shared<AsyncResp>(res);
-        res.jsonValue["@odata.type"] = "#UpdateService.v1_4_0.UpdateService";
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
         res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService";
         res.jsonValue["Id"] = "UpdateService";
         res.jsonValue["Description"] = "Service for Software Update";
         res.jsonValue["Name"] = "Update Service";
         res.jsonValue["HttpPushUri"] = "/redfish/v1/UpdateService";
+        res.jsonValue["MultipartHttpPushUri"] =
+            "/redfish/v1/UpdateService/upload";
         // UpdateService cannot be disabled
         res.jsonValue["ServiceEnabled"] = true;
         res.jsonValue["FirmwareInventory"] = {
@@ -566,6 +568,210 @@ class UpdateService : public Node
         std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
                                         std::ofstream::trunc);
         out << req.body;
+        out.close();
+        BMCWEB_LOG_DEBUG << "file upload complete!!";
+    }
+};
+
+class UpdateServiceMultipart : public Node
+{
+  public:
+    UpdateServiceMultipart(CrowApp &app) :
+        Node(app, "/redfish/v1/UpdateService/upload")
+    {
+        entityPrivileges = {
+            {boost::beast::http::verb::get, {{"Login"}}},
+            {boost::beast::http::verb::head, {{"Login"}}},
+            {boost::beast::http::verb::patch, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::put, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::delete_, {{"ConfigureComponents"}}},
+            {boost::beast::http::verb::post, {{"ConfigureComponents"}}}};
+    }
+
+  private:
+    void doGet(crow::Response &res, const crow::Request &req,
+               const std::vector<std::string> &params) override
+    {
+        res.jsonValue["@odata.type"] = "#UpdateService.v1_8_0.UpdateService";
+        res.jsonValue["@odata.id"] = "/redfish/v1/UpdateService/upload";
+        res.end();
+    }
+
+    void setApplyTime(std::shared_ptr<AsyncResp> asyncResp,
+                      const std::string &applyTime)
+    {
+        std::string applyTimeNewVal;
+        if (applyTime == "Immediate")
+        {
+            applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.Immediate";
+        }
+        else if (applyTime == "OnReset")
+        {
+            applyTimeNewVal = "xyz.openbmc_project.Software.ApplyTime."
+                              "RequestedApplyTimes.OnReset";
+        }
+        else
+        {
+            BMCWEB_LOG_INFO << "ApplyTime value is not in the list of "
+                               "acceptable values";
+            return;
+        }
+
+        // Set the requested image apply time value
+        crow::connections::systemBus->async_method_call(
+            [asyncResp](const boost::system::error_code ec) {
+                if (ec)
+                {
+                    BMCWEB_LOG_ERROR << "D-Bus responses error: " << ec;
+                    messages::internalError(asyncResp->res);
+                    return;
+                }
+                messages::success(asyncResp->res);
+            },
+            "xyz.openbmc_project.Settings",
+            "/xyz/openbmc_project/software/apply_time",
+            "org.freedesktop.DBus.Properties", "Set",
+            "xyz.openbmc_project.Software.ApplyTime", "RequestedApplyTime",
+            std::variant<std::string>{applyTimeNewVal});
+    }
+
+    std::string getApplyTimeFromReq(const std::string &data)
+    {
+        auto updateParamterJson = nlohmann::json::parse(data, nullptr, false);
+        if (updateParamterJson.is_discarded())
+        {
+            BMCWEB_LOG_DEBUG << "Bad json in request";
+            return "";
+        }
+
+        nlohmann::json::iterator applyTimeIt =
+            updateParamterJson.find("@Redfish.OperationApplyTime");
+        if (applyTimeIt != updateParamterJson.end())
+        {
+            return *(applyTimeIt->get_ptr<std::string *>());
+        }
+
+        return "";
+    }
+
+    void populateMapping(
+        const std::string &boundary, const std::string &reqBody,
+        boost::container::flat_map<std::string, std::string> &multipartMaps)
+    {
+        std::string contentName = "";
+        std::string contentBody = "";
+        std::string contentType = "";
+        std::string::size_type pos = 0;
+        std::string::size_type prev = 0;
+        bool isFirstLine = false;
+        for (; (pos = reqBody.find("\n", prev)) != std::string::npos;
+             prev = pos + 1)
+        {
+            if (isFirstLine)
+            {
+                isFirstLine = !isFirstLine;
+                continue;
+            }
+
+            auto line = reqBody.substr(prev, pos - prev + 1);
+            if (line.find(boundary) != std::string::npos)
+            {
+                if (contentName != "" && contentBody != "")
+                {
+                    multipartMaps.emplace(contentName, contentBody);
+                    contentName = "";
+                    contentBody = "";
+                    contentType = "";
+                }
+                continue;
+            }
+
+            if (contentName == "" &&
+                line.find("Content-Disposition: form-data") !=
+                    std::string::npos)
+            {
+                if (line.find("UpdateParameters") != std::string::npos)
+                {
+                    contentName = "UpdateParameters";
+                }
+                else if (line.find("UpdateFile") != std::string::npos)
+                {
+                    contentName = "UpdateFile";
+                }
+
+                continue;
+            }
+
+            if (contentType == "" &&
+                line.find("Content-Type") != std::string::npos)
+            {
+                isFirstLine = true;
+
+                if (line.find("application/json") != std::string::npos)
+                {
+                    contentType = "application/json";
+                }
+                else if (line.find("application/octet-stream") !=
+                         std::string::npos)
+                {
+                    contentType = "application/octet-stream";
+                }
+
+                continue;
+            }
+
+            if (contentName != "" && contentType != "")
+            {
+                contentBody += line;
+            }
+        }
+    }
+
+    void doPost(crow::Response &res, const crow::Request &req,
+                const std::vector<std::string> &params) override
+    {
+        BMCWEB_LOG_DEBUG << "doPost...";
+
+        std::shared_ptr<AsyncResp> asyncResp = std::make_shared<AsyncResp>(res);
+
+        std::string reqHeader = std::string(req.getHeaderValue("Content-Type"));
+        std::cerr << "george: Content-Length: "
+                  << std::string(req.getHeaderValue("Content-Length")) << "\n";
+        if (reqHeader.find("multipart/form-data") == std::string::npos)
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::size_t index = reqHeader.find("=");
+        if (index == std::string::npos)
+        {
+            asyncResp->res.clear();
+            messages::insufficientPrivilege(asyncResp->res);
+            return;
+        }
+
+        std::string boundary = reqHeader.substr(index + 1);
+        std::string reqBody = req.body;
+        boost::container::flat_map<std::string, std::string> multipartMaps;
+        populateMapping(boundary, reqBody, multipartMaps);
+
+        auto updateParameters = multipartMaps.at("UpdateParameters");
+        auto applyTime = getApplyTimeFromReq(updateParameters);
+        setApplyTime(asyncResp, applyTime);
+
+        // Setup callback for when new software detected
+        monitorForSoftwareAvailable(asyncResp, req);
+
+        std::string filepath(
+            "/tmp/images/" +
+            boost::uuids::to_string(boost::uuids::random_generator()()));
+        BMCWEB_LOG_DEBUG << "Writing file to " << filepath;
+        std::ofstream out(filepath, std::ofstream::out | std::ofstream::binary |
+                                        std::ofstream::trunc);
+        out << multipartMaps.at("UpdateFile");
         out.close();
         BMCWEB_LOG_DEBUG << "file upload complete!!";
     }
