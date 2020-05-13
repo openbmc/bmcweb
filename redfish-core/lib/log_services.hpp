@@ -96,9 +96,8 @@ static const Message *getMessage(const std::string_view &messageID)
 namespace fs = std::filesystem;
 
 using GetManagedPropertyType = boost::container::flat_map<
-    std::string,
-    sdbusplus::message::variant<std::string, bool, uint8_t, int16_t, uint16_t,
-                                int32_t, uint32_t, int64_t, uint64_t, double>>;
+    std::string, std::variant<std::string, bool, uint8_t, int16_t, uint16_t,
+                              int32_t, uint32_t, int64_t, uint64_t, double>>;
 
 using GetManagedObjectsType = boost::container::flat_map<
     sdbusplus::message::object_path,

@@ -2712,8 +2712,7 @@ void setSensorsOverride(
                         item.second, item.first,
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Sensor.Value", "Value",
-                        sdbusplus::message::variant<double>(
-                            iterator->second.first));
+                        std::variant<double>(iterator->second.first));
                 }
             };
         // Get object with connection for the given sensor name

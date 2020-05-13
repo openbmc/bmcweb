@@ -893,7 +893,7 @@ static void getBootProperties(std::shared_ptr<AsyncResp> aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                const sdbusplus::message::variant<bool> &oneTime) {
+                const std::variant<bool> &oneTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -929,7 +929,7 @@ void getPowerRestorePolicy(std::shared_ptr<AsyncResp> aResp)
 
     crow::connections::systemBus->async_method_call(
         [aResp](const boost::system::error_code ec,
-                sdbusplus::message::variant<std::string> &policy) {
+                std::variant<std::string> &policy) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
@@ -1111,9 +1111,8 @@ static void setBootProperties(std::shared_ptr<AsyncResp> aResp,
 
     crow::connections::systemBus->async_method_call(
         [aResp, bootSource{std::move(bootSource)},
-         bootEnable{std::move(bootEnable)}](
-            const boost::system::error_code ec,
-            const sdbusplus::message::variant<bool> &oneTime) {
+         bootEnable{std::move(bootEnable)}](const boost::system::error_code ec,
+                                            const std::variant<bool> &oneTime) {
             if (ec)
             {
                 BMCWEB_LOG_DEBUG << "DBUS response error " << ec;
