@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "638453ad_a1796945",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "57a98f3e_f3da1229",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 48
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "aad37f36_46045846",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "430e96d5_f57541af",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aad37f36_46045846",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 27
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c242bd76_a363b87a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "04222230_bbe4524d",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 38
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8c518b9a_7f1dfafa",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "cf56e29e_03a4087c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c518b9a_7f1dfafa",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6436fce6_6bb17d81",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -105,6 +201,30 @@
       "writtenOn": "2020-05-13T05:45:18Z",
       "side": 1,
       "message": "can we use messages::resourceNotFound() ?",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 59
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "105954af_f25f9fc3",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "This can be done. But throughout this file, the description field of res is populated like the above. All those must be changed to call methods defined in error_messages.hpp\n\nMaybe there should be another commit for the same, to change this file into a standard format in the above context.",
+      "parentUuid": "6436fce6_6bb17d81",
       "range": {
         "startLine": 154,
         "startChar": 8,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "8de98d7d_f1b6a99e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "The method above populates the response JSON only. So, a return statement is needed if it is a failure case",
+      "parentUuid": "c9494624_9d66f6e2",
+      "range": {
+        "startLine": 155,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 15
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1b169c15_0b48a6bc",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -151,6 +295,30 @@
       "writtenOn": "2020-05-13T05:45:18Z",
       "side": 1,
       "message": "this is redundant ?",
+      "range": {
+        "startLine": 171,
+        "startChar": 7,
+        "endLine": 171,
+        "endChar": 15
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da4cedb_9a0bb3cd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "The method above populates the response JSON only. So, a return statement is needed if it is a failure case",
+      "parentUuid": "1b169c15_0b48a6bc",
       "range": {
         "startLine": 171,
         "startChar": 7,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "2f05792a_141730fc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6826e96_c5508e5e",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 27
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5597250c_5c2df774",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -197,6 +389,30 @@
       "writtenOn": "2020-05-13T05:45:18Z",
       "side": 1,
       "message": "do we need to create a temp file ? cant we directly manipulate on the data ?\n\nif we want to create a file ? where do you think we need to place it ? we might need a read write access at runtime ?",
+      "range": {
+        "startLine": 187,
+        "startChar": 3,
+        "endLine": 190,
+        "endChar": 39
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "987354f1_f6746feb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "So I am building mimetic object by passing this file iterator to its constructor.\n\nThis file can be placed in /tmp/ and may be removed after the save area files have been created. Will include this in my next patchset.",
+      "parentUuid": "5597250c_5c2df774",
       "range": {
         "startLine": 187,
         "startChar": 3,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "7e40b4a7_1abeb4de",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4d605951_6a6c29aa",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 59
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0738d6fb_649cee02",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 13
@@ -252,6 +492,30 @@
       "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "35480976_4abec371",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-13T18:46:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0738d6fb_649cee02",
+      "range": {
+        "startLine": 425,
+        "startChar": 12,
+        "endLine": 425,
+        "endChar": 63
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
