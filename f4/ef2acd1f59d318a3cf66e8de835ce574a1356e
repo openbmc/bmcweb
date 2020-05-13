@@ -1,0 +1,8 @@
+Ok-To-Test+1: James Feist <james.feist@linux.intel.com>
+Verified+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Code-Review+2: James Feist <james.feist@linux.intel.com>
+Submitted-by: Chanyoung Park <park910113@gmail.com>
+Submitted-at: Wed, 13 May 2020 01:55:19 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/bmcweb/+/32022
+Project: openbmc/bmcweb
+Branch: refs/heads/master
