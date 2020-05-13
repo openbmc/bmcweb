@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "57a98f3e_f3da1229",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "avoid pointers as much as possible.\n\nuse constant reference , or at max use smart pointers if it is unavoidable ?",
+      "range": {
+        "startLine": 99,
+        "startChar": 26,
+        "endLine": 99,
+        "endChar": 48
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aad37f36_46045846",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "this should be out of if \u0026 else () ? condition right ? we might have to close the opened file in any case ?",
+      "range": {
+        "startLine": 124,
+        "startChar": 12,
+        "endLine": 124,
+        "endChar": 27
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "04222230_bbe4524d",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "cant we use range based for loop  rather than a normal for loop ?",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 38
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8c518b9a_7f1dfafa",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "use const reference ?",
+      "range": {
+        "startLine": 134,
+        "startChar": 11,
+        "endLine": 134,
+        "endChar": 42
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6436fce6_6bb17d81",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "can we use messages::resourceNotFound() ?",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 59
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9494624_9d66f6e2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "this is redundant",
+      "range": {
+        "startLine": 155,
+        "startChar": 8,
+        "endLine": 155,
+        "endChar": 15
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b169c15_0b48a6bc",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "this is redundant ?",
+      "range": {
+        "startLine": 171,
+        "startChar": 7,
+        "endLine": 171,
+        "endChar": 15
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6826e96_c5508e5e",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "use lowercamecase for variables ?",
+      "range": {
+        "startLine": 182,
+        "startChar": 16,
+        "endLine": 182,
+        "endChar": 27
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5597250c_5c2df774",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "do we need to create a temp file ? cant we directly manipulate on the data ?\n\nif we want to create a file ? where do you think we need to place it ? we might need a read write access at runtime ?",
+      "range": {
+        "startLine": 187,
+        "startChar": 3,
+        "endLine": 190,
+        "endChar": 39
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4d605951_6a6c29aa",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "can\u0027t we use redfish::messages::internalError() ?",
+      "range": {
+        "startLine": 207,
+        "startChar": 8,
+        "endLine": 207,
+        "endChar": 59
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0738d6fb_649cee02",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 13
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 1000206
+      },
+      "writtenOn": "2020-05-13T05:45:18Z",
+      "side": 1,
+      "message": "can we use call the already existing resourceNotFound() function from error_messages.hpp ?",
+      "range": {
+        "startLine": 425,
+        "startChar": 12,
+        "endLine": 425,
+        "endChar": 63
+      },
+      "revId": "01fb554e38d1431e1ef3195b9c25076b021fa63c",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
