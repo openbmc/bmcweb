@@ -1550,17 +1550,14 @@ class EthernetInterface : public Node
 
                 if (NICIPentry != ipv4Data.cend())
                 {
-                    if (gw != nullptr || addr != nullptr)
+                    if (gw != nullptr && addr != nullptr)
                     {
-                        // Shouldn't be possible based on errorInEntry, but
-                        // it flags -wmaybe-uninitialized in the compiler,
-                        // so defend against that
-                        return;
+                        deleteAndCreateIPv4(ifaceId, NICIPentry->id,
+                                            prefixLength, *gw, *addr,
+                                            asyncResp);
+                        NICIPentry =
+                            GetNextStaticIPEntry(++NICIPentry, ipv4Data.cend());
                     }
-                    deleteAndCreateIPv4(ifaceId, NICIPentry->id, prefixLength,
-                                        *gw, *addr, asyncResp);
-                    NICIPentry =
-                        GetNextStaticIPEntry(++NICIPentry, ipv4Data.cend());
                 }
                 else
                 {
