@@ -25,6 +25,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <error_messages.hpp>
+#include <fstream>
 #include <http_client.hpp>
 #include <memory>
 #include <utils/json_utils.hpp>
@@ -38,6 +39,9 @@ using ReadingsObjType =
 
 static constexpr const char* eventFormatType = "Event";
 static constexpr const char* metricReportFormatType = "MetricReport";
+
+static constexpr const char* eventServiceFile =
+    "/var/lib/bmcweb/eventservice_config.json";
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
 constexpr const char* redfishEventLogFile = "/var/log/redfish";
@@ -446,6 +450,13 @@ class Subscription
     std::shared_ptr<crow::HttpClient> conn;
 };
 
+static constexpr const bool defaultEnabledState = true;
+static constexpr const uint32_t defaultRetryAttempts = 3;
+static constexpr const uint32_t defaultRetryInterval = 30;
+static constexpr const char* defaulEventFormatType = "Event";
+static constexpr const char* defaulSubscriptionType = "RedfishEvent";
+static constexpr const char* defaulRetryPolicy = "TerminateAfterRetries";
+
 class EventServiceManager
 {
   private:
@@ -456,11 +467,8 @@ class EventServiceManager
 
     EventServiceManager() : noOfMetricReportSubscribers(0)
     {
-        // TODO: Read the persistent data from store and populate.
-        // Populating with default.
-        enabled = true;
-        retryAttempts = 3;
-        retryTimeoutInterval = 30; // seconds
+        // Load config from persist store.
+        initConfig();
     }
 
     std::string lastEventTStr;
@@ -480,11 +488,187 @@ class EventServiceManager
         return handler;
     }
 
+    void loadDefaultConfig()
+    {
+        enabled = defaultEnabledState;
+        retryAttempts = defaultRetryAttempts;
+        retryTimeoutInterval = defaultRetryInterval;
+    }
+
+    void initConfig()
+    {
+        std::ifstream eventConfigFile(eventServiceFile);
+        if (!eventConfigFile.good())
+        {
+            BMCWEB_LOG_DEBUG << "EventService config not exist";
+            loadDefaultConfig();
+            return;
+        }
+        auto jsonData = nlohmann::json::parse(eventConfigFile, nullptr, false);
+        if (jsonData.is_discarded())
+        {
+            BMCWEB_LOG_ERROR << "EventService config parse error.";
+            loadDefaultConfig();
+            return;
+        }
+
+        nlohmann::json jsonConfig;
+        if (json_util::getValueFromJsonObject(jsonData, "Configuration",
+                                              jsonConfig))
+        {
+            if (!json_util::getValueFromJsonObject(jsonConfig, "ServiceEnabled",
+                                                   enabled))
+            {
+                enabled = defaultEnabledState;
+            }
+            if (!json_util::getValueFromJsonObject(
+                    jsonConfig, "DeliveryRetryAttempts", retryAttempts))
+            {
+                retryAttempts = defaultRetryAttempts;
+            }
+            if (!json_util::getValueFromJsonObject(
+                    jsonConfig, "DeliveryRetryIntervalSeconds",
+                    retryTimeoutInterval))
+            {
+                retryTimeoutInterval = defaultRetryInterval;
+            }
+        }
+        else
+        {
+            loadDefaultConfig();
+        }
+
+        nlohmann::json subscriptionsList;
+        if (!json_util::getValueFromJsonObject(jsonData, "Subscriptions",
+                                               subscriptionsList))
+        {
+            BMCWEB_LOG_DEBUG << "EventService: Subscriptions not exist.";
+            return;
+        }
+
+        for (nlohmann::json& jsonObj : subscriptionsList)
+        {
+            std::string protocol;
+            if (!json_util::getValueFromJsonObject(jsonObj, "Protocol",
+                                                   protocol))
+            {
+                BMCWEB_LOG_DEBUG << "Invalid subscription Protocol exist.";
+                continue;
+            }
+            std::string destination;
+            if (!json_util::getValueFromJsonObject(jsonObj, "Destination",
+                                                   destination))
+            {
+                BMCWEB_LOG_DEBUG << "Invalid subscription destination exist.";
+                continue;
+            }
+            std::string host;
+            std::string urlProto;
+            std::string port;
+            std::string path;
+            bool status =
+                validateAndSplitUrl(destination, urlProto, host, port, path);
+
+            if (!status)
+            {
+                BMCWEB_LOG_ERROR
+                    << "Failed to validate and split destination url";
+                continue;
+            }
+            std::shared_ptr<Subscription> subValue =
+                std::make_shared<Subscription>(host, port, path, urlProto);
+
+            subValue->destinationUrl = destination;
+            subValue->protocol = protocol;
+            if (!json_util::getValueFromJsonObject(
+                    jsonObj, "DeliveryRetryPolicy", subValue->retryPolicy))
+            {
+                subValue->retryPolicy = defaulRetryPolicy;
+            }
+            if (!json_util::getValueFromJsonObject(jsonObj, "EventFormatType",
+                                                   subValue->eventFormatType))
+            {
+                subValue->eventFormatType = defaulEventFormatType;
+            }
+            if (!json_util::getValueFromJsonObject(jsonObj, "SubscriptionType",
+                                                   subValue->subscriptionType))
+            {
+                subValue->subscriptionType = defaulSubscriptionType;
+            }
+
+            json_util::getValueFromJsonObject(jsonObj, "Context",
+                                              subValue->customText);
+            json_util::getValueFromJsonObject(jsonObj, "MessageIds",
+                                              subValue->registryMsgIds);
+            json_util::getValueFromJsonObject(jsonObj, "RegistryPrefixes",
+                                              subValue->registryPrefixes);
+            json_util::getValueFromJsonObject(jsonObj, "HttpHeaders",
+                                              subValue->httpHeaders);
+            json_util::getValueFromJsonObject(
+                jsonObj, "MetricReportDefinitions",
+                subValue->metricReportDefinitions);
+
+            std::string id = addSubscription(subValue, false);
+            if (id.empty())
+            {
+                BMCWEB_LOG_ERROR << "Failed to add subscription";
+            }
+        }
+        return;
+    }
+
     void updateSubscriptionData()
     {
         // Persist the config and subscription data.
-        // TODO: subscriptionsMap & configData need to be
-        // written to Persist store.
+        nlohmann::json jsonData;
+
+        nlohmann::json& configObj = jsonData["Configuration"];
+        configObj["ServiceEnabled"] = enabled;
+        configObj["DeliveryRetryAttempts"] = retryAttempts;
+        configObj["DeliveryRetryIntervalSeconds"] = retryTimeoutInterval;
+
+        nlohmann::json& subListArray = jsonData["Subscriptions"];
+        subListArray = nlohmann::json::array();
+
+        for (const auto& it : subscriptionsMap)
+        {
+            nlohmann::json entry;
+            std::shared_ptr<Subscription> subValue = it.second;
+
+            entry["Context"] = subValue->customText;
+            entry["DeliveryRetryPolicy"] = subValue->retryPolicy;
+            entry["Destination"] = subValue->destinationUrl;
+            entry["EventFormatType"] = subValue->eventFormatType;
+            entry["HttpHeaders"] = subValue->httpHeaders;
+            entry["MessageIds"] = subValue->registryMsgIds;
+            entry["Protocol"] = subValue->protocol;
+            entry["RegistryPrefixes"] = subValue->registryPrefixes;
+            entry["SubscriptionType"] = subValue->subscriptionType;
+            entry["MetricReportDefinitions"] =
+                subValue->metricReportDefinitions;
+
+            subListArray.push_back(entry);
+        }
+
+        std::ofstream ofs;
+        const std::string tmpFile{std::string(eventServiceFile) + "_tmp"};
+
+        ofs.open(tmpFile, std::ios::out);
+
+        const auto& writeData = jsonData.dump();
+
+        ofs << writeData;
+        BMCWEB_LOG_DEBUG << "Data is successfully written to the file";
+
+        // Closing the output stream
+        ofs.close();
+
+        if (std::rename(tmpFile.c_str(), eventServiceFile) != 0)
+        {
+            BMCWEB_LOG_ERROR << "Error in renaming temporary data file"
+                             << tmpFile.c_str();
+            return;
+        }
         return;
     }
 
@@ -500,7 +684,8 @@ class EventServiceManager
         return subValue;
     }
 
-    std::string addSubscription(const std::shared_ptr<Subscription> subValue)
+    std::string addSubscription(const std::shared_ptr<Subscription> subValue,
+                                const bool updateFile = true)
     {
         std::srand(static_cast<uint32_t>(std::time(0)));
         std::string id;
@@ -532,7 +717,10 @@ class EventServiceManager
             }
         }
 
-        updateSubscriptionData();
+        if (updateFile)
+        {
+            updateSubscriptionData();
+        }
 
 #ifndef BMCWEB_ENABLE_REDFISH_DBUS_LOG_ENTRIES
         if (lastEventTStr.empty())
@@ -872,6 +1060,52 @@ class EventServiceManager
                 getMetricReading(service, objPath, intf);
             });
     }
-};
+
+    bool validateAndSplitUrl(const std::string& destUrl, std::string& urlProto,
+                             std::string& host, std::string& port,
+                             std::string& path)
+    {
+        // Validate URL using regex expression
+        // Format: <protocol>://<host>:<port>/<path>
+        // protocol: http/https
+        const std::regex urlRegex(
+            "(http|https)://([^/\\x20\\x3f\\x23\\x3a]+):?([0-9]*)(/"
+            "([^\\x20\\x23\\x3f]*\\x3f?([^\\x20\\x23\\x3f])*)?)");
+        std::cmatch match;
+        if (!std::regex_match(destUrl.c_str(), match, urlRegex))
+        {
+            BMCWEB_LOG_INFO << "Dest. url did not match ";
+            return false;
+        }
+
+        urlProto = std::string(match[1].first, match[1].second);
+        if (urlProto == "http")
+        {
+#ifndef BMCWEB_INSECURE_ENABLE_HTTP_PUSH_STYLE_EVENTING
+            return false;
+#endif
+        }
+
+        host = std::string(match[2].first, match[2].second);
+        port = std::string(match[3].first, match[3].second);
+        path = std::string(match[4].first, match[4].second);
+        if (port.empty())
+        {
+            if (urlProto == "http")
+            {
+                port = "80";
+            }
+            else
+            {
+                port = "443";
+            }
+        }
+        if (path.empty())
+        {
+            path = "/";
+        }
+        return true;
+    }
+}; // namespace redfish
 
 } // namespace redfish
