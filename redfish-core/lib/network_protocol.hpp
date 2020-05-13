@@ -76,8 +76,7 @@ inline void
                         if (propertyPair.first == "NTPServers")
                         {
                             const std::vector<std::string>* ntpServers =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::vector<std::string>>(
+                                std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (ntpServers != nullptr)
                             {
@@ -87,8 +86,7 @@ inline void
                         else if (propertyPair.first == "DomainName")
                         {
                             const std::vector<std::string>* domainNames =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::vector<std::string>>(
+                                std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (domainNames != nullptr)
                             {

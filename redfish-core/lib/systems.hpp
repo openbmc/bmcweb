@@ -227,9 +227,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                 continue;
                                             }
                                             const uint32_t *value =
-                                                sdbusplus::message::variant_ns::
-                                                    get_if<uint32_t>(
-                                                        &property.second);
+                                                std::get_if<uint32_t>(
+                                                    &property.second);
                                             if (value == nullptr)
                                             {
                                                 BMCWEB_LOG_DEBUG
@@ -331,10 +330,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                                 "ProcessorFamily")
                                             {
                                                 const std::string *value =
-                                                    sdbusplus::message::
-                                                        variant_ns::get_if<
-                                                            std::string>(
-                                                            &property.second);
+                                                    std::get_if<std::string>(
+                                                        &property.second);
                                                 if (value != nullptr)
                                                 {
                                                     nlohmann::json
@@ -467,9 +464,8 @@ void getComputerSystem(std::shared_ptr<AsyncResp> aResp,
                                         if (property.first == "UUID")
                                         {
                                             const std::string *value =
-                                                sdbusplus::message::variant_ns::
-                                                    get_if<std::string>(
-                                                        &property.second);
+                                                std::get_if<std::string>(
+                                                    &property.second);
 
                                             if (value != nullptr)
                                             {

@@ -459,8 +459,7 @@ static void ParseCrashdumpParameters(
         if (property.first == "Timestamp")
         {
             const std::string *value =
-                sdbusplus::message::variant_ns::get_if<std::string>(
-                    &property.second);
+                std::get_if<std::string>(&property.second);
             if (value != nullptr)
             {
                 timestamp = *value;
@@ -469,8 +468,7 @@ static void ParseCrashdumpParameters(
         else if (property.first == "Filename")
         {
             const std::string *value =
-                sdbusplus::message::variant_ns::get_if<std::string>(
-                    &property.second);
+                std::get_if<std::string>(&property.second);
             if (value != nullptr)
             {
                 filename = *value;
@@ -479,8 +477,7 @@ static void ParseCrashdumpParameters(
         else if (property.first == "Log")
         {
             const std::string *value =
-                sdbusplus::message::variant_ns::get_if<std::string>(
-                    &property.second);
+                std::get_if<std::string>(&property.second);
             if (value != nullptr)
             {
                 logfile = *value;
@@ -1008,8 +1005,7 @@ class DBusEventLogEntryCollection : public Node
                         {
                             if (propertyMap.first == "Id")
                             {
-                                id = sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&propertyMap.second);
+                                id = std::get_if<uint32_t>(&propertyMap.second);
                                 if (id == nullptr)
                                 {
                                     messages::propertyMissing(asyncResp->res,

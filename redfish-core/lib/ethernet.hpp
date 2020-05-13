@@ -290,8 +290,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "Nameservers")
                         {
                             const std::vector<std::string> *nameservers =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::vector<std::string>>(
+                                std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (nameservers != nullptr)
                             {
@@ -301,8 +300,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "StaticNameServers")
                         {
                             const std::vector<std::string> *staticNameServers =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::vector<std::string>>(
+                                std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (staticNameServers != nullptr)
                             {
@@ -322,8 +320,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                         else if (propertyPair.first == "DomainName")
                         {
                             const std::vector<std::string> *domainNames =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::vector<std::string>>(
+                                std::get_if<std::vector<std::string>>(
                                     &propertyPair.second);
                             if (domainNames != nullptr)
                             {
@@ -391,8 +388,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                     if (propertyPair.first == "HostName")
                     {
                         const std::string *hostname =
-                            sdbusplus::message::variant_ns::get_if<std::string>(
-                                &propertyPair.second);
+                            std::get_if<std::string>(&propertyPair.second);
                         if (hostname != nullptr)
                         {
                             ethData.hostname = *hostname;
@@ -401,8 +397,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                     else if (propertyPair.first == "DefaultGateway")
                     {
                         const std::string *defaultGateway =
-                            sdbusplus::message::variant_ns::get_if<std::string>(
-                                &propertyPair.second);
+                            std::get_if<std::string>(&propertyPair.second);
                         if (defaultGateway != nullptr)
                         {
                             ethData.default_gateway = *defaultGateway;
@@ -411,8 +406,7 @@ inline bool extractEthernetInterfaceData(const std::string &ethiface_id,
                     else if (propertyPair.first == "DefaultGateway6")
                     {
                         const std::string *defaultGateway6 =
-                            sdbusplus::message::variant_ns::get_if<std::string>(
-                                &propertyPair.second);
+                            std::get_if<std::string>(&propertyPair.second);
                         if (defaultGateway6 != nullptr)
                         {
                             ethData.ipv6_default_gateway = *defaultGateway6;

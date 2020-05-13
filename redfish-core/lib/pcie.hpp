@@ -163,17 +163,15 @@ class SystemPCIeDevice : public Node
                     {"Name", "PCIe Device"},
                     {"Id", device}};
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Manufacturer"]);
+                if (std::string *property = std::get_if<std::string>(
+                        &pcieDevProperties["Manufacturer"]);
                     property)
                 {
                     asyncResp->res.jsonValue["Manufacturer"] = *property;
                 }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["DeviceType"]);
+                if (std::string *property = std::get_if<std::string>(
+                        &pcieDevProperties["DeviceType"]);
                     property)
                 {
                     asyncResp->res.jsonValue["DeviceType"] = *property;
@@ -264,9 +262,8 @@ class SystemPCIeFunctionCollection : public Node
                     // Check if this function exists by looking for a device ID
                     std::string devIDProperty =
                         "Function" + std::to_string(functionNum) + "DeviceId";
-                    std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties[devIDProperty]);
+                    std::string *property = std::get_if<std::string>(
+                        &pcieDevProperties[devIDProperty]);
                     if (property && !property->empty())
                     {
                         pcieFunctionList.push_back(
@@ -318,127 +315,111 @@ class SystemPCIeFunction : public Node
         const std::string &device = params[0];
         const std::string &function = params[1];
 
-        auto getPCIeDeviceCallback =
-            [asyncResp, device, function](
-                const boost::system::error_code ec,
-                boost::container::flat_map<
-                    std::string, sdbusplus::message::variant<std::string>>
-                    &pcieDevProperties) {
-                if (ec)
+        auto getPCIeDeviceCallback = [asyncResp, device, function](
+                                         const boost::system::error_code ec,
+                                         boost::container::flat_map<
+                                             std::string,
+                                             sdbusplus::message::variant<
+                                                 std::string>>
+                                             &pcieDevProperties) {
+            if (ec)
+            {
+                BMCWEB_LOG_DEBUG
+                    << "failed to get PCIe Device properties ec: " << ec.value()
+                    << ": " << ec.message();
+                if (ec.value() ==
+                    boost::system::linux_error::bad_request_descriptor)
                 {
-                    BMCWEB_LOG_DEBUG
-                        << "failed to get PCIe Device properties ec: "
-                        << ec.value() << ": " << ec.message();
-                    if (ec.value() ==
-                        boost::system::linux_error::bad_request_descriptor)
-                    {
-                        messages::resourceNotFound(asyncResp->res, "PCIeDevice",
-                                                   device);
-                    }
-                    else
-                    {
-                        messages::internalError(asyncResp->res);
-                    }
-                    return;
+                    messages::resourceNotFound(asyncResp->res, "PCIeDevice",
+                                               device);
                 }
-
-                // Check if this function exists by looking for a device ID
-                std::string devIDProperty = "Function" + function + "DeviceId";
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties[devIDProperty]);
-                    property && property->empty())
+                else
                 {
-                    messages::resourceNotFound(asyncResp->res, "PCIeFunction",
-                                               function);
-                    return;
+                    messages::internalError(asyncResp->res);
                 }
+                return;
+            }
 
-                asyncResp->res.jsonValue = {
-                    {"@odata.type", "#PCIeFunction.v1_2_0.PCIeFunction"},
-                    {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
-                                      device + "/PCIeFunctions/" + function},
-                    {"Name", "PCIe Function"},
-                    {"Id", function},
-                    {"FunctionId", std::stoi(function)},
-                    {"Links",
-                     {{"PCIeDevice",
-                       {{"@odata.id",
-                         "/redfish/v1/Systems/system/PCIeDevices/" +
-                             device}}}}}};
+            // Check if this function exists by looking for a device ID
+            std::string devIDProperty = "Function" + function + "DeviceId";
+            if (std::string *property =
+                    std::get_if<std::string>(&pcieDevProperties[devIDProperty]);
+                property && property->empty())
+            {
+                messages::resourceNotFound(asyncResp->res, "PCIeFunction",
+                                           function);
+                return;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "DeviceId"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["DeviceId"] = *property;
-                }
+            asyncResp->res.jsonValue = {
+                {"@odata.type", "#PCIeFunction.v1_2_0.PCIeFunction"},
+                {"@odata.id", "/redfish/v1/Systems/system/PCIeDevices/" +
+                                  device + "/PCIeFunctions/" + function},
+                {"Name", "PCIe Function"},
+                {"Id", function},
+                {"FunctionId", std::stoi(function)},
+                {"Links",
+                 {{"PCIeDevice",
+                   {{"@odata.id",
+                     "/redfish/v1/Systems/system/PCIeDevices/" + device}}}}}};
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "VendorId"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["VendorId"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "DeviceId"]);
+                property)
+            {
+                asyncResp->res.jsonValue["DeviceId"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "FunctionType"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["FunctionType"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "VendorId"]);
+                property)
+            {
+                asyncResp->res.jsonValue["VendorId"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "DeviceClass"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["DeviceClass"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "FunctionType"]);
+                property)
+            {
+                asyncResp->res.jsonValue["FunctionType"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "ClassCode"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["ClassCode"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "DeviceClass"]);
+                property)
+            {
+                asyncResp->res.jsonValue["DeviceClass"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "RevisionId"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["RevisionId"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "ClassCode"]);
+                property)
+            {
+                asyncResp->res.jsonValue["ClassCode"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "SubsystemId"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["SubsystemId"] = *property;
-                }
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "RevisionId"]);
+                property)
+            {
+                asyncResp->res.jsonValue["RevisionId"] = *property;
+            }
 
-                if (std::string *property =
-                        sdbusplus::message::variant_ns::get_if<std::string>(
-                            &pcieDevProperties["Function" + function +
-                                               "SubsystemVendorId"]);
-                    property)
-                {
-                    asyncResp->res.jsonValue["SubsystemVendorId"] = *property;
-                }
-            };
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function + "SubsystemId"]);
+                property)
+            {
+                asyncResp->res.jsonValue["SubsystemId"] = *property;
+            }
+
+            if (std::string *property = std::get_if<std::string>(
+                    &pcieDevProperties["Function" + function +
+                                       "SubsystemVendorId"]);
+                property)
+            {
+                asyncResp->res.jsonValue["SubsystemVendorId"] = *property;
+            }
+        };
         std::string escapedPath = std::string(pciePath) + "/" + device;
         dbus::utility::escapePathForDbus(escapedPath);
         crow::connections::systemBus->async_method_call(
