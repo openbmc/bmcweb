@@ -97,9 +97,7 @@ class Power : public Node
                         return;
                     }
                     // Check PowerCapEnable
-                    const bool* b =
-                        sdbusplus::message::variant_ns::get_if<bool>(
-                            &powerCapEnable);
+                    const bool* b = std::get_if<bool>(&powerCapEnable);
                     if (b == nullptr)
                     {
                         messages::internalError(asyncResp->res);
@@ -255,8 +253,7 @@ class Power : public Node
                         if (!property.first.compare("Scale"))
                         {
                             const int64_t* i =
-                                sdbusplus::message::variant_ns::get_if<int64_t>(
-                                    &property.second);
+                                std::get_if<int64_t>(&property.second);
 
                             if (i)
                             {
@@ -266,14 +263,11 @@ class Power : public Node
                         else if (!property.first.compare("PowerCap"))
                         {
                             const double* d =
-                                sdbusplus::message::variant_ns::get_if<double>(
-                                    &property.second);
+                                std::get_if<double>(&property.second);
                             const int64_t* i =
-                                sdbusplus::message::variant_ns::get_if<int64_t>(
-                                    &property.second);
+                                std::get_if<int64_t>(&property.second);
                             const uint32_t* u =
-                                sdbusplus::message::variant_ns::get_if<
-                                    uint32_t>(&property.second);
+                                std::get_if<uint32_t>(&property.second);
 
                             if (d)
                             {
@@ -290,9 +284,7 @@ class Power : public Node
                         }
                         else if (!property.first.compare("PowerCapEnable"))
                         {
-                            const bool* b =
-                                sdbusplus::message::variant_ns::get_if<bool>(
-                                    &property.second);
+                            const bool* b = std::get_if<bool>(&property.second);
 
                             if (b)
                             {

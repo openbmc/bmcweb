@@ -235,8 +235,7 @@ inline bool extractHypervisorInterfaceData(
                         if (propertyPair.first == "HostName")
                         {
                             const std::string *hostName =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (hostName != nullptr)
                             {
                                 ethData.hostname = *hostName;
@@ -245,8 +244,7 @@ inline bool extractHypervisorInterfaceData(
                         else if (propertyPair.first == "DefaultGateway")
                         {
                             const std::string *defaultGateway =
-                                sdbusplus::message::variant_ns::get_if<
-                                    std::string>(&propertyPair.second);
+                                std::get_if<std::string>(&propertyPair.second);
                             if (defaultGateway != nullptr)
                             {
                                 ethData.default_gateway = *defaultGateway;
