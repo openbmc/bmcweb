@@ -135,8 +135,8 @@ class SystemPCIeDevice : public Node
         auto getPCIeDeviceCallback =
             [asyncResp,
              device](const boost::system::error_code ec,
-                     boost::container::flat_map<
-                         std::string, sdbusplus::message::variant<std::string>>
+                     boost::container::flat_map<std::string,
+                                                std::variant<std::string>>
                          &pcieDevProperties) {
                 if (ec)
                 {
@@ -231,8 +231,8 @@ class SystemPCIeFunctionCollection : public Node
         auto getPCIeDeviceCallback =
             [asyncResp,
              device](const boost::system::error_code ec,
-                     boost::container::flat_map<
-                         std::string, sdbusplus::message::variant<std::string>>
+                     boost::container::flat_map<std::string,
+                                                std::variant<std::string>>
                          &pcieDevProperties) {
                 if (ec)
                 {
@@ -319,8 +319,7 @@ class SystemPCIeFunction : public Node
                                          const boost::system::error_code ec,
                                          boost::container::flat_map<
                                              std::string,
-                                             sdbusplus::message::variant<
-                                                 std::string>>
+                                             std::variant<std::string>>
                                              &pcieDevProperties) {
             if (ec)
             {

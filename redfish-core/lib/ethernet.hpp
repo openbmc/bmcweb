@@ -41,10 +41,10 @@ using GetManagedObjects = std::vector<std::pair<
     std::vector<std::pair<
         std::string,
         boost::container::flat_map<
-            std::string, sdbusplus::message::variant<
-                             std::string, bool, uint8_t, int16_t, uint16_t,
-                             int32_t, uint32_t, int64_t, uint64_t, double,
-                             std::vector<std::string>>>>>>>;
+            std::string,
+            std::variant<std::string, bool, uint8_t, int16_t, uint16_t, int32_t,
+                         uint32_t, int64_t, uint64_t, double,
+                         std::vector<std::string>>>>>>>;
 
 enum class LinkType
 {

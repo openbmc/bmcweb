@@ -131,7 +131,7 @@ class Power : public Node
                         "/xyz/openbmc_project/control/host0/power_cap",
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.Control.Power.Cap", "PowerCap",
-                        sdbusplus::message::variant<uint32_t>(*value));
+                        std::variant<uint32_t>(*value));
                 };
                 crow::connections::systemBus->async_method_call(
                     std::move(valueHandler), "xyz.openbmc_project.Settings",

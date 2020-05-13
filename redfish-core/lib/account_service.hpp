@@ -64,7 +64,7 @@ struct LDAPConfigData
     std::vector<std::pair<std::string, LDAPRoleMapData>> groupRoleList;
 };
 
-using DbusVariantType = sdbusplus::message::variant<bool, int32_t, std::string>;
+using DbusVariantType = std::variant<bool, int32_t, std::string>;
 
 using DbusInterfaceType = boost::container::flat_map<
     std::string, boost::container::flat_map<std::string, DbusVariantType>>;
@@ -1867,7 +1867,7 @@ class ManagerAccount : public Node
                         "org.freedesktop.DBus.Properties", "Set",
                         "xyz.openbmc_project.User.Attributes",
                         "UserLockedForFailedAttempt",
-                        sdbusplus::message::variant<bool>{*locked});
+                        std::variant<bool>{*locked});
                 }
             });
     }
