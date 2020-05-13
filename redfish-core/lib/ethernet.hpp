@@ -1849,13 +1849,15 @@ class EthernetInterface : public Node
         {
             ipv6_array.push_back({{"Address", ipv6_config.address},
                                   {"PrefixLength", ipv6_config.prefixLength},
-                                  {"AddressOrigin", ipv6_config.origin}});
+                                  {"AddressOrigin", ipv6_config.origin},
+                                  {"AddressState", nullptr}});
             if (ipv6_config.origin == "Static")
             {
                 ipv6_static_array.push_back(
                     {{"Address", ipv6_config.address},
                      {"PrefixLength", ipv6_config.prefixLength},
-                     {"AddressOrigin", ipv6_config.origin}});
+                     {"AddressOrigin", ipv6_config.origin},
+                     {"AddressState", nullptr}});
             }
         }
     }
