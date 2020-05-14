@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fbcc4b9c_f21ae896",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "74f01455_11941992",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b8e68f1f_13ea5504",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -69,6 +93,30 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d48cb19c_5820e43b",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b8e68f1f_13ea5504",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 10
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1d93f137_6301132a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de0cd82a_3ecae550",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 125,
+        "endChar": 27
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b9d170fd_8bea24d5",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -115,6 +187,30 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75d02946_b918aecb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b9d170fd_8bea24d5",
+      "range": {
+        "startLine": 130,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 34
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -161,6 +257,54 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1131a3a4_60d07aad",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ff521b05_0d5811b1",
+      "range": {
+        "startLine": 132,
+        "startChar": 24,
+        "endLine": 132,
+        "endChar": 29
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad42f9b6_8e59ce38",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1b5f39f7_b3e1f2c9",
+      "range": {
+        "startLine": 132,
+        "startChar": 4,
+        "endLine": 132,
+        "endChar": 23
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -211,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "efe4bda8_df2e19b5",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c98eeb49_4875aade",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2e7169f8_cea614a0",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -234,6 +402,30 @@
     },
     {
       "key": {
+        "uuid": "046cefca_59ef08d2",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2e7169f8_cea614a0",
+      "range": {
+        "startLine": 136,
+        "startChar": 10,
+        "endLine": 136,
+        "endChar": 21
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8f5d2814_d89d000a",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -254,6 +446,30 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d75d1b9_def5808a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f5d2814_d89d000a",
+      "range": {
+        "startLine": 150,
+        "startChar": 60,
+        "endLine": 150,
+        "endChar": 70
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -304,6 +520,30 @@
     },
     {
       "key": {
+        "uuid": "47fa508b_3aed6bd4",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Yes, in the above method, all of the failure cases are due to internal error. Earlier I made a mistake of having Resource not found. Think this makes more sense than having resource not found.",
+      "parentUuid": "7790368e_5b05475d",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 46
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a3371de2_a658b96a",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -324,6 +564,30 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18942af8_96bc5060",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3371de2_a658b96a",
+      "range": {
+        "startLine": 154,
+        "startChar": 57,
+        "endLine": 154,
+        "endChar": 66
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     },
     {
       "key": {
@@ -350,6 +614,30 @@
     },
     {
       "key": {
+        "uuid": "87378ea3_b2d3a7cf",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "I see two other error messages were kind of similar:\nmessages::unrecognizedRequestBody(asyncResp-\u003eres);\nmessages::invalidObject\n\nBut seems the above would fit well than the others. What do you think Ratan?",
+      "parentUuid": "a475f7f8_add1c18a",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 66
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ca3ab19a_b4af6418",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -361,6 +649,30 @@
       "writtenOn": "2020-05-14T08:43:01Z",
       "side": 1,
       "message": "What is this +2 or -3?",
+      "range": {
+        "startLine": 177,
+        "startChar": 47,
+        "endLine": 177,
+        "endChar": 51
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ecde45_34c69998",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "It is to get the enclosed mimetic content from the request body. \n\n\u0027{\"\u003cmime-formatted file contents\u003e\"}\u0027\n\nOne more thing is, if it is parsed as JSON, then the validation of the request body will become easier than string manipulation",
+      "parentUuid": "ca3ab19a_b4af6418",
       "range": {
         "startLine": 177,
         "startChar": 47,
@@ -413,6 +725,48 @@
     },
     {
       "key": {
+        "uuid": "c788d9f7_b5e0baf1",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Here, the mime content as a whole will be passed to the above method where the same method will be called recursively, for each of the files in the mime body.",
+      "parentUuid": "be5eaaf9_9dbe0c62",
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0af85a4b_c334eb5c",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4f0b2e9_5a57ee57",
+      "range": {
+        "startLine": 202,
+        "startChar": 40,
+        "endLine": 202,
+        "endChar": 49
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a674e6d6_dbc72690",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -460,6 +814,30 @@
     },
     {
       "key": {
+        "uuid": "89d54d54_0f89fc90",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "\u003e I thought  redfish::messages::internalError(res) would implictly return the response as well.\n\nAm afraid not. It just populates the response and not return it. So the control would come down to the remove file.",
+      "parentUuid": "a674e6d6_dbc72690",
+      "range": {
+        "startLine": 209,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 32
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ac4b2286_b3338bfd",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -483,6 +861,30 @@
     },
     {
       "key": {
+        "uuid": "8ac8970f_dafb9bb8",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ac4b2286_b3338bfd",
+      "range": {
+        "startLine": 213,
+        "startChar": 1,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "47b56c89_89e77520",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -497,6 +899,24 @@
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feeca48d_e4c389a7",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1000401
+      },
+      "writtenOn": "2020-05-14T14:03:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47b56c89_89e77520",
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
     }
   ]
 }
