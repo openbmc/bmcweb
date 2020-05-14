@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e2e1e997_9306c928",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "or you can do like below\nconst Header \u0026 h \u003d mimeticObj.header();\n\ntry to use some descriptive var name instead of \"h\"",
+      "parentUuid": "74f01455_11941992",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 35
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b8e68f1f_13ea5504",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -41,6 +65,29 @@
         "startChar": 8,
         "endLine": 105,
         "endChar": 10
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de0cd82a_3ecae550",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "Don\u0027t we need to put a check for the file size?",
+      "range": {
+        "startLine": 124,
+        "startChar": 5,
+        "endLine": 125,
+        "endChar": 27
       },
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -140,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "c98eeb49_4875aade",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "I think it is fine, I don\u0027t see issue in passing derefrence version as the function are taking this in const reference.",
+      "parentUuid": "cea543f1_e6e4cc05",
+      "range": {
+        "startLine": 134,
+        "startChar": 7,
+        "endLine": 134,
+        "endChar": 43
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2e7169f8_cea614a0",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -156,6 +227,29 @@
         "startChar": 10,
         "endLine": 136,
         "endChar": 21
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8f5d2814_d89d000a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "configFiles",
+      "range": {
+        "startLine": 150,
+        "startChar": 60,
+        "endLine": 150,
+        "endChar": 70
       },
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
@@ -186,6 +280,139 @@
     },
     {
       "key": {
+        "uuid": "a347c3b6_04e32ceb",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "Manoj, Seems it is correct as during creation of save area file if there is some error occured on the system, Internal server error makes sense to me.",
+      "parentUuid": "7790368e_5b05475d",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 46
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3371de2_a658b96a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "ConfigFile",
+      "range": {
+        "startLine": 154,
+        "startChar": 57,
+        "endLine": 154,
+        "endChar": 66
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a475f7f8_add1c18a",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "Something like \"Incorrect Request\"?",
+      "range": {
+        "startLine": 169,
+        "startChar": 8,
+        "endLine": 170,
+        "endChar": 66
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ca3ab19a_b4af6418",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "What is this +2 or -3?",
+      "range": {
+        "startLine": 177,
+        "startChar": 47,
+        "endLine": 177,
+        "endChar": 51
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be5eaaf9_9dbe0c62",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "What we are doing here, I didn\u0027t get it. Can you explain???",
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4f0b2e9_5a57ee57",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "ConfigFiles",
+      "range": {
+        "startLine": 202,
+        "startChar": 40,
+        "endLine": 202,
+        "endChar": 49
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a674e6d6_dbc72690",
         "filename": "include/ibm/management_console_rest.hpp",
         "patchSetId": 14
@@ -203,6 +430,70 @@
         "endLine": 212,
         "endChar": 32
       },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f80e1acf_b57aaf09",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "Manoj, control will come here, \n\nredfish::messages::internalError(res) will not generate exception as in other repo it will only create a redfish error message.",
+      "parentUuid": "a674e6d6_dbc72690",
+      "range": {
+        "startLine": 209,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 32
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac4b2286_b3338bfd",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "Unneccesary",
+      "range": {
+        "startLine": 213,
+        "startChar": 1,
+        "endLine": 213,
+        "endChar": 11
+      },
+      "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47b56c89_89e77520",
+        "filename": "include/ibm/management_console_rest.hpp",
+        "patchSetId": 14
+      },
+      "lineNbr": 1067,
+      "author": {
+        "id": 1000022
+      },
+      "writtenOn": "2020-05-14T08:43:01Z",
+      "side": 1,
+      "message": "/ibm/v1/Host/ConfigFiles/????",
       "revId": "2223ed52c95e012f5167d50e6f88514cd8a66e3b",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
