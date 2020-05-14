@@ -1858,6 +1858,9 @@ class EthernetInterface : public Node
             json_response["IPv6StaticAddresses"];
         ipv6_array = nlohmann::json::array();
         ipv6_static_array = nlohmann::json::array();
+        nlohmann::json &ipv6AddrPolicyTable =
+            json_response["IPv6AddressPolicyTable"];
+        ipv6AddrPolicyTable = nlohmann::json::array();
         for (auto &ipv6_config : ipv6Data)
         {
             ipv6_array.push_back({{"Address", ipv6_config.address},
